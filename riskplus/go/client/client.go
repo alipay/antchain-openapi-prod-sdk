@@ -3610,60 +3610,6 @@ func (s *RpcommonResp) SetData(v string) *RpcommonResp {
 	return s
 }
 
-// 公司列表
-type CompanyItems struct {
-	// 公司id
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-	// 公司名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 匹配名称
-	MatchingName *string `json:"matching_name,omitempty" xml:"matching_name,omitempty" require:"true"`
-	// 匹配类型
-	MatchingType *string `json:"matching_type,omitempty" xml:"matching_type,omitempty" require:"true"`
-	// 匹配值
-	MatchingValue *string `json:"matching_value,omitempty" xml:"matching_value,omitempty" require:"true"`
-	// 社会统一信用代码
-	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty" require:"true"`
-}
-
-func (s CompanyItems) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CompanyItems) GoString() string {
-	return s.String()
-}
-
-func (s *CompanyItems) SetCompanyId(v string) *CompanyItems {
-	s.CompanyId = &v
-	return s
-}
-
-func (s *CompanyItems) SetCompanyName(v string) *CompanyItems {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *CompanyItems) SetMatchingName(v string) *CompanyItems {
-	s.MatchingName = &v
-	return s
-}
-
-func (s *CompanyItems) SetMatchingType(v string) *CompanyItems {
-	s.MatchingType = &v
-	return s
-}
-
-func (s *CompanyItems) SetMatchingValue(v string) *CompanyItems {
-	s.MatchingValue = &v
-	return s
-}
-
-func (s *CompanyItems) SetUcCode(v string) *CompanyItems {
-	s.UcCode = &v
-	return s
-}
-
 // 标签图片
 type RtopTagImage struct {
 	// 标签图片表主键
@@ -10231,7 +10177,7 @@ type QueryDubbridgeSearchContractResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 合同信息列表
-	ContractResponseList []*Contract `json:"contract_response_list,omitempty" xml:"contract_response_list,omitempty" type:"Repeated"`
+	Contracts []*Contract `json:"contracts,omitempty" xml:"contracts,omitempty" type:"Repeated"`
 }
 
 func (s QueryDubbridgeSearchContractResponse) String() string {
@@ -10257,8 +10203,8 @@ func (s *QueryDubbridgeSearchContractResponse) SetResultMsg(v string) *QueryDubb
 	return s
 }
 
-func (s *QueryDubbridgeSearchContractResponse) SetContractResponseList(v []*Contract) *QueryDubbridgeSearchContractResponse {
-	s.ContractResponseList = v
+func (s *QueryDubbridgeSearchContractResponse) SetContracts(v []*Contract) *QueryDubbridgeSearchContractResponse {
+	s.Contracts = v
 	return s
 }
 
@@ -10710,83 +10656,6 @@ func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetInvalidTime(v str
 	return s
 }
 
-type QueryDubbridgeCompanyItemsRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 查询字段（公司名、产品名、平台名等不能为空）
-	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
-}
-
-func (s QueryDubbridgeCompanyItemsRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeCompanyItemsRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeCompanyItemsRequest) SetAuthToken(v string) *QueryDubbridgeCompanyItemsRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsRequest) SetProductInstanceId(v string) *QueryDubbridgeCompanyItemsRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsRequest) SetKeyword(v string) *QueryDubbridgeCompanyItemsRequest {
-	s.Keyword = &v
-	return s
-}
-
-type QueryDubbridgeCompanyItemsResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回公司列表
-	BusinessItems []*CompanyItems `json:"business_items,omitempty" xml:"business_items,omitempty" type:"Repeated"`
-	// 企业信息个数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
-}
-
-func (s QueryDubbridgeCompanyItemsResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeCompanyItemsResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeCompanyItemsResponse) SetReqMsgId(v string) *QueryDubbridgeCompanyItemsResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsResponse) SetResultCode(v string) *QueryDubbridgeCompanyItemsResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsResponse) SetResultMsg(v string) *QueryDubbridgeCompanyItemsResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsResponse) SetBusinessItems(v []*CompanyItems) *QueryDubbridgeCompanyItemsResponse {
-	s.BusinessItems = v
-	return s
-}
-
-func (s *QueryDubbridgeCompanyItemsResponse) SetTotal(v int64) *QueryDubbridgeCompanyItemsResponse {
-	s.Total = &v
-	return s
-}
-
 type UpdateDubbridgeFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10868,153 +10737,6 @@ func (s *UpdateDubbridgeFileResponse) SetResultCode(v string) *UpdateDubbridgeFi
 
 func (s *UpdateDubbridgeFileResponse) SetResultMsg(v string) *UpdateDubbridgeFileResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-type QueryDubbridgeCreditUrlRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDubbridgeCreditUrlRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeCreditUrlRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeCreditUrlRequest) SetAuthToken(v string) *QueryDubbridgeCreditUrlRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDubbridgeCreditUrlRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditUrlRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDubbridgeCreditUrlResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDubbridgeCreditUrlResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeCreditUrlResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeCreditUrlResponse) SetReqMsgId(v string) *QueryDubbridgeCreditUrlResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDubbridgeCreditUrlResponse) SetResultCode(v string) *QueryDubbridgeCreditUrlResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDubbridgeCreditUrlResponse) SetResultMsg(v string) *QueryDubbridgeCreditUrlResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type QueryDubbridgeBusinessDetailRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 查询字段（注册号，社会统一信用代码，公司名称）
-	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
-}
-
-func (s QueryDubbridgeBusinessDetailRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeBusinessDetailRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeBusinessDetailRequest) SetAuthToken(v string) *QueryDubbridgeBusinessDetailRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailRequest) SetProductInstanceId(v string) *QueryDubbridgeBusinessDetailRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailRequest) SetKeyword(v string) *QueryDubbridgeBusinessDetailRequest {
-	s.Keyword = &v
-	return s
-}
-
-type QueryDubbridgeBusinessDetailResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 社会统一信用代码
-	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
-	// 注册日期
-	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
-	// 经营地址
-	OperatingAddrJson *string `json:"operating_addr_json,omitempty" xml:"operating_addr_json,omitempty"`
-	// 详细地址
-	AddressDetail *string `json:"address_detail,omitempty" xml:"address_detail,omitempty"`
-}
-
-func (s QueryDubbridgeBusinessDetailResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDubbridgeBusinessDetailResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetReqMsgId(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetResultCode(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetResultMsg(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetUcCode(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.UcCode = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetRegisterDate(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.RegisterDate = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetOperatingAddrJson(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.OperatingAddrJson = &v
-	return s
-}
-
-func (s *QueryDubbridgeBusinessDetailResponse) SetAddressDetail(v string) *QueryDubbridgeBusinessDetailResponse {
-	s.AddressDetail = &v
 	return s
 }
 
@@ -18305,7 +18027,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.13"),
+				"sdk_version":      tea.String("1.13.14"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -20261,40 +19985,6 @@ func (client *Client) QueryDubbridgeCustomerCommonagreementsignEx(request *Query
 }
 
 /**
- * Description: 根据关键字从第三方查询企业信息
- * Summary: 天枢系统企业搜索
- */
-func (client *Client) QueryDubbridgeCompanyItems(request *QueryDubbridgeCompanyItemsRequest) (_result *QueryDubbridgeCompanyItemsResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDubbridgeCompanyItemsResponse{}
-	_body, _err := client.QueryDubbridgeCompanyItemsEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 根据关键字从第三方查询企业信息
- * Summary: 天枢系统企业搜索
- */
-func (client *Client) QueryDubbridgeCompanyItemsEx(request *QueryDubbridgeCompanyItemsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCompanyItemsResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDubbridgeCompanyItemsResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.company.items.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 客户影像信息更新
  * Summary: 客户影像信息更新
  */
@@ -20321,74 +20011,6 @@ func (client *Client) UpdateDubbridgeFileEx(request *UpdateDubbridgeFileRequest,
 	}
 	_result = &UpdateDubbridgeFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.file.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 天枢系统获取授信H5地址
- * Summary: 天枢系统获取授信H5地址
- */
-func (client *Client) QueryDubbridgeCreditUrl(request *QueryDubbridgeCreditUrlRequest) (_result *QueryDubbridgeCreditUrlResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDubbridgeCreditUrlResponse{}
-	_body, _err := client.QueryDubbridgeCreditUrlEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 天枢系统获取授信H5地址
- * Summary: 天枢系统获取授信H5地址
- */
-func (client *Client) QueryDubbridgeCreditUrlEx(request *QueryDubbridgeCreditUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditUrlResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDubbridgeCreditUrlResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.url.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 根据关键字从第三方查询企业详情信息
- * Summary: 天枢系统企业详情信息查询
- */
-func (client *Client) QueryDubbridgeBusinessDetail(request *QueryDubbridgeBusinessDetailRequest) (_result *QueryDubbridgeBusinessDetailResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDubbridgeBusinessDetailResponse{}
-	_body, _err := client.QueryDubbridgeBusinessDetailEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 根据关键字从第三方查询企业详情信息
- * Summary: 天枢系统企业详情信息查询
- */
-func (client *Client) QueryDubbridgeBusinessDetailEx(request *QueryDubbridgeBusinessDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeBusinessDetailResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDubbridgeBusinessDetailResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.business.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
