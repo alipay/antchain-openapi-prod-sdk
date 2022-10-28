@@ -17,8 +17,8 @@ public class PagequeryIpCodeinfoRequest extends TeaModel {
     public BaseRequestInfo baseRequest;
 
     // 用户ID
+    // phone_number、external_user_id、user_id 三个条件至少必填一个
     @NameInMap("user_id")
-    @Validation(required = true)
     public String userId;
 
     // 页码
@@ -35,6 +35,20 @@ public class PagequeryIpCodeinfoRequest extends TeaModel {
     @NameInMap("type")
     @Validation(required = true)
     public Long type;
+
+    // 商家ID筛选
+    @NameInMap("buyer_id")
+    public String buyerId;
+
+    // 手机号筛选
+    // phone_number、external_user_id、user_id 三个条件至少必填一个
+    @NameInMap("phone_number")
+    public String phoneNumber;
+
+    // 外部客户自定义客户ID
+    // phone_number、external_user_id、user_id 三个条件至少必填一个
+    @NameInMap("external_user_id")
+    public String externalUserId;
 
     public static PagequeryIpCodeinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryIpCodeinfoRequest self = new PagequeryIpCodeinfoRequest();
@@ -95,6 +109,30 @@ public class PagequeryIpCodeinfoRequest extends TeaModel {
     }
     public Long getType() {
         return this.type;
+    }
+
+    public PagequeryIpCodeinfoRequest setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+        return this;
+    }
+    public String getBuyerId() {
+        return this.buyerId;
+    }
+
+    public PagequeryIpCodeinfoRequest setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public PagequeryIpCodeinfoRequest setExternalUserId(String externalUserId) {
+        this.externalUserId = externalUserId;
+        return this;
+    }
+    public String getExternalUserId() {
+        return this.externalUserId;
     }
 
 }

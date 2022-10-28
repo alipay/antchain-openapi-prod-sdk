@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.74")
+                    new TeaPair("sdk_version", "1.3.77"),
+                    new TeaPair("_prod_code", "BAASDT"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -5345,6 +5347,82 @@ public class Client {
     public QueryIpTradeviewResponse queryIpTradeviewEx(QueryIpTradeviewRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpTradeviewResponse());
+    }
+
+    /**
+     * Description: 以手机号为主体的UNI码校验接口
+     * Summary: 数字商品服务-IP服务-UNI码校验
+     */
+    public CheckIpCodebyphoneResponse checkIpCodebyphone(CheckIpCodebyphoneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkIpCodebyphoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 以手机号为主体的UNI码校验接口
+     * Summary: 数字商品服务-IP服务-UNI码校验
+     */
+    public CheckIpCodebyphoneResponse checkIpCodebyphoneEx(CheckIpCodebyphoneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codebyphone.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIpCodebyphoneResponse());
+    }
+
+    /**
+     * Description: UNI码信息流转
+     * Summary: 数字商品服务-IP授权服务-数字凭证流转
+     */
+    public ReplaceIpCodecirculationResponse replaceIpCodecirculation(ReplaceIpCodecirculationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.replaceIpCodecirculationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: UNI码信息流转
+     * Summary: 数字商品服务-IP授权服务-数字凭证流转
+     */
+    public ReplaceIpCodecirculationResponse replaceIpCodecirculationEx(ReplaceIpCodecirculationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codecirculation.replace", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReplaceIpCodecirculationResponse());
+    }
+
+    /**
+     * Description: 领取数字凭证，以手机号为主体
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取
+     */
+    public ReceiveIpCodebyphoneResponse receiveIpCodebyphone(ReceiveIpCodebyphoneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveIpCodebyphoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 领取数字凭证，以手机号为主体
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取
+     */
+    public ReceiveIpCodebyphoneResponse receiveIpCodebyphoneEx(ReceiveIpCodebyphoneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codebyphone.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveIpCodebyphoneResponse());
+    }
+
+    /**
+     * Description: 用户查询名下uni码服务提供商家列表
+     * Summary: 数字商品服务-IP服务-服务商家列表
+     */
+    public ListIpCodeserviceproviderResponse listIpCodeserviceprovider(ListIpCodeserviceproviderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listIpCodeserviceproviderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户查询名下uni码服务提供商家列表
+     * Summary: 数字商品服务-IP服务-服务商家列表
+     */
+    public ListIpCodeserviceproviderResponse listIpCodeserviceproviderEx(ListIpCodeserviceproviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIpCodeserviceproviderResponse());
     }
 
     /**

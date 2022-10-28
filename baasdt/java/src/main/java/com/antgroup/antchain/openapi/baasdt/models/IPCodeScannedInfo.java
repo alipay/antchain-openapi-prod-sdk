@@ -123,6 +123,14 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("receive_count")
     public Long receiveCount;
 
+    // 描述
+    @NameInMap("memo")
+    public String memo;
+
+    // 外部客户自定义客户ID
+    @NameInMap("external_user_id")
+    public String externalUserId;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
@@ -350,6 +358,22 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public Long getReceiveCount() {
         return this.receiveCount;
+    }
+
+    public IPCodeScannedInfo setMemo(String memo) {
+        this.memo = memo;
+        return this;
+    }
+    public String getMemo() {
+        return this.memo;
+    }
+
+    public IPCodeScannedInfo setExternalUserId(String externalUserId) {
+        this.externalUserId = externalUserId;
+        return this;
+    }
+    public String getExternalUserId() {
+        return this.externalUserId;
     }
 
 }

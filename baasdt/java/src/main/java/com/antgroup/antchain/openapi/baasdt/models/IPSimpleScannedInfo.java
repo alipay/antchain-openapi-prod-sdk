@@ -17,6 +17,10 @@ public class IPSimpleScannedInfo extends TeaModel {
     @NameInMap("gps")
     public String gps;
 
+    // 外部自定义账号
+    @NameInMap("external_user_id")
+    public String externalUserId;
+
     public static IPSimpleScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPSimpleScannedInfo self = new IPSimpleScannedInfo();
         return TeaModel.build(map, self);
@@ -44,6 +48,14 @@ public class IPSimpleScannedInfo extends TeaModel {
     }
     public String getGps() {
         return this.gps;
+    }
+
+    public IPSimpleScannedInfo setExternalUserId(String externalUserId) {
+        this.externalUserId = externalUserId;
+        return this;
+    }
+    public String getExternalUserId() {
+        return this.externalUserId;
     }
 
 }
