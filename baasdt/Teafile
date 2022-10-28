@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-baasdt:1.3.74",
-    "go": "github.com/antchain-openapi-sdk-go/baasdt/client:v1.3.74",
-    "csharp": "AntChain.SDK.BAASDT:1.3.74",
-    "ts": "@antchain/baasdt:1.3.74",
-    "php": "antchain/baasdt:1.3.74",
-    "python": "antchain_sdk_baasdt:1.3.74"
+    "java": "com.antgroup.antchain.openapi:openapi-baasdt:1.3.77",
+    "go": "github.com/antchain-openapi-sdk-go/baasdt/client:v1.3.77",
+    "csharp": "AntChain.SDK.BAASDT:1.3.77",
+    "ts": "@antchain/baasdt:1.3.77",
+    "php": "antchain/baasdt:1.3.77",
+    "python": "antchain_sdk_baasdt:1.3.77"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
