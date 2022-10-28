@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.13',
+    sdk_version = '1.13.14',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1189,22 +1191,6 @@ model RpcommonResp {
   responseCode: string(name='response_code', example='0'),
   // 具体返回值.jsonString形式
   data: string(name='data', example='{"a":1}'),
-}
-
-// 公司列表
-model CompanyItems {
-  // 公司id
-  companyId: string(name='company_id', example='20111b9afa08b3a53580e20513933966'),
-  // 公司名称
-  companyName: string(name='company_name', example='蚂蚁科技集团股份有限公司'),
-  // 匹配名称
-  matchingName: string(name='matching_name', example='平台名'),
-  // 匹配类型
-  matchingType: string(name='matching_type', example='平台名匹配'),
-  // 匹配值
-  matchingValue: string(name='matching_value', example='蚂蚁金服'),
-  // 社会统一信用代码
-  ucCode: string(name='uc_code', example='XXX'),
 }
 
 // 标签图片
@@ -4028,7 +4014,7 @@ model QueryDubbridgeSearchContractResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 合同信息列表
-  contractResponseList?: [ Contract ](name='contract_response_list'),
+  contracts?: [ Contract ](name='contracts'),
 }
 
 /**
@@ -4250,46 +4236,6 @@ async function queryDubbridgeCustomerCommonagreementsignEx(request: QueryDubbrid
   return doRequest('1.0' ,'riskplus.dubbridge.customer.commonagreementsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryDubbridgeCompanyItemsRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 查询字段（公司名、产品名、平台名等不能为空）
-  keyword: string(name='keyword'),
-}
-
-model QueryDubbridgeCompanyItemsResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回公司列表
-  businessItems?: [ CompanyItems ](name='business_items'),
-  // 企业信息个数
-  total?: long(name='total'),
-}
-
-/**
- * Description: 根据关键字从第三方查询企业信息
- * Summary: 天枢系统企业搜索
- */
-async function queryDubbridgeCompanyItems(request: QueryDubbridgeCompanyItemsRequest): QueryDubbridgeCompanyItemsResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDubbridgeCompanyItemsEx(request, headers, runtime);
-}
-
-/**
- * Description: 根据关键字从第三方查询企业信息
- * Summary: 天枢系统企业搜索
- */
-async function queryDubbridgeCompanyItemsEx(request: QueryDubbridgeCompanyItemsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCompanyItemsResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.dubbridge.company.items.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model UpdateDubbridgeFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -4330,84 +4276,6 @@ async function updateDubbridgeFile(request: UpdateDubbridgeFileRequest): UpdateD
 async function updateDubbridgeFileEx(request: UpdateDubbridgeFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.file.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDubbridgeCreditUrlRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryDubbridgeCreditUrlResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 天枢系统获取授信H5地址
- * Summary: 天枢系统获取授信H5地址
- */
-async function queryDubbridgeCreditUrl(request: QueryDubbridgeCreditUrlRequest): QueryDubbridgeCreditUrlResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDubbridgeCreditUrlEx(request, headers, runtime);
-}
-
-/**
- * Description: 天枢系统获取授信H5地址
- * Summary: 天枢系统获取授信H5地址
- */
-async function queryDubbridgeCreditUrlEx(request: QueryDubbridgeCreditUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditUrlResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.dubbridge.credit.url.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDubbridgeBusinessDetailRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 查询字段（注册号，社会统一信用代码，公司名称）
-  keyword: string(name='keyword'),
-}
-
-model QueryDubbridgeBusinessDetailResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 社会统一信用代码
-  ucCode?: string(name='uc_code'),
-  // 注册日期
-  registerDate?: string(name='register_date'),
-  // 经营地址
-  operatingAddrJson?: string(name='operating_addr_json'),
-  // 详细地址
-  addressDetail?: string(name='address_detail'),
-}
-
-/**
- * Description: 根据关键字从第三方查询企业详情信息
- * Summary: 天枢系统企业详情信息查询
- */
-async function queryDubbridgeBusinessDetail(request: QueryDubbridgeBusinessDetailRequest): QueryDubbridgeBusinessDetailResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDubbridgeBusinessDetailEx(request, headers, runtime);
-}
-
-/**
- * Description: 根据关键字从第三方查询企业详情信息
- * Summary: 天枢系统企业详情信息查询
- */
-async function queryDubbridgeBusinessDetailEx(request: QueryDubbridgeBusinessDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeBusinessDetailResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model NotifyDubbridgeCallbackRequest = {
