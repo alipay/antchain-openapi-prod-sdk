@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.74'
+                    'sdk_version': '1.3.77',
+                    '_prod_code': 'BAASDT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.74'
+                    'sdk_version': '1.3.77',
+                    '_prod_code': 'BAASDT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -15515,6 +15519,230 @@ class Client:
         return TeaCore.from_map(
             baasdt_models.QueryIpTradeviewResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.tradeview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_ip_codebyphone(
+        self,
+        request: baasdt_models.CheckIpCodebyphoneRequest,
+    ) -> baasdt_models.CheckIpCodebyphoneResponse:
+        """
+        Description: 以手机号为主体的UNI码校验接口
+        Summary: 数字商品服务-IP服务-UNI码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_ip_codebyphone_ex(request, headers, runtime)
+
+    async def check_ip_codebyphone_async(
+        self,
+        request: baasdt_models.CheckIpCodebyphoneRequest,
+    ) -> baasdt_models.CheckIpCodebyphoneResponse:
+        """
+        Description: 以手机号为主体的UNI码校验接口
+        Summary: 数字商品服务-IP服务-UNI码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_ip_codebyphone_ex_async(request, headers, runtime)
+
+    def check_ip_codebyphone_ex(
+        self,
+        request: baasdt_models.CheckIpCodebyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.CheckIpCodebyphoneResponse:
+        """
+        Description: 以手机号为主体的UNI码校验接口
+        Summary: 数字商品服务-IP服务-UNI码校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.CheckIpCodebyphoneResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.codebyphone.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_ip_codebyphone_ex_async(
+        self,
+        request: baasdt_models.CheckIpCodebyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.CheckIpCodebyphoneResponse:
+        """
+        Description: 以手机号为主体的UNI码校验接口
+        Summary: 数字商品服务-IP服务-UNI码校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.CheckIpCodebyphoneResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.codebyphone.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def replace_ip_codecirculation(
+        self,
+        request: baasdt_models.ReplaceIpCodecirculationRequest,
+    ) -> baasdt_models.ReplaceIpCodecirculationResponse:
+        """
+        Description: UNI码信息流转
+        Summary: 数字商品服务-IP授权服务-数字凭证流转
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.replace_ip_codecirculation_ex(request, headers, runtime)
+
+    async def replace_ip_codecirculation_async(
+        self,
+        request: baasdt_models.ReplaceIpCodecirculationRequest,
+    ) -> baasdt_models.ReplaceIpCodecirculationResponse:
+        """
+        Description: UNI码信息流转
+        Summary: 数字商品服务-IP授权服务-数字凭证流转
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.replace_ip_codecirculation_ex_async(request, headers, runtime)
+
+    def replace_ip_codecirculation_ex(
+        self,
+        request: baasdt_models.ReplaceIpCodecirculationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ReplaceIpCodecirculationResponse:
+        """
+        Description: UNI码信息流转
+        Summary: 数字商品服务-IP授权服务-数字凭证流转
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ReplaceIpCodecirculationResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.codecirculation.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def replace_ip_codecirculation_ex_async(
+        self,
+        request: baasdt_models.ReplaceIpCodecirculationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ReplaceIpCodecirculationResponse:
+        """
+        Description: UNI码信息流转
+        Summary: 数字商品服务-IP授权服务-数字凭证流转
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ReplaceIpCodecirculationResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.codecirculation.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_ip_codebyphone(
+        self,
+        request: baasdt_models.ReceiveIpCodebyphoneRequest,
+    ) -> baasdt_models.ReceiveIpCodebyphoneResponse:
+        """
+        Description: 领取数字凭证，以手机号为主体
+        Summary: 数字商品服务-IP授权服务-数字凭证领取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_ip_codebyphone_ex(request, headers, runtime)
+
+    async def receive_ip_codebyphone_async(
+        self,
+        request: baasdt_models.ReceiveIpCodebyphoneRequest,
+    ) -> baasdt_models.ReceiveIpCodebyphoneResponse:
+        """
+        Description: 领取数字凭证，以手机号为主体
+        Summary: 数字商品服务-IP授权服务-数字凭证领取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_ip_codebyphone_ex_async(request, headers, runtime)
+
+    def receive_ip_codebyphone_ex(
+        self,
+        request: baasdt_models.ReceiveIpCodebyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ReceiveIpCodebyphoneResponse:
+        """
+        Description: 领取数字凭证，以手机号为主体
+        Summary: 数字商品服务-IP授权服务-数字凭证领取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ReceiveIpCodebyphoneResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.codebyphone.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_ip_codebyphone_ex_async(
+        self,
+        request: baasdt_models.ReceiveIpCodebyphoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ReceiveIpCodebyphoneResponse:
+        """
+        Description: 领取数字凭证，以手机号为主体
+        Summary: 数字商品服务-IP授权服务-数字凭证领取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ReceiveIpCodebyphoneResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.codebyphone.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_ip_codeserviceprovider(
+        self,
+        request: baasdt_models.ListIpCodeserviceproviderRequest,
+    ) -> baasdt_models.ListIpCodeserviceproviderResponse:
+        """
+        Description: 用户查询名下uni码服务提供商家列表
+        Summary: 数字商品服务-IP服务-服务商家列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ip_codeserviceprovider_ex(request, headers, runtime)
+
+    async def list_ip_codeserviceprovider_async(
+        self,
+        request: baasdt_models.ListIpCodeserviceproviderRequest,
+    ) -> baasdt_models.ListIpCodeserviceproviderResponse:
+        """
+        Description: 用户查询名下uni码服务提供商家列表
+        Summary: 数字商品服务-IP服务-服务商家列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_ip_codeserviceprovider_ex_async(request, headers, runtime)
+
+    def list_ip_codeserviceprovider_ex(
+        self,
+        request: baasdt_models.ListIpCodeserviceproviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ListIpCodeserviceproviderResponse:
+        """
+        Description: 用户查询名下uni码服务提供商家列表
+        Summary: 数字商品服务-IP服务-服务商家列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ListIpCodeserviceproviderResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_ip_codeserviceprovider_ex_async(
+        self,
+        request: baasdt_models.ListIpCodeserviceproviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ListIpCodeserviceproviderResponse:
+        """
+        Description: 用户查询名下uni码服务提供商家列表
+        Summary: 数字商品服务-IP服务-服务商家列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.ListIpCodeserviceproviderResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
