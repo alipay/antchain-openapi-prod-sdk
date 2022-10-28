@@ -30,12 +30,12 @@ class QueryDubbridgeSearchContractResponse extends Model
     /**
      * @var Contract[]
      */
-    public $contractResponseList;
+    public $contracts;
     protected $_name = [
-        'reqMsgId'             => 'req_msg_id',
-        'resultCode'           => 'result_code',
-        'resultMsg'            => 'result_msg',
-        'contractResponseList' => 'contract_response_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'contracts'  => 'contracts',
     ];
 
     public function validate()
@@ -54,12 +54,12 @@ class QueryDubbridgeSearchContractResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->contractResponseList) {
-            $res['contract_response_list'] = [];
-            if (null !== $this->contractResponseList && \is_array($this->contractResponseList)) {
+        if (null !== $this->contracts) {
+            $res['contracts'] = [];
+            if (null !== $this->contracts && \is_array($this->contracts)) {
                 $n = 0;
-                foreach ($this->contractResponseList as $item) {
-                    $res['contract_response_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->contracts as $item) {
+                    $res['contracts'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -84,12 +84,12 @@ class QueryDubbridgeSearchContractResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['contract_response_list'])) {
-            if (!empty($map['contract_response_list'])) {
-                $model->contractResponseList = [];
-                $n                           = 0;
-                foreach ($map['contract_response_list'] as $item) {
-                    $model->contractResponseList[$n++] = null !== $item ? Contract::fromMap($item) : $item;
+        if (isset($map['contracts'])) {
+            if (!empty($map['contracts'])) {
+                $model->contracts = [];
+                $n                = 0;
+                foreach ($map['contracts'] as $item) {
+                    $model->contracts[$n++] = null !== $item ? Contract::fromMap($item) : $item;
                 }
             }
         }
