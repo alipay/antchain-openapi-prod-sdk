@@ -2601,47 +2601,6 @@ export class RpcommonResp extends $tea.Model {
   }
 }
 
-// 公司列表
-export class CompanyItems extends $tea.Model {
-  // 公司id
-  companyId: string;
-  // 公司名称
-  companyName: string;
-  // 匹配名称
-  matchingName: string;
-  // 匹配类型
-  matchingType: string;
-  // 匹配值
-  matchingValue: string;
-  // 社会统一信用代码
-  ucCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      companyId: 'company_id',
-      companyName: 'company_name',
-      matchingName: 'matching_name',
-      matchingType: 'matching_type',
-      matchingValue: 'matching_value',
-      ucCode: 'uc_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      companyId: 'string',
-      companyName: 'string',
-      matchingName: 'string',
-      matchingType: 'string',
-      matchingValue: 'string',
-      ucCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 标签图片
 export class RtopTagImage extends $tea.Model {
   // 标签图片表主键
@@ -7614,13 +7573,13 @@ export class QueryDubbridgeSearchContractResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 合同信息列表
-  contractResponseList?: Contract[];
+  contracts?: Contract[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      contractResponseList: 'contract_response_list',
+      contracts: 'contracts',
     };
   }
 
@@ -7629,7 +7588,7 @@ export class QueryDubbridgeSearchContractResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      contractResponseList: { 'type': 'array', 'itemType': Contract },
+      contracts: { 'type': 'array', 'itemType': Contract },
     };
   }
 
@@ -7970,69 +7929,6 @@ export class QueryDubbridgeCustomerCommonagreementsignResponse extends $tea.Mode
   }
 }
 
-export class QueryDubbridgeCompanyItemsRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 查询字段（公司名、产品名、平台名等不能为空）
-  keyword: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      keyword: 'keyword',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      keyword: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDubbridgeCompanyItemsResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回公司列表
-  businessItems?: CompanyItems[];
-  // 企业信息个数
-  total?: number;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      businessItems: 'business_items',
-      total: 'total',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      businessItems: { 'type': 'array', 'itemType': CompanyItems },
-      total: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class UpdateDubbridgeFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8092,128 +7988,6 @@ export class UpdateDubbridgeFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDubbridgeCreditUrlRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDubbridgeCreditUrlResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDubbridgeBusinessDetailRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 查询字段（注册号，社会统一信用代码，公司名称）
-  keyword: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      keyword: 'keyword',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      keyword: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDubbridgeBusinessDetailResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 社会统一信用代码
-  ucCode?: string;
-  // 注册日期
-  registerDate?: string;
-  // 经营地址
-  operatingAddrJson?: string;
-  // 详细地址
-  addressDetail?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      ucCode: 'uc_code',
-      registerDate: 'register_date',
-      operatingAddrJson: 'operating_addr_json',
-      addressDetail: 'address_detail',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      ucCode: 'string',
-      registerDate: 'string',
-      operatingAddrJson: 'string',
-      addressDetail: 'string',
     };
   }
 
@@ -13779,7 +13553,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.13",
+          sdk_version: "1.13.14",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14892,25 +14668,6 @@ export default class Client {
   }
 
   /**
-   * Description: 根据关键字从第三方查询企业信息
-   * Summary: 天枢系统企业搜索
-   */
-  async queryDubbridgeCompanyItems(request: QueryDubbridgeCompanyItemsRequest): Promise<QueryDubbridgeCompanyItemsResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDubbridgeCompanyItemsEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 根据关键字从第三方查询企业信息
-   * Summary: 天枢系统企业搜索
-   */
-  async queryDubbridgeCompanyItemsEx(request: QueryDubbridgeCompanyItemsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCompanyItemsResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDubbridgeCompanyItemsResponse>(await this.doRequest("1.0", "riskplus.dubbridge.company.items.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCompanyItemsResponse({}));
-  }
-
-  /**
    * Description: 客户影像信息更新
    * Summary: 客户影像信息更新
    */
@@ -14927,44 +14684,6 @@ export default class Client {
   async updateDubbridgeFileEx(request: UpdateDubbridgeFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDubbridgeFileResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateDubbridgeFileResponse>(await this.doRequest("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDubbridgeFileResponse({}));
-  }
-
-  /**
-   * Description: 天枢系统获取授信H5地址
-   * Summary: 天枢系统获取授信H5地址
-   */
-  async queryDubbridgeCreditUrl(request: QueryDubbridgeCreditUrlRequest): Promise<QueryDubbridgeCreditUrlResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDubbridgeCreditUrlEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 天枢系统获取授信H5地址
-   * Summary: 天枢系统获取授信H5地址
-   */
-  async queryDubbridgeCreditUrlEx(request: QueryDubbridgeCreditUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditUrlResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDubbridgeCreditUrlResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.url.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditUrlResponse({}));
-  }
-
-  /**
-   * Description: 根据关键字从第三方查询企业详情信息
-   * Summary: 天枢系统企业详情信息查询
-   */
-  async queryDubbridgeBusinessDetail(request: QueryDubbridgeBusinessDetailRequest): Promise<QueryDubbridgeBusinessDetailResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDubbridgeBusinessDetailEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 根据关键字从第三方查询企业详情信息
-   * Summary: 天枢系统企业详情信息查询
-   */
-  async queryDubbridgeBusinessDetailEx(request: QueryDubbridgeBusinessDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeBusinessDetailResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDubbridgeBusinessDetailResponse>(await this.doRequest("1.0", "riskplus.dubbridge.business.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeBusinessDetailResponse({}));
   }
 
   /**
