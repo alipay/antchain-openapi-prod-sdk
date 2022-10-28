@@ -137,7 +137,9 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.74"},
+                        {"sdk_version", "1.3.77"},
+                        {"_prod_code", "BAASDT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.74"},
+                        {"sdk_version", "1.3.77"},
+                        {"_prod_code", "BAASDT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -11779,6 +11783,174 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIpTradeviewResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 以手机号为主体的UNI码校验接口
+         * Summary: 数字商品服务-IP服务-UNI码校验
+         */
+        public CheckIpCodebyphoneResponse CheckIpCodebyphone(CheckIpCodebyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckIpCodebyphoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 以手机号为主体的UNI码校验接口
+         * Summary: 数字商品服务-IP服务-UNI码校验
+         */
+        public async Task<CheckIpCodebyphoneResponse> CheckIpCodebyphoneAsync(CheckIpCodebyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckIpCodebyphoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 以手机号为主体的UNI码校验接口
+         * Summary: 数字商品服务-IP服务-UNI码校验
+         */
+        public CheckIpCodebyphoneResponse CheckIpCodebyphoneEx(CheckIpCodebyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIpCodebyphoneResponse>(DoRequest("1.0", "baas.antdao.ip.codebyphone.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 以手机号为主体的UNI码校验接口
+         * Summary: 数字商品服务-IP服务-UNI码校验
+         */
+        public async Task<CheckIpCodebyphoneResponse> CheckIpCodebyphoneExAsync(CheckIpCodebyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIpCodebyphoneResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codebyphone.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: UNI码信息流转
+         * Summary: 数字商品服务-IP授权服务-数字凭证流转
+         */
+        public ReplaceIpCodecirculationResponse ReplaceIpCodecirculation(ReplaceIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReplaceIpCodecirculationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: UNI码信息流转
+         * Summary: 数字商品服务-IP授权服务-数字凭证流转
+         */
+        public async Task<ReplaceIpCodecirculationResponse> ReplaceIpCodecirculationAsync(ReplaceIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReplaceIpCodecirculationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: UNI码信息流转
+         * Summary: 数字商品服务-IP授权服务-数字凭证流转
+         */
+        public ReplaceIpCodecirculationResponse ReplaceIpCodecirculationEx(ReplaceIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceIpCodecirculationResponse>(DoRequest("1.0", "baas.antdao.ip.codecirculation.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: UNI码信息流转
+         * Summary: 数字商品服务-IP授权服务-数字凭证流转
+         */
+        public async Task<ReplaceIpCodecirculationResponse> ReplaceIpCodecirculationExAsync(ReplaceIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceIpCodecirculationResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codecirculation.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 领取数字凭证，以手机号为主体
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
+         */
+        public ReceiveIpCodebyphoneResponse ReceiveIpCodebyphone(ReceiveIpCodebyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveIpCodebyphoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 领取数字凭证，以手机号为主体
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
+         */
+        public async Task<ReceiveIpCodebyphoneResponse> ReceiveIpCodebyphoneAsync(ReceiveIpCodebyphoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveIpCodebyphoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 领取数字凭证，以手机号为主体
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
+         */
+        public ReceiveIpCodebyphoneResponse ReceiveIpCodebyphoneEx(ReceiveIpCodebyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveIpCodebyphoneResponse>(DoRequest("1.0", "baas.antdao.ip.codebyphone.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 领取数字凭证，以手机号为主体
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
+         */
+        public async Task<ReceiveIpCodebyphoneResponse> ReceiveIpCodebyphoneExAsync(ReceiveIpCodebyphoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveIpCodebyphoneResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codebyphone.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户查询名下uni码服务提供商家列表
+         * Summary: 数字商品服务-IP服务-服务商家列表
+         */
+        public ListIpCodeserviceproviderResponse ListIpCodeserviceprovider(ListIpCodeserviceproviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListIpCodeserviceproviderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户查询名下uni码服务提供商家列表
+         * Summary: 数字商品服务-IP服务-服务商家列表
+         */
+        public async Task<ListIpCodeserviceproviderResponse> ListIpCodeserviceproviderAsync(ListIpCodeserviceproviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListIpCodeserviceproviderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户查询名下uni码服务提供商家列表
+         * Summary: 数字商品服务-IP服务-服务商家列表
+         */
+        public ListIpCodeserviceproviderResponse ListIpCodeserviceproviderEx(ListIpCodeserviceproviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIpCodeserviceproviderResponse>(DoRequest("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户查询名下uni码服务提供商家列表
+         * Summary: 数字商品服务-IP服务-服务商家列表
+         */
+        public async Task<ListIpCodeserviceproviderResponse> ListIpCodeserviceproviderExAsync(ListIpCodeserviceproviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIpCodeserviceproviderResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

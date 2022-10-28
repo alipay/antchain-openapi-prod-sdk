@@ -150,6 +150,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? ReceiveCount { get; set; }
 
+        // 描述
+        [NameInMap("memo")]
+        [Validation(Required=false)]
+        public string Memo { get; set; }
+
+        // 外部客户自定义客户ID
+        [NameInMap("external_user_id")]
+        [Validation(Required=false)]
+        public string ExternalUserId { get; set; }
+
     }
 
 }

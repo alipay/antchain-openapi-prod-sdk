@@ -25,6 +25,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string Gps { get; set; }
 
+        // 外部自定义账号
+        [NameInMap("external_user_id")]
+        [Validation(Required=false)]
+        public string ExternalUserId { get; set; }
+
     }
 
 }
