@@ -25,9 +25,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string ResultMsg { get; set; }
 
         // 合同信息列表
-        [NameInMap("contract_response_list")]
+        [NameInMap("contracts")]
         [Validation(Required=false)]
-        public List<Contract> ContractResponseList { get; set; }
+        public List<Contract> Contracts { get; set; }
 
     }
 
