@@ -17,8 +17,8 @@ public class QueryDubbridgeSearchContractResponse extends TeaModel {
     public String resultMsg;
 
     // 合同信息列表
-    @NameInMap("contract_response_list")
-    public java.util.List<Contract> contractResponseList;
+    @NameInMap("contracts")
+    public java.util.List<Contract> contracts;
 
     public static QueryDubbridgeSearchContractResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeSearchContractResponse self = new QueryDubbridgeSearchContractResponse();
@@ -49,12 +49,12 @@ public class QueryDubbridgeSearchContractResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeSearchContractResponse setContractResponseList(java.util.List<Contract> contractResponseList) {
-        this.contractResponseList = contractResponseList;
+    public QueryDubbridgeSearchContractResponse setContracts(java.util.List<Contract> contracts) {
+        this.contracts = contracts;
         return this;
     }
-    public java.util.List<Contract> getContractResponseList() {
-        return this.contractResponseList;
+    public java.util.List<Contract> getContracts() {
+        return this.contracts;
     }
 
 }
