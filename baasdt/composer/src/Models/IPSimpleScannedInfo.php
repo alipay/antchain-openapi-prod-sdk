@@ -31,10 +31,19 @@ class IPSimpleScannedInfo extends Model
      * @var string
      */
     public $gps;
+
+    // 外部自定义账号
+    /**
+     * @example user
+     *
+     * @var string
+     */
+    public $externalUserId;
     protected $_name = [
-        'userName'    => 'user_name',
-        'scannedTime' => 'scanned_time',
-        'gps'         => 'gps',
+        'userName'       => 'user_name',
+        'scannedTime'    => 'scanned_time',
+        'gps'            => 'gps',
+        'externalUserId' => 'external_user_id',
     ];
 
     public function validate()
@@ -53,6 +62,9 @@ class IPSimpleScannedInfo extends Model
         }
         if (null !== $this->gps) {
             $res['gps'] = $this->gps;
+        }
+        if (null !== $this->externalUserId) {
+            $res['external_user_id'] = $this->externalUserId;
         }
 
         return $res;
@@ -74,6 +86,9 @@ class IPSimpleScannedInfo extends Model
         }
         if (isset($map['gps'])) {
             $model->gps = $map['gps'];
+        }
+        if (isset($map['external_user_id'])) {
+            $model->externalUserId = $map['external_user_id'];
         }
 
         return $model;

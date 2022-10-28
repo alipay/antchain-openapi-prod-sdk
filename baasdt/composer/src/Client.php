@@ -77,6 +77,8 @@ use AntChain\BAASDT\Models\ChargeConsumecardWalletRequest;
 use AntChain\BAASDT\Models\ChargeConsumecardWalletResponse;
 use AntChain\BAASDT\Models\CheckIpAccountRequest;
 use AntChain\BAASDT\Models\CheckIpAccountResponse;
+use AntChain\BAASDT\Models\CheckIpCodebyphoneRequest;
+use AntChain\BAASDT\Models\CheckIpCodebyphoneResponse;
 use AntChain\BAASDT\Models\CheckIpCodeRequest;
 use AntChain\BAASDT\Models\CheckIpCodeResponse;
 use AntChain\BAASDT\Models\ConfirmConsumecardBillcreateRequest;
@@ -263,6 +265,8 @@ use AntChain\BAASDT\Models\ImportIpAccountRequest;
 use AntChain\BAASDT\Models\ImportIpAccountResponse;
 use AntChain\BAASDT\Models\InitIpAuthtradeRequest;
 use AntChain\BAASDT\Models\InitIpAuthtradeResponse;
+use AntChain\BAASDT\Models\ListIpCodeserviceproviderRequest;
+use AntChain\BAASDT\Models\ListIpCodeserviceproviderResponse;
 use AntChain\BAASDT\Models\ListIpShopRequest;
 use AntChain\BAASDT\Models\ListIpShopResponse;
 use AntChain\BAASDT\Models\OfflineConsumecardAccountRequest;
@@ -451,6 +455,8 @@ use AntChain\BAASDT\Models\QueryMypointsSkufeeRequest;
 use AntChain\BAASDT\Models\QueryMypointsSkufeeResponse;
 use AntChain\BAASDT\Models\QueryMypointsSkuRequest;
 use AntChain\BAASDT\Models\QueryMypointsSkuResponse;
+use AntChain\BAASDT\Models\ReceiveIpCodebyphoneRequest;
+use AntChain\BAASDT\Models\ReceiveIpCodebyphoneResponse;
 use AntChain\BAASDT\Models\ReceiveIpCodeRequest;
 use AntChain\BAASDT\Models\ReceiveIpCodeResponse;
 use AntChain\BAASDT\Models\ReclaimConsumecardWalletRequest;
@@ -481,6 +487,8 @@ use AntChain\BAASDT\Models\ReopenIpBillRequest;
 use AntChain\BAASDT\Models\ReopenIpBillResponse;
 use AntChain\BAASDT\Models\ReplaceConsumecardPurchaseRequest;
 use AntChain\BAASDT\Models\ReplaceConsumecardPurchaseResponse;
+use AntChain\BAASDT\Models\ReplaceIpCodecirculationRequest;
+use AntChain\BAASDT\Models\ReplaceIpCodecirculationResponse;
 use AntChain\BAASDT\Models\SendConsumecardPurchaseRequest;
 use AntChain\BAASDT\Models\SendConsumecardPurchaseResponse;
 use AntChain\BAASDT\Models\SendExchangeAftersaleRequest;
@@ -740,7 +748,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.74',
+                    'sdk_version'      => '1.3.77',
+                    '_prod_code'       => 'BAASDT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -9763,6 +9773,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryIpTradeviewResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.tradeview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 以手机号为主体的UNI码校验接口
+     * Summary: 数字商品服务-IP服务-UNI码校验.
+     *
+     * @param CheckIpCodebyphoneRequest $request
+     *
+     * @return CheckIpCodebyphoneResponse
+     */
+    public function checkIpCodebyphone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkIpCodebyphoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 以手机号为主体的UNI码校验接口
+     * Summary: 数字商品服务-IP服务-UNI码校验.
+     *
+     * @param CheckIpCodebyphoneRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CheckIpCodebyphoneResponse
+     */
+    public function checkIpCodebyphoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckIpCodebyphoneResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codebyphone.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: UNI码信息流转
+     * Summary: 数字商品服务-IP授权服务-数字凭证流转.
+     *
+     * @param ReplaceIpCodecirculationRequest $request
+     *
+     * @return ReplaceIpCodecirculationResponse
+     */
+    public function replaceIpCodecirculation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceIpCodecirculationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: UNI码信息流转
+     * Summary: 数字商品服务-IP授权服务-数字凭证流转.
+     *
+     * @param ReplaceIpCodecirculationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ReplaceIpCodecirculationResponse
+     */
+    public function replaceIpCodecirculationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceIpCodecirculationResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codecirculation.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 领取数字凭证，以手机号为主体
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取.
+     *
+     * @param ReceiveIpCodebyphoneRequest $request
+     *
+     * @return ReceiveIpCodebyphoneResponse
+     */
+    public function receiveIpCodebyphone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveIpCodebyphoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 领取数字凭证，以手机号为主体
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取.
+     *
+     * @param ReceiveIpCodebyphoneRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ReceiveIpCodebyphoneResponse
+     */
+    public function receiveIpCodebyphoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReceiveIpCodebyphoneResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codebyphone.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户查询名下uni码服务提供商家列表
+     * Summary: 数字商品服务-IP服务-服务商家列表.
+     *
+     * @param ListIpCodeserviceproviderRequest $request
+     *
+     * @return ListIpCodeserviceproviderResponse
+     */
+    public function listIpCodeserviceprovider($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listIpCodeserviceproviderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户查询名下uni码服务提供商家列表
+     * Summary: 数字商品服务-IP服务-服务商家列表.
+     *
+     * @param ListIpCodeserviceproviderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ListIpCodeserviceproviderResponse
+     */
+    public function listIpCodeserviceproviderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListIpCodeserviceproviderResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

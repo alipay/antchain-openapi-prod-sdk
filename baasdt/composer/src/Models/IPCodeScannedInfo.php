@@ -231,6 +231,22 @@ class IPCodeScannedInfo extends Model
      * @var int
      */
     public $receiveCount;
+
+    // 描述
+    /**
+     * @example 描述
+     *
+     * @var string
+     */
+    public $memo;
+
+    // 外部客户自定义客户ID
+    /**
+     * @example user
+     *
+     * @var string
+     */
+    public $externalUserId;
     protected $_name = [
         'ipCode'              => 'ip_code',
         'batchUsedCount'      => 'batch_used_count',
@@ -260,6 +276,8 @@ class IPCodeScannedInfo extends Model
         'disabledDate'        => 'disabled_date',
         'checkEmptyTime'      => 'check_empty_time',
         'receiveCount'        => 'receive_count',
+        'memo'                => 'memo',
+        'externalUserId'      => 'external_user_id',
     ];
 
     public function validate()
@@ -372,6 +390,12 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->receiveCount) {
             $res['receive_count'] = $this->receiveCount;
         }
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
+        }
+        if (null !== $this->externalUserId) {
+            $res['external_user_id'] = $this->externalUserId;
+        }
 
         return $res;
     }
@@ -481,6 +505,12 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['receive_count'])) {
             $model->receiveCount = $map['receive_count'];
+        }
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
+        }
+        if (isset($map['external_user_id'])) {
+            $model->externalUserId = $map['external_user_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpCodeinfoRequest extends Model
+class CheckIpCodebyphoneRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,69 +25,59 @@ class PagequeryIpCodeinfoRequest extends Model
      */
     public $baseRequest;
 
-    // 用户ID
-    // phone_number、external_user_id、user_id 三个条件至少必填一个
+    // 支持数字凭证的加密编码及UNI序列号
     /**
      * @var string
      */
-    public $userId;
+    public $code;
 
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNumber;
-
-    // 每页数据量大小(请小于等于100)
-    /**
-     * @var int
-     */
-    public $pageSize;
-
-    // 0 扫描过的数字凭证，1 领取过的数字凭证
-    /**
-     * @var int
-     */
-    public $type;
-
-    // 商家ID筛选
-    /**
-     * @var string
-     */
-    public $buyerId;
-
-    // 手机号筛选
-    // phone_number、external_user_id、user_id 三个条件至少必填一个
+    // 核验用户的手机号
     /**
      * @var string
      */
     public $phoneNumber;
 
+    // 核验用户的名称
+    /**
+     * @var string
+     */
+    public $userName;
+
     // 外部客户自定义客户ID
-    // phone_number、external_user_id、user_id 三个条件至少必填一个
     /**
      * @var string
      */
     public $externalUserId;
+
+    // 核验用户的位置信息
+    /**
+     * @var string
+     */
+    public $gps;
+
+    // 核验用户头像地址
+    /**
+     * @var string
+     */
+    public $avatar;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'userId'            => 'user_id',
-        'pageNumber'        => 'page_number',
-        'pageSize'          => 'page_size',
-        'type'              => 'type',
-        'buyerId'           => 'buyer_id',
+        'code'              => 'code',
         'phoneNumber'       => 'phone_number',
+        'userName'          => 'user_name',
         'externalUserId'    => 'external_user_id',
+        'gps'               => 'gps',
+        'avatar'            => 'avatar',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('pageNumber', $this->pageNumber, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
-        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('phoneNumber', $this->phoneNumber, true);
+        Model::validateRequired('userName', $this->userName, true);
     }
 
     public function toMap()
@@ -102,26 +92,23 @@ class PagequeryIpCodeinfoRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
-        }
-        if (null !== $this->pageNumber) {
-            $res['page_number'] = $this->pageNumber;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-        if (null !== $this->buyerId) {
-            $res['buyer_id'] = $this->buyerId;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
         if (null !== $this->phoneNumber) {
             $res['phone_number'] = $this->phoneNumber;
         }
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
+        }
         if (null !== $this->externalUserId) {
             $res['external_user_id'] = $this->externalUserId;
+        }
+        if (null !== $this->gps) {
+            $res['gps'] = $this->gps;
+        }
+        if (null !== $this->avatar) {
+            $res['avatar'] = $this->avatar;
         }
 
         return $res;
@@ -130,7 +117,7 @@ class PagequeryIpCodeinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpCodeinfoRequest
+     * @return CheckIpCodebyphoneRequest
      */
     public static function fromMap($map = [])
     {
@@ -144,26 +131,23 @@ class PagequeryIpCodeinfoRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
-        }
-        if (isset($map['page_number'])) {
-            $model->pageNumber = $map['page_number'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-        if (isset($map['buyer_id'])) {
-            $model->buyerId = $map['buyer_id'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
         if (isset($map['phone_number'])) {
             $model->phoneNumber = $map['phone_number'];
         }
+        if (isset($map['user_name'])) {
+            $model->userName = $map['user_name'];
+        }
         if (isset($map['external_user_id'])) {
             $model->externalUserId = $map['external_user_id'];
+        }
+        if (isset($map['gps'])) {
+            $model->gps = $map['gps'];
+        }
+        if (isset($map['avatar'])) {
+            $model->avatar = $map['avatar'];
         }
 
         return $model;
