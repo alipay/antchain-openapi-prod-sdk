@@ -3187,6 +3187,31 @@ export class BaseRequest extends $tea.Model {
   }
 }
 
+// 商家信息
+export class ServiceProvider extends $tea.Model {
+  // 账户ID
+  accountId: string;
+  // 商家名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountId: 'account_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 链上交易结构
 export class Transaction extends $tea.Model {
   // 交易数据，转换位十六进制
@@ -4154,6 +4179,10 @@ export class IPCodeScannedInfo extends $tea.Model {
   checkEmptyTime?: number;
   // 同一批次已被领取的数量
   receiveCount?: number;
+  // 描述
+  memo?: string;
+  // 外部客户自定义客户ID
+  externalUserId?: string;
   static names(): { [key: string]: string } {
     return {
       ipCode: 'ip_code',
@@ -4184,6 +4213,8 @@ export class IPCodeScannedInfo extends $tea.Model {
       disabledDate: 'disabled_date',
       checkEmptyTime: 'check_empty_time',
       receiveCount: 'receive_count',
+      memo: 'memo',
+      externalUserId: 'external_user_id',
     };
   }
 
@@ -4217,6 +4248,8 @@ export class IPCodeScannedInfo extends $tea.Model {
       disabledDate: 'number',
       checkEmptyTime: 'number',
       receiveCount: 'number',
+      memo: 'string',
+      externalUserId: 'string',
     };
   }
 
@@ -4462,11 +4495,14 @@ export class IPSimpleScannedInfo extends $tea.Model {
   scannedTime?: string;
   // 扫码地址
   gps?: string;
+  // 外部自定义账号
+  externalUserId?: string;
   static names(): { [key: string]: string } {
     return {
       userName: 'user_name',
       scannedTime: 'scanned_time',
       gps: 'gps',
+      externalUserId: 'external_user_id',
     };
   }
 
@@ -4475,6 +4511,7 @@ export class IPSimpleScannedInfo extends $tea.Model {
       userName: 'string',
       scannedTime: 'string',
       gps: 'string',
+      externalUserId: 'string',
     };
   }
 
@@ -21865,13 +21902,22 @@ export class PagequeryIpCodeinfoRequest extends $tea.Model {
   // 基础参数
   baseRequest: BaseRequestInfo;
   // 用户ID
-  userId: string;
+  // phone_number、external_user_id、user_id 三个条件至少必填一个
+  userId?: string;
   // 页码
   pageNumber: number;
   // 每页数据量大小(请小于等于100)
   pageSize: number;
   // 0 扫描过的数字凭证，1 领取过的数字凭证
   type: number;
+  // 商家ID筛选
+  buyerId?: string;
+  // 手机号筛选
+  // phone_number、external_user_id、user_id 三个条件至少必填一个
+  phoneNumber?: string;
+  // 外部客户自定义客户ID
+  // phone_number、external_user_id、user_id 三个条件至少必填一个
+  externalUserId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21881,6 +21927,9 @@ export class PagequeryIpCodeinfoRequest extends $tea.Model {
       pageNumber: 'page_number',
       pageSize: 'page_size',
       type: 'type',
+      buyerId: 'buyer_id',
+      phoneNumber: 'phone_number',
+      externalUserId: 'external_user_id',
     };
   }
 
@@ -21893,6 +21942,9 @@ export class PagequeryIpCodeinfoRequest extends $tea.Model {
       pageNumber: 'number',
       pageSize: 'number',
       type: 'number',
+      buyerId: 'string',
+      phoneNumber: 'string',
+      externalUserId: 'string',
     };
   }
 
@@ -26747,6 +26799,362 @@ export class QueryIpTradeviewResponse extends $tea.Model {
   }
 }
 
+export class CheckIpCodebyphoneRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 支持数字凭证的加密编码及UNI序列号
+  code: string;
+  // 核验用户的手机号
+  phoneNumber: string;
+  // 核验用户的名称
+  userName: string;
+  // 外部客户自定义客户ID
+  externalUserId?: string;
+  // 核验用户的位置信息
+  gps?: string;
+  // 核验用户头像地址
+  avatar?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+      phoneNumber: 'phone_number',
+      userName: 'user_name',
+      externalUserId: 'external_user_id',
+      gps: 'gps',
+      avatar: 'avatar',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+      phoneNumber: 'string',
+      userName: 'string',
+      externalUserId: 'string',
+      gps: 'string',
+      avatar: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckIpCodebyphoneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 被扫描的次数(包含本次)
+  scannedCount?: number;
+  // 暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
+  scannedList?: IPCodeScannedInfo[];
+  // 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
+  codeDetail?: IPCodeScannedInfo;
+  // 首次扫码信息
+  firstScannedInfo?: IPSimpleScannedInfo;
+  // 扫码信息
+  scannedInfoList?: IPSimpleScannedInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      scannedCount: 'scanned_count',
+      scannedList: 'scanned_list',
+      codeDetail: 'code_detail',
+      firstScannedInfo: 'first_scanned_info',
+      scannedInfoList: 'scanned_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      scannedCount: 'number',
+      scannedList: { 'type': 'array', 'itemType': IPCodeScannedInfo },
+      codeDetail: IPCodeScannedInfo,
+      firstScannedInfo: IPSimpleScannedInfo,
+      scannedInfoList: { 'type': 'array', 'itemType': IPSimpleScannedInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReplaceIpCodecirculationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 数字凭证加密编码或UNI序列号
+  code: string;
+  // 领取用户的名称
+  userName: string;
+  // 领取用户的手机号
+  phoneNumber: string;
+  // 当前持有人手机号
+  sellerPhoneNumber: string;
+  // 外部客户自定义客户ID
+  externalUserId?: string;
+  // 用户头像地址
+  avatar?: string;
+  // 领取用户的位置信息
+  gps?: string;
+  // 交易单ID
+  flowOrderId: string;
+  // 交易金额
+  flowAmount: string;
+  // 流转交易平台
+  flowTradePlatform: string;
+  // 商品名称
+  flowGoodsName?: string;
+  // 交易时间戳
+  flowTransactionTime: number;
+  // 流转信息jsonstring
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+      userName: 'user_name',
+      phoneNumber: 'phone_number',
+      sellerPhoneNumber: 'seller_phone_number',
+      externalUserId: 'external_user_id',
+      avatar: 'avatar',
+      gps: 'gps',
+      flowOrderId: 'flow_order_id',
+      flowAmount: 'flow_amount',
+      flowTradePlatform: 'flow_trade_platform',
+      flowGoodsName: 'flow_goods_name',
+      flowTransactionTime: 'flow_transaction_time',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+      userName: 'string',
+      phoneNumber: 'string',
+      sellerPhoneNumber: 'string',
+      externalUserId: 'string',
+      avatar: 'string',
+      gps: 'string',
+      flowOrderId: 'string',
+      flowAmount: 'string',
+      flowTradePlatform: 'string',
+      flowGoodsName: 'string',
+      flowTransactionTime: 'number',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReplaceIpCodecirculationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveIpCodebyphoneRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 数字凭证加密编码或UNI序列号
+  code: string;
+  // 领取用户的名称
+  userName: string;
+  // 领取用户的手机号
+  phoneNumber: string;
+  // 外部客户自定义客户ID
+  externalUserId?: string;
+  // 是否空投
+  launchEn: boolean;
+  // 备注
+  memo?: string;
+  // 领取用户的位置信息
+  gps?: string;
+  // 用户头像地址
+  avatar?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+      userName: 'user_name',
+      phoneNumber: 'phone_number',
+      externalUserId: 'external_user_id',
+      launchEn: 'launch_en',
+      memo: 'memo',
+      gps: 'gps',
+      avatar: 'avatar',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+      userName: 'string',
+      phoneNumber: 'string',
+      externalUserId: 'string',
+      launchEn: 'boolean',
+      memo: 'string',
+      gps: 'string',
+      avatar: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveIpCodebyphoneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIpCodeserviceproviderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 用户的手机号
+  phoneNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      phoneNumber: 'phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIpCodeserviceproviderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 服务商列表
+  serviceProviderList?: ServiceProvider[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      serviceProviderList: 'service_provider_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      serviceProviderList: { 'type': 'array', 'itemType': ServiceProvider },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28497,7 +28905,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.74",
+          sdk_version: "1.3.77",
+          _prod_code: "BAASDT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -33729,6 +34139,82 @@ export default class Client {
   async queryIpTradeviewEx(request: QueryIpTradeviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpTradeviewResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIpTradeviewResponse>(await this.doRequest("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpTradeviewResponse({}));
+  }
+
+  /**
+   * Description: 以手机号为主体的UNI码校验接口
+   * Summary: 数字商品服务-IP服务-UNI码校验
+   */
+  async checkIpCodebyphone(request: CheckIpCodebyphoneRequest): Promise<CheckIpCodebyphoneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkIpCodebyphoneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 以手机号为主体的UNI码校验接口
+   * Summary: 数字商品服务-IP服务-UNI码校验
+   */
+  async checkIpCodebyphoneEx(request: CheckIpCodebyphoneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIpCodebyphoneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckIpCodebyphoneResponse>(await this.doRequest("1.0", "baas.antdao.ip.codebyphone.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckIpCodebyphoneResponse({}));
+  }
+
+  /**
+   * Description: UNI码信息流转
+   * Summary: 数字商品服务-IP授权服务-数字凭证流转
+   */
+  async replaceIpCodecirculation(request: ReplaceIpCodecirculationRequest): Promise<ReplaceIpCodecirculationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.replaceIpCodecirculationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: UNI码信息流转
+   * Summary: 数字商品服务-IP授权服务-数字凭证流转
+   */
+  async replaceIpCodecirculationEx(request: ReplaceIpCodecirculationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReplaceIpCodecirculationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReplaceIpCodecirculationResponse>(await this.doRequest("1.0", "baas.antdao.ip.codecirculation.replace", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReplaceIpCodecirculationResponse({}));
+  }
+
+  /**
+   * Description: 领取数字凭证，以手机号为主体
+   * Summary: 数字商品服务-IP授权服务-数字凭证领取
+   */
+  async receiveIpCodebyphone(request: ReceiveIpCodebyphoneRequest): Promise<ReceiveIpCodebyphoneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveIpCodebyphoneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 领取数字凭证，以手机号为主体
+   * Summary: 数字商品服务-IP授权服务-数字凭证领取
+   */
+  async receiveIpCodebyphoneEx(request: ReceiveIpCodebyphoneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveIpCodebyphoneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReceiveIpCodebyphoneResponse>(await this.doRequest("1.0", "baas.antdao.ip.codebyphone.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveIpCodebyphoneResponse({}));
+  }
+
+  /**
+   * Description: 用户查询名下uni码服务提供商家列表
+   * Summary: 数字商品服务-IP服务-服务商家列表
+   */
+  async listIpCodeserviceprovider(request: ListIpCodeserviceproviderRequest): Promise<ListIpCodeserviceproviderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listIpCodeserviceproviderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户查询名下uni码服务提供商家列表
+   * Summary: 数字商品服务-IP服务-服务商家列表
+   */
+  async listIpCodeserviceproviderEx(request: ListIpCodeserviceproviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIpCodeserviceproviderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListIpCodeserviceproviderResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIpCodeserviceproviderResponse({}));
   }
 
   /**
