@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.94'
+                    'sdk_version': '1.7.98'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.94'
+                    'sdk_version': '1.7.98'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8343,6 +8343,62 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_justice_commoncaseinfo(
+        self,
+        request: twc_models.QueryJusticeCommoncaseinfoRequest,
+    ) -> twc_models.QueryJusticeCommoncaseinfoResponse:
+        """
+        Description: 仲裁-通用版本进件要素信息查询
+        Summary: 仲裁-通用版本进件要素信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_justice_commoncaseinfo_ex(request, headers, runtime)
+
+    async def query_justice_commoncaseinfo_async(
+        self,
+        request: twc_models.QueryJusticeCommoncaseinfoRequest,
+    ) -> twc_models.QueryJusticeCommoncaseinfoResponse:
+        """
+        Description: 仲裁-通用版本进件要素信息查询
+        Summary: 仲裁-通用版本进件要素信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_justice_commoncaseinfo_ex_async(request, headers, runtime)
+
+    def query_justice_commoncaseinfo_ex(
+        self,
+        request: twc_models.QueryJusticeCommoncaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeCommoncaseinfoResponse:
+        """
+        Description: 仲裁-通用版本进件要素信息查询
+        Summary: 仲裁-通用版本进件要素信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCommoncaseinfoResponse(),
+            self.do_request('1.0', 'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_justice_commoncaseinfo_ex_async(
+        self,
+        request: twc_models.QueryJusticeCommoncaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeCommoncaseinfoResponse:
+        """
+        Description: 仲裁-通用版本进件要素信息查询
+        Summary: 仲裁-通用版本进件要素信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCommoncaseinfoResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_lease_productinfo(
         self,
         request: twc_models.CreateLeaseProductinfoRequest,
@@ -10189,6 +10245,454 @@ class Client:
         return TeaCore.from_map(
             twc_models.CreateLeaseRiskResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.risk.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asyncverifyinfo(
+        self,
+        request: twc_models.CreateLeaseAsyncverifyinfoRequest,
+    ) -> twc_models.CreateLeaseAsyncverifyinfoResponse:
+        """
+        Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+        Summary: 上传租赁物购买贷款订单信息（异步）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asyncverifyinfo_ex(request, headers, runtime)
+
+    async def create_lease_asyncverifyinfo_async(
+        self,
+        request: twc_models.CreateLeaseAsyncverifyinfoRequest,
+    ) -> twc_models.CreateLeaseAsyncverifyinfoResponse:
+        """
+        Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+        Summary: 上传租赁物购买贷款订单信息（异步）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asyncverifyinfo_ex_async(request, headers, runtime)
+
+    def create_lease_asyncverifyinfo_ex(
+        self,
+        request: twc_models.CreateLeaseAsyncverifyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncverifyinfoResponse:
+        """
+        Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+        Summary: 上传租赁物购买贷款订单信息（异步）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncverifyinfoResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncverifyinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asyncverifyinfo_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsyncverifyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncverifyinfoResponse:
+        """
+        Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+        Summary: 上传租赁物购买贷款订单信息（异步）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncverifyinfoResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncverifyinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asynccreditpromise(
+        self,
+        request: twc_models.CreateLeaseAsynccreditpromiseRequest,
+    ) -> twc_models.CreateLeaseAsynccreditpromiseResponse:
+        """
+        Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+        Summary: 融资方上传承诺信息(异步)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asynccreditpromise_ex(request, headers, runtime)
+
+    async def create_lease_asynccreditpromise_async(
+        self,
+        request: twc_models.CreateLeaseAsynccreditpromiseRequest,
+    ) -> twc_models.CreateLeaseAsynccreditpromiseResponse:
+        """
+        Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+        Summary: 融资方上传承诺信息(异步)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asynccreditpromise_ex_async(request, headers, runtime)
+
+    def create_lease_asynccreditpromise_ex(
+        self,
+        request: twc_models.CreateLeaseAsynccreditpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsynccreditpromiseResponse:
+        """
+        Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+        Summary: 融资方上传承诺信息(异步)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsynccreditpromiseResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asynccreditpromise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asynccreditpromise_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsynccreditpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsynccreditpromiseResponse:
+        """
+        Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+        Summary: 融资方上传承诺信息(异步)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsynccreditpromiseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asynccreditpromise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asyncclearing(
+        self,
+        request: twc_models.CreateLeaseAsyncclearingRequest,
+    ) -> twc_models.CreateLeaseAsyncclearingResponse:
+        """
+        Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+        Summary: 清分服务机构上传资金清算记录，分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asyncclearing_ex(request, headers, runtime)
+
+    async def create_lease_asyncclearing_async(
+        self,
+        request: twc_models.CreateLeaseAsyncclearingRequest,
+    ) -> twc_models.CreateLeaseAsyncclearingResponse:
+        """
+        Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+        Summary: 清分服务机构上传资金清算记录，分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asyncclearing_ex_async(request, headers, runtime)
+
+    def create_lease_asyncclearing_ex(
+        self,
+        request: twc_models.CreateLeaseAsyncclearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncclearingResponse:
+        """
+        Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+        Summary: 清分服务机构上传资金清算记录，分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncclearingResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncclearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asyncclearing_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsyncclearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncclearingResponse:
+        """
+        Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+        Summary: 清分服务机构上传资金清算记录，分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncclearingResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncclearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asyncrepayment(
+        self,
+        request: twc_models.CreateLeaseAsyncrepaymentRequest,
+    ) -> twc_models.CreateLeaseAsyncrepaymentResponse:
+        """
+        Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+        Summary: 融资金融机构上传还款信息 每期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asyncrepayment_ex(request, headers, runtime)
+
+    async def create_lease_asyncrepayment_async(
+        self,
+        request: twc_models.CreateLeaseAsyncrepaymentRequest,
+    ) -> twc_models.CreateLeaseAsyncrepaymentResponse:
+        """
+        Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+        Summary: 融资金融机构上传还款信息 每期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asyncrepayment_ex_async(request, headers, runtime)
+
+    def create_lease_asyncrepayment_ex(
+        self,
+        request: twc_models.CreateLeaseAsyncrepaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncrepaymentResponse:
+        """
+        Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+        Summary: 融资金融机构上传还款信息 每期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncrepaymentResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncrepayment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asyncrepayment_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsyncrepaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncrepaymentResponse:
+        """
+        Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+        Summary: 融资金融机构上传还款信息 每期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncrepaymentResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncrepayment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asyncaudit(
+        self,
+        request: twc_models.CreateLeaseAsyncauditRequest,
+    ) -> twc_models.CreateLeaseAsyncauditResponse:
+        """
+        Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+        Summary: 融资平台审核订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asyncaudit_ex(request, headers, runtime)
+
+    async def create_lease_asyncaudit_async(
+        self,
+        request: twc_models.CreateLeaseAsyncauditRequest,
+    ) -> twc_models.CreateLeaseAsyncauditResponse:
+        """
+        Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+        Summary: 融资平台审核订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asyncaudit_ex_async(request, headers, runtime)
+
+    def create_lease_asyncaudit_ex(
+        self,
+        request: twc_models.CreateLeaseAsyncauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncauditResponse:
+        """
+        Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+        Summary: 融资平台审核订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncauditResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncaudit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asyncaudit_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsyncauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncauditResponse:
+        """
+        Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+        Summary: 融资平台审核订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncauditResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncaudit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_asyncpaymentfile(
+        self,
+        request: twc_models.CreateLeaseAsyncpaymentfileRequest,
+    ) -> twc_models.CreateLeaseAsyncpaymentfileResponse:
+        """
+        Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+        Summary: 租赁平台上传付款通知信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_asyncpaymentfile_ex(request, headers, runtime)
+
+    async def create_lease_asyncpaymentfile_async(
+        self,
+        request: twc_models.CreateLeaseAsyncpaymentfileRequest,
+    ) -> twc_models.CreateLeaseAsyncpaymentfileResponse:
+        """
+        Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+        Summary: 租赁平台上传付款通知信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_asyncpaymentfile_ex_async(request, headers, runtime)
+
+    def create_lease_asyncpaymentfile_ex(
+        self,
+        request: twc_models.CreateLeaseAsyncpaymentfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncpaymentfileResponse:
+        """
+        Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+        Summary: 租赁平台上传付款通知信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncpaymentfileResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncpaymentfile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_asyncpaymentfile_ex_async(
+        self,
+        request: twc_models.CreateLeaseAsyncpaymentfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAsyncpaymentfileResponse:
+        """
+        Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+        Summary: 租赁平台上传付款通知信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAsyncpaymentfileResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncpaymentfile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_asyncencryptedinfo(
+        self,
+        request: twc_models.QueryLeaseAsyncencryptedinfoRequest,
+    ) -> twc_models.QueryLeaseAsyncencryptedinfoResponse:
+        """
+        Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+        Summary: 查询用户等加密信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_asyncencryptedinfo_ex(request, headers, runtime)
+
+    async def query_lease_asyncencryptedinfo_async(
+        self,
+        request: twc_models.QueryLeaseAsyncencryptedinfoRequest,
+    ) -> twc_models.QueryLeaseAsyncencryptedinfoResponse:
+        """
+        Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+        Summary: 查询用户等加密信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_asyncencryptedinfo_ex_async(request, headers, runtime)
+
+    def query_lease_asyncencryptedinfo_ex(
+        self,
+        request: twc_models.QueryLeaseAsyncencryptedinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseAsyncencryptedinfoResponse:
+        """
+        Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+        Summary: 查询用户等加密信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseAsyncencryptedinfoResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asyncencryptedinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_asyncencryptedinfo_ex_async(
+        self,
+        request: twc_models.QueryLeaseAsyncencryptedinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseAsyncencryptedinfoResponse:
+        """
+        Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+        Summary: 查询用户等加密信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseAsyncencryptedinfoResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asyncencryptedinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_asynccall(
+        self,
+        request: twc_models.QueryLeaseAsynccallRequest,
+    ) -> twc_models.QueryLeaseAsynccallResponse:
+        """
+        Description: 租赁异步调用上链结果回查
+        Summary: 租赁异步调用上链结果回查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_asynccall_ex(request, headers, runtime)
+
+    async def query_lease_asynccall_async(
+        self,
+        request: twc_models.QueryLeaseAsynccallRequest,
+    ) -> twc_models.QueryLeaseAsynccallResponse:
+        """
+        Description: 租赁异步调用上链结果回查
+        Summary: 租赁异步调用上链结果回查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_asynccall_ex_async(request, headers, runtime)
+
+    def query_lease_asynccall_ex(
+        self,
+        request: twc_models.QueryLeaseAsynccallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseAsynccallResponse:
+        """
+        Description: 租赁异步调用上链结果回查
+        Summary: 租赁异步调用上链结果回查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseAsynccallResponse(),
+            self.do_request('1.0', 'twc.notary.lease.asynccall.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_asynccall_ex_async(
+        self,
+        request: twc_models.QueryLeaseAsynccallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseAsynccallResponse:
+        """
+        Description: 租赁异步调用上链结果回查
+        Summary: 租赁异步调用上链结果回查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseAsynccallResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.asynccall.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
