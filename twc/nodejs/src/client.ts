@@ -16337,6 +16337,8 @@ export class StartJusticeCaseRequest extends $tea.Model {
   contactInfo?: ContactInfo;
   // 调解回款银行账户(如果不传则使用租户维度的配置信息)
   bankAccountInfo?: BankAccountInfo;
+  // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+  signMethod?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16347,6 +16349,7 @@ export class StartJusticeCaseRequest extends $tea.Model {
       judicialMediationParam: 'judicial_mediation_param',
       contactInfo: 'contact_info',
       bankAccountInfo: 'bank_account_info',
+      signMethod: 'sign_method',
     };
   }
 
@@ -16360,6 +16363,7 @@ export class StartJusticeCaseRequest extends $tea.Model {
       judicialMediationParam: JudicialMediationBaseParamInfo,
       contactInfo: ContactInfo,
       bankAccountInfo: BankAccountInfo,
+      signMethod: 'string',
     };
   }
 
@@ -16468,6 +16472,8 @@ export class QueryJusticeCaseResponse extends $tea.Model {
   judicialRecordStatusTime?: string;
   // 维权过程中的文件列表
   judicialFiles?: JudicialFileInfo[];
+  // 案件提交失败的原因,维权状态为提交失败时存在
+  submitErrorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -16481,6 +16487,7 @@ export class QueryJusticeCaseResponse extends $tea.Model {
       judicialRecordStatusDesc: 'judicial_record_status_desc',
       judicialRecordStatusTime: 'judicial_record_status_time',
       judicialFiles: 'judicial_files',
+      submitErrorMsg: 'submit_error_msg',
     };
   }
 
@@ -16497,6 +16504,7 @@ export class QueryJusticeCaseResponse extends $tea.Model {
       judicialRecordStatusDesc: 'string',
       judicialRecordStatusTime: 'string',
       judicialFiles: { 'type': 'array', 'itemType': JudicialFileInfo },
+      submitErrorMsg: 'string',
     };
   }
 
@@ -16876,6 +16884,73 @@ export class CreateJusticeDocumenttemplateResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       templateId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryJusticeCommoncaseinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 案件号
+  caseNo: string;
+  // 用户幂等字段
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      caseNo: 'case_no',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      caseNo: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryJusticeCommoncaseinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 要素信息
+  businessInfo?: string;
+  // 查询的案件编号
+  caseNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      businessInfo: 'business_info',
+      caseNo: 'case_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      businessInfo: 'string',
+      caseNo: 'string',
     };
   }
 
@@ -19606,6 +19681,890 @@ export class CreateLeaseRiskResponse extends $tea.Model {
       resultMsg: 'string',
       paas: 'string',
       riskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncverifyinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台生成返回
+  applicationId?: string;
+  // 放款账户
+  cardNumber?: string;
+  // 授信终止时间，格式为"2019-07-31 12:00:00"
+  creditEndTime?: string;
+  // 授信额度，精确到毫厘，即123400表示12.34元
+  creditLimit?: number;
+  // 授信起始时间，格式为"2019-07-31 12:00:00"
+  creditStartTime?: string;
+  // 融资租赁审贷信息额外字段
+  extraInfo?: string;
+  // 承租企业统一社会信用代码 长度不可超过50
+  leaseCorpId?: string;
+  // 承租企业名称 长度不可超过50
+  leaseCorpName?: string;
+  // 承租法定代表人姓名 长度不可超过50
+  leaseCorpOwnerName?: string;
+  // 租赁服务平台id
+  leaseId: string;
+  // 放款流水单号
+  loan?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 还款计划文件哈希
+  payBackHash?: string;
+  // 还款计划文件存证交易哈希
+  payBackTxHash?: string;
+  // 承租人身份证
+  userId?: string;
+  // 承租人姓名 长度不可超过10
+  userName?: string;
+  // 承租人手机号
+  userPhoneNumber?: string;
+  // 拒绝的理由
+  verifyRefuseDesc?: string;
+  // 是否通过，0表示不通过，1表示通过
+  verifyResult: number;
+  // 付款汇款凭证 民盛转账成功后上传
+  voucher?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      cardNumber: 'card_number',
+      creditEndTime: 'credit_end_time',
+      creditLimit: 'credit_limit',
+      creditStartTime: 'credit_start_time',
+      extraInfo: 'extra_info',
+      leaseCorpId: 'lease_corp_id',
+      leaseCorpName: 'lease_corp_name',
+      leaseCorpOwnerName: 'lease_corp_owner_name',
+      leaseId: 'lease_id',
+      loan: 'loan',
+      orderId: 'order_id',
+      payBackHash: 'pay_back_hash',
+      payBackTxHash: 'pay_back_tx_hash',
+      userId: 'user_id',
+      userName: 'user_name',
+      userPhoneNumber: 'user_phone_number',
+      verifyRefuseDesc: 'verify_refuse_desc',
+      verifyResult: 'verify_result',
+      voucher: 'voucher',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      cardNumber: 'string',
+      creditEndTime: 'string',
+      creditLimit: 'number',
+      creditStartTime: 'string',
+      extraInfo: 'string',
+      leaseCorpId: 'string',
+      leaseCorpName: 'string',
+      leaseCorpOwnerName: 'string',
+      leaseId: 'string',
+      loan: 'string',
+      orderId: 'string',
+      payBackHash: 'string',
+      payBackTxHash: 'string',
+      userId: 'string',
+      userName: 'string',
+      userPhoneNumber: 'string',
+      verifyRefuseDesc: 'string',
+      verifyResult: 'number',
+      voucher: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncverifyinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，成功为OK
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsynccreditpromiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string;
+  // 融资租赁承诺额外字段
+  creditPromiseExtraInfoList?: string[];
+  // 租赁平台金融科技id
+  leaseId: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 垫付金额
+  payInAdvanceMoney?: number;
+  // 垫付金额，精确到毫厘，即123400表示12.34元
+  payInAdvanceMoneyList?: number[];
+  // 垫付日期
+  payInAdvanceTime?: string;
+  // 垫付日 格式为2019-8-31 12:00:00
+  payInAdvanceTimeList: string[];
+  // 根据融资租赁合同及其补充协议哈希
+  promiseHash: string;
+  // 根据融资租赁合同及其补充协议存证交易hash
+  promiseTxHash: string;
+  // 归还金额
+  returnMoney?: number;
+  // 还款金额，精确到毫厘，即123400表示12.34元
+  returnMoneyList: number[];
+  // 还款比例，精确到小数点后四位 12.34% 表示为1234
+  returnRate?: number;
+  // 归还日，格式为"2019-07-31 12:00:00"
+  returnTime?: string;
+  // 归还日，格式为"2019-07-31 12:00:00"
+  returnTimeList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      creditPromiseExtraInfoList: 'credit_promise_extra_info_list',
+      leaseId: 'lease_id',
+      orderId: 'order_id',
+      payInAdvanceMoney: 'pay_in_advance_money',
+      payInAdvanceMoneyList: 'pay_in_advance_money_list',
+      payInAdvanceTime: 'pay_in_advance_time',
+      payInAdvanceTimeList: 'pay_in_advance_time_list',
+      promiseHash: 'promise_hash',
+      promiseTxHash: 'promise_tx_hash',
+      returnMoney: 'return_money',
+      returnMoneyList: 'return_money_list',
+      returnRate: 'return_rate',
+      returnTime: 'return_time',
+      returnTimeList: 'return_time_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      creditPromiseExtraInfoList: { 'type': 'array', 'itemType': 'string' },
+      leaseId: 'string',
+      orderId: 'string',
+      payInAdvanceMoney: 'number',
+      payInAdvanceMoneyList: { 'type': 'array', 'itemType': 'number' },
+      payInAdvanceTime: 'string',
+      payInAdvanceTimeList: { 'type': 'array', 'itemType': 'string' },
+      promiseHash: 'string',
+      promiseTxHash: 'string',
+      returnMoney: 'number',
+      returnMoneyList: { 'type': 'array', 'itemType': 'number' },
+      returnRate: 'number',
+      returnTime: 'string',
+      returnTimeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsynccreditpromiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncclearingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string;
+  // 清分收款账号 长度不超过64
+  clearingAccount: string;
+  // 清分金额,精确到毫厘，即123400表示12.34元
+  clearingMoney: number;
+  // 清分订单号 长度不超过128
+  clearingOrderIds: string[];
+  // 清分状态,1.足额2.部分3.零
+  clearingState?: number;
+  // 结束时间，格式为"2019-07-31 12:00:00"
+  endTime: string;
+  // 融资租赁额外字段
+  extraInfo?: string;
+  // 租赁平台商户Id 长度不可超过50
+  leaseId: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 还款批次
+  returnIndex: number;
+  // 开始时间，格式为"2019-07-31 12:00:00"
+  startTime: string;
+  // 清分资金的来源，比如用户xx元，商家yy元
+  memo?: string;
+  // 融资租赁资金方id
+  creditId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      clearingAccount: 'clearing_account',
+      clearingMoney: 'clearing_money',
+      clearingOrderIds: 'clearing_order_ids',
+      clearingState: 'clearing_state',
+      endTime: 'end_time',
+      extraInfo: 'extra_info',
+      leaseId: 'lease_id',
+      orderId: 'order_id',
+      returnIndex: 'return_index',
+      startTime: 'start_time',
+      memo: 'memo',
+      creditId: 'credit_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      clearingAccount: 'string',
+      clearingMoney: 'number',
+      clearingOrderIds: { 'type': 'array', 'itemType': 'string' },
+      clearingState: 'number',
+      endTime: 'string',
+      extraInfo: 'string',
+      leaseId: 'string',
+      orderId: 'string',
+      returnIndex: 'number',
+      startTime: 'string',
+      memo: 'string',
+      creditId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncclearingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncrepaymentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台生成返回
+  applicationId?: string;
+  // 融资租赁租户还款额外字段
+  extraInfo?: string;
+  // 是否最终订单还款结束
+  isFinish: boolean;
+  // 租赁平台商户Id 长度不可超过50
+  leaseId: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 逾期天数,支用到期日开始计算
+  overdueDay?: number;
+  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+  overdueMoney?: number;
+  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+  overdueRate?: number;
+  // 逾期状态,暂时都以0处理，目前不处理
+  overdueStatus?: number;
+  // 剩余应还金额，精确到毫厘，即123400表示12.34元
+  remainReturnMoney: number;
+  // 剩余应还期数
+  remainReturnTerm: string;
+  // 每次还款流水凭证，需要融资方确认，id一样则不处理
+  repaymentUniqueId: string;
+  // 还款结果简要描述,长度不超过256
+  returnDescription: string;
+  // 还款批次
+  returnIndex: number;
+  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+  returnMoney: number;
+  // 还款结果状态,1.成功 2.失败
+  returnStatus: number;
+  // 还款日期，格式为"2019-07-31 12:00:00"
+  returnTime: string;
+  // 还款来源,1.共管账号，2.网商清分
+  source: number;
+  // 逾期后还款状态,1未还款,2已还款
+  status?: number;
+  // 原所有权id
+  oldOwnershipId?: string;
+  // 现所有权id
+  newOwnershipId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      extraInfo: 'extra_info',
+      isFinish: 'is_finish',
+      leaseId: 'lease_id',
+      orderId: 'order_id',
+      overdueDay: 'overdue_day',
+      overdueMoney: 'overdue_money',
+      overdueRate: 'overdue_rate',
+      overdueStatus: 'overdue_status',
+      remainReturnMoney: 'remain_return_money',
+      remainReturnTerm: 'remain_return_term',
+      repaymentUniqueId: 'repayment_unique_id',
+      returnDescription: 'return_description',
+      returnIndex: 'return_index',
+      returnMoney: 'return_money',
+      returnStatus: 'return_status',
+      returnTime: 'return_time',
+      source: 'source',
+      status: 'status',
+      oldOwnershipId: 'old_ownership_id',
+      newOwnershipId: 'new_ownership_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      extraInfo: 'string',
+      isFinish: 'boolean',
+      leaseId: 'string',
+      orderId: 'string',
+      overdueDay: 'number',
+      overdueMoney: 'number',
+      overdueRate: 'number',
+      overdueStatus: 'number',
+      remainReturnMoney: 'number',
+      remainReturnTerm: 'string',
+      repaymentUniqueId: 'string',
+      returnDescription: 'string',
+      returnIndex: 'number',
+      returnMoney: 'number',
+      returnStatus: 'number',
+      returnTime: 'string',
+      source: 'number',
+      status: 'number',
+      oldOwnershipId: 'string',
+      newOwnershipId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncrepaymentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncauditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string;
+  // 融资机构审核批次
+  batchIndex?: string;
+  // 当前订单处于本批次中的index
+  currentAuditIndex?: number;
+  // 融资租赁额外字段
+  extraInfo?: string;
+  // 租赁服务平台ID 长度不可超过50
+  leaseId: string;
+  // 融资机构审核状态，0.审核中1.审核失败2.审核成功
+  manualAudit: number;
+  // 融资结构审核说明，非必填，审核失败必填失败原因
+  manualAuditComments?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+  relatedNotify?: string[];
+  // 总审核的个数
+  totalAuditNumber?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      batchIndex: 'batch_index',
+      currentAuditIndex: 'current_audit_index',
+      extraInfo: 'extra_info',
+      leaseId: 'lease_id',
+      manualAudit: 'manual_audit',
+      manualAuditComments: 'manual_audit_comments',
+      orderId: 'order_id',
+      relatedNotify: 'related_notify',
+      totalAuditNumber: 'total_audit_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      batchIndex: 'string',
+      currentAuditIndex: 'number',
+      extraInfo: 'string',
+      leaseId: 'string',
+      manualAudit: 'number',
+      manualAuditComments: 'string',
+      orderId: 'string',
+      relatedNotify: { 'type': 'array', 'itemType': 'string' },
+      totalAuditNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncauditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncpaymentfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台生成
+  applicationId?: string;
+  // 融资租赁额外字段
+  extraInfo?: string;
+  // 租赁服务平台ID 长度不可超过50
+  leaseId: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 付款通知书加签完电子签名后，PDF文件hash
+  paymentFileHash?: string;
+  // 付款通知书存证交易哈希
+  paymentFileTxHash?: string;
+  // 付款通知所在路径
+  paymentUrl?: string;
+  // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+  relatedNotify?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      extraInfo: 'extra_info',
+      leaseId: 'lease_id',
+      orderId: 'order_id',
+      paymentFileHash: 'payment_file_hash',
+      paymentFileTxHash: 'payment_file_tx_hash',
+      paymentUrl: 'payment_url',
+      relatedNotify: 'related_notify',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      extraInfo: 'string',
+      leaseId: 'string',
+      orderId: 'string',
+      paymentFileHash: 'string',
+      paymentFileTxHash: 'string',
+      paymentUrl: 'string',
+      relatedNotify: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseAsyncpaymentfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseAsyncencryptedinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string;
+  // 被查询的租赁公司对应的租户ID
+  leaseId: string;
+  // 	
+  // 订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      leaseId: 'lease_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      leaseId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseAsyncencryptedinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码，OK表示成功
+  code?: string;
+  // 结果描述
+  message?: string;
+  // 对应的加密后的具体信息（只有当query_status状态为SUCCESS时才返回此数据）
+  responseData?: string;
+  // 链上查询状态枚举
+  // TOBE_CHAIN 待上链查询
+  // CHAINING 查询中
+  // SUCCESS 查询成功
+  // FAIL 查询失败
+  queryStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      responseData: 'response_data',
+      queryStatus: 'query_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      message: 'string',
+      responseData: 'string',
+      queryStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseAsynccallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 上链时返回的回执id
+  bizId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseAsynccallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上链状态
+  // TOBE_CHAIN(待上链)
+  // CHAINING（上链中）SUCCESS(上链成功)
+  // FAIL(上链失败)
+  status?: string;
+  // 成功的时候返回txHash
+  txHash?: string;
+  // 上链失败信息，status为FAIL时返回
+  chainFailMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      txHash: 'tx_hash',
+      chainFailMessage: 'chain_fail_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      txHash: 'string',
+      chainFailMessage: 'string',
     };
   }
 
@@ -28456,7 +29415,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.94",
+          sdk_version: "1.7.98",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -31243,6 +32202,25 @@ export default class Client {
   }
 
   /**
+   * Description: 仲裁-通用版本进件要素信息查询
+   * Summary: 仲裁-通用版本进件要素信息查询
+   */
+  async queryJusticeCommoncaseinfo(request: QueryJusticeCommoncaseinfoRequest): Promise<QueryJusticeCommoncaseinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryJusticeCommoncaseinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 仲裁-通用版本进件要素信息查询
+   * Summary: 仲裁-通用版本进件要素信息查询
+   */
+  async queryJusticeCommoncaseinfoEx(request: QueryJusticeCommoncaseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryJusticeCommoncaseinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryJusticeCommoncaseinfoResponse>(await this.doRequest("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryJusticeCommoncaseinfoResponse({}));
+  }
+
+  /**
    * Description: 融资服务平台上传商品类别信息
    * Summary: 融资服务平台上传商品类别信息
    */
@@ -31867,6 +32845,158 @@ export default class Client {
   async createLeaseRiskEx(request: CreateLeaseRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseRiskResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateLeaseRiskResponse>(await this.doRequest("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseRiskResponse({}));
+  }
+
+  /**
+   * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+   * Summary: 上传租赁物购买贷款订单信息（异步）
+   */
+  async createLeaseAsyncverifyinfo(request: CreateLeaseAsyncverifyinfoRequest): Promise<CreateLeaseAsyncverifyinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsyncverifyinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+   * Summary: 上传租赁物购买贷款订单信息（异步）
+   */
+  async createLeaseAsyncverifyinfoEx(request: CreateLeaseAsyncverifyinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsyncverifyinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsyncverifyinfoResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncverifyinfo.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsyncverifyinfoResponse({}));
+  }
+
+  /**
+   * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+   * Summary: 融资方上传承诺信息(异步)
+   */
+  async createLeaseAsynccreditpromise(request: CreateLeaseAsynccreditpromiseRequest): Promise<CreateLeaseAsynccreditpromiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsynccreditpromiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+   * Summary: 融资方上传承诺信息(异步)
+   */
+  async createLeaseAsynccreditpromiseEx(request: CreateLeaseAsynccreditpromiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsynccreditpromiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsynccreditpromiseResponse>(await this.doRequest("1.0", "twc.notary.lease.asynccreditpromise.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsynccreditpromiseResponse({}));
+  }
+
+  /**
+   * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+   * Summary: 清分服务机构上传资金清算记录，分期
+   */
+  async createLeaseAsyncclearing(request: CreateLeaseAsyncclearingRequest): Promise<CreateLeaseAsyncclearingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsyncclearingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+   * Summary: 清分服务机构上传资金清算记录，分期
+   */
+  async createLeaseAsyncclearingEx(request: CreateLeaseAsyncclearingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsyncclearingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsyncclearingResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncclearing.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsyncclearingResponse({}));
+  }
+
+  /**
+   * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+   * Summary: 融资金融机构上传还款信息 每期
+   */
+  async createLeaseAsyncrepayment(request: CreateLeaseAsyncrepaymentRequest): Promise<CreateLeaseAsyncrepaymentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsyncrepaymentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+   * Summary: 融资金融机构上传还款信息 每期
+   */
+  async createLeaseAsyncrepaymentEx(request: CreateLeaseAsyncrepaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsyncrepaymentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsyncrepaymentResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncrepayment.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsyncrepaymentResponse({}));
+  }
+
+  /**
+   * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+   * Summary: 融资平台审核订单信息
+   */
+  async createLeaseAsyncaudit(request: CreateLeaseAsyncauditRequest): Promise<CreateLeaseAsyncauditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsyncauditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+   * Summary: 融资平台审核订单信息
+   */
+  async createLeaseAsyncauditEx(request: CreateLeaseAsyncauditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsyncauditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsyncauditResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncaudit.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsyncauditResponse({}));
+  }
+
+  /**
+   * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+   * Summary: 租赁平台上传付款通知信息
+   */
+  async createLeaseAsyncpaymentfile(request: CreateLeaseAsyncpaymentfileRequest): Promise<CreateLeaseAsyncpaymentfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseAsyncpaymentfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+   * Summary: 租赁平台上传付款通知信息
+   */
+  async createLeaseAsyncpaymentfileEx(request: CreateLeaseAsyncpaymentfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseAsyncpaymentfileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseAsyncpaymentfileResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncpaymentfile.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseAsyncpaymentfileResponse({}));
+  }
+
+  /**
+   * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+   * Summary: 查询用户等加密信息
+   */
+  async queryLeaseAsyncencryptedinfo(request: QueryLeaseAsyncencryptedinfoRequest): Promise<QueryLeaseAsyncencryptedinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseAsyncencryptedinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+   * Summary: 查询用户等加密信息
+   */
+  async queryLeaseAsyncencryptedinfoEx(request: QueryLeaseAsyncencryptedinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseAsyncencryptedinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseAsyncencryptedinfoResponse>(await this.doRequest("1.0", "twc.notary.lease.asyncencryptedinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseAsyncencryptedinfoResponse({}));
+  }
+
+  /**
+   * Description: 租赁异步调用上链结果回查
+   * Summary: 租赁异步调用上链结果回查
+   */
+  async queryLeaseAsynccall(request: QueryLeaseAsynccallRequest): Promise<QueryLeaseAsynccallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseAsynccallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁异步调用上链结果回查
+   * Summary: 租赁异步调用上链结果回查
+   */
+  async queryLeaseAsynccallEx(request: QueryLeaseAsynccallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseAsynccallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseAsynccallResponse>(await this.doRequest("1.0", "twc.notary.lease.asynccall.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseAsynccallResponse({}));
   }
 
   /**
