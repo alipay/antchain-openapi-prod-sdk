@@ -55,6 +55,12 @@ class StartJusticeCaseRequest extends Model
      * @var BankAccountInfo
      */
     public $bankAccountInfo;
+
+    // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+    /**
+     * @var string
+     */
+    public $signMethod;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -64,6 +70,7 @@ class StartJusticeCaseRequest extends Model
         'judicialMediationParam' => 'judicial_mediation_param',
         'contactInfo'            => 'contact_info',
         'bankAccountInfo'        => 'bank_account_info',
+        'signMethod'             => 'sign_method',
     ];
 
     public function validate()
@@ -100,6 +107,9 @@ class StartJusticeCaseRequest extends Model
         if (null !== $this->bankAccountInfo) {
             $res['bank_account_info'] = null !== $this->bankAccountInfo ? $this->bankAccountInfo->toMap() : null;
         }
+        if (null !== $this->signMethod) {
+            $res['sign_method'] = $this->signMethod;
+        }
 
         return $res;
     }
@@ -135,6 +145,9 @@ class StartJusticeCaseRequest extends Model
         }
         if (isset($map['bank_account_info'])) {
             $model->bankAccountInfo = BankAccountInfo::fromMap($map['bank_account_info']);
+        }
+        if (isset($map['sign_method'])) {
+            $model->signMethod = $map['sign_method'];
         }
 
         return $model;

@@ -173,6 +173,18 @@ use AntChain\TWC\Models\CreateLargefileRequest;
 use AntChain\TWC\Models\CreateLargefileResponse;
 use AntChain\TWC\Models\CreateLeaseAssetagentregisterRequest;
 use AntChain\TWC\Models\CreateLeaseAssetagentregisterResponse;
+use AntChain\TWC\Models\CreateLeaseAsyncauditRequest;
+use AntChain\TWC\Models\CreateLeaseAsyncauditResponse;
+use AntChain\TWC\Models\CreateLeaseAsyncclearingRequest;
+use AntChain\TWC\Models\CreateLeaseAsyncclearingResponse;
+use AntChain\TWC\Models\CreateLeaseAsynccreditpromiseRequest;
+use AntChain\TWC\Models\CreateLeaseAsynccreditpromiseResponse;
+use AntChain\TWC\Models\CreateLeaseAsyncpaymentfileRequest;
+use AntChain\TWC\Models\CreateLeaseAsyncpaymentfileResponse;
+use AntChain\TWC\Models\CreateLeaseAsyncrepaymentRequest;
+use AntChain\TWC\Models\CreateLeaseAsyncrepaymentResponse;
+use AntChain\TWC\Models\CreateLeaseAsyncverifyinfoRequest;
+use AntChain\TWC\Models\CreateLeaseAsyncverifyinfoResponse;
 use AntChain\TWC\Models\CreateLeaseAuditRequest;
 use AntChain\TWC\Models\CreateLeaseAuditResponse;
 use AntChain\TWC\Models\CreateLeaseBiznotaryRequest;
@@ -417,12 +429,18 @@ use AntChain\TWC\Models\QueryJusticeCaseinfoRequest;
 use AntChain\TWC\Models\QueryJusticeCaseinfoResponse;
 use AntChain\TWC\Models\QueryJusticeCaseRequest;
 use AntChain\TWC\Models\QueryJusticeCaseResponse;
+use AntChain\TWC\Models\QueryJusticeCommoncaseinfoRequest;
+use AntChain\TWC\Models\QueryJusticeCommoncaseinfoResponse;
 use AntChain\TWC\Models\QueryJusticeMediationRequest;
 use AntChain\TWC\Models\QueryJusticeMediationResponse;
 use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoRequest;
 use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoResponse;
 use AntChain\TWC\Models\QueryLeaseApplicationRequest;
 use AntChain\TWC\Models\QueryLeaseApplicationResponse;
+use AntChain\TWC\Models\QueryLeaseAsynccallRequest;
+use AntChain\TWC\Models\QueryLeaseAsynccallResponse;
+use AntChain\TWC\Models\QueryLeaseAsyncencryptedinfoRequest;
+use AntChain\TWC\Models\QueryLeaseAsyncencryptedinfoResponse;
 use AntChain\TWC\Models\QueryLeaseBizRequest;
 use AntChain\TWC\Models\QueryLeaseBizResponse;
 use AntChain\TWC\Models\QueryLeaseClearingRequest;
@@ -706,7 +724,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.94',
+                    'sdk_version'      => '1.7.98',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5509,6 +5527,39 @@ class Client
     }
 
     /**
+     * Description: 仲裁-通用版本进件要素信息查询
+     * Summary: 仲裁-通用版本进件要素信息查询.
+     *
+     * @param QueryJusticeCommoncaseinfoRequest $request
+     *
+     * @return QueryJusticeCommoncaseinfoResponse
+     */
+    public function queryJusticeCommoncaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryJusticeCommoncaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 仲裁-通用版本进件要素信息查询
+     * Summary: 仲裁-通用版本进件要素信息查询.
+     *
+     * @param QueryJusticeCommoncaseinfoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryJusticeCommoncaseinfoResponse
+     */
+    public function queryJusticeCommoncaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryJusticeCommoncaseinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息.
      *
@@ -6595,6 +6646,270 @@ class Client
         Utils::validateModel($request);
 
         return CreateLeaseRiskResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.risk.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+     * Summary: 上传租赁物购买贷款订单信息（异步）.
+     *
+     * @param CreateLeaseAsyncverifyinfoRequest $request
+     *
+     * @return CreateLeaseAsyncverifyinfoResponse
+     */
+    public function createLeaseAsyncverifyinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsyncverifyinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+     * Summary: 上传租赁物购买贷款订单信息（异步）.
+     *
+     * @param CreateLeaseAsyncverifyinfoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateLeaseAsyncverifyinfoResponse
+     */
+    public function createLeaseAsyncverifyinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsyncverifyinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncverifyinfo.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+     * Summary: 融资方上传承诺信息(异步).
+     *
+     * @param CreateLeaseAsynccreditpromiseRequest $request
+     *
+     * @return CreateLeaseAsynccreditpromiseResponse
+     */
+    public function createLeaseAsynccreditpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsynccreditpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+     * Summary: 融资方上传承诺信息(异步).
+     *
+     * @param CreateLeaseAsynccreditpromiseRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateLeaseAsynccreditpromiseResponse
+     */
+    public function createLeaseAsynccreditpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsynccreditpromiseResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asynccreditpromise.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+     * Summary: 清分服务机构上传资金清算记录，分期
+     *
+     * @param CreateLeaseAsyncclearingRequest $request
+     *
+     * @return CreateLeaseAsyncclearingResponse
+     */
+    public function createLeaseAsyncclearing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsyncclearingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+     * Summary: 清分服务机构上传资金清算记录，分期
+     *
+     * @param CreateLeaseAsyncclearingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateLeaseAsyncclearingResponse
+     */
+    public function createLeaseAsyncclearingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsyncclearingResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncclearing.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+     * Summary: 融资金融机构上传还款信息 每期
+     *
+     * @param CreateLeaseAsyncrepaymentRequest $request
+     *
+     * @return CreateLeaseAsyncrepaymentResponse
+     */
+    public function createLeaseAsyncrepayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsyncrepaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+     * Summary: 融资金融机构上传还款信息 每期
+     *
+     * @param CreateLeaseAsyncrepaymentRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateLeaseAsyncrepaymentResponse
+     */
+    public function createLeaseAsyncrepaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsyncrepaymentResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncrepayment.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+     * Summary: 融资平台审核订单信息.
+     *
+     * @param CreateLeaseAsyncauditRequest $request
+     *
+     * @return CreateLeaseAsyncauditResponse
+     */
+    public function createLeaseAsyncaudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsyncauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+     * Summary: 融资平台审核订单信息.
+     *
+     * @param CreateLeaseAsyncauditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateLeaseAsyncauditResponse
+     */
+    public function createLeaseAsyncauditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsyncauditResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncaudit.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+     * Summary: 租赁平台上传付款通知信息.
+     *
+     * @param CreateLeaseAsyncpaymentfileRequest $request
+     *
+     * @return CreateLeaseAsyncpaymentfileResponse
+     */
+    public function createLeaseAsyncpaymentfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAsyncpaymentfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+     * Summary: 租赁平台上传付款通知信息.
+     *
+     * @param CreateLeaseAsyncpaymentfileRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateLeaseAsyncpaymentfileResponse
+     */
+    public function createLeaseAsyncpaymentfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAsyncpaymentfileResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncpaymentfile.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+     * Summary: 查询用户等加密信息.
+     *
+     * @param QueryLeaseAsyncencryptedinfoRequest $request
+     *
+     * @return QueryLeaseAsyncencryptedinfoResponse
+     */
+    public function queryLeaseAsyncencryptedinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseAsyncencryptedinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+     * Summary: 查询用户等加密信息.
+     *
+     * @param QueryLeaseAsyncencryptedinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryLeaseAsyncencryptedinfoResponse
+     */
+    public function queryLeaseAsyncencryptedinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseAsyncencryptedinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asyncencryptedinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁异步调用上链结果回查
+     * Summary: 租赁异步调用上链结果回查.
+     *
+     * @param QueryLeaseAsynccallRequest $request
+     *
+     * @return QueryLeaseAsynccallResponse
+     */
+    public function queryLeaseAsynccall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseAsynccallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁异步调用上链结果回查
+     * Summary: 租赁异步调用上链结果回查.
+     *
+     * @param QueryLeaseAsynccallRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryLeaseAsynccallResponse
+     */
+    public function queryLeaseAsynccallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseAsynccallResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.asynccall.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

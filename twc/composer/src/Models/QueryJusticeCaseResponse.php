@@ -83,6 +83,12 @@ class QueryJusticeCaseResponse extends Model
      * @var JudicialFileInfo[]
      */
     public $judicialFiles;
+
+    // 案件提交失败的原因,维权状态为提交失败时存在
+    /**
+     * @var string
+     */
+    public $submitErrorMsg;
     protected $_name = [
         'reqMsgId'                 => 'req_msg_id',
         'resultCode'               => 'result_code',
@@ -95,6 +101,7 @@ class QueryJusticeCaseResponse extends Model
         'judicialRecordStatusDesc' => 'judicial_record_status_desc',
         'judicialRecordStatusTime' => 'judicial_record_status_time',
         'judicialFiles'            => 'judicial_files',
+        'submitErrorMsg'           => 'submit_error_msg',
     ];
 
     public function validate()
@@ -142,6 +149,9 @@ class QueryJusticeCaseResponse extends Model
                     $res['judicial_files'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->submitErrorMsg) {
+            $res['submit_error_msg'] = $this->submitErrorMsg;
         }
 
         return $res;
@@ -193,6 +203,9 @@ class QueryJusticeCaseResponse extends Model
                     $model->judicialFiles[$n++] = null !== $item ? JudicialFileInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['submit_error_msg'])) {
+            $model->submitErrorMsg = $map['submit_error_msg'];
         }
 
         return $model;
