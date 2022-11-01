@@ -74,6 +74,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<JudicialFileInfo> JudicialFiles { get; set; }
 
+        // 案件提交失败的原因,维权状态为提交失败时存在
+        [NameInMap("submit_error_msg")]
+        [Validation(Required=false)]
+        public string SubmitErrorMsg { get; set; }
+
     }
 
 }

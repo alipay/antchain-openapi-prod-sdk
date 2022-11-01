@@ -49,6 +49,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public BankAccountInfo BankAccountInfo { get; set; }
 
+        // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+        [NameInMap("sign_method")]
+        [Validation(Required=false)]
+        public string SignMethod { get; set; }
+
     }
 
 }

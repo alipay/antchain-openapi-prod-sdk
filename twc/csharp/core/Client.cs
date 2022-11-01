@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.94"},
+                        {"sdk_version", "1.7.98"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.94"},
+                        {"sdk_version", "1.7.98"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -6374,6 +6374,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 仲裁-通用版本进件要素信息查询
+         * Summary: 仲裁-通用版本进件要素信息查询
+         */
+        public QueryJusticeCommoncaseinfoResponse QueryJusticeCommoncaseinfo(QueryJusticeCommoncaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryJusticeCommoncaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仲裁-通用版本进件要素信息查询
+         * Summary: 仲裁-通用版本进件要素信息查询
+         */
+        public async Task<QueryJusticeCommoncaseinfoResponse> QueryJusticeCommoncaseinfoAsync(QueryJusticeCommoncaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryJusticeCommoncaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仲裁-通用版本进件要素信息查询
+         * Summary: 仲裁-通用版本进件要素信息查询
+         */
+        public QueryJusticeCommoncaseinfoResponse QueryJusticeCommoncaseinfoEx(QueryJusticeCommoncaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeCommoncaseinfoResponse>(DoRequest("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 仲裁-通用版本进件要素信息查询
+         * Summary: 仲裁-通用版本进件要素信息查询
+         */
+        public async Task<QueryJusticeCommoncaseinfoResponse> QueryJusticeCommoncaseinfoExAsync(QueryJusticeCommoncaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeCommoncaseinfoResponse>(await DoRequestAsync("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 融资服务平台上传商品类别信息
          * Summary: 融资服务平台上传商品类别信息
          */
@@ -7757,6 +7799,342 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateLeaseRiskResponse>(await DoRequestAsync("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+         * Summary: 上传租赁物购买贷款订单信息（异步）
+         */
+        public CreateLeaseAsyncverifyinfoResponse CreateLeaseAsyncverifyinfo(CreateLeaseAsyncverifyinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsyncverifyinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+         * Summary: 上传租赁物购买贷款订单信息（异步）
+         */
+        public async Task<CreateLeaseAsyncverifyinfoResponse> CreateLeaseAsyncverifyinfoAsync(CreateLeaseAsyncverifyinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsyncverifyinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+         * Summary: 上传租赁物购买贷款订单信息（异步）
+         */
+        public CreateLeaseAsyncverifyinfoResponse CreateLeaseAsyncverifyinfoEx(CreateLeaseAsyncverifyinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncverifyinfoResponse>(DoRequest("1.0", "twc.notary.lease.asyncverifyinfo.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+         * Summary: 上传租赁物购买贷款订单信息（异步）
+         */
+        public async Task<CreateLeaseAsyncverifyinfoResponse> CreateLeaseAsyncverifyinfoExAsync(CreateLeaseAsyncverifyinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncverifyinfoResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncverifyinfo.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+         * Summary: 融资方上传承诺信息(异步)
+         */
+        public CreateLeaseAsynccreditpromiseResponse CreateLeaseAsynccreditpromise(CreateLeaseAsynccreditpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsynccreditpromiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+         * Summary: 融资方上传承诺信息(异步)
+         */
+        public async Task<CreateLeaseAsynccreditpromiseResponse> CreateLeaseAsynccreditpromiseAsync(CreateLeaseAsynccreditpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsynccreditpromiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+         * Summary: 融资方上传承诺信息(异步)
+         */
+        public CreateLeaseAsynccreditpromiseResponse CreateLeaseAsynccreditpromiseEx(CreateLeaseAsynccreditpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsynccreditpromiseResponse>(DoRequest("1.0", "twc.notary.lease.asynccreditpromise.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+         * Summary: 融资方上传承诺信息(异步)
+         */
+        public async Task<CreateLeaseAsynccreditpromiseResponse> CreateLeaseAsynccreditpromiseExAsync(CreateLeaseAsynccreditpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsynccreditpromiseResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asynccreditpromise.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+         * Summary: 清分服务机构上传资金清算记录，分期
+         */
+        public CreateLeaseAsyncclearingResponse CreateLeaseAsyncclearing(CreateLeaseAsyncclearingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsyncclearingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+         * Summary: 清分服务机构上传资金清算记录，分期
+         */
+        public async Task<CreateLeaseAsyncclearingResponse> CreateLeaseAsyncclearingAsync(CreateLeaseAsyncclearingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsyncclearingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+         * Summary: 清分服务机构上传资金清算记录，分期
+         */
+        public CreateLeaseAsyncclearingResponse CreateLeaseAsyncclearingEx(CreateLeaseAsyncclearingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncclearingResponse>(DoRequest("1.0", "twc.notary.lease.asyncclearing.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+         * Summary: 清分服务机构上传资金清算记录，分期
+         */
+        public async Task<CreateLeaseAsyncclearingResponse> CreateLeaseAsyncclearingExAsync(CreateLeaseAsyncclearingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncclearingResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncclearing.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+         * Summary: 融资金融机构上传还款信息 每期
+         */
+        public CreateLeaseAsyncrepaymentResponse CreateLeaseAsyncrepayment(CreateLeaseAsyncrepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsyncrepaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+         * Summary: 融资金融机构上传还款信息 每期
+         */
+        public async Task<CreateLeaseAsyncrepaymentResponse> CreateLeaseAsyncrepaymentAsync(CreateLeaseAsyncrepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsyncrepaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+         * Summary: 融资金融机构上传还款信息 每期
+         */
+        public CreateLeaseAsyncrepaymentResponse CreateLeaseAsyncrepaymentEx(CreateLeaseAsyncrepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncrepaymentResponse>(DoRequest("1.0", "twc.notary.lease.asyncrepayment.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+         * Summary: 融资金融机构上传还款信息 每期
+         */
+        public async Task<CreateLeaseAsyncrepaymentResponse> CreateLeaseAsyncrepaymentExAsync(CreateLeaseAsyncrepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncrepaymentResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncrepayment.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+         * Summary: 融资平台审核订单信息
+         */
+        public CreateLeaseAsyncauditResponse CreateLeaseAsyncaudit(CreateLeaseAsyncauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsyncauditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+         * Summary: 融资平台审核订单信息
+         */
+        public async Task<CreateLeaseAsyncauditResponse> CreateLeaseAsyncauditAsync(CreateLeaseAsyncauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsyncauditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+         * Summary: 融资平台审核订单信息
+         */
+        public CreateLeaseAsyncauditResponse CreateLeaseAsyncauditEx(CreateLeaseAsyncauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncauditResponse>(DoRequest("1.0", "twc.notary.lease.asyncaudit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+         * Summary: 融资平台审核订单信息
+         */
+        public async Task<CreateLeaseAsyncauditResponse> CreateLeaseAsyncauditExAsync(CreateLeaseAsyncauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncauditResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncaudit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+         * Summary: 租赁平台上传付款通知信息
+         */
+        public CreateLeaseAsyncpaymentfileResponse CreateLeaseAsyncpaymentfile(CreateLeaseAsyncpaymentfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAsyncpaymentfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+         * Summary: 租赁平台上传付款通知信息
+         */
+        public async Task<CreateLeaseAsyncpaymentfileResponse> CreateLeaseAsyncpaymentfileAsync(CreateLeaseAsyncpaymentfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAsyncpaymentfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+         * Summary: 租赁平台上传付款通知信息
+         */
+        public CreateLeaseAsyncpaymentfileResponse CreateLeaseAsyncpaymentfileEx(CreateLeaseAsyncpaymentfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncpaymentfileResponse>(DoRequest("1.0", "twc.notary.lease.asyncpaymentfile.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+         * Summary: 租赁平台上传付款通知信息
+         */
+        public async Task<CreateLeaseAsyncpaymentfileResponse> CreateLeaseAsyncpaymentfileExAsync(CreateLeaseAsyncpaymentfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAsyncpaymentfileResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncpaymentfile.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+         * Summary: 查询用户等加密信息
+         */
+        public QueryLeaseAsyncencryptedinfoResponse QueryLeaseAsyncencryptedinfo(QueryLeaseAsyncencryptedinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseAsyncencryptedinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+         * Summary: 查询用户等加密信息
+         */
+        public async Task<QueryLeaseAsyncencryptedinfoResponse> QueryLeaseAsyncencryptedinfoAsync(QueryLeaseAsyncencryptedinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseAsyncencryptedinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+         * Summary: 查询用户等加密信息
+         */
+        public QueryLeaseAsyncencryptedinfoResponse QueryLeaseAsyncencryptedinfoEx(QueryLeaseAsyncencryptedinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseAsyncencryptedinfoResponse>(DoRequest("1.0", "twc.notary.lease.asyncencryptedinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+         * Summary: 查询用户等加密信息
+         */
+        public async Task<QueryLeaseAsyncencryptedinfoResponse> QueryLeaseAsyncencryptedinfoExAsync(QueryLeaseAsyncencryptedinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseAsyncencryptedinfoResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asyncencryptedinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁异步调用上链结果回查
+         * Summary: 租赁异步调用上链结果回查
+         */
+        public QueryLeaseAsynccallResponse QueryLeaseAsynccall(QueryLeaseAsynccallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseAsynccallEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁异步调用上链结果回查
+         * Summary: 租赁异步调用上链结果回查
+         */
+        public async Task<QueryLeaseAsynccallResponse> QueryLeaseAsynccallAsync(QueryLeaseAsynccallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseAsynccallExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁异步调用上链结果回查
+         * Summary: 租赁异步调用上链结果回查
+         */
+        public QueryLeaseAsynccallResponse QueryLeaseAsynccallEx(QueryLeaseAsynccallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseAsynccallResponse>(DoRequest("1.0", "twc.notary.lease.asynccall.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁异步调用上链结果回查
+         * Summary: 租赁异步调用上链结果回查
+         */
+        public async Task<QueryLeaseAsynccallResponse> QueryLeaseAsynccallExAsync(QueryLeaseAsynccallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseAsynccallResponse>(await DoRequestAsync("1.0", "twc.notary.lease.asynccall.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
