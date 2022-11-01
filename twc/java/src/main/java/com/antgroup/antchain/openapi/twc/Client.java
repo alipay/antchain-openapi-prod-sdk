@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.94")
+                    new TeaPair("sdk_version", "1.7.98")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2900,6 +2900,25 @@ public class Client {
     }
 
     /**
+     * Description: 仲裁-通用版本进件要素信息查询
+     * Summary: 仲裁-通用版本进件要素信息查询
+     */
+    public QueryJusticeCommoncaseinfoResponse queryJusticeCommoncaseinfo(QueryJusticeCommoncaseinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryJusticeCommoncaseinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 仲裁-通用版本进件要素信息查询
+     * Summary: 仲裁-通用版本进件要素信息查询
+     */
+    public QueryJusticeCommoncaseinfoResponse queryJusticeCommoncaseinfoEx(QueryJusticeCommoncaseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeCommoncaseinfoResponse());
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息
      */
@@ -3524,6 +3543,158 @@ public class Client {
     public CreateLeaseRiskResponse createLeaseRiskEx(CreateLeaseRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseRiskResponse());
+    }
+
+    /**
+     * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+     * Summary: 上传租赁物购买贷款订单信息（异步）
+     */
+    public CreateLeaseAsyncverifyinfoResponse createLeaseAsyncverifyinfo(CreateLeaseAsyncverifyinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsyncverifyinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+     * Summary: 上传租赁物购买贷款订单信息（异步）
+     */
+    public CreateLeaseAsyncverifyinfoResponse createLeaseAsyncverifyinfoEx(CreateLeaseAsyncverifyinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncverifyinfo.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsyncverifyinfoResponse());
+    }
+
+    /**
+     * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+     * Summary: 融资方上传承诺信息(异步)
+     */
+    public CreateLeaseAsynccreditpromiseResponse createLeaseAsynccreditpromise(CreateLeaseAsynccreditpromiseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsynccreditpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+     * Summary: 融资方上传承诺信息(异步)
+     */
+    public CreateLeaseAsynccreditpromiseResponse createLeaseAsynccreditpromiseEx(CreateLeaseAsynccreditpromiseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asynccreditpromise.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsynccreditpromiseResponse());
+    }
+
+    /**
+     * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+     * Summary: 清分服务机构上传资金清算记录，分期
+     */
+    public CreateLeaseAsyncclearingResponse createLeaseAsyncclearing(CreateLeaseAsyncclearingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsyncclearingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+     * Summary: 清分服务机构上传资金清算记录，分期
+     */
+    public CreateLeaseAsyncclearingResponse createLeaseAsyncclearingEx(CreateLeaseAsyncclearingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncclearing.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsyncclearingResponse());
+    }
+
+    /**
+     * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+     * Summary: 融资金融机构上传还款信息 每期
+     */
+    public CreateLeaseAsyncrepaymentResponse createLeaseAsyncrepayment(CreateLeaseAsyncrepaymentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsyncrepaymentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+     * Summary: 融资金融机构上传还款信息 每期
+     */
+    public CreateLeaseAsyncrepaymentResponse createLeaseAsyncrepaymentEx(CreateLeaseAsyncrepaymentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncrepayment.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsyncrepaymentResponse());
+    }
+
+    /**
+     * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+     * Summary: 融资平台审核订单信息
+     */
+    public CreateLeaseAsyncauditResponse createLeaseAsyncaudit(CreateLeaseAsyncauditRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsyncauditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+     * Summary: 融资平台审核订单信息
+     */
+    public CreateLeaseAsyncauditResponse createLeaseAsyncauditEx(CreateLeaseAsyncauditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncaudit.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsyncauditResponse());
+    }
+
+    /**
+     * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+     * Summary: 租赁平台上传付款通知信息
+     */
+    public CreateLeaseAsyncpaymentfileResponse createLeaseAsyncpaymentfile(CreateLeaseAsyncpaymentfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseAsyncpaymentfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+     * Summary: 租赁平台上传付款通知信息
+     */
+    public CreateLeaseAsyncpaymentfileResponse createLeaseAsyncpaymentfileEx(CreateLeaseAsyncpaymentfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncpaymentfile.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseAsyncpaymentfileResponse());
+    }
+
+    /**
+     * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+     * Summary: 查询用户等加密信息
+     */
+    public QueryLeaseAsyncencryptedinfoResponse queryLeaseAsyncencryptedinfo(QueryLeaseAsyncencryptedinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseAsyncencryptedinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+     * Summary: 查询用户等加密信息
+     */
+    public QueryLeaseAsyncencryptedinfoResponse queryLeaseAsyncencryptedinfoEx(QueryLeaseAsyncencryptedinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asyncencryptedinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseAsyncencryptedinfoResponse());
+    }
+
+    /**
+     * Description: 租赁异步调用上链结果回查
+     * Summary: 租赁异步调用上链结果回查
+     */
+    public QueryLeaseAsynccallResponse queryLeaseAsynccall(QueryLeaseAsynccallRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseAsynccallEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁异步调用上链结果回查
+     * Summary: 租赁异步调用上链结果回查
+     */
+    public QueryLeaseAsynccallResponse queryLeaseAsynccallEx(QueryLeaseAsynccallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.asynccall.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseAsynccallResponse());
     }
 
     /**

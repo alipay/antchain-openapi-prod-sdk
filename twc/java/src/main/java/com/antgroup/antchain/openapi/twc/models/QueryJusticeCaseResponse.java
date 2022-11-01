@@ -58,6 +58,10 @@ public class QueryJusticeCaseResponse extends TeaModel {
     @NameInMap("judicial_files")
     public java.util.List<JudicialFileInfo> judicialFiles;
 
+    // 案件提交失败的原因,维权状态为提交失败时存在
+    @NameInMap("submit_error_msg")
+    public String submitErrorMsg;
+
     public static QueryJusticeCaseResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryJusticeCaseResponse self = new QueryJusticeCaseResponse();
         return TeaModel.build(map, self);
@@ -149,6 +153,14 @@ public class QueryJusticeCaseResponse extends TeaModel {
     }
     public java.util.List<JudicialFileInfo> getJudicialFiles() {
         return this.judicialFiles;
+    }
+
+    public QueryJusticeCaseResponse setSubmitErrorMsg(String submitErrorMsg) {
+        this.submitErrorMsg = submitErrorMsg;
+        return this;
+    }
+    public String getSubmitErrorMsg() {
+        return this.submitErrorMsg;
     }
 
 }

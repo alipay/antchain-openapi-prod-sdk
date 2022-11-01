@@ -39,6 +39,10 @@ public class StartJusticeCaseRequest extends TeaModel {
     @NameInMap("bank_account_info")
     public BankAccountInfo bankAccountInfo;
 
+    // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+    @NameInMap("sign_method")
+    public String signMethod;
+
     public static StartJusticeCaseRequest build(java.util.Map<String, ?> map) throws Exception {
         StartJusticeCaseRequest self = new StartJusticeCaseRequest();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class StartJusticeCaseRequest extends TeaModel {
     }
     public BankAccountInfo getBankAccountInfo() {
         return this.bankAccountInfo;
+    }
+
+    public StartJusticeCaseRequest setSignMethod(String signMethod) {
+        this.signMethod = signMethod;
+        return this;
+    }
+    public String getSignMethod() {
+        return this.signMethod;
     }
 
 }
