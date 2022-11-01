@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.94',
+    sdk_version = '1.7.98',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -9028,6 +9028,8 @@ model StartJusticeCaseRequest = {
   contactInfo?: ContactInfo(name='contact_info'),
   // 调解回款银行账户(如果不传则使用租户维度的配置信息)
   bankAccountInfo?: BankAccountInfo(name='bank_account_info'),
+  // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+  signMethod?: string(name='sign_method'),
 }
 
 model StartJusticeCaseResponse = {
@@ -9105,6 +9107,8 @@ model QueryJusticeCaseResponse = {
   judicialRecordStatusTime?: string(name='judicial_record_status_time'),
   // 维权过程中的文件列表
   judicialFiles?: [ JudicialFileInfo ](name='judicial_files'),
+  // 案件提交失败的原因,维权状态为提交失败时存在
+  submitErrorMsg?: string(name='submit_error_msg'),
 }
 
 /**
@@ -9362,6 +9366,48 @@ async function createJusticeDocumenttemplate(request: CreateJusticeDocumenttempl
 async function createJusticeDocumenttemplateEx(request: CreateJusticeDocumenttemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeDocumenttemplateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryJusticeCommoncaseinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件号
+  caseNo: string(name='case_no'),
+  // 用户幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model QueryJusticeCommoncaseinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 要素信息
+  businessInfo?: string(name='business_info'),
+  // 查询的案件编号
+  caseNo?: string(name='case_no'),
+}
+
+/**
+ * Description: 仲裁-通用版本进件要素信息查询
+ * Summary: 仲裁-通用版本进件要素信息查询
+ */
+async function queryJusticeCommoncaseinfo(request: QueryJusticeCommoncaseinfoRequest): QueryJusticeCommoncaseinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryJusticeCommoncaseinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 仲裁-通用版本进件要素信息查询
+ * Summary: 仲裁-通用版本进件要素信息查询
+ */
+async function queryJusticeCommoncaseinfoEx(request: QueryJusticeCommoncaseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryJusticeCommoncaseinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseProductinfoRequest = {
@@ -11011,6 +11057,520 @@ async function createLeaseRisk(request: CreateLeaseRiskRequest): CreateLeaseRisk
 async function createLeaseRiskEx(request: CreateLeaseRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseRiskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.risk.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsyncverifyinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台生成返回
+  applicationId?: string(name='application_id'),
+  // 放款账户
+  cardNumber?: string(name='card_number'),
+  // 授信终止时间，格式为"2019-07-31 12:00:00"
+  creditEndTime?: string(name='credit_end_time'),
+  // 授信额度，精确到毫厘，即123400表示12.34元
+  creditLimit?: long(name='credit_limit'),
+  // 授信起始时间，格式为"2019-07-31 12:00:00"
+  creditStartTime?: string(name='credit_start_time'),
+  // 融资租赁审贷信息额外字段
+  extraInfo?: string(name='extra_info'),
+  // 承租企业统一社会信用代码 长度不可超过50
+  leaseCorpId?: string(maxLength=50, name='lease_corp_id'),
+  // 承租企业名称 长度不可超过50
+  leaseCorpName?: string(maxLength=50, name='lease_corp_name'),
+  // 承租法定代表人姓名 长度不可超过50
+  leaseCorpOwnerName?: string(maxLength=50, name='lease_corp_owner_name'),
+  // 租赁服务平台id
+  leaseId: string(name='lease_id'),
+  // 放款流水单号
+  loan?: string(name='loan'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 还款计划文件哈希
+  payBackHash?: string(name='pay_back_hash'),
+  // 还款计划文件存证交易哈希
+  payBackTxHash?: string(name='pay_back_tx_hash'),
+  // 承租人身份证
+  userId?: string(name='user_id'),
+  // 承租人姓名 长度不可超过10
+  userName?: string(maxLength=10, name='user_name'),
+  // 承租人手机号
+  userPhoneNumber?: string(name='user_phone_number'),
+  // 拒绝的理由
+  verifyRefuseDesc?: string(name='verify_refuse_desc'),
+  // 是否通过，0表示不通过，1表示通过
+  verifyResult: long(name='verify_result'),
+  // 付款汇款凭证 民盛转账成功后上传
+  voucher?: string(name='voucher'),
+}
+
+model CreateLeaseAsyncverifyinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，成功为OK
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+ * Summary: 上传租赁物购买贷款订单信息（异步）
+ */
+async function createLeaseAsyncverifyinfo(request: CreateLeaseAsyncverifyinfoRequest): CreateLeaseAsyncverifyinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsyncverifyinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+ * Summary: 上传租赁物购买贷款订单信息（异步）
+ */
+async function createLeaseAsyncverifyinfoEx(request: CreateLeaseAsyncverifyinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsyncverifyinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncverifyinfo.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsynccreditpromiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string(name='application_id'),
+  // 融资租赁承诺额外字段
+  creditPromiseExtraInfoList?: [ string ](name='credit_promise_extra_info_list'),
+  // 租赁平台金融科技id
+  leaseId: string(name='lease_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 垫付金额
+  payInAdvanceMoney?: long(name='pay_in_advance_money'),
+  // 垫付金额，精确到毫厘，即123400表示12.34元
+  payInAdvanceMoneyList?: [ long ](name='pay_in_advance_money_list'),
+  // 垫付日期
+  payInAdvanceTime?: string(name='pay_in_advance_time'),
+  // 垫付日 格式为2019-8-31 12:00:00
+  payInAdvanceTimeList: [ string ](name='pay_in_advance_time_list'),
+  // 根据融资租赁合同及其补充协议哈希
+  promiseHash: string(name='promise_hash'),
+  // 根据融资租赁合同及其补充协议存证交易hash
+  promiseTxHash: string(name='promise_tx_hash'),
+  // 归还金额
+  returnMoney?: long(name='return_money'),
+  // 还款金额，精确到毫厘，即123400表示12.34元
+  returnMoneyList: [ long ](name='return_money_list'),
+  // 还款比例，精确到小数点后四位 12.34% 表示为1234
+  returnRate?: long(name='return_rate'),
+  // 归还日，格式为"2019-07-31 12:00:00"
+  returnTime?: string(name='return_time'),
+  // 归还日，格式为"2019-07-31 12:00:00"
+  returnTimeList: [ string ](name='return_time_list'),
+}
+
+model CreateLeaseAsynccreditpromiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+ * Summary: 融资方上传承诺信息(异步)
+ */
+async function createLeaseAsynccreditpromise(request: CreateLeaseAsynccreditpromiseRequest): CreateLeaseAsynccreditpromiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsynccreditpromiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+ * Summary: 融资方上传承诺信息(异步)
+ */
+async function createLeaseAsynccreditpromiseEx(request: CreateLeaseAsynccreditpromiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsynccreditpromiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asynccreditpromise.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsyncclearingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string(name='application_id'),
+  // 清分收款账号 长度不超过64
+  clearingAccount: string(maxLength=64, name='clearing_account'),
+  // 清分金额,精确到毫厘，即123400表示12.34元
+  clearingMoney: long(name='clearing_money'),
+  // 清分订单号 长度不超过128
+  clearingOrderIds: [ string ](name='clearing_order_ids'),
+  // 清分状态,1.足额2.部分3.零
+  clearingState?: long(name='clearing_state'),
+  // 结束时间，格式为"2019-07-31 12:00:00"
+  endTime: string(name='end_time'),
+  // 融资租赁额外字段
+  extraInfo?: string(name='extra_info'),
+  // 租赁平台商户Id 长度不可超过50
+  leaseId: string(maxLength=50, name='lease_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 还款批次
+  returnIndex: long(name='return_index'),
+  // 开始时间，格式为"2019-07-31 12:00:00"
+  startTime: string(name='start_time'),
+  // 清分资金的来源，比如用户xx元，商家yy元
+  memo?: string(name='memo'),
+  // 融资租赁资金方id
+  creditId?: string(name='credit_id'),
+}
+
+model CreateLeaseAsyncclearingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+ * Summary: 清分服务机构上传资金清算记录，分期
+ */
+async function createLeaseAsyncclearing(request: CreateLeaseAsyncclearingRequest): CreateLeaseAsyncclearingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsyncclearingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+ * Summary: 清分服务机构上传资金清算记录，分期
+ */
+async function createLeaseAsyncclearingEx(request: CreateLeaseAsyncclearingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsyncclearingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncclearing.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsyncrepaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台生成返回
+  applicationId?: string(name='application_id'),
+  // 融资租赁租户还款额外字段
+  extraInfo?: string(name='extra_info'),
+  // 是否最终订单还款结束
+  isFinish: boolean(name='is_finish'),
+  // 租赁平台商户Id 长度不可超过50
+  leaseId: string(maxLength=50, name='lease_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 逾期天数,支用到期日开始计算
+  overdueDay?: long(name='overdue_day'),
+  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+  overdueMoney?: long(name='overdue_money'),
+  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+  overdueRate?: long(name='overdue_rate'),
+  // 逾期状态,暂时都以0处理，目前不处理
+  overdueStatus?: long(name='overdue_status'),
+  // 剩余应还金额，精确到毫厘，即123400表示12.34元
+  remainReturnMoney: long(name='remain_return_money'),
+  // 剩余应还期数
+  remainReturnTerm: string(name='remain_return_term'),
+  // 每次还款流水凭证，需要融资方确认，id一样则不处理
+  repaymentUniqueId: string(name='repayment_unique_id'),
+  // 还款结果简要描述,长度不超过256
+  returnDescription: string(maxLength=256, name='return_description'),
+  // 还款批次
+  returnIndex: long(name='return_index'),
+  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+  returnMoney: long(name='return_money'),
+  // 还款结果状态,1.成功 2.失败
+  returnStatus: long(name='return_status'),
+  // 还款日期，格式为"2019-07-31 12:00:00"
+  returnTime: string(name='return_time'),
+  // 还款来源,1.共管账号，2.网商清分
+  source: long(name='source'),
+  // 逾期后还款状态,1未还款,2已还款
+  status?: long(name='status'),
+  // 原所有权id
+  oldOwnershipId?: string(name='old_ownership_id'),
+  // 现所有权id
+  newOwnershipId?: string(name='new_ownership_id'),
+}
+
+model CreateLeaseAsyncrepaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+ * Summary: 融资金融机构上传还款信息 每期
+ */
+async function createLeaseAsyncrepayment(request: CreateLeaseAsyncrepaymentRequest): CreateLeaseAsyncrepaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsyncrepaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+ * Summary: 融资金融机构上传还款信息 每期
+ */
+async function createLeaseAsyncrepaymentEx(request: CreateLeaseAsyncrepaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsyncrepaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncrepayment.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsyncauditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string(name='application_id'),
+  // 融资机构审核批次
+  batchIndex?: string(name='batch_index'),
+  // 当前订单处于本批次中的index
+  currentAuditIndex?: long(name='current_audit_index'),
+  // 融资租赁额外字段
+  extraInfo?: string(name='extra_info'),
+  // 租赁服务平台ID 长度不可超过50
+  leaseId: string(maxLength=50, name='lease_id'),
+  // 融资机构审核状态，0.审核中1.审核失败2.审核成功
+  manualAudit: long(name='manual_audit'),
+  // 融资结构审核说明，非必填，审核失败必填失败原因
+  manualAuditComments?: string(name='manual_audit_comments'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+  relatedNotify?: [ string ](name='related_notify'),
+  // 总审核的个数
+  totalAuditNumber?: long(name='total_audit_number'),
+}
+
+model CreateLeaseAsyncauditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+ * Summary: 融资平台审核订单信息
+ */
+async function createLeaseAsyncaudit(request: CreateLeaseAsyncauditRequest): CreateLeaseAsyncauditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsyncauditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+ * Summary: 融资平台审核订单信息
+ */
+async function createLeaseAsyncauditEx(request: CreateLeaseAsyncauditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsyncauditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncaudit.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseAsyncpaymentfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台生成
+  applicationId?: string(name='application_id'),
+  // 融资租赁额外字段
+  extraInfo?: string(name='extra_info'),
+  // 租赁服务平台ID 长度不可超过50
+  leaseId: string(maxLength=50, name='lease_id'),
+  // 订单id 长度不可超过50
+  orderId: string(maxLength=50, name='order_id'),
+  // 付款通知书加签完电子签名后，PDF文件hash
+  paymentFileHash?: string(name='payment_file_hash'),
+  // 付款通知书存证交易哈希
+  paymentFileTxHash?: string(name='payment_file_tx_hash'),
+  // 付款通知所在路径
+  paymentUrl?: string(name='payment_url'),
+  // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+  relatedNotify?: [ string ](name='related_notify'),
+}
+
+model CreateLeaseAsyncpaymentfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步回执id，可用于查看合约执行结果
+  bizId?: string(name='biz_id'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+ * Summary: 租赁平台上传付款通知信息
+ */
+async function createLeaseAsyncpaymentfile(request: CreateLeaseAsyncpaymentfileRequest): CreateLeaseAsyncpaymentfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAsyncpaymentfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+ * Summary: 租赁平台上传付款通知信息
+ */
+async function createLeaseAsyncpaymentfileEx(request: CreateLeaseAsyncpaymentfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAsyncpaymentfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncpaymentfile.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseAsyncencryptedinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资租赁业务id，由资方控制台创建返回
+  applicationId?: string(name='application_id'),
+  // 被查询的租赁公司对应的租户ID
+  leaseId: string(name='lease_id'),
+  // 	
+  // 订单id
+  orderId: string(name='order_id'),
+}
+
+model QueryLeaseAsyncencryptedinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+  // 对应的加密后的具体信息（只有当query_status状态为SUCCESS时才返回此数据）
+  responseData?: string(name='response_data'),
+  // 链上查询状态枚举
+  // TOBE_CHAIN 待上链查询
+  // CHAINING 查询中
+  // SUCCESS 查询成功
+  // FAIL 查询失败
+  queryStatus?: string(name='query_status'),
+}
+
+/**
+ * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+ * Summary: 查询用户等加密信息
+ */
+async function queryLeaseAsyncencryptedinfo(request: QueryLeaseAsyncencryptedinfoRequest): QueryLeaseAsyncencryptedinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseAsyncencryptedinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+ * Summary: 查询用户等加密信息
+ */
+async function queryLeaseAsyncencryptedinfoEx(request: QueryLeaseAsyncencryptedinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseAsyncencryptedinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asyncencryptedinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseAsynccallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 上链时返回的回执id
+  bizId: string(name='biz_id'),
+}
+
+model QueryLeaseAsynccallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上链状态
+  // TOBE_CHAIN(待上链)
+  // CHAINING（上链中）SUCCESS(上链成功)
+  // FAIL(上链失败)
+  status?: string(name='status'),
+  // 成功的时候返回txHash
+  txHash?: string(name='tx_hash'),
+  // 上链失败信息，status为FAIL时返回
+  chainFailMessage?: string(name='chain_fail_message'),
+}
+
+/**
+ * Description: 租赁异步调用上链结果回查
+ * Summary: 租赁异步调用上链结果回查
+ */
+async function queryLeaseAsynccall(request: QueryLeaseAsynccallRequest): QueryLeaseAsynccallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseAsynccallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁异步调用上链结果回查
+ * Summary: 租赁异步调用上链结果回查
+ */
+async function queryLeaseAsynccallEx(request: QueryLeaseAsynccallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseAsynccallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.asynccall.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
