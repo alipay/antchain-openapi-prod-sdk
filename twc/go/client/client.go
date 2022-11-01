@@ -21801,6 +21801,8 @@ type StartJusticeCaseRequest struct {
 	ContactInfo *ContactInfo `json:"contact_info,omitempty" xml:"contact_info,omitempty"`
 	// 调解回款银行账户(如果不传则使用租户维度的配置信息)
 	BankAccountInfo *BankAccountInfo `json:"bank_account_info,omitempty" xml:"bank_account_info,omitempty"`
+	// 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
+	SignMethod *string `json:"sign_method,omitempty" xml:"sign_method,omitempty"`
 }
 
 func (s StartJusticeCaseRequest) String() string {
@@ -21848,6 +21850,11 @@ func (s *StartJusticeCaseRequest) SetContactInfo(v *ContactInfo) *StartJusticeCa
 
 func (s *StartJusticeCaseRequest) SetBankAccountInfo(v *BankAccountInfo) *StartJusticeCaseRequest {
 	s.BankAccountInfo = v
+	return s
+}
+
+func (s *StartJusticeCaseRequest) SetSignMethod(v string) *StartJusticeCaseRequest {
+	s.SignMethod = &v
 	return s
 }
 
@@ -21968,6 +21975,8 @@ type QueryJusticeCaseResponse struct {
 	JudicialRecordStatusTime *string `json:"judicial_record_status_time,omitempty" xml:"judicial_record_status_time,omitempty"`
 	// 维权过程中的文件列表
 	JudicialFiles []*JudicialFileInfo `json:"judicial_files,omitempty" xml:"judicial_files,omitempty" type:"Repeated"`
+	// 案件提交失败的原因,维权状态为提交失败时存在
+	SubmitErrorMsg *string `json:"submit_error_msg,omitempty" xml:"submit_error_msg,omitempty"`
 }
 
 func (s QueryJusticeCaseResponse) String() string {
@@ -22030,6 +22039,11 @@ func (s *QueryJusticeCaseResponse) SetJudicialRecordStatusTime(v string) *QueryJ
 
 func (s *QueryJusticeCaseResponse) SetJudicialFiles(v []*JudicialFileInfo) *QueryJusticeCaseResponse {
 	s.JudicialFiles = v
+	return s
+}
+
+func (s *QueryJusticeCaseResponse) SetSubmitErrorMsg(v string) *QueryJusticeCaseResponse {
+	s.SubmitErrorMsg = &v
 	return s
 }
 
@@ -22518,6 +22532,90 @@ func (s *CreateJusticeDocumenttemplateResponse) SetResultMsg(v string) *CreateJu
 
 func (s *CreateJusticeDocumenttemplateResponse) SetTemplateId(v string) *CreateJusticeDocumenttemplateResponse {
 	s.TemplateId = &v
+	return s
+}
+
+type QueryJusticeCommoncaseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件号
+	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty" require:"true"`
+	// 用户幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s QueryJusticeCommoncaseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeCommoncaseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeCommoncaseinfoRequest) SetAuthToken(v string) *QueryJusticeCommoncaseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoRequest) SetProductInstanceId(v string) *QueryJusticeCommoncaseinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoRequest) SetCaseNo(v string) *QueryJusticeCommoncaseinfoRequest {
+	s.CaseNo = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoRequest) SetClientToken(v string) *QueryJusticeCommoncaseinfoRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type QueryJusticeCommoncaseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 要素信息
+	BusinessInfo *string `json:"business_info,omitempty" xml:"business_info,omitempty"`
+	// 查询的案件编号
+	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty"`
+}
+
+func (s QueryJusticeCommoncaseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeCommoncaseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetReqMsgId(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetResultCode(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetResultMsg(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetBusinessInfo(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.BusinessInfo = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetCaseNo(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.CaseNo = &v
 	return s
 }
 
@@ -26193,6 +26291,1281 @@ func (s *CreateLeaseRiskResponse) SetPaas(v string) *CreateLeaseRiskResponse {
 
 func (s *CreateLeaseRiskResponse) SetRiskId(v string) *CreateLeaseRiskResponse {
 	s.RiskId = &v
+	return s
+}
+
+type CreateLeaseAsyncverifyinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台生成返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 放款账户
+	CardNumber *string `json:"card_number,omitempty" xml:"card_number,omitempty"`
+	// 授信终止时间，格式为"2019-07-31 12:00:00"
+	CreditEndTime *string `json:"credit_end_time,omitempty" xml:"credit_end_time,omitempty"`
+	// 授信额度，精确到毫厘，即123400表示12.34元
+	CreditLimit *int64 `json:"credit_limit,omitempty" xml:"credit_limit,omitempty"`
+	// 授信起始时间，格式为"2019-07-31 12:00:00"
+	CreditStartTime *string `json:"credit_start_time,omitempty" xml:"credit_start_time,omitempty"`
+	// 融资租赁审贷信息额外字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 承租企业统一社会信用代码 长度不可超过50
+	LeaseCorpId *string `json:"lease_corp_id,omitempty" xml:"lease_corp_id,omitempty" maxLength:"50"`
+	// 承租企业名称 长度不可超过50
+	LeaseCorpName *string `json:"lease_corp_name,omitempty" xml:"lease_corp_name,omitempty" maxLength:"50"`
+	// 承租法定代表人姓名 长度不可超过50
+	LeaseCorpOwnerName *string `json:"lease_corp_owner_name,omitempty" xml:"lease_corp_owner_name,omitempty" maxLength:"50"`
+	// 租赁服务平台id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 放款流水单号
+	Loan *string `json:"loan,omitempty" xml:"loan,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 还款计划文件哈希
+	PayBackHash *string `json:"pay_back_hash,omitempty" xml:"pay_back_hash,omitempty"`
+	// 还款计划文件存证交易哈希
+	PayBackTxHash *string `json:"pay_back_tx_hash,omitempty" xml:"pay_back_tx_hash,omitempty"`
+	// 承租人身份证
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 承租人姓名 长度不可超过10
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" maxLength:"10"`
+	// 承租人手机号
+	UserPhoneNumber *string `json:"user_phone_number,omitempty" xml:"user_phone_number,omitempty"`
+	// 拒绝的理由
+	VerifyRefuseDesc *string `json:"verify_refuse_desc,omitempty" xml:"verify_refuse_desc,omitempty"`
+	// 是否通过，0表示不通过，1表示通过
+	VerifyResult *int64 `json:"verify_result,omitempty" xml:"verify_result,omitempty" require:"true"`
+	// 付款汇款凭证 民盛转账成功后上传
+	Voucher *string `json:"voucher,omitempty" xml:"voucher,omitempty"`
+}
+
+func (s CreateLeaseAsyncverifyinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncverifyinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetAuthToken(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetProductInstanceId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetApplicationId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetCardNumber(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.CardNumber = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetCreditEndTime(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.CreditEndTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetCreditLimit(v int64) *CreateLeaseAsyncverifyinfoRequest {
+	s.CreditLimit = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetCreditStartTime(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.CreditStartTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetExtraInfo(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetLeaseCorpId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.LeaseCorpId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetLeaseCorpName(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.LeaseCorpName = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetLeaseCorpOwnerName(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.LeaseCorpOwnerName = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetLeaseId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetLoan(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.Loan = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetOrderId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetPayBackHash(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.PayBackHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetPayBackTxHash(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.PayBackTxHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetUserId(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetUserName(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetUserPhoneNumber(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.UserPhoneNumber = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetVerifyRefuseDesc(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.VerifyRefuseDesc = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetVerifyResult(v int64) *CreateLeaseAsyncverifyinfoRequest {
+	s.VerifyResult = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoRequest) SetVoucher(v string) *CreateLeaseAsyncverifyinfoRequest {
+	s.Voucher = &v
+	return s
+}
+
+type CreateLeaseAsyncverifyinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，成功为OK
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsyncverifyinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncverifyinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetReqMsgId(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetResultCode(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetResultMsg(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetBizId(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetCode(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncverifyinfoResponse) SetMessage(v string) *CreateLeaseAsyncverifyinfoResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateLeaseAsynccreditpromiseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台创建返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 融资租赁承诺额外字段
+	CreditPromiseExtraInfoList []*string `json:"credit_promise_extra_info_list,omitempty" xml:"credit_promise_extra_info_list,omitempty" type:"Repeated"`
+	// 租赁平台金融科技id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 垫付金额
+	PayInAdvanceMoney *int64 `json:"pay_in_advance_money,omitempty" xml:"pay_in_advance_money,omitempty"`
+	// 垫付金额，精确到毫厘，即123400表示12.34元
+	PayInAdvanceMoneyList []*int64 `json:"pay_in_advance_money_list,omitempty" xml:"pay_in_advance_money_list,omitempty" type:"Repeated"`
+	// 垫付日期
+	PayInAdvanceTime *string `json:"pay_in_advance_time,omitempty" xml:"pay_in_advance_time,omitempty"`
+	// 垫付日 格式为2019-8-31 12:00:00
+	PayInAdvanceTimeList []*string `json:"pay_in_advance_time_list,omitempty" xml:"pay_in_advance_time_list,omitempty" require:"true" type:"Repeated"`
+	// 根据融资租赁合同及其补充协议哈希
+	PromiseHash *string `json:"promise_hash,omitempty" xml:"promise_hash,omitempty" require:"true"`
+	// 根据融资租赁合同及其补充协议存证交易hash
+	PromiseTxHash *string `json:"promise_tx_hash,omitempty" xml:"promise_tx_hash,omitempty" require:"true"`
+	// 归还金额
+	ReturnMoney *int64 `json:"return_money,omitempty" xml:"return_money,omitempty"`
+	// 还款金额，精确到毫厘，即123400表示12.34元
+	ReturnMoneyList []*int64 `json:"return_money_list,omitempty" xml:"return_money_list,omitempty" require:"true" type:"Repeated"`
+	// 还款比例，精确到小数点后四位 12.34% 表示为1234
+	ReturnRate *int64 `json:"return_rate,omitempty" xml:"return_rate,omitempty"`
+	// 归还日，格式为"2019-07-31 12:00:00"
+	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty"`
+	// 归还日，格式为"2019-07-31 12:00:00"
+	ReturnTimeList []*string `json:"return_time_list,omitempty" xml:"return_time_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateLeaseAsynccreditpromiseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsynccreditpromiseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetAuthToken(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetProductInstanceId(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetApplicationId(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetCreditPromiseExtraInfoList(v []*string) *CreateLeaseAsynccreditpromiseRequest {
+	s.CreditPromiseExtraInfoList = v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetLeaseId(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetOrderId(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPayInAdvanceMoney(v int64) *CreateLeaseAsynccreditpromiseRequest {
+	s.PayInAdvanceMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPayInAdvanceMoneyList(v []*int64) *CreateLeaseAsynccreditpromiseRequest {
+	s.PayInAdvanceMoneyList = v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPayInAdvanceTime(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.PayInAdvanceTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPayInAdvanceTimeList(v []*string) *CreateLeaseAsynccreditpromiseRequest {
+	s.PayInAdvanceTimeList = v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPromiseHash(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.PromiseHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetPromiseTxHash(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.PromiseTxHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetReturnMoney(v int64) *CreateLeaseAsynccreditpromiseRequest {
+	s.ReturnMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetReturnMoneyList(v []*int64) *CreateLeaseAsynccreditpromiseRequest {
+	s.ReturnMoneyList = v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetReturnRate(v int64) *CreateLeaseAsynccreditpromiseRequest {
+	s.ReturnRate = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetReturnTime(v string) *CreateLeaseAsynccreditpromiseRequest {
+	s.ReturnTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseRequest) SetReturnTimeList(v []*string) *CreateLeaseAsynccreditpromiseRequest {
+	s.ReturnTimeList = v
+	return s
+}
+
+type CreateLeaseAsynccreditpromiseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsynccreditpromiseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsynccreditpromiseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetReqMsgId(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetResultCode(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetResultMsg(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetBizId(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetCode(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsynccreditpromiseResponse) SetMessage(v string) *CreateLeaseAsynccreditpromiseResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateLeaseAsyncclearingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台创建返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 清分收款账号 长度不超过64
+	ClearingAccount *string `json:"clearing_account,omitempty" xml:"clearing_account,omitempty" require:"true" maxLength:"64"`
+	// 清分金额,精确到毫厘，即123400表示12.34元
+	ClearingMoney *int64 `json:"clearing_money,omitempty" xml:"clearing_money,omitempty" require:"true"`
+	// 清分订单号 长度不超过128
+	ClearingOrderIds []*string `json:"clearing_order_ids,omitempty" xml:"clearing_order_ids,omitempty" require:"true" type:"Repeated"`
+	// 清分状态,1.足额2.部分3.零
+	ClearingState *int64 `json:"clearing_state,omitempty" xml:"clearing_state,omitempty"`
+	// 结束时间，格式为"2019-07-31 12:00:00"
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 融资租赁额外字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 租赁平台商户Id 长度不可超过50
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 还款批次
+	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true"`
+	// 开始时间，格式为"2019-07-31 12:00:00"
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 清分资金的来源，比如用户xx元，商家yy元
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 融资租赁资金方id
+	CreditId *string `json:"credit_id,omitempty" xml:"credit_id,omitempty"`
+}
+
+func (s CreateLeaseAsyncclearingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncclearingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetAuthToken(v string) *CreateLeaseAsyncclearingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetProductInstanceId(v string) *CreateLeaseAsyncclearingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetApplicationId(v string) *CreateLeaseAsyncclearingRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetClearingAccount(v string) *CreateLeaseAsyncclearingRequest {
+	s.ClearingAccount = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetClearingMoney(v int64) *CreateLeaseAsyncclearingRequest {
+	s.ClearingMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetClearingOrderIds(v []*string) *CreateLeaseAsyncclearingRequest {
+	s.ClearingOrderIds = v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetClearingState(v int64) *CreateLeaseAsyncclearingRequest {
+	s.ClearingState = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetEndTime(v string) *CreateLeaseAsyncclearingRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetExtraInfo(v string) *CreateLeaseAsyncclearingRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetLeaseId(v string) *CreateLeaseAsyncclearingRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetOrderId(v string) *CreateLeaseAsyncclearingRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetReturnIndex(v int64) *CreateLeaseAsyncclearingRequest {
+	s.ReturnIndex = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetStartTime(v string) *CreateLeaseAsyncclearingRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetMemo(v string) *CreateLeaseAsyncclearingRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingRequest) SetCreditId(v string) *CreateLeaseAsyncclearingRequest {
+	s.CreditId = &v
+	return s
+}
+
+type CreateLeaseAsyncclearingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsyncclearingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncclearingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetReqMsgId(v string) *CreateLeaseAsyncclearingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetResultCode(v string) *CreateLeaseAsyncclearingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetResultMsg(v string) *CreateLeaseAsyncclearingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetBizId(v string) *CreateLeaseAsyncclearingResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetCode(v string) *CreateLeaseAsyncclearingResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncclearingResponse) SetMessage(v string) *CreateLeaseAsyncclearingResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateLeaseAsyncrepaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台生成返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 融资租赁租户还款额外字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 是否最终订单还款结束
+	IsFinish *bool `json:"is_finish,omitempty" xml:"is_finish,omitempty" require:"true"`
+	// 租赁平台商户Id 长度不可超过50
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 逾期天数,支用到期日开始计算
+	OverdueDay *int64 `json:"overdue_day,omitempty" xml:"overdue_day,omitempty"`
+	// 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+	OverdueMoney *int64 `json:"overdue_money,omitempty" xml:"overdue_money,omitempty"`
+	// 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+	OverdueRate *int64 `json:"overdue_rate,omitempty" xml:"overdue_rate,omitempty"`
+	// 逾期状态,暂时都以0处理，目前不处理
+	OverdueStatus *int64 `json:"overdue_status,omitempty" xml:"overdue_status,omitempty"`
+	// 剩余应还金额，精确到毫厘，即123400表示12.34元
+	RemainReturnMoney *int64 `json:"remain_return_money,omitempty" xml:"remain_return_money,omitempty" require:"true"`
+	// 剩余应还期数
+	RemainReturnTerm *string `json:"remain_return_term,omitempty" xml:"remain_return_term,omitempty" require:"true"`
+	// 每次还款流水凭证，需要融资方确认，id一样则不处理
+	RepaymentUniqueId *string `json:"repayment_unique_id,omitempty" xml:"repayment_unique_id,omitempty" require:"true"`
+	// 还款结果简要描述,长度不超过256
+	ReturnDescription *string `json:"return_description,omitempty" xml:"return_description,omitempty" require:"true" maxLength:"256"`
+	// 还款批次
+	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true"`
+	// 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+	ReturnMoney *int64 `json:"return_money,omitempty" xml:"return_money,omitempty" require:"true"`
+	// 还款结果状态,1.成功 2.失败
+	ReturnStatus *int64 `json:"return_status,omitempty" xml:"return_status,omitempty" require:"true"`
+	// 还款日期，格式为"2019-07-31 12:00:00"
+	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty" require:"true"`
+	// 还款来源,1.共管账号，2.网商清分
+	Source *int64 `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 逾期后还款状态,1未还款,2已还款
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 原所有权id
+	OldOwnershipId *string `json:"old_ownership_id,omitempty" xml:"old_ownership_id,omitempty"`
+	// 现所有权id
+	NewOwnershipId *string `json:"new_ownership_id,omitempty" xml:"new_ownership_id,omitempty"`
+}
+
+func (s CreateLeaseAsyncrepaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncrepaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetAuthToken(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetProductInstanceId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetApplicationId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetExtraInfo(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetIsFinish(v bool) *CreateLeaseAsyncrepaymentRequest {
+	s.IsFinish = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetLeaseId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOrderId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOverdueDay(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.OverdueDay = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOverdueMoney(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.OverdueMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOverdueRate(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.OverdueRate = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOverdueStatus(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.OverdueStatus = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetRemainReturnMoney(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.RemainReturnMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetRemainReturnTerm(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.RemainReturnTerm = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetRepaymentUniqueId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.RepaymentUniqueId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetReturnDescription(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.ReturnDescription = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetReturnIndex(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.ReturnIndex = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetReturnMoney(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.ReturnMoney = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetReturnStatus(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.ReturnStatus = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetReturnTime(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.ReturnTime = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetSource(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetStatus(v int64) *CreateLeaseAsyncrepaymentRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetOldOwnershipId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.OldOwnershipId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentRequest) SetNewOwnershipId(v string) *CreateLeaseAsyncrepaymentRequest {
+	s.NewOwnershipId = &v
+	return s
+}
+
+type CreateLeaseAsyncrepaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsyncrepaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncrepaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetReqMsgId(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetResultCode(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetResultMsg(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetBizId(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetCode(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncrepaymentResponse) SetMessage(v string) *CreateLeaseAsyncrepaymentResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateLeaseAsyncauditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台创建返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 融资机构审核批次
+	BatchIndex *string `json:"batch_index,omitempty" xml:"batch_index,omitempty"`
+	// 当前订单处于本批次中的index
+	CurrentAuditIndex *int64 `json:"current_audit_index,omitempty" xml:"current_audit_index,omitempty"`
+	// 融资租赁额外字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 租赁服务平台ID 长度不可超过50
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	// 融资机构审核状态，0.审核中1.审核失败2.审核成功
+	ManualAudit *int64 `json:"manual_audit,omitempty" xml:"manual_audit,omitempty" require:"true"`
+	// 融资结构审核说明，非必填，审核失败必填失败原因
+	ManualAuditComments *string `json:"manual_audit_comments,omitempty" xml:"manual_audit_comments,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+	RelatedNotify []*string `json:"related_notify,omitempty" xml:"related_notify,omitempty" type:"Repeated"`
+	// 总审核的个数
+	TotalAuditNumber *int64 `json:"total_audit_number,omitempty" xml:"total_audit_number,omitempty"`
+}
+
+func (s CreateLeaseAsyncauditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncauditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetAuthToken(v string) *CreateLeaseAsyncauditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetProductInstanceId(v string) *CreateLeaseAsyncauditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetApplicationId(v string) *CreateLeaseAsyncauditRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetBatchIndex(v string) *CreateLeaseAsyncauditRequest {
+	s.BatchIndex = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetCurrentAuditIndex(v int64) *CreateLeaseAsyncauditRequest {
+	s.CurrentAuditIndex = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetExtraInfo(v string) *CreateLeaseAsyncauditRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetLeaseId(v string) *CreateLeaseAsyncauditRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetManualAudit(v int64) *CreateLeaseAsyncauditRequest {
+	s.ManualAudit = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetManualAuditComments(v string) *CreateLeaseAsyncauditRequest {
+	s.ManualAuditComments = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetOrderId(v string) *CreateLeaseAsyncauditRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetRelatedNotify(v []*string) *CreateLeaseAsyncauditRequest {
+	s.RelatedNotify = v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditRequest) SetTotalAuditNumber(v int64) *CreateLeaseAsyncauditRequest {
+	s.TotalAuditNumber = &v
+	return s
+}
+
+type CreateLeaseAsyncauditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsyncauditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncauditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetReqMsgId(v string) *CreateLeaseAsyncauditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetResultCode(v string) *CreateLeaseAsyncauditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetResultMsg(v string) *CreateLeaseAsyncauditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetBizId(v string) *CreateLeaseAsyncauditResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetCode(v string) *CreateLeaseAsyncauditResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncauditResponse) SetMessage(v string) *CreateLeaseAsyncauditResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateLeaseAsyncpaymentfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台生成
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 融资租赁额外字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 租赁服务平台ID 长度不可超过50
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
+	// 付款通知书加签完电子签名后，PDF文件hash
+	PaymentFileHash *string `json:"payment_file_hash,omitempty" xml:"payment_file_hash,omitempty"`
+	// 付款通知书存证交易哈希
+	PaymentFileTxHash *string `json:"payment_file_tx_hash,omitempty" xml:"payment_file_tx_hash,omitempty"`
+	// 付款通知所在路径
+	PaymentUrl *string `json:"payment_url,omitempty" xml:"payment_url,omitempty"`
+	// 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
+	RelatedNotify []*string `json:"related_notify,omitempty" xml:"related_notify,omitempty" type:"Repeated"`
+}
+
+func (s CreateLeaseAsyncpaymentfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncpaymentfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetAuthToken(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetProductInstanceId(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetApplicationId(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetExtraInfo(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetLeaseId(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetOrderId(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetPaymentFileHash(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.PaymentFileHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetPaymentFileTxHash(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.PaymentFileTxHash = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetPaymentUrl(v string) *CreateLeaseAsyncpaymentfileRequest {
+	s.PaymentUrl = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileRequest) SetRelatedNotify(v []*string) *CreateLeaseAsyncpaymentfileRequest {
+	s.RelatedNotify = v
+	return s
+}
+
+type CreateLeaseAsyncpaymentfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步回执id，可用于查看合约执行结果
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateLeaseAsyncpaymentfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseAsyncpaymentfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetReqMsgId(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetResultCode(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetResultMsg(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetBizId(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetCode(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseAsyncpaymentfileResponse) SetMessage(v string) *CreateLeaseAsyncpaymentfileResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryLeaseAsyncencryptedinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融资租赁业务id，由资方控制台创建返回
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 被查询的租赁公司对应的租户ID
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	//
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryLeaseAsyncencryptedinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseAsyncencryptedinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseAsyncencryptedinfoRequest) SetAuthToken(v string) *QueryLeaseAsyncencryptedinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoRequest) SetProductInstanceId(v string) *QueryLeaseAsyncencryptedinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoRequest) SetApplicationId(v string) *QueryLeaseAsyncencryptedinfoRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoRequest) SetLeaseId(v string) *QueryLeaseAsyncencryptedinfoRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoRequest) SetOrderId(v string) *QueryLeaseAsyncencryptedinfoRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryLeaseAsyncencryptedinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码，OK表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 对应的加密后的具体信息（只有当query_status状态为SUCCESS时才返回此数据）
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+	// 链上查询状态枚举
+	// TOBE_CHAIN 待上链查询
+	// CHAINING 查询中
+	// SUCCESS 查询成功
+	// FAIL 查询失败
+	QueryStatus *string `json:"query_status,omitempty" xml:"query_status,omitempty"`
+}
+
+func (s QueryLeaseAsyncencryptedinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseAsyncencryptedinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetReqMsgId(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetResultCode(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetResultMsg(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetCode(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetMessage(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetResponseData(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.ResponseData = &v
+	return s
+}
+
+func (s *QueryLeaseAsyncencryptedinfoResponse) SetQueryStatus(v string) *QueryLeaseAsyncencryptedinfoResponse {
+	s.QueryStatus = &v
+	return s
+}
+
+type QueryLeaseAsynccallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 上链时返回的回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+}
+
+func (s QueryLeaseAsynccallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseAsynccallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseAsynccallRequest) SetAuthToken(v string) *QueryLeaseAsynccallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallRequest) SetProductInstanceId(v string) *QueryLeaseAsynccallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallRequest) SetOrderId(v string) *QueryLeaseAsynccallRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallRequest) SetBizId(v string) *QueryLeaseAsynccallRequest {
+	s.BizId = &v
+	return s
+}
+
+type QueryLeaseAsynccallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上链状态
+	// TOBE_CHAIN(待上链)
+	// CHAINING（上链中）SUCCESS(上链成功)
+	// FAIL(上链失败)
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 成功的时候返回txHash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 上链失败信息，status为FAIL时返回
+	ChainFailMessage *string `json:"chain_fail_message,omitempty" xml:"chain_fail_message,omitempty"`
+}
+
+func (s QueryLeaseAsynccallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseAsynccallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseAsynccallResponse) SetReqMsgId(v string) *QueryLeaseAsynccallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetResultCode(v string) *QueryLeaseAsynccallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetResultMsg(v string) *QueryLeaseAsynccallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetStatus(v string) *QueryLeaseAsynccallResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetTxHash(v string) *QueryLeaseAsynccallResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetChainFailMessage(v string) *QueryLeaseAsynccallResponse {
+	s.ChainFailMessage = &v
 	return s
 }
 
@@ -38334,7 +39707,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.94"),
+				"sdk_version":      tea.String("1.7.98"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -43291,6 +44664,40 @@ func (client *Client) CreateJusticeDocumenttemplateEx(request *CreateJusticeDocu
 }
 
 /**
+ * Description: 仲裁-通用版本进件要素信息查询
+ * Summary: 仲裁-通用版本进件要素信息查询
+ */
+func (client *Client) QueryJusticeCommoncaseinfo(request *QueryJusticeCommoncaseinfoRequest) (_result *QueryJusticeCommoncaseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryJusticeCommoncaseinfoResponse{}
+	_body, _err := client.QueryJusticeCommoncaseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 仲裁-通用版本进件要素信息查询
+ * Summary: 仲裁-通用版本进件要素信息查询
+ */
+func (client *Client) QueryJusticeCommoncaseinfoEx(request *QueryJusticeCommoncaseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryJusticeCommoncaseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryJusticeCommoncaseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.commoncaseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 融资服务平台上传商品类别信息
  * Summary: 融资服务平台上传商品类别信息
  */
@@ -44405,6 +45812,278 @@ func (client *Client) CreateLeaseRiskEx(request *CreateLeaseRiskRequest, headers
 	}
 	_result = &CreateLeaseRiskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.risk.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+ * Summary: 上传租赁物购买贷款订单信息（异步）
+ */
+func (client *Client) CreateLeaseAsyncverifyinfo(request *CreateLeaseAsyncverifyinfoRequest) (_result *CreateLeaseAsyncverifyinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsyncverifyinfoResponse{}
+	_body, _err := client.CreateLeaseAsyncverifyinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
+ * Summary: 上传租赁物购买贷款订单信息（异步）
+ */
+func (client *Client) CreateLeaseAsyncverifyinfoEx(request *CreateLeaseAsyncverifyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsyncverifyinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsyncverifyinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncverifyinfo.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+ * Summary: 融资方上传承诺信息(异步)
+ */
+func (client *Client) CreateLeaseAsynccreditpromise(request *CreateLeaseAsynccreditpromiseRequest) (_result *CreateLeaseAsynccreditpromiseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsynccreditpromiseResponse{}
+	_body, _err := client.CreateLeaseAsynccreditpromiseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
+ * Summary: 融资方上传承诺信息(异步)
+ */
+func (client *Client) CreateLeaseAsynccreditpromiseEx(request *CreateLeaseAsynccreditpromiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsynccreditpromiseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsynccreditpromiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asynccreditpromise.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+ * Summary: 清分服务机构上传资金清算记录，分期
+ */
+func (client *Client) CreateLeaseAsyncclearing(request *CreateLeaseAsyncclearingRequest) (_result *CreateLeaseAsyncclearingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsyncclearingResponse{}
+	_body, _err := client.CreateLeaseAsyncclearingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
+ * Summary: 清分服务机构上传资金清算记录，分期
+ */
+func (client *Client) CreateLeaseAsyncclearingEx(request *CreateLeaseAsyncclearingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsyncclearingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsyncclearingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncclearing.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+ * Summary: 融资金融机构上传还款信息 每期
+ */
+func (client *Client) CreateLeaseAsyncrepayment(request *CreateLeaseAsyncrepaymentRequest) (_result *CreateLeaseAsyncrepaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsyncrepaymentResponse{}
+	_body, _err := client.CreateLeaseAsyncrepaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
+ * Summary: 融资金融机构上传还款信息 每期
+ */
+func (client *Client) CreateLeaseAsyncrepaymentEx(request *CreateLeaseAsyncrepaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsyncrepaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsyncrepaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncrepayment.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+ * Summary: 融资平台审核订单信息
+ */
+func (client *Client) CreateLeaseAsyncaudit(request *CreateLeaseAsyncauditRequest) (_result *CreateLeaseAsyncauditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsyncauditResponse{}
+	_body, _err := client.CreateLeaseAsyncauditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
+ * Summary: 融资平台审核订单信息
+ */
+func (client *Client) CreateLeaseAsyncauditEx(request *CreateLeaseAsyncauditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsyncauditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsyncauditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncaudit.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+ * Summary: 租赁平台上传付款通知信息
+ */
+func (client *Client) CreateLeaseAsyncpaymentfile(request *CreateLeaseAsyncpaymentfileRequest) (_result *CreateLeaseAsyncpaymentfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseAsyncpaymentfileResponse{}
+	_body, _err := client.CreateLeaseAsyncpaymentfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
+ * Summary: 租赁平台上传付款通知信息
+ */
+func (client *Client) CreateLeaseAsyncpaymentfileEx(request *CreateLeaseAsyncpaymentfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseAsyncpaymentfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseAsyncpaymentfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncpaymentfile.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+ * Summary: 查询用户等加密信息
+ */
+func (client *Client) QueryLeaseAsyncencryptedinfo(request *QueryLeaseAsyncencryptedinfoRequest) (_result *QueryLeaseAsyncencryptedinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseAsyncencryptedinfoResponse{}
+	_body, _err := client.QueryLeaseAsyncencryptedinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
+ * Summary: 查询用户等加密信息
+ */
+func (client *Client) QueryLeaseAsyncencryptedinfoEx(request *QueryLeaseAsyncencryptedinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseAsyncencryptedinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseAsyncencryptedinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asyncencryptedinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁异步调用上链结果回查
+ * Summary: 租赁异步调用上链结果回查
+ */
+func (client *Client) QueryLeaseAsynccall(request *QueryLeaseAsynccallRequest) (_result *QueryLeaseAsynccallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseAsynccallResponse{}
+	_body, _err := client.QueryLeaseAsynccallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁异步调用上链结果回查
+ * Summary: 租赁异步调用上链结果回查
+ */
+func (client *Client) QueryLeaseAsynccallEx(request *QueryLeaseAsynccallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseAsynccallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseAsynccallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.asynccall.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
