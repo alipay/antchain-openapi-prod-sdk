@@ -42,6 +42,30 @@ class BindDubbridgeCustomerBankcardRequest extends Model
      * @var string
      */
     public $channelCode;
+
+    // 客户名称
+    /**
+     * @var string
+     */
+    public $customName;
+
+    // 资产方用户唯一标识
+    /**
+     * @var string
+     */
+    public $openId;
+
+    // 身份证号
+    /**
+     * @var string
+     */
+    public $cardNo;
+
+    // 手机号
+    /**
+     * @var string
+     */
+    public $mobile;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +73,10 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         'customerNo'        => 'customer_no',
         'bankCardNo'        => 'bank_card_no',
         'channelCode'       => 'channel_code',
+        'customName'        => 'custom_name',
+        'openId'            => 'open_id',
+        'cardNo'            => 'card_no',
+        'mobile'            => 'mobile',
     ];
 
     public function validate()
@@ -80,6 +108,18 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
         }
+        if (null !== $this->customName) {
+            $res['custom_name'] = $this->customName;
+        }
+        if (null !== $this->openId) {
+            $res['open_id'] = $this->openId;
+        }
+        if (null !== $this->cardNo) {
+            $res['card_no'] = $this->cardNo;
+        }
+        if (null !== $this->mobile) {
+            $res['mobile'] = $this->mobile;
+        }
 
         return $res;
     }
@@ -109,6 +149,18 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['custom_name'])) {
+            $model->customName = $map['custom_name'];
+        }
+        if (isset($map['open_id'])) {
+            $model->openId = $map['open_id'];
+        }
+        if (isset($map['card_no'])) {
+            $model->cardNo = $map['card_no'];
+        }
+        if (isset($map['mobile'])) {
+            $model->mobile = $map['mobile'];
         }
 
         return $model;

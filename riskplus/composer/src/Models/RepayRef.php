@@ -38,7 +38,7 @@ class RepayRef extends Model
      *
      * @var int
      */
-    public $transPrincipal;
+    public $needCorpus;
 
     // 应还利息
     /**
@@ -195,7 +195,7 @@ class RepayRef extends Model
         'customNo'          => 'custom_no',
         'period'            => 'period',
         'needAmount'        => 'need_amount',
-        'transPrincipal'    => 'trans_principal',
+        'needCorpus'        => 'need_corpus',
         'needAccrual'       => 'need_accrual',
         'needFee'           => 'need_fee',
         'alreadyAmount'     => 'already_amount',
@@ -222,7 +222,7 @@ class RepayRef extends Model
         Model::validateRequired('customNo', $this->customNo, true);
         Model::validateRequired('period', $this->period, true);
         Model::validateRequired('needAmount', $this->needAmount, true);
-        Model::validateRequired('transPrincipal', $this->transPrincipal, true);
+        Model::validateRequired('needCorpus', $this->needCorpus, true);
         Model::validateRequired('needAccrual', $this->needAccrual, true);
         Model::validateRequired('needFee', $this->needFee, true);
         Model::validateRequired('alreadyAmount', $this->alreadyAmount, true);
@@ -258,8 +258,8 @@ class RepayRef extends Model
         if (null !== $this->needAmount) {
             $res['need_amount'] = $this->needAmount;
         }
-        if (null !== $this->transPrincipal) {
-            $res['trans_principal'] = $this->transPrincipal;
+        if (null !== $this->needCorpus) {
+            $res['need_corpus'] = $this->needCorpus;
         }
         if (null !== $this->needAccrual) {
             $res['need_accrual'] = $this->needAccrual;
@@ -339,8 +339,8 @@ class RepayRef extends Model
         if (isset($map['need_amount'])) {
             $model->needAmount = $map['need_amount'];
         }
-        if (isset($map['trans_principal'])) {
-            $model->transPrincipal = $map['trans_principal'];
+        if (isset($map['need_corpus'])) {
+            $model->needCorpus = $map['need_corpus'];
         }
         if (isset($map['need_accrual'])) {
             $model->needAccrual = $map['need_accrual'];

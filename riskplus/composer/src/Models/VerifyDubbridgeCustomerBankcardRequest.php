@@ -42,6 +42,18 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
      * @var string
      */
     public $bindValidCode;
+
+    // 银行卡号
+    /**
+     * @var string
+     */
+    public $bankCardNo;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,12 +61,16 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         'customNo'          => 'custom_no',
         'bindSerialNo'      => 'bind_serial_no',
         'bindValidCode'     => 'bind_valid_code',
+        'bankCardNo'        => 'bank_card_no',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('bindSerialNo', $this->bindSerialNo, true);
         Model::validateRequired('bindValidCode', $this->bindValidCode, true);
+        Model::validateRequired('bankCardNo', $this->bankCardNo, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -77,6 +93,12 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         }
         if (null !== $this->bindValidCode) {
             $res['bind_valid_code'] = $this->bindValidCode;
+        }
+        if (null !== $this->bankCardNo) {
+            $res['bank_card_no'] = $this->bankCardNo;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -107,6 +129,12 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         }
         if (isset($map['bind_valid_code'])) {
             $model->bindValidCode = $map['bind_valid_code'];
+        }
+        if (isset($map['bank_card_no'])) {
+            $model->bankCardNo = $map['bank_card_no'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

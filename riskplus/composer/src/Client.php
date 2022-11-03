@@ -31,6 +31,8 @@ use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
@@ -209,6 +211,8 @@ use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportResponse;
+use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
+use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
@@ -412,7 +416,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.14',
+                    'sdk_version'      => '1.15.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4672,6 +4676,72 @@ class Client
         Utils::validateModel($request);
 
         return SendUmktDigitalsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询.
+     *
+     * @param QueryUmktCpaassmsTemplateRequest $request
+     *
+     * @return QueryUmktCpaassmsTemplateResponse
+     */
+    public function queryUmktCpaassmsTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktCpaassmsTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询.
+     *
+     * @param QueryUmktCpaassmsTemplateRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryUmktCpaassmsTemplateResponse
+     */
+    public function queryUmktCpaassmsTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktCpaassmsTemplateResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cpaassms.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实时混合批量营销圈客
+     * Summary: 实时混合批量营销圈客.
+     *
+     * @param BatchqueryUmktRtMixedmarketingRequest $request
+     *
+     * @return BatchqueryUmktRtMixedmarketingResponse
+     */
+    public function batchqueryUmktRtMixedmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRtMixedmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实时混合批量营销圈客
+     * Summary: 实时混合批量营销圈客.
+     *
+     * @param BatchqueryUmktRtMixedmarketingRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return BatchqueryUmktRtMixedmarketingResponse
+     */
+    public function batchqueryUmktRtMixedmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRtMixedmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
