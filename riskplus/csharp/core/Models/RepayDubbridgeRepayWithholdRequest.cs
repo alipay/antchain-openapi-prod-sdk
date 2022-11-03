@@ -33,6 +33,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 校验还款金额
+        [NameInMap("valid_repay_amount")]
+        [Validation(Required=false)]
+        public string ValidRepayAmount { get; set; }
+
     }
 
 }

@@ -38,6 +38,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string BindValidCode { get; set; }
 
+        // 银行卡号
+        [NameInMap("bank_card_no")]
+        [Validation(Required=true)]
+        public string BankCardNo { get; set; }
+
+        // 渠道号
+        [NameInMap("channel_code")]
+        [Validation(Required=true)]
+        public string ChannelCode { get; set; }
+
     }
 
 }

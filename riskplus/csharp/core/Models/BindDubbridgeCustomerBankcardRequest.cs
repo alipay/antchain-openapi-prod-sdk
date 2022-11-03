@@ -38,6 +38,26 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ChannelCode { get; set; }
 
+        // 客户名称
+        [NameInMap("custom_name")]
+        [Validation(Required=false)]
+        public string CustomName { get; set; }
+
+        // 资产方用户唯一标识
+        [NameInMap("open_id")]
+        [Validation(Required=false)]
+        public string OpenId { get; set; }
+
+        // 身份证号
+        [NameInMap("card_no")]
+        [Validation(Required=false)]
+        public string CardNo { get; set; }
+
+        // 手机号
+        [NameInMap("mobile")]
+        [Validation(Required=false)]
+        public string Mobile { get; set; }
+
     }
 
 }

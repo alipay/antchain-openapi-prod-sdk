@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.14"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.14"},
+                        {"sdk_version", "1.15.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5753,6 +5753,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendUmktDigitalsmsBatchResponse>(await DoRequestAsync("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public QueryUmktCpaassmsTemplateResponse QueryUmktCpaassmsTemplate(QueryUmktCpaassmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktCpaassmsTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public async Task<QueryUmktCpaassmsTemplateResponse> QueryUmktCpaassmsTemplateAsync(QueryUmktCpaassmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktCpaassmsTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public QueryUmktCpaassmsTemplateResponse QueryUmktCpaassmsTemplateEx(QueryUmktCpaassmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktCpaassmsTemplateResponse>(DoRequest("1.0", "riskplus.umkt.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public async Task<QueryUmktCpaassmsTemplateResponse> QueryUmktCpaassmsTemplateExAsync(QueryUmktCpaassmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktCpaassmsTemplateResponse>(await DoRequestAsync("1.0", "riskplus.umkt.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实时混合批量营销圈客
+         * Summary: 实时混合批量营销圈客
+         */
+        public BatchqueryUmktRtMixedmarketingResponse BatchqueryUmktRtMixedmarketing(BatchqueryUmktRtMixedmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryUmktRtMixedmarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实时混合批量营销圈客
+         * Summary: 实时混合批量营销圈客
+         */
+        public async Task<BatchqueryUmktRtMixedmarketingResponse> BatchqueryUmktRtMixedmarketingAsync(BatchqueryUmktRtMixedmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryUmktRtMixedmarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实时混合批量营销圈客
+         * Summary: 实时混合批量营销圈客
+         */
+        public BatchqueryUmktRtMixedmarketingResponse BatchqueryUmktRtMixedmarketingEx(BatchqueryUmktRtMixedmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryUmktRtMixedmarketingResponse>(DoRequest("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实时混合批量营销圈客
+         * Summary: 实时混合批量营销圈客
+         */
+        public async Task<BatchqueryUmktRtMixedmarketingResponse> BatchqueryUmktRtMixedmarketingExAsync(BatchqueryUmktRtMixedmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryUmktRtMixedmarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

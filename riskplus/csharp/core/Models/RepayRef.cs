@@ -26,9 +26,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public long? NeedAmount { get; set; }
 
         // 应还本金
-        [NameInMap("trans_principal")]
+        [NameInMap("need_corpus")]
         [Validation(Required=true)]
-        public long? TransPrincipal { get; set; }
+        public long? NeedCorpus { get; set; }
 
         // 应还利息
         [NameInMap("need_accrual")]
