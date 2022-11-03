@@ -351,6 +351,35 @@ export class RtopTypeDistribution extends $tea.Model {
   }
 }
 
+// 用户的混合策略圈客结果
+export class UmktInfoModel extends $tea.Model {
+  // 场景策略id
+  sceneStrategyId: number;
+  // 实时营销结果
+  umktResult: number;
+  // json 结构的营销额外输出信息
+  umktOutPutInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneStrategyId: 'scene_strategy_id',
+      umktResult: 'umkt_result',
+      umktOutPutInfo: 'umkt_out_put_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneStrategyId: 'number',
+      umktResult: 'number',
+      umktOutPutInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监管风险标签
 export class RtopRiskTag extends $tea.Model {
   // 标签ID
@@ -523,7 +552,7 @@ export class RepayRef extends $tea.Model {
   // 应还总额
   needAmount: number;
   // 应还本金
-  transPrincipal: number;
+  needCorpus: number;
   // 应还利息
   needAccrual: number;
   // 应还手续费
@@ -567,7 +596,7 @@ export class RepayRef extends $tea.Model {
       customNo: 'custom_no',
       period: 'period',
       needAmount: 'need_amount',
-      transPrincipal: 'trans_principal',
+      needCorpus: 'need_corpus',
       needAccrual: 'need_accrual',
       needFee: 'need_fee',
       alreadyAmount: 'already_amount',
@@ -595,7 +624,7 @@ export class RepayRef extends $tea.Model {
       customNo: 'string',
       period: 'string',
       needAmount: 'number',
-      transPrincipal: 'number',
+      needCorpus: 'number',
       needAccrual: 'number',
       needFee: 'number',
       alreadyAmount: 'number',
@@ -2833,6 +2862,31 @@ export class CustomerUmktInfoModel extends $tea.Model {
   }
 }
 
+// 混合批量营销圈客结果
+export class CustomerUmktInfosModel extends $tea.Model {
+  // 归属用户的混合营销决策结果
+  umktResults: UmktInfoModel[];
+  // 用户凭证
+  customerKey: string;
+  static names(): { [key: string]: string } {
+    return {
+      umktResults: 'umkt_results',
+      customerKey: 'customer_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      umktResults: { 'type': 'array', 'itemType': UmktInfoModel },
+      customerKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 模型结果详情
 // 
 export class ModelDetails extends $tea.Model {
@@ -3308,6 +3362,51 @@ export class CreditAmount extends $tea.Model {
       rateValue: 'number',
       repayWay: 'string',
       status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 短信模板内容
+export class CpaasSmsTemplate extends $tea.Model {
+  // 模板类型
+  templateType?: string;
+  // 模板名称
+  templateName?: string;
+  // 模板内容
+  templateContent?: string;
+  // 审批状态
+  status?: string;
+  // 模版code
+  templateCode?: string;
+  // 审核未通过原因
+  failReason?: string;
+  // 短信创建时间
+  createTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateType: 'template_type',
+      templateName: 'template_name',
+      templateContent: 'template_content',
+      status: 'status',
+      templateCode: 'template_code',
+      failReason: 'fail_reason',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateType: 'string',
+      templateName: 'string',
+      templateContent: 'string',
+      status: 'string',
+      templateCode: 'string',
+      failReason: 'string',
+      createTime: 'string',
     };
   }
 
@@ -5871,6 +5970,14 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
   bankCardNo: string;
   // 渠道描述，具体请见分配
   channelCode: string;
+  // 客户名称
+  customName?: string;
+  // 资产方用户唯一标识
+  openId?: string;
+  // 身份证号
+  cardNo?: string;
+  // 手机号
+  mobile?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5879,6 +5986,10 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       customerNo: 'customer_no',
       bankCardNo: 'bank_card_no',
       channelCode: 'channel_code',
+      customName: 'custom_name',
+      openId: 'open_id',
+      cardNo: 'card_no',
+      mobile: 'mobile',
     };
   }
 
@@ -5890,6 +6001,10 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       customerNo: 'string',
       bankCardNo: 'string',
       channelCode: 'string',
+      customName: 'string',
+      openId: 'string',
+      cardNo: 'string',
+      mobile: 'string',
     };
   }
 
@@ -5946,6 +6061,10 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
   bindSerialNo: string;
   // 绑卡验证码
   bindValidCode: string;
+  // 银行卡号
+  bankCardNo: string;
+  // 渠道号
+  channelCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5954,6 +6073,8 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       customNo: 'custom_no',
       bindSerialNo: 'bind_serial_no',
       bindValidCode: 'bind_valid_code',
+      bankCardNo: 'bank_card_no',
+      channelCode: 'channel_code',
     };
   }
 
@@ -5965,6 +6086,8 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       customNo: 'string',
       bindSerialNo: 'string',
       bindValidCode: 'string',
+      bankCardNo: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -7477,6 +7600,8 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
   repayType: string;
   // 订单号
   orderNo: string;
+  // 校验还款金额
+  validRepayAmount?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7484,6 +7609,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       originalOrderNo: 'original_order_no',
       repayType: 'repay_type',
       orderNo: 'order_no',
+      validRepayAmount: 'valid_repay_amount',
     };
   }
 
@@ -7494,6 +7620,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       originalOrderNo: 'string',
       repayType: 'string',
       orderNo: 'string',
+      validRepayAmount: 'string',
     };
   }
 
@@ -13352,6 +13479,172 @@ export class SendUmktDigitalsmsBatchResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktCpaassmsTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 短信类型
+  smsType: string;
+  // 行业标签
+  tenantIndustry: string;
+  // 审批状态
+  status?: string;
+  // 页码
+  pageNum?: number;
+  // 每页记录数量
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      smsType: 'sms_type',
+      tenantIndustry: 'tenant_industry',
+      status: 'status',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      smsType: 'string',
+      tenantIndustry: 'string',
+      status: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktCpaassmsTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数
+  total?: number;
+  // 每页记录数
+  pageSize?: number;
+  // 页码
+  pageNum?: number;
+  // 模板列表
+  cpassSmsTemplates?: CpaasSmsTemplate[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+      cpassSmsTemplates: 'cpass_sms_templates',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageSize: 'number',
+      pageNum: 'number',
+      cpassSmsTemplates: { 'type': 'array', 'itemType': CpaasSmsTemplate },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtMixedmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id列表
+  sceneStrategyIds: number[];
+  // 场景策略集合code，对标场景策略id列表，一般不可变
+  sceneStrategySetCode?: string;
+  // 查询协议模版
+  queryTemplate: string;
+  // 查询的用户凭证列表
+  customerKeys: string[];
+  // 业务流水号，uuid
+  bizSerialNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyIds: 'scene_strategy_ids',
+      sceneStrategySetCode: 'scene_strategy_set_code',
+      queryTemplate: 'query_template',
+      customerKeys: 'customer_keys',
+      bizSerialNo: 'biz_serial_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyIds: { 'type': 'array', 'itemType': 'number' },
+      sceneStrategySetCode: 'string',
+      queryTemplate: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+      bizSerialNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtMixedmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  queryResults?: CustomerUmktInfosModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResults: { 'type': 'array', 'itemType': CustomerUmktInfosModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -13553,7 +13846,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.14",
+          sdk_version: "1.15.0",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -16058,6 +16351,44 @@ export default class Client {
   async sendUmktDigitalsmsBatchEx(request: SendUmktDigitalsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendUmktDigitalsmsBatchResponse> {
     Util.validateModel(request);
     return $tea.cast<SendUmktDigitalsmsBatchResponse>(await this.doRequest("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendUmktDigitalsmsBatchResponse({}));
+  }
+
+  /**
+   * Description: 分页查询cpaas短信模板
+   * Summary: cpaas短信模板分页查询
+   */
+  async queryUmktCpaassmsTemplate(request: QueryUmktCpaassmsTemplateRequest): Promise<QueryUmktCpaassmsTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktCpaassmsTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询cpaas短信模板
+   * Summary: cpaas短信模板分页查询
+   */
+  async queryUmktCpaassmsTemplateEx(request: QueryUmktCpaassmsTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktCpaassmsTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktCpaassmsTemplateResponse>(await this.doRequest("1.0", "riskplus.umkt.cpaassms.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktCpaassmsTemplateResponse({}));
+  }
+
+  /**
+   * Description: 实时混合批量营销圈客
+   * Summary: 实时混合批量营销圈客
+   */
+  async batchqueryUmktRtMixedmarketing(request: BatchqueryUmktRtMixedmarketingRequest): Promise<BatchqueryUmktRtMixedmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryUmktRtMixedmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实时混合批量营销圈客
+   * Summary: 实时混合批量营销圈客
+   */
+  async batchqueryUmktRtMixedmarketingEx(request: BatchqueryUmktRtMixedmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtMixedmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryUmktRtMixedmarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtMixedmarketingResponse({}));
   }
 
   /**
