@@ -444,6 +444,39 @@ func (s *RtopTypeDistribution) SetType(v string) *RtopTypeDistribution {
 	return s
 }
 
+// 用户的混合策略圈客结果
+type UmktInfoModel struct {
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 实时营销结果
+	UmktResult *int64 `json:"umkt_result,omitempty" xml:"umkt_result,omitempty" require:"true"`
+	// json 结构的营销额外输出信息
+	UmktOutPutInfo *string `json:"umkt_out_put_info,omitempty" xml:"umkt_out_put_info,omitempty" require:"true"`
+}
+
+func (s UmktInfoModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UmktInfoModel) GoString() string {
+	return s.String()
+}
+
+func (s *UmktInfoModel) SetSceneStrategyId(v int64) *UmktInfoModel {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *UmktInfoModel) SetUmktResult(v int64) *UmktInfoModel {
+	s.UmktResult = &v
+	return s
+}
+
+func (s *UmktInfoModel) SetUmktOutPutInfo(v string) *UmktInfoModel {
+	s.UmktOutPutInfo = &v
+	return s
+}
+
 // 监管风险标签
 type RtopRiskTag struct {
 	// 标签ID
@@ -685,7 +718,7 @@ type RepayRef struct {
 	// 应还总额
 	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
 	// 应还本金
-	TransPrincipal *int64 `json:"trans_principal,omitempty" xml:"trans_principal,omitempty" require:"true"`
+	NeedCorpus *int64 `json:"need_corpus,omitempty" xml:"need_corpus,omitempty" require:"true"`
 	// 应还利息
 	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
 	// 应还手续费
@@ -749,8 +782,8 @@ func (s *RepayRef) SetNeedAmount(v int64) *RepayRef {
 	return s
 }
 
-func (s *RepayRef) SetTransPrincipal(v int64) *RepayRef {
-	s.TransPrincipal = &v
+func (s *RepayRef) SetNeedCorpus(v int64) *RepayRef {
+	s.NeedCorpus = &v
 	return s
 }
 
@@ -3874,6 +3907,32 @@ func (s *CustomerUmktInfoModel) SetUmktOutPutInfo(v string) *CustomerUmktInfoMod
 	return s
 }
 
+// 混合批量营销圈客结果
+type CustomerUmktInfosModel struct {
+	// 归属用户的混合营销决策结果
+	UmktResults []*UmktInfoModel `json:"umkt_results,omitempty" xml:"umkt_results,omitempty" require:"true" type:"Repeated"`
+	// 用户凭证
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+}
+
+func (s CustomerUmktInfosModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerUmktInfosModel) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerUmktInfosModel) SetUmktResults(v []*UmktInfoModel) *CustomerUmktInfosModel {
+	s.UmktResults = v
+	return s
+}
+
+func (s *CustomerUmktInfosModel) SetCustomerKey(v string) *CustomerUmktInfosModel {
+	s.CustomerKey = &v
+	return s
+}
+
 // 模型结果详情
 //
 type ModelDetails struct {
@@ -4498,6 +4557,67 @@ func (s *CreditAmount) SetRepayWay(v string) *CreditAmount {
 
 func (s *CreditAmount) SetStatus(v string) *CreditAmount {
 	s.Status = &v
+	return s
+}
+
+// 短信模板内容
+type CpaasSmsTemplate struct {
+	// 模板类型
+	TemplateType *string `json:"template_type,omitempty" xml:"template_type,omitempty"`
+	// 模板名称
+	TemplateName *string `json:"template_name,omitempty" xml:"template_name,omitempty"`
+	// 模板内容
+	TemplateContent *string `json:"template_content,omitempty" xml:"template_content,omitempty"`
+	// 审批状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 模版code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty"`
+	// 审核未通过原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+	// 短信创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s CpaasSmsTemplate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpaasSmsTemplate) GoString() string {
+	return s.String()
+}
+
+func (s *CpaasSmsTemplate) SetTemplateType(v string) *CpaasSmsTemplate {
+	s.TemplateType = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetTemplateName(v string) *CpaasSmsTemplate {
+	s.TemplateName = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetTemplateContent(v string) *CpaasSmsTemplate {
+	s.TemplateContent = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetStatus(v string) *CpaasSmsTemplate {
+	s.Status = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetTemplateCode(v string) *CpaasSmsTemplate {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetFailReason(v string) *CpaasSmsTemplate {
+	s.FailReason = &v
+	return s
+}
+
+func (s *CpaasSmsTemplate) SetCreateTime(v string) *CpaasSmsTemplate {
+	s.CreateTime = &v
 	return s
 }
 
@@ -7910,6 +8030,14 @@ type BindDubbridgeCustomerBankcardRequest struct {
 	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
 	// 渠道描述，具体请见分配
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 客户名称
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 身份证号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
 }
 
 func (s BindDubbridgeCustomerBankcardRequest) String() string {
@@ -7947,6 +8075,26 @@ func (s *BindDubbridgeCustomerBankcardRequest) SetBankCardNo(v string) *BindDubb
 
 func (s *BindDubbridgeCustomerBankcardRequest) SetChannelCode(v string) *BindDubbridgeCustomerBankcardRequest {
 	s.ChannelCode = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetCustomName(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.CustomName = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetOpenId(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetCardNo(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetMobile(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.Mobile = &v
 	return s
 }
 
@@ -8008,6 +8156,10 @@ type VerifyDubbridgeCustomerBankcardRequest struct {
 	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty" require:"true"`
 	// 绑卡验证码
 	BindValidCode *string `json:"bind_valid_code,omitempty" xml:"bind_valid_code,omitempty" require:"true"`
+	// 银行卡号
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
 
 func (s VerifyDubbridgeCustomerBankcardRequest) String() string {
@@ -8045,6 +8197,16 @@ func (s *VerifyDubbridgeCustomerBankcardRequest) SetBindSerialNo(v string) *Veri
 
 func (s *VerifyDubbridgeCustomerBankcardRequest) SetBindValidCode(v string) *VerifyDubbridgeCustomerBankcardRequest {
 	s.BindValidCode = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetBankCardNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.BankCardNo = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetChannelCode(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -10057,6 +10219,8 @@ type RepayDubbridgeRepayWithholdRequest struct {
 	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 校验还款金额
+	ValidRepayAmount *string `json:"valid_repay_amount,omitempty" xml:"valid_repay_amount,omitempty"`
 }
 
 func (s RepayDubbridgeRepayWithholdRequest) String() string {
@@ -10089,6 +10253,11 @@ func (s *RepayDubbridgeRepayWithholdRequest) SetRepayType(v string) *RepayDubbri
 
 func (s *RepayDubbridgeRepayWithholdRequest) SetOrderNo(v string) *RepayDubbridgeRepayWithholdRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetValidRepayAmount(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.ValidRepayAmount = &v
 	return s
 }
 
@@ -17785,6 +17954,230 @@ func (s *SendUmktDigitalsmsBatchResponse) SetBizId(v string) *SendUmktDigitalsms
 	return s
 }
 
+type QueryUmktCpaassmsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 短信类型
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty" require:"true"`
+	// 行业标签
+	TenantIndustry *string `json:"tenant_industry,omitempty" xml:"tenant_industry,omitempty" require:"true"`
+	// 审批状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页记录数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryUmktCpaassmsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCpaassmsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetAuthToken(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetProductInstanceId(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetTenantId(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetSmsType(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.SmsType = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetTenantIndustry(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.TenantIndustry = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetStatus(v string) *QueryUmktCpaassmsTemplateRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetPageNum(v int64) *QueryUmktCpaassmsTemplateRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateRequest) SetPageSize(v int64) *QueryUmktCpaassmsTemplateRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryUmktCpaassmsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 每页记录数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 模板列表
+	CpassSmsTemplates []*CpaasSmsTemplate `json:"cpass_sms_templates,omitempty" xml:"cpass_sms_templates,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktCpaassmsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCpaassmsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetReqMsgId(v string) *QueryUmktCpaassmsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetResultCode(v string) *QueryUmktCpaassmsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetResultMsg(v string) *QueryUmktCpaassmsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetTotal(v int64) *QueryUmktCpaassmsTemplateResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetPageSize(v int64) *QueryUmktCpaassmsTemplateResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetPageNum(v int64) *QueryUmktCpaassmsTemplateResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryUmktCpaassmsTemplateResponse) SetCpassSmsTemplates(v []*CpaasSmsTemplate) *QueryUmktCpaassmsTemplateResponse {
+	s.CpassSmsTemplates = v
+	return s
+}
+
+type BatchqueryUmktRtMixedmarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id列表
+	SceneStrategyIds []*int64 `json:"scene_strategy_ids,omitempty" xml:"scene_strategy_ids,omitempty" require:"true" type:"Repeated"`
+	// 场景策略集合code，对标场景策略id列表，一般不可变
+	SceneStrategySetCode *string `json:"scene_strategy_set_code,omitempty" xml:"scene_strategy_set_code,omitempty"`
+	// 查询协议模版
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty" require:"true"`
+	// 查询的用户凭证列表
+	CustomerKeys []*string `json:"customer_keys,omitempty" xml:"customer_keys,omitempty" require:"true" type:"Repeated"`
+	// 业务流水号，uuid
+	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
+}
+
+func (s BatchqueryUmktRtMixedmarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryUmktRtMixedmarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetAuthToken(v string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetProductInstanceId(v string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetSceneStrategyIds(v []*int64) *BatchqueryUmktRtMixedmarketingRequest {
+	s.SceneStrategyIds = v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetSceneStrategySetCode(v string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.SceneStrategySetCode = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetQueryTemplate(v string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetCustomerKeys(v []*string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.CustomerKeys = v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingRequest) SetBizSerialNo(v string) *BatchqueryUmktRtMixedmarketingRequest {
+	s.BizSerialNo = &v
+	return s
+}
+
+type BatchqueryUmktRtMixedmarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	QueryResults []*CustomerUmktInfosModel `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryUmktRtMixedmarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryUmktRtMixedmarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryUmktRtMixedmarketingResponse) SetReqMsgId(v string) *BatchqueryUmktRtMixedmarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingResponse) SetResultCode(v string) *BatchqueryUmktRtMixedmarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingResponse) SetResultMsg(v string) *BatchqueryUmktRtMixedmarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMixedmarketingResponse) SetQueryResults(v []*CustomerUmktInfosModel) *BatchqueryUmktRtMixedmarketingResponse {
+	s.QueryResults = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18027,7 +18420,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.14"),
+				"sdk_version":      tea.String("1.15.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22451,6 +22844,74 @@ func (client *Client) SendUmktDigitalsmsBatchEx(request *SendUmktDigitalsmsBatch
 	}
 	_result = &SendUmktDigitalsmsBatchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.digitalsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+func (client *Client) QueryUmktCpaassmsTemplate(request *QueryUmktCpaassmsTemplateRequest) (_result *QueryUmktCpaassmsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktCpaassmsTemplateResponse{}
+	_body, _err := client.QueryUmktCpaassmsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+func (client *Client) QueryUmktCpaassmsTemplateEx(request *QueryUmktCpaassmsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktCpaassmsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktCpaassmsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cpaassms.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实时混合批量营销圈客
+ * Summary: 实时混合批量营销圈客
+ */
+func (client *Client) BatchqueryUmktRtMixedmarketing(request *BatchqueryUmktRtMixedmarketingRequest) (_result *BatchqueryUmktRtMixedmarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryUmktRtMixedmarketingResponse{}
+	_body, _err := client.BatchqueryUmktRtMixedmarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实时混合批量营销圈客
+ * Summary: 实时混合批量营销圈客
+ */
+func (client *Client) BatchqueryUmktRtMixedmarketingEx(request *BatchqueryUmktRtMixedmarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryUmktRtMixedmarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryUmktRtMixedmarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.mixedmarketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
