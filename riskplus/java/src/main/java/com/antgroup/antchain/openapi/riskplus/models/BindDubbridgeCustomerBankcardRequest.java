@@ -31,6 +31,22 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     @Validation(required = true)
     public String channelCode;
 
+    // 客户名称
+    @NameInMap("custom_name")
+    public String customName;
+
+    // 资产方用户唯一标识
+    @NameInMap("open_id")
+    public String openId;
+
+    // 身份证号
+    @NameInMap("card_no")
+    public String cardNo;
+
+    // 手机号
+    @NameInMap("mobile")
+    public String mobile;
+
     public static BindDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         BindDubbridgeCustomerBankcardRequest self = new BindDubbridgeCustomerBankcardRequest();
         return TeaModel.build(map, self);
@@ -82,6 +98,38 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     }
     public String getChannelCode() {
         return this.channelCode;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setCustomName(String customName) {
+        this.customName = customName;
+        return this;
+    }
+    public String getCustomName() {
+        return this.customName;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+        return this;
+    }
+    public String getCardNo() {
+        return this.cardNo;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public String getMobile() {
+        return this.mobile;
     }
 
 }

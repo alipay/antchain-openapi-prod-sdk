@@ -26,6 +26,10 @@ public class RepayDubbridgeRepayWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 校验还款金额
+    @NameInMap("valid_repay_amount")
+    public String validRepayAmount;
+
     public static RepayDubbridgeRepayWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
         RepayDubbridgeRepayWithholdRequest self = new RepayDubbridgeRepayWithholdRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class RepayDubbridgeRepayWithholdRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public RepayDubbridgeRepayWithholdRequest setValidRepayAmount(String validRepayAmount) {
+        this.validRepayAmount = validRepayAmount;
+        return this;
+    }
+    public String getValidRepayAmount() {
+        return this.validRepayAmount;
     }
 
 }

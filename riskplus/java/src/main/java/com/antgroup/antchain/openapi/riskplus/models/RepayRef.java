@@ -20,9 +20,9 @@ public class RepayRef extends TeaModel {
     public Long needAmount;
 
     // 应还本金
-    @NameInMap("trans_principal")
+    @NameInMap("need_corpus")
     @Validation(required = true)
-    public Long transPrincipal;
+    public Long needCorpus;
 
     // 应还利息
     @NameInMap("need_accrual")
@@ -148,12 +148,12 @@ public class RepayRef extends TeaModel {
         return this.needAmount;
     }
 
-    public RepayRef setTransPrincipal(Long transPrincipal) {
-        this.transPrincipal = transPrincipal;
+    public RepayRef setNeedCorpus(Long needCorpus) {
+        this.needCorpus = needCorpus;
         return this;
     }
-    public Long getTransPrincipal() {
-        return this.transPrincipal;
+    public Long getNeedCorpus() {
+        return this.needCorpus;
     }
 
     public RepayRef setNeedAccrual(Long needAccrual) {

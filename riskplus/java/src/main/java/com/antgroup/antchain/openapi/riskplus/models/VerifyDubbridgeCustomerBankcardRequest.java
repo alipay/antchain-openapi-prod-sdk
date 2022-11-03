@@ -29,6 +29,16 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
     @Validation(required = true)
     public String bindValidCode;
 
+    // 银行卡号
+    @NameInMap("bank_card_no")
+    @Validation(required = true)
+    public String bankCardNo;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
     public static VerifyDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyDubbridgeCustomerBankcardRequest self = new VerifyDubbridgeCustomerBankcardRequest();
         return TeaModel.build(map, self);
@@ -80,6 +90,22 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
     }
     public String getBindValidCode() {
         return this.bindValidCode;
+    }
+
+    public VerifyDubbridgeCustomerBankcardRequest setBankCardNo(String bankCardNo) {
+        this.bankCardNo = bankCardNo;
+        return this;
+    }
+    public String getBankCardNo() {
+        return this.bankCardNo;
+    }
+
+    public VerifyDubbridgeCustomerBankcardRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }
