@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.14',
+    sdk_version = '1.15.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -256,6 +256,16 @@ model RtopTypeDistribution {
   type: string(name='type', example='MLM'),
 }
 
+// 用户的混合策略圈客结果
+model UmktInfoModel {
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id', example='1'),
+  // 实时营销结果
+  umktResult: long(name='umkt_result', example='1'),
+  // json 结构的营销额外输出信息
+  umktOutPutInfo: string(name='umkt_out_put_info', example='{"f_01":"95.0"}'),
+}
+
 // 监管风险标签
 model RtopRiskTag {
   // 标签ID
@@ -333,7 +343,7 @@ model RepayRef {
   // 应还总额
   needAmount: long(name='need_amount', example='1'),
   // 应还本金
-  transPrincipal: long(name='trans_principal', example=''),
+  needCorpus: long(name='need_corpus', example=''),
   // 应还利息
   needAccrual: long(name='need_accrual', example=''),
   // 应还手续费
@@ -1273,6 +1283,14 @@ model CustomerUmktInfoModel {
   umktOutPutInfo?: string(name='umkt_out_put_info', example='{"f_01":"95.0"}'),
 }
 
+// 混合批量营销圈客结果
+model CustomerUmktInfosModel {
+  // 归属用户的混合营销决策结果
+  umktResults: [ UmktInfoModel ](name='umkt_results', example=''),
+  // 用户凭证
+  customerKey: string(name='customer_key', example='8002c3d97e7d4d20a0647c75dfab1efe'),
+}
+
 // 模型结果详情
 // 
 model ModelDetails {
@@ -1462,6 +1480,24 @@ model CreditAmount {
   repayWay: string(name='repay_way', example='1'),
   // 状态0-正常 1-冻结 2-终止
   status: string(name='status', example='0'),
+}
+
+// 短信模板内容
+model CpaasSmsTemplate {
+  // 模板类型
+  templateType?: string(name='template_type', example='SMS_NOTIFICATION'),
+  // 模板名称
+  templateName?: string(name='template_name', example='扩展码测试'),
+  // 模板内容
+  templateContent?: string(name='template_content', example='扩展码测试'),
+  // 审批状态
+  status?: string(name='status', example='APPROVED'),
+  // 模版code
+  templateCode?: string(name='template_code', example='SMS_2306XXXX'),
+  // 审核未通过原因
+  failReason?: string(name='fail_reason', example='失败原因'),
+  // 短信创建时间
+  createTime?: string(name='create_time', example='短信创建时间'),
 }
 
 // 舆情的详情
@@ -2992,6 +3028,14 @@ model BindDubbridgeCustomerBankcardRequest = {
   bankCardNo: string(name='bank_card_no'),
   // 渠道描述，具体请见分配
   channelCode: string(name='channel_code'),
+  // 客户名称
+  customName?: string(name='custom_name'),
+  // 资产方用户唯一标识
+  openId?: string(name='open_id'),
+  // 身份证号
+  cardNo?: string(name='card_no'),
+  // 手机号
+  mobile?: string(name='mobile'),
 }
 
 model BindDubbridgeCustomerBankcardResponse = {
@@ -3038,6 +3082,10 @@ model VerifyDubbridgeCustomerBankcardRequest = {
   bindSerialNo: string(name='bind_serial_no'),
   // 绑卡验证码
   bindValidCode: string(name='bind_valid_code'),
+  // 银行卡号
+  bankCardNo: string(name='bank_card_no'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
 }
 
 model VerifyDubbridgeCustomerBankcardResponse = {
@@ -3964,6 +4012,8 @@ model RepayDubbridgeRepayWithholdRequest = {
   repayType: string(name='repay_type'),
   // 订单号
   orderNo: string(name='order_no'),
+  // 校验还款金额
+  validRepayAmount?: string(name='valid_repay_amount'),
 }
 
 model RepayDubbridgeRepayWithholdResponse = {
@@ -7592,6 +7642,106 @@ async function sendUmktDigitalsmsBatch(request: SendUmktDigitalsmsBatchRequest):
 async function sendUmktDigitalsmsBatchEx(request: SendUmktDigitalsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendUmktDigitalsmsBatchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktCpaassmsTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 短信类型
+  smsType: string(name='sms_type'),
+  // 行业标签
+  tenantIndustry: string(name='tenant_industry'),
+  // 审批状态
+  status?: string(name='status'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页记录数量
+  pageSize?: long(name='page_size'),
+}
+
+model QueryUmktCpaassmsTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数
+  total?: long(name='total'),
+  // 每页记录数
+  pageSize?: long(name='page_size'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 模板列表
+  cpassSmsTemplates?: [ CpaasSmsTemplate ](name='cpass_sms_templates'),
+}
+
+/**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+async function queryUmktCpaassmsTemplate(request: QueryUmktCpaassmsTemplateRequest): QueryUmktCpaassmsTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktCpaassmsTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+async function queryUmktCpaassmsTemplateEx(request: QueryUmktCpaassmsTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktCpaassmsTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.cpaassms.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryUmktRtMixedmarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id列表
+  sceneStrategyIds: [ long ](name='scene_strategy_ids'),
+  // 场景策略集合code，对标场景策略id列表，一般不可变
+  sceneStrategySetCode?: string(name='scene_strategy_set_code'),
+  // 查询协议模版
+  queryTemplate: string(name='query_template'),
+  // 查询的用户凭证列表
+  customerKeys: [ string ](name='customer_keys'),
+  // 业务流水号，uuid
+  bizSerialNo: string(name='biz_serial_no'),
+}
+
+model BatchqueryUmktRtMixedmarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  queryResults?: [ CustomerUmktInfosModel ](name='query_results'),
+}
+
+/**
+ * Description: 实时混合批量营销圈客
+ * Summary: 实时混合批量营销圈客
+ */
+async function batchqueryUmktRtMixedmarketing(request: BatchqueryUmktRtMixedmarketingRequest): BatchqueryUmktRtMixedmarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryUmktRtMixedmarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实时混合批量营销圈客
+ * Summary: 实时混合批量营销圈客
+ */
+async function batchqueryUmktRtMixedmarketingEx(request: BatchqueryUmktRtMixedmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktRtMixedmarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
