@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.14',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.14',
+                    'sdk_version': '1.15.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -7435,6 +7435,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.SendUmktDigitalsmsBatchResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_cpaassms_template(
+        self,
+        request: riskplus_models.QueryUmktCpaassmsTemplateRequest,
+    ) -> riskplus_models.QueryUmktCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_cpaassms_template_ex(request, headers, runtime)
+
+    async def query_umkt_cpaassms_template_async(
+        self,
+        request: riskplus_models.QueryUmktCpaassmsTemplateRequest,
+    ) -> riskplus_models.QueryUmktCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_cpaassms_template_ex_async(request, headers, runtime)
+
+    def query_umkt_cpaassms_template_ex(
+        self,
+        request: riskplus_models.QueryUmktCpaassmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCpaassmsTemplateResponse(),
+            self.do_request('1.0', 'riskplus.umkt.cpaassms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_cpaassms_template_ex_async(
+        self,
+        request: riskplus_models.QueryUmktCpaassmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCpaassmsTemplateResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.cpaassms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_rt_mixedmarketing(
+        self,
+        request: riskplus_models.BatchqueryUmktRtMixedmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtMixedmarketingResponse:
+        """
+        Description: 实时混合批量营销圈客
+        Summary: 实时混合批量营销圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_rt_mixedmarketing_ex(request, headers, runtime)
+
+    async def batchquery_umkt_rt_mixedmarketing_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtMixedmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtMixedmarketingResponse:
+        """
+        Description: 实时混合批量营销圈客
+        Summary: 实时混合批量营销圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_rt_mixedmarketing_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_rt_mixedmarketing_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktRtMixedmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtMixedmarketingResponse:
+        """
+        Description: 实时混合批量营销圈客
+        Summary: 实时混合批量营销圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtMixedmarketingResponse(),
+            self.do_request('1.0', 'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_rt_mixedmarketing_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtMixedmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtMixedmarketingResponse:
+        """
+        Description: 实时混合批量营销圈客
+        Summary: 实时混合批量营销圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtMixedmarketingResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
