@@ -17,6 +17,8 @@ use AntChain\MYCHARITY\Models\BatchcreateCombinationRequest;
 use AntChain\MYCHARITY\Models\BatchcreateCombinationResponse;
 use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
 use AntChain\MYCHARITY\Models\BatchcreateRecordResponse;
+use AntChain\MYCHARITY\Models\CreateActivitychainrecordRequest;
+use AntChain\MYCHARITY\Models\CreateActivitychainrecordResponse;
 use AntChain\MYCHARITY\Models\CreateAlipaysignRequest;
 use AntChain\MYCHARITY\Models\CreateAlipaysignResponse;
 use AntChain\MYCHARITY\Models\CreateBatchRequest;
@@ -210,7 +212,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.16',
+                    'sdk_version'      => '1.0.19',
                     '_prod_code'       => 'MYCHARITY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1114,5 +1116,38 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateAlipaysignResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 品牌活动捐赠记录上链接口
+     * Summary: 品牌活动捐赠记录上链接口.
+     *
+     * @param CreateActivitychainrecordRequest $request
+     *
+     * @return CreateActivitychainrecordResponse
+     */
+    public function createActivitychainrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createActivitychainrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 品牌活动捐赠记录上链接口
+     * Summary: 品牌活动捐赠记录上链接口.
+     *
+     * @param CreateActivitychainrecordRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateActivitychainrecordResponse
+     */
+    public function createActivitychainrecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateActivitychainrecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
