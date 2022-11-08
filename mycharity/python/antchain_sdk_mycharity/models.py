@@ -3836,3 +3836,189 @@ class BatchcreateAlipaysignResponse(TeaModel):
         return self
 
 
+class CreateActivitychainrecordRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_id: str = None,
+        alipay_user_id: str = None,
+        alipay_user_nick_name: str = None,
+        activity_record_id: str = None,
+        donate_type: str = None,
+        amount: int = None,
+        proof_data: str = None,
+        donate_goods_name: str = None,
+        goods_name: str = None,
+        unit: str = None,
+        pay_type: str = None,
+        donate_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部活动ID
+        self.activity_id = activity_id
+        # 支付宝用户UID：,固定16位长度
+        self.alipay_user_id = alipay_user_id
+        # 支付宝用户昵称(脱敏)
+        self.alipay_user_nick_name = alipay_user_nick_name
+        # 捐赠记录ID：(同一租户下需要做幂等)
+        self.activity_record_id = activity_record_id
+        # 捐赠类型：固定为【point/money】,point为积分兑换捐赠类型，money为购买商品捐钱类型
+        self.donate_type = donate_type
+        # 捐赠数量：积分个数、金额数量，若为金额(单位为分)
+        self.amount = amount
+        # 捐赠流水号
+        self.proof_data = proof_data
+        # 捐赠描述（积分,钱等等）
+        self.donate_goods_name = donate_goods_name
+        # 商品名称，如：维他奶
+        self.goods_name = goods_name
+        # 单位：个、CNY
+        self.unit = unit
+        # 支付方式：【wechat/alipay/bank/exchangePoint】
+        self.pay_type = pay_type
+        # 固定13位数字
+        self.donate_time = donate_time
+
+    def validate(self):
+        self.validate_required(self.activity_id, 'activity_id')
+        if self.activity_id is not None:
+            self.validate_max_length(self.activity_id, 'activity_id', 50)
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+        if self.alipay_user_id is not None:
+            self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 16)
+        if self.alipay_user_nick_name is not None:
+            self.validate_max_length(self.alipay_user_nick_name, 'alipay_user_nick_name', 50)
+        self.validate_required(self.activity_record_id, 'activity_record_id')
+        if self.activity_record_id is not None:
+            self.validate_max_length(self.activity_record_id, 'activity_record_id', 50)
+        self.validate_required(self.donate_type, 'donate_type')
+        self.validate_required(self.amount, 'amount')
+        if self.amount is not None:
+            self.validate_maximum(self.amount, 'amount', 999999999)
+            self.validate_minimum(self.amount, 'amount', 1)
+        if self.proof_data is not None:
+            self.validate_max_length(self.proof_data, 'proof_data', 50)
+        self.validate_required(self.donate_goods_name, 'donate_goods_name')
+        if self.donate_goods_name is not None:
+            self.validate_max_length(self.donate_goods_name, 'donate_goods_name', 200)
+        if self.goods_name is not None:
+            self.validate_max_length(self.goods_name, 'goods_name', 100)
+        if self.unit is not None:
+            self.validate_max_length(self.unit, 'unit', 50)
+        self.validate_required(self.pay_type, 'pay_type')
+        self.validate_required(self.donate_time, 'donate_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_id is not None:
+            result['activity_id'] = self.activity_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.alipay_user_nick_name is not None:
+            result['alipay_user_nick_name'] = self.alipay_user_nick_name
+        if self.activity_record_id is not None:
+            result['activity_record_id'] = self.activity_record_id
+        if self.donate_type is not None:
+            result['donate_type'] = self.donate_type
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.proof_data is not None:
+            result['proof_data'] = self.proof_data
+        if self.donate_goods_name is not None:
+            result['donate_goods_name'] = self.donate_goods_name
+        if self.goods_name is not None:
+            result['goods_name'] = self.goods_name
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.pay_type is not None:
+            result['pay_type'] = self.pay_type
+        if self.donate_time is not None:
+            result['donate_time'] = self.donate_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_id') is not None:
+            self.activity_id = m.get('activity_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('alipay_user_nick_name') is not None:
+            self.alipay_user_nick_name = m.get('alipay_user_nick_name')
+        if m.get('activity_record_id') is not None:
+            self.activity_record_id = m.get('activity_record_id')
+        if m.get('donate_type') is not None:
+            self.donate_type = m.get('donate_type')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('proof_data') is not None:
+            self.proof_data = m.get('proof_data')
+        if m.get('donate_goods_name') is not None:
+            self.donate_goods_name = m.get('donate_goods_name')
+        if m.get('goods_name') is not None:
+            self.goods_name = m.get('goods_name')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('pay_type') is not None:
+            self.pay_type = m.get('pay_type')
+        if m.get('donate_time') is not None:
+            self.donate_time = m.get('donate_time')
+        return self
+
+
+class CreateActivitychainrecordResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+

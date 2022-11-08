@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.16',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.16',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -1729,4 +1729,60 @@ class Client:
         return TeaCore.from_map(
             mycharity_models.BatchcreateAlipaysignResponse(),
             await self.do_request_async('1.0', 'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_activitychainrecord(
+        self,
+        request: mycharity_models.CreateActivitychainrecordRequest,
+    ) -> mycharity_models.CreateActivitychainrecordResponse:
+        """
+        Description: 品牌活动捐赠记录上链接口
+        Summary: 品牌活动捐赠记录上链接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_activitychainrecord_ex(request, headers, runtime)
+
+    async def create_activitychainrecord_async(
+        self,
+        request: mycharity_models.CreateActivitychainrecordRequest,
+    ) -> mycharity_models.CreateActivitychainrecordResponse:
+        """
+        Description: 品牌活动捐赠记录上链接口
+        Summary: 品牌活动捐赠记录上链接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_activitychainrecord_ex_async(request, headers, runtime)
+
+    def create_activitychainrecord_ex(
+        self,
+        request: mycharity_models.CreateActivitychainrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateActivitychainrecordResponse:
+        """
+        Description: 品牌活动捐赠记录上链接口
+        Summary: 品牌活动捐赠记录上链接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateActivitychainrecordResponse(),
+            self.do_request('1.0', 'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_activitychainrecord_ex_async(
+        self,
+        request: mycharity_models.CreateActivitychainrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateActivitychainrecordResponse:
+        """
+        Description: 品牌活动捐赠记录上链接口
+        Summary: 品牌活动捐赠记录上链接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateActivitychainrecordResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
