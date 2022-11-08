@@ -683,21 +683,21 @@ class StatisticInfoDetail(TeaModel):
     def __init__(
         self,
         action_driver_code: int = None,
-        invoke_count: int = None,
         success_count: int = None,
         fail_count: int = None,
-        finish_count: int = None,
+        waiting_sub_task_count: int = None,
+        total_count: int = None,
     ):
         # actionDriverCode类型
         self.action_driver_code = action_driver_code
-        # 调用总数
-        self.invoke_count = invoke_count
         # 成功数
         self.success_count = success_count
         # 失败数
         self.fail_count = fail_count
-        # 已处理完成任务数
-        self.finish_count = finish_count
+        # 待触达的手机号数
+        self.waiting_sub_task_count = waiting_sub_task_count
+        # 已收到的回执数
+        self.total_count = total_count
 
     def validate(self):
         pass
@@ -710,28 +710,28 @@ class StatisticInfoDetail(TeaModel):
         result = dict()
         if self.action_driver_code is not None:
             result['action_driver_code'] = self.action_driver_code
-        if self.invoke_count is not None:
-            result['invoke_count'] = self.invoke_count
         if self.success_count is not None:
             result['success_count'] = self.success_count
         if self.fail_count is not None:
             result['fail_count'] = self.fail_count
-        if self.finish_count is not None:
-            result['finish_count'] = self.finish_count
+        if self.waiting_sub_task_count is not None:
+            result['waiting_sub_task_count'] = self.waiting_sub_task_count
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('action_driver_code') is not None:
             self.action_driver_code = m.get('action_driver_code')
-        if m.get('invoke_count') is not None:
-            self.invoke_count = m.get('invoke_count')
         if m.get('success_count') is not None:
             self.success_count = m.get('success_count')
         if m.get('fail_count') is not None:
             self.fail_count = m.get('fail_count')
-        if m.get('finish_count') is not None:
-            self.finish_count = m.get('finish_count')
+        if m.get('waiting_sub_task_count') is not None:
+            self.waiting_sub_task_count = m.get('waiting_sub_task_count')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 
@@ -5130,6 +5130,48 @@ class RiskLabelFilterConfigInfo(TeaModel):
             self.place_type = m.get('place_type')
         if m.get('tag_id') is not None:
             self.tag_id = m.get('tag_id')
+        return self
+
+
+class RobotCallCustomerParam(TeaModel):
+    def __init__(
+        self,
+        customer_key: str = None,
+        customer_out_info: str = None,
+        properties: str = None,
+    ):
+        # 手机号/手机号md5
+        self.customer_key = customer_key
+        # 用户维度透传字段
+        self.customer_out_info = customer_out_info
+        # 外呼话术变量字段
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.customer_out_info is not None:
+            result['customer_out_info'] = self.customer_out_info
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('customer_out_info') is not None:
+            self.customer_out_info = m.get('customer_out_info')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
         return self
 
 
@@ -20628,6 +20670,8 @@ class UploadUmktParamsFileRequest(TeaModel):
         scene_strategy_id: int = None,
         exec_time: str = None,
         file_template: str = None,
+        out_serial_no: str = None,
+        out_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -20647,6 +20691,10 @@ class UploadUmktParamsFileRequest(TeaModel):
         # 后续支持
         # DEVICE_MD5
         self.file_template = file_template
+        # 外部流水号
+        self.out_serial_no = out_serial_no
+        # 外部透传字段
+        self.out_info = out_info
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
@@ -20656,6 +20704,7 @@ class UploadUmktParamsFileRequest(TeaModel):
         if self.exec_time is not None:
             self.validate_pattern(self.exec_time, 'exec_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.file_template, 'file_template')
+        self.validate_required(self.out_serial_no, 'out_serial_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -20679,6 +20728,10 @@ class UploadUmktParamsFileRequest(TeaModel):
             result['exec_time'] = self.exec_time
         if self.file_template is not None:
             result['file_template'] = self.file_template
+        if self.out_serial_no is not None:
+            result['out_serial_no'] = self.out_serial_no
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
         return result
 
     def from_map(self, m: dict = None):
@@ -20699,6 +20752,10 @@ class UploadUmktParamsFileRequest(TeaModel):
             self.exec_time = m.get('exec_time')
         if m.get('file_template') is not None:
             self.file_template = m.get('file_template')
+        if m.get('out_serial_no') is not None:
+            self.out_serial_no = m.get('out_serial_no')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
         return self
 
 
@@ -21352,33 +21409,34 @@ class ApplyUmktRobotcallRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        called_show_number: str = None,
-        called_number: str = None,
-        robot_id: int = None,
-        record_flag: bool = None,
-        early_media_asr: bool = None,
-        params: str = None,
+        out_serial_no: str = None,
+        scene_strategy_id: int = None,
+        out_info: str = None,
+        file_template: str = None,
+        customer_details: List[RobotCallCustomerParam] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 外呼主叫号码
-        self.called_show_number = called_show_number
-        # 被叫号码
-        self.called_number = called_number
-        # 机器人id
-        self.robot_id = robot_id
-        # 是否开启录音
-        self.record_flag = record_flag
-        # 是否开启早媒体
-        self.early_media_asr = early_media_asr
-        # 机器人参数
-        self.params = params
+        # 外部流水号
+        self.out_serial_no = out_serial_no
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 客户透传字段
+        self.out_info = out_info
+        # 用户参数类型
+        self.file_template = file_template
+        # 每个手机号的详细参数
+        self.customer_details = customer_details
 
     def validate(self):
-        self.validate_required(self.called_show_number, 'called_show_number')
-        self.validate_required(self.called_number, 'called_number')
-        self.validate_required(self.robot_id, 'robot_id')
+        self.validate_required(self.out_serial_no, 'out_serial_no')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.file_template, 'file_template')
+        if self.customer_details:
+            for k in self.customer_details:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -21390,18 +21448,18 @@ class ApplyUmktRobotcallRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.called_show_number is not None:
-            result['called_show_number'] = self.called_show_number
-        if self.called_number is not None:
-            result['called_number'] = self.called_number
-        if self.robot_id is not None:
-            result['robot_id'] = self.robot_id
-        if self.record_flag is not None:
-            result['record_flag'] = self.record_flag
-        if self.early_media_asr is not None:
-            result['early_media_asr'] = self.early_media_asr
-        if self.params is not None:
-            result['params'] = self.params
+        if self.out_serial_no is not None:
+            result['out_serial_no'] = self.out_serial_no
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        if self.file_template is not None:
+            result['file_template'] = self.file_template
+        result['customer_details'] = []
+        if self.customer_details is not None:
+            for k in self.customer_details:
+                result['customer_details'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -21410,18 +21468,19 @@ class ApplyUmktRobotcallRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('called_show_number') is not None:
-            self.called_show_number = m.get('called_show_number')
-        if m.get('called_number') is not None:
-            self.called_number = m.get('called_number')
-        if m.get('robot_id') is not None:
-            self.robot_id = m.get('robot_id')
-        if m.get('record_flag') is not None:
-            self.record_flag = m.get('record_flag')
-        if m.get('early_media_asr') is not None:
-            self.early_media_asr = m.get('early_media_asr')
-        if m.get('params') is not None:
-            self.params = m.get('params')
+        if m.get('out_serial_no') is not None:
+            self.out_serial_no = m.get('out_serial_no')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        if m.get('file_template') is not None:
+            self.file_template = m.get('file_template')
+        self.customer_details = []
+        if m.get('customer_details') is not None:
+            for k in m.get('customer_details'):
+                temp_model = RobotCallCustomerParam()
+                self.customer_details.append(temp_model.from_map(k))
         return self
 
 
@@ -21522,6 +21581,7 @@ class QueryUmktDataaccessStatisticResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         statistic_result: StatisticResult = None,
+        task_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -21531,6 +21591,8 @@ class QueryUmktDataaccessStatisticResponse(TeaModel):
         self.result_msg = result_msg
         # 回执统计结果
         self.statistic_result = statistic_result
+        # 任务状态
+        self.task_status = task_status
 
     def validate(self):
         if self.statistic_result:
@@ -21550,6 +21612,8 @@ class QueryUmktDataaccessStatisticResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.statistic_result is not None:
             result['statistic_result'] = self.statistic_result.to_map()
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
         return result
 
     def from_map(self, m: dict = None):
@@ -21563,6 +21627,8 @@ class QueryUmktDataaccessStatisticResponse(TeaModel):
         if m.get('statistic_result') is not None:
             temp_model = StatisticResult()
             self.statistic_result = temp_model.from_map(m['statistic_result'])
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
         return self
 
 
