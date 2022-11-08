@@ -29,6 +29,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public StatisticResult StatisticResult { get; set; }
 
+        // 任务状态
+        [NameInMap("task_status")]
+        [Validation(Required=false)]
+        public string TaskStatus { get; set; }
+
     }
 
 }

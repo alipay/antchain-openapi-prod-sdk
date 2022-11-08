@@ -15,11 +15,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? ActionDriverCode { get; set; }
 
-        // 调用总数
-        [NameInMap("invoke_count")]
-        [Validation(Required=false)]
-        public long? InvokeCount { get; set; }
-
         // 成功数
         [NameInMap("success_count")]
         [Validation(Required=false)]
@@ -30,10 +25,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? FailCount { get; set; }
 
-        // 已处理完成任务数
-        [NameInMap("finish_count")]
+        // 待触达的手机号数
+        [NameInMap("waiting_sub_task_count")]
         [Validation(Required=false)]
-        public long? FinishCount { get; set; }
+        public long? WaitingSubTaskCount { get; set; }
+
+        // 已收到的回执数
+        [NameInMap("total_count")]
+        [Validation(Required=false)]
+        public long? TotalCount { get; set; }
 
     }
 

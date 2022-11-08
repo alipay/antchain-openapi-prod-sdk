@@ -18,35 +18,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 外呼主叫号码
-        [NameInMap("called_show_number")]
+        // 外部流水号
+        [NameInMap("out_serial_no")]
         [Validation(Required=true)]
-        public string CalledShowNumber { get; set; }
+        public string OutSerialNo { get; set; }
 
-        // 被叫号码
-        [NameInMap("called_number")]
+        // 场景策略id
+        [NameInMap("scene_strategy_id")]
         [Validation(Required=true)]
-        public string CalledNumber { get; set; }
+        public long? SceneStrategyId { get; set; }
 
-        // 机器人id
-        [NameInMap("robot_id")]
+        // 客户透传字段
+        [NameInMap("out_info")]
+        [Validation(Required=false)]
+        public string OutInfo { get; set; }
+
+        // 用户参数类型
+        [NameInMap("file_template")]
         [Validation(Required=true)]
-        public long? RobotId { get; set; }
+        public string FileTemplate { get; set; }
 
-        // 是否开启录音
-        [NameInMap("record_flag")]
+        // 每个手机号的详细参数
+        [NameInMap("customer_details")]
         [Validation(Required=false)]
-        public bool? RecordFlag { get; set; }
-
-        // 是否开启早媒体
-        [NameInMap("early_media_asr")]
-        [Validation(Required=false)]
-        public bool? EarlyMediaAsr { get; set; }
-
-        // 机器人参数
-        [NameInMap("params")]
-        [Validation(Required=false)]
-        public string Params { get; set; }
+        public List<RobotCallCustomerParam> CustomerDetails { get; set; }
 
     }
 
