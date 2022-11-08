@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.0',
+    sdk_version = '1.15.1',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -286,14 +288,14 @@ model RtopRiskTag {
 model StatisticInfoDetail {
   // actionDriverCode类型
   actionDriverCode?: long(name='action_driver_code', example='1'),
-  // 调用总数
-  invokeCount?: long(name='invoke_count', example='123'),
   // 成功数
   successCount?: long(name='success_count', example='123'),
   // 失败数
   failCount?: long(name='fail_count', example='123'),
-  // 已处理完成任务数
-  finishCount?: long(name='finish_count', example=''),
+  // 待触达的手机号数
+  waitingSubTaskCount?: long(name='waiting_sub_task_count', example='0'),
+  // 已收到的回执数
+  totalCount?: long(name='total_count', example='10'),
 }
 
 // 天枢系统专用ReceiptInfo结构体
@@ -1349,6 +1351,16 @@ model RiskLabelFilterConfigInfo {
   placeType: string(name='place_type', example='place_type'),
   // 标签ID
   tagId: string(name='tag_id', example='1'),
+}
+
+// AI外呼每个用户维度的参数信息
+model RobotCallCustomerParam {
+  // 手机号/手机号md5
+  customerKey: string(name='customer_key', example='12345'),
+  // 用户维度透传字段
+  customerOutInfo?: string(name='customer_out_info', example='12345'),
+  // 外呼话术变量字段
+  properties?: string(name='properties', example='{"key1":"v1"}'),
 }
 
 // 天枢系统职业信息
@@ -6953,6 +6965,10 @@ model UploadUmktParamsFileRequest = {
   // 后续支持
   // DEVICE_MD5
   fileTemplate: string(name='file_template'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 外部透传字段
+  outInfo?: string(name='out_info'),
 }
 
 model UploadUmktParamsFileResponse = {
@@ -7230,18 +7246,16 @@ model ApplyUmktRobotcallRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 外呼主叫号码
-  calledShowNumber: string(name='called_show_number'),
-  // 被叫号码
-  calledNumber: string(name='called_number'),
-  // 机器人id
-  robotId: long(name='robot_id'),
-  // 是否开启录音
-  recordFlag?: boolean(name='record_flag'),
-  // 是否开启早媒体
-  earlyMediaAsr?: boolean(name='early_media_asr'),
-  // 机器人参数
-  params?: string(name='params'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 客户透传字段
+  outInfo?: string(name='out_info'),
+  // 用户参数类型
+  fileTemplate: string(name='file_template'),
+  // 每个手机号的详细参数
+  customerDetails?: [ RobotCallCustomerParam ](name='customer_details'),
 }
 
 model ApplyUmktRobotcallResponse = {
@@ -7291,6 +7305,8 @@ model QueryUmktDataaccessStatisticResponse = {
   resultMsg?: string(name='result_msg'),
   // 回执统计结果
   statisticResult?: StatisticResult(name='statistic_result'),
+  // 任务状态
+  taskStatus?: string(name='task_status'),
 }
 
 /**
