@@ -19,57 +19,50 @@ class ApplyUmktRobotcallRequest extends Model
      */
     public $productInstanceId;
 
-    // 外呼主叫号码
+    // 外部流水号
     /**
      * @var string
      */
-    public $calledShowNumber;
+    public $outSerialNo;
 
-    // 被叫号码
-    /**
-     * @var string
-     */
-    public $calledNumber;
-
-    // 机器人id
+    // 场景策略id
     /**
      * @var int
      */
-    public $robotId;
+    public $sceneStrategyId;
 
-    // 是否开启录音
-    /**
-     * @var bool
-     */
-    public $recordFlag;
-
-    // 是否开启早媒体
-    /**
-     * @var bool
-     */
-    public $earlyMediaAsr;
-
-    // 机器人参数
+    // 客户透传字段
     /**
      * @var string
      */
-    public $params;
+    public $outInfo;
+
+    // 用户参数类型
+    /**
+     * @var string
+     */
+    public $fileTemplate;
+
+    // 每个手机号的详细参数
+    /**
+     * @var RobotCallCustomerParam[]
+     */
+    public $customerDetails;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'calledShowNumber'  => 'called_show_number',
-        'calledNumber'      => 'called_number',
-        'robotId'           => 'robot_id',
-        'recordFlag'        => 'record_flag',
-        'earlyMediaAsr'     => 'early_media_asr',
-        'params'            => 'params',
+        'outSerialNo'       => 'out_serial_no',
+        'sceneStrategyId'   => 'scene_strategy_id',
+        'outInfo'           => 'out_info',
+        'fileTemplate'      => 'file_template',
+        'customerDetails'   => 'customer_details',
     ];
 
     public function validate()
     {
-        Model::validateRequired('calledShowNumber', $this->calledShowNumber, true);
-        Model::validateRequired('calledNumber', $this->calledNumber, true);
-        Model::validateRequired('robotId', $this->robotId, true);
+        Model::validateRequired('outSerialNo', $this->outSerialNo, true);
+        Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
+        Model::validateRequired('fileTemplate', $this->fileTemplate, true);
     }
 
     public function toMap()
@@ -81,23 +74,26 @@ class ApplyUmktRobotcallRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->calledShowNumber) {
-            $res['called_show_number'] = $this->calledShowNumber;
+        if (null !== $this->outSerialNo) {
+            $res['out_serial_no'] = $this->outSerialNo;
         }
-        if (null !== $this->calledNumber) {
-            $res['called_number'] = $this->calledNumber;
+        if (null !== $this->sceneStrategyId) {
+            $res['scene_strategy_id'] = $this->sceneStrategyId;
         }
-        if (null !== $this->robotId) {
-            $res['robot_id'] = $this->robotId;
+        if (null !== $this->outInfo) {
+            $res['out_info'] = $this->outInfo;
         }
-        if (null !== $this->recordFlag) {
-            $res['record_flag'] = $this->recordFlag;
+        if (null !== $this->fileTemplate) {
+            $res['file_template'] = $this->fileTemplate;
         }
-        if (null !== $this->earlyMediaAsr) {
-            $res['early_media_asr'] = $this->earlyMediaAsr;
-        }
-        if (null !== $this->params) {
-            $res['params'] = $this->params;
+        if (null !== $this->customerDetails) {
+            $res['customer_details'] = [];
+            if (null !== $this->customerDetails && \is_array($this->customerDetails)) {
+                $n = 0;
+                foreach ($this->customerDetails as $item) {
+                    $res['customer_details'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -117,23 +113,26 @@ class ApplyUmktRobotcallRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['called_show_number'])) {
-            $model->calledShowNumber = $map['called_show_number'];
+        if (isset($map['out_serial_no'])) {
+            $model->outSerialNo = $map['out_serial_no'];
         }
-        if (isset($map['called_number'])) {
-            $model->calledNumber = $map['called_number'];
+        if (isset($map['scene_strategy_id'])) {
+            $model->sceneStrategyId = $map['scene_strategy_id'];
         }
-        if (isset($map['robot_id'])) {
-            $model->robotId = $map['robot_id'];
+        if (isset($map['out_info'])) {
+            $model->outInfo = $map['out_info'];
         }
-        if (isset($map['record_flag'])) {
-            $model->recordFlag = $map['record_flag'];
+        if (isset($map['file_template'])) {
+            $model->fileTemplate = $map['file_template'];
         }
-        if (isset($map['early_media_asr'])) {
-            $model->earlyMediaAsr = $map['early_media_asr'];
-        }
-        if (isset($map['params'])) {
-            $model->params = $map['params'];
+        if (isset($map['customer_details'])) {
+            if (!empty($map['customer_details'])) {
+                $model->customerDetails = [];
+                $n                      = 0;
+                foreach ($map['customer_details'] as $item) {
+                    $model->customerDetails[$n++] = null !== $item ? RobotCallCustomerParam::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

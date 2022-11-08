@@ -31,11 +31,18 @@ class QueryUmktDataaccessStatisticResponse extends Model
      * @var StatisticResult
      */
     public $statisticResult;
+
+    // 任务状态
+    /**
+     * @var string
+     */
+    public $taskStatus;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
         'resultMsg'       => 'result_msg',
         'statisticResult' => 'statistic_result',
+        'taskStatus'      => 'task_status',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QueryUmktDataaccessStatisticResponse extends Model
         }
         if (null !== $this->statisticResult) {
             $res['statistic_result'] = null !== $this->statisticResult ? $this->statisticResult->toMap() : null;
+        }
+        if (null !== $this->taskStatus) {
+            $res['task_status'] = $this->taskStatus;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QueryUmktDataaccessStatisticResponse extends Model
         }
         if (isset($map['statistic_result'])) {
             $model->statisticResult = StatisticResult::fromMap($map['statistic_result']);
+        }
+        if (isset($map['task_status'])) {
+            $model->taskStatus = $map['task_status'];
         }
 
         return $model;

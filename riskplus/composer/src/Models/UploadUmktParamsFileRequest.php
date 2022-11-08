@@ -60,6 +60,18 @@ class UploadUmktParamsFileRequest extends Model
      * @var string
      */
     public $fileTemplate;
+
+    // 外部流水号
+    /**
+     * @var string
+     */
+    public $outSerialNo;
+
+    // 外部透传字段
+    /**
+     * @var string
+     */
+    public $outInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -67,6 +79,8 @@ class UploadUmktParamsFileRequest extends Model
         'sceneStrategyId'   => 'scene_strategy_id',
         'execTime'          => 'exec_time',
         'fileTemplate'      => 'file_template',
+        'outSerialNo'       => 'out_serial_no',
+        'outInfo'           => 'out_info',
     ];
 
     public function validate()
@@ -74,6 +88,7 @@ class UploadUmktParamsFileRequest extends Model
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('fileTemplate', $this->fileTemplate, true);
+        Model::validateRequired('outSerialNo', $this->outSerialNo, true);
         Model::validateMinimum('sceneStrategyId', $this->sceneStrategyId, 1);
         Model::validatePattern('execTime', $this->execTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -104,6 +119,12 @@ class UploadUmktParamsFileRequest extends Model
         }
         if (null !== $this->fileTemplate) {
             $res['file_template'] = $this->fileTemplate;
+        }
+        if (null !== $this->outSerialNo) {
+            $res['out_serial_no'] = $this->outSerialNo;
+        }
+        if (null !== $this->outInfo) {
+            $res['out_info'] = $this->outInfo;
         }
 
         return $res;
@@ -140,6 +161,12 @@ class UploadUmktParamsFileRequest extends Model
         }
         if (isset($map['file_template'])) {
             $model->fileTemplate = $map['file_template'];
+        }
+        if (isset($map['out_serial_no'])) {
+            $model->outSerialNo = $map['out_serial_no'];
+        }
+        if (isset($map['out_info'])) {
+            $model->outInfo = $map['out_info'];
         }
 
         return $model;

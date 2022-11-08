@@ -16,14 +16,6 @@ class StatisticInfoDetail extends Model
      */
     public $actionDriverCode;
 
-    // 调用总数
-    /**
-     * @example 123
-     *
-     * @var int
-     */
-    public $invokeCount;
-
     // 成功数
     /**
      * @example 123
@@ -40,19 +32,27 @@ class StatisticInfoDetail extends Model
      */
     public $failCount;
 
-    // 已处理完成任务数
+    // 待触达的手机号数
     /**
-     * @example
+     * @example 0
      *
      * @var int
      */
-    public $finishCount;
+    public $waitingSubTaskCount;
+
+    // 已收到的回执数
+    /**
+     * @example 10
+     *
+     * @var int
+     */
+    public $totalCount;
     protected $_name = [
-        'actionDriverCode' => 'action_driver_code',
-        'invokeCount'      => 'invoke_count',
-        'successCount'     => 'success_count',
-        'failCount'        => 'fail_count',
-        'finishCount'      => 'finish_count',
+        'actionDriverCode'    => 'action_driver_code',
+        'successCount'        => 'success_count',
+        'failCount'           => 'fail_count',
+        'waitingSubTaskCount' => 'waiting_sub_task_count',
+        'totalCount'          => 'total_count',
     ];
 
     public function validate()
@@ -65,17 +65,17 @@ class StatisticInfoDetail extends Model
         if (null !== $this->actionDriverCode) {
             $res['action_driver_code'] = $this->actionDriverCode;
         }
-        if (null !== $this->invokeCount) {
-            $res['invoke_count'] = $this->invokeCount;
-        }
         if (null !== $this->successCount) {
             $res['success_count'] = $this->successCount;
         }
         if (null !== $this->failCount) {
             $res['fail_count'] = $this->failCount;
         }
-        if (null !== $this->finishCount) {
-            $res['finish_count'] = $this->finishCount;
+        if (null !== $this->waitingSubTaskCount) {
+            $res['waiting_sub_task_count'] = $this->waitingSubTaskCount;
+        }
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
 
         return $res;
@@ -92,17 +92,17 @@ class StatisticInfoDetail extends Model
         if (isset($map['action_driver_code'])) {
             $model->actionDriverCode = $map['action_driver_code'];
         }
-        if (isset($map['invoke_count'])) {
-            $model->invokeCount = $map['invoke_count'];
-        }
         if (isset($map['success_count'])) {
             $model->successCount = $map['success_count'];
         }
         if (isset($map['fail_count'])) {
             $model->failCount = $map['fail_count'];
         }
-        if (isset($map['finish_count'])) {
-            $model->finishCount = $map['finish_count'];
+        if (isset($map['waiting_sub_task_count'])) {
+            $model->waitingSubTaskCount = $map['waiting_sub_task_count'];
+        }
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
 
         return $model;
