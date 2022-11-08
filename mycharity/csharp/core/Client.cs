@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.16"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.16"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1411,6 +1411,48 @@ namespace AntChain.SDK.MYCHARITY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchcreateAlipaysignResponse>(await DoRequestAsync("1.0", "antchain.mycharity.alipaysign.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 品牌活动捐赠记录上链接口
+         * Summary: 品牌活动捐赠记录上链接口
+         */
+        public CreateActivitychainrecordResponse CreateActivitychainrecord(CreateActivitychainrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateActivitychainrecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌活动捐赠记录上链接口
+         * Summary: 品牌活动捐赠记录上链接口
+         */
+        public async Task<CreateActivitychainrecordResponse> CreateActivitychainrecordAsync(CreateActivitychainrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateActivitychainrecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌活动捐赠记录上链接口
+         * Summary: 品牌活动捐赠记录上链接口
+         */
+        public CreateActivitychainrecordResponse CreateActivitychainrecordEx(CreateActivitychainrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateActivitychainrecordResponse>(DoRequest("1.0", "antchain.mycharity.activitychainrecord.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 品牌活动捐赠记录上链接口
+         * Summary: 品牌活动捐赠记录上链接口
+         */
+        public async Task<CreateActivitychainrecordResponse> CreateActivitychainrecordExAsync(CreateActivitychainrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateActivitychainrecordResponse>(await DoRequestAsync("1.0", "antchain.mycharity.activitychainrecord.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
