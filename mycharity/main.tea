@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.16',
+    sdk_version = '1.0.19',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -1437,5 +1437,63 @@ async function batchcreateAlipaysign(request: BatchcreateAlipaysignRequest): Bat
 async function batchcreateAlipaysignEx(request: BatchcreateAlipaysignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAlipaysignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateActivitychainrecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部活动ID
+  activityId: string(maxLength=50, name='activity_id'),
+  // 支付宝用户UID：,固定16位长度
+  alipayUserId: string(maxLength=16, minLength=16, name='alipay_user_id'),
+  // 支付宝用户昵称(脱敏)
+  alipayUserNickName?: string(maxLength=50, name='alipay_user_nick_name'),
+  // 捐赠记录ID：(同一租户下需要做幂等)
+  activityRecordId: string(maxLength=50, name='activity_record_id'),
+  // 捐赠类型：固定为【point/money】,point为积分兑换捐赠类型，money为购买商品捐钱类型
+  donateType: string(name='donate_type'),
+  // 捐赠数量：积分个数、金额数量，若为金额(单位为分)
+  amount: long(maximum=999999999, minimum=1, name='amount'),
+  // 捐赠流水号
+  proofData?: string(maxLength=50, name='proof_data'),
+  // 捐赠描述（积分,钱等等）
+  donateGoodsName: string(maxLength=200, name='donate_goods_name'),
+  // 商品名称，如：维他奶
+  goodsName?: string(maxLength=100, name='goods_name'),
+  // 单位：个、CNY
+  unit?: string(maxLength=50, name='unit'),
+  // 支付方式：【wechat/alipay/bank/exchangePoint】
+  payType: string(name='pay_type'),
+  // 固定13位数字
+  donateTime: long(name='donate_time'),
+}
+
+model CreateActivitychainrecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 品牌活动捐赠记录上链接口
+ * Summary: 品牌活动捐赠记录上链接口
+ */
+async function createActivitychainrecord(request: CreateActivitychainrecordRequest): CreateActivitychainrecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createActivitychainrecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 品牌活动捐赠记录上链接口
+ * Summary: 品牌活动捐赠记录上链接口
+ */
+async function createActivitychainrecordEx(request: CreateActivitychainrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateActivitychainrecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
