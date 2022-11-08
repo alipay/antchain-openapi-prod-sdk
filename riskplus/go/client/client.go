@@ -542,14 +542,14 @@ func (s *RtopRiskTag) SetTagClueDetail(v string) *RtopRiskTag {
 type StatisticInfoDetail struct {
 	// actionDriverCode类型
 	ActionDriverCode *int64 `json:"action_driver_code,omitempty" xml:"action_driver_code,omitempty"`
-	// 调用总数
-	InvokeCount *int64 `json:"invoke_count,omitempty" xml:"invoke_count,omitempty"`
 	// 成功数
 	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
 	// 失败数
 	FailCount *int64 `json:"fail_count,omitempty" xml:"fail_count,omitempty"`
-	// 已处理完成任务数
-	FinishCount *int64 `json:"finish_count,omitempty" xml:"finish_count,omitempty"`
+	// 待触达的手机号数
+	WaitingSubTaskCount *int64 `json:"waiting_sub_task_count,omitempty" xml:"waiting_sub_task_count,omitempty"`
+	// 已收到的回执数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
 func (s StatisticInfoDetail) String() string {
@@ -565,11 +565,6 @@ func (s *StatisticInfoDetail) SetActionDriverCode(v int64) *StatisticInfoDetail 
 	return s
 }
 
-func (s *StatisticInfoDetail) SetInvokeCount(v int64) *StatisticInfoDetail {
-	s.InvokeCount = &v
-	return s
-}
-
 func (s *StatisticInfoDetail) SetSuccessCount(v int64) *StatisticInfoDetail {
 	s.SuccessCount = &v
 	return s
@@ -580,8 +575,13 @@ func (s *StatisticInfoDetail) SetFailCount(v int64) *StatisticInfoDetail {
 	return s
 }
 
-func (s *StatisticInfoDetail) SetFinishCount(v int64) *StatisticInfoDetail {
-	s.FinishCount = &v
+func (s *StatisticInfoDetail) SetWaitingSubTaskCount(v int64) *StatisticInfoDetail {
+	s.WaitingSubTaskCount = &v
+	return s
+}
+
+func (s *StatisticInfoDetail) SetTotalCount(v int64) *StatisticInfoDetail {
+	s.TotalCount = &v
 	return s
 }
 
@@ -4127,6 +4127,39 @@ func (s *RiskLabelFilterConfigInfo) SetPlaceType(v string) *RiskLabelFilterConfi
 
 func (s *RiskLabelFilterConfigInfo) SetTagId(v string) *RiskLabelFilterConfigInfo {
 	s.TagId = &v
+	return s
+}
+
+// AI外呼每个用户维度的参数信息
+type RobotCallCustomerParam struct {
+	// 手机号/手机号md5
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 用户维度透传字段
+	CustomerOutInfo *string `json:"customer_out_info,omitempty" xml:"customer_out_info,omitempty"`
+	// 外呼话术变量字段
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+}
+
+func (s RobotCallCustomerParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RobotCallCustomerParam) GoString() string {
+	return s.String()
+}
+
+func (s *RobotCallCustomerParam) SetCustomerKey(v string) *RobotCallCustomerParam {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *RobotCallCustomerParam) SetCustomerOutInfo(v string) *RobotCallCustomerParam {
+	s.CustomerOutInfo = &v
+	return s
+}
+
+func (s *RobotCallCustomerParam) SetProperties(v string) *RobotCallCustomerParam {
+	s.Properties = &v
 	return s
 }
 
@@ -16524,6 +16557,10 @@ type UploadUmktParamsFileRequest struct {
 	// 后续支持
 	// DEVICE_MD5
 	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 外部透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
 }
 
 func (s UploadUmktParamsFileRequest) String() string {
@@ -16571,6 +16608,16 @@ func (s *UploadUmktParamsFileRequest) SetExecTime(v string) *UploadUmktParamsFil
 
 func (s *UploadUmktParamsFileRequest) SetFileTemplate(v string) *UploadUmktParamsFileRequest {
 	s.FileTemplate = &v
+	return s
+}
+
+func (s *UploadUmktParamsFileRequest) SetOutSerialNo(v string) *UploadUmktParamsFileRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *UploadUmktParamsFileRequest) SetOutInfo(v string) *UploadUmktParamsFileRequest {
+	s.OutInfo = &v
 	return s
 }
 
@@ -17069,18 +17116,16 @@ type ApplyUmktRobotcallRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 外呼主叫号码
-	CalledShowNumber *string `json:"called_show_number,omitempty" xml:"called_show_number,omitempty" require:"true"`
-	// 被叫号码
-	CalledNumber *string `json:"called_number,omitempty" xml:"called_number,omitempty" require:"true"`
-	// 机器人id
-	RobotId *int64 `json:"robot_id,omitempty" xml:"robot_id,omitempty" require:"true"`
-	// 是否开启录音
-	RecordFlag *bool `json:"record_flag,omitempty" xml:"record_flag,omitempty"`
-	// 是否开启早媒体
-	EarlyMediaAsr *bool `json:"early_media_asr,omitempty" xml:"early_media_asr,omitempty"`
-	// 机器人参数
-	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客户透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 用户参数类型
+	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+	// 每个手机号的详细参数
+	CustomerDetails []*RobotCallCustomerParam `json:"customer_details,omitempty" xml:"customer_details,omitempty" type:"Repeated"`
 }
 
 func (s ApplyUmktRobotcallRequest) String() string {
@@ -17101,33 +17146,28 @@ func (s *ApplyUmktRobotcallRequest) SetProductInstanceId(v string) *ApplyUmktRob
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetCalledShowNumber(v string) *ApplyUmktRobotcallRequest {
-	s.CalledShowNumber = &v
+func (s *ApplyUmktRobotcallRequest) SetOutSerialNo(v string) *ApplyUmktRobotcallRequest {
+	s.OutSerialNo = &v
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetCalledNumber(v string) *ApplyUmktRobotcallRequest {
-	s.CalledNumber = &v
+func (s *ApplyUmktRobotcallRequest) SetSceneStrategyId(v int64) *ApplyUmktRobotcallRequest {
+	s.SceneStrategyId = &v
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetRobotId(v int64) *ApplyUmktRobotcallRequest {
-	s.RobotId = &v
+func (s *ApplyUmktRobotcallRequest) SetOutInfo(v string) *ApplyUmktRobotcallRequest {
+	s.OutInfo = &v
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetRecordFlag(v bool) *ApplyUmktRobotcallRequest {
-	s.RecordFlag = &v
+func (s *ApplyUmktRobotcallRequest) SetFileTemplate(v string) *ApplyUmktRobotcallRequest {
+	s.FileTemplate = &v
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetEarlyMediaAsr(v bool) *ApplyUmktRobotcallRequest {
-	s.EarlyMediaAsr = &v
-	return s
-}
-
-func (s *ApplyUmktRobotcallRequest) SetParams(v string) *ApplyUmktRobotcallRequest {
-	s.Params = &v
+func (s *ApplyUmktRobotcallRequest) SetCustomerDetails(v []*RobotCallCustomerParam) *ApplyUmktRobotcallRequest {
+	s.CustomerDetails = v
 	return s
 }
 
@@ -17210,6 +17250,8 @@ type QueryUmktDataaccessStatisticResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 回执统计结果
 	StatisticResult *StatisticResult `json:"statistic_result,omitempty" xml:"statistic_result,omitempty"`
+	// 任务状态
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
 }
 
 func (s QueryUmktDataaccessStatisticResponse) String() string {
@@ -17237,6 +17279,11 @@ func (s *QueryUmktDataaccessStatisticResponse) SetResultMsg(v string) *QueryUmkt
 
 func (s *QueryUmktDataaccessStatisticResponse) SetStatisticResult(v *StatisticResult) *QueryUmktDataaccessStatisticResponse {
 	s.StatisticResult = v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticResponse) SetTaskStatus(v string) *QueryUmktDataaccessStatisticResponse {
+	s.TaskStatus = &v
 	return s
 }
 
@@ -18420,7 +18467,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.0"),
+				"sdk_version":      tea.String("1.15.1"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
