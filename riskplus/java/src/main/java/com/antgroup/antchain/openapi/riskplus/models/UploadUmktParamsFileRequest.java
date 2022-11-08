@@ -42,6 +42,15 @@ public class UploadUmktParamsFileRequest extends TeaModel {
     @Validation(required = true)
     public String fileTemplate;
 
+    // 外部流水号
+    @NameInMap("out_serial_no")
+    @Validation(required = true)
+    public String outSerialNo;
+
+    // 外部透传字段
+    @NameInMap("out_info")
+    public String outInfo;
+
     public static UploadUmktParamsFileRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadUmktParamsFileRequest self = new UploadUmktParamsFileRequest();
         return TeaModel.build(map, self);
@@ -109,6 +118,22 @@ public class UploadUmktParamsFileRequest extends TeaModel {
     }
     public String getFileTemplate() {
         return this.fileTemplate;
+    }
+
+    public UploadUmktParamsFileRequest setOutSerialNo(String outSerialNo) {
+        this.outSerialNo = outSerialNo;
+        return this;
+    }
+    public String getOutSerialNo() {
+        return this.outSerialNo;
+    }
+
+    public UploadUmktParamsFileRequest setOutInfo(String outInfo) {
+        this.outInfo = outInfo;
+        return this;
+    }
+    public String getOutInfo() {
+        return this.outInfo;
     }
 
 }

@@ -20,6 +20,10 @@ public class QueryUmktDataaccessStatisticResponse extends TeaModel {
     @NameInMap("statistic_result")
     public StatisticResult statisticResult;
 
+    // 任务状态
+    @NameInMap("task_status")
+    public String taskStatus;
+
     public static QueryUmktDataaccessStatisticResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryUmktDataaccessStatisticResponse self = new QueryUmktDataaccessStatisticResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryUmktDataaccessStatisticResponse extends TeaModel {
     }
     public StatisticResult getStatisticResult() {
         return this.statisticResult;
+    }
+
+    public QueryUmktDataaccessStatisticResponse setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+        return this;
+    }
+    public String getTaskStatus() {
+        return this.taskStatus;
     }
 
 }

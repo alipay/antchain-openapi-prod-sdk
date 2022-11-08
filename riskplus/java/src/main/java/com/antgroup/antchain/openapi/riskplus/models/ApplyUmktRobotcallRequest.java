@@ -11,32 +11,28 @@ public class ApplyUmktRobotcallRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 外呼主叫号码
-    @NameInMap("called_show_number")
+    // 外部流水号
+    @NameInMap("out_serial_no")
     @Validation(required = true)
-    public String calledShowNumber;
+    public String outSerialNo;
 
-    // 被叫号码
-    @NameInMap("called_number")
+    // 场景策略id
+    @NameInMap("scene_strategy_id")
     @Validation(required = true)
-    public String calledNumber;
+    public Long sceneStrategyId;
 
-    // 机器人id
-    @NameInMap("robot_id")
+    // 客户透传字段
+    @NameInMap("out_info")
+    public String outInfo;
+
+    // 用户参数类型
+    @NameInMap("file_template")
     @Validation(required = true)
-    public Long robotId;
+    public String fileTemplate;
 
-    // 是否开启录音
-    @NameInMap("record_flag")
-    public Boolean recordFlag;
-
-    // 是否开启早媒体
-    @NameInMap("early_media_asr")
-    public Boolean earlyMediaAsr;
-
-    // 机器人参数
-    @NameInMap("params")
-    public String params;
+    // 每个手机号的详细参数
+    @NameInMap("customer_details")
+    public java.util.List<RobotCallCustomerParam> customerDetails;
 
     public static ApplyUmktRobotcallRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyUmktRobotcallRequest self = new ApplyUmktRobotcallRequest();
@@ -59,52 +55,44 @@ public class ApplyUmktRobotcallRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ApplyUmktRobotcallRequest setCalledShowNumber(String calledShowNumber) {
-        this.calledShowNumber = calledShowNumber;
+    public ApplyUmktRobotcallRequest setOutSerialNo(String outSerialNo) {
+        this.outSerialNo = outSerialNo;
         return this;
     }
-    public String getCalledShowNumber() {
-        return this.calledShowNumber;
+    public String getOutSerialNo() {
+        return this.outSerialNo;
     }
 
-    public ApplyUmktRobotcallRequest setCalledNumber(String calledNumber) {
-        this.calledNumber = calledNumber;
+    public ApplyUmktRobotcallRequest setSceneStrategyId(Long sceneStrategyId) {
+        this.sceneStrategyId = sceneStrategyId;
         return this;
     }
-    public String getCalledNumber() {
-        return this.calledNumber;
+    public Long getSceneStrategyId() {
+        return this.sceneStrategyId;
     }
 
-    public ApplyUmktRobotcallRequest setRobotId(Long robotId) {
-        this.robotId = robotId;
+    public ApplyUmktRobotcallRequest setOutInfo(String outInfo) {
+        this.outInfo = outInfo;
         return this;
     }
-    public Long getRobotId() {
-        return this.robotId;
+    public String getOutInfo() {
+        return this.outInfo;
     }
 
-    public ApplyUmktRobotcallRequest setRecordFlag(Boolean recordFlag) {
-        this.recordFlag = recordFlag;
+    public ApplyUmktRobotcallRequest setFileTemplate(String fileTemplate) {
+        this.fileTemplate = fileTemplate;
         return this;
     }
-    public Boolean getRecordFlag() {
-        return this.recordFlag;
+    public String getFileTemplate() {
+        return this.fileTemplate;
     }
 
-    public ApplyUmktRobotcallRequest setEarlyMediaAsr(Boolean earlyMediaAsr) {
-        this.earlyMediaAsr = earlyMediaAsr;
+    public ApplyUmktRobotcallRequest setCustomerDetails(java.util.List<RobotCallCustomerParam> customerDetails) {
+        this.customerDetails = customerDetails;
         return this;
     }
-    public Boolean getEarlyMediaAsr() {
-        return this.earlyMediaAsr;
-    }
-
-    public ApplyUmktRobotcallRequest setParams(String params) {
-        this.params = params;
-        return this;
-    }
-    public String getParams() {
-        return this.params;
+    public java.util.List<RobotCallCustomerParam> getCustomerDetails() {
+        return this.customerDetails;
     }
 
 }

@@ -8,10 +8,6 @@ public class StatisticInfoDetail extends TeaModel {
     @NameInMap("action_driver_code")
     public Long actionDriverCode;
 
-    // 调用总数
-    @NameInMap("invoke_count")
-    public Long invokeCount;
-
     // 成功数
     @NameInMap("success_count")
     public Long successCount;
@@ -20,9 +16,13 @@ public class StatisticInfoDetail extends TeaModel {
     @NameInMap("fail_count")
     public Long failCount;
 
-    // 已处理完成任务数
-    @NameInMap("finish_count")
-    public Long finishCount;
+    // 待触达的手机号数
+    @NameInMap("waiting_sub_task_count")
+    public Long waitingSubTaskCount;
+
+    // 已收到的回执数
+    @NameInMap("total_count")
+    public Long totalCount;
 
     public static StatisticInfoDetail build(java.util.Map<String, ?> map) throws Exception {
         StatisticInfoDetail self = new StatisticInfoDetail();
@@ -35,14 +35,6 @@ public class StatisticInfoDetail extends TeaModel {
     }
     public Long getActionDriverCode() {
         return this.actionDriverCode;
-    }
-
-    public StatisticInfoDetail setInvokeCount(Long invokeCount) {
-        this.invokeCount = invokeCount;
-        return this;
-    }
-    public Long getInvokeCount() {
-        return this.invokeCount;
     }
 
     public StatisticInfoDetail setSuccessCount(Long successCount) {
@@ -61,12 +53,20 @@ public class StatisticInfoDetail extends TeaModel {
         return this.failCount;
     }
 
-    public StatisticInfoDetail setFinishCount(Long finishCount) {
-        this.finishCount = finishCount;
+    public StatisticInfoDetail setWaitingSubTaskCount(Long waitingSubTaskCount) {
+        this.waitingSubTaskCount = waitingSubTaskCount;
         return this;
     }
-    public Long getFinishCount() {
-        return this.finishCount;
+    public Long getWaitingSubTaskCount() {
+        return this.waitingSubTaskCount;
+    }
+
+    public StatisticInfoDetail setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
     }
 
 }
