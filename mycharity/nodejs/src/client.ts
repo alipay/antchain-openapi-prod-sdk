@@ -2263,6 +2263,105 @@ export class BatchcreateAlipaysignResponse extends $tea.Model {
   }
 }
 
+export class CreateActivitychainrecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部活动ID
+  activityId: string;
+  // 支付宝用户UID：,固定16位长度
+  alipayUserId: string;
+  // 支付宝用户昵称(脱敏)
+  alipayUserNickName?: string;
+  // 捐赠记录ID：(同一租户下需要做幂等)
+  activityRecordId: string;
+  // 捐赠类型：固定为【point/money】,point为积分兑换捐赠类型，money为购买商品捐钱类型
+  donateType: string;
+  // 捐赠数量：积分个数、金额数量，若为金额(单位为分)
+  amount: number;
+  // 捐赠流水号
+  proofData?: string;
+  // 捐赠描述（积分,钱等等）
+  donateGoodsName: string;
+  // 商品名称，如：维他奶
+  goodsName?: string;
+  // 单位：个、CNY
+  unit?: string;
+  // 支付方式：【wechat/alipay/bank/exchangePoint】
+  payType: string;
+  // 固定13位数字
+  donateTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityId: 'activity_id',
+      alipayUserId: 'alipay_user_id',
+      alipayUserNickName: 'alipay_user_nick_name',
+      activityRecordId: 'activity_record_id',
+      donateType: 'donate_type',
+      amount: 'amount',
+      proofData: 'proof_data',
+      donateGoodsName: 'donate_goods_name',
+      goodsName: 'goods_name',
+      unit: 'unit',
+      payType: 'pay_type',
+      donateTime: 'donate_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityId: 'string',
+      alipayUserId: 'string',
+      alipayUserNickName: 'string',
+      activityRecordId: 'string',
+      donateType: 'string',
+      amount: 'number',
+      proofData: 'string',
+      donateGoodsName: 'string',
+      goodsName: 'string',
+      unit: 'string',
+      payType: 'string',
+      donateTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateActivitychainrecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2376,7 +2475,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.16",
+          sdk_version: "1.0.19",
           _prod_code: "MYCHARITY",
           _prod_channel: "undefined",
         };
@@ -2916,6 +3015,25 @@ export default class Client {
   async batchcreateAlipaysignEx(request: BatchcreateAlipaysignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateAlipaysignResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchcreateAlipaysignResponse>(await this.doRequest("1.0", "antchain.mycharity.alipaysign.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateAlipaysignResponse({}));
+  }
+
+  /**
+   * Description: 品牌活动捐赠记录上链接口
+   * Summary: 品牌活动捐赠记录上链接口
+   */
+  async createActivitychainrecord(request: CreateActivitychainrecordRequest): Promise<CreateActivitychainrecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createActivitychainrecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 品牌活动捐赠记录上链接口
+   * Summary: 品牌活动捐赠记录上链接口
+   */
+  async createActivitychainrecordEx(request: CreateActivitychainrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateActivitychainrecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateActivitychainrecordResponse>(await this.doRequest("1.0", "antchain.mycharity.activitychainrecord.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateActivitychainrecordResponse({}));
   }
 
 }
