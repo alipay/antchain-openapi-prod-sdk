@@ -429,31 +429,31 @@ export class RtopRiskTag extends $tea.Model {
 export class StatisticInfoDetail extends $tea.Model {
   // actionDriverCode类型
   actionDriverCode?: number;
-  // 调用总数
-  invokeCount?: number;
   // 成功数
   successCount?: number;
   // 失败数
   failCount?: number;
-  // 已处理完成任务数
-  finishCount?: number;
+  // 待触达的手机号数
+  waitingSubTaskCount?: number;
+  // 已收到的回执数
+  totalCount?: number;
   static names(): { [key: string]: string } {
     return {
       actionDriverCode: 'action_driver_code',
-      invokeCount: 'invoke_count',
       successCount: 'success_count',
       failCount: 'fail_count',
-      finishCount: 'finish_count',
+      waitingSubTaskCount: 'waiting_sub_task_count',
+      totalCount: 'total_count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       actionDriverCode: 'number',
-      invokeCount: 'number',
       successCount: 'number',
       failCount: 'number',
-      finishCount: 'number',
+      waitingSubTaskCount: 'number',
+      totalCount: 'number',
     };
   }
 
@@ -3044,6 +3044,35 @@ export class RiskLabelFilterConfigInfo extends $tea.Model {
       placeName: 'string',
       placeType: 'string',
       tagId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AI外呼每个用户维度的参数信息
+export class RobotCallCustomerParam extends $tea.Model {
+  // 手机号/手机号md5
+  customerKey: string;
+  // 用户维度透传字段
+  customerOutInfo?: string;
+  // 外呼话术变量字段
+  properties?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customerKey: 'customer_key',
+      customerOutInfo: 'customer_out_info',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerKey: 'string',
+      customerOutInfo: 'string',
+      properties: 'string',
     };
   }
 
@@ -12382,6 +12411,10 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
   // 后续支持
   // DEVICE_MD5
   fileTemplate: string;
+  // 外部流水号
+  outSerialNo: string;
+  // 外部透传字段
+  outInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12392,6 +12425,8 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
       sceneStrategyId: 'scene_strategy_id',
       execTime: 'exec_time',
       fileTemplate: 'file_template',
+      outSerialNo: 'out_serial_no',
+      outInfo: 'out_info',
     };
   }
 
@@ -12405,6 +12440,8 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
       sceneStrategyId: 'number',
       execTime: 'string',
       fileTemplate: 'string',
+      outSerialNo: 'string',
+      outInfo: 'string',
     };
   }
 
@@ -12804,28 +12841,25 @@ export class ApplyUmktRobotcallRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 外呼主叫号码
-  calledShowNumber: string;
-  // 被叫号码
-  calledNumber: string;
-  // 机器人id
-  robotId: number;
-  // 是否开启录音
-  recordFlag?: boolean;
-  // 是否开启早媒体
-  earlyMediaAsr?: boolean;
-  // 机器人参数
-  params?: string;
+  // 外部流水号
+  outSerialNo: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo?: string;
+  // 用户参数类型
+  fileTemplate: string;
+  // 每个手机号的详细参数
+  customerDetails?: RobotCallCustomerParam[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      calledShowNumber: 'called_show_number',
-      calledNumber: 'called_number',
-      robotId: 'robot_id',
-      recordFlag: 'record_flag',
-      earlyMediaAsr: 'early_media_asr',
-      params: 'params',
+      outSerialNo: 'out_serial_no',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+      fileTemplate: 'file_template',
+      customerDetails: 'customer_details',
     };
   }
 
@@ -12833,12 +12867,11 @@ export class ApplyUmktRobotcallRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      calledShowNumber: 'string',
-      calledNumber: 'string',
-      robotId: 'number',
-      recordFlag: 'boolean',
-      earlyMediaAsr: 'boolean',
-      params: 'string',
+      outSerialNo: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+      fileTemplate: 'string',
+      customerDetails: { 'type': 'array', 'itemType': RobotCallCustomerParam },
     };
   }
 
@@ -12915,12 +12948,15 @@ export class QueryUmktDataaccessStatisticResponse extends $tea.Model {
   resultMsg?: string;
   // 回执统计结果
   statisticResult?: StatisticResult;
+  // 任务状态
+  taskStatus?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       statisticResult: 'statistic_result',
+      taskStatus: 'task_status',
     };
   }
 
@@ -12930,6 +12966,7 @@ export class QueryUmktDataaccessStatisticResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       statisticResult: StatisticResult,
+      taskStatus: 'string',
     };
   }
 
@@ -13846,7 +13883,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.0",
+          sdk_version: "1.15.1",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
