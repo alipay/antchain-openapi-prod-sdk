@@ -2967,6 +2967,146 @@ func (s *BatchcreateAlipaysignResponse) SetResultMsg(v string) *BatchcreateAlipa
 	return s
 }
 
+type CreateActivitychainrecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部活动ID
+	ActivityId *string `json:"activity_id,omitempty" xml:"activity_id,omitempty" require:"true" maxLength:"50"`
+	// 支付宝用户UID：,固定16位长度
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true" maxLength:"16" minLength:"16"`
+	// 支付宝用户昵称(脱敏)
+	AlipayUserNickName *string `json:"alipay_user_nick_name,omitempty" xml:"alipay_user_nick_name,omitempty" maxLength:"50"`
+	// 捐赠记录ID：(同一租户下需要做幂等)
+	ActivityRecordId *string `json:"activity_record_id,omitempty" xml:"activity_record_id,omitempty" require:"true" maxLength:"50"`
+	// 捐赠类型：固定为【point/money】,point为积分兑换捐赠类型，money为购买商品捐钱类型
+	DonateType *string `json:"donate_type,omitempty" xml:"donate_type,omitempty" require:"true"`
+	// 捐赠数量：积分个数、金额数量，若为金额(单位为分)
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" maximum:"999999999" minimum:"1"`
+	// 捐赠流水号
+	ProofData *string `json:"proof_data,omitempty" xml:"proof_data,omitempty" maxLength:"50"`
+	// 捐赠描述（积分,钱等等）
+	DonateGoodsName *string `json:"donate_goods_name,omitempty" xml:"donate_goods_name,omitempty" require:"true" maxLength:"200"`
+	// 商品名称，如：维他奶
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" maxLength:"100"`
+	// 单位：个、CNY
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" maxLength:"50"`
+	// 支付方式：【wechat/alipay/bank/exchangePoint】
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" require:"true"`
+	// 固定13位数字
+	DonateTime *int64 `json:"donate_time,omitempty" xml:"donate_time,omitempty" require:"true"`
+}
+
+func (s CreateActivitychainrecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateActivitychainrecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateActivitychainrecordRequest) SetAuthToken(v string) *CreateActivitychainrecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetProductInstanceId(v string) *CreateActivitychainrecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetActivityId(v string) *CreateActivitychainrecordRequest {
+	s.ActivityId = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetAlipayUserId(v string) *CreateActivitychainrecordRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetAlipayUserNickName(v string) *CreateActivitychainrecordRequest {
+	s.AlipayUserNickName = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetActivityRecordId(v string) *CreateActivitychainrecordRequest {
+	s.ActivityRecordId = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetDonateType(v string) *CreateActivitychainrecordRequest {
+	s.DonateType = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetAmount(v int64) *CreateActivitychainrecordRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetProofData(v string) *CreateActivitychainrecordRequest {
+	s.ProofData = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetDonateGoodsName(v string) *CreateActivitychainrecordRequest {
+	s.DonateGoodsName = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetGoodsName(v string) *CreateActivitychainrecordRequest {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetUnit(v string) *CreateActivitychainrecordRequest {
+	s.Unit = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetPayType(v string) *CreateActivitychainrecordRequest {
+	s.PayType = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordRequest) SetDonateTime(v int64) *CreateActivitychainrecordRequest {
+	s.DonateTime = &v
+	return s
+}
+
+type CreateActivitychainrecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateActivitychainrecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateActivitychainrecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateActivitychainrecordResponse) SetReqMsgId(v string) *CreateActivitychainrecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordResponse) SetResultCode(v string) *CreateActivitychainrecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordResponse) SetResultMsg(v string) *CreateActivitychainrecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3089,7 +3229,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.19"),
 				"_prod_code":       tea.String("MYCHARITY"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4024,6 +4164,40 @@ func (client *Client) BatchcreateAlipaysignEx(request *BatchcreateAlipaysignRequ
 	}
 	_result = &BatchcreateAlipaysignResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.alipaysign.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 品牌活动捐赠记录上链接口
+ * Summary: 品牌活动捐赠记录上链接口
+ */
+func (client *Client) CreateActivitychainrecord(request *CreateActivitychainrecordRequest) (_result *CreateActivitychainrecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateActivitychainrecordResponse{}
+	_body, _err := client.CreateActivitychainrecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 品牌活动捐赠记录上链接口
+ * Summary: 品牌活动捐赠记录上链接口
+ */
+func (client *Client) CreateActivitychainrecordEx(request *CreateActivitychainrecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateActivitychainrecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateActivitychainrecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.activitychainrecord.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
