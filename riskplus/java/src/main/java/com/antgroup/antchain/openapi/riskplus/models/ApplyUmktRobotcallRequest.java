@@ -26,9 +26,9 @@ public class ApplyUmktRobotcallRequest extends TeaModel {
     public String outInfo;
 
     // 用户参数类型
-    @NameInMap("file_template")
+    @NameInMap("param_template")
     @Validation(required = true)
-    public String fileTemplate;
+    public String paramTemplate;
 
     // 每个手机号的详细参数
     @NameInMap("customer_details")
@@ -79,12 +79,12 @@ public class ApplyUmktRobotcallRequest extends TeaModel {
         return this.outInfo;
     }
 
-    public ApplyUmktRobotcallRequest setFileTemplate(String fileTemplate) {
-        this.fileTemplate = fileTemplate;
+    public ApplyUmktRobotcallRequest setParamTemplate(String paramTemplate) {
+        this.paramTemplate = paramTemplate;
         return this;
     }
-    public String getFileTemplate() {
-        return this.fileTemplate;
+    public String getParamTemplate() {
+        return this.paramTemplate;
     }
 
     public ApplyUmktRobotcallRequest setCustomerDetails(java.util.List<RobotCallCustomerParam> customerDetails) {
