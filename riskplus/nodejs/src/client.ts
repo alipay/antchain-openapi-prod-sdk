@@ -12848,7 +12848,7 @@ export class ApplyUmktRobotcallRequest extends $tea.Model {
   // 客户透传字段
   outInfo?: string;
   // 用户参数类型
-  fileTemplate: string;
+  paramTemplate: string;
   // 每个手机号的详细参数
   customerDetails?: RobotCallCustomerParam[];
   static names(): { [key: string]: string } {
@@ -12858,7 +12858,7 @@ export class ApplyUmktRobotcallRequest extends $tea.Model {
       outSerialNo: 'out_serial_no',
       sceneStrategyId: 'scene_strategy_id',
       outInfo: 'out_info',
-      fileTemplate: 'file_template',
+      paramTemplate: 'param_template',
       customerDetails: 'customer_details',
     };
   }
@@ -12870,7 +12870,7 @@ export class ApplyUmktRobotcallRequest extends $tea.Model {
       outSerialNo: 'string',
       sceneStrategyId: 'number',
       outInfo: 'string',
-      fileTemplate: 'string',
+      paramTemplate: 'string',
       customerDetails: { 'type': 'array', 'itemType': RobotCallCustomerParam },
     };
   }
@@ -13883,7 +13883,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.1",
+          sdk_version: "1.15.2",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
