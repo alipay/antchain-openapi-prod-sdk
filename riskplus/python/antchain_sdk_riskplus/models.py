@@ -21412,7 +21412,7 @@ class ApplyUmktRobotcallRequest(TeaModel):
         out_serial_no: str = None,
         scene_strategy_id: int = None,
         out_info: str = None,
-        file_template: str = None,
+        param_template: str = None,
         customer_details: List[RobotCallCustomerParam] = None,
     ):
         # OAuth模式下的授权token
@@ -21425,14 +21425,14 @@ class ApplyUmktRobotcallRequest(TeaModel):
         # 客户透传字段
         self.out_info = out_info
         # 用户参数类型
-        self.file_template = file_template
+        self.param_template = param_template
         # 每个手机号的详细参数
         self.customer_details = customer_details
 
     def validate(self):
         self.validate_required(self.out_serial_no, 'out_serial_no')
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
-        self.validate_required(self.file_template, 'file_template')
+        self.validate_required(self.param_template, 'param_template')
         if self.customer_details:
             for k in self.customer_details:
                 if k:
@@ -21454,8 +21454,8 @@ class ApplyUmktRobotcallRequest(TeaModel):
             result['scene_strategy_id'] = self.scene_strategy_id
         if self.out_info is not None:
             result['out_info'] = self.out_info
-        if self.file_template is not None:
-            result['file_template'] = self.file_template
+        if self.param_template is not None:
+            result['param_template'] = self.param_template
         result['customer_details'] = []
         if self.customer_details is not None:
             for k in self.customer_details:
@@ -21474,8 +21474,8 @@ class ApplyUmktRobotcallRequest(TeaModel):
             self.scene_strategy_id = m.get('scene_strategy_id')
         if m.get('out_info') is not None:
             self.out_info = m.get('out_info')
-        if m.get('file_template') is not None:
-            self.file_template = m.get('file_template')
+        if m.get('param_template') is not None:
+            self.param_template = m.get('param_template')
         self.customer_details = []
         if m.get('customer_details') is not None:
             for k in m.get('customer_details'):
