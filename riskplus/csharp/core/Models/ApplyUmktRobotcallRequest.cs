@@ -34,9 +34,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string OutInfo { get; set; }
 
         // 用户参数类型
-        [NameInMap("file_template")]
+        [NameInMap("param_template")]
         [Validation(Required=true)]
-        public string FileTemplate { get; set; }
+        public string ParamTemplate { get; set; }
 
         // 每个手机号的详细参数
         [NameInMap("customer_details")]
