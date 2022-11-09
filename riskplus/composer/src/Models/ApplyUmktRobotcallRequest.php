@@ -41,7 +41,7 @@ class ApplyUmktRobotcallRequest extends Model
     /**
      * @var string
      */
-    public $fileTemplate;
+    public $paramTemplate;
 
     // 每个手机号的详细参数
     /**
@@ -54,7 +54,7 @@ class ApplyUmktRobotcallRequest extends Model
         'outSerialNo'       => 'out_serial_no',
         'sceneStrategyId'   => 'scene_strategy_id',
         'outInfo'           => 'out_info',
-        'fileTemplate'      => 'file_template',
+        'paramTemplate'     => 'param_template',
         'customerDetails'   => 'customer_details',
     ];
 
@@ -62,7 +62,7 @@ class ApplyUmktRobotcallRequest extends Model
     {
         Model::validateRequired('outSerialNo', $this->outSerialNo, true);
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
-        Model::validateRequired('fileTemplate', $this->fileTemplate, true);
+        Model::validateRequired('paramTemplate', $this->paramTemplate, true);
     }
 
     public function toMap()
@@ -83,8 +83,8 @@ class ApplyUmktRobotcallRequest extends Model
         if (null !== $this->outInfo) {
             $res['out_info'] = $this->outInfo;
         }
-        if (null !== $this->fileTemplate) {
-            $res['file_template'] = $this->fileTemplate;
+        if (null !== $this->paramTemplate) {
+            $res['param_template'] = $this->paramTemplate;
         }
         if (null !== $this->customerDetails) {
             $res['customer_details'] = [];
@@ -122,8 +122,8 @@ class ApplyUmktRobotcallRequest extends Model
         if (isset($map['out_info'])) {
             $model->outInfo = $map['out_info'];
         }
-        if (isset($map['file_template'])) {
-            $model->fileTemplate = $map['file_template'];
+        if (isset($map['param_template'])) {
+            $model->paramTemplate = $map['param_template'];
         }
         if (isset($map['customer_details'])) {
             if (!empty($map['customer_details'])) {
