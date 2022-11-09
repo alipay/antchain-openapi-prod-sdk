@@ -17123,7 +17123,7 @@ type ApplyUmktRobotcallRequest struct {
 	// 客户透传字段
 	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
 	// 用户参数类型
-	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+	ParamTemplate *string `json:"param_template,omitempty" xml:"param_template,omitempty" require:"true"`
 	// 每个手机号的详细参数
 	CustomerDetails []*RobotCallCustomerParam `json:"customer_details,omitempty" xml:"customer_details,omitempty" type:"Repeated"`
 }
@@ -17161,8 +17161,8 @@ func (s *ApplyUmktRobotcallRequest) SetOutInfo(v string) *ApplyUmktRobotcallRequ
 	return s
 }
 
-func (s *ApplyUmktRobotcallRequest) SetFileTemplate(v string) *ApplyUmktRobotcallRequest {
-	s.FileTemplate = &v
+func (s *ApplyUmktRobotcallRequest) SetParamTemplate(v string) *ApplyUmktRobotcallRequest {
+	s.ParamTemplate = &v
 	return s
 }
 
@@ -18467,7 +18467,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.1"),
+				"sdk_version":      tea.String("1.15.2"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
