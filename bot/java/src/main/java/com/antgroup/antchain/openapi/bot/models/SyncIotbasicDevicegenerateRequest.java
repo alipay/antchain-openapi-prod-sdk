@@ -31,6 +31,11 @@ public class SyncIotbasicDevicegenerateRequest extends TeaModel {
     @Validation(required = true)
     public String bizScene;
 
+    // 分组标签，标识密钥的分组
+    @NameInMap("tag")
+    @Validation(required = true)
+    public String tag;
+
     public static SyncIotbasicDevicegenerateRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncIotbasicDevicegenerateRequest self = new SyncIotbasicDevicegenerateRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class SyncIotbasicDevicegenerateRequest extends TeaModel {
     }
     public String getBizScene() {
         return this.bizScene;
+    }
+
+    public SyncIotbasicDevicegenerateRequest setTag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+    public String getTag() {
+        return this.tag;
     }
 
 }

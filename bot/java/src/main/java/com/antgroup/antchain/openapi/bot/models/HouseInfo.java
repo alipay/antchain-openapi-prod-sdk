@@ -29,12 +29,10 @@ public class HouseInfo extends TeaModel {
 
     // 门锁设备DID
     @NameInMap("lock_id")
-    @Validation(required = true)
     public String lockId;
 
     // 电表设备DID
     @NameInMap("ammeter_id")
-    @Validation(required = true)
     public String ammeterId;
 
     public static HouseInfo build(java.util.Map<String, ?> map) throws Exception {

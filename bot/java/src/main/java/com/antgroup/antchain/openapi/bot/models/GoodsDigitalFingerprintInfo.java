@@ -24,6 +24,11 @@ public class GoodsDigitalFingerprintInfo extends TeaModel {
     @Validation(required = true)
     public java.util.List<GoodsDigitalFingerprintPoint> goodsPoints;
 
+    // 商品id
+    @NameInMap("goods_id")
+    @Validation(required = true, maxLength = 128)
+    public String goodsId;
+
     public static GoodsDigitalFingerprintInfo build(java.util.Map<String, ?> map) throws Exception {
         GoodsDigitalFingerprintInfo self = new GoodsDigitalFingerprintInfo();
         return TeaModel.build(map, self);
@@ -59,6 +64,14 @@ public class GoodsDigitalFingerprintInfo extends TeaModel {
     }
     public java.util.List<GoodsDigitalFingerprintPoint> getGoodsPoints() {
         return this.goodsPoints;
+    }
+
+    public GoodsDigitalFingerprintInfo setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+        return this;
+    }
+    public String getGoodsId() {
+        return this.goodsId;
     }
 
 }

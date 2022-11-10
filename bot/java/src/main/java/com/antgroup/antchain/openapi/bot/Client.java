@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.34"),
+                    new TeaPair("sdk_version", "1.7.43"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1016,6 +1016,63 @@ public class Client {
     public SyncIotbasicDevicegenerateResponse syncIotbasicDevicegenerateEx(SyncIotbasicDevicegenerateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncIotbasicDevicegenerateResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-批量数据上链
+     * Summary: IoT设备平台-批量数据上链
+     */
+    public OperateIotbasicBatchcollectResponse operateIotbasicBatchcollect(OperateIotbasicBatchcollectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateIotbasicBatchcollectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-批量数据上链
+     * Summary: IoT设备平台-批量数据上链
+     */
+    public OperateIotbasicBatchcollectResponse operateIotbasicBatchcollectEx(OperateIotbasicBatchcollectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.batchcollect.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateIotbasicBatchcollectResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-设备订单导入
+     * Summary: IoT设备平台-设备订单导入
+     */
+    public ImportIotbasicDeviceorderResponse importIotbasicDeviceorder(ImportIotbasicDeviceorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIotbasicDeviceorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备订单导入
+     * Summary: IoT设备平台-设备订单导入
+     */
+    public ImportIotbasicDeviceorderResponse importIotbasicDeviceorderEx(ImportIotbasicDeviceorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorder.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotbasicDeviceorderResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-订单批量同步
+     * Summary: IoT设备平台-订单批量同步
+     */
+    public BatchcreateIotbasicDeviceorderbatchResponse batchcreateIotbasicDeviceorderbatch(BatchcreateIotbasicDeviceorderbatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateIotbasicDeviceorderbatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-订单批量同步
+     * Summary: IoT设备平台-订单批量同步
+     */
+    public BatchcreateIotbasicDeviceorderbatchResponse batchcreateIotbasicDeviceorderbatchEx(BatchcreateIotbasicDeviceorderbatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorderbatch.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateIotbasicDeviceorderbatchResponse());
     }
 
     /**
