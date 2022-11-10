@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.34',
+                    'sdk_version': '1.7.43',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.34',
+                    'sdk_version': '1.7.43',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -2771,6 +2771,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.SyncIotbasicDevicegenerateResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_batchcollect(
+        self,
+        request: bot_models.OperateIotbasicBatchcollectRequest,
+    ) -> bot_models.OperateIotbasicBatchcollectResponse:
+        """
+        Description: IoT设备平台-批量数据上链
+        Summary: IoT设备平台-批量数据上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_batchcollect_ex(request, headers, runtime)
+
+    async def operate_iotbasic_batchcollect_async(
+        self,
+        request: bot_models.OperateIotbasicBatchcollectRequest,
+    ) -> bot_models.OperateIotbasicBatchcollectResponse:
+        """
+        Description: IoT设备平台-批量数据上链
+        Summary: IoT设备平台-批量数据上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_batchcollect_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_batchcollect_ex(
+        self,
+        request: bot_models.OperateIotbasicBatchcollectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicBatchcollectResponse:
+        """
+        Description: IoT设备平台-批量数据上链
+        Summary: IoT设备平台-批量数据上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicBatchcollectResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.batchcollect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_batchcollect_ex_async(
+        self,
+        request: bot_models.OperateIotbasicBatchcollectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicBatchcollectResponse:
+        """
+        Description: IoT设备平台-批量数据上链
+        Summary: IoT设备平台-批量数据上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicBatchcollectResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.batchcollect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_iotbasic_deviceorder(
+        self,
+        request: bot_models.ImportIotbasicDeviceorderRequest,
+    ) -> bot_models.ImportIotbasicDeviceorderResponse:
+        """
+        Description: IoT设备平台-设备订单导入
+        Summary: IoT设备平台-设备订单导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_iotbasic_deviceorder_ex(request, headers, runtime)
+
+    async def import_iotbasic_deviceorder_async(
+        self,
+        request: bot_models.ImportIotbasicDeviceorderRequest,
+    ) -> bot_models.ImportIotbasicDeviceorderResponse:
+        """
+        Description: IoT设备平台-设备订单导入
+        Summary: IoT设备平台-设备订单导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_iotbasic_deviceorder_ex_async(request, headers, runtime)
+
+    def import_iotbasic_deviceorder_ex(
+        self,
+        request: bot_models.ImportIotbasicDeviceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotbasicDeviceorderResponse:
+        """
+        Description: IoT设备平台-设备订单导入
+        Summary: IoT设备平台-设备订单导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotbasicDeviceorderResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.deviceorder.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_iotbasic_deviceorder_ex_async(
+        self,
+        request: bot_models.ImportIotbasicDeviceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotbasicDeviceorderResponse:
+        """
+        Description: IoT设备平台-设备订单导入
+        Summary: IoT设备平台-设备订单导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotbasicDeviceorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.deviceorder.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_iotbasic_deviceorderbatch(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceorderbatchRequest,
+    ) -> bot_models.BatchcreateIotbasicDeviceorderbatchResponse:
+        """
+        Description: IoT设备平台-订单批量同步
+        Summary: IoT设备平台-订单批量同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_iotbasic_deviceorderbatch_ex(request, headers, runtime)
+
+    async def batchcreate_iotbasic_deviceorderbatch_async(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceorderbatchRequest,
+    ) -> bot_models.BatchcreateIotbasicDeviceorderbatchResponse:
+        """
+        Description: IoT设备平台-订单批量同步
+        Summary: IoT设备平台-订单批量同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_iotbasic_deviceorderbatch_ex_async(request, headers, runtime)
+
+    def batchcreate_iotbasic_deviceorderbatch_ex(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceorderbatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateIotbasicDeviceorderbatchResponse:
+        """
+        Description: IoT设备平台-订单批量同步
+        Summary: IoT设备平台-订单批量同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateIotbasicDeviceorderbatchResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.deviceorderbatch.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_iotbasic_deviceorderbatch_ex_async(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceorderbatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateIotbasicDeviceorderbatchResponse:
+        """
+        Description: IoT设备平台-订单批量同步
+        Summary: IoT设备平台-订单批量同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateIotbasicDeviceorderbatchResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.deviceorderbatch.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
