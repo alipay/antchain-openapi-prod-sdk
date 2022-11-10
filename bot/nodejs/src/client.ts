@@ -523,6 +523,35 @@ export class DataVerifyFailureData extends $tea.Model {
   }
 }
 
+// 设备采购订单元素
+export class IotBasicDeviceOrderItem extends $tea.Model {
+  // 蚂蚁链IoT平台设备唯一ID
+  deviceDid: string;
+  // 设备唯一编号
+  deviceSn: string;
+  // 设备金额，精确到小数后两位
+  paymentAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceDid: 'device_did',
+      deviceSn: 'device_sn',
+      paymentAmount: 'payment_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceDid: 'string',
+      deviceSn: 'string',
+      paymentAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 原始数据包
 export class RawData extends $tea.Model {
   // 链上设备id
@@ -902,6 +931,35 @@ export class ThingsDidRegisterReq extends $tea.Model {
       thingType: 'number',
       thingVersion: 'string',
       userDid: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据上链失败结果
+export class DeviceCollectFail extends $tea.Model {
+  // 上链数据采集ID
+  collectId: string;
+  // 错误码
+  code: string;
+  // 错误信息
+  message: string;
+  static names(): { [key: string]: string } {
+    return {
+      collectId: 'collect_id',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      collectId: 'string',
+      code: 'string',
+      message: 'string',
     };
   }
 
@@ -1913,9 +1971,9 @@ export class HouseInfo extends $tea.Model {
   // 房屋地址
   addr?: string;
   // 门锁设备DID
-  lockId: string;
+  lockId?: string;
   // 电表设备DID
-  ammeterId: string;
+  ammeterId?: string;
   static names(): { [key: string]: string } {
     return {
       houseId: 'house_id',
@@ -2173,6 +2231,31 @@ export class RentBillItem extends $tea.Model {
       billItemEnd: 'string',
       billItemMoney: 'string',
       paymentState: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据上链成功结果数据
+export class DeviceCollectResult extends $tea.Model {
+  // 上链数据采集ID
+  collectId: string;
+  // 上链id
+  antchainId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      collectId: 'collect_id',
+      antchainId: 'antchain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      collectId: 'string',
+      antchainId: 'string',
     };
   }
 
@@ -3658,12 +3741,15 @@ export class GoodsDigitalFingerprintInfo extends $tea.Model {
   style: string;
   // 商品数字指纹鉴定点列表
   goodsPoints: GoodsDigitalFingerprintPoint[];
+  // 商品id
+  goodsId: string;
   static names(): { [key: string]: string } {
     return {
       category: 'category',
       brand: 'brand',
       style: 'style',
       goodsPoints: 'goods_points',
+      goodsId: 'goods_id',
     };
   }
 
@@ -3673,6 +3759,7 @@ export class GoodsDigitalFingerprintInfo extends $tea.Model {
       brand: 'string',
       style: 'string',
       goodsPoints: { 'type': 'array', 'itemType': GoodsDigitalFingerprintPoint },
+      goodsId: 'string',
     };
   }
 
@@ -3710,6 +3797,76 @@ export class DidUpdateTenantReq extends $tea.Model {
       tenantList: { 'type': 'array', 'itemType': 'string' },
       tenantRole: 'string',
       opMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单批量同步单个请求体
+export class DeviceorderRequest extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 支付状态
+  orderStatus: string;
+  // 商家唯一id
+  merchantId: string;
+  // 设备订单元素集合
+  orderDeviceList: IotBasicDeviceOrderItem[];
+  // 订单总金额，精确到小数点后两位
+  totalAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      orderStatus: 'order_status',
+      merchantId: 'merchant_id',
+      orderDeviceList: 'order_device_list',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      orderStatus: 'string',
+      merchantId: 'string',
+      orderDeviceList: { 'type': 'array', 'itemType': IotBasicDeviceOrderItem },
+      totalAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 上链数据
+export class CollectInfo extends $tea.Model {
+  // 资产ID
+  assetId: string;
+  // 数据资产类型
+  dataScene: string;
+  // 资产数据内容，业务要上链的数据JSON格式
+  assetData: string;
+  // 上链数据采集id
+  collectId: string;
+  static names(): { [key: string]: string } {
+    return {
+      assetId: 'asset_id',
+      dataScene: 'data_scene',
+      assetData: 'asset_data',
+      collectId: 'collect_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assetId: 'string',
+      dataScene: 'string',
+      assetData: 'string',
+      collectId: 'string',
     };
   }
 
@@ -7199,6 +7356,8 @@ export class SyncIotbasicDevicegenerateRequest extends $tea.Model {
   pubKey: string;
   // 所属业务
   bizScene: string;
+  // 分组标签，标识密钥的分组
+  tag: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7207,6 +7366,7 @@ export class SyncIotbasicDevicegenerateRequest extends $tea.Model {
       deviceSn: 'device_sn',
       pubKey: 'pub_key',
       bizScene: 'biz_scene',
+      tag: 'tag',
     };
   }
 
@@ -7218,6 +7378,7 @@ export class SyncIotbasicDevicegenerateRequest extends $tea.Model {
       deviceSn: 'string',
       pubKey: 'string',
       bizScene: 'string',
+      tag: 'string',
     };
   }
 
@@ -7254,6 +7415,239 @@ export class SyncIotbasicDevicegenerateResponse extends $tea.Model {
       resultMsg: 'string',
       deviceKey: 'string',
       secId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicBatchcollectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 租户id
+  tenantId: string;
+  // 上链数据列表
+  collectInfoList: CollectInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+      collectInfoList: 'collect_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      tenantId: 'string',
+      collectInfoList: { 'type': 'array', 'itemType': CollectInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicBatchcollectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 上链成功列表
+  successList?: DeviceCollectResult[];
+  // 上链失败列表
+  failList?: DeviceCollectFail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      successList: 'success_list',
+      failList: 'fail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      successList: { 'type': 'array', 'itemType': DeviceCollectResult },
+      failList: { 'type': 'array', 'itemType': DeviceCollectFail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIotbasicDeviceorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 订单ID
+  orderId: string;
+  // 订单状态: 已支付
+  orderStatus: string;
+  // 订单采购设备清单
+  orderDeviceList: IotBasicDeviceOrderItem[];
+  // 商家ID，唯一编号
+  merchantId?: string;
+  // 订单总金额，精确到小数后两位
+  totalAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      orderId: 'order_id',
+      orderStatus: 'order_status',
+      orderDeviceList: 'order_device_list',
+      merchantId: 'merchant_id',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      orderId: 'string',
+      orderStatus: 'string',
+      orderDeviceList: { 'type': 'array', 'itemType': IotBasicDeviceOrderItem },
+      merchantId: 'string',
+      totalAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIotbasicDeviceorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 链上hash地址
+  antchainId?: string;
+  // 代表接口是否处理成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      antchainId: 'antchain_id',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      antchainId: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateIotbasicDeviceorderbatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizScene: string;
+  // 租户id
+  tenantId: string;
+  // 订单同步批量请求体
+  orderBatchSyncReq: DeviceorderRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+      orderBatchSyncReq: 'order_batch_sync_req',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      tenantId: 'string',
+      orderBatchSyncReq: { 'type': 'array', 'itemType': DeviceorderRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateIotbasicDeviceorderbatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口是否执行成功
+  success?: boolean;
+  // 上链成功的集合
+  successList?: DeviceCollectResult[];
+  // 上链失败的集合
+  failList?: DeviceCollectFail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      successList: 'success_list',
+      failList: 'fail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      successList: { 'type': 'array', 'itemType': DeviceCollectResult },
+      failList: { 'type': 'array', 'itemType': DeviceCollectFail },
     };
   }
 
@@ -15111,7 +15505,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.34",
+          sdk_version: "1.7.43",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -16014,6 +16408,63 @@ export default class Client {
   async syncIotbasicDevicegenerateEx(request: SyncIotbasicDevicegenerateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncIotbasicDevicegenerateResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncIotbasicDevicegenerateResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncIotbasicDevicegenerateResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-批量数据上链
+   * Summary: IoT设备平台-批量数据上链
+   */
+  async operateIotbasicBatchcollect(request: OperateIotbasicBatchcollectRequest): Promise<OperateIotbasicBatchcollectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateIotbasicBatchcollectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-批量数据上链
+   * Summary: IoT设备平台-批量数据上链
+   */
+  async operateIotbasicBatchcollectEx(request: OperateIotbasicBatchcollectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicBatchcollectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateIotbasicBatchcollectResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.batchcollect.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicBatchcollectResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-设备订单导入
+   * Summary: IoT设备平台-设备订单导入
+   */
+  async importIotbasicDeviceorder(request: ImportIotbasicDeviceorderRequest): Promise<ImportIotbasicDeviceorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIotbasicDeviceorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-设备订单导入
+   * Summary: IoT设备平台-设备订单导入
+   */
+  async importIotbasicDeviceorderEx(request: ImportIotbasicDeviceorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIotbasicDeviceorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIotbasicDeviceorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorder.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIotbasicDeviceorderResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-订单批量同步
+   * Summary: IoT设备平台-订单批量同步
+   */
+  async batchcreateIotbasicDeviceorderbatch(request: BatchcreateIotbasicDeviceorderbatchRequest): Promise<BatchcreateIotbasicDeviceorderbatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcreateIotbasicDeviceorderbatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-订单批量同步
+   * Summary: IoT设备平台-订单批量同步
+   */
+  async batchcreateIotbasicDeviceorderbatchEx(request: BatchcreateIotbasicDeviceorderbatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateIotbasicDeviceorderbatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcreateIotbasicDeviceorderbatchResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorderbatch.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateIotbasicDeviceorderbatchResponse({}));
   }
 
   /**
