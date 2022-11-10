@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.34"},
+                        {"sdk_version", "1.7.43"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.34"},
+                        {"sdk_version", "1.7.43"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2213,6 +2213,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncIotbasicDevicegenerateResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-批量数据上链
+         * Summary: IoT设备平台-批量数据上链
+         */
+        public OperateIotbasicBatchcollectResponse OperateIotbasicBatchcollect(OperateIotbasicBatchcollectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicBatchcollectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-批量数据上链
+         * Summary: IoT设备平台-批量数据上链
+         */
+        public async Task<OperateIotbasicBatchcollectResponse> OperateIotbasicBatchcollectAsync(OperateIotbasicBatchcollectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicBatchcollectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-批量数据上链
+         * Summary: IoT设备平台-批量数据上链
+         */
+        public OperateIotbasicBatchcollectResponse OperateIotbasicBatchcollectEx(OperateIotbasicBatchcollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicBatchcollectResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.batchcollect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-批量数据上链
+         * Summary: IoT设备平台-批量数据上链
+         */
+        public async Task<OperateIotbasicBatchcollectResponse> OperateIotbasicBatchcollectExAsync(OperateIotbasicBatchcollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicBatchcollectResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.batchcollect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备订单导入
+         * Summary: IoT设备平台-设备订单导入
+         */
+        public ImportIotbasicDeviceorderResponse ImportIotbasicDeviceorder(ImportIotbasicDeviceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportIotbasicDeviceorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备订单导入
+         * Summary: IoT设备平台-设备订单导入
+         */
+        public async Task<ImportIotbasicDeviceorderResponse> ImportIotbasicDeviceorderAsync(ImportIotbasicDeviceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportIotbasicDeviceorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备订单导入
+         * Summary: IoT设备平台-设备订单导入
+         */
+        public ImportIotbasicDeviceorderResponse ImportIotbasicDeviceorderEx(ImportIotbasicDeviceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIotbasicDeviceorderResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.deviceorder.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备订单导入
+         * Summary: IoT设备平台-设备订单导入
+         */
+        public async Task<ImportIotbasicDeviceorderResponse> ImportIotbasicDeviceorderExAsync(ImportIotbasicDeviceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIotbasicDeviceorderResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.deviceorder.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-订单批量同步
+         * Summary: IoT设备平台-订单批量同步
+         */
+        public BatchcreateIotbasicDeviceorderbatchResponse BatchcreateIotbasicDeviceorderbatch(BatchcreateIotbasicDeviceorderbatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateIotbasicDeviceorderbatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-订单批量同步
+         * Summary: IoT设备平台-订单批量同步
+         */
+        public async Task<BatchcreateIotbasicDeviceorderbatchResponse> BatchcreateIotbasicDeviceorderbatchAsync(BatchcreateIotbasicDeviceorderbatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateIotbasicDeviceorderbatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-订单批量同步
+         * Summary: IoT设备平台-订单批量同步
+         */
+        public BatchcreateIotbasicDeviceorderbatchResponse BatchcreateIotbasicDeviceorderbatchEx(BatchcreateIotbasicDeviceorderbatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateIotbasicDeviceorderbatchResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.deviceorderbatch.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-订单批量同步
+         * Summary: IoT设备平台-订单批量同步
+         */
+        public async Task<BatchcreateIotbasicDeviceorderbatchResponse> BatchcreateIotbasicDeviceorderbatchExAsync(BatchcreateIotbasicDeviceorderbatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateIotbasicDeviceorderbatchResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.deviceorderbatch.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

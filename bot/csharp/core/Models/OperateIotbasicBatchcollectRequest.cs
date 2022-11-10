@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SyncIotbasicDevicegenerateRequest : TeaModel {
+    public class OperateIotbasicBatchcollectRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,30 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 设备厂商名称
-        [NameInMap("corp_name")]
-        [Validation(Required=true)]
-        public string CorpName { get; set; }
-
-        // 设备sn
-        [NameInMap("device_sn")]
-        [Validation(Required=true)]
-        public string DeviceSn { get; set; }
-
-        // 公钥
-        [NameInMap("pub_key")]
-        [Validation(Required=true)]
-        public string PubKey { get; set; }
-
         // 所属业务
         [NameInMap("biz_scene")]
         [Validation(Required=true)]
         public string BizScene { get; set; }
 
-        // 分组标签，标识密钥的分组
-        [NameInMap("tag")]
+        // 租户id
+        [NameInMap("tenant_id")]
         [Validation(Required=true)]
-        public string Tag { get; set; }
+        public string TenantId { get; set; }
+
+        // 上链数据列表
+        [NameInMap("collect_info_list")]
+        [Validation(Required=true)]
+        public List<CollectInfo> CollectInfoList { get; set; }
 
     }
 

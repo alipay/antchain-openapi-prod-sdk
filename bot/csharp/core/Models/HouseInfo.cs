@@ -38,12 +38,12 @@ namespace AntChain.SDK.BOT.Models
 
         // 门锁设备DID
         [NameInMap("lock_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string LockId { get; set; }
 
         // 电表设备DID
         [NameInMap("ammeter_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AmmeterId { get; set; }
 
     }

@@ -30,6 +30,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<GoodsDigitalFingerprintPoint> GoodsPoints { get; set; }
 
+        // 商品id
+        [NameInMap("goods_id")]
+        [Validation(Required=true, MaxLength=128)]
+        public string GoodsId { get; set; }
+
     }
 
 }
