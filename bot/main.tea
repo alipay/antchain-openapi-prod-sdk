@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.34',
+    sdk_version = '1.7.43',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -340,6 +340,16 @@ model DataVerifyFailureData {
   source?: long(name='source', example='0'),
 }
 
+// 设备采购订单元素
+model IotBasicDeviceOrderItem {
+  // 蚂蚁链IoT平台设备唯一ID
+  deviceDid: string(name='device_did', example='12321321'),
+  // 设备唯一编号
+  deviceSn: string(name='device_sn', example='12321321'),
+  // 设备金额，精确到小数后两位
+  paymentAmount: string(name='payment_amount', example='234.01'),
+}
+
 // 原始数据包
 model RawData {
   // 链上设备id
@@ -497,6 +507,16 @@ model ThingsDidRegisterReq {
   thingVersion: string(name='thing_version', example='"1.0.0"'),
   // 信物链实体的使用方的分布式身份列表
   userDid?: [ string ](name='user_did', example='["did:mychain:xxxx1","did:mychain:xxxx2"]'),
+}
+
+// 数据上链失败结果
+model DeviceCollectFail {
+  // 上链数据采集ID
+  collectId: string(name='collect_id', example='81htq898'),
+  // 错误码
+  code: string(name='code', example='bad_param'),
+  // 错误信息
+  message: string(name='message', example='参数错误'),
 }
 
 // 商品鉴定点鉴定响应体
@@ -907,9 +927,9 @@ model HouseInfo {
   // 房屋地址
   addr?: string(name='addr', example='hz'),
   // 门锁设备DID
-  lockId: string(name='lock_id', example='L91923'),
+  lockId?: string(name='lock_id', example='L91923'),
   // 电表设备DID
-  ammeterId: string(name='ammeter_id', example='A87345'),
+  ammeterId?: string(name='ammeter_id', example='A87345'),
 }
 
 // 设备硬件模块信息体
@@ -1008,6 +1028,14 @@ model RentBillItem {
   billItemMoney: string(name='bill_item_money', example='5000'),
   // 租约支付状态
   paymentState?: string(name='payment_state', example='待支付，已支付，支付失败'),
+}
+
+// 数据上链成功结果数据
+model DeviceCollectResult {
+  // 上链数据采集ID
+  collectId: string(name='collect_id', example='j8o12u38'),
+  // 上链id
+  antchainId?: string(name='antchain_id', example='auit98'),
 }
 
 // 溯源二维码生成请求的请求数据
@@ -1661,6 +1689,8 @@ model GoodsDigitalFingerprintInfo {
   style: string(name='style', example='Gucci Diana'),
   // 商品数字指纹鉴定点列表
   goodsPoints: [ GoodsDigitalFingerprintPoint ](name='goods_points', example='[{"sub_point_name":"正面","image_url":"http://xxxx1001"},{"sub_point_name":"背面","image_url":"http://xxxx1002"}]'),
+  // 商品id
+  goodsId: string(maxLength=128, name='goods_id', example='goodsId'),
 }
 
 // 具备实体权限访问者更新请求
@@ -1677,6 +1707,32 @@ model DidUpdateTenantReq {
   // 增加权限：THINGS_OP_MODE_ADD
   // 删除权限：THINGS_OP_MODE_REMOVE
   opMode: string(name='op_mode', example='THINGS_OP_MODE_ADD'),
+}
+
+// 订单批量同步单个请求体
+model DeviceorderRequest {
+  // 订单id
+  orderId: string(name='order_id', example='20034932'),
+  // 支付状态
+  orderStatus: string(name='order_status', example='PAID,UNPAID,PAYMENT_FAILED'),
+  // 商家唯一id
+  merchantId: string(name='merchant_id', example='30099234'),
+  // 设备订单元素集合
+  orderDeviceList: [ IotBasicDeviceOrderItem ](name='order_device_list', example=''),
+  // 订单总金额，精确到小数点后两位
+  totalAmount: string(name='total_amount', example='22220.98'),
+}
+
+// 上链数据
+model CollectInfo {
+  // 资产ID
+  assetId: string(name='asset_id', example='56165431'),
+  // 数据资产类型
+  dataScene: string(name='data_scene', example='LOCK'),
+  // 资产数据内容，业务要上链的数据JSON格式
+  assetData: string(name='asset_data', example='{"a":xx,"b":xx}'),
+  // 上链数据采集id
+  collectId: string(name='collect_id', example='289hj98u'),
 }
 
 // BAI提供的OCR接口返回值
@@ -3814,6 +3870,8 @@ model SyncIotbasicDevicegenerateRequest = {
   pubKey: string(name='pub_key'),
   // 所属业务
   bizScene: string(name='biz_scene'),
+  // 分组标签，标识密钥的分组
+  tag: string(name='tag'),
 }
 
 model SyncIotbasicDevicegenerateResponse = {
@@ -3846,6 +3904,148 @@ async function syncIotbasicDevicegenerate(request: SyncIotbasicDevicegenerateReq
 async function syncIotbasicDevicegenerateEx(request: SyncIotbasicDevicegenerateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncIotbasicDevicegenerateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicBatchcollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 上链数据列表
+  collectInfoList: [ CollectInfo ](name='collect_info_list'),
+}
+
+model OperateIotbasicBatchcollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 上链成功列表
+  successList?: [ DeviceCollectResult ](name='success_list'),
+  // 上链失败列表
+  failList?: [ DeviceCollectFail ](name='fail_list'),
+}
+
+/**
+ * Description: IoT设备平台-批量数据上链
+ * Summary: IoT设备平台-批量数据上链
+ */
+async function operateIotbasicBatchcollect(request: OperateIotbasicBatchcollectRequest): OperateIotbasicBatchcollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicBatchcollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-批量数据上链
+ * Summary: IoT设备平台-批量数据上链
+ */
+async function operateIotbasicBatchcollectEx(request: OperateIotbasicBatchcollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicBatchcollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.batchcollect.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIotbasicDeviceorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 订单ID
+  orderId: string(name='order_id'),
+  // 订单状态: 已支付
+  orderStatus: string(name='order_status'),
+  // 订单采购设备清单
+  orderDeviceList: [ IotBasicDeviceOrderItem ](name='order_device_list'),
+  // 商家ID，唯一编号
+  merchantId?: string(name='merchant_id'),
+  // 订单总金额，精确到小数后两位
+  totalAmount: string(name='total_amount'),
+}
+
+model ImportIotbasicDeviceorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上hash地址
+  antchainId?: string(name='antchain_id'),
+  // 代表接口是否处理成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-设备订单导入
+ * Summary: IoT设备平台-设备订单导入
+ */
+async function importIotbasicDeviceorder(request: ImportIotbasicDeviceorderRequest): ImportIotbasicDeviceorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIotbasicDeviceorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备订单导入
+ * Summary: IoT设备平台-设备订单导入
+ */
+async function importIotbasicDeviceorderEx(request: ImportIotbasicDeviceorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotbasicDeviceorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorder.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateIotbasicDeviceorderbatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 订单同步批量请求体
+  orderBatchSyncReq: [ DeviceorderRequest ](name='order_batch_sync_req'),
+}
+
+model BatchcreateIotbasicDeviceorderbatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口是否执行成功
+  success?: boolean(name='success'),
+  // 上链成功的集合
+  successList?: [ DeviceCollectResult ](name='success_list'),
+  // 上链失败的集合
+  failList?: [ DeviceCollectFail ](name='fail_list'),
+}
+
+/**
+ * Description: IoT设备平台-订单批量同步
+ * Summary: IoT设备平台-订单批量同步
+ */
+async function batchcreateIotbasicDeviceorderbatch(request: BatchcreateIotbasicDeviceorderbatchRequest): BatchcreateIotbasicDeviceorderbatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateIotbasicDeviceorderbatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-订单批量同步
+ * Summary: IoT设备平台-订单批量同步
+ */
+async function batchcreateIotbasicDeviceorderbatchEx(request: BatchcreateIotbasicDeviceorderbatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateIotbasicDeviceorderbatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorderbatch.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
