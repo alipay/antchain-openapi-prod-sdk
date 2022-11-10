@@ -33,6 +33,8 @@ use AntChain\BOT\Models\AddUserRoleRequest;
 use AntChain\BOT\Models\AddUserRoleResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
+use AntChain\BOT\Models\BatchcreateIotbasicDeviceorderbatchRequest;
+use AntChain\BOT\Models\BatchcreateIotbasicDeviceorderbatchResponse;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
@@ -105,6 +107,8 @@ use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralByperipheralidResponse;
 use AntChain\BOT\Models\ImportDeviceRequest;
 use AntChain\BOT\Models\ImportDeviceResponse;
+use AntChain\BOT\Models\ImportIotbasicDeviceorderRequest;
+use AntChain\BOT\Models\ImportIotbasicDeviceorderResponse;
 use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
 use AntChain\BOT\Models\ImportIotplatformMeshidResponse;
 use AntChain\BOT\Models\ImportPeripheralRequest;
@@ -135,6 +139,8 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\OperateIotbasicBatchcollectRequest;
+use AntChain\BOT\Models\OperateIotbasicBatchcollectResponse;
 use AntChain\BOT\Models\OperateIotbasicCategoryRequest;
 use AntChain\BOT\Models\OperateIotbasicCategoryResponse;
 use AntChain\BOT\Models\OperateIotbasicChainmodelRequest;
@@ -450,7 +456,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.34',
+                    'sdk_version'      => '1.7.43',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1966,6 +1972,105 @@ class Client
         Utils::validateModel($request);
 
         return SyncIotbasicDevicegenerateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-批量数据上链
+     * Summary: IoT设备平台-批量数据上链.
+     *
+     * @param OperateIotbasicBatchcollectRequest $request
+     *
+     * @return OperateIotbasicBatchcollectResponse
+     */
+    public function operateIotbasicBatchcollect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicBatchcollectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-批量数据上链
+     * Summary: IoT设备平台-批量数据上链.
+     *
+     * @param OperateIotbasicBatchcollectRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return OperateIotbasicBatchcollectResponse
+     */
+    public function operateIotbasicBatchcollectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicBatchcollectResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.batchcollect.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备订单导入
+     * Summary: IoT设备平台-设备订单导入.
+     *
+     * @param ImportIotbasicDeviceorderRequest $request
+     *
+     * @return ImportIotbasicDeviceorderResponse
+     */
+    public function importIotbasicDeviceorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIotbasicDeviceorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备订单导入
+     * Summary: IoT设备平台-设备订单导入.
+     *
+     * @param ImportIotbasicDeviceorderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ImportIotbasicDeviceorderResponse
+     */
+    public function importIotbasicDeviceorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIotbasicDeviceorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.deviceorder.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-订单批量同步
+     * Summary: IoT设备平台-订单批量同步.
+     *
+     * @param BatchcreateIotbasicDeviceorderbatchRequest $request
+     *
+     * @return BatchcreateIotbasicDeviceorderbatchResponse
+     */
+    public function batchcreateIotbasicDeviceorderbatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateIotbasicDeviceorderbatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-订单批量同步
+     * Summary: IoT设备平台-订单批量同步.
+     *
+     * @param BatchcreateIotbasicDeviceorderbatchRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return BatchcreateIotbasicDeviceorderbatchResponse
+     */
+    public function batchcreateIotbasicDeviceorderbatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateIotbasicDeviceorderbatchResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.deviceorderbatch.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -39,11 +39,20 @@ class GoodsDigitalFingerprintInfo extends Model
      * @var GoodsDigitalFingerprintPoint[]
      */
     public $goodsPoints;
+
+    // 商品id
+    /**
+     * @example goodsId
+     *
+     * @var string
+     */
+    public $goodsId;
     protected $_name = [
         'category'    => 'category',
         'brand'       => 'brand',
         'style'       => 'style',
         'goodsPoints' => 'goods_points',
+        'goodsId'     => 'goods_id',
     ];
 
     public function validate()
@@ -52,6 +61,8 @@ class GoodsDigitalFingerprintInfo extends Model
         Model::validateRequired('brand', $this->brand, true);
         Model::validateRequired('style', $this->style, true);
         Model::validateRequired('goodsPoints', $this->goodsPoints, true);
+        Model::validateRequired('goodsId', $this->goodsId, true);
+        Model::validateMaxLength('goodsId', $this->goodsId, 128);
     }
 
     public function toMap()
@@ -74,6 +85,9 @@ class GoodsDigitalFingerprintInfo extends Model
                     $res['goods_points'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->goodsId) {
+            $res['goods_id'] = $this->goodsId;
         }
 
         return $res;
@@ -104,6 +118,9 @@ class GoodsDigitalFingerprintInfo extends Model
                     $model->goodsPoints[$n++] = null !== $item ? GoodsDigitalFingerprintPoint::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['goods_id'])) {
+            $model->goodsId = $map['goods_id'];
         }
 
         return $model;

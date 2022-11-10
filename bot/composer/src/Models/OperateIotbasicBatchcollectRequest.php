@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncIotbasicDevicegenerateRequest extends Model
+class OperateIotbasicBatchcollectRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,52 +19,36 @@ class SyncIotbasicDevicegenerateRequest extends Model
      */
     public $productInstanceId;
 
-    // 设备厂商名称
-    /**
-     * @var string
-     */
-    public $corpName;
-
-    // 设备sn
-    /**
-     * @var string
-     */
-    public $deviceSn;
-
-    // 公钥
-    /**
-     * @var string
-     */
-    public $pubKey;
-
     // 所属业务
     /**
      * @var string
      */
     public $bizScene;
 
-    // 分组标签，标识密钥的分组
+    // 租户id
     /**
      * @var string
      */
-    public $tag;
+    public $tenantId;
+
+    // 上链数据列表
+    /**
+     * @var CollectInfo[]
+     */
+    public $collectInfoList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'corpName'          => 'corp_name',
-        'deviceSn'          => 'device_sn',
-        'pubKey'            => 'pub_key',
         'bizScene'          => 'biz_scene',
-        'tag'               => 'tag',
+        'tenantId'          => 'tenant_id',
+        'collectInfoList'   => 'collect_info_list',
     ];
 
     public function validate()
     {
-        Model::validateRequired('corpName', $this->corpName, true);
-        Model::validateRequired('deviceSn', $this->deviceSn, true);
-        Model::validateRequired('pubKey', $this->pubKey, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('tag', $this->tag, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('collectInfoList', $this->collectInfoList, true);
     }
 
     public function toMap()
@@ -76,20 +60,20 @@ class SyncIotbasicDevicegenerateRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->corpName) {
-            $res['corp_name'] = $this->corpName;
-        }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
-        if (null !== $this->pubKey) {
-            $res['pub_key'] = $this->pubKey;
-        }
         if (null !== $this->bizScene) {
             $res['biz_scene'] = $this->bizScene;
         }
-        if (null !== $this->tag) {
-            $res['tag'] = $this->tag;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->collectInfoList) {
+            $res['collect_info_list'] = [];
+            if (null !== $this->collectInfoList && \is_array($this->collectInfoList)) {
+                $n = 0;
+                foreach ($this->collectInfoList as $item) {
+                    $res['collect_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -98,7 +82,7 @@ class SyncIotbasicDevicegenerateRequest extends Model
     /**
      * @param array $map
      *
-     * @return SyncIotbasicDevicegenerateRequest
+     * @return OperateIotbasicBatchcollectRequest
      */
     public static function fromMap($map = [])
     {
@@ -109,20 +93,20 @@ class SyncIotbasicDevicegenerateRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['corp_name'])) {
-            $model->corpName = $map['corp_name'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
-        }
-        if (isset($map['pub_key'])) {
-            $model->pubKey = $map['pub_key'];
-        }
         if (isset($map['biz_scene'])) {
             $model->bizScene = $map['biz_scene'];
         }
-        if (isset($map['tag'])) {
-            $model->tag = $map['tag'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['collect_info_list'])) {
+            if (!empty($map['collect_info_list'])) {
+                $model->collectInfoList = [];
+                $n                      = 0;
+                foreach ($map['collect_info_list'] as $item) {
+                    $model->collectInfoList[$n++] = null !== $item ? CollectInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

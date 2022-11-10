@@ -78,8 +78,6 @@ class HouseInfo extends Model
     {
         Model::validateRequired('houseId', $this->houseId, true);
         Model::validateRequired('structure', $this->structure, true);
-        Model::validateRequired('lockId', $this->lockId, true);
-        Model::validateRequired('ammeterId', $this->ammeterId, true);
     }
 
     public function toMap()
