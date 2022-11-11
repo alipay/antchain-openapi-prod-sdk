@@ -8,20 +8,22 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class BindAaaBbbCccRequest : TeaModel {
-        // OAuth模式下的授权token
-        [NameInMap("auth_token")]
-        [Validation(Required=false)]
-        public string AuthToken { get; set; }
-
+    // groupA分组结构体
+    public class GroupAClass : TeaModel {
+        // -
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 123
-        [NameInMap("data")]
+        // 防伪码类型
+        [NameInMap("code_type")]
         [Validation(Required=true)]
-        public string Data { get; set; }
+        public string CodeType { get; set; }
+
+        // 防伪码码值
+        [NameInMap("code")]
+        [Validation(Required=true)]
+        public string Code { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // test
+    // testAAAA
     public class TestClass : TeaModel {
         // 1
         [NameInMap("test")]
