@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/demo",
-  "version": "1.0.105",
+  "name": "@antchain/demo",
+  "version": "1.0.120",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

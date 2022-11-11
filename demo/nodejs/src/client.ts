@@ -140,7 +140,7 @@ export class NameValuePair extends $tea.Model {
   }
 }
 
-// test
+// testAAAA
 export class TestClass extends $tea.Model {
   // 1
   test: string;
@@ -223,6 +223,35 @@ export class QueryMap extends $tea.Model {
   }
 }
 
+// init接口响应结果，map类型
+export class InitPack extends $tea.Model {
+  // 返回接收到请求的当前时间
+  time: string;
+  // 操作人
+  operator: string;
+  // 请求编号
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      time: 'time',
+      operator: 'operator',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      time: 'string',
+      operator: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 另一个Demo类
 export class AnotherClass extends $tea.Model {
   // 测试字段
@@ -261,6 +290,35 @@ export class TestsT extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// groupA分组结构体
+export class GroupAClass extends $tea.Model {
+  // -
+  productInstanceId?: string;
+  // 防伪码类型
+  codeType: string;
+  // 防伪码码值
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      productInstanceId: 'product_instance_id',
+      codeType: 'code_type',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productInstanceId: 'string',
+      codeType: 'string',
+      code: 'string',
     };
   }
 
@@ -472,10 +530,6 @@ export class EchoGatewayCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // demo
-  inputDemo?: DemoClass;
-  // echo
-  inputString?: string;
   // input_array
   inputArray: TestStruct[];
   // file_id
@@ -490,8 +544,6 @@ export class EchoGatewayCheckRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      inputDemo: 'input_demo',
-      inputString: 'input_string',
       inputArray: 'input_array',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
@@ -505,8 +557,6 @@ export class EchoGatewayCheckRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      inputDemo: DemoClass,
-      inputString: 'string',
       inputArray: { 'type': 'array', 'itemType': TestStruct },
       fileObject: 'Readable',
       fileObjectName: 'string',
@@ -1150,6 +1200,512 @@ export class BindAsdAsdResponse extends $tea.Model {
   }
 }
 
+export class UpdateCjtestCjRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 测试参数
+  var1: string;
+  // 测试参数2
+  var2: string;
+  // 被授权机构did
+  subject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      var1: 'var1',
+      var2: 'var2',
+      subject: 'subject',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      var1: 'string',
+      var2: 'string',
+      subject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateCjtestCjResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 测试返回参数1
+  return1?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      return1: 'return1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      return1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadCjtestSourceFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // file
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadCjtestSourceFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // test
+  res?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      res: 'res',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      res: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCjtestCjResRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCjtestCjResResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 字符串
+  res?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      res: 'res',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      res: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetCjtestApiAuthorizeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetCjtestApiAuthorizeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitGatewayRoadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求时间
+  time: string;
+  // 操作人
+  operator: string;
+  // 请求编号
+  count: number;
+  // 请求描述
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      time: 'time',
+      operator: 'operator',
+      count: 'count',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      time: 'string',
+      operator: 'string',
+      count: 'number',
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitGatewayRoadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回desc
+  initDesc?: string;
+  // 组合返回请求结果
+  initPack?: InitPack;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      initDesc: 'init_desc',
+      initPack: 'init_pack',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      initDesc: 'string',
+      initPack: InitPack,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateGatewayRoadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求时间
+  time: string;
+  // 操作人
+  operator: string;
+  // 请求编号
+  count: number;
+  // 原信息
+  originInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      time: 'time',
+      operator: 'operator',
+      count: 'count',
+      originInfo: 'origin_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      time: 'string',
+      operator: 'string',
+      count: 'number',
+      originInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateGatewayRoadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 更新后信息
+  updInfo?: string;
+  // 组合返回请求结果
+  updPack?: InitPack;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      updInfo: 'upd_info',
+      updPack: 'upd_pack',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      updInfo: 'string',
+      updPack: InitPack,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGatewayRoadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询内容
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGatewayRoadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  queryResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecGatewayRoadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求执行编号
+  execNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      execNum: 'exec_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      execNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecGatewayRoadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回用户请求编号+1
+  execNumEcho?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      execNumEcho: 'exec_num_echo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      execNumEcho: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindAsdAsdAsdRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1174,6 +1730,57 @@ export class BindAsdAsdAsdRequest extends $tea.Model {
 }
 
 export class BindAsdAsdAsdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestAaaBbbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestAaaBbbResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1382,6 +1989,65 @@ export class QueryTestGatewayTestResponse extends $tea.Model {
   }
 }
 
+export class QueryGongxiangTestDemoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 验证字符
+  character1: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      character1: 'character1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      character1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGongxiangTestDemoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // aaaaaa
+  character1?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      character1: 'character1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      character1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterTestBizeventMessageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1433,7 +2099,7 @@ export class RegisterTestBizeventMessageResponse extends $tea.Model {
   }
 }
 
-export class BindAaaBbbCccRequest extends $tea.Model {
+export class BindGongxaingTestRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1456,7 +2122,117 @@ export class BindAaaBbbCccRequest extends $tea.Model {
   }
 }
 
+export class BindGongxaingTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAaaBbbCccRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindAaaBbbCccResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMasterstationMasterdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户工号
+  workno: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      workno: 'workno',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      workno: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMasterstationMasterdataResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1559,6 +2335,126 @@ export class QueryAbcAbcAbcRequest extends $tea.Model {
 }
 
 export class QueryAbcAbcAbcResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetComCnCcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // orderid
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetComCnCcResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportComCnTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportComCnTestResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1787,7 +2683,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.105",
+          sdk_version: "1.0.120",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2105,7 +3001,7 @@ export default class Client {
 
   /**
    * Description: asd
-   * Summary: asd
+   * Summary: asd1
    */
   async queryAdAsdAsd(request: QueryAdAsdAsdRequest): Promise<QueryAdAsdAsdResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2115,7 +3011,7 @@ export default class Client {
 
   /**
    * Description: asd
-   * Summary: asd
+   * Summary: asd1
    */
   async queryAdAsdAsdEx(request: QueryAdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAdAsdAsdResponse> {
     Util.validateModel(request);
@@ -2142,6 +3038,179 @@ export default class Client {
   }
 
   /**
+   * Description: 测试网关评审能力
+   * Summary: 评审测试
+   */
+  async updateCjtestCj(request: UpdateCjtestCjRequest): Promise<UpdateCjtestCjResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateCjtestCjEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试网关评审能力
+   * Summary: 评审测试
+   */
+  async updateCjtestCjEx(request: UpdateCjtestCjRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateCjtestCjResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateCjtestCjResponse>(await this.doRequest("1.0", "demo.cjtest.cj.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateCjtestCjResponse({}));
+  }
+
+  /**
+   * Description: 文件测试
+   * Summary: 文件测试
+   */
+  async uploadCjtestSourceFile(request: UploadCjtestSourceFileRequest): Promise<UploadCjtestSourceFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadCjtestSourceFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件测试
+   * Summary: 文件测试
+   */
+  async uploadCjtestSourceFileEx(request: UploadCjtestSourceFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadCjtestSourceFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "demo.cjtest.source.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+        let uploadCjtestSourceFileResponse = new UploadCjtestSourceFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadCjtestSourceFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadCjtestSourceFileResponse>(await this.doRequest("1.0", "demo.cjtest.source.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadCjtestSourceFileResponse({}));
+  }
+
+  /**
+   * Description: 测试返回值限制
+   * Summary: dev测试返回值限制
+   */
+  async queryCjtestCjRes(request: QueryCjtestCjResRequest): Promise<QueryCjtestCjResResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCjtestCjResEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试返回值限制
+   * Summary: dev测试返回值限制
+   */
+  async queryCjtestCjResEx(request: QueryCjtestCjResRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCjtestCjResResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCjtestCjResResponse>(await this.doRequest("1.0", "demo.cjtest.cj.res.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCjtestCjResResponse({}));
+  }
+
+  /**
+   * Description: test
+   * Summary: test
+   */
+  async resetCjtestApiAuthorize(request: ResetCjtestApiAuthorizeRequest): Promise<ResetCjtestApiAuthorizeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetCjtestApiAuthorizeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: test
+   * Summary: test
+   */
+  async resetCjtestApiAuthorizeEx(request: ResetCjtestApiAuthorizeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetCjtestApiAuthorizeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetCjtestApiAuthorizeResponse>(await this.doRequest("1.0", "demo.cjtest.api.authorize.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetCjtestApiAuthorizeResponse({}));
+  }
+
+  /**
+   * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+   * Summary: road.init（Fr AutoT）
+   */
+  async initGatewayRoad(request: InitGatewayRoadRequest): Promise<InitGatewayRoadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initGatewayRoadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+   * Summary: road.init（Fr AutoT）
+   */
+  async initGatewayRoadEx(request: InitGatewayRoadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitGatewayRoadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitGatewayRoadResponse>(await this.doRequest("1.0", "demo.gateway.road.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitGatewayRoadResponse({}));
+  }
+
+  /**
+   * Description: 修改入参msg后返回，Fr 自动化连通性测试。
+   * Summary: road.upd（Fr AutoT）
+   */
+  async updateGatewayRoad(request: UpdateGatewayRoadRequest): Promise<UpdateGatewayRoadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateGatewayRoadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 修改入参msg后返回，Fr 自动化连通性测试。
+   * Summary: road.upd（Fr AutoT）
+   */
+  async updateGatewayRoadEx(request: UpdateGatewayRoadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateGatewayRoadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateGatewayRoadResponse>(await this.doRequest("1.0", "demo.gateway.road.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateGatewayRoadResponse({}));
+  }
+
+  /**
+   * Description: 简单查询处理，Fr 自动化连通性测试。
+   * Summary: road.query（Fr AutoT）
+   */
+  async queryGatewayRoad(request: QueryGatewayRoadRequest): Promise<QueryGatewayRoadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGatewayRoadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 简单查询处理，Fr 自动化连通性测试。
+   * Summary: road.query（Fr AutoT）
+   */
+  async queryGatewayRoadEx(request: QueryGatewayRoadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGatewayRoadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGatewayRoadResponse>(await this.doRequest("1.0", "demo.gateway.road.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGatewayRoadResponse({}));
+  }
+
+  /**
+   * Description: 简单执行返回处理结果，Fr 自动化连通性测试。
+   * Summary: road.exec（Fr AutoT）
+   */
+  async execGatewayRoad(request: ExecGatewayRoadRequest): Promise<ExecGatewayRoadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execGatewayRoadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 简单执行返回处理结果，Fr 自动化连通性测试。
+   * Summary: road.exec（Fr AutoT）
+   */
+  async execGatewayRoadEx(request: ExecGatewayRoadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecGatewayRoadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecGatewayRoadResponse>(await this.doRequest("1.0", "demo.gateway.road.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecGatewayRoadResponse({}));
+  }
+
+  /**
    * Description: asd
    * Summary: asd
    */
@@ -2158,6 +3227,25 @@ export default class Client {
   async bindAsdAsdAsdEx(request: BindAsdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAsdAsdAsdResponse> {
     Util.validateModel(request);
     return $tea.cast<BindAsdAsdAsdResponse>(await this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAsdAsdAsdResponse({}));
+  }
+
+  /**
+   * Description: 共享能力主链路回归验证
+   * Summary: 共享能力回归验证
+   */
+  async queryTestAaaBbb(request: QueryTestAaaBbbRequest): Promise<QueryTestAaaBbbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTestAaaBbbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 共享能力主链路回归验证
+   * Summary: 共享能力回归验证
+   */
+  async queryTestAaaBbbEx(request: QueryTestAaaBbbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestAaaBbbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTestAaaBbbResponse>(await this.doRequest("1.0", "demo.test.aaa.bbb.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestAaaBbbResponse({}));
   }
 
   /**
@@ -2218,6 +3306,25 @@ export default class Client {
   }
 
   /**
+   * Description: 共享能力中心六期回归验证创建使用
+   * Summary: 共享能力中心六期回归验证创建
+   */
+  async queryGongxiangTestDemo(request: QueryGongxiangTestDemoRequest): Promise<QueryGongxiangTestDemoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGongxiangTestDemoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 共享能力中心六期回归验证创建使用
+   * Summary: 共享能力中心六期回归验证创建
+   */
+  async queryGongxiangTestDemoEx(request: QueryGongxiangTestDemoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGongxiangTestDemoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGongxiangTestDemoResponse>(await this.doRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGongxiangTestDemoResponse({}));
+  }
+
+  /**
    * Description: 随机测试
    * Summary: 消息发送及消费
    */
@@ -2237,8 +3344,27 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建，用于测试新建&修改功能
-   * Summary: 自动化测试创建，用于测试新建&修改功能
+   * Description: 共享能力六期回归验证
+   * Summary: 共享能力六期回归验证
+   */
+  async bindGongxaingTest(request: BindGongxaingTestRequest): Promise<BindGongxaingTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindGongxaingTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 共享能力六期回归验证
+   * Summary: 共享能力六期回归验证
+   */
+  async bindGongxaingTestEx(request: BindGongxaingTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindGongxaingTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindGongxaingTestResponse>(await this.doRequest("1.0", "demo.gongxaing.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindGongxaingTestResponse({}));
+  }
+
+  /**
+   * Description: 自动化测试创建
+   * Summary: 自动化测试创建1
    */
   async bindAaaBbbCcc(request: BindAaaBbbCccRequest): Promise<BindAaaBbbCccResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2247,12 +3373,31 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建，用于测试新建&修改功能
-   * Summary: 自动化测试创建，用于测试新建&修改功能
+   * Description: 自动化测试创建
+   * Summary: 自动化测试创建1
    */
   async bindAaaBbbCccEx(request: BindAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAaaBbbCccResponse> {
     Util.validateModel(request);
     return $tea.cast<BindAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAaaBbbCccResponse({}));
+  }
+
+  /**
+   * Description: 查询主数据
+   * Summary: 查询主数据
+   */
+  async queryMasterstationMasterdata(request: QueryMasterstationMasterdataRequest): Promise<QueryMasterstationMasterdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMasterstationMasterdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询主数据
+   * Summary: 查询主数据
+   */
+  async queryMasterstationMasterdataEx(request: QueryMasterstationMasterdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMasterstationMasterdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMasterstationMasterdataResponse>(await this.doRequest("1.0", "demo.masterstation.masterdata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMasterstationMasterdataResponse({}));
   }
 
   /**
@@ -2291,6 +3436,65 @@ export default class Client {
   async queryAbcAbcAbcEx(request: QueryAbcAbcAbcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAbcAbcAbcResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAbcAbcAbcResponse>(await this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAbcAbcAbcResponse({}));
+  }
+
+  /**
+   * Description: 测试api描述
+   * Summary: api简介
+   */
+  async resetComCnCc(request: ResetComCnCcRequest): Promise<ResetComCnCcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetComCnCcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试api描述
+   * Summary: api简介
+   */
+  async resetComCnCcEx(request: ResetComCnCcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetComCnCcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetComCnCcResponse>(await this.doRequest("1.0", "demo.com.cn.cc.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetComCnCcResponse({}));
+  }
+
+  /**
+   * Description: 1
+   * Summary: api简介
+   */
+  async importComCnTest(request: ImportComCnTestRequest): Promise<ImportComCnTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importComCnTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 1
+   * Summary: api简介
+   */
+  async importComCnTestEx(request: ImportComCnTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportComCnTestResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "demo.com.cn.test.import",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+        let importComCnTestResponse = new ImportComCnTestResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return importComCnTestResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ImportComCnTestResponse>(await this.doRequest("1.0", "demo.com.cn.test.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportComCnTestResponse({}));
   }
 
   /**
