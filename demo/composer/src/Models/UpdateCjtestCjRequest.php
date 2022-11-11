@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAaaBbbCccRequest extends Model
+class UpdateCjtestCjRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,35 @@ class BindAaaBbbCccRequest extends Model
      */
     public $productInstanceId;
 
-    // 123
+    // 测试参数
     /**
      * @var string
      */
-    public $data;
+    public $var1;
+
+    // 测试参数2
+    /**
+     * @var string
+     */
+    public $var2;
+
+    // 被授权机构did
+    /**
+     * @var string
+     */
+    public $subject;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'data'              => 'data',
+        'var1'              => 'var1',
+        'var2'              => 'var2',
+        'subject'           => 'subject',
     ];
 
     public function validate()
     {
-        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('var1', $this->var1, true);
+        Model::validateRequired('var2', $this->var2, true);
     }
 
     public function toMap()
@@ -44,8 +59,14 @@ class BindAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->var1) {
+            $res['var1'] = $this->var1;
+        }
+        if (null !== $this->var2) {
+            $res['var2'] = $this->var2;
+        }
+        if (null !== $this->subject) {
+            $res['subject'] = $this->subject;
         }
 
         return $res;
@@ -54,7 +75,7 @@ class BindAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindAaaBbbCccRequest
+     * @return UpdateCjtestCjRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +86,14 @@ class BindAaaBbbCccRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['var1'])) {
+            $model->var1 = $map['var1'];
+        }
+        if (isset($map['var2'])) {
+            $model->var2 = $map['var2'];
+        }
+        if (isset($map['subject'])) {
+            $model->subject = $map['subject'];
         }
 
         return $model;

@@ -7,7 +7,7 @@ namespace AntChain\DEMO\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class EchoGatewayCheckRequest extends Model
+class UploadCjtestSourceFileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,13 +20,7 @@ class EchoGatewayCheckRequest extends Model
      */
     public $productInstanceId;
 
-    // input_array
-    /**
-     * @var TestStruct[]
-     */
-    public $inputArray;
-
-    // file_id
+    // file
     /**
      * @description 待上传文件
      *
@@ -45,35 +39,15 @@ class EchoGatewayCheckRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // 1
-    /**
-     * @var int
-     */
-    public $inputInt;
-
-    // 测试一下
-    /**
-     * @var string
-     */
-    public $fileName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'inputArray'        => 'input_array',
         'fileId'            => 'file_id',
-        'inputInt'          => 'input_int',
-        'fileName'          => 'file_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('inputArray', $this->inputArray, true);
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('inputInt', $this->inputInt, true);
-        Model::validateRequired('fileName', $this->fileName, true);
-        Model::validateMaximum('inputInt', $this->inputInt, 40);
-        Model::validateMinimum('inputInt', $this->inputInt, 10);
     }
 
     public function toMap()
@@ -85,15 +59,6 @@ class EchoGatewayCheckRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->inputArray) {
-            $res['input_array'] = [];
-            if (null !== $this->inputArray && \is_array($this->inputArray)) {
-                $n = 0;
-                foreach ($this->inputArray as $item) {
-                    $res['input_array'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
         }
@@ -103,12 +68,6 @@ class EchoGatewayCheckRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->inputInt) {
-            $res['input_int'] = $this->inputInt;
-        }
-        if (null !== $this->fileName) {
-            $res['file_name'] = $this->fileName;
-        }
 
         return $res;
     }
@@ -116,7 +75,7 @@ class EchoGatewayCheckRequest extends Model
     /**
      * @param array $map
      *
-     * @return EchoGatewayCheckRequest
+     * @return UploadCjtestSourceFileRequest
      */
     public static function fromMap($map = [])
     {
@@ -127,15 +86,6 @@ class EchoGatewayCheckRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['input_array'])) {
-            if (!empty($map['input_array'])) {
-                $model->inputArray = [];
-                $n                 = 0;
-                foreach ($map['input_array'] as $item) {
-                    $model->inputArray[$n++] = null !== $item ? TestStruct::fromMap($item) : $item;
-                }
-            }
-        }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
         }
@@ -144,12 +94,6 @@ class EchoGatewayCheckRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['input_int'])) {
-            $model->inputInt = $map['input_int'];
-        }
-        if (isset($map['file_name'])) {
-            $model->fileName = $map['file_name'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAaaBbbCccRequest extends Model
+class QueryMasterstationMasterdataRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class BindAaaBbbCccRequest extends Model
      */
     public $productInstanceId;
 
-    // 123
+    // 用户工号
     /**
      * @var string
      */
-    public $data;
+    public $workno;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'data'              => 'data',
+        'workno'            => 'workno',
     ];
 
     public function validate()
     {
-        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('workno', $this->workno, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class BindAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->workno) {
+            $res['workno'] = $this->workno;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class BindAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindAaaBbbCccRequest
+     * @return QueryMasterstationMasterdataRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class BindAaaBbbCccRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['workno'])) {
+            $model->workno = $map['workno'];
         }
 
         return $model;
