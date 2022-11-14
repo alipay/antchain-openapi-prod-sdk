@@ -6,7 +6,7 @@ namespace AntChain\Ak_d34765e5ce404706a4e60e213daf08f5\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoAbcAbcAbcResponse extends Model
+class ExecAntchainBbpContractReconciliationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class QueryDemoAbcAbcAbcResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 结算单
+    /**
+     * @var Reconciliation
+     */
+    public $reconciliation;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'reconciliation' => 'reconciliation',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class QueryDemoAbcAbcAbcResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->reconciliation) {
+            $res['reconciliation'] = null !== $this->reconciliation ? $this->reconciliation->toMap() : null;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class QueryDemoAbcAbcAbcResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoAbcAbcAbcResponse
+     * @return ExecAntchainBbpContractReconciliationResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class QueryDemoAbcAbcAbcResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['reconciliation'])) {
+            $model->reconciliation = Reconciliation::fromMap($map['reconciliation']);
         }
 
         return $model;

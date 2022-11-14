@@ -6,7 +6,7 @@ namespace AntChain\Ak_d34765e5ce404706a4e60e213daf08f5\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoAaaBbbCccRequest extends Model
+class ExecAntchainBbpContractReconciliationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,29 @@ class QueryDemoAaaBbbCccRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 供应商
+    /**
+     * @var string
+     */
+    public $supCode;
+
+    // 结算时间
+    /**
+     * @var string
+     */
+    public $scoreDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'supCode'           => 'sup_code',
+        'scoreDate'         => 'score_date',
     ];
 
     public function validate()
     {
+        Model::validateRequired('supCode', $this->supCode, true);
+        Model::validateRequired('scoreDate', $this->scoreDate, true);
     }
 
     public function toMap()
@@ -36,6 +52,12 @@ class QueryDemoAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->supCode) {
+            $res['sup_code'] = $this->supCode;
+        }
+        if (null !== $this->scoreDate) {
+            $res['score_date'] = $this->scoreDate;
+        }
 
         return $res;
     }
@@ -43,7 +65,7 @@ class QueryDemoAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoAaaBbbCccRequest
+     * @return ExecAntchainBbpContractReconciliationRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +75,12 @@ class QueryDemoAaaBbbCccRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['sup_code'])) {
+            $model->supCode = $map['sup_code'];
+        }
+        if (isset($map['score_date'])) {
+            $model->scoreDate = $map['score_date'];
         }
 
         return $model;
