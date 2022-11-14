@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
+    _prod_code = 'ak_d34765e5ce404706a4e60e213daf08f5',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,107 +161,153 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model BindDemoAaaBbbCccRequest = {
+// 对账单
+model Reconciliation {
+  // 供应商
+  supCode: string(name='sup_code', example='A'),
+  // 供应商名称
+  supName: string(name='sup_name', example='供应商A'),
+  // 结算金额(单位分)
+  settlementAmount: long(name='settlement_amount', example='结算金额(单位分)'),
+  // 长城确认时间
+  confirmDateGw: string(name='confirm_date_gw', example='2021-03-17'),
+  // 长城方确认人
+  confirmerGw: string(name='confirmer_gw', example='长城方确认人'),
+  // 长城确认状态
+  confirmStateGw: string(name='confirm_state_gw', example='确认状态'),
+  // 服务方确认时间
+  confirmDateSup: string(name='confirm_date_sup', example='2021-03-17'),
+  // 服务方确认人
+  confirmerSup: string(name='confirmer_sup', example='服务方确认人'),
+  // 服务方确认状态
+  confirmStateSup: string(name='confirm_state_sup', example='服务方确认状态'),
+  // 计算时间
+  socreDate: string(name='socre_date', example='计算时间'),
+}
+
+model ExecAntchainBbpContractReconciliationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 123
-  data: string(name='data'),
+  // 供应商
+  supCode: string(name='sup_code'),
+  // 结算时间
+  scoreDate: string(name='score_date'),
 }
 
-model BindDemoAaaBbbCccResponse = {
+model ExecAntchainBbpContractReconciliationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 结算单
+  reconciliation?: Reconciliation(name='reconciliation'),
 }
 
 /**
- * Description: 自动化测试创建
- * Summary: 自动化测试创建1
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
  */
-async function bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): BindDemoAaaBbbCccResponse {
+async function execAntchainBbpContractReconciliation(request: ExecAntchainBbpContractReconciliationRequest): ExecAntchainBbpContractReconciliationResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return bindDemoAaaBbbCccEx(request, headers, runtime);
+  return execAntchainBbpContractReconciliationEx(request, headers, runtime);
 }
 
 /**
- * Description: 自动化测试创建
- * Summary: 自动化测试创建1
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
  */
-async function bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCccResponse {
+async function execAntchainBbpContractReconciliationEx(request: ExecAntchainBbpContractReconciliationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAntchainBbpContractReconciliationResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryDemoAaaBbbCccRequest = {
+model ConfirmAntchainBbpContractReconciliationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 服务商
+  supCode: string(name='sup_code'),
+  // 确认时间
+  socreDate: string(name='socre_date'),
+  // 确认类型：1、长城  2、服务方
+  confirmType: string(name='confirm_type'),
+  // 确认者
+  confirmer: string(name='confirmer'),
+  // 认证状态
+  confirmStatus: string(name='confirm_status'),
 }
 
-model QueryDemoAaaBbbCccResponse = {
+model ConfirmAntchainBbpContractReconciliationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 结算单
+  reconciliation?: Reconciliation(name='reconciliation'),
 }
 
 /**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
+ * Description: 结算单确认
+ * Summary: 结算单确认
  */
-async function queryDemoAaaBbbCcc(request: QueryDemoAaaBbbCccRequest): QueryDemoAaaBbbCccResponse {
+async function confirmAntchainBbpContractReconciliation(request: ConfirmAntchainBbpContractReconciliationRequest): ConfirmAntchainBbpContractReconciliationResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryDemoAaaBbbCccEx(request, headers, runtime);
+  return confirmAntchainBbpContractReconciliationEx(request, headers, runtime);
 }
 
 /**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
+ * Description: 结算单确认
+ * Summary: 结算单确认
  */
-async function queryDemoAaaBbbCccEx(request: QueryDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAaaBbbCccResponse {
+async function confirmAntchainBbpContractReconciliationEx(request: ConfirmAntchainBbpContractReconciliationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmAntchainBbpContractReconciliationResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryDemoAbcAbcAbcRequest = {
+model QueryAntchainBbpContractReconciliationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 供应商code
+  supCode: string(name='sup_code'),
+  // 月份
+  scoreDates: [ string ](name='score_dates'),
 }
 
-model QueryDemoAbcAbcAbcResponse = {
+model QueryAntchainBbpContractReconciliationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 结算单
+  reconciliations?: [ Reconciliation ](name='reconciliations'),
 }
 
 /**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
+ * Description: 查询结算单
+ * Summary: 查询结算单
  */
-async function queryDemoAbcAbcAbc(request: QueryDemoAbcAbcAbcRequest): QueryDemoAbcAbcAbcResponse {
+async function queryAntchainBbpContractReconciliation(request: QueryAntchainBbpContractReconciliationRequest): QueryAntchainBbpContractReconciliationResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryDemoAbcAbcAbcEx(request, headers, runtime);
+  return queryAntchainBbpContractReconciliationEx(request, headers, runtime);
 }
 
 /**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
+ * Description: 查询结算单
+ * Summary: 查询结算单
  */
-async function queryDemoAbcAbcAbcEx(request: QueryDemoAbcAbcAbcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAbcAbcAbcResponse {
+async function queryAntchainBbpContractReconciliationEx(request: QueryAntchainBbpContractReconciliationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainBbpContractReconciliationResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.abc.abc.abc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
