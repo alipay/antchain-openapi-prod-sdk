@@ -77,25 +77,55 @@ export class Config extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 123
-  data: string;
+// 对账单
+export class Reconciliation extends $tea.Model {
+  // 供应商
+  supCode: string;
+  // 供应商名称
+  supName: string;
+  // 结算金额(单位分)
+  settlementAmount: number;
+  // 长城确认时间
+  confirmDateGw: string;
+  // 长城方确认人
+  confirmerGw: string;
+  // 长城确认状态
+  confirmStateGw: string;
+  // 服务方确认时间
+  confirmDateSup: string;
+  // 服务方确认人
+  confirmerSup: string;
+  // 服务方确认状态
+  confirmStateSup: string;
+  // 计算时间
+  socreDate: string;
   static names(): { [key: string]: string } {
     return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      data: 'data',
+      supCode: 'sup_code',
+      supName: 'sup_name',
+      settlementAmount: 'settlement_amount',
+      confirmDateGw: 'confirm_date_gw',
+      confirmerGw: 'confirmer_gw',
+      confirmStateGw: 'confirm_state_gw',
+      confirmDateSup: 'confirm_date_sup',
+      confirmerSup: 'confirmer_sup',
+      confirmStateSup: 'confirm_state_sup',
+      socreDate: 'socre_date',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      data: 'string',
+      supCode: 'string',
+      supName: 'string',
+      settlementAmount: 'number',
+      confirmDateGw: 'string',
+      confirmerGw: 'string',
+      confirmStateGw: 'string',
+      confirmDateSup: 'string',
+      confirmerSup: 'string',
+      confirmStateSup: 'string',
+      socreDate: 'string',
     };
   }
 
@@ -104,18 +134,52 @@ export class BindDemoAaaBbbCccRequest extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccResponse extends $tea.Model {
+export class ExecAntchainBbpContractReconciliationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 供应商
+  supCode: string;
+  // 结算时间
+  scoreDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      supCode: 'sup_code',
+      scoreDate: 'score_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      supCode: 'string',
+      scoreDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntchainBbpContractReconciliationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 结算单
+  reconciliation?: Reconciliation;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      reconciliation: 'reconciliation',
     };
   }
 
@@ -124,6 +188,7 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      reconciliation: Reconciliation,
     };
   }
 
@@ -132,14 +197,29 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
   }
 }
 
-export class QueryDemoAaaBbbCccRequest extends $tea.Model {
+export class ConfirmAntchainBbpContractReconciliationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 服务商
+  supCode: string;
+  // 确认时间
+  socreDate: string;
+  // 确认类型：1、长城  2、服务方
+  confirmType: string;
+  // 确认者
+  confirmer: string;
+  // 认证状态
+  confirmStatus: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      supCode: 'sup_code',
+      socreDate: 'socre_date',
+      confirmType: 'confirm_type',
+      confirmer: 'confirmer',
+      confirmStatus: 'confirm_status',
     };
   }
 
@@ -147,6 +227,11 @@ export class QueryDemoAaaBbbCccRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      supCode: 'string',
+      socreDate: 'string',
+      confirmType: 'string',
+      confirmer: 'string',
+      confirmStatus: 'string',
     };
   }
 
@@ -155,18 +240,21 @@ export class QueryDemoAaaBbbCccRequest extends $tea.Model {
   }
 }
 
-export class QueryDemoAaaBbbCccResponse extends $tea.Model {
+export class ConfirmAntchainBbpContractReconciliationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 结算单
+  reconciliation?: Reconciliation;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      reconciliation: 'reconciliation',
     };
   }
 
@@ -175,6 +263,7 @@ export class QueryDemoAaaBbbCccResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      reconciliation: Reconciliation,
     };
   }
 
@@ -183,14 +272,20 @@ export class QueryDemoAaaBbbCccResponse extends $tea.Model {
   }
 }
 
-export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
+export class QueryAntchainBbpContractReconciliationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 供应商code
+  supCode: string;
+  // 月份
+  scoreDates: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      supCode: 'sup_code',
+      scoreDates: 'score_dates',
     };
   }
 
@@ -198,6 +293,8 @@ export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      supCode: 'string',
+      scoreDates: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -206,18 +303,21 @@ export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
   }
 }
 
-export class QueryDemoAbcAbcAbcResponse extends $tea.Model {
+export class QueryAntchainBbpContractReconciliationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 结算单
+  reconciliations?: Reconciliation[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      reconciliations: 'reconciliations',
     };
   }
 
@@ -226,6 +326,7 @@ export class QueryDemoAbcAbcAbcResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      reconciliations: { 'type': 'array', 'itemType': Reconciliation },
     };
   }
 
@@ -347,7 +448,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
+          _prod_code: "ak_d34765e5ce404706a4e60e213daf08f5",
+          _prod_channel: "saas",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -394,60 +497,60 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建
-   * Summary: 自动化测试创建1
+   * Description: 对账单执行
+   * Summary: 对账单执行接口
    */
-  async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
+  async execAntchainBbpContractReconciliation(request: ExecAntchainBbpContractReconciliationRequest): Promise<ExecAntchainBbpContractReconciliationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.bindDemoAaaBbbCccEx(request, headers, runtime);
+    return await this.execAntchainBbpContractReconciliationEx(request, headers, runtime);
   }
 
   /**
-   * Description: 自动化测试创建
-   * Summary: 自动化测试创建1
+   * Description: 对账单执行
+   * Summary: 对账单执行接口
    */
-  async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
+  async execAntchainBbpContractReconciliationEx(request: ExecAntchainBbpContractReconciliationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntchainBbpContractReconciliationResponse> {
     Util.validateModel(request);
-    return $tea.cast<BindDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAaaBbbCccResponse({}));
+    return $tea.cast<ExecAntchainBbpContractReconciliationResponse>(await this.doRequest("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntchainBbpContractReconciliationResponse({}));
   }
 
   /**
-   * Description: 自动化测试创建1
-   * Summary: 自动化测试创建（勿动）
+   * Description: 结算单确认
+   * Summary: 结算单确认
    */
-  async queryDemoAaaBbbCcc(request: QueryDemoAaaBbbCccRequest): Promise<QueryDemoAaaBbbCccResponse> {
+  async confirmAntchainBbpContractReconciliation(request: ConfirmAntchainBbpContractReconciliationRequest): Promise<ConfirmAntchainBbpContractReconciliationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAaaBbbCccEx(request, headers, runtime);
+    return await this.confirmAntchainBbpContractReconciliationEx(request, headers, runtime);
   }
 
   /**
-   * Description: 自动化测试创建1
-   * Summary: 自动化测试创建（勿动）
+   * Description: 结算单确认
+   * Summary: 结算单确认
    */
-  async queryDemoAaaBbbCccEx(request: QueryDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAaaBbbCccResponse> {
+  async confirmAntchainBbpContractReconciliationEx(request: ConfirmAntchainBbpContractReconciliationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmAntchainBbpContractReconciliationResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse({}));
+    return $tea.cast<ConfirmAntchainBbpContractReconciliationResponse>(await this.doRequest("1.0", "antchain.bbp.contract.reconciliation.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmAntchainBbpContractReconciliationResponse({}));
   }
 
   /**
-   * Description: 自动化测试创建,用于测试API的修改
-   * Summary: 自动化测试创建,用于测试API的修改勿动
+   * Description: 查询结算单
+   * Summary: 查询结算单
    */
-  async queryDemoAbcAbcAbc(request: QueryDemoAbcAbcAbcRequest): Promise<QueryDemoAbcAbcAbcResponse> {
+  async queryAntchainBbpContractReconciliation(request: QueryAntchainBbpContractReconciliationRequest): Promise<QueryAntchainBbpContractReconciliationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+    return await this.queryAntchainBbpContractReconciliationEx(request, headers, runtime);
   }
 
   /**
-   * Description: 自动化测试创建,用于测试API的修改
-   * Summary: 自动化测试创建,用于测试API的修改勿动
+   * Description: 查询结算单
+   * Summary: 查询结算单
    */
-  async queryDemoAbcAbcAbcEx(request: QueryDemoAbcAbcAbcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAbcAbcAbcResponse> {
+  async queryAntchainBbpContractReconciliationEx(request: QueryAntchainBbpContractReconciliationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainBbpContractReconciliationResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryDemoAbcAbcAbcResponse>(await this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse({}));
+    return $tea.cast<QueryAntchainBbpContractReconciliationResponse>(await this.doRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainBbpContractReconciliationResponse({}));
   }
 
 }
