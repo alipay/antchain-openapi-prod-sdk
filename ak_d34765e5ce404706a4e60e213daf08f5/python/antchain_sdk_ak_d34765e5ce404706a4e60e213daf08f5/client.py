@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 对账单
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_d34765e5ce404706a4e60e213daf08f5',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -210,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 对账单
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_d34765e5ce404706a4e60e213daf08f5',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -269,170 +275,170 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def bind_demo_aaa_bbb_ccc(
+    def exec_antchain_bbp_contract_reconciliation(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建1
+        Description: 对账单执行
+        Summary: 对账单执行接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+        return self.exec_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
 
-    async def bind_demo_aaa_bbb_ccc_async(
+    async def exec_antchain_bbp_contract_reconciliation_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建1
+        Description: 对账单执行
+        Summary: 对账单执行接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+        return await self.exec_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
 
-    def bind_demo_aaa_bbb_ccc_ex(
+    def exec_antchain_bbp_contract_reconciliation_ex(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建1
+        Description: 对账单执行
+        Summary: 对账单执行接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def bind_demo_aaa_bbb_ccc_ex_async(
+    async def exec_antchain_bbp_contract_reconciliation_ex_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建1
+        Description: 对账单执行
+        Summary: 对账单执行接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.BindDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ExecAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_demo_aaa_bbb_ccc(
+    def confirm_antchain_bbp_contract_reconciliation(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
+        Description: 结算单确认
+        Summary: 结算单确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+        return self.confirm_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
 
-    async def query_demo_aaa_bbb_ccc_async(
+    async def confirm_antchain_bbp_contract_reconciliation_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
+        Description: 结算单确认
+        Summary: 结算单确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+        return await self.confirm_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
 
-    def query_demo_aaa_bbb_ccc_ex(
+    def confirm_antchain_bbp_contract_reconciliation_ex(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
+        Description: 结算单确认
+        Summary: 结算单确认
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_aaa_bbb_ccc_ex_async(
+    async def confirm_antchain_bbp_contract_reconciliation_ex_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
+        Description: 结算单确认
+        Summary: 结算单确认
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.ConfirmAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_demo_abc_abc_abc(
+    def query_antchain_bbp_contract_reconciliation(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
+        Description: 查询结算单
+        Summary: 查询结算单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_abc_abc_abc_ex(request, headers, runtime)
+        return self.query_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
 
-    async def query_demo_abc_abc_abc_async(
+    async def query_antchain_bbp_contract_reconciliation_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcRequest,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse:
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationRequest,
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
+        Description: 查询结算单
+        Summary: 查询结算单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_abc_abc_abc_ex_async(request, headers, runtime)
+        return await self.query_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
 
-    def query_demo_abc_abc_abc_ex(
+    def query_antchain_bbp_contract_reconciliation_ex(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
+        Description: 查询结算单
+        Summary: 查询结算单
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse(),
-            self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_abc_abc_abc_ex_async(
+    async def query_antchain_bbp_contract_reconciliation_ex_async(
         self,
-        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcRequest,
+        request: ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse:
+    ) -> ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse:
         """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
+        Description: 查询结算单
+        Summary: 查询结算单
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryDemoAbcAbcAbcResponse(),
-            await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_34765e_5ce_404706a_4e_60e_213daf_08f_5_models.QueryAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
