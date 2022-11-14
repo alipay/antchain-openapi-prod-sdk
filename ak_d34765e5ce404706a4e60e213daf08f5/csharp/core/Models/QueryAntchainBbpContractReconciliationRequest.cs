@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_d34765e5ce404706a4e60e213daf08f5.Models
 {
-    public class QueryDemoAbcAbcAbcRequest : TeaModel {
+    public class QueryAntchainBbpContractReconciliationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,16 @@ namespace AntChain.SDK.Ak_d34765e5ce404706a4e60e213daf08f5.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 供应商code
+        [NameInMap("sup_code")]
+        [Validation(Required=true)]
+        public string SupCode { get; set; }
+
+        // 月份
+        [NameInMap("score_dates")]
+        [Validation(Required=true)]
+        public List<string> ScoreDates { get; set; }
 
     }
 
