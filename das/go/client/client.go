@@ -3,9 +3,10 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -221,6 +222,46 @@ func (s *InterfaceOutput) SetDescription(v string) *InterfaceOutput {
 	return s
 }
 
+// 商标共有人信息
+type TmCoownerInfo struct {
+	// 共有人中文名称
+	CoownerNameCn *string `json:"coowner_name_cn,omitempty" xml:"coowner_name_cn,omitempty"`
+	// 共有人中文地址
+	CoownerAddrCn *string `json:"coowner_addr_cn,omitempty" xml:"coowner_addr_cn,omitempty"`
+	// 共有人英文名称
+	CoownerNameEn *string `json:"coowner_name_en,omitempty" xml:"coowner_name_en,omitempty"`
+	// 共有人英文地址
+	CoownerAddrEn *string `json:"coowner_addr_en,omitempty" xml:"coowner_addr_en,omitempty"`
+}
+
+func (s TmCoownerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TmCoownerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TmCoownerInfo) SetCoownerNameCn(v string) *TmCoownerInfo {
+	s.CoownerNameCn = &v
+	return s
+}
+
+func (s *TmCoownerInfo) SetCoownerAddrCn(v string) *TmCoownerInfo {
+	s.CoownerAddrCn = &v
+	return s
+}
+
+func (s *TmCoownerInfo) SetCoownerNameEn(v string) *TmCoownerInfo {
+	s.CoownerNameEn = &v
+	return s
+}
+
+func (s *TmCoownerInfo) SetCoownerAddrEn(v string) *TmCoownerInfo {
+	s.CoownerAddrEn = &v
+	return s
+}
+
 // 数据源接口定义
 type DataSourceInterface struct {
 	// 数据源接口访问地址
@@ -261,83 +302,165 @@ func (s *DataSourceInterface) SetInterfaceOutput(v []*InterfaceOutput) *DataSour
 	return s
 }
 
-// 授权人个人信息
-type AuthPersonIndividualInfo struct {
-	// 姓名
-	IndividualName *string `json:"individual_name,omitempty" xml:"individual_name,omitempty" require:"true"`
-	// 身份证号
-	IndividualId *string `json:"individual_id,omitempty" xml:"individual_id,omitempty" require:"true"`
-	// 电话号码
-	IndividualPhoneNum *int64 `json:"individual_phone_num,omitempty" xml:"individual_phone_num,omitempty" require:"true"`
+// 企业基本信息
+type EnterpriseBaseInfo struct {
+	// 机构名称
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" require:"true"`
+	// 统一社会信用代码
+	CreditCode *string `json:"credit_code,omitempty" xml:"credit_code,omitempty" require:"true"`
+	// 企业公司注册证号
+	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty" require:"true"`
+	// 持股比例
+	InvestRate *string `json:"invest_rate,omitempty" xml:"invest_rate,omitempty"`
+	// 查询人与这家企业的关联
+	Relationship *string `json:"relationship,omitempty" xml:"relationship,omitempty"`
 }
 
-func (s AuthPersonIndividualInfo) String() string {
+func (s EnterpriseBaseInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AuthPersonIndividualInfo) GoString() string {
+func (s EnterpriseBaseInfo) GoString() string {
 	return s.String()
 }
 
-func (s *AuthPersonIndividualInfo) SetIndividualName(v string) *AuthPersonIndividualInfo {
-	s.IndividualName = &v
+func (s *EnterpriseBaseInfo) SetOrgName(v string) *EnterpriseBaseInfo {
+	s.OrgName = &v
 	return s
 }
 
-func (s *AuthPersonIndividualInfo) SetIndividualId(v string) *AuthPersonIndividualInfo {
-	s.IndividualId = &v
+func (s *EnterpriseBaseInfo) SetCreditCode(v string) *EnterpriseBaseInfo {
+	s.CreditCode = &v
 	return s
 }
 
-func (s *AuthPersonIndividualInfo) SetIndividualPhoneNum(v int64) *AuthPersonIndividualInfo {
-	s.IndividualPhoneNum = &v
+func (s *EnterpriseBaseInfo) SetRegNumber(v string) *EnterpriseBaseInfo {
+	s.RegNumber = &v
 	return s
 }
 
-// 数据源详细信息
-type DataSourceInfo struct {
-	// 数据源biz_uuid
-	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty" require:"true"`
-	// 数据源名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"20"`
-	// 数据提供方
-	Provider *string `json:"provider,omitempty" xml:"provider,omitempty" require:"true" maxLength:"30"`
-	// 枚举值：ENTERPRISE、INDIVIDUAL
-	DataOwnerType *string `json:"data_owner_type,omitempty" xml:"data_owner_type,omitempty" require:"true"`
-	// 数据源接口信息
-	DataSourceInterfaceInfo *DataSourceInterface `json:"data_source_interface_info,omitempty" xml:"data_source_interface_info,omitempty" require:"true"`
+func (s *EnterpriseBaseInfo) SetInvestRate(v string) *EnterpriseBaseInfo {
+	s.InvestRate = &v
+	return s
 }
 
-func (s DataSourceInfo) String() string {
+func (s *EnterpriseBaseInfo) SetRelationship(v string) *EnterpriseBaseInfo {
+	s.Relationship = &v
+	return s
+}
+
+// 企业案件信息
+type EnterpriseCaseInfo struct {
+	// 立案信息
+	CaseInfo *string `json:"case_info,omitempty" xml:"case_info,omitempty"`
+	// 案件号
+	CaseCode *string `json:"case_code,omitempty" xml:"case_code,omitempty"`
+	// 立案时间
+	CaseCreateTime *string `json:"case_create_time,omitempty" xml:"case_create_time,omitempty"`
+	// 案件状态
+	CaseStatus *string `json:"case_status,omitempty" xml:"case_status,omitempty"`
+	// 公示状态
+	PublishStatus *string `json:"publish_status,omitempty" xml:"publish_status,omitempty"`
+	// 被执行人姓名
+	ExecName *string `json:"exec_name,omitempty" xml:"exec_name,omitempty"`
+	// 执行法院
+	ExecCourtName *string `json:"exec_court_name,omitempty" xml:"exec_court_name,omitempty"`
+	// 执行标的(元)
+	ExecMoney *string `json:"exec_money,omitempty" xml:"exec_money,omitempty"`
+	// 关联裁判文书
+	GistId *string `json:"gist_id,omitempty" xml:"gist_id,omitempty"`
+	// 案由
+	CaseType *string `json:"case_type,omitempty" xml:"case_type,omitempty"`
+	// 创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s EnterpriseCaseInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DataSourceInfo) GoString() string {
+func (s EnterpriseCaseInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DataSourceInfo) SetBizUuid(v string) *DataSourceInfo {
-	s.BizUuid = &v
+func (s *EnterpriseCaseInfo) SetCaseInfo(v string) *EnterpriseCaseInfo {
+	s.CaseInfo = &v
 	return s
 }
 
-func (s *DataSourceInfo) SetName(v string) *DataSourceInfo {
-	s.Name = &v
+func (s *EnterpriseCaseInfo) SetCaseCode(v string) *EnterpriseCaseInfo {
+	s.CaseCode = &v
 	return s
 }
 
-func (s *DataSourceInfo) SetProvider(v string) *DataSourceInfo {
-	s.Provider = &v
+func (s *EnterpriseCaseInfo) SetCaseCreateTime(v string) *EnterpriseCaseInfo {
+	s.CaseCreateTime = &v
 	return s
 }
 
-func (s *DataSourceInfo) SetDataOwnerType(v string) *DataSourceInfo {
-	s.DataOwnerType = &v
+func (s *EnterpriseCaseInfo) SetCaseStatus(v string) *EnterpriseCaseInfo {
+	s.CaseStatus = &v
 	return s
 }
 
-func (s *DataSourceInfo) SetDataSourceInterfaceInfo(v *DataSourceInterface) *DataSourceInfo {
-	s.DataSourceInterfaceInfo = v
+func (s *EnterpriseCaseInfo) SetPublishStatus(v string) *EnterpriseCaseInfo {
+	s.PublishStatus = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetExecName(v string) *EnterpriseCaseInfo {
+	s.ExecName = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetExecCourtName(v string) *EnterpriseCaseInfo {
+	s.ExecCourtName = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetExecMoney(v string) *EnterpriseCaseInfo {
+	s.ExecMoney = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetGistId(v string) *EnterpriseCaseInfo {
+	s.GistId = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetCaseType(v string) *EnterpriseCaseInfo {
+	s.CaseType = &v
+	return s
+}
+
+func (s *EnterpriseCaseInfo) SetCreateTime(v string) *EnterpriseCaseInfo {
+	s.CreateTime = &v
+	return s
+}
+
+// 数据源信息
+type DataSource struct {
+	// 数据源ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 数据源接口地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+}
+
+func (s DataSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataSource) GoString() string {
+	return s.String()
+}
+
+func (s *DataSource) SetId(v string) *DataSource {
+	s.Id = &v
+	return s
+}
+
+func (s *DataSource) SetAddress(v string) *DataSource {
+	s.Address = &v
 	return s
 }
 
@@ -428,29 +551,876 @@ func (s *BeAuthedPersonInfo) SetEnterpriseLegalPersonId(v string) *BeAuthedPerso
 	return s
 }
 
-// 数据源信息
-type DataSource struct {
-	// 数据源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 数据源接口地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+// 授权人个人信息
+type AuthPersonIndividualInfo struct {
+	// 姓名
+	IndividualName *string `json:"individual_name,omitempty" xml:"individual_name,omitempty" require:"true"`
+	// 身份证号
+	IndividualId *string `json:"individual_id,omitempty" xml:"individual_id,omitempty" require:"true"`
+	// 电话号码
+	IndividualPhoneNum *int64 `json:"individual_phone_num,omitempty" xml:"individual_phone_num,omitempty" require:"true"`
 }
 
-func (s DataSource) String() string {
+func (s AuthPersonIndividualInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DataSource) GoString() string {
+func (s AuthPersonIndividualInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DataSource) SetId(v string) *DataSource {
-	s.Id = &v
+func (s *AuthPersonIndividualInfo) SetIndividualName(v string) *AuthPersonIndividualInfo {
+	s.IndividualName = &v
 	return s
 }
 
-func (s *DataSource) SetAddress(v string) *DataSource {
-	s.Address = &v
+func (s *AuthPersonIndividualInfo) SetIndividualId(v string) *AuthPersonIndividualInfo {
+	s.IndividualId = &v
+	return s
+}
+
+func (s *AuthPersonIndividualInfo) SetIndividualPhoneNum(v int64) *AuthPersonIndividualInfo {
+	s.IndividualPhoneNum = &v
+	return s
+}
+
+// 国内商标信息
+type DomesticTmInfo struct {
+	// 商标名称
+	TmName *string `json:"tm_name,omitempty" xml:"tm_name,omitempty"`
+	// 注册证号
+	TmRegNum *string `json:"tm_reg_num,omitempty" xml:"tm_reg_num,omitempty"`
+	// 国际分类
+	IntCls *string `json:"int_cls,omitempty" xml:"int_cls,omitempty"`
+	// 商标状态
+	TmStatus *string `json:"tm_status,omitempty" xml:"tm_status,omitempty"`
+	// 专用期开始时间
+	PropertyBgnDate *string `json:"property_bgn_date,omitempty" xml:"property_bgn_date,omitempty"`
+	// 注册日期
+	//
+	RegDate *string `json:"reg_date,omitempty" xml:"reg_date,omitempty"`
+	// 是否共有商标
+	IsShare *bool `json:"is_share,omitempty" xml:"is_share,omitempty"`
+	// 商标共有人信息(共有商标才有该数据)
+	CoownerInfos []*TmCoownerInfo `json:"coowner_infos,omitempty" xml:"coowner_infos,omitempty" type:"Repeated"`
+	// 专用期结束时间
+	PropertyEndDate *string `json:"property_end_date,omitempty" xml:"property_end_date,omitempty"`
+	// 商标类别
+	FormType *string `json:"form_type,omitempty" xml:"form_type,omitempty"`
+	// 权利人中文名称
+	OwnerNameCn *string `json:"owner_name_cn,omitempty" xml:"owner_name_cn,omitempty"`
+	// 权利人中文地址
+	OwnerAddrCn *string `json:"owner_addr_cn,omitempty" xml:"owner_addr_cn,omitempty"`
+	// 权利人英文名称
+	OwnerNameEn *string `json:"owner_name_en,omitempty" xml:"owner_name_en,omitempty"`
+	// 权利人英文地址
+	OwnerAddrEn *string `json:"owner_addr_en,omitempty" xml:"owner_addr_en,omitempty"`
+	// 申请人中文名称
+	ApplicantNameCn *string `json:"applicant_name_cn,omitempty" xml:"applicant_name_cn,omitempty"`
+	// 申请人中文地址
+	ApplicantAddrCn *string `json:"applicant_addr_cn,omitempty" xml:"applicant_addr_cn,omitempty"`
+	// 申请人外文名称
+	ApplicantNameEn *string `json:"applicant_name_en,omitempty" xml:"applicant_name_en,omitempty"`
+	// 申请人英文地址
+	ApplicantAddrEn *string `json:"applicant_addr_en,omitempty" xml:"applicant_addr_en,omitempty"`
+	// 权利人社会信用统一代码
+	OwnerUscc *string `json:"owner_uscc,omitempty" xml:"owner_uscc,omitempty"`
+}
+
+func (s DomesticTmInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DomesticTmInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DomesticTmInfo) SetTmName(v string) *DomesticTmInfo {
+	s.TmName = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetTmRegNum(v string) *DomesticTmInfo {
+	s.TmRegNum = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetIntCls(v string) *DomesticTmInfo {
+	s.IntCls = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetTmStatus(v string) *DomesticTmInfo {
+	s.TmStatus = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetPropertyBgnDate(v string) *DomesticTmInfo {
+	s.PropertyBgnDate = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetRegDate(v string) *DomesticTmInfo {
+	s.RegDate = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetIsShare(v bool) *DomesticTmInfo {
+	s.IsShare = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetCoownerInfos(v []*TmCoownerInfo) *DomesticTmInfo {
+	s.CoownerInfos = v
+	return s
+}
+
+func (s *DomesticTmInfo) SetPropertyEndDate(v string) *DomesticTmInfo {
+	s.PropertyEndDate = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetFormType(v string) *DomesticTmInfo {
+	s.FormType = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetOwnerNameCn(v string) *DomesticTmInfo {
+	s.OwnerNameCn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetOwnerAddrCn(v string) *DomesticTmInfo {
+	s.OwnerAddrCn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetOwnerNameEn(v string) *DomesticTmInfo {
+	s.OwnerNameEn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetOwnerAddrEn(v string) *DomesticTmInfo {
+	s.OwnerAddrEn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetApplicantNameCn(v string) *DomesticTmInfo {
+	s.ApplicantNameCn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetApplicantAddrCn(v string) *DomesticTmInfo {
+	s.ApplicantAddrCn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetApplicantNameEn(v string) *DomesticTmInfo {
+	s.ApplicantNameEn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetApplicantAddrEn(v string) *DomesticTmInfo {
+	s.ApplicantAddrEn = &v
+	return s
+}
+
+func (s *DomesticTmInfo) SetOwnerUscc(v string) *DomesticTmInfo {
+	s.OwnerUscc = &v
+	return s
+}
+
+// 数据源详细信息
+type DataSourceInfo struct {
+	// 数据源biz_uuid
+	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty" require:"true"`
+	// 数据源名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"20"`
+	// 数据提供方
+	Provider *string `json:"provider,omitempty" xml:"provider,omitempty" require:"true" maxLength:"30"`
+	// 枚举值：ENTERPRISE、INDIVIDUAL
+	DataOwnerType *string `json:"data_owner_type,omitempty" xml:"data_owner_type,omitempty" require:"true"`
+	// 数据源接口信息
+	DataSourceInterfaceInfo *DataSourceInterface `json:"data_source_interface_info,omitempty" xml:"data_source_interface_info,omitempty" require:"true"`
+}
+
+func (s DataSourceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataSourceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataSourceInfo) SetBizUuid(v string) *DataSourceInfo {
+	s.BizUuid = &v
+	return s
+}
+
+func (s *DataSourceInfo) SetName(v string) *DataSourceInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *DataSourceInfo) SetProvider(v string) *DataSourceInfo {
+	s.Provider = &v
+	return s
+}
+
+func (s *DataSourceInfo) SetDataOwnerType(v string) *DataSourceInfo {
+	s.DataOwnerType = &v
+	return s
+}
+
+func (s *DataSourceInfo) SetDataSourceInterfaceInfo(v *DataSourceInterface) *DataSourceInfo {
+	s.DataSourceInterfaceInfo = v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
+type UploadApplicationBatchqueryfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件md5
+	FileMd5 *string `json:"file_md5,omitempty" xml:"file_md5,omitempty" require:"true"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 数据集id，开发者提供
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 幂等id，同一批任务需使用相同的uniqueId，文件不一样但uniqueId一样，只会有一个任务，任务信息以第一次请求为准
+	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true"`
+}
+
+func (s UploadApplicationBatchqueryfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadApplicationBatchqueryfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetAuthToken(v string) *UploadApplicationBatchqueryfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetProductInstanceId(v string) *UploadApplicationBatchqueryfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetFileMd5(v string) *UploadApplicationBatchqueryfileRequest {
+	s.FileMd5 = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetFileObject(v io.Reader) *UploadApplicationBatchqueryfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetFileObjectName(v string) *UploadApplicationBatchqueryfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetFileId(v string) *UploadApplicationBatchqueryfileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetDataSetId(v string) *UploadApplicationBatchqueryfileRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileRequest) SetUniqueId(v string) *UploadApplicationBatchqueryfileRequest {
+	s.UniqueId = &v
+	return s
+}
+
+type UploadApplicationBatchqueryfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 离线任务查询id，批量任务结束后可通过该字段查询结果
+	//
+	QueryId *string `json:"query_id,omitempty" xml:"query_id,omitempty"`
+}
+
+func (s UploadApplicationBatchqueryfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadApplicationBatchqueryfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadApplicationBatchqueryfileResponse) SetReqMsgId(v string) *UploadApplicationBatchqueryfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileResponse) SetResultCode(v string) *UploadApplicationBatchqueryfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileResponse) SetResultMsg(v string) *UploadApplicationBatchqueryfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadApplicationBatchqueryfileResponse) SetQueryId(v string) *UploadApplicationBatchqueryfileResponse {
+	s.QueryId = &v
+	return s
+}
+
+type QueryApplicationBatchqueryresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 上传待查询数据集文件后得到的查询id，在此接口进行结果查询
+	//
+	QueryId *string `json:"query_id,omitempty" xml:"query_id,omitempty" require:"true"`
+}
+
+func (s QueryApplicationBatchqueryresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationBatchqueryresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationBatchqueryresultRequest) SetAuthToken(v string) *QueryApplicationBatchqueryresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultRequest) SetProductInstanceId(v string) *QueryApplicationBatchqueryresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultRequest) SetQueryId(v string) *QueryApplicationBatchqueryresultRequest {
+	s.QueryId = &v
+	return s
+}
+
+type QueryApplicationBatchqueryresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果文件临时链接
+	//
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty"`
+	// 描述结果文件完成进度：
+	// 如：
+	// 余额不足，部分内容查询完成
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryApplicationBatchqueryresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationBatchqueryresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationBatchqueryresultResponse) SetReqMsgId(v string) *QueryApplicationBatchqueryresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultResponse) SetResultCode(v string) *QueryApplicationBatchqueryresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultResponse) SetResultMsg(v string) *QueryApplicationBatchqueryresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultResponse) SetFilePath(v string) *QueryApplicationBatchqueryresultResponse {
+	s.FilePath = &v
+	return s
+}
+
+func (s *QueryApplicationBatchqueryresultResponse) SetMessage(v string) *QueryApplicationBatchqueryresultResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryApplicationDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据集id，开发者提供
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 查询数据参数，json串
+	Index *string `json:"index,omitempty" xml:"index,omitempty" require:"true"`
+}
+
+func (s QueryApplicationDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationDataRequest) SetAuthToken(v string) *QueryApplicationDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationDataRequest) SetProductInstanceId(v string) *QueryApplicationDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApplicationDataRequest) SetDataSetId(v string) *QueryApplicationDataRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryApplicationDataRequest) SetIndex(v string) *QueryApplicationDataRequest {
+	s.Index = &v
+	return s
+}
+
+type QueryApplicationDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryApplicationDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationDataResponse) SetReqMsgId(v string) *QueryApplicationDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApplicationDataResponse) SetResultCode(v string) *QueryApplicationDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApplicationDataResponse) SetResultMsg(v string) *QueryApplicationDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApplicationDataResponse) SetData(v string) *QueryApplicationDataResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryApplicationIpeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据集id，开发者提供
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 企业信息
+	Index *string `json:"index,omitempty" xml:"index,omitempty" require:"true"`
+}
+
+func (s QueryApplicationIpeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationIpeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationIpeRequest) SetAuthToken(v string) *QueryApplicationIpeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationIpeRequest) SetProductInstanceId(v string) *QueryApplicationIpeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApplicationIpeRequest) SetDataSetId(v string) *QueryApplicationIpeRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryApplicationIpeRequest) SetIndex(v string) *QueryApplicationIpeRequest {
+	s.Index = &v
+	return s
+}
+
+type QueryApplicationIpeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryApplicationIpeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationIpeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationIpeResponse) SetReqMsgId(v string) *QueryApplicationIpeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApplicationIpeResponse) SetResultCode(v string) *QueryApplicationIpeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApplicationIpeResponse) SetResultMsg(v string) *QueryApplicationIpeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApplicationIpeResponse) SetData(v string) *QueryApplicationIpeResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryDomesticTrademarkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商标名称
+	TmName *string `json:"tm_name,omitempty" xml:"tm_name,omitempty"`
+	// 商标注册证号
+	TmRegNum *string `json:"tm_reg_num,omitempty" xml:"tm_reg_num,omitempty"`
+	// 商标所有人名称
+	TmOwnerName *string `json:"tm_owner_name,omitempty" xml:"tm_owner_name,omitempty"`
+	// 商标所有人社会信用统一代码
+	TmOwnerUscc *string `json:"tm_owner_uscc,omitempty" xml:"tm_owner_uscc,omitempty"`
+	// 数据集ID
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 每页的数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页码，从0开始。
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+}
+
+func (s QueryDomesticTrademarkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDomesticTrademarkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDomesticTrademarkRequest) SetAuthToken(v string) *QueryDomesticTrademarkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetProductInstanceId(v string) *QueryDomesticTrademarkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetTmName(v string) *QueryDomesticTrademarkRequest {
+	s.TmName = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetTmRegNum(v string) *QueryDomesticTrademarkRequest {
+	s.TmRegNum = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetTmOwnerName(v string) *QueryDomesticTrademarkRequest {
+	s.TmOwnerName = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetTmOwnerUscc(v string) *QueryDomesticTrademarkRequest {
+	s.TmOwnerUscc = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetDataSetId(v string) *QueryDomesticTrademarkRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetPageSize(v int64) *QueryDomesticTrademarkRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkRequest) SetPageNum(v int64) *QueryDomesticTrademarkRequest {
+	s.PageNum = &v
+	return s
+}
+
+type QueryDomesticTrademarkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商标信息列表
+	TmInfos []*DomesticTmInfo `json:"tm_infos,omitempty" xml:"tm_infos,omitempty" type:"Repeated"`
+	// 商标总数
+	TmTotal *int64 `json:"tm_total,omitempty" xml:"tm_total,omitempty"`
+}
+
+func (s QueryDomesticTrademarkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDomesticTrademarkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDomesticTrademarkResponse) SetReqMsgId(v string) *QueryDomesticTrademarkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkResponse) SetResultCode(v string) *QueryDomesticTrademarkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkResponse) SetResultMsg(v string) *QueryDomesticTrademarkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDomesticTrademarkResponse) SetTmInfos(v []*DomesticTmInfo) *QueryDomesticTrademarkResponse {
+	s.TmInfos = v
+	return s
+}
+
+func (s *QueryDomesticTrademarkResponse) SetTmTotal(v int64) *QueryDomesticTrademarkResponse {
+	s.TmTotal = &v
+	return s
+}
+
+type GetDomesticTrademarklogoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据集ID
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 商标注册证号
+	TmRegNum *string `json:"tm_reg_num,omitempty" xml:"tm_reg_num,omitempty" require:"true"`
+	// 商标类别
+	TmFormType *string `json:"tm_form_type,omitempty" xml:"tm_form_type,omitempty" require:"true"`
+}
+
+func (s GetDomesticTrademarklogoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDomesticTrademarklogoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDomesticTrademarklogoRequest) SetAuthToken(v string) *GetDomesticTrademarklogoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoRequest) SetProductInstanceId(v string) *GetDomesticTrademarklogoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoRequest) SetDataSetId(v string) *GetDomesticTrademarklogoRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoRequest) SetTmRegNum(v string) *GetDomesticTrademarklogoRequest {
+	s.TmRegNum = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoRequest) SetTmFormType(v string) *GetDomesticTrademarklogoRequest {
+	s.TmFormType = &v
+	return s
+}
+
+type GetDomesticTrademarklogoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商标logo下载地址
+	TmLogoUrl *string `json:"tm_logo_url,omitempty" xml:"tm_logo_url,omitempty"`
+}
+
+func (s GetDomesticTrademarklogoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDomesticTrademarklogoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDomesticTrademarklogoResponse) SetReqMsgId(v string) *GetDomesticTrademarklogoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoResponse) SetResultCode(v string) *GetDomesticTrademarklogoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoResponse) SetResultMsg(v string) *GetDomesticTrademarklogoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDomesticTrademarklogoResponse) SetTmLogoUrl(v string) *GetDomesticTrademarklogoResponse {
+	s.TmLogoUrl = &v
+	return s
+}
+
+type QueryEncryptEnterpriseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据集ID
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 加密的查询参数
+	EncryptParameters *string `json:"encrypt_parameters,omitempty" xml:"encrypt_parameters,omitempty" require:"true"`
+}
+
+func (s QueryEncryptEnterpriseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEncryptEnterpriseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEncryptEnterpriseinfoRequest) SetAuthToken(v string) *QueryEncryptEnterpriseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoRequest) SetProductInstanceId(v string) *QueryEncryptEnterpriseinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoRequest) SetDataSetId(v string) *QueryEncryptEnterpriseinfoRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoRequest) SetEncryptParameters(v string) *QueryEncryptEnterpriseinfoRequest {
+	s.EncryptParameters = &v
+	return s
+}
+
+type QueryEncryptEnterpriseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 加密的企业工商信息
+	EncryptData *string `json:"encrypt_data,omitempty" xml:"encrypt_data,omitempty"`
+}
+
+func (s QueryEncryptEnterpriseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEncryptEnterpriseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEncryptEnterpriseinfoResponse) SetReqMsgId(v string) *QueryEncryptEnterpriseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoResponse) SetResultCode(v string) *QueryEncryptEnterpriseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoResponse) SetResultMsg(v string) *QueryEncryptEnterpriseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEncryptEnterpriseinfoResponse) SetEncryptData(v string) *QueryEncryptEnterpriseinfoResponse {
+	s.EncryptData = &v
 	return s
 }
 
@@ -1588,6 +2558,126 @@ func (s *AuthDasAuthresultResponse) SetVc(v string) *AuthDasAuthresultResponse {
 	return s
 }
 
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1710,7 +2800,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.6"),
+				"sdk_version":      tea.String("1.1.16"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1736,8 +2826,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -1756,6 +2854,273 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 上传批量查询数据文件
+ * Summary: 上传批量查询数据文件
+ */
+func (client *Client) UploadApplicationBatchqueryfile(request *UploadApplicationBatchqueryfileRequest) (_result *UploadApplicationBatchqueryfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadApplicationBatchqueryfileResponse{}
+	_body, _err := client.UploadApplicationBatchqueryfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上传批量查询数据文件
+ * Summary: 上传批量查询数据文件
+ */
+func (client *Client) UploadApplicationBatchqueryfileEx(request *UploadApplicationBatchqueryfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadApplicationBatchqueryfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.das.application.batchqueryfile.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadApplicationBatchqueryfileResponse := &UploadApplicationBatchqueryfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadApplicationBatchqueryfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadApplicationBatchqueryfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.batchqueryfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取查询数据集任务结果
+ * Summary: 获取查询数据集任务结果
+ */
+func (client *Client) QueryApplicationBatchqueryresult(request *QueryApplicationBatchqueryresultRequest) (_result *QueryApplicationBatchqueryresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApplicationBatchqueryresultResponse{}
+	_body, _err := client.QueryApplicationBatchqueryresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取查询数据集任务结果
+ * Summary: 获取查询数据集任务结果
+ */
+func (client *Client) QueryApplicationBatchqueryresultEx(request *QueryApplicationBatchqueryresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationBatchqueryresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApplicationBatchqueryresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.batchqueryresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实时获取数据源数据
+ * Summary: 实时查询数据
+ */
+func (client *Client) QueryApplicationData(request *QueryApplicationDataRequest) (_result *QueryApplicationDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApplicationDataResponse{}
+	_body, _err := client.QueryApplicationDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实时获取数据源数据
+ * Summary: 实时查询数据
+ */
+func (client *Client) QueryApplicationDataEx(request *QueryApplicationDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApplicationDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 知识产权实时接口
+ * Summary: 知识产权实时接口
+ */
+func (client *Client) QueryApplicationIpe(request *QueryApplicationIpeRequest) (_result *QueryApplicationIpeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApplicationIpeResponse{}
+	_body, _err := client.QueryApplicationIpeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 知识产权实时接口
+ * Summary: 知识产权实时接口
+ */
+func (client *Client) QueryApplicationIpeEx(request *QueryApplicationIpeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationIpeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApplicationIpeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.ipe.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询国内商标数据
+ * Summary: 查询国内商标数据
+ */
+func (client *Client) QueryDomesticTrademark(request *QueryDomesticTrademarkRequest) (_result *QueryDomesticTrademarkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDomesticTrademarkResponse{}
+	_body, _err := client.QueryDomesticTrademarkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询国内商标数据
+ * Summary: 查询国内商标数据
+ */
+func (client *Client) QueryDomesticTrademarkEx(request *QueryDomesticTrademarkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDomesticTrademarkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDomesticTrademarkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.domestic.trademark.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取国内商标LOGO文件
+ * Summary: 获取国内商标LOGO文件
+ */
+func (client *Client) GetDomesticTrademarklogo(request *GetDomesticTrademarklogoRequest) (_result *GetDomesticTrademarklogoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDomesticTrademarklogoResponse{}
+	_body, _err := client.GetDomesticTrademarklogoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取国内商标LOGO文件
+ * Summary: 获取国内商标LOGO文件
+ */
+func (client *Client) GetDomesticTrademarklogoEx(request *GetDomesticTrademarklogoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDomesticTrademarklogoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDomesticTrademarklogoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.domestic.trademarklogo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询加密的企业工商信息
+ * Summary: 查询加密的企业工商信息
+ */
+func (client *Client) QueryEncryptEnterpriseinfo(request *QueryEncryptEnterpriseinfoRequest) (_result *QueryEncryptEnterpriseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEncryptEnterpriseinfoResponse{}
+	_body, _err := client.QueryEncryptEnterpriseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询加密的企业工商信息
+ * Summary: 查询加密的企业工商信息
+ */
+func (client *Client) QueryEncryptEnterpriseinfoEx(request *QueryEncryptEnterpriseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEncryptEnterpriseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEncryptEnterpriseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.encrypt.enterpriseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -2193,6 +3558,40 @@ func (client *Client) AuthDasAuthresultEx(request *AuthDasAuthresultRequest, hea
 	}
 	_result = &AuthDasAuthresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.das.authresult.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
