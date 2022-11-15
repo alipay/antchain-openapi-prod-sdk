@@ -15,6 +15,8 @@ use AntChain\DAS\Models\AuthDasAuthresultRequest;
 use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
 use AntChain\DAS\Models\AuthDasSmsResponse;
+use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DAS\Models\CreateDasDatasourceRequest;
 use AntChain\DAS\Models\CreateDasDatasourceResponse;
 use AntChain\DAS\Models\DeleteDasDatasourceRequest;
@@ -25,12 +27,26 @@ use AntChain\DAS\Models\GetDasIndividualvcRequest;
 use AntChain\DAS\Models\GetDasIndividualvcResponse;
 use AntChain\DAS\Models\GetDasLinkRequest;
 use AntChain\DAS\Models\GetDasLinkResponse;
+use AntChain\DAS\Models\GetDomesticTrademarklogoRequest;
+use AntChain\DAS\Models\GetDomesticTrademarklogoResponse;
+use AntChain\DAS\Models\QueryApplicationBatchqueryresultRequest;
+use AntChain\DAS\Models\QueryApplicationBatchqueryresultResponse;
+use AntChain\DAS\Models\QueryApplicationDataRequest;
+use AntChain\DAS\Models\QueryApplicationDataResponse;
+use AntChain\DAS\Models\QueryApplicationIpeRequest;
+use AntChain\DAS\Models\QueryApplicationIpeResponse;
 use AntChain\DAS\Models\QueryDasDatasourceRequest;
 use AntChain\DAS\Models\QueryDasDatasourceResponse;
+use AntChain\DAS\Models\QueryDomesticTrademarkRequest;
+use AntChain\DAS\Models\QueryDomesticTrademarkResponse;
+use AntChain\DAS\Models\QueryEncryptEnterpriseinfoRequest;
+use AntChain\DAS\Models\QueryEncryptEnterpriseinfoResponse;
 use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
 use AntChain\DAS\Models\UpdateDasDatasourceRequest;
 use AntChain\DAS\Models\UpdateDasDatasourceResponse;
+use AntChain\DAS\Models\UploadApplicationBatchqueryfileRequest;
+use AntChain\DAS\Models\UploadApplicationBatchqueryfileResponse;
 use AntChain\DAS\Models\VerifyDasAuthresultRequest;
 use AntChain\DAS\Models\VerifyDasAuthresultResponse;
 use AntChain\DAS\Models\VerifyDasEnterpriseRequest;
@@ -184,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.6',
+                    'sdk_version'      => '1.1.16',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -228,6 +244,255 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 上传批量查询数据文件
+     * Summary: 上传批量查询数据文件.
+     *
+     * @param UploadApplicationBatchqueryfileRequest $request
+     *
+     * @return UploadApplicationBatchqueryfileResponse
+     */
+    public function uploadApplicationBatchqueryfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadApplicationBatchqueryfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传批量查询数据文件
+     * Summary: 上传批量查询数据文件.
+     *
+     * @param UploadApplicationBatchqueryfileRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return UploadApplicationBatchqueryfileResponse
+     */
+    public function uploadApplicationBatchqueryfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.das.application.batchqueryfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadApplicationBatchqueryfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadApplicationBatchqueryfileResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.batchqueryfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取查询数据集任务结果
+     * Summary: 获取查询数据集任务结果.
+     *
+     * @param QueryApplicationBatchqueryresultRequest $request
+     *
+     * @return QueryApplicationBatchqueryresultResponse
+     */
+    public function queryApplicationBatchqueryresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationBatchqueryresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取查询数据集任务结果
+     * Summary: 获取查询数据集任务结果.
+     *
+     * @param QueryApplicationBatchqueryresultRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryApplicationBatchqueryresultResponse
+     */
+    public function queryApplicationBatchqueryresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationBatchqueryresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.batchqueryresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实时获取数据源数据
+     * Summary: 实时查询数据.
+     *
+     * @param QueryApplicationDataRequest $request
+     *
+     * @return QueryApplicationDataResponse
+     */
+    public function queryApplicationData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实时获取数据源数据
+     * Summary: 实时查询数据.
+     *
+     * @param QueryApplicationDataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryApplicationDataResponse
+     */
+    public function queryApplicationDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationDataResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识产权实时接口
+     * Summary: 知识产权实时接口.
+     *
+     * @param QueryApplicationIpeRequest $request
+     *
+     * @return QueryApplicationIpeResponse
+     */
+    public function queryApplicationIpe($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationIpeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识产权实时接口
+     * Summary: 知识产权实时接口.
+     *
+     * @param QueryApplicationIpeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryApplicationIpeResponse
+     */
+    public function queryApplicationIpeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationIpeResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.ipe.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询国内商标数据
+     * Summary: 查询国内商标数据.
+     *
+     * @param QueryDomesticTrademarkRequest $request
+     *
+     * @return QueryDomesticTrademarkResponse
+     */
+    public function queryDomesticTrademark($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDomesticTrademarkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询国内商标数据
+     * Summary: 查询国内商标数据.
+     *
+     * @param QueryDomesticTrademarkRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDomesticTrademarkResponse
+     */
+    public function queryDomesticTrademarkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDomesticTrademarkResponse::fromMap($this->doRequest('1.0', 'antchain.das.domestic.trademark.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取国内商标LOGO文件
+     * Summary: 获取国内商标LOGO文件.
+     *
+     * @param GetDomesticTrademarklogoRequest $request
+     *
+     * @return GetDomesticTrademarklogoResponse
+     */
+    public function getDomesticTrademarklogo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDomesticTrademarklogoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取国内商标LOGO文件
+     * Summary: 获取国内商标LOGO文件.
+     *
+     * @param GetDomesticTrademarklogoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetDomesticTrademarklogoResponse
+     */
+    public function getDomesticTrademarklogoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDomesticTrademarklogoResponse::fromMap($this->doRequest('1.0', 'antchain.das.domestic.trademarklogo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询加密的企业工商信息
+     * Summary: 查询加密的企业工商信息.
+     *
+     * @param QueryEncryptEnterpriseinfoRequest $request
+     *
+     * @return QueryEncryptEnterpriseinfoResponse
+     */
+    public function queryEncryptEnterpriseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEncryptEnterpriseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询加密的企业工商信息
+     * Summary: 查询加密的企业工商信息.
+     *
+     * @param QueryEncryptEnterpriseinfoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryEncryptEnterpriseinfoResponse
+     */
+    public function queryEncryptEnterpriseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEncryptEnterpriseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.encrypt.enterpriseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -657,5 +922,38 @@ class Client
         Utils::validateModel($request);
 
         return AuthDasAuthresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.authresult.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
