@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_appex.
 
-Created on 23/10/2022
+Created on 15/11/2022
 
 @author: Ant Chain SDK
 """

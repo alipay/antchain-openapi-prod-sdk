@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.8',
-                    '_prod_code': 'APPEX',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.3.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.8',
-                    '_prod_code': 'APPEX',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.3.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -721,6 +717,62 @@ class Client:
         return TeaCore.from_map(
             appex_models.StartMypocketUserdidsignverifyResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.mypocket.userdidsignverify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mypocket_userinfo(
+        self,
+        request: appex_models.QueryMypocketUserinfoRequest,
+    ) -> appex_models.QueryMypocketUserinfoResponse:
+        """
+        Description: 通过支付宝uid查询mypocket信息
+        Summary: 查询mypocket用户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mypocket_userinfo_ex(request, headers, runtime)
+
+    async def query_mypocket_userinfo_async(
+        self,
+        request: appex_models.QueryMypocketUserinfoRequest,
+    ) -> appex_models.QueryMypocketUserinfoResponse:
+        """
+        Description: 通过支付宝uid查询mypocket信息
+        Summary: 查询mypocket用户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mypocket_userinfo_ex_async(request, headers, runtime)
+
+    def query_mypocket_userinfo_ex(
+        self,
+        request: appex_models.QueryMypocketUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketUserinfoResponse:
+        """
+        Description: 通过支付宝uid查询mypocket信息
+        Summary: 查询mypocket用户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketUserinfoResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mypocket_userinfo_ex_async(
+        self,
+        request: appex_models.QueryMypocketUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketUserinfoResponse:
+        """
+        Description: 通过支付宝uid查询mypocket信息
+        Summary: 查询mypocket用户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketUserinfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_user_did(
