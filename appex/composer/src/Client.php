@@ -71,6 +71,8 @@ use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayRequest;
 use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayResponse;
 use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountRequest;
 use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountResponse;
+use AntChain\APPEX\Models\QueryMypocketUserinfoRequest;
+use AntChain\APPEX\Models\QueryMypocketUserinfoResponse;
 use AntChain\APPEX\Models\QuerySolutionBmsRequest;
 use AntChain\APPEX\Models\QuerySolutionBmsResponse;
 use AntChain\APPEX\Models\QuerySolutionFastnotaryRequest;
@@ -238,9 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.8',
-                    '_prod_code'       => 'APPEX',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.3.10',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -548,6 +548,39 @@ class Client
         Utils::validateModel($request);
 
         return StartMypocketUserdidsignverifyResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userdidsignverify.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过支付宝uid查询mypocket信息
+     * Summary: 查询mypocket用户信息.
+     *
+     * @param QueryMypocketUserinfoRequest $request
+     *
+     * @return QueryMypocketUserinfoResponse
+     */
+    public function queryMypocketUserinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMypocketUserinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过支付宝uid查询mypocket信息
+     * Summary: 查询mypocket用户信息.
+     *
+     * @param QueryMypocketUserinfoRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryMypocketUserinfoResponse
+     */
+    public function queryMypocketUserinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMypocketUserinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
