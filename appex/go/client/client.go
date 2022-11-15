@@ -1178,6 +1178,83 @@ func (s *StartMypocketUserdidsignverifyResponse) SetIsValid(v bool) *StartMypock
 	return s
 }
 
+type QueryMypocketUserinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝uid
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty" require:"true"`
+}
+
+func (s QueryMypocketUserinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketUserinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketUserinfoRequest) SetAuthToken(v string) *QueryMypocketUserinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoRequest) SetProductInstanceId(v string) *QueryMypocketUserinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoRequest) SetAlipayUid(v string) *QueryMypocketUserinfoRequest {
+	s.AlipayUid = &v
+	return s
+}
+
+type QueryMypocketUserinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 头像链接
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+}
+
+func (s QueryMypocketUserinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketUserinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketUserinfoResponse) SetReqMsgId(v string) *QueryMypocketUserinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoResponse) SetResultCode(v string) *QueryMypocketUserinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoResponse) SetResultMsg(v string) *QueryMypocketUserinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoResponse) SetNickName(v string) *QueryMypocketUserinfoResponse {
+	s.NickName = &v
+	return s
+}
+
+func (s *QueryMypocketUserinfoResponse) SetAvatar(v string) *QueryMypocketUserinfoResponse {
+	s.Avatar = &v
+	return s
+}
+
 type CreateUserDidRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4497,9 +4574,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.8"),
-				"_prod_code":       tea.String("APPEX"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.3.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4820,6 +4895,40 @@ func (client *Client) StartMypocketUserdidsignverifyEx(request *StartMypocketUse
 	}
 	_result = &StartMypocketUserdidsignverifyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userdidsignverify.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过支付宝uid查询mypocket信息
+ * Summary: 查询mypocket用户信息
+ */
+func (client *Client) QueryMypocketUserinfo(request *QueryMypocketUserinfoRequest) (_result *QueryMypocketUserinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMypocketUserinfoResponse{}
+	_body, _err := client.QueryMypocketUserinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过支付宝uid查询mypocket信息
+ * Summary: 查询mypocket用户信息
+ */
+func (client *Client) QueryMypocketUserinfoEx(request *QueryMypocketUserinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMypocketUserinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMypocketUserinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
