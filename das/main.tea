@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.1.16',
+    _prod_code = 'DAS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -181,6 +183,18 @@ model InterfaceOutput {
   description?: string(maxLength=100, name='description', example='描述'),
 }
 
+// 商标共有人信息
+model TmCoownerInfo {
+  // 共有人中文名称
+  coownerNameCn?: string(name='coowner_name_cn', example='张三'),
+  // 共有人中文地址
+  coownerAddrCn?: string(name='coowner_addr_cn', example='中文地址信息'),
+  // 共有人英文名称
+  coownerNameEn?: string(name='coowner_name_en', example='Bob'),
+  // 共有人英文地址
+  coownerAddrEn?: string(name='coowner_addr_en', example='英文地址信息'),
+}
+
 // 数据源接口定义
 model DataSourceInterface {
   // 数据源接口访问地址
@@ -193,28 +207,52 @@ model DataSourceInterface {
   interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
 }
 
-// 授权人个人信息
-model AuthPersonIndividualInfo {
-  // 姓名
-  individualName: string(name='individual_name', example='张**'),
-  // 身份证号
-  individualId: string(name='individual_id', example='110*****'),
-  // 电话号码
-  individualPhoneNum: long(name='individual_phone_num', example='138********'),
+// 企业基本信息
+model EnterpriseBaseInfo {
+  // 机构名称
+  orgName: string(name='org_name', example='机构名称'),
+  // 统一社会信用代码
+  creditCode: string(name='credit_code', example='统一社会信用代码'),
+  // 企业公司注册证号
+  regNumber: string(name='reg_number', example='企业公司注册证号'),
+  // 持股比例
+  investRate?: string(name='invest_rate', example='持股比例'),
+  // 查询人与这家企业的关联
+  relationship?: string(name='relationship', example='sh;lp;tm'),
 }
 
-// 数据源详细信息
-model DataSourceInfo {
-  // 数据源biz_uuid
-  bizUuid: string(name='biz_uuid', example='1'),
-  // 数据源名称
-  name: string(maxLength=20, name='name', example='**数据'),
-  // 数据提供方
-  provider: string(maxLength=30, name='provider', example='***有限公司'),
-  // 枚举值：ENTERPRISE、INDIVIDUAL
-  dataOwnerType: string(name='data_owner_type', example='ENTERPRISE'),
-  // 数据源接口信息
-  dataSourceInterfaceInfo: DataSourceInterface(name='data_source_interface_info', example=''),
+// 企业案件信息
+model EnterpriseCaseInfo {
+  // 立案信息
+  caseInfo?: string(name='case_info', example='立案信息'),
+  // 案件号
+  caseCode?: string(name='case_code', example='案件号'),
+  // 立案时间
+  caseCreateTime?: string(name='case_create_time', example='2021-12-09'),
+  // 案件状态
+  caseStatus?: string(name='case_status', example='案件状态'),
+  // 公示状态
+  publishStatus?: string(name='publish_status', example='公示状态'),
+  // 被执行人姓名
+  execName?: string(name='exec_name', example='被执行人姓名'),
+  // 执行法院
+  execCourtName?: string(name='exec_court_name', example='执行法院'),
+  // 执行标的(元)
+  execMoney?: string(name='exec_money', example='执行标的(元)'),
+  // 关联裁判文书
+  gistId?: string(name='gist_id', example='关联裁判文书'),
+  // 案由
+  caseType?: string(name='case_type', example='案由'),
+  // 创建时间
+  createTime?: string(name='create_time', example='2021-12-09'),
+}
+
+// 数据源信息
+model DataSource {
+  // 数据源ID
+  id: string(name='id', example='1'),
+  // 数据源接口地址
+  address: string(name='address', example='https://******'),
 }
 
 // 授权人企业信息
@@ -243,12 +281,403 @@ model BeAuthedPersonInfo {
   enterpriseLegalPersonId: string(name='enterprise_legal_person_id', example='110*****'),
 }
 
-// 数据源信息
-model DataSource {
-  // 数据源ID
-  id: string(name='id', example='1'),
-  // 数据源接口地址
-  address: string(name='address', example='https://******'),
+// 授权人个人信息
+model AuthPersonIndividualInfo {
+  // 姓名
+  individualName: string(name='individual_name', example='张**'),
+  // 身份证号
+  individualId: string(name='individual_id', example='110*****'),
+  // 电话号码
+  individualPhoneNum: long(name='individual_phone_num', example='138********'),
+}
+
+// 国内商标信息
+model DomesticTmInfo {
+  // 商标名称
+  tmName?: string(name='tm_name', example='商标名称'),
+  // 注册证号
+  tmRegNum?: string(name='tm_reg_num', example='123456789'),
+  // 国际分类
+  intCls?: string(name='int_cls', example='16'),
+  // 商标状态
+  tmStatus?: string(name='tm_status', example='status'),
+  // 专用期开始时间
+  propertyBgnDate?: string(name='property_bgn_date', example='2021-10-07T00:00:00'),
+  // 注册日期
+  // 
+  regDate?: string(name='reg_date', example='2022-08-28T00:00:00'),
+  // 是否共有商标
+  isShare?: boolean(name='is_share', example='true, false'),
+  // 商标共有人信息(共有商标才有该数据)
+  coownerInfos?: [ TmCoownerInfo ](name='coowner_infos', example=''),
+  // 专用期结束时间
+  propertyEndDate?: string(name='property_end_date', example='2031-10-06T00:00:00'),
+  // 商标类别
+  formType?: string(name='form_type', example='0001'),
+  // 权利人中文名称
+  ownerNameCn?: string(name='owner_name_cn', example='张三'),
+  // 权利人中文地址
+  ownerAddrCn?: string(name='owner_addr_cn', example='中文地址信息'),
+  // 权利人英文名称
+  ownerNameEn?: string(name='owner_name_en', example='Bob'),
+  // 权利人英文地址
+  ownerAddrEn?: string(name='owner_addr_en', example='英文地址信息'),
+  // 申请人中文名称
+  applicantNameCn?: string(name='applicant_name_cn', example='张*'),
+  // 申请人中文地址
+  applicantAddrCn?: string(name='applicant_addr_cn', example='中文地址信息'),
+  // 申请人外文名称
+  applicantNameEn?: string(name='applicant_name_en', example='Bob'),
+  // 申请人英文地址
+  applicantAddrEn?: string(name='applicant_addr_en', example='英文地址信息'),
+  // 权利人社会信用统一代码
+  ownerUscc?: string(name='owner_uscc', example='1234567W'),
+}
+
+// 数据源详细信息
+model DataSourceInfo {
+  // 数据源biz_uuid
+  bizUuid: string(name='biz_uuid', example='1'),
+  // 数据源名称
+  name: string(maxLength=20, name='name', example='**数据'),
+  // 数据提供方
+  provider: string(maxLength=30, name='provider', example='***有限公司'),
+  // 枚举值：ENTERPRISE、INDIVIDUAL
+  dataOwnerType: string(name='data_owner_type', example='ENTERPRISE'),
+  // 数据源接口信息
+  dataSourceInterfaceInfo: DataSourceInterface(name='data_source_interface_info', example=''),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model UploadApplicationBatchqueryfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件md5
+  fileMd5: string(name='file_md5'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 幂等id，同一批任务需使用相同的uniqueId，文件不一样但uniqueId一样，只会有一个任务，任务信息以第一次请求为准
+  uniqueId: string(name='unique_id'),
+}
+
+model UploadApplicationBatchqueryfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 离线任务查询id，批量任务结束后可通过该字段查询结果
+  // 
+  queryId?: string(name='query_id'),
+}
+
+/**
+ * Description: 上传批量查询数据文件
+ * Summary: 上传批量查询数据文件
+ */
+async function uploadApplicationBatchqueryfile(request: UploadApplicationBatchqueryfileRequest): UploadApplicationBatchqueryfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadApplicationBatchqueryfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传批量查询数据文件
+ * Summary: 上传批量查询数据文件
+ */
+async function uploadApplicationBatchqueryfileEx(request: UploadApplicationBatchqueryfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadApplicationBatchqueryfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.das.application.batchqueryfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadApplicationBatchqueryfileResponse = new UploadApplicationBatchqueryfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadApplicationBatchqueryfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.batchqueryfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationBatchqueryresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上传待查询数据集文件后得到的查询id，在此接口进行结果查询
+  // 
+  queryId: string(name='query_id'),
+}
+
+model QueryApplicationBatchqueryresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果文件临时链接
+  // 
+  filePath?: string(name='file_path'),
+  // 描述结果文件完成进度：
+  // 如：
+  // 余额不足，部分内容查询完成
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 获取查询数据集任务结果
+ * Summary: 获取查询数据集任务结果
+ */
+async function queryApplicationBatchqueryresult(request: QueryApplicationBatchqueryresultRequest): QueryApplicationBatchqueryresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationBatchqueryresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取查询数据集任务结果
+ * Summary: 获取查询数据集任务结果
+ */
+async function queryApplicationBatchqueryresultEx(request: QueryApplicationBatchqueryresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationBatchqueryresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.batchqueryresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 查询数据参数，json串
+  index: string(name='index'),
+}
+
+model QueryApplicationDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 实时获取数据源数据
+ * Summary: 实时查询数据
+ */
+async function queryApplicationData(request: QueryApplicationDataRequest): QueryApplicationDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实时获取数据源数据
+ * Summary: 实时查询数据
+ */
+async function queryApplicationDataEx(request: QueryApplicationDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationIpeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 企业信息
+  index: string(name='index'),
+}
+
+model QueryApplicationIpeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 知识产权实时接口
+ * Summary: 知识产权实时接口
+ */
+async function queryApplicationIpe(request: QueryApplicationIpeRequest): QueryApplicationIpeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationIpeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识产权实时接口
+ * Summary: 知识产权实时接口
+ */
+async function queryApplicationIpeEx(request: QueryApplicationIpeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationIpeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.ipe.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDomesticTrademarkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商标名称
+  tmName?: string(name='tm_name'),
+  // 商标注册证号
+  tmRegNum?: string(name='tm_reg_num'),
+  // 商标所有人名称
+  tmOwnerName?: string(name='tm_owner_name'),
+  // 商标所有人社会信用统一代码
+  tmOwnerUscc?: string(name='tm_owner_uscc'),
+  // 数据集ID
+  dataSetId: string(name='data_set_id'),
+  // 每页的数量
+  pageSize: long(name='page_size'),
+  // 当前页码，从0开始。
+  pageNum: long(name='page_num'),
+}
+
+model QueryDomesticTrademarkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商标信息列表
+  tmInfos?: [ DomesticTmInfo ](name='tm_infos'),
+  // 商标总数
+  tmTotal?: long(name='tm_total'),
+}
+
+/**
+ * Description: 查询国内商标数据
+ * Summary: 查询国内商标数据
+ */
+async function queryDomesticTrademark(request: QueryDomesticTrademarkRequest): QueryDomesticTrademarkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDomesticTrademarkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询国内商标数据
+ * Summary: 查询国内商标数据
+ */
+async function queryDomesticTrademarkEx(request: QueryDomesticTrademarkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDomesticTrademarkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.domestic.trademark.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDomesticTrademarklogoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集ID
+  dataSetId: string(name='data_set_id'),
+  // 商标注册证号
+  tmRegNum: string(name='tm_reg_num'),
+  // 商标类别
+  tmFormType: string(name='tm_form_type'),
+}
+
+model GetDomesticTrademarklogoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商标logo下载地址
+  tmLogoUrl?: string(name='tm_logo_url'),
+}
+
+/**
+ * Description: 获取国内商标LOGO文件
+ * Summary: 获取国内商标LOGO文件
+ */
+async function getDomesticTrademarklogo(request: GetDomesticTrademarklogoRequest): GetDomesticTrademarklogoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDomesticTrademarklogoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取国内商标LOGO文件
+ * Summary: 获取国内商标LOGO文件
+ */
+async function getDomesticTrademarklogoEx(request: GetDomesticTrademarklogoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDomesticTrademarklogoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.domestic.trademarklogo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEncryptEnterpriseinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集ID
+  dataSetId: string(name='data_set_id'),
+  // 加密的查询参数
+  encryptParameters: string(name='encrypt_parameters'),
+}
+
+model QueryEncryptEnterpriseinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 加密的企业工商信息
+  encryptData?: string(name='encrypt_data'),
+}
+
+/**
+ * Description: 查询加密的企业工商信息
+ * Summary: 查询加密的企业工商信息
+ */
+async function queryEncryptEnterpriseinfo(request: QueryEncryptEnterpriseinfoRequest): QueryEncryptEnterpriseinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEncryptEnterpriseinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询加密的企业工商信息
+ * Summary: 查询加密的企业工商信息
+ */
+async function queryEncryptEnterpriseinfoEx(request: QueryEncryptEnterpriseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEncryptEnterpriseinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.encrypt.enterpriseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
@@ -807,5 +1236,58 @@ async function authDasAuthresult(request: AuthDasAuthresultRequest): AuthDasAuth
 async function authDasAuthresultEx(request: AuthDasAuthresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthDasAuthresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.das.authresult.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
