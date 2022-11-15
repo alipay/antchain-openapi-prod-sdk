@@ -930,6 +930,69 @@ export class StartMypocketUserdidsignverifyResponse extends $tea.Model {
   }
 }
 
+export class QueryMypocketUserinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝uid
+  alipayUid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alipayUid: 'alipay_uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alipayUid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketUserinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户昵称
+  nickName?: string;
+  // 头像链接
+  avatar?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nickName: 'nick_name',
+      avatar: 'avatar',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nickName: 'string',
+      avatar: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateUserDidRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3501,9 +3564,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.8",
-          _prod_code: "APPEX",
-          _prod_channel: "undefined",
+          sdk_version: "1.3.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3699,6 +3760,25 @@ export default class Client {
   async startMypocketUserdidsignverifyEx(request: StartMypocketUserdidsignverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartMypocketUserdidsignverifyResponse> {
     Util.validateModel(request);
     return $tea.cast<StartMypocketUserdidsignverifyResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userdidsignverify.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartMypocketUserdidsignverifyResponse({}));
+  }
+
+  /**
+   * Description: 通过支付宝uid查询mypocket信息
+   * Summary: 查询mypocket用户信息
+   */
+  async queryMypocketUserinfo(request: QueryMypocketUserinfoRequest): Promise<QueryMypocketUserinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMypocketUserinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过支付宝uid查询mypocket信息
+   * Summary: 查询mypocket用户信息
+   */
+  async queryMypocketUserinfoEx(request: QueryMypocketUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketUserinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMypocketUserinfoResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketUserinfoResponse({}));
   }
 
   /**
