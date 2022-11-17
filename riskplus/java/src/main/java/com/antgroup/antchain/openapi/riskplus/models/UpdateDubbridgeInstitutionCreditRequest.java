@@ -69,6 +69,10 @@ public class UpdateDubbridgeInstitutionCreditRequest extends TeaModel {
     @Validation(required = true)
     public String extInfo;
 
+    // 授信有效期-申请调整值，机构发起授信有效期更新场景下有值
+    @NameInMap("credit_expire_date")
+    public String creditExpireDate;
+
     public static UpdateDubbridgeInstitutionCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDubbridgeInstitutionCreditRequest self = new UpdateDubbridgeInstitutionCreditRequest();
         return TeaModel.build(map, self);
@@ -184,6 +188,14 @@ public class UpdateDubbridgeInstitutionCreditRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
+    }
+
+    public UpdateDubbridgeInstitutionCreditRequest setCreditExpireDate(String creditExpireDate) {
+        this.creditExpireDate = creditExpireDate;
+        return this;
+    }
+    public String getCreditExpireDate() {
+        return this.creditExpireDate;
     }
 
 }
