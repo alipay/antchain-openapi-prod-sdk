@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2")
+                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("_prod_code", "ak_167ce39da2ad4da286116805d1fe87d9"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
