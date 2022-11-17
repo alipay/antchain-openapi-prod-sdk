@@ -55,16 +55,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string FileTemplate { get; set; }
 
-        // 外部流水号
-        [NameInMap("out_serial_no")]
-        [Validation(Required=true)]
-        public string OutSerialNo { get; set; }
-
-        // 外部透传字段
-        [NameInMap("out_info")]
-        [Validation(Required=false)]
-        public string OutInfo { get; set; }
-
     }
 
 }

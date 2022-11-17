@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.2"},
+                        {"sdk_version", "1.15.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.2"},
+                        {"sdk_version", "1.15.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2759,6 +2759,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyDubbridgeCallbackResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.callback.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2.12	天枢系统还款信息查询V2.0
+         * Summary: 2.12 天枢系统还款信息查询V2.0
+         */
+        public QueryDubbridgeRepayResultResponse QueryDubbridgeRepayResult(QueryDubbridgeRepayResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeRepayResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2.12	天枢系统还款信息查询V2.0
+         * Summary: 2.12 天枢系统还款信息查询V2.0
+         */
+        public async Task<QueryDubbridgeRepayResultResponse> QueryDubbridgeRepayResultAsync(QueryDubbridgeRepayResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeRepayResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 2.12	天枢系统还款信息查询V2.0
+         * Summary: 2.12 天枢系统还款信息查询V2.0
+         */
+        public QueryDubbridgeRepayResultResponse QueryDubbridgeRepayResultEx(QueryDubbridgeRepayResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRepayResultResponse>(DoRequest("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 2.12	天枢系统还款信息查询V2.0
+         * Summary: 2.12 天枢系统还款信息查询V2.0
+         */
+        public async Task<QueryDubbridgeRepayResultResponse> QueryDubbridgeRepayResultExAsync(QueryDubbridgeRepayResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRepayResultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

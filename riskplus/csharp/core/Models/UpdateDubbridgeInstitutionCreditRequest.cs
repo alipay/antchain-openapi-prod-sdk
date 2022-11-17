@@ -78,6 +78,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ExtInfo { get; set; }
 
+        // 授信有效期-申请调整值，机构发起授信有效期更新场景下有值
+        [NameInMap("credit_expire_date")]
+        [Validation(Required=false)]
+        public string CreditExpireDate { get; set; }
+
     }
 
 }
