@@ -13,16 +13,26 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\BatchcreateDemoSaasTestTestfRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\BatchcreateDemoSaasTestTestfResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ImportDemoSaasTestTestbRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ImportDemoSaasTestTestbResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OperateDemoSaasTestTesteRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OperateDemoSaasTestTesteResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\PublishDemoSaasTestTestcRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\PublishDemoSaasTestTestcResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\QueryDemoSaasTestTestaResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ReplaceDemoSaasTestTestjRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ReplaceDemoSaasTestTestjResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ResetDemoSaasTestTestdRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ResetDemoSaasTestTestdResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\SendDemoSaasTestTestkRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\SendDemoSaasTestTestkResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -169,7 +179,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
+                    '_prod_code'       => 'ak_ba5301f7d07245d1bd01dc432d3de4b1',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -411,5 +423,170 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateDemoSaasTestTestfResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OpenDemoSaasTestTestgRequest $request
+     *
+     * @return OpenDemoSaasTestTestgResponse
+     */
+    public function openDemoSaasTestTestg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openDemoSaasTestTestgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OpenDemoSaasTestTestgRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return OpenDemoSaasTestTestgResponse
+     */
+    public function openDemoSaasTestTestgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenDemoSaasTestTestgResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testg.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateDemoSaasTestTesthRequest $request
+     *
+     * @return CreateDemoSaasTestTesthResponse
+     */
+    public function createDemoSaasTestTesth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDemoSaasTestTesthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateDemoSaasTestTesthRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDemoSaasTestTesthResponse
+     */
+    public function createDemoSaasTestTesthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDemoSaasTestTesthResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testh.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateDemoSaasTestTestiRequest $request
+     *
+     * @return CreateDemoSaasTestTestiResponse
+     */
+    public function createDemoSaasTestTesti($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDemoSaasTestTestiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateDemoSaasTestTestiRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDemoSaasTestTestiResponse
+     */
+    public function createDemoSaasTestTestiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDemoSaasTestTestiResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testi.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ReplaceDemoSaasTestTestjRequest $request
+     *
+     * @return ReplaceDemoSaasTestTestjResponse
+     */
+    public function replaceDemoSaasTestTestj($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceDemoSaasTestTestjEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ReplaceDemoSaasTestTestjRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ReplaceDemoSaasTestTestjResponse
+     */
+    public function replaceDemoSaasTestTestjEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceDemoSaasTestTestjResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testj.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendDemoSaasTestTestkRequest $request
+     *
+     * @return SendDemoSaasTestTestkResponse
+     */
+    public function sendDemoSaasTestTestk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendDemoSaasTestTestkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendDemoSaasTestTestkRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SendDemoSaasTestTestkResponse
+     */
+    public function sendDemoSaasTestTestkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendDemoSaasTestTestkResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testk.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
