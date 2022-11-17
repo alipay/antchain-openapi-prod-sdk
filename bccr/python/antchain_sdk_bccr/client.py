@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 网页取证具体信息
+            # 出证用户（申请人，经办人）
         }
         _last_request = None
         _last_exception = None
@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.24',
-                    '_prod_code': 'BCCR',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.17.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -214,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 网页取证具体信息
+            # 出证用户（申请人，经办人）
         }
         _last_request = None
         _last_exception = None
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.24',
-                    '_prod_code': 'BCCR',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.17.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2569,6 +2565,454 @@ class Client:
         return TeaCore.from_map(
             bccr_models.RefuseDciRegistrationResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_notary_bidreason(
+        self,
+        request: bccr_models.QueryNotaryBidreasonRequest,
+    ) -> bccr_models.QueryNotaryBidreasonResponse:
+        """
+        Description: 版权平台获取申办事由配置
+        Summary: 获取申办事由配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_notary_bidreason_ex(request, headers, runtime)
+
+    async def query_notary_bidreason_async(
+        self,
+        request: bccr_models.QueryNotaryBidreasonRequest,
+    ) -> bccr_models.QueryNotaryBidreasonResponse:
+        """
+        Description: 版权平台获取申办事由配置
+        Summary: 获取申办事由配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_notary_bidreason_ex_async(request, headers, runtime)
+
+    def query_notary_bidreason_ex(
+        self,
+        request: bccr_models.QueryNotaryBidreasonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryBidreasonResponse:
+        """
+        Description: 版权平台获取申办事由配置
+        Summary: 获取申办事由配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryBidreasonResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.bidreason.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_notary_bidreason_ex_async(
+        self,
+        request: bccr_models.QueryNotaryBidreasonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryBidreasonResponse:
+        """
+        Description: 版权平台获取申办事由配置
+        Summary: 获取申办事由配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryBidreasonResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.bidreason.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_notary_documenttosign(
+        self,
+        request: bccr_models.QueryNotaryDocumenttosignRequest,
+    ) -> bccr_models.QueryNotaryDocumenttosignResponse:
+        """
+        Description: 获取签署文件
+        Summary: 获取签署文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_notary_documenttosign_ex(request, headers, runtime)
+
+    async def query_notary_documenttosign_async(
+        self,
+        request: bccr_models.QueryNotaryDocumenttosignRequest,
+    ) -> bccr_models.QueryNotaryDocumenttosignResponse:
+        """
+        Description: 获取签署文件
+        Summary: 获取签署文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_notary_documenttosign_ex_async(request, headers, runtime)
+
+    def query_notary_documenttosign_ex(
+        self,
+        request: bccr_models.QueryNotaryDocumenttosignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryDocumenttosignResponse:
+        """
+        Description: 获取签署文件
+        Summary: 获取签署文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryDocumenttosignResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.documenttosign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_notary_documenttosign_ex_async(
+        self,
+        request: bccr_models.QueryNotaryDocumenttosignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryDocumenttosignResponse:
+        """
+        Description: 获取签署文件
+        Summary: 获取签署文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryDocumenttosignResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.documenttosign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_notary_order(
+        self,
+        request: bccr_models.ApplyNotaryOrderRequest,
+    ) -> bccr_models.ApplyNotaryOrderResponse:
+        """
+        Description: 提交申办订单
+        Summary: 提交申办订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_notary_order_ex(request, headers, runtime)
+
+    async def apply_notary_order_async(
+        self,
+        request: bccr_models.ApplyNotaryOrderRequest,
+    ) -> bccr_models.ApplyNotaryOrderResponse:
+        """
+        Description: 提交申办订单
+        Summary: 提交申办订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_notary_order_ex_async(request, headers, runtime)
+
+    def apply_notary_order_ex(
+        self,
+        request: bccr_models.ApplyNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ApplyNotaryOrderResponse:
+        """
+        Description: 提交申办订单
+        Summary: 提交申办订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ApplyNotaryOrderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.order.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_notary_order_ex_async(
+        self,
+        request: bccr_models.ApplyNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ApplyNotaryOrderResponse:
+        """
+        Description: 提交申办订单
+        Summary: 提交申办订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ApplyNotaryOrderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.order.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_notary_payurl(
+        self,
+        request: bccr_models.QueryNotaryPayurlRequest,
+    ) -> bccr_models.QueryNotaryPayurlResponse:
+        """
+        Description: 公证出证重新获取支付链接
+        Summary: 重新获取支付链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_notary_payurl_ex(request, headers, runtime)
+
+    async def query_notary_payurl_async(
+        self,
+        request: bccr_models.QueryNotaryPayurlRequest,
+    ) -> bccr_models.QueryNotaryPayurlResponse:
+        """
+        Description: 公证出证重新获取支付链接
+        Summary: 重新获取支付链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_notary_payurl_ex_async(request, headers, runtime)
+
+    def query_notary_payurl_ex(
+        self,
+        request: bccr_models.QueryNotaryPayurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryPayurlResponse:
+        """
+        Description: 公证出证重新获取支付链接
+        Summary: 重新获取支付链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryPayurlResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.payurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_notary_payurl_ex_async(
+        self,
+        request: bccr_models.QueryNotaryPayurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryPayurlResponse:
+        """
+        Description: 公证出证重新获取支付链接
+        Summary: 重新获取支付链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryPayurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.payurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_notary_feedetail(
+        self,
+        request: bccr_models.QueryNotaryFeedetailRequest,
+    ) -> bccr_models.QueryNotaryFeedetailResponse:
+        """
+        Description: 公证出证获取收费标准和明细
+        Summary: 获取收费标准和明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_notary_feedetail_ex(request, headers, runtime)
+
+    async def query_notary_feedetail_async(
+        self,
+        request: bccr_models.QueryNotaryFeedetailRequest,
+    ) -> bccr_models.QueryNotaryFeedetailResponse:
+        """
+        Description: 公证出证获取收费标准和明细
+        Summary: 获取收费标准和明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_notary_feedetail_ex_async(request, headers, runtime)
+
+    def query_notary_feedetail_ex(
+        self,
+        request: bccr_models.QueryNotaryFeedetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryFeedetailResponse:
+        """
+        Description: 公证出证获取收费标准和明细
+        Summary: 获取收费标准和明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryFeedetailResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.feedetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_notary_feedetail_ex_async(
+        self,
+        request: bccr_models.QueryNotaryFeedetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryFeedetailResponse:
+        """
+        Description: 公证出证获取收费标准和明细
+        Summary: 获取收费标准和明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryFeedetailResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.feedetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_notary_order(
+        self,
+        request: bccr_models.QueryNotaryOrderRequest,
+    ) -> bccr_models.QueryNotaryOrderResponse:
+        """
+        Description: 公证出证查询申办订单接口
+        Summary: 查询申办订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_notary_order_ex(request, headers, runtime)
+
+    async def query_notary_order_async(
+        self,
+        request: bccr_models.QueryNotaryOrderRequest,
+    ) -> bccr_models.QueryNotaryOrderResponse:
+        """
+        Description: 公证出证查询申办订单接口
+        Summary: 查询申办订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_notary_order_ex_async(request, headers, runtime)
+
+    def query_notary_order_ex(
+        self,
+        request: bccr_models.QueryNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryOrderResponse:
+        """
+        Description: 公证出证查询申办订单接口
+        Summary: 查询申办订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryOrderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_notary_order_ex_async(
+        self,
+        request: bccr_models.QueryNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryNotaryOrderResponse:
+        """
+        Description: 公证出证查询申办订单接口
+        Summary: 查询申办订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryNotaryOrderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_notary_attachment(
+        self,
+        request: bccr_models.UploadNotaryAttachmentRequest,
+    ) -> bccr_models.UploadNotaryAttachmentResponse:
+        """
+        Description: 公证出证申请出证材料补齐
+        Summary: 申请出证材料补齐
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_notary_attachment_ex(request, headers, runtime)
+
+    async def upload_notary_attachment_async(
+        self,
+        request: bccr_models.UploadNotaryAttachmentRequest,
+    ) -> bccr_models.UploadNotaryAttachmentResponse:
+        """
+        Description: 公证出证申请出证材料补齐
+        Summary: 申请出证材料补齐
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_notary_attachment_ex_async(request, headers, runtime)
+
+    def upload_notary_attachment_ex(
+        self,
+        request: bccr_models.UploadNotaryAttachmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.UploadNotaryAttachmentResponse:
+        """
+        Description: 公证出证申请出证材料补齐
+        Summary: 申请出证材料补齐
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.UploadNotaryAttachmentResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.attachment.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_notary_attachment_ex_async(
+        self,
+        request: bccr_models.UploadNotaryAttachmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.UploadNotaryAttachmentResponse:
+        """
+        Description: 公证出证申请出证材料补齐
+        Summary: 申请出证材料补齐
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.UploadNotaryAttachmentResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.attachment.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_notary_order(
+        self,
+        request: bccr_models.OperateNotaryOrderRequest,
+    ) -> bccr_models.OperateNotaryOrderResponse:
+        """
+        Description: 公证出证更新申办状态
+        Summary: 更新申办状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_notary_order_ex(request, headers, runtime)
+
+    async def operate_notary_order_async(
+        self,
+        request: bccr_models.OperateNotaryOrderRequest,
+    ) -> bccr_models.OperateNotaryOrderResponse:
+        """
+        Description: 公证出证更新申办状态
+        Summary: 更新申办状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_notary_order_ex_async(request, headers, runtime)
+
+    def operate_notary_order_ex(
+        self,
+        request: bccr_models.OperateNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.OperateNotaryOrderResponse:
+        """
+        Description: 公证出证更新申办状态
+        Summary: 更新申办状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.OperateNotaryOrderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.notary.order.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_notary_order_ex_async(
+        self,
+        request: bccr_models.OperateNotaryOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.OperateNotaryOrderResponse:
+        """
+        Description: 公证出证更新申办状态
+        Summary: 更新申办状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.OperateNotaryOrderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.order.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
