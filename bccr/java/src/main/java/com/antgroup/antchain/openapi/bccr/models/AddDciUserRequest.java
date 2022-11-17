@@ -62,12 +62,10 @@ public class AddDciUserRequest extends TeaModel {
 
     // 地址
     @NameInMap("address")
-    @Validation(required = true)
     public String address;
 
     // 用户身份开始时间
     @NameInMap("identity_start_time")
-    @Validation(required = true)
     public String identityStartTime;
 
     // 所属地区
@@ -77,7 +75,6 @@ public class AddDciUserRequest extends TeaModel {
 
     // 代理信息
     @NameInMap("proxy_data")
-    @Validation(required = true)
     public ProxyData proxyData;
 
     // 幂等字段

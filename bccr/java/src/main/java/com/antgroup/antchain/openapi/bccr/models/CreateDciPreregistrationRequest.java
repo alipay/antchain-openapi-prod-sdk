@@ -75,7 +75,6 @@ public class CreateDciPreregistrationRequest extends TeaModel {
 
     // 代理信息
     @NameInMap("proxy_data")
-    @Validation(required = true)
     public ProxyData proxyData;
 
     // 幂等字段

@@ -77,6 +77,18 @@ public class ScreenshotData extends TeaModel {
     @NameInMap("zip_file_hash")
     public String zipFileHash;
 
+    // 核心证据文件名称
+    @NameInMap("main_evidence_name")
+    public String mainEvidenceName;
+
+    // 取证申请单号
+    @NameInMap("evidence_order_num")
+    public String evidenceOrderNum;
+
+    // 取证开始时间
+    @NameInMap("gmt_evidence_start")
+    public Long gmtEvidenceStart;
+
     public static ScreenshotData build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotData self = new ScreenshotData();
         return TeaModel.build(map, self);
@@ -224,6 +236,30 @@ public class ScreenshotData extends TeaModel {
     }
     public String getZipFileHash() {
         return this.zipFileHash;
+    }
+
+    public ScreenshotData setMainEvidenceName(String mainEvidenceName) {
+        this.mainEvidenceName = mainEvidenceName;
+        return this;
+    }
+    public String getMainEvidenceName() {
+        return this.mainEvidenceName;
+    }
+
+    public ScreenshotData setEvidenceOrderNum(String evidenceOrderNum) {
+        this.evidenceOrderNum = evidenceOrderNum;
+        return this;
+    }
+    public String getEvidenceOrderNum() {
+        return this.evidenceOrderNum;
+    }
+
+    public ScreenshotData setGmtEvidenceStart(Long gmtEvidenceStart) {
+        this.gmtEvidenceStart = gmtEvidenceStart;
+        return this;
+    }
+    public Long getGmtEvidenceStart() {
+        return this.gmtEvidenceStart;
     }
 
 }

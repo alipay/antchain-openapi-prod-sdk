@@ -29,6 +29,14 @@ public class ScreenshotInfo extends TeaModel {
     @NameInMap("screenshot_file_hash")
     public String screenshotFileHash;
 
+    // 日志打包文件hash
+    @NameInMap("log_zip_file_hash")
+    public String logZipFileHash;
+
+    // 日志文件上链hash
+    @NameInMap("log_zip_tx_hash")
+    public String logZipTxHash;
+
     public static ScreenshotInfo build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotInfo self = new ScreenshotInfo();
         return TeaModel.build(map, self);
@@ -80,6 +88,22 @@ public class ScreenshotInfo extends TeaModel {
     }
     public String getScreenshotFileHash() {
         return this.screenshotFileHash;
+    }
+
+    public ScreenshotInfo setLogZipFileHash(String logZipFileHash) {
+        this.logZipFileHash = logZipFileHash;
+        return this;
+    }
+    public String getLogZipFileHash() {
+        return this.logZipFileHash;
+    }
+
+    public ScreenshotInfo setLogZipTxHash(String logZipTxHash) {
+        this.logZipTxHash = logZipTxHash;
+        return this;
+    }
+    public String getLogZipTxHash() {
+        return this.logZipTxHash;
     }
 
 }

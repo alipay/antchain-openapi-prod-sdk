@@ -80,6 +80,14 @@ public class RecordScreenData extends TeaModel {
     @NameInMap("zip_file_hash")
     public String zipFileHash;
 
+    // 主要核心证据文件名称
+    @NameInMap("main_evidence_name")
+    public String mainEvidenceName;
+
+    // 取证申请单号
+    @NameInMap("evidence_order_num")
+    public String evidenceOrderNum;
+
     public static RecordScreenData build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenData self = new RecordScreenData();
         return TeaModel.build(map, self);
@@ -227,6 +235,22 @@ public class RecordScreenData extends TeaModel {
     }
     public String getZipFileHash() {
         return this.zipFileHash;
+    }
+
+    public RecordScreenData setMainEvidenceName(String mainEvidenceName) {
+        this.mainEvidenceName = mainEvidenceName;
+        return this;
+    }
+    public String getMainEvidenceName() {
+        return this.mainEvidenceName;
+    }
+
+    public RecordScreenData setEvidenceOrderNum(String evidenceOrderNum) {
+        this.evidenceOrderNum = evidenceOrderNum;
+        return this;
+    }
+    public String getEvidenceOrderNum() {
+        return this.evidenceOrderNum;
     }
 
 }

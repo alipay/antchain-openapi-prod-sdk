@@ -29,6 +29,11 @@ public class NotaryPublicOffice extends TeaModel {
     @Validation(required = true)
     public String orgName;
 
+    // 公证处隶属
+    @NameInMap("belong")
+    @Validation(required = true)
+    public String belong;
+
     public static NotaryPublicOffice build(java.util.Map<String, ?> map) throws Exception {
         NotaryPublicOffice self = new NotaryPublicOffice();
         return TeaModel.build(map, self);
@@ -72,6 +77,14 @@ public class NotaryPublicOffice extends TeaModel {
     }
     public String getOrgName() {
         return this.orgName;
+    }
+
+    public NotaryPublicOffice setBelong(String belong) {
+        this.belong = belong;
+        return this;
+    }
+    public String getBelong() {
+        return this.belong;
     }
 
 }

@@ -60,6 +60,14 @@ public class ScreenInfo extends TeaModel {
     @NameInMap("extend_device_process_file_hash")
     public String extendDeviceProcessFileHash;
 
+    // 日志打包文件hash
+    @NameInMap("log_zip_file_hash")
+    public String logZipFileHash;
+
+    // 日志打包文件上链hash
+    @NameInMap("log_zip_tx_hash")
+    public String logZipTxHash;
+
     public static ScreenInfo build(java.util.Map<String, ?> map) throws Exception {
         ScreenInfo self = new ScreenInfo();
         return TeaModel.build(map, self);
@@ -175,6 +183,22 @@ public class ScreenInfo extends TeaModel {
     }
     public String getExtendDeviceProcessFileHash() {
         return this.extendDeviceProcessFileHash;
+    }
+
+    public ScreenInfo setLogZipFileHash(String logZipFileHash) {
+        this.logZipFileHash = logZipFileHash;
+        return this;
+    }
+    public String getLogZipFileHash() {
+        return this.logZipFileHash;
+    }
+
+    public ScreenInfo setLogZipTxHash(String logZipTxHash) {
+        this.logZipTxHash = logZipTxHash;
+        return this;
+    }
+    public String getLogZipTxHash() {
+        return this.logZipTxHash;
     }
 
 }

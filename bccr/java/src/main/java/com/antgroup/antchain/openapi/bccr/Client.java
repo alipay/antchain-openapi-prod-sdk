@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.24"),
-                    new TeaPair("_prod_code", "BCCR"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.17.13")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -938,6 +936,158 @@ public class Client {
     public RefuseDciRegistrationResponse refuseDciRegistrationEx(RefuseDciRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefuseDciRegistrationResponse());
+    }
+
+    /**
+     * Description: 版权平台获取申办事由配置
+     * Summary: 获取申办事由配置
+     */
+    public QueryNotaryBidreasonResponse queryNotaryBidreason(QueryNotaryBidreasonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNotaryBidreasonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版权平台获取申办事由配置
+     * Summary: 获取申办事由配置
+     */
+    public QueryNotaryBidreasonResponse queryNotaryBidreasonEx(QueryNotaryBidreasonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.bidreason.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNotaryBidreasonResponse());
+    }
+
+    /**
+     * Description: 获取签署文件
+     * Summary: 获取签署文件
+     */
+    public QueryNotaryDocumenttosignResponse queryNotaryDocumenttosign(QueryNotaryDocumenttosignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNotaryDocumenttosignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取签署文件
+     * Summary: 获取签署文件
+     */
+    public QueryNotaryDocumenttosignResponse queryNotaryDocumenttosignEx(QueryNotaryDocumenttosignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.documenttosign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNotaryDocumenttosignResponse());
+    }
+
+    /**
+     * Description: 提交申办订单
+     * Summary: 提交申办订单
+     */
+    public ApplyNotaryOrderResponse applyNotaryOrder(ApplyNotaryOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyNotaryOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交申办订单
+     * Summary: 提交申办订单
+     */
+    public ApplyNotaryOrderResponse applyNotaryOrderEx(ApplyNotaryOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.order.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyNotaryOrderResponse());
+    }
+
+    /**
+     * Description: 公证出证重新获取支付链接
+     * Summary: 重新获取支付链接
+     */
+    public QueryNotaryPayurlResponse queryNotaryPayurl(QueryNotaryPayurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNotaryPayurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公证出证重新获取支付链接
+     * Summary: 重新获取支付链接
+     */
+    public QueryNotaryPayurlResponse queryNotaryPayurlEx(QueryNotaryPayurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.payurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNotaryPayurlResponse());
+    }
+
+    /**
+     * Description: 公证出证获取收费标准和明细
+     * Summary: 获取收费标准和明细
+     */
+    public QueryNotaryFeedetailResponse queryNotaryFeedetail(QueryNotaryFeedetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNotaryFeedetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公证出证获取收费标准和明细
+     * Summary: 获取收费标准和明细
+     */
+    public QueryNotaryFeedetailResponse queryNotaryFeedetailEx(QueryNotaryFeedetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.feedetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNotaryFeedetailResponse());
+    }
+
+    /**
+     * Description: 公证出证查询申办订单接口
+     * Summary: 查询申办订单接口
+     */
+    public QueryNotaryOrderResponse queryNotaryOrder(QueryNotaryOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNotaryOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公证出证查询申办订单接口
+     * Summary: 查询申办订单接口
+     */
+    public QueryNotaryOrderResponse queryNotaryOrderEx(QueryNotaryOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNotaryOrderResponse());
+    }
+
+    /**
+     * Description: 公证出证申请出证材料补齐
+     * Summary: 申请出证材料补齐
+     */
+    public UploadNotaryAttachmentResponse uploadNotaryAttachment(UploadNotaryAttachmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadNotaryAttachmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公证出证申请出证材料补齐
+     * Summary: 申请出证材料补齐
+     */
+    public UploadNotaryAttachmentResponse uploadNotaryAttachmentEx(UploadNotaryAttachmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.attachment.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadNotaryAttachmentResponse());
+    }
+
+    /**
+     * Description: 公证出证更新申办状态
+     * Summary: 更新申办状态
+     */
+    public OperateNotaryOrderResponse operateNotaryOrder(OperateNotaryOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateNotaryOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公证出证更新申办状态
+     * Summary: 更新申办状态
+     */
+    public OperateNotaryOrderResponse operateNotaryOrderEx(OperateNotaryOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateNotaryOrderResponse());
     }
 
     /**
