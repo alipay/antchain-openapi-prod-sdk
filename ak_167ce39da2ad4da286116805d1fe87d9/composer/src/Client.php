@@ -164,6 +164,8 @@ class Client
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
                     'sdk_version'      => '1.0.2',
+                    '_prod_code'       => 'ak_167ce39da2ad4da286116805d1fe87d9',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
