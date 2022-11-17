@@ -47,12 +47,21 @@ class NotaryPublicOffice extends Model
      * @var string
      */
     public $orgName;
+
+    // 公证处隶属
+    /**
+     * @example EZCUN
+     *
+     * @var string
+     */
+    public $belong;
     protected $_name = [
         'code'     => 'code',
         'name'     => 'name',
         'province' => 'province',
         'city'     => 'city',
         'orgName'  => 'org_name',
+        'belong'   => 'belong',
     ];
 
     public function validate()
@@ -62,6 +71,7 @@ class NotaryPublicOffice extends Model
         Model::validateRequired('province', $this->province, true);
         Model::validateRequired('city', $this->city, true);
         Model::validateRequired('orgName', $this->orgName, true);
+        Model::validateRequired('belong', $this->belong, true);
     }
 
     public function toMap()
@@ -81,6 +91,9 @@ class NotaryPublicOffice extends Model
         }
         if (null !== $this->orgName) {
             $res['org_name'] = $this->orgName;
+        }
+        if (null !== $this->belong) {
+            $res['belong'] = $this->belong;
         }
 
         return $res;
@@ -108,6 +121,9 @@ class NotaryPublicOffice extends Model
         }
         if (isset($map['org_name'])) {
             $model->orgName = $map['org_name'];
+        }
+        if (isset($map['belong'])) {
+            $model->belong = $map['belong'];
         }
 
         return $model;

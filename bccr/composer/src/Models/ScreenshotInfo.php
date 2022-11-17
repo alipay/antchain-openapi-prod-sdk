@@ -55,6 +55,22 @@ class ScreenshotInfo extends Model
      * @var string
      */
     public $screenshotFileHash;
+
+    // 日志打包文件hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $logZipFileHash;
+
+    // 日志文件上链hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $logZipTxHash;
     protected $_name = [
         'processLogFile'     => 'process_log_file',
         'processLogFileHash' => 'process_log_file_hash',
@@ -62,6 +78,8 @@ class ScreenshotInfo extends Model
         'checkLogFileHash'   => 'check_log_file_hash',
         'screenshotFile'     => 'screenshot_file',
         'screenshotFileHash' => 'screenshot_file_hash',
+        'logZipFileHash'     => 'log_zip_file_hash',
+        'logZipTxHash'       => 'log_zip_tx_hash',
     ];
 
     public function validate()
@@ -89,6 +107,12 @@ class ScreenshotInfo extends Model
         }
         if (null !== $this->screenshotFileHash) {
             $res['screenshot_file_hash'] = $this->screenshotFileHash;
+        }
+        if (null !== $this->logZipFileHash) {
+            $res['log_zip_file_hash'] = $this->logZipFileHash;
+        }
+        if (null !== $this->logZipTxHash) {
+            $res['log_zip_tx_hash'] = $this->logZipTxHash;
         }
 
         return $res;
@@ -119,6 +143,12 @@ class ScreenshotInfo extends Model
         }
         if (isset($map['screenshot_file_hash'])) {
             $model->screenshotFileHash = $map['screenshot_file_hash'];
+        }
+        if (isset($map['log_zip_file_hash'])) {
+            $model->logZipFileHash = $map['log_zip_file_hash'];
+        }
+        if (isset($map['log_zip_tx_hash'])) {
+            $model->logZipTxHash = $map['log_zip_tx_hash'];
         }
 
         return $model;

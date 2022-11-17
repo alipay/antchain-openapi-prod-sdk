@@ -19,6 +19,8 @@ use AntChain\BCCR\Models\AddHashregisterRequest;
 use AntChain\BCCR\Models\AddHashregisterResponse;
 use AntChain\BCCR\Models\AddRegisterRequest;
 use AntChain\BCCR\Models\AddRegisterResponse;
+use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
+use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
 use AntChain\BCCR\Models\CallbackDciPayresultResponse;
 use AntChain\BCCR\Models\CreateCertificateRequest;
@@ -51,6 +53,8 @@ use AntChain\BCCR\Models\ListMonitorProviderRequest;
 use AntChain\BCCR\Models\ListMonitorProviderResponse;
 use AntChain\BCCR\Models\ListNotaryRequest;
 use AntChain\BCCR\Models\ListNotaryResponse;
+use AntChain\BCCR\Models\OperateNotaryOrderRequest;
+use AntChain\BCCR\Models\OperateNotaryOrderResponse;
 use AntChain\BCCR\Models\PublishGoodRequest;
 use AntChain\BCCR\Models\PublishGoodResponse;
 use AntChain\BCCR\Models\QueryContentStatisticsRequest;
@@ -83,6 +87,16 @@ use AntChain\BCCR\Models\QueryMonitorResultRequest;
 use AntChain\BCCR\Models\QueryMonitorResultResponse;
 use AntChain\BCCR\Models\QueryMonitorTaskRequest;
 use AntChain\BCCR\Models\QueryMonitorTaskResponse;
+use AntChain\BCCR\Models\QueryNotaryBidreasonRequest;
+use AntChain\BCCR\Models\QueryNotaryBidreasonResponse;
+use AntChain\BCCR\Models\QueryNotaryDocumenttosignRequest;
+use AntChain\BCCR\Models\QueryNotaryDocumenttosignResponse;
+use AntChain\BCCR\Models\QueryNotaryFeedetailRequest;
+use AntChain\BCCR\Models\QueryNotaryFeedetailResponse;
+use AntChain\BCCR\Models\QueryNotaryOrderRequest;
+use AntChain\BCCR\Models\QueryNotaryOrderResponse;
+use AntChain\BCCR\Models\QueryNotaryPayurlRequest;
+use AntChain\BCCR\Models\QueryNotaryPayurlResponse;
 use AntChain\BCCR\Models\QueryRecodescreenRequest;
 use AntChain\BCCR\Models\QueryRecodescreenResponse;
 use AntChain\BCCR\Models\QueryRecordscreenRequest;
@@ -105,6 +119,8 @@ use AntChain\BCCR\Models\UpdateDciUserRequest;
 use AntChain\BCCR\Models\UpdateDciUserResponse;
 use AntChain\BCCR\Models\UpdateGoodsRequest;
 use AntChain\BCCR\Models\UpdateGoodsResponse;
+use AntChain\BCCR\Models\UploadNotaryAttachmentRequest;
+use AntChain\BCCR\Models\UploadNotaryAttachmentResponse;
 use AntChain\BCCR\Models\VerifyBlockchainRequest;
 use AntChain\BCCR\Models\VerifyBlockchainResponse;
 use AntChain\Util\UtilClient;
@@ -226,7 +242,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 网页取证具体信息
+            // 出证用户（申请人，经办人）
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -254,9 +270,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.24',
-                    '_prod_code'       => 'BCCR',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.17.13',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1653,6 +1667,270 @@ class Client
         Utils::validateModel($request);
 
         return RefuseDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权平台获取申办事由配置
+     * Summary: 获取申办事由配置.
+     *
+     * @param QueryNotaryBidreasonRequest $request
+     *
+     * @return QueryNotaryBidreasonResponse
+     */
+    public function queryNotaryBidreason($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryBidreasonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权平台获取申办事由配置
+     * Summary: 获取申办事由配置.
+     *
+     * @param QueryNotaryBidreasonRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryNotaryBidreasonResponse
+     */
+    public function queryNotaryBidreasonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryBidreasonResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.bidreason.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取签署文件
+     * Summary: 获取签署文件.
+     *
+     * @param QueryNotaryDocumenttosignRequest $request
+     *
+     * @return QueryNotaryDocumenttosignResponse
+     */
+    public function queryNotaryDocumenttosign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryDocumenttosignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取签署文件
+     * Summary: 获取签署文件.
+     *
+     * @param QueryNotaryDocumenttosignRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryNotaryDocumenttosignResponse
+     */
+    public function queryNotaryDocumenttosignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryDocumenttosignResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.documenttosign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交申办订单
+     * Summary: 提交申办订单.
+     *
+     * @param ApplyNotaryOrderRequest $request
+     *
+     * @return ApplyNotaryOrderResponse
+     */
+    public function applyNotaryOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyNotaryOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交申办订单
+     * Summary: 提交申办订单.
+     *
+     * @param ApplyNotaryOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyNotaryOrderResponse
+     */
+    public function applyNotaryOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyNotaryOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.order.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证出证重新获取支付链接
+     * Summary: 重新获取支付链接.
+     *
+     * @param QueryNotaryPayurlRequest $request
+     *
+     * @return QueryNotaryPayurlResponse
+     */
+    public function queryNotaryPayurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryPayurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证出证重新获取支付链接
+     * Summary: 重新获取支付链接.
+     *
+     * @param QueryNotaryPayurlRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryNotaryPayurlResponse
+     */
+    public function queryNotaryPayurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryPayurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.payurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证出证获取收费标准和明细
+     * Summary: 获取收费标准和明细.
+     *
+     * @param QueryNotaryFeedetailRequest $request
+     *
+     * @return QueryNotaryFeedetailResponse
+     */
+    public function queryNotaryFeedetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryFeedetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证出证获取收费标准和明细
+     * Summary: 获取收费标准和明细.
+     *
+     * @param QueryNotaryFeedetailRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryNotaryFeedetailResponse
+     */
+    public function queryNotaryFeedetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryFeedetailResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.feedetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证出证查询申办订单接口
+     * Summary: 查询申办订单接口.
+     *
+     * @param QueryNotaryOrderRequest $request
+     *
+     * @return QueryNotaryOrderResponse
+     */
+    public function queryNotaryOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证出证查询申办订单接口
+     * Summary: 查询申办订单接口.
+     *
+     * @param QueryNotaryOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryNotaryOrderResponse
+     */
+    public function queryNotaryOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证出证申请出证材料补齐
+     * Summary: 申请出证材料补齐.
+     *
+     * @param UploadNotaryAttachmentRequest $request
+     *
+     * @return UploadNotaryAttachmentResponse
+     */
+    public function uploadNotaryAttachment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadNotaryAttachmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证出证申请出证材料补齐
+     * Summary: 申请出证材料补齐.
+     *
+     * @param UploadNotaryAttachmentRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UploadNotaryAttachmentResponse
+     */
+    public function uploadNotaryAttachmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadNotaryAttachmentResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.attachment.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证出证更新申办状态
+     * Summary: 更新申办状态
+     *
+     * @param OperateNotaryOrderRequest $request
+     *
+     * @return OperateNotaryOrderResponse
+     */
+    public function operateNotaryOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateNotaryOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证出证更新申办状态
+     * Summary: 更新申办状态
+     *
+     * @param OperateNotaryOrderRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return OperateNotaryOrderResponse
+     */
+    public function operateNotaryOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateNotaryOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.order.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

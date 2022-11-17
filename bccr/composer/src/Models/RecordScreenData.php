@@ -151,6 +151,22 @@ class RecordScreenData extends Model
      * @var string
      */
     public $zipFileHash;
+
+    // 主要核心证据文件名称
+    /**
+     * @example test.mp4
+     *
+     * @var string
+     */
+    public $mainEvidenceName;
+
+    // 取证申请单号
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $evidenceOrderNum;
     protected $_name = [
         'errorReason'          => 'error_reason',
         'fileHash'             => 'file_hash',
@@ -170,6 +186,8 @@ class RecordScreenData extends Model
         'zipTxHash'            => 'zip_tx_hash',
         'inventory'            => 'inventory',
         'zipFileHash'          => 'zip_file_hash',
+        'mainEvidenceName'     => 'main_evidence_name',
+        'evidenceOrderNum'     => 'evidence_order_num',
     ];
 
     public function validate()
@@ -237,6 +255,12 @@ class RecordScreenData extends Model
         if (null !== $this->zipFileHash) {
             $res['zip_file_hash'] = $this->zipFileHash;
         }
+        if (null !== $this->mainEvidenceName) {
+            $res['main_evidence_name'] = $this->mainEvidenceName;
+        }
+        if (null !== $this->evidenceOrderNum) {
+            $res['evidence_order_num'] = $this->evidenceOrderNum;
+        }
 
         return $res;
     }
@@ -302,6 +326,12 @@ class RecordScreenData extends Model
         }
         if (isset($map['zip_file_hash'])) {
             $model->zipFileHash = $map['zip_file_hash'];
+        }
+        if (isset($map['main_evidence_name'])) {
+            $model->mainEvidenceName = $map['main_evidence_name'];
+        }
+        if (isset($map['evidence_order_num'])) {
+            $model->evidenceOrderNum = $map['evidence_order_num'];
         }
 
         return $model;

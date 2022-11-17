@@ -161,7 +161,6 @@ class CreateDciPreregistrationRequest extends Model
         Model::validateRequired('rightInfo', $this->rightInfo, true);
         Model::validateRequired('preRegistrationTrueWill', $this->preRegistrationTrueWill, true);
         Model::validateRequired('dciUserId', $this->dciUserId, true);
-        Model::validateRequired('proxyData', $this->proxyData, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
         Model::validateRequired('copyrightOwnerIds', $this->copyrightOwnerIds, true);
     }

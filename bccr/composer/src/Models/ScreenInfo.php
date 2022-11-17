@@ -119,6 +119,22 @@ class ScreenInfo extends Model
      * @var string
      */
     public $extendDeviceProcessFileHash;
+
+    // 日志打包文件hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $logZipFileHash;
+
+    // 日志打包文件上链hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $logZipTxHash;
     protected $_name = [
         'processLogFile'              => 'process_log_file',
         'processLogFileHash'          => 'process_log_file_hash',
@@ -134,6 +150,8 @@ class ScreenInfo extends Model
         'extendDeviceCheckFileHash'   => 'extend_device_check_file_hash',
         'extendDeviceProcessFile'     => 'extend_device_process_file',
         'extendDeviceProcessFileHash' => 'extend_device_process_file_hash',
+        'logZipFileHash'              => 'log_zip_file_hash',
+        'logZipTxHash'                => 'log_zip_tx_hash',
     ];
 
     public function validate()
@@ -184,6 +202,12 @@ class ScreenInfo extends Model
         }
         if (null !== $this->extendDeviceProcessFileHash) {
             $res['extend_device_process_file_hash'] = $this->extendDeviceProcessFileHash;
+        }
+        if (null !== $this->logZipFileHash) {
+            $res['log_zip_file_hash'] = $this->logZipFileHash;
+        }
+        if (null !== $this->logZipTxHash) {
+            $res['log_zip_tx_hash'] = $this->logZipTxHash;
         }
 
         return $res;
@@ -238,6 +262,12 @@ class ScreenInfo extends Model
         }
         if (isset($map['extend_device_process_file_hash'])) {
             $model->extendDeviceProcessFileHash = $map['extend_device_process_file_hash'];
+        }
+        if (isset($map['log_zip_file_hash'])) {
+            $model->logZipFileHash = $map['log_zip_file_hash'];
+        }
+        if (isset($map['log_zip_tx_hash'])) {
+            $model->logZipTxHash = $map['log_zip_tx_hash'];
         }
 
         return $model;

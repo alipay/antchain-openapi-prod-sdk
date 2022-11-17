@@ -151,6 +151,30 @@ class ScreenshotData extends Model
      * @var string
      */
     public $zipFileHash;
+
+    // 核心证据文件名称
+    /**
+     * @example test.jpg
+     *
+     * @var string
+     */
+    public $mainEvidenceName;
+
+    // 取证申请单号
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $evidenceOrderNum;
+
+    // 取证开始时间
+    /**
+     * @example 123
+     *
+     * @var int
+     */
+    public $gmtEvidenceStart;
     protected $_name = [
         'url'                  => 'url',
         'gmtEvidence'          => 'gmt_evidence',
@@ -170,6 +194,9 @@ class ScreenshotData extends Model
         'errorReason'          => 'error_reason',
         'errorReasonCn'        => 'error_reason_cn',
         'zipFileHash'          => 'zip_file_hash',
+        'mainEvidenceName'     => 'main_evidence_name',
+        'evidenceOrderNum'     => 'evidence_order_num',
+        'gmtEvidenceStart'     => 'gmt_evidence_start',
     ];
 
     public function validate()
@@ -233,6 +260,15 @@ class ScreenshotData extends Model
         }
         if (null !== $this->zipFileHash) {
             $res['zip_file_hash'] = $this->zipFileHash;
+        }
+        if (null !== $this->mainEvidenceName) {
+            $res['main_evidence_name'] = $this->mainEvidenceName;
+        }
+        if (null !== $this->evidenceOrderNum) {
+            $res['evidence_order_num'] = $this->evidenceOrderNum;
+        }
+        if (null !== $this->gmtEvidenceStart) {
+            $res['gmt_evidence_start'] = $this->gmtEvidenceStart;
         }
 
         return $res;
@@ -299,6 +335,15 @@ class ScreenshotData extends Model
         }
         if (isset($map['zip_file_hash'])) {
             $model->zipFileHash = $map['zip_file_hash'];
+        }
+        if (isset($map['main_evidence_name'])) {
+            $model->mainEvidenceName = $map['main_evidence_name'];
+        }
+        if (isset($map['evidence_order_num'])) {
+            $model->evidenceOrderNum = $map['evidence_order_num'];
+        }
+        if (isset($map['gmt_evidence_start'])) {
+            $model->gmtEvidenceStart = $map['gmt_evidence_start'];
         }
 
         return $model;

@@ -170,10 +170,7 @@ class AddDciUserRequest extends Model
         Model::validateRequired('certificateNumber', $this->certificateNumber, true);
         Model::validateRequired('certificateFrontFileId', $this->certificateFrontFileId, true);
         Model::validateRequired('phone', $this->phone, true);
-        Model::validateRequired('address', $this->address, true);
-        Model::validateRequired('identityStartTime', $this->identityStartTime, true);
         Model::validateRequired('areaType', $this->areaType, true);
-        Model::validateRequired('proxyData', $this->proxyData, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
