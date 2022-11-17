@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.2',
+    sdk_version = '1.15.4',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -627,6 +627,28 @@ model RiskData {
   facePoint?: string(name='face_point', example='x'),
   // 活体供应商
   faceSource?: string(name='face_source', example='活体供应商'),
+}
+
+// 还款信息列表
+model RepayInfos {
+  // 期次
+  period: long(name='period', example='1'),
+  // 实还总额
+  amount: long(name='amount', example='1'),
+  // 实还本金
+  principal: long(name='principal', example='1'),
+  // 实还利息
+  interest: long(name='interest', example='1'),
+  // 实还通道手续费
+  channelAmt: long(name='channel_amt', example='1'),
+  // 实还手续费
+  fee: long(name='fee', example='1'),
+  // 实收罚息
+  punish: long(name='punish', example='1'),
+  // 担保费
+  guaranteeFee: long(name='guarantee_fee', example='1'),
+  // 违约金
+  liquidatedDamages: long(name='liquidated_damages', example='1'),
 }
 
 // 安全数据服务请求参数
@@ -3344,6 +3366,8 @@ model UpdateDubbridgeInstitutionCreditRequest = {
   extInfoTs: string(name='ext_info_ts'),
   // 扩展信息，json格式
   extInfo: string(name='ext_info'),
+  // 授信有效期-申请调整值，机构发起授信有效期更新场景下有值
+  creditExpireDate?: string(name='credit_expire_date'),
 }
 
 model UpdateDubbridgeInstitutionCreditResponse = {
@@ -4381,6 +4405,71 @@ async function notifyDubbridgeCallback(request: NotifyDubbridgeCallbackRequest):
 async function notifyDubbridgeCallbackEx(request: NotifyDubbridgeCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeCallbackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepayResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 123
+  originalOrderNo: string(name='original_order_no'),
+}
+
+model QueryDubbridgeRepayResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款编号
+  repayNo?: string(name='repay_no'),
+  // 借据编号
+  receiptNo?: string(name='receipt_no'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 还款类型
+  // 1: 全部结清，
+  // 2：正常还款
+  // 3：当期结清
+  // 4：逾期还款
+  // 
+  repayType?: string(name='repay_type'),
+  // 还款标志
+  // 1 线下还款 
+  // 2 用户主动还款
+  // 3 系统代扣
+  // 
+  repaySign?: string(name='repay_sign'),
+  // 还款账户
+  repayAccount?: string(name='repay_account'),
+  // 还款状态
+  repayStatus?: string(name='repay_status'),
+  // 失败原因
+  failReason?: string(name='fail_reason'),
+  // 还款信息列表
+  repayInfos?: RepayInfos(name='repay_infos'),
+}
+
+/**
+ * Description: 2.12	天枢系统还款信息查询V2.0
+ * Summary: 2.12 天枢系统还款信息查询V2.0
+ */
+async function queryDubbridgeRepayResult(request: QueryDubbridgeRepayResultRequest): QueryDubbridgeRepayResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepayResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 2.12	天枢系统还款信息查询V2.0
+ * Summary: 2.12 天枢系统还款信息查询V2.0
+ */
+async function queryDubbridgeRepayResultEx(request: QueryDubbridgeRepayResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepayResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -6965,10 +7054,6 @@ model UploadUmktParamsFileRequest = {
   // 后续支持
   // DEVICE_MD5
   fileTemplate: string(name='file_template'),
-  // 外部流水号
-  outSerialNo: string(name='out_serial_no'),
-  // 外部透传字段
-  outInfo?: string(name='out_info'),
 }
 
 model UploadUmktParamsFileResponse = {
