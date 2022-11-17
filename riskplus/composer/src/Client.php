@@ -119,6 +119,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
@@ -416,7 +418,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.2',
+                    'sdk_version'      => '1.15.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2361,6 +2363,39 @@ class Client
         Utils::validateModel($request);
 
         return NotifyDubbridgeCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 2.12	天枢系统还款信息查询V2.0
+     * Summary: 2.12 天枢系统还款信息查询V2.0.
+     *
+     * @param QueryDubbridgeRepayResultRequest $request
+     *
+     * @return QueryDubbridgeRepayResultResponse
+     */
+    public function queryDubbridgeRepayResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepayResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 2.12	天枢系统还款信息查询V2.0
+     * Summary: 2.12 天枢系统还款信息查询V2.0.
+     *
+     * @param QueryDubbridgeRepayResultRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDubbridgeRepayResultResponse
+     */
+    public function queryDubbridgeRepayResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepayResultResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.result.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -90,6 +90,12 @@ class UpdateDubbridgeInstitutionCreditRequest extends Model
      * @var string
      */
     public $extInfo;
+
+    // 授信有效期-申请调整值，机构发起授信有效期更新场景下有值
+    /**
+     * @var string
+     */
+    public $creditExpireDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -105,6 +111,7 @@ class UpdateDubbridgeInstitutionCreditRequest extends Model
         'reasonMsg'         => 'reason_msg',
         'extInfoTs'         => 'ext_info_ts',
         'extInfo'           => 'ext_info',
+        'creditExpireDate'  => 'credit_expire_date',
     ];
 
     public function validate()
@@ -166,6 +173,9 @@ class UpdateDubbridgeInstitutionCreditRequest extends Model
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
         }
+        if (null !== $this->creditExpireDate) {
+            $res['credit_expire_date'] = $this->creditExpireDate;
+        }
 
         return $res;
     }
@@ -219,6 +229,9 @@ class UpdateDubbridgeInstitutionCreditRequest extends Model
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['credit_expire_date'])) {
+            $model->creditExpireDate = $map['credit_expire_date'];
         }
 
         return $model;
