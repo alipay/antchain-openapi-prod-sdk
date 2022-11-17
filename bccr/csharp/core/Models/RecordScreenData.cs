@@ -100,6 +100,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ZipFileHash { get; set; }
 
+        // 主要核心证据文件名称
+        [NameInMap("main_evidence_name")]
+        [Validation(Required=false)]
+        public string MainEvidenceName { get; set; }
+
+        // 取证申请单号
+        [NameInMap("evidence_order_num")]
+        [Validation(Required=false)]
+        public string EvidenceOrderNum { get; set; }
+
     }
 
 }

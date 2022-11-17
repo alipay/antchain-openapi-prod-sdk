@@ -75,12 +75,12 @@ namespace AntChain.SDK.BCCR.Models
 
         // 地址
         [NameInMap("address")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Address { get; set; }
 
         // 用户身份开始时间
         [NameInMap("identity_start_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string IdentityStartTime { get; set; }
 
         // 所属地区
@@ -90,7 +90,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 代理信息
         [NameInMap("proxy_data")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public ProxyData ProxyData { get; set; }
 
         // 幂等字段

@@ -40,6 +40,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ScreenshotFileHash { get; set; }
 
+        // 日志打包文件hash
+        [NameInMap("log_zip_file_hash")]
+        [Validation(Required=false)]
+        public string LogZipFileHash { get; set; }
+
+        // 日志文件上链hash
+        [NameInMap("log_zip_tx_hash")]
+        [Validation(Required=false)]
+        public string LogZipTxHash { get; set; }
+
     }
 
 }

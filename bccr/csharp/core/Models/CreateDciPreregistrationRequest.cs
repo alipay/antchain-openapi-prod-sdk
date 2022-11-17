@@ -85,7 +85,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 代理信息
         [NameInMap("proxy_data")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public ProxyData ProxyData { get; set; }
 
         // 幂等字段

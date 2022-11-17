@@ -35,6 +35,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string OrgName { get; set; }
 
+        // 公证处隶属
+        [NameInMap("belong")]
+        [Validation(Required=true)]
+        public string Belong { get; set; }
+
     }
 
 }

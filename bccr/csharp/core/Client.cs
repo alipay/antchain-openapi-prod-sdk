@@ -137,9 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.24"},
-                        {"_prod_code", "BCCR"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.17.13"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.24"},
-                        {"_prod_code", "BCCR"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.17.13"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2041,6 +2037,342 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RefuseDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 版权平台获取申办事由配置
+         * Summary: 获取申办事由配置
+         */
+        public QueryNotaryBidreasonResponse QueryNotaryBidreason(QueryNotaryBidreasonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNotaryBidreasonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 版权平台获取申办事由配置
+         * Summary: 获取申办事由配置
+         */
+        public async Task<QueryNotaryBidreasonResponse> QueryNotaryBidreasonAsync(QueryNotaryBidreasonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNotaryBidreasonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 版权平台获取申办事由配置
+         * Summary: 获取申办事由配置
+         */
+        public QueryNotaryBidreasonResponse QueryNotaryBidreasonEx(QueryNotaryBidreasonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryBidreasonResponse>(DoRequest("1.0", "blockchain.bccr.notary.bidreason.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 版权平台获取申办事由配置
+         * Summary: 获取申办事由配置
+         */
+        public async Task<QueryNotaryBidreasonResponse> QueryNotaryBidreasonExAsync(QueryNotaryBidreasonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryBidreasonResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.bidreason.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取签署文件
+         * Summary: 获取签署文件
+         */
+        public QueryNotaryDocumenttosignResponse QueryNotaryDocumenttosign(QueryNotaryDocumenttosignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNotaryDocumenttosignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取签署文件
+         * Summary: 获取签署文件
+         */
+        public async Task<QueryNotaryDocumenttosignResponse> QueryNotaryDocumenttosignAsync(QueryNotaryDocumenttosignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNotaryDocumenttosignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取签署文件
+         * Summary: 获取签署文件
+         */
+        public QueryNotaryDocumenttosignResponse QueryNotaryDocumenttosignEx(QueryNotaryDocumenttosignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryDocumenttosignResponse>(DoRequest("1.0", "blockchain.bccr.notary.documenttosign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取签署文件
+         * Summary: 获取签署文件
+         */
+        public async Task<QueryNotaryDocumenttosignResponse> QueryNotaryDocumenttosignExAsync(QueryNotaryDocumenttosignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryDocumenttosignResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.documenttosign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交申办订单
+         * Summary: 提交申办订单
+         */
+        public ApplyNotaryOrderResponse ApplyNotaryOrder(ApplyNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyNotaryOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交申办订单
+         * Summary: 提交申办订单
+         */
+        public async Task<ApplyNotaryOrderResponse> ApplyNotaryOrderAsync(ApplyNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyNotaryOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交申办订单
+         * Summary: 提交申办订单
+         */
+        public ApplyNotaryOrderResponse ApplyNotaryOrderEx(ApplyNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyNotaryOrderResponse>(DoRequest("1.0", "blockchain.bccr.notary.order.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交申办订单
+         * Summary: 提交申办订单
+         */
+        public async Task<ApplyNotaryOrderResponse> ApplyNotaryOrderExAsync(ApplyNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyNotaryOrderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.order.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证重新获取支付链接
+         * Summary: 重新获取支付链接
+         */
+        public QueryNotaryPayurlResponse QueryNotaryPayurl(QueryNotaryPayurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNotaryPayurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证重新获取支付链接
+         * Summary: 重新获取支付链接
+         */
+        public async Task<QueryNotaryPayurlResponse> QueryNotaryPayurlAsync(QueryNotaryPayurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNotaryPayurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证重新获取支付链接
+         * Summary: 重新获取支付链接
+         */
+        public QueryNotaryPayurlResponse QueryNotaryPayurlEx(QueryNotaryPayurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryPayurlResponse>(DoRequest("1.0", "blockchain.bccr.notary.payurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证重新获取支付链接
+         * Summary: 重新获取支付链接
+         */
+        public async Task<QueryNotaryPayurlResponse> QueryNotaryPayurlExAsync(QueryNotaryPayurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryPayurlResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.payurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证获取收费标准和明细
+         * Summary: 获取收费标准和明细
+         */
+        public QueryNotaryFeedetailResponse QueryNotaryFeedetail(QueryNotaryFeedetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNotaryFeedetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证获取收费标准和明细
+         * Summary: 获取收费标准和明细
+         */
+        public async Task<QueryNotaryFeedetailResponse> QueryNotaryFeedetailAsync(QueryNotaryFeedetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNotaryFeedetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证获取收费标准和明细
+         * Summary: 获取收费标准和明细
+         */
+        public QueryNotaryFeedetailResponse QueryNotaryFeedetailEx(QueryNotaryFeedetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryFeedetailResponse>(DoRequest("1.0", "blockchain.bccr.notary.feedetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证获取收费标准和明细
+         * Summary: 获取收费标准和明细
+         */
+        public async Task<QueryNotaryFeedetailResponse> QueryNotaryFeedetailExAsync(QueryNotaryFeedetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryFeedetailResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.feedetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证查询申办订单接口
+         * Summary: 查询申办订单接口
+         */
+        public QueryNotaryOrderResponse QueryNotaryOrder(QueryNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNotaryOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证查询申办订单接口
+         * Summary: 查询申办订单接口
+         */
+        public async Task<QueryNotaryOrderResponse> QueryNotaryOrderAsync(QueryNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNotaryOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证查询申办订单接口
+         * Summary: 查询申办订单接口
+         */
+        public QueryNotaryOrderResponse QueryNotaryOrderEx(QueryNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryOrderResponse>(DoRequest("1.0", "blockchain.bccr.notary.order.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证查询申办订单接口
+         * Summary: 查询申办订单接口
+         */
+        public async Task<QueryNotaryOrderResponse> QueryNotaryOrderExAsync(QueryNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNotaryOrderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.order.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证申请出证材料补齐
+         * Summary: 申请出证材料补齐
+         */
+        public UploadNotaryAttachmentResponse UploadNotaryAttachment(UploadNotaryAttachmentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadNotaryAttachmentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证申请出证材料补齐
+         * Summary: 申请出证材料补齐
+         */
+        public async Task<UploadNotaryAttachmentResponse> UploadNotaryAttachmentAsync(UploadNotaryAttachmentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadNotaryAttachmentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证申请出证材料补齐
+         * Summary: 申请出证材料补齐
+         */
+        public UploadNotaryAttachmentResponse UploadNotaryAttachmentEx(UploadNotaryAttachmentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadNotaryAttachmentResponse>(DoRequest("1.0", "blockchain.bccr.notary.attachment.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证申请出证材料补齐
+         * Summary: 申请出证材料补齐
+         */
+        public async Task<UploadNotaryAttachmentResponse> UploadNotaryAttachmentExAsync(UploadNotaryAttachmentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadNotaryAttachmentResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.attachment.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证更新申办状态
+         * Summary: 更新申办状态
+         */
+        public OperateNotaryOrderResponse OperateNotaryOrder(OperateNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateNotaryOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证更新申办状态
+         * Summary: 更新申办状态
+         */
+        public async Task<OperateNotaryOrderResponse> OperateNotaryOrderAsync(OperateNotaryOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateNotaryOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证出证更新申办状态
+         * Summary: 更新申办状态
+         */
+        public OperateNotaryOrderResponse OperateNotaryOrderEx(OperateNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateNotaryOrderResponse>(DoRequest("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证出证更新申办状态
+         * Summary: 更新申办状态
+         */
+        public async Task<OperateNotaryOrderResponse> OperateNotaryOrderExAsync(OperateNotaryOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateNotaryOrderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
