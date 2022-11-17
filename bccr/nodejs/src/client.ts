@@ -77,39 +77,63 @@ export class Config extends $tea.Model {
   }
 }
 
-// 网页取证具体信息
-export class ScreenshotInfo extends $tea.Model {
-  // 全链路取证日志文件下载链接
-  processLogFile?: string;
-  // 全链路取证日志文件哈希
-  processLogFileHash?: string;
-  // 自清洁文件下载链接
-  checkLogFile?: string;
-  // 自清洁文件哈希
-  checkLogFileHash?: string;
-  // 网页截图文件下载链接
-  screenshotFile: string;
-  // 网页截图文件哈希
-  screenshotFileHash?: string;
+// 出证用户（申请人，经办人）
+export class NotaryUser extends $tea.Model {
+  // 用户类型
+  userType: string;
+  // 用户名称
+  userName: string;
+  // 用户账号
+  userAccount?: string;
+  // 证件类型
+  certType: string;
+  // 证件号
+  certNo: string;
+  // 联系电话
+  phone?: string;
+  // 法定代表人姓名,用户类型为机构时必填
+  legalPersonName?: string;
+  // 法定代表人证件号码,用户类型为机构时必填
+  legalPersonCertNo?: string;
+  // 法定代表人证件类型
+  legalPersonCertType?: string;
+  // 身份证正面
+  certFrontFile?: string;
+  // 身份证反面
+  certBackFile?: string;
+  // 企业营业执照
+  enterpriseCertFile?: string;
   static names(): { [key: string]: string } {
     return {
-      processLogFile: 'process_log_file',
-      processLogFileHash: 'process_log_file_hash',
-      checkLogFile: 'check_log_file',
-      checkLogFileHash: 'check_log_file_hash',
-      screenshotFile: 'screenshot_file',
-      screenshotFileHash: 'screenshot_file_hash',
+      userType: 'user_type',
+      userName: 'user_name',
+      userAccount: 'user_account',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      phone: 'phone',
+      legalPersonName: 'legal_person_name',
+      legalPersonCertNo: 'legal_person_cert_no',
+      legalPersonCertType: 'legal_person_cert_type',
+      certFrontFile: 'cert_front_file',
+      certBackFile: 'cert_back_file',
+      enterpriseCertFile: 'enterprise_cert_file',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      processLogFile: 'string',
-      processLogFileHash: 'string',
-      checkLogFile: 'string',
-      checkLogFileHash: 'string',
-      screenshotFile: 'string',
-      screenshotFileHash: 'string',
+      userType: 'string',
+      userName: 'string',
+      userAccount: 'string',
+      certType: 'string',
+      certNo: 'string',
+      phone: 'string',
+      legalPersonName: 'string',
+      legalPersonCertNo: 'string',
+      legalPersonCertType: 'string',
+      certFrontFile: 'string',
+      certBackFile: 'string',
+      enterpriseCertFile: 'string',
     };
   }
 
@@ -118,71 +142,80 @@ export class ScreenshotInfo extends $tea.Model {
   }
 }
 
-// 取证文件信息
-export class ScreenInfo extends $tea.Model {
-  // 全链路取证日志文件下载链接
-  processLogFile?: string;
-  // 全链路取证日志文件哈希
-  processLogFileHash?: string;
-  // 自清洁文件下载地址
-  checkLogFile?: string;
-  // 自清洁文件哈希
-  checkLogFileHash?: string;
-  // 网页截图文件下载链接
-  webScreenshotFile?: string;
-  // 网页截图文件哈希
-  webScreenshotFileHash?: string;
-  // 网页源码文件下载链接
-  webSourceFile?: string;
-  // 网页源码文件哈希
-  webSourceFileHash?: string;
-  // 视频源文件下载链接
-  videoFile?: string;
-  // 视频源文件哈希
-  videoFileHash?: string;
-  // 手机自清洁文件下载链接
-  extendDeviceCheckFile?: string;
-  // 手机自清洁文件哈希
-  extendDeviceCheckFileHash?: string;
-  // 手机操作日志下载链接
-  extendDeviceProcessFile?: string;
-  // 手机操作日志哈希
-  extendDeviceProcessFileHash?: string;
+// 事由
+export class Reason extends $tea.Model {
+  // 事由ID
+  reasonId: string;
+  // 事由名称
+  reasonName: string;
+  // 附件文字说明
+  comment: string;
+  // 排序
+  sort: number;
+  // 是否必须上传附件
+  isNeedAttachment: boolean;
   static names(): { [key: string]: string } {
     return {
-      processLogFile: 'process_log_file',
-      processLogFileHash: 'process_log_file_hash',
-      checkLogFile: 'check_log_file',
-      checkLogFileHash: 'check_log_file_hash',
-      webScreenshotFile: 'web_screenshot_file',
-      webScreenshotFileHash: 'web_screenshot_file_hash',
-      webSourceFile: 'web_source_file',
-      webSourceFileHash: 'web_source_file_hash',
-      videoFile: 'video_file',
-      videoFileHash: 'video_file_hash',
-      extendDeviceCheckFile: 'extend_device_check_file',
-      extendDeviceCheckFileHash: 'extend_device_check_file_hash',
-      extendDeviceProcessFile: 'extend_device_process_file',
-      extendDeviceProcessFileHash: 'extend_device_process_file_hash',
+      reasonId: 'reason_id',
+      reasonName: 'reason_name',
+      comment: 'comment',
+      sort: 'sort',
+      isNeedAttachment: 'is_need_attachment',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      processLogFile: 'string',
-      processLogFileHash: 'string',
-      checkLogFile: 'string',
-      checkLogFileHash: 'string',
-      webScreenshotFile: 'string',
-      webScreenshotFileHash: 'string',
-      webSourceFile: 'string',
-      webSourceFileHash: 'string',
-      videoFile: 'string',
-      videoFileHash: 'string',
-      extendDeviceCheckFile: 'string',
-      extendDeviceCheckFileHash: 'string',
-      extendDeviceProcessFile: 'string',
-      extendDeviceProcessFileHash: 'string',
+      reasonId: 'string',
+      reasonName: 'string',
+      comment: 'string',
+      sort: 'number',
+      isNeedAttachment: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 收件人信息
+export class DeliveryInfo extends $tea.Model {
+  // 收件人姓名
+  receiveName: string;
+  // 联系电话
+  contact: string;
+  // 省（需要接收纸质文件时必填）
+  province?: string;
+  // 市（需要接收纸质文件时必填）
+  city?: string;
+  // 区（需要接收纸质文件时必填）
+  area?: string;
+  // 详细地址（需要接收纸质文件时必填）
+  address?: string;
+  // 电子邮箱（需要接收电子文件时必填）
+  email?: string;
+  static names(): { [key: string]: string } {
+    return {
+      receiveName: 'receive_name',
+      contact: 'contact',
+      province: 'province',
+      city: 'city',
+      area: 'area',
+      address: 'address',
+      email: 'email',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      receiveName: 'string',
+      contact: 'string',
+      province: 'string',
+      city: 'string',
+      area: 'string',
+      address: 'string',
+      email: 'string',
     };
   }
 
@@ -302,6 +335,56 @@ export class LabelRiskData extends $tea.Model {
   }
 }
 
+// 费用分项
+export class FeeDetail extends $tea.Model {
+  // 费用描述
+  feeDesc: string;
+  // 费用
+  amount: string;
+  static names(): { [key: string]: string } {
+    return {
+      feeDesc: 'fee_desc',
+      amount: 'amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      feeDesc: 'string',
+      amount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证据文件信息
+export class EvidInfo extends $tea.Model {
+  // 取证ID
+  evidenceId: string;
+  // 取证人
+  witness: NotaryUser;
+  static names(): { [key: string]: string } {
+    return {
+      evidenceId: 'evidence_id',
+      witness: 'witness',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      evidenceId: 'string',
+      witness: NotaryUser,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监测提供商能力
 export class MonitorProviderCapability extends $tea.Model {
   // 供应商id
@@ -335,87 +418,259 @@ export class MonitorProviderCapability extends $tea.Model {
   }
 }
 
-// 录屏取证信息
-export class RecordScreenData extends $tea.Model {
-  // 错误原因（状态为FAIL才有数据）
-  errorReason?: string;
-  // 录屏文件Hash值
-  fileHash?: string;
-  // 录屏结束时间
-  gmtEnd: number;
-  // 录屏开始时间
-  gmtStart: number;
-  // OS版本号
-  osVersion: string;
-  // 录屏文件信息
-  screenInfo?: ScreenInfo;
-  // 证据包下载地址（状态为SUCCESS 才有数据）
-  screenZip?: string;
-  // 录屏软件版本号
-  swVersion: string;
-  // 可信时间戳的返回对象
-  tsr?: string;
-  // 统一证据编号
-  txHash?: string;
-  // 录屏文件大小
-  fileSize?: number;
-  // 录屏文件存证块高
-  blockHeight?: number;
-  // 录屏文件上链时间
-  timestamp?: number;
-  // 录屏文件公证处证书下载链接
-  certificateUrl?: string;
-  // 公证处证书编号
-  certificateStorageNo?: string;
-  // 证据包存证交易hash
-  zipTxHash?: string;
-  // 取证备注信息
-  inventory?: string;
-  // 证据包文件hash
-  zipFileHash?: string;
+// 网页取证具体信息
+export class ScreenshotInfo extends $tea.Model {
+  // 全链路取证日志文件下载链接
+  processLogFile?: string;
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string;
+  // 自清洁文件下载链接
+  checkLogFile?: string;
+  // 自清洁文件哈希
+  checkLogFileHash?: string;
+  // 网页截图文件下载链接
+  screenshotFile: string;
+  // 网页截图文件哈希
+  screenshotFileHash?: string;
+  // 日志打包文件hash
+  logZipFileHash?: string;
+  // 日志文件上链hash
+  logZipTxHash?: string;
   static names(): { [key: string]: string } {
     return {
-      errorReason: 'error_reason',
-      fileHash: 'file_hash',
-      gmtEnd: 'gmt_end',
-      gmtStart: 'gmt_start',
-      osVersion: 'os_version',
-      screenInfo: 'screen_info',
-      screenZip: 'screen_zip',
-      swVersion: 'sw_version',
-      tsr: 'tsr',
-      txHash: 'tx_hash',
-      fileSize: 'file_size',
-      blockHeight: 'block_height',
-      timestamp: 'timestamp',
-      certificateUrl: 'certificate_url',
-      certificateStorageNo: 'certificate_storage_no',
-      zipTxHash: 'zip_tx_hash',
-      inventory: 'inventory',
-      zipFileHash: 'zip_file_hash',
+      processLogFile: 'process_log_file',
+      processLogFileHash: 'process_log_file_hash',
+      checkLogFile: 'check_log_file',
+      checkLogFileHash: 'check_log_file_hash',
+      screenshotFile: 'screenshot_file',
+      screenshotFileHash: 'screenshot_file_hash',
+      logZipFileHash: 'log_zip_file_hash',
+      logZipTxHash: 'log_zip_tx_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      errorReason: 'string',
-      fileHash: 'string',
-      gmtEnd: 'number',
-      gmtStart: 'number',
-      osVersion: 'string',
-      screenInfo: ScreenInfo,
-      screenZip: 'string',
-      swVersion: 'string',
-      tsr: 'string',
-      txHash: 'string',
-      fileSize: 'number',
-      blockHeight: 'number',
-      timestamp: 'number',
-      certificateUrl: 'string',
-      certificateStorageNo: 'string',
-      zipTxHash: 'string',
-      inventory: 'string',
-      zipFileHash: 'string',
+      processLogFile: 'string',
+      processLogFileHash: 'string',
+      checkLogFile: 'string',
+      checkLogFileHash: 'string',
+      screenshotFile: 'string',
+      screenshotFileHash: 'string',
+      logZipFileHash: 'string',
+      logZipTxHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 取证文件信息
+export class ScreenInfo extends $tea.Model {
+  // 全链路取证日志文件下载链接
+  processLogFile?: string;
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string;
+  // 自清洁文件下载地址
+  checkLogFile?: string;
+  // 自清洁文件哈希
+  checkLogFileHash?: string;
+  // 网页截图文件下载链接
+  webScreenshotFile?: string;
+  // 网页截图文件哈希
+  webScreenshotFileHash?: string;
+  // 网页源码文件下载链接
+  webSourceFile?: string;
+  // 网页源码文件哈希
+  webSourceFileHash?: string;
+  // 视频源文件下载链接
+  videoFile?: string;
+  // 视频源文件哈希
+  videoFileHash?: string;
+  // 手机自清洁文件下载链接
+  extendDeviceCheckFile?: string;
+  // 手机自清洁文件哈希
+  extendDeviceCheckFileHash?: string;
+  // 手机操作日志下载链接
+  extendDeviceProcessFile?: string;
+  // 手机操作日志哈希
+  extendDeviceProcessFileHash?: string;
+  // 日志打包文件hash
+  logZipFileHash?: string;
+  // 日志打包文件上链hash
+  logZipTxHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      processLogFile: 'process_log_file',
+      processLogFileHash: 'process_log_file_hash',
+      checkLogFile: 'check_log_file',
+      checkLogFileHash: 'check_log_file_hash',
+      webScreenshotFile: 'web_screenshot_file',
+      webScreenshotFileHash: 'web_screenshot_file_hash',
+      webSourceFile: 'web_source_file',
+      webSourceFileHash: 'web_source_file_hash',
+      videoFile: 'video_file',
+      videoFileHash: 'video_file_hash',
+      extendDeviceCheckFile: 'extend_device_check_file',
+      extendDeviceCheckFileHash: 'extend_device_check_file_hash',
+      extendDeviceProcessFile: 'extend_device_process_file',
+      extendDeviceProcessFileHash: 'extend_device_process_file_hash',
+      logZipFileHash: 'log_zip_file_hash',
+      logZipTxHash: 'log_zip_tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      processLogFile: 'string',
+      processLogFileHash: 'string',
+      checkLogFile: 'string',
+      checkLogFileHash: 'string',
+      webScreenshotFile: 'string',
+      webScreenshotFileHash: 'string',
+      webSourceFile: 'string',
+      webSourceFileHash: 'string',
+      videoFile: 'string',
+      videoFileHash: 'string',
+      extendDeviceCheckFile: 'string',
+      extendDeviceCheckFileHash: 'string',
+      extendDeviceProcessFile: 'string',
+      extendDeviceProcessFileHash: 'string',
+      logZipFileHash: 'string',
+      logZipTxHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 出证开票信息
+export class NotaryInvoiceInfo extends $tea.Model {
+  // 开票类型
+  billingType: string;
+  // 发票类型
+  invoiceType: string;
+  // 主体类型
+  subjectType: string;
+  // 发票抬头
+  invoiceName: string;
+  // 纳税人识别号
+  ratepayerCode?: string;
+  // 开户行
+  bankType?: string;
+  // 开户行账号
+  bankAccount?: string;
+  // 单位地址
+  unitAddress?: string;
+  // 单位电话
+  unitPhone?: string;
+  // 发票收件信息
+  delivery?: DeliveryInfo;
+  static names(): { [key: string]: string } {
+    return {
+      billingType: 'billing_type',
+      invoiceType: 'invoice_type',
+      subjectType: 'subject_type',
+      invoiceName: 'invoice_name',
+      ratepayerCode: 'ratepayer_code',
+      bankType: 'bank_type',
+      bankAccount: 'bank_account',
+      unitAddress: 'unit_address',
+      unitPhone: 'unit_phone',
+      delivery: 'delivery',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      billingType: 'string',
+      invoiceType: 'string',
+      subjectType: 'string',
+      invoiceName: 'string',
+      ratepayerCode: 'string',
+      bankType: 'string',
+      bankAccount: 'string',
+      unitAddress: 'string',
+      unitPhone: 'string',
+      delivery: DeliveryInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 申办事由
+export class BidReason extends $tea.Model {
+  // 事由类别ID
+  categoryId: string;
+  // 分类名称
+  categoryName: string;
+  // 描述
+  desc: string;
+  // 文件上传描述
+  fileUploadDesc: string;
+  // 排序
+  rank: number;
+  // 是否必须上传证明文件
+  isNeedTestifyFile: boolean;
+  // reasonArray
+  reasonArray: Reason[];
+  static names(): { [key: string]: string } {
+    return {
+      categoryId: 'category_id',
+      categoryName: 'category_name',
+      desc: 'desc',
+      fileUploadDesc: 'file_upload_desc',
+      rank: 'rank',
+      isNeedTestifyFile: 'is_need_testify_file',
+      reasonArray: 'reason_array',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      categoryId: 'string',
+      categoryName: 'string',
+      desc: 'string',
+      fileUploadDesc: 'string',
+      rank: 'number',
+      isNeedTestifyFile: 'boolean',
+      reasonArray: { 'type': 'array', 'itemType': Reason },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公证书送达信息
+export class ReceiveInfo extends $tea.Model {
+  // 纸质公证书份数
+  copies?: number;
+  // 公证书类型
+  orderType: string;
+  // 收件人信息
+  deliveryInfo: DeliveryInfo;
+  static names(): { [key: string]: string } {
+    return {
+      copies: 'copies',
+      orderType: 'order_type',
+      deliveryInfo: 'delivery_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      copies: 'number',
+      orderType: 'string',
+      deliveryInfo: DeliveryInfo,
     };
   }
 
@@ -490,6 +745,8 @@ export class NotaryPublicOffice extends $tea.Model {
   city: string;
   // 公证处完整名称
   orgName: string;
+  // 公证处隶属
+  belong: string;
   static names(): { [key: string]: string } {
     return {
       code: 'code',
@@ -497,6 +754,7 @@ export class NotaryPublicOffice extends $tea.Model {
       province: 'province',
       city: 'city',
       orgName: 'org_name',
+      belong: 'belong',
     };
   }
 
@@ -507,6 +765,7 @@ export class NotaryPublicOffice extends $tea.Model {
       province: 'string',
       city: 'string',
       orgName: 'string',
+      belong: 'string',
     };
   }
 
@@ -515,120 +774,23 @@ export class NotaryPublicOffice extends $tea.Model {
   }
 }
 
-// 网页取证数据
-export class ScreenshotData extends $tea.Model {
-  // 取证地址
-  url: string;
-  // 网页取证时间
-  gmtEvidence?: number;
-  // 网页取证文件Hash值
-  fileHash?: string;
-  // 网页取证文件大小
-  fileSize?: number;
-  // 统一证据编号
-  txHash?: string;
-  // 网页取证文件存证块高
-  blockHeight?: number;
-  // 网页取证文件上链时间
-  timestamp?: number;
-  // 可信时间戳的返回对象
-  tsr?: string;
-  // 网页截图文件公证处证书下载链接
-  certificateUrl?: string;
-  // 公证处证书编号
-  certificateStorageNo?: string;
-  // 网页取证工具软件版本号
-  toolVersion?: string;
-  // 证据包下载地址（状态为SUCCESS 才有数据）
-  screenshotZip?: string;
-  // 取证文件信息
-  screenshotInfo?: ScreenshotInfo;
-  // 网页title
-  headTitle?: string;
-  // 证据包交易hash
-  zipTxHash?: string;
-  // 网页取证失败原因
-  errorReason?: string;
-  // 中文失败原因
-  errorReasonCn?: string;
-  // 证据包文件hash
-  zipFileHash?: string;
+// 本次申请中每一类证据的数量明细
+export class NotaryFeeEvidTypeData extends $tea.Model {
+  // 证据类型描述
+  evidTypeDesc: string;
+  // 证据分类及数量详情
+  evidTypeDetail: string;
   static names(): { [key: string]: string } {
     return {
-      url: 'url',
-      gmtEvidence: 'gmt_evidence',
-      fileHash: 'file_hash',
-      fileSize: 'file_size',
-      txHash: 'tx_hash',
-      blockHeight: 'block_height',
-      timestamp: 'timestamp',
-      tsr: 'tsr',
-      certificateUrl: 'certificate_url',
-      certificateStorageNo: 'certificate_storage_no',
-      toolVersion: 'tool_version',
-      screenshotZip: 'screenshot_zip',
-      screenshotInfo: 'screenshot_info',
-      headTitle: 'head_title',
-      zipTxHash: 'zip_tx_hash',
-      errorReason: 'error_reason',
-      errorReasonCn: 'error_reason_cn',
-      zipFileHash: 'zip_file_hash',
+      evidTypeDesc: 'evid_type_desc',
+      evidTypeDetail: 'evid_type_detail',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      url: 'string',
-      gmtEvidence: 'number',
-      fileHash: 'string',
-      fileSize: 'number',
-      txHash: 'string',
-      blockHeight: 'number',
-      timestamp: 'number',
-      tsr: 'string',
-      certificateUrl: 'string',
-      certificateStorageNo: 'string',
-      toolVersion: 'string',
-      screenshotZip: 'string',
-      screenshotInfo: ScreenshotInfo,
-      headTitle: 'string',
-      zipTxHash: 'string',
-      errorReason: 'string',
-      errorReasonCn: 'string',
-      zipFileHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 类型对应供应商
-export class MonitorProviderType extends $tea.Model {
-  // 监测文件类型
-  fileType: string;
-  // 提交类型
-  submitType: string;
-  // 文件格式
-  fileFormat?: string;
-  // 支持的服务商列表，已排序
-  monitorProviders: MonitorProviderCapability[];
-  static names(): { [key: string]: string } {
-    return {
-      fileType: 'file_type',
-      submitType: 'submit_type',
-      fileFormat: 'file_format',
-      monitorProviders: 'monitor_providers',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileType: 'string',
-      submitType: 'string',
-      fileFormat: 'string',
-      monitorProviders: { 'type': 'array', 'itemType': MonitorProviderCapability },
+      evidTypeDesc: 'string',
+      evidTypeDetail: 'string',
     };
   }
 
@@ -695,6 +857,35 @@ export class DciCreationInfo extends $tea.Model {
       creationCompletionDate: 'string',
       creationCompletionPlace: 'string',
       creationCompletionCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 本次需支付费用的分项明细
+export class NotaryFeeItem extends $tea.Model {
+  // 费用分项描述
+  feeItemDesc: string;
+  // 费用分项金额(分)
+  feeItemAmountRmbFen: number;
+  // 费用分项详情列表
+  feeDetailList: FeeDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      feeItemDesc: 'fee_item_desc',
+      feeItemAmountRmbFen: 'fee_item_amount_rmb_fen',
+      feeDetailList: 'fee_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      feeItemDesc: 'string',
+      feeItemAmountRmbFen: 'number',
+      feeDetailList: { 'type': 'array', 'itemType': FeeDetail },
     };
   }
 
@@ -789,68 +980,23 @@ export class VerifyUserData extends $tea.Model {
   }
 }
 
-// 授权信息
-export class AuthInfo extends $tea.Model {
-  // 授权权利项
-  rightCode: string;
-  // 许可地域，默认中国境内，不包括香港等
-  regionCode?: string;
-  // 许可方式
-  usageCode: string;
-  // 许可终端
-  terminalCode: string;
-  // 传播媒介，默认互联网
-  mediaCode?: string;
-  // 是否独占,默认 普通专有 GENERAL
-  rightItemCharacter?: string;
-  // 是否可转让,默认不可转让
-  transferStatus?: string;
+// 公证出证拒绝办理信息/终止信息
+export class RefuseInfo extends $tea.Model {
+  // 拒绝理由/终止备注
+  reason: string;
+  // 不予办理决定书路径/终止决定书路径
+  notificationPath: string;
   static names(): { [key: string]: string } {
     return {
-      rightCode: 'right_code',
-      regionCode: 'region_code',
-      usageCode: 'usage_code',
-      terminalCode: 'terminal_code',
-      mediaCode: 'media_code',
-      rightItemCharacter: 'right_item_character',
-      transferStatus: 'transfer_status',
+      reason: 'reason',
+      notificationPath: 'notification_path',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      rightCode: 'string',
-      regionCode: 'string',
-      usageCode: 'string',
-      terminalCode: 'string',
-      mediaCode: 'string',
-      rightItemCharacter: 'string',
-      transferStatus: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 放弃取证信息
-export class ScreenCancelInfo extends $tea.Model {
-  // 允许放弃时长（分钟）
-  cancelInMin: number;
-  // 可用放弃次数
-  cancelAttemptLeft: number;
-  static names(): { [key: string]: string } {
-    return {
-      cancelInMin: 'cancel_in_min',
-      cancelAttemptLeft: 'cancel_attempt_left',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cancelInMin: 'number',
-      cancelAttemptLeft: 'number',
+      reason: 'string',
+      notificationPath: 'string',
     };
   }
 
@@ -1001,31 +1147,27 @@ export class InvoiceInfo extends $tea.Model {
   }
 }
 
-// 证书信息
-export class CertificateData extends $tea.Model {
-  // 任务ID
-  taskId: string;
-  // 版权用户UID
-  userId: string;
-  // DCI码
-  dciCode: string;
-  // 证书下载的链接地址
-  certificateUrl: string;
+// 公证出证送达信息
+export class NotaryReceiveInfo extends $tea.Model {
+  // 公证书类型
+  orderType: string;
+  // 公证书送达信息
+  receiveInfo: ReceiveInfo;
+  // 开票信息
+  invoiceInfo?: NotaryInvoiceInfo;
   static names(): { [key: string]: string } {
     return {
-      taskId: 'task_id',
-      userId: 'user_id',
-      dciCode: 'dci_code',
-      certificateUrl: 'certificate_url',
+      orderType: 'order_type',
+      receiveInfo: 'receive_info',
+      invoiceInfo: 'invoice_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      taskId: 'string',
-      userId: 'string',
-      dciCode: 'string',
-      certificateUrl: 'string',
+      orderType: 'string',
+      receiveInfo: ReceiveInfo,
+      invoiceInfo: NotaryInvoiceInfo,
     };
   }
 
@@ -1055,35 +1197,6 @@ export class AccountData extends $tea.Model {
       accountId: 'string',
       accountName: 'string',
       accountPlatform: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 代理信息
-export class ProxyData extends $tea.Model {
-  // 金融云租户id
-  tenantId: string;
-  // 租户名称
-  tenantName: string;
-  // 是否计量
-  ifMeasure?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      tenantId: 'tenant_id',
-      tenantName: 'tenant_name',
-      ifMeasure: 'if_measure',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      tenantId: 'string',
-      tenantName: 'string',
-      ifMeasure: 'boolean',
     };
   }
 
@@ -1251,6 +1364,51 @@ export class MonitorTask extends $tea.Model {
   }
 }
 
+// 物流信息
+export class ExpressInfo extends $tea.Model {
+  // 材料类型
+  type: string;
+  // 收件人姓名
+  name: string;
+  // 收件人电话号码
+  phone: string;
+  // 邮箱地址
+  email: string;
+  // 快递名称
+  expressName: string;
+  // 快递单号
+  trackingNumber: string;
+  // 材料发出时间戳
+  sendTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+      expressName: 'express_name',
+      trackingNumber: 'tracking_number',
+      sendTime: 'send_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      name: 'string',
+      phone: 'string',
+      email: 'string',
+      expressName: 'string',
+      trackingNumber: 'string',
+      sendTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 播放列表实体类
 export class PlayListEntity extends $tea.Model {
   // 播放列表名称，可包含多个视频
@@ -1306,88 +1464,6 @@ export class PlayListEntity extends $tea.Model {
   }
 }
 
-// 核验取证信息
-export class VerifyEvidenceData extends $tea.Model {
-  // 操作日志交易HASH
-  processLogTxHash?: string;
-  // 自清洁日志交易HASH
-  checkLogTxHash?: string;
-  static names(): { [key: string]: string } {
-    return {
-      processLogTxHash: 'process_log_tx_hash',
-      checkLogTxHash: 'check_log_tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      processLogTxHash: 'string',
-      checkLogTxHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 商品信息
-export class GoodsInfo extends $tea.Model {
-  // 商品id
-  goodsId?: string;
-  // 商品名称
-  goodsName?: string;
-  // 商品状态
-  goodsStatus?: string;
-  // 商品分类
-  classification?: string;
-  // 售卖数量
-  totalSoldNum?: number;
-  // 售价（分）
-  standardPriceInCent?: number;
-  // 商品标题
-  title?: string;
-  // 授权期限起始时间
-  authStartTime?: number;
-  // 授权期限结束时间
-  authEndTime?: number;
-  // 发布时间
-  publishTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      goodsId: 'goods_id',
-      goodsName: 'goods_name',
-      goodsStatus: 'goods_status',
-      classification: 'classification',
-      totalSoldNum: 'total_sold_num',
-      standardPriceInCent: 'standard_price_in_cent',
-      title: 'title',
-      authStartTime: 'auth_start_time',
-      authEndTime: 'auth_end_time',
-      publishTime: 'publish_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      goodsId: 'string',
-      goodsName: 'string',
-      goodsStatus: 'string',
-      classification: 'string',
-      totalSoldNum: 'number',
-      standardPriceInCent: 'number',
-      title: 'string',
-      authStartTime: 'number',
-      authEndTime: 'number',
-      publishTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 作品信息
 export class WorksInfo extends $tea.Model {
   // 作品名称
@@ -1409,35 +1485,6 @@ export class WorksInfo extends $tea.Model {
       worksName: 'string',
       worksType: 'string',
       worksTypeEn: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 审查结果
-export class ReviewData extends $tea.Model {
-  // 内容安全识别结果
-  contentRiskData: ContentRiskData[];
-  // 作品相似识别结果
-  resembleRiskData: ResembleRiskData[];
-  // 作品标签识别结果
-  labelRiskData: LabelRiskData[];
-  static names(): { [key: string]: string } {
-    return {
-      contentRiskData: 'content_risk_data',
-      resembleRiskData: 'resemble_risk_data',
-      labelRiskData: 'label_risk_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      contentRiskData: { 'type': 'array', 'itemType': ContentRiskData },
-      resembleRiskData: { 'type': 'array', 'itemType': ResembleRiskData },
-      labelRiskData: { 'type': 'array', 'itemType': LabelRiskData },
     };
   }
 
@@ -1616,6 +1663,603 @@ export class UserData extends $tea.Model {
       regTime: 'number',
       status: 'string',
       type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 录屏取证信息
+export class RecordScreenData extends $tea.Model {
+  // 错误原因（状态为FAIL才有数据）
+  errorReason?: string;
+  // 录屏文件Hash值
+  fileHash?: string;
+  // 录屏结束时间
+  gmtEnd: number;
+  // 录屏开始时间
+  gmtStart: number;
+  // OS版本号
+  osVersion: string;
+  // 录屏文件信息
+  screenInfo?: ScreenInfo;
+  // 证据包下载地址（状态为SUCCESS 才有数据）
+  screenZip?: string;
+  // 录屏软件版本号
+  swVersion: string;
+  // 可信时间戳的返回对象
+  tsr?: string;
+  // 统一证据编号
+  txHash?: string;
+  // 录屏文件大小
+  fileSize?: number;
+  // 录屏文件存证块高
+  blockHeight?: number;
+  // 录屏文件上链时间
+  timestamp?: number;
+  // 录屏文件公证处证书下载链接
+  certificateUrl?: string;
+  // 公证处证书编号
+  certificateStorageNo?: string;
+  // 证据包存证交易hash
+  zipTxHash?: string;
+  // 取证备注信息
+  inventory?: string;
+  // 证据包文件hash
+  zipFileHash?: string;
+  // 主要核心证据文件名称
+  mainEvidenceName?: string;
+  // 取证申请单号
+  evidenceOrderNum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      errorReason: 'error_reason',
+      fileHash: 'file_hash',
+      gmtEnd: 'gmt_end',
+      gmtStart: 'gmt_start',
+      osVersion: 'os_version',
+      screenInfo: 'screen_info',
+      screenZip: 'screen_zip',
+      swVersion: 'sw_version',
+      tsr: 'tsr',
+      txHash: 'tx_hash',
+      fileSize: 'file_size',
+      blockHeight: 'block_height',
+      timestamp: 'timestamp',
+      certificateUrl: 'certificate_url',
+      certificateStorageNo: 'certificate_storage_no',
+      zipTxHash: 'zip_tx_hash',
+      inventory: 'inventory',
+      zipFileHash: 'zip_file_hash',
+      mainEvidenceName: 'main_evidence_name',
+      evidenceOrderNum: 'evidence_order_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      errorReason: 'string',
+      fileHash: 'string',
+      gmtEnd: 'number',
+      gmtStart: 'number',
+      osVersion: 'string',
+      screenInfo: ScreenInfo,
+      screenZip: 'string',
+      swVersion: 'string',
+      tsr: 'string',
+      txHash: 'string',
+      fileSize: 'number',
+      blockHeight: 'number',
+      timestamp: 'number',
+      certificateUrl: 'string',
+      certificateStorageNo: 'string',
+      zipTxHash: 'string',
+      inventory: 'string',
+      zipFileHash: 'string',
+      mainEvidenceName: 'string',
+      evidenceOrderNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 网页取证数据
+export class ScreenshotData extends $tea.Model {
+  // 取证地址
+  url: string;
+  // 网页取证时间
+  gmtEvidence?: number;
+  // 网页取证文件Hash值
+  fileHash?: string;
+  // 网页取证文件大小
+  fileSize?: number;
+  // 统一证据编号
+  txHash?: string;
+  // 网页取证文件存证块高
+  blockHeight?: number;
+  // 网页取证文件上链时间
+  timestamp?: number;
+  // 可信时间戳的返回对象
+  tsr?: string;
+  // 网页截图文件公证处证书下载链接
+  certificateUrl?: string;
+  // 公证处证书编号
+  certificateStorageNo?: string;
+  // 网页取证工具软件版本号
+  toolVersion?: string;
+  // 证据包下载地址（状态为SUCCESS 才有数据）
+  screenshotZip?: string;
+  // 取证文件信息
+  screenshotInfo?: ScreenshotInfo;
+  // 网页title
+  headTitle?: string;
+  // 证据包交易hash
+  zipTxHash?: string;
+  // 网页取证失败原因
+  errorReason?: string;
+  // 中文失败原因
+  errorReasonCn?: string;
+  // 证据包文件hash
+  zipFileHash?: string;
+  // 核心证据文件名称
+  mainEvidenceName?: string;
+  // 取证申请单号
+  evidenceOrderNum?: string;
+  // 取证开始时间
+  gmtEvidenceStart?: number;
+  static names(): { [key: string]: string } {
+    return {
+      url: 'url',
+      gmtEvidence: 'gmt_evidence',
+      fileHash: 'file_hash',
+      fileSize: 'file_size',
+      txHash: 'tx_hash',
+      blockHeight: 'block_height',
+      timestamp: 'timestamp',
+      tsr: 'tsr',
+      certificateUrl: 'certificate_url',
+      certificateStorageNo: 'certificate_storage_no',
+      toolVersion: 'tool_version',
+      screenshotZip: 'screenshot_zip',
+      screenshotInfo: 'screenshot_info',
+      headTitle: 'head_title',
+      zipTxHash: 'zip_tx_hash',
+      errorReason: 'error_reason',
+      errorReasonCn: 'error_reason_cn',
+      zipFileHash: 'zip_file_hash',
+      mainEvidenceName: 'main_evidence_name',
+      evidenceOrderNum: 'evidence_order_num',
+      gmtEvidenceStart: 'gmt_evidence_start',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      url: 'string',
+      gmtEvidence: 'number',
+      fileHash: 'string',
+      fileSize: 'number',
+      txHash: 'string',
+      blockHeight: 'number',
+      timestamp: 'number',
+      tsr: 'string',
+      certificateUrl: 'string',
+      certificateStorageNo: 'string',
+      toolVersion: 'string',
+      screenshotZip: 'string',
+      screenshotInfo: ScreenshotInfo,
+      headTitle: 'string',
+      zipTxHash: 'string',
+      errorReason: 'string',
+      errorReasonCn: 'string',
+      zipFileHash: 'string',
+      mainEvidenceName: 'string',
+      evidenceOrderNum: 'string',
+      gmtEvidenceStart: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 类型对应供应商
+export class MonitorProviderType extends $tea.Model {
+  // 监测文件类型
+  fileType: string;
+  // 提交类型
+  submitType: string;
+  // 文件格式
+  fileFormat?: string;
+  // 支持的服务商列表，已排序
+  monitorProviders: MonitorProviderCapability[];
+  static names(): { [key: string]: string } {
+    return {
+      fileType: 'file_type',
+      submitType: 'submit_type',
+      fileFormat: 'file_format',
+      monitorProviders: 'monitor_providers',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileType: 'string',
+      submitType: 'string',
+      fileFormat: 'string',
+      monitorProviders: { 'type': 'array', 'itemType': MonitorProviderCapability },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权信息
+export class AuthInfo extends $tea.Model {
+  // 授权权利项
+  rightCode: string;
+  // 许可地域，默认中国境内，不包括香港等
+  regionCode?: string;
+  // 许可方式
+  usageCode: string;
+  // 许可终端
+  terminalCode: string;
+  // 传播媒介，默认互联网
+  mediaCode?: string;
+  // 是否独占,默认 普通专有 GENERAL
+  rightItemCharacter?: string;
+  // 是否可转让,默认不可转让
+  transferStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      rightCode: 'right_code',
+      regionCode: 'region_code',
+      usageCode: 'usage_code',
+      terminalCode: 'terminal_code',
+      mediaCode: 'media_code',
+      rightItemCharacter: 'right_item_character',
+      transferStatus: 'transfer_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rightCode: 'string',
+      regionCode: 'string',
+      usageCode: 'string',
+      terminalCode: 'string',
+      mediaCode: 'string',
+      rightItemCharacter: 'string',
+      transferStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 放弃取证信息
+export class ScreenCancelInfo extends $tea.Model {
+  // 允许放弃时长（分钟）
+  cancelInMin: number;
+  // 可用放弃次数
+  cancelAttemptLeft: number;
+  static names(): { [key: string]: string } {
+    return {
+      cancelInMin: 'cancel_in_min',
+      cancelAttemptLeft: 'cancel_attempt_left',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cancelInMin: 'number',
+      cancelAttemptLeft: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书信息
+export class CertificateData extends $tea.Model {
+  // 任务ID
+  taskId: string;
+  // 版权用户UID
+  userId: string;
+  // DCI码
+  dciCode: string;
+  // 证书下载的链接地址
+  certificateUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      userId: 'user_id',
+      dciCode: 'dci_code',
+      certificateUrl: 'certificate_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      userId: 'string',
+      dciCode: 'string',
+      certificateUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 代理信息
+export class ProxyData extends $tea.Model {
+  // 金融云租户id
+  tenantId: string;
+  // 租户名称
+  tenantName: string;
+  // 是否计量
+  ifMeasure?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      ifMeasure: 'if_measure',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      tenantName: 'string',
+      ifMeasure: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公证出证申请信息
+export class NotaryApplyInfo extends $tea.Model {
+  // 公证处ID
+  orgId: string;
+  // 取证人和取证信息列表
+  evidInfos: EvidInfo[];
+  // 申办事由
+  bidReason: BidReason;
+  // 申请人信息
+  applicantInfos: NotaryUser[];
+  // 经办人信息
+  operatorInfo: NotaryUser;
+  // 授权书
+  warrantFileList: string[];
+  // 权利证明材料
+  testifyFileList: string[];
+  // 保全内容
+  preservationContent: string;
+  // 用户申办备注
+  comments?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orgId: 'org_id',
+      evidInfos: 'evid_infos',
+      bidReason: 'bid_reason',
+      applicantInfos: 'applicant_infos',
+      operatorInfo: 'operator_info',
+      warrantFileList: 'warrant_file_list',
+      testifyFileList: 'testify_file_list',
+      preservationContent: 'preservation_content',
+      comments: 'comments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orgId: 'string',
+      evidInfos: { 'type': 'array', 'itemType': EvidInfo },
+      bidReason: BidReason,
+      applicantInfos: { 'type': 'array', 'itemType': NotaryUser },
+      operatorInfo: NotaryUser,
+      warrantFileList: { 'type': 'array', 'itemType': 'string' },
+      testifyFileList: { 'type': 'array', 'itemType': 'string' },
+      preservationContent: 'string',
+      comments: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 核验取证信息
+export class VerifyEvidenceData extends $tea.Model {
+  // 操作日志交易HASH
+  processLogTxHash?: string;
+  // 自清洁日志交易HASH
+  checkLogTxHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      processLogTxHash: 'process_log_tx_hash',
+      checkLogTxHash: 'check_log_tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      processLogTxHash: 'string',
+      checkLogTxHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公证出证需要用户签署的文件
+export class SignDocument extends $tea.Model {
+  // 签署文件
+  signFile: string;
+  // 到期时间戳
+  expireTime: number;
+  // 签署文件名
+  signFileName: string;
+  // 签署文件描述
+  signFileDesc: string;
+  // 签署文件哈希
+  signFileHash: string;
+  // 签署文件类型
+  signFileType: string;
+  static names(): { [key: string]: string } {
+    return {
+      signFile: 'sign_file',
+      expireTime: 'expire_time',
+      signFileName: 'sign_file_name',
+      signFileDesc: 'sign_file_desc',
+      signFileHash: 'sign_file_hash',
+      signFileType: 'sign_file_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signFile: 'string',
+      expireTime: 'number',
+      signFileName: 'string',
+      signFileDesc: 'string',
+      signFileHash: 'string',
+      signFileType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品信息
+export class GoodsInfo extends $tea.Model {
+  // 商品id
+  goodsId?: string;
+  // 商品名称
+  goodsName?: string;
+  // 商品状态
+  goodsStatus?: string;
+  // 商品分类
+  classification?: string;
+  // 售卖数量
+  totalSoldNum?: number;
+  // 售价（分）
+  standardPriceInCent?: number;
+  // 商品标题
+  title?: string;
+  // 授权期限起始时间
+  authStartTime?: number;
+  // 授权期限结束时间
+  authEndTime?: number;
+  // 发布时间
+  publishTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      goodsId: 'goods_id',
+      goodsName: 'goods_name',
+      goodsStatus: 'goods_status',
+      classification: 'classification',
+      totalSoldNum: 'total_sold_num',
+      standardPriceInCent: 'standard_price_in_cent',
+      title: 'title',
+      authStartTime: 'auth_start_time',
+      authEndTime: 'auth_end_time',
+      publishTime: 'publish_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsId: 'string',
+      goodsName: 'string',
+      goodsStatus: 'string',
+      classification: 'string',
+      totalSoldNum: 'number',
+      standardPriceInCent: 'number',
+      title: 'string',
+      authStartTime: 'number',
+      authEndTime: 'number',
+      publishTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 审查结果
+export class ReviewData extends $tea.Model {
+  // 内容安全识别结果
+  contentRiskData: ContentRiskData[];
+  // 作品相似识别结果
+  resembleRiskData: ResembleRiskData[];
+  // 作品标签识别结果
+  labelRiskData: LabelRiskData[];
+  static names(): { [key: string]: string } {
+    return {
+      contentRiskData: 'content_risk_data',
+      resembleRiskData: 'resemble_risk_data',
+      labelRiskData: 'label_risk_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentRiskData: { 'type': 'array', 'itemType': ContentRiskData },
+      resembleRiskData: { 'type': 'array', 'itemType': ResembleRiskData },
+      labelRiskData: { 'type': 'array', 'itemType': LabelRiskData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 出证的公证书信息
+export class NotaryInfo extends $tea.Model {
+  // 公证书编号
+  notarialDeedNo: string;
+  // 电子公证书文件路径
+  notaryPaperPath: string;
+  // 公证书出证日期（yyyy-MM-dd）
+  notaryTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      notarialDeedNo: 'notarial_deed_no',
+      notaryPaperPath: 'notary_paper_path',
+      notaryTime: 'notary_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      notarialDeedNo: 'string',
+      notaryPaperPath: 'string',
+      notaryTime: 'string',
     };
   }
 
@@ -3815,7 +4459,7 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   // dci用户id
   dciUserId: string;
   // 代理信息
-  proxyData: ProxyData;
+  proxyData?: ProxyData;
   // 幂等字段
   clientToken: string;
   // 作品类型相似度
@@ -4093,13 +4737,13 @@ export class AddDciUserRequest extends $tea.Model {
   // 手机号
   phone: string;
   // 地址
-  address: string;
+  address?: string;
   // 用户身份开始时间
-  identityStartTime: string;
+  identityStartTime?: string;
   // 所属地区
   areaType: string;
   // 代理信息
-  proxyData: ProxyData;
+  proxyData?: ProxyData;
   // 幂等字段
   clientToken: string;
   // 用户名称废弃
@@ -5287,6 +5931,602 @@ export class RefuseDciRegistrationResponse extends $tea.Model {
   }
 }
 
+export class QueryNotaryBidreasonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 公证处 ID
+  orgId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orgId: 'org_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orgId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryBidreasonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申办事由列表
+  bidReasonList?: BidReason[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bidReasonList: 'bid_reason_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bidReasonList: { 'type': 'array', 'itemType': BidReason },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryDocumenttosignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 申请人信息
+  applicantList: NotaryUser[];
+  // 经办人信息
+  agent: NotaryUser;
+  // 送达信息
+  receiveInfo: ReceiveInfo;
+  // 保全内容
+  preservation: string;
+  // 公证处id
+  orgId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicantList: 'applicant_list',
+      agent: 'agent',
+      receiveInfo: 'receive_info',
+      preservation: 'preservation',
+      orgId: 'org_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicantList: { 'type': 'array', 'itemType': NotaryUser },
+      agent: NotaryUser,
+      receiveInfo: ReceiveInfo,
+      preservation: 'string',
+      orgId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryDocumenttosignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 需要用户签署的文件列表
+  signDocumentList?: SignDocument[];
+  // 生成文件的时间，需要在提交申办接口传入
+  previewTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signDocumentList: 'sign_document_list',
+      previewTime: 'preview_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signDocumentList: { 'type': 'array', 'itemType': SignDocument },
+      previewTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyNotaryOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 公证出证申请信息
+  notaryApplyInfo: NotaryApplyInfo;
+  // 公证出证收件信息
+  notaryReceiveInfo: NotaryReceiveInfo;
+  // 用户预览签署文件的时间
+  previewTime: number;
+  // 用户签署文件时间
+  agreeTime: number;
+  // 客户端令牌
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryApplyInfo: 'notary_apply_info',
+      notaryReceiveInfo: 'notary_receive_info',
+      previewTime: 'preview_time',
+      agreeTime: 'agree_time',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryApplyInfo: NotaryApplyInfo,
+      notaryReceiveInfo: NotaryReceiveInfo,
+      previewTime: 'number',
+      agreeTime: 'number',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyNotaryOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 出证申请订单ID
+  notaryOrderId?: string;
+  // 订单状态
+  orderStatus?: string;
+  // 支付二维码链接
+  payUrl?: string;
+  // 支付二维码过期时间
+  payUrlExpireTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      notaryOrderId: 'notary_order_id',
+      orderStatus: 'order_status',
+      payUrl: 'pay_url',
+      payUrlExpireTime: 'pay_url_expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      notaryOrderId: 'string',
+      orderStatus: 'string',
+      payUrl: 'string',
+      payUrlExpireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryPayurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单ID
+  notaryOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryOrderId: 'notary_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryPayurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付二维码链接
+  payUrl?: string;
+  // 支付二维码链接到期时间
+  payUrlExpireTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payUrl: 'pay_url',
+      payUrlExpireTime: 'pay_url_expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payUrl: 'string',
+      payUrlExpireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryFeedetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 公证处ID
+  orgId: string;
+  // 公证书类型
+  orderType: string;
+  // 纸质公证书份数
+  copies?: number;
+  // 证据列表
+  evidInfoList: EvidInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orgId: 'org_id',
+      orderType: 'order_type',
+      copies: 'copies',
+      evidInfoList: 'evid_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orgId: 'string',
+      orderType: 'string',
+      copies: 'number',
+      evidInfoList: { 'type': 'array', 'itemType': EvidInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryFeedetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次公证出证需支付的总费用
+  totalPriceRmbFen?: number;
+  // 本次申请中每一类证据的数量明细列表
+  notaryFeeEvidTypeDataList?: NotaryFeeEvidTypeData[];
+  // 本次需支付费用的分项明细列表
+  notaryFeeItemList?: NotaryFeeItem[];
+  // 收费规则描述
+  notaryFeeRuleList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalPriceRmbFen: 'total_price_rmb_fen',
+      notaryFeeEvidTypeDataList: 'notary_fee_evid_type_data_list',
+      notaryFeeItemList: 'notary_fee_item_list',
+      notaryFeeRuleList: 'notary_fee_rule_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalPriceRmbFen: 'number',
+      notaryFeeEvidTypeDataList: { 'type': 'array', 'itemType': NotaryFeeEvidTypeData },
+      notaryFeeItemList: { 'type': 'array', 'itemType': NotaryFeeItem },
+      notaryFeeRuleList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // acrbasis订单ID
+  notaryOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryOrderId: 'notary_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNotaryOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单状态
+  status?: string;
+  // 支付状态最后更新时间戳
+  payTime?: number;
+  // 用户预览签署文件的时间戳
+  previewTime?: number;
+  // 支付状态
+  payStatus?: string;
+  // 补充材料说明，当需要补充材料时提供
+  materialRemarks?: string;
+  // 出证的公证书信息
+  notaryInfo?: NotaryInfo;
+  // 拒绝办理信息
+  rejectInfo?: RefuseInfo;
+  // 终止信息
+  terminalInfo?: RefuseInfo;
+  // 支付方式
+  payType?: string;
+  // 用户应付的金额
+  payableAmount?: number;
+  // 用户实际支付的金额
+  paidAmount?: number;
+  // 公证处物流信息
+  notaryExpressList?: ExpressInfo[];
+  // 发票物流信息
+  invoiceExpressList?: ExpressInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      payTime: 'pay_time',
+      previewTime: 'preview_time',
+      payStatus: 'pay_status',
+      materialRemarks: 'material_remarks',
+      notaryInfo: 'notary_info',
+      rejectInfo: 'reject_info',
+      terminalInfo: 'terminal_info',
+      payType: 'pay_type',
+      payableAmount: 'payable_amount',
+      paidAmount: 'paid_amount',
+      notaryExpressList: 'notary_express_list',
+      invoiceExpressList: 'invoice_express_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      payTime: 'number',
+      previewTime: 'number',
+      payStatus: 'string',
+      materialRemarks: 'string',
+      notaryInfo: NotaryInfo,
+      rejectInfo: RefuseInfo,
+      terminalInfo: RefuseInfo,
+      payType: 'string',
+      payableAmount: 'number',
+      paidAmount: 'number',
+      notaryExpressList: { 'type': 'array', 'itemType': ExpressInfo },
+      invoiceExpressList: { 'type': 'array', 'itemType': ExpressInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadNotaryAttachmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单ID
+  notaryOrderId: string;
+  // 材料文件
+  materialFileList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryOrderId: 'notary_order_id',
+      materialFileList: 'material_file_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryOrderId: 'string',
+      materialFileList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadNotaryAttachmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateNotaryOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单ID
+  notaryOrderId: string;
+  // 更新状态类型
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryOrderId: 'notary_order_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryOrderId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateNotaryOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5965,9 +7205,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.24",
-          _prod_code: "BCCR",
-          _prod_channel: "undefined",
+          sdk_version: "1.17.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -6790,6 +8028,158 @@ export default class Client {
   async refuseDciRegistrationEx(request: RefuseDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseDciRegistrationResponse> {
     Util.validateModel(request);
     return $tea.cast<RefuseDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefuseDciRegistrationResponse({}));
+  }
+
+  /**
+   * Description: 版权平台获取申办事由配置
+   * Summary: 获取申办事由配置
+   */
+  async queryNotaryBidreason(request: QueryNotaryBidreasonRequest): Promise<QueryNotaryBidreasonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNotaryBidreasonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 版权平台获取申办事由配置
+   * Summary: 获取申办事由配置
+   */
+  async queryNotaryBidreasonEx(request: QueryNotaryBidreasonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNotaryBidreasonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNotaryBidreasonResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.bidreason.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNotaryBidreasonResponse({}));
+  }
+
+  /**
+   * Description: 获取签署文件
+   * Summary: 获取签署文件
+   */
+  async queryNotaryDocumenttosign(request: QueryNotaryDocumenttosignRequest): Promise<QueryNotaryDocumenttosignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNotaryDocumenttosignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取签署文件
+   * Summary: 获取签署文件
+   */
+  async queryNotaryDocumenttosignEx(request: QueryNotaryDocumenttosignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNotaryDocumenttosignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNotaryDocumenttosignResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.documenttosign.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNotaryDocumenttosignResponse({}));
+  }
+
+  /**
+   * Description: 提交申办订单
+   * Summary: 提交申办订单
+   */
+  async applyNotaryOrder(request: ApplyNotaryOrderRequest): Promise<ApplyNotaryOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyNotaryOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交申办订单
+   * Summary: 提交申办订单
+   */
+  async applyNotaryOrderEx(request: ApplyNotaryOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyNotaryOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyNotaryOrderResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.order.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyNotaryOrderResponse({}));
+  }
+
+  /**
+   * Description: 公证出证重新获取支付链接
+   * Summary: 重新获取支付链接
+   */
+  async queryNotaryPayurl(request: QueryNotaryPayurlRequest): Promise<QueryNotaryPayurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNotaryPayurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公证出证重新获取支付链接
+   * Summary: 重新获取支付链接
+   */
+  async queryNotaryPayurlEx(request: QueryNotaryPayurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNotaryPayurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNotaryPayurlResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.payurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNotaryPayurlResponse({}));
+  }
+
+  /**
+   * Description: 公证出证获取收费标准和明细
+   * Summary: 获取收费标准和明细
+   */
+  async queryNotaryFeedetail(request: QueryNotaryFeedetailRequest): Promise<QueryNotaryFeedetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNotaryFeedetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公证出证获取收费标准和明细
+   * Summary: 获取收费标准和明细
+   */
+  async queryNotaryFeedetailEx(request: QueryNotaryFeedetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNotaryFeedetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNotaryFeedetailResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.feedetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNotaryFeedetailResponse({}));
+  }
+
+  /**
+   * Description: 公证出证查询申办订单接口
+   * Summary: 查询申办订单接口
+   */
+  async queryNotaryOrder(request: QueryNotaryOrderRequest): Promise<QueryNotaryOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNotaryOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公证出证查询申办订单接口
+   * Summary: 查询申办订单接口
+   */
+  async queryNotaryOrderEx(request: QueryNotaryOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNotaryOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNotaryOrderResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.order.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNotaryOrderResponse({}));
+  }
+
+  /**
+   * Description: 公证出证申请出证材料补齐
+   * Summary: 申请出证材料补齐
+   */
+  async uploadNotaryAttachment(request: UploadNotaryAttachmentRequest): Promise<UploadNotaryAttachmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadNotaryAttachmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公证出证申请出证材料补齐
+   * Summary: 申请出证材料补齐
+   */
+  async uploadNotaryAttachmentEx(request: UploadNotaryAttachmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadNotaryAttachmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadNotaryAttachmentResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.attachment.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadNotaryAttachmentResponse({}));
+  }
+
+  /**
+   * Description: 公证出证更新申办状态
+   * Summary: 更新申办状态
+   */
+  async operateNotaryOrder(request: OperateNotaryOrderRequest): Promise<OperateNotaryOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateNotaryOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公证出证更新申办状态
+   * Summary: 更新申办状态
+   */
+  async operateNotaryOrderEx(request: OperateNotaryOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateNotaryOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateNotaryOrderResponse>(await this.doRequest("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateNotaryOrderResponse({}));
   }
 
   /**
