@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
+    _prod_code = 'ak_ba5301f7d07245d1bd01dc432d3de4b1',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -391,5 +393,193 @@ async function batchcreateDemoSaasTestTestf(request: BatchcreateDemoSaasTestTest
 async function batchcreateDemoSaasTestTestfEx(request: BatchcreateDemoSaasTestTestfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateDemoSaasTestTestfResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenDemoSaasTestTestgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model OpenDemoSaasTestTestgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  sex?: string(name='sex'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function openDemoSaasTestTestg(request: OpenDemoSaasTestTestgRequest): OpenDemoSaasTestTestgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openDemoSaasTestTestgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function openDemoSaasTestTestgEx(request: OpenDemoSaasTestTestgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenDemoSaasTestTestgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testg.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDemoSaasTestTesthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model CreateDemoSaasTestTesthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  name?: string(name='name'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesth(request: CreateDemoSaasTestTesthRequest): CreateDemoSaasTestTesthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDemoSaasTestTesthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesthEx(request: CreateDemoSaasTestTesthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDemoSaasTestTesthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testh.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDemoSaasTestTestiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model CreateDemoSaasTestTestiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  sex?: string(name='sex'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesti(request: CreateDemoSaasTestTestiRequest): CreateDemoSaasTestTestiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDemoSaasTestTestiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTestiEx(request: CreateDemoSaasTestTestiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDemoSaasTestTestiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testi.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReplaceDemoSaasTestTestjRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model ReplaceDemoSaasTestTestjResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  age?: string(name='age'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function replaceDemoSaasTestTestj(request: ReplaceDemoSaasTestTestjRequest): ReplaceDemoSaasTestTestjResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return replaceDemoSaasTestTestjEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function replaceDemoSaasTestTestjEx(request: ReplaceDemoSaasTestTestjRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReplaceDemoSaasTestTestjResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testj.replace', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendDemoSaasTestTestkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  age: string(name='age'),
+}
+
+model SendDemoSaasTestTestkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  sex?: string(name='sex'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function sendDemoSaasTestTestk(request: SendDemoSaasTestTestkRequest): SendDemoSaasTestTestkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendDemoSaasTestTestkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function sendDemoSaasTestTestkEx(request: SendDemoSaasTestTestkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendDemoSaasTestTestkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testk.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
