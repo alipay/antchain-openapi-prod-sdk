@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.2',
+                    'sdk_version': '1.15.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.2',
+                    'sdk_version': '1.15.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3499,6 +3499,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.NotifyDubbridgeCallbackResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_repay_result(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayResultRequest,
+    ) -> riskplus_models.QueryDubbridgeRepayResultResponse:
+        """
+        Description: 2.12	天枢系统还款信息查询V2.0
+        Summary: 2.12 天枢系统还款信息查询V2.0
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_repay_result_ex(request, headers, runtime)
+
+    async def query_dubbridge_repay_result_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayResultRequest,
+    ) -> riskplus_models.QueryDubbridgeRepayResultResponse:
+        """
+        Description: 2.12	天枢系统还款信息查询V2.0
+        Summary: 2.12 天枢系统还款信息查询V2.0
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_repay_result_ex_async(request, headers, runtime)
+
+    def query_dubbridge_repay_result_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepayResultResponse:
+        """
+        Description: 2.12	天枢系统还款信息查询V2.0
+        Summary: 2.12 天枢系统还款信息查询V2.0
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayResultResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repay.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_repay_result_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepayResultResponse:
+        """
+        Description: 2.12	天枢系统还款信息查询V2.0
+        Summary: 2.12 天枢系统还款信息查询V2.0
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayResultResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repay.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
