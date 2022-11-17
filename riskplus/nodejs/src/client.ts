@@ -1274,6 +1274,59 @@ export class RiskData extends $tea.Model {
   }
 }
 
+// 还款信息列表
+export class RepayInfos extends $tea.Model {
+  // 期次
+  period: number;
+  // 实还总额
+  amount: number;
+  // 实还本金
+  principal: number;
+  // 实还利息
+  interest: number;
+  // 实还通道手续费
+  channelAmt: number;
+  // 实还手续费
+  fee: number;
+  // 实收罚息
+  punish: number;
+  // 担保费
+  guaranteeFee: number;
+  // 违约金
+  liquidatedDamages: number;
+  static names(): { [key: string]: string } {
+    return {
+      period: 'period',
+      amount: 'amount',
+      principal: 'principal',
+      interest: 'interest',
+      channelAmt: 'channel_amt',
+      fee: 'fee',
+      punish: 'punish',
+      guaranteeFee: 'guarantee_fee',
+      liquidatedDamages: 'liquidated_damages',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      period: 'number',
+      amount: 'number',
+      principal: 'number',
+      interest: 'number',
+      channelAmt: 'number',
+      fee: 'number',
+      punish: 'number',
+      guaranteeFee: 'number',
+      liquidatedDamages: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 安全数据服务请求参数
 export class SecurityDataQueryStruct extends $tea.Model {
   // 请求数据参数
@@ -6493,6 +6546,8 @@ export class UpdateDubbridgeInstitutionCreditRequest extends $tea.Model {
   extInfoTs: string;
   // 扩展信息，json格式
   extInfo: string;
+  // 授信有效期-申请调整值，机构发起授信有效期更新场景下有值
+  creditExpireDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6509,6 +6564,7 @@ export class UpdateDubbridgeInstitutionCreditRequest extends $tea.Model {
       reasonMsg: 'reason_msg',
       extInfoTs: 'ext_info_ts',
       extInfo: 'ext_info',
+      creditExpireDate: 'credit_expire_date',
     };
   }
 
@@ -6528,6 +6584,7 @@ export class UpdateDubbridgeInstitutionCreditRequest extends $tea.Model {
       reasonMsg: 'string',
       extInfoTs: 'string',
       extInfo: 'string',
+      creditExpireDate: 'string',
     };
   }
 
@@ -8216,6 +8273,110 @@ export class NotifyDubbridgeCallbackResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: CommonNotyfyResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayResultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 123
+  originalOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      originalOrderNo: 'original_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      originalOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayResultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款编号
+  repayNo?: string;
+  // 借据编号
+  receiptNo?: string;
+  // 客户编号
+  customNo?: string;
+  // 还款类型
+  // 1: 全部结清，
+  // 2：正常还款
+  // 3：当期结清
+  // 4：逾期还款
+  // 
+  repayType?: string;
+  // 还款标志
+  // 1 线下还款 
+  // 2 用户主动还款
+  // 3 系统代扣
+  // 
+  repaySign?: string;
+  // 还款账户
+  repayAccount?: string;
+  // 还款状态
+  repayStatus?: string;
+  // 失败原因
+  failReason?: string;
+  // 还款信息列表
+  repayInfos?: RepayInfos;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayNo: 'repay_no',
+      receiptNo: 'receipt_no',
+      customNo: 'custom_no',
+      repayType: 'repay_type',
+      repaySign: 'repay_sign',
+      repayAccount: 'repay_account',
+      repayStatus: 'repay_status',
+      failReason: 'fail_reason',
+      repayInfos: 'repay_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayNo: 'string',
+      receiptNo: 'string',
+      customNo: 'string',
+      repayType: 'string',
+      repaySign: 'string',
+      repayAccount: 'string',
+      repayStatus: 'string',
+      failReason: 'string',
+      repayInfos: RepayInfos,
     };
   }
 
@@ -12411,10 +12572,6 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
   // 后续支持
   // DEVICE_MD5
   fileTemplate: string;
-  // 外部流水号
-  outSerialNo: string;
-  // 外部透传字段
-  outInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12425,8 +12582,6 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
       sceneStrategyId: 'scene_strategy_id',
       execTime: 'exec_time',
       fileTemplate: 'file_template',
-      outSerialNo: 'out_serial_no',
-      outInfo: 'out_info',
     };
   }
 
@@ -12440,8 +12595,6 @@ export class UploadUmktParamsFileRequest extends $tea.Model {
       sceneStrategyId: 'number',
       execTime: 'string',
       fileTemplate: 'string',
-      outSerialNo: 'string',
-      outInfo: 'string',
     };
   }
 
@@ -13883,7 +14036,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.2",
+          sdk_version: "1.15.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -15033,6 +15186,25 @@ export default class Client {
   async notifyDubbridgeCallbackEx(request: NotifyDubbridgeCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDubbridgeCallbackResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyDubbridgeCallbackResponse>(await this.doRequest("1.0", "riskplus.dubbridge.callback.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDubbridgeCallbackResponse({}));
+  }
+
+  /**
+   * Description: 2.12	天枢系统还款信息查询V2.0
+   * Summary: 2.12 天枢系统还款信息查询V2.0
+   */
+  async queryDubbridgeRepayResult(request: QueryDubbridgeRepayResultRequest): Promise<QueryDubbridgeRepayResultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepayResultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 2.12	天枢系统还款信息查询V2.0
+   * Summary: 2.12 天枢系统还款信息查询V2.0
+   */
+  async queryDubbridgeRepayResultEx(request: QueryDubbridgeRepayResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepayResultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepayResultResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepayResultResponse({}));
   }
 
   /**
