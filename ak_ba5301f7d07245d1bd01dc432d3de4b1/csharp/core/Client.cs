@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ba5301f7d07245d1bd01dc432d3de4b1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_ba5301f7d07245d1bd01dc432d3de4b1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,90 @@ namespace AntChain.SDK.Ak_ba5301f7d07245d1bd01dc432d3de4b1
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 对账单执行
+         * Summary: 对账单执行接口
+         */
+        public ExecAntchainBbpContractReconciliationResponse ExecAntchainBbpContractReconciliation(ExecAntchainBbpContractReconciliationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntchainBbpContractReconciliationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对账单执行
+         * Summary: 对账单执行接口
+         */
+        public async Task<ExecAntchainBbpContractReconciliationResponse> ExecAntchainBbpContractReconciliationAsync(ExecAntchainBbpContractReconciliationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntchainBbpContractReconciliationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对账单执行
+         * Summary: 对账单执行接口
+         */
+        public ExecAntchainBbpContractReconciliationResponse ExecAntchainBbpContractReconciliationEx(ExecAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntchainBbpContractReconciliationResponse>(DoRequest("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对账单执行
+         * Summary: 对账单执行接口
+         */
+        public async Task<ExecAntchainBbpContractReconciliationResponse> ExecAntchainBbpContractReconciliationExAsync(ExecAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntchainBbpContractReconciliationResponse>(await DoRequestAsync("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 结算单确认
+         * Summary: 结算单确认
+         */
+        public ConfirmAntchainBbpContractReconciliationResponse ConfirmAntchainBbpContractReconciliation(ConfirmAntchainBbpContractReconciliationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmAntchainBbpContractReconciliationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 结算单确认
+         * Summary: 结算单确认
+         */
+        public async Task<ConfirmAntchainBbpContractReconciliationResponse> ConfirmAntchainBbpContractReconciliationAsync(ConfirmAntchainBbpContractReconciliationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmAntchainBbpContractReconciliationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 结算单确认
+         * Summary: 结算单确认
+         */
+        public ConfirmAntchainBbpContractReconciliationResponse ConfirmAntchainBbpContractReconciliationEx(ConfirmAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAntchainBbpContractReconciliationResponse>(DoRequest("1.0", "antchain.bbp.contract.reconciliation.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 结算单确认
+         * Summary: 结算单确认
+         */
+        public async Task<ConfirmAntchainBbpContractReconciliationResponse> ConfirmAntchainBbpContractReconciliationExAsync(ConfirmAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAntchainBbpContractReconciliationResponse>(await DoRequestAsync("1.0", "antchain.bbp.contract.reconciliation.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
