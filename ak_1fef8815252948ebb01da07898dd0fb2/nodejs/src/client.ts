@@ -1046,6 +1046,65 @@ export class QueryDemoSaasTestTestaResponse extends $tea.Model {
   }
 }
 
+export class ResetDemoSaasTestTestdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // test
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetDemoSaasTestTestdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // test
+  age?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      age: 'age',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      age: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1159,7 +1218,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
+          _prod_code: "ak_1fef8815252948ebb01da07898dd0fb2",
+          _prod_channel: "saas",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1376,6 +1437,25 @@ export default class Client {
   async queryDemoSaasTestTestaEx(request: QueryDemoSaasTestTestaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoSaasTestTestaResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDemoSaasTestTestaResponse>(await this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse({}));
+  }
+
+  /**
+   * Description: 共享能力租户流量测试
+   * Summary: 共享能力租户流量测试
+   */
+  async resetDemoSaasTestTestd(request: ResetDemoSaasTestTestdRequest): Promise<ResetDemoSaasTestTestdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetDemoSaasTestTestdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 共享能力租户流量测试
+   * Summary: 共享能力租户流量测试
+   */
+  async resetDemoSaasTestTestdEx(request: ResetDemoSaasTestTestdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetDemoSaasTestTestdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetDemoSaasTestTestdResponse>(await this.doRequest("1.0", "demo.saas.test.testd.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetDemoSaasTestTestdResponse({}));
   }
 
 }
