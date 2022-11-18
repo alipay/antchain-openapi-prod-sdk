@@ -77,29 +77,23 @@ export class Config extends $tea.Model {
   }
 }
 
-export class QueryDemoSaasTestTestaRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 张三
+// 键值对，兼容map用
+export class NameValuePair extends $tea.Model {
+  // 键名
   name: string;
-  // 12
-  age: number;
+  // 键值
+  value: string;
   static names(): { [key: string]: string } {
     return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
       name: 'name',
-      age: 'age',
+      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      authToken: 'string',
-      productInstanceId: 'string',
       name: 'string',
-      age: 'number',
+      value: 'string',
     };
   }
 
@@ -108,21 +102,82 @@ export class QueryDemoSaasTestTestaRequest extends $tea.Model {
   }
 }
 
-export class QueryDemoSaasTestTestaResponse extends $tea.Model {
+// Map<String,Object> 集合
+export class QueryMap extends $tea.Model {
+  // 键值
+  name: string;
+  // 额外用户信息
+  value?: NameValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: { 'type': 'array', 'itemType': NameValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDemoBbpInsuranceUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保司编码
+  businessCode: string;
+  // 第三方id，此处为天猫uid
+  thirdPartId: string;
+  // 来源渠道
+  channel: string;
+  // 埋点信息
+  burieds?: QueryMap;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessCode: 'business_code',
+      thirdPartId: 'third_part_id',
+      channel: 'channel',
+      burieds: 'burieds',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessCode: 'string',
+      thirdPartId: 'string',
+      channel: 'string',
+      burieds: QueryMap,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDemoBbpInsuranceUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 男
-  sex?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      sex: 'sex',
     };
   }
 
@@ -131,7 +186,57 @@ export class QueryDemoSaasTestTestaResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      sex: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoAsdAsdAsdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoAsdAsdAsdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -253,9 +358,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
-          _prod_code: "ak_c75d697815774ee8883d4fc42238b22a",
-          _prod_channel: "saas",
+          sdk_version: "1.0.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -302,22 +405,41 @@ export default class Client {
   }
 
   /**
-   * Description: testa
-   * Summary: 测试用api
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
    */
-  async queryDemoSaasTestTesta(request: QueryDemoSaasTestTestaRequest): Promise<QueryDemoSaasTestTestaResponse> {
+  async initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest): Promise<InitDemoBbpInsuranceUserResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryDemoSaasTestTestaEx(request, headers, runtime);
+    return await this.initDemoBbpInsuranceUserEx(request, headers, runtime);
   }
 
   /**
-   * Description: testa
-   * Summary: 测试用api
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
    */
-  async queryDemoSaasTestTestaEx(request: QueryDemoSaasTestTestaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoSaasTestTestaResponse> {
+  async initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDemoBbpInsuranceUserResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryDemoSaasTestTestaResponse>(await this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse({}));
+    return $tea.cast<InitDemoBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse({}));
+  }
+
+  /**
+   * Description: asd
+   * Summary: asd
+   */
+  async bindDemoAsdAsdAsd(request: BindDemoAsdAsdAsdRequest): Promise<BindDemoAsdAsdAsdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindDemoAsdAsdAsdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: asd
+   * Summary: asd
+   */
+  async bindDemoAsdAsdAsdEx(request: BindDemoAsdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAsdAsdAsdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindDemoAsdAsdAsdResponse>(await this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse({}));
   }
 
 }
