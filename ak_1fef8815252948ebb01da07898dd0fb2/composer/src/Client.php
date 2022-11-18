@@ -29,6 +29,8 @@ use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\QueryAntchainBbpCustomer
 use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\QueryAntchainBbpCustomerResponse;
 use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\QueryDemoSaasTestTestaResponse;
+use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\ResetDemoSaasTestTestdRequest;
+use AntChain\Ak_1fef8815252948ebb01da07898dd0fb2\Models\ResetDemoSaasTestTestdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -176,7 +178,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
+                    '_prod_code'       => 'ak_1fef8815252948ebb01da07898dd0fb2',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -517,5 +521,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoSaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ResetDemoSaasTestTestdRequest $request
+     *
+     * @return ResetDemoSaasTestTestdResponse
+     */
+    public function resetDemoSaasTestTestd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetDemoSaasTestTestdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ResetDemoSaasTestTestdRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ResetDemoSaasTestTestdResponse
+     */
+    public function resetDemoSaasTestTestdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetDemoSaasTestTestdResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testd.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
