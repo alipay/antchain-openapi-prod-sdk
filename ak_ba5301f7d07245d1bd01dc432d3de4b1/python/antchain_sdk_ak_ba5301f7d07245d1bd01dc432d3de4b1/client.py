@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 对账单
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -210,7 +211,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 对账单
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -268,6 +270,118 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def exec_antchain_bbp_contract_reconciliation(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
+
+    async def exec_antchain_bbp_contract_reconciliation_async(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
+
+    def exec_antchain_bbp_contract_reconciliation_ex(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antchain_bbp_contract_reconciliation_ex_async(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ExecAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_antchain_bbp_contract_reconciliation(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationRequest,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse:
+        """
+        Description: 结算单确认
+        Summary: 结算单确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
+
+    async def confirm_antchain_bbp_contract_reconciliation_async(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationRequest,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse:
+        """
+        Description: 结算单确认
+        Summary: 结算单确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
+
+    def confirm_antchain_bbp_contract_reconciliation_ex(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse:
+        """
+        Description: 结算单确认
+        Summary: 结算单确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_antchain_bbp_contract_reconciliation_ex_async(
+        self,
+        request: ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse:
+        """
+        Description: 结算单确认
+        Summary: 结算单确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ba_5301f_7d_07245d_1bd_01dc_432d_3de_4b_1_models.ConfirmAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def publish_demo_saas_test_testc(
         self,
