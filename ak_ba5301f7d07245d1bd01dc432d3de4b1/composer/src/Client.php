@@ -13,10 +13,14 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\BatchcreateDemoSaasTestTestfRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\BatchcreateDemoSaasTestTestfResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ConfirmAntchainBbpContractReconciliationRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ConfirmAntchainBbpContractReconciliationResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiResponse;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ExecAntchainBbpContractReconciliationRequest;
+use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ExecAntchainBbpContractReconciliationResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OperateDemoSaasTestTesteRequest;
@@ -148,6 +152,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 对账单
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -175,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -219,6 +224,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口.
+     *
+     * @param ExecAntchainBbpContractReconciliationRequest $request
+     *
+     * @return ExecAntchainBbpContractReconciliationResponse
+     */
+    public function execAntchainBbpContractReconciliation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口.
+     *
+     * @param ExecAntchainBbpContractReconciliationRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return ExecAntchainBbpContractReconciliationResponse
+     */
+    public function execAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 结算单确认
+     * Summary: 结算单确认.
+     *
+     * @param ConfirmAntchainBbpContractReconciliationRequest $request
+     *
+     * @return ConfirmAntchainBbpContractReconciliationResponse
+     */
+    public function confirmAntchainBbpContractReconciliation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 结算单确认
+     * Summary: 结算单确认.
+     *
+     * @param ConfirmAntchainBbpContractReconciliationRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return ConfirmAntchainBbpContractReconciliationResponse
+     */
+    public function confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
