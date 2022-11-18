@@ -137,7 +137,9 @@ namespace AntChain.SDK.Ak_1fef8815252948ebb01da07898dd0fb2
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
+                        {"_prod_code", "ak_1fef8815252948ebb01da07898dd0fb2"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.Ak_1fef8815252948ebb01da07898dd0fb2
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
+                        {"_prod_code", "ak_1fef8815252948ebb01da07898dd0fb2"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -697,6 +701,48 @@ namespace AntChain.SDK.Ak_1fef8815252948ebb01da07898dd0fb2
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoSaasTestTestaResponse>(await DoRequestAsync("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public ResetDemoSaasTestTestdResponse ResetDemoSaasTestTestd(ResetDemoSaasTestTestdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetDemoSaasTestTestdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public async Task<ResetDemoSaasTestTestdResponse> ResetDemoSaasTestTestdAsync(ResetDemoSaasTestTestdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetDemoSaasTestTestdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public ResetDemoSaasTestTestdResponse ResetDemoSaasTestTestdEx(ResetDemoSaasTestTestdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetDemoSaasTestTestdResponse>(DoRequest("1.0", "demo.saas.test.testd.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public async Task<ResetDemoSaasTestTestdResponse> ResetDemoSaasTestTestdExAsync(ResetDemoSaasTestTestdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetDemoSaasTestTestdResponse>(await DoRequestAsync("1.0", "demo.saas.test.testd.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
