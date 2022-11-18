@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
-    _prod_code = 'ak_ba5301f7d07245d1bd01dc432d3de4b1',
-    _prod_channel = 'saas'
+    sdk_version = '1.0.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,86 +157,6 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
-}
-
-model QueryDemoSaasTestTestaRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 张三
-  name: string(name='name'),
-  // 12
-  age: long(name='age'),
-}
-
-model QueryDemoSaasTestTestaResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 男
-  sex?: string(name='sex'),
-}
-
-/**
- * Description: testa
- * Summary: 测试用api
- */
-async function queryDemoSaasTestTesta(request: QueryDemoSaasTestTestaRequest): QueryDemoSaasTestTestaResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoSaasTestTestaEx(request, headers, runtime);
-}
-
-/**
- * Description: testa
- * Summary: 测试用api
- */
-async function queryDemoSaasTestTestaEx(request: QueryDemoSaasTestTestaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoSaasTestTestaResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.saas.test.testa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ImportDemoSaasTestTestbRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 李四
-  name: string(name='name'),
-  // 18
-  age: long(name='age'),
-}
-
-model ImportDemoSaasTestTestbResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 男
-  sex?: string(name='sex'),
-}
-
-/**
- * Description: testB
- * Summary: 测试用api
- */
-async function importDemoSaasTestTestb(request: ImportDemoSaasTestTestbRequest): ImportDemoSaasTestTestbResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return importDemoSaasTestTestbEx(request, headers, runtime);
-}
-
-/**
- * Description: testB
- * Summary: 测试用api
- */
-async function importDemoSaasTestTestbEx(request: ImportDemoSaasTestTestbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDemoSaasTestTestbResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.saas.test.testb.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishDemoSaasTestTestcRequest = {
