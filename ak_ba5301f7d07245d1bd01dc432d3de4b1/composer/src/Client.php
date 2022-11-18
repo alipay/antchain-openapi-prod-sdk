@@ -17,16 +17,12 @@ use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthR
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTesthResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\CreateDemoSaasTestTestiResponse;
-use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ImportDemoSaasTestTestbRequest;
-use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ImportDemoSaasTestTestbResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OpenDemoSaasTestTestgResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OperateDemoSaasTestTesteRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\OperateDemoSaasTestTesteResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\PublishDemoSaasTestTestcRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\PublishDemoSaasTestTestcResponse;
-use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\QueryDemoSaasTestTestaRequest;
-use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\QueryDemoSaasTestTestaResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ReplaceDemoSaasTestTestjRequest;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ReplaceDemoSaasTestTestjResponse;
 use AntChain\Ak_ba5301f7d07245d1bd01dc432d3de4b1\Models\ResetDemoSaasTestTestdRequest;
@@ -179,9 +175,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
-                    '_prod_code'       => 'ak_ba5301f7d07245d1bd01dc432d3de4b1',
-                    '_prod_channel'    => 'saas',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -225,72 +219,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: testa
-     * Summary: 测试用api.
-     *
-     * @param QueryDemoSaasTestTestaRequest $request
-     *
-     * @return QueryDemoSaasTestTestaResponse
-     */
-    public function queryDemoSaasTestTesta($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoSaasTestTestaEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: testa
-     * Summary: 测试用api.
-     *
-     * @param QueryDemoSaasTestTestaRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return QueryDemoSaasTestTestaResponse
-     */
-    public function queryDemoSaasTestTestaEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoSaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: testB
-     * Summary: 测试用api.
-     *
-     * @param ImportDemoSaasTestTestbRequest $request
-     *
-     * @return ImportDemoSaasTestTestbResponse
-     */
-    public function importDemoSaasTestTestb($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->importDemoSaasTestTestbEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: testB
-     * Summary: 测试用api.
-     *
-     * @param ImportDemoSaasTestTestbRequest $request
-     * @param string[]                       $headers
-     * @param RuntimeOptions                 $runtime
-     *
-     * @return ImportDemoSaasTestTestbResponse
-     */
-    public function importDemoSaasTestTestbEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ImportDemoSaasTestTestbResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
