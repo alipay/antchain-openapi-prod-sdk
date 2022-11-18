@@ -148,6 +148,263 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 对账单
+type Reconciliation struct {
+	// 供应商
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 供应商名称
+	SupName *string `json:"sup_name,omitempty" xml:"sup_name,omitempty" require:"true"`
+	// 结算金额(单位分)
+	SettlementAmount *int64 `json:"settlement_amount,omitempty" xml:"settlement_amount,omitempty" require:"true"`
+	// 长城确认时间
+	ConfirmDateGw *string `json:"confirm_date_gw,omitempty" xml:"confirm_date_gw,omitempty" require:"true"`
+	// 长城方确认人
+	ConfirmerGw *string `json:"confirmer_gw,omitempty" xml:"confirmer_gw,omitempty" require:"true"`
+	// 长城确认状态
+	ConfirmStateGw *string `json:"confirm_state_gw,omitempty" xml:"confirm_state_gw,omitempty" require:"true"`
+	// 服务方确认时间
+	ConfirmDateSup *string `json:"confirm_date_sup,omitempty" xml:"confirm_date_sup,omitempty" require:"true"`
+	// 服务方确认人
+	ConfirmerSup *string `json:"confirmer_sup,omitempty" xml:"confirmer_sup,omitempty" require:"true"`
+	// 服务方确认状态
+	ConfirmStateSup *string `json:"confirm_state_sup,omitempty" xml:"confirm_state_sup,omitempty" require:"true"`
+	// 计算时间
+	SocreDate *string `json:"socre_date,omitempty" xml:"socre_date,omitempty" require:"true"`
+}
+
+func (s Reconciliation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Reconciliation) GoString() string {
+	return s.String()
+}
+
+func (s *Reconciliation) SetSupCode(v string) *Reconciliation {
+	s.SupCode = &v
+	return s
+}
+
+func (s *Reconciliation) SetSupName(v string) *Reconciliation {
+	s.SupName = &v
+	return s
+}
+
+func (s *Reconciliation) SetSettlementAmount(v int64) *Reconciliation {
+	s.SettlementAmount = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmDateGw(v string) *Reconciliation {
+	s.ConfirmDateGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmerGw(v string) *Reconciliation {
+	s.ConfirmerGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmStateGw(v string) *Reconciliation {
+	s.ConfirmStateGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmDateSup(v string) *Reconciliation {
+	s.ConfirmDateSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmerSup(v string) *Reconciliation {
+	s.ConfirmerSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmStateSup(v string) *Reconciliation {
+	s.ConfirmStateSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetSocreDate(v string) *Reconciliation {
+	s.SocreDate = &v
+	return s
+}
+
+type ExecAntchainBbpContractReconciliationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 供应商
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 结算时间
+	ScoreDate *string `json:"score_date,omitempty" xml:"score_date,omitempty" require:"true"`
+}
+
+func (s ExecAntchainBbpContractReconciliationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainBbpContractReconciliationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetAuthToken(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetProductInstanceId(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetSupCode(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.SupCode = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetScoreDate(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.ScoreDate = &v
+	return s
+}
+
+type ExecAntchainBbpContractReconciliationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结算单
+	Reconciliation *Reconciliation `json:"reconciliation,omitempty" xml:"reconciliation,omitempty"`
+}
+
+func (s ExecAntchainBbpContractReconciliationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainBbpContractReconciliationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetReqMsgId(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetResultCode(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetResultMsg(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetReconciliation(v *Reconciliation) *ExecAntchainBbpContractReconciliationResponse {
+	s.Reconciliation = v
+	return s
+}
+
+type ConfirmAntchainBbpContractReconciliationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务商
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 确认时间
+	SocreDate *string `json:"socre_date,omitempty" xml:"socre_date,omitempty" require:"true"`
+	// 确认类型：1、长城  2、服务方
+	ConfirmType *string `json:"confirm_type,omitempty" xml:"confirm_type,omitempty" require:"true"`
+	// 确认者
+	Confirmer *string `json:"confirmer,omitempty" xml:"confirmer,omitempty" require:"true"`
+	// 认证状态
+	ConfirmStatus *string `json:"confirm_status,omitempty" xml:"confirm_status,omitempty" require:"true"`
+}
+
+func (s ConfirmAntchainBbpContractReconciliationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmAntchainBbpContractReconciliationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetAuthToken(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetProductInstanceId(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetSupCode(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.SupCode = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetSocreDate(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.SocreDate = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetConfirmType(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.ConfirmType = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetConfirmer(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.Confirmer = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationRequest) SetConfirmStatus(v string) *ConfirmAntchainBbpContractReconciliationRequest {
+	s.ConfirmStatus = &v
+	return s
+}
+
+type ConfirmAntchainBbpContractReconciliationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结算单
+	Reconciliation *Reconciliation `json:"reconciliation,omitempty" xml:"reconciliation,omitempty"`
+}
+
+func (s ConfirmAntchainBbpContractReconciliationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmAntchainBbpContractReconciliationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationResponse) SetReqMsgId(v string) *ConfirmAntchainBbpContractReconciliationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationResponse) SetResultCode(v string) *ConfirmAntchainBbpContractReconciliationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationResponse) SetResultMsg(v string) *ConfirmAntchainBbpContractReconciliationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmAntchainBbpContractReconciliationResponse) SetReconciliation(v *Reconciliation) *ConfirmAntchainBbpContractReconciliationResponse {
+	s.Reconciliation = v
+	return s
+}
+
 type PublishDemoSaasTestTestcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -900,7 +1157,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -954,6 +1211,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
+ */
+func (client *Client) ExecAntchainBbpContractReconciliation(request *ExecAntchainBbpContractReconciliationRequest) (_result *ExecAntchainBbpContractReconciliationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.ExecAntchainBbpContractReconciliationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
+ */
+func (client *Client) ExecAntchainBbpContractReconciliationEx(request *ExecAntchainBbpContractReconciliationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntchainBbpContractReconciliationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.reconciliation.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 结算单确认
+ * Summary: 结算单确认
+ */
+func (client *Client) ConfirmAntchainBbpContractReconciliation(request *ConfirmAntchainBbpContractReconciliationRequest) (_result *ConfirmAntchainBbpContractReconciliationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.ConfirmAntchainBbpContractReconciliationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 结算单确认
+ * Summary: 结算单确认
+ */
+func (client *Client) ConfirmAntchainBbpContractReconciliationEx(request *ConfirmAntchainBbpContractReconciliationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmAntchainBbpContractReconciliationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.reconciliation.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
