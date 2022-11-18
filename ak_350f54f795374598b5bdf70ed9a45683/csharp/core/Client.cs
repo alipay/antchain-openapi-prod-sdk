@@ -137,9 +137,7 @@ namespace AntChain.SDK.Ak_350f54f795374598b5bdf70ed9a45683
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
-                        {"_prod_code", "ak_350f54f795374598b5bdf70ed9a45683"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.Ak_350f54f795374598b5bdf70ed9a45683
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
-                        {"_prod_code", "ak_350f54f795374598b5bdf70ed9a45683"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -322,6 +318,48 @@ namespace AntChain.SDK.Ak_350f54f795374598b5bdf70ed9a45683
         }
 
         /**
+         * Description: 自动化测试创建
+         * Summary: 自动化测试创建
+         */
+        public BindDemoAaaBbbCccResponse BindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindDemoAaaBbbCccEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化测试创建
+         * Summary: 自动化测试创建
+         */
+        public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccAsync(BindDemoAaaBbbCccRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindDemoAaaBbbCccExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化测试创建
+         * Summary: 自动化测试创建
+         */
+        public BindDemoAaaBbbCccResponse BindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(DoRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化测试创建
+         * Summary: 自动化测试创建
+         */
+        public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccExAsync(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(await DoRequestAsync("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: testa
          * Summary: 测试用api
          */
@@ -361,6 +399,48 @@ namespace AntChain.SDK.Ak_350f54f795374598b5bdf70ed9a45683
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoSaasTestTestaResponse>(await DoRequestAsync("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: testB
+         * Summary: 测试用api
+         */
+        public ImportDemoSaasTestTestbResponse ImportDemoSaasTestTestb(ImportDemoSaasTestTestbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportDemoSaasTestTestbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: testB
+         * Summary: 测试用api
+         */
+        public async Task<ImportDemoSaasTestTestbResponse> ImportDemoSaasTestTestbAsync(ImportDemoSaasTestTestbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportDemoSaasTestTestbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: testB
+         * Summary: 测试用api
+         */
+        public ImportDemoSaasTestTestbResponse ImportDemoSaasTestTestbEx(ImportDemoSaasTestTestbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDemoSaasTestTestbResponse>(DoRequest("1.0", "demo.saas.test.testb.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: testB
+         * Summary: 测试用api
+         */
+        public async Task<ImportDemoSaasTestTestbResponse> ImportDemoSaasTestTestbExAsync(ImportDemoSaasTestTestbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportDemoSaasTestTestbResponse>(await DoRequestAsync("1.0", "demo.saas.test.testb.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
