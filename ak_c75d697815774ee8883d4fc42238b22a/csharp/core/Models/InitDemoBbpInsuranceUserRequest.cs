@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_c75d697815774ee8883d4fc42238b22a.Models
 {
-    public class QueryDemoSaasTestTestaRequest : TeaModel {
+    public class InitDemoBbpInsuranceUserRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,25 @@ namespace AntChain.SDK.Ak_c75d697815774ee8883d4fc42238b22a.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 张三
-        [NameInMap("name")]
+        // 保司编码
+        [NameInMap("business_code")]
         [Validation(Required=true)]
-        public string Name { get; set; }
+        public string BusinessCode { get; set; }
 
-        // 12
-        [NameInMap("age")]
+        // 第三方id，此处为天猫uid
+        [NameInMap("third_part_id")]
         [Validation(Required=true)]
-        public long? Age { get; set; }
+        public string ThirdPartId { get; set; }
+
+        // 来源渠道
+        [NameInMap("channel")]
+        [Validation(Required=true)]
+        public string Channel { get; set; }
+
+        // 埋点信息
+        [NameInMap("burieds")]
+        [Validation(Required=false)]
+        public QueryMap Burieds { get; set; }
 
     }
 
