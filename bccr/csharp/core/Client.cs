@@ -137,9 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.14"},
-                        {"_prod_code", "BCCR"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.17.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.14"},
-                        {"_prod_code", "BCCR"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.17.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
