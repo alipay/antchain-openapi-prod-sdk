@@ -134,7 +134,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_10abee70bc4f4d4d90334ebfb4895c12',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +237,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_10abee70bc4f4d4d90334ebfb4895c12',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -269,58 +273,58 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def query_demo_saas_test_testa(
+    def import_demo_saas_test_testb(
         self,
-        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaRequest,
-    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse:
+        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbRequest,
+    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse:
         """
-        Description: testa
+        Description: testB
         Summary: 测试用api
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_saas_test_testa_ex(request, headers, runtime)
+        return self.import_demo_saas_test_testb_ex(request, headers, runtime)
 
-    async def query_demo_saas_test_testa_async(
+    async def import_demo_saas_test_testb_async(
         self,
-        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaRequest,
-    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse:
+        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbRequest,
+    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse:
         """
-        Description: testa
+        Description: testB
         Summary: 测试用api
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_saas_test_testa_ex_async(request, headers, runtime)
+        return await self.import_demo_saas_test_testb_ex_async(request, headers, runtime)
 
-    def query_demo_saas_test_testa_ex(
+    def import_demo_saas_test_testb_ex(
         self,
-        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaRequest,
+        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse:
+    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse:
         """
-        Description: testa
+        Description: testB
         Summary: 测试用api
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse(),
-            self.do_request('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse(),
+            self.do_request('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_saas_test_testa_ex_async(
+    async def import_demo_saas_test_testb_ex_async(
         self,
-        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaRequest,
+        request: ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse:
+    ) -> ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse:
         """
-        Description: testa
+        Description: testB
         Summary: 测试用api
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.QueryDemoSaasTestTestaResponse(),
-            await self.do_request_async('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__10abee_70bc_4f_4d_4d_90334ebfb_4895c_12_models.ImportDemoSaasTestTestbResponse(),
+            await self.do_request_async('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

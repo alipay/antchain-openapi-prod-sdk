@@ -153,7 +153,7 @@ class Config(TeaModel):
         return self
 
 
-class QueryDemoSaasTestTestaRequest(TeaModel):
+class ImportDemoSaasTestTestbRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -164,9 +164,9 @@ class QueryDemoSaasTestTestaRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 张三
+        # 李四
         self.name = name
-        # 12
+        # 18
         self.age = age
 
     def validate(self):
@@ -202,7 +202,7 @@ class QueryDemoSaasTestTestaRequest(TeaModel):
         return self
 
 
-class QueryDemoSaasTestTestaResponse(TeaModel):
+class ImportDemoSaasTestTestbResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
