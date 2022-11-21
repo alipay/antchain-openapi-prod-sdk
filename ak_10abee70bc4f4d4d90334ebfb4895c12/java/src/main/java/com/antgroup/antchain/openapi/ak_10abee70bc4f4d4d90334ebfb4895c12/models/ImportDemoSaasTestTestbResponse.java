@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_10abee70bc4f4d4d90334ebfb4895c12.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoSaasTestTestaResponse extends TeaModel {
+public class ImportDemoSaasTestTestbResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
     @NameInMap("sex")
     public String sex;
 
-    public static QueryDemoSaasTestTestaResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoSaasTestTestaResponse self = new QueryDemoSaasTestTestaResponse();
+    public static ImportDemoSaasTestTestbResponse build(java.util.Map<String, ?> map) throws Exception {
+        ImportDemoSaasTestTestbResponse self = new ImportDemoSaasTestTestbResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoSaasTestTestaResponse setReqMsgId(String reqMsgId) {
+    public ImportDemoSaasTestTestbResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoSaasTestTestaResponse setResultCode(String resultCode) {
+    public ImportDemoSaasTestTestbResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoSaasTestTestaResponse setResultMsg(String resultMsg) {
+    public ImportDemoSaasTestTestbResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDemoSaasTestTestaResponse setSex(String sex) {
+    public ImportDemoSaasTestTestbResponse setSex(String sex) {
         this.sex = sex;
         return this;
     }

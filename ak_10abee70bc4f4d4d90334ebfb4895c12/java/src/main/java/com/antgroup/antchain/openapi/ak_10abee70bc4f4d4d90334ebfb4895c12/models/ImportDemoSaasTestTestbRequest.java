@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_10abee70bc4f4d4d90334ebfb4895c12.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoSaasTestTestaRequest extends TeaModel {
+public class ImportDemoSaasTestTestbRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,22 +11,22 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 张三
+    // 李四
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // 12
+    // 18
     @NameInMap("age")
     @Validation(required = true)
     public Long age;
 
-    public static QueryDemoSaasTestTestaRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoSaasTestTestaRequest self = new QueryDemoSaasTestTestaRequest();
+    public static ImportDemoSaasTestTestbRequest build(java.util.Map<String, ?> map) throws Exception {
+        ImportDemoSaasTestTestbRequest self = new ImportDemoSaasTestTestbRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoSaasTestTestaRequest setAuthToken(String authToken) {
+    public ImportDemoSaasTestTestbRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +34,7 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDemoSaasTestTestaRequest setProductInstanceId(String productInstanceId) {
+    public ImportDemoSaasTestTestbRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +42,7 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDemoSaasTestTestaRequest setName(String name) {
+    public ImportDemoSaasTestTestbRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -50,7 +50,7 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
         return this.name;
     }
 
-    public QueryDemoSaasTestTestaRequest setAge(Long age) {
+    public ImportDemoSaasTestTestbRequest setAge(Long age) {
         this.age = age;
         return this;
     }

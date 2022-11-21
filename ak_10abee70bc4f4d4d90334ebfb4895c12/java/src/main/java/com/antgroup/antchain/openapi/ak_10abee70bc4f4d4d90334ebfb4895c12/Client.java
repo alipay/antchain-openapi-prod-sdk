@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("_prod_code", "ak_10abee70bc4f4d4d90334ebfb4895c12"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,21 +162,21 @@ public class Client {
     }
 
     /**
-     * Description: testa
+     * Description: testB
      * Summary: 测试用api
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTesta(QueryDemoSaasTestTestaRequest request) throws Exception {
+    public ImportDemoSaasTestTestbResponse importDemoSaasTestTestb(ImportDemoSaasTestTestbRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoSaasTestTestaEx(request, headers, runtime);
+        return this.importDemoSaasTestTestbEx(request, headers, runtime);
     }
 
     /**
-     * Description: testa
+     * Description: testB
      * Summary: 测试用api
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTestaEx(QueryDemoSaasTestTestaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ImportDemoSaasTestTestbResponse importDemoSaasTestTestbEx(ImportDemoSaasTestTestbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testb.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDemoSaasTestTestbResponse());
     }
 }
