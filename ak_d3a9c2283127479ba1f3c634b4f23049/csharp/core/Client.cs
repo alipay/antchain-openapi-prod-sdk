@@ -138,8 +138,6 @@ namespace AntChain.SDK.Ak_d3a9c2283127479ba1f3c634b4f23049
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.2"},
-                        {"_prod_code", "ak_d3a9c2283127479ba1f3c634b4f23049"},
-                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -264,8 +262,6 @@ namespace AntChain.SDK.Ak_d3a9c2283127479ba1f3c634b4f23049
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.2"},
-                        {"_prod_code", "ak_d3a9c2283127479ba1f3c634b4f23049"},
-                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
