@@ -77,6 +77,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// meter 数据项
+export class MeterDataItemModel extends $tea.Model {
+  // 计量项名称
+  itemCode: string;
+  // 计量项值
+  itemValue: number;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      itemValue: 'item_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      itemValue: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 集群信息
 export class ClusterMeta extends $tea.Model {
   // 集群唯一标识
@@ -304,6 +329,31 @@ export class Product extends $tea.Model {
       productCode: 'string',
       openingStatus: 'string',
       runningStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// meter 数据
+export class MeterDataModel extends $tea.Model {
+  // 时间
+  meterDate: string;
+  // 计量数据项
+  meterDataItemList: MeterDataItemModel[];
+  static names(): { [key: string]: string } {
+    return {
+      meterDate: 'meter_date',
+      meterDataItemList: 'meter_data_item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      meterDate: 'string',
+      meterDataItemList: { 'type': 'array', 'itemType': MeterDataItemModel },
     };
   }
 
@@ -1534,6 +1584,192 @@ export class UnbindMiddlewareInstanceResponse extends $tea.Model {
   }
 }
 
+export class PushLicenceMeterdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产品Code
+  productCode: string;
+  // 商品code
+  commodityCode: string;
+  // 规格
+  specCode?: string;
+  // 实例ID, 如果是SOFA产品，则表示SOFA的实例ID。
+  // 如果不传则认为是当前环境的总使用量；
+  // 如果传了则认为是特定instanceId内的使用量
+  instanceId?: string;
+  // 用户id 
+  userId?: string;
+  // 原始计量数据，KV结构。
+  // 每一对KV 对应一个计量项及其值；Key 为计量项Code，value为其具体的值。比如，某产品有TPS 和节点数两个计量项。
+  data: string;
+  // 用量发生的时间
+  gmtMeter: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productCode: 'product_code',
+      commodityCode: 'commodity_code',
+      specCode: 'spec_code',
+      instanceId: 'instance_id',
+      userId: 'user_id',
+      data: 'data',
+      gmtMeter: 'gmt_meter',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productCode: 'string',
+      commodityCode: 'string',
+      specCode: 'string',
+      instanceId: 'string',
+      userId: 'string',
+      data: 'string',
+      gmtMeter: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushLicenceMeterdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否推送成功
+  success?: boolean;
+  // 是否需要重发，success为false情况下才有意义
+  needRetry?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      needRetry: 'need_retry',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      needRetry: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryLicenceMeterdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产品Code，如果不传参数，默认是“SOFA”
+  productCode?: string;
+  // 传入商品Code，必填：mesh、mq、dtx 等
+  commodityCode: string;
+  // SOFA的实例ID。
+  // 如果不传则查询总量（合并所有实例的数据）
+  instanceId?: string;
+  // 计量开始时间，只支持整点时间
+  meterBegin: string;
+  // 计量结束时间，只支持整点时间（不包含）
+  meterEnd: string;
+  // 当前页码
+  currentPage: number;
+  // 每页显示条数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productCode: 'product_code',
+      commodityCode: 'commodity_code',
+      instanceId: 'instance_id',
+      meterBegin: 'meter_begin',
+      meterEnd: 'meter_end',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productCode: 'string',
+      commodityCode: 'string',
+      instanceId: 'string',
+      meterBegin: 'string',
+      meterEnd: 'string',
+      currentPage: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryLicenceMeterdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 当前页码
+  currentPage?: number;
+  // 总页数
+  totalPage?: string;
+  // 计量数据
+  meterDataList?: MeterDataModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      currentPage: 'current_page',
+      totalPage: 'total_page',
+      meterDataList: 'meter_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      currentPage: 'number',
+      totalPage: 'string',
+      meterDataList: { 'type': 'array', 'itemType': MeterDataModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1647,7 +1883,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.2.0",
+          _prod_code: "osp",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1976,6 +2214,44 @@ export default class Client {
   async unbindMiddlewareInstanceEx(request: UnbindMiddlewareInstanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindMiddlewareInstanceResponse> {
     Util.validateModel(request);
     return $tea.cast<UnbindMiddlewareInstanceResponse>(await this.doRequest("1.0", "sofa.osp.middleware.instance.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindMiddlewareInstanceResponse({}));
+  }
+
+  /**
+   * Description: licence 实时计量数据推送
+   * Summary: licence 实时计量数据推送
+   */
+  async pushLicenceMeterdata(request: PushLicenceMeterdataRequest): Promise<PushLicenceMeterdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushLicenceMeterdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: licence 实时计量数据推送
+   * Summary: licence 实时计量数据推送
+   */
+  async pushLicenceMeterdataEx(request: PushLicenceMeterdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushLicenceMeterdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushLicenceMeterdataResponse>(await this.doRequest("1.0", "sofa.osp.licence.meterdata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushLicenceMeterdataResponse({}));
+  }
+
+  /**
+   * Description: 分页查询 license 的计量数据
+   * Summary: 分页查询 license 的计量数据
+   */
+  async pagequeryLicenceMeterdata(request: PagequeryLicenceMeterdataRequest): Promise<PagequeryLicenceMeterdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryLicenceMeterdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询 license 的计量数据
+   * Summary: 分页查询 license 的计量数据
+   */
+  async pagequeryLicenceMeterdataEx(request: PagequeryLicenceMeterdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryLicenceMeterdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryLicenceMeterdataResponse>(await this.doRequest("1.0", "sofa.osp.licence.meterdata.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryLicenceMeterdataResponse({}));
   }
 
 }
