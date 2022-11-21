@@ -77,6 +77,81 @@ export class Config extends $tea.Model {
   }
 }
 
+export class MatchAntchainBbpDidAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码(YYX)
+  bizCode: string;
+  // 支付宝uid
+  uid: string;
+  // 分布式id ，双向check
+  did: string;
+  // 链id
+  chainId?: string;
+  // 链账户
+  chainAccount: string;
+  // 托管情况下包含
+  kmsKeyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizCode: 'biz_code',
+      uid: 'uid',
+      did: 'did',
+      chainId: 'chain_id',
+      chainAccount: 'chain_account',
+      kmsKeyId: 'kms_key_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizCode: 'string',
+      uid: 'string',
+      did: 'string',
+      chainId: 'string',
+      chainAccount: 'string',
+      kmsKeyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class MatchAntchainBbpDidAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ImportDemoSaasTestTestbRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -253,9 +328,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
-          _prod_code: "ak_5b7ef338f3d44a83981161fc92af8f5a",
-          _prod_channel: "saas",
+          sdk_version: "1.0.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -299,6 +372,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 身份关联链上账户
+   * Summary: 身份关联链上账户
+   */
+  async matchAntchainBbpDidAccount(request: MatchAntchainBbpDidAccountRequest): Promise<MatchAntchainBbpDidAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.matchAntchainBbpDidAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 身份关联链上账户
+   * Summary: 身份关联链上账户
+   */
+  async matchAntchainBbpDidAccountEx(request: MatchAntchainBbpDidAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<MatchAntchainBbpDidAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<MatchAntchainBbpDidAccountResponse>(await this.doRequest("1.0", "antchain.bbp.did.account.match", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new MatchAntchainBbpDidAccountResponse({}));
   }
 
   /**
