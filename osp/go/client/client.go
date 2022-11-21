@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -145,6 +145,32 @@ func (s *Config) SetMaxRequests(v int) *Config {
 
 func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// meter 数据项
+type MeterDataItemModel struct {
+	// 计量项名称
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 计量项值
+	ItemValue *int64 `json:"item_value,omitempty" xml:"item_value,omitempty" require:"true"`
+}
+
+func (s MeterDataItemModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MeterDataItemModel) GoString() string {
+	return s.String()
+}
+
+func (s *MeterDataItemModel) SetItemCode(v string) *MeterDataItemModel {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *MeterDataItemModel) SetItemValue(v int64) *MeterDataItemModel {
+	s.ItemValue = &v
 	return s
 }
 
@@ -443,6 +469,32 @@ func (s *Product) SetOpeningStatus(v string) *Product {
 
 func (s *Product) SetRunningStatus(v string) *Product {
 	s.RunningStatus = &v
+	return s
+}
+
+// meter 数据
+type MeterDataModel struct {
+	// 时间
+	MeterDate *string `json:"meter_date,omitempty" xml:"meter_date,omitempty" require:"true"`
+	// 计量数据项
+	MeterDataItemList []*MeterDataItemModel `json:"meter_data_item_list,omitempty" xml:"meter_data_item_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MeterDataModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MeterDataModel) GoString() string {
+	return s.String()
+}
+
+func (s *MeterDataModel) SetMeterDate(v string) *MeterDataModel {
+	s.MeterDate = &v
+	return s
+}
+
+func (s *MeterDataModel) SetMeterDataItemList(v []*MeterDataItemModel) *MeterDataModel {
+	s.MeterDataItemList = v
 	return s
 }
 
@@ -2031,6 +2083,262 @@ func (s *UnbindMiddlewareInstanceResponse) SetData(v bool) *UnbindMiddlewareInst
 	return s
 }
 
+type PushLicenceMeterdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品Code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 商品code
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 规格
+	SpecCode *string `json:"spec_code,omitempty" xml:"spec_code,omitempty"`
+	// 实例ID, 如果是SOFA产品，则表示SOFA的实例ID。
+	// 如果不传则认为是当前环境的总使用量；
+	// 如果传了则认为是特定instanceId内的使用量
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 原始计量数据，KV结构。
+	// 每一对KV 对应一个计量项及其值；Key 为计量项Code，value为其具体的值。比如，某产品有TPS 和节点数两个计量项。
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 用量发生的时间
+	GmtMeter *string `json:"gmt_meter,omitempty" xml:"gmt_meter,omitempty" require:"true"`
+}
+
+func (s PushLicenceMeterdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushLicenceMeterdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushLicenceMeterdataRequest) SetAuthToken(v string) *PushLicenceMeterdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetProductInstanceId(v string) *PushLicenceMeterdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetProductCode(v string) *PushLicenceMeterdataRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetCommodityCode(v string) *PushLicenceMeterdataRequest {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetSpecCode(v string) *PushLicenceMeterdataRequest {
+	s.SpecCode = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetInstanceId(v string) *PushLicenceMeterdataRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetUserId(v string) *PushLicenceMeterdataRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetData(v string) *PushLicenceMeterdataRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataRequest) SetGmtMeter(v string) *PushLicenceMeterdataRequest {
+	s.GmtMeter = &v
+	return s
+}
+
+type PushLicenceMeterdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否推送成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 是否需要重发，success为false情况下才有意义
+	NeedRetry *bool `json:"need_retry,omitempty" xml:"need_retry,omitempty"`
+}
+
+func (s PushLicenceMeterdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushLicenceMeterdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushLicenceMeterdataResponse) SetReqMsgId(v string) *PushLicenceMeterdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataResponse) SetResultCode(v string) *PushLicenceMeterdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataResponse) SetResultMsg(v string) *PushLicenceMeterdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataResponse) SetSuccess(v bool) *PushLicenceMeterdataResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushLicenceMeterdataResponse) SetNeedRetry(v bool) *PushLicenceMeterdataResponse {
+	s.NeedRetry = &v
+	return s
+}
+
+type PagequeryLicenceMeterdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品Code，如果不传参数，默认是“SOFA”
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 传入商品Code，必填：mesh、mq、dtx 等
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// SOFA的实例ID。
+	// 如果不传则查询总量（合并所有实例的数据）
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 计量开始时间，只支持整点时间
+	MeterBegin *string `json:"meter_begin,omitempty" xml:"meter_begin,omitempty" require:"true"`
+	// 计量结束时间，只支持整点时间（不包含）
+	MeterEnd *string `json:"meter_end,omitempty" xml:"meter_end,omitempty" require:"true"`
+	// 当前页码
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryLicenceMeterdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryLicenceMeterdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetAuthToken(v string) *PagequeryLicenceMeterdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetProductInstanceId(v string) *PagequeryLicenceMeterdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetProductCode(v string) *PagequeryLicenceMeterdataRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetCommodityCode(v string) *PagequeryLicenceMeterdataRequest {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetInstanceId(v string) *PagequeryLicenceMeterdataRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetMeterBegin(v string) *PagequeryLicenceMeterdataRequest {
+	s.MeterBegin = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetMeterEnd(v string) *PagequeryLicenceMeterdataRequest {
+	s.MeterEnd = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetCurrentPage(v int64) *PagequeryLicenceMeterdataRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataRequest) SetPageSize(v int64) *PagequeryLicenceMeterdataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryLicenceMeterdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页码
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 总页数
+	TotalPage *string `json:"total_page,omitempty" xml:"total_page,omitempty"`
+	// 计量数据
+	MeterDataList []*MeterDataModel `json:"meter_data_list,omitempty" xml:"meter_data_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryLicenceMeterdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryLicenceMeterdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetReqMsgId(v string) *PagequeryLicenceMeterdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetResultCode(v string) *PagequeryLicenceMeterdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetResultMsg(v string) *PagequeryLicenceMeterdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetSuccess(v bool) *PagequeryLicenceMeterdataResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetCurrentPage(v int64) *PagequeryLicenceMeterdataResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetTotalPage(v string) *PagequeryLicenceMeterdataResponse {
+	s.TotalPage = &v
+	return s
+}
+
+func (s *PagequeryLicenceMeterdataResponse) SetMeterDataList(v []*MeterDataModel) *PagequeryLicenceMeterdataResponse {
+	s.MeterDataList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2153,7 +2461,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.2.0"),
+				"_prod_code":       tea.String("osp"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2179,8 +2489,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -2704,6 +3022,74 @@ func (client *Client) UnbindMiddlewareInstanceEx(request *UnbindMiddlewareInstan
 	}
 	_result = &UnbindMiddlewareInstanceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.osp.middleware.instance.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: licence 实时计量数据推送
+ * Summary: licence 实时计量数据推送
+ */
+func (client *Client) PushLicenceMeterdata(request *PushLicenceMeterdataRequest) (_result *PushLicenceMeterdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushLicenceMeterdataResponse{}
+	_body, _err := client.PushLicenceMeterdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: licence 实时计量数据推送
+ * Summary: licence 实时计量数据推送
+ */
+func (client *Client) PushLicenceMeterdataEx(request *PushLicenceMeterdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushLicenceMeterdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushLicenceMeterdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.osp.licence.meterdata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询 license 的计量数据
+ * Summary: 分页查询 license 的计量数据
+ */
+func (client *Client) PagequeryLicenceMeterdata(request *PagequeryLicenceMeterdataRequest) (_result *PagequeryLicenceMeterdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryLicenceMeterdataResponse{}
+	_body, _err := client.PagequeryLicenceMeterdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询 license 的计量数据
+ * Summary: 分页查询 license 的计量数据
+ */
+func (client *Client) PagequeryLicenceMeterdataEx(request *PagequeryLicenceMeterdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryLicenceMeterdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryLicenceMeterdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.osp.licence.meterdata.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
