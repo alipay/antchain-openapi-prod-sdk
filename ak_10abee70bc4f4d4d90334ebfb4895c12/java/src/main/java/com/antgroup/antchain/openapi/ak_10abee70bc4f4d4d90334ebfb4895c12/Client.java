@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_10abee70bc4f4d4d90334ebfb4895c12"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -159,6 +159,44 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test
+     */
+    public BindDemoTestTestTestResponse bindDemoTestTestTest(BindDemoTestTestTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoTestTestTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test
+     */
+    public BindDemoTestTestTestResponse bindDemoTestTestTestEx(BindDemoTestTestTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.test.test.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoTestTestTestResponse());
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api
+     */
+    public QueryDemoTestTestobjectBbbResponse queryDemoTestTestobjectBbb(QueryDemoTestTestobjectBbbRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoTestTestobjectBbbEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api
+     */
+    public QueryDemoTestTestobjectBbbResponse queryDemoTestTestobjectBbbEx(QueryDemoTestTestobjectBbbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.testobject.bbb.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoTestTestobjectBbbResponse());
     }
 
     /**
