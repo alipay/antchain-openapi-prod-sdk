@@ -137,7 +137,9 @@ namespace AntChain.SDK.Osp
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.0"},
+                        {"_prod_code", "osp"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.Osp
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.0"},
+                        {"_prod_code", "osp"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -945,6 +949,90 @@ namespace AntChain.SDK.Osp
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UnbindMiddlewareInstanceResponse>(await DoRequestAsync("1.0", "sofa.osp.middleware.instance.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: licence 实时计量数据推送
+         * Summary: licence 实时计量数据推送
+         */
+        public PushLicenceMeterdataResponse PushLicenceMeterdata(PushLicenceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushLicenceMeterdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: licence 实时计量数据推送
+         * Summary: licence 实时计量数据推送
+         */
+        public async Task<PushLicenceMeterdataResponse> PushLicenceMeterdataAsync(PushLicenceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushLicenceMeterdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: licence 实时计量数据推送
+         * Summary: licence 实时计量数据推送
+         */
+        public PushLicenceMeterdataResponse PushLicenceMeterdataEx(PushLicenceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushLicenceMeterdataResponse>(DoRequest("1.0", "sofa.osp.licence.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: licence 实时计量数据推送
+         * Summary: licence 实时计量数据推送
+         */
+        public async Task<PushLicenceMeterdataResponse> PushLicenceMeterdataExAsync(PushLicenceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushLicenceMeterdataResponse>(await DoRequestAsync("1.0", "sofa.osp.licence.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询 license 的计量数据
+         * Summary: 分页查询 license 的计量数据
+         */
+        public PagequeryLicenceMeterdataResponse PagequeryLicenceMeterdata(PagequeryLicenceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryLicenceMeterdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询 license 的计量数据
+         * Summary: 分页查询 license 的计量数据
+         */
+        public async Task<PagequeryLicenceMeterdataResponse> PagequeryLicenceMeterdataAsync(PagequeryLicenceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryLicenceMeterdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询 license 的计量数据
+         * Summary: 分页查询 license 的计量数据
+         */
+        public PagequeryLicenceMeterdataResponse PagequeryLicenceMeterdataEx(PagequeryLicenceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryLicenceMeterdataResponse>(DoRequest("1.0", "sofa.osp.licence.meterdata.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询 license 的计量数据
+         * Summary: 分页查询 license 的计量数据
+         */
+        public async Task<PagequeryLicenceMeterdataResponse> PagequeryLicenceMeterdataExAsync(PagequeryLicenceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryLicenceMeterdataResponse>(await DoRequestAsync("1.0", "sofa.osp.licence.meterdata.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
