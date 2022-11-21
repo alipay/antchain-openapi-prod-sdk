@@ -134,7 +134,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_5ea45460b65f4d169144dc74e621ec27',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +237,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_5ea45460b65f4d169144dc74e621ec27',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -323,60 +327,4 @@ class Client:
         return TeaCore.from_map(
             ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.ReplaceDemoSaasTestTestjResponse(),
             await self.do_request_async('1.0', 'demo.saas.test.testj.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def send_demo_saas_test_testk(
-        self,
-        request: ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkRequest,
-    ) -> ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse:
-        """
-        Description: 共享能力租户流量测试
-        Summary: 共享能力租户流量测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.send_demo_saas_test_testk_ex(request, headers, runtime)
-
-    async def send_demo_saas_test_testk_async(
-        self,
-        request: ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkRequest,
-    ) -> ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse:
-        """
-        Description: 共享能力租户流量测试
-        Summary: 共享能力租户流量测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.send_demo_saas_test_testk_ex_async(request, headers, runtime)
-
-    def send_demo_saas_test_testk_ex(
-        self,
-        request: ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse:
-        """
-        Description: 共享能力租户流量测试
-        Summary: 共享能力租户流量测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse(),
-            self.do_request('1.0', 'demo.saas.test.testk.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def send_demo_saas_test_testk_ex_async(
-        self,
-        request: ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse:
-        """
-        Description: 共享能力租户流量测试
-        Summary: 共享能力租户流量测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__5ea_45460b_65f_4d_169144dc_74e_621ec_27_models.SendDemoSaasTestTestkResponse(),
-            await self.do_request_async('1.0', 'demo.saas.test.testk.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
