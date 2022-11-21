@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\BindDemoTestTestTestRequest;
+use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\BindDemoTestTestTestResponse;
 use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\ImportDemoSaasTestTestbRequest;
 use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\ImportDemoSaasTestTestbResponse;
+use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\QueryDemoTestTestobjectBbbRequest;
+use AntChain\Ak_10abee70bc4f4d4d90334ebfb4895c12\Models\QueryDemoTestTestobjectBbbResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,7 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_10abee70bc4f4d4d90334ebfb4895c12',
                     '_prod_channel'    => 'saas',
                 ];
@@ -205,6 +209,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoTestTestobjectBbbRequest $request
+     *
+     * @return array|QueryDemoTestTestobjectBbbResponse
+     */
+    public function queryDemoTestTestobjectBbb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoTestTestobjectBbbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoTestTestobjectBbbRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return array|QueryDemoTestTestobjectBbbResponse
+     */
+    public function queryDemoTestTestobjectBbbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoTestTestobjectBbbResponse::fromMap($this->doRequest('1.0', 'demo.test.testobject.bbb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
