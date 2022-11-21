@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.5")
+                    new TeaPair("sdk_version", "1.2.0"),
+                    new TeaPair("_prod_code", "osp"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -442,5 +444,43 @@ public class Client {
     public UnbindMiddlewareInstanceResponse unbindMiddlewareInstanceEx(UnbindMiddlewareInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "sofa.osp.middleware.instance.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindMiddlewareInstanceResponse());
+    }
+
+    /**
+     * Description: licence 实时计量数据推送
+     * Summary: licence 实时计量数据推送
+     */
+    public PushLicenceMeterdataResponse pushLicenceMeterdata(PushLicenceMeterdataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushLicenceMeterdataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: licence 实时计量数据推送
+     * Summary: licence 实时计量数据推送
+     */
+    public PushLicenceMeterdataResponse pushLicenceMeterdataEx(PushLicenceMeterdataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "sofa.osp.licence.meterdata.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushLicenceMeterdataResponse());
+    }
+
+    /**
+     * Description: 分页查询 license 的计量数据
+     * Summary: 分页查询 license 的计量数据
+     */
+    public PagequeryLicenceMeterdataResponse pagequeryLicenceMeterdata(PagequeryLicenceMeterdataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryLicenceMeterdataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询 license 的计量数据
+     * Summary: 分页查询 license 的计量数据
+     */
+    public PagequeryLicenceMeterdataResponse pagequeryLicenceMeterdataEx(PagequeryLicenceMeterdataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "sofa.osp.licence.meterdata.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryLicenceMeterdataResponse());
     }
 }
