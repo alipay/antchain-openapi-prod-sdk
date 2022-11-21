@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -150,6 +154,42 @@ class Config(TeaModel):
         return self
 
 
+class MeterDataItemModel(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        item_value: int = None,
+    ):
+        # 计量项名称
+        self.item_code = item_code
+        # 计量项值
+        self.item_value = item_value
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.item_value, 'item_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.item_value is not None:
+            result['item_value'] = self.item_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('item_value') is not None:
+            self.item_value = m.get('item_value')
+        return self
+
+
 class ClusterMeta(TeaModel):
     def __init__(
         self,
@@ -168,6 +208,10 @@ class ClusterMeta(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -204,6 +248,10 @@ class KeyValuePair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -249,6 +297,10 @@ class MiddlewareCluster(TeaModel):
         self.validate_required(self.acvip_endpoint, 'acvip_endpoint')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -321,6 +373,10 @@ class AksEndpoint(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key is not None:
             result['access_key'] = self.access_key
@@ -404,6 +460,10 @@ class AccessKey(TeaModel):
         self.validate_required(self.secretkey, 'secretkey')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.accesskey is not None:
             result['accesskey'] = self.accesskey
@@ -477,6 +537,10 @@ class Product(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['id'] = self.id
@@ -502,6 +566,51 @@ class Product(TeaModel):
             self.opening_status = m.get('opening_status')
         if m.get('running_status') is not None:
             self.running_status = m.get('running_status')
+        return self
+
+
+class MeterDataModel(TeaModel):
+    def __init__(
+        self,
+        meter_date: str = None,
+        meter_data_item_list: List[MeterDataItemModel] = None,
+    ):
+        # 时间
+        self.meter_date = meter_date
+        # 计量数据项
+        self.meter_data_item_list = meter_data_item_list
+
+    def validate(self):
+        self.validate_required(self.meter_date, 'meter_date')
+        self.validate_required(self.meter_data_item_list, 'meter_data_item_list')
+        if self.meter_data_item_list:
+            for k in self.meter_data_item_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.meter_date is not None:
+            result['meter_date'] = self.meter_date
+        result['meter_data_item_list'] = []
+        if self.meter_data_item_list is not None:
+            for k in self.meter_data_item_list:
+                result['meter_data_item_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('meter_date') is not None:
+            self.meter_date = m.get('meter_date')
+        self.meter_data_item_list = []
+        if m.get('meter_data_item_list') is not None:
+            for k in m.get('meter_data_item_list'):
+                temp_model = MeterDataItemModel()
+                self.meter_data_item_list.append(temp_model.from_map(k))
         return self
 
 
@@ -546,6 +655,10 @@ class BindInstance(TeaModel):
         self.validate_required(self.tenant_id, 'tenant_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -610,6 +723,10 @@ class ClusterMode(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_mode is not None:
             result['cluster_mode'] = self.cluster_mode
@@ -649,6 +766,10 @@ class Instance(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
@@ -695,6 +816,10 @@ class QueryInstancesRequest(TeaModel):
         self.validate_required(self.tenant, 'tenant')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -764,6 +889,10 @@ class QueryInstancesResponse(TeaModel):
         self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -831,6 +960,10 @@ class QueryProductsRequest(TeaModel):
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -900,6 +1033,10 @@ class QueryProductsResponse(TeaModel):
         self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -973,6 +1110,10 @@ class QueryEndpointsRequest(TeaModel):
         self.validate_required(self.tenant, 'tenant')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1046,6 +1187,10 @@ class QueryEndpointsResponse(TeaModel):
         self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1128,6 +1273,10 @@ class ScaleoutClustersRequest(TeaModel):
         self.validate_required(self.service_port, 'service_port')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1193,6 +1342,10 @@ class ScaleoutClustersResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1258,6 +1411,10 @@ class ScaleinClusterRequest(TeaModel):
         self.validate_required(self.service_port, 'service_port')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1323,6 +1480,10 @@ class ScaleinClusterResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1384,6 +1545,10 @@ class SetClustersRequest(TeaModel):
         self.validate_required(self.product, 'product')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1445,6 +1610,10 @@ class SetClustersResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1492,6 +1661,10 @@ class GetInstancesRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1547,6 +1720,10 @@ class GetInstancesResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1600,6 +1777,10 @@ class CreateAccesskeyRequest(TeaModel):
         self.validate_required(self.name, 'name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1646,6 +1827,10 @@ class CreateAccesskeyResponse(TeaModel):
             self.accesskey.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1694,6 +1879,10 @@ class GetAccesskeyRequest(TeaModel):
         self.validate_required(self.name, 'name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1740,6 +1929,10 @@ class GetAccesskeyResponse(TeaModel):
             self.accesskey.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1786,6 +1979,10 @@ class GetMiddlewareMetaRequest(TeaModel):
         self.validate_required(self.workspace_id, 'workspace_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1840,6 +2037,10 @@ class GetMiddlewareMetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1906,6 +2107,10 @@ class GetWorkspacegroupInstanceRequest(TeaModel):
         self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1963,6 +2168,10 @@ class GetWorkspacegroupInstanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2008,6 +2217,10 @@ class QueryMiddlewareClustermodeRequest(TeaModel):
         self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2054,6 +2267,10 @@ class QueryMiddlewareClustermodeResponse(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2096,6 +2313,10 @@ class QueryMiddlewareClustersRequest(TeaModel):
         self.validate_required(self.tenant_id, 'tenant_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2140,6 +2361,10 @@ class QueryMiddlewareClustersResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2198,6 +2423,10 @@ class BindMiddlewareInstanceRequest(TeaModel):
         self.validate_required(self.workspaces, 'workspaces')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2252,6 +2481,10 @@ class BindMiddlewareInstanceResponse(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2306,6 +2539,10 @@ class UnbindMiddlewareInstanceRequest(TeaModel):
         self.validate_required(self.workspaces, 'workspaces')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2359,6 +2596,10 @@ class UnbindMiddlewareInstanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2380,6 +2621,317 @@ class UnbindMiddlewareInstanceResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class PushLicenceMeterdataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_code: str = None,
+        commodity_code: str = None,
+        spec_code: str = None,
+        instance_id: str = None,
+        user_id: str = None,
+        data: str = None,
+        gmt_meter: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品Code
+        self.product_code = product_code
+        # 商品code
+        self.commodity_code = commodity_code
+        # 规格
+        self.spec_code = spec_code
+        # 实例ID, 如果是SOFA产品，则表示SOFA的实例ID。
+        # 如果不传则认为是当前环境的总使用量；
+        # 如果传了则认为是特定instanceId内的使用量
+        self.instance_id = instance_id
+        # 用户id
+        self.user_id = user_id
+        # 原始计量数据，KV结构。
+        # 每一对KV 对应一个计量项及其值；Key 为计量项Code，value为其具体的值。比如，某产品有TPS 和节点数两个计量项。
+        self.data = data
+        # 用量发生的时间
+        self.gmt_meter = gmt_meter
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.commodity_code, 'commodity_code')
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.gmt_meter, 'gmt_meter')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.commodity_code is not None:
+            result['commodity_code'] = self.commodity_code
+        if self.spec_code is not None:
+            result['spec_code'] = self.spec_code
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.data is not None:
+            result['data'] = self.data
+        if self.gmt_meter is not None:
+            result['gmt_meter'] = self.gmt_meter
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('commodity_code') is not None:
+            self.commodity_code = m.get('commodity_code')
+        if m.get('spec_code') is not None:
+            self.spec_code = m.get('spec_code')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('gmt_meter') is not None:
+            self.gmt_meter = m.get('gmt_meter')
+        return self
+
+
+class PushLicenceMeterdataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        need_retry: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否推送成功
+        self.success = success
+        # 是否需要重发，success为false情况下才有意义
+        self.need_retry = need_retry
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.need_retry is not None:
+            result['need_retry'] = self.need_retry
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('need_retry') is not None:
+            self.need_retry = m.get('need_retry')
+        return self
+
+
+class PagequeryLicenceMeterdataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_code: str = None,
+        commodity_code: str = None,
+        instance_id: str = None,
+        meter_begin: str = None,
+        meter_end: str = None,
+        current_page: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品Code，如果不传参数，默认是“SOFA”
+        self.product_code = product_code
+        # 传入商品Code，必填：mesh、mq、dtx 等
+        self.commodity_code = commodity_code
+        # SOFA的实例ID。
+        # 如果不传则查询总量（合并所有实例的数据）
+        self.instance_id = instance_id
+        # 计量开始时间，只支持整点时间
+        self.meter_begin = meter_begin
+        # 计量结束时间，只支持整点时间（不包含）
+        self.meter_end = meter_end
+        # 当前页码
+        self.current_page = current_page
+        # 每页显示条数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.commodity_code, 'commodity_code')
+        self.validate_required(self.meter_begin, 'meter_begin')
+        self.validate_required(self.meter_end, 'meter_end')
+        self.validate_required(self.current_page, 'current_page')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.commodity_code is not None:
+            result['commodity_code'] = self.commodity_code
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.meter_begin is not None:
+            result['meter_begin'] = self.meter_begin
+        if self.meter_end is not None:
+            result['meter_end'] = self.meter_end
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('commodity_code') is not None:
+            self.commodity_code = m.get('commodity_code')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('meter_begin') is not None:
+            self.meter_begin = m.get('meter_begin')
+        if m.get('meter_end') is not None:
+            self.meter_end = m.get('meter_end')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryLicenceMeterdataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        current_page: int = None,
+        total_page: str = None,
+        meter_data_list: List[MeterDataModel] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+        # 当前页码
+        self.current_page = current_page
+        # 总页数
+        self.total_page = total_page
+        # 计量数据
+        self.meter_data_list = meter_data_list
+
+    def validate(self):
+        if self.meter_data_list:
+            for k in self.meter_data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        result['meter_data_list'] = []
+        if self.meter_data_list is not None:
+            for k in self.meter_data_list:
+                result['meter_data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        self.meter_data_list = []
+        if m.get('meter_data_list') is not None:
+            for k in m.get('meter_data_list'):
+                temp_model = MeterDataModel()
+                self.meter_data_list.append(temp_model.from_map(k))
         return self
 
 

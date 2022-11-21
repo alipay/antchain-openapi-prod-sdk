@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 集群信息
+            # meter 数据项
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.2.0',
+                    '_prod_code': 'osp',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 集群信息
+            # meter 数据项
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.2.0',
+                    '_prod_code': 'osp',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 查询实例信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryInstancesResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryInstancesResponse(),
             self.do_request('2.0', 'sofa.osp.instances.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 查询实例信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryInstancesResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryInstancesResponse(),
             await self.do_request_async('2.0', 'sofa.osp.instances.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 查询产品信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryProductsResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryProductsResponse(),
             self.do_request('2.0', 'sofa.osp.products.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 查询产品信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryProductsResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryProductsResponse(),
             await self.do_request_async('2.0', 'sofa.osp.products.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 获取共享中间件参数信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryEndpointsResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryEndpointsResponse(),
             self.do_request('2.0', 'sofa.osp.endpoints.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 获取共享中间件参数信息
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryEndpointsResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryEndpointsResponse(),
             await self.do_request_async('2.0', 'sofa.osp.endpoints.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 扩容接口
         """
         UtilClient.validate_model(request)
-        return osp_models.ScaleoutClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.ScaleoutClustersResponse(),
             self.do_request('1.0', 'sofa.osp.clusters.scaleout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 扩容接口
         """
         UtilClient.validate_model(request)
-        return osp_models.ScaleoutClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.ScaleoutClustersResponse(),
             await self.do_request_async('1.0', 'sofa.osp.clusters.scaleout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 缩容接口
         """
         UtilClient.validate_model(request)
-        return osp_models.ScaleinClusterResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.ScaleinClusterResponse(),
             self.do_request('1.0', 'sofa.osp.cluster.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 缩容接口
         """
         UtilClient.validate_model(request)
-        return osp_models.ScaleinClusterResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.ScaleinClusterResponse(),
             await self.do_request_async('1.0', 'sofa.osp.cluster.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 设置节点是否生效（上下线）
         """
         UtilClient.validate_model(request)
-        return osp_models.SetClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.SetClustersResponse(),
             self.do_request('1.0', 'sofa.osp.clusters.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 设置节点是否生效（上下线）
         """
         UtilClient.validate_model(request)
-        return osp_models.SetClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.SetClustersResponse(),
             await self.do_request_async('1.0', 'sofa.osp.clusters.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 获取instance详情
         """
         UtilClient.validate_model(request)
-        return osp_models.GetInstancesResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetInstancesResponse(),
             self.do_request('1.0', 'sofa.osp.instances.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 获取instance详情
         """
         UtilClient.validate_model(request)
-        return osp_models.GetInstancesResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetInstancesResponse(),
             await self.do_request_async('1.0', 'sofa.osp.instances.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 创建AK/SK的接口
         """
         UtilClient.validate_model(request)
-        return osp_models.CreateAccesskeyResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.CreateAccesskeyResponse(),
             self.do_request('1.0', 'sofa.osp.accesskey.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 创建AK/SK的接口
         """
         UtilClient.validate_model(request)
-        return osp_models.CreateAccesskeyResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.CreateAccesskeyResponse(),
             await self.do_request_async('1.0', 'sofa.osp.accesskey.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 获取AK/SK的接口
         """
         UtilClient.validate_model(request)
-        return osp_models.GetAccesskeyResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetAccesskeyResponse(),
             self.do_request('1.0', 'sofa.osp.accesskey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 获取AK/SK的接口
         """
         UtilClient.validate_model(request)
-        return osp_models.GetAccesskeyResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetAccesskeyResponse(),
             await self.do_request_async('1.0', 'sofa.osp.accesskey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 中间件元数据获取
         """
         UtilClient.validate_model(request)
-        return osp_models.GetMiddlewareMetaResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetMiddlewareMetaResponse(),
             self.do_request('1.0', 'sofa.osp.middleware.meta.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 中间件元数据获取
         """
         UtilClient.validate_model(request)
-        return osp_models.GetMiddlewareMetaResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetMiddlewareMetaResponse(),
             await self.do_request_async('1.0', 'sofa.osp.middleware.meta.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 查询instanceId
         """
         UtilClient.validate_model(request)
-        return osp_models.GetWorkspacegroupInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetWorkspacegroupInstanceResponse(),
             self.do_request('1.0', 'sofa.osp.workspacegroup.instance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 查询instanceId
         """
         UtilClient.validate_model(request)
-        return osp_models.GetWorkspacegroupInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.GetWorkspacegroupInstanceResponse(),
             await self.do_request_async('1.0', 'sofa.osp.workspacegroup.instance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 查询中间件集群模式
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryMiddlewareClustermodeResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryMiddlewareClustermodeResponse(),
             self.do_request('1.0', 'sofa.osp.middleware.clustermode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 查询中间件集群模式
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryMiddlewareClustermodeResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryMiddlewareClustermodeResponse(),
             await self.do_request_async('1.0', 'sofa.osp.middleware.clustermode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: 查询中间件集群列表
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryMiddlewareClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryMiddlewareClustersResponse(),
             self.do_request('1.0', 'sofa.osp.middleware.clusters.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: 查询中间件集群列表
         """
         UtilClient.validate_model(request)
-        return osp_models.QueryMiddlewareClustersResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.QueryMiddlewareClustersResponse(),
             await self.do_request_async('1.0', 'sofa.osp.middleware.clusters.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: 绑定中间件列表
         """
         UtilClient.validate_model(request)
-        return osp_models.BindMiddlewareInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.BindMiddlewareInstanceResponse(),
             self.do_request('1.0', 'sofa.osp.middleware.instance.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1054,8 @@ class Client:
         Summary: 绑定中间件列表
         """
         UtilClient.validate_model(request)
-        return osp_models.BindMiddlewareInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.BindMiddlewareInstanceResponse(),
             await self.do_request_async('1.0', 'sofa.osp.middleware.instance.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1094,8 @@ class Client:
         Summary: 解绑中间件实例
         """
         UtilClient.validate_model(request)
-        return osp_models.UnbindMiddlewareInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.UnbindMiddlewareInstanceResponse(),
             self.do_request('1.0', 'sofa.osp.middleware.instance.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,6 +1110,119 @@ class Client:
         Summary: 解绑中间件实例
         """
         UtilClient.validate_model(request)
-        return osp_models.UnbindMiddlewareInstanceResponse().from_map(
+        return TeaCore.from_map(
+            osp_models.UnbindMiddlewareInstanceResponse(),
             await self.do_request_async('1.0', 'sofa.osp.middleware.instance.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_licence_meterdata(
+        self,
+        request: osp_models.PushLicenceMeterdataRequest,
+    ) -> osp_models.PushLicenceMeterdataResponse:
+        """
+        Description: licence 实时计量数据推送
+        Summary: licence 实时计量数据推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_licence_meterdata_ex(request, headers, runtime)
+
+    async def push_licence_meterdata_async(
+        self,
+        request: osp_models.PushLicenceMeterdataRequest,
+    ) -> osp_models.PushLicenceMeterdataResponse:
+        """
+        Description: licence 实时计量数据推送
+        Summary: licence 实时计量数据推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_licence_meterdata_ex_async(request, headers, runtime)
+
+    def push_licence_meterdata_ex(
+        self,
+        request: osp_models.PushLicenceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> osp_models.PushLicenceMeterdataResponse:
+        """
+        Description: licence 实时计量数据推送
+        Summary: licence 实时计量数据推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            osp_models.PushLicenceMeterdataResponse(),
+            self.do_request('1.0', 'sofa.osp.licence.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_licence_meterdata_ex_async(
+        self,
+        request: osp_models.PushLicenceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> osp_models.PushLicenceMeterdataResponse:
+        """
+        Description: licence 实时计量数据推送
+        Summary: licence 实时计量数据推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            osp_models.PushLicenceMeterdataResponse(),
+            await self.do_request_async('1.0', 'sofa.osp.licence.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_licence_meterdata(
+        self,
+        request: osp_models.PagequeryLicenceMeterdataRequest,
+    ) -> osp_models.PagequeryLicenceMeterdataResponse:
+        """
+        Description: 分页查询 license 的计量数据
+        Summary: 分页查询 license 的计量数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_licence_meterdata_ex(request, headers, runtime)
+
+    async def pagequery_licence_meterdata_async(
+        self,
+        request: osp_models.PagequeryLicenceMeterdataRequest,
+    ) -> osp_models.PagequeryLicenceMeterdataResponse:
+        """
+        Description: 分页查询 license 的计量数据
+        Summary: 分页查询 license 的计量数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_licence_meterdata_ex_async(request, headers, runtime)
+
+    def pagequery_licence_meterdata_ex(
+        self,
+        request: osp_models.PagequeryLicenceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> osp_models.PagequeryLicenceMeterdataResponse:
+        """
+        Description: 分页查询 license 的计量数据
+        Summary: 分页查询 license 的计量数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            osp_models.PagequeryLicenceMeterdataResponse(),
+            self.do_request('1.0', 'sofa.osp.licence.meterdata.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_licence_meterdata_ex_async(
+        self,
+        request: osp_models.PagequeryLicenceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> osp_models.PagequeryLicenceMeterdataResponse:
+        """
+        Description: 分页查询 license 的计量数据
+        Summary: 分页查询 license 的计量数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            osp_models.PagequeryLicenceMeterdataResponse(),
+            await self.do_request_async('1.0', 'sofa.osp.licence.meterdata.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
