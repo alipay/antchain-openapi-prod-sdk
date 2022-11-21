@@ -134,9 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
-                    '_prod_code': 'ak_5b7ef338f3d44a83981161fc92af8f5a',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,9 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
-                    '_prod_code': 'ak_5b7ef338f3d44a83981161fc92af8f5a',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -272,6 +268,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def match_antchain_bbp_did_account(
+        self,
+        request: ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountRequest,
+    ) -> ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_antchain_bbp_did_account_ex(request, headers, runtime)
+
+    async def match_antchain_bbp_did_account_async(
+        self,
+        request: ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountRequest,
+    ) -> ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_antchain_bbp_did_account_ex_async(request, headers, runtime)
+
+    def match_antchain_bbp_did_account_ex(
+        self,
+        request: ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_antchain_bbp_did_account_ex_async(
+        self,
+        request: ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5b_7ef_338f_3d_44a_83981161fc_92af_8f_5a_models.MatchAntchainBbpDidAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def import_demo_saas_test_testb(
         self,

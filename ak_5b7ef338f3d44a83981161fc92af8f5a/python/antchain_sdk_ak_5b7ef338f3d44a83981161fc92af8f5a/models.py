@@ -153,6 +153,127 @@ class Config(TeaModel):
         return self
 
 
+class MatchAntchainBbpDidAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_code: str = None,
+        uid: str = None,
+        did: str = None,
+        chain_id: str = None,
+        chain_account: str = None,
+        kms_key_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码(YYX)
+        self.biz_code = biz_code
+        # 支付宝uid
+        self.uid = uid
+        # 分布式id ，双向check
+        self.did = did
+        # 链id
+        self.chain_id = chain_id
+        # 链账户
+        self.chain_account = chain_account
+        # 托管情况下包含
+        self.kms_key_id = kms_key_id
+
+    def validate(self):
+        self.validate_required(self.biz_code, 'biz_code')
+        self.validate_required(self.uid, 'uid')
+        self.validate_required(self.did, 'did')
+        self.validate_required(self.chain_account, 'chain_account')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.uid is not None:
+            result['uid'] = self.uid
+        if self.did is not None:
+            result['did'] = self.did
+        if self.chain_id is not None:
+            result['chain_id'] = self.chain_id
+        if self.chain_account is not None:
+            result['chain_account'] = self.chain_account
+        if self.kms_key_id is not None:
+            result['kms_key_id'] = self.kms_key_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        if m.get('did') is not None:
+            self.did = m.get('did')
+        if m.get('chain_id') is not None:
+            self.chain_id = m.get('chain_id')
+        if m.get('chain_account') is not None:
+            self.chain_account = m.get('chain_account')
+        if m.get('kms_key_id') is not None:
+            self.kms_key_id = m.get('kms_key_id')
+        return self
+
+
+class MatchAntchainBbpDidAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class ImportDemoSaasTestTestbRequest(TeaModel):
     def __init__(
         self,
