@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\QueryDemoSaasTestTestaRequest;
+use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\QueryDemoSaasTestTestaResponse;
 use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\ReplaceDemoSaasTestTestjRequest;
 use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\ReplaceDemoSaasTestTestjResponse;
+use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\SendDemoSaasTestTestkRequest;
+use AntChain\Ak_5ea45460b65f4d169144dc74e621ec27\Models\SendDemoSaasTestTestkResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,9 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
-                    '_prod_code'       => 'ak_5ea45460b65f4d169144dc74e621ec27',
-                    '_prod_channel'    => 'saas',
+                    'sdk_version'      => '1.0.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -208,6 +210,39 @@ class Client
     }
 
     /**
+     * Description: testa
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoSaasTestTestaRequest $request
+     *
+     * @return QueryDemoSaasTestTestaResponse
+     */
+    public function queryDemoSaasTestTesta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoSaasTestTestaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testa
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoSaasTestTestaRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDemoSaasTestTestaResponse
+     */
+    public function queryDemoSaasTestTestaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoSaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 共享能力租户流量测试
      * Summary: 共享能力租户流量测试.
      *
@@ -238,5 +273,38 @@ class Client
         Utils::validateModel($request);
 
         return ReplaceDemoSaasTestTestjResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testj.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendDemoSaasTestTestkRequest $request
+     *
+     * @return SendDemoSaasTestTestkResponse
+     */
+    public function sendDemoSaasTestTestk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendDemoSaasTestTestkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendDemoSaasTestTestkRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SendDemoSaasTestTestkResponse
+     */
+    public function sendDemoSaasTestTestkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendDemoSaasTestTestkResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testk.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
