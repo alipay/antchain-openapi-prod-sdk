@@ -148,6 +148,153 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type BindDemoTestTestTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// test
+	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
+}
+
+func (s BindDemoTestTestTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoTestTestTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoTestTestTestRequest) SetAuthToken(v string) *BindDemoTestTestTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestRequest) SetProductInstanceId(v string) *BindDemoTestTestTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestRequest) SetTest(v string) *BindDemoTestTestTestRequest {
+	s.Test = &v
+	return s
+}
+
+type BindDemoTestTestTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// test
+	Test *string `json:"test,omitempty" xml:"test,omitempty"`
+}
+
+func (s BindDemoTestTestTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoTestTestTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoTestTestTestResponse) SetReqMsgId(v string) *BindDemoTestTestTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetResultCode(v string) *BindDemoTestTestTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetResultMsg(v string) *BindDemoTestTestTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetTest(v string) *BindDemoTestTestTestResponse {
+	s.Test = &v
+	return s
+}
+
+type QueryDemoTestTestobjectBbbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 测试入参
+	RequestParam1 *string `json:"request_param1,omitempty" xml:"request_param1,omitempty" require:"true"`
+	// 测试入参2
+	RequestParam2 *string `json:"request_param2,omitempty" xml:"request_param2,omitempty" require:"true"`
+}
+
+func (s QueryDemoTestTestobjectBbbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoTestTestobjectBbbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoTestTestobjectBbbRequest) SetAuthToken(v string) *QueryDemoTestTestobjectBbbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbRequest) SetProductInstanceId(v string) *QueryDemoTestTestobjectBbbRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbRequest) SetRequestParam1(v string) *QueryDemoTestTestobjectBbbRequest {
+	s.RequestParam1 = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbRequest) SetRequestParam2(v string) *QueryDemoTestTestobjectBbbRequest {
+	s.RequestParam2 = &v
+	return s
+}
+
+type QueryDemoTestTestobjectBbbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 测试返回参数
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s QueryDemoTestTestobjectBbbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoTestTestobjectBbbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoTestTestobjectBbbResponse) SetReqMsgId(v string) *QueryDemoTestTestobjectBbbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbResponse) SetResultCode(v string) *QueryDemoTestTestobjectBbbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbResponse) SetResultMsg(v string) *QueryDemoTestTestobjectBbbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDemoTestTestobjectBbbResponse) SetResponse(v string) *QueryDemoTestTestobjectBbbResponse {
+	s.Response = &v
+	return s
+}
+
 type ImportDemoSaasTestTestbRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -347,7 +494,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_10abee70bc4f4d4d90334ebfb4895c12"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -403,6 +550,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+func (client *Client) BindDemoTestTestTest(request *BindDemoTestTestTestRequest) (_result *BindDemoTestTestTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoTestTestTestResponse{}
+	_body, _err := client.BindDemoTestTestTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+func (client *Client) BindDemoTestTestTestEx(request *BindDemoTestTestTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoTestTestTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoTestTestTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.test.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试添加api
+ * Summary: 测试用api
+ */
+func (client *Client) QueryDemoTestTestobjectBbb(request *QueryDemoTestTestobjectBbbRequest) (_result *QueryDemoTestTestobjectBbbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoTestTestobjectBbbResponse{}
+	_body, _err := client.QueryDemoTestTestobjectBbbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试添加api
+ * Summary: 测试用api
+ */
+func (client *Client) QueryDemoTestTestobjectBbbEx(request *QueryDemoTestTestobjectBbbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoTestTestobjectBbbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoTestTestobjectBbbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.testobject.bbb.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
