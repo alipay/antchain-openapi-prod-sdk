@@ -23,6 +23,10 @@ use AntChain\Osp\Models\GetMiddlewareMetaRequest;
 use AntChain\Osp\Models\GetMiddlewareMetaResponse;
 use AntChain\Osp\Models\GetWorkspacegroupInstanceRequest;
 use AntChain\Osp\Models\GetWorkspacegroupInstanceResponse;
+use AntChain\Osp\Models\PagequeryLicenceMeterdataRequest;
+use AntChain\Osp\Models\PagequeryLicenceMeterdataResponse;
+use AntChain\Osp\Models\PushLicenceMeterdataRequest;
+use AntChain\Osp\Models\PushLicenceMeterdataResponse;
 use AntChain\Osp\Models\QueryEndpointsRequest;
 use AntChain\Osp\Models\QueryEndpointsResponse;
 use AntChain\Osp\Models\QueryInstancesRequest;
@@ -160,7 +164,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 集群信息
+            // meter 数据项
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -188,7 +192,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.2.0',
+                    '_prod_code'       => 'osp',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -727,5 +733,71 @@ class Client
         Utils::validateModel($request);
 
         return UnbindMiddlewareInstanceResponse::fromMap($this->doRequest('1.0', 'sofa.osp.middleware.instance.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: licence 实时计量数据推送
+     * Summary: licence 实时计量数据推送
+     *
+     * @param PushLicenceMeterdataRequest $request
+     *
+     * @return PushLicenceMeterdataResponse
+     */
+    public function pushLicenceMeterdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushLicenceMeterdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: licence 实时计量数据推送
+     * Summary: licence 实时计量数据推送
+     *
+     * @param PushLicenceMeterdataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PushLicenceMeterdataResponse
+     */
+    public function pushLicenceMeterdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushLicenceMeterdataResponse::fromMap($this->doRequest('1.0', 'sofa.osp.licence.meterdata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询 license 的计量数据
+     * Summary: 分页查询 license 的计量数据.
+     *
+     * @param PagequeryLicenceMeterdataRequest $request
+     *
+     * @return PagequeryLicenceMeterdataResponse
+     */
+    public function pagequeryLicenceMeterdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryLicenceMeterdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询 license 的计量数据
+     * Summary: 分页查询 license 的计量数据.
+     *
+     * @param PagequeryLicenceMeterdataRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PagequeryLicenceMeterdataResponse
+     */
+    public function pagequeryLicenceMeterdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryLicenceMeterdataResponse::fromMap($this->doRequest('1.0', 'sofa.osp.licence.meterdata.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
