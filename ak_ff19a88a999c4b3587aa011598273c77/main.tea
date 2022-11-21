@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_ff19a88a999c4b3587aa011598273c77',
     _prod_channel = 'saas'
   };
@@ -161,6 +161,20 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// Demo类1
+model DemoClass {
+  // 字符串测试
+  someString: string(name='some_string', example='some string'),
+  // 日期测试
+  someDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='some_date', example='3'),
+  // Boolean测试
+  someBoolean: boolean(name='some_boolean', example='true'),
+  // 整数测试
+  someInt: long(maximum=2000, minimum=1, name='some_int', example='3'),
+  // 列表测试
+  someList: [ string ](name='some_list', example=''),
+}
+
 // 键值对，兼容map用
 model NameValuePair {
   // 键名
@@ -169,12 +183,325 @@ model NameValuePair {
   value: string(name='value', example='value'),
 }
 
+// TestStruct
+model TestStruct {
+  // x
+  x: string(name='x', example='x'),
+  // y
+  y: DemoClass(name='y', example='y'),
+  // z
+  z: [ DemoClass ](name='z', example=''),
+}
+
 // Map<String,Object> 集合
 model QueryMap {
   // 键值
   name: string(name='name', example='BUSINESS_CODE'),
   // 额外用户信息
   value?: [ NameValuePair ](name='value', example=''),
+}
+
+// init接口响应结果，map类型
+model InitPack {
+  // 返回接收到请求的当前时间
+  time: string(name='time', example='2022-11-07 14:48'),
+  // 操作人
+  operator: string(name='operator', example='wanyi'),
+  // 请求编号
+  count: long(name='count', example='1'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model StatusDemoGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model StatusDemoGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  status?: string(name='status'),
+}
+
+/**
+ * Description: Demo接口，返回当前服务器当前状态1
+ * Summary: 检查服务状态
+ */
+async function statusDemoGatewayCheck(request: StatusDemoGatewayCheckRequest): StatusDemoGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return statusDemoGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: Demo接口，返回当前服务器当前状态1
+ * Summary: 检查服务状态
+ */
+async function statusDemoGatewayCheckEx(request: StatusDemoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StatusDemoGatewayCheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.status', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EchoDemoGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // input_array
+  inputArray: [ TestStruct ](name='input_array'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 1
+  inputInt: long(maximum=40, minimum=10, name='input_int'),
+  // 测试一下
+  fileName: string(name='file_name'),
+}
+
+model EchoDemoGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // output_demo
+  outputDemo?: DemoClass(name='output_demo'),
+  // output_string
+  outputString?: string(name='output_string'),
+  // file_url
+  fileUrl?: string(name='file_url'),
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+async function echoDemoGatewayCheck(request: EchoDemoGatewayCheckRequest): EchoDemoGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return echoDemoGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+async function echoDemoGatewayCheckEx(request: EchoDemoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EchoDemoGatewayCheckResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.gateway.check.echo',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var echoDemoGatewayCheckResponse = new EchoDemoGatewayCheckResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return echoDemoGatewayCheckResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.echo', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryDemoGatewayCheck(request: QueryDemoGatewayCheckRequest): QueryDemoGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryDemoGatewayCheckEx(request: QueryDemoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoDemoCheckEeeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoDemoCheckEeeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoDemoCheckEee(request: BindDemoDemoCheckEeeRequest): BindDemoDemoCheckEeeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoDemoCheckEeeEx(request, headers, runtime);
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoDemoCheckEeeEx(request: BindDemoDemoCheckEeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoDemoCheckEeeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.demo.check.eee.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoGatewayAbcTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoGatewayAbcTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindDemoGatewayAbcTest(request: BindDemoGatewayAbcTestRequest): BindDemoGatewayAbcTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoGatewayAbcTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindDemoGatewayAbcTestEx(request: BindDemoGatewayAbcTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoGatewayAbcTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.abc.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoGatewayCheckEchotimeoutRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 10
+  timeout?: string(name='timeout'),
+}
+
+model QueryDemoGatewayCheckEchotimeoutResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 222
+  stauts?: string(name='stauts'),
+  // ok
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 超时测试
+ * Summary: 超时
+ */
+async function queryDemoGatewayCheckEchotimeout(request: QueryDemoGatewayCheckEchotimeoutRequest): QueryDemoGatewayCheckEchotimeoutResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoGatewayCheckEchotimeoutEx(request, headers, runtime);
+}
+
+/**
+ * Description: 超时测试
+ * Summary: 超时
+ */
+async function queryDemoGatewayCheckEchotimeoutEx(request: QueryDemoGatewayCheckEchotimeoutRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckEchotimeoutResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.echotimeout.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoGatewayCheckEchotenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoGatewayCheckEchotenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 222
+  status?: string(name='status'),
+  // ok
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 10  测测aa
+ * Summary: 10s
+ */
+async function queryDemoGatewayCheckEchoten(request: QueryDemoGatewayCheckEchotenRequest): QueryDemoGatewayCheckEchotenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoGatewayCheckEchotenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 10  测测aa
+ * Summary: 10s
+ */
+async function queryDemoGatewayCheckEchotenEx(request: QueryDemoGatewayCheckEchotenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckEchotenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.echoten.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model InitDemoBbpInsuranceUserRequest = {
@@ -217,5 +544,598 @@ async function initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest
 async function initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDemoBbpInsuranceUserResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDemoCjtestCjRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 测试参数
+  var1: string(name='var1'),
+  // 测试参数2
+  var2: string(name='var2'),
+  // 被授权机构did
+  subject?: string(name='subject'),
+}
+
+model UpdateDemoCjtestCjResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 测试返回参数1
+  return1?: string(name='return1'),
+}
+
+/**
+ * Description: 测试网关评审能力
+ * Summary: 评审测试
+ */
+async function updateDemoCjtestCj(request: UpdateDemoCjtestCjRequest): UpdateDemoCjtestCjResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDemoCjtestCjEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试网关评审能力
+ * Summary: 评审测试
+ */
+async function updateDemoCjtestCjEx(request: UpdateDemoCjtestCjRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDemoCjtestCjResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.cj.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetDemoComCnCcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // orderid
+  orderId: string(name='order_id'),
+}
+
+model ResetDemoComCnCcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单id
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 测试api描述
+ * Summary: api简介
+ */
+async function resetDemoComCnCc(request: ResetDemoComCnCcRequest): ResetDemoComCnCcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetDemoComCnCcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试api描述
+ * Summary: api简介
+ */
+async function resetDemoComCnCcEx(request: ResetDemoComCnCcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetDemoComCnCcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.com.cn.cc.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadDemoCjtestSourceFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadDemoCjtestSourceFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  res?: string(name='res'),
+}
+
+/**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+async function uploadDemoCjtestSourceFile(request: UploadDemoCjtestSourceFileRequest): UploadDemoCjtestSourceFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadDemoCjtestSourceFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+async function uploadDemoCjtestSourceFileEx(request: UploadDemoCjtestSourceFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadDemoCjtestSourceFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.cjtest.source.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadDemoCjtestSourceFileResponse = new UploadDemoCjtestSourceFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadDemoCjtestSourceFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.source.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoCjtestCjResRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoCjtestCjResResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 字符串
+  res?: string(name='res'),
+}
+
+/**
+ * Description: 测试返回值限制
+ * Summary: dev测试返回值限制
+ */
+async function queryDemoCjtestCjRes(request: QueryDemoCjtestCjResRequest): QueryDemoCjtestCjResResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoCjtestCjResEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试返回值限制
+ * Summary: dev测试返回值限制
+ */
+async function queryDemoCjtestCjResEx(request: QueryDemoCjtestCjResRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoCjtestCjResResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.cj.res.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetDemoCjtestApiAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ResetDemoCjtestApiAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function resetDemoCjtestApiAuthorize(request: ResetDemoCjtestApiAuthorizeRequest): ResetDemoCjtestApiAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetDemoCjtestApiAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function resetDemoCjtestApiAuthorizeEx(request: ResetDemoCjtestApiAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetDemoCjtestApiAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.api.authorize.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitDemoGatewayRoadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求时间
+  time: string(name='time'),
+  // 操作人
+  operator: string(name='operator'),
+  // 请求编号
+  count: long(name='count'),
+  // 请求描述
+  desc?: string(name='desc'),
+}
+
+model InitDemoGatewayRoadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回desc
+  initDesc?: string(name='init_desc'),
+  // 组合返回请求结果
+  initPack?: InitPack(name='init_pack'),
+}
+
+/**
+ * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+ * Summary: road.init（Fr AutoT）
+ */
+async function initDemoGatewayRoad(request: InitDemoGatewayRoadRequest): InitDemoGatewayRoadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initDemoGatewayRoadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+ * Summary: road.init（Fr AutoT）
+ */
+async function initDemoGatewayRoadEx(request: InitDemoGatewayRoadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDemoGatewayRoadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.road.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportDemoComCnTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model ImportDemoComCnTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 1
+ * Summary: api简介
+ */
+async function importDemoComCnTest(request: ImportDemoComCnTestRequest): ImportDemoComCnTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importDemoComCnTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1
+ * Summary: api简介
+ */
+async function importDemoComCnTestEx(request: ImportDemoComCnTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportDemoComCnTestResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.com.cn.test.import',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var importDemoComCnTestResponse = new ImportDemoComCnTestResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return importDemoComCnTestResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.com.cn.test.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishDemoSaasTestTestcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 张三
+  name: string(name='name'),
+  // 14
+  age: long(name='age'),
+}
+
+model PublishDemoSaasTestTestcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 男
+  sex?: string(name='sex'),
+}
+
+/**
+ * Description: testc
+ * Summary: 测试用api
+ */
+async function publishDemoSaasTestTestc(request: PublishDemoSaasTestTestcRequest): PublishDemoSaasTestTestcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishDemoSaasTestTestcEx(request, headers, runtime);
+}
+
+/**
+ * Description: testc
+ * Summary: 测试用api
+ */
+async function publishDemoSaasTestTestcEx(request: PublishDemoSaasTestTestcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishDemoSaasTestTestcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testc.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetDemoSaasTestTestdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model ResetDemoSaasTestTestdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  age?: string(name='age'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function resetDemoSaasTestTestd(request: ResetDemoSaasTestTestdRequest): ResetDemoSaasTestTestdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetDemoSaasTestTestdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function resetDemoSaasTestTestdEx(request: ResetDemoSaasTestTestdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetDemoSaasTestTestdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testd.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateDemoSaasTestTesteRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  age: string(name='age'),
+}
+
+model OperateDemoSaasTestTesteResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  age?: string(name='age'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function operateDemoSaasTestTeste(request: OperateDemoSaasTestTesteRequest): OperateDemoSaasTestTesteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateDemoSaasTestTesteEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function operateDemoSaasTestTesteEx(request: OperateDemoSaasTestTesteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateDemoSaasTestTesteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.teste.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateDemoSaasTestTestfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model BatchcreateDemoSaasTestTestfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  age?: string(name='age'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function batchcreateDemoSaasTestTestf(request: BatchcreateDemoSaasTestTestfRequest): BatchcreateDemoSaasTestTestfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateDemoSaasTestTestfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function batchcreateDemoSaasTestTestfEx(request: BatchcreateDemoSaasTestTestfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateDemoSaasTestTestfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDemoSaasTestTesthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  name: string(name='name'),
+}
+
+model CreateDemoSaasTestTesthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  name?: string(name='name'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesth(request: CreateDemoSaasTestTesthRequest): CreateDemoSaasTestTesthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDemoSaasTestTesthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesthEx(request: CreateDemoSaasTestTesthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDemoSaasTestTesthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testh.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDemoSaasTestTestiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model CreateDemoSaasTestTestiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  sex?: string(name='sex'),
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTesti(request: CreateDemoSaasTestTestiRequest): CreateDemoSaasTestTestiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDemoSaasTestTestiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力租户流量测试
+ * Summary: 共享能力租户流量测试
+ */
+async function createDemoSaasTestTestiEx(request: CreateDemoSaasTestTestiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDemoSaasTestTestiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.saas.test.testi.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
