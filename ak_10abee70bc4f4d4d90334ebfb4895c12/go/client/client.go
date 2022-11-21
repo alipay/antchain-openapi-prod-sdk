@@ -148,45 +148,45 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type QueryDemoSaasTestTestaRequest struct {
+type ImportDemoSaasTestTestbRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 张三
+	// 李四
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 12
+	// 18
 	Age *int64 `json:"age,omitempty" xml:"age,omitempty" require:"true"`
 }
 
-func (s QueryDemoSaasTestTestaRequest) String() string {
+func (s ImportDemoSaasTestTestbRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDemoSaasTestTestaRequest) GoString() string {
+func (s ImportDemoSaasTestTestbRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDemoSaasTestTestaRequest) SetAuthToken(v string) *QueryDemoSaasTestTestaRequest {
+func (s *ImportDemoSaasTestTestbRequest) SetAuthToken(v string) *ImportDemoSaasTestTestbRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaRequest) SetProductInstanceId(v string) *QueryDemoSaasTestTestaRequest {
+func (s *ImportDemoSaasTestTestbRequest) SetProductInstanceId(v string) *ImportDemoSaasTestTestbRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaRequest) SetName(v string) *QueryDemoSaasTestTestaRequest {
+func (s *ImportDemoSaasTestTestbRequest) SetName(v string) *ImportDemoSaasTestTestbRequest {
 	s.Name = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaRequest) SetAge(v int64) *QueryDemoSaasTestTestaRequest {
+func (s *ImportDemoSaasTestTestbRequest) SetAge(v int64) *ImportDemoSaasTestTestbRequest {
 	s.Age = &v
 	return s
 }
 
-type QueryDemoSaasTestTestaResponse struct {
+type ImportDemoSaasTestTestbResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -197,30 +197,30 @@ type QueryDemoSaasTestTestaResponse struct {
 	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
 }
 
-func (s QueryDemoSaasTestTestaResponse) String() string {
+func (s ImportDemoSaasTestTestbResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDemoSaasTestTestaResponse) GoString() string {
+func (s ImportDemoSaasTestTestbResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDemoSaasTestTestaResponse) SetReqMsgId(v string) *QueryDemoSaasTestTestaResponse {
+func (s *ImportDemoSaasTestTestbResponse) SetReqMsgId(v string) *ImportDemoSaasTestTestbResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaResponse) SetResultCode(v string) *QueryDemoSaasTestTestaResponse {
+func (s *ImportDemoSaasTestTestbResponse) SetResultCode(v string) *ImportDemoSaasTestTestbResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaResponse) SetResultMsg(v string) *QueryDemoSaasTestTestaResponse {
+func (s *ImportDemoSaasTestTestbResponse) SetResultMsg(v string) *ImportDemoSaasTestTestbResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryDemoSaasTestTestaResponse) SetSex(v string) *QueryDemoSaasTestTestaResponse {
+func (s *ImportDemoSaasTestTestbResponse) SetSex(v string) *ImportDemoSaasTestTestbResponse {
 	s.Sex = &v
 	return s
 }
@@ -347,7 +347,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
+				"_prod_code":       tea.String("ak_10abee70bc4f4d4d90334ebfb4895c12"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -404,14 +406,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: testa
+ * Description: testB
  * Summary: 测试用api
  */
-func (client *Client) QueryDemoSaasTestTesta(request *QueryDemoSaasTestTestaRequest) (_result *QueryDemoSaasTestTestaResponse, _err error) {
+func (client *Client) ImportDemoSaasTestTestb(request *ImportDemoSaasTestTestbRequest) (_result *ImportDemoSaasTestTestbResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryDemoSaasTestTestaResponse{}
-	_body, _err := client.QueryDemoSaasTestTestaEx(request, headers, runtime)
+	_result = &ImportDemoSaasTestTestbResponse{}
+	_body, _err := client.ImportDemoSaasTestTestbEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -420,16 +422,16 @@ func (client *Client) QueryDemoSaasTestTesta(request *QueryDemoSaasTestTestaRequ
 }
 
 /**
- * Description: testa
+ * Description: testB
  * Summary: 测试用api
  */
-func (client *Client) QueryDemoSaasTestTestaEx(request *QueryDemoSaasTestTestaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoSaasTestTestaResponse, _err error) {
+func (client *Client) ImportDemoSaasTestTestbEx(request *ImportDemoSaasTestTestbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportDemoSaasTestTestbResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryDemoSaasTestTestaResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.saas.test.testa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ImportDemoSaasTestTestbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.saas.test.testb.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
