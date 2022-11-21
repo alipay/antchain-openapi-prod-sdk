@@ -148,6 +148,104 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type MatchAntchainBbpDidAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码(YYX)
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 支付宝uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+	// 分布式id ，双向check
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty"`
+	// 链账户
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
+	// 托管情况下包含
+	KmsKeyId *string `json:"kms_key_id,omitempty" xml:"kms_key_id,omitempty"`
+}
+
+func (s MatchAntchainBbpDidAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAntchainBbpDidAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetAuthToken(v string) *MatchAntchainBbpDidAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetProductInstanceId(v string) *MatchAntchainBbpDidAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetBizCode(v string) *MatchAntchainBbpDidAccountRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetUid(v string) *MatchAntchainBbpDidAccountRequest {
+	s.Uid = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetDid(v string) *MatchAntchainBbpDidAccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetChainId(v string) *MatchAntchainBbpDidAccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetChainAccount(v string) *MatchAntchainBbpDidAccountRequest {
+	s.ChainAccount = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetKmsKeyId(v string) *MatchAntchainBbpDidAccountRequest {
+	s.KmsKeyId = &v
+	return s
+}
+
+type MatchAntchainBbpDidAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s MatchAntchainBbpDidAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAntchainBbpDidAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAntchainBbpDidAccountResponse) SetReqMsgId(v string) *MatchAntchainBbpDidAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountResponse) SetResultCode(v string) *MatchAntchainBbpDidAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountResponse) SetResultMsg(v string) *MatchAntchainBbpDidAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ImportDemoSaasTestTestbRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -347,9 +445,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
-				"_prod_code":       tea.String("ak_5b7ef338f3d44a83981161fc92af8f5a"),
-				"_prod_channel":    tea.String("saas"),
+				"sdk_version":      tea.String("1.0.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -403,6 +499,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
+ */
+func (client *Client) MatchAntchainBbpDidAccount(request *MatchAntchainBbpDidAccountRequest) (_result *MatchAntchainBbpDidAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchAntchainBbpDidAccountResponse{}
+	_body, _err := client.MatchAntchainBbpDidAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
+ */
+func (client *Client) MatchAntchainBbpDidAccountEx(request *MatchAntchainBbpDidAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchAntchainBbpDidAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchAntchainBbpDidAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.did.account.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
