@@ -137,9 +137,7 @@ namespace AntChain.SDK.Ak_5ea45460b65f4d169144dc74e621ec27
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_5ea45460b65f4d169144dc74e621ec27"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.Ak_5ea45460b65f4d169144dc74e621ec27
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_5ea45460b65f4d169144dc74e621ec27"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -322,6 +318,48 @@ namespace AntChain.SDK.Ak_5ea45460b65f4d169144dc74e621ec27
         }
 
         /**
+         * Description: testa
+         * Summary: 测试用api
+         */
+        public QueryDemoSaasTestTestaResponse QueryDemoSaasTestTesta(QueryDemoSaasTestTestaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoSaasTestTestaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: testa
+         * Summary: 测试用api
+         */
+        public async Task<QueryDemoSaasTestTestaResponse> QueryDemoSaasTestTestaAsync(QueryDemoSaasTestTestaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoSaasTestTestaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: testa
+         * Summary: 测试用api
+         */
+        public QueryDemoSaasTestTestaResponse QueryDemoSaasTestTestaEx(QueryDemoSaasTestTestaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoSaasTestTestaResponse>(DoRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: testa
+         * Summary: 测试用api
+         */
+        public async Task<QueryDemoSaasTestTestaResponse> QueryDemoSaasTestTestaExAsync(QueryDemoSaasTestTestaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoSaasTestTestaResponse>(await DoRequestAsync("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 共享能力租户流量测试
          * Summary: 共享能力租户流量测试
          */
@@ -361,6 +399,48 @@ namespace AntChain.SDK.Ak_5ea45460b65f4d169144dc74e621ec27
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReplaceDemoSaasTestTestjResponse>(await DoRequestAsync("1.0", "demo.saas.test.testj.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public SendDemoSaasTestTestkResponse SendDemoSaasTestTestk(SendDemoSaasTestTestkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendDemoSaasTestTestkEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public async Task<SendDemoSaasTestTestkResponse> SendDemoSaasTestTestkAsync(SendDemoSaasTestTestkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendDemoSaasTestTestkExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public SendDemoSaasTestTestkResponse SendDemoSaasTestTestkEx(SendDemoSaasTestTestkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendDemoSaasTestTestkResponse>(DoRequest("1.0", "demo.saas.test.testk.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力租户流量测试
+         * Summary: 共享能力租户流量测试
+         */
+        public async Task<SendDemoSaasTestTestkResponse> SendDemoSaasTestTestkExAsync(SendDemoSaasTestTestkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendDemoSaasTestTestkResponse>(await DoRequestAsync("1.0", "demo.saas.test.testk.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
