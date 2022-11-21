@@ -148,6 +148,76 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type BindDemoTestTestTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// test
+	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
+}
+
+func (s BindDemoTestTestTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoTestTestTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoTestTestTestRequest) SetAuthToken(v string) *BindDemoTestTestTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestRequest) SetProductInstanceId(v string) *BindDemoTestTestTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestRequest) SetTest(v string) *BindDemoTestTestTestRequest {
+	s.Test = &v
+	return s
+}
+
+type BindDemoTestTestTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// test
+	Test *string `json:"test,omitempty" xml:"test,omitempty"`
+}
+
+func (s BindDemoTestTestTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoTestTestTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoTestTestTestResponse) SetReqMsgId(v string) *BindDemoTestTestTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetResultCode(v string) *BindDemoTestTestTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetResultMsg(v string) *BindDemoTestTestTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindDemoTestTestTestResponse) SetTest(v string) *BindDemoTestTestTestResponse {
+	s.Test = &v
+	return s
+}
+
 type QueryDemoSaasTestTestaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -347,7 +417,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -401,6 +471,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+func (client *Client) BindDemoTestTestTest(request *BindDemoTestTestTestRequest) (_result *BindDemoTestTestTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoTestTestTestResponse{}
+	_body, _err := client.BindDemoTestTestTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+func (client *Client) BindDemoTestTestTestEx(request *BindDemoTestTestTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoTestTestTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoTestTestTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.test.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
