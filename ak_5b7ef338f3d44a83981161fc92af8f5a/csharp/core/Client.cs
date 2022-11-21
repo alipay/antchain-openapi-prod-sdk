@@ -137,9 +137,7 @@ namespace AntChain.SDK.Ak_5b7ef338f3d44a83981161fc92af8f5a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_5b7ef338f3d44a83981161fc92af8f5a"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.Ak_5b7ef338f3d44a83981161fc92af8f5a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_5b7ef338f3d44a83981161fc92af8f5a"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -319,6 +315,48 @@ namespace AntChain.SDK.Ak_5b7ef338f3d44a83981161fc92af8f5a
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 身份关联链上账户
+         * Summary: 身份关联链上账户
+         */
+        public MatchAntchainBbpDidAccountResponse MatchAntchainBbpDidAccount(MatchAntchainBbpDidAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchAntchainBbpDidAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 身份关联链上账户
+         * Summary: 身份关联链上账户
+         */
+        public async Task<MatchAntchainBbpDidAccountResponse> MatchAntchainBbpDidAccountAsync(MatchAntchainBbpDidAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchAntchainBbpDidAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 身份关联链上账户
+         * Summary: 身份关联链上账户
+         */
+        public MatchAntchainBbpDidAccountResponse MatchAntchainBbpDidAccountEx(MatchAntchainBbpDidAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAntchainBbpDidAccountResponse>(DoRequest("1.0", "antchain.bbp.did.account.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 身份关联链上账户
+         * Summary: 身份关联链上账户
+         */
+        public async Task<MatchAntchainBbpDidAccountResponse> MatchAntchainBbpDidAccountExAsync(MatchAntchainBbpDidAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAntchainBbpDidAccountResponse>(await DoRequestAsync("1.0", "antchain.bbp.did.account.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
