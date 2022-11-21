@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_5b7ef338f3d44a83981161fc92af8f5a\Models\ImportDemoSaasTestTestbRequest;
 use AntChain\Ak_5b7ef338f3d44a83981161fc92af8f5a\Models\ImportDemoSaasTestTestbResponse;
+use AntChain\Ak_5b7ef338f3d44a83981161fc92af8f5a\Models\MatchAntchainBbpDidAccountRequest;
+use AntChain\Ak_5b7ef338f3d44a83981161fc92af8f5a\Models\MatchAntchainBbpDidAccountResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,9 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
-                    '_prod_code'       => 'ak_5b7ef338f3d44a83981161fc92af8f5a',
-                    '_prod_channel'    => 'saas',
+                    'sdk_version'      => '1.0.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -205,6 +205,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
+     *
+     * @param MatchAntchainBbpDidAccountRequest $request
+     *
+     * @return MatchAntchainBbpDidAccountResponse
+     */
+    public function matchAntchainBbpDidAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchAntchainBbpDidAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
+     *
+     * @param MatchAntchainBbpDidAccountRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return MatchAntchainBbpDidAccountResponse
+     */
+    public function matchAntchainBbpDidAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchAntchainBbpDidAccountResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
