@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("_prod_code", "ak_5ea45460b65f4d169144dc74e621ec27"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -176,24 +178,5 @@ public class Client {
     public ReplaceDemoSaasTestTestjResponse replaceDemoSaasTestTestjEx(ReplaceDemoSaasTestTestjRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testj.replace", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReplaceDemoSaasTestTestjResponse());
-    }
-
-    /**
-     * Description: 共享能力租户流量测试
-     * Summary: 共享能力租户流量测试
-     */
-    public SendDemoSaasTestTestkResponse sendDemoSaasTestTestk(SendDemoSaasTestTestkRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.sendDemoSaasTestTestkEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 共享能力租户流量测试
-     * Summary: 共享能力租户流量测试
-     */
-    public SendDemoSaasTestTestkResponse sendDemoSaasTestTestkEx(SendDemoSaasTestTestkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testk.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendDemoSaasTestTestkResponse());
     }
 }
