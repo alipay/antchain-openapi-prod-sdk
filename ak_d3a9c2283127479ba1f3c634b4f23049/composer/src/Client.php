@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_d3a9c2283127479ba1f3c634b4f23049\Models\BindDemoTestTestTestRequest;
+use AntChain\Ak_d3a9c2283127479ba1f3c634b4f23049\Models\BindDemoTestTestTestResponse;
 use AntChain\Ak_d3a9c2283127479ba1f3c634b4f23049\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_d3a9c2283127479ba1f3c634b4f23049\Models\QueryDemoSaasTestTestaResponse;
 use AntChain\Util\UtilClient;
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -203,6 +205,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
