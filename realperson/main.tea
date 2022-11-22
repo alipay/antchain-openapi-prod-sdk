@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.0',
+    sdk_version = '1.9.0',
     _prod_code = 'REALPERSON',
     _prod_channel = 'undefined'
   };
@@ -1055,6 +1055,188 @@ async function queryThreemetaOnlinetime(request: QueryThreemetaOnlinetimeRequest
 async function queryThreemetaOnlinetimeEx(request: QueryThreemetaOnlinetimeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThreemetaOnlinetimeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitFacevrfZimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务参数
+  bizData?: string(name='biz_data'),
+  // 渠道
+  channel?: string(name='channel'),
+  // 商户
+  merchant?: string(name='merchant'),
+  // 环境参数
+  metaInfo: string(name='meta_info'),
+  // 产品节点
+  produceNode?: string(name='produce_node'),
+  // 产品名称
+  productName?: string(name='product_name'),
+  // 实人认证id
+  // 
+  zimId: string(name='zim_id'),
+  // 身份信息参数
+  // 
+  zimPrincipal?: string(name='zim_principal'),
+}
+
+model InitFacevrfZimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  // 
+  extParams?: string(name='ext_params'),
+  // 描述
+  message?: string(name='message'),
+  // 协议
+  protocol?: string(name='protocol'),
+  // 返回码
+  retCode?: string(name='ret_code'),
+  // 明细返回码
+  retCodeSub?: string(name='ret_code_sub'),
+  // 明细返回码对应的文案
+  retMessageSub?: string(name='ret_message_sub'),
+  // 实人认证id
+  zimId?: string(name='zim_id'),
+}
+
+/**
+ * Description: 客户端初始化认证(OEM专用)
+ * Summary: 客户端初始化认证(OEM专用)
+ */
+async function initFacevrfZim(request: InitFacevrfZimRequest): InitFacevrfZimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initFacevrfZimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户端初始化认证(OEM专用)
+ * Summary: 客户端初始化认证(OEM专用)
+ */
+async function initFacevrfZimEx(request: InitFacevrfZimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFacevrfZimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.facevrf.zim.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyFacevrfZimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展信息,Map的json格式
+  externParam?: string(name='extern_param'),
+  // 人脸业务参数
+  zimData: string(name='zim_data'),
+  // 7501f6c2dd57e06fe0d4202d3aaab58e
+  zimId: string(name='zim_id'),
+}
+
+model VerifyFacevrfZimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  extParams?: string(name='ext_params'),
+  // ""
+  hasNext?: string(name='has_next'),
+  // ""
+  nextProtocol?: string(name='next_protocol'),
+  // 产品返回明细码
+  productRetCode?: string(name='product_ret_code'),
+  // 明细返回码
+  retCodeSub?: string(name='ret_code_sub'),
+  // 明细返回码对应的文案
+  retMessageSub?: string(name='ret_message_sub'),
+  // 验证返回明细码
+  validationRetCode?: string(name='validation_ret_code'),
+}
+
+/**
+ * Description: 客户端人脸验证(OEM专用)
+ * Summary: 客户端人脸验证(OEM专用)
+ */
+async function verifyFacevrfZim(request: VerifyFacevrfZimRequest): VerifyFacevrfZimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyFacevrfZimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户端人脸验证(OEM专用)
+ * Summary: 客户端人脸验证(OEM专用)
+ */
+async function verifyFacevrfZimEx(request: VerifyFacevrfZimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyFacevrfZimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.facevrf.zim.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeDocIndividualcardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 长度不超过32位的0-9A-Za-z字符串。
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outOrderNo: string(name='out_order_no'),
+  // 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+  cardType: string(name='card_type'),
+  // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+  dataType: string(name='data_type'),
+  // 传入的图片的具体内容，需要与data_type的选择保持一致。
+  dataContent: string(name='data_content'),
+  // 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+  reqEncType?: string(name='req_enc_type'),
+  // 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+  respEncType?: string(name='resp_enc_type'),
+  // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
+  respEncToken?: string(name='resp_enc_token'),
+  // 扩展信息JSON串。
+  externParam?: string(name='extern_param'),
+}
+
+model RecognizeDocIndividualcardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果码
+  retCode?: string(name='ret_code'),
+  // 错误码
+  retCodeSub?: string(name='ret_code_sub'),
+  // 错误信息
+  retMessageSub?: string(name='ret_message_sub'),
+  // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+  ocrInfo?: string(name='ocr_info'),
+  // 扩展信息JSON串。
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 卡证OCR
+ * Summary: 卡证OCR
+ */
+async function recognizeDocIndividualcard(request: RecognizeDocIndividualcardRequest): RecognizeDocIndividualcardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeDocIndividualcardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 卡证OCR
+ * Summary: 卡证OCR
+ */
+async function recognizeDocIndividualcardEx(request: RecognizeDocIndividualcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeDocIndividualcardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
