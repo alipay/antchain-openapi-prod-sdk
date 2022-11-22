@@ -148,111 +148,73 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 键值对，兼容map用
-type NameValuePair struct {
-	// 键名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 键值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s NameValuePair) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NameValuePair) GoString() string {
-	return s.String()
-}
-
-func (s *NameValuePair) SetName(v string) *NameValuePair {
-	s.Name = &v
-	return s
-}
-
-func (s *NameValuePair) SetValue(v string) *NameValuePair {
-	s.Value = &v
-	return s
-}
-
-// Map<String,Object> 集合
-type QueryMap struct {
-	// 键值
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 额外用户信息
-	Value []*NameValuePair `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
-}
-
-func (s QueryMap) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryMap) GoString() string {
-	return s.String()
-}
-
-func (s *QueryMap) SetName(v string) *QueryMap {
-	s.Name = &v
-	return s
-}
-
-func (s *QueryMap) SetValue(v []*NameValuePair) *QueryMap {
-	s.Value = v
-	return s
-}
-
-type InitDemoBbpInsuranceUserRequest struct {
+type MatchAntchainBbpDidAccountRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 保司编码
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
-	// 第三方id，此处为天猫uid
-	ThirdPartId *string `json:"third_part_id,omitempty" xml:"third_part_id,omitempty" require:"true"`
-	// 来源渠道
-	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
-	// 埋点信息
-	Burieds *QueryMap `json:"burieds,omitempty" xml:"burieds,omitempty"`
+	// 场景码(YYX)
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 支付宝uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+	// 分布式id ，双向check
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty"`
+	// 链账户
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
+	// 托管情况下包含
+	KmsKeyId *string `json:"kms_key_id,omitempty" xml:"kms_key_id,omitempty"`
 }
 
-func (s InitDemoBbpInsuranceUserRequest) String() string {
+func (s MatchAntchainBbpDidAccountRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s InitDemoBbpInsuranceUserRequest) GoString() string {
+func (s MatchAntchainBbpDidAccountRequest) GoString() string {
 	return s.String()
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetAuthToken(v string) *InitDemoBbpInsuranceUserRequest {
+func (s *MatchAntchainBbpDidAccountRequest) SetAuthToken(v string) *MatchAntchainBbpDidAccountRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetProductInstanceId(v string) *InitDemoBbpInsuranceUserRequest {
+func (s *MatchAntchainBbpDidAccountRequest) SetProductInstanceId(v string) *MatchAntchainBbpDidAccountRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetBusinessCode(v string) *InitDemoBbpInsuranceUserRequest {
-	s.BusinessCode = &v
+func (s *MatchAntchainBbpDidAccountRequest) SetBizCode(v string) *MatchAntchainBbpDidAccountRequest {
+	s.BizCode = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetThirdPartId(v string) *InitDemoBbpInsuranceUserRequest {
-	s.ThirdPartId = &v
+func (s *MatchAntchainBbpDidAccountRequest) SetUid(v string) *MatchAntchainBbpDidAccountRequest {
+	s.Uid = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetChannel(v string) *InitDemoBbpInsuranceUserRequest {
-	s.Channel = &v
+func (s *MatchAntchainBbpDidAccountRequest) SetDid(v string) *MatchAntchainBbpDidAccountRequest {
+	s.Did = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserRequest) SetBurieds(v *QueryMap) *InitDemoBbpInsuranceUserRequest {
-	s.Burieds = v
+func (s *MatchAntchainBbpDidAccountRequest) SetChainId(v string) *MatchAntchainBbpDidAccountRequest {
+	s.ChainId = &v
 	return s
 }
 
-type InitDemoBbpInsuranceUserResponse struct {
+func (s *MatchAntchainBbpDidAccountRequest) SetChainAccount(v string) *MatchAntchainBbpDidAccountRequest {
+	s.ChainAccount = &v
+	return s
+}
+
+func (s *MatchAntchainBbpDidAccountRequest) SetKmsKeyId(v string) *MatchAntchainBbpDidAccountRequest {
+	s.KmsKeyId = &v
+	return s
+}
+
+type MatchAntchainBbpDidAccountResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -261,81 +223,25 @@ type InitDemoBbpInsuranceUserResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s InitDemoBbpInsuranceUserResponse) String() string {
+func (s MatchAntchainBbpDidAccountResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s InitDemoBbpInsuranceUserResponse) GoString() string {
+func (s MatchAntchainBbpDidAccountResponse) GoString() string {
 	return s.String()
 }
 
-func (s *InitDemoBbpInsuranceUserResponse) SetReqMsgId(v string) *InitDemoBbpInsuranceUserResponse {
+func (s *MatchAntchainBbpDidAccountResponse) SetReqMsgId(v string) *MatchAntchainBbpDidAccountResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserResponse) SetResultCode(v string) *InitDemoBbpInsuranceUserResponse {
+func (s *MatchAntchainBbpDidAccountResponse) SetResultCode(v string) *MatchAntchainBbpDidAccountResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *InitDemoBbpInsuranceUserResponse) SetResultMsg(v string) *InitDemoBbpInsuranceUserResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type BindDemoAsdAsdAsdRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoAsdAsdAsdRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdAsdRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdAsdRequest) SetAuthToken(v string) *BindDemoAsdAsdAsdRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdRequest) SetProductInstanceId(v string) *BindDemoAsdAsdAsdRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoAsdAsdAsdResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoAsdAsdAsdResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdAsdResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetReqMsgId(v string) *BindDemoAsdAsdAsdResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdAsdResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdAsdResponse {
+func (s *MatchAntchainBbpDidAccountResponse) SetResultMsg(v string) *MatchAntchainBbpDidAccountResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -462,7 +368,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -519,14 +425,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 保司用户埋点信息
- * Summary: 用户登陆页面埋点
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
  */
-func (client *Client) InitDemoBbpInsuranceUser(request *InitDemoBbpInsuranceUserRequest) (_result *InitDemoBbpInsuranceUserResponse, _err error) {
+func (client *Client) MatchAntchainBbpDidAccount(request *MatchAntchainBbpDidAccountRequest) (_result *MatchAntchainBbpDidAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &InitDemoBbpInsuranceUserResponse{}
-	_body, _err := client.InitDemoBbpInsuranceUserEx(request, headers, runtime)
+	_result = &MatchAntchainBbpDidAccountResponse{}
+	_body, _err := client.MatchAntchainBbpDidAccountEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -535,50 +441,16 @@ func (client *Client) InitDemoBbpInsuranceUser(request *InitDemoBbpInsuranceUser
 }
 
 /**
- * Description: 保司用户埋点信息
- * Summary: 用户登陆页面埋点
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
  */
-func (client *Client) InitDemoBbpInsuranceUserEx(request *InitDemoBbpInsuranceUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitDemoBbpInsuranceUserResponse, _err error) {
+func (client *Client) MatchAntchainBbpDidAccountEx(request *MatchAntchainBbpDidAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchAntchainBbpDidAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &InitDemoBbpInsuranceUserResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.bbp.insurance.user.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
-func (client *Client) BindDemoAsdAsdAsd(request *BindDemoAsdAsdAsdRequest) (_result *BindDemoAsdAsdAsdResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAsdAsdAsdResponse{}
-	_body, _err := client.BindDemoAsdAsdAsdEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
-func (client *Client) BindDemoAsdAsdAsdEx(request *BindDemoAsdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAsdAsdAsdResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAsdAsdAsdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &MatchAntchainBbpDidAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.did.account.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
