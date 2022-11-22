@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_565b634e3a95498e8d64367689cda6ad.Models
 {
-    public class QueryDemoSaasTestTestaRequest : TeaModel {
+    public class BatchcreateDemoSaasTestTestfRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.Ak_565b634e3a95498e8d64367689cda6ad.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 张三
+        // test
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }
-
-        // 12
-        [NameInMap("age")]
-        [Validation(Required=true)]
-        public long? Age { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_565b634e3a95498e8d64367689cda6ad.Models
 {
-    public class QueryDemoSaasTestTestaResponse : TeaModel {
+    public class BatchcreateDemoSaasTestTestfResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_565b634e3a95498e8d64367689cda6ad.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 男
-        [NameInMap("sex")]
+        // test
+        [NameInMap("age")]
         [Validation(Required=false)]
-        public string Sex { get; set; }
+        public string Age { get; set; }
 
     }
 
