@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-realperson</artifactId>
-  <version>1.8.0</version>
+  <version>1.9.0</version>
   <packaging>jar</packaging>
   <name>openapi-realperson</name>
   <description>Ant Chain REALPERSON SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.14</version>
+      <version>0.2.16</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
