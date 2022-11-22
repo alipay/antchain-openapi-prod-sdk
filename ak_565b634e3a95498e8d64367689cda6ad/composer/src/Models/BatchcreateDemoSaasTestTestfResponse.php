@@ -6,7 +6,7 @@ namespace AntChain\Ak_565b634e3a95498e8d64367689cda6ad\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoSaasTestTestaResponse extends Model
+class BatchcreateDemoSaasTestTestfResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryDemoSaasTestTestaResponse extends Model
      */
     public $resultMsg;
 
-    // 男
+    // test
     /**
      * @var string
      */
-    public $sex;
+    public $age;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'sex'        => 'sex',
+        'age'        => 'age',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryDemoSaasTestTestaResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->sex) {
-            $res['sex'] = $this->sex;
+        if (null !== $this->age) {
+            $res['age'] = $this->age;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class QueryDemoSaasTestTestaResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoSaasTestTestaResponse
+     * @return BatchcreateDemoSaasTestTestfResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class QueryDemoSaasTestTestaResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sex'])) {
-            $model->sex = $map['sex'];
+        if (isset($map['age'])) {
+            $model->age = $map['age'];
         }
 
         return $model;

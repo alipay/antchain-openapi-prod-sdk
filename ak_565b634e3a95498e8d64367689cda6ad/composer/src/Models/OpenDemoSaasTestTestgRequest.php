@@ -6,7 +6,7 @@ namespace AntChain\Ak_565b634e3a95498e8d64367689cda6ad\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoSaasTestTestaRequest extends Model
+class OpenDemoSaasTestTestgRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class QueryDemoSaasTestTestaRequest extends Model
      */
     public $productInstanceId;
 
-    // 张三
+    // test
     /**
      * @var string
      */
     public $name;
-
-    // 12
-    /**
-     * @var int
-     */
-    public $age;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'name'              => 'name',
-        'age'               => 'age',
     ];
 
     public function validate()
     {
         Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('age', $this->age, true);
     }
 
     public function toMap()
@@ -55,9 +47,6 @@ class QueryDemoSaasTestTestaRequest extends Model
         if (null !== $this->name) {
             $res['name'] = $this->name;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
-        }
 
         return $res;
     }
@@ -65,7 +54,7 @@ class QueryDemoSaasTestTestaRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoSaasTestTestaRequest
+     * @return OpenDemoSaasTestTestgRequest
      */
     public static function fromMap($map = [])
     {
@@ -78,9 +67,6 @@ class QueryDemoSaasTestTestaRequest extends Model
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];
-        }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
         }
 
         return $model;
