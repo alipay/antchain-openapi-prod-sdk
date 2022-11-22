@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.0"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.0"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1037,6 +1037,132 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryThreemetaOnlinetimeResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.onlinetime.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户端初始化认证(OEM专用)
+         * Summary: 客户端初始化认证(OEM专用)
+         */
+        public InitFacevrfZimResponse InitFacevrfZim(InitFacevrfZimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitFacevrfZimEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户端初始化认证(OEM专用)
+         * Summary: 客户端初始化认证(OEM专用)
+         */
+        public async Task<InitFacevrfZimResponse> InitFacevrfZimAsync(InitFacevrfZimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitFacevrfZimExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户端初始化认证(OEM专用)
+         * Summary: 客户端初始化认证(OEM专用)
+         */
+        public InitFacevrfZimResponse InitFacevrfZimEx(InitFacevrfZimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFacevrfZimResponse>(DoRequest("1.0", "di.realperson.facevrf.zim.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户端初始化认证(OEM专用)
+         * Summary: 客户端初始化认证(OEM专用)
+         */
+        public async Task<InitFacevrfZimResponse> InitFacevrfZimExAsync(InitFacevrfZimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFacevrfZimResponse>(await DoRequestAsync("1.0", "di.realperson.facevrf.zim.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户端人脸验证(OEM专用)
+         * Summary: 客户端人脸验证(OEM专用)
+         */
+        public VerifyFacevrfZimResponse VerifyFacevrfZim(VerifyFacevrfZimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyFacevrfZimEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户端人脸验证(OEM专用)
+         * Summary: 客户端人脸验证(OEM专用)
+         */
+        public async Task<VerifyFacevrfZimResponse> VerifyFacevrfZimAsync(VerifyFacevrfZimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyFacevrfZimExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户端人脸验证(OEM专用)
+         * Summary: 客户端人脸验证(OEM专用)
+         */
+        public VerifyFacevrfZimResponse VerifyFacevrfZimEx(VerifyFacevrfZimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyFacevrfZimResponse>(DoRequest("1.0", "di.realperson.facevrf.zim.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户端人脸验证(OEM专用)
+         * Summary: 客户端人脸验证(OEM专用)
+         */
+        public async Task<VerifyFacevrfZimResponse> VerifyFacevrfZimExAsync(VerifyFacevrfZimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyFacevrfZimResponse>(await DoRequestAsync("1.0", "di.realperson.facevrf.zim.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡证OCR
+         * Summary: 卡证OCR
+         */
+        public RecognizeDocIndividualcardResponse RecognizeDocIndividualcard(RecognizeDocIndividualcardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RecognizeDocIndividualcardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡证OCR
+         * Summary: 卡证OCR
+         */
+        public async Task<RecognizeDocIndividualcardResponse> RecognizeDocIndividualcardAsync(RecognizeDocIndividualcardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RecognizeDocIndividualcardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 卡证OCR
+         * Summary: 卡证OCR
+         */
+        public RecognizeDocIndividualcardResponse RecognizeDocIndividualcardEx(RecognizeDocIndividualcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeDocIndividualcardResponse>(DoRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 卡证OCR
+         * Summary: 卡证OCR
+         */
+        public async Task<RecognizeDocIndividualcardResponse> RecognizeDocIndividualcardExAsync(RecognizeDocIndividualcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeDocIndividualcardResponse>(await DoRequestAsync("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
