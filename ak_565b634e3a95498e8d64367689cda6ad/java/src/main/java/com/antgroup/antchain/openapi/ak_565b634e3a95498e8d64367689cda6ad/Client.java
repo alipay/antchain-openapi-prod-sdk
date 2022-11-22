@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1")
+                    new TeaPair("sdk_version", "1.0.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,40 +160,78 @@ public class Client {
     }
 
     /**
-     * Description: testa
-     * Summary: 测试用api
+     * Description: asd
+     * Summary: asd1
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTesta(QueryDemoSaasTestTestaRequest request) throws Exception {
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoSaasTestTestaEx(request, headers, runtime);
+        return this.queryDemoAdAsdAsdEx(request, headers, runtime);
     }
 
     /**
-     * Description: testa
-     * Summary: 测试用api
+     * Description: asd
+     * Summary: asd1
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTestaEx(QueryDemoSaasTestTestaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
     }
 
     /**
-     * Description: testB
-     * Summary: 测试用api
+     * Description: 1·2
+     * Summary: 测试
      */
-    public ImportDemoSaasTestTestbResponse importDemoSaasTestTestb(ImportDemoSaasTestTestbRequest request) throws Exception {
+    public BindDemoAsdAsdResponse bindDemoAsdAsd(BindDemoAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importDemoSaasTestTestbEx(request, headers, runtime);
+        return this.bindDemoAsdAsdEx(request, headers, runtime);
     }
 
     /**
-     * Description: testB
-     * Summary: 测试用api
+     * Description: 1·2
+     * Summary: 测试
      */
-    public ImportDemoSaasTestTestbResponse importDemoSaasTestTestbEx(ImportDemoSaasTestTestbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public BindDemoAsdAsdResponse bindDemoAsdAsdEx(BindDemoAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testb.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDemoSaasTestTestbResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdResponse());
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试
+     */
+    public BatchcreateDemoSaasTestTestfResponse batchcreateDemoSaasTestTestf(BatchcreateDemoSaasTestTestfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateDemoSaasTestTestfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试
+     */
+    public BatchcreateDemoSaasTestTestfResponse batchcreateDemoSaasTestTestfEx(BatchcreateDemoSaasTestTestfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testf.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateDemoSaasTestTestfResponse());
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试
+     */
+    public OpenDemoSaasTestTestgResponse openDemoSaasTestTestg(OpenDemoSaasTestTestgRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openDemoSaasTestTestgEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试
+     */
+    public OpenDemoSaasTestTestgResponse openDemoSaasTestTestgEx(OpenDemoSaasTestTestgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testg.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenDemoSaasTestTestgResponse());
     }
 }

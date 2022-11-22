@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_565b634e3a95498e8d64367689cda6ad.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoSaasTestTestaRequest extends TeaModel {
+public class BatchcreateDemoSaasTestTestfRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,22 +11,17 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 张三
+    // test
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // 12
-    @NameInMap("age")
-    @Validation(required = true)
-    public Long age;
-
-    public static QueryDemoSaasTestTestaRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoSaasTestTestaRequest self = new QueryDemoSaasTestTestaRequest();
+    public static BatchcreateDemoSaasTestTestfRequest build(java.util.Map<String, ?> map) throws Exception {
+        BatchcreateDemoSaasTestTestfRequest self = new BatchcreateDemoSaasTestTestfRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoSaasTestTestaRequest setAuthToken(String authToken) {
+    public BatchcreateDemoSaasTestTestfRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +29,7 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDemoSaasTestTestaRequest setProductInstanceId(String productInstanceId) {
+    public BatchcreateDemoSaasTestTestfRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,20 +37,12 @@ public class QueryDemoSaasTestTestaRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDemoSaasTestTestaRequest setName(String name) {
+    public BatchcreateDemoSaasTestTestfRequest setName(String name) {
         this.name = name;
         return this;
     }
     public String getName() {
         return this.name;
-    }
-
-    public QueryDemoSaasTestTestaRequest setAge(Long age) {
-        this.age = age;
-        return this;
-    }
-    public Long getAge() {
-        return this.age;
     }
 
 }
