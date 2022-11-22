@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 	"io"
@@ -2049,6 +2049,554 @@ func (s *CheckTwometaHashResponse) SetResultMsg(v string) *CheckTwometaHashRespo
 	return s
 }
 
+type QueryThreemetaOnlinetimeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求id
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号码
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaOnlinetimeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaOnlinetimeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetAuthToken(v string) *QueryThreemetaOnlinetimeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetProductInstanceId(v string) *QueryThreemetaOnlinetimeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetOuterOrderNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCertName(v string) *QueryThreemetaOnlinetimeRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCertNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetPhoneNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetExternParam(v string) *QueryThreemetaOnlinetimeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaOnlinetimeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 在网时长标准码，规则：
+	// 1: [0,3)表示在⽹时⻓是 0~3 个⽉
+	// 2: [3,6)表示在⽹时⻓是 3~6 个⽉
+	// 3: [6,12)表示在⽹时⻓是 6~12 个⽉
+	// 4: [12,24)表示在⽹时⻓是 12~24 ⽉
+	// 5: [24,+)表示在⽹时⻓是 24个⽉及以上
+	LengthCode *string `json:"length_code,omitempty" xml:"length_code,omitempty"`
+	// 扩展信息，json格式
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaOnlinetimeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaOnlinetimeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetReqMsgId(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetResultCode(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetResultMsg(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetLengthCode(v string) *QueryThreemetaOnlinetimeResponse {
+	s.LengthCode = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetExternInfo(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type InitFacevrfZimRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务参数
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 商户
+	Merchant *string `json:"merchant,omitempty" xml:"merchant,omitempty"`
+	// 环境参数
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty" require:"true"`
+	// 产品节点
+	ProduceNode *string `json:"produce_node,omitempty" xml:"produce_node,omitempty"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 实人认证id
+	//
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+	// 身份信息参数
+	//
+	ZimPrincipal *string `json:"zim_principal,omitempty" xml:"zim_principal,omitempty"`
+}
+
+func (s InitFacevrfZimRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFacevrfZimRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitFacevrfZimRequest) SetAuthToken(v string) *InitFacevrfZimRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProductInstanceId(v string) *InitFacevrfZimRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetBizData(v string) *InitFacevrfZimRequest {
+	s.BizData = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetChannel(v string) *InitFacevrfZimRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetMerchant(v string) *InitFacevrfZimRequest {
+	s.Merchant = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetMetaInfo(v string) *InitFacevrfZimRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProduceNode(v string) *InitFacevrfZimRequest {
+	s.ProduceNode = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProductName(v string) *InitFacevrfZimRequest {
+	s.ProductName = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetZimId(v string) *InitFacevrfZimRequest {
+	s.ZimId = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetZimPrincipal(v string) *InitFacevrfZimRequest {
+	s.ZimPrincipal = &v
+	return s
+}
+
+type InitFacevrfZimResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	//
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+	// 描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 协议
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// 返回码
+	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
+	// 明细返回码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 明细返回码对应的文案
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 实人认证id
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty"`
+}
+
+func (s InitFacevrfZimResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFacevrfZimResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitFacevrfZimResponse) SetReqMsgId(v string) *InitFacevrfZimResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetResultCode(v string) *InitFacevrfZimResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetResultMsg(v string) *InitFacevrfZimResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetExtParams(v string) *InitFacevrfZimResponse {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetMessage(v string) *InitFacevrfZimResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetProtocol(v string) *InitFacevrfZimResponse {
+	s.Protocol = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetCode(v string) *InitFacevrfZimResponse {
+	s.RetCode = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetCodeSub(v string) *InitFacevrfZimResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetMessageSub(v string) *InitFacevrfZimResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetZimId(v string) *InitFacevrfZimResponse {
+	s.ZimId = &v
+	return s
+}
+
+type VerifyFacevrfZimRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 扩展信息,Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 人脸业务参数
+	ZimData *string `json:"zim_data,omitempty" xml:"zim_data,omitempty" require:"true"`
+	// 7501f6c2dd57e06fe0d4202d3aaab58e
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+}
+
+func (s VerifyFacevrfZimRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFacevrfZimRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFacevrfZimRequest) SetAuthToken(v string) *VerifyFacevrfZimRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetProductInstanceId(v string) *VerifyFacevrfZimRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetExternParam(v string) *VerifyFacevrfZimRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetZimData(v string) *VerifyFacevrfZimRequest {
+	s.ZimData = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetZimId(v string) *VerifyFacevrfZimRequest {
+	s.ZimId = &v
+	return s
+}
+
+type VerifyFacevrfZimResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+	// ""
+	HasNext *string `json:"has_next,omitempty" xml:"has_next,omitempty"`
+	// ""
+	NextProtocol *string `json:"next_protocol,omitempty" xml:"next_protocol,omitempty"`
+	// 产品返回明细码
+	ProductRetCode *string `json:"product_ret_code,omitempty" xml:"product_ret_code,omitempty"`
+	// 明细返回码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 明细返回码对应的文案
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 验证返回明细码
+	ValidationRetCode *string `json:"validation_ret_code,omitempty" xml:"validation_ret_code,omitempty"`
+}
+
+func (s VerifyFacevrfZimResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFacevrfZimResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFacevrfZimResponse) SetReqMsgId(v string) *VerifyFacevrfZimResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetResultCode(v string) *VerifyFacevrfZimResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetResultMsg(v string) *VerifyFacevrfZimResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetExtParams(v string) *VerifyFacevrfZimResponse {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetHasNext(v string) *VerifyFacevrfZimResponse {
+	s.HasNext = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetNextProtocol(v string) *VerifyFacevrfZimResponse {
+	s.NextProtocol = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetProductRetCode(v string) *VerifyFacevrfZimResponse {
+	s.ProductRetCode = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetRetCodeSub(v string) *VerifyFacevrfZimResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetRetMessageSub(v string) *VerifyFacevrfZimResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetValidationRetCode(v string) *VerifyFacevrfZimResponse {
+	s.ValidationRetCode = &v
+	return s
+}
+
+type RecognizeDocIndividualcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 长度不超过32位的0-9A-Za-z字符串。
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty" require:"true"`
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 传入的图片的具体内容，需要与data_type的选择保持一致。
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty" require:"true"`
+	// 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
+	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
+	RespEncToken *string `json:"resp_enc_token,omitempty" xml:"resp_enc_token,omitempty"`
+	// 扩展信息JSON串。
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s RecognizeDocIndividualcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeDocIndividualcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetAuthToken(v string) *RecognizeDocIndividualcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetProductInstanceId(v string) *RecognizeDocIndividualcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetOutOrderNo(v string) *RecognizeDocIndividualcardRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetCardType(v string) *RecognizeDocIndividualcardRequest {
+	s.CardType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetDataType(v string) *RecognizeDocIndividualcardRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetDataContent(v string) *RecognizeDocIndividualcardRequest {
+	s.DataContent = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetReqEncType(v string) *RecognizeDocIndividualcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetRespEncType(v string) *RecognizeDocIndividualcardRequest {
+	s.RespEncType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetRespEncToken(v string) *RecognizeDocIndividualcardRequest {
+	s.RespEncToken = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetExternParam(v string) *RecognizeDocIndividualcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type RecognizeDocIndividualcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果码
+	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
+	// 错误码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 错误信息
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	OcrInfo *string `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
+	// 扩展信息JSON串。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s RecognizeDocIndividualcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeDocIndividualcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetReqMsgId(v string) *RecognizeDocIndividualcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetResultCode(v string) *RecognizeDocIndividualcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetResultMsg(v string) *RecognizeDocIndividualcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetCode(v string) *RecognizeDocIndividualcardResponse {
+	s.RetCode = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetCodeSub(v string) *RecognizeDocIndividualcardResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetMessageSub(v string) *RecognizeDocIndividualcardResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetOcrInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.OcrInfo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetExtInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.ExtInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2291,7 +2839,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.0"),
+				"sdk_version":      tea.String("1.9.0"),
+				"_prod_code":       tea.String("REALPERSON"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2317,8 +2867,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -2871,6 +3429,142 @@ func (client *Client) CheckTwometaHashEx(request *CheckTwometaHashRequest, heade
 	}
 	_result = &CheckTwometaHashResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.twometa.hash.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 对接运营商等数据源查询手机号码的在网时长
+ * Summary: 三要素在网时长查询接口
+ */
+func (client *Client) QueryThreemetaOnlinetime(request *QueryThreemetaOnlinetimeRequest) (_result *QueryThreemetaOnlinetimeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaOnlinetimeResponse{}
+	_body, _err := client.QueryThreemetaOnlinetimeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对接运营商等数据源查询手机号码的在网时长
+ * Summary: 三要素在网时长查询接口
+ */
+func (client *Client) QueryThreemetaOnlinetimeEx(request *QueryThreemetaOnlinetimeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaOnlinetimeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaOnlinetimeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.onlinetime.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户端初始化认证(OEM专用)
+ * Summary: 客户端初始化认证(OEM专用)
+ */
+func (client *Client) InitFacevrfZim(request *InitFacevrfZimRequest) (_result *InitFacevrfZimResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitFacevrfZimResponse{}
+	_body, _err := client.InitFacevrfZimEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户端初始化认证(OEM专用)
+ * Summary: 客户端初始化认证(OEM专用)
+ */
+func (client *Client) InitFacevrfZimEx(request *InitFacevrfZimRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitFacevrfZimResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitFacevrfZimResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.zim.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户端人脸验证(OEM专用)
+ * Summary: 客户端人脸验证(OEM专用)
+ */
+func (client *Client) VerifyFacevrfZim(request *VerifyFacevrfZimRequest) (_result *VerifyFacevrfZimResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyFacevrfZimResponse{}
+	_body, _err := client.VerifyFacevrfZimEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户端人脸验证(OEM专用)
+ * Summary: 客户端人脸验证(OEM专用)
+ */
+func (client *Client) VerifyFacevrfZimEx(request *VerifyFacevrfZimRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyFacevrfZimResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyFacevrfZimResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.zim.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 卡证OCR
+ * Summary: 卡证OCR
+ */
+func (client *Client) RecognizeDocIndividualcard(request *RecognizeDocIndividualcardRequest) (_result *RecognizeDocIndividualcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeDocIndividualcardResponse{}
+	_body, _err := client.RecognizeDocIndividualcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 卡证OCR
+ * Summary: 卡证OCR
+ */
+func (client *Client) RecognizeDocIndividualcardEx(request *RecognizeDocIndividualcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeDocIndividualcardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeDocIndividualcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.doc.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
