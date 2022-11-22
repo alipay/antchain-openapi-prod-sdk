@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,21 +160,59 @@ public class Client {
     }
 
     /**
-     * Description: testa
-     * Summary: 测试用api
+     * Description: asd
+     * Summary: asd1
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTesta(QueryDemoSaasTestTestaRequest request) throws Exception {
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoSaasTestTestaEx(request, headers, runtime);
+        return this.queryDemoAdAsdAsdEx(request, headers, runtime);
     }
 
     /**
-     * Description: testa
-     * Summary: 测试用api
+     * Description: asd
+     * Summary: asd1
      */
-    public QueryDemoSaasTestTestaResponse queryDemoSaasTestTestaEx(QueryDemoSaasTestTestaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindDemoAsdAsdResponse bindDemoAsdAsd(BindDemoAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindDemoAsdAsdResponse bindDemoAsdAsdEx(BindDemoAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdResponse());
     }
 }

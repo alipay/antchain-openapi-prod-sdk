@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_cbcf85951e0e47a5a6bbffa57cf2dd9c.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoSaasTestTestaResponse extends TeaModel {
+public class BindDemoAsdAsdResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 男
-    @NameInMap("sex")
-    public String sex;
-
-    public static QueryDemoSaasTestTestaResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoSaasTestTestaResponse self = new QueryDemoSaasTestTestaResponse();
+    public static BindDemoAsdAsdResponse build(java.util.Map<String, ?> map) throws Exception {
+        BindDemoAsdAsdResponse self = new BindDemoAsdAsdResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoSaasTestTestaResponse setReqMsgId(String reqMsgId) {
+    public BindDemoAsdAsdResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoSaasTestTestaResponse setResultCode(String resultCode) {
+    public BindDemoAsdAsdResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryDemoSaasTestTestaResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoSaasTestTestaResponse setResultMsg(String resultMsg) {
+    public BindDemoAsdAsdResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryDemoSaasTestTestaResponse setSex(String sex) {
-        this.sex = sex;
-        return this;
-    }
-    public String getSex() {
-        return this.sex;
     }
 
 }
