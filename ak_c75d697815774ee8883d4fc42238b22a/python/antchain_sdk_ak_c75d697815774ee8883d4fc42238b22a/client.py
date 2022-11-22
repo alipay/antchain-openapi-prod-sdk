@@ -109,8 +109,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 键值对，兼容map用
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -211,8 +210,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 键值对，兼容map用
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -271,114 +269,58 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def init_demo_bbp_insurance_user(
+    def match_antchain_bbp_did_account(
         self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserRequest,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse:
+        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountRequest,
+    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse:
         """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.init_demo_bbp_insurance_user_ex(request, headers, runtime)
+        return self.match_antchain_bbp_did_account_ex(request, headers, runtime)
 
-    async def init_demo_bbp_insurance_user_async(
+    async def match_antchain_bbp_did_account_async(
         self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserRequest,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse:
+        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountRequest,
+    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse:
         """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.init_demo_bbp_insurance_user_ex_async(request, headers, runtime)
+        return await self.match_antchain_bbp_did_account_ex_async(request, headers, runtime)
 
-    def init_demo_bbp_insurance_user_ex(
+    def match_antchain_bbp_did_account_ex(
         self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserRequest,
+        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse:
+    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse:
         """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse(),
-            self.do_request('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def init_demo_bbp_insurance_user_ex_async(
+    async def match_antchain_bbp_did_account_ex_async(
         self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserRequest,
+        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse:
+    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse:
         """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.InitDemoBbpInsuranceUserResponse(),
-            await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_asd_asd_asd(
-        self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdRequest,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_asd_asd_asd_ex(request, headers, runtime)
-
-    async def bind_demo_asd_asd_asd_async(
-        self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdRequest,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_asd_asd_asd_ex_async(request, headers, runtime)
-
-    def bind_demo_asd_asd_asd_ex(
-        self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse(),
-            self.do_request('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_asd_asd_asd_ex_async(
-        self,
-        request: ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.BindDemoAsdAsdAsdResponse(),
-            await self.do_request_async('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_c_75d_697815774ee_8883d_4fc_42238b_22a_models.MatchAntchainBbpDidAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
