@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_dce0f5fb05b24da5961b43495cabd016',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_dce0f5fb05b24da5961b43495cabd016',
                     '_prod_channel': 'saas'
                 }
@@ -272,6 +272,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def bind_demo_aaa_bbb_ccc(
+        self,
+        request: ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+
+    async def bind_demo_aaa_bbb_ccc_async(
+        self,
+        request: ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+
+    def bind_demo_aaa_bbb_ccc_ex(
+        self,
+        request: ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_aaa_bbb_ccc_ex_async(
+        self,
+        request: ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_dce_0f_5fb_05b_24da_5961b_43495cabd_016_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_demo_saas_test_testa(
         self,
