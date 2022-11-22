@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2")
+                    new TeaPair("sdk_version", "1.0.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,40 +160,21 @@ public class Client {
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户
      */
-    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request) throws Exception {
+    public MatchAntchainBbpDidAccountResponse matchAntchainBbpDidAccount(MatchAntchainBbpDidAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.initDemoBbpInsuranceUserEx(request, headers, runtime);
+        return this.matchAntchainBbpDidAccountEx(request, headers, runtime);
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户
      */
-    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public MatchAntchainBbpDidAccountResponse matchAntchainBbpDidAccountEx(MatchAntchainBbpDidAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse());
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd
-     */
-    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoAsdAsdAsdEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd
-     */
-    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.did.account.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchAntchainBbpDidAccountResponse());
     }
 }

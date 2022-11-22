@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_c75d697815774ee8883d4fc42238b22a.models
 
 import com.aliyun.tea.*;
 
-public class InitDemoBbpInsuranceUserResponse extends TeaModel {
+public class MatchAntchainBbpDidAccountResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class InitDemoBbpInsuranceUserResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static InitDemoBbpInsuranceUserResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitDemoBbpInsuranceUserResponse self = new InitDemoBbpInsuranceUserResponse();
+    public static MatchAntchainBbpDidAccountResponse build(java.util.Map<String, ?> map) throws Exception {
+        MatchAntchainBbpDidAccountResponse self = new MatchAntchainBbpDidAccountResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitDemoBbpInsuranceUserResponse setReqMsgId(String reqMsgId) {
+    public MatchAntchainBbpDidAccountResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class InitDemoBbpInsuranceUserResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitDemoBbpInsuranceUserResponse setResultCode(String resultCode) {
+    public MatchAntchainBbpDidAccountResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class InitDemoBbpInsuranceUserResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitDemoBbpInsuranceUserResponse setResultMsg(String resultMsg) {
+    public MatchAntchainBbpDidAccountResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
