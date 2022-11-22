@@ -37,12 +37,18 @@ use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServerResponse;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
+use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
+use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
+use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
+use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
+use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
+use AntChain\REALPERSON\Models\VerifyFacevrfZimResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeResponse;
 use AntChain\Util\UtilClient;
@@ -192,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.0',
+                    'sdk_version'      => '1.9.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -784,6 +790,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryThreemetaOnlinetimeResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户端初始化认证(OEM专用)
+     * Summary: 客户端初始化认证(OEM专用).
+     *
+     * @param InitFacevrfZimRequest $request
+     *
+     * @return InitFacevrfZimResponse
+     */
+    public function initFacevrfZim($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFacevrfZimEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户端初始化认证(OEM专用)
+     * Summary: 客户端初始化认证(OEM专用).
+     *
+     * @param InitFacevrfZimRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return InitFacevrfZimResponse
+     */
+    public function initFacevrfZimEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFacevrfZimResponse::fromMap($this->doRequest('1.0', 'di.realperson.facevrf.zim.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户端人脸验证(OEM专用)
+     * Summary: 客户端人脸验证(OEM专用).
+     *
+     * @param VerifyFacevrfZimRequest $request
+     *
+     * @return VerifyFacevrfZimResponse
+     */
+    public function verifyFacevrfZim($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyFacevrfZimEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户端人脸验证(OEM专用)
+     * Summary: 客户端人脸验证(OEM专用).
+     *
+     * @param VerifyFacevrfZimRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return VerifyFacevrfZimResponse
+     */
+    public function verifyFacevrfZimEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyFacevrfZimResponse::fromMap($this->doRequest('1.0', 'di.realperson.facevrf.zim.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡证OCR
+     * Summary: 卡证OCR.
+     *
+     * @param RecognizeDocIndividualcardRequest $request
+     *
+     * @return RecognizeDocIndividualcardResponse
+     */
+    public function recognizeDocIndividualcard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeDocIndividualcardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡证OCR
+     * Summary: 卡证OCR.
+     *
+     * @param RecognizeDocIndividualcardRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return RecognizeDocIndividualcardResponse
+     */
+    public function recognizeDocIndividualcardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeDocIndividualcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
