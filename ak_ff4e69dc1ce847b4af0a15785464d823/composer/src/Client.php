@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_ff4e69dc1ce847b4af0a15785464d823\Models\ImportDemoSaasTestTestbRequest;
+use AntChain\Ak_ff4e69dc1ce847b4af0a15785464d823\Models\ImportDemoSaasTestTestbResponse;
 use AntChain\Ak_ff4e69dc1ce847b4af0a15785464d823\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_ff4e69dc1ce847b4af0a15785464d823\Models\QueryDemoSaasTestTestaResponse;
 use AntChain\Util\UtilClient;
@@ -159,9 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
-                    '_prod_code'       => 'ak_ff4e69dc1ce847b4af0a15785464d823',
-                    '_prod_channel'    => 'saas',
+                    'sdk_version'      => '1.0.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -238,5 +238,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoSaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportDemoSaasTestTestbRequest $request
+     *
+     * @return ImportDemoSaasTestTestbResponse
+     */
+    public function importDemoSaasTestTestb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDemoSaasTestTestbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportDemoSaasTestTestbRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ImportDemoSaasTestTestbResponse
+     */
+    public function importDemoSaasTestTestbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDemoSaasTestTestbResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
