@@ -11,10 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\BindDemoAsdAsdAsdRequest;
-use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\BindDemoAsdAsdAsdResponse;
-use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\InitDemoBbpInsuranceUserRequest;
-use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\InitDemoBbpInsuranceUserResponse;
+use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\MatchAntchainBbpDidAccountRequest;
+use AntChain\Ak_c75d697815774ee8883d4fc42238b22a\Models\MatchAntchainBbpDidAccountResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,7 +132,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对，兼容map用
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -162,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -209,68 +206,35 @@ class Client
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
      *
-     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param MatchAntchainBbpDidAccountRequest $request
      *
-     * @return InitDemoBbpInsuranceUserResponse
+     * @return MatchAntchainBbpDidAccountResponse
      */
-    public function initDemoBbpInsuranceUser($request)
+    public function matchAntchainBbpDidAccount($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+        return $this->matchAntchainBbpDidAccountEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
      *
-     * @param InitDemoBbpInsuranceUserRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param MatchAntchainBbpDidAccountRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
      *
-     * @return InitDemoBbpInsuranceUserResponse
+     * @return MatchAntchainBbpDidAccountResponse
      */
-    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    public function matchAntchainBbpDidAccountEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param BindDemoAsdAsdAsdRequest $request
-     *
-     * @return BindDemoAsdAsdAsdResponse
-     */
-    public function bindDemoAsdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAsdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param BindDemoAsdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return BindDemoAsdAsdAsdResponse
-     */
-    public function bindDemoAsdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return MatchAntchainBbpDidAccountResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
