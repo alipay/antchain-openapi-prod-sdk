@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.0',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.0',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -1203,6 +1203,174 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryThreemetaOnlinetimeResponse(),
             await self.do_request_async('1.0', 'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_facevrf_zim(
+        self,
+        request: realperson_models.InitFacevrfZimRequest,
+    ) -> realperson_models.InitFacevrfZimResponse:
+        """
+        Description: 客户端初始化认证(OEM专用)
+        Summary: 客户端初始化认证(OEM专用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_facevrf_zim_ex(request, headers, runtime)
+
+    async def init_facevrf_zim_async(
+        self,
+        request: realperson_models.InitFacevrfZimRequest,
+    ) -> realperson_models.InitFacevrfZimResponse:
+        """
+        Description: 客户端初始化认证(OEM专用)
+        Summary: 客户端初始化认证(OEM专用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_facevrf_zim_ex_async(request, headers, runtime)
+
+    def init_facevrf_zim_ex(
+        self,
+        request: realperson_models.InitFacevrfZimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.InitFacevrfZimResponse:
+        """
+        Description: 客户端初始化认证(OEM专用)
+        Summary: 客户端初始化认证(OEM专用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.InitFacevrfZimResponse(),
+            self.do_request('1.0', 'di.realperson.facevrf.zim.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_facevrf_zim_ex_async(
+        self,
+        request: realperson_models.InitFacevrfZimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.InitFacevrfZimResponse:
+        """
+        Description: 客户端初始化认证(OEM专用)
+        Summary: 客户端初始化认证(OEM专用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.InitFacevrfZimResponse(),
+            await self.do_request_async('1.0', 'di.realperson.facevrf.zim.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_facevrf_zim(
+        self,
+        request: realperson_models.VerifyFacevrfZimRequest,
+    ) -> realperson_models.VerifyFacevrfZimResponse:
+        """
+        Description: 客户端人脸验证(OEM专用)
+        Summary: 客户端人脸验证(OEM专用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_facevrf_zim_ex(request, headers, runtime)
+
+    async def verify_facevrf_zim_async(
+        self,
+        request: realperson_models.VerifyFacevrfZimRequest,
+    ) -> realperson_models.VerifyFacevrfZimResponse:
+        """
+        Description: 客户端人脸验证(OEM专用)
+        Summary: 客户端人脸验证(OEM专用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_facevrf_zim_ex_async(request, headers, runtime)
+
+    def verify_facevrf_zim_ex(
+        self,
+        request: realperson_models.VerifyFacevrfZimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.VerifyFacevrfZimResponse:
+        """
+        Description: 客户端人脸验证(OEM专用)
+        Summary: 客户端人脸验证(OEM专用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.VerifyFacevrfZimResponse(),
+            self.do_request('1.0', 'di.realperson.facevrf.zim.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_facevrf_zim_ex_async(
+        self,
+        request: realperson_models.VerifyFacevrfZimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.VerifyFacevrfZimResponse:
+        """
+        Description: 客户端人脸验证(OEM专用)
+        Summary: 客户端人脸验证(OEM专用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.VerifyFacevrfZimResponse(),
+            await self.do_request_async('1.0', 'di.realperson.facevrf.zim.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_doc_individualcard(
+        self,
+        request: realperson_models.RecognizeDocIndividualcardRequest,
+    ) -> realperson_models.RecognizeDocIndividualcardResponse:
+        """
+        Description: 卡证OCR
+        Summary: 卡证OCR
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_doc_individualcard_ex(request, headers, runtime)
+
+    async def recognize_doc_individualcard_async(
+        self,
+        request: realperson_models.RecognizeDocIndividualcardRequest,
+    ) -> realperson_models.RecognizeDocIndividualcardResponse:
+        """
+        Description: 卡证OCR
+        Summary: 卡证OCR
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_doc_individualcard_ex_async(request, headers, runtime)
+
+    def recognize_doc_individualcard_ex(
+        self,
+        request: realperson_models.RecognizeDocIndividualcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.RecognizeDocIndividualcardResponse:
+        """
+        Description: 卡证OCR
+        Summary: 卡证OCR
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.RecognizeDocIndividualcardResponse(),
+            self.do_request('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_doc_individualcard_ex_async(
+        self,
+        request: realperson_models.RecognizeDocIndividualcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.RecognizeDocIndividualcardResponse:
+        """
+        Description: 卡证OCR
+        Summary: 卡证OCR
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.RecognizeDocIndividualcardResponse(),
+            await self.do_request_async('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
