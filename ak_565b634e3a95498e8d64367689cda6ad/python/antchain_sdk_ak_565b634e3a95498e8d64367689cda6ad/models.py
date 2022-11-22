@@ -153,25 +153,18 @@ class Config(TeaModel):
         return self
 
 
-class QueryDemoSaasTestTestaRequest(TeaModel):
+class QueryDemoAdAsdAsdRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        name: str = None,
-        age: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 张三
-        self.name = name
-        # 12
-        self.age = age
 
     def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.age, 'age')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -183,10 +176,6 @@ class QueryDemoSaasTestTestaRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.age is not None:
-            result['age'] = self.age
         return result
 
     def from_map(self, m: dict = None):
@@ -195,20 +184,15 @@ class QueryDemoSaasTestTestaRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('age') is not None:
-            self.age = m.get('age')
         return self
 
 
-class QueryDemoSaasTestTestaResponse(TeaModel):
+class QueryDemoAdAsdAsdResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        sex: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -216,8 +200,6 @@ class QueryDemoSaasTestTestaResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 男
-        self.sex = sex
 
     def validate(self):
         pass
@@ -234,8 +216,6 @@ class QueryDemoSaasTestTestaResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.sex is not None:
-            result['sex'] = self.sex
         return result
 
     def from_map(self, m: dict = None):
@@ -246,30 +226,100 @@ class QueryDemoSaasTestTestaResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('sex') is not None:
-            self.sex = m.get('sex')
         return self
 
 
-class ImportDemoSaasTestTestbRequest(TeaModel):
+class BindDemoAsdAsdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class BindDemoAsdAsdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchcreateDemoSaasTestTestfRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
         name: str = None,
-        age: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 李四
+        # test
         self.name = name
-        # 18
-        self.age = age
 
     def validate(self):
         self.validate_required(self.name, 'name')
-        self.validate_required(self.age, 'age')
 
     def to_map(self):
         _map = super().to_map()
@@ -283,8 +333,6 @@ class ImportDemoSaasTestTestbRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.name is not None:
             result['name'] = self.name
-        if self.age is not None:
-            result['age'] = self.age
         return result
 
     def from_map(self, m: dict = None):
@@ -295,12 +343,100 @@ class ImportDemoSaasTestTestbRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('name') is not None:
             self.name = m.get('name')
+        return self
+
+
+class BatchcreateDemoSaasTestTestfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        age: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # test
+        self.age = age
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.age is not None:
+            result['age'] = self.age
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         if m.get('age') is not None:
             self.age = m.get('age')
         return self
 
 
-class ImportDemoSaasTestTestbResponse(TeaModel):
+class OpenDemoSaasTestTestgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # test
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class OpenDemoSaasTestTestgResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -314,7 +450,7 @@ class ImportDemoSaasTestTestbResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 男
+        # test
         self.sex = sex
 
     def validate(self):

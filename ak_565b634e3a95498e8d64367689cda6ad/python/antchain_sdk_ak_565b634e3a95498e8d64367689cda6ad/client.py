@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -269,114 +269,226 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def query_demo_saas_test_testa(
+    def query_demo_ad_asd_asd(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaRequest,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse:
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse:
         """
-        Description: testa
-        Summary: 测试用api
+        Description: asd
+        Summary: asd1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_saas_test_testa_ex(request, headers, runtime)
+        return self.query_demo_ad_asd_asd_ex(request, headers, runtime)
 
-    async def query_demo_saas_test_testa_async(
+    async def query_demo_ad_asd_asd_async(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaRequest,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse:
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse:
         """
-        Description: testa
-        Summary: 测试用api
+        Description: asd
+        Summary: asd1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_saas_test_testa_ex_async(request, headers, runtime)
+        return await self.query_demo_ad_asd_asd_ex_async(request, headers, runtime)
 
-    def query_demo_saas_test_testa_ex(
+    def query_demo_ad_asd_asd_ex(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaRequest,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse:
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse:
         """
-        Description: testa
-        Summary: 测试用api
+        Description: asd
+        Summary: asd1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse(),
-            self.do_request('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse(),
+            self.do_request('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_saas_test_testa_ex_async(
+    async def query_demo_ad_asd_asd_ex_async(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaRequest,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse:
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse:
         """
-        Description: testa
-        Summary: 测试用api
+        Description: asd
+        Summary: asd1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoSaasTestTestaResponse(),
-            await self.do_request_async('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.QueryDemoAdAsdAsdResponse(),
+            await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def import_demo_saas_test_testb(
+    def bind_demo_asd_asd(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbRequest,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse:
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse:
         """
-        Description: testB
-        Summary: 测试用api
+        Description: 1·2
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.import_demo_saas_test_testb_ex(request, headers, runtime)
+        return self.bind_demo_asd_asd_ex(request, headers, runtime)
 
-    async def import_demo_saas_test_testb_async(
+    async def bind_demo_asd_asd_async(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbRequest,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse:
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse:
         """
-        Description: testB
-        Summary: 测试用api
+        Description: 1·2
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.import_demo_saas_test_testb_ex_async(request, headers, runtime)
+        return await self.bind_demo_asd_asd_ex_async(request, headers, runtime)
 
-    def import_demo_saas_test_testb_ex(
+    def bind_demo_asd_asd_ex(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbRequest,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse:
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse:
         """
-        Description: testB
-        Summary: 测试用api
+        Description: 1·2
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse(),
-            self.do_request('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse(),
+            self.do_request('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def import_demo_saas_test_testb_ex_async(
+    async def bind_demo_asd_asd_ex_async(
         self,
-        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbRequest,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse:
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse:
         """
-        Description: testB
-        Summary: 测试用api
+        Description: 1·2
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.ImportDemoSaasTestTestbResponse(),
-            await self.do_request_async('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BindDemoAsdAsdResponse(),
+            await self.do_request_async('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_demo_saas_test_testf(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_demo_saas_test_testf_ex(request, headers, runtime)
+
+    async def batchcreate_demo_saas_test_testf_async(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_demo_saas_test_testf_ex_async(request, headers, runtime)
+
+    def batchcreate_demo_saas_test_testf_ex(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse(),
+            self.do_request('1.0', 'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_demo_saas_test_testf_ex_async(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.BatchcreateDemoSaasTestTestfResponse(),
+            await self.do_request_async('1.0', 'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_demo_saas_test_testg(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_demo_saas_test_testg_ex(request, headers, runtime)
+
+    async def open_demo_saas_test_testg_async(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgRequest,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_demo_saas_test_testg_ex_async(request, headers, runtime)
+
+    def open_demo_saas_test_testg_ex(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse(),
+            self.do_request('1.0', 'demo.saas.test.testg.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_demo_saas_test_testg_ex_async(
+        self,
+        request: ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse:
+        """
+        Description: 共享能力租户流量测试
+        Summary: 共享能力租户流量测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__565b_634e_3a_95498e_8d_64367689cda_6ad_models.OpenDemoSaasTestTestgResponse(),
+            await self.do_request_async('1.0', 'demo.saas.test.testg.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
