@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryLeaseAsynccallResponse : TeaModel {
+    public class CreateContractEncrypteduserResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,23 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 上链状态
-        // TOBE_CHAIN(待上链)
-        // CHAINING（上链中）SUCCESS(上链成功)
-        // FAIL(上链失败)
-        [NameInMap("status")]
+        // 机构账号
+        [NameInMap("organization_id")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string OrganizationId { get; set; }
 
-        // 成功的时候返回txHash
-        [NameInMap("tx_hash")]
+        // 用户类型为个人时返回用户账号；
+        // 用户类型为机构时返回经办人账号
+        [NameInMap("user_id")]
         [Validation(Required=false)]
-        public string TxHash { get; set; }
+        public string UserId { get; set; }
 
-        // 上链失败信息，status为FAIL时返回
-        [NameInMap("chain_fail_message")]
-        [Validation(Required=false)]
-        public string ChainFailMessage { get; set; }
-
-        // 对应的加密后的具体信息,异步查询场景会有值
-        [NameInMap("response_data")]
-        [Validation(Required=false)]
-        public string ResponseData { get; set; }
-
-        // 结果码，OK表示成功
+        // 业务码，0表示成功
         [NameInMap("code")]
         [Validation(Required=false)]
-        public string Code { get; set; }
+        public long? Code { get; set; }
 
-        // 结果描述
+        // 业务码信息
         [NameInMap("message")]
         [Validation(Required=false)]
         public string Message { get; set; }

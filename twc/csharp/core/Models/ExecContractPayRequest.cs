@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryRefinanceOrderRequest : TeaModel {
+    public class ExecContractPayRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产包id
-        [NameInMap("package_id")]
+        // 合同流程id
+        [NameInMap("flow_id")]
         [Validation(Required=true)]
-        public string PackageId { get; set; }
+        public string FlowId { get; set; }
 
-        // 订单id
-        [NameInMap("order_id")]
+        // 每期代扣的唯一编号
+        [NameInMap("pay_index")]
         [Validation(Required=true)]
-        public string OrderId { get; set; }
-
-        // 阶段描述
-        [NameInMap("phase_info")]
-        [Validation(Required=false)]
-        public string PhaseInfo { get; set; }
+        public string PayIndex { get; set; }
 
     }
 

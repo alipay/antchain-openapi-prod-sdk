@@ -137,7 +137,9 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.98"},
+                        {"sdk_version", "1.8.8"},
+                        {"_prod_code", "TWC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.98"},
+                        {"sdk_version", "1.8.8"},
+                        {"_prod_code", "TWC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4481,6 +4485,258 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeleteContractSignfieldResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+         * Summary: 创建平台方用户加密版
+         */
+        public CreateContractEncrypteduserResponse CreateContractEncrypteduser(CreateContractEncrypteduserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateContractEncrypteduserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+         * Summary: 创建平台方用户加密版
+         */
+        public async Task<CreateContractEncrypteduserResponse> CreateContractEncrypteduserAsync(CreateContractEncrypteduserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateContractEncrypteduserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+         * Summary: 创建平台方用户加密版
+         */
+        public CreateContractEncrypteduserResponse CreateContractEncrypteduserEx(CreateContractEncrypteduserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractEncrypteduserResponse>(DoRequest("1.0", "twc.notary.contract.encrypteduser.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+         * Summary: 创建平台方用户加密版
+         */
+        public async Task<CreateContractEncrypteduserResponse> CreateContractEncrypteduserExAsync(CreateContractEncrypteduserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractEncrypteduserResponse>(await DoRequestAsync("1.0", "twc.notary.contract.encrypteduser.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+         * Summary: 用户密钥设置接口
+         */
+        public SetContractTenantkeyResponse SetContractTenantkey(SetContractTenantkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetContractTenantkeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+         * Summary: 用户密钥设置接口
+         */
+        public async Task<SetContractTenantkeyResponse> SetContractTenantkeyAsync(SetContractTenantkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetContractTenantkeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+         * Summary: 用户密钥设置接口
+         */
+        public SetContractTenantkeyResponse SetContractTenantkeyEx(SetContractTenantkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetContractTenantkeyResponse>(DoRequest("1.0", "twc.notary.contract.tenantkey.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+         * Summary: 用户密钥设置接口
+         */
+        public async Task<SetContractTenantkeyResponse> SetContractTenantkeyExAsync(SetContractTenantkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetContractTenantkeyResponse>(await DoRequestAsync("1.0", "twc.notary.contract.tenantkey.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取加密文件上传链接
+         * Summary: 获取加密文件上传链接
+         */
+        public GetContractEncryptedfileuploadurlResponse GetContractEncryptedfileuploadurl(GetContractEncryptedfileuploadurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetContractEncryptedfileuploadurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取加密文件上传链接
+         * Summary: 获取加密文件上传链接
+         */
+        public async Task<GetContractEncryptedfileuploadurlResponse> GetContractEncryptedfileuploadurlAsync(GetContractEncryptedfileuploadurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetContractEncryptedfileuploadurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取加密文件上传链接
+         * Summary: 获取加密文件上传链接
+         */
+        public GetContractEncryptedfileuploadurlResponse GetContractEncryptedfileuploadurlEx(GetContractEncryptedfileuploadurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractEncryptedfileuploadurlResponse>(DoRequest("1.0", "twc.notary.contract.encryptedfileuploadurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取加密文件上传链接
+         * Summary: 获取加密文件上传链接
+         */
+        public async Task<GetContractEncryptedfileuploadurlResponse> GetContractEncryptedfileuploadurlExAsync(GetContractEncryptedfileuploadurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractEncryptedfileuploadurlResponse>(await DoRequestAsync("1.0", "twc.notary.contract.encryptedfileuploadurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建异步任务
+         * Summary: 创建任务接口
+         */
+        public CreateContractTaskResponse CreateContractTask(CreateContractTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateContractTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建异步任务
+         * Summary: 创建任务接口
+         */
+        public async Task<CreateContractTaskResponse> CreateContractTaskAsync(CreateContractTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateContractTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建异步任务
+         * Summary: 创建任务接口
+         */
+        public CreateContractTaskResponse CreateContractTaskEx(CreateContractTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractTaskResponse>(DoRequest("1.0", "twc.notary.contract.task.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建异步任务
+         * Summary: 创建任务接口
+         */
+        public async Task<CreateContractTaskResponse> CreateContractTaskExAsync(CreateContractTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractTaskResponse>(await DoRequestAsync("1.0", "twc.notary.contract.task.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务查询接口
+         * Summary: 任务查询
+         */
+        public QueryContractTaskResponse QueryContractTask(QueryContractTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务查询接口
+         * Summary: 任务查询
+         */
+        public async Task<QueryContractTaskResponse> QueryContractTaskAsync(QueryContractTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务查询接口
+         * Summary: 任务查询
+         */
+        public QueryContractTaskResponse QueryContractTaskEx(QueryContractTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractTaskResponse>(DoRequest("1.0", "twc.notary.contract.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务查询接口
+         * Summary: 任务查询
+         */
+        public async Task<QueryContractTaskResponse> QueryContractTaskExAsync(QueryContractTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractTaskResponse>(await DoRequestAsync("1.0", "twc.notary.contract.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+         * Summary: 合同代扣触发接口
+         */
+        public ExecContractPayResponse ExecContractPay(ExecContractPayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecContractPayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+         * Summary: 合同代扣触发接口
+         */
+        public async Task<ExecContractPayResponse> ExecContractPayAsync(ExecContractPayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecContractPayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+         * Summary: 合同代扣触发接口
+         */
+        public ExecContractPayResponse ExecContractPayEx(ExecContractPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecContractPayResponse>(DoRequest("1.0", "twc.notary.contract.pay.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+         * Summary: 合同代扣触发接口
+         */
+        public async Task<ExecContractPayResponse> ExecContractPayExAsync(ExecContractPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecContractPayResponse>(await DoRequestAsync("1.0", "twc.notary.contract.pay.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

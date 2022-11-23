@@ -42,7 +42,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 针对对应业务类型的证据要素补充.
         [NameInMap("case_biz_element_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CaseBizElementInfo { get; set; }
 
         // 当事人(申请人)ID, 案件填充信息返回
@@ -54,13 +54,23 @@ namespace AntChain.SDK.TWC.Models
         // PERSON , 个人
         // ORG , 机构
         [NameInMap("pleader_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PleaderType { get; set; }
 
         // 答辩人(自然人)信息, 类型为个人时必填
         [NameInMap("pleader_person_info")]
         [Validation(Required=false)]
         public JudicialPersonInfo PleaderPersonInfo { get; set; }
+
+        // 是否使用模板
+        [NameInMap("use_template")]
+        [Validation(Required=false)]
+        public bool? UseTemplate { get; set; }
+
+        // 使用模板时必填，根据案件要素模板对应提供要素信息
+        [NameInMap("business_info")]
+        [Validation(Required=false)]
+        public string BusinessInfo { get; set; }
 
     }
 

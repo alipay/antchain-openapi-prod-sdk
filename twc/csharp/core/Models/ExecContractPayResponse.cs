@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryLeaseAsyncencryptedinfoResponse : TeaModel {
+    public class ExecContractPayResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,34 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 结果码，OK表示成功
+        // 是否触发成功
+        [NameInMap("trigger_success")]
+        [Validation(Required=false)]
+        public bool? TriggerSuccess { get; set; }
+
+        // 结果code
         [NameInMap("code")]
         [Validation(Required=false)]
         public string Code { get; set; }
 
         // 结果描述
-        [NameInMap("message")]
+        [NameInMap("msg")]
         [Validation(Required=false)]
-        public string Message { get; set; }
-
-        // 对应的加密后的具体信息（只有当query_status状态为SUCCESS时才返回此数据）
-        [NameInMap("response_data")]
-        [Validation(Required=false)]
-        public string ResponseData { get; set; }
-
-        // 链上查询状态枚举
-        // TOBE_CHAIN 待上链查询
-        // CHAINING 查询中
-        // SUCCESS 查询成功
-        // FAIL 查询失败
-        [NameInMap("query_status")]
-        [Validation(Required=false)]
-        public string QueryStatus { get; set; }
-
-        // 回执id
-        [NameInMap("biz_id")]
-        [Validation(Required=false)]
-        public string BizId { get; set; }
+        public string Msg { get; set; }
 
     }
 

@@ -54,6 +54,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string SignMethod { get; set; }
 
+        // 仲裁委,提交仲裁时必填 41952695X: 宁波仲裁委 123325004722618740: 丽水仲裁委
+        [NameInMap("court_code")]
+        [Validation(Required=false)]
+        public string CourtCode { get; set; }
+
+        // 标的额,提交仲裁时必填
+        [NameInMap("amount")]
+        [Validation(Required=false)]
+        public string Amount { get; set; }
+
     }
 
 }

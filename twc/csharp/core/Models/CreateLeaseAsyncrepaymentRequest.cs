@@ -71,7 +71,7 @@ namespace AntChain.SDK.TWC.Models
         // 剩余应还期数
         [NameInMap("remain_return_term")]
         [Validation(Required=true)]
-        public string RemainReturnTerm { get; set; }
+        public long? RemainReturnTerm { get; set; }
 
         // 每次还款流水凭证，需要融资方确认，id一样则不处理
         [NameInMap("repayment_unique_id")]

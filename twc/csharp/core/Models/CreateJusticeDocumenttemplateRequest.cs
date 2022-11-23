@@ -18,9 +18,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 文书模板id，如果不为空是修改
+        // 维权要素模板id + 文书模板类型
+        // 1.仲裁-申请请求 ARBITRATION_REQUEST_FOR_APPLICATION
+        // 2.仲裁-事实和理由：ARBITRATION_FACTS_AND_REASONS
         [NameInMap("document_template_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string DocumentTemplateId { get; set; }
 
         // 维权要素模板id
