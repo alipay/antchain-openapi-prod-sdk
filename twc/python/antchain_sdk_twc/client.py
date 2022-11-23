@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.98'
+                    'sdk_version': '1.8.8',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.98'
+                    'sdk_version': '1.8.8',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5821,6 +5825,342 @@ class Client:
         return TeaCore.from_map(
             twc_models.DeleteContractSignfieldResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_contract_encrypteduser(
+        self,
+        request: twc_models.CreateContractEncrypteduserRequest,
+    ) -> twc_models.CreateContractEncrypteduserResponse:
+        """
+        Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+        Summary: 创建平台方用户加密版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_contract_encrypteduser_ex(request, headers, runtime)
+
+    async def create_contract_encrypteduser_async(
+        self,
+        request: twc_models.CreateContractEncrypteduserRequest,
+    ) -> twc_models.CreateContractEncrypteduserResponse:
+        """
+        Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+        Summary: 创建平台方用户加密版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_contract_encrypteduser_ex_async(request, headers, runtime)
+
+    def create_contract_encrypteduser_ex(
+        self,
+        request: twc_models.CreateContractEncrypteduserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateContractEncrypteduserResponse:
+        """
+        Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+        Summary: 创建平台方用户加密版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateContractEncrypteduserResponse(),
+            self.do_request('1.0', 'twc.notary.contract.encrypteduser.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_contract_encrypteduser_ex_async(
+        self,
+        request: twc_models.CreateContractEncrypteduserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateContractEncrypteduserResponse:
+        """
+        Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+        Summary: 创建平台方用户加密版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateContractEncrypteduserResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.encrypteduser.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_contract_tenantkey(
+        self,
+        request: twc_models.SetContractTenantkeyRequest,
+    ) -> twc_models.SetContractTenantkeyResponse:
+        """
+        Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+        Summary: 用户密钥设置接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_contract_tenantkey_ex(request, headers, runtime)
+
+    async def set_contract_tenantkey_async(
+        self,
+        request: twc_models.SetContractTenantkeyRequest,
+    ) -> twc_models.SetContractTenantkeyResponse:
+        """
+        Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+        Summary: 用户密钥设置接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_contract_tenantkey_ex_async(request, headers, runtime)
+
+    def set_contract_tenantkey_ex(
+        self,
+        request: twc_models.SetContractTenantkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SetContractTenantkeyResponse:
+        """
+        Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+        Summary: 用户密钥设置接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SetContractTenantkeyResponse(),
+            self.do_request('1.0', 'twc.notary.contract.tenantkey.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_contract_tenantkey_ex_async(
+        self,
+        request: twc_models.SetContractTenantkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SetContractTenantkeyResponse:
+        """
+        Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+        Summary: 用户密钥设置接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SetContractTenantkeyResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.tenantkey.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_contract_encryptedfileuploadurl(
+        self,
+        request: twc_models.GetContractEncryptedfileuploadurlRequest,
+    ) -> twc_models.GetContractEncryptedfileuploadurlResponse:
+        """
+        Description: 获取加密文件上传链接
+        Summary: 获取加密文件上传链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_contract_encryptedfileuploadurl_ex(request, headers, runtime)
+
+    async def get_contract_encryptedfileuploadurl_async(
+        self,
+        request: twc_models.GetContractEncryptedfileuploadurlRequest,
+    ) -> twc_models.GetContractEncryptedfileuploadurlResponse:
+        """
+        Description: 获取加密文件上传链接
+        Summary: 获取加密文件上传链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_contract_encryptedfileuploadurl_ex_async(request, headers, runtime)
+
+    def get_contract_encryptedfileuploadurl_ex(
+        self,
+        request: twc_models.GetContractEncryptedfileuploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractEncryptedfileuploadurlResponse:
+        """
+        Description: 获取加密文件上传链接
+        Summary: 获取加密文件上传链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetContractEncryptedfileuploadurlResponse(),
+            self.do_request('1.0', 'twc.notary.contract.encryptedfileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_contract_encryptedfileuploadurl_ex_async(
+        self,
+        request: twc_models.GetContractEncryptedfileuploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractEncryptedfileuploadurlResponse:
+        """
+        Description: 获取加密文件上传链接
+        Summary: 获取加密文件上传链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetContractEncryptedfileuploadurlResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.encryptedfileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_contract_task(
+        self,
+        request: twc_models.CreateContractTaskRequest,
+    ) -> twc_models.CreateContractTaskResponse:
+        """
+        Description: 创建异步任务
+        Summary: 创建任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_contract_task_ex(request, headers, runtime)
+
+    async def create_contract_task_async(
+        self,
+        request: twc_models.CreateContractTaskRequest,
+    ) -> twc_models.CreateContractTaskResponse:
+        """
+        Description: 创建异步任务
+        Summary: 创建任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_contract_task_ex_async(request, headers, runtime)
+
+    def create_contract_task_ex(
+        self,
+        request: twc_models.CreateContractTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateContractTaskResponse:
+        """
+        Description: 创建异步任务
+        Summary: 创建任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateContractTaskResponse(),
+            self.do_request('1.0', 'twc.notary.contract.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_contract_task_ex_async(
+        self,
+        request: twc_models.CreateContractTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateContractTaskResponse:
+        """
+        Description: 创建异步任务
+        Summary: 创建任务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateContractTaskResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_task(
+        self,
+        request: twc_models.QueryContractTaskRequest,
+    ) -> twc_models.QueryContractTaskResponse:
+        """
+        Description: 任务查询接口
+        Summary: 任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_task_ex(request, headers, runtime)
+
+    async def query_contract_task_async(
+        self,
+        request: twc_models.QueryContractTaskRequest,
+    ) -> twc_models.QueryContractTaskResponse:
+        """
+        Description: 任务查询接口
+        Summary: 任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_task_ex_async(request, headers, runtime)
+
+    def query_contract_task_ex(
+        self,
+        request: twc_models.QueryContractTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractTaskResponse:
+        """
+        Description: 任务查询接口
+        Summary: 任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractTaskResponse(),
+            self.do_request('1.0', 'twc.notary.contract.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_task_ex_async(
+        self,
+        request: twc_models.QueryContractTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractTaskResponse:
+        """
+        Description: 任务查询接口
+        Summary: 任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractTaskResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_contract_pay(
+        self,
+        request: twc_models.ExecContractPayRequest,
+    ) -> twc_models.ExecContractPayResponse:
+        """
+        Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+        Summary: 合同代扣触发接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_contract_pay_ex(request, headers, runtime)
+
+    async def exec_contract_pay_async(
+        self,
+        request: twc_models.ExecContractPayRequest,
+    ) -> twc_models.ExecContractPayResponse:
+        """
+        Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+        Summary: 合同代扣触发接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_contract_pay_ex_async(request, headers, runtime)
+
+    def exec_contract_pay_ex(
+        self,
+        request: twc_models.ExecContractPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ExecContractPayResponse:
+        """
+        Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+        Summary: 合同代扣触发接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ExecContractPayResponse(),
+            self.do_request('1.0', 'twc.notary.contract.pay.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_contract_pay_ex_async(
+        self,
+        request: twc_models.ExecContractPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ExecContractPayResponse:
+        """
+        Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+        Summary: 合同代扣触发接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ExecContractPayResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.pay.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
