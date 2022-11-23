@@ -61,6 +61,18 @@ class StartJusticeCaseRequest extends Model
      * @var string
      */
     public $signMethod;
+
+    // 仲裁委,提交仲裁时必填 41952695X: 宁波仲裁委 123325004722618740: 丽水仲裁委
+    /**
+     * @var string
+     */
+    public $courtCode;
+
+    // 标的额,提交仲裁时必填
+    /**
+     * @var string
+     */
+    public $amount;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -71,6 +83,8 @@ class StartJusticeCaseRequest extends Model
         'contactInfo'            => 'contact_info',
         'bankAccountInfo'        => 'bank_account_info',
         'signMethod'             => 'sign_method',
+        'courtCode'              => 'court_code',
+        'amount'                 => 'amount',
     ];
 
     public function validate()
@@ -110,6 +124,12 @@ class StartJusticeCaseRequest extends Model
         if (null !== $this->signMethod) {
             $res['sign_method'] = $this->signMethod;
         }
+        if (null !== $this->courtCode) {
+            $res['court_code'] = $this->courtCode;
+        }
+        if (null !== $this->amount) {
+            $res['amount'] = $this->amount;
+        }
 
         return $res;
     }
@@ -148,6 +168,12 @@ class StartJusticeCaseRequest extends Model
         }
         if (isset($map['sign_method'])) {
             $model->signMethod = $map['sign_method'];
+        }
+        if (isset($map['court_code'])) {
+            $model->courtCode = $map['court_code'];
+        }
+        if (isset($map['amount'])) {
+            $model->amount = $map['amount'];
         }
 
         return $model;

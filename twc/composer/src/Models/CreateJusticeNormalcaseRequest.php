@@ -70,6 +70,18 @@ class CreateJusticeNormalcaseRequest extends Model
      * @var JudicialPersonInfo
      */
     public $pleaderPersonInfo;
+
+    // 是否使用模板
+    /**
+     * @var bool
+     */
+    public $useTemplate;
+
+    // 使用模板时必填，根据案件要素模板对应提供要素信息
+    /**
+     * @var string
+     */
+    public $businessInfo;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -81,6 +93,8 @@ class CreateJusticeNormalcaseRequest extends Model
         'partyId'            => 'party_id',
         'pleaderType'        => 'pleader_type',
         'pleaderPersonInfo'  => 'pleader_person_info',
+        'useTemplate'        => 'use_template',
+        'businessInfo'       => 'business_info',
     ];
 
     public function validate()
@@ -88,9 +102,7 @@ class CreateJusticeNormalcaseRequest extends Model
         Model::validateRequired('caseReason', $this->caseReason, true);
         Model::validateRequired('caseType', $this->caseType, true);
         Model::validateRequired('externalBizId', $this->externalBizId, true);
-        Model::validateRequired('caseBizElementInfo', $this->caseBizElementInfo, true);
         Model::validateRequired('partyId', $this->partyId, true);
-        Model::validateRequired('pleaderType', $this->pleaderType, true);
     }
 
     public function toMap()
@@ -125,6 +137,12 @@ class CreateJusticeNormalcaseRequest extends Model
         }
         if (null !== $this->pleaderPersonInfo) {
             $res['pleader_person_info'] = null !== $this->pleaderPersonInfo ? $this->pleaderPersonInfo->toMap() : null;
+        }
+        if (null !== $this->useTemplate) {
+            $res['use_template'] = $this->useTemplate;
+        }
+        if (null !== $this->businessInfo) {
+            $res['business_info'] = $this->businessInfo;
         }
 
         return $res;
@@ -167,6 +185,12 @@ class CreateJusticeNormalcaseRequest extends Model
         }
         if (isset($map['pleader_person_info'])) {
             $model->pleaderPersonInfo = JudicialPersonInfo::fromMap($map['pleader_person_info']);
+        }
+        if (isset($map['use_template'])) {
+            $model->useTemplate = $map['use_template'];
+        }
+        if (isset($map['business_info'])) {
+            $model->businessInfo = $map['business_info'];
         }
 
         return $model;

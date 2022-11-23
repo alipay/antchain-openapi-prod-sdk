@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRefinanceOrderRequest extends Model
+class SetContractTenantkeyRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,27 @@ class QueryRefinanceOrderRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产包id
+    // 被通信秘钥加密后的解密密钥字符串。
     /**
      * @var string
      */
-    public $packageId;
+    public $fileDecryptKey;
 
-    // 订单id
+    // 使用base64编码后的RSA公钥；用于解密decryptKey以及加密入参
     /**
      * @var string
      */
-    public $orderId;
-
-    // 阶段描述
-    /**
-     * @var string
-     */
-    public $phaseInfo;
+    public $signalPubKeyEncoded;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'packageId'         => 'package_id',
-        'orderId'           => 'order_id',
-        'phaseInfo'         => 'phase_info',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'fileDecryptKey'      => 'file_decrypt_key',
+        'signalPubKeyEncoded' => 'signal_pub_key_encoded',
     ];
 
     public function validate()
     {
-        Model::validateRequired('packageId', $this->packageId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('fileDecryptKey', $this->fileDecryptKey, true);
     }
 
     public function toMap()
@@ -59,14 +51,11 @@ class QueryRefinanceOrderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->packageId) {
-            $res['package_id'] = $this->packageId;
+        if (null !== $this->fileDecryptKey) {
+            $res['file_decrypt_key'] = $this->fileDecryptKey;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->phaseInfo) {
-            $res['phase_info'] = $this->phaseInfo;
+        if (null !== $this->signalPubKeyEncoded) {
+            $res['signal_pub_key_encoded'] = $this->signalPubKeyEncoded;
         }
 
         return $res;
@@ -75,7 +64,7 @@ class QueryRefinanceOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRefinanceOrderRequest
+     * @return SetContractTenantkeyRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +75,11 @@ class QueryRefinanceOrderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['package_id'])) {
-            $model->packageId = $map['package_id'];
+        if (isset($map['file_decrypt_key'])) {
+            $model->fileDecryptKey = $map['file_decrypt_key'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['phase_info'])) {
-            $model->phaseInfo = $map['phase_info'];
+        if (isset($map['signal_pub_key_encoded'])) {
+            $model->signalPubKeyEncoded = $map['signal_pub_key_encoded'];
         }
 
         return $model;

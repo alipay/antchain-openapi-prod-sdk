@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRefinanceOrderRequest extends Model
+class QueryContractTaskRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,20 @@ class QueryRefinanceOrderRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产包id
+    // 创建任务时，返回的任务id
     /**
      * @var string
      */
-    public $packageId;
-
-    // 订单id
-    /**
-     * @var string
-     */
-    public $orderId;
-
-    // 阶段描述
-    /**
-     * @var string
-     */
-    public $phaseInfo;
+    public $taskId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'packageId'         => 'package_id',
-        'orderId'           => 'order_id',
-        'phaseInfo'         => 'phase_info',
+        'taskId'            => 'task_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('packageId', $this->packageId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('taskId', $this->taskId, true);
     }
 
     public function toMap()
@@ -59,14 +44,8 @@ class QueryRefinanceOrderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->packageId) {
-            $res['package_id'] = $this->packageId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->phaseInfo) {
-            $res['phase_info'] = $this->phaseInfo;
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
 
         return $res;
@@ -75,7 +54,7 @@ class QueryRefinanceOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRefinanceOrderRequest
+     * @return QueryContractTaskRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +65,8 @@ class QueryRefinanceOrderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['package_id'])) {
-            $model->packageId = $map['package_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['phase_info'])) {
-            $model->phaseInfo = $map['phase_info'];
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLeaseAsyncencryptedinfoResponse extends Model
+class CreateContractEncrypteduserResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,48 +26,38 @@ class QueryLeaseAsyncencryptedinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 结果码，OK表示成功
+    // 机构账号
     /**
      * @var string
      */
+    public $organizationId;
+
+    // 用户类型为个人时返回用户账号；
+    // 用户类型为机构时返回经办人账号
+    /**
+     * @var string
+     */
+    public $userId;
+
+    // 业务码，0表示成功
+    /**
+     * @var int
+     */
     public $code;
 
-    // 结果描述
+    // 业务码信息
     /**
      * @var string
      */
     public $message;
-
-    // 对应的加密后的具体信息（只有当query_status状态为SUCCESS时才返回此数据）
-    /**
-     * @var string
-     */
-    public $responseData;
-
-    // 链上查询状态枚举
-    // TOBE_CHAIN 待上链查询
-    // CHAINING 查询中
-    // SUCCESS 查询成功
-    // FAIL 查询失败
-    /**
-     * @var string
-     */
-    public $queryStatus;
-
-    // 回执id
-    /**
-     * @var string
-     */
-    public $bizId;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'code'         => 'code',
-        'message'      => 'message',
-        'responseData' => 'response_data',
-        'queryStatus'  => 'query_status',
-        'bizId'        => 'biz_id',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'organizationId' => 'organization_id',
+        'userId'         => 'user_id',
+        'code'           => 'code',
+        'message'        => 'message',
     ];
 
     public function validate()
@@ -86,20 +76,17 @@ class QueryLeaseAsyncencryptedinfoResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->organizationId) {
+            $res['organization_id'] = $this->organizationId;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
+        }
         if (null !== $this->code) {
             $res['code'] = $this->code;
         }
         if (null !== $this->message) {
             $res['message'] = $this->message;
-        }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
-        }
-        if (null !== $this->queryStatus) {
-            $res['query_status'] = $this->queryStatus;
-        }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
         }
 
         return $res;
@@ -108,7 +95,7 @@ class QueryLeaseAsyncencryptedinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryLeaseAsyncencryptedinfoResponse
+     * @return CreateContractEncrypteduserResponse
      */
     public static function fromMap($map = [])
     {
@@ -122,20 +109,17 @@ class QueryLeaseAsyncencryptedinfoResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['organization_id'])) {
+            $model->organizationId = $map['organization_id'];
+        }
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
+        }
         if (isset($map['code'])) {
             $model->code = $map['code'];
         }
         if (isset($map['message'])) {
             $model->message = $map['message'];
-        }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
-        }
-        if (isset($map['query_status'])) {
-            $model->queryStatus = $map['query_status'];
-        }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
         }
 
         return $model;

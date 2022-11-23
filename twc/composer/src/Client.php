@@ -97,6 +97,8 @@ use AntChain\TWC\Models\CreateContractCommontriggerRequest;
 use AntChain\TWC\Models\CreateContractCommontriggerResponse;
 use AntChain\TWC\Models\CreateContractCourtdeductRequest;
 use AntChain\TWC\Models\CreateContractCourtdeductResponse;
+use AntChain\TWC\Models\CreateContractEncrypteduserRequest;
+use AntChain\TWC\Models\CreateContractEncrypteduserResponse;
 use AntChain\TWC\Models\CreateContractFlowRequest;
 use AntChain\TWC\Models\CreateContractFlowResponse;
 use AntChain\TWC\Models\CreateContractHandsignfieldRequest;
@@ -123,6 +125,8 @@ use AntChain\TWC\Models\CreateContractRegisterzftRequest;
 use AntChain\TWC\Models\CreateContractRegisterzftResponse;
 use AntChain\TWC\Models\CreateContractSignflowRequest;
 use AntChain\TWC\Models\CreateContractSignflowResponse;
+use AntChain\TWC\Models\CreateContractTaskRequest;
+use AntChain\TWC\Models\CreateContractTaskResponse;
 use AntChain\TWC\Models\CreateContractTemplateRequest;
 use AntChain\TWC\Models\CreateContractTemplateResponse;
 use AntChain\TWC\Models\CreateContractTextRequest;
@@ -289,6 +293,8 @@ use AntChain\TWC\Models\DownloadJusticeCasefileRequest;
 use AntChain\TWC\Models\DownloadJusticeCasefileResponse;
 use AntChain\TWC\Models\ExecContractCourtdeductRequest;
 use AntChain\TWC\Models\ExecContractCourtdeductResponse;
+use AntChain\TWC\Models\ExecContractPayRequest;
+use AntChain\TWC\Models\ExecContractPayResponse;
 use AntChain\TWC\Models\ExistStubRequest;
 use AntChain\TWC\Models\ExistStubResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
@@ -299,6 +305,8 @@ use AntChain\TWC\Models\GetCertificateDetailRequest;
 use AntChain\TWC\Models\GetCertificateDetailResponse;
 use AntChain\TWC\Models\GetContractCertificateRequest;
 use AntChain\TWC\Models\GetContractCertificateResponse;
+use AntChain\TWC\Models\GetContractEncryptedfileuploadurlRequest;
+use AntChain\TWC\Models\GetContractEncryptedfileuploadurlResponse;
 use AntChain\TWC\Models\GetContractFileRequest;
 use AntChain\TWC\Models\GetContractFileResponse;
 use AntChain\TWC\Models\GetContractFileuploadurlRequest;
@@ -399,6 +407,8 @@ use AntChain\TWC\Models\QueryContractSignfieldsRequest;
 use AntChain\TWC\Models\QueryContractSignfieldsResponse;
 use AntChain\TWC\Models\QueryContractStatusRequest;
 use AntChain\TWC\Models\QueryContractStatusResponse;
+use AntChain\TWC\Models\QueryContractTaskRequest;
+use AntChain\TWC\Models\QueryContractTaskResponse;
 use AntChain\TWC\Models\QueryContractTemplateRequest;
 use AntChain\TWC\Models\QueryContractTemplateResponse;
 use AntChain\TWC\Models\QueryContractTradedetailRequest;
@@ -521,6 +531,8 @@ use AntChain\TWC\Models\SendWithholdDeductRequest;
 use AntChain\TWC\Models\SendWithholdDeductResponse;
 use AntChain\TWC\Models\SendWithholdRefundRequest;
 use AntChain\TWC\Models\SendWithholdRefundResponse;
+use AntChain\TWC\Models\SetContractTenantkeyRequest;
+use AntChain\TWC\Models\SetContractTenantkeyResponse;
 use AntChain\TWC\Models\SetLeaseRepaymentstatusRequest;
 use AntChain\TWC\Models\SetLeaseRepaymentstatusResponse;
 use AntChain\TWC\Models\SetNotarizationOrderRequest;
@@ -724,7 +736,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.98',
+                    'sdk_version'      => '1.8.8',
+                    '_prod_code'       => 'TWC',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4039,6 +4053,204 @@ class Client
         Utils::validateModel($request);
 
         return DeleteContractSignfieldResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+     * Summary: 创建平台方用户加密版.
+     *
+     * @param CreateContractEncrypteduserRequest $request
+     *
+     * @return CreateContractEncrypteduserResponse
+     */
+    public function createContractEncrypteduser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createContractEncrypteduserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+     * Summary: 创建平台方用户加密版.
+     *
+     * @param CreateContractEncrypteduserRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateContractEncrypteduserResponse
+     */
+    public function createContractEncrypteduserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateContractEncrypteduserResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.encrypteduser.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+     * Summary: 用户密钥设置接口.
+     *
+     * @param SetContractTenantkeyRequest $request
+     *
+     * @return SetContractTenantkeyResponse
+     */
+    public function setContractTenantkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setContractTenantkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+     * Summary: 用户密钥设置接口.
+     *
+     * @param SetContractTenantkeyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SetContractTenantkeyResponse
+     */
+    public function setContractTenantkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetContractTenantkeyResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.tenantkey.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取加密文件上传链接
+     * Summary: 获取加密文件上传链接.
+     *
+     * @param GetContractEncryptedfileuploadurlRequest $request
+     *
+     * @return GetContractEncryptedfileuploadurlResponse
+     */
+    public function getContractEncryptedfileuploadurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractEncryptedfileuploadurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取加密文件上传链接
+     * Summary: 获取加密文件上传链接.
+     *
+     * @param GetContractEncryptedfileuploadurlRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return GetContractEncryptedfileuploadurlResponse
+     */
+    public function getContractEncryptedfileuploadurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractEncryptedfileuploadurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.encryptedfileuploadurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建异步任务
+     * Summary: 创建任务接口.
+     *
+     * @param CreateContractTaskRequest $request
+     *
+     * @return CreateContractTaskResponse
+     */
+    public function createContractTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createContractTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建异步任务
+     * Summary: 创建任务接口.
+     *
+     * @param CreateContractTaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateContractTaskResponse
+     */
+    public function createContractTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateContractTaskResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.task.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务查询接口
+     * Summary: 任务查询.
+     *
+     * @param QueryContractTaskRequest $request
+     *
+     * @return QueryContractTaskResponse
+     */
+    public function queryContractTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务查询接口
+     * Summary: 任务查询.
+     *
+     * @param QueryContractTaskRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryContractTaskResponse
+     */
+    public function queryContractTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractTaskResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+     * Summary: 合同代扣触发接口.
+     *
+     * @param ExecContractPayRequest $request
+     *
+     * @return ExecContractPayResponse
+     */
+    public function execContractPay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execContractPayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+     * Summary: 合同代扣触发接口.
+     *
+     * @param ExecContractPayRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ExecContractPayResponse
+     */
+    public function execContractPayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecContractPayResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.pay.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

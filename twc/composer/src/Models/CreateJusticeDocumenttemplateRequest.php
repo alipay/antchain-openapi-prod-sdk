@@ -19,7 +19,9 @@ class CreateJusticeDocumenttemplateRequest extends Model
      */
     public $productInstanceId;
 
-    // 文书模板id，如果不为空是修改
+    // 维权要素模板id + 文书模板类型
+    // 1.仲裁-申请请求 ARBITRATION_REQUEST_FOR_APPLICATION
+    // 2.仲裁-事实和理由：ARBITRATION_FACTS_AND_REASONS
     /**
      * @var string
      */
@@ -79,6 +81,7 @@ class CreateJusticeDocumenttemplateRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('documentTemplateId', $this->documentTemplateId, true);
         Model::validateRequired('rightProtectTemplateId', $this->rightProtectTemplateId, true);
         Model::validateRequired('templateName', $this->templateName, true);
         Model::validateRequired('outputType', $this->outputType, true);

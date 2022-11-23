@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRefinanceOrderRequest extends Model
+class GetContractEncryptedfileuploadurlRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,35 @@ class QueryRefinanceOrderRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产包id
+    // 包含后缀的文件全名, 合同.pdf
     /**
      * @var string
      */
-    public $packageId;
+    public $fileName;
 
-    // 订单id
+    // 是否已加密, 默认否
     /**
-     * @var string
+     * @var bool
      */
-    public $orderId;
+    public $encrypted;
 
-    // 阶段描述
+    // 明文文件的md5码，用于完整性校验
     /**
      * @var string
      */
-    public $phaseInfo;
+    public $md5;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'packageId'         => 'package_id',
-        'orderId'           => 'order_id',
-        'phaseInfo'         => 'phase_info',
+        'fileName'          => 'file_name',
+        'encrypted'         => 'encrypted',
+        'md5'               => 'md5',
     ];
 
     public function validate()
     {
-        Model::validateRequired('packageId', $this->packageId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('fileName', $this->fileName, true);
+        Model::validateRequired('md5', $this->md5, true);
     }
 
     public function toMap()
@@ -59,14 +59,14 @@ class QueryRefinanceOrderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->packageId) {
-            $res['package_id'] = $this->packageId;
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->encrypted) {
+            $res['encrypted'] = $this->encrypted;
         }
-        if (null !== $this->phaseInfo) {
-            $res['phase_info'] = $this->phaseInfo;
+        if (null !== $this->md5) {
+            $res['md5'] = $this->md5;
         }
 
         return $res;
@@ -75,7 +75,7 @@ class QueryRefinanceOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRefinanceOrderRequest
+     * @return GetContractEncryptedfileuploadurlRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +86,14 @@ class QueryRefinanceOrderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['package_id'])) {
-            $model->packageId = $map['package_id'];
+        if (isset($map['file_name'])) {
+            $model->fileName = $map['file_name'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['encrypted'])) {
+            $model->encrypted = $map['encrypted'];
         }
-        if (isset($map['phase_info'])) {
-            $model->phaseInfo = $map['phase_info'];
+        if (isset($map['md5'])) {
+            $model->md5 = $map['md5'];
         }
 
         return $model;

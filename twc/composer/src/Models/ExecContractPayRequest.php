@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRefinanceOrderRequest extends Model
+class ExecContractPayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,28 @@ class QueryRefinanceOrderRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产包id
+    // 合同流程id
     /**
      * @var string
      */
-    public $packageId;
+    public $flowId;
 
-    // 订单id
+    // 每期代扣的唯一编号
     /**
      * @var string
      */
-    public $orderId;
-
-    // 阶段描述
-    /**
-     * @var string
-     */
-    public $phaseInfo;
+    public $payIndex;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'packageId'         => 'package_id',
-        'orderId'           => 'order_id',
-        'phaseInfo'         => 'phase_info',
+        'flowId'            => 'flow_id',
+        'payIndex'          => 'pay_index',
     ];
 
     public function validate()
     {
-        Model::validateRequired('packageId', $this->packageId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('payIndex', $this->payIndex, true);
     }
 
     public function toMap()
@@ -59,14 +52,11 @@ class QueryRefinanceOrderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->packageId) {
-            $res['package_id'] = $this->packageId;
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->phaseInfo) {
-            $res['phase_info'] = $this->phaseInfo;
+        if (null !== $this->payIndex) {
+            $res['pay_index'] = $this->payIndex;
         }
 
         return $res;
@@ -75,7 +65,7 @@ class QueryRefinanceOrderRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRefinanceOrderRequest
+     * @return ExecContractPayRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +76,11 @@ class QueryRefinanceOrderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['package_id'])) {
-            $model->packageId = $map['package_id'];
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['phase_info'])) {
-            $model->phaseInfo = $map['phase_info'];
+        if (isset($map['pay_index'])) {
+            $model->payIndex = $map['pay_index'];
         }
 
         return $model;

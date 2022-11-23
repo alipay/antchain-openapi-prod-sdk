@@ -81,7 +81,7 @@ class CreateLeaseAsyncrepaymentRequest extends Model
 
     // 剩余应还期数
     /**
-     * @var string
+     * @var int
      */
     public $remainReturnTerm;
 

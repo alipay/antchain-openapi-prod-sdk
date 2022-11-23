@@ -46,6 +46,24 @@ class QueryLeaseAsynccallResponse extends Model
      * @var string
      */
     public $chainFailMessage;
+
+    // 对应的加密后的具体信息,异步查询场景会有值
+    /**
+     * @var string
+     */
+    public $responseData;
+
+    // 结果码，OK表示成功
+    /**
+     * @var string
+     */
+    public $code;
+
+    // 结果描述
+    /**
+     * @var string
+     */
+    public $message;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -53,6 +71,9 @@ class QueryLeaseAsynccallResponse extends Model
         'status'           => 'status',
         'txHash'           => 'tx_hash',
         'chainFailMessage' => 'chain_fail_message',
+        'responseData'     => 'response_data',
+        'code'             => 'code',
+        'message'          => 'message',
     ];
 
     public function validate()
@@ -79,6 +100,15 @@ class QueryLeaseAsynccallResponse extends Model
         }
         if (null !== $this->chainFailMessage) {
             $res['chain_fail_message'] = $this->chainFailMessage;
+        }
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
 
         return $res;
@@ -109,6 +139,15 @@ class QueryLeaseAsynccallResponse extends Model
         }
         if (isset($map['chain_fail_message'])) {
             $model->chainFailMessage = $map['chain_fail_message'];
+        }
+        if (isset($map['response_data'])) {
+            $model->responseData = $map['response_data'];
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
 
         return $model;
