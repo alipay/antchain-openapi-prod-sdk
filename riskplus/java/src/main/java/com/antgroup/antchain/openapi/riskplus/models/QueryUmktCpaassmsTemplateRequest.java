@@ -11,11 +11,6 @@ public class QueryUmktCpaassmsTemplateRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户id
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     // 短信类型
     @NameInMap("sms_type")
     @Validation(required = true)
@@ -57,14 +52,6 @@ public class QueryUmktCpaassmsTemplateRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryUmktCpaassmsTemplateRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
     public QueryUmktCpaassmsTemplateRequest setSmsType(String smsType) {
