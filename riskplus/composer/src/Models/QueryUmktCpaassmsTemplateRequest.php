@@ -19,12 +19,6 @@ class QueryUmktCpaassmsTemplateRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户id
-    /**
-     * @var string
-     */
-    public $tenantId;
-
     // 短信类型
     /**
      * @var string
@@ -57,7 +51,6 @@ class QueryUmktCpaassmsTemplateRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
         'smsType'           => 'sms_type',
         'tenantIndustry'    => 'tenant_industry',
         'status'            => 'status',
@@ -67,7 +60,6 @@ class QueryUmktCpaassmsTemplateRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('smsType', $this->smsType, true);
         Model::validateRequired('tenantIndustry', $this->tenantIndustry, true);
     }
@@ -80,9 +72,6 @@ class QueryUmktCpaassmsTemplateRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
         }
         if (null !== $this->smsType) {
             $res['sms_type'] = $this->smsType;
@@ -116,9 +105,6 @@ class QueryUmktCpaassmsTemplateRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
         }
         if (isset($map['sms_type'])) {
             $model->smsType = $map['sms_type'];
