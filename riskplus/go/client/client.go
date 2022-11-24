@@ -18215,8 +18215,6 @@ type QueryUmktCpaassmsTemplateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 短信类型
 	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty" require:"true"`
 	// 行业标签
@@ -18244,11 +18242,6 @@ func (s *QueryUmktCpaassmsTemplateRequest) SetAuthToken(v string) *QueryUmktCpaa
 
 func (s *QueryUmktCpaassmsTemplateRequest) SetProductInstanceId(v string) *QueryUmktCpaassmsTemplateRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryUmktCpaassmsTemplateRequest) SetTenantId(v string) *QueryUmktCpaassmsTemplateRequest {
-	s.TenantId = &v
 	return s
 }
 
@@ -18677,7 +18670,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.4"),
+				"sdk_version":      tea.String("1.15.5"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
