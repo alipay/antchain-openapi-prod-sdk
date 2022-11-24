@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.4',
+    sdk_version = '1.15.5',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7745,8 +7747,6 @@ model QueryUmktCpaassmsTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户id
-  tenantId: string(name='tenant_id'),
   // 短信类型
   smsType: string(name='sms_type'),
   // 行业标签
