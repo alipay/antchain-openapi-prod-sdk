@@ -34,7 +34,6 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
 
     // 针对对应业务类型的证据要素补充.
     @NameInMap("case_biz_element_info")
-    @Validation(required = true)
     public String caseBizElementInfo;
 
     // 当事人(申请人)ID, 案件填充信息返回
@@ -46,12 +45,19 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     // PERSON , 个人
     // ORG , 机构
     @NameInMap("pleader_type")
-    @Validation(required = true)
     public String pleaderType;
 
     // 答辩人(自然人)信息, 类型为个人时必填
     @NameInMap("pleader_person_info")
     public JudicialPersonInfo pleaderPersonInfo;
+
+    // 是否使用模板
+    @NameInMap("use_template")
+    public Boolean useTemplate;
+
+    // 使用模板时必填，根据案件要素模板对应提供要素信息
+    @NameInMap("business_info")
+    public String businessInfo;
 
     public static CreateJusticeNormalcaseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateJusticeNormalcaseRequest self = new CreateJusticeNormalcaseRequest();
@@ -136,6 +142,22 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     }
     public JudicialPersonInfo getPleaderPersonInfo() {
         return this.pleaderPersonInfo;
+    }
+
+    public CreateJusticeNormalcaseRequest setUseTemplate(Boolean useTemplate) {
+        this.useTemplate = useTemplate;
+        return this;
+    }
+    public Boolean getUseTemplate() {
+        return this.useTemplate;
+    }
+
+    public CreateJusticeNormalcaseRequest setBusinessInfo(String businessInfo) {
+        this.businessInfo = businessInfo;
+        return this;
+    }
+    public String getBusinessInfo() {
+        return this.businessInfo;
     }
 
 }

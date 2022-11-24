@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.98")
+                    new TeaPair("sdk_version", "1.8.8"),
+                    new TeaPair("_prod_code", "TWC"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2042,6 +2044,120 @@ public class Client {
     public DeleteContractSignfieldResponse deleteContractSignfieldEx(DeleteContractSignfieldRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteContractSignfieldResponse());
+    }
+
+    /**
+     * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+     * Summary: 创建平台方用户加密版
+     */
+    public CreateContractEncrypteduserResponse createContractEncrypteduser(CreateContractEncrypteduserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createContractEncrypteduserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+     * Summary: 创建平台方用户加密版
+     */
+    public CreateContractEncrypteduserResponse createContractEncrypteduserEx(CreateContractEncrypteduserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.encrypteduser.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateContractEncrypteduserResponse());
+    }
+
+    /**
+     * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+     * Summary: 用户密钥设置接口
+     */
+    public SetContractTenantkeyResponse setContractTenantkey(SetContractTenantkeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setContractTenantkeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+     * Summary: 用户密钥设置接口
+     */
+    public SetContractTenantkeyResponse setContractTenantkeyEx(SetContractTenantkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.tenantkey.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetContractTenantkeyResponse());
+    }
+
+    /**
+     * Description: 获取加密文件上传链接
+     * Summary: 获取加密文件上传链接
+     */
+    public GetContractEncryptedfileuploadurlResponse getContractEncryptedfileuploadurl(GetContractEncryptedfileuploadurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getContractEncryptedfileuploadurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取加密文件上传链接
+     * Summary: 获取加密文件上传链接
+     */
+    public GetContractEncryptedfileuploadurlResponse getContractEncryptedfileuploadurlEx(GetContractEncryptedfileuploadurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.encryptedfileuploadurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetContractEncryptedfileuploadurlResponse());
+    }
+
+    /**
+     * Description: 创建异步任务
+     * Summary: 创建任务接口
+     */
+    public CreateContractTaskResponse createContractTask(CreateContractTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createContractTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建异步任务
+     * Summary: 创建任务接口
+     */
+    public CreateContractTaskResponse createContractTaskEx(CreateContractTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.task.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateContractTaskResponse());
+    }
+
+    /**
+     * Description: 任务查询接口
+     * Summary: 任务查询
+     */
+    public QueryContractTaskResponse queryContractTask(QueryContractTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 任务查询接口
+     * Summary: 任务查询
+     */
+    public QueryContractTaskResponse queryContractTaskEx(QueryContractTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractTaskResponse());
+    }
+
+    /**
+     * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+     * Summary: 合同代扣触发接口
+     */
+    public ExecContractPayResponse execContractPay(ExecContractPayRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execContractPayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+     * Summary: 合同代扣触发接口
+     */
+    public ExecContractPayResponse execContractPayEx(ExecContractPayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.pay.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecContractPayResponse());
     }
 
     /**

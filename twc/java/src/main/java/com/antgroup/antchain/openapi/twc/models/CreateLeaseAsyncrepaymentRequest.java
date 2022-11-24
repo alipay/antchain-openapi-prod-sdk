@@ -58,7 +58,7 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
     // 剩余应还期数
     @NameInMap("remain_return_term")
     @Validation(required = true)
-    public String remainReturnTerm;
+    public Long remainReturnTerm;
 
     // 每次还款流水凭证，需要融资方确认，id一样则不处理
     @NameInMap("repayment_unique_id")
@@ -208,11 +208,11 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
         return this.remainReturnMoney;
     }
 
-    public CreateLeaseAsyncrepaymentRequest setRemainReturnTerm(String remainReturnTerm) {
+    public CreateLeaseAsyncrepaymentRequest setRemainReturnTerm(Long remainReturnTerm) {
         this.remainReturnTerm = remainReturnTerm;
         return this;
     }
-    public String getRemainReturnTerm() {
+    public Long getRemainReturnTerm() {
         return this.remainReturnTerm;
     }
 

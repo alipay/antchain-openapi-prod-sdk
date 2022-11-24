@@ -36,6 +36,10 @@ public class QueryLeaseAsyncencryptedinfoResponse extends TeaModel {
     @NameInMap("query_status")
     public String queryStatus;
 
+    // 回执id
+    @NameInMap("biz_id")
+    public String bizId;
+
     public static QueryLeaseAsyncencryptedinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryLeaseAsyncencryptedinfoResponse self = new QueryLeaseAsyncencryptedinfoResponse();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class QueryLeaseAsyncencryptedinfoResponse extends TeaModel {
     }
     public String getQueryStatus() {
         return this.queryStatus;
+    }
+
+    public QueryLeaseAsyncencryptedinfoResponse setBizId(String bizId) {
+        this.bizId = bizId;
+        return this;
+    }
+    public String getBizId() {
+        return this.bizId;
     }
 
 }

@@ -21,6 +21,10 @@ public class QueryRefinanceOrderRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
+    // 阶段描述
+    @NameInMap("phase_info")
+    public String phaseInfo;
+
     public static QueryRefinanceOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRefinanceOrderRequest self = new QueryRefinanceOrderRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryRefinanceOrderRequest extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public QueryRefinanceOrderRequest setPhaseInfo(String phaseInfo) {
+        this.phaseInfo = phaseInfo;
+        return this;
+    }
+    public String getPhaseInfo() {
+        return this.phaseInfo;
     }
 
 }

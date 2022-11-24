@@ -43,6 +43,14 @@ public class StartJusticeCaseRequest extends TeaModel {
     @NameInMap("sign_method")
     public String signMethod;
 
+    // 仲裁委,提交仲裁时必填 41952695X: 宁波仲裁委 123325004722618740: 丽水仲裁委
+    @NameInMap("court_code")
+    public String courtCode;
+
+    // 标的额,提交仲裁时必填
+    @NameInMap("amount")
+    public String amount;
+
     public static StartJusticeCaseRequest build(java.util.Map<String, ?> map) throws Exception {
         StartJusticeCaseRequest self = new StartJusticeCaseRequest();
         return TeaModel.build(map, self);
@@ -118,6 +126,22 @@ public class StartJusticeCaseRequest extends TeaModel {
     }
     public String getSignMethod() {
         return this.signMethod;
+    }
+
+    public StartJusticeCaseRequest setCourtCode(String courtCode) {
+        this.courtCode = courtCode;
+        return this;
+    }
+    public String getCourtCode() {
+        return this.courtCode;
+    }
+
+    public StartJusticeCaseRequest setAmount(String amount) {
+        this.amount = amount;
+        return this;
+    }
+    public String getAmount() {
+        return this.amount;
     }
 
 }
