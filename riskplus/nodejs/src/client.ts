@@ -13673,8 +13673,6 @@ export class QueryUmktCpaassmsTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户id
-  tenantId: string;
   // 短信类型
   smsType: string;
   // 行业标签
@@ -13689,7 +13687,6 @@ export class QueryUmktCpaassmsTemplateRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tenantId: 'tenant_id',
       smsType: 'sms_type',
       tenantIndustry: 'tenant_industry',
       status: 'status',
@@ -13702,7 +13699,6 @@ export class QueryUmktCpaassmsTemplateRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tenantId: 'string',
       smsType: 'string',
       tenantIndustry: 'string',
       status: 'string',
@@ -14036,7 +14032,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.4",
+          sdk_version: "1.15.5",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
