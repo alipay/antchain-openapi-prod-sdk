@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.98',
+    sdk_version = '1.8.8',
+    _prod_code = 'TWC',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7066,6 +7068,277 @@ async function deleteContractSignfieldEx(request: DeleteContractSignfieldRequest
   return doRequest('1.0' ,'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateContractEncrypteduserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 注册机构用户。类型为机构时(userType = "ORGANIZATION")，该字段必填。
+  organization: ContractOrganizationApplication(name='organization'),
+  // 注册为个人用户时，该字段表示个人用户的相关信息；
+  // 注册为机构用户时，该字段表示对应机构经办人的个人信息。
+  user: ContractAccountApplication(name='user'),
+  // 用户类型
+  // 个人：PERSON；
+  // 机构：ORGANIZATION
+  userType: string(name='user_type'),
+}
+
+model CreateContractEncrypteduserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 机构账号
+  organizationId?: string(name='organization_id'),
+  // 用户类型为个人时返回用户账号；
+  // 用户类型为机构时返回经办人账号
+  userId?: string(name='user_id'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+ * Summary: 创建平台方用户加密版
+ */
+async function createContractEncrypteduser(request: CreateContractEncrypteduserRequest): CreateContractEncrypteduserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractEncrypteduserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
+ * Summary: 创建平台方用户加密版
+ */
+async function createContractEncrypteduserEx(request: CreateContractEncrypteduserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractEncrypteduserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.encrypteduser.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetContractTenantkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被通信秘钥加密后的解密密钥字符串。
+  fileDecryptKey: string(name='file_decrypt_key'),
+  // 使用base64编码后的RSA公钥；用于解密decryptKey以及加密入参
+  signalPubKeyEncoded?: string(name='signal_pub_key_encoded'),
+}
+
+model SetContractTenantkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+ * Summary: 用户密钥设置接口
+ */
+async function setContractTenantkey(request: SetContractTenantkeyRequest): SetContractTenantkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setContractTenantkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
+ * Summary: 用户密钥设置接口
+ */
+async function setContractTenantkeyEx(request: SetContractTenantkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetContractTenantkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.tenantkey.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetContractEncryptedfileuploadurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 包含后缀的文件全名, 合同.pdf
+  fileName: string(name='file_name'),
+  // 是否已加密, 默认否
+  encrypted?: boolean(name='encrypted'),
+  // 明文文件的md5码，用于完整性校验
+  md5: string(name='md5'),
+}
+
+model GetContractEncryptedfileuploadurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传的原始文件记录id
+  fileLogId?: string(name='file_log_id'),
+  // 文件上传链接
+  fileUploadUrl?: string(name='file_upload_url'),
+  // 上传链接过期时间. yyyy-MM-dd HH:mm:ss
+  expiredTime?: string(name='expired_time'),
+}
+
+/**
+ * Description: 获取加密文件上传链接
+ * Summary: 获取加密文件上传链接
+ */
+async function getContractEncryptedfileuploadurl(request: GetContractEncryptedfileuploadurlRequest): GetContractEncryptedfileuploadurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractEncryptedfileuploadurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取加密文件上传链接
+ * Summary: 获取加密文件上传链接
+ */
+async function getContractEncryptedfileuploadurlEx(request: GetContractEncryptedfileuploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractEncryptedfileuploadurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.encryptedfileuploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务类型枚举值
+  //   文件解密上传任务，FILE_DECRYPT_ESIGN_UPLOAD
+  taskType: string(name='task_type'),
+  // 文件内容文件解密上传任务时，为原始文件id
+  taskContent: string(name='task_content'),
+}
+
+model CreateContractTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建的任务id
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 创建异步任务
+ * Summary: 创建任务接口
+ */
+async function createContractTask(request: CreateContractTaskRequest): CreateContractTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建异步任务
+ * Summary: 创建任务接口
+ */
+async function createContractTaskEx(request: CreateContractTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建任务时，返回的任务id
+  taskId: string(name='task_id'),
+}
+
+model QueryContractTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务类型,FILE_DECRYPT_ESIGN_UPLOAD
+  taskType?: string(name='task_type'),
+  // 任务结果
+  //  INIT,初始化
+  //  DOING，处理中
+  //  FAIL，失败
+  //  SUCCESS，成功
+  taskStatus?: string(name='task_status'),
+  // 当任务为FILE_DECRYPT_ESIGN_UPLOAD时，为处理成功后的文件id
+  taskResult?: string(name='task_result'),
+  // 失败原因
+  failReason?: string(name='fail_reason'),
+}
+
+/**
+ * Description: 任务查询接口
+ * Summary: 任务查询
+ */
+async function queryContractTask(request: QueryContractTaskRequest): QueryContractTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务查询接口
+ * Summary: 任务查询
+ */
+async function queryContractTaskEx(request: QueryContractTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecContractPayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合同流程id
+  flowId: string(name='flow_id'),
+  // 每期代扣的唯一编号
+  payIndex: string(name='pay_index'),
+}
+
+model ExecContractPayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否触发成功
+  triggerSuccess?: boolean(name='trigger_success'),
+  // 结果code
+  code?: string(name='code'),
+  // 结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+ * Summary: 合同代扣触发接口
+ */
+async function execContractPay(request: ExecContractPayRequest): ExecContractPayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execContractPayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
+ * Summary: 合同代扣触发接口
+ */
+async function execContractPayEx(request: ExecContractPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractPayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.pay.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model SyncInnerTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8916,15 +9189,19 @@ model CreateJusticeNormalcaseRequest = {
   // 业务描述,用于案件的补充描述; 没有则不填
   caseDesc?: string(name='case_desc'),
   // 针对对应业务类型的证据要素补充.
-  caseBizElementInfo: string(name='case_biz_element_info'),
+  caseBizElementInfo?: string(name='case_biz_element_info'),
   // 当事人(申请人)ID, 案件填充信息返回
   partyId: long(name='party_id'),
   // 答辩人类型, 目前仅支持个人.
   // PERSON , 个人
   // ORG , 机构
-  pleaderType: string(name='pleader_type'),
+  pleaderType?: string(name='pleader_type'),
   // 答辩人(自然人)信息, 类型为个人时必填
   pleaderPersonInfo?: JudicialPersonInfo(name='pleader_person_info'),
+  // 是否使用模板
+  useTemplate?: boolean(name='use_template'),
+  // 使用模板时必填，根据案件要素模板对应提供要素信息
+  businessInfo?: string(name='business_info'),
 }
 
 model CreateJusticeNormalcaseResponse = {
@@ -9030,6 +9307,10 @@ model StartJusticeCaseRequest = {
   bankAccountInfo?: BankAccountInfo(name='bank_account_info'),
   // 维权类型为仲裁时填写:SIGN_SILENTLY-静默签署,SIGN_MANUALLY-人工签署
   signMethod?: string(name='sign_method'),
+  // 仲裁委,提交仲裁时必填 41952695X: 宁波仲裁委 123325004722618740: 丽水仲裁委
+  courtCode?: string(name='court_code'),
+  // 标的额,提交仲裁时必填
+  amount?: string(name='amount'),
 }
 
 model StartJusticeCaseResponse = {
@@ -9317,8 +9598,10 @@ model CreateJusticeDocumenttemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 文书模板id，如果不为空是修改
-  documentTemplateId?: string(name='document_template_id'),
+  // 维权要素模板id + 文书模板类型
+  // 1.仲裁-申请请求 ARBITRATION_REQUEST_FOR_APPLICATION
+  // 2.仲裁-事实和理由：ARBITRATION_FACTS_AND_REASONS
+  documentTemplateId: string(name='document_template_id'),
   // 维权要素模板id
   rightProtectTemplateId: string(name='right_protect_template_id'),
   // 文书模板类型名称，如“仲裁申请书”、“调解协议书”、“起诉状”等
@@ -10561,6 +10844,8 @@ model QueryRefinanceOrderRequest = {
   packageId: string(name='package_id'),
   // 订单id
   orderId: string(name='order_id'),
+  // 阶段描述
+  phaseInfo?: string(name='phase_info'),
 }
 
 model QueryRefinanceOrderResponse = {
@@ -11300,7 +11585,7 @@ model CreateLeaseAsyncrepaymentRequest = {
   // 剩余应还金额，精确到毫厘，即123400表示12.34元
   remainReturnMoney: long(name='remain_return_money'),
   // 剩余应还期数
-  remainReturnTerm: string(name='remain_return_term'),
+  remainReturnTerm: long(name='remain_return_term'),
   // 每次还款流水凭证，需要融资方确认，id一样则不处理
   repaymentUniqueId: string(name='repayment_unique_id'),
   // 还款结果简要描述,长度不超过256
@@ -11505,6 +11790,8 @@ model QueryLeaseAsyncencryptedinfoResponse = {
   // SUCCESS 查询成功
   // FAIL 查询失败
   queryStatus?: string(name='query_status'),
+  // 回执id
+  bizId?: string(name='biz_id'),
 }
 
 /**
@@ -11552,6 +11839,12 @@ model QueryLeaseAsynccallResponse = {
   txHash?: string(name='tx_hash'),
   // 上链失败信息，status为FAIL时返回
   chainFailMessage?: string(name='chain_fail_message'),
+  // 对应的加密后的具体信息,异步查询场景会有值
+  responseData?: string(name='response_data'),
+  // 结果码，OK表示成功
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
 }
 
 /**
