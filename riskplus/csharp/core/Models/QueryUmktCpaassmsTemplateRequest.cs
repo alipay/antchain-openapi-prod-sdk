@@ -18,11 +18,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户id
-        [NameInMap("tenant_id")]
-        [Validation(Required=true)]
-        public string TenantId { get; set; }
-
         // 短信类型
         [NameInMap("sms_type")]
         [Validation(Required=true)]
