@@ -22768,7 +22768,6 @@ class QueryUmktCpaassmsTemplateRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        tenant_id: str = None,
         sms_type: str = None,
         tenant_industry: str = None,
         status: str = None,
@@ -22778,8 +22777,6 @@ class QueryUmktCpaassmsTemplateRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户id
-        self.tenant_id = tenant_id
         # 短信类型
         self.sms_type = sms_type
         # 行业标签
@@ -22792,7 +22789,6 @@ class QueryUmktCpaassmsTemplateRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.sms_type, 'sms_type')
         self.validate_required(self.tenant_industry, 'tenant_industry')
 
@@ -22806,8 +22802,6 @@ class QueryUmktCpaassmsTemplateRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
         if self.sms_type is not None:
             result['sms_type'] = self.sms_type
         if self.tenant_industry is not None:
@@ -22826,8 +22820,6 @@ class QueryUmktCpaassmsTemplateRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
         if m.get('sms_type') is not None:
             self.sms_type = m.get('sms_type')
         if m.get('tenant_industry') is not None:
