@@ -1,6 +1,6 @@
 {
   "name": "@antchain/ak_912f8ba016a046c6b5a6b1252cc63591",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
