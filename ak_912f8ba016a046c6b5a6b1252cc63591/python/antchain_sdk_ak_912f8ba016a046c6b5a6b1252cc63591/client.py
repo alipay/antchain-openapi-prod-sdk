@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 规则明细
+            # 客户认证结果
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 规则明细
+            # 客户认证结果
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -271,116 +271,172 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def apply_antchain_bbp_contract_rule(
+    def status_demo_gateway_check(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleRequest,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse:
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse:
         """
-        Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-        Summary: 外包薪资规则合约发布接口
+        Description: Demo接口，返回当前服务器当前状态1
+        Summary: 检查服务状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.apply_antchain_bbp_contract_rule_ex(request, headers, runtime)
+        return self.status_demo_gateway_check_ex(request, headers, runtime)
 
-    async def apply_antchain_bbp_contract_rule_async(
+    async def status_demo_gateway_check_async(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleRequest,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse:
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse:
         """
-        Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-        Summary: 外包薪资规则合约发布接口
+        Description: Demo接口，返回当前服务器当前状态1
+        Summary: 检查服务状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.apply_antchain_bbp_contract_rule_ex_async(request, headers, runtime)
+        return await self.status_demo_gateway_check_ex_async(request, headers, runtime)
 
-    def apply_antchain_bbp_contract_rule_ex(
+    def status_demo_gateway_check_ex(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleRequest,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse:
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse:
         """
-        Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-        Summary: 外包薪资规则合约发布接口
+        Description: Demo接口，返回当前服务器当前状态1
+        Summary: 检查服务状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse(),
-            self.do_request('1.0', 'antchain.bbp.contract.rule.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse(),
+            self.do_request('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def apply_antchain_bbp_contract_rule_ex_async(
+    async def status_demo_gateway_check_ex_async(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleRequest,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse:
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse:
         """
-        Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-        Summary: 外包薪资规则合约发布接口
+        Description: Demo接口，返回当前服务器当前状态1
+        Summary: 检查服务状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.ApplyAntchainBbpContractRuleResponse(),
-            await self.do_request_async('1.0', 'antchain.bbp.contract.rule.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.StatusDemoGatewayCheckResponse(),
+            await self.do_request_async('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_antchain_bbp_contract_reconciliation(
+    def auth_antchain_bbp_customer(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationRequest,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse:
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse:
         """
-        Description: 查询结算单
-        Summary: 查询结算单
+        Description: 对企业/个人进行身份认证
+        Summary: 统一客户认证接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
+        return self.auth_antchain_bbp_customer_ex(request, headers, runtime)
 
-    async def query_antchain_bbp_contract_reconciliation_async(
+    async def auth_antchain_bbp_customer_async(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationRequest,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse:
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse:
         """
-        Description: 查询结算单
-        Summary: 查询结算单
+        Description: 对企业/个人进行身份认证
+        Summary: 统一客户认证接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
+        return await self.auth_antchain_bbp_customer_ex_async(request, headers, runtime)
 
-    def query_antchain_bbp_contract_reconciliation_ex(
+    def auth_antchain_bbp_customer_ex(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationRequest,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse:
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse:
         """
-        Description: 查询结算单
-        Summary: 查询结算单
+        Description: 对企业/个人进行身份认证
+        Summary: 统一客户认证接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse(),
-            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse(),
+            self.do_request('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antchain_bbp_contract_reconciliation_ex_async(
+    async def auth_antchain_bbp_customer_ex_async(
         self,
-        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationRequest,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse:
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse:
         """
-        Description: 查询结算单
-        Summary: 查询结算单
+        Description: 对企业/个人进行身份认证
+        Summary: 统一客户认证接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpContractReconciliationResponse(),
-            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.AuthAntchainBbpCustomerResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_bbp_gwtest(
+        self,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_bbp_gwtest_ex(request, headers, runtime)
+
+    async def query_antchain_bbp_gwtest_async(
+        self,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestRequest,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_bbp_gwtest_ex_async(request, headers, runtime)
+
+    def query_antchain_bbp_gwtest_ex(
+        self,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse(),
+            self.do_request('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_bbp_gwtest_ex_async(
+        self,
+        request: ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__912f_8ba_016a_046c_6b_5a_6b_1252cc_63591_models.QueryAntchainBbpGwtestResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_demo_saas_test_testa(
