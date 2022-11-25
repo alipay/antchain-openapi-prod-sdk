@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # AssetUri中多组资源信息
+            # 查询所有数字权证项目接口结构体
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34'
+                    'sdk_version': '1.1.1',
+                    '_prod_code': 'BAASDIGITAL',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # AssetUri中多组资源信息
+            # 查询所有数字权证项目接口结构体
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34'
+                    'sdk_version': '1.1.1',
+                    '_prod_code': 'BAASDIGITAL',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +274,286 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def judge_aliyun_service(
+        self,
+        request: baasdigital_models.JudgeAliyunServiceRequest,
+    ) -> baasdigital_models.JudgeAliyunServiceResponse:
+        """
+        Description: 数字权证服务开通状态检测
+        Summary: 数字权证服务开通状态检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.judge_aliyun_service_ex(request, headers, runtime)
+
+    async def judge_aliyun_service_async(
+        self,
+        request: baasdigital_models.JudgeAliyunServiceRequest,
+    ) -> baasdigital_models.JudgeAliyunServiceResponse:
+        """
+        Description: 数字权证服务开通状态检测
+        Summary: 数字权证服务开通状态检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.judge_aliyun_service_ex_async(request, headers, runtime)
+
+    def judge_aliyun_service_ex(
+        self,
+        request: baasdigital_models.JudgeAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.JudgeAliyunServiceResponse:
+        """
+        Description: 数字权证服务开通状态检测
+        Summary: 数字权证服务开通状态检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.JudgeAliyunServiceResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.aliyun.service.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def judge_aliyun_service_ex_async(
+        self,
+        request: baasdigital_models.JudgeAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.JudgeAliyunServiceResponse:
+        """
+        Description: 数字权证服务开通状态检测
+        Summary: 数字权证服务开通状态检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.JudgeAliyunServiceResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.aliyun.service.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_aliyun_service(
+        self,
+        request: baasdigital_models.OpenAliyunServiceRequest,
+    ) -> baasdigital_models.OpenAliyunServiceResponse:
+        """
+        Description: 开通数字权证链服务
+        Summary: 开通数字权证链服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_aliyun_service_ex(request, headers, runtime)
+
+    async def open_aliyun_service_async(
+        self,
+        request: baasdigital_models.OpenAliyunServiceRequest,
+    ) -> baasdigital_models.OpenAliyunServiceResponse:
+        """
+        Description: 开通数字权证链服务
+        Summary: 开通数字权证链服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_aliyun_service_ex_async(request, headers, runtime)
+
+    def open_aliyun_service_ex(
+        self,
+        request: baasdigital_models.OpenAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.OpenAliyunServiceResponse:
+        """
+        Description: 开通数字权证链服务
+        Summary: 开通数字权证链服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.OpenAliyunServiceResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.aliyun.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_aliyun_service_ex_async(
+        self,
+        request: baasdigital_models.OpenAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.OpenAliyunServiceResponse:
+        """
+        Description: 开通数字权证链服务
+        Summary: 开通数字权证链服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.OpenAliyunServiceResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.aliyun.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_aliyun_service(
+        self,
+        request: baasdigital_models.DetailAliyunServiceRequest,
+    ) -> baasdigital_models.DetailAliyunServiceResponse:
+        """
+        Description: 查询数字权证服务开通详情
+        Summary: 数字权证服务开通信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_aliyun_service_ex(request, headers, runtime)
+
+    async def detail_aliyun_service_async(
+        self,
+        request: baasdigital_models.DetailAliyunServiceRequest,
+    ) -> baasdigital_models.DetailAliyunServiceResponse:
+        """
+        Description: 查询数字权证服务开通详情
+        Summary: 数字权证服务开通信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_aliyun_service_ex_async(request, headers, runtime)
+
+    def detail_aliyun_service_ex(
+        self,
+        request: baasdigital_models.DetailAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.DetailAliyunServiceResponse:
+        """
+        Description: 查询数字权证服务开通详情
+        Summary: 数字权证服务开通信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.DetailAliyunServiceResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.aliyun.service.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_aliyun_service_ex_async(
+        self,
+        request: baasdigital_models.DetailAliyunServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.DetailAliyunServiceResponse:
+        """
+        Description: 查询数字权证服务开通详情
+        Summary: 数字权证服务开通信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.DetailAliyunServiceResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.aliyun.service.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aliyun_project(
+        self,
+        request: baasdigital_models.QueryAliyunProjectRequest,
+    ) -> baasdigital_models.QueryAliyunProjectResponse:
+        """
+        Description: 查询数字权证项目列表内容
+        Summary: 查询数字权证项目列表内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aliyun_project_ex(request, headers, runtime)
+
+    async def query_aliyun_project_async(
+        self,
+        request: baasdigital_models.QueryAliyunProjectRequest,
+    ) -> baasdigital_models.QueryAliyunProjectResponse:
+        """
+        Description: 查询数字权证项目列表内容
+        Summary: 查询数字权证项目列表内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aliyun_project_ex_async(request, headers, runtime)
+
+    def query_aliyun_project_ex(
+        self,
+        request: baasdigital_models.QueryAliyunProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryAliyunProjectResponse:
+        """
+        Description: 查询数字权证项目列表内容
+        Summary: 查询数字权证项目列表内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryAliyunProjectResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.aliyun.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aliyun_project_ex_async(
+        self,
+        request: baasdigital_models.QueryAliyunProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryAliyunProjectResponse:
+        """
+        Description: 查询数字权证项目列表内容
+        Summary: 查询数字权证项目列表内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryAliyunProjectResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.aliyun.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_aliyun_access(
+        self,
+        request: baasdigital_models.CheckAliyunAccessRequest,
+    ) -> baasdigital_models.CheckAliyunAccessResponse:
+        """
+        Description: 检测链ID是否为数字权证链
+        Summary: 检测链ID是否为数字权证链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_aliyun_access_ex(request, headers, runtime)
+
+    async def check_aliyun_access_async(
+        self,
+        request: baasdigital_models.CheckAliyunAccessRequest,
+    ) -> baasdigital_models.CheckAliyunAccessResponse:
+        """
+        Description: 检测链ID是否为数字权证链
+        Summary: 检测链ID是否为数字权证链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_aliyun_access_ex_async(request, headers, runtime)
+
+    def check_aliyun_access_ex(
+        self,
+        request: baasdigital_models.CheckAliyunAccessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.CheckAliyunAccessResponse:
+        """
+        Description: 检测链ID是否为数字权证链
+        Summary: 检测链ID是否为数字权证链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.CheckAliyunAccessResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.aliyun.access.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_aliyun_access_ex_async(
+        self,
+        request: baasdigital_models.CheckAliyunAccessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.CheckAliyunAccessResponse:
+        """
+        Description: 检测链ID是否为数字权证链
+        Summary: 检测链ID是否为数字权证链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.CheckAliyunAccessResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.aliyun.access.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def check_account(
         self,
@@ -948,7 +1232,7 @@ class Client:
         request: baasdigital_models.ExecContractAddsupplyRequest,
     ) -> baasdigital_models.ExecContractAddsupplyResponse:
         """
-        Description: 数字权证增发(异步)
+        Description: 数字权证增发(异步)，高性能版本暂不支持此接口
         Summary: 数字权证增发(异步)
         """
         runtime = util_models.RuntimeOptions()
@@ -960,7 +1244,7 @@ class Client:
         request: baasdigital_models.ExecContractAddsupplyRequest,
     ) -> baasdigital_models.ExecContractAddsupplyResponse:
         """
-        Description: 数字权证增发(异步)
+        Description: 数字权证增发(异步)，高性能版本暂不支持此接口
         Summary: 数字权证增发(异步)
         """
         runtime = util_models.RuntimeOptions()
@@ -974,7 +1258,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.ExecContractAddsupplyResponse:
         """
-        Description: 数字权证增发(异步)
+        Description: 数字权证增发(异步)，高性能版本暂不支持此接口
         Summary: 数字权证增发(异步)
         """
         UtilClient.validate_model(request)
@@ -990,7 +1274,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.ExecContractAddsupplyResponse:
         """
-        Description: 数字权证增发(异步)
+        Description: 数字权证增发(异步)，高性能版本暂不支持此接口
         Summary: 数字权证增发(异步)
         """
         UtilClient.validate_model(request)
@@ -1172,7 +1456,7 @@ class Client:
         request: baasdigital_models.QueryContractAssetRequest,
     ) -> baasdigital_models.QueryContractAssetResponse:
         """
-        Description: 查询特定账户下的权证信息
+        Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
         Summary: 查询特定账户下的权证信息
         """
         runtime = util_models.RuntimeOptions()
@@ -1184,7 +1468,7 @@ class Client:
         request: baasdigital_models.QueryContractAssetRequest,
     ) -> baasdigital_models.QueryContractAssetResponse:
         """
-        Description: 查询特定账户下的权证信息
+        Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
         Summary: 查询特定账户下的权证信息
         """
         runtime = util_models.RuntimeOptions()
@@ -1198,7 +1482,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.QueryContractAssetResponse:
         """
-        Description: 查询特定账户下的权证信息
+        Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
         Summary: 查询特定账户下的权证信息
         """
         UtilClient.validate_model(request)
@@ -1214,7 +1498,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.QueryContractAssetResponse:
         """
-        Description: 查询特定账户下的权证信息
+        Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
         Summary: 查询特定账户下的权证信息
         """
         UtilClient.validate_model(request)
@@ -1512,7 +1796,7 @@ class Client:
         request: baasdigital_models.ExecContractBatchissueRequest,
     ) -> baasdigital_models.ExecContractBatchissueResponse:
         """
-        Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+        Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
         Summary: 批量发行权证到指定账户(异步)
         """
         runtime = util_models.RuntimeOptions()
@@ -1524,7 +1808,7 @@ class Client:
         request: baasdigital_models.ExecContractBatchissueRequest,
     ) -> baasdigital_models.ExecContractBatchissueResponse:
         """
-        Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+        Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
         Summary: 批量发行权证到指定账户(异步)
         """
         runtime = util_models.RuntimeOptions()
@@ -1538,7 +1822,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.ExecContractBatchissueResponse:
         """
-        Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+        Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
         Summary: 批量发行权证到指定账户(异步)
         """
         UtilClient.validate_model(request)
@@ -1554,11 +1838,67 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.ExecContractBatchissueResponse:
         """
-        Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+        Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
         Summary: 批量发行权证到指定账户(异步)
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             baasdigital_models.ExecContractBatchissueResponse(),
             await self.do_request_async('1.0', 'antchain.baasdigital.contract.batchissue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_contract_listissue(
+        self,
+        request: baasdigital_models.ExecContractListissueRequest,
+    ) -> baasdigital_models.ExecContractListissueResponse:
+        """
+        Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+        Summary: 批量发行权证到指定账户(异步)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_contract_listissue_ex(request, headers, runtime)
+
+    async def exec_contract_listissue_async(
+        self,
+        request: baasdigital_models.ExecContractListissueRequest,
+    ) -> baasdigital_models.ExecContractListissueResponse:
+        """
+        Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+        Summary: 批量发行权证到指定账户(异步)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_contract_listissue_ex_async(request, headers, runtime)
+
+    def exec_contract_listissue_ex(
+        self,
+        request: baasdigital_models.ExecContractListissueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecContractListissueResponse:
+        """
+        Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+        Summary: 批量发行权证到指定账户(异步)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecContractListissueResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_contract_listissue_ex_async(
+        self,
+        request: baasdigital_models.ExecContractListissueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecContractListissueResponse:
+        """
+        Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+        Summary: 批量发行权证到指定账户(异步)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecContractListissueResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

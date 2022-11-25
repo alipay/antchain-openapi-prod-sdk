@@ -154,6 +154,76 @@ class Config(TeaModel):
         return self
 
 
+class DigitalProjectList(TeaModel):
+    def __init__(
+        self,
+        project_id: str = None,
+        name: str = None,
+        description: str = None,
+        project_status: str = None,
+        create_time: int = None,
+        symbol: str = None,
+        amount: int = None,
+    ):
+        # 项目id
+        self.project_id = project_id
+        # 项目名称
+        self.name = name
+        # 项目描述
+        self.description = description
+        # 项目状态
+        self.project_status = project_status
+        # 创建时间戳
+        self.create_time = create_time
+        # 合约symbol
+        self.symbol = symbol
+        # 发行数量
+        self.amount = amount
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.project_status is not None:
+            result['project_status'] = self.project_status
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.symbol is not None:
+            result['symbol'] = self.symbol
+        if self.amount is not None:
+            result['amount'] = self.amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('project_status') is not None:
+            self.project_status = m.get('project_status')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('symbol') is not None:
+            self.symbol = m.get('symbol')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        return self
+
+
 class ResourceBundle(TeaModel):
     def __init__(
         self,
@@ -246,40 +316,28 @@ class AccountInfo(TeaModel):
         return self
 
 
-class DigitalProjectList(TeaModel):
+class AliYunDigitalProjectListView(TeaModel):
     def __init__(
         self,
-        project_id: str = None,
-        name: str = None,
-        description: str = None,
-        project_status: str = None,
-        create_time: str = None,
-        symbol: str = None,
-        amount: int = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        project_list: List[DigitalProjectList] = None,
     ):
-        # 项目id
-        self.project_id = project_id
-        # 项目名称
-        self.name = name
-        # 项目描述
-        self.description = description
-        # 项目状态
-        self.project_status = project_status
-        # 创建时间
-        self.create_time = create_time
-        # 合约symbol
-        self.symbol = symbol
-        # 发行数量
-        self.amount = amount
+        # 分页编号
+        self.page_index = page_index
+        # 单页行数
+        self.page_size = page_size
+        # 数据总行数
+        self.total_size = total_size
+        # 查询结果列表
+        self.project_list = project_list
 
     def validate(self):
-        self.validate_required(self.project_id, 'project_id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.project_status, 'project_status')
-        self.validate_required(self.create_time, 'create_time')
-        self.validate_required(self.symbol, 'symbol')
-        self.validate_required(self.amount, 'amount')
+        if self.project_list:
+            for k in self.project_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -287,38 +345,31 @@ class DigitalProjectList(TeaModel):
             return _map
 
         result = dict()
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.project_status is not None:
-            result['project_status'] = self.project_status
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.symbol is not None:
-            result['symbol'] = self.symbol
-        if self.amount is not None:
-            result['amount'] = self.amount
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        result['project_list'] = []
+        if self.project_list is not None:
+            for k in self.project_list:
+                result['project_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('project_status') is not None:
-            self.project_status = m.get('project_status')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('symbol') is not None:
-            self.symbol = m.get('symbol')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        self.project_list = []
+        if m.get('project_list') is not None:
+            for k in m.get('project_list'):
+                temp_model = DigitalProjectList()
+                self.project_list.append(temp_model.from_map(k))
         return self
 
 
@@ -344,6 +395,7 @@ class DigitalProject(TeaModel):
         # 数字权证项目id
         self.project_id = project_id
         # 模版类型
+        # 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
         self.biz_type = biz_type
         # 数字权证项目名称
         self.name = name
@@ -355,11 +407,11 @@ class DigitalProject(TeaModel):
         # deploy：已部署(可更新)
         # issue：已发布(不可更新)
         self.project_status = project_status
-        # 项目发行权证的总数
+        # 项目发行权证的总数，高性能版本显示为0
         self.amount = amount
         # 权证的uri信息（共享tokenuri模式有该字段）
         self.asset_uri = asset_uri
-        # 项目发行后权证数量是否可增发
+        # 项目发行后权证数量是否可增发，高性能版本显示为支持
         # 
         self.limited_amount = limited_amount
         # 项目权证是否可核销
@@ -547,6 +599,592 @@ class AssetUriDefinition(TeaModel):
                 self.resource_bundle.append(temp_model.from_map(k))
         if m.get('attributes') is not None:
             self.attributes = m.get('attributes')
+        return self
+
+
+class AliYunDigitalServiceInfo(TeaModel):
+    def __init__(
+        self,
+        project_count: int = None,
+        project_limit: int = None,
+        storage_used: int = None,
+        storage_limit: int = None,
+        traffic_daily_used: int = None,
+        traffic_daily_limit: int = None,
+    ):
+        # 项目总数
+        self.project_count = project_count
+        # 项目上限
+        self.project_limit = project_limit
+        # 资源存储使用量
+        self.storage_used = storage_used
+        # 资源存储容量上限
+        self.storage_limit = storage_limit
+        # 日访问流量
+        self.traffic_daily_used = traffic_daily_used
+        # 日流量上限
+        self.traffic_daily_limit = traffic_daily_limit
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project_count is not None:
+            result['project_count'] = self.project_count
+        if self.project_limit is not None:
+            result['project_limit'] = self.project_limit
+        if self.storage_used is not None:
+            result['storage_used'] = self.storage_used
+        if self.storage_limit is not None:
+            result['storage_limit'] = self.storage_limit
+        if self.traffic_daily_used is not None:
+            result['traffic_daily_used'] = self.traffic_daily_used
+        if self.traffic_daily_limit is not None:
+            result['traffic_daily_limit'] = self.traffic_daily_limit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project_count') is not None:
+            self.project_count = m.get('project_count')
+        if m.get('project_limit') is not None:
+            self.project_limit = m.get('project_limit')
+        if m.get('storage_used') is not None:
+            self.storage_used = m.get('storage_used')
+        if m.get('storage_limit') is not None:
+            self.storage_limit = m.get('storage_limit')
+        if m.get('traffic_daily_used') is not None:
+            self.traffic_daily_used = m.get('traffic_daily_used')
+        if m.get('traffic_daily_limit') is not None:
+            self.traffic_daily_limit = m.get('traffic_daily_limit')
+        return self
+
+
+class JudgeAliyunServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        consortium_id: str = None,
+        bizid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.consortium_id = consortium_id
+        # 蚂蚁链ID
+        self.bizid = bizid
+
+    def validate(self):
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.bizid, 'bizid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        return self
+
+
+class JudgeAliyunServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 0；未开通；
+        # 1：开通中；
+        # 2：已开通；
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class OpenAliyunServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        consortium_id: str = None,
+        bizid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        self.consortium_id = consortium_id
+        # 蚂蚁链ID
+        self.bizid = bizid
+
+    def validate(self):
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.bizid, 'bizid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        return self
+
+
+class OpenAliyunServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 1：开通中； 2：已开通；
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class DetailAliyunServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 蚂蚁链ID
+        self.bizid = bizid
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        return self
+
+
+class DetailAliyunServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: AliYunDigitalServiceInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数字权证服务详情
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = AliYunDigitalServiceInfo()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryAliyunProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        name: str = None,
+        project_id: str = None,
+        project_status: str = None,
+        start_time: int = None,
+        end_time: int = None,
+        page_index: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 蚂蚁链ID
+        self.bizid = bizid
+        # 项目名称
+        self.name = name
+        # 项目id
+        self.project_id = project_id
+        # 项目状态
+        self.project_status = project_status
+        # 创建起始日期时间戳
+        self.start_time = start_time
+        # 创建结束时间戳
+        self.end_time = end_time
+        # 分页页码，默认0
+        self.page_index = page_index
+        # 单页数量，默认10
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.name is not None:
+            result['name'] = self.name
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.project_status is not None:
+            result['project_status'] = self.project_status
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('project_status') is not None:
+            self.project_status = m.get('project_status')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryAliyunProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: AliYunDigitalProjectListView = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 权证项目列表
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = AliYunDigitalProjectListView()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class CheckAliyunAccessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.bizid = bizid
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        return self
+
+
+class CheckAliyunAccessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否是数字权证链
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -1256,12 +1894,13 @@ class CreateProjectRequest(TeaModel):
         # 数字权证项目描述信息
         self.description = description
         # 模版类型
+        # 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
         self.biz_type = biz_type
-        # 项目发行权证数量上限
+        # 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
         self.amount = amount
         # 数字权证链接，共享时必须传入
         self.asset_uri = asset_uri
-        # 是否可增发
+        # 是否可增发，普通版本需设置，高性能版本默认为可增发。
         self.limited_amount = limited_amount
         # 是否可核销
         self.write_offable = write_offable
@@ -1281,10 +1920,6 @@ class CreateProjectRequest(TeaModel):
             self.validate_max_length(self.name, 'name', 100)
         self.validate_required(self.symbol, 'symbol')
         self.validate_required(self.biz_type, 'biz_type')
-        self.validate_required(self.amount, 'amount')
-        if self.amount is not None:
-            self.validate_minimum(self.amount, 'amount', 1)
-        self.validate_required(self.limited_amount, 'limited_amount')
         self.validate_required(self.write_offable, 'write_offable')
         self.validate_required(self.burnable, 'burnable')
         self.validate_required(self.owner_account, 'owner_account')
@@ -1439,11 +2074,13 @@ class UpdateProjectRequest(TeaModel):
         self.bizid = bizid
         # 数字权证项目ID
         self.project_id = project_id
-        # 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+        # 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+        # 高性能版本不支持修改上限。
         self.amount = amount
         # 项目发行后权证数量是否可增发。
         # true:可增发
         # false:不可增发
+        # 高性能版本不支持修改此配置
         self.limited_amount = limited_amount
         # 项目权证是否可核销。false:不可核销；true:可核销
         self.write_offable = write_offable
@@ -1570,7 +2207,7 @@ class ExecContractIssueRequest(TeaModel):
         trace_id: str = None,
         asset_id: str = None,
         asset_uri: str = None,
-        to_accout: str = None,
+        to_account: str = None,
         account_info: AccountInfo = None,
     ):
         # OAuth模式下的授权token
@@ -1587,7 +2224,7 @@ class ExecContractIssueRequest(TeaModel):
         # 数字权证标准URI协议文件，权证信息
         self.asset_uri = asset_uri
         # 权证发行的目标账户
-        self.to_accout = to_accout
+        self.to_account = to_account
         # 托管账户信息(推荐)，托管和非拖管必选一种
         self.account_info = account_info
 
@@ -1597,7 +2234,7 @@ class ExecContractIssueRequest(TeaModel):
         self.validate_required(self.trace_id, 'trace_id')
         self.validate_required(self.asset_id, 'asset_id')
         self.validate_required(self.asset_uri, 'asset_uri')
-        self.validate_required(self.to_accout, 'to_accout')
+        self.validate_required(self.to_account, 'to_account')
         self.validate_required(self.account_info, 'account_info')
         if self.account_info:
             self.account_info.validate()
@@ -1622,8 +2259,8 @@ class ExecContractIssueRequest(TeaModel):
             result['asset_id'] = self.asset_id
         if self.asset_uri is not None:
             result['asset_uri'] = self.asset_uri
-        if self.to_accout is not None:
-            result['to_accout'] = self.to_accout
+        if self.to_account is not None:
+            result['to_account'] = self.to_account
         if self.account_info is not None:
             result['account_info'] = self.account_info.to_map()
         return result
@@ -1644,8 +2281,8 @@ class ExecContractIssueRequest(TeaModel):
             self.asset_id = m.get('asset_id')
         if m.get('asset_uri') is not None:
             self.asset_uri = m.get('asset_uri')
-        if m.get('to_accout') is not None:
-            self.to_accout = m.get('to_accout')
+        if m.get('to_account') is not None:
+            self.to_account = m.get('to_account')
         if m.get('account_info') is not None:
             temp_model = AccountInfo()
             self.account_info = temp_model.from_map(m['account_info'])
@@ -3458,7 +4095,7 @@ class ExecContractBatchissueRequest(TeaModel):
         bizid: str = None,
         project_id: str = None,
         trace_id: str = None,
-        to_accout: str = None,
+        to_account: str = None,
         amount: int = None,
         account_info: AccountInfo = None,
     ):
@@ -3472,7 +4109,7 @@ class ExecContractBatchissueRequest(TeaModel):
         # 业务方请求唯一标识，用于异步查询交易情况
         self.trace_id = trace_id
         # 权证发行的目标账户
-        self.to_accout = to_accout
+        self.to_account = to_account
         # 批量发行个数，建议多次分批执行
         self.amount = amount
         # 托管账户信息(推荐)，托管和非拖管必选一种
@@ -3482,7 +4119,7 @@ class ExecContractBatchissueRequest(TeaModel):
         self.validate_required(self.bizid, 'bizid')
         self.validate_required(self.project_id, 'project_id')
         self.validate_required(self.trace_id, 'trace_id')
-        self.validate_required(self.to_accout, 'to_accout')
+        self.validate_required(self.to_account, 'to_account')
         self.validate_required(self.amount, 'amount')
         if self.amount is not None:
             self.validate_minimum(self.amount, 'amount', 1)
@@ -3506,8 +4143,8 @@ class ExecContractBatchissueRequest(TeaModel):
             result['project_id'] = self.project_id
         if self.trace_id is not None:
             result['trace_id'] = self.trace_id
-        if self.to_accout is not None:
-            result['to_accout'] = self.to_accout
+        if self.to_account is not None:
+            result['to_account'] = self.to_account
         if self.amount is not None:
             result['amount'] = self.amount
         if self.account_info is not None:
@@ -3526,8 +4163,8 @@ class ExecContractBatchissueRequest(TeaModel):
             self.project_id = m.get('project_id')
         if m.get('trace_id') is not None:
             self.trace_id = m.get('trace_id')
-        if m.get('to_accout') is not None:
-            self.to_accout = m.get('to_accout')
+        if m.get('to_account') is not None:
+            self.to_account = m.get('to_account')
         if m.get('amount') is not None:
             self.amount = m.get('amount')
         if m.get('account_info') is not None:
@@ -3554,6 +4191,147 @@ class ExecContractBatchissueResponse(TeaModel):
         # 客户端传入的请求唯一标识
         self.trace_id = trace_id
         # 交易hash，可通过hash查询上链结果
+        self.hash = hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.hash is not None:
+            result['hash'] = self.hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        return self
+
+
+class ExecContractListissueRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        to_account: str = None,
+        asset_list: List[str] = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，用于异步查询交易情况
+        self.trace_id = trace_id
+        # 权证发行的目标账户
+        self.to_account = to_account
+        # 批量发行的资产id列表
+        self.asset_list = asset_list
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.to_account, 'to_account')
+        self.validate_required(self.asset_list, 'asset_list')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.to_account is not None:
+            result['to_account'] = self.to_account
+        if self.asset_list is not None:
+            result['asset_list'] = self.asset_list
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('to_account') is not None:
+            self.to_account = m.get('to_account')
+        if m.get('asset_list') is not None:
+            self.asset_list = m.get('asset_list')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class ExecContractListissueResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 交易hash，可通过hash查询上链结果
+        # 
         self.hash = hash
 
     def validate(self):
