@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.8',
-    _prod_code = 'TWC',
-    _prod_channel = 'undefined'
+    sdk_version = '1.8.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7253,6 +7251,8 @@ model QueryContractTaskRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 创建任务时，返回的任务id
   taskId: string(name='task_id'),
+  // 任务类型
+  taskType: string(name='task_type'),
 }
 
 model QueryContractTaskResponse = {
