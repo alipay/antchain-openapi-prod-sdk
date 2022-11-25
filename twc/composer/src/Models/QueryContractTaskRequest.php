@@ -24,15 +24,23 @@ class QueryContractTaskRequest extends Model
      * @var string
      */
     public $taskId;
+
+    // 任务类型
+    /**
+     * @var string
+     */
+    public $taskType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'taskId'            => 'task_id',
+        'taskType'          => 'task_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('taskType', $this->taskType, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class QueryContractTaskRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->taskType) {
+            $res['task_type'] = $this->taskType;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class QueryContractTaskRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['task_type'])) {
+            $model->taskType = $map['task_type'];
         }
 
         return $model;
