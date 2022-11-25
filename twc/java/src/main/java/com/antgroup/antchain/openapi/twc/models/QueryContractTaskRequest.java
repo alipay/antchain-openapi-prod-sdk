@@ -16,6 +16,11 @@ public class QueryContractTaskRequest extends TeaModel {
     @Validation(required = true)
     public String taskId;
 
+    // 任务类型
+    @NameInMap("task_type")
+    @Validation(required = true)
+    public String taskType;
+
     public static QueryContractTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryContractTaskRequest self = new QueryContractTaskRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class QueryContractTaskRequest extends TeaModel {
     }
     public String getTaskId() {
         return this.taskId;
+    }
+
+    public QueryContractTaskRequest setTaskType(String taskType) {
+        this.taskType = taskType;
+        return this;
+    }
+    public String getTaskType() {
+        return this.taskType;
     }
 
 }
