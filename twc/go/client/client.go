@@ -17946,6 +17946,8 @@ type QueryContractTaskRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 创建任务时，返回的任务id
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 任务类型
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty" require:"true"`
 }
 
 func (s QueryContractTaskRequest) String() string {
@@ -17968,6 +17970,11 @@ func (s *QueryContractTaskRequest) SetProductInstanceId(v string) *QueryContract
 
 func (s *QueryContractTaskRequest) SetTaskId(v string) *QueryContractTaskRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *QueryContractTaskRequest) SetTaskType(v string) *QueryContractTaskRequest {
+	s.TaskType = &v
 	return s
 }
 
@@ -40320,7 +40327,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.8"),
+				"sdk_version":      tea.String("1.8.9"),
+				"_prod_code":       tea.String("TWC"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
