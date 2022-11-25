@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -148,6 +148,67 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 查询所有数字权证项目接口结构体
+type DigitalProjectList struct {
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 项目名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 项目描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 项目状态
+	ProjectStatus *string `json:"project_status,omitempty" xml:"project_status,omitempty"`
+	// 创建时间戳
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 合约symbol
+	Symbol *string `json:"symbol,omitempty" xml:"symbol,omitempty"`
+	// 发行数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
+}
+
+func (s DigitalProjectList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DigitalProjectList) GoString() string {
+	return s.String()
+}
+
+func (s *DigitalProjectList) SetProjectId(v string) *DigitalProjectList {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetName(v string) *DigitalProjectList {
+	s.Name = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetDescription(v string) *DigitalProjectList {
+	s.Description = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetProjectStatus(v string) *DigitalProjectList {
+	s.ProjectStatus = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetCreateTime(v int64) *DigitalProjectList {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetSymbol(v string) *DigitalProjectList {
+	s.Symbol = &v
+	return s
+}
+
+func (s *DigitalProjectList) SetAmount(v int64) *DigitalProjectList {
+	s.Amount = &v
+	return s
+}
+
 // AssetUri中多组资源信息
 type ResourceBundle struct {
 	// 可公开访问的资源地址
@@ -221,64 +282,43 @@ func (s *AccountInfo) SetSignData(v string) *AccountInfo {
 	return s
 }
 
-// 查询所有数字权证项目接口结构体
-type DigitalProjectList struct {
-	// 项目id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 项目名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 项目描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 项目状态
-	ProjectStatus *string `json:"project_status,omitempty" xml:"project_status,omitempty" require:"true"`
-	// 创建时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
-	// 合约symbol
-	Symbol *string `json:"symbol,omitempty" xml:"symbol,omitempty" require:"true"`
-	// 发行数量
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+// 阿里云查询数字权证列表结果
+type AliYunDigitalProjectListView struct {
+	// 分页编号
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页行数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据总行数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 查询结果列表
+	ProjectList []*DigitalProjectList `json:"project_list,omitempty" xml:"project_list,omitempty" type:"Repeated"`
 }
 
-func (s DigitalProjectList) String() string {
+func (s AliYunDigitalProjectListView) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DigitalProjectList) GoString() string {
+func (s AliYunDigitalProjectListView) GoString() string {
 	return s.String()
 }
 
-func (s *DigitalProjectList) SetProjectId(v string) *DigitalProjectList {
-	s.ProjectId = &v
+func (s *AliYunDigitalProjectListView) SetPageIndex(v int64) *AliYunDigitalProjectListView {
+	s.PageIndex = &v
 	return s
 }
 
-func (s *DigitalProjectList) SetName(v string) *DigitalProjectList {
-	s.Name = &v
+func (s *AliYunDigitalProjectListView) SetPageSize(v int64) *AliYunDigitalProjectListView {
+	s.PageSize = &v
 	return s
 }
 
-func (s *DigitalProjectList) SetDescription(v string) *DigitalProjectList {
-	s.Description = &v
+func (s *AliYunDigitalProjectListView) SetTotalSize(v int64) *AliYunDigitalProjectListView {
+	s.TotalSize = &v
 	return s
 }
 
-func (s *DigitalProjectList) SetProjectStatus(v string) *DigitalProjectList {
-	s.ProjectStatus = &v
-	return s
-}
-
-func (s *DigitalProjectList) SetCreateTime(v string) *DigitalProjectList {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *DigitalProjectList) SetSymbol(v string) *DigitalProjectList {
-	s.Symbol = &v
-	return s
-}
-
-func (s *DigitalProjectList) SetAmount(v int64) *DigitalProjectList {
-	s.Amount = &v
+func (s *AliYunDigitalProjectListView) SetProjectList(v []*DigitalProjectList) *AliYunDigitalProjectListView {
+	s.ProjectList = v
 	return s
 }
 
@@ -287,6 +327,7 @@ type DigitalProject struct {
 	// 数字权证项目id
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 模版类型
+	// 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
 	BizType *int64 `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
 	// 数字权证项目名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -298,11 +339,11 @@ type DigitalProject struct {
 	// deploy：已部署(可更新)
 	// issue：已发布(不可更新)
 	ProjectStatus *string `json:"project_status,omitempty" xml:"project_status,omitempty" require:"true"`
-	// 项目发行权证的总数
+	// 项目发行权证的总数，高性能版本显示为0
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 权证的uri信息（共享tokenuri模式有该字段）
 	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty"`
-	// 项目发行后权证数量是否可增发
+	// 项目发行后权证数量是否可增发，高性能版本显示为支持
 	//
 	LimitedAmount *bool `json:"limited_amount,omitempty" xml:"limited_amount,omitempty" require:"true"`
 	// 项目权证是否可核销
@@ -467,6 +508,475 @@ func (s *AssetUriDefinition) SetResourceBundle(v []*ResourceBundle) *AssetUriDef
 
 func (s *AssetUriDefinition) SetAttributes(v []*string) *AssetUriDefinition {
 	s.Attributes = v
+	return s
+}
+
+// 阿里云数字权证服务信息结构体
+type AliYunDigitalServiceInfo struct {
+	// 项目总数
+	ProjectCount *int64 `json:"project_count,omitempty" xml:"project_count,omitempty"`
+	// 项目上限
+	ProjectLimit *int64 `json:"project_limit,omitempty" xml:"project_limit,omitempty"`
+	// 资源存储使用量
+	StorageUsed *int64 `json:"storage_used,omitempty" xml:"storage_used,omitempty"`
+	// 资源存储容量上限
+	StorageLimit *int64 `json:"storage_limit,omitempty" xml:"storage_limit,omitempty"`
+	// 日访问流量
+	TrafficDailyUsed *int64 `json:"traffic_daily_used,omitempty" xml:"traffic_daily_used,omitempty"`
+	// 日流量上限
+	TrafficDailyLimit *int64 `json:"traffic_daily_limit,omitempty" xml:"traffic_daily_limit,omitempty"`
+}
+
+func (s AliYunDigitalServiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AliYunDigitalServiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AliYunDigitalServiceInfo) SetProjectCount(v int64) *AliYunDigitalServiceInfo {
+	s.ProjectCount = &v
+	return s
+}
+
+func (s *AliYunDigitalServiceInfo) SetProjectLimit(v int64) *AliYunDigitalServiceInfo {
+	s.ProjectLimit = &v
+	return s
+}
+
+func (s *AliYunDigitalServiceInfo) SetStorageUsed(v int64) *AliYunDigitalServiceInfo {
+	s.StorageUsed = &v
+	return s
+}
+
+func (s *AliYunDigitalServiceInfo) SetStorageLimit(v int64) *AliYunDigitalServiceInfo {
+	s.StorageLimit = &v
+	return s
+}
+
+func (s *AliYunDigitalServiceInfo) SetTrafficDailyUsed(v int64) *AliYunDigitalServiceInfo {
+	s.TrafficDailyUsed = &v
+	return s
+}
+
+func (s *AliYunDigitalServiceInfo) SetTrafficDailyLimit(v int64) *AliYunDigitalServiceInfo {
+	s.TrafficDailyLimit = &v
+	return s
+}
+
+type JudgeAliyunServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true" minLength:"1"`
+	// 蚂蚁链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true" minLength:"1"`
+}
+
+func (s JudgeAliyunServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeAliyunServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeAliyunServiceRequest) SetAuthToken(v string) *JudgeAliyunServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceRequest) SetProductInstanceId(v string) *JudgeAliyunServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceRequest) SetConsortiumId(v string) *JudgeAliyunServiceRequest {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceRequest) SetBizid(v string) *JudgeAliyunServiceRequest {
+	s.Bizid = &v
+	return s
+}
+
+type JudgeAliyunServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 0；未开通；
+	// 1：开通中；
+	// 2：已开通；
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s JudgeAliyunServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeAliyunServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeAliyunServiceResponse) SetReqMsgId(v string) *JudgeAliyunServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceResponse) SetResultCode(v string) *JudgeAliyunServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceResponse) SetResultMsg(v string) *JudgeAliyunServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *JudgeAliyunServiceResponse) SetResult(v int64) *JudgeAliyunServiceResponse {
+	s.Result = &v
+	return s
+}
+
+type OpenAliyunServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联盟ID
+	ConsortiumId *string `json:"consortium_id,omitempty" xml:"consortium_id,omitempty" require:"true" minLength:"1"`
+	// 蚂蚁链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true" minLength:"1"`
+}
+
+func (s OpenAliyunServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenAliyunServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenAliyunServiceRequest) SetAuthToken(v string) *OpenAliyunServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenAliyunServiceRequest) SetProductInstanceId(v string) *OpenAliyunServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenAliyunServiceRequest) SetConsortiumId(v string) *OpenAliyunServiceRequest {
+	s.ConsortiumId = &v
+	return s
+}
+
+func (s *OpenAliyunServiceRequest) SetBizid(v string) *OpenAliyunServiceRequest {
+	s.Bizid = &v
+	return s
+}
+
+type OpenAliyunServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1：开通中； 2：已开通；
+	Result *int64 `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s OpenAliyunServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenAliyunServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenAliyunServiceResponse) SetReqMsgId(v string) *OpenAliyunServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenAliyunServiceResponse) SetResultCode(v string) *OpenAliyunServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenAliyunServiceResponse) SetResultMsg(v string) *OpenAliyunServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenAliyunServiceResponse) SetResult(v int64) *OpenAliyunServiceResponse {
+	s.Result = &v
+	return s
+}
+
+type DetailAliyunServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 蚂蚁链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true" minLength:"1"`
+}
+
+func (s DetailAliyunServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAliyunServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAliyunServiceRequest) SetAuthToken(v string) *DetailAliyunServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailAliyunServiceRequest) SetProductInstanceId(v string) *DetailAliyunServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailAliyunServiceRequest) SetBizid(v string) *DetailAliyunServiceRequest {
+	s.Bizid = &v
+	return s
+}
+
+type DetailAliyunServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数字权证服务详情
+	Result *AliYunDigitalServiceInfo `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DetailAliyunServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAliyunServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAliyunServiceResponse) SetReqMsgId(v string) *DetailAliyunServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailAliyunServiceResponse) SetResultCode(v string) *DetailAliyunServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailAliyunServiceResponse) SetResultMsg(v string) *DetailAliyunServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailAliyunServiceResponse) SetResult(v *AliYunDigitalServiceInfo) *DetailAliyunServiceResponse {
+	s.Result = v
+	return s
+}
+
+type QueryAliyunProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 蚂蚁链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true" minLength:"1"`
+	// 项目名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 项目状态
+	ProjectStatus *string `json:"project_status,omitempty" xml:"project_status,omitempty"`
+	// 创建起始日期时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 创建结束时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 分页页码，默认0
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 单页数量，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryAliyunProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAliyunProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAliyunProjectRequest) SetAuthToken(v string) *QueryAliyunProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetProductInstanceId(v string) *QueryAliyunProjectRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetBizid(v string) *QueryAliyunProjectRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetName(v string) *QueryAliyunProjectRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetProjectId(v string) *QueryAliyunProjectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetProjectStatus(v string) *QueryAliyunProjectRequest {
+	s.ProjectStatus = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetStartTime(v int64) *QueryAliyunProjectRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetEndTime(v int64) *QueryAliyunProjectRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetPageIndex(v int64) *QueryAliyunProjectRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryAliyunProjectRequest) SetPageSize(v int64) *QueryAliyunProjectRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryAliyunProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 权证项目列表
+	Result *AliYunDigitalProjectListView `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryAliyunProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAliyunProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAliyunProjectResponse) SetReqMsgId(v string) *QueryAliyunProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAliyunProjectResponse) SetResultCode(v string) *QueryAliyunProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAliyunProjectResponse) SetResultMsg(v string) *QueryAliyunProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAliyunProjectResponse) SetResult(v *AliYunDigitalProjectListView) *QueryAliyunProjectResponse {
+	s.Result = v
+	return s
+}
+
+type CheckAliyunAccessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+}
+
+func (s CheckAliyunAccessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAliyunAccessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAliyunAccessRequest) SetAuthToken(v string) *CheckAliyunAccessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAliyunAccessRequest) SetProductInstanceId(v string) *CheckAliyunAccessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckAliyunAccessRequest) SetBizid(v string) *CheckAliyunAccessRequest {
+	s.Bizid = &v
+	return s
+}
+
+type CheckAliyunAccessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否是数字权证链
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CheckAliyunAccessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAliyunAccessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAliyunAccessResponse) SetReqMsgId(v string) *CheckAliyunAccessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAliyunAccessResponse) SetResultCode(v string) *CheckAliyunAccessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAliyunAccessResponse) SetResultMsg(v string) *CheckAliyunAccessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAliyunAccessResponse) SetResult(v bool) *CheckAliyunAccessResponse {
+	s.Result = &v
 	return s
 }
 
@@ -1027,13 +1537,14 @@ type CreateProjectRequest struct {
 	// 数字权证项目描述信息
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 模版类型
+	// 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
 	BizType *int64 `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 项目发行权证数量上限
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
+	// 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
 	// 数字权证链接，共享时必须传入
 	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty"`
-	// 是否可增发
-	LimitedAmount *bool `json:"limited_amount,omitempty" xml:"limited_amount,omitempty" require:"true"`
+	// 是否可增发，普通版本需设置，高性能版本默认为可增发。
+	LimitedAmount *bool `json:"limited_amount,omitempty" xml:"limited_amount,omitempty"`
 	// 是否可核销
 	WriteOffable *bool `json:"write_offable,omitempty" xml:"write_offable,omitempty" require:"true"`
 	// 是否可销毁
@@ -1183,11 +1694,13 @@ type UpdateProjectRequest struct {
 	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
 	// 数字权证项目ID
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+	// 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+	// 高性能版本不支持修改上限。
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" minimum:"1"`
 	// 项目发行后权证数量是否可增发。
 	// true:可增发
 	// false:不可增发
+	// 高性能版本不支持修改此配置
 	LimitedAmount *bool `json:"limited_amount,omitempty" xml:"limited_amount,omitempty"`
 	// 项目权证是否可核销。false:不可核销；true:可核销
 	WriteOffable *bool `json:"write_offable,omitempty" xml:"write_offable,omitempty"`
@@ -1304,7 +1817,7 @@ type ExecContractIssueRequest struct {
 	// 数字权证标准URI协议文件，权证信息
 	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty" require:"true"`
 	// 权证发行的目标账户
-	ToAccout *string `json:"to_accout,omitempty" xml:"to_accout,omitempty" require:"true"`
+	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
 	// 托管账户信息(推荐)，托管和非拖管必选一种
 	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
 }
@@ -1352,8 +1865,8 @@ func (s *ExecContractIssueRequest) SetAssetUri(v string) *ExecContractIssueReque
 	return s
 }
 
-func (s *ExecContractIssueRequest) SetToAccout(v string) *ExecContractIssueRequest {
-	s.ToAccout = &v
+func (s *ExecContractIssueRequest) SetToAccount(v string) *ExecContractIssueRequest {
+	s.ToAccount = &v
 	return s
 }
 
@@ -2826,7 +3339,7 @@ type ExecContractBatchissueRequest struct {
 	// 业务方请求唯一标识，用于异步查询交易情况
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
 	// 权证发行的目标账户
-	ToAccout *string `json:"to_accout,omitempty" xml:"to_accout,omitempty" require:"true"`
+	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
 	// 批量发行个数，建议多次分批执行
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
 	// 托管账户信息(推荐)，托管和非拖管必选一种
@@ -2866,8 +3379,8 @@ func (s *ExecContractBatchissueRequest) SetTraceId(v string) *ExecContractBatchi
 	return s
 }
 
-func (s *ExecContractBatchissueRequest) SetToAccout(v string) *ExecContractBatchissueRequest {
-	s.ToAccout = &v
+func (s *ExecContractBatchissueRequest) SetToAccount(v string) *ExecContractBatchissueRequest {
+	s.ToAccount = &v
 	return s
 }
 
@@ -2923,6 +3436,119 @@ func (s *ExecContractBatchissueResponse) SetTraceId(v string) *ExecContractBatch
 }
 
 func (s *ExecContractBatchissueResponse) SetHash(v string) *ExecContractBatchissueResponse {
+	s.Hash = &v
+	return s
+}
+
+type ExecContractListissueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 权证发行的目标账户
+	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
+	// 批量发行的资产id列表
+	AssetList []*string `json:"asset_list,omitempty" xml:"asset_list,omitempty" require:"true" type:"Repeated"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s ExecContractListissueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecContractListissueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecContractListissueRequest) SetAuthToken(v string) *ExecContractListissueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetProductInstanceId(v string) *ExecContractListissueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetBizid(v string) *ExecContractListissueRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetProjectId(v string) *ExecContractListissueRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetTraceId(v string) *ExecContractListissueRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetToAccount(v string) *ExecContractListissueRequest {
+	s.ToAccount = &v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetAssetList(v []*string) *ExecContractListissueRequest {
+	s.AssetList = v
+	return s
+}
+
+func (s *ExecContractListissueRequest) SetAccountInfo(v *AccountInfo) *ExecContractListissueRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type ExecContractListissueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 交易hash，可通过hash查询上链结果
+	//
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+}
+
+func (s ExecContractListissueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecContractListissueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecContractListissueResponse) SetReqMsgId(v string) *ExecContractListissueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecContractListissueResponse) SetResultCode(v string) *ExecContractListissueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecContractListissueResponse) SetResultMsg(v string) *ExecContractListissueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecContractListissueResponse) SetTraceId(v string) *ExecContractListissueResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecContractListissueResponse) SetHash(v string) *ExecContractListissueResponse {
 	s.Hash = &v
 	return s
 }
@@ -3049,7 +3675,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.34"),
+				"sdk_version":      tea.String("1.1.1"),
+				"_prod_code":       tea.String("BAASDIGITAL"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3075,8 +3703,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -3095,6 +3731,176 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 数字权证服务开通状态检测
+ * Summary: 数字权证服务开通状态检测
+ */
+func (client *Client) JudgeAliyunService(request *JudgeAliyunServiceRequest) (_result *JudgeAliyunServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &JudgeAliyunServiceResponse{}
+	_body, _err := client.JudgeAliyunServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证服务开通状态检测
+ * Summary: 数字权证服务开通状态检测
+ */
+func (client *Client) JudgeAliyunServiceEx(request *JudgeAliyunServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *JudgeAliyunServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &JudgeAliyunServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.aliyun.service.judge"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开通数字权证链服务
+ * Summary: 开通数字权证链服务
+ */
+func (client *Client) OpenAliyunService(request *OpenAliyunServiceRequest) (_result *OpenAliyunServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenAliyunServiceResponse{}
+	_body, _err := client.OpenAliyunServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开通数字权证链服务
+ * Summary: 开通数字权证链服务
+ */
+func (client *Client) OpenAliyunServiceEx(request *OpenAliyunServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenAliyunServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenAliyunServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.aliyun.service.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询数字权证服务开通详情
+ * Summary: 数字权证服务开通信息详情
+ */
+func (client *Client) DetailAliyunService(request *DetailAliyunServiceRequest) (_result *DetailAliyunServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailAliyunServiceResponse{}
+	_body, _err := client.DetailAliyunServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询数字权证服务开通详情
+ * Summary: 数字权证服务开通信息详情
+ */
+func (client *Client) DetailAliyunServiceEx(request *DetailAliyunServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAliyunServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailAliyunServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.aliyun.service.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询数字权证项目列表内容
+ * Summary: 查询数字权证项目列表内容
+ */
+func (client *Client) QueryAliyunProject(request *QueryAliyunProjectRequest) (_result *QueryAliyunProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAliyunProjectResponse{}
+	_body, _err := client.QueryAliyunProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询数字权证项目列表内容
+ * Summary: 查询数字权证项目列表内容
+ */
+func (client *Client) QueryAliyunProjectEx(request *QueryAliyunProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAliyunProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAliyunProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.aliyun.project.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 检测链ID是否为数字权证链
+ * Summary: 检测链ID是否为数字权证链
+ */
+func (client *Client) CheckAliyunAccess(request *CheckAliyunAccessRequest) (_result *CheckAliyunAccessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAliyunAccessResponse{}
+	_body, _err := client.CheckAliyunAccessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 检测链ID是否为数字权证链
+ * Summary: 检测链ID是否为数字权证链
+ */
+func (client *Client) CheckAliyunAccessEx(request *CheckAliyunAccessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAliyunAccessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAliyunAccessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.aliyun.access.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -3506,7 +4312,7 @@ func (client *Client) QueryContractReceiptEx(request *QueryContractReceiptReques
 }
 
 /**
- * Description: 数字权证增发(异步)
+ * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
  * Summary: 数字权证增发(异步)
  */
 func (client *Client) ExecContractAddsupply(request *ExecContractAddsupplyRequest) (_result *ExecContractAddsupplyResponse, _err error) {
@@ -3522,7 +4328,7 @@ func (client *Client) ExecContractAddsupply(request *ExecContractAddsupplyReques
 }
 
 /**
- * Description: 数字权证增发(异步)
+ * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
  * Summary: 数字权证增发(异步)
  */
 func (client *Client) ExecContractAddsupplyEx(request *ExecContractAddsupplyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecContractAddsupplyResponse, _err error) {
@@ -3642,7 +4448,7 @@ func (client *Client) ExecContractBurnoffEx(request *ExecContractBurnoffRequest,
 }
 
 /**
- * Description: 查询特定账户下的权证信息
+ * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
  * Summary: 查询特定账户下的权证信息
  */
 func (client *Client) QueryContractAsset(request *QueryContractAssetRequest) (_result *QueryContractAssetResponse, _err error) {
@@ -3658,7 +4464,7 @@ func (client *Client) QueryContractAsset(request *QueryContractAssetRequest) (_r
 }
 
 /**
- * Description: 查询特定账户下的权证信息
+ * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
  * Summary: 查询特定账户下的权证信息
  */
 func (client *Client) QueryContractAssetEx(request *QueryContractAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractAssetResponse, _err error) {
@@ -3848,7 +4654,7 @@ func (client *Client) CancelContractRoleEx(request *CancelContractRoleRequest, h
 }
 
 /**
- * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+ * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
  * Summary: 批量发行权证到指定账户(异步)
  */
 func (client *Client) ExecContractBatchissue(request *ExecContractBatchissueRequest) (_result *ExecContractBatchissueResponse, _err error) {
@@ -3864,7 +4670,7 @@ func (client *Client) ExecContractBatchissue(request *ExecContractBatchissueRequ
 }
 
 /**
- * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+ * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
  * Summary: 批量发行权证到指定账户(异步)
  */
 func (client *Client) ExecContractBatchissueEx(request *ExecContractBatchissueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecContractBatchissueResponse, _err error) {
@@ -3874,6 +4680,40 @@ func (client *Client) ExecContractBatchissueEx(request *ExecContractBatchissueRe
 	}
 	_result = &ExecContractBatchissueResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.contract.batchissue.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+ * Summary: 批量发行权证到指定账户(异步)
+ */
+func (client *Client) ExecContractListissue(request *ExecContractListissueRequest) (_result *ExecContractListissueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecContractListissueResponse{}
+	_body, _err := client.ExecContractListissueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+ * Summary: 批量发行权证到指定账户(异步)
+ */
+func (client *Client) ExecContractListissueEx(request *ExecContractListissueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecContractListissueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecContractListissueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.contract.listissue.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
