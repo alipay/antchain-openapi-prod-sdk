@@ -13450,11 +13450,14 @@ export class QueryContractTaskRequest extends $tea.Model {
   productInstanceId?: string;
   // 创建任务时，返回的任务id
   taskId: string;
+  // 任务类型
+  taskType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       taskId: 'task_id',
+      taskType: 'task_type',
     };
   }
 
@@ -13463,6 +13466,7 @@ export class QueryContractTaskRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       taskId: 'string',
+      taskType: 'string',
     };
   }
 
@@ -29884,7 +29888,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.8",
+          sdk_version: "1.8.9",
+          _prod_code: "TWC",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
