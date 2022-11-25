@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.34',
+    sdk_version = '1.1.1',
+    _prod_code = 'BAASDIGITAL',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +161,24 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 查询所有数字权证项目接口结构体
+model DigitalProjectList {
+  // 项目id
+  projectId?: string(name='project_id', example='103422'),
+  // 项目名称
+  name?: string(name='name', example='projectName'),
+  // 项目描述
+  description?: string(name='description', example='this project is .....'),
+  // 项目状态
+  projectStatus?: string(name='project_status', example='deploy'),
+  // 创建时间戳
+  createTime?: long(name='create_time', example='1661501591000'),
+  // 合约symbol
+  symbol?: string(name='symbol', example='symbol'),
+  // 发行数量
+  amount?: long(name='amount', example='100'),
+}
+
 // AssetUri中多组资源信息
 model ResourceBundle {
   // 可公开访问的资源地址
@@ -181,22 +201,16 @@ model AccountInfo {
   signData?: string(name='sign_data', example='eyJleHBpcmF0aW9uIjoiMjAxNS0xM...'),
 }
 
-// 查询所有数字权证项目接口结构体
-model DigitalProjectList {
-  // 项目id
-  projectId: string(name='project_id', example='103422'),
-  // 项目名称
-  name: string(name='name', example='projectName'),
-  // 项目描述
-  description: string(name='description', example='this project is .....'),
-  // 项目状态
-  projectStatus: string(name='project_status', example='deploy'),
-  // 创建时间
-  createTime: string(name='create_time', example='2022-07-28'),
-  // 合约symbol
-  symbol: string(name='symbol', example='symbol'),
-  // 发行数量
-  amount: long(name='amount', example='100'),
+// 阿里云查询数字权证列表结果
+model AliYunDigitalProjectListView {
+  // 分页编号
+  pageIndex?: long(name='page_index', example='1'),
+  // 单页行数
+  pageSize?: long(name='page_size', example='10'),
+  // 数据总行数
+  totalSize?: long(name='total_size', example='21'),
+  // 查询结果列表
+  projectList?: [ DigitalProjectList ](name='project_list', example=''),
 }
 
 // 数字权证项目信息类
@@ -204,7 +218,8 @@ model DigitalProject {
   // 数字权证项目id
   projectId: string(name='project_id', example='3bb5caa2-n8n7aubhu3h9'),
   // 模版类型
-  bizType: long(name='biz_type', example='1为共享型，2为独享型 '),
+  // 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
+  bizType: long(name='biz_type', example='1,2,3,4'),
   // 数字权证项目名称
   name: string(name='name', example='digitalproject1'),
   // 合约symbol
@@ -215,11 +230,11 @@ model DigitalProject {
   // deploy：已部署(可更新)
   // issue：已发布(不可更新)
   projectStatus: string(name='project_status', example='deploy'),
-  // 项目发行权证的总数
+  // 项目发行权证的总数，高性能版本显示为0
   amount: long(name='amount', example='100'),
   // 权证的uri信息（共享tokenuri模式有该字段）
   assetUri?: string(name='asset_uri', example='https://digitalproject.com'),
-  // 项目发行后权证数量是否可增发
+  // 项目发行后权证数量是否可增发，高性能版本显示为支持
   // 
   limitedAmount: boolean(name='limited_amount', example='true'),
   // 项目权证是否可核销
@@ -254,6 +269,232 @@ model AssetUriDefinition {
   resourceBundle?: [ ResourceBundle ](name='resource_bundle', example=''),
   // 自定义的资产属性数组，数组元素需为json格式
   attributes?: [ string ](name='attributes', example='[{"display_type":"date","trait_type":"birthday","value":1546360800}]'),
+}
+
+// 阿里云数字权证服务信息结构体
+model AliYunDigitalServiceInfo {
+  // 项目总数
+  projectCount?: long(name='project_count', example='5'),
+  // 项目上限
+  projectLimit?: long(name='project_limit', example='100'),
+  // 资源存储使用量
+  storageUsed?: long(name='storage_used', example='1231'),
+  // 资源存储容量上限
+  storageLimit?: long(name='storage_limit', example='122132'),
+  // 日访问流量
+  trafficDailyUsed?: long(name='traffic_daily_used', example='1013'),
+  // 日流量上限
+  trafficDailyLimit?: long(name='traffic_daily_limit', example='342342'),
+}
+
+model JudgeAliyunServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  consortiumId: string(minLength=1, name='consortium_id'),
+  // 蚂蚁链ID
+  bizid: string(minLength=1, name='bizid'),
+}
+
+model JudgeAliyunServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0；未开通；
+  // 1：开通中；
+  // 2：已开通；
+  result?: long(name='result'),
+}
+
+/**
+ * Description: 数字权证服务开通状态检测
+ * Summary: 数字权证服务开通状态检测
+ */
+async function judgeAliyunService(request: JudgeAliyunServiceRequest): JudgeAliyunServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return judgeAliyunServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字权证服务开通状态检测
+ * Summary: 数字权证服务开通状态检测
+ */
+async function judgeAliyunServiceEx(request: JudgeAliyunServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeAliyunServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.aliyun.service.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenAliyunServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  consortiumId: string(minLength=1, name='consortium_id'),
+  // 蚂蚁链ID
+  bizid: string(minLength=1, name='bizid'),
+}
+
+model OpenAliyunServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1：开通中； 2：已开通；
+  result?: long(name='result'),
+}
+
+/**
+ * Description: 开通数字权证链服务
+ * Summary: 开通数字权证链服务
+ */
+async function openAliyunService(request: OpenAliyunServiceRequest): OpenAliyunServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openAliyunServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开通数字权证链服务
+ * Summary: 开通数字权证链服务
+ */
+async function openAliyunServiceEx(request: OpenAliyunServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenAliyunServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.aliyun.service.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAliyunServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁链ID
+  bizid: string(minLength=1, name='bizid'),
+}
+
+model DetailAliyunServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字权证服务详情
+  result?: AliYunDigitalServiceInfo(name='result'),
+}
+
+/**
+ * Description: 查询数字权证服务开通详情
+ * Summary: 数字权证服务开通信息详情
+ */
+async function detailAliyunService(request: DetailAliyunServiceRequest): DetailAliyunServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAliyunServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数字权证服务开通详情
+ * Summary: 数字权证服务开通信息详情
+ */
+async function detailAliyunServiceEx(request: DetailAliyunServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAliyunServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.aliyun.service.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAliyunProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁链ID
+  bizid: string(minLength=1, name='bizid'),
+  // 项目名称
+  name?: string(name='name'),
+  // 项目id
+  projectId?: string(name='project_id'),
+  // 项目状态
+  projectStatus?: string(name='project_status'),
+  // 创建起始日期时间戳
+  startTime?: long(name='start_time'),
+  // 创建结束时间戳
+  endTime?: long(name='end_time'),
+  // 分页页码，默认0
+  pageIndex: long(name='page_index'),
+  // 单页数量，默认10
+  pageSize: long(name='page_size'),
+}
+
+model QueryAliyunProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 权证项目列表
+  result?: AliYunDigitalProjectListView(name='result'),
+}
+
+/**
+ * Description: 查询数字权证项目列表内容
+ * Summary: 查询数字权证项目列表内容
+ */
+async function queryAliyunProject(request: QueryAliyunProjectRequest): QueryAliyunProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAliyunProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数字权证项目列表内容
+ * Summary: 查询数字权证项目列表内容
+ */
+async function queryAliyunProjectEx(request: QueryAliyunProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAliyunProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.aliyun.project.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAliyunAccessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  bizid: string(name='bizid'),
+}
+
+model CheckAliyunAccessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否是数字权证链
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 检测链ID是否为数字权证链
+ * Summary: 检测链ID是否为数字权证链
+ */
+async function checkAliyunAccess(request: CheckAliyunAccessRequest): CheckAliyunAccessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAliyunAccessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 检测链ID是否为数字权证链
+ * Summary: 检测链ID是否为数字权证链
+ */
+async function checkAliyunAccessEx(request: CheckAliyunAccessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAliyunAccessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.aliyun.access.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckAccountRequest = {
@@ -536,13 +777,14 @@ model CreateProjectRequest = {
   // 数字权证项目描述信息
   description?: string(name='description'),
   // 模版类型
+  // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
   bizType: long(name='biz_type'),
-  // 项目发行权证数量上限
-  amount: long(minimum=1, name='amount'),
+  // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+  amount?: long(name='amount'),
   // 数字权证链接，共享时必须传入
   assetUri?: string(name='asset_uri'),
-  // 是否可增发
-  limitedAmount: boolean(name='limited_amount'),
+  // 是否可增发，普通版本需设置，高性能版本默认为可增发。
+  limitedAmount?: boolean(name='limited_amount'),
   // 是否可核销
   writeOffable: boolean(name='write_offable'),
   // 是否可销毁
@@ -595,11 +837,13 @@ model UpdateProjectRequest = {
   bizid: string(name='bizid'),
   // 数字权证项目ID
   projectId: string(name='project_id'),
-  // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+  // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+  // 高性能版本不支持修改上限。
   amount?: long(minimum=1, name='amount'),
   // 项目发行后权证数量是否可增发。
   // true:可增发
   // false:不可增发
+  // 高性能版本不支持修改此配置
   limitedAmount?: boolean(name='limited_amount'),
   // 项目权证是否可核销。false:不可核销；true:可核销
   writeOffable?: boolean(name='write_offable'),
@@ -654,7 +898,7 @@ model ExecContractIssueRequest = {
   // 数字权证标准URI协议文件，权证信息
   assetUri: string(name='asset_uri'),
   // 权证发行的目标账户
-  toAccout: string(name='to_accout'),
+  toAccount: string(name='to_account'),
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo(name='account_info'),
 }
@@ -862,7 +1106,7 @@ model ExecContractAddsupplyResponse = {
 }
 
 /**
- * Description: 数字权证增发(异步)
+ * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
  * Summary: 数字权证增发(异步)
  */
 async function execContractAddsupply(request: ExecContractAddsupplyRequest): ExecContractAddsupplyResponse {
@@ -872,7 +1116,7 @@ async function execContractAddsupply(request: ExecContractAddsupplyRequest): Exe
 }
 
 /**
- * Description: 数字权证增发(异步)
+ * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
  * Summary: 数字权证增发(异步)
  */
 async function execContractAddsupplyEx(request: ExecContractAddsupplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractAddsupplyResponse {
@@ -1060,7 +1304,7 @@ model QueryContractAssetResponse = {
 }
 
 /**
- * Description: 查询特定账户下的权证信息
+ * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
  * Summary: 查询特定账户下的权证信息
  */
 async function queryContractAsset(request: QueryContractAssetRequest): QueryContractAssetResponse {
@@ -1070,7 +1314,7 @@ async function queryContractAsset(request: QueryContractAssetRequest): QueryCont
 }
 
 /**
- * Description: 查询特定账户下的权证信息
+ * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
  * Summary: 查询特定账户下的权证信息
  */
 async function queryContractAssetEx(request: QueryContractAssetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractAssetResponse {
@@ -1345,7 +1589,7 @@ model ExecContractBatchissueRequest = {
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string(name='trace_id'),
   // 权证发行的目标账户
-  toAccout: string(name='to_accout'),
+  toAccount: string(name='to_account'),
   // 批量发行个数，建议多次分批执行
   amount: long(minimum=1, name='amount'),
   // 托管账户信息(推荐)，托管和非拖管必选一种
@@ -1366,7 +1610,7 @@ model ExecContractBatchissueResponse = {
 }
 
 /**
- * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+ * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
  * Summary: 批量发行权证到指定账户(异步)
  */
 async function execContractBatchissue(request: ExecContractBatchissueRequest): ExecContractBatchissueResponse {
@@ -1376,11 +1620,62 @@ async function execContractBatchissue(request: ExecContractBatchissueRequest): E
 }
 
 /**
- * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+ * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
  * Summary: 批量发行权证到指定账户(异步)
  */
 async function execContractBatchissueEx(request: ExecContractBatchissueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractBatchissueResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.baasdigital.contract.batchissue.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecContractListissueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string(name='trace_id'),
+  // 权证发行的目标账户
+  toAccount: string(name='to_account'),
+  // 批量发行的资产id列表
+  assetList: [ string ](name='asset_list'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model ExecContractListissueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 交易hash，可通过hash查询上链结果
+  // 
+  hash?: string(name='hash'),
+}
+
+/**
+ * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+ * Summary: 批量发行权证到指定账户(异步)
+ */
+async function execContractListissue(request: ExecContractListissueRequest): ExecContractListissueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execContractListissueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+ * Summary: 批量发行权证到指定账户(异步)
+ */
+async function execContractListissueEx(request: ExecContractListissueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractListissueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
