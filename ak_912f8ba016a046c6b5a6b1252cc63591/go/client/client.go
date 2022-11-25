@@ -148,410 +148,413 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 规则明细
-type RuleDetail struct {
-	// 项目类别
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 领域
-	FieId *string `json:"fie_id,omitempty" xml:"fie_id,omitempty" require:"true"`
-	// 级别
-	Level *string `json:"level,omitempty" xml:"level,omitempty" require:"true"`
-	// 资质
-	Qualifications *string `json:"qualifications,omitempty" xml:"qualifications,omitempty" require:"true"`
-	// 保定报价
-	PriceBd *int64 `json:"price_bd,omitempty" xml:"price_bd,omitempty" require:"true"`
-	// 离岸价格
-	FobPrice *int64 `json:"fob_price,omitempty" xml:"fob_price,omitempty" require:"true"`
-	// 离岸价格
-	PriceTj *int64 `json:"price_tj,omitempty" xml:"price_tj,omitempty" require:"true"`
-	// 北京报价
-	PriceBj *int64 `json:"price_bj,omitempty" xml:"price_bj,omitempty" require:"true"`
-	// 最少提供人数
-	Numpeople *int64 `json:"numpeople,omitempty" xml:"numpeople,omitempty" require:"true"`
+// 客户认证结果
+type CustomerAuthResult struct {
+	// 账户ID
+	AccId *string `json:"acc_id,omitempty" xml:"acc_id,omitempty"`
+	// 返回code 0:核验成功 1:企业信息有误 2:企业非正常营业
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 客户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 验证状态
+	EnterpriseStatus *string `json:"enterprise_status,omitempty" xml:"enterprise_status,omitempty"`
+	// 开业时间
+	OpenTime *string `json:"open_time,omitempty" xml:"open_time,omitempty" require:"true"`
+	// 认证结果，是否通过
+	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty" require:"true"`
+	// 业务ID
+	DisReqMsgId *string `json:"dis_req_msg_id,omitempty" xml:"dis_req_msg_id,omitempty"`
 }
 
-func (s RuleDetail) String() string {
+func (s CustomerAuthResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RuleDetail) GoString() string {
+func (s CustomerAuthResult) GoString() string {
 	return s.String()
 }
 
-func (s *RuleDetail) SetType(v string) *RuleDetail {
-	s.Type = &v
+func (s *CustomerAuthResult) SetAccId(v string) *CustomerAuthResult {
+	s.AccId = &v
 	return s
 }
 
-func (s *RuleDetail) SetFieId(v string) *RuleDetail {
-	s.FieId = &v
+func (s *CustomerAuthResult) SetCode(v string) *CustomerAuthResult {
+	s.Code = &v
 	return s
 }
 
-func (s *RuleDetail) SetLevel(v string) *RuleDetail {
-	s.Level = &v
+func (s *CustomerAuthResult) SetCustomerId(v string) *CustomerAuthResult {
+	s.CustomerId = &v
 	return s
 }
 
-func (s *RuleDetail) SetQualifications(v string) *RuleDetail {
-	s.Qualifications = &v
+func (s *CustomerAuthResult) SetDid(v string) *CustomerAuthResult {
+	s.Did = &v
 	return s
 }
 
-func (s *RuleDetail) SetPriceBd(v int64) *RuleDetail {
-	s.PriceBd = &v
+func (s *CustomerAuthResult) SetEnterpriseStatus(v string) *CustomerAuthResult {
+	s.EnterpriseStatus = &v
 	return s
 }
 
-func (s *RuleDetail) SetFobPrice(v int64) *RuleDetail {
-	s.FobPrice = &v
+func (s *CustomerAuthResult) SetOpenTime(v string) *CustomerAuthResult {
+	s.OpenTime = &v
 	return s
 }
 
-func (s *RuleDetail) SetPriceTj(v int64) *RuleDetail {
-	s.PriceTj = &v
+func (s *CustomerAuthResult) SetPass(v bool) *CustomerAuthResult {
+	s.Pass = &v
 	return s
 }
 
-func (s *RuleDetail) SetPriceBj(v int64) *RuleDetail {
-	s.PriceBj = &v
+func (s *CustomerAuthResult) SetDisReqMsgId(v string) *CustomerAuthResult {
+	s.DisReqMsgId = &v
 	return s
 }
 
-func (s *RuleDetail) SetNumpeople(v int64) *RuleDetail {
-	s.Numpeople = &v
-	return s
+// 键值对，兼容map用
+type NameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-// 对账单
-type Reconciliation struct {
-	// 供应商
-	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
-	// 供应商名称
-	SupName *string `json:"sup_name,omitempty" xml:"sup_name,omitempty" require:"true"`
-	// 结算金额(单位分)
-	SettlementAmount *int64 `json:"settlement_amount,omitempty" xml:"settlement_amount,omitempty" require:"true"`
-	// 长城确认时间
-	ConfirmDateGw *string `json:"confirm_date_gw,omitempty" xml:"confirm_date_gw,omitempty" require:"true"`
-	// 长城方确认人
-	ConfirmerGw *string `json:"confirmer_gw,omitempty" xml:"confirmer_gw,omitempty" require:"true"`
-	// 长城确认状态
-	ConfirmStateGw *string `json:"confirm_state_gw,omitempty" xml:"confirm_state_gw,omitempty" require:"true"`
-	// 服务方确认时间
-	ConfirmDateSup *string `json:"confirm_date_sup,omitempty" xml:"confirm_date_sup,omitempty" require:"true"`
-	// 服务方确认人
-	ConfirmerSup *string `json:"confirmer_sup,omitempty" xml:"confirmer_sup,omitempty" require:"true"`
-	// 服务方确认状态
-	ConfirmStateSup *string `json:"confirm_state_sup,omitempty" xml:"confirm_state_sup,omitempty" require:"true"`
-	// 计算时间
-	SocreDate *string `json:"socre_date,omitempty" xml:"socre_date,omitempty" require:"true"`
-}
-
-func (s Reconciliation) String() string {
+func (s NameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Reconciliation) GoString() string {
+func (s NameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *Reconciliation) SetSupCode(v string) *Reconciliation {
-	s.SupCode = &v
+func (s *NameValuePair) SetName(v string) *NameValuePair {
+	s.Name = &v
 	return s
 }
 
-func (s *Reconciliation) SetSupName(v string) *Reconciliation {
-	s.SupName = &v
+func (s *NameValuePair) SetValue(v string) *NameValuePair {
+	s.Value = &v
 	return s
 }
 
-func (s *Reconciliation) SetSettlementAmount(v int64) *Reconciliation {
-	s.SettlementAmount = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmDateGw(v string) *Reconciliation {
-	s.ConfirmDateGw = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmerGw(v string) *Reconciliation {
-	s.ConfirmerGw = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmStateGw(v string) *Reconciliation {
-	s.ConfirmStateGw = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmDateSup(v string) *Reconciliation {
-	s.ConfirmDateSup = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmerSup(v string) *Reconciliation {
-	s.ConfirmerSup = &v
-	return s
-}
-
-func (s *Reconciliation) SetConfirmStateSup(v string) *Reconciliation {
-	s.ConfirmStateSup = &v
-	return s
-}
-
-func (s *Reconciliation) SetSocreDate(v string) *Reconciliation {
-	s.SocreDate = &v
-	return s
-}
-
-// 供应商
-type SpProvider struct {
-	// 供应商编号
-	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
-	// 供应商名称
-	SupName *string `json:"sup_name,omitempty" xml:"sup_name,omitempty" require:"true"`
-	// 文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
-	// 文件code
-	FileCode *string `json:"file_code,omitempty" xml:"file_code,omitempty" require:"true"`
-	// hash的值
-	HashCode *string `json:"hash_code,omitempty" xml:"hash_code,omitempty" require:"true"`
-	// 开始时间
-	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
-	// 结束日期
-	ClosingDate *string `json:"closing_date,omitempty" xml:"closing_date,omitempty" require:"true"`
-	// 文件路径
-	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
-	// 2021-03-04 11:16:23
-	CreateDate *string `json:"create_date,omitempty" xml:"create_date,omitempty" require:"true"`
-	// 创建者
-	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
-}
-
-func (s SpProvider) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SpProvider) GoString() string {
-	return s.String()
-}
-
-func (s *SpProvider) SetSupCode(v string) *SpProvider {
-	s.SupCode = &v
-	return s
-}
-
-func (s *SpProvider) SetSupName(v string) *SpProvider {
-	s.SupName = &v
-	return s
-}
-
-func (s *SpProvider) SetFileName(v string) *SpProvider {
-	s.FileName = &v
-	return s
-}
-
-func (s *SpProvider) SetFileCode(v string) *SpProvider {
-	s.FileCode = &v
-	return s
-}
-
-func (s *SpProvider) SetHashCode(v string) *SpProvider {
-	s.HashCode = &v
-	return s
-}
-
-func (s *SpProvider) SetStartDate(v string) *SpProvider {
-	s.StartDate = &v
-	return s
-}
-
-func (s *SpProvider) SetClosingDate(v string) *SpProvider {
-	s.ClosingDate = &v
-	return s
-}
-
-func (s *SpProvider) SetFilePath(v string) *SpProvider {
-	s.FilePath = &v
-	return s
-}
-
-func (s *SpProvider) SetCreateDate(v string) *SpProvider {
-	s.CreateDate = &v
-	return s
-}
-
-func (s *SpProvider) SetCreator(v string) *SpProvider {
-	s.Creator = &v
-	return s
-}
-
-type ApplyAntchainBbpContractRuleRequest struct {
+type StatusDemoGatewayCheckRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 服务提供商
-	SpProvider *SpProvider `json:"sp_provider,omitempty" xml:"sp_provider,omitempty" require:"true"`
-	// 明细
-	RuleDetails []*RuleDetail `json:"rule_details,omitempty" xml:"rule_details,omitempty" require:"true" type:"Repeated"`
-	// confirmer
-	Confirmer *string `json:"confirmer,omitempty" xml:"confirmer,omitempty" require:"true"`
-	// 确认时间
-	ConfirmDate *string `json:"confirm_date,omitempty" xml:"confirm_date,omitempty" require:"true"`
-	// confirm_status
-	ConfirmStatus *string `json:"confirm_status,omitempty" xml:"confirm_status,omitempty" require:"true"`
 }
 
-func (s ApplyAntchainBbpContractRuleRequest) String() string {
+func (s StatusDemoGatewayCheckRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyAntchainBbpContractRuleRequest) GoString() string {
+func (s StatusDemoGatewayCheckRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyAntchainBbpContractRuleRequest) SetAuthToken(v string) *ApplyAntchainBbpContractRuleRequest {
+func (s *StatusDemoGatewayCheckRequest) SetAuthToken(v string) *StatusDemoGatewayCheckRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ApplyAntchainBbpContractRuleRequest) SetProductInstanceId(v string) *ApplyAntchainBbpContractRuleRequest {
+func (s *StatusDemoGatewayCheckRequest) SetProductInstanceId(v string) *StatusDemoGatewayCheckRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ApplyAntchainBbpContractRuleRequest) SetSpProvider(v *SpProvider) *ApplyAntchainBbpContractRuleRequest {
-	s.SpProvider = v
-	return s
-}
-
-func (s *ApplyAntchainBbpContractRuleRequest) SetRuleDetails(v []*RuleDetail) *ApplyAntchainBbpContractRuleRequest {
-	s.RuleDetails = v
-	return s
-}
-
-func (s *ApplyAntchainBbpContractRuleRequest) SetConfirmer(v string) *ApplyAntchainBbpContractRuleRequest {
-	s.Confirmer = &v
-	return s
-}
-
-func (s *ApplyAntchainBbpContractRuleRequest) SetConfirmDate(v string) *ApplyAntchainBbpContractRuleRequest {
-	s.ConfirmDate = &v
-	return s
-}
-
-func (s *ApplyAntchainBbpContractRuleRequest) SetConfirmStatus(v string) *ApplyAntchainBbpContractRuleRequest {
-	s.ConfirmStatus = &v
-	return s
-}
-
-type ApplyAntchainBbpContractRuleResponse struct {
+type StatusDemoGatewayCheckResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// OK
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
-func (s ApplyAntchainBbpContractRuleResponse) String() string {
+func (s StatusDemoGatewayCheckResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyAntchainBbpContractRuleResponse) GoString() string {
+func (s StatusDemoGatewayCheckResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyAntchainBbpContractRuleResponse) SetReqMsgId(v string) *ApplyAntchainBbpContractRuleResponse {
+func (s *StatusDemoGatewayCheckResponse) SetReqMsgId(v string) *StatusDemoGatewayCheckResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ApplyAntchainBbpContractRuleResponse) SetResultCode(v string) *ApplyAntchainBbpContractRuleResponse {
+func (s *StatusDemoGatewayCheckResponse) SetResultCode(v string) *StatusDemoGatewayCheckResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ApplyAntchainBbpContractRuleResponse) SetResultMsg(v string) *ApplyAntchainBbpContractRuleResponse {
+func (s *StatusDemoGatewayCheckResponse) SetResultMsg(v string) *StatusDemoGatewayCheckResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type QueryAntchainBbpContractReconciliationRequest struct {
+func (s *StatusDemoGatewayCheckResponse) SetStatus(v string) *StatusDemoGatewayCheckResponse {
+	s.Status = &v
+	return s
+}
+
+type AuthAntchainBbpCustomerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 供应商code
-	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
-	// 月份
-	ScoreDates []*string `json:"score_dates,omitempty" xml:"score_dates,omitempty" require:"true" type:"Repeated"`
+	// 预留业务code
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 企业名称
+	EpCertName *string `json:"ep_cert_name,omitempty" xml:"ep_cert_name,omitempty" require:"true"`
+	// 企业证件号码
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// 企业证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+	EpCertNoType *string `json:"ep_cert_no_type,omitempty" xml:"ep_cert_no_type,omitempty" require:"true"`
+	// 法人姓名
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty"`
+	// 法人证件号码
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty"`
+	// 法人证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+	//
+	LegalPersonCertNoType *string `json:"legal_person_cert_no_type,omitempty" xml:"legal_person_cert_no_type,omitempty"`
+	// 系统名称
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 系统租户ID
+	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty"`
+	// 业务唯一ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务渠道，需提前申请产品码
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 认证类型：ENTERPRISE-企业, PERSON-个人
+	CertifyEnum *string `json:"certify_enum,omitempty" xml:"certify_enum,omitempty" require:"true"`
+	// 客户支付宝ID，如有则填。
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty"`
+	// 个人姓名，用于个人认证
+	PersonName *string `json:"person_name,omitempty" xml:"person_name,omitempty"`
+	// 个人证件号码
+	PersonCertNo *string `json:"person_cert_no,omitempty" xml:"person_cert_no,omitempty"`
+	// 个人证件类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+	PersonCertType *string `json:"person_cert_type,omitempty" xml:"person_cert_type,omitempty"`
+	// 扩展信息
+	ExtensionInfo []*NameValuePair `json:"extension_info,omitempty" xml:"extension_info,omitempty" type:"Repeated"`
 }
 
-func (s QueryAntchainBbpContractReconciliationRequest) String() string {
+func (s AuthAntchainBbpCustomerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAntchainBbpContractReconciliationRequest) GoString() string {
+func (s AuthAntchainBbpCustomerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAntchainBbpContractReconciliationRequest) SetAuthToken(v string) *QueryAntchainBbpContractReconciliationRequest {
+func (s *AuthAntchainBbpCustomerRequest) SetAuthToken(v string) *AuthAntchainBbpCustomerRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationRequest) SetProductInstanceId(v string) *QueryAntchainBbpContractReconciliationRequest {
+func (s *AuthAntchainBbpCustomerRequest) SetProductInstanceId(v string) *AuthAntchainBbpCustomerRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationRequest) SetSupCode(v string) *QueryAntchainBbpContractReconciliationRequest {
-	s.SupCode = &v
+func (s *AuthAntchainBbpCustomerRequest) SetBizCode(v string) *AuthAntchainBbpCustomerRequest {
+	s.BizCode = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationRequest) SetScoreDates(v []*string) *QueryAntchainBbpContractReconciliationRequest {
-	s.ScoreDates = v
+func (s *AuthAntchainBbpCustomerRequest) SetEpCertName(v string) *AuthAntchainBbpCustomerRequest {
+	s.EpCertName = &v
 	return s
 }
 
-type QueryAntchainBbpContractReconciliationResponse struct {
+func (s *AuthAntchainBbpCustomerRequest) SetEpCertNo(v string) *AuthAntchainBbpCustomerRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetEpCertNoType(v string) *AuthAntchainBbpCustomerRequest {
+	s.EpCertNoType = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetLegalPersonCertName(v string) *AuthAntchainBbpCustomerRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetLegalPersonCertNo(v string) *AuthAntchainBbpCustomerRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetLegalPersonCertNoType(v string) *AuthAntchainBbpCustomerRequest {
+	s.LegalPersonCertNoType = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetOwnerName(v string) *AuthAntchainBbpCustomerRequest {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetOwnerUid(v string) *AuthAntchainBbpCustomerRequest {
+	s.OwnerUid = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetBizId(v string) *AuthAntchainBbpCustomerRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetChannel(v string) *AuthAntchainBbpCustomerRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetCertifyEnum(v string) *AuthAntchainBbpCustomerRequest {
+	s.CertifyEnum = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetAlipayUid(v string) *AuthAntchainBbpCustomerRequest {
+	s.AlipayUid = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetPersonName(v string) *AuthAntchainBbpCustomerRequest {
+	s.PersonName = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetPersonCertNo(v string) *AuthAntchainBbpCustomerRequest {
+	s.PersonCertNo = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetPersonCertType(v string) *AuthAntchainBbpCustomerRequest {
+	s.PersonCertType = &v
+	return s
+}
+
+func (s *AuthAntchainBbpCustomerRequest) SetExtensionInfo(v []*NameValuePair) *AuthAntchainBbpCustomerRequest {
+	s.ExtensionInfo = v
+	return s
+}
+
+type AuthAntchainBbpCustomerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 结算单
-	Reconciliations []*Reconciliation `json:"reconciliations,omitempty" xml:"reconciliations,omitempty" type:"Repeated"`
+	// 客户认证结果
+	Result *CustomerAuthResult `json:"result,omitempty" xml:"result,omitempty"`
 }
 
-func (s QueryAntchainBbpContractReconciliationResponse) String() string {
+func (s AuthAntchainBbpCustomerResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAntchainBbpContractReconciliationResponse) GoString() string {
+func (s AuthAntchainBbpCustomerResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAntchainBbpContractReconciliationResponse) SetReqMsgId(v string) *QueryAntchainBbpContractReconciliationResponse {
+func (s *AuthAntchainBbpCustomerResponse) SetReqMsgId(v string) *AuthAntchainBbpCustomerResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationResponse) SetResultCode(v string) *QueryAntchainBbpContractReconciliationResponse {
+func (s *AuthAntchainBbpCustomerResponse) SetResultCode(v string) *AuthAntchainBbpCustomerResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationResponse) SetResultMsg(v string) *QueryAntchainBbpContractReconciliationResponse {
+func (s *AuthAntchainBbpCustomerResponse) SetResultMsg(v string) *AuthAntchainBbpCustomerResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAntchainBbpContractReconciliationResponse) SetReconciliations(v []*Reconciliation) *QueryAntchainBbpContractReconciliationResponse {
-	s.Reconciliations = v
+func (s *AuthAntchainBbpCustomerResponse) SetResult(v *CustomerAuthResult) *AuthAntchainBbpCustomerResponse {
+	s.Result = v
+	return s
+}
+
+type QueryAntchainBbpGwtestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间 毫秒
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s QueryAntchainBbpGwtestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainBbpGwtestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainBbpGwtestRequest) SetAuthToken(v string) *QueryAntchainBbpGwtestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainBbpGwtestRequest) SetProductInstanceId(v string) *QueryAntchainBbpGwtestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainBbpGwtestRequest) SetTimeout(v int64) *QueryAntchainBbpGwtestRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryAntchainBbpGwtestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+}
+
+func (s QueryAntchainBbpGwtestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainBbpGwtestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainBbpGwtestResponse) SetReqMsgId(v string) *QueryAntchainBbpGwtestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainBbpGwtestResponse) SetResultCode(v string) *QueryAntchainBbpGwtestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainBbpGwtestResponse) SetResultMsg(v string) *QueryAntchainBbpGwtestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainBbpGwtestResponse) SetStauts(v string) *QueryAntchainBbpGwtestResponse {
+	s.Stauts = &v
 	return s
 }
 
@@ -754,7 +757,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -811,14 +814,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
- * Summary: 外包薪资规则合约发布接口
+ * Description: Demo接口，返回当前服务器当前状态1
+ * Summary: 检查服务状态
  */
-func (client *Client) ApplyAntchainBbpContractRule(request *ApplyAntchainBbpContractRuleRequest) (_result *ApplyAntchainBbpContractRuleResponse, _err error) {
+func (client *Client) StatusDemoGatewayCheck(request *StatusDemoGatewayCheckRequest) (_result *StatusDemoGatewayCheckResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &ApplyAntchainBbpContractRuleResponse{}
-	_body, _err := client.ApplyAntchainBbpContractRuleEx(request, headers, runtime)
+	_result = &StatusDemoGatewayCheckResponse{}
+	_body, _err := client.StatusDemoGatewayCheckEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -827,16 +830,16 @@ func (client *Client) ApplyAntchainBbpContractRule(request *ApplyAntchainBbpCont
 }
 
 /**
- * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
- * Summary: 外包薪资规则合约发布接口
+ * Description: Demo接口，返回当前服务器当前状态1
+ * Summary: 检查服务状态
  */
-func (client *Client) ApplyAntchainBbpContractRuleEx(request *ApplyAntchainBbpContractRuleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyAntchainBbpContractRuleResponse, _err error) {
+func (client *Client) StatusDemoGatewayCheckEx(request *StatusDemoGatewayCheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StatusDemoGatewayCheckResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ApplyAntchainBbpContractRuleResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.rule.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &StatusDemoGatewayCheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.status"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -845,14 +848,14 @@ func (client *Client) ApplyAntchainBbpContractRuleEx(request *ApplyAntchainBbpCo
 }
 
 /**
- * Description: 查询结算单
- * Summary: 查询结算单
+ * Description: 对企业/个人进行身份认证
+ * Summary: 统一客户认证接口
  */
-func (client *Client) QueryAntchainBbpContractReconciliation(request *QueryAntchainBbpContractReconciliationRequest) (_result *QueryAntchainBbpContractReconciliationResponse, _err error) {
+func (client *Client) AuthAntchainBbpCustomer(request *AuthAntchainBbpCustomerRequest) (_result *AuthAntchainBbpCustomerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryAntchainBbpContractReconciliationResponse{}
-	_body, _err := client.QueryAntchainBbpContractReconciliationEx(request, headers, runtime)
+	_result = &AuthAntchainBbpCustomerResponse{}
+	_body, _err := client.AuthAntchainBbpCustomerEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -861,16 +864,50 @@ func (client *Client) QueryAntchainBbpContractReconciliation(request *QueryAntch
 }
 
 /**
- * Description: 查询结算单
- * Summary: 查询结算单
+ * Description: 对企业/个人进行身份认证
+ * Summary: 统一客户认证接口
  */
-func (client *Client) QueryAntchainBbpContractReconciliationEx(request *QueryAntchainBbpContractReconciliationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainBbpContractReconciliationResponse, _err error) {
+func (client *Client) AuthAntchainBbpCustomerEx(request *AuthAntchainBbpCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthAntchainBbpCustomerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAntchainBbpContractReconciliationResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.reconciliation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &AuthAntchainBbpCustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.customer.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+func (client *Client) QueryAntchainBbpGwtest(request *QueryAntchainBbpGwtestRequest) (_result *QueryAntchainBbpGwtestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainBbpGwtestResponse{}
+	_body, _err := client.QueryAntchainBbpGwtestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+func (client *Client) QueryAntchainBbpGwtestEx(request *QueryAntchainBbpGwtestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainBbpGwtestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainBbpGwtestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.gwtest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
