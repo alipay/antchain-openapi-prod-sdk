@@ -22005,15 +22005,19 @@ class QueryContractTaskRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_id: str = None,
+        task_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 创建任务时，返回的任务id
         self.task_id = task_id
+        # 任务类型
+        self.task_type = task_type
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.task_type, 'task_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -22027,6 +22031,8 @@ class QueryContractTaskRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.task_type is not None:
+            result['task_type'] = self.task_type
         return result
 
     def from_map(self, m: dict = None):
@@ -22037,6 +22043,8 @@ class QueryContractTaskRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('task_type') is not None:
+            self.task_type = m.get('task_type')
         return self
 
 
