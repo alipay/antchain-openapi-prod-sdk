@@ -137,7 +137,9 @@ namespace AntChain.SDK.BAASDIGITAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.1.1"},
+                        {"_prod_code", "BAASDIGITAL"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BAASDIGITAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.1.1"},
+                        {"_prod_code", "BAASDIGITAL"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +319,216 @@ namespace AntChain.SDK.BAASDIGITAL
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 数字权证服务开通状态检测
+         * Summary: 数字权证服务开通状态检测
+         */
+        public JudgeAliyunServiceResponse JudgeAliyunService(JudgeAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return JudgeAliyunServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证服务开通状态检测
+         * Summary: 数字权证服务开通状态检测
+         */
+        public async Task<JudgeAliyunServiceResponse> JudgeAliyunServiceAsync(JudgeAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await JudgeAliyunServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证服务开通状态检测
+         * Summary: 数字权证服务开通状态检测
+         */
+        public JudgeAliyunServiceResponse JudgeAliyunServiceEx(JudgeAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeAliyunServiceResponse>(DoRequest("1.0", "antchain.baasdigital.aliyun.service.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证服务开通状态检测
+         * Summary: 数字权证服务开通状态检测
+         */
+        public async Task<JudgeAliyunServiceResponse> JudgeAliyunServiceExAsync(JudgeAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeAliyunServiceResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.aliyun.service.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通数字权证链服务
+         * Summary: 开通数字权证链服务
+         */
+        public OpenAliyunServiceResponse OpenAliyunService(OpenAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenAliyunServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通数字权证链服务
+         * Summary: 开通数字权证链服务
+         */
+        public async Task<OpenAliyunServiceResponse> OpenAliyunServiceAsync(OpenAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenAliyunServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通数字权证链服务
+         * Summary: 开通数字权证链服务
+         */
+        public OpenAliyunServiceResponse OpenAliyunServiceEx(OpenAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenAliyunServiceResponse>(DoRequest("1.0", "antchain.baasdigital.aliyun.service.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通数字权证链服务
+         * Summary: 开通数字权证链服务
+         */
+        public async Task<OpenAliyunServiceResponse> OpenAliyunServiceExAsync(OpenAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenAliyunServiceResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.aliyun.service.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字权证服务开通详情
+         * Summary: 数字权证服务开通信息详情
+         */
+        public DetailAliyunServiceResponse DetailAliyunService(DetailAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailAliyunServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字权证服务开通详情
+         * Summary: 数字权证服务开通信息详情
+         */
+        public async Task<DetailAliyunServiceResponse> DetailAliyunServiceAsync(DetailAliyunServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailAliyunServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字权证服务开通详情
+         * Summary: 数字权证服务开通信息详情
+         */
+        public DetailAliyunServiceResponse DetailAliyunServiceEx(DetailAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAliyunServiceResponse>(DoRequest("1.0", "antchain.baasdigital.aliyun.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字权证服务开通详情
+         * Summary: 数字权证服务开通信息详情
+         */
+        public async Task<DetailAliyunServiceResponse> DetailAliyunServiceExAsync(DetailAliyunServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAliyunServiceResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.aliyun.service.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字权证项目列表内容
+         * Summary: 查询数字权证项目列表内容
+         */
+        public QueryAliyunProjectResponse QueryAliyunProject(QueryAliyunProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAliyunProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字权证项目列表内容
+         * Summary: 查询数字权证项目列表内容
+         */
+        public async Task<QueryAliyunProjectResponse> QueryAliyunProjectAsync(QueryAliyunProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAliyunProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字权证项目列表内容
+         * Summary: 查询数字权证项目列表内容
+         */
+        public QueryAliyunProjectResponse QueryAliyunProjectEx(QueryAliyunProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAliyunProjectResponse>(DoRequest("1.0", "antchain.baasdigital.aliyun.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字权证项目列表内容
+         * Summary: 查询数字权证项目列表内容
+         */
+        public async Task<QueryAliyunProjectResponse> QueryAliyunProjectExAsync(QueryAliyunProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAliyunProjectResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.aliyun.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 检测链ID是否为数字权证链
+         * Summary: 检测链ID是否为数字权证链
+         */
+        public CheckAliyunAccessResponse CheckAliyunAccess(CheckAliyunAccessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAliyunAccessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 检测链ID是否为数字权证链
+         * Summary: 检测链ID是否为数字权证链
+         */
+        public async Task<CheckAliyunAccessResponse> CheckAliyunAccessAsync(CheckAliyunAccessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAliyunAccessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 检测链ID是否为数字权证链
+         * Summary: 检测链ID是否为数字权证链
+         */
+        public CheckAliyunAccessResponse CheckAliyunAccessEx(CheckAliyunAccessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAliyunAccessResponse>(DoRequest("1.0", "antchain.baasdigital.aliyun.access.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 检测链ID是否为数字权证链
+         * Summary: 检测链ID是否为数字权证链
+         */
+        public async Task<CheckAliyunAccessResponse> CheckAliyunAccessExAsync(CheckAliyunAccessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAliyunAccessResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.aliyun.access.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -822,7 +1036,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 数字权证增发(异步)
+         * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
          * Summary: 数字权证增发(异步)
          */
         public ExecContractAddsupplyResponse ExecContractAddsupply(ExecContractAddsupplyRequest request)
@@ -833,7 +1047,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 数字权证增发(异步)
+         * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
          * Summary: 数字权证增发(异步)
          */
         public async Task<ExecContractAddsupplyResponse> ExecContractAddsupplyAsync(ExecContractAddsupplyRequest request)
@@ -844,7 +1058,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 数字权证增发(异步)
+         * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
          * Summary: 数字权证增发(异步)
          */
         public ExecContractAddsupplyResponse ExecContractAddsupplyEx(ExecContractAddsupplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -854,7 +1068,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 数字权证增发(异步)
+         * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
          * Summary: 数字权证增发(异步)
          */
         public async Task<ExecContractAddsupplyResponse> ExecContractAddsupplyExAsync(ExecContractAddsupplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -990,7 +1204,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询特定账户下的权证信息
+         * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
          * Summary: 查询特定账户下的权证信息
          */
         public QueryContractAssetResponse QueryContractAsset(QueryContractAssetRequest request)
@@ -1001,7 +1215,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询特定账户下的权证信息
+         * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
          * Summary: 查询特定账户下的权证信息
          */
         public async Task<QueryContractAssetResponse> QueryContractAssetAsync(QueryContractAssetRequest request)
@@ -1012,7 +1226,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询特定账户下的权证信息
+         * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
          * Summary: 查询特定账户下的权证信息
          */
         public QueryContractAssetResponse QueryContractAssetEx(QueryContractAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -1022,7 +1236,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询特定账户下的权证信息
+         * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
          * Summary: 查询特定账户下的权证信息
          */
         public async Task<QueryContractAssetResponse> QueryContractAssetExAsync(QueryContractAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -1246,7 +1460,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+         * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
          * Summary: 批量发行权证到指定账户(异步)
          */
         public ExecContractBatchissueResponse ExecContractBatchissue(ExecContractBatchissueRequest request)
@@ -1257,7 +1471,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+         * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
          * Summary: 批量发行权证到指定账户(异步)
          */
         public async Task<ExecContractBatchissueResponse> ExecContractBatchissueAsync(ExecContractBatchissueRequest request)
@@ -1268,7 +1482,7 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+         * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
          * Summary: 批量发行权证到指定账户(异步)
          */
         public ExecContractBatchissueResponse ExecContractBatchissueEx(ExecContractBatchissueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -1278,13 +1492,55 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+         * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
          * Summary: 批量发行权证到指定账户(异步)
          */
         public async Task<ExecContractBatchissueResponse> ExecContractBatchissueExAsync(ExecContractBatchissueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecContractBatchissueResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.contract.batchissue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+         * Summary: 批量发行权证到指定账户(异步)
+         */
+        public ExecContractListissueResponse ExecContractListissue(ExecContractListissueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecContractListissueEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+         * Summary: 批量发行权证到指定账户(异步)
+         */
+        public async Task<ExecContractListissueResponse> ExecContractListissueAsync(ExecContractListissueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecContractListissueExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+         * Summary: 批量发行权证到指定账户(异步)
+         */
+        public ExecContractListissueResponse ExecContractListissueEx(ExecContractListissueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecContractListissueResponse>(DoRequest("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+         * Summary: 批量发行权证到指定账户(异步)
+         */
+        public async Task<ExecContractListissueResponse> ExecContractListissueExAsync(ExecContractListissueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecContractListissueResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

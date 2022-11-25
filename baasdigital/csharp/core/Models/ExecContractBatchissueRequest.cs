@@ -34,9 +34,9 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         public string TraceId { get; set; }
 
         // 权证发行的目标账户
-        [NameInMap("to_accout")]
+        [NameInMap("to_account")]
         [Validation(Required=true)]
-        public string ToAccout { get; set; }
+        public string ToAccount { get; set; }
 
         // 批量发行个数，建议多次分批执行
         [NameInMap("amount")]

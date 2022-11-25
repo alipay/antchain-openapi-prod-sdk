@@ -28,7 +28,8 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string ProjectId { get; set; }
 
-        // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+        // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+        // 高性能版本不支持修改上限。
         [NameInMap("amount")]
         [Validation(Required=false)]
         public long? Amount { get; set; }
@@ -36,6 +37,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         // 项目发行后权证数量是否可增发。
         // true:可增发
         // false:不可增发
+        // 高性能版本不支持修改此配置
         [NameInMap("limited_amount")]
         [Validation(Required=false)]
         public bool? LimitedAmount { get; set; }

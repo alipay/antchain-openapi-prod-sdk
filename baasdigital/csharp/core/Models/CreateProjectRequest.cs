@@ -39,13 +39,14 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         public string Description { get; set; }
 
         // 模版类型
+        // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
         [NameInMap("biz_type")]
         [Validation(Required=true)]
         public long? BizType { get; set; }
 
-        // 项目发行权证数量上限
+        // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
         [NameInMap("amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? Amount { get; set; }
 
         // 数字权证链接，共享时必须传入
@@ -53,9 +54,9 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public string AssetUri { get; set; }
 
-        // 是否可增发
+        // 是否可增发，普通版本需设置，高性能版本默认为可增发。
         [NameInMap("limited_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public bool? LimitedAmount { get; set; }
 
         // 是否可核销

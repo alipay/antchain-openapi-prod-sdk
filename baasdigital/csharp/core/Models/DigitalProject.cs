@@ -16,6 +16,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         public string ProjectId { get; set; }
 
         // 模版类型
+        // 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
         [NameInMap("biz_type")]
         [Validation(Required=true)]
         public long? BizType { get; set; }
@@ -42,7 +43,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string ProjectStatus { get; set; }
 
-        // 项目发行权证的总数
+        // 项目发行权证的总数，高性能版本显示为0
         [NameInMap("amount")]
         [Validation(Required=true)]
         public long? Amount { get; set; }
@@ -52,7 +53,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public string AssetUri { get; set; }
 
-        // 项目发行后权证数量是否可增发
+        // 项目发行后权证数量是否可增发，高性能版本显示为支持
         // 
         [NameInMap("limited_amount")]
         [Validation(Required=true)]

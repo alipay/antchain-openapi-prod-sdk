@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDIGITAL.Models
 {
-    public class ExecContractIssueRequest : TeaModel {
+    public class ExecContractListissueRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 链ID
+        // 链id
         [NameInMap("bizid")]
         [Validation(Required=true)]
         public string Bizid { get; set; }
@@ -33,20 +33,15 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string TraceId { get; set; }
 
-        // 权证ID，线下生成，保证唯一
-        [NameInMap("asset_id")]
-        [Validation(Required=true)]
-        public string AssetId { get; set; }
-
-        // 数字权证标准URI协议文件，权证信息
-        [NameInMap("asset_uri")]
-        [Validation(Required=true)]
-        public string AssetUri { get; set; }
-
         // 权证发行的目标账户
         [NameInMap("to_account")]
         [Validation(Required=true)]
         public string ToAccount { get; set; }
+
+        // 批量发行的资产id列表
+        [NameInMap("asset_list")]
+        [Validation(Required=true)]
+        public List<string> AssetList { get; set; }
 
         // 托管账户信息(推荐)，托管和非拖管必选一种
         [NameInMap("account_info")]
