@@ -23,6 +23,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string TaskId { get; set; }
 
+        // 任务类型
+        [NameInMap("task_type")]
+        [Validation(Required=true)]
+        public string TaskType { get; set; }
+
     }
 
 }
