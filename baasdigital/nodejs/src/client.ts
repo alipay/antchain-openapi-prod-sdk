@@ -77,6 +77,51 @@ export class Config extends $tea.Model {
   }
 }
 
+// 查询所有数字权证项目接口结构体
+export class DigitalProjectList extends $tea.Model {
+  // 项目id
+  projectId?: string;
+  // 项目名称
+  name?: string;
+  // 项目描述
+  description?: string;
+  // 项目状态
+  projectStatus?: string;
+  // 创建时间戳
+  createTime?: number;
+  // 合约symbol
+  symbol?: string;
+  // 发行数量
+  amount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      name: 'name',
+      description: 'description',
+      projectStatus: 'project_status',
+      createTime: 'create_time',
+      symbol: 'symbol',
+      amount: 'amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      name: 'string',
+      description: 'string',
+      projectStatus: 'string',
+      createTime: 'number',
+      symbol: 'string',
+      amount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // AssetUri中多组资源信息
 export class ResourceBundle extends $tea.Model {
   // 可公开访问的资源地址
@@ -139,43 +184,31 @@ export class AccountInfo extends $tea.Model {
   }
 }
 
-// 查询所有数字权证项目接口结构体
-export class DigitalProjectList extends $tea.Model {
-  // 项目id
-  projectId: string;
-  // 项目名称
-  name: string;
-  // 项目描述
-  description: string;
-  // 项目状态
-  projectStatus: string;
-  // 创建时间
-  createTime: string;
-  // 合约symbol
-  symbol: string;
-  // 发行数量
-  amount: number;
+// 阿里云查询数字权证列表结果
+export class AliYunDigitalProjectListView extends $tea.Model {
+  // 分页编号
+  pageIndex?: number;
+  // 单页行数
+  pageSize?: number;
+  // 数据总行数
+  totalSize?: number;
+  // 查询结果列表
+  projectList?: DigitalProjectList[];
   static names(): { [key: string]: string } {
     return {
-      projectId: 'project_id',
-      name: 'name',
-      description: 'description',
-      projectStatus: 'project_status',
-      createTime: 'create_time',
-      symbol: 'symbol',
-      amount: 'amount',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      projectList: 'project_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      projectId: 'string',
-      name: 'string',
-      description: 'string',
-      projectStatus: 'string',
-      createTime: 'string',
-      symbol: 'string',
-      amount: 'number',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      projectList: { 'type': 'array', 'itemType': DigitalProjectList },
     };
   }
 
@@ -189,6 +222,7 @@ export class DigitalProject extends $tea.Model {
   // 数字权证项目id
   projectId: string;
   // 模版类型
+  // 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
   bizType: number;
   // 数字权证项目名称
   name: string;
@@ -200,11 +234,11 @@ export class DigitalProject extends $tea.Model {
   // deploy：已部署(可更新)
   // issue：已发布(不可更新)
   projectStatus: string;
-  // 项目发行权证的总数
+  // 项目发行权证的总数，高性能版本显示为0
   amount: number;
   // 权证的uri信息（共享tokenuri模式有该字段）
   assetUri?: string;
-  // 项目发行后权证数量是否可增发
+  // 项目发行后权证数量是否可增发，高性能版本显示为支持
   // 
   limitedAmount: boolean;
   // 项目权证是否可核销
@@ -305,6 +339,380 @@ export class AssetUriDefinition extends $tea.Model {
       animationUrl: 'string',
       resourceBundle: { 'type': 'array', 'itemType': ResourceBundle },
       attributes: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云数字权证服务信息结构体
+export class AliYunDigitalServiceInfo extends $tea.Model {
+  // 项目总数
+  projectCount?: number;
+  // 项目上限
+  projectLimit?: number;
+  // 资源存储使用量
+  storageUsed?: number;
+  // 资源存储容量上限
+  storageLimit?: number;
+  // 日访问流量
+  trafficDailyUsed?: number;
+  // 日流量上限
+  trafficDailyLimit?: number;
+  static names(): { [key: string]: string } {
+    return {
+      projectCount: 'project_count',
+      projectLimit: 'project_limit',
+      storageUsed: 'storage_used',
+      storageLimit: 'storage_limit',
+      trafficDailyUsed: 'traffic_daily_used',
+      trafficDailyLimit: 'traffic_daily_limit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectCount: 'number',
+      projectLimit: 'number',
+      storageUsed: 'number',
+      storageLimit: 'number',
+      trafficDailyUsed: 'number',
+      trafficDailyLimit: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class JudgeAliyunServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联盟ID
+  consortiumId: string;
+  // 蚂蚁链ID
+  bizid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      consortiumId: 'consortium_id',
+      bizid: 'bizid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      consortiumId: 'string',
+      bizid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class JudgeAliyunServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 0；未开通；
+  // 1：开通中；
+  // 2：已开通；
+  result?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OpenAliyunServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联盟ID
+  consortiumId: string;
+  // 蚂蚁链ID
+  bizid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      consortiumId: 'consortium_id',
+      bizid: 'bizid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      consortiumId: 'string',
+      bizid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OpenAliyunServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1：开通中； 2：已开通；
+  result?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailAliyunServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 蚂蚁链ID
+  bizid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailAliyunServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数字权证服务详情
+  result?: AliYunDigitalServiceInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: AliYunDigitalServiceInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAliyunProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 蚂蚁链ID
+  bizid: string;
+  // 项目名称
+  name?: string;
+  // 项目id
+  projectId?: string;
+  // 项目状态
+  projectStatus?: string;
+  // 创建起始日期时间戳
+  startTime?: number;
+  // 创建结束时间戳
+  endTime?: number;
+  // 分页页码，默认0
+  pageIndex: number;
+  // 单页数量，默认10
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      name: 'name',
+      projectId: 'project_id',
+      projectStatus: 'project_status',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      name: 'string',
+      projectId: 'string',
+      projectStatus: 'string',
+      startTime: 'number',
+      endTime: 'number',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAliyunProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 权证项目列表
+  result?: AliYunDigitalProjectListView;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: AliYunDigitalProjectListView,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAliyunAccessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  bizid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAliyunAccessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否是数字权证链
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
     };
   }
 
@@ -753,13 +1161,14 @@ export class CreateProjectRequest extends $tea.Model {
   // 数字权证项目描述信息
   description?: string;
   // 模版类型
+  // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
   bizType: number;
-  // 项目发行权证数量上限
-  amount: number;
+  // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+  amount?: number;
   // 数字权证链接，共享时必须传入
   assetUri?: string;
-  // 是否可增发
-  limitedAmount: boolean;
+  // 是否可增发，普通版本需设置，高性能版本默认为可增发。
+  limitedAmount?: boolean;
   // 是否可核销
   writeOffable: boolean;
   // 是否可销毁
@@ -859,11 +1268,13 @@ export class UpdateProjectRequest extends $tea.Model {
   bizid: string;
   // 数字权证项目ID
   projectId: string;
-  // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+  // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+  // 高性能版本不支持修改上限。
   amount?: number;
   // 项目发行后权证数量是否可增发。
   // true:可增发
   // false:不可增发
+  // 高性能版本不支持修改此配置
   limitedAmount?: boolean;
   // 项目权证是否可核销。false:不可核销；true:可核销
   writeOffable?: boolean;
@@ -951,7 +1362,7 @@ export class ExecContractIssueRequest extends $tea.Model {
   // 数字权证标准URI协议文件，权证信息
   assetUri: string;
   // 权证发行的目标账户
-  toAccout: string;
+  toAccount: string;
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo;
   static names(): { [key: string]: string } {
@@ -963,7 +1374,7 @@ export class ExecContractIssueRequest extends $tea.Model {
       traceId: 'trace_id',
       assetId: 'asset_id',
       assetUri: 'asset_uri',
-      toAccout: 'to_accout',
+      toAccount: 'to_account',
       accountInfo: 'account_info',
     };
   }
@@ -977,7 +1388,7 @@ export class ExecContractIssueRequest extends $tea.Model {
       traceId: 'string',
       assetId: 'string',
       assetUri: 'string',
-      toAccout: 'string',
+      toAccount: 'string',
       accountInfo: AccountInfo,
     };
   }
@@ -2088,7 +2499,7 @@ export class ExecContractBatchissueRequest extends $tea.Model {
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string;
   // 权证发行的目标账户
-  toAccout: string;
+  toAccount: string;
   // 批量发行个数，建议多次分批执行
   amount: number;
   // 托管账户信息(推荐)，托管和非拖管必选一种
@@ -2100,7 +2511,7 @@ export class ExecContractBatchissueRequest extends $tea.Model {
       bizid: 'bizid',
       projectId: 'project_id',
       traceId: 'trace_id',
-      toAccout: 'to_accout',
+      toAccount: 'to_account',
       amount: 'amount',
       accountInfo: 'account_info',
     };
@@ -2113,7 +2524,7 @@ export class ExecContractBatchissueRequest extends $tea.Model {
       bizid: 'string',
       projectId: 'string',
       traceId: 'string',
-      toAccout: 'string',
+      toAccount: 'string',
       amount: 'number',
       accountInfo: AccountInfo,
     };
@@ -2134,6 +2545,90 @@ export class ExecContractBatchissueResponse extends $tea.Model {
   // 客户端传入的请求唯一标识
   traceId?: string;
   // 交易hash，可通过hash查询上链结果
+  hash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      hash: 'hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      hash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecContractListissueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string;
+  // 权证发行的目标账户
+  toAccount: string;
+  // 批量发行的资产id列表
+  assetList: string[];
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      toAccount: 'to_account',
+      assetList: 'asset_list',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      toAccount: 'string',
+      assetList: { 'type': 'array', 'itemType': 'string' },
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecContractListissueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 交易hash，可通过hash查询上链结果
+  // 
   hash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2273,7 +2768,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.34",
+          sdk_version: "1.1.1",
+          _prod_code: "BAASDIGITAL",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2317,6 +2814,101 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 数字权证服务开通状态检测
+   * Summary: 数字权证服务开通状态检测
+   */
+  async judgeAliyunService(request: JudgeAliyunServiceRequest): Promise<JudgeAliyunServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.judgeAliyunServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字权证服务开通状态检测
+   * Summary: 数字权证服务开通状态检测
+   */
+  async judgeAliyunServiceEx(request: JudgeAliyunServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<JudgeAliyunServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<JudgeAliyunServiceResponse>(await this.doRequest("1.0", "antchain.baasdigital.aliyun.service.judge", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new JudgeAliyunServiceResponse({}));
+  }
+
+  /**
+   * Description: 开通数字权证链服务
+   * Summary: 开通数字权证链服务
+   */
+  async openAliyunService(request: OpenAliyunServiceRequest): Promise<OpenAliyunServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.openAliyunServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 开通数字权证链服务
+   * Summary: 开通数字权证链服务
+   */
+  async openAliyunServiceEx(request: OpenAliyunServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OpenAliyunServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OpenAliyunServiceResponse>(await this.doRequest("1.0", "antchain.baasdigital.aliyun.service.open", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OpenAliyunServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询数字权证服务开通详情
+   * Summary: 数字权证服务开通信息详情
+   */
+  async detailAliyunService(request: DetailAliyunServiceRequest): Promise<DetailAliyunServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailAliyunServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数字权证服务开通详情
+   * Summary: 数字权证服务开通信息详情
+   */
+  async detailAliyunServiceEx(request: DetailAliyunServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailAliyunServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailAliyunServiceResponse>(await this.doRequest("1.0", "antchain.baasdigital.aliyun.service.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailAliyunServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询数字权证项目列表内容
+   * Summary: 查询数字权证项目列表内容
+   */
+  async queryAliyunProject(request: QueryAliyunProjectRequest): Promise<QueryAliyunProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAliyunProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数字权证项目列表内容
+   * Summary: 查询数字权证项目列表内容
+   */
+  async queryAliyunProjectEx(request: QueryAliyunProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAliyunProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAliyunProjectResponse>(await this.doRequest("1.0", "antchain.baasdigital.aliyun.project.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAliyunProjectResponse({}));
+  }
+
+  /**
+   * Description: 检测链ID是否为数字权证链
+   * Summary: 检测链ID是否为数字权证链
+   */
+  async checkAliyunAccess(request: CheckAliyunAccessRequest): Promise<CheckAliyunAccessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkAliyunAccessEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 检测链ID是否为数字权证链
+   * Summary: 检测链ID是否为数字权证链
+   */
+  async checkAliyunAccessEx(request: CheckAliyunAccessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAliyunAccessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckAliyunAccessResponse>(await this.doRequest("1.0", "antchain.baasdigital.aliyun.access.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAliyunAccessResponse({}));
   }
 
   /**
@@ -2548,7 +3140,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字权证增发(异步)
+   * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
    * Summary: 数字权证增发(异步)
    */
   async execContractAddsupply(request: ExecContractAddsupplyRequest): Promise<ExecContractAddsupplyResponse> {
@@ -2558,7 +3150,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字权证增发(异步)
+   * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
    * Summary: 数字权证增发(异步)
    */
   async execContractAddsupplyEx(request: ExecContractAddsupplyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecContractAddsupplyResponse> {
@@ -2624,7 +3216,7 @@ export default class Client {
   }
 
   /**
-   * Description: 查询特定账户下的权证信息
+   * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
    * Summary: 查询特定账户下的权证信息
    */
   async queryContractAsset(request: QueryContractAssetRequest): Promise<QueryContractAssetResponse> {
@@ -2634,7 +3226,7 @@ export default class Client {
   }
 
   /**
-   * Description: 查询特定账户下的权证信息
+   * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
    * Summary: 查询特定账户下的权证信息
    */
   async queryContractAssetEx(request: QueryContractAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractAssetResponse> {
@@ -2740,7 +3332,7 @@ export default class Client {
   }
 
   /**
-   * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+   * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
    * Summary: 批量发行权证到指定账户(异步)
    */
   async execContractBatchissue(request: ExecContractBatchissueRequest): Promise<ExecContractBatchissueResponse> {
@@ -2750,12 +3342,31 @@ export default class Client {
   }
 
   /**
-   * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+   * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
    * Summary: 批量发行权证到指定账户(异步)
    */
   async execContractBatchissueEx(request: ExecContractBatchissueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecContractBatchissueResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecContractBatchissueResponse>(await this.doRequest("1.0", "antchain.baasdigital.contract.batchissue.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecContractBatchissueResponse({}));
+  }
+
+  /**
+   * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+   * Summary: 批量发行权证到指定账户(异步)
+   */
+  async execContractListissue(request: ExecContractListissueRequest): Promise<ExecContractListissueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execContractListissueEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+   * Summary: 批量发行权证到指定账户(异步)
+   */
+  async execContractListissueEx(request: ExecContractListissueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecContractListissueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecContractListissueResponse>(await this.doRequest("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecContractListissueResponse({}));
   }
 
 }
