@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_912f8ba016a046c6b5a6b1252cc63591
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_912f8ba016a046c6b5a6b1252cc63591
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,87 +318,129 @@ namespace AntChain.SDK.Ak_912f8ba016a046c6b5a6b1252cc63591
         }
 
         /**
-         * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-         * Summary: 外包薪资规则合约发布接口
+         * Description: Demo接口，返回当前服务器当前状态1
+         * Summary: 检查服务状态
          */
-        public ApplyAntchainBbpContractRuleResponse ApplyAntchainBbpContractRule(ApplyAntchainBbpContractRuleRequest request)
+        public StatusDemoGatewayCheckResponse StatusDemoGatewayCheck(StatusDemoGatewayCheckRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ApplyAntchainBbpContractRuleEx(request, headers, runtime);
+            return StatusDemoGatewayCheckEx(request, headers, runtime);
         }
 
         /**
-         * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-         * Summary: 外包薪资规则合约发布接口
+         * Description: Demo接口，返回当前服务器当前状态1
+         * Summary: 检查服务状态
          */
-        public async Task<ApplyAntchainBbpContractRuleResponse> ApplyAntchainBbpContractRuleAsync(ApplyAntchainBbpContractRuleRequest request)
+        public async Task<StatusDemoGatewayCheckResponse> StatusDemoGatewayCheckAsync(StatusDemoGatewayCheckRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ApplyAntchainBbpContractRuleExAsync(request, headers, runtime);
+            return await StatusDemoGatewayCheckExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-         * Summary: 外包薪资规则合约发布接口
+         * Description: Demo接口，返回当前服务器当前状态1
+         * Summary: 检查服务状态
          */
-        public ApplyAntchainBbpContractRuleResponse ApplyAntchainBbpContractRuleEx(ApplyAntchainBbpContractRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public StatusDemoGatewayCheckResponse StatusDemoGatewayCheckEx(StatusDemoGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ApplyAntchainBbpContractRuleResponse>(DoRequest("1.0", "antchain.bbp.contract.rule.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<StatusDemoGatewayCheckResponse>(DoRequest("1.0", "demo.gateway.check.status", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-         * Summary: 外包薪资规则合约发布接口
+         * Description: Demo接口，返回当前服务器当前状态1
+         * Summary: 检查服务状态
          */
-        public async Task<ApplyAntchainBbpContractRuleResponse> ApplyAntchainBbpContractRuleExAsync(ApplyAntchainBbpContractRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<StatusDemoGatewayCheckResponse> StatusDemoGatewayCheckExAsync(StatusDemoGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ApplyAntchainBbpContractRuleResponse>(await DoRequestAsync("1.0", "antchain.bbp.contract.rule.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<StatusDemoGatewayCheckResponse>(await DoRequestAsync("1.0", "demo.gateway.check.status", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询结算单
-         * Summary: 查询结算单
+         * Description: 对企业/个人进行身份认证
+         * Summary: 统一客户认证接口
          */
-        public QueryAntchainBbpContractReconciliationResponse QueryAntchainBbpContractReconciliation(QueryAntchainBbpContractReconciliationRequest request)
+        public AuthAntchainBbpCustomerResponse AuthAntchainBbpCustomer(AuthAntchainBbpCustomerRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntchainBbpContractReconciliationEx(request, headers, runtime);
+            return AuthAntchainBbpCustomerEx(request, headers, runtime);
         }
 
         /**
-         * Description: 查询结算单
-         * Summary: 查询结算单
+         * Description: 对企业/个人进行身份认证
+         * Summary: 统一客户认证接口
          */
-        public async Task<QueryAntchainBbpContractReconciliationResponse> QueryAntchainBbpContractReconciliationAsync(QueryAntchainBbpContractReconciliationRequest request)
+        public async Task<AuthAntchainBbpCustomerResponse> AuthAntchainBbpCustomerAsync(AuthAntchainBbpCustomerRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntchainBbpContractReconciliationExAsync(request, headers, runtime);
+            return await AuthAntchainBbpCustomerExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 查询结算单
-         * Summary: 查询结算单
+         * Description: 对企业/个人进行身份认证
+         * Summary: 统一客户认证接口
          */
-        public QueryAntchainBbpContractReconciliationResponse QueryAntchainBbpContractReconciliationEx(QueryAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public AuthAntchainBbpCustomerResponse AuthAntchainBbpCustomerEx(AuthAntchainBbpCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntchainBbpContractReconciliationResponse>(DoRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<AuthAntchainBbpCustomerResponse>(DoRequest("1.0", "antchain.bbp.customer.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询结算单
-         * Summary: 查询结算单
+         * Description: 对企业/个人进行身份认证
+         * Summary: 统一客户认证接口
          */
-        public async Task<QueryAntchainBbpContractReconciliationResponse> QueryAntchainBbpContractReconciliationExAsync(QueryAntchainBbpContractReconciliationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<AuthAntchainBbpCustomerResponse> AuthAntchainBbpCustomerExAsync(AuthAntchainBbpCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntchainBbpContractReconciliationResponse>(await DoRequestAsync("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<AuthAntchainBbpCustomerResponse>(await DoRequestAsync("1.0", "antchain.bbp.customer.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public QueryAntchainBbpGwtestResponse QueryAntchainBbpGwtest(QueryAntchainBbpGwtestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainBbpGwtestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public async Task<QueryAntchainBbpGwtestResponse> QueryAntchainBbpGwtestAsync(QueryAntchainBbpGwtestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainBbpGwtestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public QueryAntchainBbpGwtestResponse QueryAntchainBbpGwtestEx(QueryAntchainBbpGwtestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainBbpGwtestResponse>(DoRequest("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public async Task<QueryAntchainBbpGwtestResponse> QueryAntchainBbpGwtestExAsync(QueryAntchainBbpGwtestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainBbpGwtestResponse>(await DoRequestAsync("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
