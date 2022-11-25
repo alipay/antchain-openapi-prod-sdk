@@ -6,7 +6,7 @@ namespace AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainBbpContractReconciliationResponse extends Model
+class StatusDemoGatewayCheckResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryAntchainBbpContractReconciliationResponse extends Model
      */
     public $resultMsg;
 
-    // 结算单
+    // OK
     /**
-     * @var Reconciliation[]
+     * @var string
      */
-    public $reconciliations;
+    public $status;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'reconciliations' => 'reconciliations',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'status'     => 'status',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryAntchainBbpContractReconciliationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->reconciliations) {
-            $res['reconciliations'] = [];
-            if (null !== $this->reconciliations && \is_array($this->reconciliations)) {
-                $n = 0;
-                foreach ($this->reconciliations as $item) {
-                    $res['reconciliations'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryAntchainBbpContractReconciliationResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainBbpContractReconciliationResponse
+     * @return StatusDemoGatewayCheckResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QueryAntchainBbpContractReconciliationResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['reconciliations'])) {
-            if (!empty($map['reconciliations'])) {
-                $model->reconciliations = [];
-                $n                      = 0;
-                foreach ($map['reconciliations'] as $item) {
-                    $model->reconciliations[$n++] = null !== $item ? Reconciliation::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

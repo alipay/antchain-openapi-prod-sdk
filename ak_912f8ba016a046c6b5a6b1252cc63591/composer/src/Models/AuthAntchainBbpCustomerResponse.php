@@ -6,7 +6,7 @@ namespace AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyAntchainBbpContractRuleResponse extends Model
+class AuthAntchainBbpCustomerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class ApplyAntchainBbpContractRuleResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 客户认证结果
+    /**
+     * @var CustomerAuthResult
+     */
+    public $result;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class ApplyAntchainBbpContractRuleResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->result) {
+            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class ApplyAntchainBbpContractRuleResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyAntchainBbpContractRuleResponse
+     * @return AuthAntchainBbpCustomerResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class ApplyAntchainBbpContractRuleResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['result'])) {
+            $model->result = CustomerAuthResult::fromMap($map['result']);
         }
 
         return $model;

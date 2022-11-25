@@ -6,7 +6,7 @@ namespace AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainBbpContractReconciliationRequest extends Model
+class QueryAntchainBbpGwtestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,19 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
      */
     public $productInstanceId;
 
-    // 供应商code
+    // 超时时间 毫秒
     /**
-     * @var string
+     * @var int
      */
-    public $supCode;
-
-    // 月份
-    /**
-     * @var string[]
-     */
-    public $scoreDates;
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'supCode'           => 'sup_code',
-        'scoreDates'        => 'score_dates',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
-        Model::validateRequired('supCode', $this->supCode, true);
-        Model::validateRequired('scoreDates', $this->scoreDates, true);
     }
 
     public function toMap()
@@ -52,11 +43,8 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->supCode) {
-            $res['sup_code'] = $this->supCode;
-        }
-        if (null !== $this->scoreDates) {
-            $res['score_dates'] = $this->scoreDates;
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
         }
 
         return $res;
@@ -65,7 +53,7 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainBbpContractReconciliationRequest
+     * @return QueryAntchainBbpGwtestRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,13 +64,8 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['sup_code'])) {
-            $model->supCode = $map['sup_code'];
-        }
-        if (isset($map['score_dates'])) {
-            if (!empty($map['score_dates'])) {
-                $model->scoreDates = $map['score_dates'];
-            }
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;

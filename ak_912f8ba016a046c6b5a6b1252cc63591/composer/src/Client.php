@@ -11,12 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\ApplyAntchainBbpContractRuleRequest;
-use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\ApplyAntchainBbpContractRuleResponse;
-use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryAntchainBbpContractReconciliationRequest;
-use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\AuthAntchainBbpCustomerRequest;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\AuthAntchainBbpCustomerResponse;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryAntchainBbpGwtestRequest;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryAntchainBbpGwtestResponse;
 use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\QueryDemoSaasTestTestaResponse;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\StatusDemoGatewayCheckRequest;
+use AntChain\Ak_912f8ba016a046c6b5a6b1252cc63591\Models\StatusDemoGatewayCheckResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,7 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 规则明细
+            // 客户认证结果
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -164,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -211,69 +213,102 @@ class Client
     }
 
     /**
-     * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-     * Summary: 外包薪资规则合约发布接口.
+     * Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态
      *
-     * @param ApplyAntchainBbpContractRuleRequest $request
+     * @param StatusDemoGatewayCheckRequest $request
      *
-     * @return ApplyAntchainBbpContractRuleResponse
+     * @return StatusDemoGatewayCheckResponse
      */
-    public function applyAntchainBbpContractRule($request)
+    public function statusDemoGatewayCheck($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->applyAntchainBbpContractRuleEx($request, $headers, $runtime);
+        return $this->statusDemoGatewayCheckEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-     * Summary: 外包薪资规则合约发布接口.
+     * Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态
      *
-     * @param ApplyAntchainBbpContractRuleRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
+     * @param StatusDemoGatewayCheckRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return ApplyAntchainBbpContractRuleResponse
+     * @return StatusDemoGatewayCheckResponse
      */
-    public function applyAntchainBbpContractRuleEx($request, $headers, $runtime)
+    public function statusDemoGatewayCheckEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ApplyAntchainBbpContractRuleResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.rule.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return StatusDemoGatewayCheckResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 查询结算单
-     * Summary: 查询结算单.
+     * Description: 对企业/个人进行身份认证
+     * Summary: 统一客户认证接口.
      *
-     * @param QueryAntchainBbpContractReconciliationRequest $request
+     * @param AuthAntchainBbpCustomerRequest $request
      *
-     * @return QueryAntchainBbpContractReconciliationResponse
+     * @return AuthAntchainBbpCustomerResponse
      */
-    public function queryAntchainBbpContractReconciliation($request)
+    public function authAntchainBbpCustomer($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+        return $this->authAntchainBbpCustomerEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询结算单
-     * Summary: 查询结算单.
+     * Description: 对企业/个人进行身份认证
+     * Summary: 统一客户认证接口.
      *
-     * @param QueryAntchainBbpContractReconciliationRequest $request
-     * @param string[]                                      $headers
-     * @param RuntimeOptions                                $runtime
+     * @param AuthAntchainBbpCustomerRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
      *
-     * @return QueryAntchainBbpContractReconciliationResponse
+     * @return AuthAntchainBbpCustomerResponse
      */
-    public function queryAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    public function authAntchainBbpCustomerEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return AuthAntchainBbpCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试.
+     *
+     * @param QueryAntchainBbpGwtestRequest $request
+     *
+     * @return QueryAntchainBbpGwtestResponse
+     */
+    public function queryAntchainBbpGwtest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainBbpGwtestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试.
+     *
+     * @param QueryAntchainBbpGwtestRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryAntchainBbpGwtestResponse
+     */
+    public function queryAntchainBbpGwtestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainBbpGwtestResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
