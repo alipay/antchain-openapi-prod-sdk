@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_912f8ba016a046c6b5a6b1252cc63591.models
 
 import com.aliyun.tea.*;
 
-public class ApplyAntchainBbpContractRuleResponse extends TeaModel {
+public class QueryAntchainBbpGwtestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class ApplyAntchainBbpContractRuleResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static ApplyAntchainBbpContractRuleResponse build(java.util.Map<String, ?> map) throws Exception {
-        ApplyAntchainBbpContractRuleResponse self = new ApplyAntchainBbpContractRuleResponse();
+    // 结果码
+    @NameInMap("stauts")
+    public String stauts;
+
+    public static QueryAntchainBbpGwtestResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainBbpGwtestResponse self = new QueryAntchainBbpGwtestResponse();
         return TeaModel.build(map, self);
     }
 
-    public ApplyAntchainBbpContractRuleResponse setReqMsgId(String reqMsgId) {
+    public QueryAntchainBbpGwtestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class ApplyAntchainBbpContractRuleResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ApplyAntchainBbpContractRuleResponse setResultCode(String resultCode) {
+    public QueryAntchainBbpGwtestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class ApplyAntchainBbpContractRuleResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ApplyAntchainBbpContractRuleResponse setResultMsg(String resultMsg) {
+    public QueryAntchainBbpGwtestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryAntchainBbpGwtestResponse setStauts(String stauts) {
+        this.stauts = stauts;
+        return this;
+    }
+    public String getStauts() {
+        return this.stauts;
     }
 
 }

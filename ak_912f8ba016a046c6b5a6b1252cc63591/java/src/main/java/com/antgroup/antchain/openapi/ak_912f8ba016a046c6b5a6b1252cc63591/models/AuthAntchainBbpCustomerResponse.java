@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_912f8ba016a046c6b5a6b1252cc63591.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntchainBbpContractReconciliationResponse extends TeaModel {
+public class AuthAntchainBbpCustomerResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryAntchainBbpContractReconciliationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 结算单
-    @NameInMap("reconciliations")
-    public java.util.List<Reconciliation> reconciliations;
+    // 客户认证结果
+    @NameInMap("result")
+    public CustomerAuthResult result;
 
-    public static QueryAntchainBbpContractReconciliationResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntchainBbpContractReconciliationResponse self = new QueryAntchainBbpContractReconciliationResponse();
+    public static AuthAntchainBbpCustomerResponse build(java.util.Map<String, ?> map) throws Exception {
+        AuthAntchainBbpCustomerResponse self = new AuthAntchainBbpCustomerResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntchainBbpContractReconciliationResponse setReqMsgId(String reqMsgId) {
+    public AuthAntchainBbpCustomerResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAntchainBbpContractReconciliationResponse setResultCode(String resultCode) {
+    public AuthAntchainBbpCustomerResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAntchainBbpContractReconciliationResponse setResultMsg(String resultMsg) {
+    public AuthAntchainBbpCustomerResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntchainBbpContractReconciliationResponse setReconciliations(java.util.List<Reconciliation> reconciliations) {
-        this.reconciliations = reconciliations;
+    public AuthAntchainBbpCustomerResponse setResult(CustomerAuthResult result) {
+        this.result = result;
         return this;
     }
-    public java.util.List<Reconciliation> getReconciliations() {
-        return this.reconciliations;
+    public CustomerAuthResult getResult() {
+        return this.result;
     }
 
 }

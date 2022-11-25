@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1")
+                    new TeaPair("sdk_version", "1.0.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,41 +160,60 @@ public class Client {
     }
 
     /**
-     * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-     * Summary: 外包薪资规则合约发布接口
+     * Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态
      */
-    public ApplyAntchainBbpContractRuleResponse applyAntchainBbpContractRule(ApplyAntchainBbpContractRuleRequest request) throws Exception {
+    public StatusDemoGatewayCheckResponse statusDemoGatewayCheck(StatusDemoGatewayCheckRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.applyAntchainBbpContractRuleEx(request, headers, runtime);
+        return this.statusDemoGatewayCheckEx(request, headers, runtime);
     }
 
     /**
-     * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
-     * Summary: 外包薪资规则合约发布接口
+     * Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态
      */
-    public ApplyAntchainBbpContractRuleResponse applyAntchainBbpContractRuleEx(ApplyAntchainBbpContractRuleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public StatusDemoGatewayCheckResponse statusDemoGatewayCheckEx(StatusDemoGatewayCheckRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.rule.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAntchainBbpContractRuleResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.check.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusDemoGatewayCheckResponse());
     }
 
     /**
-     * Description: 查询结算单
-     * Summary: 查询结算单
+     * Description: 对企业/个人进行身份认证
+     * Summary: 统一客户认证接口
      */
-    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliation(QueryAntchainBbpContractReconciliationRequest request) throws Exception {
+    public AuthAntchainBbpCustomerResponse authAntchainBbpCustomer(AuthAntchainBbpCustomerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAntchainBbpContractReconciliationEx(request, headers, runtime);
+        return this.authAntchainBbpCustomerEx(request, headers, runtime);
     }
 
     /**
-     * Description: 查询结算单
-     * Summary: 查询结算单
+     * Description: 对企业/个人进行身份认证
+     * Summary: 统一客户认证接口
      */
-    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliationEx(QueryAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AuthAntchainBbpCustomerResponse authAntchainBbpCustomerEx(AuthAntchainBbpCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainBbpContractReconciliationResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.customer.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAntchainBbpCustomerResponse());
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试
+     */
+    public QueryAntchainBbpGwtestResponse queryAntchainBbpGwtest(QueryAntchainBbpGwtestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainBbpGwtestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试
+     */
+    public QueryAntchainBbpGwtestResponse queryAntchainBbpGwtestEx(QueryAntchainBbpGwtestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainBbpGwtestResponse());
     }
 
     /**
