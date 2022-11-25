@@ -17,8 +17,9 @@ class DigitalProject extends Model
     public $projectId;
 
     // 模版类型
+    // 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
     /**
-     * @example 1为共享型，2为独享型
+     * @example 1,2,3,4
      *
      * @var int
      */
@@ -58,7 +59,7 @@ class DigitalProject extends Model
      */
     public $projectStatus;
 
-    // 项目发行权证的总数
+    // 项目发行权证的总数，高性能版本显示为0
     /**
      * @example 100
      *
@@ -74,7 +75,7 @@ class DigitalProject extends Model
      */
     public $assetUri;
 
-    // 项目发行后权证数量是否可增发
+    // 项目发行后权证数量是否可增发，高性能版本显示为支持
     //
     /**
      * @example true

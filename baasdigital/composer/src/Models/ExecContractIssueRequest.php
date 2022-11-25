@@ -53,7 +53,7 @@ class ExecContractIssueRequest extends Model
     /**
      * @var string
      */
-    public $toAccout;
+    public $toAccount;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     /**
@@ -68,7 +68,7 @@ class ExecContractIssueRequest extends Model
         'traceId'           => 'trace_id',
         'assetId'           => 'asset_id',
         'assetUri'          => 'asset_uri',
-        'toAccout'          => 'to_accout',
+        'toAccount'         => 'to_account',
         'accountInfo'       => 'account_info',
     ];
 
@@ -79,7 +79,7 @@ class ExecContractIssueRequest extends Model
         Model::validateRequired('traceId', $this->traceId, true);
         Model::validateRequired('assetId', $this->assetId, true);
         Model::validateRequired('assetUri', $this->assetUri, true);
-        Model::validateRequired('toAccout', $this->toAccout, true);
+        Model::validateRequired('toAccount', $this->toAccount, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
     }
 
@@ -107,8 +107,8 @@ class ExecContractIssueRequest extends Model
         if (null !== $this->assetUri) {
             $res['asset_uri'] = $this->assetUri;
         }
-        if (null !== $this->toAccout) {
-            $res['to_accout'] = $this->toAccout;
+        if (null !== $this->toAccount) {
+            $res['to_account'] = $this->toAccount;
         }
         if (null !== $this->accountInfo) {
             $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
@@ -146,8 +146,8 @@ class ExecContractIssueRequest extends Model
         if (isset($map['asset_uri'])) {
             $model->assetUri = $map['asset_uri'];
         }
-        if (isset($map['to_accout'])) {
-            $model->toAccout = $map['to_accout'];
+        if (isset($map['to_account'])) {
+            $model->toAccount = $map['to_account'];
         }
         if (isset($map['account_info'])) {
             $model->accountInfo = AccountInfo::fromMap($map['account_info']);

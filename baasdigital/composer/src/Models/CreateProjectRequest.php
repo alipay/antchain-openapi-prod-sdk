@@ -44,12 +44,13 @@ class CreateProjectRequest extends Model
     public $description;
 
     // 模版类型
+    // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
     /**
      * @var int
      */
     public $bizType;
 
-    // 项目发行权证数量上限
+    // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
     /**
      * @var int
      */
@@ -61,7 +62,7 @@ class CreateProjectRequest extends Model
      */
     public $assetUri;
 
-    // 是否可增发
+    // 是否可增发，普通版本需设置，高性能版本默认为可增发。
     /**
      * @var bool
      */
@@ -120,15 +121,12 @@ class CreateProjectRequest extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('symbol', $this->symbol, true);
         Model::validateRequired('bizType', $this->bizType, true);
-        Model::validateRequired('amount', $this->amount, true);
-        Model::validateRequired('limitedAmount', $this->limitedAmount, true);
         Model::validateRequired('writeOffable', $this->writeOffable, true);
         Model::validateRequired('burnable', $this->burnable, true);
         Model::validateRequired('ownerAccount', $this->ownerAccount, true);
         Model::validateRequired('issuerList', $this->issuerList, true);
         Model::validateMaxLength('name', $this->name, 100);
         Model::validateMinLength('name', $this->name, 1);
-        Model::validateMinimum('amount', $this->amount, 1);
     }
 
     public function toMap()

@@ -6,7 +6,7 @@ namespace AntChain\BAASDIGITAL\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateProjectRequest extends Model
+class ExecContractListissueRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class UpdateProjectRequest extends Model
      */
     public $productInstanceId;
 
-    // 链ID
+    // 链id
     /**
      * @var string
      */
@@ -31,33 +31,23 @@ class UpdateProjectRequest extends Model
      */
     public $projectId;
 
-    // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
-    // 高性能版本不支持修改上限。
+    // 业务方请求唯一标识，用于异步查询交易情况
     /**
-     * @var int
+     * @var string
      */
-    public $amount;
+    public $traceId;
 
-    // 项目发行后权证数量是否可增发。
-    // true:可增发
-    // false:不可增发
-    // 高性能版本不支持修改此配置
+    // 权证发行的目标账户
     /**
-     * @var bool
+     * @var string
      */
-    public $limitedAmount;
+    public $toAccount;
 
-    // 项目权证是否可核销。false:不可核销；true:可核销
+    // 批量发行的资产id列表
     /**
-     * @var bool
+     * @var string[]
      */
-    public $writeOffable;
-
-    // 项目权证是否可销毁。false:不可销毁；true:可销毁
-    /**
-     * @var bool
-     */
-    public $burnable;
+    public $assetList;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     /**
@@ -69,10 +59,9 @@ class UpdateProjectRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'bizid'             => 'bizid',
         'projectId'         => 'project_id',
-        'amount'            => 'amount',
-        'limitedAmount'     => 'limited_amount',
-        'writeOffable'      => 'write_offable',
-        'burnable'          => 'burnable',
+        'traceId'           => 'trace_id',
+        'toAccount'         => 'to_account',
+        'assetList'         => 'asset_list',
         'accountInfo'       => 'account_info',
     ];
 
@@ -80,8 +69,10 @@ class UpdateProjectRequest extends Model
     {
         Model::validateRequired('bizid', $this->bizid, true);
         Model::validateRequired('projectId', $this->projectId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('toAccount', $this->toAccount, true);
+        Model::validateRequired('assetList', $this->assetList, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
-        Model::validateMinimum('amount', $this->amount, 1);
     }
 
     public function toMap()
@@ -99,17 +90,14 @@ class UpdateProjectRequest extends Model
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
         }
-        if (null !== $this->amount) {
-            $res['amount'] = $this->amount;
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
-        if (null !== $this->limitedAmount) {
-            $res['limited_amount'] = $this->limitedAmount;
+        if (null !== $this->toAccount) {
+            $res['to_account'] = $this->toAccount;
         }
-        if (null !== $this->writeOffable) {
-            $res['write_offable'] = $this->writeOffable;
-        }
-        if (null !== $this->burnable) {
-            $res['burnable'] = $this->burnable;
+        if (null !== $this->assetList) {
+            $res['asset_list'] = $this->assetList;
         }
         if (null !== $this->accountInfo) {
             $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
@@ -121,7 +109,7 @@ class UpdateProjectRequest extends Model
     /**
      * @param array $map
      *
-     * @return UpdateProjectRequest
+     * @return ExecContractListissueRequest
      */
     public static function fromMap($map = [])
     {
@@ -138,17 +126,16 @@ class UpdateProjectRequest extends Model
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];
         }
-        if (isset($map['amount'])) {
-            $model->amount = $map['amount'];
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
-        if (isset($map['limited_amount'])) {
-            $model->limitedAmount = $map['limited_amount'];
+        if (isset($map['to_account'])) {
+            $model->toAccount = $map['to_account'];
         }
-        if (isset($map['write_offable'])) {
-            $model->writeOffable = $map['write_offable'];
-        }
-        if (isset($map['burnable'])) {
-            $model->burnable = $map['burnable'];
+        if (isset($map['asset_list'])) {
+            if (!empty($map['asset_list'])) {
+                $model->assetList = $map['asset_list'];
+            }
         }
         if (isset($map['account_info'])) {
             $model->accountInfo = AccountInfo::fromMap($map['account_info']);

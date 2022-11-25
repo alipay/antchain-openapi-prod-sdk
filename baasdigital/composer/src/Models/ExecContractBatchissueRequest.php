@@ -41,7 +41,7 @@ class ExecContractBatchissueRequest extends Model
     /**
      * @var string
      */
-    public $toAccout;
+    public $toAccount;
 
     // 批量发行个数，建议多次分批执行
     /**
@@ -60,7 +60,7 @@ class ExecContractBatchissueRequest extends Model
         'bizid'             => 'bizid',
         'projectId'         => 'project_id',
         'traceId'           => 'trace_id',
-        'toAccout'          => 'to_accout',
+        'toAccount'         => 'to_account',
         'amount'            => 'amount',
         'accountInfo'       => 'account_info',
     ];
@@ -70,7 +70,7 @@ class ExecContractBatchissueRequest extends Model
         Model::validateRequired('bizid', $this->bizid, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('traceId', $this->traceId, true);
-        Model::validateRequired('toAccout', $this->toAccout, true);
+        Model::validateRequired('toAccount', $this->toAccount, true);
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
         Model::validateMinimum('amount', $this->amount, 1);
@@ -94,8 +94,8 @@ class ExecContractBatchissueRequest extends Model
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
         }
-        if (null !== $this->toAccout) {
-            $res['to_accout'] = $this->toAccout;
+        if (null !== $this->toAccount) {
+            $res['to_account'] = $this->toAccount;
         }
         if (null !== $this->amount) {
             $res['amount'] = $this->amount;
@@ -130,8 +130,8 @@ class ExecContractBatchissueRequest extends Model
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];
         }
-        if (isset($map['to_accout'])) {
-            $model->toAccout = $map['to_accout'];
+        if (isset($map['to_account'])) {
+            $model->toAccount = $map['to_account'];
         }
         if (isset($map['amount'])) {
             $model->amount = $map['amount'];

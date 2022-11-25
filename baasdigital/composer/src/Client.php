@@ -17,6 +17,8 @@ use AntChain\BAASDIGITAL\Models\CancelContractRoleRequest;
 use AntChain\BAASDIGITAL\Models\CancelContractRoleResponse;
 use AntChain\BAASDIGITAL\Models\CheckAccountRequest;
 use AntChain\BAASDIGITAL\Models\CheckAccountResponse;
+use AntChain\BAASDIGITAL\Models\CheckAliyunAccessRequest;
+use AntChain\BAASDIGITAL\Models\CheckAliyunAccessResponse;
 use AntChain\BAASDIGITAL\Models\CheckResourceRequest;
 use AntChain\BAASDIGITAL\Models\CheckResourceResponse;
 use AntChain\BAASDIGITAL\Models\CreateAccountKmsRequest;
@@ -27,6 +29,8 @@ use AntChain\BAASDIGITAL\Models\CreateProjectRequest;
 use AntChain\BAASDIGITAL\Models\CreateProjectResponse;
 use AntChain\BAASDIGITAL\Models\CreateResourcePolicyRequest;
 use AntChain\BAASDIGITAL\Models\CreateResourcePolicyResponse;
+use AntChain\BAASDIGITAL\Models\DetailAliyunServiceRequest;
+use AntChain\BAASDIGITAL\Models\DetailAliyunServiceResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractAddsupplyRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractAddsupplyResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractApproveRequest;
@@ -37,12 +41,20 @@ use AntChain\BAASDIGITAL\Models\ExecContractBurnoffRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractBurnoffResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractIssueRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractIssueResponse;
+use AntChain\BAASDIGITAL\Models\ExecContractListissueRequest;
+use AntChain\BAASDIGITAL\Models\ExecContractListissueResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractTransferRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractTransferResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractWriteoffRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractWriteoffResponse;
+use AntChain\BAASDIGITAL\Models\JudgeAliyunServiceRequest;
+use AntChain\BAASDIGITAL\Models\JudgeAliyunServiceResponse;
 use AntChain\BAASDIGITAL\Models\ListProjectRequest;
 use AntChain\BAASDIGITAL\Models\ListProjectResponse;
+use AntChain\BAASDIGITAL\Models\OpenAliyunServiceRequest;
+use AntChain\BAASDIGITAL\Models\OpenAliyunServiceResponse;
+use AntChain\BAASDIGITAL\Models\QueryAliyunProjectRequest;
+use AntChain\BAASDIGITAL\Models\QueryAliyunProjectResponse;
 use AntChain\BAASDIGITAL\Models\QueryContractAssetRequest;
 use AntChain\BAASDIGITAL\Models\QueryContractAssetResponse;
 use AntChain\BAASDIGITAL\Models\QueryContractAsseturiRequest;
@@ -176,7 +188,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // AssetUri中多组资源信息
+            // 查询所有数字权证项目接口结构体
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -204,7 +216,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.34',
+                    'sdk_version'      => '1.1.1',
+                    '_prod_code'       => 'BAASDIGITAL',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -248,6 +262,171 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 数字权证服务开通状态检测
+     * Summary: 数字权证服务开通状态检测.
+     *
+     * @param JudgeAliyunServiceRequest $request
+     *
+     * @return JudgeAliyunServiceResponse
+     */
+    public function judgeAliyunService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->judgeAliyunServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字权证服务开通状态检测
+     * Summary: 数字权证服务开通状态检测.
+     *
+     * @param JudgeAliyunServiceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return JudgeAliyunServiceResponse
+     */
+    public function judgeAliyunServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return JudgeAliyunServiceResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.aliyun.service.judge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开通数字权证链服务
+     * Summary: 开通数字权证链服务
+     *
+     * @param OpenAliyunServiceRequest $request
+     *
+     * @return OpenAliyunServiceResponse
+     */
+    public function openAliyunService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openAliyunServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开通数字权证链服务
+     * Summary: 开通数字权证链服务
+     *
+     * @param OpenAliyunServiceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return OpenAliyunServiceResponse
+     */
+    public function openAliyunServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenAliyunServiceResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.aliyun.service.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数字权证服务开通详情
+     * Summary: 数字权证服务开通信息详情.
+     *
+     * @param DetailAliyunServiceRequest $request
+     *
+     * @return DetailAliyunServiceResponse
+     */
+    public function detailAliyunService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAliyunServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数字权证服务开通详情
+     * Summary: 数字权证服务开通信息详情.
+     *
+     * @param DetailAliyunServiceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return DetailAliyunServiceResponse
+     */
+    public function detailAliyunServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAliyunServiceResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.aliyun.service.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数字权证项目列表内容
+     * Summary: 查询数字权证项目列表内容.
+     *
+     * @param QueryAliyunProjectRequest $request
+     *
+     * @return QueryAliyunProjectResponse
+     */
+    public function queryAliyunProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAliyunProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数字权证项目列表内容
+     * Summary: 查询数字权证项目列表内容.
+     *
+     * @param QueryAliyunProjectRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAliyunProjectResponse
+     */
+    public function queryAliyunProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAliyunProjectResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.aliyun.project.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 检测链ID是否为数字权证链
+     * Summary: 检测链ID是否为数字权证链.
+     *
+     * @param CheckAliyunAccessRequest $request
+     *
+     * @return CheckAliyunAccessResponse
+     */
+    public function checkAliyunAccess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAliyunAccessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 检测链ID是否为数字权证链
+     * Summary: 检测链ID是否为数字权证链.
+     *
+     * @param CheckAliyunAccessRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CheckAliyunAccessResponse
+     */
+    public function checkAliyunAccessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAliyunAccessResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.aliyun.access.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -647,7 +826,7 @@ class Client
     }
 
     /**
-     * Description: 数字权证增发(异步)
+     * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
      * Summary: 数字权证增发(异步).
      *
      * @param ExecContractAddsupplyRequest $request
@@ -663,7 +842,7 @@ class Client
     }
 
     /**
-     * Description: 数字权证增发(异步)
+     * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
      * Summary: 数字权证增发(异步).
      *
      * @param ExecContractAddsupplyRequest $request
@@ -779,7 +958,7 @@ class Client
     }
 
     /**
-     * Description: 查询特定账户下的权证信息
+     * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
      * Summary: 查询特定账户下的权证信息.
      *
      * @param QueryContractAssetRequest $request
@@ -795,7 +974,7 @@ class Client
     }
 
     /**
-     * Description: 查询特定账户下的权证信息
+     * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
      * Summary: 查询特定账户下的权证信息.
      *
      * @param QueryContractAssetRequest $request
@@ -979,7 +1158,7 @@ class Client
     }
 
     /**
-     * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+     * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
      * Summary: 批量发行权证到指定账户(异步).
      *
      * @param ExecContractBatchissueRequest $request
@@ -995,7 +1174,7 @@ class Client
     }
 
     /**
-     * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+     * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
      * Summary: 批量发行权证到指定账户(异步).
      *
      * @param ExecContractBatchissueRequest $request
@@ -1009,5 +1188,38 @@ class Client
         Utils::validateModel($request);
 
         return ExecContractBatchissueResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.contract.batchissue.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+     * Summary: 批量发行权证到指定账户(异步).
+     *
+     * @param ExecContractListissueRequest $request
+     *
+     * @return ExecContractListissueResponse
+     */
+    public function execContractListissue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execContractListissueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+     * Summary: 批量发行权证到指定账户(异步).
+     *
+     * @param ExecContractListissueRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ExecContractListissueResponse
+     */
+    public function execContractListissueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecContractListissueResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -40,11 +40,11 @@ class DigitalProjectList extends Model
      */
     public $projectStatus;
 
-    // 创建时间
+    // 创建时间戳
     /**
-     * @example 2022-07-28
+     * @example 1661501591000
      *
-     * @var string
+     * @var int
      */
     public $createTime;
 
@@ -75,13 +75,6 @@ class DigitalProjectList extends Model
 
     public function validate()
     {
-        Model::validateRequired('projectId', $this->projectId, true);
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('description', $this->description, true);
-        Model::validateRequired('projectStatus', $this->projectStatus, true);
-        Model::validateRequired('createTime', $this->createTime, true);
-        Model::validateRequired('symbol', $this->symbol, true);
-        Model::validateRequired('amount', $this->amount, true);
     }
 
     public function toMap()
