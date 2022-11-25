@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdigital.models;
 
 import com.aliyun.tea.*;
 
-public class ExecContractBatchissueRequest extends TeaModel {
+public class ExecContractListissueRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 链ID
+    // 链id
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
@@ -31,22 +31,22 @@ public class ExecContractBatchissueRequest extends TeaModel {
     @Validation(required = true)
     public String toAccount;
 
-    // 批量发行个数，建议多次分批执行
-    @NameInMap("amount")
-    @Validation(required = true, minimum = 1)
-    public Long amount;
+    // 批量发行的资产id列表
+    @NameInMap("asset_list")
+    @Validation(required = true)
+    public java.util.List<String> assetList;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     @NameInMap("account_info")
     @Validation(required = true)
     public AccountInfo accountInfo;
 
-    public static ExecContractBatchissueRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecContractBatchissueRequest self = new ExecContractBatchissueRequest();
+    public static ExecContractListissueRequest build(java.util.Map<String, ?> map) throws Exception {
+        ExecContractListissueRequest self = new ExecContractListissueRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecContractBatchissueRequest setAuthToken(String authToken) {
+    public ExecContractListissueRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -54,7 +54,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecContractBatchissueRequest setProductInstanceId(String productInstanceId) {
+    public ExecContractListissueRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -62,7 +62,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ExecContractBatchissueRequest setBizid(String bizid) {
+    public ExecContractListissueRequest setBizid(String bizid) {
         this.bizid = bizid;
         return this;
     }
@@ -70,7 +70,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.bizid;
     }
 
-    public ExecContractBatchissueRequest setProjectId(String projectId) {
+    public ExecContractListissueRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -78,7 +78,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.projectId;
     }
 
-    public ExecContractBatchissueRequest setTraceId(String traceId) {
+    public ExecContractListissueRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
@@ -86,7 +86,7 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.traceId;
     }
 
-    public ExecContractBatchissueRequest setToAccount(String toAccount) {
+    public ExecContractListissueRequest setToAccount(String toAccount) {
         this.toAccount = toAccount;
         return this;
     }
@@ -94,15 +94,15 @@ public class ExecContractBatchissueRequest extends TeaModel {
         return this.toAccount;
     }
 
-    public ExecContractBatchissueRequest setAmount(Long amount) {
-        this.amount = amount;
+    public ExecContractListissueRequest setAssetList(java.util.List<String> assetList) {
+        this.assetList = assetList;
         return this;
     }
-    public Long getAmount() {
-        return this.amount;
+    public java.util.List<String> getAssetList() {
+        return this.assetList;
     }
 
-    public ExecContractBatchissueRequest setAccountInfo(AccountInfo accountInfo) {
+    public ExecContractListissueRequest setAccountInfo(AccountInfo accountInfo) {
         this.accountInfo = accountInfo;
         return this;
     }

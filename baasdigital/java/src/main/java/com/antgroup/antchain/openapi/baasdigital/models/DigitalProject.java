@@ -10,6 +10,7 @@ public class DigitalProject extends TeaModel {
     public String projectId;
 
     // 模版类型
+    // 1为共享型，2为独享型，3为高性能共享型，4为高性能独享型
     @NameInMap("biz_type")
     @Validation(required = true)
     public Long bizType;
@@ -36,7 +37,7 @@ public class DigitalProject extends TeaModel {
     @Validation(required = true)
     public String projectStatus;
 
-    // 项目发行权证的总数
+    // 项目发行权证的总数，高性能版本显示为0
     @NameInMap("amount")
     @Validation(required = true)
     public Long amount;
@@ -45,7 +46,7 @@ public class DigitalProject extends TeaModel {
     @NameInMap("asset_uri")
     public String assetUri;
 
-    // 项目发行后权证数量是否可增发
+    // 项目发行后权证数量是否可增发，高性能版本显示为支持
     // 
     @NameInMap("limited_amount")
     @Validation(required = true)

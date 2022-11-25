@@ -37,9 +37,9 @@ public class ExecContractIssueRequest extends TeaModel {
     public String assetUri;
 
     // 权证发行的目标账户
-    @NameInMap("to_accout")
+    @NameInMap("to_account")
     @Validation(required = true)
-    public String toAccout;
+    public String toAccount;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     @NameInMap("account_info")
@@ -107,12 +107,12 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.assetUri;
     }
 
-    public ExecContractIssueRequest setToAccout(String toAccout) {
-        this.toAccout = toAccout;
+    public ExecContractIssueRequest setToAccount(String toAccount) {
+        this.toAccount = toAccount;
         return this;
     }
-    public String getToAccout() {
-        return this.toAccout;
+    public String getToAccount() {
+        return this.toAccount;
     }
 
     public ExecContractIssueRequest setAccountInfo(AccountInfo accountInfo) {

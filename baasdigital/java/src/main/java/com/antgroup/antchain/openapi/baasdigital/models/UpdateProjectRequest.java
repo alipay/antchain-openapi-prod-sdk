@@ -21,13 +21,15 @@ public class UpdateProjectRequest extends TeaModel {
     @Validation(required = true)
     public String projectId;
 
-    // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限
+    // 项目发行权证的总数上限。如果设置为可增发，则可以使用增发接口提高总数量上限。
+    // 高性能版本不支持修改上限。
     @NameInMap("amount")
     public Long amount;
 
     // 项目发行后权证数量是否可增发。
     // true:可增发
     // false:不可增发
+    // 高性能版本不支持修改此配置
     @NameInMap("limited_amount")
     public Boolean limitedAmount;
 

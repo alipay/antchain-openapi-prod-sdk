@@ -6,37 +6,30 @@ import com.aliyun.tea.*;
 public class DigitalProjectList extends TeaModel {
     // 项目id
     @NameInMap("project_id")
-    @Validation(required = true)
     public String projectId;
 
     // 项目名称
     @NameInMap("name")
-    @Validation(required = true)
     public String name;
 
     // 项目描述
     @NameInMap("description")
-    @Validation(required = true)
     public String description;
 
     // 项目状态
     @NameInMap("project_status")
-    @Validation(required = true)
     public String projectStatus;
 
-    // 创建时间
+    // 创建时间戳
     @NameInMap("create_time")
-    @Validation(required = true)
-    public String createTime;
+    public Long createTime;
 
     // 合约symbol
     @NameInMap("symbol")
-    @Validation(required = true)
     public String symbol;
 
     // 发行数量
     @NameInMap("amount")
-    @Validation(required = true)
     public Long amount;
 
     public static DigitalProjectList build(java.util.Map<String, ?> map) throws Exception {
@@ -76,11 +69,11 @@ public class DigitalProjectList extends TeaModel {
         return this.projectStatus;
     }
 
-    public DigitalProjectList setCreateTime(String createTime) {
+    public DigitalProjectList setCreateTime(Long createTime) {
         this.createTime = createTime;
         return this;
     }
-    public String getCreateTime() {
+    public Long getCreateTime() {
         return this.createTime;
     }
 

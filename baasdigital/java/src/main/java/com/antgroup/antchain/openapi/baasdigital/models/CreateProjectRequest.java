@@ -31,22 +31,21 @@ public class CreateProjectRequest extends TeaModel {
     public String description;
 
     // 模版类型
+    // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
     @NameInMap("biz_type")
     @Validation(required = true)
     public Long bizType;
 
-    // 项目发行权证数量上限
+    // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
     @NameInMap("amount")
-    @Validation(required = true, minimum = 1)
     public Long amount;
 
     // 数字权证链接，共享时必须传入
     @NameInMap("asset_uri")
     public String assetUri;
 
-    // 是否可增发
+    // 是否可增发，普通版本需设置，高性能版本默认为可增发。
     @NameInMap("limited_amount")
-    @Validation(required = true)
     public Boolean limitedAmount;
 
     // 是否可核销

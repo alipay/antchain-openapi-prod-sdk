@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.34")
+                    new TeaPair("sdk_version", "1.1.1"),
+                    new TeaPair("_prod_code", "BAASDIGITAL"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +159,101 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 数字权证服务开通状态检测
+     * Summary: 数字权证服务开通状态检测
+     */
+    public JudgeAliyunServiceResponse judgeAliyunService(JudgeAliyunServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.judgeAliyunServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字权证服务开通状态检测
+     * Summary: 数字权证服务开通状态检测
+     */
+    public JudgeAliyunServiceResponse judgeAliyunServiceEx(JudgeAliyunServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.aliyun.service.judge", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new JudgeAliyunServiceResponse());
+    }
+
+    /**
+     * Description: 开通数字权证链服务
+     * Summary: 开通数字权证链服务
+     */
+    public OpenAliyunServiceResponse openAliyunService(OpenAliyunServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openAliyunServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开通数字权证链服务
+     * Summary: 开通数字权证链服务
+     */
+    public OpenAliyunServiceResponse openAliyunServiceEx(OpenAliyunServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.aliyun.service.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenAliyunServiceResponse());
+    }
+
+    /**
+     * Description: 查询数字权证服务开通详情
+     * Summary: 数字权证服务开通信息详情
+     */
+    public DetailAliyunServiceResponse detailAliyunService(DetailAliyunServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailAliyunServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询数字权证服务开通详情
+     * Summary: 数字权证服务开通信息详情
+     */
+    public DetailAliyunServiceResponse detailAliyunServiceEx(DetailAliyunServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.aliyun.service.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAliyunServiceResponse());
+    }
+
+    /**
+     * Description: 查询数字权证项目列表内容
+     * Summary: 查询数字权证项目列表内容
+     */
+    public QueryAliyunProjectResponse queryAliyunProject(QueryAliyunProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAliyunProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询数字权证项目列表内容
+     * Summary: 查询数字权证项目列表内容
+     */
+    public QueryAliyunProjectResponse queryAliyunProjectEx(QueryAliyunProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.aliyun.project.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAliyunProjectResponse());
+    }
+
+    /**
+     * Description: 检测链ID是否为数字权证链
+     * Summary: 检测链ID是否为数字权证链
+     */
+    public CheckAliyunAccessResponse checkAliyunAccess(CheckAliyunAccessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAliyunAccessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 检测链ID是否为数字权证链
+     * Summary: 检测链ID是否为数字权证链
+     */
+    public CheckAliyunAccessResponse checkAliyunAccessEx(CheckAliyunAccessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.aliyun.access.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAliyunAccessResponse());
     }
 
     /**
@@ -388,7 +485,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字权证增发(异步)
+     * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
      * Summary: 数字权证增发(异步)
      */
     public ExecContractAddsupplyResponse execContractAddsupply(ExecContractAddsupplyRequest request) throws Exception {
@@ -398,7 +495,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字权证增发(异步)
+     * Description: 数字权证增发(异步)，高性能版本暂不支持此接口
      * Summary: 数字权证增发(异步)
      */
     public ExecContractAddsupplyResponse execContractAddsupplyEx(ExecContractAddsupplyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -464,7 +561,7 @@ public class Client {
     }
 
     /**
-     * Description: 查询特定账户下的权证信息
+     * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
      * Summary: 查询特定账户下的权证信息
      */
     public QueryContractAssetResponse queryContractAsset(QueryContractAssetRequest request) throws Exception {
@@ -474,7 +571,7 @@ public class Client {
     }
 
     /**
-     * Description: 查询特定账户下的权证信息
+     * Description: 查询特定账户下的权证信息，高性能版本暂不支持此接口
      * Summary: 查询特定账户下的权证信息
      */
     public QueryContractAssetResponse queryContractAssetEx(QueryContractAssetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -580,7 +677,7 @@ public class Client {
     }
 
     /**
-     * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+     * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
      * Summary: 批量发行权证到指定账户(异步)
      */
     public ExecContractBatchissueResponse execContractBatchissue(ExecContractBatchissueRequest request) throws Exception {
@@ -590,11 +687,30 @@ public class Client {
     }
 
     /**
-     * Description: 共享型项目批量发行权证到指定账户，非共享型项目无法使用此接口
+     * Description: 共享型项目批量发行权证到指定账户，非共享型项目及高性能版本无法使用此接口
      * Summary: 批量发行权证到指定账户(异步)
      */
     public ExecContractBatchissueResponse execContractBatchissueEx(ExecContractBatchissueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.contract.batchissue.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecContractBatchissueResponse());
+    }
+
+    /**
+     * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+     * Summary: 批量发行权证到指定账户(异步)
+     */
+    public ExecContractListissueResponse execContractListissue(ExecContractListissueRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execContractListissueEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 高性能共享型批量发行权证到指定账户，非高性能共享型项目无法使用此接口
+     * Summary: 批量发行权证到指定账户(异步)
+     */
+    public ExecContractListissueResponse execContractListissueEx(ExecContractListissueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecContractListissueResponse());
     }
 }
