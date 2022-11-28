@@ -2341,11 +2341,14 @@ export class CreateActivitychainrecordResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 上链成功后返回，链上hash值
+  chainHash?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      chainHash: 'chain_hash',
     };
   }
 
@@ -2354,6 +2357,7 @@ export class CreateActivitychainrecordResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      chainHash: 'string',
     };
   }
 
@@ -2475,9 +2479,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
-          _prod_code: "MYCHARITY",
-          _prod_channel: "undefined",
+          sdk_version: "1.0.20",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
