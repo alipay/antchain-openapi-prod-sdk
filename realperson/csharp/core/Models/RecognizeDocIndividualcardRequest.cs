@@ -25,11 +25,11 @@ namespace AntChain.SDK.REALPERSON.Models
         public string OutOrderNo { get; set; }
 
         // 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
-        [NameInMap("card_type")]
+        [NameInMap("ocr_type")]
         [Validation(Required=true)]
-        public string CardType { get; set; }
+        public string OcrType { get; set; }
 
-        // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+        // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
         [NameInMap("data_type")]
         [Validation(Required=true)]
         public string DataType { get; set; }
@@ -39,7 +39,7 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string DataContent { get; set; }
 
-        // 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+        // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
         [NameInMap("req_enc_type")]
         [Validation(Required=false)]
         public string ReqEncType { get; set; }
@@ -49,10 +49,10 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string RespEncType { get; set; }
 
-        // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
-        [NameInMap("resp_enc_token")]
+        // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+        [NameInMap("enc_token")]
         [Validation(Required=false)]
-        public string RespEncToken { get; set; }
+        public string EncToken { get; set; }
 
         // 扩展信息JSON串。
         [NameInMap("extern_param")]
