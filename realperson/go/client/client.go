@@ -2457,17 +2457,17 @@ type RecognizeDocIndividualcardRequest struct {
 	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
-	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty" require:"true"`
-	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+	OcrType *string `json:"ocr_type,omitempty" xml:"ocr_type,omitempty" require:"true"`
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
 	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 	// 传入的图片的具体内容，需要与data_type的选择保持一致。
 	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty" require:"true"`
-	// 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	// 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
 	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
 	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
 	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
-	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
-	RespEncToken *string `json:"resp_enc_token,omitempty" xml:"resp_enc_token,omitempty"`
+	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
 	// 扩展信息JSON串。
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -2495,8 +2495,8 @@ func (s *RecognizeDocIndividualcardRequest) SetOutOrderNo(v string) *RecognizeDo
 	return s
 }
 
-func (s *RecognizeDocIndividualcardRequest) SetCardType(v string) *RecognizeDocIndividualcardRequest {
-	s.CardType = &v
+func (s *RecognizeDocIndividualcardRequest) SetOcrType(v string) *RecognizeDocIndividualcardRequest {
+	s.OcrType = &v
 	return s
 }
 
@@ -2520,8 +2520,8 @@ func (s *RecognizeDocIndividualcardRequest) SetRespEncType(v string) *RecognizeD
 	return s
 }
 
-func (s *RecognizeDocIndividualcardRequest) SetRespEncToken(v string) *RecognizeDocIndividualcardRequest {
-	s.RespEncToken = &v
+func (s *RecognizeDocIndividualcardRequest) SetEncToken(v string) *RecognizeDocIndividualcardRequest {
+	s.EncToken = &v
 	return s
 }
 
@@ -2839,7 +2839,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.0"),
+				"sdk_version":      tea.String("1.10.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
