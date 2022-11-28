@@ -2909,12 +2909,12 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         out_order_no: str = None,
-        card_type: str = None,
+        ocr_type: str = None,
         data_type: str = None,
         data_content: str = None,
         req_enc_type: str = None,
         resp_enc_type: str = None,
-        resp_enc_token: str = None,
+        enc_token: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -2924,23 +2924,23 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         # 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
         self.out_order_no = out_order_no
         # 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
-        self.card_type = card_type
-        # 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+        self.ocr_type = ocr_type
+        # 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
         self.data_type = data_type
         # 传入的图片的具体内容，需要与data_type的选择保持一致。
         self.data_content = data_content
-        # 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+        # 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
         self.req_enc_type = req_enc_type
         # 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
         self.resp_enc_type = resp_enc_type
-        # 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
-        self.resp_enc_token = resp_enc_token
+        # 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+        self.enc_token = enc_token
         # 扩展信息JSON串。
         self.extern_param = extern_param
 
     def validate(self):
         self.validate_required(self.out_order_no, 'out_order_no')
-        self.validate_required(self.card_type, 'card_type')
+        self.validate_required(self.ocr_type, 'ocr_type')
         self.validate_required(self.data_type, 'data_type')
         self.validate_required(self.data_content, 'data_content')
 
@@ -2956,8 +2956,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.out_order_no is not None:
             result['out_order_no'] = self.out_order_no
-        if self.card_type is not None:
-            result['card_type'] = self.card_type
+        if self.ocr_type is not None:
+            result['ocr_type'] = self.ocr_type
         if self.data_type is not None:
             result['data_type'] = self.data_type
         if self.data_content is not None:
@@ -2966,8 +2966,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             result['req_enc_type'] = self.req_enc_type
         if self.resp_enc_type is not None:
             result['resp_enc_type'] = self.resp_enc_type
-        if self.resp_enc_token is not None:
-            result['resp_enc_token'] = self.resp_enc_token
+        if self.enc_token is not None:
+            result['enc_token'] = self.enc_token
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -2980,8 +2980,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('out_order_no') is not None:
             self.out_order_no = m.get('out_order_no')
-        if m.get('card_type') is not None:
-            self.card_type = m.get('card_type')
+        if m.get('ocr_type') is not None:
+            self.ocr_type = m.get('ocr_type')
         if m.get('data_type') is not None:
             self.data_type = m.get('data_type')
         if m.get('data_content') is not None:
@@ -2990,8 +2990,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             self.req_enc_type = m.get('req_enc_type')
         if m.get('resp_enc_type') is not None:
             self.resp_enc_type = m.get('resp_enc_type')
-        if m.get('resp_enc_token') is not None:
-            self.resp_enc_token = m.get('resp_enc_token')
+        if m.get('enc_token') is not None:
+            self.enc_token = m.get('enc_token')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
