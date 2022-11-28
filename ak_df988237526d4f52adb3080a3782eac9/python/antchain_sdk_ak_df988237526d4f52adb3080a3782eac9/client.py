@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4',
+                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4',
+                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_demo_abc_abc_abc(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_abc_abc_abc_ex(request, headers, runtime)
+
+    async def query_demo_abc_abc_abc_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_abc_abc_abc_ex_async(request, headers, runtime)
+
+    def query_demo_abc_abc_abc_ex(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse(),
+            self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_abc_abc_abc_ex_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoAbcAbcAbcResponse(),
+            await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def init_demo_bbp_insurance_user(
         self,
