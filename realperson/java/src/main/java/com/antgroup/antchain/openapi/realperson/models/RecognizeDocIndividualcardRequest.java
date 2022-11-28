@@ -18,11 +18,11 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     public String outOrderNo;
 
     // 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
-    @NameInMap("card_type")
+    @NameInMap("ocr_type")
     @Validation(required = true)
-    public String cardType;
+    public String ocrType;
 
-    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
     @NameInMap("data_type")
     @Validation(required = true)
     public String dataType;
@@ -32,7 +32,7 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     @Validation(required = true)
     public String dataContent;
 
-    // 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+    // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
     @NameInMap("req_enc_type")
     public String reqEncType;
 
@@ -40,9 +40,9 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     @NameInMap("resp_enc_type")
     public String respEncType;
 
-    // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
-    @NameInMap("resp_enc_token")
-    public String respEncToken;
+    // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+    @NameInMap("enc_token")
+    public String encToken;
 
     // 扩展信息JSON串。
     @NameInMap("extern_param")
@@ -77,12 +77,12 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
         return this.outOrderNo;
     }
 
-    public RecognizeDocIndividualcardRequest setCardType(String cardType) {
-        this.cardType = cardType;
+    public RecognizeDocIndividualcardRequest setOcrType(String ocrType) {
+        this.ocrType = ocrType;
         return this;
     }
-    public String getCardType() {
-        return this.cardType;
+    public String getOcrType() {
+        return this.ocrType;
     }
 
     public RecognizeDocIndividualcardRequest setDataType(String dataType) {
@@ -117,12 +117,12 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
         return this.respEncType;
     }
 
-    public RecognizeDocIndividualcardRequest setRespEncToken(String respEncToken) {
-        this.respEncToken = respEncToken;
+    public RecognizeDocIndividualcardRequest setEncToken(String encToken) {
+        this.encToken = encToken;
         return this;
     }
-    public String getRespEncToken() {
-        return this.respEncToken;
+    public String getEncToken() {
+        return this.encToken;
     }
 
     public RecognizeDocIndividualcardRequest setExternParam(String externParam) {
