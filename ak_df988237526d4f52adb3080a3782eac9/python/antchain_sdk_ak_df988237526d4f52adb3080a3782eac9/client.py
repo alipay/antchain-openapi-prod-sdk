@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
-                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
-                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -329,4 +325,60 @@ class Client:
         return TeaCore.from_map(
             ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.InitDemoBbpInsuranceUserResponse(),
             await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_gongxiang_test_demo(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse:
+        """
+        Description: 共享能力中心六期回归验证创建使用
+        Summary: 共享能力中心六期回归验证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_gongxiang_test_demo_ex(request, headers, runtime)
+
+    async def query_demo_gongxiang_test_demo_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse:
+        """
+        Description: 共享能力中心六期回归验证创建使用
+        Summary: 共享能力中心六期回归验证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_gongxiang_test_demo_ex_async(request, headers, runtime)
+
+    def query_demo_gongxiang_test_demo_ex(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse:
+        """
+        Description: 共享能力中心六期回归验证创建使用
+        Summary: 共享能力中心六期回归验证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse(),
+            self.do_request('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_gongxiang_test_demo_ex_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse:
+        """
+        Description: 共享能力中心六期回归验证创建使用
+        Summary: 共享能力中心六期回归验证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse(),
+            await self.do_request_async('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
