@@ -3082,6 +3082,8 @@ type CreateActivitychainrecordResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上链成功后返回，链上hash值
+	ChainHash *string `json:"chain_hash,omitempty" xml:"chain_hash,omitempty"`
 }
 
 func (s CreateActivitychainrecordResponse) String() string {
@@ -3104,6 +3106,11 @@ func (s *CreateActivitychainrecordResponse) SetResultCode(v string) *CreateActiv
 
 func (s *CreateActivitychainrecordResponse) SetResultMsg(v string) *CreateActivitychainrecordResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordResponse) SetChainHash(v string) *CreateActivitychainrecordResponse {
+	s.ChainHash = &v
 	return s
 }
 
@@ -3229,9 +3236,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
-				"_prod_code":       tea.String("MYCHARITY"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.0.20"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
