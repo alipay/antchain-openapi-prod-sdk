@@ -3986,6 +3986,7 @@ class CreateActivitychainrecordResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        chain_hash: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3993,6 +3994,8 @@ class CreateActivitychainrecordResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 上链成功后返回，链上hash值
+        self.chain_hash = chain_hash
 
     def validate(self):
         pass
@@ -4009,6 +4012,8 @@ class CreateActivitychainrecordResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.chain_hash is not None:
+            result['chain_hash'] = self.chain_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -4019,6 +4024,8 @@ class CreateActivitychainrecordResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('chain_hash') is not None:
+            self.chain_hash = m.get('chain_hash')
         return self
 
 
