@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
-                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
-                    '_prod_code': 'ak_df988237526d4f52adb3080a3782eac9',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -387,6 +383,96 @@ class Client:
             await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def import_demo_com_cn_test(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse:
+        """
+        Description: 长捷,qiujianglong.qjl
+        Summary: api简介
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_demo_com_cn_test_ex(request, headers, runtime)
+
+    async def import_demo_com_cn_test_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse:
+        """
+        Description: 长捷,qiujianglong.qjl
+        Summary: api简介
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_demo_com_cn_test_ex_async(request, headers, runtime)
+
+    def import_demo_com_cn_test_ex(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse:
+        """
+        Description: 长捷,qiujianglong.qjl
+        Summary: api简介
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.com.cn.test.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_demo_com_cn_test_response = ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_demo_com_cn_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse(),
+            self.do_request('1.0', 'demo.com.cn.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_demo_com_cn_test_ex_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse:
+        """
+        Description: 长捷,qiujianglong.qjl
+        Summary: api简介
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.com.cn.test.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_demo_com_cn_test_response = ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_demo_com_cn_test_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.ImportDemoComCnTestResponse(),
+            await self.do_request_async('1.0', 'demo.com.cn.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_demo_gongxiang_test_demo(
         self,
         request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoRequest,
@@ -441,4 +527,60 @@ class Client:
         return TeaCore.from_map(
             ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.QueryDemoGongxiangTestDemoResponse(),
             await self.do_request_async('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_df_988237526d_4f_52adb_3080a_3782eac_9_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
