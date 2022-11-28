@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
-                    new TeaPair("_prod_code", "ak_df988237526d4f52adb3080a3782eac9"),
-                    new TeaPair("_prod_channel", "saas")
+                    new TeaPair("sdk_version", "1.0.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -178,5 +176,24 @@ public class Client {
     public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse());
+    }
+
+    /**
+     * Description: 共享能力中心六期回归验证创建使用
+     * Summary: 共享能力中心六期回归验证创建
+     */
+    public QueryDemoGongxiangTestDemoResponse queryDemoGongxiangTestDemo(QueryDemoGongxiangTestDemoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoGongxiangTestDemoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 共享能力中心六期回归验证创建使用
+     * Summary: 共享能力中心六期回归验证创建
+     */
+    public QueryDemoGongxiangTestDemoResponse queryDemoGongxiangTestDemoEx(QueryDemoGongxiangTestDemoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoGongxiangTestDemoResponse());
     }
 }
