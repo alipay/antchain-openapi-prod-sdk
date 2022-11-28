@@ -21,6 +21,10 @@ use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoAbcAbcAbcReques
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoGongxiangTestDemoRequest;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoGongxiangTestDemoResponse;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\RegisterDemoTestBizeventMessageRequest;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\RegisterDemoTestBizeventMessageResponse;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\UploadDemoCjtestSourceFileRequest;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\UploadDemoCjtestSourceFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -168,7 +172,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.6',
+                    'sdk_version'      => '1.0.7',
+                    '_prod_code'       => 'ak_df988237526d4f52adb3080a3782eac9',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -281,6 +287,57 @@ class Client
     }
 
     /**
+     * Description: 文件测试
+     * Summary: 文件测试.
+     *
+     * @param UploadDemoCjtestSourceFileRequest $request
+     *
+     * @return UploadDemoCjtestSourceFileResponse
+     */
+    public function uploadDemoCjtestSourceFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadDemoCjtestSourceFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件测试
+     * Summary: 文件测试.
+     *
+     * @param UploadDemoCjtestSourceFileRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UploadDemoCjtestSourceFileResponse
+     */
+    public function uploadDemoCjtestSourceFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.cjtest.source.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadDemoCjtestSourceFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadDemoCjtestSourceFileResponse::fromMap($this->doRequest('1.0', 'demo.cjtest.source.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 长捷,qiujianglong.qjl
      * Summary: api简介.
      *
@@ -362,6 +419,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoGongxiangTestDemoResponse::fromMap($this->doRequest('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterDemoTestBizeventMessageRequest $request
+     *
+     * @return RegisterDemoTestBizeventMessageResponse
+     */
+    public function registerDemoTestBizeventMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerDemoTestBizeventMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterDemoTestBizeventMessageRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return RegisterDemoTestBizeventMessageResponse
+     */
+    public function registerDemoTestBizeventMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterDemoTestBizeventMessageResponse::fromMap($this->doRequest('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
