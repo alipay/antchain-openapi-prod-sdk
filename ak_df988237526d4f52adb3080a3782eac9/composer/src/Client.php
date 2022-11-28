@@ -15,6 +15,8 @@ use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\CreateAntcloudGatewayxFi
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\InitDemoBbpInsuranceUserRequest;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\InitDemoBbpInsuranceUserResponse;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoAbcAbcAbcRequest;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoGongxiangTestDemoRequest;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoGongxiangTestDemoResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\UploadDemoCjtestSourceFileRequest;
@@ -166,7 +168,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
+                    '_prod_code'       => 'ak_df988237526d4f52adb3080a3782eac9',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -210,6 +214,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
