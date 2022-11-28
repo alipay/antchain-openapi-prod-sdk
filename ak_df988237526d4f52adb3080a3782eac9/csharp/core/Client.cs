@@ -137,9 +137,7 @@ namespace AntChain.SDK.Ak_df988237526d4f52adb3080a3782eac9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_df988237526d4f52adb3080a3782eac9"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.Ak_df988237526d4f52adb3080a3782eac9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
-                        {"_prod_code", "ak_df988237526d4f52adb3080a3782eac9"},
-                        {"_prod_channel", "saas"},
+                        {"sdk_version", "1.0.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -361,6 +357,48 @@ namespace AntChain.SDK.Ak_df988237526d4f52adb3080a3782eac9
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(await DoRequestAsync("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力中心六期回归验证创建使用
+         * Summary: 共享能力中心六期回归验证创建
+         */
+        public QueryDemoGongxiangTestDemoResponse QueryDemoGongxiangTestDemo(QueryDemoGongxiangTestDemoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoGongxiangTestDemoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力中心六期回归验证创建使用
+         * Summary: 共享能力中心六期回归验证创建
+         */
+        public async Task<QueryDemoGongxiangTestDemoResponse> QueryDemoGongxiangTestDemoAsync(QueryDemoGongxiangTestDemoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoGongxiangTestDemoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 共享能力中心六期回归验证创建使用
+         * Summary: 共享能力中心六期回归验证创建
+         */
+        public QueryDemoGongxiangTestDemoResponse QueryDemoGongxiangTestDemoEx(QueryDemoGongxiangTestDemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoGongxiangTestDemoResponse>(DoRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 共享能力中心六期回归验证创建使用
+         * Summary: 共享能力中心六期回归验证创建
+         */
+        public async Task<QueryDemoGongxiangTestDemoResponse> QueryDemoGongxiangTestDemoExAsync(QueryDemoGongxiangTestDemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoGongxiangTestDemoResponse>(await DoRequestAsync("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
