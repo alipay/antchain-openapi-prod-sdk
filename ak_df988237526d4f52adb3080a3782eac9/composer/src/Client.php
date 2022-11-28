@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\ImportDemoComCnTestRequest;
+use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\ImportDemoComCnTestResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\InitDemoBbpInsuranceUserRequest;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\InitDemoBbpInsuranceUserResponse;
 use AntChain\Ak_df988237526d4f52adb3080a3782eac9\Models\QueryDemoAbcAbcAbcRequest;
@@ -164,9 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
-                    '_prod_code'       => 'ak_df988237526d4f52adb3080a3782eac9',
-                    '_prod_channel'    => 'saas',
+                    'sdk_version'      => '1.0.6',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -279,6 +281,57 @@ class Client
     }
 
     /**
+     * Description: 长捷,qiujianglong.qjl
+     * Summary: api简介.
+     *
+     * @param ImportDemoComCnTestRequest $request
+     *
+     * @return ImportDemoComCnTestResponse
+     */
+    public function importDemoComCnTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDemoComCnTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长捷,qiujianglong.qjl
+     * Summary: api简介.
+     *
+     * @param ImportDemoComCnTestRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ImportDemoComCnTestResponse
+     */
+    public function importDemoComCnTestEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.com.cn.test.import',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ImportDemoComCnTestResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return ImportDemoComCnTestResponse::fromMap($this->doRequest('1.0', 'demo.com.cn.test.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 共享能力中心六期回归验证创建使用
      * Summary: 共享能力中心六期回归验证创建.
      *
@@ -309,5 +362,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoGongxiangTestDemoResponse::fromMap($this->doRequest('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
