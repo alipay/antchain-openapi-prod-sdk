@@ -25,10 +25,17 @@ class CreateActivitychainrecordResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 上链成功后返回，链上hash值
+    /**
+     * @var string
+     */
+    public $chainHash;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'chainHash'  => 'chain_hash',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class CreateActivitychainrecordResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->chainHash) {
+            $res['chain_hash'] = $this->chainHash;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class CreateActivitychainrecordResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['chain_hash'])) {
+            $model->chainHash = $map['chain_hash'];
         }
 
         return $model;
