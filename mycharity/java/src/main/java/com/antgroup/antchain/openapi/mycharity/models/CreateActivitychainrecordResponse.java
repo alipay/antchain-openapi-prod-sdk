@@ -16,6 +16,10 @@ public class CreateActivitychainrecordResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 上链成功后返回，链上hash值
+    @NameInMap("chain_hash")
+    public String chainHash;
+
     public static CreateActivitychainrecordResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateActivitychainrecordResponse self = new CreateActivitychainrecordResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class CreateActivitychainrecordResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public CreateActivitychainrecordResponse setChainHash(String chainHash) {
+        this.chainHash = chainHash;
+        return this;
+    }
+    public String getChainHash() {
+        return this.chainHash;
     }
 
 }
