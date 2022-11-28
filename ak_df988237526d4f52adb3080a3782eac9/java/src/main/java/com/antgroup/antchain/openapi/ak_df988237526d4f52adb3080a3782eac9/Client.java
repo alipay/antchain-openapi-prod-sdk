@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.5"),
-                    new TeaPair("_prod_code", "ak_df988237526d4f52adb3080a3782eac9"),
-                    new TeaPair("_prod_channel", "saas")
+                    new TeaPair("sdk_version", "1.0.6")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -200,6 +198,46 @@ public class Client {
     }
 
     /**
+     * Description: 长捷,qiujianglong.qjl
+     * Summary: api简介
+     */
+    public ImportDemoComCnTestResponse importDemoComCnTest(ImportDemoComCnTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importDemoComCnTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 长捷,qiujianglong.qjl
+     * Summary: api简介
+     */
+    public ImportDemoComCnTestResponse importDemoComCnTestEx(ImportDemoComCnTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "demo.com.cn.test.import"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ImportDemoComCnTestResponse importDemoComCnTestResponse = ImportDemoComCnTestResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return importDemoComCnTestResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.com.cn.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportDemoComCnTestResponse());
+    }
+
+    /**
      * Description: 共享能力中心六期回归验证创建使用
      * Summary: 共享能力中心六期回归验证创建
      */
@@ -216,5 +254,24 @@ public class Client {
     public QueryDemoGongxiangTestDemoResponse queryDemoGongxiangTestDemoEx(QueryDemoGongxiangTestDemoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoGongxiangTestDemoResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
