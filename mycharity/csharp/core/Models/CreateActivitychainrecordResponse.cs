@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 上链成功后返回，链上hash值
+        [NameInMap("chain_hash")]
+        [Validation(Required=false)]
+        public string ChainHash { get; set; }
+
     }
 
 }
