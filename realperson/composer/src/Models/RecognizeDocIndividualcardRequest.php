@@ -30,9 +30,9 @@ class RecognizeDocIndividualcardRequest extends Model
     /**
      * @var string
      */
-    public $cardType;
+    public $ocrType;
 
-    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（类型为URL）
+    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
     /**
      * @var string
      */
@@ -44,7 +44,7 @@ class RecognizeDocIndividualcardRequest extends Model
      */
     public $dataContent;
 
-    // 入参data_content是否经公钥RSA加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+    // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
     /**
      * @var string
      */
@@ -56,11 +56,11 @@ class RecognizeDocIndividualcardRequest extends Model
      */
     public $respEncType;
 
-    // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当resp_enc_type =1时必填。
+    // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
     /**
      * @var string
      */
-    public $respEncToken;
+    public $encToken;
 
     // 扩展信息JSON串。
     /**
@@ -71,19 +71,19 @@ class RecognizeDocIndividualcardRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outOrderNo'        => 'out_order_no',
-        'cardType'          => 'card_type',
+        'ocrType'           => 'ocr_type',
         'dataType'          => 'data_type',
         'dataContent'       => 'data_content',
         'reqEncType'        => 'req_enc_type',
         'respEncType'       => 'resp_enc_type',
-        'respEncToken'      => 'resp_enc_token',
+        'encToken'          => 'enc_token',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
-        Model::validateRequired('cardType', $this->cardType, true);
+        Model::validateRequired('ocrType', $this->ocrType, true);
         Model::validateRequired('dataType', $this->dataType, true);
         Model::validateRequired('dataContent', $this->dataContent, true);
     }
@@ -100,8 +100,8 @@ class RecognizeDocIndividualcardRequest extends Model
         if (null !== $this->outOrderNo) {
             $res['out_order_no'] = $this->outOrderNo;
         }
-        if (null !== $this->cardType) {
-            $res['card_type'] = $this->cardType;
+        if (null !== $this->ocrType) {
+            $res['ocr_type'] = $this->ocrType;
         }
         if (null !== $this->dataType) {
             $res['data_type'] = $this->dataType;
@@ -115,8 +115,8 @@ class RecognizeDocIndividualcardRequest extends Model
         if (null !== $this->respEncType) {
             $res['resp_enc_type'] = $this->respEncType;
         }
-        if (null !== $this->respEncToken) {
-            $res['resp_enc_token'] = $this->respEncToken;
+        if (null !== $this->encToken) {
+            $res['enc_token'] = $this->encToken;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -142,8 +142,8 @@ class RecognizeDocIndividualcardRequest extends Model
         if (isset($map['out_order_no'])) {
             $model->outOrderNo = $map['out_order_no'];
         }
-        if (isset($map['card_type'])) {
-            $model->cardType = $map['card_type'];
+        if (isset($map['ocr_type'])) {
+            $model->ocrType = $map['ocr_type'];
         }
         if (isset($map['data_type'])) {
             $model->dataType = $map['data_type'];
@@ -157,8 +157,8 @@ class RecognizeDocIndividualcardRequest extends Model
         if (isset($map['resp_enc_type'])) {
             $model->respEncType = $map['resp_enc_type'];
         }
-        if (isset($map['resp_enc_token'])) {
-            $model->respEncToken = $map['resp_enc_token'];
+        if (isset($map['enc_token'])) {
+            $model->encToken = $map['enc_token'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
