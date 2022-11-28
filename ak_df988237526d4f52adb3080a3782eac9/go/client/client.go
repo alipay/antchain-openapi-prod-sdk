@@ -341,6 +341,90 @@ func (s *InitDemoBbpInsuranceUserResponse) SetResultMsg(v string) *InitDemoBbpIn
 	return s
 }
 
+type UploadDemoCjtestSourceFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// file
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadDemoCjtestSourceFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDemoCjtestSourceFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDemoCjtestSourceFileRequest) SetAuthToken(v string) *UploadDemoCjtestSourceFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileRequest) SetProductInstanceId(v string) *UploadDemoCjtestSourceFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileRequest) SetFileObject(v io.Reader) *UploadDemoCjtestSourceFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileRequest) SetFileObjectName(v string) *UploadDemoCjtestSourceFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileRequest) SetFileId(v string) *UploadDemoCjtestSourceFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadDemoCjtestSourceFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// test
+	Res *string `json:"res,omitempty" xml:"res,omitempty"`
+}
+
+func (s UploadDemoCjtestSourceFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDemoCjtestSourceFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDemoCjtestSourceFileResponse) SetReqMsgId(v string) *UploadDemoCjtestSourceFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileResponse) SetResultCode(v string) *UploadDemoCjtestSourceFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileResponse) SetResultMsg(v string) *UploadDemoCjtestSourceFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadDemoCjtestSourceFileResponse) SetRes(v string) *UploadDemoCjtestSourceFileResponse {
+	s.Res = &v
+	return s
+}
+
 type ImportDemoComCnTestRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -485,6 +569,62 @@ func (s *QueryDemoGongxiangTestDemoResponse) SetResultMsg(v string) *QueryDemoGo
 
 func (s *QueryDemoGongxiangTestDemoResponse) SetCharacter1(v string) *QueryDemoGongxiangTestDemoResponse {
 	s.Character1 = &v
+	return s
+}
+
+type RegisterDemoTestBizeventMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s RegisterDemoTestBizeventMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterDemoTestBizeventMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterDemoTestBizeventMessageRequest) SetAuthToken(v string) *RegisterDemoTestBizeventMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterDemoTestBizeventMessageRequest) SetProductInstanceId(v string) *RegisterDemoTestBizeventMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type RegisterDemoTestBizeventMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RegisterDemoTestBizeventMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterDemoTestBizeventMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterDemoTestBizeventMessageResponse) SetReqMsgId(v string) *RegisterDemoTestBizeventMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterDemoTestBizeventMessageResponse) SetResultCode(v string) *RegisterDemoTestBizeventMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterDemoTestBizeventMessageResponse) SetResultMsg(v string) *RegisterDemoTestBizeventMessageResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -730,7 +870,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
+				"_prod_code":       tea.String("ak_df988237526d4f52adb3080a3782eac9"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -855,6 +997,69 @@ func (client *Client) InitDemoBbpInsuranceUserEx(request *InitDemoBbpInsuranceUs
 }
 
 /**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+func (client *Client) UploadDemoCjtestSourceFile(request *UploadDemoCjtestSourceFileRequest) (_result *UploadDemoCjtestSourceFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadDemoCjtestSourceFileResponse{}
+	_body, _err := client.UploadDemoCjtestSourceFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+func (client *Client) UploadDemoCjtestSourceFileEx(request *UploadDemoCjtestSourceFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadDemoCjtestSourceFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("demo.cjtest.source.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadDemoCjtestSourceFileResponse := &UploadDemoCjtestSourceFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadDemoCjtestSourceFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadDemoCjtestSourceFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.cjtest.source.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 长捷,qiujianglong.qjl
  * Summary: api简介
  */
@@ -944,6 +1149,40 @@ func (client *Client) QueryDemoGongxiangTestDemoEx(request *QueryDemoGongxiangTe
 	}
 	_result = &QueryDemoGongxiangTestDemoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gongxiang.test.demo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+func (client *Client) RegisterDemoTestBizeventMessage(request *RegisterDemoTestBizeventMessageRequest) (_result *RegisterDemoTestBizeventMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterDemoTestBizeventMessageResponse{}
+	_body, _err := client.RegisterDemoTestBizeventMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+func (client *Client) RegisterDemoTestBizeventMessageEx(request *RegisterDemoTestBizeventMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterDemoTestBizeventMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterDemoTestBizeventMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.bizevent.message.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
