@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6")
+                    new TeaPair("sdk_version", "1.0.7"),
+                    new TeaPair("_prod_code", "ak_df988237526d4f52adb3080a3782eac9"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -198,6 +200,46 @@ public class Client {
     }
 
     /**
+     * Description: 文件测试
+     * Summary: 文件测试
+     */
+    public UploadDemoCjtestSourceFileResponse uploadDemoCjtestSourceFile(UploadDemoCjtestSourceFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadDemoCjtestSourceFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件测试
+     * Summary: 文件测试
+     */
+    public UploadDemoCjtestSourceFileResponse uploadDemoCjtestSourceFileEx(UploadDemoCjtestSourceFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "demo.cjtest.source.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadDemoCjtestSourceFileResponse uploadDemoCjtestSourceFileResponse = UploadDemoCjtestSourceFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadDemoCjtestSourceFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.cjtest.source.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadDemoCjtestSourceFileResponse());
+    }
+
+    /**
      * Description: 长捷,qiujianglong.qjl
      * Summary: api简介
      */
@@ -254,6 +296,25 @@ public class Client {
     public QueryDemoGongxiangTestDemoResponse queryDemoGongxiangTestDemoEx(QueryDemoGongxiangTestDemoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoGongxiangTestDemoResponse());
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费
+     */
+    public RegisterDemoTestBizeventMessageResponse registerDemoTestBizeventMessage(RegisterDemoTestBizeventMessageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerDemoTestBizeventMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费
+     */
+    public RegisterDemoTestBizeventMessageResponse registerDemoTestBizeventMessageEx(RegisterDemoTestBizeventMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.bizevent.message.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterDemoTestBizeventMessageResponse());
     }
 
     /**
