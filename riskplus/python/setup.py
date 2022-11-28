@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_riskplus.
 
-Created on 24/11/2022
+Created on 28/11/2022
 
 @author: Ant Chain SDK
 """
