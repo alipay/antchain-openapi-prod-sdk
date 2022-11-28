@@ -194,6 +194,65 @@ export class InitDemoBbpInsuranceUserResponse extends $tea.Model {
   }
 }
 
+export class QueryDemoGongxiangTestDemoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 验证字符
+  character1: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      character1: 'character1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      character1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoGongxiangTestDemoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // aaaaaa
+  character1?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      character1: 'character1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      character1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -307,9 +366,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
-          _prod_code: "ak_df988237526d4f52adb3080a3782eac9",
-          _prod_channel: "saas",
+          sdk_version: "1.0.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -372,6 +429,25 @@ export default class Client {
   async initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDemoBbpInsuranceUserResponse> {
     Util.validateModel(request);
     return $tea.cast<InitDemoBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse({}));
+  }
+
+  /**
+   * Description: 共享能力中心六期回归验证创建使用
+   * Summary: 共享能力中心六期回归验证创建
+   */
+  async queryDemoGongxiangTestDemo(request: QueryDemoGongxiangTestDemoRequest): Promise<QueryDemoGongxiangTestDemoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoGongxiangTestDemoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 共享能力中心六期回归验证创建使用
+   * Summary: 共享能力中心六期回归验证创建
+   */
+  async queryDemoGongxiangTestDemoEx(request: QueryDemoGongxiangTestDemoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoGongxiangTestDemoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoGongxiangTestDemoResponse>(await this.doRequest("1.0", "demo.gongxiang.test.demo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoGongxiangTestDemoResponse({}));
   }
 
 }
