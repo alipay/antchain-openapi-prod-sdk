@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.6',
+    sdk_version = '1.0.7',
+    _prod_code = 'ak_df988237526d4f52adb3080a3782eac9',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -251,6 +253,65 @@ async function initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserReque
   return doRequest('1.0' ,'demo.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model UploadDemoCjtestSourceFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadDemoCjtestSourceFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  res?: string(name='res'),
+}
+
+/**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+async function uploadDemoCjtestSourceFile(request: UploadDemoCjtestSourceFileRequest): UploadDemoCjtestSourceFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadDemoCjtestSourceFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件测试
+ * Summary: 文件测试
+ */
+async function uploadDemoCjtestSourceFileEx(request: UploadDemoCjtestSourceFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadDemoCjtestSourceFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.cjtest.source.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadDemoCjtestSourceFileResponse = new UploadDemoCjtestSourceFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadDemoCjtestSourceFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.cjtest.source.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ImportDemoComCnTestRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -344,6 +405,40 @@ async function queryDemoGongxiangTestDemo(request: QueryDemoGongxiangTestDemoReq
 async function queryDemoGongxiangTestDemoEx(request: QueryDemoGongxiangTestDemoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGongxiangTestDemoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterDemoTestBizeventMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model RegisterDemoTestBizeventMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+async function registerDemoTestBizeventMessage(request: RegisterDemoTestBizeventMessageRequest): RegisterDemoTestBizeventMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerDemoTestBizeventMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+async function registerDemoTestBizeventMessageEx(request: RegisterDemoTestBizeventMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterDemoTestBizeventMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.bizevent.message.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
