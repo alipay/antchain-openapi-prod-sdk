@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMO\Models\BatchcreateSaasTestTestfRequest;
+use AntChain\DEMO\Models\BatchcreateSaasTestTestfResponse;
 use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
 use AntChain\DEMO\Models\BindAsdAsdAsdRequest;
@@ -33,16 +35,28 @@ use AntChain\DEMO\Models\BindTestTestTestRequest;
 use AntChain\DEMO\Models\BindTestTestTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DEMO\Models\CreateSaasTestTesthRequest;
+use AntChain\DEMO\Models\CreateSaasTestTesthResponse;
+use AntChain\DEMO\Models\CreateSaasTestTestiRequest;
+use AntChain\DEMO\Models\CreateSaasTestTestiResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
 use AntChain\DEMO\Models\EchoGatewayCheckResponse;
 use AntChain\DEMO\Models\ExecGatewayRoadRequest;
 use AntChain\DEMO\Models\ExecGatewayRoadResponse;
 use AntChain\DEMO\Models\ImportComCnTestRequest;
 use AntChain\DEMO\Models\ImportComCnTestResponse;
+use AntChain\DEMO\Models\ImportSaasTestTestbRequest;
+use AntChain\DEMO\Models\ImportSaasTestTestbResponse;
 use AntChain\DEMO\Models\InitBbpInsuranceUserRequest;
 use AntChain\DEMO\Models\InitBbpInsuranceUserResponse;
 use AntChain\DEMO\Models\InitGatewayRoadRequest;
 use AntChain\DEMO\Models\InitGatewayRoadResponse;
+use AntChain\DEMO\Models\OpenSaasTestTestgRequest;
+use AntChain\DEMO\Models\OpenSaasTestTestgResponse;
+use AntChain\DEMO\Models\OperateSaasTestTesteRequest;
+use AntChain\DEMO\Models\OperateSaasTestTesteResponse;
+use AntChain\DEMO\Models\PublishSaasTestTestcRequest;
+use AntChain\DEMO\Models\PublishSaasTestTestcResponse;
 use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
@@ -67,6 +81,10 @@ use AntChain\DEMO\Models\QueryGongxiangTestDemoRequest;
 use AntChain\DEMO\Models\QueryGongxiangTestDemoResponse;
 use AntChain\DEMO\Models\QueryMasterstationMasterdataRequest;
 use AntChain\DEMO\Models\QueryMasterstationMasterdataResponse;
+use AntChain\DEMO\Models\QueryMasterstationMasterdataStatusRequest;
+use AntChain\DEMO\Models\QueryMasterstationMasterdataStatusResponse;
+use AntChain\DEMO\Models\QuerySaasTestTestaRequest;
+use AntChain\DEMO\Models\QuerySaasTestTestaResponse;
 use AntChain\DEMO\Models\QueryTestAaaBbbRequest;
 use AntChain\DEMO\Models\QueryTestAaaBbbResponse;
 use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
@@ -75,12 +93,20 @@ use AntChain\DEMO\Models\QueryTestTestobjectBbbRequest;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbResponse;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageResponse;
+use AntChain\DEMO\Models\ReplaceSaasTestTestjRequest;
+use AntChain\DEMO\Models\ReplaceSaasTestTestjResponse;
 use AntChain\DEMO\Models\ResetCjtestApiAuthorizeRequest;
 use AntChain\DEMO\Models\ResetCjtestApiAuthorizeResponse;
 use AntChain\DEMO\Models\ResetComCnCcRequest;
 use AntChain\DEMO\Models\ResetComCnCcResponse;
+use AntChain\DEMO\Models\ResetSaasTestTestdRequest;
+use AntChain\DEMO\Models\ResetSaasTestTestdResponse;
+use AntChain\DEMO\Models\SendSaasTestTestkRequest;
+use AntChain\DEMO\Models\SendSaasTestTestkResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
+use AntChain\DEMO\Models\UnstabilizeTestTestTestRequest;
+use AntChain\DEMO\Models\UnstabilizeTestTestTestResponse;
 use AntChain\DEMO\Models\UpdateCjtestCjRequest;
 use AntChain\DEMO\Models\UpdateCjtestCjResponse;
 use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
@@ -206,7 +232,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // Demo类
+            // Demo类1
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -234,7 +260,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.120',
+                    'sdk_version'      => '1.0.139',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -381,7 +407,6 @@ class Client
 
     /**
      * Description: Demo接口，返回当输入的值
-     * 测试下
      * Summary: 返回输入值
      *
      * @param EchoGatewayCheckRequest $request
@@ -398,7 +423,6 @@ class Client
 
     /**
      * Description: Demo接口，返回当输入的值
-     * 测试下
      * Summary: 返回输入值
      *
      * @param EchoGatewayCheckRequest $request
@@ -1078,6 +1102,72 @@ class Client
     }
 
     /**
+     * Description: test
+     * Summary: 查询主数据.
+     *
+     * @param QueryMasterstationMasterdataStatusRequest $request
+     *
+     * @return QueryMasterstationMasterdataStatusResponse
+     */
+    public function queryMasterstationMasterdataStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMasterstationMasterdataStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: 查询主数据.
+     *
+     * @param QueryMasterstationMasterdataStatusRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryMasterstationMasterdataStatusResponse
+     */
+    public function queryMasterstationMasterdataStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMasterstationMasterdataStatusResponse::fromMap($this->doRequest('1.0', 'demo.masterstation.masterdata.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param UnstabilizeTestTestTestRequest $request
+     *
+     * @return UnstabilizeTestTestTestResponse
+     */
+    public function unstabilizeTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unstabilizeTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param UnstabilizeTestTestTestRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UnstabilizeTestTestTestResponse
+     */
+    public function unstabilizeTestTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnstabilizeTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.unstabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: asd
      * Summary: asd.
      *
@@ -1276,6 +1366,369 @@ class Client
     }
 
     /**
+     * Description: testa
+     * Summary: 测试用api.
+     *
+     * @param QuerySaasTestTestaRequest $request
+     *
+     * @return QuerySaasTestTestaResponse
+     */
+    public function querySaasTestTesta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasTestTestaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testa
+     * Summary: 测试用api.
+     *
+     * @param QuerySaasTestTestaRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QuerySaasTestTestaResponse
+     */
+    public function querySaasTestTestaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportSaasTestTestbRequest $request
+     *
+     * @return ImportSaasTestTestbResponse
+     */
+    public function importSaasTestTestb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importSaasTestTestbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportSaasTestTestbRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ImportSaasTestTestbResponse
+     */
+    public function importSaasTestTestbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportSaasTestTestbResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testc
+     * Summary: 测试用api.
+     *
+     * @param PublishSaasTestTestcRequest $request
+     *
+     * @return PublishSaasTestTestcResponse
+     */
+    public function publishSaasTestTestc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishSaasTestTestcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testc
+     * Summary: 测试用api.
+     *
+     * @param PublishSaasTestTestcRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PublishSaasTestTestcResponse
+     */
+    public function publishSaasTestTestcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishSaasTestTestcResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testc.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ResetSaasTestTestdRequest $request
+     *
+     * @return ResetSaasTestTestdResponse
+     */
+    public function resetSaasTestTestd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetSaasTestTestdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ResetSaasTestTestdRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ResetSaasTestTestdResponse
+     */
+    public function resetSaasTestTestdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetSaasTestTestdResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testd.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OperateSaasTestTesteRequest $request
+     *
+     * @return OperateSaasTestTesteResponse
+     */
+    public function operateSaasTestTeste($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateSaasTestTesteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OperateSaasTestTesteRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return OperateSaasTestTesteResponse
+     */
+    public function operateSaasTestTesteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateSaasTestTesteResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.teste.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param BatchcreateSaasTestTestfRequest $request
+     *
+     * @return BatchcreateSaasTestTestfResponse
+     */
+    public function batchcreateSaasTestTestf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateSaasTestTestfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param BatchcreateSaasTestTestfRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return BatchcreateSaasTestTestfResponse
+     */
+    public function batchcreateSaasTestTestfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateSaasTestTestfResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testf.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OpenSaasTestTestgRequest $request
+     *
+     * @return OpenSaasTestTestgResponse
+     */
+    public function openSaasTestTestg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openSaasTestTestgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param OpenSaasTestTestgRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return OpenSaasTestTestgResponse
+     */
+    public function openSaasTestTestgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenSaasTestTestgResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testg.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateSaasTestTesthRequest $request
+     *
+     * @return CreateSaasTestTesthResponse
+     */
+    public function createSaasTestTesth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSaasTestTesthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateSaasTestTesthRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateSaasTestTesthResponse
+     */
+    public function createSaasTestTesthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSaasTestTesthResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testh.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateSaasTestTestiRequest $request
+     *
+     * @return CreateSaasTestTestiResponse
+     */
+    public function createSaasTestTesti($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSaasTestTestiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param CreateSaasTestTestiRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateSaasTestTestiResponse
+     */
+    public function createSaasTestTestiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSaasTestTestiResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testi.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ReplaceSaasTestTestjRequest $request
+     *
+     * @return ReplaceSaasTestTestjResponse
+     */
+    public function replaceSaasTestTestj($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceSaasTestTestjEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param ReplaceSaasTestTestjRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ReplaceSaasTestTestjResponse
+     */
+    public function replaceSaasTestTestjEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceSaasTestTestjResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testj.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendSaasTestTestkRequest $request
+     *
+     * @return SendSaasTestTestkResponse
+     */
+    public function sendSaasTestTestk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendSaasTestTestkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力租户流量测试
+     * Summary: 共享能力租户流量测试.
+     *
+     * @param SendSaasTestTestkRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SendSaasTestTestkResponse
+     */
+    public function sendSaasTestTestkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendSaasTestTestkResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testk.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 随机测试
      * Summary: 消息发送及消费.
      *
@@ -1343,7 +1796,7 @@ class Client
 
     /**
      * Description: 自动化测试创建
-     * Summary: 自动化测试创建1.
+     * Summary: 自动化测试创建.
      *
      * @param BindAaaBbbCccRequest $request
      *
@@ -1359,7 +1812,7 @@ class Client
 
     /**
      * Description: 自动化测试创建
-     * Summary: 自动化测试创建1.
+     * Summary: 自动化测试创建.
      *
      * @param BindAaaBbbCccRequest $request
      * @param string[]             $headers
@@ -1507,7 +1960,7 @@ class Client
     }
 
     /**
-     * Description: 1
+     * Description: 长捷,qiujianglong.qjl
      * Summary: api简介.
      *
      * @param ImportComCnTestRequest $request
@@ -1523,7 +1976,7 @@ class Client
     }
 
     /**
-     * Description: 1
+     * Description: 长捷,qiujianglong.qjl
      * Summary: api简介.
      *
      * @param ImportComCnTestRequest $request
