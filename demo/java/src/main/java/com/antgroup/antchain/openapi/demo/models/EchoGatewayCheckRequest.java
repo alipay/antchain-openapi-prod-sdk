@@ -11,15 +11,6 @@ public class EchoGatewayCheckRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // demo
-    @NameInMap("input_demo")
-    public DemoClass inputDemo;
-
-    // echo
-    @NameInMap("input_string")
-    @Validation(maxLength = 20, minLength = 1)
-    public String inputString;
-
     // input_array
     @NameInMap("input_array")
     @Validation(required = true)
@@ -67,22 +58,6 @@ public class EchoGatewayCheckRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public EchoGatewayCheckRequest setInputDemo(DemoClass inputDemo) {
-        this.inputDemo = inputDemo;
-        return this;
-    }
-    public DemoClass getInputDemo() {
-        return this.inputDemo;
-    }
-
-    public EchoGatewayCheckRequest setInputString(String inputString) {
-        this.inputString = inputString;
-        return this;
-    }
-    public String getInputString() {
-        return this.inputString;
     }
 
     public EchoGatewayCheckRequest setInputArray(java.util.List<TestStruct> inputArray) {

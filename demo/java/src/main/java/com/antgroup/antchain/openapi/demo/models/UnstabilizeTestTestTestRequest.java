@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class BindAaaBbbCccRequest extends TeaModel {
+public class UnstabilizeTestTestTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,12 @@ public class BindAaaBbbCccRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 123
-    @NameInMap("data")
-    @Validation(required = true)
-    public String data;
-
-    public static BindAaaBbbCccRequest build(java.util.Map<String, ?> map) throws Exception {
-        BindAaaBbbCccRequest self = new BindAaaBbbCccRequest();
+    public static UnstabilizeTestTestTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        UnstabilizeTestTestTestRequest self = new UnstabilizeTestTestTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public BindAaaBbbCccRequest setAuthToken(String authToken) {
+    public UnstabilizeTestTestTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,20 +24,12 @@ public class BindAaaBbbCccRequest extends TeaModel {
         return this.authToken;
     }
 
-    public BindAaaBbbCccRequest setProductInstanceId(String productInstanceId) {
+    public UnstabilizeTestTestTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public BindAaaBbbCccRequest setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

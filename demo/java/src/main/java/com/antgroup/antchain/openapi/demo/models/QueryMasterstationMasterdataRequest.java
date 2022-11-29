@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class BindAaaBbbCccRequest extends TeaModel {
+public class QueryMasterstationMasterdataRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class BindAaaBbbCccRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 123
-    @NameInMap("data")
+    // 用户工号
+    @NameInMap("workno")
     @Validation(required = true)
-    public String data;
+    public String workno;
 
-    public static BindAaaBbbCccRequest build(java.util.Map<String, ?> map) throws Exception {
-        BindAaaBbbCccRequest self = new BindAaaBbbCccRequest();
+    public static QueryMasterstationMasterdataRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryMasterstationMasterdataRequest self = new QueryMasterstationMasterdataRequest();
         return TeaModel.build(map, self);
     }
 
-    public BindAaaBbbCccRequest setAuthToken(String authToken) {
+    public QueryMasterstationMasterdataRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class BindAaaBbbCccRequest extends TeaModel {
         return this.authToken;
     }
 
-    public BindAaaBbbCccRequest setProductInstanceId(String productInstanceId) {
+    public QueryMasterstationMasterdataRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class BindAaaBbbCccRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public BindAaaBbbCccRequest setData(String data) {
-        this.data = data;
+    public QueryMasterstationMasterdataRequest setWorkno(String workno) {
+        this.workno = workno;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getWorkno() {
+        return this.workno;
     }
 
 }
