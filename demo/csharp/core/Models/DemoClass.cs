@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    // Demo类
+    // Demo类1
     public class DemoClass : TeaModel {
         // 字符串测试
         [NameInMap("some_string")]
