@@ -11,6 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\STLR\Models\AddEcarAvitivedataRequest;
+use AntChain\STLR\Models\AddEcarAvitivedataResponse;
+use AntChain\STLR\Models\AddEcarGreenoperationRequest;
+use AntChain\STLR\Models\AddEcarGreenoperationResponse;
+use AntChain\STLR\Models\CountEcarActivedataRequest;
+use AntChain\STLR\Models\CountEcarActivedataResponse;
+use AntChain\STLR\Models\CountEcarGreenoperationRequest;
+use AntChain\STLR\Models\CountEcarGreenoperationResponse;
+use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\STLR\Models\DescribeAcarActivityRequest;
 use AntChain\STLR\Models\DescribeAcarActivityResponse;
 use AntChain\STLR\Models\DescribeAcarDailyemissionsRequest;
@@ -21,8 +31,24 @@ use AntChain\STLR\Models\DescribeAcarReductionemissionsRequest;
 use AntChain\STLR\Models\DescribeAcarReductionemissionsResponse;
 use AntChain\STLR\Models\DescribeAcarScopemissionRequest;
 use AntChain\STLR\Models\DescribeAcarScopemissionResponse;
+use AntChain\STLR\Models\DetailEcarAvitivedataRequest;
+use AntChain\STLR\Models\DetailEcarAvitivedataResponse;
+use AntChain\STLR\Models\GetPdcpBlockchainRequest;
+use AntChain\STLR\Models\GetPdcpBlockchainResponse;
+use AntChain\STLR\Models\ListEcarGreenoperationRequest;
+use AntChain\STLR\Models\ListEcarGreenoperationResponse;
+use AntChain\STLR\Models\PreviewEcarAvitivedataRequest;
+use AntChain\STLR\Models\PreviewEcarAvitivedataResponse;
+use AntChain\STLR\Models\PushPdcpBlockchainRequest;
+use AntChain\STLR\Models\PushPdcpBlockchainResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
+use AntChain\STLR\Models\RegisterPdcpAccountRequest;
+use AntChain\STLR\Models\RegisterPdcpAccountResponse;
+use AntChain\STLR\Models\UploadEcarFileRequest;
+use AntChain\STLR\Models\UploadEcarFileResponse;
+use AntChain\STLR\Models\UploadPdcpBlockchainRequest;
+use AntChain\STLR\Models\UploadPdcpBlockchainResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -142,7 +168,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 分类碳排放量
+            // 证书授权产品信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -170,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.3.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -382,6 +408,420 @@ class Client
     }
 
     /**
+     * Description: 账户开通接口。开通协作平台和链上账户
+     * Summary: 账户开通接口.
+     *
+     * @param RegisterPdcpAccountRequest $request
+     *
+     * @return RegisterPdcpAccountResponse
+     */
+    public function registerPdcpAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerPdcpAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户开通接口。开通协作平台和链上账户
+     * Summary: 账户开通接口.
+     *
+     * @param RegisterPdcpAccountRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return RegisterPdcpAccountResponse
+     */
+    public function registerPdcpAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterPdcpAccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.account.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证接口
+     * Summary: 存证接口.
+     *
+     * @param PushPdcpBlockchainRequest $request
+     *
+     * @return PushPdcpBlockchainResponse
+     */
+    public function pushPdcpBlockchain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushPdcpBlockchainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证接口
+     * Summary: 存证接口.
+     *
+     * @param PushPdcpBlockchainRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PushPdcpBlockchainResponse
+     */
+    public function pushPdcpBlockchainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushPdcpBlockchainResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.blockchain.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 异步存证接口
+     * Summary: 异步存证接口.
+     *
+     * @param UploadPdcpBlockchainRequest $request
+     *
+     * @return UploadPdcpBlockchainResponse
+     */
+    public function uploadPdcpBlockchain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadPdcpBlockchainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 异步存证接口
+     * Summary: 异步存证接口.
+     *
+     * @param UploadPdcpBlockchainRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UploadPdcpBlockchainResponse
+     */
+    public function uploadPdcpBlockchainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadPdcpBlockchainResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.blockchain.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询异步存证结果
+     * Summary: 查询异步存证结果.
+     *
+     * @param GetPdcpBlockchainRequest $request
+     *
+     * @return GetPdcpBlockchainResponse
+     */
+    public function getPdcpBlockchain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getPdcpBlockchainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询异步存证结果
+     * Summary: 查询异步存证结果.
+     *
+     * @param GetPdcpBlockchainRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetPdcpBlockchainResponse
+     */
+    public function getPdcpBlockchainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetPdcpBlockchainResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增排放活动数据
+     * Summary: 新增排放活动数据.
+     *
+     * @param AddEcarAvitivedataRequest $request
+     *
+     * @return AddEcarAvitivedataResponse
+     */
+    public function addEcarAvitivedata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addEcarAvitivedataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增排放活动数据
+     * Summary: 新增排放活动数据.
+     *
+     * @param AddEcarAvitivedataRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return AddEcarAvitivedataResponse
+     */
+    public function addEcarAvitivedataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddEcarAvitivedataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.avitivedata.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询排放活动数据详情
+     * Summary: 查询排放活动数据详情.
+     *
+     * @param DetailEcarAvitivedataRequest $request
+     *
+     * @return DetailEcarAvitivedataResponse
+     */
+    public function detailEcarAvitivedata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailEcarAvitivedataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询排放活动数据详情
+     * Summary: 查询排放活动数据详情.
+     *
+     * @param DetailEcarAvitivedataRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DetailEcarAvitivedataResponse
+     */
+    public function detailEcarAvitivedataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailEcarAvitivedataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.avitivedata.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 排放活动数据统计计算
+     * Summary: 排放活动数据统计计算.
+     *
+     * @param CountEcarActivedataRequest $request
+     *
+     * @return CountEcarActivedataResponse
+     */
+    public function countEcarActivedata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countEcarActivedataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 排放活动数据统计计算
+     * Summary: 排放活动数据统计计算.
+     *
+     * @param CountEcarActivedataRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CountEcarActivedataResponse
+     */
+    public function countEcarActivedataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountEcarActivedataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.activedata.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件上传接口
+     * Summary: 文件上传接口.
+     *
+     * @param UploadEcarFileRequest $request
+     *
+     * @return UploadEcarFileResponse
+     */
+    public function uploadEcarFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadEcarFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传接口
+     * Summary: 文件上传接口.
+     *
+     * @param UploadEcarFileRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return UploadEcarFileResponse
+     */
+    public function uploadEcarFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.carbon.ecar.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadEcarFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadEcarFileResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+     * Summary: 录入绿色行为数据.
+     *
+     * @param AddEcarGreenoperationRequest $request
+     *
+     * @return AddEcarGreenoperationResponse
+     */
+    public function addEcarGreenoperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addEcarGreenoperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+     * Summary: 录入绿色行为数据.
+     *
+     * @param AddEcarGreenoperationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return AddEcarGreenoperationResponse
+     */
+    public function addEcarGreenoperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddEcarGreenoperationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greenoperation.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+     * Summary: 统计绿色行为数据.
+     *
+     * @param CountEcarGreenoperationRequest $request
+     *
+     * @return CountEcarGreenoperationResponse
+     */
+    public function countEcarGreenoperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countEcarGreenoperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+     * Summary: 统计绿色行为数据.
+     *
+     * @param CountEcarGreenoperationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CountEcarGreenoperationResponse
+     */
+    public function countEcarGreenoperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountEcarGreenoperationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greenoperation.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+     * Summary: 查询最近的绿色行为数据.
+     *
+     * @param ListEcarGreenoperationRequest $request
+     *
+     * @return ListEcarGreenoperationResponse
+     */
+    public function listEcarGreenoperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listEcarGreenoperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+     * Summary: 查询最近的绿色行为数据.
+     *
+     * @param ListEcarGreenoperationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ListEcarGreenoperationResponse
+     */
+    public function listEcarGreenoperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListEcarGreenoperationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greenoperation.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+     * Summary: 预览本年度排放统计
+     *
+     * @param PreviewEcarAvitivedataRequest $request
+     *
+     * @return PreviewEcarAvitivedataResponse
+     */
+    public function previewEcarAvitivedata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->previewEcarAvitivedataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+     * Summary: 预览本年度排放统计
+     *
+     * @param PreviewEcarAvitivedataRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PreviewEcarAvitivedataResponse
+     */
+    public function previewEcarAvitivedataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PreviewEcarAvitivedataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 三方平台调用此接口，查询用户的证书信息
      * Summary: 证书查询.
      *
@@ -412,5 +852,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryThirdCertResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
