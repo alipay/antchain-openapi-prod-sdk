@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -150,6 +154,42 @@ class Config(TeaModel):
         return self
 
 
+class CertProductAuthDO(TeaModel):
+    def __init__(
+        self,
+        product_id: str = None,
+        product_name: str = None,
+    ):
+        # 三方平台产品ID
+        self.product_id = product_id
+        # 三方平台产品名称
+        self.product_name = product_name
+
+    def validate(self):
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.product_name, 'product_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        return self
+
+
 class EmissionsCategoryStatistics(TeaModel):
     def __init__(
         self,
@@ -170,6 +210,10 @@ class EmissionsCategoryStatistics(TeaModel):
         self.validate_required(self.emissions, 'emissions')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.emission_dategory_no is not None:
             result['emission_dategory_no'] = self.emission_dategory_no
@@ -187,38 +231,6 @@ class EmissionsCategoryStatistics(TeaModel):
             self.emission_category_name = m.get('emission_category_name')
         if m.get('emissions') is not None:
             self.emissions = m.get('emissions')
-        return self
-
-
-class CertProductAuthDO(TeaModel):
-    def __init__(
-        self,
-        product_id: str = None,
-        product_name: str = None,
-    ):
-        # 三方平台产品ID
-        self.product_id = product_id
-        # 三方平台产品名称
-        self.product_name = product_name
-
-    def validate(self):
-        self.validate_required(self.product_id, 'product_id')
-        self.validate_required(self.product_name, 'product_name')
-
-    def to_map(self):
-        result = dict()
-        if self.product_id is not None:
-            result['product_id'] = self.product_id
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('product_id') is not None:
-            self.product_id = m.get('product_id')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
         return self
 
 
@@ -284,6 +296,10 @@ class CertProductInfoDO(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.certification_no is not None:
             result['certification_no'] = self.certification_no
@@ -353,6 +369,102 @@ class CertProductInfoDO(TeaModel):
         return self
 
 
+class AnnualMonthEmissionDatum(TeaModel):
+    def __init__(
+        self,
+        year: str = None,
+        month: str = None,
+        value: str = None,
+    ):
+        # 统计的年份
+        self.year = year
+        # 统计的月份
+        self.month = month
+        # 统计排放量
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.year, 'year')
+        self.validate_required(self.month, 'month')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.year is not None:
+            result['year'] = self.year
+        if self.month is not None:
+            result['month'] = self.month
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('year') is not None:
+            self.year = m.get('year')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class GreenOperationStatisticsByType(TeaModel):
+    def __init__(
+        self,
+        green_operation_type: str = None,
+        green_operation_type_name: str = None,
+        green_energy_amount: int = None,
+        green_operation_records: int = None,
+    ):
+        # 绿色行为类型
+        self.green_operation_type = green_operation_type
+        # 绿色行为类型名称
+        self.green_operation_type_name = green_operation_type_name
+        # 绿色行为产生的绿色能量值
+        self.green_energy_amount = green_energy_amount
+        # 相关类型的绿色行为记录数
+        self.green_operation_records = green_operation_records
+
+    def validate(self):
+        self.validate_required(self.green_operation_type, 'green_operation_type')
+        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+        self.validate_required(self.green_operation_records, 'green_operation_records')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.green_operation_type is not None:
+            result['green_operation_type'] = self.green_operation_type
+        if self.green_operation_type_name is not None:
+            result['green_operation_type_name'] = self.green_operation_type_name
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        if self.green_operation_records is not None:
+            result['green_operation_records'] = self.green_operation_records
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('green_operation_type') is not None:
+            self.green_operation_type = m.get('green_operation_type')
+        if m.get('green_operation_type_name') is not None:
+            self.green_operation_type_name = m.get('green_operation_type_name')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        if m.get('green_operation_records') is not None:
+            self.green_operation_records = m.get('green_operation_records')
+        return self
+
+
 class EmissionsReductionStatistics(TeaModel):
     def __init__(
         self,
@@ -381,6 +493,10 @@ class EmissionsReductionStatistics(TeaModel):
         self.validate_required(self.unit, 'unit')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.reduction_type is not None:
             result['reduction_type'] = self.reduction_type
@@ -425,6 +541,10 @@ class DailyEmissions(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.date is not None:
             result['date'] = self.date
@@ -438,6 +558,194 @@ class DailyEmissions(TeaModel):
             self.date = m.get('date')
         if m.get('value') is not None:
             self.value = m.get('value')
+        return self
+
+
+class AnyStatisticalItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        amount: str = None,
+        unit: str = None,
+        unit_label: str = None,
+    ):
+        # 统计项目编码
+        self.item_code = item_code
+        # 数据值，按字符串输出，最多保留6位小数
+        self.amount = amount
+        # 单位编码
+        self.unit = unit
+        # 单位标签
+        self.unit_label = unit_label
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.unit, 'unit')
+        self.validate_required(self.unit_label, 'unit_label')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.unit_label is not None:
+            result['unit_label'] = self.unit_label
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('unit_label') is not None:
+            self.unit_label = m.get('unit_label')
+        return self
+
+
+class AccountRegisterResponse(TeaModel):
+    def __init__(
+        self,
+        user_did: str = None,
+    ):
+        # 账户did
+        self.user_did = user_did
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        return self
+
+
+class EnterpriseDocumentFile(TeaModel):
+    def __init__(
+        self,
+        document_name: str = None,
+        document_address: str = None,
+    ):
+        # 文档名称
+        self.document_name = document_name
+        # 文件地址
+        self.document_address = document_address
+
+    def validate(self):
+        self.validate_required(self.document_name, 'document_name')
+        self.validate_required(self.document_address, 'document_address')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.document_name is not None:
+            result['document_name'] = self.document_name
+        if self.document_address is not None:
+            result['document_address'] = self.document_address
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('document_name') is not None:
+            self.document_name = m.get('document_name')
+        if m.get('document_address') is not None:
+            self.document_address = m.get('document_address')
+        return self
+
+
+class BlockchainDTO(TeaModel):
+    def __init__(
+        self,
+        tx_hash: str = None,
+        block_number: int = None,
+    ):
+        # 交易hash
+        self.tx_hash = tx_hash
+        # 当前块高
+        self.block_number = block_number
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.block_number, 'block_number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.block_number is not None:
+            result['block_number'] = self.block_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('block_number') is not None:
+            self.block_number = m.get('block_number')
+        return self
+
+
+class AnyAmountItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        item_amount: str = None,
+    ):
+        # 数据项编码
+        self.item_code = item_code
+        # 数据值，按字符串输出，最多保留6位小数
+        self.item_amount = item_amount
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.item_amount, 'item_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.item_amount is not None:
+            result['item_amount'] = self.item_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('item_amount') is not None:
+            self.item_amount = m.get('item_amount')
         return self
 
 
@@ -473,6 +781,10 @@ class EmissionsScopeStatistics(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.inventory_scope_no is not None:
             result['inventory_scope_no'] = self.inventory_scope_no
@@ -506,6 +818,190 @@ class EmissionsScopeStatistics(TeaModel):
         return self
 
 
+class AnyKeywordItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        item_value: str = None,
+    ):
+        # 项目编码
+        self.item_code = item_code
+        # 项目值
+        self.item_value = item_value
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.item_value, 'item_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.item_value is not None:
+            result['item_value'] = self.item_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('item_value') is not None:
+            self.item_value = m.get('item_value')
+        return self
+
+
+class GreenOperationStatisticsByFrequence(TeaModel):
+    def __init__(
+        self,
+        occurrence_period: str = None,
+        green_energy_amount: int = None,
+        green_operation_records: int = None,
+    ):
+        # 绿色行为发生时期
+        self.occurrence_period = occurrence_period
+        # 绿色行为产生的绿色能量值
+        self.green_energy_amount = green_energy_amount
+        # 时期内发生绿色行为的记录条数
+        self.green_operation_records = green_operation_records
+
+    def validate(self):
+        self.validate_required(self.occurrence_period, 'occurrence_period')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+        self.validate_required(self.green_operation_records, 'green_operation_records')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.occurrence_period is not None:
+            result['occurrence_period'] = self.occurrence_period
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        if self.green_operation_records is not None:
+            result['green_operation_records'] = self.green_operation_records
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('occurrence_period') is not None:
+            self.occurrence_period = m.get('occurrence_period')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        if m.get('green_operation_records') is not None:
+            self.green_operation_records = m.get('green_operation_records')
+        return self
+
+
+class GreenOperationRecordSummary(TeaModel):
+    def __init__(
+        self,
+        green_operation_no: str = None,
+        green_operation_type: str = None,
+        green_operation_type_name: str = None,
+        enterprise_biz_no: str = None,
+        occurrence_time: str = None,
+        green_energy_amount: int = None,
+    ):
+        # 绿色行为记录编码
+        self.green_operation_no = green_operation_no
+        # 绿色行为类型
+        self.green_operation_type = green_operation_type
+        # 绿色行为类型名称
+        self.green_operation_type_name = green_operation_type_name
+        # 发生绿色行为的相关业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+        # 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+        self.occurrence_time = occurrence_time
+        # 绿色行为的绿色能量值
+        self.green_energy_amount = green_energy_amount
+
+    def validate(self):
+        self.validate_required(self.green_operation_no, 'green_operation_no')
+        self.validate_required(self.green_operation_type, 'green_operation_type')
+        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
+        self.validate_required(self.enterprise_biz_no, 'enterprise_biz_no')
+        self.validate_required(self.occurrence_time, 'occurrence_time')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.green_operation_no is not None:
+            result['green_operation_no'] = self.green_operation_no
+        if self.green_operation_type is not None:
+            result['green_operation_type'] = self.green_operation_type
+        if self.green_operation_type_name is not None:
+            result['green_operation_type_name'] = self.green_operation_type_name
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        if self.occurrence_time is not None:
+            result['occurrence_time'] = self.occurrence_time
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('green_operation_no') is not None:
+            self.green_operation_no = m.get('green_operation_no')
+        if m.get('green_operation_type') is not None:
+            self.green_operation_type = m.get('green_operation_type')
+        if m.get('green_operation_type_name') is not None:
+            self.green_operation_type_name = m.get('green_operation_type_name')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        if m.get('occurrence_time') is not None:
+            self.occurrence_time = m.get('occurrence_time')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        return self
+
+
+class XNameValuePair(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class DescribeAcarActivityRequest(TeaModel):
     def __init__(
         self,
@@ -520,6 +1016,10 @@ class DescribeAcarActivityRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -575,6 +1075,10 @@ class DescribeAcarActivityResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -637,6 +1141,10 @@ class DescribeAcarDailyemissionsRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -689,6 +1197,10 @@ class DescribeAcarDailyemissionsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -748,6 +1260,10 @@ class DescribeAcarScopemissionRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -794,6 +1310,10 @@ class DescribeAcarScopemissionResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -845,6 +1365,10 @@ class DescribeAcarReductionemissionsRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -885,6 +1409,10 @@ class DescribeAcarReductionemissionsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -928,6 +1456,10 @@ class DescribeAcarLastemissiondataRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1030,6 +1562,10 @@ class DescribeAcarLastemissiondataResponse(TeaModel):
             self.validate_pattern(self.submission_time, 'submission_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1126,6 +1662,1666 @@ class DescribeAcarLastemissiondataResponse(TeaModel):
         return self
 
 
+class RegisterPdcpAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_type: str = None,
+        user_name: str = None,
+        user_id: str = None,
+        cert_type: str = None,
+        cert_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # PERSON("个人"),
+        # ENTERPRISE("企业")
+        self.user_type = user_type
+        # 用户名称
+        self.user_name = user_name
+        # 用户ID
+        self.user_id = user_id
+        # PASSPORT("护照"),
+        # RESIDENT("身份证"),
+        # NATIONAL_LEGAL_MERGE("统一社会信用代码")
+        self.cert_type = cert_type
+        # 证件号码
+        self.cert_no = cert_no
+
+    def validate(self):
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.user_name, 'user_name')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.cert_no, 'cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        return self
+
+
+class RegisterPdcpAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AccountRegisterResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账户开通结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AccountRegisterResponse()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class PushPdcpBlockchainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tx_msg_id: str = None,
+        user_id: str = None,
+        data_type: str = None,
+        encrypt_type: str = None,
+        deposit_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 消息ID
+        self.tx_msg_id = tx_msg_id
+        # 用户ID
+        self.user_id = user_id
+        # 数据类型，枚举定义
+        self.data_type = data_type
+        # 密文类型
+        self.encrypt_type = encrypt_type
+        # 待存证数据，根据数据类型序列化为json。并加密传输
+        self.deposit_data = deposit_data
+
+    def validate(self):
+        self.validate_required(self.tx_msg_id, 'tx_msg_id')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.data_type, 'data_type')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+        self.validate_required(self.deposit_data, 'deposit_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tx_msg_id is not None:
+            result['tx_msg_id'] = self.tx_msg_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.deposit_data is not None:
+            result['deposit_data'] = self.deposit_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tx_msg_id') is not None:
+            self.tx_msg_id = m.get('tx_msg_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('deposit_data') is not None:
+            self.deposit_data = m.get('deposit_data')
+        return self
+
+
+class PushPdcpBlockchainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_data: BlockchainDTO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上链信息: 交易hash，块高
+        self.tx_data = tx_data
+
+    def validate(self):
+        if self.tx_data:
+            self.tx_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_data is not None:
+            result['tx_data'] = self.tx_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_data') is not None:
+            temp_model = BlockchainDTO()
+            self.tx_data = temp_model.from_map(m['tx_data'])
+        return self
+
+
+class UploadPdcpBlockchainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tx_msg_id: str = None,
+        user_id: str = None,
+        data_type: str = None,
+        encrypt_type: str = None,
+        deposit_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID
+        self.tx_msg_id = tx_msg_id
+        # 用户ID
+        self.user_id = user_id
+        # 数据类型
+        self.data_type = data_type
+        # 加密类型
+        self.encrypt_type = encrypt_type
+        # 待存证数据，根据数据类型序列化后加密传输
+        self.deposit_data = deposit_data
+
+    def validate(self):
+        self.validate_required(self.tx_msg_id, 'tx_msg_id')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.data_type, 'data_type')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+        self.validate_required(self.deposit_data, 'deposit_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tx_msg_id is not None:
+            result['tx_msg_id'] = self.tx_msg_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.deposit_data is not None:
+            result['deposit_data'] = self.deposit_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tx_msg_id') is not None:
+            self.tx_msg_id = m.get('tx_msg_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('deposit_data') is not None:
+            self.deposit_data = m.get('deposit_data')
+        return self
+
+
+class UploadPdcpBlockchainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class GetPdcpBlockchainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tx_msg_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID
+        self.tx_msg_id = tx_msg_id
+
+    def validate(self):
+        self.validate_required(self.tx_msg_id, 'tx_msg_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tx_msg_id is not None:
+            result['tx_msg_id'] = self.tx_msg_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tx_msg_id') is not None:
+            self.tx_msg_id = m.get('tx_msg_id')
+        return self
+
+
+class GetPdcpBlockchainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_data: BlockchainDTO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回上链信息
+        self.tx_data = tx_data
+
+    def validate(self):
+        if self.tx_data:
+            self.tx_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_data is not None:
+            result['tx_data'] = self.tx_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_data') is not None:
+            temp_model = BlockchainDTO()
+            self.tx_data = temp_model.from_map(m['tx_data'])
+        return self
+
+
+class AddEcarAvitivedataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_biz_no: str = None,
+        inventory_item_no: str = None,
+        occurrence_start_time: str = None,
+        occurrence_end_time: str = None,
+        emission_source_dosage_list: List[AnyAmountItem] = None,
+        emission_source_element_list: List[AnyKeywordItem] = None,
+        extension_value_list: List[AnyKeywordItem] = None,
+        voucher_file_list: List[EnterpriseDocumentFile] = None,
+        remark: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动数据业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+        # 盘查排放项编码
+        self.inventory_item_no = inventory_item_no
+        # 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+        self.occurrence_start_time = occurrence_start_time
+        # 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+        self.occurrence_end_time = occurrence_end_time
+        # 排放源用量值列表
+        self.emission_source_dosage_list = emission_source_dosage_list
+        # 活动数据附加要素值列表
+        self.emission_source_element_list = emission_source_element_list
+        # 活动数据扩展信息值列表
+        self.extension_value_list = extension_value_list
+        # 凭证文件列表，每个文件通过接口/open/api/file/upload上传
+        self.voucher_file_list = voucher_file_list
+        # 备注
+        self.remark = remark
+
+    def validate(self):
+        self.validate_required(self.enterprise_biz_no, 'enterprise_biz_no')
+        if self.enterprise_biz_no is not None:
+            self.validate_max_length(self.enterprise_biz_no, 'enterprise_biz_no', 64)
+        self.validate_required(self.inventory_item_no, 'inventory_item_no')
+        self.validate_required(self.occurrence_start_time, 'occurrence_start_time')
+        self.validate_required(self.occurrence_end_time, 'occurrence_end_time')
+        self.validate_required(self.emission_source_dosage_list, 'emission_source_dosage_list')
+        if self.emission_source_dosage_list:
+            for k in self.emission_source_dosage_list:
+                if k:
+                    k.validate()
+        if self.emission_source_element_list:
+            for k in self.emission_source_element_list:
+                if k:
+                    k.validate()
+        if self.extension_value_list:
+            for k in self.extension_value_list:
+                if k:
+                    k.validate()
+        if self.voucher_file_list:
+            for k in self.voucher_file_list:
+                if k:
+                    k.validate()
+        if self.remark is not None:
+            self.validate_max_length(self.remark, 'remark', 512)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        if self.inventory_item_no is not None:
+            result['inventory_item_no'] = self.inventory_item_no
+        if self.occurrence_start_time is not None:
+            result['occurrence_start_time'] = self.occurrence_start_time
+        if self.occurrence_end_time is not None:
+            result['occurrence_end_time'] = self.occurrence_end_time
+        result['emission_source_dosage_list'] = []
+        if self.emission_source_dosage_list is not None:
+            for k in self.emission_source_dosage_list:
+                result['emission_source_dosage_list'].append(k.to_map() if k else None)
+        result['emission_source_element_list'] = []
+        if self.emission_source_element_list is not None:
+            for k in self.emission_source_element_list:
+                result['emission_source_element_list'].append(k.to_map() if k else None)
+        result['extension_value_list'] = []
+        if self.extension_value_list is not None:
+            for k in self.extension_value_list:
+                result['extension_value_list'].append(k.to_map() if k else None)
+        result['voucher_file_list'] = []
+        if self.voucher_file_list is not None:
+            for k in self.voucher_file_list:
+                result['voucher_file_list'].append(k.to_map() if k else None)
+        if self.remark is not None:
+            result['remark'] = self.remark
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        if m.get('inventory_item_no') is not None:
+            self.inventory_item_no = m.get('inventory_item_no')
+        if m.get('occurrence_start_time') is not None:
+            self.occurrence_start_time = m.get('occurrence_start_time')
+        if m.get('occurrence_end_time') is not None:
+            self.occurrence_end_time = m.get('occurrence_end_time')
+        self.emission_source_dosage_list = []
+        if m.get('emission_source_dosage_list') is not None:
+            for k in m.get('emission_source_dosage_list'):
+                temp_model = AnyAmountItem()
+                self.emission_source_dosage_list.append(temp_model.from_map(k))
+        self.emission_source_element_list = []
+        if m.get('emission_source_element_list') is not None:
+            for k in m.get('emission_source_element_list'):
+                temp_model = AnyKeywordItem()
+                self.emission_source_element_list.append(temp_model.from_map(k))
+        self.extension_value_list = []
+        if m.get('extension_value_list') is not None:
+            for k in m.get('extension_value_list'):
+                temp_model = AnyKeywordItem()
+                self.extension_value_list.append(temp_model.from_map(k))
+        self.voucher_file_list = []
+        if m.get('voucher_file_list') is not None:
+            for k in m.get('voucher_file_list'):
+                temp_model = EnterpriseDocumentFile()
+                self.voucher_file_list.append(temp_model.from_map(k))
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        return self
+
+
+class AddEcarAvitivedataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        emission_data_entry_item_no: str = None,
+        enterprise_biz_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 排放数据录入明细编码
+        self.emission_data_entry_item_no = emission_data_entry_item_no
+        # 企业业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.emission_data_entry_item_no is not None:
+            result['emission_data_entry_item_no'] = self.emission_data_entry_item_no
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('emission_data_entry_item_no') is not None:
+            self.emission_data_entry_item_no = m.get('emission_data_entry_item_no')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        return self
+
+
+class DetailEcarAvitivedataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        emission_data_entry_item_no: str = None,
+        enterprise_biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 排放数据录入明细编码
+        self.emission_data_entry_item_no = emission_data_entry_item_no
+        # 企业业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.emission_data_entry_item_no is not None:
+            result['emission_data_entry_item_no'] = self.emission_data_entry_item_no
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('emission_data_entry_item_no') is not None:
+            self.emission_data_entry_item_no = m.get('emission_data_entry_item_no')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        return self
+
+
+class DetailEcarAvitivedataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        emission_data_entry_item_no: str = None,
+        enterprise_biz_no: str = None,
+        occurrence_start_time: str = None,
+        occurrence_end_time: str = None,
+        carbon_chain_trade_hash: str = None,
+        emission_statistical_amount: str = None,
+        emission_source_no: str = None,
+        emission_source_name: str = None,
+        enterprise_location_no: str = None,
+        enterprise_location_name: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 企业排放数据录入明细编码
+        self.emission_data_entry_item_no = emission_data_entry_item_no
+        # 企业业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+        # 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+        self.occurrence_start_time = occurrence_start_time
+        # 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+        self.occurrence_end_time = occurrence_end_time
+        # 链上交易Hash
+        self.carbon_chain_trade_hash = carbon_chain_trade_hash
+        # 总的碳排放用量，按字符串输出，最多保留6位小数
+        self.emission_statistical_amount = emission_statistical_amount
+        # 排放源编码
+        self.emission_source_no = emission_source_no
+        # 排放源名称
+        self.emission_source_name = emission_source_name
+        # 排放单元编码
+        self.enterprise_location_no = enterprise_location_no
+        # 排放单元名称
+        self.enterprise_location_name = enterprise_location_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.emission_data_entry_item_no is not None:
+            result['emission_data_entry_item_no'] = self.emission_data_entry_item_no
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        if self.occurrence_start_time is not None:
+            result['occurrence_start_time'] = self.occurrence_start_time
+        if self.occurrence_end_time is not None:
+            result['occurrence_end_time'] = self.occurrence_end_time
+        if self.carbon_chain_trade_hash is not None:
+            result['carbon_chain_trade_hash'] = self.carbon_chain_trade_hash
+        if self.emission_statistical_amount is not None:
+            result['emission_statistical_amount'] = self.emission_statistical_amount
+        if self.emission_source_no is not None:
+            result['emission_source_no'] = self.emission_source_no
+        if self.emission_source_name is not None:
+            result['emission_source_name'] = self.emission_source_name
+        if self.enterprise_location_no is not None:
+            result['enterprise_location_no'] = self.enterprise_location_no
+        if self.enterprise_location_name is not None:
+            result['enterprise_location_name'] = self.enterprise_location_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('emission_data_entry_item_no') is not None:
+            self.emission_data_entry_item_no = m.get('emission_data_entry_item_no')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        if m.get('occurrence_start_time') is not None:
+            self.occurrence_start_time = m.get('occurrence_start_time')
+        if m.get('occurrence_end_time') is not None:
+            self.occurrence_end_time = m.get('occurrence_end_time')
+        if m.get('carbon_chain_trade_hash') is not None:
+            self.carbon_chain_trade_hash = m.get('carbon_chain_trade_hash')
+        if m.get('emission_statistical_amount') is not None:
+            self.emission_statistical_amount = m.get('emission_statistical_amount')
+        if m.get('emission_source_no') is not None:
+            self.emission_source_no = m.get('emission_source_no')
+        if m.get('emission_source_name') is not None:
+            self.emission_source_name = m.get('emission_source_name')
+        if m.get('enterprise_location_no') is not None:
+            self.enterprise_location_no = m.get('enterprise_location_no')
+        if m.get('enterprise_location_name') is not None:
+            self.enterprise_location_name = m.get('enterprise_location_name')
+        return self
+
+
+class CountEcarActivedataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        inventory_item_no: str = None,
+        occurrence_start_time: str = None,
+        occurrence_end_time: str = None,
+        emission_source_element_list: List[AnyKeywordItem] = None,
+        extension_value_list: List[AnyKeywordItem] = None,
+        extra_statistic_item_list: List[AnyKeywordItem] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 盘查排放项编码
+        self.inventory_item_no = inventory_item_no
+        # 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss，将统计起始时间之后的活动数据
+        self.occurrence_start_time = occurrence_start_time
+        # 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss，将统计结束时间之前、起始时间之后的活动数据
+        self.occurrence_end_time = occurrence_end_time
+        # 活动数据附加要素信息，将统计满足相关要素值的活动数据
+        self.emission_source_element_list = emission_source_element_list
+        # 活动数据扩展信息，将统计满足相关要素值的活动数据
+        self.extension_value_list = extension_value_list
+        # 附加的扩展统计条目，条目K为统计数据结果编码，V为统计计算公式，
+        # 公式可用参数：dataEntryCount(统计排放数据条数)、totalEmissions(总碳排放量)、activeDataAmounts.{活动数据编码}（活动数据量）
+        # 比如马士基计算百公里排放量公式：totalEmissions/(activeDataAmounts.AD1+activeDataAmounts.AD3)*100
+        self.extra_statistic_item_list = extra_statistic_item_list
+
+    def validate(self):
+        self.validate_required(self.inventory_item_no, 'inventory_item_no')
+        self.validate_required(self.occurrence_start_time, 'occurrence_start_time')
+        self.validate_required(self.occurrence_end_time, 'occurrence_end_time')
+        if self.emission_source_element_list:
+            for k in self.emission_source_element_list:
+                if k:
+                    k.validate()
+        if self.extension_value_list:
+            for k in self.extension_value_list:
+                if k:
+                    k.validate()
+        if self.extra_statistic_item_list:
+            for k in self.extra_statistic_item_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.inventory_item_no is not None:
+            result['inventory_item_no'] = self.inventory_item_no
+        if self.occurrence_start_time is not None:
+            result['occurrence_start_time'] = self.occurrence_start_time
+        if self.occurrence_end_time is not None:
+            result['occurrence_end_time'] = self.occurrence_end_time
+        result['emission_source_element_list'] = []
+        if self.emission_source_element_list is not None:
+            for k in self.emission_source_element_list:
+                result['emission_source_element_list'].append(k.to_map() if k else None)
+        result['extension_value_list'] = []
+        if self.extension_value_list is not None:
+            for k in self.extension_value_list:
+                result['extension_value_list'].append(k.to_map() if k else None)
+        result['extra_statistic_item_list'] = []
+        if self.extra_statistic_item_list is not None:
+            for k in self.extra_statistic_item_list:
+                result['extra_statistic_item_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('inventory_item_no') is not None:
+            self.inventory_item_no = m.get('inventory_item_no')
+        if m.get('occurrence_start_time') is not None:
+            self.occurrence_start_time = m.get('occurrence_start_time')
+        if m.get('occurrence_end_time') is not None:
+            self.occurrence_end_time = m.get('occurrence_end_time')
+        self.emission_source_element_list = []
+        if m.get('emission_source_element_list') is not None:
+            for k in m.get('emission_source_element_list'):
+                temp_model = AnyKeywordItem()
+                self.emission_source_element_list.append(temp_model.from_map(k))
+        self.extension_value_list = []
+        if m.get('extension_value_list') is not None:
+            for k in m.get('extension_value_list'):
+                temp_model = AnyKeywordItem()
+                self.extension_value_list.append(temp_model.from_map(k))
+        self.extra_statistic_item_list = []
+        if m.get('extra_statistic_item_list') is not None:
+            for k in m.get('extra_statistic_item_list'):
+                temp_model = AnyKeywordItem()
+                self.extra_statistic_item_list.append(temp_model.from_map(k))
+        return self
+
+
+class CountEcarActivedataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data_entry_count: int = None,
+        total_emissions: str = None,
+        active_data_amount_list: List[AnyStatisticalItem] = None,
+        emissions_intensity: str = None,
+        each_month_emissions: str = None,
+        extra_statistic_datum_list: List[AnyAmountItem] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 指定时间区间内的活动数据笔数
+        self.data_entry_count = data_entry_count
+        # 总碳排放量
+        self.total_emissions = total_emissions
+        # 各活动数据用量累计
+        self.active_data_amount_list = active_data_amount_list
+        # 碳排放强度，碳排放总量/订单笔数，按字符串输出，最多保留6位小数
+        self.emissions_intensity = emissions_intensity
+        # 每月排放量，排放量总计/指定时间区间内的月份数，按字符串输出，最多保留6位小数
+        self.each_month_emissions = each_month_emissions
+        # 额外统计数据统计结果
+        self.extra_statistic_datum_list = extra_statistic_datum_list
+
+    def validate(self):
+        if self.active_data_amount_list:
+            for k in self.active_data_amount_list:
+                if k:
+                    k.validate()
+        if self.extra_statistic_datum_list:
+            for k in self.extra_statistic_datum_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data_entry_count is not None:
+            result['data_entry_count'] = self.data_entry_count
+        if self.total_emissions is not None:
+            result['total_emissions'] = self.total_emissions
+        result['active_data_amount_list'] = []
+        if self.active_data_amount_list is not None:
+            for k in self.active_data_amount_list:
+                result['active_data_amount_list'].append(k.to_map() if k else None)
+        if self.emissions_intensity is not None:
+            result['emissions_intensity'] = self.emissions_intensity
+        if self.each_month_emissions is not None:
+            result['each_month_emissions'] = self.each_month_emissions
+        result['extra_statistic_datum_list'] = []
+        if self.extra_statistic_datum_list is not None:
+            for k in self.extra_statistic_datum_list:
+                result['extra_statistic_datum_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data_entry_count') is not None:
+            self.data_entry_count = m.get('data_entry_count')
+        if m.get('total_emissions') is not None:
+            self.total_emissions = m.get('total_emissions')
+        self.active_data_amount_list = []
+        if m.get('active_data_amount_list') is not None:
+            for k in m.get('active_data_amount_list'):
+                temp_model = AnyStatisticalItem()
+                self.active_data_amount_list.append(temp_model.from_map(k))
+        if m.get('emissions_intensity') is not None:
+            self.emissions_intensity = m.get('emissions_intensity')
+        if m.get('each_month_emissions') is not None:
+            self.each_month_emissions = m.get('each_month_emissions')
+        self.extra_statistic_datum_list = []
+        if m.get('extra_statistic_datum_list') is not None:
+            for k in m.get('extra_statistic_datum_list'):
+                temp_model = AnyAmountItem()
+                self.extra_statistic_datum_list.append(temp_model.from_map(k))
+        return self
+
+
+class UploadEcarFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # Port的文件内容
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class UploadEcarFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        document_name: str = None,
+        document_address: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文档名称
+        self.document_name = document_name
+        # 碳矩阵存放的文件地址
+        self.document_address = document_address
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.document_name is not None:
+            result['document_name'] = self.document_name
+        if self.document_address is not None:
+            result['document_address'] = self.document_address
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('document_name') is not None:
+            self.document_name = m.get('document_name')
+        if m.get('document_address') is not None:
+            self.document_address = m.get('document_address')
+        return self
+
+
+class AddEcarGreenoperationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        green_operation_type: str = None,
+        enterprise_biz_no: str = None,
+        occurrence_time: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 绿色行为类型，目前支持包括：
+        # ElectronicInvoice(电子发票),
+        # LowCarbonCommodity(低碳商品),
+        # ReusableBag(环保减塑)
+        # OfflinePayment(线下支付)
+        # GreenOrder(绿色订单，可以同时解析出低碳商品、环保减塑、线下支付等多种绿色行为)
+        self.green_operation_type = green_operation_type
+        # 绿色行为相关的业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+        # 发生时间，格式应如：2021-07-21 12:11:11
+        self.occurrence_time = occurrence_time
+        # 绿色行为数据扩展信息，必须为JSON格式，碳矩阵将分析解析数据检查获取相关的绿色行为数据
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.green_operation_type, 'green_operation_type')
+        self.validate_required(self.enterprise_biz_no, 'enterprise_biz_no')
+        self.validate_required(self.occurrence_time, 'occurrence_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.green_operation_type is not None:
+            result['green_operation_type'] = self.green_operation_type
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        if self.occurrence_time is not None:
+            result['occurrence_time'] = self.occurrence_time
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('green_operation_type') is not None:
+            self.green_operation_type = m.get('green_operation_type')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        if m.get('occurrence_time') is not None:
+            self.occurrence_time = m.get('occurrence_time')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class AddEcarGreenoperationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[GreenOperationRecordSummary] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回记录的多种绿色行为数据摘要信息
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = GreenOperationRecordSummary()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class CountEcarGreenoperationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        statistic_frequence: str = None,
+        occurrence_start_time: str = None,
+        occurrence_end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 绿色行为统计频率，可选值：
+        # Monthly(分月统计),
+        # Daily(按每日统计)
+        # 
+        self.statistic_frequence = statistic_frequence
+        # 统计数据的发生起始时间，格式应如：2021-07-21 12:11:11
+        self.occurrence_start_time = occurrence_start_time
+        # 统计数据的发生结束时间，格式应如：2021-07-21 12:11:11，不传为当日最近时间
+        self.occurrence_end_time = occurrence_end_time
+
+    def validate(self):
+        self.validate_required(self.statistic_frequence, 'statistic_frequence')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.statistic_frequence is not None:
+            result['statistic_frequence'] = self.statistic_frequence
+        if self.occurrence_start_time is not None:
+            result['occurrence_start_time'] = self.occurrence_start_time
+        if self.occurrence_end_time is not None:
+            result['occurrence_end_time'] = self.occurrence_end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('statistic_frequence') is not None:
+            self.statistic_frequence = m.get('statistic_frequence')
+        if m.get('occurrence_start_time') is not None:
+            self.occurrence_start_time = m.get('occurrence_start_time')
+        if m.get('occurrence_end_time') is not None:
+            self.occurrence_end_time = m.get('occurrence_end_time')
+        return self
+
+
+class CountEcarGreenoperationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        green_energy_total: int = None,
+        green_energy_unit: str = None,
+        green_operation_records: int = None,
+        statistics_by_frequence_list: List[GreenOperationStatisticsByFrequence] = None,
+        statistics_by_type_list: List[GreenOperationStatisticsByType] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 绿色行为产生的绿色能量总量
+        self.green_energy_total = green_energy_total
+        # 绿色能量单位，默认为g
+        self.green_energy_unit = green_energy_unit
+        # 绿色行为记录数据
+        self.green_operation_records = green_operation_records
+        # 按频率统计的绿色行为数据列表
+        self.statistics_by_frequence_list = statistics_by_frequence_list
+        # 按绿色行为类型统计的绿色行为数据列表
+        self.statistics_by_type_list = statistics_by_type_list
+
+    def validate(self):
+        if self.statistics_by_frequence_list:
+            for k in self.statistics_by_frequence_list:
+                if k:
+                    k.validate()
+        if self.statistics_by_type_list:
+            for k in self.statistics_by_type_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.green_energy_total is not None:
+            result['green_energy_total'] = self.green_energy_total
+        if self.green_energy_unit is not None:
+            result['green_energy_unit'] = self.green_energy_unit
+        if self.green_operation_records is not None:
+            result['green_operation_records'] = self.green_operation_records
+        result['statistics_by_frequence_list'] = []
+        if self.statistics_by_frequence_list is not None:
+            for k in self.statistics_by_frequence_list:
+                result['statistics_by_frequence_list'].append(k.to_map() if k else None)
+        result['statistics_by_type_list'] = []
+        if self.statistics_by_type_list is not None:
+            for k in self.statistics_by_type_list:
+                result['statistics_by_type_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('green_energy_total') is not None:
+            self.green_energy_total = m.get('green_energy_total')
+        if m.get('green_energy_unit') is not None:
+            self.green_energy_unit = m.get('green_energy_unit')
+        if m.get('green_operation_records') is not None:
+            self.green_operation_records = m.get('green_operation_records')
+        self.statistics_by_frequence_list = []
+        if m.get('statistics_by_frequence_list') is not None:
+            for k in m.get('statistics_by_frequence_list'):
+                temp_model = GreenOperationStatisticsByFrequence()
+                self.statistics_by_frequence_list.append(temp_model.from_map(k))
+        self.statistics_by_type_list = []
+        if m.get('statistics_by_type_list') is not None:
+            for k in m.get('statistics_by_type_list'):
+                temp_model = GreenOperationStatisticsByType()
+                self.statistics_by_type_list.append(temp_model.from_map(k))
+        return self
+
+
+class ListEcarGreenoperationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        limit: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 限制的记录条数
+        self.limit = limit
+
+    def validate(self):
+        self.validate_required(self.limit, 'limit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.limit is not None:
+            result['limit'] = self.limit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        return self
+
+
+class ListEcarGreenoperationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[GreenOperationRecordSummary] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 最近发生的绿色行为数据列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = GreenOperationRecordSummary()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class PreviewEcarAvitivedataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        year: int = None,
+        comparison_standard: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求统计的年份，默认为当前年份
+        self.year = year
+        # 统计比较运算是的基准：
+        # LastYear(去年同期比较),
+        # CriteriaYear(同基准年比较)。
+        # 默认与去年同期比较。
+        self.comparison_standard = comparison_standard
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.year is not None:
+            result['year'] = self.year
+        if self.comparison_standard is not None:
+            result['comparison_standard'] = self.comparison_standard
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('year') is not None:
+            self.year = m.get('year')
+        if m.get('comparison_standard') is not None:
+            self.comparison_standard = m.get('comparison_standard')
+        return self
+
+
+class PreviewEcarAvitivedataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_emissions: str = None,
+        subtract_reductions: str = None,
+        net_reductions: str = None,
+        year_compare_last_per: str = None,
+        unit: str = None,
+        unit_label: str = None,
+        list: List[AnnualMonthEmissionDatum] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总排放量，最多保留6位小数
+        self.total_emissions = total_emissions
+        # 核减减排量，最多保留6位小数
+        self.subtract_reductions = subtract_reductions
+        # 净排放量，核减后的碳排放量
+        self.net_reductions = net_reductions
+        # 年同比
+        self.year_compare_last_per = year_compare_last_per
+        # 碳排放量单位
+        self.unit = unit
+        # 碳排放量单位显示标签
+        self.unit_label = unit_label
+        # 各月份排放数据列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_emissions is not None:
+            result['total_emissions'] = self.total_emissions
+        if self.subtract_reductions is not None:
+            result['subtract_reductions'] = self.subtract_reductions
+        if self.net_reductions is not None:
+            result['net_reductions'] = self.net_reductions
+        if self.year_compare_last_per is not None:
+            result['year_compare_last_per'] = self.year_compare_last_per
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.unit_label is not None:
+            result['unit_label'] = self.unit_label
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_emissions') is not None:
+            self.total_emissions = m.get('total_emissions')
+        if m.get('subtract_reductions') is not None:
+            self.subtract_reductions = m.get('subtract_reductions')
+        if m.get('net_reductions') is not None:
+            self.net_reductions = m.get('net_reductions')
+        if m.get('year_compare_last_per') is not None:
+            self.year_compare_last_per = m.get('year_compare_last_per')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('unit_label') is not None:
+            self.unit_label = m.get('unit_label')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = AnnualMonthEmissionDatum()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
 class QueryThirdCertRequest(TeaModel):
     def __init__(
         self,
@@ -1160,6 +3356,10 @@ class QueryThirdCertRequest(TeaModel):
         self.validate_required(self.company_id, 'company_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1224,6 +3424,10 @@ class QueryThirdCertResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1250,6 +3454,162 @@ class QueryThirdCertResponse(TeaModel):
             for k in m.get('certifications'):
                 temp_model = CertProductInfoDO()
                 self.certifications.append(temp_model.from_map(k))
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        api_code: str = None,
+        file_label: str = None,
+        file_metadata: str = None,
+        file_name: str = None,
+        mime_type: str = None,
+        api_cluster: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 上传文件作用的openapi method
+        self.api_code = api_code
+        # 文件标签，多个标签;分割
+        self.file_label = file_label
+        # 自定义的文件元数据
+        self.file_metadata = file_metadata
+        # 文件名，不传则随机生成文件名
+        self.file_name = file_name
+        # 文件的多媒体类型
+        self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
+
+    def validate(self):
+        self.validate_required(self.api_code, 'api_code')
+        if self.file_label is not None:
+            self.validate_max_length(self.file_label, 'file_label', 100)
+        if self.file_metadata is not None:
+            self.validate_max_length(self.file_metadata, 'file_metadata', 1000)
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.api_code is not None:
+            result['api_code'] = self.api_code
+        if self.file_label is not None:
+            result['file_label'] = self.file_label
+        if self.file_metadata is not None:
+            result['file_metadata'] = self.file_metadata
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.mime_type is not None:
+            result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('api_code') is not None:
+            self.api_code = m.get('api_code')
+        if m.get('file_label') is not None:
+            self.file_label = m.get('file_label')
+        if m.get('file_metadata') is not None:
+            self.file_metadata = m.get('file_metadata')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('mime_type') is not None:
+            self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        expired_time: str = None,
+        file_id: str = None,
+        upload_headers: List[XNameValuePair] = None,
+        upload_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传有效期
+        self.expired_time = expired_time
+        # 32位文件唯一id
+        self.file_id = file_id
+        # 放入http请求头里
+        self.upload_headers = upload_headers
+        # 文件上传地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.upload_headers:
+            for k in self.upload_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['upload_headers'] = []
+        if self.upload_headers is not None:
+            for k in self.upload_headers:
+                result['upload_headers'].append(k.to_map() if k else None)
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.upload_headers = []
+        if m.get('upload_headers') is not None:
+            for k in m.get('upload_headers'):
+                temp_model = XNameValuePair()
+                self.upload_headers.append(temp_model.from_map(k))
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
         return self
 
 

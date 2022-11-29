@@ -13,8 +13,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 antchain_sdk_stlr
-pip install antchain_sdk_stlr
+# 安装 antchain-stlr
+pip install antchain-stlr
 ```
 
 ## 问题

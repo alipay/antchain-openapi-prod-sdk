@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 分类碳排放量
+            # 证书授权产品信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5'
+                    'sdk_version': '1.3.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 分类碳排放量
+            # 证书授权产品信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5'
+                    'sdk_version': '1.3.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 查询当前活动资料信息
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarActivityResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarActivityResponse(),
             self.do_request('1.0', 'antchain.carbon.acar.activity.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 查询当前活动资料信息
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarActivityResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarActivityResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.acar.activity.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 查询当前活动的每日碳排放量
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarDailyemissionsResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarDailyemissionsResponse(),
             self.do_request('1.0', 'antchain.carbon.acar.dailyemissions.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 查询当前活动的每日碳排放量
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarDailyemissionsResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarDailyemissionsResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.acar.dailyemissions.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 查询当前活动各范围的碳排放量
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarScopemissionResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarScopemissionResponse(),
             self.do_request('1.0', 'antchain.carbon.acar.scopemission.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 查询当前活动各范围的碳排放量
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarScopemissionResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarScopemissionResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.acar.scopemission.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 获取减排情况
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarReductionemissionsResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarReductionemissionsResponse(),
             self.do_request('1.0', 'antchain.carbon.acar.reductionemissions.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 获取减排情况
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarReductionemissionsResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarReductionemissionsResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.acar.reductionemissions.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 查询最近排放数据
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarLastemissiondataResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarLastemissiondataResponse(),
             self.do_request('1.0', 'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,8 +546,715 @@ class Client:
         Summary: 查询最近排放数据
         """
         UtilClient.validate_model(request)
-        return stlr_models.DescribeAcarLastemissiondataResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.DescribeAcarLastemissiondataResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_pdcp_account(
+        self,
+        request: stlr_models.RegisterPdcpAccountRequest,
+    ) -> stlr_models.RegisterPdcpAccountResponse:
+        """
+        Description: 账户开通接口。开通协作平台和链上账户
+        Summary: 账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_pdcp_account_ex(request, headers, runtime)
+
+    async def register_pdcp_account_async(
+        self,
+        request: stlr_models.RegisterPdcpAccountRequest,
+    ) -> stlr_models.RegisterPdcpAccountResponse:
+        """
+        Description: 账户开通接口。开通协作平台和链上账户
+        Summary: 账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_pdcp_account_ex_async(request, headers, runtime)
+
+    def register_pdcp_account_ex(
+        self,
+        request: stlr_models.RegisterPdcpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterPdcpAccountResponse:
+        """
+        Description: 账户开通接口。开通协作平台和链上账户
+        Summary: 账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterPdcpAccountResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.account.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_pdcp_account_ex_async(
+        self,
+        request: stlr_models.RegisterPdcpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterPdcpAccountResponse:
+        """
+        Description: 账户开通接口。开通协作平台和链上账户
+        Summary: 账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterPdcpAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.account.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_pdcp_blockchain(
+        self,
+        request: stlr_models.PushPdcpBlockchainRequest,
+    ) -> stlr_models.PushPdcpBlockchainResponse:
+        """
+        Description: 存证接口
+        Summary: 存证接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_pdcp_blockchain_ex(request, headers, runtime)
+
+    async def push_pdcp_blockchain_async(
+        self,
+        request: stlr_models.PushPdcpBlockchainRequest,
+    ) -> stlr_models.PushPdcpBlockchainResponse:
+        """
+        Description: 存证接口
+        Summary: 存证接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_pdcp_blockchain_ex_async(request, headers, runtime)
+
+    def push_pdcp_blockchain_ex(
+        self,
+        request: stlr_models.PushPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PushPdcpBlockchainResponse:
+        """
+        Description: 存证接口
+        Summary: 存证接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PushPdcpBlockchainResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.blockchain.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_pdcp_blockchain_ex_async(
+        self,
+        request: stlr_models.PushPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PushPdcpBlockchainResponse:
+        """
+        Description: 存证接口
+        Summary: 存证接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PushPdcpBlockchainResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.blockchain.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_pdcp_blockchain(
+        self,
+        request: stlr_models.UploadPdcpBlockchainRequest,
+    ) -> stlr_models.UploadPdcpBlockchainResponse:
+        """
+        Description: 异步存证接口
+        Summary: 异步存证接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_pdcp_blockchain_ex(request, headers, runtime)
+
+    async def upload_pdcp_blockchain_async(
+        self,
+        request: stlr_models.UploadPdcpBlockchainRequest,
+    ) -> stlr_models.UploadPdcpBlockchainResponse:
+        """
+        Description: 异步存证接口
+        Summary: 异步存证接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_pdcp_blockchain_ex_async(request, headers, runtime)
+
+    def upload_pdcp_blockchain_ex(
+        self,
+        request: stlr_models.UploadPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadPdcpBlockchainResponse:
+        """
+        Description: 异步存证接口
+        Summary: 异步存证接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadPdcpBlockchainResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.blockchain.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_pdcp_blockchain_ex_async(
+        self,
+        request: stlr_models.UploadPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadPdcpBlockchainResponse:
+        """
+        Description: 异步存证接口
+        Summary: 异步存证接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadPdcpBlockchainResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.blockchain.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_pdcp_blockchain(
+        self,
+        request: stlr_models.GetPdcpBlockchainRequest,
+    ) -> stlr_models.GetPdcpBlockchainResponse:
+        """
+        Description: 查询异步存证结果
+        Summary: 查询异步存证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_pdcp_blockchain_ex(request, headers, runtime)
+
+    async def get_pdcp_blockchain_async(
+        self,
+        request: stlr_models.GetPdcpBlockchainRequest,
+    ) -> stlr_models.GetPdcpBlockchainResponse:
+        """
+        Description: 查询异步存证结果
+        Summary: 查询异步存证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_pdcp_blockchain_ex_async(request, headers, runtime)
+
+    def get_pdcp_blockchain_ex(
+        self,
+        request: stlr_models.GetPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.GetPdcpBlockchainResponse:
+        """
+        Description: 查询异步存证结果
+        Summary: 查询异步存证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.GetPdcpBlockchainResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_pdcp_blockchain_ex_async(
+        self,
+        request: stlr_models.GetPdcpBlockchainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.GetPdcpBlockchainResponse:
+        """
+        Description: 查询异步存证结果
+        Summary: 查询异步存证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.GetPdcpBlockchainResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_ecar_avitivedata(
+        self,
+        request: stlr_models.AddEcarAvitivedataRequest,
+    ) -> stlr_models.AddEcarAvitivedataResponse:
+        """
+        Description: 新增排放活动数据
+        Summary: 新增排放活动数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_ecar_avitivedata_ex(request, headers, runtime)
+
+    async def add_ecar_avitivedata_async(
+        self,
+        request: stlr_models.AddEcarAvitivedataRequest,
+    ) -> stlr_models.AddEcarAvitivedataResponse:
+        """
+        Description: 新增排放活动数据
+        Summary: 新增排放活动数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_ecar_avitivedata_ex_async(request, headers, runtime)
+
+    def add_ecar_avitivedata_ex(
+        self,
+        request: stlr_models.AddEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarAvitivedataResponse:
+        """
+        Description: 新增排放活动数据
+        Summary: 新增排放活动数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarAvitivedataResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.avitivedata.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_ecar_avitivedata_ex_async(
+        self,
+        request: stlr_models.AddEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarAvitivedataResponse:
+        """
+        Description: 新增排放活动数据
+        Summary: 新增排放活动数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarAvitivedataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.avitivedata.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_ecar_avitivedata(
+        self,
+        request: stlr_models.DetailEcarAvitivedataRequest,
+    ) -> stlr_models.DetailEcarAvitivedataResponse:
+        """
+        Description: 查询排放活动数据详情
+        Summary: 查询排放活动数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_ecar_avitivedata_ex(request, headers, runtime)
+
+    async def detail_ecar_avitivedata_async(
+        self,
+        request: stlr_models.DetailEcarAvitivedataRequest,
+    ) -> stlr_models.DetailEcarAvitivedataResponse:
+        """
+        Description: 查询排放活动数据详情
+        Summary: 查询排放活动数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_ecar_avitivedata_ex_async(request, headers, runtime)
+
+    def detail_ecar_avitivedata_ex(
+        self,
+        request: stlr_models.DetailEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarAvitivedataResponse:
+        """
+        Description: 查询排放活动数据详情
+        Summary: 查询排放活动数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarAvitivedataResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.avitivedata.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_ecar_avitivedata_ex_async(
+        self,
+        request: stlr_models.DetailEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarAvitivedataResponse:
+        """
+        Description: 查询排放活动数据详情
+        Summary: 查询排放活动数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarAvitivedataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.avitivedata.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def count_ecar_activedata(
+        self,
+        request: stlr_models.CountEcarActivedataRequest,
+    ) -> stlr_models.CountEcarActivedataResponse:
+        """
+        Description: 排放活动数据统计计算
+        Summary: 排放活动数据统计计算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.count_ecar_activedata_ex(request, headers, runtime)
+
+    async def count_ecar_activedata_async(
+        self,
+        request: stlr_models.CountEcarActivedataRequest,
+    ) -> stlr_models.CountEcarActivedataResponse:
+        """
+        Description: 排放活动数据统计计算
+        Summary: 排放活动数据统计计算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.count_ecar_activedata_ex_async(request, headers, runtime)
+
+    def count_ecar_activedata_ex(
+        self,
+        request: stlr_models.CountEcarActivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CountEcarActivedataResponse:
+        """
+        Description: 排放活动数据统计计算
+        Summary: 排放活动数据统计计算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CountEcarActivedataResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.activedata.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def count_ecar_activedata_ex_async(
+        self,
+        request: stlr_models.CountEcarActivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CountEcarActivedataResponse:
+        """
+        Description: 排放活动数据统计计算
+        Summary: 排放活动数据统计计算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CountEcarActivedataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.activedata.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_ecar_file(
+        self,
+        request: stlr_models.UploadEcarFileRequest,
+    ) -> stlr_models.UploadEcarFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_ecar_file_ex(request, headers, runtime)
+
+    async def upload_ecar_file_async(
+        self,
+        request: stlr_models.UploadEcarFileRequest,
+    ) -> stlr_models.UploadEcarFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_ecar_file_ex_async(request, headers, runtime)
+
+    def upload_ecar_file_ex(
+        self,
+        request: stlr_models.UploadEcarFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadEcarFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_ecar_file_response = stlr_models.UploadEcarFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_ecar_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadEcarFileResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_ecar_file_ex_async(
+        self,
+        request: stlr_models.UploadEcarFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UploadEcarFileResponse:
+        """
+        Description: 文件上传接口
+        Summary: 文件上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_ecar_file_response = stlr_models.UploadEcarFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_ecar_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UploadEcarFileResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_ecar_greenoperation(
+        self,
+        request: stlr_models.AddEcarGreenoperationRequest,
+    ) -> stlr_models.AddEcarGreenoperationResponse:
+        """
+        Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+        Summary: 录入绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_ecar_greenoperation_ex(request, headers, runtime)
+
+    async def add_ecar_greenoperation_async(
+        self,
+        request: stlr_models.AddEcarGreenoperationRequest,
+    ) -> stlr_models.AddEcarGreenoperationResponse:
+        """
+        Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+        Summary: 录入绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_ecar_greenoperation_ex_async(request, headers, runtime)
+
+    def add_ecar_greenoperation_ex(
+        self,
+        request: stlr_models.AddEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarGreenoperationResponse:
+        """
+        Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+        Summary: 录入绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarGreenoperationResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.greenoperation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_ecar_greenoperation_ex_async(
+        self,
+        request: stlr_models.AddEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarGreenoperationResponse:
+        """
+        Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+        Summary: 录入绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarGreenoperationResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.greenoperation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def count_ecar_greenoperation(
+        self,
+        request: stlr_models.CountEcarGreenoperationRequest,
+    ) -> stlr_models.CountEcarGreenoperationResponse:
+        """
+        Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+        Summary: 统计绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.count_ecar_greenoperation_ex(request, headers, runtime)
+
+    async def count_ecar_greenoperation_async(
+        self,
+        request: stlr_models.CountEcarGreenoperationRequest,
+    ) -> stlr_models.CountEcarGreenoperationResponse:
+        """
+        Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+        Summary: 统计绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.count_ecar_greenoperation_ex_async(request, headers, runtime)
+
+    def count_ecar_greenoperation_ex(
+        self,
+        request: stlr_models.CountEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CountEcarGreenoperationResponse:
+        """
+        Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+        Summary: 统计绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CountEcarGreenoperationResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.greenoperation.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def count_ecar_greenoperation_ex_async(
+        self,
+        request: stlr_models.CountEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CountEcarGreenoperationResponse:
+        """
+        Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+        Summary: 统计绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CountEcarGreenoperationResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.greenoperation.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_ecar_greenoperation(
+        self,
+        request: stlr_models.ListEcarGreenoperationRequest,
+    ) -> stlr_models.ListEcarGreenoperationResponse:
+        """
+        Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+        Summary: 查询最近的绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ecar_greenoperation_ex(request, headers, runtime)
+
+    async def list_ecar_greenoperation_async(
+        self,
+        request: stlr_models.ListEcarGreenoperationRequest,
+    ) -> stlr_models.ListEcarGreenoperationResponse:
+        """
+        Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+        Summary: 查询最近的绿色行为数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_ecar_greenoperation_ex_async(request, headers, runtime)
+
+    def list_ecar_greenoperation_ex(
+        self,
+        request: stlr_models.ListEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarGreenoperationResponse:
+        """
+        Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+        Summary: 查询最近的绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarGreenoperationResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.greenoperation.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_ecar_greenoperation_ex_async(
+        self,
+        request: stlr_models.ListEcarGreenoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarGreenoperationResponse:
+        """
+        Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+        Summary: 查询最近的绿色行为数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarGreenoperationResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.greenoperation.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def preview_ecar_avitivedata(
+        self,
+        request: stlr_models.PreviewEcarAvitivedataRequest,
+    ) -> stlr_models.PreviewEcarAvitivedataResponse:
+        """
+        Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+        Summary: 预览本年度排放统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.preview_ecar_avitivedata_ex(request, headers, runtime)
+
+    async def preview_ecar_avitivedata_async(
+        self,
+        request: stlr_models.PreviewEcarAvitivedataRequest,
+    ) -> stlr_models.PreviewEcarAvitivedataResponse:
+        """
+        Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+        Summary: 预览本年度排放统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.preview_ecar_avitivedata_ex_async(request, headers, runtime)
+
+    def preview_ecar_avitivedata_ex(
+        self,
+        request: stlr_models.PreviewEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PreviewEcarAvitivedataResponse:
+        """
+        Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+        Summary: 预览本年度排放统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PreviewEcarAvitivedataResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def preview_ecar_avitivedata_ex_async(
+        self,
+        request: stlr_models.PreviewEcarAvitivedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PreviewEcarAvitivedataResponse:
+        """
+        Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+        Summary: 预览本年度排放统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PreviewEcarAvitivedataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
@@ -576,7 +1292,8 @@ class Client:
         Summary: 证书查询
         """
         UtilClient.validate_model(request)
-        return stlr_models.QueryThirdCertResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.QueryThirdCertResponse(),
             self.do_request('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,6 +1308,63 @@ class Client:
         Summary: 证书查询
         """
         UtilClient.validate_model(request)
-        return stlr_models.QueryThirdCertResponse().from_map(
+        return TeaCore.from_map(
+            stlr_models.QueryThirdCertResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: stlr_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> stlr_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: stlr_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> stlr_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: stlr_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: stlr_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
