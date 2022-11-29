@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -77,6 +78,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// 证书授权产品信息
+export class CertProductAuthDO extends $tea.Model {
+  // 三方平台产品ID
+  productId: string;
+  // 三方平台产品名称
+  productName: string;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productName: 'product_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 分类碳排放量
 export class EmissionsCategoryStatistics extends $tea.Model {
   // 排放类型编码
@@ -98,31 +124,6 @@ export class EmissionsCategoryStatistics extends $tea.Model {
       emissionDategoryNo: 'string',
       emissionCategoryName: 'string',
       emissions: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 证书授权产品信息
-export class CertProductAuthDO extends $tea.Model {
-  // 三方平台产品ID
-  productId: string;
-  // 三方平台产品名称
-  productName: string;
-  static names(): { [key: string]: string } {
-    return {
-      productId: 'product_id',
-      productName: 'product_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      productId: 'string',
-      productName: 'string',
     };
   }
 
@@ -204,6 +205,68 @@ export class CertProductInfoDO extends $tea.Model {
   }
 }
 
+//  每月的排放数据
+export class AnnualMonthEmissionDatum extends $tea.Model {
+  // 统计的年份
+  year: string;
+  // 统计的月份
+  month: string;
+  // 统计排放量
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      year: 'year',
+      month: 'month',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      year: 'string',
+      month: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 按绿色行为类型统计的绿色行为明细
+export class GreenOperationStatisticsByType extends $tea.Model {
+  // 绿色行为类型
+  greenOperationType: string;
+  // 绿色行为类型名称
+  greenOperationTypeName: string;
+  // 绿色行为产生的绿色能量值
+  greenEnergyAmount: number;
+  // 相关类型的绿色行为记录数
+  greenOperationRecords: number;
+  static names(): { [key: string]: string } {
+    return {
+      greenOperationType: 'green_operation_type',
+      greenOperationTypeName: 'green_operation_type_name',
+      greenEnergyAmount: 'green_energy_amount',
+      greenOperationRecords: 'green_operation_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      greenOperationType: 'string',
+      greenOperationTypeName: 'string',
+      greenEnergyAmount: 'number',
+      greenOperationRecords: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 减排情况统计
 export class EmissionsReductionStatistics extends $tea.Model {
   // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
@@ -266,6 +329,135 @@ export class DailyEmissions extends $tea.Model {
   }
 }
 
+// 排放统计项目
+export class AnyStatisticalItem extends $tea.Model {
+  // 统计项目编码
+  itemCode: string;
+  // 数据值，按字符串输出，最多保留6位小数
+  amount: string;
+  // 单位编码
+  unit: string;
+  // 单位标签
+  unitLabel: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      amount: 'amount',
+      unit: 'unit',
+      unitLabel: 'unit_label',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      amount: 'string',
+      unit: 'string',
+      unitLabel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户开通返回
+export class AccountRegisterResponse extends $tea.Model {
+  // 账户did
+  userDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      userDid: 'user_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 文档信息
+export class EnterpriseDocumentFile extends $tea.Model {
+  // 文档名称
+  documentName: string;
+  // 文件地址
+  documentAddress: string;
+  static names(): { [key: string]: string } {
+    return {
+      documentName: 'document_name',
+      documentAddress: 'document_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      documentName: 'string',
+      documentAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 区块链信息
+export class BlockchainDTO extends $tea.Model {
+  // 交易hash
+  txHash: string;
+  // 当前块高
+  blockNumber: number;
+  static names(): { [key: string]: string } {
+    return {
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      txHash: 'string',
+      blockNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据值条目
+export class AnyAmountItem extends $tea.Model {
+  // 数据项编码
+  itemCode: string;
+  // 数据值，按字符串输出，最多保留6位小数
+  itemAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      itemAmount: 'item_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      itemAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 排放范围排放数据统计
 export class EmissionsScopeStatistics extends $tea.Model {
   // 盘查范围编码
@@ -295,6 +487,126 @@ export class EmissionsScopeStatistics extends $tea.Model {
       emissions: 'number',
       percentage: 'number',
       categoryEmissionsList: { 'type': 'array', 'itemType': EmissionsCategoryStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 任意KV结构对象
+export class AnyKeywordItem extends $tea.Model {
+  // 项目编码
+  itemCode: string;
+  // 项目值
+  itemValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      itemValue: 'item_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      itemValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 按频率统计的绿色行为明细
+export class GreenOperationStatisticsByFrequence extends $tea.Model {
+  // 绿色行为发生时期
+  occurrencePeriod: string;
+  // 绿色行为产生的绿色能量值
+  greenEnergyAmount: number;
+  // 时期内发生绿色行为的记录条数
+  greenOperationRecords: number;
+  static names(): { [key: string]: string } {
+    return {
+      occurrencePeriod: 'occurrence_period',
+      greenEnergyAmount: 'green_energy_amount',
+      greenOperationRecords: 'green_operation_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      occurrencePeriod: 'string',
+      greenEnergyAmount: 'number',
+      greenOperationRecords: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 绿色行为数据摘要
+export class GreenOperationRecordSummary extends $tea.Model {
+  // 绿色行为记录编码
+  greenOperationNo: string;
+  // 绿色行为类型
+  greenOperationType: string;
+  // 绿色行为类型名称
+  greenOperationTypeName: string;
+  // 发生绿色行为的相关业务单号
+  enterpriseBizNo: string;
+  // 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+  occurrenceTime: string;
+  // 绿色行为的绿色能量值
+  greenEnergyAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      greenOperationNo: 'green_operation_no',
+      greenOperationType: 'green_operation_type',
+      greenOperationTypeName: 'green_operation_type_name',
+      enterpriseBizNo: 'enterprise_biz_no',
+      occurrenceTime: 'occurrence_time',
+      greenEnergyAmount: 'green_energy_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      greenOperationNo: 'string',
+      greenOperationType: 'string',
+      greenOperationTypeName: 'string',
+      enterpriseBizNo: 'string',
+      occurrenceTime: 'string',
+      greenEnergyAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -708,6 +1020,964 @@ export class DescribeAcarLastemissiondataResponse extends $tea.Model {
   }
 }
 
+export class RegisterPdcpAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // PERSON("个人"),
+  // ENTERPRISE("企业")
+  userType: string;
+  // 用户名称
+  userName: string;
+  // 用户ID
+  userId: string;
+  // PASSPORT("护照"),
+  // RESIDENT("身份证"),
+  // NATIONAL_LEGAL_MERGE("统一社会信用代码")
+  certType: string;
+  // 证件号码
+  certNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userType: 'user_type',
+      userName: 'user_name',
+      userId: 'user_id',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userType: 'string',
+      userName: 'string',
+      userId: 'string',
+      certType: 'string',
+      certNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterPdcpAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账户开通结果
+  data?: AccountRegisterResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AccountRegisterResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushPdcpBlockchainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 消息ID
+  txMsgId: string;
+  // 用户ID
+  userId: string;
+  // 数据类型，枚举定义
+  dataType: string;
+  // 密文类型
+  encryptType: string;
+  // 待存证数据，根据数据类型序列化为json。并加密传输
+  depositData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txMsgId: 'tx_msg_id',
+      userId: 'user_id',
+      dataType: 'data_type',
+      encryptType: 'encrypt_type',
+      depositData: 'deposit_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txMsgId: 'string',
+      userId: 'string',
+      dataType: 'string',
+      encryptType: 'string',
+      depositData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushPdcpBlockchainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上链信息: 交易hash，块高
+  txData?: BlockchainDTO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txData: 'tx_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txData: BlockchainDTO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadPdcpBlockchainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID
+  txMsgId: string;
+  // 用户ID
+  userId: string;
+  // 数据类型
+  dataType: string;
+  // 加密类型
+  encryptType: string;
+  // 待存证数据，根据数据类型序列化后加密传输
+  depositData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txMsgId: 'tx_msg_id',
+      userId: 'user_id',
+      dataType: 'data_type',
+      encryptType: 'encrypt_type',
+      depositData: 'deposit_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txMsgId: 'string',
+      userId: 'string',
+      dataType: 'string',
+      encryptType: 'string',
+      depositData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadPdcpBlockchainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPdcpBlockchainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID
+  txMsgId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txMsgId: 'tx_msg_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txMsgId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPdcpBlockchainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回上链信息
+  txData?: BlockchainDTO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txData: 'tx_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txData: BlockchainDTO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarAvitivedataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动数据业务单号
+  enterpriseBizNo: string;
+  // 盘查排放项编码
+  inventoryItemNo: string;
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceStartTime: string;
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceEndTime: string;
+  // 排放源用量值列表
+  emissionSourceDosageList: AnyAmountItem[];
+  // 活动数据附加要素值列表
+  emissionSourceElementList?: AnyKeywordItem[];
+  // 活动数据扩展信息值列表
+  extensionValueList?: AnyKeywordItem[];
+  // 凭证文件列表，每个文件通过接口/open/api/file/upload上传
+  voucherFileList?: EnterpriseDocumentFile[];
+  // 备注
+  remark?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseBizNo: 'enterprise_biz_no',
+      inventoryItemNo: 'inventory_item_no',
+      occurrenceStartTime: 'occurrence_start_time',
+      occurrenceEndTime: 'occurrence_end_time',
+      emissionSourceDosageList: 'emission_source_dosage_list',
+      emissionSourceElementList: 'emission_source_element_list',
+      extensionValueList: 'extension_value_list',
+      voucherFileList: 'voucher_file_list',
+      remark: 'remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseBizNo: 'string',
+      inventoryItemNo: 'string',
+      occurrenceStartTime: 'string',
+      occurrenceEndTime: 'string',
+      emissionSourceDosageList: { 'type': 'array', 'itemType': AnyAmountItem },
+      emissionSourceElementList: { 'type': 'array', 'itemType': AnyKeywordItem },
+      extensionValueList: { 'type': 'array', 'itemType': AnyKeywordItem },
+      voucherFileList: { 'type': 'array', 'itemType': EnterpriseDocumentFile },
+      remark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarAvitivedataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 排放数据录入明细编码
+  emissionDataEntryItemNo?: string;
+  // 企业业务单号
+  enterpriseBizNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      emissionDataEntryItemNo: 'emission_data_entry_item_no',
+      enterpriseBizNo: 'enterprise_biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      emissionDataEntryItemNo: 'string',
+      enterpriseBizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailEcarAvitivedataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 排放数据录入明细编码
+  emissionDataEntryItemNo?: string;
+  // 企业业务单号
+  enterpriseBizNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      emissionDataEntryItemNo: 'emission_data_entry_item_no',
+      enterpriseBizNo: 'enterprise_biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      emissionDataEntryItemNo: 'string',
+      enterpriseBizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailEcarAvitivedataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 企业排放数据录入明细编码
+  emissionDataEntryItemNo?: string;
+  // 企业业务单号
+  enterpriseBizNo?: string;
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceStartTime?: string;
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceEndTime?: string;
+  // 链上交易Hash
+  carbonChainTradeHash?: string;
+  // 总的碳排放用量，按字符串输出，最多保留6位小数
+  emissionStatisticalAmount?: string;
+  // 排放源编码
+  emissionSourceNo?: string;
+  // 排放源名称
+  emissionSourceName?: string;
+  // 排放单元编码
+  enterpriseLocationNo?: string;
+  // 排放单元名称
+  enterpriseLocationName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      emissionDataEntryItemNo: 'emission_data_entry_item_no',
+      enterpriseBizNo: 'enterprise_biz_no',
+      occurrenceStartTime: 'occurrence_start_time',
+      occurrenceEndTime: 'occurrence_end_time',
+      carbonChainTradeHash: 'carbon_chain_trade_hash',
+      emissionStatisticalAmount: 'emission_statistical_amount',
+      emissionSourceNo: 'emission_source_no',
+      emissionSourceName: 'emission_source_name',
+      enterpriseLocationNo: 'enterprise_location_no',
+      enterpriseLocationName: 'enterprise_location_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      emissionDataEntryItemNo: 'string',
+      enterpriseBizNo: 'string',
+      occurrenceStartTime: 'string',
+      occurrenceEndTime: 'string',
+      carbonChainTradeHash: 'string',
+      emissionStatisticalAmount: 'string',
+      emissionSourceNo: 'string',
+      emissionSourceName: 'string',
+      enterpriseLocationNo: 'string',
+      enterpriseLocationName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountEcarActivedataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 盘查排放项编码
+  inventoryItemNo: string;
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss，将统计起始时间之后的活动数据
+  occurrenceStartTime: string;
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss，将统计结束时间之前、起始时间之后的活动数据
+  occurrenceEndTime: string;
+  // 活动数据附加要素信息，将统计满足相关要素值的活动数据
+  emissionSourceElementList?: AnyKeywordItem[];
+  // 活动数据扩展信息，将统计满足相关要素值的活动数据
+  extensionValueList?: AnyKeywordItem[];
+  // 附加的扩展统计条目，条目K为统计数据结果编码，V为统计计算公式，
+  // 公式可用参数：dataEntryCount(统计排放数据条数)、totalEmissions(总碳排放量)、activeDataAmounts.{活动数据编码}（活动数据量）
+  // 比如马士基计算百公里排放量公式：totalEmissions/(activeDataAmounts.AD1+activeDataAmounts.AD3)*100
+  extraStatisticItemList?: AnyKeywordItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      inventoryItemNo: 'inventory_item_no',
+      occurrenceStartTime: 'occurrence_start_time',
+      occurrenceEndTime: 'occurrence_end_time',
+      emissionSourceElementList: 'emission_source_element_list',
+      extensionValueList: 'extension_value_list',
+      extraStatisticItemList: 'extra_statistic_item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      inventoryItemNo: 'string',
+      occurrenceStartTime: 'string',
+      occurrenceEndTime: 'string',
+      emissionSourceElementList: { 'type': 'array', 'itemType': AnyKeywordItem },
+      extensionValueList: { 'type': 'array', 'itemType': AnyKeywordItem },
+      extraStatisticItemList: { 'type': 'array', 'itemType': AnyKeywordItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountEcarActivedataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 指定时间区间内的活动数据笔数
+  dataEntryCount?: number;
+  // 总碳排放量
+  totalEmissions?: string;
+  // 各活动数据用量累计
+  activeDataAmountList?: AnyStatisticalItem[];
+  // 碳排放强度，碳排放总量/订单笔数，按字符串输出，最多保留6位小数
+  emissionsIntensity?: string;
+  // 每月排放量，排放量总计/指定时间区间内的月份数，按字符串输出，最多保留6位小数
+  eachMonthEmissions?: string;
+  // 额外统计数据统计结果
+  extraStatisticDatumList?: AnyAmountItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dataEntryCount: 'data_entry_count',
+      totalEmissions: 'total_emissions',
+      activeDataAmountList: 'active_data_amount_list',
+      emissionsIntensity: 'emissions_intensity',
+      eachMonthEmissions: 'each_month_emissions',
+      extraStatisticDatumList: 'extra_statistic_datum_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dataEntryCount: 'number',
+      totalEmissions: 'string',
+      activeDataAmountList: { 'type': 'array', 'itemType': AnyStatisticalItem },
+      emissionsIntensity: 'string',
+      eachMonthEmissions: 'string',
+      extraStatisticDatumList: { 'type': 'array', 'itemType': AnyAmountItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadEcarFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // Port的文件内容
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadEcarFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文档名称
+  documentName?: string;
+  // 碳矩阵存放的文件地址
+  documentAddress?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      documentName: 'document_name',
+      documentAddress: 'document_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      documentName: 'string',
+      documentAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarGreenoperationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 绿色行为类型，目前支持包括：
+  // ElectronicInvoice(电子发票), 
+  // LowCarbonCommodity(低碳商品), 
+  // ReusableBag(环保减塑)
+  // OfflinePayment(线下支付)
+  // GreenOrder(绿色订单，可以同时解析出低碳商品、环保减塑、线下支付等多种绿色行为)
+  greenOperationType: string;
+  // 绿色行为相关的业务单号
+  enterpriseBizNo: string;
+  // 发生时间，格式应如：2021-07-21 12:11:11
+  occurrenceTime: string;
+  // 绿色行为数据扩展信息，必须为JSON格式，碳矩阵将分析解析数据检查获取相关的绿色行为数据
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      greenOperationType: 'green_operation_type',
+      enterpriseBizNo: 'enterprise_biz_no',
+      occurrenceTime: 'occurrence_time',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      greenOperationType: 'string',
+      enterpriseBizNo: 'string',
+      occurrenceTime: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarGreenoperationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回记录的多种绿色行为数据摘要信息
+  list?: GreenOperationRecordSummary[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': GreenOperationRecordSummary },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountEcarGreenoperationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 绿色行为统计频率，可选值：
+  // Monthly(分月统计),
+  // Daily(按每日统计) 
+  // 
+  statisticFrequence: string;
+  // 统计数据的发生起始时间，格式应如：2021-07-21 12:11:11
+  occurrenceStartTime?: string;
+  // 统计数据的发生结束时间，格式应如：2021-07-21 12:11:11，不传为当日最近时间
+  occurrenceEndTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      statisticFrequence: 'statistic_frequence',
+      occurrenceStartTime: 'occurrence_start_time',
+      occurrenceEndTime: 'occurrence_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      statisticFrequence: 'string',
+      occurrenceStartTime: 'string',
+      occurrenceEndTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountEcarGreenoperationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 绿色行为产生的绿色能量总量
+  greenEnergyTotal?: number;
+  // 绿色能量单位，默认为g
+  greenEnergyUnit?: string;
+  // 绿色行为记录数据
+  greenOperationRecords?: number;
+  // 按频率统计的绿色行为数据列表
+  statisticsByFrequenceList?: GreenOperationStatisticsByFrequence[];
+  // 按绿色行为类型统计的绿色行为数据列表
+  statisticsByTypeList?: GreenOperationStatisticsByType[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      greenEnergyTotal: 'green_energy_total',
+      greenEnergyUnit: 'green_energy_unit',
+      greenOperationRecords: 'green_operation_records',
+      statisticsByFrequenceList: 'statistics_by_frequence_list',
+      statisticsByTypeList: 'statistics_by_type_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      greenEnergyTotal: 'number',
+      greenEnergyUnit: 'string',
+      greenOperationRecords: 'number',
+      statisticsByFrequenceList: { 'type': 'array', 'itemType': GreenOperationStatisticsByFrequence },
+      statisticsByTypeList: { 'type': 'array', 'itemType': GreenOperationStatisticsByType },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarGreenoperationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 限制的记录条数
+  limit: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      limit: 'limit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      limit: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarGreenoperationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 最近发生的绿色行为数据列表
+  list?: GreenOperationRecordSummary[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': GreenOperationRecordSummary },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewEcarAvitivedataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求统计的年份，默认为当前年份
+  year?: number;
+  // 统计比较运算是的基准：
+  // LastYear(去年同期比较),
+  // CriteriaYear(同基准年比较)。
+  // 默认与去年同期比较。
+  comparisonStandard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      year: 'year',
+      comparisonStandard: 'comparison_standard',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      year: 'number',
+      comparisonStandard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewEcarAvitivedataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总排放量，最多保留6位小数
+  totalEmissions?: string;
+  // 核减减排量，最多保留6位小数
+  subtractReductions?: string;
+  // 净排放量，核减后的碳排放量
+  netReductions?: string;
+  // 年同比
+  yearCompareLastPer?: string;
+  // 碳排放量单位
+  unit?: string;
+  // 碳排放量单位显示标签
+  unitLabel?: string;
+  // 各月份排放数据列表
+  list?: AnnualMonthEmissionDatum[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalEmissions: 'total_emissions',
+      subtractReductions: 'subtract_reductions',
+      netReductions: 'net_reductions',
+      yearCompareLastPer: 'year_compare_last_per',
+      unit: 'unit',
+      unitLabel: 'unit_label',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalEmissions: 'string',
+      subtractReductions: 'string',
+      netReductions: 'string',
+      yearCompareLastPer: 'string',
+      unit: 'string',
+      unitLabel: 'string',
+      list: { 'type': 'array', 'itemType': AnnualMonthEmissionDatum },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -781,6 +2051,94 @@ export class QueryThirdCertResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       certifications: { 'type': 'array', 'itemType': CertProductInfoDO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
     };
   }
 
@@ -902,7 +2260,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.3.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1044,6 +2402,255 @@ export default class Client {
   }
 
   /**
+   * Description: 账户开通接口。开通协作平台和链上账户
+   * Summary: 账户开通接口
+   */
+  async registerPdcpAccount(request: RegisterPdcpAccountRequest): Promise<RegisterPdcpAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerPdcpAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 账户开通接口。开通协作平台和链上账户
+   * Summary: 账户开通接口
+   */
+  async registerPdcpAccountEx(request: RegisterPdcpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterPdcpAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterPdcpAccountResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.account.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterPdcpAccountResponse({}));
+  }
+
+  /**
+   * Description: 存证接口
+   * Summary: 存证接口
+   */
+  async pushPdcpBlockchain(request: PushPdcpBlockchainRequest): Promise<PushPdcpBlockchainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushPdcpBlockchainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证接口
+   * Summary: 存证接口
+   */
+  async pushPdcpBlockchainEx(request: PushPdcpBlockchainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushPdcpBlockchainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushPdcpBlockchainResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.blockchain.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushPdcpBlockchainResponse({}));
+  }
+
+  /**
+   * Description: 异步存证接口
+   * Summary: 异步存证接口
+   */
+  async uploadPdcpBlockchain(request: UploadPdcpBlockchainRequest): Promise<UploadPdcpBlockchainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadPdcpBlockchainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 异步存证接口
+   * Summary: 异步存证接口
+   */
+  async uploadPdcpBlockchainEx(request: UploadPdcpBlockchainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadPdcpBlockchainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadPdcpBlockchainResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.blockchain.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadPdcpBlockchainResponse({}));
+  }
+
+  /**
+   * Description: 查询异步存证结果
+   * Summary: 查询异步存证结果
+   */
+  async getPdcpBlockchain(request: GetPdcpBlockchainRequest): Promise<GetPdcpBlockchainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getPdcpBlockchainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询异步存证结果
+   * Summary: 查询异步存证结果
+   */
+  async getPdcpBlockchainEx(request: GetPdcpBlockchainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetPdcpBlockchainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetPdcpBlockchainResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.blockchain.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetPdcpBlockchainResponse({}));
+  }
+
+  /**
+   * Description: 新增排放活动数据
+   * Summary: 新增排放活动数据
+   */
+  async addEcarAvitivedata(request: AddEcarAvitivedataRequest): Promise<AddEcarAvitivedataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addEcarAvitivedataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新增排放活动数据
+   * Summary: 新增排放活动数据
+   */
+  async addEcarAvitivedataEx(request: AddEcarAvitivedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddEcarAvitivedataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddEcarAvitivedataResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.avitivedata.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddEcarAvitivedataResponse({}));
+  }
+
+  /**
+   * Description: 查询排放活动数据详情
+   * Summary: 查询排放活动数据详情
+   */
+  async detailEcarAvitivedata(request: DetailEcarAvitivedataRequest): Promise<DetailEcarAvitivedataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailEcarAvitivedataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询排放活动数据详情
+   * Summary: 查询排放活动数据详情
+   */
+  async detailEcarAvitivedataEx(request: DetailEcarAvitivedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailEcarAvitivedataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailEcarAvitivedataResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.avitivedata.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailEcarAvitivedataResponse({}));
+  }
+
+  /**
+   * Description: 排放活动数据统计计算
+   * Summary: 排放活动数据统计计算
+   */
+  async countEcarActivedata(request: CountEcarActivedataRequest): Promise<CountEcarActivedataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countEcarActivedataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 排放活动数据统计计算
+   * Summary: 排放活动数据统计计算
+   */
+  async countEcarActivedataEx(request: CountEcarActivedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountEcarActivedataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountEcarActivedataResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.activedata.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountEcarActivedataResponse({}));
+  }
+
+  /**
+   * Description: 文件上传接口
+   * Summary: 文件上传接口
+   */
+  async uploadEcarFile(request: UploadEcarFileRequest): Promise<UploadEcarFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadEcarFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件上传接口
+   * Summary: 文件上传接口
+   */
+  async uploadEcarFileEx(request: UploadEcarFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadEcarFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.carbon.ecar.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadEcarFileResponse = new UploadEcarFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadEcarFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadEcarFileResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadEcarFileResponse({}));
+  }
+
+  /**
+   * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+   * Summary: 录入绿色行为数据
+   */
+  async addEcarGreenoperation(request: AddEcarGreenoperationRequest): Promise<AddEcarGreenoperationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addEcarGreenoperationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+   * Summary: 录入绿色行为数据
+   */
+  async addEcarGreenoperationEx(request: AddEcarGreenoperationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddEcarGreenoperationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddEcarGreenoperationResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.greenoperation.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddEcarGreenoperationResponse({}));
+  }
+
+  /**
+   * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+   * Summary: 统计绿色行为数据
+   */
+  async countEcarGreenoperation(request: CountEcarGreenoperationRequest): Promise<CountEcarGreenoperationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countEcarGreenoperationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+   * Summary: 统计绿色行为数据
+   */
+  async countEcarGreenoperationEx(request: CountEcarGreenoperationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountEcarGreenoperationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountEcarGreenoperationResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.greenoperation.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountEcarGreenoperationResponse({}));
+  }
+
+  /**
+   * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+   * Summary: 查询最近的绿色行为数据
+   */
+  async listEcarGreenoperation(request: ListEcarGreenoperationRequest): Promise<ListEcarGreenoperationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listEcarGreenoperationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+   * Summary: 查询最近的绿色行为数据
+   */
+  async listEcarGreenoperationEx(request: ListEcarGreenoperationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListEcarGreenoperationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListEcarGreenoperationResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.greenoperation.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListEcarGreenoperationResponse({}));
+  }
+
+  /**
+   * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+   * Summary: 预览本年度排放统计
+   */
+  async previewEcarAvitivedata(request: PreviewEcarAvitivedataRequest): Promise<PreviewEcarAvitivedataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.previewEcarAvitivedataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+   * Summary: 预览本年度排放统计
+   */
+  async previewEcarAvitivedataEx(request: PreviewEcarAvitivedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PreviewEcarAvitivedataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PreviewEcarAvitivedataResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.avitivedata.preview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PreviewEcarAvitivedataResponse({}));
+  }
+
+  /**
    * Description: 三方平台调用此接口，查询用户的证书信息
    * Summary: 证书查询
    */
@@ -1060,6 +2667,25 @@ export default class Client {
   async queryThirdCertEx(request: QueryThirdCertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThirdCertResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryThirdCertResponse>(await this.doRequest("1.0", "antchain.carbon.third.cert.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThirdCertResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
