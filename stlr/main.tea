@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.3.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 证书授权产品信息
+model CertProductAuthDO {
+  // 三方平台产品ID
+  productId: string(name='product_id', example='产品ID'),
+  // 三方平台产品名称
+  productName: string(name='product_name', example='产品名称'),
+}
+
 // 分类碳排放量
 model EmissionsCategoryStatistics {
   // 排放类型编码
@@ -167,14 +175,6 @@ model EmissionsCategoryStatistics {
   emissionCategoryName: string(name='emission_category_name', example='间接排放'),
   // 排放量
   emissions: long(name='emissions', example='11.22'),
-}
-
-// 证书授权产品信息
-model CertProductAuthDO {
-  // 三方平台产品ID
-  productId: string(name='product_id', example='产品ID'),
-  // 三方平台产品名称
-  productName: string(name='product_name', example='产品名称'),
 }
 
 // 证书产品信息，包括证书详情、授权产品信息
@@ -209,6 +209,28 @@ model CertProductInfoDO {
   authProducts?: [ CertProductAuthDO ](name='auth_products', example=''),
 }
 
+//  每月的排放数据
+model AnnualMonthEmissionDatum {
+  // 统计的年份
+  year: string(name='year', example='2022'),
+  // 统计的月份
+  month: string(name='month', example='12'),
+  // 统计排放量
+  value: string(name='value', example='22.22'),
+}
+
+// 按绿色行为类型统计的绿色行为明细
+model GreenOperationStatisticsByType {
+  // 绿色行为类型
+  greenOperationType: string(name='green_operation_type', example='ElectronicInvoice'),
+  // 绿色行为类型名称
+  greenOperationTypeName: string(name='green_operation_type_name', example='电子发票'),
+  // 绿色行为产生的绿色能量值
+  greenEnergyAmount: long(name='green_energy_amount', example='11'),
+  // 相关类型的绿色行为记录数
+  greenOperationRecords: long(name='green_operation_records', example='33'),
+}
+
 // 减排情况统计
 model EmissionsReductionStatistics {
   // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
@@ -231,6 +253,48 @@ model DailyEmissions {
   value: long(name='value', example='11.22'),
 }
 
+// 排放统计项目
+model AnyStatisticalItem {
+  // 统计项目编码
+  itemCode: string(name='item_code', example='abc'),
+  // 数据值，按字符串输出，最多保留6位小数
+  amount: string(name='amount', example='222.22'),
+  // 单位编码
+  unit: string(name='unit', example='t'),
+  // 单位标签
+  unitLabel: string(name='unit_label', example='吨'),
+}
+
+// 账户开通返回
+model AccountRegisterResponse {
+  // 账户did
+  userDid: string(name='user_did', example='did:private:xxxcxxxxx'),
+}
+
+// 文档信息
+model EnterpriseDocumentFile {
+  // 文档名称
+  documentName: string(name='document_name', example='2022年7月车辆运输数据文件'),
+  // 文件地址
+  documentAddress: string(name='document_address', example='carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx'),
+}
+
+// 区块链信息
+model BlockchainDTO {
+  // 交易hash
+  txHash: string(name='tx_hash', example='xxx'),
+  // 当前块高
+  blockNumber: long(name='block_number', example='12917'),
+}
+
+// 数据值条目
+model AnyAmountItem {
+  // 数据项编码
+  itemCode: string(name='item_code', example='AD1'),
+  // 数据值，按字符串输出，最多保留6位小数
+  itemAmount: string(name='item_amount', example='221.11'),
+}
+
 // 排放范围排放数据统计
 model EmissionsScopeStatistics {
   // 盘查范围编码
@@ -243,6 +307,48 @@ model EmissionsScopeStatistics {
   percentage: long(name='percentage', example='0.11'),
   // 范围下各分类排放数据
   categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
+}
+
+// 任意KV结构对象
+model AnyKeywordItem {
+  // 项目编码
+  itemCode: string(name='item_code', example='CFD'),
+  // 项目值
+  itemValue: string(name='item_value', example='各种按业务场景的取值'),
+}
+
+// 按频率统计的绿色行为明细
+model GreenOperationStatisticsByFrequence {
+  // 绿色行为发生时期
+  occurrencePeriod: string(name='occurrence_period', example='2021-09'),
+  // 绿色行为产生的绿色能量值
+  greenEnergyAmount: long(name='green_energy_amount', example='11212'),
+  // 时期内发生绿色行为的记录条数
+  greenOperationRecords: long(name='green_operation_records', example='111'),
+}
+
+// 绿色行为数据摘要
+model GreenOperationRecordSummary {
+  // 绿色行为记录编码
+  greenOperationNo: string(name='green_operation_no', example='20220702111231231212'),
+  // 绿色行为类型
+  greenOperationType: string(name='green_operation_type', example='ElectronicInvoice'),
+  // 绿色行为类型名称
+  greenOperationTypeName: string(name='green_operation_type_name', example='电子发票'),
+  // 发生绿色行为的相关业务单号
+  enterpriseBizNo: string(name='enterprise_biz_no', example='202211131212'),
+  // 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+  occurrenceTime: string(name='occurrence_time', example='2021-08-09 12:22:11'),
+  // 绿色行为的绿色能量值
+  greenEnergyAmount: long(name='green_energy_amount', example='1111'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model DescribeAcarActivityRequest = {
@@ -495,6 +601,613 @@ async function describeAcarLastemissiondataEx(request: DescribeAcarLastemissiond
   return doRequest('1.0' ,'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model RegisterPdcpAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // PERSON("个人"),
+  // ENTERPRISE("企业")
+  userType: string(name='user_type'),
+  // 用户名称
+  userName: string(name='user_name'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // PASSPORT("护照"),
+  // RESIDENT("身份证"),
+  // NATIONAL_LEGAL_MERGE("统一社会信用代码")
+  certType: string(name='cert_type'),
+  // 证件号码
+  certNo: string(name='cert_no'),
+}
+
+model RegisterPdcpAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户开通结果
+  data?: AccountRegisterResponse(name='data'),
+}
+
+/**
+ * Description: 账户开通接口。开通协作平台和链上账户
+ * Summary: 账户开通接口
+ */
+async function registerPdcpAccount(request: RegisterPdcpAccountRequest): RegisterPdcpAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerPdcpAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账户开通接口。开通协作平台和链上账户
+ * Summary: 账户开通接口
+ */
+async function registerPdcpAccountEx(request: RegisterPdcpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterPdcpAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.account.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushPdcpBlockchainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 消息ID
+  txMsgId: string(name='tx_msg_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 数据类型，枚举定义
+  dataType: string(name='data_type'),
+  // 密文类型
+  encryptType: string(name='encrypt_type'),
+  // 待存证数据，根据数据类型序列化为json。并加密传输
+  depositData: string(name='deposit_data'),
+}
+
+model PushPdcpBlockchainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上链信息: 交易hash，块高
+  txData?: BlockchainDTO(name='tx_data'),
+}
+
+/**
+ * Description: 存证接口
+ * Summary: 存证接口
+ */
+async function pushPdcpBlockchain(request: PushPdcpBlockchainRequest): PushPdcpBlockchainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushPdcpBlockchainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证接口
+ * Summary: 存证接口
+ */
+async function pushPdcpBlockchainEx(request: PushPdcpBlockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushPdcpBlockchainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.blockchain.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadPdcpBlockchainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID
+  txMsgId: string(name='tx_msg_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 数据类型
+  dataType: string(name='data_type'),
+  // 加密类型
+  encryptType: string(name='encrypt_type'),
+  // 待存证数据，根据数据类型序列化后加密传输
+  depositData: string(name='deposit_data'),
+}
+
+model UploadPdcpBlockchainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 异步存证接口
+ * Summary: 异步存证接口
+ */
+async function uploadPdcpBlockchain(request: UploadPdcpBlockchainRequest): UploadPdcpBlockchainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadPdcpBlockchainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 异步存证接口
+ * Summary: 异步存证接口
+ */
+async function uploadPdcpBlockchainEx(request: UploadPdcpBlockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadPdcpBlockchainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.blockchain.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetPdcpBlockchainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID
+  txMsgId: string(name='tx_msg_id'),
+}
+
+model GetPdcpBlockchainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回上链信息
+  txData?: BlockchainDTO(name='tx_data'),
+}
+
+/**
+ * Description: 查询异步存证结果
+ * Summary: 查询异步存证结果
+ */
+async function getPdcpBlockchain(request: GetPdcpBlockchainRequest): GetPdcpBlockchainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getPdcpBlockchainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询异步存证结果
+ * Summary: 查询异步存证结果
+ */
+async function getPdcpBlockchainEx(request: GetPdcpBlockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetPdcpBlockchainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddEcarAvitivedataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动数据业务单号
+  enterpriseBizNo: string(maxLength=64, name='enterprise_biz_no'),
+  // 盘查排放项编码
+  inventoryItemNo: string(name='inventory_item_no'),
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceStartTime: string(name='occurrence_start_time'),
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceEndTime: string(name='occurrence_end_time'),
+  // 排放源用量值列表
+  emissionSourceDosageList: [ AnyAmountItem ](name='emission_source_dosage_list'),
+  // 活动数据附加要素值列表
+  emissionSourceElementList?: [ AnyKeywordItem ](name='emission_source_element_list'),
+  // 活动数据扩展信息值列表
+  extensionValueList?: [ AnyKeywordItem ](name='extension_value_list'),
+  // 凭证文件列表，每个文件通过接口/open/api/file/upload上传
+  voucherFileList?: [ EnterpriseDocumentFile ](name='voucher_file_list'),
+  // 备注
+  remark?: string(maxLength=512, name='remark'),
+}
+
+model AddEcarAvitivedataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 排放数据录入明细编码
+  emissionDataEntryItemNo?: string(name='emission_data_entry_item_no'),
+  // 企业业务单号
+  enterpriseBizNo?: string(name='enterprise_biz_no'),
+}
+
+/**
+ * Description: 新增排放活动数据
+ * Summary: 新增排放活动数据
+ */
+async function addEcarAvitivedata(request: AddEcarAvitivedataRequest): AddEcarAvitivedataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addEcarAvitivedataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增排放活动数据
+ * Summary: 新增排放活动数据
+ */
+async function addEcarAvitivedataEx(request: AddEcarAvitivedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddEcarAvitivedataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.avitivedata.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailEcarAvitivedataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 排放数据录入明细编码
+  emissionDataEntryItemNo?: string(name='emission_data_entry_item_no'),
+  // 企业业务单号
+  enterpriseBizNo?: string(name='enterprise_biz_no'),
+}
+
+model DetailEcarAvitivedataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业排放数据录入明细编码
+  emissionDataEntryItemNo?: string(name='emission_data_entry_item_no'),
+  // 企业业务单号
+  enterpriseBizNo?: string(name='enterprise_biz_no'),
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceStartTime?: string(name='occurrence_start_time'),
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss
+  occurrenceEndTime?: string(name='occurrence_end_time'),
+  // 链上交易Hash
+  carbonChainTradeHash?: string(name='carbon_chain_trade_hash'),
+  // 总的碳排放用量，按字符串输出，最多保留6位小数
+  emissionStatisticalAmount?: string(name='emission_statistical_amount'),
+  // 排放源编码
+  emissionSourceNo?: string(name='emission_source_no'),
+  // 排放源名称
+  emissionSourceName?: string(name='emission_source_name'),
+  // 排放单元编码
+  enterpriseLocationNo?: string(name='enterprise_location_no'),
+  // 排放单元名称
+  enterpriseLocationName?: string(name='enterprise_location_name'),
+}
+
+/**
+ * Description: 查询排放活动数据详情
+ * Summary: 查询排放活动数据详情
+ */
+async function detailEcarAvitivedata(request: DetailEcarAvitivedataRequest): DetailEcarAvitivedataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailEcarAvitivedataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询排放活动数据详情
+ * Summary: 查询排放活动数据详情
+ */
+async function detailEcarAvitivedataEx(request: DetailEcarAvitivedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailEcarAvitivedataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.avitivedata.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountEcarActivedataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 盘查排放项编码
+  inventoryItemNo: string(name='inventory_item_no'),
+  // 发生起始时间，格式为：yyyy-MM-dd HH:mm:ss，将统计起始时间之后的活动数据
+  occurrenceStartTime: string(name='occurrence_start_time'),
+  // 发生结束时间，格式为：yyyy-MM-dd HH:mm:ss，将统计结束时间之前、起始时间之后的活动数据
+  occurrenceEndTime: string(name='occurrence_end_time'),
+  // 活动数据附加要素信息，将统计满足相关要素值的活动数据
+  emissionSourceElementList?: [ AnyKeywordItem ](name='emission_source_element_list'),
+  // 活动数据扩展信息，将统计满足相关要素值的活动数据
+  extensionValueList?: [ AnyKeywordItem ](name='extension_value_list'),
+  // 附加的扩展统计条目，条目K为统计数据结果编码，V为统计计算公式，
+  // 公式可用参数：dataEntryCount(统计排放数据条数)、totalEmissions(总碳排放量)、activeDataAmounts.{活动数据编码}（活动数据量）
+  // 比如马士基计算百公里排放量公式：totalEmissions/(activeDataAmounts.AD1+activeDataAmounts.AD3)*100
+  extraStatisticItemList?: [ AnyKeywordItem ](name='extra_statistic_item_list'),
+}
+
+model CountEcarActivedataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 指定时间区间内的活动数据笔数
+  dataEntryCount?: long(name='data_entry_count'),
+  // 总碳排放量
+  totalEmissions?: string(name='total_emissions'),
+  // 各活动数据用量累计
+  activeDataAmountList?: [ AnyStatisticalItem ](name='active_data_amount_list'),
+  // 碳排放强度，碳排放总量/订单笔数，按字符串输出，最多保留6位小数
+  emissionsIntensity?: string(name='emissions_intensity'),
+  // 每月排放量，排放量总计/指定时间区间内的月份数，按字符串输出，最多保留6位小数
+  eachMonthEmissions?: string(name='each_month_emissions'),
+  // 额外统计数据统计结果
+  extraStatisticDatumList?: [ AnyAmountItem ](name='extra_statistic_datum_list'),
+}
+
+/**
+ * Description: 排放活动数据统计计算
+ * Summary: 排放活动数据统计计算
+ */
+async function countEcarActivedata(request: CountEcarActivedataRequest): CountEcarActivedataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countEcarActivedataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 排放活动数据统计计算
+ * Summary: 排放活动数据统计计算
+ */
+async function countEcarActivedataEx(request: CountEcarActivedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountEcarActivedataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.activedata.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadEcarFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // Port的文件内容
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadEcarFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文档名称
+  documentName?: string(name='document_name'),
+  // 碳矩阵存放的文件地址
+  documentAddress?: string(name='document_address'),
+}
+
+/**
+ * Description: 文件上传接口
+ * Summary: 文件上传接口
+ */
+async function uploadEcarFile(request: UploadEcarFileRequest): UploadEcarFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadEcarFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件上传接口
+ * Summary: 文件上传接口
+ */
+async function uploadEcarFileEx(request: UploadEcarFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadEcarFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.carbon.ecar.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadEcarFileResponse = new UploadEcarFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadEcarFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddEcarGreenoperationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 绿色行为类型，目前支持包括：
+  // ElectronicInvoice(电子发票), 
+  // LowCarbonCommodity(低碳商品), 
+  // ReusableBag(环保减塑)
+  // OfflinePayment(线下支付)
+  // GreenOrder(绿色订单，可以同时解析出低碳商品、环保减塑、线下支付等多种绿色行为)
+  greenOperationType: string(name='green_operation_type'),
+  // 绿色行为相关的业务单号
+  enterpriseBizNo: string(name='enterprise_biz_no'),
+  // 发生时间，格式应如：2021-07-21 12:11:11
+  occurrenceTime: string(name='occurrence_time'),
+  // 绿色行为数据扩展信息，必须为JSON格式，碳矩阵将分析解析数据检查获取相关的绿色行为数据
+  extInfo?: string(name='ext_info'),
+}
+
+model AddEcarGreenoperationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回记录的多种绿色行为数据摘要信息
+  list?: [ GreenOperationRecordSummary ](name='list'),
+}
+
+/**
+ * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+ * Summary: 录入绿色行为数据
+ */
+async function addEcarGreenoperation(request: AddEcarGreenoperationRequest): AddEcarGreenoperationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addEcarGreenoperationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 录入绿色行为数据，支持绿色定义或电子发票等多种绿色行为类型的数据提交
+ * Summary: 录入绿色行为数据
+ */
+async function addEcarGreenoperationEx(request: AddEcarGreenoperationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddEcarGreenoperationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.greenoperation.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountEcarGreenoperationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 绿色行为统计频率，可选值：
+  // Monthly(分月统计),
+  // Daily(按每日统计) 
+  // 
+  statisticFrequence: string(name='statistic_frequence'),
+  // 统计数据的发生起始时间，格式应如：2021-07-21 12:11:11
+  occurrenceStartTime?: string(name='occurrence_start_time'),
+  // 统计数据的发生结束时间，格式应如：2021-07-21 12:11:11，不传为当日最近时间
+  occurrenceEndTime?: string(name='occurrence_end_time'),
+}
+
+model CountEcarGreenoperationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 绿色行为产生的绿色能量总量
+  greenEnergyTotal?: long(name='green_energy_total'),
+  // 绿色能量单位，默认为g
+  greenEnergyUnit?: string(name='green_energy_unit'),
+  // 绿色行为记录数据
+  greenOperationRecords?: long(name='green_operation_records'),
+  // 按频率统计的绿色行为数据列表
+  statisticsByFrequenceList?: [ GreenOperationStatisticsByFrequence ](name='statistics_by_frequence_list'),
+  // 按绿色行为类型统计的绿色行为数据列表
+  statisticsByTypeList?: [ GreenOperationStatisticsByType ](name='statistics_by_type_list'),
+}
+
+/**
+ * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+ * Summary: 统计绿色行为数据
+ */
+async function countEcarGreenoperation(request: CountEcarGreenoperationRequest): CountEcarGreenoperationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countEcarGreenoperationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 统计绿色行为数据，返回时间范围内的、按绿色行为类型统计的绿色行为数据
+ * Summary: 统计绿色行为数据
+ */
+async function countEcarGreenoperationEx(request: CountEcarGreenoperationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountEcarGreenoperationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.greenoperation.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListEcarGreenoperationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 限制的记录条数
+  limit: long(name='limit'),
+}
+
+model ListEcarGreenoperationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 最近发生的绿色行为数据列表
+  list?: [ GreenOperationRecordSummary ](name='list'),
+}
+
+/**
+ * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+ * Summary: 查询最近的绿色行为数据
+ */
+async function listEcarGreenoperation(request: ListEcarGreenoperationRequest): ListEcarGreenoperationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listEcarGreenoperationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询最近发生的绿色行为数据列表，按照请求的记录条数限制查询最近的绿色数据
+ * Summary: 查询最近的绿色行为数据
+ */
+async function listEcarGreenoperationEx(request: ListEcarGreenoperationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListEcarGreenoperationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.greenoperation.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewEcarAvitivedataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求统计的年份，默认为当前年份
+  year?: long(name='year'),
+  // 统计比较运算是的基准：
+  // LastYear(去年同期比较),
+  // CriteriaYear(同基准年比较)。
+  // 默认与去年同期比较。
+  comparisonStandard?: string(name='comparison_standard'),
+}
+
+model PreviewEcarAvitivedataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总排放量，最多保留6位小数
+  totalEmissions?: string(name='total_emissions'),
+  // 核减减排量，最多保留6位小数
+  subtractReductions?: string(name='subtract_reductions'),
+  // 净排放量，核减后的碳排放量
+  netReductions?: string(name='net_reductions'),
+  // 年同比
+  yearCompareLastPer?: string(name='year_compare_last_per'),
+  // 碳排放量单位
+  unit?: string(name='unit'),
+  // 碳排放量单位显示标签
+  unitLabel?: string(name='unit_label'),
+  // 各月份排放数据列表
+  list?: [ AnnualMonthEmissionDatum ](name='list'),
+}
+
+/**
+ * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+ * Summary: 预览本年度排放统计
+ */
+async function previewEcarAvitivedata(request: PreviewEcarAvitivedataRequest): PreviewEcarAvitivedataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewEcarAvitivedataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 按年度统计排放数据，用于一般的总的预览页展示数据
+ * Summary: 预览本年度排放统计
+ */
+async function previewEcarAvitivedataEx(request: PreviewEcarAvitivedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewEcarAvitivedataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryThirdCertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -543,5 +1256,58 @@ async function queryThirdCert(request: QueryThirdCertRequest): QueryThirdCertRes
 async function queryThirdCertEx(request: QueryThirdCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThirdCertResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.third.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
