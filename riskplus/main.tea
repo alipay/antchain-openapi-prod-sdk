@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.6',
+    sdk_version = '1.15.7',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2929,8 +2931,8 @@ model ApplyDubbridgeCreditRequest = {
   borrowerEmpInfo?: JobInfo(name='borrower_emp_info'),
   // 产品编号
   prodNo: string(name='prod_no'),
-  // 风险数据对象
-  riskData?: RiskData(name='risk_data'),
+  // 风险数据对象json字符串
+  riskData: string(name='risk_data'),
   // 借款用途
   loanReason?: string(name='loan_reason'),
   // 资料文件
