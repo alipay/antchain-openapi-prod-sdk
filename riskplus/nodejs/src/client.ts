@@ -5860,8 +5860,8 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   borrowerEmpInfo?: JobInfo;
   // 产品编号
   prodNo: string;
-  // 风险数据对象
-  riskData?: RiskData;
+  // 风险数据对象json字符串
+  riskData: string;
   // 借款用途
   loanReason?: string;
   // 资料文件
@@ -5913,7 +5913,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       borrowerLiveInfo: LiveInfo,
       borrowerEmpInfo: JobInfo,
       prodNo: 'string',
-      riskData: RiskData,
+      riskData: 'string',
       loanReason: 'string',
       materials: { 'type': 'array', 'itemType': Material },
       trafficPlatform: 'string',
@@ -14032,7 +14032,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.6",
+          sdk_version: "1.15.7",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
