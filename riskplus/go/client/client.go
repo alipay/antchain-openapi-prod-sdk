@@ -7862,8 +7862,8 @@ type ApplyDubbridgeCreditRequest struct {
 	BorrowerEmpInfo *JobInfo `json:"borrower_emp_info,omitempty" xml:"borrower_emp_info,omitempty"`
 	// 产品编号
 	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty" require:"true"`
-	// 风险数据对象
-	RiskData *RiskData `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
+	// 风险数据对象json字符串
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty" require:"true"`
 	// 借款用途
 	LoanReason *string `json:"loan_reason,omitempty" xml:"loan_reason,omitempty"`
 	// 资料文件
@@ -7932,8 +7932,8 @@ func (s *ApplyDubbridgeCreditRequest) SetProdNo(v string) *ApplyDubbridgeCreditR
 	return s
 }
 
-func (s *ApplyDubbridgeCreditRequest) SetRiskData(v *RiskData) *ApplyDubbridgeCreditRequest {
-	s.RiskData = v
+func (s *ApplyDubbridgeCreditRequest) SetRiskData(v string) *ApplyDubbridgeCreditRequest {
+	s.RiskData = &v
 	return s
 }
 
@@ -18670,7 +18670,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.6"),
+				"sdk_version":      tea.String("1.15.7"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
