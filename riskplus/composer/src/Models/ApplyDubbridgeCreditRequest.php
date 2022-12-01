@@ -55,9 +55,9 @@ class ApplyDubbridgeCreditRequest extends Model
      */
     public $prodNo;
 
-    // 风险数据对象
+    // 风险数据对象json字符串
     /**
-     * @var RiskData
+     * @var string
      */
     public $riskData;
 
@@ -141,6 +141,7 @@ class ApplyDubbridgeCreditRequest extends Model
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('prodNo', $this->prodNo, true);
+        Model::validateRequired('riskData', $this->riskData, true);
     }
 
     public function toMap()
@@ -171,7 +172,7 @@ class ApplyDubbridgeCreditRequest extends Model
             $res['prod_no'] = $this->prodNo;
         }
         if (null !== $this->riskData) {
-            $res['risk_data'] = null !== $this->riskData ? $this->riskData->toMap() : null;
+            $res['risk_data'] = $this->riskData;
         }
         if (null !== $this->loanReason) {
             $res['loan_reason'] = $this->loanReason;
@@ -243,7 +244,7 @@ class ApplyDubbridgeCreditRequest extends Model
             $model->prodNo = $map['prod_no'];
         }
         if (isset($map['risk_data'])) {
-            $model->riskData = RiskData::fromMap($map['risk_data']);
+            $model->riskData = $map['risk_data'];
         }
         if (isset($map['loan_reason'])) {
             $model->loanReason = $map['loan_reason'];
