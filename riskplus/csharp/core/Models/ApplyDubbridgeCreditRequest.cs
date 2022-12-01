@@ -48,10 +48,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ProdNo { get; set; }
 
-        // 风险数据对象
+        // 风险数据对象json字符串
         [NameInMap("risk_data")]
-        [Validation(Required=false)]
-        public RiskData RiskData { get; set; }
+        [Validation(Required=true)]
+        public string RiskData { get; set; }
 
         // 借款用途
         [NameInMap("loan_reason")]
