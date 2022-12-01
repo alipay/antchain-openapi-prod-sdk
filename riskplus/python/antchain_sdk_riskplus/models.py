@@ -9735,7 +9735,7 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         borrower_live_info: LiveInfo = None,
         borrower_emp_info: JobInfo = None,
         prod_no: str = None,
-        risk_data: RiskData = None,
+        risk_data: str = None,
         loan_reason: str = None,
         materials: List[Material] = None,
         traffic_platform: str = None,
@@ -9761,7 +9761,7 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         self.borrower_emp_info = borrower_emp_info
         # 产品编号
         self.prod_no = prod_no
-        # 风险数据对象
+        # 风险数据对象json字符串
         self.risk_data = risk_data
         # 借款用途
         self.loan_reason = loan_reason
@@ -9793,8 +9793,7 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         if self.borrower_emp_info:
             self.borrower_emp_info.validate()
         self.validate_required(self.prod_no, 'prod_no')
-        if self.risk_data:
-            self.risk_data.validate()
+        self.validate_required(self.risk_data, 'risk_data')
         if self.materials:
             for k in self.materials:
                 if k:
@@ -9823,7 +9822,7 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         if self.prod_no is not None:
             result['prod_no'] = self.prod_no
         if self.risk_data is not None:
-            result['risk_data'] = self.risk_data.to_map()
+            result['risk_data'] = self.risk_data
         if self.loan_reason is not None:
             result['loan_reason'] = self.loan_reason
         result['materials'] = []
@@ -9868,8 +9867,7 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         if m.get('prod_no') is not None:
             self.prod_no = m.get('prod_no')
         if m.get('risk_data') is not None:
-            temp_model = RiskData()
-            self.risk_data = temp_model.from_map(m['risk_data'])
+            self.risk_data = m.get('risk_data')
         if m.get('loan_reason') is not None:
             self.loan_reason = m.get('loan_reason')
         self.materials = []
