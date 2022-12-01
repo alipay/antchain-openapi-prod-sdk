@@ -39,9 +39,10 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     @Validation(required = true)
     public String prodNo;
 
-    // 风险数据对象
+    // 风险数据对象json字符串
     @NameInMap("risk_data")
-    public RiskData riskData;
+    @Validation(required = true)
+    public String riskData;
 
     // 借款用途
     @NameInMap("loan_reason")
@@ -148,11 +149,11 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
         return this.prodNo;
     }
 
-    public ApplyDubbridgeCreditRequest setRiskData(RiskData riskData) {
+    public ApplyDubbridgeCreditRequest setRiskData(String riskData) {
         this.riskData = riskData;
         return this;
     }
-    public RiskData getRiskData() {
+    public String getRiskData() {
         return this.riskData;
     }
 
