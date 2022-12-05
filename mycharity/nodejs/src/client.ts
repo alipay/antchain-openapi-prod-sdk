@@ -77,6 +77,43 @@ export class Config extends $tea.Model {
   }
 }
 
+// 用户活动徽章捐赠记录
+export class ActivityRecordVO extends $tea.Model {
+  // 捐赠类型
+  donateType?: string;
+  // 捐赠详细（如：积分、金币、豆子）
+  donateGoodsName?: string;
+  // 数量
+  amount?: number;
+  // 单位
+  unit?: string;
+  // 捐赠时间
+  donateTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      donateType: 'donate_type',
+      donateGoodsName: 'donate_goods_name',
+      amount: 'amount',
+      unit: 'unit',
+      donateTime: 'donate_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      donateType: 'string',
+      donateGoodsName: 'string',
+      amount: 'number',
+      unit: 'string',
+      donateTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 批次详情
 export class BatchDetailVO extends $tea.Model {
   // id
@@ -420,6 +457,51 @@ export class ReceivedRecord extends $tea.Model {
       benefitNumber: 'number',
       expressAddress: 'string',
       issueAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户徽章详细信息
+export class UserBadgeVO extends $tea.Model {
+  // 用户徽章id
+  poapId?: string;
+  // 徽章hash
+  poapIdHash?: string;
+  // 徽章图片
+  logoUrl?: string;
+  // 徽章名称
+  name?: string;
+  // 徽章简介
+  introduction?: string;
+  // 品牌商名称
+  brandsName?: string;
+  // 公益机构名称
+  orgName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      poapId: 'poap_id',
+      poapIdHash: 'poap_id_hash',
+      logoUrl: 'logo_url',
+      name: 'name',
+      introduction: 'introduction',
+      brandsName: 'brands_name',
+      orgName: 'org_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      poapId: 'string',
+      poapIdHash: 'string',
+      logoUrl: 'string',
+      name: 'string',
+      introduction: 'string',
+      brandsName: 'string',
+      orgName: 'string',
     };
   }
 
@@ -2343,12 +2425,15 @@ export class CreateActivitychainrecordResponse extends $tea.Model {
   resultMsg?: string;
   // 上链成功后返回，链上hash值
   chainHash?: string;
+  // true表示颁发了徽章，false表示未颁发徽章
+  awardBadgeFlag?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       chainHash: 'chain_hash',
+      awardBadgeFlag: 'award_badge_flag',
     };
   }
 
@@ -2358,6 +2443,133 @@ export class CreateActivitychainrecordResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       chainHash: 'string',
+      awardBadgeFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryActivityrecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 元徽章id
+  poapMetaId?: string;
+  // 支付宝用户UID 
+  alipayUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      poapMetaId: 'poap_meta_id',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      poapMetaId: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryActivityrecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户活动徽章捐赠记录集合
+  activityRecordList?: ActivityRecordVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      activityRecordList: 'activity_record_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      activityRecordList: { 'type': 'array', 'itemType': ActivityRecordVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailUserbadgeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 元徽章id
+  poapMetaId: string;
+  // 支付宝用户id
+  alipayUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      poapMetaId: 'poap_meta_id',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      poapMetaId: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailUserbadgeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户徽章详情
+  userBadgeVo?: UserBadgeVO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userBadgeVo: 'user_badge_vo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userBadgeVo: UserBadgeVO,
     };
   }
 
@@ -2479,7 +2691,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.20",
+          sdk_version: "1.0.24",
+          _prod_code: "MYCHARITY",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3036,6 +3250,44 @@ export default class Client {
   async createActivitychainrecordEx(request: CreateActivitychainrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateActivitychainrecordResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateActivitychainrecordResponse>(await this.doRequest("1.0", "antchain.mycharity.activitychainrecord.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateActivitychainrecordResponse({}));
+  }
+
+  /**
+   * Description: 用户活动徽章捐赠记录查询
+   * Summary: 用户活动徽章捐赠记录查询
+   */
+  async batchqueryActivityrecord(request: BatchqueryActivityrecordRequest): Promise<BatchqueryActivityrecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryActivityrecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户活动徽章捐赠记录查询
+   * Summary: 用户活动徽章捐赠记录查询
+   */
+  async batchqueryActivityrecordEx(request: BatchqueryActivityrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryActivityrecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryActivityrecordResponse>(await this.doRequest("1.0", "antchain.mycharity.activityrecord.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryActivityrecordResponse({}));
+  }
+
+  /**
+   * Description: 用户活动徽章详情
+   * Summary: 用户活动徽章详情
+   */
+  async detailUserbadge(request: DetailUserbadgeRequest): Promise<DetailUserbadgeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailUserbadgeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户活动徽章详情
+   * Summary: 用户活动徽章详情
+   */
+  async detailUserbadgeEx(request: DetailUserbadgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailUserbadgeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailUserbadgeResponse>(await this.doRequest("1.0", "antchain.mycharity.userbadge.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailUserbadgeResponse({}));
   }
 
 }
