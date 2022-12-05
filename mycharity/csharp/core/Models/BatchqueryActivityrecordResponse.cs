@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MYCHARITY.Models
 {
-    public class CreateActivitychainrecordResponse : TeaModel {
+    public class BatchqueryActivityrecordResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 上链成功后返回，链上hash值
-        [NameInMap("chain_hash")]
+        // 用户活动徽章捐赠记录集合
+        [NameInMap("activity_record_list")]
         [Validation(Required=false)]
-        public string ChainHash { get; set; }
-
-        // true表示颁发了徽章，false表示未颁发徽章
-        [NameInMap("award_badge_flag")]
-        [Validation(Required=false)]
-        public bool? AwardBadgeFlag { get; set; }
+        public List<ActivityRecordVO> ActivityRecordList { get; set; }
 
     }
 

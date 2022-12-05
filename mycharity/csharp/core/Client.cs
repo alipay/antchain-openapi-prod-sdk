@@ -137,7 +137,9 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.20"},
+                        {"sdk_version", "1.0.24"},
+                        {"_prod_code", "MYCHARITY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.20"},
+                        {"sdk_version", "1.0.24"},
+                        {"_prod_code", "MYCHARITY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1449,6 +1453,90 @@ namespace AntChain.SDK.MYCHARITY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateActivitychainrecordResponse>(await DoRequestAsync("1.0", "antchain.mycharity.activitychainrecord.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户活动徽章捐赠记录查询
+         * Summary: 用户活动徽章捐赠记录查询
+         */
+        public BatchqueryActivityrecordResponse BatchqueryActivityrecord(BatchqueryActivityrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryActivityrecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户活动徽章捐赠记录查询
+         * Summary: 用户活动徽章捐赠记录查询
+         */
+        public async Task<BatchqueryActivityrecordResponse> BatchqueryActivityrecordAsync(BatchqueryActivityrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryActivityrecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户活动徽章捐赠记录查询
+         * Summary: 用户活动徽章捐赠记录查询
+         */
+        public BatchqueryActivityrecordResponse BatchqueryActivityrecordEx(BatchqueryActivityrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryActivityrecordResponse>(DoRequest("1.0", "antchain.mycharity.activityrecord.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户活动徽章捐赠记录查询
+         * Summary: 用户活动徽章捐赠记录查询
+         */
+        public async Task<BatchqueryActivityrecordResponse> BatchqueryActivityrecordExAsync(BatchqueryActivityrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryActivityrecordResponse>(await DoRequestAsync("1.0", "antchain.mycharity.activityrecord.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户活动徽章详情
+         * Summary: 用户活动徽章详情
+         */
+        public DetailUserbadgeResponse DetailUserbadge(DetailUserbadgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailUserbadgeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户活动徽章详情
+         * Summary: 用户活动徽章详情
+         */
+        public async Task<DetailUserbadgeResponse> DetailUserbadgeAsync(DetailUserbadgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailUserbadgeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户活动徽章详情
+         * Summary: 用户活动徽章详情
+         */
+        public DetailUserbadgeResponse DetailUserbadgeEx(DetailUserbadgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUserbadgeResponse>(DoRequest("1.0", "antchain.mycharity.userbadge.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户活动徽章详情
+         * Summary: 用户活动徽章详情
+         */
+        public async Task<DetailUserbadgeResponse> DetailUserbadgeExAsync(DetailUserbadgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUserbadgeResponse>(await DoRequestAsync("1.0", "antchain.mycharity.userbadge.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
