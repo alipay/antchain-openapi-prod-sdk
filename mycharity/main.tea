@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.20',
+    sdk_version = '1.0.24',
+    _prod_code = 'MYCHARITY',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +159,20 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 用户活动徽章捐赠记录
+model ActivityRecordVO {
+  // 捐赠类型
+  donateType?: string(name='donate_type', example='point'),
+  // 捐赠详细（如：积分、金币、豆子）
+  donateGoodsName?: string(name='donate_goods_name', example='积分'),
+  // 数量
+  amount?: long(name='amount', example='9999'),
+  // 单位
+  unit?: string(name='unit', example='个'),
+  // 捐赠时间
+  donateTime?: long(name='donate_time', example='1660629734503'),
 }
 
 // 批次详情
@@ -301,6 +317,24 @@ model ReceivedRecord {
   expressAddress?: string(maxLength=100, name='express_address', example='杭州市'),
   // 发放数量
   issueAmount?: long(maximum=100000000, minimum=1, name='issue_amount', example=''),
+}
+
+// 用户徽章详细信息
+model UserBadgeVO {
+  // 用户徽章id
+  poapId?: string(name='poap_id', example='ACbenefit_1102_sitMbRNh'),
+  // 徽章hash
+  poapIdHash?: string(name='poap_id_hash', example='626e0599931e13142a84e8c7fe91215798ca8f67d012aff8e1265f7441983f7b'),
+  // 徽章图片
+  logoUrl?: string(name='logo_url', example='https://xxxx'),
+  // 徽章名称
+  name?: string(name='name', example='三角徽章'),
+  // 徽章简介
+  introduction?: string(name='introduction', example='活动徽章，其实也就是，便利店活动的兑换物品。'),
+  // 品牌商名称
+  brandsName?: string(name='brands_name', example='Kingston金士顿'),
+  // 公益机构名称
+  orgName?: string(name='org_name', example='公益机构'),
 }
 
 // 机构详情结构
@@ -1476,6 +1510,8 @@ model CreateActivitychainrecordResponse = {
   resultMsg?: string(name='result_msg'),
   // 上链成功后返回，链上hash值
   chainHash?: string(name='chain_hash'),
+  // true表示颁发了徽章，false表示未颁发徽章
+  awardBadgeFlag?: boolean(name='award_badge_flag'),
 }
 
 /**
@@ -1495,5 +1531,85 @@ async function createActivitychainrecord(request: CreateActivitychainrecordReque
 async function createActivitychainrecordEx(request: CreateActivitychainrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateActivitychainrecordResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryActivityrecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 元徽章id
+  poapMetaId?: string(name='poap_meta_id'),
+  // 支付宝用户UID 
+  alipayUserId?: string(name='alipay_user_id'),
+}
+
+model BatchqueryActivityrecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户活动徽章捐赠记录集合
+  activityRecordList?: [ ActivityRecordVO ](name='activity_record_list'),
+}
+
+/**
+ * Description: 用户活动徽章捐赠记录查询
+ * Summary: 用户活动徽章捐赠记录查询
+ */
+async function batchqueryActivityrecord(request: BatchqueryActivityrecordRequest): BatchqueryActivityrecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryActivityrecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户活动徽章捐赠记录查询
+ * Summary: 用户活动徽章捐赠记录查询
+ */
+async function batchqueryActivityrecordEx(request: BatchqueryActivityrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryActivityrecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.activityrecord.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailUserbadgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 元徽章id
+  poapMetaId: string(maxLength=100, name='poap_meta_id'),
+  // 支付宝用户id
+  alipayUserId: string(maxLength=16, minLength=16, name='alipay_user_id'),
+}
+
+model DetailUserbadgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户徽章详情
+  userBadgeVo?: UserBadgeVO(name='user_badge_vo'),
+}
+
+/**
+ * Description: 用户活动徽章详情
+ * Summary: 用户活动徽章详情
+ */
+async function detailUserbadge(request: DetailUserbadgeRequest): DetailUserbadgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailUserbadgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户活动徽章详情
+ * Summary: 用户活动徽章详情
+ */
+async function detailUserbadgeEx(request: DetailUserbadgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailUserbadgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.userbadge.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
