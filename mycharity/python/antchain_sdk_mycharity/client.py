@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 批次详情
+            # 用户活动徽章捐赠记录
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.20'
+                    'sdk_version': '1.0.24',
+                    '_prod_code': 'MYCHARITY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 批次详情
+            # 用户活动徽章捐赠记录
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.20'
+                    'sdk_version': '1.0.24',
+                    '_prod_code': 'MYCHARITY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1781,4 +1785,116 @@ class Client:
         return TeaCore.from_map(
             mycharity_models.CreateActivitychainrecordResponse(),
             await self.do_request_async('1.0', 'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_activityrecord(
+        self,
+        request: mycharity_models.BatchqueryActivityrecordRequest,
+    ) -> mycharity_models.BatchqueryActivityrecordResponse:
+        """
+        Description: 用户活动徽章捐赠记录查询
+        Summary: 用户活动徽章捐赠记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_activityrecord_ex(request, headers, runtime)
+
+    async def batchquery_activityrecord_async(
+        self,
+        request: mycharity_models.BatchqueryActivityrecordRequest,
+    ) -> mycharity_models.BatchqueryActivityrecordResponse:
+        """
+        Description: 用户活动徽章捐赠记录查询
+        Summary: 用户活动徽章捐赠记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_activityrecord_ex_async(request, headers, runtime)
+
+    def batchquery_activityrecord_ex(
+        self,
+        request: mycharity_models.BatchqueryActivityrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchqueryActivityrecordResponse:
+        """
+        Description: 用户活动徽章捐赠记录查询
+        Summary: 用户活动徽章捐赠记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchqueryActivityrecordResponse(),
+            self.do_request('1.0', 'antchain.mycharity.activityrecord.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_activityrecord_ex_async(
+        self,
+        request: mycharity_models.BatchqueryActivityrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchqueryActivityrecordResponse:
+        """
+        Description: 用户活动徽章捐赠记录查询
+        Summary: 用户活动徽章捐赠记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchqueryActivityrecordResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.activityrecord.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_userbadge(
+        self,
+        request: mycharity_models.DetailUserbadgeRequest,
+    ) -> mycharity_models.DetailUserbadgeResponse:
+        """
+        Description: 用户活动徽章详情
+        Summary: 用户活动徽章详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_userbadge_ex(request, headers, runtime)
+
+    async def detail_userbadge_async(
+        self,
+        request: mycharity_models.DetailUserbadgeRequest,
+    ) -> mycharity_models.DetailUserbadgeResponse:
+        """
+        Description: 用户活动徽章详情
+        Summary: 用户活动徽章详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_userbadge_ex_async(request, headers, runtime)
+
+    def detail_userbadge_ex(
+        self,
+        request: mycharity_models.DetailUserbadgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailUserbadgeResponse:
+        """
+        Description: 用户活动徽章详情
+        Summary: 用户活动徽章详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailUserbadgeResponse(),
+            self.do_request('1.0', 'antchain.mycharity.userbadge.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_userbadge_ex_async(
+        self,
+        request: mycharity_models.DetailUserbadgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailUserbadgeResponse:
+        """
+        Description: 用户活动徽章详情
+        Summary: 用户活动徽章详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailUserbadgeResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.userbadge.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -154,6 +154,62 @@ class Config(TeaModel):
         return self
 
 
+class ActivityRecordVO(TeaModel):
+    def __init__(
+        self,
+        donate_type: str = None,
+        donate_goods_name: str = None,
+        amount: int = None,
+        unit: str = None,
+        donate_time: int = None,
+    ):
+        # 捐赠类型
+        self.donate_type = donate_type
+        # 捐赠详细（如：积分、金币、豆子）
+        self.donate_goods_name = donate_goods_name
+        # 数量
+        self.amount = amount
+        # 单位
+        self.unit = unit
+        # 捐赠时间
+        self.donate_time = donate_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.donate_type is not None:
+            result['donate_type'] = self.donate_type
+        if self.donate_goods_name is not None:
+            result['donate_goods_name'] = self.donate_goods_name
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.donate_time is not None:
+            result['donate_time'] = self.donate_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('donate_type') is not None:
+            self.donate_type = m.get('donate_type')
+        if m.get('donate_goods_name') is not None:
+            self.donate_goods_name = m.get('donate_goods_name')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('donate_time') is not None:
+            self.donate_time = m.get('donate_time')
+        return self
+
+
 class BatchDetailVO(TeaModel):
     def __init__(
         self,
@@ -758,6 +814,76 @@ class ReceivedRecord(TeaModel):
             self.express_address = m.get('express_address')
         if m.get('issue_amount') is not None:
             self.issue_amount = m.get('issue_amount')
+        return self
+
+
+class UserBadgeVO(TeaModel):
+    def __init__(
+        self,
+        poap_id: str = None,
+        poap_id_hash: str = None,
+        logo_url: str = None,
+        name: str = None,
+        introduction: str = None,
+        brands_name: str = None,
+        org_name: str = None,
+    ):
+        # 用户徽章id
+        self.poap_id = poap_id
+        # 徽章hash
+        self.poap_id_hash = poap_id_hash
+        # 徽章图片
+        self.logo_url = logo_url
+        # 徽章名称
+        self.name = name
+        # 徽章简介
+        self.introduction = introduction
+        # 品牌商名称
+        self.brands_name = brands_name
+        # 公益机构名称
+        self.org_name = org_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.poap_id is not None:
+            result['poap_id'] = self.poap_id
+        if self.poap_id_hash is not None:
+            result['poap_id_hash'] = self.poap_id_hash
+        if self.logo_url is not None:
+            result['logo_url'] = self.logo_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.introduction is not None:
+            result['introduction'] = self.introduction
+        if self.brands_name is not None:
+            result['brands_name'] = self.brands_name
+        if self.org_name is not None:
+            result['org_name'] = self.org_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('poap_id') is not None:
+            self.poap_id = m.get('poap_id')
+        if m.get('poap_id_hash') is not None:
+            self.poap_id_hash = m.get('poap_id_hash')
+        if m.get('logo_url') is not None:
+            self.logo_url = m.get('logo_url')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('introduction') is not None:
+            self.introduction = m.get('introduction')
+        if m.get('brands_name') is not None:
+            self.brands_name = m.get('brands_name')
+        if m.get('org_name') is not None:
+            self.org_name = m.get('org_name')
         return self
 
 
@@ -3987,6 +4113,7 @@ class CreateActivitychainrecordResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         chain_hash: str = None,
+        award_badge_flag: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3996,6 +4123,8 @@ class CreateActivitychainrecordResponse(TeaModel):
         self.result_msg = result_msg
         # 上链成功后返回，链上hash值
         self.chain_hash = chain_hash
+        # true表示颁发了徽章，false表示未颁发徽章
+        self.award_badge_flag = award_badge_flag
 
     def validate(self):
         pass
@@ -4014,6 +4143,8 @@ class CreateActivitychainrecordResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.chain_hash is not None:
             result['chain_hash'] = self.chain_hash
+        if self.award_badge_flag is not None:
+            result['award_badge_flag'] = self.award_badge_flag
         return result
 
     def from_map(self, m: dict = None):
@@ -4026,6 +4157,217 @@ class CreateActivitychainrecordResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('chain_hash') is not None:
             self.chain_hash = m.get('chain_hash')
+        if m.get('award_badge_flag') is not None:
+            self.award_badge_flag = m.get('award_badge_flag')
+        return self
+
+
+class BatchqueryActivityrecordRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        poap_meta_id: str = None,
+        alipay_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 元徽章id
+        self.poap_meta_id = poap_meta_id
+        # 支付宝用户UID
+        self.alipay_user_id = alipay_user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.poap_meta_id is not None:
+            result['poap_meta_id'] = self.poap_meta_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('poap_meta_id') is not None:
+            self.poap_meta_id = m.get('poap_meta_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        return self
+
+
+class BatchqueryActivityrecordResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        activity_record_list: List[ActivityRecordVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户活动徽章捐赠记录集合
+        self.activity_record_list = activity_record_list
+
+    def validate(self):
+        if self.activity_record_list:
+            for k in self.activity_record_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['activity_record_list'] = []
+        if self.activity_record_list is not None:
+            for k in self.activity_record_list:
+                result['activity_record_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.activity_record_list = []
+        if m.get('activity_record_list') is not None:
+            for k in m.get('activity_record_list'):
+                temp_model = ActivityRecordVO()
+                self.activity_record_list.append(temp_model.from_map(k))
+        return self
+
+
+class DetailUserbadgeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        poap_meta_id: str = None,
+        alipay_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 元徽章id
+        self.poap_meta_id = poap_meta_id
+        # 支付宝用户id
+        self.alipay_user_id = alipay_user_id
+
+    def validate(self):
+        self.validate_required(self.poap_meta_id, 'poap_meta_id')
+        if self.poap_meta_id is not None:
+            self.validate_max_length(self.poap_meta_id, 'poap_meta_id', 100)
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+        if self.alipay_user_id is not None:
+            self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 16)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.poap_meta_id is not None:
+            result['poap_meta_id'] = self.poap_meta_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('poap_meta_id') is not None:
+            self.poap_meta_id = m.get('poap_meta_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        return self
+
+
+class DetailUserbadgeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_badge_vo: UserBadgeVO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户徽章详情
+        self.user_badge_vo = user_badge_vo
+
+    def validate(self):
+        if self.user_badge_vo:
+            self.user_badge_vo.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_badge_vo is not None:
+            result['user_badge_vo'] = self.user_badge_vo.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_badge_vo') is not None:
+            temp_model = UserBadgeVO()
+            self.user_badge_vo = temp_model.from_map(m['user_badge_vo'])
         return self
 
 
