@@ -20,6 +20,10 @@ public class CreateActivitychainrecordResponse extends TeaModel {
     @NameInMap("chain_hash")
     public String chainHash;
 
+    // true表示颁发了徽章，false表示未颁发徽章
+    @NameInMap("award_badge_flag")
+    public Boolean awardBadgeFlag;
+
     public static CreateActivitychainrecordResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateActivitychainrecordResponse self = new CreateActivitychainrecordResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateActivitychainrecordResponse extends TeaModel {
     }
     public String getChainHash() {
         return this.chainHash;
+    }
+
+    public CreateActivitychainrecordResponse setAwardBadgeFlag(Boolean awardBadgeFlag) {
+        this.awardBadgeFlag = awardBadgeFlag;
+        return this;
+    }
+    public Boolean getAwardBadgeFlag() {
+        return this.awardBadgeFlag;
     }
 
 }
