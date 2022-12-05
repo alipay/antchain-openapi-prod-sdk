@@ -6,7 +6,7 @@ namespace AntChain\MYCHARITY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateActivitychainrecordResponse extends Model
+class DetailUserbadgeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class CreateActivitychainrecordResponse extends Model
      */
     public $resultMsg;
 
-    // 上链成功后返回，链上hash值
+    // 用户徽章详情
     /**
-     * @var string
+     * @var UserBadgeVO
      */
-    public $chainHash;
-
-    // true表示颁发了徽章，false表示未颁发徽章
-    /**
-     * @var bool
-     */
-    public $awardBadgeFlag;
+    public $userBadgeVo;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'chainHash'      => 'chain_hash',
-        'awardBadgeFlag' => 'award_badge_flag',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'userBadgeVo' => 'user_badge_vo',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class CreateActivitychainrecordResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->chainHash) {
-            $res['chain_hash'] = $this->chainHash;
-        }
-        if (null !== $this->awardBadgeFlag) {
-            $res['award_badge_flag'] = $this->awardBadgeFlag;
+        if (null !== $this->userBadgeVo) {
+            $res['user_badge_vo'] = null !== $this->userBadgeVo ? $this->userBadgeVo->toMap() : null;
         }
 
         return $res;
@@ -74,7 +64,7 @@ class CreateActivitychainrecordResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateActivitychainrecordResponse
+     * @return DetailUserbadgeResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +78,8 @@ class CreateActivitychainrecordResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['chain_hash'])) {
-            $model->chainHash = $map['chain_hash'];
-        }
-        if (isset($map['award_badge_flag'])) {
-            $model->awardBadgeFlag = $map['award_badge_flag'];
+        if (isset($map['user_badge_vo'])) {
+            $model->userBadgeVo = UserBadgeVO::fromMap($map['user_badge_vo']);
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\MYCHARITY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateActivitychainrecordResponse extends Model
+class BatchqueryActivityrecordResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class CreateActivitychainrecordResponse extends Model
      */
     public $resultMsg;
 
-    // 上链成功后返回，链上hash值
+    // 用户活动徽章捐赠记录集合
     /**
-     * @var string
+     * @var ActivityRecordVO[]
      */
-    public $chainHash;
-
-    // true表示颁发了徽章，false表示未颁发徽章
-    /**
-     * @var bool
-     */
-    public $awardBadgeFlag;
+    public $activityRecordList;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'chainHash'      => 'chain_hash',
-        'awardBadgeFlag' => 'award_badge_flag',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'activityRecordList' => 'activity_record_list',
     ];
 
     public function validate()
@@ -61,11 +54,14 @@ class CreateActivitychainrecordResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->chainHash) {
-            $res['chain_hash'] = $this->chainHash;
-        }
-        if (null !== $this->awardBadgeFlag) {
-            $res['award_badge_flag'] = $this->awardBadgeFlag;
+        if (null !== $this->activityRecordList) {
+            $res['activity_record_list'] = [];
+            if (null !== $this->activityRecordList && \is_array($this->activityRecordList)) {
+                $n = 0;
+                foreach ($this->activityRecordList as $item) {
+                    $res['activity_record_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -74,7 +70,7 @@ class CreateActivitychainrecordResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateActivitychainrecordResponse
+     * @return BatchqueryActivityrecordResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +84,14 @@ class CreateActivitychainrecordResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['chain_hash'])) {
-            $model->chainHash = $map['chain_hash'];
-        }
-        if (isset($map['award_badge_flag'])) {
-            $model->awardBadgeFlag = $map['award_badge_flag'];
+        if (isset($map['activity_record_list'])) {
+            if (!empty($map['activity_record_list'])) {
+                $model->activityRecordList = [];
+                $n                         = 0;
+                foreach ($map['activity_record_list'] as $item) {
+                    $model->activityRecordList[$n++] = null !== $item ? ActivityRecordVO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

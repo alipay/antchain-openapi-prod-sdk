@@ -17,6 +17,8 @@ use AntChain\MYCHARITY\Models\BatchcreateCombinationRequest;
 use AntChain\MYCHARITY\Models\BatchcreateCombinationResponse;
 use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
 use AntChain\MYCHARITY\Models\BatchcreateRecordResponse;
+use AntChain\MYCHARITY\Models\BatchqueryActivityrecordRequest;
+use AntChain\MYCHARITY\Models\BatchqueryActivityrecordResponse;
 use AntChain\MYCHARITY\Models\CreateActivitychainrecordRequest;
 use AntChain\MYCHARITY\Models\CreateActivitychainrecordResponse;
 use AntChain\MYCHARITY\Models\CreateAlipaysignRequest;
@@ -41,6 +43,8 @@ use AntChain\MYCHARITY\Models\DetailOrgRequest;
 use AntChain\MYCHARITY\Models\DetailOrgResponse;
 use AntChain\MYCHARITY\Models\DetailProjectRequest;
 use AntChain\MYCHARITY\Models\DetailProjectResponse;
+use AntChain\MYCHARITY\Models\DetailUserbadgeRequest;
+use AntChain\MYCHARITY\Models\DetailUserbadgeResponse;
 use AntChain\MYCHARITY\Models\InitBatchRequest;
 use AntChain\MYCHARITY\Models\InitBatchResponse;
 use AntChain\MYCHARITY\Models\QueryAlipaysignQrcodeRequest;
@@ -184,7 +188,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 批次详情
+            // 用户活动徽章捐赠记录
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -212,7 +216,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.20',
+                    'sdk_version'      => '1.0.24',
+                    '_prod_code'       => 'MYCHARITY',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1147,5 +1153,71 @@ class Client
         Utils::validateModel($request);
 
         return CreateActivitychainrecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.activitychainrecord.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户活动徽章捐赠记录查询
+     * Summary: 用户活动徽章捐赠记录查询.
+     *
+     * @param BatchqueryActivityrecordRequest $request
+     *
+     * @return BatchqueryActivityrecordResponse
+     */
+    public function batchqueryActivityrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryActivityrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户活动徽章捐赠记录查询
+     * Summary: 用户活动徽章捐赠记录查询.
+     *
+     * @param BatchqueryActivityrecordRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return BatchqueryActivityrecordResponse
+     */
+    public function batchqueryActivityrecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryActivityrecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.activityrecord.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户活动徽章详情
+     * Summary: 用户活动徽章详情.
+     *
+     * @param DetailUserbadgeRequest $request
+     *
+     * @return DetailUserbadgeResponse
+     */
+    public function detailUserbadge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailUserbadgeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户活动徽章详情
+     * Summary: 用户活动徽章详情.
+     *
+     * @param DetailUserbadgeRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DetailUserbadgeResponse
+     */
+    public function detailUserbadgeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailUserbadgeResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.userbadge.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
