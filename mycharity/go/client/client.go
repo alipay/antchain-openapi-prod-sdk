@@ -148,6 +148,53 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 用户活动徽章捐赠记录
+type ActivityRecordVO struct {
+	// 捐赠类型
+	DonateType *string `json:"donate_type,omitempty" xml:"donate_type,omitempty"`
+	// 捐赠详细（如：积分、金币、豆子）
+	DonateGoodsName *string `json:"donate_goods_name,omitempty" xml:"donate_goods_name,omitempty"`
+	// 数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty"`
+	// 捐赠时间
+	DonateTime *int64 `json:"donate_time,omitempty" xml:"donate_time,omitempty"`
+}
+
+func (s ActivityRecordVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActivityRecordVO) GoString() string {
+	return s.String()
+}
+
+func (s *ActivityRecordVO) SetDonateType(v string) *ActivityRecordVO {
+	s.DonateType = &v
+	return s
+}
+
+func (s *ActivityRecordVO) SetDonateGoodsName(v string) *ActivityRecordVO {
+	s.DonateGoodsName = &v
+	return s
+}
+
+func (s *ActivityRecordVO) SetAmount(v int64) *ActivityRecordVO {
+	s.Amount = &v
+	return s
+}
+
+func (s *ActivityRecordVO) SetUnit(v string) *ActivityRecordVO {
+	s.Unit = &v
+	return s
+}
+
+func (s *ActivityRecordVO) SetDonateTime(v int64) *ActivityRecordVO {
+	s.DonateTime = &v
+	return s
+}
+
 // 批次详情
 type BatchDetailVO struct {
 	// id
@@ -635,6 +682,67 @@ func (s *ReceivedRecord) SetExpressAddress(v string) *ReceivedRecord {
 
 func (s *ReceivedRecord) SetIssueAmount(v int64) *ReceivedRecord {
 	s.IssueAmount = &v
+	return s
+}
+
+// 用户徽章详细信息
+type UserBadgeVO struct {
+	// 用户徽章id
+	PoapId *string `json:"poap_id,omitempty" xml:"poap_id,omitempty"`
+	// 徽章hash
+	PoapIdHash *string `json:"poap_id_hash,omitempty" xml:"poap_id_hash,omitempty"`
+	// 徽章图片
+	LogoUrl *string `json:"logo_url,omitempty" xml:"logo_url,omitempty"`
+	// 徽章名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 徽章简介
+	Introduction *string `json:"introduction,omitempty" xml:"introduction,omitempty"`
+	// 品牌商名称
+	BrandsName *string `json:"brands_name,omitempty" xml:"brands_name,omitempty"`
+	// 公益机构名称
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
+}
+
+func (s UserBadgeVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserBadgeVO) GoString() string {
+	return s.String()
+}
+
+func (s *UserBadgeVO) SetPoapId(v string) *UserBadgeVO {
+	s.PoapId = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetPoapIdHash(v string) *UserBadgeVO {
+	s.PoapIdHash = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetLogoUrl(v string) *UserBadgeVO {
+	s.LogoUrl = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetName(v string) *UserBadgeVO {
+	s.Name = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetIntroduction(v string) *UserBadgeVO {
+	s.Introduction = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetBrandsName(v string) *UserBadgeVO {
+	s.BrandsName = &v
+	return s
+}
+
+func (s *UserBadgeVO) SetOrgName(v string) *UserBadgeVO {
+	s.OrgName = &v
 	return s
 }
 
@@ -3084,6 +3192,8 @@ type CreateActivitychainrecordResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 上链成功后返回，链上hash值
 	ChainHash *string `json:"chain_hash,omitempty" xml:"chain_hash,omitempty"`
+	// true表示颁发了徽章，false表示未颁发徽章
+	AwardBadgeFlag *bool `json:"award_badge_flag,omitempty" xml:"award_badge_flag,omitempty"`
 }
 
 func (s CreateActivitychainrecordResponse) String() string {
@@ -3111,6 +3221,165 @@ func (s *CreateActivitychainrecordResponse) SetResultMsg(v string) *CreateActivi
 
 func (s *CreateActivitychainrecordResponse) SetChainHash(v string) *CreateActivitychainrecordResponse {
 	s.ChainHash = &v
+	return s
+}
+
+func (s *CreateActivitychainrecordResponse) SetAwardBadgeFlag(v bool) *CreateActivitychainrecordResponse {
+	s.AwardBadgeFlag = &v
+	return s
+}
+
+type BatchqueryActivityrecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 元徽章id
+	PoapMetaId *string `json:"poap_meta_id,omitempty" xml:"poap_meta_id,omitempty"`
+	// 支付宝用户UID
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+}
+
+func (s BatchqueryActivityrecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryActivityrecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryActivityrecordRequest) SetAuthToken(v string) *BatchqueryActivityrecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordRequest) SetProductInstanceId(v string) *BatchqueryActivityrecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordRequest) SetPoapMetaId(v string) *BatchqueryActivityrecordRequest {
+	s.PoapMetaId = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordRequest) SetAlipayUserId(v string) *BatchqueryActivityrecordRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+type BatchqueryActivityrecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户活动徽章捐赠记录集合
+	ActivityRecordList []*ActivityRecordVO `json:"activity_record_list,omitempty" xml:"activity_record_list,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryActivityrecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryActivityrecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryActivityrecordResponse) SetReqMsgId(v string) *BatchqueryActivityrecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordResponse) SetResultCode(v string) *BatchqueryActivityrecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordResponse) SetResultMsg(v string) *BatchqueryActivityrecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryActivityrecordResponse) SetActivityRecordList(v []*ActivityRecordVO) *BatchqueryActivityrecordResponse {
+	s.ActivityRecordList = v
+	return s
+}
+
+type DetailUserbadgeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 元徽章id
+	PoapMetaId *string `json:"poap_meta_id,omitempty" xml:"poap_meta_id,omitempty" require:"true" maxLength:"100"`
+	// 支付宝用户id
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true" maxLength:"16" minLength:"16"`
+}
+
+func (s DetailUserbadgeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUserbadgeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUserbadgeRequest) SetAuthToken(v string) *DetailUserbadgeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailUserbadgeRequest) SetProductInstanceId(v string) *DetailUserbadgeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailUserbadgeRequest) SetPoapMetaId(v string) *DetailUserbadgeRequest {
+	s.PoapMetaId = &v
+	return s
+}
+
+func (s *DetailUserbadgeRequest) SetAlipayUserId(v string) *DetailUserbadgeRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+type DetailUserbadgeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户徽章详情
+	UserBadgeVo *UserBadgeVO `json:"user_badge_vo,omitempty" xml:"user_badge_vo,omitempty"`
+}
+
+func (s DetailUserbadgeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUserbadgeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUserbadgeResponse) SetReqMsgId(v string) *DetailUserbadgeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailUserbadgeResponse) SetResultCode(v string) *DetailUserbadgeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailUserbadgeResponse) SetResultMsg(v string) *DetailUserbadgeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailUserbadgeResponse) SetUserBadgeVo(v *UserBadgeVO) *DetailUserbadgeResponse {
+	s.UserBadgeVo = v
 	return s
 }
 
@@ -3236,7 +3505,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.20"),
+				"sdk_version":      tea.String("1.0.24"),
+				"_prod_code":       tea.String("MYCHARITY"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4203,6 +4474,74 @@ func (client *Client) CreateActivitychainrecordEx(request *CreateActivitychainre
 	}
 	_result = &CreateActivitychainrecordResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.activitychainrecord.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户活动徽章捐赠记录查询
+ * Summary: 用户活动徽章捐赠记录查询
+ */
+func (client *Client) BatchqueryActivityrecord(request *BatchqueryActivityrecordRequest) (_result *BatchqueryActivityrecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryActivityrecordResponse{}
+	_body, _err := client.BatchqueryActivityrecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户活动徽章捐赠记录查询
+ * Summary: 用户活动徽章捐赠记录查询
+ */
+func (client *Client) BatchqueryActivityrecordEx(request *BatchqueryActivityrecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryActivityrecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryActivityrecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.activityrecord.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户活动徽章详情
+ * Summary: 用户活动徽章详情
+ */
+func (client *Client) DetailUserbadge(request *DetailUserbadgeRequest) (_result *DetailUserbadgeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailUserbadgeResponse{}
+	_body, _err := client.DetailUserbadgeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户活动徽章详情
+ * Summary: 用户活动徽章详情
+ */
+func (client *Client) DetailUserbadgeEx(request *DetailUserbadgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailUserbadgeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailUserbadgeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.userbadge.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
