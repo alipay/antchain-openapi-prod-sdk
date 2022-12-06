@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.9'
+                    'sdk_version': '1.8.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.9'
+                    'sdk_version': '1.8.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8733,6 +8733,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryJusticeCommoncaseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_justice_agentcase(
+        self,
+        request: twc_models.CreateJusticeAgentcaseRequest,
+    ) -> twc_models.CreateJusticeAgentcaseResponse:
+        """
+        Description: 1级商户为2级商户进件
+        Summary: 代理二级商户进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_agentcase_ex(request, headers, runtime)
+
+    async def create_justice_agentcase_async(
+        self,
+        request: twc_models.CreateJusticeAgentcaseRequest,
+    ) -> twc_models.CreateJusticeAgentcaseResponse:
+        """
+        Description: 1级商户为2级商户进件
+        Summary: 代理二级商户进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_agentcase_ex_async(request, headers, runtime)
+
+    def create_justice_agentcase_ex(
+        self,
+        request: twc_models.CreateJusticeAgentcaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeAgentcaseResponse:
+        """
+        Description: 1级商户为2级商户进件
+        Summary: 代理二级商户进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeAgentcaseResponse(),
+            self.do_request('1.0', 'twc.notary.justice.agentcase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_agentcase_ex_async(
+        self,
+        request: twc_models.CreateJusticeAgentcaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeAgentcaseResponse:
+        """
+        Description: 1级商户为2级商户进件
+        Summary: 代理二级商户进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeAgentcaseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.agentcase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_lease_productinfo(

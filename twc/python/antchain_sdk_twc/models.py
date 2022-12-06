@@ -27101,6 +27101,7 @@ class CreateJusticeNormalcaseRequest(TeaModel):
         pleader_person_info: JudicialPersonInfo = None,
         use_template: bool = None,
         business_info: str = None,
+        evidence_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -27115,7 +27116,7 @@ class CreateJusticeNormalcaseRequest(TeaModel):
         self.external_biz_id = external_biz_id
         # 业务描述,用于案件的补充描述; 没有则不填
         self.case_desc = case_desc
-        # 针对对应业务类型的证据要素补充.
+        # 针对对应业务类型的案件要素补充.
         self.case_biz_element_info = case_biz_element_info
         # 当事人(申请人)ID, 案件填充信息返回
         self.party_id = party_id
@@ -27129,6 +27130,8 @@ class CreateJusticeNormalcaseRequest(TeaModel):
         self.use_template = use_template
         # 使用模板时必填，根据案件要素模板对应提供要素信息
         self.business_info = business_info
+        # 使用模板时必填，根据案件要素模板对应提供证据信息
+        self.evidence_info = evidence_info
 
     def validate(self):
         self.validate_required(self.case_reason, 'case_reason')
@@ -27168,6 +27171,8 @@ class CreateJusticeNormalcaseRequest(TeaModel):
             result['use_template'] = self.use_template
         if self.business_info is not None:
             result['business_info'] = self.business_info
+        if self.evidence_info is not None:
+            result['evidence_info'] = self.evidence_info
         return result
 
     def from_map(self, m: dict = None):
@@ -27197,6 +27202,8 @@ class CreateJusticeNormalcaseRequest(TeaModel):
             self.use_template = m.get('use_template')
         if m.get('business_info') is not None:
             self.business_info = m.get('business_info')
+        if m.get('evidence_info') is not None:
+            self.evidence_info = m.get('evidence_info')
         return self
 
 
@@ -28105,15 +28112,23 @@ class GetJusticeFileuploadurlRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         file_name: str = None,
+        file_md_5: str = None,
+        file_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 上传文件全名
         self.file_name = file_name
+        # 文件Md5值，用于上传后的文件校验
+        self.file_md_5 = file_md_5
+        # 枚举值：案件证据文件：EVIDENCE
+        self.file_type = file_type
 
     def validate(self):
         self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file_md_5, 'file_md_5')
+        self.validate_required(self.file_type, 'file_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -28127,6 +28142,10 @@ class GetJusticeFileuploadurlRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.file_name is not None:
             result['file_name'] = self.file_name
+        if self.file_md_5 is not None:
+            result['file_md5'] = self.file_md_5
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
         return result
 
     def from_map(self, m: dict = None):
@@ -28137,6 +28156,10 @@ class GetJusticeFileuploadurlRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('file_name') is not None:
             self.file_name = m.get('file_name')
+        if m.get('file_md5') is not None:
+            self.file_md_5 = m.get('file_md5')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
         return self
 
 
@@ -28148,7 +28171,7 @@ class GetJusticeFileuploadurlResponse(TeaModel):
         result_msg: str = None,
         file_key: str = None,
         upload_url: str = None,
-        expired_time: str = None,
+        expired_time: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -28160,7 +28183,7 @@ class GetJusticeFileuploadurlResponse(TeaModel):
         self.file_key = file_key
         # 文件上传链接url
         self.upload_url = upload_url
-        # 链接失效日期: "yyyy-MM-dd HH:mm:ss"
+        # 链接失效时间戳（毫秒）
         self.expired_time = expired_time
 
     def validate(self):
@@ -28448,6 +28471,149 @@ class QueryJusticeCommoncaseinfoResponse(TeaModel):
             self.business_info = m.get('business_info')
         if m.get('case_no') is not None:
             self.case_no = m.get('case_no')
+        return self
+
+
+class CreateJusticeAgentcaseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        case_reason: str = None,
+        biz_type: str = None,
+        sub_tenant_id: str = None,
+        external_biz_id: str = None,
+        case_desc: str = None,
+        business_info: str = None,
+        evidence_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 案由
+        self.case_reason = case_reason
+        # 业务类型，LEASE- 租赁 ，HB_FINANCIAL - HB金融， 模板创建的其他业务类型
+        self.biz_type = biz_type
+        # 二级商户租户ID，八位字母
+        self.sub_tenant_id = sub_tenant_id
+        # 外部业务ID
+        self.external_biz_id = external_biz_id
+        # 业务描述,用于案件的补充描述; 没有则不填
+        self.case_desc = case_desc
+        # 根据案件要素模板对应提供要素信息
+        self.business_info = business_info
+        # 根据案件要素模板对应提供证据信息
+        self.evidence_info = evidence_info
+
+    def validate(self):
+        self.validate_required(self.case_reason, 'case_reason')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.sub_tenant_id, 'sub_tenant_id')
+        self.validate_required(self.external_biz_id, 'external_biz_id')
+        self.validate_required(self.business_info, 'business_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.case_reason is not None:
+            result['case_reason'] = self.case_reason
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
+        if self.external_biz_id is not None:
+            result['external_biz_id'] = self.external_biz_id
+        if self.case_desc is not None:
+            result['case_desc'] = self.case_desc
+        if self.business_info is not None:
+            result['business_info'] = self.business_info
+        if self.evidence_info is not None:
+            result['evidence_info'] = self.evidence_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('case_reason') is not None:
+            self.case_reason = m.get('case_reason')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
+        if m.get('external_biz_id') is not None:
+            self.external_biz_id = m.get('external_biz_id')
+        if m.get('case_desc') is not None:
+            self.case_desc = m.get('case_desc')
+        if m.get('business_info') is not None:
+            self.business_info = m.get('business_info')
+        if m.get('evidence_info') is not None:
+            self.evidence_info = m.get('evidence_info')
+        return self
+
+
+class CreateJusticeAgentcaseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        case_id: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 案件创建是否成功
+        self.success = success
+        # 案件ID, 创建成功后, 返回的案件ID
+        self.case_id = case_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.case_id is not None:
+            result['case_id'] = self.case_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('case_id') is not None:
+            self.case_id = m.get('case_id')
         return self
 
 
@@ -34444,7 +34610,6 @@ class QueryLeaseAsynccallResponse(TeaModel):
         status: str = None,
         tx_hash: str = None,
         chain_fail_message: str = None,
-        response_data: str = None,
         code: str = None,
         message: str = None,
     ):
@@ -34463,8 +34628,6 @@ class QueryLeaseAsynccallResponse(TeaModel):
         self.tx_hash = tx_hash
         # 上链失败信息，status为FAIL时返回
         self.chain_fail_message = chain_fail_message
-        # 对应的加密后的具体信息,异步查询场景会有值
-        self.response_data = response_data
         # 结果码，OK表示成功
         self.code = code
         # 结果描述
@@ -34491,8 +34654,6 @@ class QueryLeaseAsynccallResponse(TeaModel):
             result['tx_hash'] = self.tx_hash
         if self.chain_fail_message is not None:
             result['chain_fail_message'] = self.chain_fail_message
-        if self.response_data is not None:
-            result['response_data'] = self.response_data
         if self.code is not None:
             result['code'] = self.code
         if self.message is not None:
@@ -34513,8 +34674,6 @@ class QueryLeaseAsynccallResponse(TeaModel):
             self.tx_hash = m.get('tx_hash')
         if m.get('chain_fail_message') is not None:
             self.chain_fail_message = m.get('chain_fail_message')
-        if m.get('response_data') is not None:
-            self.response_data = m.get('response_data')
         if m.get('code') is not None:
             self.code = m.get('code')
         if m.get('message') is not None:
