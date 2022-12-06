@@ -17583,7 +17583,7 @@ type CreateContractEncrypteduserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 注册机构用户。类型为机构时(userType = "ORGANIZATION")，该字段必填。
-	Organization *ContractOrganizationApplication `json:"organization,omitempty" xml:"organization,omitempty" require:"true"`
+	Organization *ContractOrganizationApplication `json:"organization,omitempty" xml:"organization,omitempty"`
 	// 注册为个人用户时，该字段表示个人用户的相关信息；
 	// 注册为机构用户时，该字段表示对应机构经办人的个人信息。
 	User *ContractAccountApplication `json:"user,omitempty" xml:"user,omitempty" require:"true"`
@@ -40460,7 +40460,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.13"),
+				"sdk_version":      tea.String("1.8.14"),
+				"_prod_code":       tea.String("TWC"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
