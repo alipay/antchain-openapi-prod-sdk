@@ -13,7 +13,6 @@ public class CreateContractEncrypteduserRequest extends TeaModel {
 
     // 注册机构用户。类型为机构时(userType = "ORGANIZATION")，该字段必填。
     @NameInMap("organization")
-    @Validation(required = true)
     public ContractOrganizationApplication organization;
 
     // 注册为个人用户时，该字段表示个人用户的相关信息；
