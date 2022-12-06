@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.9',
+    sdk_version = '1.8.13',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -9188,7 +9188,7 @@ model CreateJusticeNormalcaseRequest = {
   externalBizId: string(name='external_biz_id'),
   // 业务描述,用于案件的补充描述; 没有则不填
   caseDesc?: string(name='case_desc'),
-  // 针对对应业务类型的证据要素补充.
+  // 针对对应业务类型的案件要素补充.
   caseBizElementInfo?: string(name='case_biz_element_info'),
   // 当事人(申请人)ID, 案件填充信息返回
   partyId: long(name='party_id'),
@@ -9202,6 +9202,8 @@ model CreateJusticeNormalcaseRequest = {
   useTemplate?: boolean(name='use_template'),
   // 使用模板时必填，根据案件要素模板对应提供要素信息
   businessInfo?: string(name='business_info'),
+  // 使用模板时必填，根据案件要素模板对应提供证据信息
+  evidenceInfo?: string(name='evidence_info'),
 }
 
 model CreateJusticeNormalcaseResponse = {
@@ -9558,6 +9560,10 @@ model GetJusticeFileuploadurlRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 上传文件全名
   fileName: string(name='file_name'),
+  // 文件Md5值，用于上传后的文件校验
+  fileMd5: string(name='file_md5'),
+  // 枚举值：案件证据文件：EVIDENCE
+  fileType: string(name='file_type'),
 }
 
 model GetJusticeFileuploadurlResponse = {
@@ -9571,8 +9577,8 @@ model GetJusticeFileuploadurlResponse = {
   fileKey?: string(name='file_key'),
   // 文件上传链接url
   uploadUrl?: string(name='upload_url'),
-  // 链接失效日期: "yyyy-MM-dd HH:mm:ss"
-  expiredTime?: string(name='expired_time'),
+  // 链接失效时间戳（毫秒）
+  expiredTime?: long(name='expired_time'),
 }
 
 /**
@@ -9691,6 +9697,58 @@ async function queryJusticeCommoncaseinfo(request: QueryJusticeCommoncaseinfoReq
 async function queryJusticeCommoncaseinfoEx(request: QueryJusticeCommoncaseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryJusticeCommoncaseinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeAgentcaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案由
+  caseReason: string(name='case_reason'),
+  // 业务类型，LEASE- 租赁 ，HB_FINANCIAL - HB金融， 模板创建的其他业务类型
+  bizType: string(name='biz_type'),
+  // 二级商户租户ID，八位字母
+  subTenantId: string(name='sub_tenant_id'),
+  // 外部业务ID
+  externalBizId: string(name='external_biz_id'),
+  // 业务描述,用于案件的补充描述; 没有则不填
+  caseDesc?: string(name='case_desc'),
+  // 根据案件要素模板对应提供要素信息
+  businessInfo: string(name='business_info'),
+  // 根据案件要素模板对应提供证据信息
+  evidenceInfo?: string(name='evidence_info'),
+}
+
+model CreateJusticeAgentcaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件创建是否成功
+  success?: boolean(name='success'),
+  // 案件ID, 创建成功后, 返回的案件ID
+  caseId?: long(name='case_id'),
+}
+
+/**
+ * Description: 1级商户为2级商户进件
+ * Summary: 代理二级商户进件
+ */
+async function createJusticeAgentcase(request: CreateJusticeAgentcaseRequest): CreateJusticeAgentcaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeAgentcaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1级商户为2级商户进件
+ * Summary: 代理二级商户进件
+ */
+async function createJusticeAgentcaseEx(request: CreateJusticeAgentcaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeAgentcaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.agentcase.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseProductinfoRequest = {
@@ -11839,8 +11897,6 @@ model QueryLeaseAsynccallResponse = {
   txHash?: string(name='tx_hash'),
   // 上链失败信息，status为FAIL时返回
   chainFailMessage?: string(name='chain_fail_message'),
-  // 对应的加密后的具体信息,异步查询场景会有值
-  responseData?: string(name='response_data'),
   // 结果码，OK表示成功
   code?: string(name='code'),
   // 结果描述
