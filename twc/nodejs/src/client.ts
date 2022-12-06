@@ -13164,7 +13164,7 @@ export class CreateContractEncrypteduserRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 注册机构用户。类型为机构时(userType = "ORGANIZATION")，该字段必填。
-  organization: ContractOrganizationApplication;
+  organization?: ContractOrganizationApplication;
   // 注册为个人用户时，该字段表示个人用户的相关信息；
   // 注册为机构用户时，该字段表示对应机构经办人的个人信息。
   user: ContractAccountApplication;
@@ -29983,7 +29983,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.13",
+          sdk_version: "1.8.14",
+          _prod_code: "TWC",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
