@@ -16589,7 +16589,7 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
   externalBizId: string;
   // 业务描述,用于案件的补充描述; 没有则不填
   caseDesc?: string;
-  // 针对对应业务类型的证据要素补充.
+  // 针对对应业务类型的案件要素补充.
   caseBizElementInfo?: string;
   // 当事人(申请人)ID, 案件填充信息返回
   partyId: number;
@@ -16603,6 +16603,8 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
   useTemplate?: boolean;
   // 使用模板时必填，根据案件要素模板对应提供要素信息
   businessInfo?: string;
+  // 使用模板时必填，根据案件要素模板对应提供证据信息
+  evidenceInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16617,6 +16619,7 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
       pleaderPersonInfo: 'pleader_person_info',
       useTemplate: 'use_template',
       businessInfo: 'business_info',
+      evidenceInfo: 'evidence_info',
     };
   }
 
@@ -16634,6 +16637,7 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
       pleaderPersonInfo: JudicialPersonInfo,
       useTemplate: 'boolean',
       businessInfo: 'string',
+      evidenceInfo: 'string',
     };
   }
 
@@ -17194,11 +17198,17 @@ export class GetJusticeFileuploadurlRequest extends $tea.Model {
   productInstanceId?: string;
   // 上传文件全名
   fileName: string;
+  // 文件Md5值，用于上传后的文件校验
+  fileMd5: string;
+  // 枚举值：案件证据文件：EVIDENCE
+  fileType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       fileName: 'file_name',
+      fileMd5: 'file_md5',
+      fileType: 'file_type',
     };
   }
 
@@ -17207,6 +17217,8 @@ export class GetJusticeFileuploadurlRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       fileName: 'string',
+      fileMd5: 'string',
+      fileType: 'string',
     };
   }
 
@@ -17226,8 +17238,8 @@ export class GetJusticeFileuploadurlResponse extends $tea.Model {
   fileKey?: string;
   // 文件上传链接url
   uploadUrl?: string;
-  // 链接失效日期: "yyyy-MM-dd HH:mm:ss"
-  expiredTime?: string;
+  // 链接失效时间戳（毫秒）
+  expiredTime?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -17246,7 +17258,7 @@ export class GetJusticeFileuploadurlResponse extends $tea.Model {
       resultMsg: 'string',
       fileKey: 'string',
       uploadUrl: 'string',
-      expiredTime: 'string',
+      expiredTime: 'number',
     };
   }
 
@@ -17404,6 +17416,93 @@ export class QueryJusticeCommoncaseinfoResponse extends $tea.Model {
       resultMsg: 'string',
       businessInfo: 'string',
       caseNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateJusticeAgentcaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 案由
+  caseReason: string;
+  // 业务类型，LEASE- 租赁 ，HB_FINANCIAL - HB金融， 模板创建的其他业务类型
+  bizType: string;
+  // 二级商户租户ID，八位字母
+  subTenantId: string;
+  // 外部业务ID
+  externalBizId: string;
+  // 业务描述,用于案件的补充描述; 没有则不填
+  caseDesc?: string;
+  // 根据案件要素模板对应提供要素信息
+  businessInfo: string;
+  // 根据案件要素模板对应提供证据信息
+  evidenceInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      caseReason: 'case_reason',
+      bizType: 'biz_type',
+      subTenantId: 'sub_tenant_id',
+      externalBizId: 'external_biz_id',
+      caseDesc: 'case_desc',
+      businessInfo: 'business_info',
+      evidenceInfo: 'evidence_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      caseReason: 'string',
+      bizType: 'string',
+      subTenantId: 'string',
+      externalBizId: 'string',
+      caseDesc: 'string',
+      businessInfo: 'string',
+      evidenceInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateJusticeAgentcaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 案件创建是否成功
+  success?: boolean;
+  // 案件ID, 创建成功后, 返回的案件ID
+  caseId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      caseId: 'case_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      caseId: 'number',
     };
   }
 
@@ -21007,8 +21106,6 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
   txHash?: string;
   // 上链失败信息，status为FAIL时返回
   chainFailMessage?: string;
-  // 对应的加密后的具体信息,异步查询场景会有值
-  responseData?: string;
   // 结果码，OK表示成功
   code?: string;
   // 结果描述
@@ -21021,7 +21118,6 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
       status: 'status',
       txHash: 'tx_hash',
       chainFailMessage: 'chain_fail_message',
-      responseData: 'response_data',
       code: 'code',
       message: 'message',
     };
@@ -21035,7 +21131,6 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
       status: 'string',
       txHash: 'string',
       chainFailMessage: 'string',
-      responseData: 'string',
       code: 'string',
       message: 'string',
     };
@@ -29888,7 +29983,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.9",
+          sdk_version: "1.8.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -32805,6 +32900,25 @@ export default class Client {
   async queryJusticeCommoncaseinfoEx(request: QueryJusticeCommoncaseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryJusticeCommoncaseinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryJusticeCommoncaseinfoResponse>(await this.doRequest("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryJusticeCommoncaseinfoResponse({}));
+  }
+
+  /**
+   * Description: 1级商户为2级商户进件
+   * Summary: 代理二级商户进件
+   */
+  async createJusticeAgentcase(request: CreateJusticeAgentcaseRequest): Promise<CreateJusticeAgentcaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createJusticeAgentcaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 1级商户为2级商户进件
+   * Summary: 代理二级商户进件
+   */
+  async createJusticeAgentcaseEx(request: CreateJusticeAgentcaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateJusticeAgentcaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateJusticeAgentcaseResponse>(await this.doRequest("1.0", "twc.notary.justice.agentcase.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateJusticeAgentcaseResponse({}));
   }
 
   /**
