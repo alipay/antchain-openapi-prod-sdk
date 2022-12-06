@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.9"},
+                        {"sdk_version", "1.8.13"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.9"},
+                        {"sdk_version", "1.8.13"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -6665,6 +6665,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryJusticeCommoncaseinfoResponse>(await DoRequestAsync("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1级商户为2级商户进件
+         * Summary: 代理二级商户进件
+         */
+        public CreateJusticeAgentcaseResponse CreateJusticeAgentcase(CreateJusticeAgentcaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateJusticeAgentcaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1级商户为2级商户进件
+         * Summary: 代理二级商户进件
+         */
+        public async Task<CreateJusticeAgentcaseResponse> CreateJusticeAgentcaseAsync(CreateJusticeAgentcaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateJusticeAgentcaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1级商户为2级商户进件
+         * Summary: 代理二级商户进件
+         */
+        public CreateJusticeAgentcaseResponse CreateJusticeAgentcaseEx(CreateJusticeAgentcaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeAgentcaseResponse>(DoRequest("1.0", "twc.notary.justice.agentcase.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1级商户为2级商户进件
+         * Summary: 代理二级商户进件
+         */
+        public async Task<CreateJusticeAgentcaseResponse> CreateJusticeAgentcaseExAsync(CreateJusticeAgentcaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeAgentcaseResponse>(await DoRequestAsync("1.0", "twc.notary.justice.agentcase.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

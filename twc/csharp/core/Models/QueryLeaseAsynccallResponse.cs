@@ -42,11 +42,6 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ChainFailMessage { get; set; }
 
-        // 对应的加密后的具体信息,异步查询场景会有值
-        [NameInMap("response_data")]
-        [Validation(Required=false)]
-        public string ResponseData { get; set; }
-
         // 结果码，OK表示成功
         [NameInMap("code")]
         [Validation(Required=false)]

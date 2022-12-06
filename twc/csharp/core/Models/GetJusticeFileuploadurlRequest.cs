@@ -23,6 +23,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string FileName { get; set; }
 
+        // 文件Md5值，用于上传后的文件校验
+        [NameInMap("file_md5")]
+        [Validation(Required=true)]
+        public string FileMd5 { get; set; }
+
+        // 枚举值：案件证据文件：EVIDENCE
+        [NameInMap("file_type")]
+        [Validation(Required=true)]
+        public string FileType { get; set; }
+
     }
 
 }

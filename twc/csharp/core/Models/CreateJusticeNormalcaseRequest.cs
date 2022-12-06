@@ -40,7 +40,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string CaseDesc { get; set; }
 
-        // 针对对应业务类型的证据要素补充.
+        // 针对对应业务类型的案件要素补充.
         [NameInMap("case_biz_element_info")]
         [Validation(Required=false)]
         public string CaseBizElementInfo { get; set; }
@@ -71,6 +71,11 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("business_info")]
         [Validation(Required=false)]
         public string BusinessInfo { get; set; }
+
+        // 使用模板时必填，根据案件要素模板对应提供证据信息
+        [NameInMap("evidence_info")]
+        [Validation(Required=false)]
+        public string EvidenceInfo { get; set; }
 
     }
 
