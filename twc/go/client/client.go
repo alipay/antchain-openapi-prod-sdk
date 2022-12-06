@@ -22109,7 +22109,7 @@ type CreateJusticeNormalcaseRequest struct {
 	ExternalBizId *string `json:"external_biz_id,omitempty" xml:"external_biz_id,omitempty" require:"true"`
 	// 业务描述,用于案件的补充描述; 没有则不填
 	CaseDesc *string `json:"case_desc,omitempty" xml:"case_desc,omitempty"`
-	// 针对对应业务类型的证据要素补充.
+	// 针对对应业务类型的案件要素补充.
 	CaseBizElementInfo *string `json:"case_biz_element_info,omitempty" xml:"case_biz_element_info,omitempty"`
 	// 当事人(申请人)ID, 案件填充信息返回
 	PartyId *int64 `json:"party_id,omitempty" xml:"party_id,omitempty" require:"true"`
@@ -22123,6 +22123,8 @@ type CreateJusticeNormalcaseRequest struct {
 	UseTemplate *bool `json:"use_template,omitempty" xml:"use_template,omitempty"`
 	// 使用模板时必填，根据案件要素模板对应提供要素信息
 	BusinessInfo *string `json:"business_info,omitempty" xml:"business_info,omitempty"`
+	// 使用模板时必填，根据案件要素模板对应提供证据信息
+	EvidenceInfo *string `json:"evidence_info,omitempty" xml:"evidence_info,omitempty"`
 }
 
 func (s CreateJusticeNormalcaseRequest) String() string {
@@ -22190,6 +22192,11 @@ func (s *CreateJusticeNormalcaseRequest) SetUseTemplate(v bool) *CreateJusticeNo
 
 func (s *CreateJusticeNormalcaseRequest) SetBusinessInfo(v string) *CreateJusticeNormalcaseRequest {
 	s.BusinessInfo = &v
+	return s
+}
+
+func (s *CreateJusticeNormalcaseRequest) SetEvidenceInfo(v string) *CreateJusticeNormalcaseRequest {
+	s.EvidenceInfo = &v
 	return s
 }
 
@@ -22923,6 +22930,10 @@ type GetJusticeFileuploadurlRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 上传文件全名
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件Md5值，用于上传后的文件校验
+	FileMd5 *string `json:"file_md5,omitempty" xml:"file_md5,omitempty" require:"true"`
+	// 枚举值：案件证据文件：EVIDENCE
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
 }
 
 func (s GetJusticeFileuploadurlRequest) String() string {
@@ -22948,6 +22959,16 @@ func (s *GetJusticeFileuploadurlRequest) SetFileName(v string) *GetJusticeFileup
 	return s
 }
 
+func (s *GetJusticeFileuploadurlRequest) SetFileMd5(v string) *GetJusticeFileuploadurlRequest {
+	s.FileMd5 = &v
+	return s
+}
+
+func (s *GetJusticeFileuploadurlRequest) SetFileType(v string) *GetJusticeFileuploadurlRequest {
+	s.FileType = &v
+	return s
+}
+
 type GetJusticeFileuploadurlResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -22959,8 +22980,8 @@ type GetJusticeFileuploadurlResponse struct {
 	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
 	// 文件上传链接url
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
-	// 链接失效日期: "yyyy-MM-dd HH:mm:ss"
-	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty"`
+	// 链接失效时间戳（毫秒）
+	ExpiredTime *int64 `json:"expired_time,omitempty" xml:"expired_time,omitempty"`
 }
 
 func (s GetJusticeFileuploadurlResponse) String() string {
@@ -22996,7 +23017,7 @@ func (s *GetJusticeFileuploadurlResponse) SetUploadUrl(v string) *GetJusticeFile
 	return s
 }
 
-func (s *GetJusticeFileuploadurlResponse) SetExpiredTime(v string) *GetJusticeFileuploadurlResponse {
+func (s *GetJusticeFileuploadurlResponse) SetExpiredTime(v int64) *GetJusticeFileuploadurlResponse {
 	s.ExpiredTime = &v
 	return s
 }
@@ -23201,6 +23222,125 @@ func (s *QueryJusticeCommoncaseinfoResponse) SetBusinessInfo(v string) *QueryJus
 
 func (s *QueryJusticeCommoncaseinfoResponse) SetCaseNo(v string) *QueryJusticeCommoncaseinfoResponse {
 	s.CaseNo = &v
+	return s
+}
+
+type CreateJusticeAgentcaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案由
+	CaseReason *string `json:"case_reason,omitempty" xml:"case_reason,omitempty" require:"true"`
+	// 业务类型，LEASE- 租赁 ，HB_FINANCIAL - HB金融， 模板创建的其他业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 二级商户租户ID，八位字母
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty" require:"true"`
+	// 外部业务ID
+	ExternalBizId *string `json:"external_biz_id,omitempty" xml:"external_biz_id,omitempty" require:"true"`
+	// 业务描述,用于案件的补充描述; 没有则不填
+	CaseDesc *string `json:"case_desc,omitempty" xml:"case_desc,omitempty"`
+	// 根据案件要素模板对应提供要素信息
+	BusinessInfo *string `json:"business_info,omitempty" xml:"business_info,omitempty" require:"true"`
+	// 根据案件要素模板对应提供证据信息
+	EvidenceInfo *string `json:"evidence_info,omitempty" xml:"evidence_info,omitempty"`
+}
+
+func (s CreateJusticeAgentcaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateJusticeAgentcaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetAuthToken(v string) *CreateJusticeAgentcaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetProductInstanceId(v string) *CreateJusticeAgentcaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetCaseReason(v string) *CreateJusticeAgentcaseRequest {
+	s.CaseReason = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetBizType(v string) *CreateJusticeAgentcaseRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetSubTenantId(v string) *CreateJusticeAgentcaseRequest {
+	s.SubTenantId = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetExternalBizId(v string) *CreateJusticeAgentcaseRequest {
+	s.ExternalBizId = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetCaseDesc(v string) *CreateJusticeAgentcaseRequest {
+	s.CaseDesc = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetBusinessInfo(v string) *CreateJusticeAgentcaseRequest {
+	s.BusinessInfo = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseRequest) SetEvidenceInfo(v string) *CreateJusticeAgentcaseRequest {
+	s.EvidenceInfo = &v
+	return s
+}
+
+type CreateJusticeAgentcaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 案件创建是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 案件ID, 创建成功后, 返回的案件ID
+	CaseId *int64 `json:"case_id,omitempty" xml:"case_id,omitempty"`
+}
+
+func (s CreateJusticeAgentcaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateJusticeAgentcaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateJusticeAgentcaseResponse) SetReqMsgId(v string) *CreateJusticeAgentcaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseResponse) SetResultCode(v string) *CreateJusticeAgentcaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseResponse) SetResultMsg(v string) *CreateJusticeAgentcaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseResponse) SetSuccess(v bool) *CreateJusticeAgentcaseResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *CreateJusticeAgentcaseResponse) SetCaseId(v int64) *CreateJusticeAgentcaseResponse {
+	s.CaseId = &v
 	return s
 }
 
@@ -28128,8 +28268,6 @@ type QueryLeaseAsynccallResponse struct {
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
 	// 上链失败信息，status为FAIL时返回
 	ChainFailMessage *string `json:"chain_fail_message,omitempty" xml:"chain_fail_message,omitempty"`
-	// 对应的加密后的具体信息,异步查询场景会有值
-	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
 	// 结果码，OK表示成功
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 	// 结果描述
@@ -28171,11 +28309,6 @@ func (s *QueryLeaseAsynccallResponse) SetTxHash(v string) *QueryLeaseAsynccallRe
 
 func (s *QueryLeaseAsynccallResponse) SetChainFailMessage(v string) *QueryLeaseAsynccallResponse {
 	s.ChainFailMessage = &v
-	return s
-}
-
-func (s *QueryLeaseAsynccallResponse) SetResponseData(v string) *QueryLeaseAsynccallResponse {
-	s.ResponseData = &v
 	return s
 }
 
@@ -40327,7 +40460,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.9"),
+				"sdk_version":      tea.String("1.8.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -45514,6 +45647,40 @@ func (client *Client) QueryJusticeCommoncaseinfoEx(request *QueryJusticeCommonca
 	}
 	_result = &QueryJusticeCommoncaseinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.commoncaseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 1级商户为2级商户进件
+ * Summary: 代理二级商户进件
+ */
+func (client *Client) CreateJusticeAgentcase(request *CreateJusticeAgentcaseRequest) (_result *CreateJusticeAgentcaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateJusticeAgentcaseResponse{}
+	_body, _err := client.CreateJusticeAgentcaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 1级商户为2级商户进件
+ * Summary: 代理二级商户进件
+ */
+func (client *Client) CreateJusticeAgentcaseEx(request *CreateJusticeAgentcaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateJusticeAgentcaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateJusticeAgentcaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.agentcase.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
