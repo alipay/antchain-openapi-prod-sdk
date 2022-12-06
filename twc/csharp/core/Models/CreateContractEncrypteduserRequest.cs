@@ -20,7 +20,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 注册机构用户。类型为机构时(userType = "ORGANIZATION")，该字段必填。
         [NameInMap("organization")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public ContractOrganizationApplication Organization { get; set; }
 
         // 注册为个人用户时，该字段表示个人用户的相关信息；
