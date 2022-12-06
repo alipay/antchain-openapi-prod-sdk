@@ -21570,7 +21570,6 @@ class CreateContractEncrypteduserRequest(TeaModel):
         self.user_type = user_type
 
     def validate(self):
-        self.validate_required(self.organization, 'organization')
         if self.organization:
             self.organization.validate()
         self.validate_required(self.user, 'user')
