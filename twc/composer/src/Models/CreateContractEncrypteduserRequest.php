@@ -49,7 +49,6 @@ class CreateContractEncrypteduserRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('organization', $this->organization, true);
         Model::validateRequired('user', $this->user, true);
         Model::validateRequired('userType', $this->userType, true);
     }
