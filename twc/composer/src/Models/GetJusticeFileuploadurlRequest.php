@@ -24,15 +24,31 @@ class GetJusticeFileuploadurlRequest extends Model
      * @var string
      */
     public $fileName;
+
+    // 文件Md5值，用于上传后的文件校验
+    /**
+     * @var string
+     */
+    public $fileMd5;
+
+    // 枚举值：案件证据文件：EVIDENCE
+    /**
+     * @var string
+     */
+    public $fileType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileName'          => 'file_name',
+        'fileMd5'           => 'file_md5',
+        'fileType'          => 'file_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileName', $this->fileName, true);
+        Model::validateRequired('fileMd5', $this->fileMd5, true);
+        Model::validateRequired('fileType', $this->fileType, true);
     }
 
     public function toMap()
@@ -46,6 +62,12 @@ class GetJusticeFileuploadurlRequest extends Model
         }
         if (null !== $this->fileName) {
             $res['file_name'] = $this->fileName;
+        }
+        if (null !== $this->fileMd5) {
+            $res['file_md5'] = $this->fileMd5;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
         }
 
         return $res;
@@ -67,6 +89,12 @@ class GetJusticeFileuploadurlRequest extends Model
         }
         if (isset($map['file_name'])) {
             $model->fileName = $map['file_name'];
+        }
+        if (isset($map['file_md5'])) {
+            $model->fileMd5 = $map['file_md5'];
+        }
+        if (isset($map['file_type'])) {
+            $model->fileType = $map['file_type'];
         }
 
         return $model;

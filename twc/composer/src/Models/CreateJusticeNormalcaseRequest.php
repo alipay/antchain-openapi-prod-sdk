@@ -45,7 +45,7 @@ class CreateJusticeNormalcaseRequest extends Model
      */
     public $caseDesc;
 
-    // 针对对应业务类型的证据要素补充.
+    // 针对对应业务类型的案件要素补充.
     /**
      * @var string
      */
@@ -82,6 +82,12 @@ class CreateJusticeNormalcaseRequest extends Model
      * @var string
      */
     public $businessInfo;
+
+    // 使用模板时必填，根据案件要素模板对应提供证据信息
+    /**
+     * @var string
+     */
+    public $evidenceInfo;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -95,6 +101,7 @@ class CreateJusticeNormalcaseRequest extends Model
         'pleaderPersonInfo'  => 'pleader_person_info',
         'useTemplate'        => 'use_template',
         'businessInfo'       => 'business_info',
+        'evidenceInfo'       => 'evidence_info',
     ];
 
     public function validate()
@@ -144,6 +151,9 @@ class CreateJusticeNormalcaseRequest extends Model
         if (null !== $this->businessInfo) {
             $res['business_info'] = $this->businessInfo;
         }
+        if (null !== $this->evidenceInfo) {
+            $res['evidence_info'] = $this->evidenceInfo;
+        }
 
         return $res;
     }
@@ -191,6 +201,9 @@ class CreateJusticeNormalcaseRequest extends Model
         }
         if (isset($map['business_info'])) {
             $model->businessInfo = $map['business_info'];
+        }
+        if (isset($map['evidence_info'])) {
+            $model->evidenceInfo = $map['evidence_info'];
         }
 
         return $model;

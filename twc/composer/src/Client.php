@@ -161,6 +161,8 @@ use AntChain\TWC\Models\CreateInternalTextRequest;
 use AntChain\TWC\Models\CreateInternalTextResponse;
 use AntChain\TWC\Models\CreateInternalTransRequest;
 use AntChain\TWC\Models\CreateInternalTransResponse;
+use AntChain\TWC\Models\CreateJusticeAgentcaseRequest;
+use AntChain\TWC\Models\CreateJusticeAgentcaseResponse;
 use AntChain\TWC\Models\CreateJusticeCasetemplateRequest;
 use AntChain\TWC\Models\CreateJusticeCasetemplateResponse;
 use AntChain\TWC\Models\CreateJusticeCasewritebackRequest;
@@ -736,7 +738,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.9',
+                    'sdk_version'      => '1.8.13',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5767,6 +5769,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryJusticeCommoncaseinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.commoncaseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1级商户为2级商户进件
+     * Summary: 代理二级商户进件.
+     *
+     * @param CreateJusticeAgentcaseRequest $request
+     *
+     * @return CreateJusticeAgentcaseResponse
+     */
+    public function createJusticeAgentcase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createJusticeAgentcaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1级商户为2级商户进件
+     * Summary: 代理二级商户进件.
+     *
+     * @param CreateJusticeAgentcaseRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateJusticeAgentcaseResponse
+     */
+    public function createJusticeAgentcaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateJusticeAgentcaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.agentcase.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetJusticeFileuploadurlResponse extends Model
+class CreateJusticeAgentcaseResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class GetJusticeFileuploadurlResponse extends Model
      */
     public $resultMsg;
 
-    // 获取的文件key, 请妥善保存, 用于后续接口调用.
+    // 案件创建是否成功
     /**
-     * @var string
+     * @var bool
      */
-    public $fileKey;
+    public $success;
 
-    // 文件上传链接url
-    /**
-     * @var string
-     */
-    public $uploadUrl;
-
-    // 链接失效时间戳（毫秒）
+    // 案件ID, 创建成功后, 返回的案件ID
     /**
      * @var int
      */
-    public $expiredTime;
+    public $caseId;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'fileKey'     => 'file_key',
-        'uploadUrl'   => 'upload_url',
-        'expiredTime' => 'expired_time',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'success'    => 'success',
+        'caseId'     => 'case_id',
     ];
 
     public function validate()
@@ -68,14 +61,11 @@ class GetJusticeFileuploadurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->fileKey) {
-            $res['file_key'] = $this->fileKey;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
         }
-        if (null !== $this->uploadUrl) {
-            $res['upload_url'] = $this->uploadUrl;
-        }
-        if (null !== $this->expiredTime) {
-            $res['expired_time'] = $this->expiredTime;
+        if (null !== $this->caseId) {
+            $res['case_id'] = $this->caseId;
         }
 
         return $res;
@@ -84,7 +74,7 @@ class GetJusticeFileuploadurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetJusticeFileuploadurlResponse
+     * @return CreateJusticeAgentcaseResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +88,11 @@ class GetJusticeFileuploadurlResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['file_key'])) {
-            $model->fileKey = $map['file_key'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
         }
-        if (isset($map['upload_url'])) {
-            $model->uploadUrl = $map['upload_url'];
-        }
-        if (isset($map['expired_time'])) {
-            $model->expiredTime = $map['expired_time'];
+        if (isset($map['case_id'])) {
+            $model->caseId = $map['case_id'];
         }
 
         return $model;
