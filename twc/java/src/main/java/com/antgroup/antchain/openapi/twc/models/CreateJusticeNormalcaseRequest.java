@@ -32,7 +32,7 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     @NameInMap("case_desc")
     public String caseDesc;
 
-    // 针对对应业务类型的证据要素补充.
+    // 针对对应业务类型的案件要素补充.
     @NameInMap("case_biz_element_info")
     public String caseBizElementInfo;
 
@@ -58,6 +58,10 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     // 使用模板时必填，根据案件要素模板对应提供要素信息
     @NameInMap("business_info")
     public String businessInfo;
+
+    // 使用模板时必填，根据案件要素模板对应提供证据信息
+    @NameInMap("evidence_info")
+    public String evidenceInfo;
 
     public static CreateJusticeNormalcaseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateJusticeNormalcaseRequest self = new CreateJusticeNormalcaseRequest();
@@ -158,6 +162,14 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     }
     public String getBusinessInfo() {
         return this.businessInfo;
+    }
+
+    public CreateJusticeNormalcaseRequest setEvidenceInfo(String evidenceInfo) {
+        this.evidenceInfo = evidenceInfo;
+        return this;
+    }
+    public String getEvidenceInfo() {
+        return this.evidenceInfo;
     }
 
 }

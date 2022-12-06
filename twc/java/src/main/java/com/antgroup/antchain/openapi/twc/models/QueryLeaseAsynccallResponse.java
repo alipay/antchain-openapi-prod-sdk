@@ -31,10 +31,6 @@ public class QueryLeaseAsynccallResponse extends TeaModel {
     @NameInMap("chain_fail_message")
     public String chainFailMessage;
 
-    // 对应的加密后的具体信息,异步查询场景会有值
-    @NameInMap("response_data")
-    public String responseData;
-
     // 结果码，OK表示成功
     @NameInMap("code")
     public String code;
@@ -94,14 +90,6 @@ public class QueryLeaseAsynccallResponse extends TeaModel {
     }
     public String getChainFailMessage() {
         return this.chainFailMessage;
-    }
-
-    public QueryLeaseAsynccallResponse setResponseData(String responseData) {
-        this.responseData = responseData;
-        return this;
-    }
-    public String getResponseData() {
-        return this.responseData;
     }
 
     public QueryLeaseAsynccallResponse setCode(String code) {

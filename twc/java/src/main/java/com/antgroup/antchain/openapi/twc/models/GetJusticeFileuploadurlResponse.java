@@ -24,9 +24,9 @@ public class GetJusticeFileuploadurlResponse extends TeaModel {
     @NameInMap("upload_url")
     public String uploadUrl;
 
-    // 链接失效日期: "yyyy-MM-dd HH:mm:ss"
+    // 链接失效时间戳（毫秒）
     @NameInMap("expired_time")
-    public String expiredTime;
+    public Long expiredTime;
 
     public static GetJusticeFileuploadurlResponse build(java.util.Map<String, ?> map) throws Exception {
         GetJusticeFileuploadurlResponse self = new GetJusticeFileuploadurlResponse();
@@ -73,11 +73,11 @@ public class GetJusticeFileuploadurlResponse extends TeaModel {
         return this.uploadUrl;
     }
 
-    public GetJusticeFileuploadurlResponse setExpiredTime(String expiredTime) {
+    public GetJusticeFileuploadurlResponse setExpiredTime(Long expiredTime) {
         this.expiredTime = expiredTime;
         return this;
     }
-    public String getExpiredTime() {
+    public Long getExpiredTime() {
         return this.expiredTime;
     }
 

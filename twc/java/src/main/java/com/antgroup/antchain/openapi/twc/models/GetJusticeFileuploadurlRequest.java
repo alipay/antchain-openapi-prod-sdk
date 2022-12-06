@@ -16,6 +16,16 @@ public class GetJusticeFileuploadurlRequest extends TeaModel {
     @Validation(required = true)
     public String fileName;
 
+    // 文件Md5值，用于上传后的文件校验
+    @NameInMap("file_md5")
+    @Validation(required = true)
+    public String fileMd5;
+
+    // 枚举值：案件证据文件：EVIDENCE
+    @NameInMap("file_type")
+    @Validation(required = true)
+    public String fileType;
+
     public static GetJusticeFileuploadurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetJusticeFileuploadurlRequest self = new GetJusticeFileuploadurlRequest();
         return TeaModel.build(map, self);
@@ -43,6 +53,22 @@ public class GetJusticeFileuploadurlRequest extends TeaModel {
     }
     public String getFileName() {
         return this.fileName;
+    }
+
+    public GetJusticeFileuploadurlRequest setFileMd5(String fileMd5) {
+        this.fileMd5 = fileMd5;
+        return this;
+    }
+    public String getFileMd5() {
+        return this.fileMd5;
+    }
+
+    public GetJusticeFileuploadurlRequest setFileType(String fileType) {
+        this.fileType = fileType;
+        return this;
+    }
+    public String getFileType() {
+        return this.fileType;
     }
 
 }

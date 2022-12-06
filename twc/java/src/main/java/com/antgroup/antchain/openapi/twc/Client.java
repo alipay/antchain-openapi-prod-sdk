@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.9")
+                    new TeaPair("sdk_version", "1.8.13")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3030,6 +3030,25 @@ public class Client {
     public QueryJusticeCommoncaseinfoResponse queryJusticeCommoncaseinfoEx(QueryJusticeCommoncaseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.commoncaseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeCommoncaseinfoResponse());
+    }
+
+    /**
+     * Description: 1级商户为2级商户进件
+     * Summary: 代理二级商户进件
+     */
+    public CreateJusticeAgentcaseResponse createJusticeAgentcase(CreateJusticeAgentcaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeAgentcaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1级商户为2级商户进件
+     * Summary: 代理二级商户进件
+     */
+    public CreateJusticeAgentcaseResponse createJusticeAgentcaseEx(CreateJusticeAgentcaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.agentcase.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeAgentcaseResponse());
     }
 
     /**
