@@ -351,6 +351,202 @@ class At(TeaModel):
         return self
 
 
+class YuqingMessage(TeaModel):
+    def __init__(
+        self,
+        author_avatar_url: str = None,
+        author_followers_count: int = None,
+        author_friends_count: int = None,
+        author_id: str = None,
+        author_name: str = None,
+        author_statuses_count: int = None,
+        author_verify_type: str = None,
+        create_time: int = None,
+        doc_content: str = None,
+        doc_content_brief: str = None,
+        doc_content_sign: str = None,
+        doc_id: str = None,
+        doc_self_content_sign: str = None,
+        doc_title: str = None,
+        doc_url: str = None,
+        emotion_type: int = None,
+        highlight_keywords: List[str] = None,
+        media_type: str = None,
+        message_type: str = None,
+        parent_doc_id: str = None,
+        publish_time: int = None,
+        relevance_score: int = None,
+        similar_number: int = None,
+        weibo_comment_id: str = None,
+        weibo_mid: str = None,
+    ):
+        # 作者头像地址
+        self.author_avatar_url = author_avatar_url
+        # 粉丝数
+        self.author_followers_count = author_followers_count
+        # 好友数
+        self.author_friends_count = author_friends_count
+        # 作者id
+        self.author_id = author_id
+        # 作者名称
+        self.author_name = author_name
+        # 发文数
+        self.author_statuses_count = author_statuses_count
+        # 作者认证类型
+        self.author_verify_type = author_verify_type
+        # 舆情文章被抓取的时间戳
+        self.create_time = create_time
+        # 文章正文内容
+        self.doc_content = doc_content
+        # 文章摘要
+        self.doc_content_brief = doc_content_brief
+        # 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+        self.doc_content_sign = doc_content_sign
+        # 文章唯一docId
+        self.doc_id = doc_id
+        # 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+        self.doc_self_content_sign = doc_self_content_sign
+        # 文章标题
+        self.doc_title = doc_title
+        # 原文地址
+        self.doc_url = doc_url
+        # 情感的正负面，-1代表负面，1代表非负面
+        self.emotion_type = emotion_type
+        # 命中的搜索词列表
+        self.highlight_keywords = highlight_keywords
+        # 媒体类型，枚举值
+        self.media_type = media_type
+        # 舆情消息类型:转发,评论/回复, 原文,群聊等
+        self.message_type = message_type
+        # 文章的父docId，如被转发的文章docId
+        self.parent_doc_id = parent_doc_id
+        # 舆情文章的发布时间戳
+        self.publish_time = publish_time
+        # 相关性得分
+        self.relevance_score = relevance_score
+        # 相似文章数
+        self.similar_number = similar_number
+        # 微博评论id
+        self.weibo_comment_id = weibo_comment_id
+        # 微博消息id
+        self.weibo_mid = weibo_mid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.author_avatar_url is not None:
+            result['author_avatar_url'] = self.author_avatar_url
+        if self.author_followers_count is not None:
+            result['author_followers_count'] = self.author_followers_count
+        if self.author_friends_count is not None:
+            result['author_friends_count'] = self.author_friends_count
+        if self.author_id is not None:
+            result['author_id'] = self.author_id
+        if self.author_name is not None:
+            result['author_name'] = self.author_name
+        if self.author_statuses_count is not None:
+            result['author_statuses_count'] = self.author_statuses_count
+        if self.author_verify_type is not None:
+            result['author_verify_type'] = self.author_verify_type
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.doc_content is not None:
+            result['doc_content'] = self.doc_content
+        if self.doc_content_brief is not None:
+            result['doc_content_brief'] = self.doc_content_brief
+        if self.doc_content_sign is not None:
+            result['doc_content_sign'] = self.doc_content_sign
+        if self.doc_id is not None:
+            result['doc_id'] = self.doc_id
+        if self.doc_self_content_sign is not None:
+            result['doc_self_content_sign'] = self.doc_self_content_sign
+        if self.doc_title is not None:
+            result['doc_title'] = self.doc_title
+        if self.doc_url is not None:
+            result['doc_url'] = self.doc_url
+        if self.emotion_type is not None:
+            result['emotion_type'] = self.emotion_type
+        if self.highlight_keywords is not None:
+            result['highlight_keywords'] = self.highlight_keywords
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.parent_doc_id is not None:
+            result['parent_doc_id'] = self.parent_doc_id
+        if self.publish_time is not None:
+            result['publish_time'] = self.publish_time
+        if self.relevance_score is not None:
+            result['relevance_score'] = self.relevance_score
+        if self.similar_number is not None:
+            result['similar_number'] = self.similar_number
+        if self.weibo_comment_id is not None:
+            result['weibo_comment_id'] = self.weibo_comment_id
+        if self.weibo_mid is not None:
+            result['weibo_mid'] = self.weibo_mid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('author_avatar_url') is not None:
+            self.author_avatar_url = m.get('author_avatar_url')
+        if m.get('author_followers_count') is not None:
+            self.author_followers_count = m.get('author_followers_count')
+        if m.get('author_friends_count') is not None:
+            self.author_friends_count = m.get('author_friends_count')
+        if m.get('author_id') is not None:
+            self.author_id = m.get('author_id')
+        if m.get('author_name') is not None:
+            self.author_name = m.get('author_name')
+        if m.get('author_statuses_count') is not None:
+            self.author_statuses_count = m.get('author_statuses_count')
+        if m.get('author_verify_type') is not None:
+            self.author_verify_type = m.get('author_verify_type')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('doc_content') is not None:
+            self.doc_content = m.get('doc_content')
+        if m.get('doc_content_brief') is not None:
+            self.doc_content_brief = m.get('doc_content_brief')
+        if m.get('doc_content_sign') is not None:
+            self.doc_content_sign = m.get('doc_content_sign')
+        if m.get('doc_id') is not None:
+            self.doc_id = m.get('doc_id')
+        if m.get('doc_self_content_sign') is not None:
+            self.doc_self_content_sign = m.get('doc_self_content_sign')
+        if m.get('doc_title') is not None:
+            self.doc_title = m.get('doc_title')
+        if m.get('doc_url') is not None:
+            self.doc_url = m.get('doc_url')
+        if m.get('emotion_type') is not None:
+            self.emotion_type = m.get('emotion_type')
+        if m.get('highlight_keywords') is not None:
+            self.highlight_keywords = m.get('highlight_keywords')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('parent_doc_id') is not None:
+            self.parent_doc_id = m.get('parent_doc_id')
+        if m.get('publish_time') is not None:
+            self.publish_time = m.get('publish_time')
+        if m.get('relevance_score') is not None:
+            self.relevance_score = m.get('relevance_score')
+        if m.get('similar_number') is not None:
+            self.similar_number = m.get('similar_number')
+        if m.get('weibo_comment_id') is not None:
+            self.weibo_comment_id = m.get('weibo_comment_id')
+        if m.get('weibo_mid') is not None:
+            self.weibo_mid = m.get('weibo_mid')
+        return self
+
+
 class ActionCard(TeaModel):
     def __init__(
         self,
@@ -577,6 +773,113 @@ class DingTalkContent(TeaModel):
         if m.get('at') is not None:
             temp_model = At()
             self.at = temp_model.from_map(m['at'])
+        return self
+
+
+class Alarm(TeaModel):
+    def __init__(
+        self,
+        tags: List[str] = None,
+        content: str = None,
+        alarm_timestamp: int = None,
+        project_id: int = None,
+        modifier_name: str = None,
+        title: str = None,
+        id: int = None,
+        author_name: str = None,
+        alarm_rule_id: int = None,
+        type: str = None,
+        gmt_modified_timestamp: int = None,
+        message: YuqingMessage = None,
+    ):
+        # 人工打的标签
+        self.tags = tags
+        # 预警内容摘要
+        self.content = content
+        # 预警时间戳
+        self.alarm_timestamp = alarm_timestamp
+        # 舆情项目id
+        self.project_id = project_id
+        # 修改人
+        self.modifier_name = modifier_name
+        # 消息标题
+        self.title = title
+        # 消息id
+        self.id = id
+        # 作者名称
+        self.author_name = author_name
+        # 预警规则id
+        self.alarm_rule_id = alarm_rule_id
+        # 预警规则类型
+        self.type = type
+        # 修改时间戳
+        self.gmt_modified_timestamp = gmt_modified_timestamp
+        # 完整消息
+        self.message = message
+
+    def validate(self):
+        if self.message:
+            self.message.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.content is not None:
+            result['content'] = self.content
+        if self.alarm_timestamp is not None:
+            result['alarm_timestamp'] = self.alarm_timestamp
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.modifier_name is not None:
+            result['modifier_name'] = self.modifier_name
+        if self.title is not None:
+            result['title'] = self.title
+        if self.id is not None:
+            result['id'] = self.id
+        if self.author_name is not None:
+            result['author_name'] = self.author_name
+        if self.alarm_rule_id is not None:
+            result['alarm_rule_id'] = self.alarm_rule_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.gmt_modified_timestamp is not None:
+            result['gmt_modified_timestamp'] = self.gmt_modified_timestamp
+        if self.message is not None:
+            result['message'] = self.message.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('alarm_timestamp') is not None:
+            self.alarm_timestamp = m.get('alarm_timestamp')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('modifier_name') is not None:
+            self.modifier_name = m.get('modifier_name')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('author_name') is not None:
+            self.author_name = m.get('author_name')
+        if m.get('alarm_rule_id') is not None:
+            self.alarm_rule_id = m.get('alarm_rule_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('gmt_modified_timestamp') is not None:
+            self.gmt_modified_timestamp = m.get('gmt_modified_timestamp')
+        if m.get('message') is not None:
+            temp_model = YuqingMessage()
+            self.message = temp_model.from_map(m['message'])
         return self
 
 
@@ -1000,88 +1303,83 @@ class SearchCondition(TeaModel):
         return self
 
 
-class YuqingMessage(TeaModel):
+class Project(TeaModel):
     def __init__(
         self,
-        author_avatar_url: str = None,
-        author_followers_count: int = None,
-        author_friends_count: int = None,
-        author_id: str = None,
-        author_name: str = None,
-        author_statuses_count: int = None,
-        author_verify_type: str = None,
-        create_time: int = None,
-        doc_content: str = None,
-        doc_content_brief: str = None,
-        doc_content_sign: str = None,
-        doc_id: str = None,
-        doc_self_content_sign: str = None,
-        doc_title: str = None,
-        doc_url: str = None,
-        emotion_type: int = None,
-        highlight_keywords: List[str] = None,
-        media_type: str = None,
-        message_type: str = None,
-        parent_doc_id: str = None,
-        publish_time: int = None,
-        relevance_score: int = None,
-        similar_number: int = None,
-        weibo_comment_id: str = None,
-        weibo_mid: str = None,
+        name: str = None,
+        author_name_list: List[str] = None,
+        pos_keyword_list: List[str] = None,
+        pos_keyword_list_in_title: List[str] = None,
+        exclude_keyword_tag_ids: str = None,
+        uid_modified: str = None,
+        at_author_name_list: List[str] = None,
+        exclude_keyword_list: List[str] = None,
+        analyse_cp_id: int = None,
+        keyword_tag_ids: List[str] = None,
+        ass_keyword_list: List[str] = None,
+        id: int = None,
+        default_filter_id: int = None,
+        uname_create: str = None,
+        parent_id: int = None,
+        gmt_create: int = None,
+        uname_modified: str = None,
+        gmt_modified: int = None,
+        project_group_id: int = None,
+        parent_doc_id: int = None,
+        doc_id_list: List[str] = None,
+        topic_list: List[str] = None,
+        uid_create: str = None,
     ):
-        # 作者头像地址
-        self.author_avatar_url = author_avatar_url
-        # 粉丝数
-        self.author_followers_count = author_followers_count
-        # 好友数
-        self.author_friends_count = author_friends_count
-        # 作者id
-        self.author_id = author_id
+        # 项目名字
+        self.name = name
         # 作者名称
-        self.author_name = author_name
-        # 发文数
-        self.author_statuses_count = author_statuses_count
-        # 作者认证类型
-        self.author_verify_type = author_verify_type
-        # 舆情文章被抓取的时间戳
-        self.create_time = create_time
-        # 文章正文内容
-        self.doc_content = doc_content
-        # 文章摘要
-        self.doc_content_brief = doc_content_brief
-        # 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-        self.doc_content_sign = doc_content_sign
-        # 文章唯一docId
-        self.doc_id = doc_id
-        # 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-        self.doc_self_content_sign = doc_self_content_sign
-        # 文章标题
-        self.doc_title = doc_title
-        # 原文地址
-        self.doc_url = doc_url
-        # 情感的正负面，-1代表负面，1代表非负面
-        self.emotion_type = emotion_type
-        # 命中的搜索词列表
-        self.highlight_keywords = highlight_keywords
-        # 媒体类型，枚举值
-        self.media_type = media_type
-        # 舆情消息类型:转发,评论/回复, 原文,群聊等
-        self.message_type = message_type
-        # 文章的父docId，如被转发的文章docId
+        self.author_name_list = author_name_list
+        # 关键词
+        self.pos_keyword_list = pos_keyword_list
+        # 标题包含词列表
+        self.pos_keyword_list_in_title = pos_keyword_list_in_title
+        # 排除关键词标签列表
+        self.exclude_keyword_tag_ids = exclude_keyword_tag_ids
+        # 修改人uid
+        self.uid_modified = uid_modified
+        # 提级用户名，如@xxx
+        self.at_author_name_list = at_author_name_list
+        # 排除词
+        self.exclude_keyword_list = exclude_keyword_list
+        # 项目的分析页面id，关联hbase中的自定义页面表
+        self.analyse_cp_id = analyse_cp_id
+        # 关键词标签列表
+        self.keyword_tag_ids = keyword_tag_ids
+        # 搭配词
+        self.ass_keyword_list = ass_keyword_list
+        # 项目ID
+        self.id = id
+        # 默认搜索模板id
+        self.default_filter_id = default_filter_id
+        # 创建人名称
+        self.uname_create = uname_create
+        # 父项目id
+        self.parent_id = parent_id
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改人名称
+        self.uname_modified = uname_modified
+        # 修改时间
+        self.gmt_modified = gmt_modified
+        # 项目分组id
+        self.project_group_id = project_group_id
+        # 父文章id
         self.parent_doc_id = parent_doc_id
-        # 舆情文章的发布时间戳
-        self.publish_time = publish_time
-        # 相关性得分
-        self.relevance_score = relevance_score
-        # 相似文章数
-        self.similar_number = similar_number
-        # 微博评论id
-        self.weibo_comment_id = weibo_comment_id
-        # 微博消息id
-        self.weibo_mid = weibo_mid
+        # 文章id列表
+        self.doc_id_list = doc_id_list
+        # 话题词列表
+        self.topic_list = topic_list
+        # 创建人UID
+        self.uid_create = uid_create
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.pos_keyword_list, 'pos_keyword_list')
 
     def to_map(self):
         _map = super().to_map()
@@ -1089,110 +1387,102 @@ class YuqingMessage(TeaModel):
             return _map
 
         result = dict()
-        if self.author_avatar_url is not None:
-            result['author_avatar_url'] = self.author_avatar_url
-        if self.author_followers_count is not None:
-            result['author_followers_count'] = self.author_followers_count
-        if self.author_friends_count is not None:
-            result['author_friends_count'] = self.author_friends_count
-        if self.author_id is not None:
-            result['author_id'] = self.author_id
-        if self.author_name is not None:
-            result['author_name'] = self.author_name
-        if self.author_statuses_count is not None:
-            result['author_statuses_count'] = self.author_statuses_count
-        if self.author_verify_type is not None:
-            result['author_verify_type'] = self.author_verify_type
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.doc_content is not None:
-            result['doc_content'] = self.doc_content
-        if self.doc_content_brief is not None:
-            result['doc_content_brief'] = self.doc_content_brief
-        if self.doc_content_sign is not None:
-            result['doc_content_sign'] = self.doc_content_sign
-        if self.doc_id is not None:
-            result['doc_id'] = self.doc_id
-        if self.doc_self_content_sign is not None:
-            result['doc_self_content_sign'] = self.doc_self_content_sign
-        if self.doc_title is not None:
-            result['doc_title'] = self.doc_title
-        if self.doc_url is not None:
-            result['doc_url'] = self.doc_url
-        if self.emotion_type is not None:
-            result['emotion_type'] = self.emotion_type
-        if self.highlight_keywords is not None:
-            result['highlight_keywords'] = self.highlight_keywords
-        if self.media_type is not None:
-            result['media_type'] = self.media_type
-        if self.message_type is not None:
-            result['message_type'] = self.message_type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.author_name_list is not None:
+            result['author_name_list'] = self.author_name_list
+        if self.pos_keyword_list is not None:
+            result['pos_keyword_list'] = self.pos_keyword_list
+        if self.pos_keyword_list_in_title is not None:
+            result['pos_keyword_list_in_title'] = self.pos_keyword_list_in_title
+        if self.exclude_keyword_tag_ids is not None:
+            result['exclude_keyword_tag_ids'] = self.exclude_keyword_tag_ids
+        if self.uid_modified is not None:
+            result['uid_modified'] = self.uid_modified
+        if self.at_author_name_list is not None:
+            result['at_author_name_list'] = self.at_author_name_list
+        if self.exclude_keyword_list is not None:
+            result['exclude_keyword_list'] = self.exclude_keyword_list
+        if self.analyse_cp_id is not None:
+            result['analyse_cp_id'] = self.analyse_cp_id
+        if self.keyword_tag_ids is not None:
+            result['keyword_tag_ids'] = self.keyword_tag_ids
+        if self.ass_keyword_list is not None:
+            result['ass_keyword_list'] = self.ass_keyword_list
+        if self.id is not None:
+            result['id'] = self.id
+        if self.default_filter_id is not None:
+            result['default_filter_id'] = self.default_filter_id
+        if self.uname_create is not None:
+            result['uname_create'] = self.uname_create
+        if self.parent_id is not None:
+            result['parent_id'] = self.parent_id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.uname_modified is not None:
+            result['uname_modified'] = self.uname_modified
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.project_group_id is not None:
+            result['project_group_id'] = self.project_group_id
         if self.parent_doc_id is not None:
             result['parent_doc_id'] = self.parent_doc_id
-        if self.publish_time is not None:
-            result['publish_time'] = self.publish_time
-        if self.relevance_score is not None:
-            result['relevance_score'] = self.relevance_score
-        if self.similar_number is not None:
-            result['similar_number'] = self.similar_number
-        if self.weibo_comment_id is not None:
-            result['weibo_comment_id'] = self.weibo_comment_id
-        if self.weibo_mid is not None:
-            result['weibo_mid'] = self.weibo_mid
+        if self.doc_id_list is not None:
+            result['doc_id_list'] = self.doc_id_list
+        if self.topic_list is not None:
+            result['topic_list'] = self.topic_list
+        if self.uid_create is not None:
+            result['uid_create'] = self.uid_create
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('author_avatar_url') is not None:
-            self.author_avatar_url = m.get('author_avatar_url')
-        if m.get('author_followers_count') is not None:
-            self.author_followers_count = m.get('author_followers_count')
-        if m.get('author_friends_count') is not None:
-            self.author_friends_count = m.get('author_friends_count')
-        if m.get('author_id') is not None:
-            self.author_id = m.get('author_id')
-        if m.get('author_name') is not None:
-            self.author_name = m.get('author_name')
-        if m.get('author_statuses_count') is not None:
-            self.author_statuses_count = m.get('author_statuses_count')
-        if m.get('author_verify_type') is not None:
-            self.author_verify_type = m.get('author_verify_type')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('doc_content') is not None:
-            self.doc_content = m.get('doc_content')
-        if m.get('doc_content_brief') is not None:
-            self.doc_content_brief = m.get('doc_content_brief')
-        if m.get('doc_content_sign') is not None:
-            self.doc_content_sign = m.get('doc_content_sign')
-        if m.get('doc_id') is not None:
-            self.doc_id = m.get('doc_id')
-        if m.get('doc_self_content_sign') is not None:
-            self.doc_self_content_sign = m.get('doc_self_content_sign')
-        if m.get('doc_title') is not None:
-            self.doc_title = m.get('doc_title')
-        if m.get('doc_url') is not None:
-            self.doc_url = m.get('doc_url')
-        if m.get('emotion_type') is not None:
-            self.emotion_type = m.get('emotion_type')
-        if m.get('highlight_keywords') is not None:
-            self.highlight_keywords = m.get('highlight_keywords')
-        if m.get('media_type') is not None:
-            self.media_type = m.get('media_type')
-        if m.get('message_type') is not None:
-            self.message_type = m.get('message_type')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('author_name_list') is not None:
+            self.author_name_list = m.get('author_name_list')
+        if m.get('pos_keyword_list') is not None:
+            self.pos_keyword_list = m.get('pos_keyword_list')
+        if m.get('pos_keyword_list_in_title') is not None:
+            self.pos_keyword_list_in_title = m.get('pos_keyword_list_in_title')
+        if m.get('exclude_keyword_tag_ids') is not None:
+            self.exclude_keyword_tag_ids = m.get('exclude_keyword_tag_ids')
+        if m.get('uid_modified') is not None:
+            self.uid_modified = m.get('uid_modified')
+        if m.get('at_author_name_list') is not None:
+            self.at_author_name_list = m.get('at_author_name_list')
+        if m.get('exclude_keyword_list') is not None:
+            self.exclude_keyword_list = m.get('exclude_keyword_list')
+        if m.get('analyse_cp_id') is not None:
+            self.analyse_cp_id = m.get('analyse_cp_id')
+        if m.get('keyword_tag_ids') is not None:
+            self.keyword_tag_ids = m.get('keyword_tag_ids')
+        if m.get('ass_keyword_list') is not None:
+            self.ass_keyword_list = m.get('ass_keyword_list')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('default_filter_id') is not None:
+            self.default_filter_id = m.get('default_filter_id')
+        if m.get('uname_create') is not None:
+            self.uname_create = m.get('uname_create')
+        if m.get('parent_id') is not None:
+            self.parent_id = m.get('parent_id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('uname_modified') is not None:
+            self.uname_modified = m.get('uname_modified')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('project_group_id') is not None:
+            self.project_group_id = m.get('project_group_id')
         if m.get('parent_doc_id') is not None:
             self.parent_doc_id = m.get('parent_doc_id')
-        if m.get('publish_time') is not None:
-            self.publish_time = m.get('publish_time')
-        if m.get('relevance_score') is not None:
-            self.relevance_score = m.get('relevance_score')
-        if m.get('similar_number') is not None:
-            self.similar_number = m.get('similar_number')
-        if m.get('weibo_comment_id') is not None:
-            self.weibo_comment_id = m.get('weibo_comment_id')
-        if m.get('weibo_mid') is not None:
-            self.weibo_mid = m.get('weibo_mid')
+        if m.get('doc_id_list') is not None:
+            self.doc_id_list = m.get('doc_id_list')
+        if m.get('topic_list') is not None:
+            self.topic_list = m.get('topic_list')
+        if m.get('uid_create') is not None:
+            self.uid_create = m.get('uid_create')
         return self
 
 
@@ -2058,6 +2348,7 @@ class SendProductNoticeRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         notice_type: str = None,
+        tenant_uid: str = None,
         ding_talk_content: DingTalkContent = None,
         sms_content: SmsContent = None,
         email_content: EmailContent = None,
@@ -2067,6 +2358,8 @@ class SendProductNoticeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 提醒类型
         self.notice_type = notice_type
+        # 租户ID
+        self.tenant_uid = tenant_uid
         # 钉钉结构体
         self.ding_talk_content = ding_talk_content
         # 短信内容
@@ -2076,6 +2369,7 @@ class SendProductNoticeRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.notice_type, 'notice_type')
+        self.validate_required(self.tenant_uid, 'tenant_uid')
         if self.ding_talk_content:
             self.ding_talk_content.validate()
         if self.sms_content:
@@ -2095,6 +2389,8 @@ class SendProductNoticeRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.notice_type is not None:
             result['notice_type'] = self.notice_type
+        if self.tenant_uid is not None:
+            result['tenant_uid'] = self.tenant_uid
         if self.ding_talk_content is not None:
             result['ding_talk_content'] = self.ding_talk_content.to_map()
         if self.sms_content is not None:
@@ -2111,6 +2407,8 @@ class SendProductNoticeRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('notice_type') is not None:
             self.notice_type = m.get('notice_type')
+        if m.get('tenant_uid') is not None:
+            self.tenant_uid = m.get('tenant_uid')
         if m.get('ding_talk_content') is not None:
             temp_model = DingTalkContent()
             self.ding_talk_content = temp_model.from_map(m['ding_talk_content'])
@@ -2382,6 +2680,674 @@ class QueryDeepanalysisQueryResponse(TeaModel):
             self.analysis_id = m.get('analysis_id')
         if m.get('result_json') is not None:
             self.result_json = m.get('result_json')
+        return self
+
+
+class GetMessageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        team_hash_id: str = None,
+        doc_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID
+        self.request_id = request_id
+        # team_hash_id
+        self.team_hash_id = team_hash_id
+        # 文档唯一ID
+        self.doc_id = doc_id
+
+    def validate(self):
+        self.validate_required(self.doc_id, 'doc_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.team_hash_id is not None:
+            result['team_hash_id'] = self.team_hash_id
+        if self.doc_id is not None:
+            result['doc_id'] = self.doc_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('team_hash_id') is not None:
+            self.team_hash_id = m.get('team_hash_id')
+        if m.get('doc_id') is not None:
+            self.doc_id = m.get('doc_id')
+        return self
+
+
+class GetMessageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        yuqing_message: YuqingMessage = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 與情内容
+        self.yuqing_message = yuqing_message
+
+    def validate(self):
+        if self.yuqing_message:
+            self.yuqing_message.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.yuqing_message is not None:
+            result['yuqing_message'] = self.yuqing_message.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('yuqing_message') is not None:
+            temp_model = YuqingMessage()
+            self.yuqing_message = temp_model.from_map(m['yuqing_message'])
+        return self
+
+
+class QueryProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        parent_id: int = None,
+        uid: str = None,
+        order_by: str = None,
+        request_id: str = None,
+        name: str = None,
+        ids: List[int] = None,
+        current_page: int = None,
+        project_group_id: int = None,
+        page_size: int = None,
+        sort_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 父亲项目的id: 负数表示不限
+        self.parent_id = parent_id
+        # uid
+        self.uid = uid
+        # 排序字段名称，如gmt_create
+        self.order_by = order_by
+        # 请求ID
+        self.request_id = request_id
+        # 名称
+        self.name = name
+        # 指定ID
+        self.ids = ids
+        # 当前页
+        self.current_page = current_page
+        # 所在项目组ID
+        self.project_group_id = project_group_id
+        # 页面大小
+        self.page_size = page_size
+        # 排序方式：DESC降序，ASC升序
+        self.sort_type = sort_type
+
+    def validate(self):
+        self.validate_required(self.current_page, 'current_page')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.parent_id is not None:
+            result['parent_id'] = self.parent_id
+        if self.uid is not None:
+            result['uid'] = self.uid
+        if self.order_by is not None:
+            result['order_by'] = self.order_by
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.ids is not None:
+            result['ids'] = self.ids
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.project_group_id is not None:
+            result['project_group_id'] = self.project_group_id
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.sort_type is not None:
+            result['sort_type'] = self.sort_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('parent_id') is not None:
+            self.parent_id = m.get('parent_id')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        if m.get('order_by') is not None:
+            self.order_by = m.get('order_by')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('ids') is not None:
+            self.ids = m.get('ids')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('project_group_id') is not None:
+            self.project_group_id = m.get('project_group_id')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('sort_type') is not None:
+            self.sort_type = m.get('sort_type')
+        return self
+
+
+class QueryProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pages: List[Project] = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页面内容
+        self.pages = pages
+        # 总条数
+        self.total_count = total_count
+
+    def validate(self):
+        if self.pages:
+            for k in self.pages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['pages'] = []
+        if self.pages is not None:
+            for k in self.pages:
+                result['pages'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.pages = []
+        if m.get('pages') is not None:
+            for k in m.get('pages'):
+                temp_model = Project()
+                self.pages.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class CreateProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        create_param: Project = None,
+        request_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 创建内容
+        self.create_param = create_param
+        # requestId
+        self.request_id = request_id
+
+    def validate(self):
+        self.validate_required(self.create_param, 'create_param')
+        if self.create_param:
+            self.create_param.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.create_param is not None:
+            result['create_param'] = self.create_param.to_map()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('create_param') is not None:
+            temp_model = Project()
+            self.create_param = temp_model.from_map(m['create_param'])
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class CreateProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class DeleteProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 项目ID
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class DeleteProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryAlarmRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        alarm_rule_ids: List[int] = None,
+        order_by: str = None,
+        is_query_update_time: bool = None,
+        current_page: int = None,
+        page_size: int = None,
+        project_ids: List[int] = None,
+        end_time: int = None,
+        levels: str = None,
+        start_time: int = None,
+        type: str = None,
+        ids: List[int] = None,
+        tag_ids: List[int] = None,
+        doc_media_type: str = None,
+        status: List[str] = None,
+        doc_id_list: List[str] = None,
+        sort_type: str = None,
+        request_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 规则id列表
+        self.alarm_rule_ids = alarm_rule_ids
+        # 排序字段名称，如gmt_create
+        self.order_by = order_by
+        # 是否用更新时间筛选
+        self.is_query_update_time = is_query_update_time
+        # 当前页
+        self.current_page = current_page
+        # 页大小
+        self.page_size = page_size
+        # 舆情项目id列表
+        self.project_ids = project_ids
+        # 预警时间下限
+        self.end_time = end_time
+        # 预警等级，如：P0
+        self.levels = levels
+        # 预警时间上限
+        self.start_time = start_time
+        # 预警规则类型
+        self.type = type
+        # 预警消息id
+        self.ids = ids
+        # 标签id
+        self.tag_ids = tag_ids
+        # 媒体类型
+        self.doc_media_type = doc_media_type
+        # 消息状态，如：FINISHED
+        self.status = status
+        # 文章docId列表
+        self.doc_id_list = doc_id_list
+        # 排序方向，DESC降序，ASC升序
+        self.sort_type = sort_type
+        # requestId
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.alarm_rule_ids is not None:
+            result['alarm_rule_ids'] = self.alarm_rule_ids
+        if self.order_by is not None:
+            result['order_by'] = self.order_by
+        if self.is_query_update_time is not None:
+            result['is_query_update_time'] = self.is_query_update_time
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.project_ids is not None:
+            result['project_ids'] = self.project_ids
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.levels is not None:
+            result['levels'] = self.levels
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.type is not None:
+            result['type'] = self.type
+        if self.ids is not None:
+            result['ids'] = self.ids
+        if self.tag_ids is not None:
+            result['tag_ids'] = self.tag_ids
+        if self.doc_media_type is not None:
+            result['doc_media_type'] = self.doc_media_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.doc_id_list is not None:
+            result['doc_id_list'] = self.doc_id_list
+        if self.sort_type is not None:
+            result['sort_type'] = self.sort_type
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('alarm_rule_ids') is not None:
+            self.alarm_rule_ids = m.get('alarm_rule_ids')
+        if m.get('order_by') is not None:
+            self.order_by = m.get('order_by')
+        if m.get('is_query_update_time') is not None:
+            self.is_query_update_time = m.get('is_query_update_time')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('project_ids') is not None:
+            self.project_ids = m.get('project_ids')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('levels') is not None:
+            self.levels = m.get('levels')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('ids') is not None:
+            self.ids = m.get('ids')
+        if m.get('tag_ids') is not None:
+            self.tag_ids = m.get('tag_ids')
+        if m.get('doc_media_type') is not None:
+            self.doc_media_type = m.get('doc_media_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('doc_id_list') is not None:
+            self.doc_id_list = m.get('doc_id_list')
+        if m.get('sort_type') is not None:
+            self.sort_type = m.get('sort_type')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class QueryAlarmResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pages: List[Alarm] = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 预警消息
+        self.pages = pages
+        # 总条数
+        self.total_count = total_count
+
+    def validate(self):
+        if self.pages:
+            for k in self.pages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['pages'] = []
+        if self.pages is not None:
+            for k in self.pages:
+                result['pages'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.pages = []
+        if m.get('pages') is not None:
+            for k in m.get('pages'):
+                temp_model = Alarm()
+                self.pages.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 

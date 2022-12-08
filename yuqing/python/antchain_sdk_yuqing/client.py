@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.14'
+                    'sdk_version': '1.1.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.14'
+                    'sdk_version': '1.1.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -773,4 +773,284 @@ class Client:
         return TeaCore.from_map(
             yuqing_models.QueryDeepanalysisQueryResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_message(
+        self,
+        request: yuqing_models.GetMessageRequest,
+    ) -> yuqing_models.GetMessageResponse:
+        """
+        Description: 获取单个與情
+        Summary: 获取单个
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_message_ex(request, headers, runtime)
+
+    async def get_message_async(
+        self,
+        request: yuqing_models.GetMessageRequest,
+    ) -> yuqing_models.GetMessageResponse:
+        """
+        Description: 获取单个與情
+        Summary: 获取单个
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_message_ex_async(request, headers, runtime)
+
+    def get_message_ex(
+        self,
+        request: yuqing_models.GetMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetMessageResponse:
+        """
+        Description: 获取单个與情
+        Summary: 获取单个
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetMessageResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.message.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_message_ex_async(
+        self,
+        request: yuqing_models.GetMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetMessageResponse:
+        """
+        Description: 获取单个與情
+        Summary: 获取单个
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetMessageResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.message.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_project(
+        self,
+        request: yuqing_models.QueryProjectRequest,
+    ) -> yuqing_models.QueryProjectResponse:
+        """
+        Description: 查询與情项目
+        Summary: 查询與情项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_project_ex(request, headers, runtime)
+
+    async def query_project_async(
+        self,
+        request: yuqing_models.QueryProjectRequest,
+    ) -> yuqing_models.QueryProjectResponse:
+        """
+        Description: 查询與情项目
+        Summary: 查询與情项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_project_ex_async(request, headers, runtime)
+
+    def query_project_ex(
+        self,
+        request: yuqing_models.QueryProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryProjectResponse:
+        """
+        Description: 查询與情项目
+        Summary: 查询與情项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryProjectResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_project_ex_async(
+        self,
+        request: yuqing_models.QueryProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryProjectResponse:
+        """
+        Description: 查询與情项目
+        Summary: 查询與情项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryProjectResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_project(
+        self,
+        request: yuqing_models.CreateProjectRequest,
+    ) -> yuqing_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_project_ex(request, headers, runtime)
+
+    async def create_project_async(
+        self,
+        request: yuqing_models.CreateProjectRequest,
+    ) -> yuqing_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_project_ex_async(request, headers, runtime)
+
+    def create_project_ex(
+        self,
+        request: yuqing_models.CreateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.CreateProjectResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_project_ex_async(
+        self,
+        request: yuqing_models.CreateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.CreateProjectResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_project(
+        self,
+        request: yuqing_models.DeleteProjectRequest,
+    ) -> yuqing_models.DeleteProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_project_ex(request, headers, runtime)
+
+    async def delete_project_async(
+        self,
+        request: yuqing_models.DeleteProjectRequest,
+    ) -> yuqing_models.DeleteProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_project_ex_async(request, headers, runtime)
+
+    def delete_project_ex(
+        self,
+        request: yuqing_models.DeleteProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.DeleteProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.DeleteProjectResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_project_ex_async(
+        self,
+        request: yuqing_models.DeleteProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.DeleteProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.DeleteProjectResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_alarm(
+        self,
+        request: yuqing_models.QueryAlarmRequest,
+    ) -> yuqing_models.QueryAlarmResponse:
+        """
+        Description: 查询预警消息列表
+        Summary: 查询预警消息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_alarm_ex(request, headers, runtime)
+
+    async def query_alarm_async(
+        self,
+        request: yuqing_models.QueryAlarmRequest,
+    ) -> yuqing_models.QueryAlarmResponse:
+        """
+        Description: 查询预警消息列表
+        Summary: 查询预警消息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_alarm_ex_async(request, headers, runtime)
+
+    def query_alarm_ex(
+        self,
+        request: yuqing_models.QueryAlarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryAlarmResponse:
+        """
+        Description: 查询预警消息列表
+        Summary: 查询预警消息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryAlarmResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_alarm_ex_async(
+        self,
+        request: yuqing_models.QueryAlarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryAlarmResponse:
+        """
+        Description: 查询预警消息列表
+        Summary: 查询预警消息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryAlarmResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
