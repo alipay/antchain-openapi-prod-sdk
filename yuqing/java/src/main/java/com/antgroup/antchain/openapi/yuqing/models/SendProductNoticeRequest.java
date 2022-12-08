@@ -16,6 +16,11 @@ public class SendProductNoticeRequest extends TeaModel {
     @Validation(required = true)
     public String noticeType;
 
+    // 租户ID
+    @NameInMap("tenant_uid")
+    @Validation(required = true)
+    public String tenantUid;
+
     // 钉钉结构体
     @NameInMap("ding_talk_content")
     public DingTalkContent dingTalkContent;
@@ -55,6 +60,14 @@ public class SendProductNoticeRequest extends TeaModel {
     }
     public String getNoticeType() {
         return this.noticeType;
+    }
+
+    public SendProductNoticeRequest setTenantUid(String tenantUid) {
+        this.tenantUid = tenantUid;
+        return this;
+    }
+    public String getTenantUid() {
+        return this.tenantUid;
     }
 
     public SendProductNoticeRequest setDingTalkContent(DingTalkContent dingTalkContent) {

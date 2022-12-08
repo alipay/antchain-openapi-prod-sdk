@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.14")
+                    new TeaPair("sdk_version", "1.1.17")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -328,5 +328,100 @@ public class Client {
     public QueryDeepanalysisQueryResponse queryDeepanalysisQueryEx(QueryDeepanalysisQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepanalysisQueryResponse());
+    }
+
+    /**
+     * Description: 获取单个與情
+     * Summary: 获取单个
+     */
+    public GetMessageResponse getMessage(GetMessageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取单个與情
+     * Summary: 获取单个
+     */
+    public GetMessageResponse getMessageEx(GetMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.message.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMessageResponse());
+    }
+
+    /**
+     * Description: 查询與情项目
+     * Summary: 查询與情项目
+     */
+    public QueryProjectResponse queryProject(QueryProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询與情项目
+     * Summary: 查询與情项目
+     */
+    public QueryProjectResponse queryProjectEx(QueryProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProjectResponse());
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目
+     */
+    public CreateProjectResponse createProject(CreateProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目
+     */
+    public CreateProjectResponse createProjectEx(CreateProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateProjectResponse());
+    }
+
+    /**
+     * Description: 删除项目
+     * Summary: 删除项目
+     */
+    public DeleteProjectResponse deleteProject(DeleteProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除项目
+     * Summary: 删除项目
+     */
+    public DeleteProjectResponse deleteProjectEx(DeleteProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteProjectResponse());
+    }
+
+    /**
+     * Description: 查询预警消息列表
+     * Summary: 查询预警消息列表
+     */
+    public QueryAlarmResponse queryAlarm(QueryAlarmRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAlarmEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询预警消息列表
+     * Summary: 查询预警消息列表
+     */
+    public QueryAlarmResponse queryAlarmEx(QueryAlarmRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlarmResponse());
     }
 }
