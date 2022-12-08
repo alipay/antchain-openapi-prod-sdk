@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.14"},
+                        {"sdk_version", "1.1.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.14"},
+                        {"sdk_version", "1.1.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -693,6 +693,216 @@ namespace AntChain.SDK.YUQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDeepanalysisQueryResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取单个與情
+         * Summary: 获取单个
+         */
+        public GetMessageResponse GetMessage(GetMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取单个與情
+         * Summary: 获取单个
+         */
+        public async Task<GetMessageResponse> GetMessageAsync(GetMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取单个與情
+         * Summary: 获取单个
+         */
+        public GetMessageResponse GetMessageEx(GetMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMessageResponse>(DoRequest("1.0", "universalsaas.yuqing.message.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取单个與情
+         * Summary: 获取单个
+         */
+        public async Task<GetMessageResponse> GetMessageExAsync(GetMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMessageResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.message.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询與情项目
+         * Summary: 查询與情项目
+         */
+        public QueryProjectResponse QueryProject(QueryProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询與情项目
+         * Summary: 查询與情项目
+         */
+        public async Task<QueryProjectResponse> QueryProjectAsync(QueryProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询與情项目
+         * Summary: 查询與情项目
+         */
+        public QueryProjectResponse QueryProjectEx(QueryProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectResponse>(DoRequest("1.0", "universalsaas.yuqing.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询與情项目
+         * Summary: 查询與情项目
+         */
+        public async Task<QueryProjectResponse> QueryProjectExAsync(QueryProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建项目
+         * Summary: 创建项目
+         */
+        public CreateProjectResponse CreateProject(CreateProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建项目
+         * Summary: 创建项目
+         */
+        public async Task<CreateProjectResponse> CreateProjectAsync(CreateProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建项目
+         * Summary: 创建项目
+         */
+        public CreateProjectResponse CreateProjectEx(CreateProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateProjectResponse>(DoRequest("1.0", "universalsaas.yuqing.project.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建项目
+         * Summary: 创建项目
+         */
+        public async Task<CreateProjectResponse> CreateProjectExAsync(CreateProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateProjectResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.project.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除项目
+         * Summary: 删除项目
+         */
+        public DeleteProjectResponse DeleteProject(DeleteProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除项目
+         * Summary: 删除项目
+         */
+        public async Task<DeleteProjectResponse> DeleteProjectAsync(DeleteProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除项目
+         * Summary: 删除项目
+         */
+        public DeleteProjectResponse DeleteProjectEx(DeleteProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteProjectResponse>(DoRequest("1.0", "universalsaas.yuqing.project.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除项目
+         * Summary: 删除项目
+         */
+        public async Task<DeleteProjectResponse> DeleteProjectExAsync(DeleteProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteProjectResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.project.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询预警消息列表
+         * Summary: 查询预警消息列表
+         */
+        public QueryAlarmResponse QueryAlarm(QueryAlarmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAlarmEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询预警消息列表
+         * Summary: 查询预警消息列表
+         */
+        public async Task<QueryAlarmResponse> QueryAlarmAsync(QueryAlarmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAlarmExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询预警消息列表
+         * Summary: 查询预警消息列表
+         */
+        public QueryAlarmResponse QueryAlarmEx(QueryAlarmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAlarmResponse>(DoRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询预警消息列表
+         * Summary: 查询预警消息列表
+         */
+        public async Task<QueryAlarmResponse> QueryAlarmExAsync(QueryAlarmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAlarmResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

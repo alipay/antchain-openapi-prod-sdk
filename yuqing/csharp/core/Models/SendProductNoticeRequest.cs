@@ -23,6 +23,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=true)]
         public string NoticeType { get; set; }
 
+        // 租户ID
+        [NameInMap("tenant_uid")]
+        [Validation(Required=true)]
+        public string TenantUid { get; set; }
+
         // 钉钉结构体
         [NameInMap("ding_talk_content")]
         [Validation(Required=false)]
