@@ -12,12 +12,22 @@ use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Util\UtilClient;
+use AntChain\YUQING\Models\CreateProjectRequest;
+use AntChain\YUQING\Models\CreateProjectResponse;
+use AntChain\YUQING\Models\DeleteProjectRequest;
+use AntChain\YUQING\Models\DeleteProjectResponse;
+use AntChain\YUQING\Models\GetMessageRequest;
+use AntChain\YUQING\Models\GetMessageResponse;
+use AntChain\YUQING\Models\QueryAlarmRequest;
+use AntChain\YUQING\Models\QueryAlarmResponse;
 use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
 use AntChain\YUQING\Models\QueryAnalysisQueryResponse;
 use AntChain\YUQING\Models\QueryDeepanalysisQueryRequest;
 use AntChain\YUQING\Models\QueryDeepanalysisQueryResponse;
 use AntChain\YUQING\Models\QueryMessagesRequest;
 use AntChain\YUQING\Models\QueryMessagesResponse;
+use AntChain\YUQING\Models\QueryProjectRequest;
+use AntChain\YUQING\Models\QueryProjectResponse;
 use AntChain\YUQING\Models\SaveAnalysisSubmitRequest;
 use AntChain\YUQING\Models\SaveAnalysisSubmitResponse;
 use AntChain\YUQING\Models\SaveDeepanalysisSubmitRequest;
@@ -176,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.14',
+                    'sdk_version'      => '1.1.17',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -517,5 +527,170 @@ class Client
         Utils::validateModel($request);
 
         return QueryDeepanalysisQueryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取单个與情
+     * Summary: 获取单个.
+     *
+     * @param GetMessageRequest $request
+     *
+     * @return GetMessageResponse
+     */
+    public function getMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取单个與情
+     * Summary: 获取单个.
+     *
+     * @param GetMessageRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return GetMessageResponse
+     */
+    public function getMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMessageResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.message.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询與情项目
+     * Summary: 查询與情项目.
+     *
+     * @param QueryProjectRequest $request
+     *
+     * @return QueryProjectResponse
+     */
+    public function queryProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询與情项目
+     * Summary: 查询與情项目.
+     *
+     * @param QueryProjectRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryProjectResponse
+     */
+    public function queryProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProjectResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.project.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目.
+     *
+     * @param CreateProjectRequest $request
+     *
+     * @return CreateProjectResponse
+     */
+    public function createProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目.
+     *
+     * @param CreateProjectRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return CreateProjectResponse
+     */
+    public function createProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateProjectResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.project.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除项目
+     * Summary: 删除项目.
+     *
+     * @param DeleteProjectRequest $request
+     *
+     * @return DeleteProjectResponse
+     */
+    public function deleteProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除项目
+     * Summary: 删除项目.
+     *
+     * @param DeleteProjectRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return DeleteProjectResponse
+     */
+    public function deleteProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteProjectResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.project.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询预警消息列表
+     * Summary: 查询预警消息列表.
+     *
+     * @param QueryAlarmRequest $request
+     *
+     * @return QueryAlarmResponse
+     */
+    public function queryAlarm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAlarmEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询预警消息列表
+     * Summary: 查询预警消息列表.
+     *
+     * @param QueryAlarmRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryAlarmResponse
+     */
+    public function queryAlarmEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAlarmResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

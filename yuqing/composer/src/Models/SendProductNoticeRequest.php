@@ -25,6 +25,12 @@ class SendProductNoticeRequest extends Model
      */
     public $noticeType;
 
+    // 租户ID
+    /**
+     * @var string
+     */
+    public $tenantUid;
+
     // 钉钉结构体
     /**
      * @var DingTalkContent
@@ -46,6 +52,7 @@ class SendProductNoticeRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'noticeType'        => 'notice_type',
+        'tenantUid'         => 'tenant_uid',
         'dingTalkContent'   => 'ding_talk_content',
         'smsContent'        => 'sms_content',
         'emailContent'      => 'email_content',
@@ -54,6 +61,7 @@ class SendProductNoticeRequest extends Model
     public function validate()
     {
         Model::validateRequired('noticeType', $this->noticeType, true);
+        Model::validateRequired('tenantUid', $this->tenantUid, true);
     }
 
     public function toMap()
@@ -67,6 +75,9 @@ class SendProductNoticeRequest extends Model
         }
         if (null !== $this->noticeType) {
             $res['notice_type'] = $this->noticeType;
+        }
+        if (null !== $this->tenantUid) {
+            $res['tenant_uid'] = $this->tenantUid;
         }
         if (null !== $this->dingTalkContent) {
             $res['ding_talk_content'] = null !== $this->dingTalkContent ? $this->dingTalkContent->toMap() : null;
@@ -97,6 +108,9 @@ class SendProductNoticeRequest extends Model
         }
         if (isset($map['notice_type'])) {
             $model->noticeType = $map['notice_type'];
+        }
+        if (isset($map['tenant_uid'])) {
+            $model->tenantUid = $map['tenant_uid'];
         }
         if (isset($map['ding_talk_content'])) {
             $model->dingTalkContent = DingTalkContent::fromMap($map['ding_talk_content']);
