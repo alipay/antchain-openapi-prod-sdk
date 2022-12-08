@@ -214,6 +214,123 @@ export class At extends $tea.Model {
   }
 }
 
+// YuqingMessage
+export class YuqingMessage extends $tea.Model {
+  // 作者头像地址
+  authorAvatarUrl?: string;
+  // 粉丝数
+  authorFollowersCount?: number;
+  // 好友数
+  authorFriendsCount?: number;
+  // 作者id
+  authorId?: string;
+  // 作者名称
+  authorName?: string;
+  // 发文数
+  authorStatusesCount?: number;
+  // 作者认证类型
+  authorVerifyType?: string;
+  // 舆情文章被抓取的时间戳
+  createTime?: number;
+  // 文章正文内容
+  docContent?: string;
+  // 文章摘要
+  docContentBrief?: string;
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string;
+  // 文章唯一docId
+  docId?: string;
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string;
+  // 文章标题
+  docTitle?: string;
+  // 原文地址
+  docUrl?: string;
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: number;
+  // 命中的搜索词列表
+  highlightKeywords?: string[];
+  // 媒体类型，枚举值
+  mediaType?: string;
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string;
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string;
+  // 舆情文章的发布时间戳
+  publishTime?: number;
+  // 相关性得分
+  relevanceScore?: number;
+  // 相似文章数
+  similarNumber?: number;
+  // 微博评论id
+  weiboCommentId?: string;
+  // 微博消息id
+  weiboMid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authorAvatarUrl: 'author_avatar_url',
+      authorFollowersCount: 'author_followers_count',
+      authorFriendsCount: 'author_friends_count',
+      authorId: 'author_id',
+      authorName: 'author_name',
+      authorStatusesCount: 'author_statuses_count',
+      authorVerifyType: 'author_verify_type',
+      createTime: 'create_time',
+      docContent: 'doc_content',
+      docContentBrief: 'doc_content_brief',
+      docContentSign: 'doc_content_sign',
+      docId: 'doc_id',
+      docSelfContentSign: 'doc_self_content_sign',
+      docTitle: 'doc_title',
+      docUrl: 'doc_url',
+      emotionType: 'emotion_type',
+      highlightKeywords: 'highlight_keywords',
+      mediaType: 'media_type',
+      messageType: 'message_type',
+      parentDocId: 'parent_doc_id',
+      publishTime: 'publish_time',
+      relevanceScore: 'relevance_score',
+      similarNumber: 'similar_number',
+      weiboCommentId: 'weibo_comment_id',
+      weiboMid: 'weibo_mid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authorAvatarUrl: 'string',
+      authorFollowersCount: 'number',
+      authorFriendsCount: 'number',
+      authorId: 'string',
+      authorName: 'string',
+      authorStatusesCount: 'number',
+      authorVerifyType: 'string',
+      createTime: 'number',
+      docContent: 'string',
+      docContentBrief: 'string',
+      docContentSign: 'string',
+      docId: 'string',
+      docSelfContentSign: 'string',
+      docTitle: 'string',
+      docUrl: 'string',
+      emotionType: 'number',
+      highlightKeywords: { 'type': 'array', 'itemType': 'string' },
+      mediaType: 'string',
+      messageType: 'string',
+      parentDocId: 'string',
+      publishTime: 'number',
+      relevanceScore: 'number',
+      similarNumber: 'number',
+      weiboCommentId: 'string',
+      weiboMid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 钉钉动作卡片
 export class ActionCard extends $tea.Model {
   // 标题
@@ -338,6 +455,71 @@ export class DingTalkContent extends $tea.Model {
       actionCard: ActionCard,
       feedCard: FeedCard,
       at: At,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 预警消息体
+export class Alarm extends $tea.Model {
+  // 人工打的标签
+  tags?: string[];
+  // 预警内容摘要
+  content?: string;
+  // 预警时间戳
+  alarmTimestamp?: number;
+  // 舆情项目id
+  projectId?: number;
+  // 修改人
+  modifierName?: string;
+  // 消息标题
+  title?: string;
+  // 消息id
+  id?: number;
+  // 作者名称
+  authorName?: string;
+  // 预警规则id
+  alarmRuleId?: number;
+  // 预警规则类型
+  type?: string;
+  // 修改时间戳
+  gmtModifiedTimestamp?: number;
+  // 完整消息
+  message?: YuqingMessage;
+  static names(): { [key: string]: string } {
+    return {
+      tags: 'tags',
+      content: 'content',
+      alarmTimestamp: 'alarm_timestamp',
+      projectId: 'project_id',
+      modifierName: 'modifier_name',
+      title: 'title',
+      id: 'id',
+      authorName: 'author_name',
+      alarmRuleId: 'alarm_rule_id',
+      type: 'type',
+      gmtModifiedTimestamp: 'gmt_modified_timestamp',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tags: { 'type': 'array', 'itemType': 'string' },
+      content: 'string',
+      alarmTimestamp: 'number',
+      projectId: 'number',
+      modifierName: 'string',
+      title: 'string',
+      id: 'number',
+      authorName: 'string',
+      alarmRuleId: 'number',
+      type: 'string',
+      gmtModifiedTimestamp: 'number',
+      message: YuqingMessage,
     };
   }
 
@@ -596,115 +778,107 @@ export class SearchCondition extends $tea.Model {
   }
 }
 
-// YuqingMessage
-export class YuqingMessage extends $tea.Model {
-  // 作者头像地址
-  authorAvatarUrl?: string;
-  // 粉丝数
-  authorFollowersCount?: number;
-  // 好友数
-  authorFriendsCount?: number;
-  // 作者id
-  authorId?: string;
+// 项目
+export class Project extends $tea.Model {
+  // 项目名字
+  name: string;
   // 作者名称
-  authorName?: string;
-  // 发文数
-  authorStatusesCount?: number;
-  // 作者认证类型
-  authorVerifyType?: string;
-  // 舆情文章被抓取的时间戳
-  createTime?: number;
-  // 文章正文内容
-  docContent?: string;
-  // 文章摘要
-  docContentBrief?: string;
-  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-  docContentSign?: string;
-  // 文章唯一docId
-  docId?: string;
-  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-  docSelfContentSign?: string;
-  // 文章标题
-  docTitle?: string;
-  // 原文地址
-  docUrl?: string;
-  // 情感的正负面，-1代表负面，1代表非负面
-  emotionType?: number;
-  // 命中的搜索词列表
-  highlightKeywords?: string[];
-  // 媒体类型，枚举值
-  mediaType?: string;
-  // 舆情消息类型:转发,评论/回复, 原文,群聊等
-  messageType?: string;
-  // 文章的父docId，如被转发的文章docId
-  parentDocId?: string;
-  // 舆情文章的发布时间戳
-  publishTime?: number;
-  // 相关性得分
-  relevanceScore?: number;
-  // 相似文章数
-  similarNumber?: number;
-  // 微博评论id
-  weiboCommentId?: string;
-  // 微博消息id
-  weiboMid?: string;
+  authorNameList?: string[];
+  // 关键词
+  posKeywordList: string[];
+  // 标题包含词列表
+  posKeywordListInTitle?: string[];
+  // 排除关键词标签列表
+  excludeKeywordTagIds?: string;
+  // 修改人uid
+  uidModified?: string;
+  // 提级用户名，如@xxx
+  atAuthorNameList?: string[];
+  // 排除词
+  excludeKeywordList?: string[];
+  // 项目的分析页面id，关联hbase中的自定义页面表
+  analyseCpId?: number;
+  // 关键词标签列表
+  keywordTagIds?: string[];
+  // 搭配词
+  assKeywordList?: string[];
+  // 项目ID
+  id?: number;
+  // 默认搜索模板id
+  defaultFilterId?: number;
+  // 创建人名称
+  unameCreate?: string;
+  // 父项目id
+  parentId?: number;
+  // 创建时间
+  gmtCreate?: number;
+  // 修改人名称
+  unameModified?: string;
+  // 修改时间
+  gmtModified?: number;
+  // 项目分组id
+  projectGroupId?: number;
+  // 父文章id
+  parentDocId?: number;
+  // 文章id列表
+  docIdList?: string[];
+  // 话题词列表
+  topicList?: string[];
+  // 创建人UID
+  uidCreate?: string;
   static names(): { [key: string]: string } {
     return {
-      authorAvatarUrl: 'author_avatar_url',
-      authorFollowersCount: 'author_followers_count',
-      authorFriendsCount: 'author_friends_count',
-      authorId: 'author_id',
-      authorName: 'author_name',
-      authorStatusesCount: 'author_statuses_count',
-      authorVerifyType: 'author_verify_type',
-      createTime: 'create_time',
-      docContent: 'doc_content',
-      docContentBrief: 'doc_content_brief',
-      docContentSign: 'doc_content_sign',
-      docId: 'doc_id',
-      docSelfContentSign: 'doc_self_content_sign',
-      docTitle: 'doc_title',
-      docUrl: 'doc_url',
-      emotionType: 'emotion_type',
-      highlightKeywords: 'highlight_keywords',
-      mediaType: 'media_type',
-      messageType: 'message_type',
+      name: 'name',
+      authorNameList: 'author_name_list',
+      posKeywordList: 'pos_keyword_list',
+      posKeywordListInTitle: 'pos_keyword_list_in_title',
+      excludeKeywordTagIds: 'exclude_keyword_tag_ids',
+      uidModified: 'uid_modified',
+      atAuthorNameList: 'at_author_name_list',
+      excludeKeywordList: 'exclude_keyword_list',
+      analyseCpId: 'analyse_cp_id',
+      keywordTagIds: 'keyword_tag_ids',
+      assKeywordList: 'ass_keyword_list',
+      id: 'id',
+      defaultFilterId: 'default_filter_id',
+      unameCreate: 'uname_create',
+      parentId: 'parent_id',
+      gmtCreate: 'gmt_create',
+      unameModified: 'uname_modified',
+      gmtModified: 'gmt_modified',
+      projectGroupId: 'project_group_id',
       parentDocId: 'parent_doc_id',
-      publishTime: 'publish_time',
-      relevanceScore: 'relevance_score',
-      similarNumber: 'similar_number',
-      weiboCommentId: 'weibo_comment_id',
-      weiboMid: 'weibo_mid',
+      docIdList: 'doc_id_list',
+      topicList: 'topic_list',
+      uidCreate: 'uid_create',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      authorAvatarUrl: 'string',
-      authorFollowersCount: 'number',
-      authorFriendsCount: 'number',
-      authorId: 'string',
-      authorName: 'string',
-      authorStatusesCount: 'number',
-      authorVerifyType: 'string',
-      createTime: 'number',
-      docContent: 'string',
-      docContentBrief: 'string',
-      docContentSign: 'string',
-      docId: 'string',
-      docSelfContentSign: 'string',
-      docTitle: 'string',
-      docUrl: 'string',
-      emotionType: 'number',
-      highlightKeywords: { 'type': 'array', 'itemType': 'string' },
-      mediaType: 'string',
-      messageType: 'string',
-      parentDocId: 'string',
-      publishTime: 'number',
-      relevanceScore: 'number',
-      similarNumber: 'number',
-      weiboCommentId: 'string',
-      weiboMid: 'string',
+      name: 'string',
+      authorNameList: { 'type': 'array', 'itemType': 'string' },
+      posKeywordList: { 'type': 'array', 'itemType': 'string' },
+      posKeywordListInTitle: { 'type': 'array', 'itemType': 'string' },
+      excludeKeywordTagIds: 'string',
+      uidModified: 'string',
+      atAuthorNameList: { 'type': 'array', 'itemType': 'string' },
+      excludeKeywordList: { 'type': 'array', 'itemType': 'string' },
+      analyseCpId: 'number',
+      keywordTagIds: { 'type': 'array', 'itemType': 'string' },
+      assKeywordList: { 'type': 'array', 'itemType': 'string' },
+      id: 'number',
+      defaultFilterId: 'number',
+      unameCreate: 'string',
+      parentId: 'number',
+      gmtCreate: 'number',
+      unameModified: 'string',
+      gmtModified: 'number',
+      projectGroupId: 'number',
+      parentDocId: 'number',
+      docIdList: { 'type': 'array', 'itemType': 'string' },
+      topicList: { 'type': 'array', 'itemType': 'string' },
+      uidCreate: 'string',
     };
   }
 
@@ -1244,6 +1418,8 @@ export class SendProductNoticeRequest extends $tea.Model {
   productInstanceId?: string;
   // 提醒类型
   noticeType: string;
+  // 租户ID
+  tenantUid: string;
   // 钉钉结构体
   dingTalkContent?: DingTalkContent;
   // 短信内容
@@ -1255,6 +1431,7 @@ export class SendProductNoticeRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       noticeType: 'notice_type',
+      tenantUid: 'tenant_uid',
       dingTalkContent: 'ding_talk_content',
       smsContent: 'sms_content',
       emailContent: 'email_content',
@@ -1266,6 +1443,7 @@ export class SendProductNoticeRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       noticeType: 'string',
+      tenantUid: 'string',
       dingTalkContent: DingTalkContent,
       smsContent: SmsContent,
       emailContent: EmailContent,
@@ -1443,6 +1621,413 @@ export class QueryDeepanalysisQueryResponse extends $tea.Model {
   }
 }
 
+export class GetMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID
+  requestId?: string;
+  // team_hash_id
+  teamHashId?: string;
+  // 文档唯一ID
+  docId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      teamHashId: 'team_hash_id',
+      docId: 'doc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      teamHashId: 'string',
+      docId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 與情内容
+  yuqingMessage?: YuqingMessage;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      yuqingMessage: 'yuqing_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      yuqingMessage: YuqingMessage,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 父亲项目的id: 负数表示不限
+  parentId?: number;
+  // uid
+  uid?: string;
+  // 排序字段名称，如gmt_create
+  orderBy?: string;
+  // 请求ID
+  requestId?: string;
+  // 名称
+  name?: string;
+  // 指定ID
+  ids?: number[];
+  // 当前页
+  currentPage: number;
+  // 所在项目组ID
+  projectGroupId?: number;
+  // 页面大小
+  pageSize: number;
+  // 排序方式：DESC降序，ASC升序
+  sortType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      parentId: 'parent_id',
+      uid: 'uid',
+      orderBy: 'order_by',
+      requestId: 'request_id',
+      name: 'name',
+      ids: 'ids',
+      currentPage: 'current_page',
+      projectGroupId: 'project_group_id',
+      pageSize: 'page_size',
+      sortType: 'sort_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      parentId: 'number',
+      uid: 'string',
+      orderBy: 'string',
+      requestId: 'string',
+      name: 'string',
+      ids: { 'type': 'array', 'itemType': 'number' },
+      currentPage: 'number',
+      projectGroupId: 'number',
+      pageSize: 'number',
+      sortType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页面内容
+  pages?: Project[];
+  // 总条数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pages: 'pages',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pages: { 'type': 'array', 'itemType': Project },
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 创建内容
+  createParam: Project;
+  // requestId
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      createParam: 'create_param',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      createParam: Project,
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 项目ID
+  id: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlarmRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 规则id列表
+  alarmRuleIds?: number[];
+  // 排序字段名称，如gmt_create
+  orderBy?: string;
+  // 是否用更新时间筛选
+  isQueryUpdateTime?: boolean;
+  // 当前页
+  currentPage?: number;
+  // 页大小
+  pageSize?: number;
+  // 舆情项目id列表
+  projectIds?: number[];
+  // 预警时间下限
+  endTime?: number;
+  // 预警等级，如：P0
+  levels?: string;
+  // 预警时间上限
+  startTime?: number;
+  // 预警规则类型
+  type?: string;
+  // 预警消息id
+  ids?: number[];
+  // 标签id
+  tagIds?: number[];
+  // 媒体类型
+  docMediaType?: string;
+  // 消息状态，如：FINISHED
+  status?: string[];
+  // 文章docId列表
+  docIdList?: string[];
+  // 排序方向，DESC降序，ASC升序
+  sortType?: string;
+  // requestId
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alarmRuleIds: 'alarm_rule_ids',
+      orderBy: 'order_by',
+      isQueryUpdateTime: 'is_query_update_time',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+      projectIds: 'project_ids',
+      endTime: 'end_time',
+      levels: 'levels',
+      startTime: 'start_time',
+      type: 'type',
+      ids: 'ids',
+      tagIds: 'tag_ids',
+      docMediaType: 'doc_media_type',
+      status: 'status',
+      docIdList: 'doc_id_list',
+      sortType: 'sort_type',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alarmRuleIds: { 'type': 'array', 'itemType': 'number' },
+      orderBy: 'string',
+      isQueryUpdateTime: 'boolean',
+      currentPage: 'number',
+      pageSize: 'number',
+      projectIds: { 'type': 'array', 'itemType': 'number' },
+      endTime: 'number',
+      levels: 'string',
+      startTime: 'number',
+      type: 'string',
+      ids: { 'type': 'array', 'itemType': 'number' },
+      tagIds: { 'type': 'array', 'itemType': 'number' },
+      docMediaType: 'string',
+      status: { 'type': 'array', 'itemType': 'string' },
+      docIdList: { 'type': 'array', 'itemType': 'string' },
+      sortType: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlarmResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预警消息
+  pages?: Alarm[];
+  // 总条数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pages: 'pages',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pages: { 'type': 'array', 'itemType': Alarm },
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1556,7 +2141,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.14",
+          sdk_version: "1.1.17",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1771,6 +2356,101 @@ export default class Client {
   async queryDeepanalysisQueryEx(request: QueryDeepanalysisQueryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeepanalysisQueryResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDeepanalysisQueryResponse>(await this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeepanalysisQueryResponse({}));
+  }
+
+  /**
+   * Description: 获取单个與情
+   * Summary: 获取单个
+   */
+  async getMessage(request: GetMessageRequest): Promise<GetMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取单个與情
+   * Summary: 获取单个
+   */
+  async getMessageEx(request: GetMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMessageResponse>(await this.doRequest("1.0", "universalsaas.yuqing.message.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMessageResponse({}));
+  }
+
+  /**
+   * Description: 查询與情项目
+   * Summary: 查询與情项目
+   */
+  async queryProject(request: QueryProjectRequest): Promise<QueryProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询與情项目
+   * Summary: 查询與情项目
+   */
+  async queryProjectEx(request: QueryProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProjectResponse>(await this.doRequest("1.0", "universalsaas.yuqing.project.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProjectResponse({}));
+  }
+
+  /**
+   * Description: 创建项目
+   * Summary: 创建项目
+   */
+  async createProject(request: CreateProjectRequest): Promise<CreateProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建项目
+   * Summary: 创建项目
+   */
+  async createProjectEx(request: CreateProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateProjectResponse>(await this.doRequest("1.0", "universalsaas.yuqing.project.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateProjectResponse({}));
+  }
+
+  /**
+   * Description: 删除项目
+   * Summary: 删除项目
+   */
+  async deleteProject(request: DeleteProjectRequest): Promise<DeleteProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除项目
+   * Summary: 删除项目
+   */
+  async deleteProjectEx(request: DeleteProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteProjectResponse>(await this.doRequest("1.0", "universalsaas.yuqing.project.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteProjectResponse({}));
+  }
+
+  /**
+   * Description: 查询预警消息列表
+   * Summary: 查询预警消息列表
+   */
+  async queryAlarm(request: QueryAlarmRequest): Promise<QueryAlarmResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAlarmEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询预警消息列表
+   * Summary: 查询预警消息列表
+   */
+  async queryAlarmEx(request: QueryAlarmRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAlarmResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAlarmResponse>(await this.doRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAlarmResponse({}));
   }
 
 }
