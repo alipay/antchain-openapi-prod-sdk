@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.14',
+    sdk_version = '1.1.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -205,6 +205,60 @@ model At {
   isAtAll?: boolean(name='is_at_all', example='true, false'),
 }
 
+// YuqingMessage
+model YuqingMessage {
+  // 作者头像地址
+  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
+  // 粉丝数
+  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
+  // 好友数
+  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
+  // 作者id
+  authorId?: string(name='author_id', example='作者id'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 发文数
+  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
+  // 作者认证类型
+  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
+  // 舆情文章被抓取的时间戳
+  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
+  // 文章正文内容
+  docContent?: string(name='doc_content', example='文章正文内容'),
+  // 文章摘要
+  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
+  // 文章唯一docId
+  docId?: string(name='doc_id', example='文章唯一docId'),
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
+  // 文章标题
+  docTitle?: string(name='doc_title', example='文章标题'),
+  // 原文地址
+  docUrl?: string(name='doc_url', example='原文地址'),
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
+  // 命中的搜索词列表
+  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
+  // 媒体类型，枚举值
+  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
+  // 舆情文章的发布时间戳
+  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
+  // 相关性得分
+  relevanceScore?: long(name='relevance_score', example='相关性得分'),
+  // 相似文章数
+  similarNumber?: long(name='similar_number', example='相似文章数'),
+  // 微博评论id
+  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
+  // 微博消息id
+  weiboMid?: string(name='weibo_mid', example='微博消息id'),
+}
+
 // 钉钉动作卡片
 model ActionCard {
   // 标题
@@ -251,6 +305,34 @@ model DingTalkContent {
   feedCard?: FeedCard(name='feed_card', example='feedCard'),
   // at
   at?: At(name='at', example='at'),
+}
+
+// 预警消息体
+model Alarm {
+  // 人工打的标签
+  tags?: [ string ](name='tags', example='["tag"]'),
+  // 预警内容摘要
+  content?: string(name='content', example='预警内容摘要'),
+  // 预警时间戳
+  alarmTimestamp?: long(name='alarm_timestamp', example='1670463939'),
+  // 舆情项目id
+  projectId?: long(name='project_id', example='1'),
+  // 修改人
+  modifierName?: string(name='modifier_name', example='小黄'),
+  // 消息标题
+  title?: string(name='title', example='消息标题'),
+  // 消息id
+  id?: long(name='id', example='1'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 预警规则id
+  alarmRuleId?: long(name='alarm_rule_id', example='1'),
+  // 预警规则类型
+  type?: string(name='type', example='预警规则类型'),
+  // 修改时间戳
+  gmtModifiedTimestamp?: long(name='gmt_modified_timestamp', example='1670463939'),
+  // 完整消息
+  message?: YuqingMessage(name='message', example=''),
 }
 
 // 深度分析配置
@@ -369,58 +451,54 @@ model SearchCondition {
   updateTimeStart?: long(name='update_time_start', example='舆情文章起始更新时间'),
 }
 
-// YuqingMessage
-model YuqingMessage {
-  // 作者头像地址
-  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
-  // 粉丝数
-  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
-  // 好友数
-  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
-  // 作者id
-  authorId?: string(name='author_id', example='作者id'),
+// 项目
+model Project {
+  // 项目名字
+  name: string(name='name', example='项目A'),
   // 作者名称
-  authorName?: string(name='author_name', example='作者名称'),
-  // 发文数
-  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
-  // 作者认证类型
-  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
-  // 舆情文章被抓取的时间戳
-  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
-  // 文章正文内容
-  docContent?: string(name='doc_content', example='文章正文内容'),
-  // 文章摘要
-  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
-  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
-  // 文章唯一docId
-  docId?: string(name='doc_id', example='文章唯一docId'),
-  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
-  // 文章标题
-  docTitle?: string(name='doc_title', example='文章标题'),
-  // 原文地址
-  docUrl?: string(name='doc_url', example='原文地址'),
-  // 情感的正负面，-1代表负面，1代表非负面
-  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
-  // 命中的搜索词列表
-  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
-  // 媒体类型，枚举值
-  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
-  // 舆情消息类型:转发,评论/回复, 原文,群聊等
-  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
-  // 文章的父docId，如被转发的文章docId
-  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
-  // 舆情文章的发布时间戳
-  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
-  // 相关性得分
-  relevanceScore?: long(name='relevance_score', example='相关性得分'),
-  // 相似文章数
-  similarNumber?: long(name='similar_number', example='相似文章数'),
-  // 微博评论id
-  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
-  // 微博消息id
-  weiboMid?: string(name='weibo_mid', example='微博消息id'),
+  authorNameList?: [ string ](name='author_name_list', example='["a","b"]'),
+  // 关键词
+  posKeywordList: [ string ](name='pos_keyword_list', example='["key"]'),
+  // 标题包含词列表
+  posKeywordListInTitle?: [ string ](name='pos_keyword_list_in_title', example='["key"]'),
+  // 排除关键词标签列表
+  excludeKeywordTagIds?: string(name='exclude_keyword_tag_ids', example='["key"]'),
+  // 修改人uid
+  uidModified?: string(name='uid_modified', example='2088XX'),
+  // 提级用户名，如@xxx
+  atAuthorNameList?: [ string ](name='at_author_name_list', example='["小黄"]'),
+  // 排除词
+  excludeKeywordList?: [ string ](name='exclude_keyword_list', example='["排除"]'),
+  // 项目的分析页面id，关联hbase中的自定义页面表
+  analyseCpId?: long(name='analyse_cp_id', example='1'),
+  // 关键词标签列表
+  keywordTagIds?: [ string ](name='keyword_tag_ids', example='["tag"]'),
+  // 搭配词
+  assKeywordList?: [ string ](name='ass_keyword_list', example='["key"]'),
+  // 项目ID
+  id?: long(name='id', example='1'),
+  // 默认搜索模板id
+  defaultFilterId?: long(name='default_filter_id', example='1'),
+  // 创建人名称
+  unameCreate?: string(name='uname_create', example='小黄'),
+  // 父项目id
+  parentId?: long(name='parent_id', example='1'),
+  // 创建时间
+  gmtCreate?: long(name='gmt_create', example='1668081173781'),
+  // 修改人名称
+  unameModified?: string(name='uname_modified', example='小黄'),
+  // 修改时间
+  gmtModified?: long(name='gmt_modified', example='1668081173780'),
+  // 项目分组id
+  projectGroupId?: long(name='project_group_id', example='1'),
+  // 父文章id
+  parentDocId?: long(name='parent_doc_id', example='1'),
+  // 文章id列表
+  docIdList?: [ string ](name='doc_id_list', example='["1"]'),
+  // 话题词列表
+  topicList?: [ string ](name='topic_list', example='["key"]'),
+  // 创建人UID
+  uidCreate?: string(name='uid_create', example='2088XX'),
 }
 
 // 短信消息体
@@ -729,6 +807,8 @@ model SendProductNoticeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 提醒类型
   noticeType: string(name='notice_type'),
+  // 租户ID
+  tenantUid: string(name='tenant_uid'),
   // 钉钉结构体
   dingTalkContent?: DingTalkContent(name='ding_talk_content'),
   // 短信内容
@@ -849,5 +929,251 @@ async function queryDeepanalysisQuery(request: QueryDeepanalysisQueryRequest): Q
 async function queryDeepanalysisQueryEx(request: QueryDeepanalysisQueryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeepanalysisQueryResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+  // team_hash_id
+  teamHashId?: string(name='team_hash_id'),
+  // 文档唯一ID
+  docId: string(name='doc_id'),
+}
+
+model GetMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 與情内容
+  yuqingMessage?: YuqingMessage(name='yuqing_message'),
+}
+
+/**
+ * Description: 获取单个與情
+ * Summary: 获取单个
+ */
+async function getMessage(request: GetMessageRequest): GetMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个與情
+ * Summary: 获取单个
+ */
+async function getMessageEx(request: GetMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.message.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 父亲项目的id: 负数表示不限
+  parentId?: long(name='parent_id'),
+  // uid
+  uid?: string(name='uid'),
+  // 排序字段名称，如gmt_create
+  orderBy?: string(name='order_by'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+  // 名称
+  name?: string(name='name'),
+  // 指定ID
+  ids?: [ long ](name='ids'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 所在项目组ID
+  projectGroupId?: long(name='project_group_id'),
+  // 页面大小
+  pageSize: long(name='page_size'),
+  // 排序方式：DESC降序，ASC升序
+  sortType?: string(name='sort_type'),
+}
+
+model QueryProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页面内容
+  pages?: [ Project ](name='pages'),
+  // 总条数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询與情项目
+ * Summary: 查询與情项目
+ */
+async function queryProject(request: QueryProjectRequest): QueryProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询與情项目
+ * Summary: 查询與情项目
+ */
+async function queryProjectEx(request: QueryProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.project.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建内容
+  createParam: Project(name='create_param'),
+  // requestId
+  requestId?: string(name='request_id'),
+}
+
+model CreateProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建项目
+ * Summary: 创建项目
+ */
+async function createProject(request: CreateProjectRequest): CreateProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建项目
+ * Summary: 创建项目
+ */
+async function createProjectEx(request: CreateProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.project.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  id: long(name='id'),
+}
+
+model DeleteProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除项目
+ * Summary: 删除项目
+ */
+async function deleteProject(request: DeleteProjectRequest): DeleteProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除项目
+ * Summary: 删除项目
+ */
+async function deleteProjectEx(request: DeleteProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.project.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAlarmRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 规则id列表
+  alarmRuleIds?: [ long ](name='alarm_rule_ids'),
+  // 排序字段名称，如gmt_create
+  orderBy?: string(name='order_by'),
+  // 是否用更新时间筛选
+  isQueryUpdateTime?: boolean(name='is_query_update_time'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 舆情项目id列表
+  projectIds?: [ long ](name='project_ids'),
+  // 预警时间下限
+  endTime?: long(name='end_time'),
+  // 预警等级，如：P0
+  levels?: string(name='levels'),
+  // 预警时间上限
+  startTime?: long(name='start_time'),
+  // 预警规则类型
+  type?: string(name='type'),
+  // 预警消息id
+  ids?: [ long ](name='ids'),
+  // 标签id
+  tagIds?: [ long ](name='tag_ids'),
+  // 媒体类型
+  docMediaType?: string(name='doc_media_type'),
+  // 消息状态，如：FINISHED
+  status?: [ string ](name='status'),
+  // 文章docId列表
+  docIdList?: [ string ](name='doc_id_list'),
+  // 排序方向，DESC降序，ASC升序
+  sortType?: string(name='sort_type'),
+  // requestId
+  requestId?: string(name='request_id'),
+}
+
+model QueryAlarmResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预警消息
+  pages?: [ Alarm ](name='pages'),
+  // 总条数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询预警消息列表
+ * Summary: 查询预警消息列表
+ */
+async function queryAlarm(request: QueryAlarmRequest): QueryAlarmResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAlarmEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询预警消息列表
+ * Summary: 查询预警消息列表
+ */
+async function queryAlarmEx(request: QueryAlarmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAlarmResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
