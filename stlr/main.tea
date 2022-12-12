@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.0',
+    sdk_version = '2.1.0',
+    _prod_code = 'STLR',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -174,7 +176,11 @@ model EmissionsCategoryStatistics {
   // 排放类型名称
   emissionCategoryName: string(name='emission_category_name', example='间接排放'),
   // 排放量
-  emissions: long(name='emissions', example='11.22'),
+  emission: long(name='emission', example='11.22'),
+  // 排放占比，可直接换算成百分数即为百分占比
+  rate: long(name='rate', example='0.56'),
+  // 排放量单位
+  unit: string(name='unit', example='tCO2e'),
 }
 
 // 证书产品信息，包括证书详情、授权产品信息
@@ -233,16 +239,16 @@ model GreenOperationStatisticsByType {
 
 // 减排情况统计
 model EmissionsReductionStatistics {
-  // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-  reductionType: string(name='reduction_type', example='EnergySubstitution'),
-  // 减排措施名称
-  reductionMeasureName: string(name='reduction_measure_name', example='使用绿电'),
-  // 减排方案编码
-  reductionProposalNo: string(name='reduction_proposal_no', example='202109111231231231232'),
+  // 减排方法
+  reductionMethod: string(name='reduction_method', example='EnergySubstitution'),
+  // 减排方法名称
+  reductionMethodName: string(name='reduction_method_name', example='使用绿电'),
   // 减排量
-  reductionEmissions: long(name='reduction_emissions', example='123123.11'),
+  reductionAmount: long(name='reduction_amount', example='123123.11'),
+  // 减排量占比
+  reductionRatio: long(name='reduction_ratio', example='0.22'),
   // 减排量单位
-  unit: string(name='unit', example='tCO2e'),
+  dataUnit: string(name='data_unit', example='tCO2e'),
 }
 
 // 每日碳排放量
@@ -251,6 +257,18 @@ model DailyEmissions {
   date: string(name='date', example='2021-07-21'),
   // 排放量值
   value: long(name='value', example='11.22'),
+}
+
+// 碳抵消统计量
+model EmissionCounteractionStatistics {
+  // 碳抵消类别
+  assertType: string(name='assert_type', example='Quota'),
+  // 碳抵消类别名称
+  assertTypeName: string(name='assert_type_name', example='配额'),
+  // 抵消量
+  counteractionAmount: long(name='counteraction_amount', example='22.22'),
+  // 排放量单位，默认为：tCO2e
+  dataUnit: string(name='data_unit', example='tCO2e'),
 }
 
 // 排放统计项目
@@ -287,6 +305,28 @@ model BlockchainDTO {
   blockNumber: long(name='block_number', example='12917'),
 }
 
+// 碳排放分城市统计总量
+model EmissionsCityStatistics {
+  // 城市编码
+  cityNo: string(name='city_no', example='637401'),
+  // 城市名称
+  cityName: string(name='city_name', example='南充市'),
+  // 累计排放量
+  emissionAmount: long(name='emission_amount', example='222.22'),
+  // 今日新增碳排放量
+  emissionAmountToday: long(name='emission_amount_today', example='22.22'),
+  // 总减碳量
+  reductionAmount: long(name='reduction_amount', example='21.11'),
+  // 今日减碳量
+  reductionAmountToday: long(name='reduction_amount_today', example='9.11'),
+  // 总抵消量
+  counteractionAmount: long(name='counteraction_amount', example='9.11'),
+  // 今日抵消量
+  counteractionAmountToday: long(name='counteraction_amount_today', example='2.11'),
+  // 排放量单位，默认为：
+  dataUnit: string(name='data_unit', example='tCO2e'),
+}
+
 // 数据值条目
 model AnyAmountItem {
   // 数据项编码
@@ -307,6 +347,18 @@ model EmissionsScopeStatistics {
   percentage: long(name='percentage', example='0.11'),
   // 范围下各分类排放数据
   categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
+}
+
+// 碳排放分单元统计总量
+model EmissionsLocationStatistics {
+  // 盘查单元编码
+  locationNo: string(name='location_no', example='L0100000008902'),
+  // 盘查单元名称
+  locationName: string(name='location_name', example='2022亚运会游泳馆'),
+  // 盘查单元排放量
+  emissionAmount: long(name='emission_amount', example='2223.22'),
+  // 排放量单位，默认为：tCO2e
+  dataUnit: string(name='data_unit', example='tCO2e'),
 }
 
 // 任意KV结构对象
@@ -601,6 +653,246 @@ async function describeAcarLastemissiondataEx(request: DescribeAcarLastemissiond
   return doRequest('1.0' ,'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryEmissionTotalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionTotalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 累计排放量
+  totalEmission?: long(name='total_emission'),
+  // 今日新增碳排放量
+  totalEmissionToday?: long(name='total_emission_today'),
+  // 累计减碳量
+  totalReduction?: long(name='total_reduction'),
+  // 今日减碳量
+  totalReductionToday?: long(name='total_reduction_today'),
+  // 累计抵消量
+  totalCounteraction?: long(name='total_counteraction'),
+  // 今日抵消量
+  totalCounteractionToday?: long(name='total_counteraction_today'),
+  // 排放数据单位
+  dataUnit?: string(name='data_unit'),
+}
+
+/**
+ * Description: 碳总量查询
+ * Summary: 碳总量查询
+ */
+async function queryEmissionTotal(request: QueryEmissionTotalRequest): QueryEmissionTotalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionTotalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳总量查询
+ * Summary: 碳总量查询
+ */
+async function queryEmissionTotalEx(request: QueryEmissionTotalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionTotalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.total.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmissionGroupbycategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionGroupbycategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 按照排放类型分组统计的排放量结果列表
+  list?: [ EmissionsCategoryStatistics ](name='list'),
+}
+
+/**
+ * Description: 碳排放总量分类统计
+ * Summary: 碳排放总量分类统计
+ */
+async function queryEmissionGroupbycategory(request: QueryEmissionGroupbycategoryRequest): QueryEmissionGroupbycategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionGroupbycategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳排放总量分类统计
+ * Summary: 碳排放总量分类统计
+ */
+async function queryEmissionGroupbycategoryEx(request: QueryEmissionGroupbycategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionGroupbycategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.groupbycategory.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmissionGroupbylocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionGroupbylocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 按照排放单元分组统计的碳排放量列表
+  list?: [ EmissionsLocationStatistics ](name='list'),
+}
+
+/**
+ * Description: 碳排放总量分单元统计
+ * Summary: 碳排放总量分单元统计
+ */
+async function queryEmissionGroupbylocation(request: QueryEmissionGroupbylocationRequest): QueryEmissionGroupbylocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionGroupbylocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳排放总量分单元统计
+ * Summary: 碳排放总量分单元统计
+ */
+async function queryEmissionGroupbylocationEx(request: QueryEmissionGroupbylocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionGroupbylocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.groupbylocation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmissionGroupbycityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionGroupbycityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 按城市分组统计的碳排放量列表
+  list?: [ EmissionsCityStatistics ](name='list'),
+}
+
+/**
+ * Description: 碳排放总量分城市统计
+ * Summary: 碳排放总量分城市统计
+ */
+async function queryEmissionGroupbycity(request: QueryEmissionGroupbycityRequest): QueryEmissionGroupbycityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionGroupbycityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳排放总量分城市统计
+ * Summary: 碳排放总量分城市统计
+ */
+async function queryEmissionGroupbycityEx(request: QueryEmissionGroupbycityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionGroupbycityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.groupbycity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmissionReductionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionReductionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 减排量按减排方法分组统计
+  list?: [ EmissionsReductionStatistics ](name='list'),
+}
+
+/**
+ * Description: 减排统计查询
+ * Summary: 减排统计查询
+ */
+async function queryEmissionReduction(request: QueryEmissionReductionRequest): QueryEmissionReductionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionReductionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 减排统计查询
+ * Summary: 减排统计查询
+ */
+async function queryEmissionReductionEx(request: QueryEmissionReductionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionReductionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.reduction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmissionCounteractionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动编码
+  activityNo: string(name='activity_no'),
+}
+
+model QueryEmissionCounteractionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 碳抵消量按抵消类型分组统计
+  list?: [ EmissionCounteractionStatistics ](name='list'),
+}
+
+/**
+ * Description: 碳抵消量统计
+ * Summary: 碳抵消量统计
+ */
+async function queryEmissionCounteraction(request: QueryEmissionCounteractionRequest): QueryEmissionCounteractionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmissionCounteractionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳抵消量统计
+ * Summary: 碳抵消量统计
+ */
+async function queryEmissionCounteractionEx(request: QueryEmissionCounteractionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmissionCounteractionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.emission.counteraction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model RegisterPdcpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -628,7 +920,7 @@ model RegisterPdcpAccountResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 账户开通结果
-  data?: AccountRegisterResponse(name='data'),
+  carbonAccountInfo?: AccountRegisterResponse(name='carbon_account_info'),
 }
 
 /**
@@ -776,6 +1068,44 @@ async function getPdcpBlockchain(request: GetPdcpBlockchainRequest): GetPdcpBloc
 async function getPdcpBlockchainEx(request: GetPdcpBlockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetPdcpBlockchainResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+}
+
+model QueryPdcpAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 开户结果
+  carbonAccountInfo?: AccountRegisterResponse(name='carbon_account_info'),
+}
+
+/**
+ * Description: 链上账户查询接口
+ * Summary: 链上账户查询接口
+ */
+async function queryPdcpAccount(request: QueryPdcpAccountRequest): QueryPdcpAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上账户查询接口
+ * Summary: 链上账户查询接口
+ */
+async function queryPdcpAccountEx(request: QueryPdcpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddEcarAvitivedataRequest = {
