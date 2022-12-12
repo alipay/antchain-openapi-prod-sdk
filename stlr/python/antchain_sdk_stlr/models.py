@@ -195,19 +195,27 @@ class EmissionsCategoryStatistics(TeaModel):
         self,
         emission_dategory_no: str = None,
         emission_category_name: str = None,
-        emissions: int = None,
+        emission: int = None,
+        rate: int = None,
+        unit: str = None,
     ):
         # 排放类型编码
         self.emission_dategory_no = emission_dategory_no
         # 排放类型名称
         self.emission_category_name = emission_category_name
         # 排放量
-        self.emissions = emissions
+        self.emission = emission
+        # 排放占比，可直接换算成百分数即为百分占比
+        self.rate = rate
+        # 排放量单位
+        self.unit = unit
 
     def validate(self):
         self.validate_required(self.emission_dategory_no, 'emission_dategory_no')
         self.validate_required(self.emission_category_name, 'emission_category_name')
-        self.validate_required(self.emissions, 'emissions')
+        self.validate_required(self.emission, 'emission')
+        self.validate_required(self.rate, 'rate')
+        self.validate_required(self.unit, 'unit')
 
     def to_map(self):
         _map = super().to_map()
@@ -219,8 +227,12 @@ class EmissionsCategoryStatistics(TeaModel):
             result['emission_dategory_no'] = self.emission_dategory_no
         if self.emission_category_name is not None:
             result['emission_category_name'] = self.emission_category_name
-        if self.emissions is not None:
-            result['emissions'] = self.emissions
+        if self.emission is not None:
+            result['emission'] = self.emission
+        if self.rate is not None:
+            result['rate'] = self.rate
+        if self.unit is not None:
+            result['unit'] = self.unit
         return result
 
     def from_map(self, m: dict = None):
@@ -229,8 +241,12 @@ class EmissionsCategoryStatistics(TeaModel):
             self.emission_dategory_no = m.get('emission_dategory_no')
         if m.get('emission_category_name') is not None:
             self.emission_category_name = m.get('emission_category_name')
-        if m.get('emissions') is not None:
-            self.emissions = m.get('emissions')
+        if m.get('emission') is not None:
+            self.emission = m.get('emission')
+        if m.get('rate') is not None:
+            self.rate = m.get('rate')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
         return self
 
 
@@ -468,29 +484,29 @@ class GreenOperationStatisticsByType(TeaModel):
 class EmissionsReductionStatistics(TeaModel):
     def __init__(
         self,
-        reduction_type: str = None,
-        reduction_measure_name: str = None,
-        reduction_proposal_no: str = None,
-        reduction_emissions: int = None,
-        unit: str = None,
+        reduction_method: str = None,
+        reduction_method_name: str = None,
+        reduction_amount: int = None,
+        reduction_ratio: int = None,
+        data_unit: str = None,
     ):
-        # 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-        self.reduction_type = reduction_type
-        # 减排措施名称
-        self.reduction_measure_name = reduction_measure_name
-        # 减排方案编码
-        self.reduction_proposal_no = reduction_proposal_no
+        # 减排方法
+        self.reduction_method = reduction_method
+        # 减排方法名称
+        self.reduction_method_name = reduction_method_name
         # 减排量
-        self.reduction_emissions = reduction_emissions
+        self.reduction_amount = reduction_amount
+        # 减排量占比
+        self.reduction_ratio = reduction_ratio
         # 减排量单位
-        self.unit = unit
+        self.data_unit = data_unit
 
     def validate(self):
-        self.validate_required(self.reduction_type, 'reduction_type')
-        self.validate_required(self.reduction_measure_name, 'reduction_measure_name')
-        self.validate_required(self.reduction_proposal_no, 'reduction_proposal_no')
-        self.validate_required(self.reduction_emissions, 'reduction_emissions')
-        self.validate_required(self.unit, 'unit')
+        self.validate_required(self.reduction_method, 'reduction_method')
+        self.validate_required(self.reduction_method_name, 'reduction_method_name')
+        self.validate_required(self.reduction_amount, 'reduction_amount')
+        self.validate_required(self.reduction_ratio, 'reduction_ratio')
+        self.validate_required(self.data_unit, 'data_unit')
 
     def to_map(self):
         _map = super().to_map()
@@ -498,30 +514,30 @@ class EmissionsReductionStatistics(TeaModel):
             return _map
 
         result = dict()
-        if self.reduction_type is not None:
-            result['reduction_type'] = self.reduction_type
-        if self.reduction_measure_name is not None:
-            result['reduction_measure_name'] = self.reduction_measure_name
-        if self.reduction_proposal_no is not None:
-            result['reduction_proposal_no'] = self.reduction_proposal_no
-        if self.reduction_emissions is not None:
-            result['reduction_emissions'] = self.reduction_emissions
-        if self.unit is not None:
-            result['unit'] = self.unit
+        if self.reduction_method is not None:
+            result['reduction_method'] = self.reduction_method
+        if self.reduction_method_name is not None:
+            result['reduction_method_name'] = self.reduction_method_name
+        if self.reduction_amount is not None:
+            result['reduction_amount'] = self.reduction_amount
+        if self.reduction_ratio is not None:
+            result['reduction_ratio'] = self.reduction_ratio
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('reduction_type') is not None:
-            self.reduction_type = m.get('reduction_type')
-        if m.get('reduction_measure_name') is not None:
-            self.reduction_measure_name = m.get('reduction_measure_name')
-        if m.get('reduction_proposal_no') is not None:
-            self.reduction_proposal_no = m.get('reduction_proposal_no')
-        if m.get('reduction_emissions') is not None:
-            self.reduction_emissions = m.get('reduction_emissions')
-        if m.get('unit') is not None:
-            self.unit = m.get('unit')
+        if m.get('reduction_method') is not None:
+            self.reduction_method = m.get('reduction_method')
+        if m.get('reduction_method_name') is not None:
+            self.reduction_method_name = m.get('reduction_method_name')
+        if m.get('reduction_amount') is not None:
+            self.reduction_amount = m.get('reduction_amount')
+        if m.get('reduction_ratio') is not None:
+            self.reduction_ratio = m.get('reduction_ratio')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
         return self
 
 
@@ -558,6 +574,58 @@ class DailyEmissions(TeaModel):
             self.date = m.get('date')
         if m.get('value') is not None:
             self.value = m.get('value')
+        return self
+
+
+class EmissionCounteractionStatistics(TeaModel):
+    def __init__(
+        self,
+        assert_type: str = None,
+        assert_type_name: str = None,
+        counteraction_amount: int = None,
+        data_unit: str = None,
+    ):
+        # 碳抵消类别
+        self.assert_type = assert_type
+        # 碳抵消类别名称
+        self.assert_type_name = assert_type_name
+        # 抵消量
+        self.counteraction_amount = counteraction_amount
+        # 排放量单位，默认为：tCO2e
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.assert_type, 'assert_type')
+        self.validate_required(self.assert_type_name, 'assert_type_name')
+        self.validate_required(self.counteraction_amount, 'counteraction_amount')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assert_type is not None:
+            result['assert_type'] = self.assert_type
+        if self.assert_type_name is not None:
+            result['assert_type_name'] = self.assert_type_name
+        if self.counteraction_amount is not None:
+            result['counteraction_amount'] = self.counteraction_amount
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('assert_type') is not None:
+            self.assert_type = m.get('assert_type')
+        if m.get('assert_type_name') is not None:
+            self.assert_type_name = m.get('assert_type_name')
+        if m.get('counteraction_amount') is not None:
+            self.counteraction_amount = m.get('counteraction_amount')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
         return self
 
 
@@ -713,6 +781,98 @@ class BlockchainDTO(TeaModel):
         return self
 
 
+class EmissionsCityStatistics(TeaModel):
+    def __init__(
+        self,
+        city_no: str = None,
+        city_name: str = None,
+        emission_amount: int = None,
+        emission_amount_today: int = None,
+        reduction_amount: int = None,
+        reduction_amount_today: int = None,
+        counteraction_amount: int = None,
+        counteraction_amount_today: int = None,
+        data_unit: str = None,
+    ):
+        # 城市编码
+        self.city_no = city_no
+        # 城市名称
+        self.city_name = city_name
+        # 累计排放量
+        self.emission_amount = emission_amount
+        # 今日新增碳排放量
+        self.emission_amount_today = emission_amount_today
+        # 总减碳量
+        self.reduction_amount = reduction_amount
+        # 今日减碳量
+        self.reduction_amount_today = reduction_amount_today
+        # 总抵消量
+        self.counteraction_amount = counteraction_amount
+        # 今日抵消量
+        self.counteraction_amount_today = counteraction_amount_today
+        # 排放量单位，默认为：
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.city_no, 'city_no')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.emission_amount, 'emission_amount')
+        self.validate_required(self.emission_amount_today, 'emission_amount_today')
+        self.validate_required(self.reduction_amount, 'reduction_amount')
+        self.validate_required(self.reduction_amount_today, 'reduction_amount_today')
+        self.validate_required(self.counteraction_amount, 'counteraction_amount')
+        self.validate_required(self.counteraction_amount_today, 'counteraction_amount_today')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city_no is not None:
+            result['city_no'] = self.city_no
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.emission_amount is not None:
+            result['emission_amount'] = self.emission_amount
+        if self.emission_amount_today is not None:
+            result['emission_amount_today'] = self.emission_amount_today
+        if self.reduction_amount is not None:
+            result['reduction_amount'] = self.reduction_amount
+        if self.reduction_amount_today is not None:
+            result['reduction_amount_today'] = self.reduction_amount_today
+        if self.counteraction_amount is not None:
+            result['counteraction_amount'] = self.counteraction_amount
+        if self.counteraction_amount_today is not None:
+            result['counteraction_amount_today'] = self.counteraction_amount_today
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('city_no') is not None:
+            self.city_no = m.get('city_no')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('emission_amount') is not None:
+            self.emission_amount = m.get('emission_amount')
+        if m.get('emission_amount_today') is not None:
+            self.emission_amount_today = m.get('emission_amount_today')
+        if m.get('reduction_amount') is not None:
+            self.reduction_amount = m.get('reduction_amount')
+        if m.get('reduction_amount_today') is not None:
+            self.reduction_amount_today = m.get('reduction_amount_today')
+        if m.get('counteraction_amount') is not None:
+            self.counteraction_amount = m.get('counteraction_amount')
+        if m.get('counteraction_amount_today') is not None:
+            self.counteraction_amount_today = m.get('counteraction_amount_today')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
+        return self
+
+
 class AnyAmountItem(TeaModel):
     def __init__(
         self,
@@ -815,6 +975,58 @@ class EmissionsScopeStatistics(TeaModel):
             for k in m.get('category_emissions_list'):
                 temp_model = EmissionsCategoryStatistics()
                 self.category_emissions_list.append(temp_model.from_map(k))
+        return self
+
+
+class EmissionsLocationStatistics(TeaModel):
+    def __init__(
+        self,
+        location_no: str = None,
+        location_name: str = None,
+        emission_amount: int = None,
+        data_unit: str = None,
+    ):
+        # 盘查单元编码
+        self.location_no = location_no
+        # 盘查单元名称
+        self.location_name = location_name
+        # 盘查单元排放量
+        self.emission_amount = emission_amount
+        # 排放量单位，默认为：tCO2e
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.location_no, 'location_no')
+        self.validate_required(self.location_name, 'location_name')
+        self.validate_required(self.emission_amount, 'emission_amount')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.location_no is not None:
+            result['location_no'] = self.location_no
+        if self.location_name is not None:
+            result['location_name'] = self.location_name
+        if self.emission_amount is not None:
+            result['emission_amount'] = self.emission_amount
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('location_no') is not None:
+            self.location_no = m.get('location_no')
+        if m.get('location_name') is not None:
+            self.location_name = m.get('location_name')
+        if m.get('emission_amount') is not None:
+            self.emission_amount = m.get('emission_amount')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
         return self
 
 
@@ -1662,6 +1874,628 @@ class DescribeAcarLastemissiondataResponse(TeaModel):
         return self
 
 
+class QueryEmissionTotalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionTotalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_emission: int = None,
+        total_emission_today: int = None,
+        total_reduction: int = None,
+        total_reduction_today: int = None,
+        total_counteraction: int = None,
+        total_counteraction_today: int = None,
+        data_unit: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 累计排放量
+        self.total_emission = total_emission
+        # 今日新增碳排放量
+        self.total_emission_today = total_emission_today
+        # 累计减碳量
+        self.total_reduction = total_reduction
+        # 今日减碳量
+        self.total_reduction_today = total_reduction_today
+        # 累计抵消量
+        self.total_counteraction = total_counteraction
+        # 今日抵消量
+        self.total_counteraction_today = total_counteraction_today
+        # 排放数据单位
+        self.data_unit = data_unit
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_emission is not None:
+            result['total_emission'] = self.total_emission
+        if self.total_emission_today is not None:
+            result['total_emission_today'] = self.total_emission_today
+        if self.total_reduction is not None:
+            result['total_reduction'] = self.total_reduction
+        if self.total_reduction_today is not None:
+            result['total_reduction_today'] = self.total_reduction_today
+        if self.total_counteraction is not None:
+            result['total_counteraction'] = self.total_counteraction
+        if self.total_counteraction_today is not None:
+            result['total_counteraction_today'] = self.total_counteraction_today
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_emission') is not None:
+            self.total_emission = m.get('total_emission')
+        if m.get('total_emission_today') is not None:
+            self.total_emission_today = m.get('total_emission_today')
+        if m.get('total_reduction') is not None:
+            self.total_reduction = m.get('total_reduction')
+        if m.get('total_reduction_today') is not None:
+            self.total_reduction_today = m.get('total_reduction_today')
+        if m.get('total_counteraction') is not None:
+            self.total_counteraction = m.get('total_counteraction')
+        if m.get('total_counteraction_today') is not None:
+            self.total_counteraction_today = m.get('total_counteraction_today')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
+        return self
+
+
+class QueryEmissionGroupbycategoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionGroupbycategoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[EmissionsCategoryStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 按照排放类型分组统计的排放量结果列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EmissionsCategoryStatistics()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEmissionGroupbylocationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionGroupbylocationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[EmissionsLocationStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 按照排放单元分组统计的碳排放量列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EmissionsLocationStatistics()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEmissionGroupbycityRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionGroupbycityResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[EmissionsCityStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 按城市分组统计的碳排放量列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EmissionsCityStatistics()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEmissionReductionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionReductionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[EmissionsReductionStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 减排量按减排方法分组统计
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EmissionsReductionStatistics()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEmissionCounteractionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        activity_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活动编码
+        self.activity_no = activity_no
+
+    def validate(self):
+        self.validate_required(self.activity_no, 'activity_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.activity_no is not None:
+            result['activity_no'] = self.activity_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('activity_no') is not None:
+            self.activity_no = m.get('activity_no')
+        return self
+
+
+class QueryEmissionCounteractionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        list: List[EmissionCounteractionStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 碳抵消量按抵消类型分组统计
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EmissionCounteractionStatistics()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
 class RegisterPdcpAccountRequest(TeaModel):
     def __init__(
         self,
@@ -1744,7 +2578,7 @@ class RegisterPdcpAccountResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: AccountRegisterResponse = None,
+        carbon_account_info: AccountRegisterResponse = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1753,11 +2587,11 @@ class RegisterPdcpAccountResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户开通结果
-        self.data = data
+        self.carbon_account_info = carbon_account_info
 
     def validate(self):
-        if self.data:
-            self.data.validate()
+        if self.carbon_account_info:
+            self.carbon_account_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1771,8 +2605,8 @@ class RegisterPdcpAccountResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data.to_map()
+        if self.carbon_account_info is not None:
+            result['carbon_account_info'] = self.carbon_account_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1783,9 +2617,9 @@ class RegisterPdcpAccountResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
+        if m.get('carbon_account_info') is not None:
             temp_model = AccountRegisterResponse()
-            self.data = temp_model.from_map(m['data'])
+            self.carbon_account_info = temp_model.from_map(m['carbon_account_info'])
         return self
 
 
@@ -2117,6 +2951,98 @@ class GetPdcpBlockchainResponse(TeaModel):
         if m.get('tx_data') is not None:
             temp_model = BlockchainDTO()
             self.tx_data = temp_model.from_map(m['tx_data'])
+        return self
+
+
+class QueryPdcpAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户ID
+        self.user_id = user_id
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class QueryPdcpAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        carbon_account_info: AccountRegisterResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 开户结果
+        self.carbon_account_info = carbon_account_info
+
+    def validate(self):
+        if self.carbon_account_info:
+            self.carbon_account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.carbon_account_info is not None:
+            result['carbon_account_info'] = self.carbon_account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('carbon_account_info') is not None:
+            temp_model = AccountRegisterResponse()
+            self.carbon_account_info = temp_model.from_map(m['carbon_account_info'])
         return self
 
 

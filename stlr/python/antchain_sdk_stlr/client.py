@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0'
+                    'sdk_version': '2.1.0',
+                    '_prod_code': 'STLR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0'
+                    'sdk_version': '2.1.0',
+                    '_prod_code': 'STLR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -551,6 +555,342 @@ class Client:
             await self.do_request_async('1.0', 'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_emission_total(
+        self,
+        request: stlr_models.QueryEmissionTotalRequest,
+    ) -> stlr_models.QueryEmissionTotalResponse:
+        """
+        Description: 碳总量查询
+        Summary: 碳总量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_total_ex(request, headers, runtime)
+
+    async def query_emission_total_async(
+        self,
+        request: stlr_models.QueryEmissionTotalRequest,
+    ) -> stlr_models.QueryEmissionTotalResponse:
+        """
+        Description: 碳总量查询
+        Summary: 碳总量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_total_ex_async(request, headers, runtime)
+
+    def query_emission_total_ex(
+        self,
+        request: stlr_models.QueryEmissionTotalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionTotalResponse:
+        """
+        Description: 碳总量查询
+        Summary: 碳总量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionTotalResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.total.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_total_ex_async(
+        self,
+        request: stlr_models.QueryEmissionTotalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionTotalResponse:
+        """
+        Description: 碳总量查询
+        Summary: 碳总量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionTotalResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.total.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emission_groupbycategory(
+        self,
+        request: stlr_models.QueryEmissionGroupbycategoryRequest,
+    ) -> stlr_models.QueryEmissionGroupbycategoryResponse:
+        """
+        Description: 碳排放总量分类统计
+        Summary: 碳排放总量分类统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_groupbycategory_ex(request, headers, runtime)
+
+    async def query_emission_groupbycategory_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbycategoryRequest,
+    ) -> stlr_models.QueryEmissionGroupbycategoryResponse:
+        """
+        Description: 碳排放总量分类统计
+        Summary: 碳排放总量分类统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_groupbycategory_ex_async(request, headers, runtime)
+
+    def query_emission_groupbycategory_ex(
+        self,
+        request: stlr_models.QueryEmissionGroupbycategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbycategoryResponse:
+        """
+        Description: 碳排放总量分类统计
+        Summary: 碳排放总量分类统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbycategoryResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.groupbycategory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_groupbycategory_ex_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbycategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbycategoryResponse:
+        """
+        Description: 碳排放总量分类统计
+        Summary: 碳排放总量分类统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbycategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.groupbycategory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emission_groupbylocation(
+        self,
+        request: stlr_models.QueryEmissionGroupbylocationRequest,
+    ) -> stlr_models.QueryEmissionGroupbylocationResponse:
+        """
+        Description: 碳排放总量分单元统计
+        Summary: 碳排放总量分单元统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_groupbylocation_ex(request, headers, runtime)
+
+    async def query_emission_groupbylocation_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbylocationRequest,
+    ) -> stlr_models.QueryEmissionGroupbylocationResponse:
+        """
+        Description: 碳排放总量分单元统计
+        Summary: 碳排放总量分单元统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_groupbylocation_ex_async(request, headers, runtime)
+
+    def query_emission_groupbylocation_ex(
+        self,
+        request: stlr_models.QueryEmissionGroupbylocationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbylocationResponse:
+        """
+        Description: 碳排放总量分单元统计
+        Summary: 碳排放总量分单元统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbylocationResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.groupbylocation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_groupbylocation_ex_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbylocationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbylocationResponse:
+        """
+        Description: 碳排放总量分单元统计
+        Summary: 碳排放总量分单元统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbylocationResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.groupbylocation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emission_groupbycity(
+        self,
+        request: stlr_models.QueryEmissionGroupbycityRequest,
+    ) -> stlr_models.QueryEmissionGroupbycityResponse:
+        """
+        Description: 碳排放总量分城市统计
+        Summary: 碳排放总量分城市统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_groupbycity_ex(request, headers, runtime)
+
+    async def query_emission_groupbycity_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbycityRequest,
+    ) -> stlr_models.QueryEmissionGroupbycityResponse:
+        """
+        Description: 碳排放总量分城市统计
+        Summary: 碳排放总量分城市统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_groupbycity_ex_async(request, headers, runtime)
+
+    def query_emission_groupbycity_ex(
+        self,
+        request: stlr_models.QueryEmissionGroupbycityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbycityResponse:
+        """
+        Description: 碳排放总量分城市统计
+        Summary: 碳排放总量分城市统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbycityResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.groupbycity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_groupbycity_ex_async(
+        self,
+        request: stlr_models.QueryEmissionGroupbycityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionGroupbycityResponse:
+        """
+        Description: 碳排放总量分城市统计
+        Summary: 碳排放总量分城市统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionGroupbycityResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.groupbycity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emission_reduction(
+        self,
+        request: stlr_models.QueryEmissionReductionRequest,
+    ) -> stlr_models.QueryEmissionReductionResponse:
+        """
+        Description: 减排统计查询
+        Summary: 减排统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_reduction_ex(request, headers, runtime)
+
+    async def query_emission_reduction_async(
+        self,
+        request: stlr_models.QueryEmissionReductionRequest,
+    ) -> stlr_models.QueryEmissionReductionResponse:
+        """
+        Description: 减排统计查询
+        Summary: 减排统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_reduction_ex_async(request, headers, runtime)
+
+    def query_emission_reduction_ex(
+        self,
+        request: stlr_models.QueryEmissionReductionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionReductionResponse:
+        """
+        Description: 减排统计查询
+        Summary: 减排统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionReductionResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.reduction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_reduction_ex_async(
+        self,
+        request: stlr_models.QueryEmissionReductionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionReductionResponse:
+        """
+        Description: 减排统计查询
+        Summary: 减排统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionReductionResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.reduction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emission_counteraction(
+        self,
+        request: stlr_models.QueryEmissionCounteractionRequest,
+    ) -> stlr_models.QueryEmissionCounteractionResponse:
+        """
+        Description: 碳抵消量统计
+        Summary: 碳抵消量统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emission_counteraction_ex(request, headers, runtime)
+
+    async def query_emission_counteraction_async(
+        self,
+        request: stlr_models.QueryEmissionCounteractionRequest,
+    ) -> stlr_models.QueryEmissionCounteractionResponse:
+        """
+        Description: 碳抵消量统计
+        Summary: 碳抵消量统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emission_counteraction_ex_async(request, headers, runtime)
+
+    def query_emission_counteraction_ex(
+        self,
+        request: stlr_models.QueryEmissionCounteractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionCounteractionResponse:
+        """
+        Description: 碳抵消量统计
+        Summary: 碳抵消量统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionCounteractionResponse(),
+            self.do_request('1.0', 'antchain.carbon.emission.counteraction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emission_counteraction_ex_async(
+        self,
+        request: stlr_models.QueryEmissionCounteractionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEmissionCounteractionResponse:
+        """
+        Description: 碳抵消量统计
+        Summary: 碳抵消量统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEmissionCounteractionResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.emission.counteraction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def register_pdcp_account(
         self,
         request: stlr_models.RegisterPdcpAccountRequest,
@@ -773,6 +1113,62 @@ class Client:
         return TeaCore.from_map(
             stlr_models.GetPdcpBlockchainResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_account(
+        self,
+        request: stlr_models.QueryPdcpAccountRequest,
+    ) -> stlr_models.QueryPdcpAccountResponse:
+        """
+        Description: 链上账户查询接口
+        Summary: 链上账户查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_account_ex(request, headers, runtime)
+
+    async def query_pdcp_account_async(
+        self,
+        request: stlr_models.QueryPdcpAccountRequest,
+    ) -> stlr_models.QueryPdcpAccountResponse:
+        """
+        Description: 链上账户查询接口
+        Summary: 链上账户查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_account_ex_async(request, headers, runtime)
+
+    def query_pdcp_account_ex(
+        self,
+        request: stlr_models.QueryPdcpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpAccountResponse:
+        """
+        Description: 链上账户查询接口
+        Summary: 链上账户查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpAccountResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_account_ex_async(
+        self,
+        request: stlr_models.QueryPdcpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpAccountResponse:
+        """
+        Description: 链上账户查询接口
+        Summary: 链上账户查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_ecar_avitivedata(
