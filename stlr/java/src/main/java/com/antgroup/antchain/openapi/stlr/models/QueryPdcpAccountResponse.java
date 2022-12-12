@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.stlr.models;
 
 import com.aliyun.tea.*;
 
-public class RegisterPdcpAccountResponse extends TeaModel {
+public class QueryPdcpAccountResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class RegisterPdcpAccountResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 账户开通结果
+    // 开户结果
     @NameInMap("carbon_account_info")
     public AccountRegisterResponse carbonAccountInfo;
 
-    public static RegisterPdcpAccountResponse build(java.util.Map<String, ?> map) throws Exception {
-        RegisterPdcpAccountResponse self = new RegisterPdcpAccountResponse();
+    public static QueryPdcpAccountResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryPdcpAccountResponse self = new QueryPdcpAccountResponse();
         return TeaModel.build(map, self);
     }
 
-    public RegisterPdcpAccountResponse setReqMsgId(String reqMsgId) {
+    public QueryPdcpAccountResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public RegisterPdcpAccountResponse setResultCode(String resultCode) {
+    public QueryPdcpAccountResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public RegisterPdcpAccountResponse setResultMsg(String resultMsg) {
+    public QueryPdcpAccountResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public RegisterPdcpAccountResponse setCarbonAccountInfo(AccountRegisterResponse carbonAccountInfo) {
+    public QueryPdcpAccountResponse setCarbonAccountInfo(AccountRegisterResponse carbonAccountInfo) {
         this.carbonAccountInfo = carbonAccountInfo;
         return this;
     }

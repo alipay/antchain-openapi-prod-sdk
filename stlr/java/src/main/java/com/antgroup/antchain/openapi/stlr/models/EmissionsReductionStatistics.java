@@ -4,74 +4,74 @@ package com.antgroup.antchain.openapi.stlr.models;
 import com.aliyun.tea.*;
 
 public class EmissionsReductionStatistics extends TeaModel {
-    // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-    @NameInMap("reduction_type")
+    // 减排方法
+    @NameInMap("reduction_method")
     @Validation(required = true)
-    public String reductionType;
+    public String reductionMethod;
 
-    // 减排措施名称
-    @NameInMap("reduction_measure_name")
+    // 减排方法名称
+    @NameInMap("reduction_method_name")
     @Validation(required = true)
-    public String reductionMeasureName;
-
-    // 减排方案编码
-    @NameInMap("reduction_proposal_no")
-    @Validation(required = true)
-    public String reductionProposalNo;
+    public String reductionMethodName;
 
     // 减排量
-    @NameInMap("reduction_emissions")
+    @NameInMap("reduction_amount")
     @Validation(required = true)
-    public Long reductionEmissions;
+    public Long reductionAmount;
+
+    // 减排量占比
+    @NameInMap("reduction_ratio")
+    @Validation(required = true)
+    public Long reductionRatio;
 
     // 减排量单位
-    @NameInMap("unit")
+    @NameInMap("data_unit")
     @Validation(required = true)
-    public String unit;
+    public String dataUnit;
 
     public static EmissionsReductionStatistics build(java.util.Map<String, ?> map) throws Exception {
         EmissionsReductionStatistics self = new EmissionsReductionStatistics();
         return TeaModel.build(map, self);
     }
 
-    public EmissionsReductionStatistics setReductionType(String reductionType) {
-        this.reductionType = reductionType;
+    public EmissionsReductionStatistics setReductionMethod(String reductionMethod) {
+        this.reductionMethod = reductionMethod;
         return this;
     }
-    public String getReductionType() {
-        return this.reductionType;
+    public String getReductionMethod() {
+        return this.reductionMethod;
     }
 
-    public EmissionsReductionStatistics setReductionMeasureName(String reductionMeasureName) {
-        this.reductionMeasureName = reductionMeasureName;
+    public EmissionsReductionStatistics setReductionMethodName(String reductionMethodName) {
+        this.reductionMethodName = reductionMethodName;
         return this;
     }
-    public String getReductionMeasureName() {
-        return this.reductionMeasureName;
+    public String getReductionMethodName() {
+        return this.reductionMethodName;
     }
 
-    public EmissionsReductionStatistics setReductionProposalNo(String reductionProposalNo) {
-        this.reductionProposalNo = reductionProposalNo;
+    public EmissionsReductionStatistics setReductionAmount(Long reductionAmount) {
+        this.reductionAmount = reductionAmount;
         return this;
     }
-    public String getReductionProposalNo() {
-        return this.reductionProposalNo;
+    public Long getReductionAmount() {
+        return this.reductionAmount;
     }
 
-    public EmissionsReductionStatistics setReductionEmissions(Long reductionEmissions) {
-        this.reductionEmissions = reductionEmissions;
+    public EmissionsReductionStatistics setReductionRatio(Long reductionRatio) {
+        this.reductionRatio = reductionRatio;
         return this;
     }
-    public Long getReductionEmissions() {
-        return this.reductionEmissions;
+    public Long getReductionRatio() {
+        return this.reductionRatio;
     }
 
-    public EmissionsReductionStatistics setUnit(String unit) {
-        this.unit = unit;
+    public EmissionsReductionStatistics setDataUnit(String dataUnit) {
+        this.dataUnit = dataUnit;
         return this;
     }
-    public String getUnit() {
-        return this.unit;
+    public String getDataUnit() {
+        return this.dataUnit;
     }
 
 }

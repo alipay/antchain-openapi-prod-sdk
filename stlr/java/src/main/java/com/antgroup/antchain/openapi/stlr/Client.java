@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0")
+                    new TeaPair("sdk_version", "2.1.0"),
+                    new TeaPair("_prod_code", "STLR"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -255,6 +257,120 @@ public class Client {
     }
 
     /**
+     * Description: 碳总量查询
+     * Summary: 碳总量查询
+     */
+    public QueryEmissionTotalResponse queryEmissionTotal(QueryEmissionTotalRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionTotalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳总量查询
+     * Summary: 碳总量查询
+     */
+    public QueryEmissionTotalResponse queryEmissionTotalEx(QueryEmissionTotalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.total.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionTotalResponse());
+    }
+
+    /**
+     * Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计
+     */
+    public QueryEmissionGroupbycategoryResponse queryEmissionGroupbycategory(QueryEmissionGroupbycategoryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionGroupbycategoryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计
+     */
+    public QueryEmissionGroupbycategoryResponse queryEmissionGroupbycategoryEx(QueryEmissionGroupbycategoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.groupbycategory.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionGroupbycategoryResponse());
+    }
+
+    /**
+     * Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计
+     */
+    public QueryEmissionGroupbylocationResponse queryEmissionGroupbylocation(QueryEmissionGroupbylocationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionGroupbylocationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计
+     */
+    public QueryEmissionGroupbylocationResponse queryEmissionGroupbylocationEx(QueryEmissionGroupbylocationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.groupbylocation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionGroupbylocationResponse());
+    }
+
+    /**
+     * Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计
+     */
+    public QueryEmissionGroupbycityResponse queryEmissionGroupbycity(QueryEmissionGroupbycityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionGroupbycityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计
+     */
+    public QueryEmissionGroupbycityResponse queryEmissionGroupbycityEx(QueryEmissionGroupbycityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.groupbycity.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionGroupbycityResponse());
+    }
+
+    /**
+     * Description: 减排统计查询
+     * Summary: 减排统计查询
+     */
+    public QueryEmissionReductionResponse queryEmissionReduction(QueryEmissionReductionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionReductionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 减排统计查询
+     * Summary: 减排统计查询
+     */
+    public QueryEmissionReductionResponse queryEmissionReductionEx(QueryEmissionReductionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.reduction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionReductionResponse());
+    }
+
+    /**
+     * Description: 碳抵消量统计
+     * Summary: 碳抵消量统计
+     */
+    public QueryEmissionCounteractionResponse queryEmissionCounteraction(QueryEmissionCounteractionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEmissionCounteractionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳抵消量统计
+     * Summary: 碳抵消量统计
+     */
+    public QueryEmissionCounteractionResponse queryEmissionCounteractionEx(QueryEmissionCounteractionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.emission.counteraction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEmissionCounteractionResponse());
+    }
+
+    /**
      * Description: 账户开通接口。开通协作平台和链上账户
      * Summary: 账户开通接口
      */
@@ -328,6 +444,25 @@ public class Client {
     public GetPdcpBlockchainResponse getPdcpBlockchainEx(GetPdcpBlockchainRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.blockchain.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetPdcpBlockchainResponse());
+    }
+
+    /**
+     * Description: 链上账户查询接口
+     * Summary: 链上账户查询接口
+     */
+    public QueryPdcpAccountResponse queryPdcpAccount(QueryPdcpAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 链上账户查询接口
+     * Summary: 链上账户查询接口
+     */
+    public QueryPdcpAccountResponse queryPdcpAccountEx(QueryPdcpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpAccountResponse());
     }
 
     /**

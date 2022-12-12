@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.stlr.models;
 
 import com.aliyun.tea.*;
 
-public class RegisterPdcpAccountResponse extends TeaModel {
+public class QueryEmissionGroupbycategoryResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class RegisterPdcpAccountResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 账户开通结果
-    @NameInMap("carbon_account_info")
-    public AccountRegisterResponse carbonAccountInfo;
+    // 按照排放类型分组统计的排放量结果列表
+    @NameInMap("list")
+    public java.util.List<EmissionsCategoryStatistics> list;
 
-    public static RegisterPdcpAccountResponse build(java.util.Map<String, ?> map) throws Exception {
-        RegisterPdcpAccountResponse self = new RegisterPdcpAccountResponse();
+    public static QueryEmissionGroupbycategoryResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryEmissionGroupbycategoryResponse self = new QueryEmissionGroupbycategoryResponse();
         return TeaModel.build(map, self);
     }
 
-    public RegisterPdcpAccountResponse setReqMsgId(String reqMsgId) {
+    public QueryEmissionGroupbycategoryResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public RegisterPdcpAccountResponse setResultCode(String resultCode) {
+    public QueryEmissionGroupbycategoryResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public RegisterPdcpAccountResponse setResultMsg(String resultMsg) {
+    public QueryEmissionGroupbycategoryResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class RegisterPdcpAccountResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public RegisterPdcpAccountResponse setCarbonAccountInfo(AccountRegisterResponse carbonAccountInfo) {
-        this.carbonAccountInfo = carbonAccountInfo;
+    public QueryEmissionGroupbycategoryResponse setList(java.util.List<EmissionsCategoryStatistics> list) {
+        this.list = list;
         return this;
     }
-    public AccountRegisterResponse getCarbonAccountInfo() {
-        return this.carbonAccountInfo;
+    public java.util.List<EmissionsCategoryStatistics> getList() {
+        return this.list;
     }
 
 }
