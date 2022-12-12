@@ -182,7 +182,11 @@ type EmissionsCategoryStatistics struct {
 	// 排放类型名称
 	EmissionCategoryName *string `json:"emission_category_name,omitempty" xml:"emission_category_name,omitempty" require:"true"`
 	// 排放量
-	Emissions *int64 `json:"emissions,omitempty" xml:"emissions,omitempty" require:"true"`
+	Emission *int64 `json:"emission,omitempty" xml:"emission,omitempty" require:"true"`
+	// 排放占比，可直接换算成百分数即为百分占比
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 排放量单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
 }
 
 func (s EmissionsCategoryStatistics) String() string {
@@ -203,8 +207,18 @@ func (s *EmissionsCategoryStatistics) SetEmissionCategoryName(v string) *Emissio
 	return s
 }
 
-func (s *EmissionsCategoryStatistics) SetEmissions(v int64) *EmissionsCategoryStatistics {
-	s.Emissions = &v
+func (s *EmissionsCategoryStatistics) SetEmission(v int64) *EmissionsCategoryStatistics {
+	s.Emission = &v
+	return s
+}
+
+func (s *EmissionsCategoryStatistics) SetRate(v int64) *EmissionsCategoryStatistics {
+	s.Rate = &v
+	return s
+}
+
+func (s *EmissionsCategoryStatistics) SetUnit(v string) *EmissionsCategoryStatistics {
+	s.Unit = &v
 	return s
 }
 
@@ -393,16 +407,16 @@ func (s *GreenOperationStatisticsByType) SetGreenOperationRecords(v int64) *Gree
 
 // 减排情况统计
 type EmissionsReductionStatistics struct {
-	// 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-	ReductionType *string `json:"reduction_type,omitempty" xml:"reduction_type,omitempty" require:"true"`
-	// 减排措施名称
-	ReductionMeasureName *string `json:"reduction_measure_name,omitempty" xml:"reduction_measure_name,omitempty" require:"true"`
-	// 减排方案编码
-	ReductionProposalNo *string `json:"reduction_proposal_no,omitempty" xml:"reduction_proposal_no,omitempty" require:"true"`
+	// 减排方法
+	ReductionMethod *string `json:"reduction_method,omitempty" xml:"reduction_method,omitempty" require:"true"`
+	// 减排方法名称
+	ReductionMethodName *string `json:"reduction_method_name,omitempty" xml:"reduction_method_name,omitempty" require:"true"`
 	// 减排量
-	ReductionEmissions *int64 `json:"reduction_emissions,omitempty" xml:"reduction_emissions,omitempty" require:"true"`
+	ReductionAmount *int64 `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
+	// 减排量占比
+	ReductionRatio *int64 `json:"reduction_ratio,omitempty" xml:"reduction_ratio,omitempty" require:"true"`
 	// 减排量单位
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
 
 func (s EmissionsReductionStatistics) String() string {
@@ -413,28 +427,28 @@ func (s EmissionsReductionStatistics) GoString() string {
 	return s.String()
 }
 
-func (s *EmissionsReductionStatistics) SetReductionType(v string) *EmissionsReductionStatistics {
-	s.ReductionType = &v
+func (s *EmissionsReductionStatistics) SetReductionMethod(v string) *EmissionsReductionStatistics {
+	s.ReductionMethod = &v
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetReductionMeasureName(v string) *EmissionsReductionStatistics {
-	s.ReductionMeasureName = &v
+func (s *EmissionsReductionStatistics) SetReductionMethodName(v string) *EmissionsReductionStatistics {
+	s.ReductionMethodName = &v
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetReductionProposalNo(v string) *EmissionsReductionStatistics {
-	s.ReductionProposalNo = &v
+func (s *EmissionsReductionStatistics) SetReductionAmount(v int64) *EmissionsReductionStatistics {
+	s.ReductionAmount = &v
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetReductionEmissions(v int64) *EmissionsReductionStatistics {
-	s.ReductionEmissions = &v
+func (s *EmissionsReductionStatistics) SetReductionRatio(v int64) *EmissionsReductionStatistics {
+	s.ReductionRatio = &v
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetUnit(v string) *EmissionsReductionStatistics {
-	s.Unit = &v
+func (s *EmissionsReductionStatistics) SetDataUnit(v string) *EmissionsReductionStatistics {
+	s.DataUnit = &v
 	return s
 }
 
@@ -461,6 +475,46 @@ func (s *DailyEmissions) SetDate(v string) *DailyEmissions {
 
 func (s *DailyEmissions) SetValue(v int64) *DailyEmissions {
 	s.Value = &v
+	return s
+}
+
+// 碳抵消统计量
+type EmissionCounteractionStatistics struct {
+	// 碳抵消类别
+	AssertType *string `json:"assert_type,omitempty" xml:"assert_type,omitempty" require:"true"`
+	// 碳抵消类别名称
+	AssertTypeName *string `json:"assert_type_name,omitempty" xml:"assert_type_name,omitempty" require:"true"`
+	// 抵消量
+	CounteractionAmount *int64 `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	// 排放量单位，默认为：tCO2e
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
+}
+
+func (s EmissionCounteractionStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionCounteractionStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionCounteractionStatistics) SetAssertType(v string) *EmissionCounteractionStatistics {
+	s.AssertType = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetAssertTypeName(v string) *EmissionCounteractionStatistics {
+	s.AssertTypeName = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetCounteractionAmount(v int64) *EmissionCounteractionStatistics {
+	s.CounteractionAmount = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounteractionStatistics {
+	s.DataUnit = &v
 	return s
 }
 
@@ -575,6 +629,81 @@ func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
 	return s
 }
 
+// 碳排放分城市统计总量
+type EmissionsCityStatistics struct {
+	// 城市编码
+	CityNo *string `json:"city_no,omitempty" xml:"city_no,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+	// 累计排放量
+	EmissionAmount *int64 `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 今日新增碳排放量
+	EmissionAmountToday *int64 `json:"emission_amount_today,omitempty" xml:"emission_amount_today,omitempty" require:"true"`
+	// 总减碳量
+	ReductionAmount *int64 `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
+	// 今日减碳量
+	ReductionAmountToday *int64 `json:"reduction_amount_today,omitempty" xml:"reduction_amount_today,omitempty" require:"true"`
+	// 总抵消量
+	CounteractionAmount *int64 `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	// 今日抵消量
+	CounteractionAmountToday *int64 `json:"counteraction_amount_today,omitempty" xml:"counteraction_amount_today,omitempty" require:"true"`
+	// 排放量单位，默认为：
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
+}
+
+func (s EmissionsCityStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionsCityStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionsCityStatistics) SetCityNo(v string) *EmissionsCityStatistics {
+	s.CityNo = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCityName(v string) *EmissionsCityStatistics {
+	s.CityName = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetEmissionAmount(v int64) *EmissionsCityStatistics {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetEmissionAmountToday(v int64) *EmissionsCityStatistics {
+	s.EmissionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetReductionAmount(v int64) *EmissionsCityStatistics {
+	s.ReductionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetReductionAmountToday(v int64) *EmissionsCityStatistics {
+	s.ReductionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCounteractionAmount(v int64) *EmissionsCityStatistics {
+	s.CounteractionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCounteractionAmountToday(v int64) *EmissionsCityStatistics {
+	s.CounteractionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetDataUnit(v string) *EmissionsCityStatistics {
+	s.DataUnit = &v
+	return s
+}
+
 // 数据值条目
 type AnyAmountItem struct {
 	// 数据项编码
@@ -645,6 +774,46 @@ func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatist
 
 func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
 	s.CategoryEmissionsList = v
+	return s
+}
+
+// 碳排放分单元统计总量
+type EmissionsLocationStatistics struct {
+	// 盘查单元编码
+	LocationNo *string `json:"location_no,omitempty" xml:"location_no,omitempty" require:"true"`
+	// 盘查单元名称
+	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
+	// 盘查单元排放量
+	EmissionAmount *int64 `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 排放量单位，默认为：tCO2e
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
+}
+
+func (s EmissionsLocationStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionsLocationStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionsLocationStatistics) SetLocationNo(v string) *EmissionsLocationStatistics {
+	s.LocationNo = &v
+	return s
+}
+
+func (s *EmissionsLocationStatistics) SetLocationName(v string) *EmissionsLocationStatistics {
+	s.LocationName = &v
+	return s
+}
+
+func (s *EmissionsLocationStatistics) SetEmissionAmount(v int64) *EmissionsLocationStatistics {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *EmissionsLocationStatistics) SetDataUnit(v string) *EmissionsLocationStatistics {
+	s.DataUnit = &v
 	return s
 }
 
@@ -1322,6 +1491,468 @@ func (s *DescribeAcarLastemissiondataResponse) SetDataEntryType(v string) *Descr
 	return s
 }
 
+type QueryEmissionTotalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionTotalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionTotalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionTotalRequest) SetAuthToken(v string) *QueryEmissionTotalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionTotalRequest) SetProductInstanceId(v string) *QueryEmissionTotalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionTotalRequest) SetActivityNo(v string) *QueryEmissionTotalRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionTotalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 累计排放量
+	TotalEmission *int64 `json:"total_emission,omitempty" xml:"total_emission,omitempty"`
+	// 今日新增碳排放量
+	TotalEmissionToday *int64 `json:"total_emission_today,omitempty" xml:"total_emission_today,omitempty"`
+	// 累计减碳量
+	TotalReduction *int64 `json:"total_reduction,omitempty" xml:"total_reduction,omitempty"`
+	// 今日减碳量
+	TotalReductionToday *int64 `json:"total_reduction_today,omitempty" xml:"total_reduction_today,omitempty"`
+	// 累计抵消量
+	TotalCounteraction *int64 `json:"total_counteraction,omitempty" xml:"total_counteraction,omitempty"`
+	// 今日抵消量
+	TotalCounteractionToday *int64 `json:"total_counteraction_today,omitempty" xml:"total_counteraction_today,omitempty"`
+	// 排放数据单位
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty"`
+}
+
+func (s QueryEmissionTotalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionTotalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionTotalResponse) SetReqMsgId(v string) *QueryEmissionTotalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetResultCode(v string) *QueryEmissionTotalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetResultMsg(v string) *QueryEmissionTotalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalEmission(v int64) *QueryEmissionTotalResponse {
+	s.TotalEmission = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalEmissionToday(v int64) *QueryEmissionTotalResponse {
+	s.TotalEmissionToday = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalReduction(v int64) *QueryEmissionTotalResponse {
+	s.TotalReduction = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalReductionToday(v int64) *QueryEmissionTotalResponse {
+	s.TotalReductionToday = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalCounteraction(v int64) *QueryEmissionTotalResponse {
+	s.TotalCounteraction = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetTotalCounteractionToday(v int64) *QueryEmissionTotalResponse {
+	s.TotalCounteractionToday = &v
+	return s
+}
+
+func (s *QueryEmissionTotalResponse) SetDataUnit(v string) *QueryEmissionTotalResponse {
+	s.DataUnit = &v
+	return s
+}
+
+type QueryEmissionGroupbycategoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionGroupbycategoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbycategoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbycategoryRequest) SetAuthToken(v string) *QueryEmissionGroupbycategoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycategoryRequest) SetProductInstanceId(v string) *QueryEmissionGroupbycategoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycategoryRequest) SetActivityNo(v string) *QueryEmissionGroupbycategoryRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionGroupbycategoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 按照排放类型分组统计的排放量结果列表
+	List []*EmissionsCategoryStatistics `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEmissionGroupbycategoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbycategoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbycategoryResponse) SetReqMsgId(v string) *QueryEmissionGroupbycategoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycategoryResponse) SetResultCode(v string) *QueryEmissionGroupbycategoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycategoryResponse) SetResultMsg(v string) *QueryEmissionGroupbycategoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycategoryResponse) SetList(v []*EmissionsCategoryStatistics) *QueryEmissionGroupbycategoryResponse {
+	s.List = v
+	return s
+}
+
+type QueryEmissionGroupbylocationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionGroupbylocationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbylocationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbylocationRequest) SetAuthToken(v string) *QueryEmissionGroupbylocationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbylocationRequest) SetProductInstanceId(v string) *QueryEmissionGroupbylocationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbylocationRequest) SetActivityNo(v string) *QueryEmissionGroupbylocationRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionGroupbylocationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 按照排放单元分组统计的碳排放量列表
+	List []*EmissionsLocationStatistics `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEmissionGroupbylocationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbylocationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbylocationResponse) SetReqMsgId(v string) *QueryEmissionGroupbylocationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbylocationResponse) SetResultCode(v string) *QueryEmissionGroupbylocationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbylocationResponse) SetResultMsg(v string) *QueryEmissionGroupbylocationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbylocationResponse) SetList(v []*EmissionsLocationStatistics) *QueryEmissionGroupbylocationResponse {
+	s.List = v
+	return s
+}
+
+type QueryEmissionGroupbycityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionGroupbycityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbycityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbycityRequest) SetAuthToken(v string) *QueryEmissionGroupbycityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycityRequest) SetProductInstanceId(v string) *QueryEmissionGroupbycityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycityRequest) SetActivityNo(v string) *QueryEmissionGroupbycityRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionGroupbycityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 按城市分组统计的碳排放量列表
+	List []*EmissionsCityStatistics `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEmissionGroupbycityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionGroupbycityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionGroupbycityResponse) SetReqMsgId(v string) *QueryEmissionGroupbycityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycityResponse) SetResultCode(v string) *QueryEmissionGroupbycityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycityResponse) SetResultMsg(v string) *QueryEmissionGroupbycityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionGroupbycityResponse) SetList(v []*EmissionsCityStatistics) *QueryEmissionGroupbycityResponse {
+	s.List = v
+	return s
+}
+
+type QueryEmissionReductionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionReductionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionReductionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionReductionRequest) SetAuthToken(v string) *QueryEmissionReductionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionReductionRequest) SetProductInstanceId(v string) *QueryEmissionReductionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionReductionRequest) SetActivityNo(v string) *QueryEmissionReductionRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionReductionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 减排量按减排方法分组统计
+	List []*EmissionsReductionStatistics `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEmissionReductionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionReductionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionReductionResponse) SetReqMsgId(v string) *QueryEmissionReductionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionReductionResponse) SetResultCode(v string) *QueryEmissionReductionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionReductionResponse) SetResultMsg(v string) *QueryEmissionReductionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionReductionResponse) SetList(v []*EmissionsReductionStatistics) *QueryEmissionReductionResponse {
+	s.List = v
+	return s
+}
+
+type QueryEmissionCounteractionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活动编码
+	ActivityNo *string `json:"activity_no,omitempty" xml:"activity_no,omitempty" require:"true"`
+}
+
+func (s QueryEmissionCounteractionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionCounteractionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionCounteractionRequest) SetAuthToken(v string) *QueryEmissionCounteractionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEmissionCounteractionRequest) SetProductInstanceId(v string) *QueryEmissionCounteractionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEmissionCounteractionRequest) SetActivityNo(v string) *QueryEmissionCounteractionRequest {
+	s.ActivityNo = &v
+	return s
+}
+
+type QueryEmissionCounteractionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 碳抵消量按抵消类型分组统计
+	List []*EmissionCounteractionStatistics `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEmissionCounteractionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEmissionCounteractionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEmissionCounteractionResponse) SetReqMsgId(v string) *QueryEmissionCounteractionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEmissionCounteractionResponse) SetResultCode(v string) *QueryEmissionCounteractionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEmissionCounteractionResponse) SetResultMsg(v string) *QueryEmissionCounteractionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEmissionCounteractionResponse) SetList(v []*EmissionCounteractionStatistics) *QueryEmissionCounteractionResponse {
+	s.List = v
+	return s
+}
+
 type RegisterPdcpAccountRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1392,7 +2023,7 @@ type RegisterPdcpAccountResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 账户开通结果
-	Data *AccountRegisterResponse `json:"data,omitempty" xml:"data,omitempty"`
+	CarbonAccountInfo *AccountRegisterResponse `json:"carbon_account_info,omitempty" xml:"carbon_account_info,omitempty"`
 }
 
 func (s RegisterPdcpAccountResponse) String() string {
@@ -1418,8 +2049,8 @@ func (s *RegisterPdcpAccountResponse) SetResultMsg(v string) *RegisterPdcpAccoun
 	return s
 }
 
-func (s *RegisterPdcpAccountResponse) SetData(v *AccountRegisterResponse) *RegisterPdcpAccountResponse {
-	s.Data = v
+func (s *RegisterPdcpAccountResponse) SetCarbonAccountInfo(v *AccountRegisterResponse) *RegisterPdcpAccountResponse {
+	s.CarbonAccountInfo = v
 	return s
 }
 
@@ -1679,6 +2310,76 @@ func (s *GetPdcpBlockchainResponse) SetResultMsg(v string) *GetPdcpBlockchainRes
 
 func (s *GetPdcpBlockchainResponse) SetTxData(v *BlockchainDTO) *GetPdcpBlockchainResponse {
 	s.TxData = v
+	return s
+}
+
+type QueryPdcpAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryPdcpAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpAccountRequest) SetAuthToken(v string) *QueryPdcpAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpAccountRequest) SetProductInstanceId(v string) *QueryPdcpAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpAccountRequest) SetUserId(v string) *QueryPdcpAccountRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryPdcpAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 开户结果
+	CarbonAccountInfo *AccountRegisterResponse `json:"carbon_account_info,omitempty" xml:"carbon_account_info,omitempty"`
+}
+
+func (s QueryPdcpAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpAccountResponse) SetReqMsgId(v string) *QueryPdcpAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpAccountResponse) SetResultCode(v string) *QueryPdcpAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpAccountResponse) SetResultMsg(v string) *QueryPdcpAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpAccountResponse) SetCarbonAccountInfo(v *AccountRegisterResponse) *QueryPdcpAccountResponse {
+	s.CarbonAccountInfo = v
 	return s
 }
 
@@ -2940,7 +3641,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("2.1.0"),
+				"_prod_code":       tea.String("STLR"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3167,6 +3870,210 @@ func (client *Client) DescribeAcarLastemissiondataEx(request *DescribeAcarLastem
 }
 
 /**
+ * Description: 碳总量查询
+ * Summary: 碳总量查询
+ */
+func (client *Client) QueryEmissionTotal(request *QueryEmissionTotalRequest) (_result *QueryEmissionTotalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionTotalResponse{}
+	_body, _err := client.QueryEmissionTotalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳总量查询
+ * Summary: 碳总量查询
+ */
+func (client *Client) QueryEmissionTotalEx(request *QueryEmissionTotalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionTotalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionTotalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.total.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分类统计
+ * Summary: 碳排放总量分类统计
+ */
+func (client *Client) QueryEmissionGroupbycategory(request *QueryEmissionGroupbycategoryRequest) (_result *QueryEmissionGroupbycategoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionGroupbycategoryResponse{}
+	_body, _err := client.QueryEmissionGroupbycategoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分类统计
+ * Summary: 碳排放总量分类统计
+ */
+func (client *Client) QueryEmissionGroupbycategoryEx(request *QueryEmissionGroupbycategoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionGroupbycategoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionGroupbycategoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.groupbycategory.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分单元统计
+ * Summary: 碳排放总量分单元统计
+ */
+func (client *Client) QueryEmissionGroupbylocation(request *QueryEmissionGroupbylocationRequest) (_result *QueryEmissionGroupbylocationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionGroupbylocationResponse{}
+	_body, _err := client.QueryEmissionGroupbylocationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分单元统计
+ * Summary: 碳排放总量分单元统计
+ */
+func (client *Client) QueryEmissionGroupbylocationEx(request *QueryEmissionGroupbylocationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionGroupbylocationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionGroupbylocationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.groupbylocation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分城市统计
+ * Summary: 碳排放总量分城市统计
+ */
+func (client *Client) QueryEmissionGroupbycity(request *QueryEmissionGroupbycityRequest) (_result *QueryEmissionGroupbycityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionGroupbycityResponse{}
+	_body, _err := client.QueryEmissionGroupbycityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳排放总量分城市统计
+ * Summary: 碳排放总量分城市统计
+ */
+func (client *Client) QueryEmissionGroupbycityEx(request *QueryEmissionGroupbycityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionGroupbycityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionGroupbycityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.groupbycity.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 减排统计查询
+ * Summary: 减排统计查询
+ */
+func (client *Client) QueryEmissionReduction(request *QueryEmissionReductionRequest) (_result *QueryEmissionReductionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionReductionResponse{}
+	_body, _err := client.QueryEmissionReductionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 减排统计查询
+ * Summary: 减排统计查询
+ */
+func (client *Client) QueryEmissionReductionEx(request *QueryEmissionReductionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionReductionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionReductionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.reduction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碳抵消量统计
+ * Summary: 碳抵消量统计
+ */
+func (client *Client) QueryEmissionCounteraction(request *QueryEmissionCounteractionRequest) (_result *QueryEmissionCounteractionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEmissionCounteractionResponse{}
+	_body, _err := client.QueryEmissionCounteractionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳抵消量统计
+ * Summary: 碳抵消量统计
+ */
+func (client *Client) QueryEmissionCounteractionEx(request *QueryEmissionCounteractionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEmissionCounteractionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEmissionCounteractionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.emission.counteraction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 账户开通接口。开通协作平台和链上账户
  * Summary: 账户开通接口
  */
@@ -3295,6 +4202,40 @@ func (client *Client) GetPdcpBlockchainEx(request *GetPdcpBlockchainRequest, hea
 	}
 	_result = &GetPdcpBlockchainResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.blockchain.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 链上账户查询接口
+ * Summary: 链上账户查询接口
+ */
+func (client *Client) QueryPdcpAccount(request *QueryPdcpAccountRequest) (_result *QueryPdcpAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpAccountResponse{}
+	_body, _err := client.QueryPdcpAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 链上账户查询接口
+ * Summary: 链上账户查询接口
+ */
+func (client *Client) QueryPdcpAccountEx(request *QueryPdcpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

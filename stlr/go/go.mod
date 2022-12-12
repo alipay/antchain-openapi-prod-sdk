@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/stlr
+module github.com/antchain-openapi-sdk-go/stlr/v2
 
 go 1.15
 
