@@ -6,7 +6,7 @@ namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterPdcpAccountResponse extends Model
+class QueryEmissionCounteractionResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class RegisterPdcpAccountResponse extends Model
      */
     public $resultMsg;
 
-    // 账户开通结果
+    // 碳抵消量按抵消类型分组统计
     /**
-     * @var AccountRegisterResponse
+     * @var EmissionCounteractionStatistics[]
      */
-    public $carbonAccountInfo;
+    public $list;
     protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'carbonAccountInfo' => 'carbon_account_info',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'list'       => 'list',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class RegisterPdcpAccountResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->carbonAccountInfo) {
-            $res['carbon_account_info'] = null !== $this->carbonAccountInfo ? $this->carbonAccountInfo->toMap() : null;
+        if (null !== $this->list) {
+            $res['list'] = [];
+            if (null !== $this->list && \is_array($this->list)) {
+                $n = 0;
+                foreach ($this->list as $item) {
+                    $res['list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class RegisterPdcpAccountResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterPdcpAccountResponse
+     * @return QueryEmissionCounteractionResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class RegisterPdcpAccountResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['carbon_account_info'])) {
-            $model->carbonAccountInfo = AccountRegisterResponse::fromMap($map['carbon_account_info']);
+        if (isset($map['list'])) {
+            if (!empty($map['list'])) {
+                $model->list = [];
+                $n           = 0;
+                foreach ($map['list'] as $item) {
+                    $model->list[$n++] = null !== $item ? EmissionCounteractionStatistics::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

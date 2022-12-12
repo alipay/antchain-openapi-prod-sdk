@@ -41,6 +41,20 @@ use AntChain\STLR\Models\PreviewEcarAvitivedataRequest;
 use AntChain\STLR\Models\PreviewEcarAvitivedataResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
+use AntChain\STLR\Models\QueryEmissionCounteractionRequest;
+use AntChain\STLR\Models\QueryEmissionCounteractionResponse;
+use AntChain\STLR\Models\QueryEmissionGroupbycategoryRequest;
+use AntChain\STLR\Models\QueryEmissionGroupbycategoryResponse;
+use AntChain\STLR\Models\QueryEmissionGroupbycityRequest;
+use AntChain\STLR\Models\QueryEmissionGroupbycityResponse;
+use AntChain\STLR\Models\QueryEmissionGroupbylocationRequest;
+use AntChain\STLR\Models\QueryEmissionGroupbylocationResponse;
+use AntChain\STLR\Models\QueryEmissionReductionRequest;
+use AntChain\STLR\Models\QueryEmissionReductionResponse;
+use AntChain\STLR\Models\QueryEmissionTotalRequest;
+use AntChain\STLR\Models\QueryEmissionTotalResponse;
+use AntChain\STLR\Models\QueryPdcpAccountRequest;
+use AntChain\STLR\Models\QueryPdcpAccountResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\STLR\Models\RegisterPdcpAccountRequest;
@@ -196,7 +210,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.0',
+                    'sdk_version'      => '2.1.0',
+                    '_prod_code'       => 'STLR',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -408,6 +424,204 @@ class Client
     }
 
     /**
+     * Description: 碳总量查询
+     * Summary: 碳总量查询.
+     *
+     * @param QueryEmissionTotalRequest $request
+     *
+     * @return QueryEmissionTotalResponse
+     */
+    public function queryEmissionTotal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionTotalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳总量查询
+     * Summary: 碳总量查询.
+     *
+     * @param QueryEmissionTotalRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryEmissionTotalResponse
+     */
+    public function queryEmissionTotalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionTotalResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.total.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计
+     *
+     * @param QueryEmissionGroupbycategoryRequest $request
+     *
+     * @return QueryEmissionGroupbycategoryResponse
+     */
+    public function queryEmissionGroupbycategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionGroupbycategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分类统计
+     * Summary: 碳排放总量分类统计
+     *
+     * @param QueryEmissionGroupbycategoryRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryEmissionGroupbycategoryResponse
+     */
+    public function queryEmissionGroupbycategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionGroupbycategoryResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.groupbycategory.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计
+     *
+     * @param QueryEmissionGroupbylocationRequest $request
+     *
+     * @return QueryEmissionGroupbylocationResponse
+     */
+    public function queryEmissionGroupbylocation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionGroupbylocationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分单元统计
+     * Summary: 碳排放总量分单元统计
+     *
+     * @param QueryEmissionGroupbylocationRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryEmissionGroupbylocationResponse
+     */
+    public function queryEmissionGroupbylocationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionGroupbylocationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.groupbylocation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计
+     *
+     * @param QueryEmissionGroupbycityRequest $request
+     *
+     * @return QueryEmissionGroupbycityResponse
+     */
+    public function queryEmissionGroupbycity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionGroupbycityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳排放总量分城市统计
+     * Summary: 碳排放总量分城市统计
+     *
+     * @param QueryEmissionGroupbycityRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryEmissionGroupbycityResponse
+     */
+    public function queryEmissionGroupbycityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionGroupbycityResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.groupbycity.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 减排统计查询
+     * Summary: 减排统计查询.
+     *
+     * @param QueryEmissionReductionRequest $request
+     *
+     * @return QueryEmissionReductionResponse
+     */
+    public function queryEmissionReduction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionReductionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 减排统计查询
+     * Summary: 减排统计查询.
+     *
+     * @param QueryEmissionReductionRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryEmissionReductionResponse
+     */
+    public function queryEmissionReductionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionReductionResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.reduction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳抵消量统计
+     * Summary: 碳抵消量统计
+     *
+     * @param QueryEmissionCounteractionRequest $request
+     *
+     * @return QueryEmissionCounteractionResponse
+     */
+    public function queryEmissionCounteraction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmissionCounteractionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳抵消量统计
+     * Summary: 碳抵消量统计
+     *
+     * @param QueryEmissionCounteractionRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryEmissionCounteractionResponse
+     */
+    public function queryEmissionCounteractionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmissionCounteractionResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.emission.counteraction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 账户开通接口。开通协作平台和链上账户
      * Summary: 账户开通接口.
      *
@@ -537,6 +751,39 @@ class Client
         Utils::validateModel($request);
 
         return GetPdcpBlockchainResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.blockchain.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 链上账户查询接口
+     * Summary: 链上账户查询接口.
+     *
+     * @param QueryPdcpAccountRequest $request
+     *
+     * @return QueryPdcpAccountResponse
+     */
+    public function queryPdcpAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 链上账户查询接口
+     * Summary: 链上账户查询接口.
+     *
+     * @param QueryPdcpAccountRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryPdcpAccountResponse
+     */
+    public function queryPdcpAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpAccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

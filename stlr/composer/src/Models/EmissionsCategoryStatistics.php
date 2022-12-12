@@ -30,18 +30,38 @@ class EmissionsCategoryStatistics extends Model
      *
      * @var int
      */
-    public $emissions;
+    public $emission;
+
+    // 排放占比，可直接换算成百分数即为百分占比
+    /**
+     * @example 0.56
+     *
+     * @var int
+     */
+    public $rate;
+
+    // 排放量单位
+    /**
+     * @example tCO2e
+     *
+     * @var string
+     */
+    public $unit;
     protected $_name = [
         'emissionDategoryNo'   => 'emission_dategory_no',
         'emissionCategoryName' => 'emission_category_name',
-        'emissions'            => 'emissions',
+        'emission'             => 'emission',
+        'rate'                 => 'rate',
+        'unit'                 => 'unit',
     ];
 
     public function validate()
     {
         Model::validateRequired('emissionDategoryNo', $this->emissionDategoryNo, true);
         Model::validateRequired('emissionCategoryName', $this->emissionCategoryName, true);
-        Model::validateRequired('emissions', $this->emissions, true);
+        Model::validateRequired('emission', $this->emission, true);
+        Model::validateRequired('rate', $this->rate, true);
+        Model::validateRequired('unit', $this->unit, true);
     }
 
     public function toMap()
@@ -53,8 +73,14 @@ class EmissionsCategoryStatistics extends Model
         if (null !== $this->emissionCategoryName) {
             $res['emission_category_name'] = $this->emissionCategoryName;
         }
-        if (null !== $this->emissions) {
-            $res['emissions'] = $this->emissions;
+        if (null !== $this->emission) {
+            $res['emission'] = $this->emission;
+        }
+        if (null !== $this->rate) {
+            $res['rate'] = $this->rate;
+        }
+        if (null !== $this->unit) {
+            $res['unit'] = $this->unit;
         }
 
         return $res;
@@ -74,8 +100,14 @@ class EmissionsCategoryStatistics extends Model
         if (isset($map['emission_category_name'])) {
             $model->emissionCategoryName = $map['emission_category_name'];
         }
-        if (isset($map['emissions'])) {
-            $model->emissions = $map['emissions'];
+        if (isset($map['emission'])) {
+            $model->emission = $map['emission'];
+        }
+        if (isset($map['rate'])) {
+            $model->rate = $map['rate'];
+        }
+        if (isset($map['unit'])) {
+            $model->unit = $map['unit'];
         }
 
         return $model;

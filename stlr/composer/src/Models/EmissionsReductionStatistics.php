@@ -8,29 +8,21 @@ use AlibabaCloud\Tea\Model;
 
 class EmissionsReductionStatistics extends Model
 {
-    // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
+    // 减排方法
     /**
      * @example EnergySubstitution
      *
      * @var string
      */
-    public $reductionType;
+    public $reductionMethod;
 
-    // 减排措施名称
+    // 减排方法名称
     /**
      * @example 使用绿电
      *
      * @var string
      */
-    public $reductionMeasureName;
-
-    // 减排方案编码
-    /**
-     * @example 202109111231231231232
-     *
-     * @var string
-     */
-    public $reductionProposalNo;
+    public $reductionMethodName;
 
     // 减排量
     /**
@@ -38,7 +30,15 @@ class EmissionsReductionStatistics extends Model
      *
      * @var int
      */
-    public $reductionEmissions;
+    public $reductionAmount;
+
+    // 减排量占比
+    /**
+     * @example 0.22
+     *
+     * @var int
+     */
+    public $reductionRatio;
 
     // 减排量单位
     /**
@@ -46,41 +46,41 @@ class EmissionsReductionStatistics extends Model
      *
      * @var string
      */
-    public $unit;
+    public $dataUnit;
     protected $_name = [
-        'reductionType'        => 'reduction_type',
-        'reductionMeasureName' => 'reduction_measure_name',
-        'reductionProposalNo'  => 'reduction_proposal_no',
-        'reductionEmissions'   => 'reduction_emissions',
-        'unit'                 => 'unit',
+        'reductionMethod'     => 'reduction_method',
+        'reductionMethodName' => 'reduction_method_name',
+        'reductionAmount'     => 'reduction_amount',
+        'reductionRatio'      => 'reduction_ratio',
+        'dataUnit'            => 'data_unit',
     ];
 
     public function validate()
     {
-        Model::validateRequired('reductionType', $this->reductionType, true);
-        Model::validateRequired('reductionMeasureName', $this->reductionMeasureName, true);
-        Model::validateRequired('reductionProposalNo', $this->reductionProposalNo, true);
-        Model::validateRequired('reductionEmissions', $this->reductionEmissions, true);
-        Model::validateRequired('unit', $this->unit, true);
+        Model::validateRequired('reductionMethod', $this->reductionMethod, true);
+        Model::validateRequired('reductionMethodName', $this->reductionMethodName, true);
+        Model::validateRequired('reductionAmount', $this->reductionAmount, true);
+        Model::validateRequired('reductionRatio', $this->reductionRatio, true);
+        Model::validateRequired('dataUnit', $this->dataUnit, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->reductionType) {
-            $res['reduction_type'] = $this->reductionType;
+        if (null !== $this->reductionMethod) {
+            $res['reduction_method'] = $this->reductionMethod;
         }
-        if (null !== $this->reductionMeasureName) {
-            $res['reduction_measure_name'] = $this->reductionMeasureName;
+        if (null !== $this->reductionMethodName) {
+            $res['reduction_method_name'] = $this->reductionMethodName;
         }
-        if (null !== $this->reductionProposalNo) {
-            $res['reduction_proposal_no'] = $this->reductionProposalNo;
+        if (null !== $this->reductionAmount) {
+            $res['reduction_amount'] = $this->reductionAmount;
         }
-        if (null !== $this->reductionEmissions) {
-            $res['reduction_emissions'] = $this->reductionEmissions;
+        if (null !== $this->reductionRatio) {
+            $res['reduction_ratio'] = $this->reductionRatio;
         }
-        if (null !== $this->unit) {
-            $res['unit'] = $this->unit;
+        if (null !== $this->dataUnit) {
+            $res['data_unit'] = $this->dataUnit;
         }
 
         return $res;
@@ -94,20 +94,20 @@ class EmissionsReductionStatistics extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['reduction_type'])) {
-            $model->reductionType = $map['reduction_type'];
+        if (isset($map['reduction_method'])) {
+            $model->reductionMethod = $map['reduction_method'];
         }
-        if (isset($map['reduction_measure_name'])) {
-            $model->reductionMeasureName = $map['reduction_measure_name'];
+        if (isset($map['reduction_method_name'])) {
+            $model->reductionMethodName = $map['reduction_method_name'];
         }
-        if (isset($map['reduction_proposal_no'])) {
-            $model->reductionProposalNo = $map['reduction_proposal_no'];
+        if (isset($map['reduction_amount'])) {
+            $model->reductionAmount = $map['reduction_amount'];
         }
-        if (isset($map['reduction_emissions'])) {
-            $model->reductionEmissions = $map['reduction_emissions'];
+        if (isset($map['reduction_ratio'])) {
+            $model->reductionRatio = $map['reduction_ratio'];
         }
-        if (isset($map['unit'])) {
-            $model->unit = $map['unit'];
+        if (isset($map['data_unit'])) {
+            $model->dataUnit = $map['data_unit'];
         }
 
         return $model;

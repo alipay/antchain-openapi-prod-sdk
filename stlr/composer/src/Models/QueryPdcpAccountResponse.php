@@ -6,7 +6,7 @@ namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterPdcpAccountResponse extends Model
+class QueryPdcpAccountResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,7 @@ class RegisterPdcpAccountResponse extends Model
      */
     public $resultMsg;
 
-    // 账户开通结果
+    // 开户结果
     /**
      * @var AccountRegisterResponse
      */
@@ -64,7 +64,7 @@ class RegisterPdcpAccountResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterPdcpAccountResponse
+     * @return QueryPdcpAccountResponse
      */
     public static function fromMap($map = [])
     {
