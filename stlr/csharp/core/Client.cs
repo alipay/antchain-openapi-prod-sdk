@@ -137,7 +137,9 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "2.1.0"},
+                        {"_prod_code", "STLR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "2.1.0"},
+                        {"_prod_code", "STLR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -528,6 +532,258 @@ namespace AntChain.SDK.STLR
         }
 
         /**
+         * Description: 碳总量查询
+         * Summary: 碳总量查询
+         */
+        public QueryEmissionTotalResponse QueryEmissionTotal(QueryEmissionTotalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionTotalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳总量查询
+         * Summary: 碳总量查询
+         */
+        public async Task<QueryEmissionTotalResponse> QueryEmissionTotalAsync(QueryEmissionTotalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionTotalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳总量查询
+         * Summary: 碳总量查询
+         */
+        public QueryEmissionTotalResponse QueryEmissionTotalEx(QueryEmissionTotalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionTotalResponse>(DoRequest("1.0", "antchain.carbon.emission.total.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳总量查询
+         * Summary: 碳总量查询
+         */
+        public async Task<QueryEmissionTotalResponse> QueryEmissionTotalExAsync(QueryEmissionTotalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionTotalResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.total.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分类统计
+         * Summary: 碳排放总量分类统计
+         */
+        public QueryEmissionGroupbycategoryResponse QueryEmissionGroupbycategory(QueryEmissionGroupbycategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionGroupbycategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分类统计
+         * Summary: 碳排放总量分类统计
+         */
+        public async Task<QueryEmissionGroupbycategoryResponse> QueryEmissionGroupbycategoryAsync(QueryEmissionGroupbycategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionGroupbycategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分类统计
+         * Summary: 碳排放总量分类统计
+         */
+        public QueryEmissionGroupbycategoryResponse QueryEmissionGroupbycategoryEx(QueryEmissionGroupbycategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbycategoryResponse>(DoRequest("1.0", "antchain.carbon.emission.groupbycategory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分类统计
+         * Summary: 碳排放总量分类统计
+         */
+        public async Task<QueryEmissionGroupbycategoryResponse> QueryEmissionGroupbycategoryExAsync(QueryEmissionGroupbycategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbycategoryResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.groupbycategory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分单元统计
+         * Summary: 碳排放总量分单元统计
+         */
+        public QueryEmissionGroupbylocationResponse QueryEmissionGroupbylocation(QueryEmissionGroupbylocationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionGroupbylocationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分单元统计
+         * Summary: 碳排放总量分单元统计
+         */
+        public async Task<QueryEmissionGroupbylocationResponse> QueryEmissionGroupbylocationAsync(QueryEmissionGroupbylocationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionGroupbylocationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分单元统计
+         * Summary: 碳排放总量分单元统计
+         */
+        public QueryEmissionGroupbylocationResponse QueryEmissionGroupbylocationEx(QueryEmissionGroupbylocationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbylocationResponse>(DoRequest("1.0", "antchain.carbon.emission.groupbylocation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分单元统计
+         * Summary: 碳排放总量分单元统计
+         */
+        public async Task<QueryEmissionGroupbylocationResponse> QueryEmissionGroupbylocationExAsync(QueryEmissionGroupbylocationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbylocationResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.groupbylocation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分城市统计
+         * Summary: 碳排放总量分城市统计
+         */
+        public QueryEmissionGroupbycityResponse QueryEmissionGroupbycity(QueryEmissionGroupbycityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionGroupbycityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分城市统计
+         * Summary: 碳排放总量分城市统计
+         */
+        public async Task<QueryEmissionGroupbycityResponse> QueryEmissionGroupbycityAsync(QueryEmissionGroupbycityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionGroupbycityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳排放总量分城市统计
+         * Summary: 碳排放总量分城市统计
+         */
+        public QueryEmissionGroupbycityResponse QueryEmissionGroupbycityEx(QueryEmissionGroupbycityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbycityResponse>(DoRequest("1.0", "antchain.carbon.emission.groupbycity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳排放总量分城市统计
+         * Summary: 碳排放总量分城市统计
+         */
+        public async Task<QueryEmissionGroupbycityResponse> QueryEmissionGroupbycityExAsync(QueryEmissionGroupbycityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionGroupbycityResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.groupbycity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 减排统计查询
+         * Summary: 减排统计查询
+         */
+        public QueryEmissionReductionResponse QueryEmissionReduction(QueryEmissionReductionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionReductionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 减排统计查询
+         * Summary: 减排统计查询
+         */
+        public async Task<QueryEmissionReductionResponse> QueryEmissionReductionAsync(QueryEmissionReductionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionReductionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 减排统计查询
+         * Summary: 减排统计查询
+         */
+        public QueryEmissionReductionResponse QueryEmissionReductionEx(QueryEmissionReductionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionReductionResponse>(DoRequest("1.0", "antchain.carbon.emission.reduction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 减排统计查询
+         * Summary: 减排统计查询
+         */
+        public async Task<QueryEmissionReductionResponse> QueryEmissionReductionExAsync(QueryEmissionReductionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionReductionResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.reduction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳抵消量统计
+         * Summary: 碳抵消量统计
+         */
+        public QueryEmissionCounteractionResponse QueryEmissionCounteraction(QueryEmissionCounteractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmissionCounteractionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳抵消量统计
+         * Summary: 碳抵消量统计
+         */
+        public async Task<QueryEmissionCounteractionResponse> QueryEmissionCounteractionAsync(QueryEmissionCounteractionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmissionCounteractionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳抵消量统计
+         * Summary: 碳抵消量统计
+         */
+        public QueryEmissionCounteractionResponse QueryEmissionCounteractionEx(QueryEmissionCounteractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionCounteractionResponse>(DoRequest("1.0", "antchain.carbon.emission.counteraction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳抵消量统计
+         * Summary: 碳抵消量统计
+         */
+        public async Task<QueryEmissionCounteractionResponse> QueryEmissionCounteractionExAsync(QueryEmissionCounteractionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmissionCounteractionResponse>(await DoRequestAsync("1.0", "antchain.carbon.emission.counteraction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 账户开通接口。开通协作平台和链上账户
          * Summary: 账户开通接口
          */
@@ -693,6 +949,48 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetPdcpBlockchainResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.blockchain.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上账户查询接口
+         * Summary: 链上账户查询接口
+         */
+        public QueryPdcpAccountResponse QueryPdcpAccount(QueryPdcpAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdcpAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上账户查询接口
+         * Summary: 链上账户查询接口
+         */
+        public async Task<QueryPdcpAccountResponse> QueryPdcpAccountAsync(QueryPdcpAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdcpAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上账户查询接口
+         * Summary: 链上账户查询接口
+         */
+        public QueryPdcpAccountResponse QueryPdcpAccountEx(QueryPdcpAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpAccountResponse>(DoRequest("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上账户查询接口
+         * Summary: 链上账户查询接口
+         */
+        public async Task<QueryPdcpAccountResponse> QueryPdcpAccountExAsync(QueryPdcpAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpAccountResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -21,9 +21,19 @@ namespace AntChain.SDK.STLR.Models
         public string EmissionCategoryName { get; set; }
 
         // 排放量
-        [NameInMap("emissions")]
+        [NameInMap("emission")]
         [Validation(Required=true)]
-        public long? Emissions { get; set; }
+        public long? Emission { get; set; }
+
+        // 排放占比，可直接换算成百分数即为百分占比
+        [NameInMap("rate")]
+        [Validation(Required=true)]
+        public long? Rate { get; set; }
+
+        // 排放量单位
+        [NameInMap("unit")]
+        [Validation(Required=true)]
+        public string Unit { get; set; }
 
     }
 

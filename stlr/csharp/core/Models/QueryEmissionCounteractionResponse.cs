@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.STLR.Models
 {
-    public class RegisterPdcpAccountResponse : TeaModel {
+    public class QueryEmissionCounteractionResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 账户开通结果
-        [NameInMap("carbon_account_info")]
+        // 碳抵消量按抵消类型分组统计
+        [NameInMap("list")]
         [Validation(Required=false)]
-        public AccountRegisterResponse CarbonAccountInfo { get; set; }
+        public List<EmissionCounteractionStatistics> List { get; set; }
 
     }
 

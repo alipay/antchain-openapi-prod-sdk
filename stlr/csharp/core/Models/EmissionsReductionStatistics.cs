@@ -10,30 +10,30 @@ namespace AntChain.SDK.STLR.Models
 {
     // 减排情况统计
     public class EmissionsReductionStatistics : TeaModel {
-        // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-        [NameInMap("reduction_type")]
+        // 减排方法
+        [NameInMap("reduction_method")]
         [Validation(Required=true)]
-        public string ReductionType { get; set; }
+        public string ReductionMethod { get; set; }
 
-        // 减排措施名称
-        [NameInMap("reduction_measure_name")]
+        // 减排方法名称
+        [NameInMap("reduction_method_name")]
         [Validation(Required=true)]
-        public string ReductionMeasureName { get; set; }
-
-        // 减排方案编码
-        [NameInMap("reduction_proposal_no")]
-        [Validation(Required=true)]
-        public string ReductionProposalNo { get; set; }
+        public string ReductionMethodName { get; set; }
 
         // 减排量
-        [NameInMap("reduction_emissions")]
+        [NameInMap("reduction_amount")]
         [Validation(Required=true)]
-        public long? ReductionEmissions { get; set; }
+        public long? ReductionAmount { get; set; }
+
+        // 减排量占比
+        [NameInMap("reduction_ratio")]
+        [Validation(Required=true)]
+        public long? ReductionRatio { get; set; }
 
         // 减排量单位
-        [NameInMap("unit")]
+        [NameInMap("data_unit")]
         [Validation(Required=true)]
-        public string Unit { get; set; }
+        public string DataUnit { get; set; }
 
     }
 
