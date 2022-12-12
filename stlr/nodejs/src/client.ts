@@ -110,12 +110,18 @@ export class EmissionsCategoryStatistics extends $tea.Model {
   // 排放类型名称
   emissionCategoryName: string;
   // 排放量
-  emissions: number;
+  emission: number;
+  // 排放占比，可直接换算成百分数即为百分占比
+  rate: number;
+  // 排放量单位
+  unit: string;
   static names(): { [key: string]: string } {
     return {
       emissionDategoryNo: 'emission_dategory_no',
       emissionCategoryName: 'emission_category_name',
-      emissions: 'emissions',
+      emission: 'emission',
+      rate: 'rate',
+      unit: 'unit',
     };
   }
 
@@ -123,7 +129,9 @@ export class EmissionsCategoryStatistics extends $tea.Model {
     return {
       emissionDategoryNo: 'string',
       emissionCategoryName: 'string',
-      emissions: 'number',
+      emission: 'number',
+      rate: 'number',
+      unit: 'string',
     };
   }
 
@@ -269,33 +277,33 @@ export class GreenOperationStatisticsByType extends $tea.Model {
 
 // 减排情况统计
 export class EmissionsReductionStatistics extends $tea.Model {
-  // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
-  reductionType: string;
-  // 减排措施名称
-  reductionMeasureName: string;
-  // 减排方案编码
-  reductionProposalNo: string;
+  // 减排方法
+  reductionMethod: string;
+  // 减排方法名称
+  reductionMethodName: string;
   // 减排量
-  reductionEmissions: number;
+  reductionAmount: number;
+  // 减排量占比
+  reductionRatio: number;
   // 减排量单位
-  unit: string;
+  dataUnit: string;
   static names(): { [key: string]: string } {
     return {
-      reductionType: 'reduction_type',
-      reductionMeasureName: 'reduction_measure_name',
-      reductionProposalNo: 'reduction_proposal_no',
-      reductionEmissions: 'reduction_emissions',
-      unit: 'unit',
+      reductionMethod: 'reduction_method',
+      reductionMethodName: 'reduction_method_name',
+      reductionAmount: 'reduction_amount',
+      reductionRatio: 'reduction_ratio',
+      dataUnit: 'data_unit',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      reductionType: 'string',
-      reductionMeasureName: 'string',
-      reductionProposalNo: 'string',
-      reductionEmissions: 'number',
-      unit: 'string',
+      reductionMethod: 'string',
+      reductionMethodName: 'string',
+      reductionAmount: 'number',
+      reductionRatio: 'number',
+      dataUnit: 'string',
     };
   }
 
@@ -321,6 +329,39 @@ export class DailyEmissions extends $tea.Model {
     return {
       date: 'string',
       value: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳抵消统计量
+export class EmissionCounteractionStatistics extends $tea.Model {
+  // 碳抵消类别
+  assertType: string;
+  // 碳抵消类别名称
+  assertTypeName: string;
+  // 抵消量
+  counteractionAmount: number;
+  // 排放量单位，默认为：tCO2e
+  dataUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      assertType: 'assert_type',
+      assertTypeName: 'assert_type_name',
+      counteractionAmount: 'counteraction_amount',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assertType: 'string',
+      assertTypeName: 'string',
+      counteractionAmount: 'number',
+      dataUnit: 'string',
     };
   }
 
@@ -433,6 +474,59 @@ export class BlockchainDTO extends $tea.Model {
   }
 }
 
+// 碳排放分城市统计总量
+export class EmissionsCityStatistics extends $tea.Model {
+  // 城市编码
+  cityNo: string;
+  // 城市名称
+  cityName: string;
+  // 累计排放量
+  emissionAmount: number;
+  // 今日新增碳排放量
+  emissionAmountToday: number;
+  // 总减碳量
+  reductionAmount: number;
+  // 今日减碳量
+  reductionAmountToday: number;
+  // 总抵消量
+  counteractionAmount: number;
+  // 今日抵消量
+  counteractionAmountToday: number;
+  // 排放量单位，默认为：
+  dataUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityNo: 'city_no',
+      cityName: 'city_name',
+      emissionAmount: 'emission_amount',
+      emissionAmountToday: 'emission_amount_today',
+      reductionAmount: 'reduction_amount',
+      reductionAmountToday: 'reduction_amount_today',
+      counteractionAmount: 'counteraction_amount',
+      counteractionAmountToday: 'counteraction_amount_today',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityNo: 'string',
+      cityName: 'string',
+      emissionAmount: 'number',
+      emissionAmountToday: 'number',
+      reductionAmount: 'number',
+      reductionAmountToday: 'number',
+      counteractionAmount: 'number',
+      counteractionAmountToday: 'number',
+      dataUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据值条目
 export class AnyAmountItem extends $tea.Model {
   // 数据项编码
@@ -487,6 +581,39 @@ export class EmissionsScopeStatistics extends $tea.Model {
       emissions: 'number',
       percentage: 'number',
       categoryEmissionsList: { 'type': 'array', 'itemType': EmissionsCategoryStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳排放分单元统计总量
+export class EmissionsLocationStatistics extends $tea.Model {
+  // 盘查单元编码
+  locationNo: string;
+  // 盘查单元名称
+  locationName: string;
+  // 盘查单元排放量
+  emissionAmount: number;
+  // 排放量单位，默认为：tCO2e
+  dataUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      locationNo: 'location_no',
+      locationName: 'location_name',
+      emissionAmount: 'emission_amount',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      locationNo: 'string',
+      locationName: 'string',
+      emissionAmount: 'number',
+      dataUnit: 'string',
     };
   }
 
@@ -1020,6 +1147,384 @@ export class DescribeAcarLastemissiondataResponse extends $tea.Model {
   }
 }
 
+export class QueryEmissionTotalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionTotalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 累计排放量
+  totalEmission?: number;
+  // 今日新增碳排放量
+  totalEmissionToday?: number;
+  // 累计减碳量
+  totalReduction?: number;
+  // 今日减碳量
+  totalReductionToday?: number;
+  // 累计抵消量
+  totalCounteraction?: number;
+  // 今日抵消量
+  totalCounteractionToday?: number;
+  // 排放数据单位
+  dataUnit?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalEmission: 'total_emission',
+      totalEmissionToday: 'total_emission_today',
+      totalReduction: 'total_reduction',
+      totalReductionToday: 'total_reduction_today',
+      totalCounteraction: 'total_counteraction',
+      totalCounteractionToday: 'total_counteraction_today',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalEmission: 'number',
+      totalEmissionToday: 'number',
+      totalReduction: 'number',
+      totalReductionToday: 'number',
+      totalCounteraction: 'number',
+      totalCounteractionToday: 'number',
+      dataUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbycategoryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbycategoryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 按照排放类型分组统计的排放量结果列表
+  list?: EmissionsCategoryStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': EmissionsCategoryStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbylocationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbylocationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 按照排放单元分组统计的碳排放量列表
+  list?: EmissionsLocationStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': EmissionsLocationStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbycityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionGroupbycityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 按城市分组统计的碳排放量列表
+  list?: EmissionsCityStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': EmissionsCityStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionReductionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionReductionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 减排量按减排方法分组统计
+  list?: EmissionsReductionStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': EmissionsReductionStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionCounteractionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动编码
+  activityNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      activityNo: 'activity_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      activityNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEmissionCounteractionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 碳抵消量按抵消类型分组统计
+  list?: EmissionCounteractionStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': EmissionCounteractionStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterPdcpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1074,13 +1579,13 @@ export class RegisterPdcpAccountResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 账户开通结果
-  data?: AccountRegisterResponse;
+  carbonAccountInfo?: AccountRegisterResponse;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      carbonAccountInfo: 'carbon_account_info',
     };
   }
 
@@ -1089,7 +1594,7 @@ export class RegisterPdcpAccountResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: AccountRegisterResponse,
+      carbonAccountInfo: AccountRegisterResponse,
     };
   }
 
@@ -1295,6 +1800,65 @@ export class GetPdcpBlockchainResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       txData: BlockchainDTO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPdcpAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPdcpAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 开户结果
+  carbonAccountInfo?: AccountRegisterResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      carbonAccountInfo: 'carbon_account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      carbonAccountInfo: AccountRegisterResponse,
     };
   }
 
@@ -2260,7 +2824,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "2.1.0",
+          _prod_code: "STLR",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2402,6 +2968,120 @@ export default class Client {
   }
 
   /**
+   * Description: 碳总量查询
+   * Summary: 碳总量查询
+   */
+  async queryEmissionTotal(request: QueryEmissionTotalRequest): Promise<QueryEmissionTotalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionTotalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳总量查询
+   * Summary: 碳总量查询
+   */
+  async queryEmissionTotalEx(request: QueryEmissionTotalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionTotalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionTotalResponse>(await this.doRequest("1.0", "antchain.carbon.emission.total.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionTotalResponse({}));
+  }
+
+  /**
+   * Description: 碳排放总量分类统计
+   * Summary: 碳排放总量分类统计
+   */
+  async queryEmissionGroupbycategory(request: QueryEmissionGroupbycategoryRequest): Promise<QueryEmissionGroupbycategoryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionGroupbycategoryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳排放总量分类统计
+   * Summary: 碳排放总量分类统计
+   */
+  async queryEmissionGroupbycategoryEx(request: QueryEmissionGroupbycategoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionGroupbycategoryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionGroupbycategoryResponse>(await this.doRequest("1.0", "antchain.carbon.emission.groupbycategory.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionGroupbycategoryResponse({}));
+  }
+
+  /**
+   * Description: 碳排放总量分单元统计
+   * Summary: 碳排放总量分单元统计
+   */
+  async queryEmissionGroupbylocation(request: QueryEmissionGroupbylocationRequest): Promise<QueryEmissionGroupbylocationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionGroupbylocationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳排放总量分单元统计
+   * Summary: 碳排放总量分单元统计
+   */
+  async queryEmissionGroupbylocationEx(request: QueryEmissionGroupbylocationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionGroupbylocationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionGroupbylocationResponse>(await this.doRequest("1.0", "antchain.carbon.emission.groupbylocation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionGroupbylocationResponse({}));
+  }
+
+  /**
+   * Description: 碳排放总量分城市统计
+   * Summary: 碳排放总量分城市统计
+   */
+  async queryEmissionGroupbycity(request: QueryEmissionGroupbycityRequest): Promise<QueryEmissionGroupbycityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionGroupbycityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳排放总量分城市统计
+   * Summary: 碳排放总量分城市统计
+   */
+  async queryEmissionGroupbycityEx(request: QueryEmissionGroupbycityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionGroupbycityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionGroupbycityResponse>(await this.doRequest("1.0", "antchain.carbon.emission.groupbycity.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionGroupbycityResponse({}));
+  }
+
+  /**
+   * Description: 减排统计查询
+   * Summary: 减排统计查询
+   */
+  async queryEmissionReduction(request: QueryEmissionReductionRequest): Promise<QueryEmissionReductionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionReductionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 减排统计查询
+   * Summary: 减排统计查询
+   */
+  async queryEmissionReductionEx(request: QueryEmissionReductionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionReductionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionReductionResponse>(await this.doRequest("1.0", "antchain.carbon.emission.reduction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionReductionResponse({}));
+  }
+
+  /**
+   * Description: 碳抵消量统计
+   * Summary: 碳抵消量统计
+   */
+  async queryEmissionCounteraction(request: QueryEmissionCounteractionRequest): Promise<QueryEmissionCounteractionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEmissionCounteractionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳抵消量统计
+   * Summary: 碳抵消量统计
+   */
+  async queryEmissionCounteractionEx(request: QueryEmissionCounteractionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEmissionCounteractionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEmissionCounteractionResponse>(await this.doRequest("1.0", "antchain.carbon.emission.counteraction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEmissionCounteractionResponse({}));
+  }
+
+  /**
    * Description: 账户开通接口。开通协作平台和链上账户
    * Summary: 账户开通接口
    */
@@ -2475,6 +3155,25 @@ export default class Client {
   async getPdcpBlockchainEx(request: GetPdcpBlockchainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetPdcpBlockchainResponse> {
     Util.validateModel(request);
     return $tea.cast<GetPdcpBlockchainResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.blockchain.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetPdcpBlockchainResponse({}));
+  }
+
+  /**
+   * Description: 链上账户查询接口
+   * Summary: 链上账户查询接口
+   */
+  async queryPdcpAccount(request: QueryPdcpAccountRequest): Promise<QueryPdcpAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPdcpAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 链上账户查询接口
+   * Summary: 链上账户查询接口
+   */
+  async queryPdcpAccountEx(request: QueryPdcpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPdcpAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPdcpAccountResponse>(await this.doRequest("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPdcpAccountResponse({}));
   }
 
   /**
