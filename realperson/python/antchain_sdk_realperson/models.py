@@ -2915,6 +2915,7 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         req_enc_type: str = None,
         resp_enc_type: str = None,
         enc_token: str = None,
+        risk_info_type: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -2935,6 +2936,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         self.resp_enc_type = resp_enc_type
         # 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
         self.enc_token = enc_token
+        # 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+        self.risk_info_type = risk_info_type
         # 扩展信息JSON串。
         self.extern_param = extern_param
 
@@ -2968,6 +2971,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             result['resp_enc_type'] = self.resp_enc_type
         if self.enc_token is not None:
             result['enc_token'] = self.enc_token
+        if self.risk_info_type is not None:
+            result['risk_info_type'] = self.risk_info_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -2992,6 +2997,8 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             self.resp_enc_type = m.get('resp_enc_type')
         if m.get('enc_token') is not None:
             self.enc_token = m.get('enc_token')
+        if m.get('risk_info_type') is not None:
+            self.risk_info_type = m.get('risk_info_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
@@ -3007,6 +3014,7 @@ class RecognizeDocIndividualcardResponse(TeaModel):
         ret_code_sub: str = None,
         ret_message_sub: str = None,
         ocr_info: str = None,
+        risk_info: str = None,
         ext_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3023,6 +3031,9 @@ class RecognizeDocIndividualcardResponse(TeaModel):
         self.ret_message_sub = ret_message_sub
         # 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
         self.ocr_info = ocr_info
+        # 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+        # 如果不启用防伪，则不返回该字段。
+        self.risk_info = risk_info
         # 扩展信息JSON串。
         self.ext_info = ext_info
 
@@ -3049,6 +3060,8 @@ class RecognizeDocIndividualcardResponse(TeaModel):
             result['ret_message_sub'] = self.ret_message_sub
         if self.ocr_info is not None:
             result['ocr_info'] = self.ocr_info
+        if self.risk_info is not None:
+            result['risk_info'] = self.risk_info
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -3069,6 +3082,8 @@ class RecognizeDocIndividualcardResponse(TeaModel):
             self.ret_message_sub = m.get('ret_message_sub')
         if m.get('ocr_info') is not None:
             self.ocr_info = m.get('ocr_info')
+        if m.get('risk_info') is not None:
+            self.risk_info = m.get('risk_info')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
