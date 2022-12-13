@@ -2468,6 +2468,8 @@ type RecognizeDocIndividualcardRequest struct {
 	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
 	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
 	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+	// 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+	RiskInfoType *string `json:"risk_info_type,omitempty" xml:"risk_info_type,omitempty"`
 	// 扩展信息JSON串。
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -2525,6 +2527,11 @@ func (s *RecognizeDocIndividualcardRequest) SetEncToken(v string) *RecognizeDocI
 	return s
 }
 
+func (s *RecognizeDocIndividualcardRequest) SetRiskInfoType(v string) *RecognizeDocIndividualcardRequest {
+	s.RiskInfoType = &v
+	return s
+}
+
 func (s *RecognizeDocIndividualcardRequest) SetExternParam(v string) *RecognizeDocIndividualcardRequest {
 	s.ExternParam = &v
 	return s
@@ -2545,6 +2552,9 @@ type RecognizeDocIndividualcardResponse struct {
 	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
 	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
 	OcrInfo *string `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
+	// 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	// 如果不启用防伪，则不返回该字段。
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
 	// 扩展信息JSON串。
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -2589,6 +2599,11 @@ func (s *RecognizeDocIndividualcardResponse) SetRetMessageSub(v string) *Recogni
 
 func (s *RecognizeDocIndividualcardResponse) SetOcrInfo(v string) *RecognizeDocIndividualcardResponse {
 	s.OcrInfo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRiskInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.RiskInfo = &v
 	return s
 }
 
@@ -2839,7 +2854,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.0"),
+				"sdk_version":      tea.String("1.10.1"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
