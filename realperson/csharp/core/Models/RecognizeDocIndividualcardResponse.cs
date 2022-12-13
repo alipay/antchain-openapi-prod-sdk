@@ -44,6 +44,12 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string OcrInfo { get; set; }
 
+        // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+        // 如果不启用防伪，则不返回该字段。
+        [NameInMap("risk_info")]
+        [Validation(Required=false)]
+        public string RiskInfo { get; set; }
+
         // 扩展信息JSON串。
         [NameInMap("ext_info")]
         [Validation(Required=false)]

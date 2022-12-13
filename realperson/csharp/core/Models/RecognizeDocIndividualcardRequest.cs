@@ -54,6 +54,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string EncToken { get; set; }
 
+        // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+        [NameInMap("risk_info_type")]
+        [Validation(Required=false)]
+        public string RiskInfoType { get; set; }
+
         // 扩展信息JSON串。
         [NameInMap("extern_param")]
         [Validation(Required=false)]
