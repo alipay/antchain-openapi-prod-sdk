@@ -62,6 +62,12 @@ class RecognizeDocIndividualcardRequest extends Model
      */
     public $encToken;
 
+    // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+    /**
+     * @var string
+     */
+    public $riskInfoType;
+
     // 扩展信息JSON串。
     /**
      * @var string
@@ -77,6 +83,7 @@ class RecognizeDocIndividualcardRequest extends Model
         'reqEncType'        => 'req_enc_type',
         'respEncType'       => 'resp_enc_type',
         'encToken'          => 'enc_token',
+        'riskInfoType'      => 'risk_info_type',
         'externParam'       => 'extern_param',
     ];
 
@@ -117,6 +124,9 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (null !== $this->encToken) {
             $res['enc_token'] = $this->encToken;
+        }
+        if (null !== $this->riskInfoType) {
+            $res['risk_info_type'] = $this->riskInfoType;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -159,6 +169,9 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (isset($map['enc_token'])) {
             $model->encToken = $map['enc_token'];
+        }
+        if (isset($map['risk_info_type'])) {
+            $model->riskInfoType = $map['risk_info_type'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

@@ -50,6 +50,13 @@ class RecognizeDocIndividualcardResponse extends Model
      */
     public $ocrInfo;
 
+    // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+    // 如果不启用防伪，则不返回该字段。
+    /**
+     * @var string
+     */
+    public $riskInfo;
+
     // 扩展信息JSON串。
     /**
      * @var string
@@ -63,6 +70,7 @@ class RecognizeDocIndividualcardResponse extends Model
         'retCodeSub'    => 'ret_code_sub',
         'retMessageSub' => 'ret_message_sub',
         'ocrInfo'       => 'ocr_info',
+        'riskInfo'      => 'risk_info',
         'extInfo'       => 'ext_info',
     ];
 
@@ -93,6 +101,9 @@ class RecognizeDocIndividualcardResponse extends Model
         }
         if (null !== $this->ocrInfo) {
             $res['ocr_info'] = $this->ocrInfo;
+        }
+        if (null !== $this->riskInfo) {
+            $res['risk_info'] = $this->riskInfo;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -129,6 +140,9 @@ class RecognizeDocIndividualcardResponse extends Model
         }
         if (isset($map['ocr_info'])) {
             $model->ocrInfo = $map['ocr_info'];
+        }
+        if (isset($map['risk_info'])) {
+            $model->riskInfo = $map['risk_info'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
