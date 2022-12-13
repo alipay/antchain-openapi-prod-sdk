@@ -32,6 +32,11 @@ public class RecognizeDocIndividualcardResponse extends TeaModel {
     @NameInMap("ocr_info")
     public String ocrInfo;
 
+    // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+    // 如果不启用防伪，则不返回该字段。
+    @NameInMap("risk_info")
+    public String riskInfo;
+
     // 扩展信息JSON串。
     @NameInMap("ext_info")
     public String extInfo;
@@ -95,6 +100,14 @@ public class RecognizeDocIndividualcardResponse extends TeaModel {
     }
     public String getOcrInfo() {
         return this.ocrInfo;
+    }
+
+    public RecognizeDocIndividualcardResponse setRiskInfo(String riskInfo) {
+        this.riskInfo = riskInfo;
+        return this;
+    }
+    public String getRiskInfo() {
+        return this.riskInfo;
     }
 
     public RecognizeDocIndividualcardResponse setExtInfo(String extInfo) {

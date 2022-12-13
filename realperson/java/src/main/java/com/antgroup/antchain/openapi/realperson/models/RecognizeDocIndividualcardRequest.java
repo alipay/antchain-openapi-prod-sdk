@@ -44,6 +44,10 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     @NameInMap("enc_token")
     public String encToken;
 
+    // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+    @NameInMap("risk_info_type")
+    public String riskInfoType;
+
     // 扩展信息JSON串。
     @NameInMap("extern_param")
     public String externParam;
@@ -123,6 +127,14 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     }
     public String getEncToken() {
         return this.encToken;
+    }
+
+    public RecognizeDocIndividualcardRequest setRiskInfoType(String riskInfoType) {
+        this.riskInfoType = riskInfoType;
+        return this;
+    }
+    public String getRiskInfoType() {
+        return this.riskInfoType;
     }
 
     public RecognizeDocIndividualcardRequest setExternParam(String externParam) {
