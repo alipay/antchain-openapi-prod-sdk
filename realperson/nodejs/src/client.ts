@@ -1792,6 +1792,8 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
   respEncType?: string;
   // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
   encToken?: string;
+  // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+  riskInfoType?: string;
   // 扩展信息JSON串。
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -1805,6 +1807,7 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       reqEncType: 'req_enc_type',
       respEncType: 'resp_enc_type',
       encToken: 'enc_token',
+      riskInfoType: 'risk_info_type',
       externParam: 'extern_param',
     };
   }
@@ -1820,6 +1823,7 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       reqEncType: 'string',
       respEncType: 'string',
       encToken: 'string',
+      riskInfoType: 'string',
       externParam: 'string',
     };
   }
@@ -1844,6 +1848,9 @@ export class RecognizeDocIndividualcardResponse extends $tea.Model {
   retMessageSub?: string;
   // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
   ocrInfo?: string;
+  // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+  // 如果不启用防伪，则不返回该字段。
+  riskInfo?: string;
   // 扩展信息JSON串。
   extInfo?: string;
   static names(): { [key: string]: string } {
@@ -1855,6 +1862,7 @@ export class RecognizeDocIndividualcardResponse extends $tea.Model {
       retCodeSub: 'ret_code_sub',
       retMessageSub: 'ret_message_sub',
       ocrInfo: 'ocr_info',
+      riskInfo: 'risk_info',
       extInfo: 'ext_info',
     };
   }
@@ -1868,6 +1876,7 @@ export class RecognizeDocIndividualcardResponse extends $tea.Model {
       retCodeSub: 'string',
       retMessageSub: 'string',
       ocrInfo: 'string',
+      riskInfo: 'string',
       extInfo: 'string',
     };
   }
@@ -2078,7 +2087,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.0",
+          sdk_version: "1.10.1",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
