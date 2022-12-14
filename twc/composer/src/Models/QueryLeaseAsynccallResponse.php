@@ -58,6 +58,12 @@ class QueryLeaseAsynccallResponse extends Model
      * @var string
      */
     public $message;
+
+    // 查询对应的具体的数据
+    /**
+     * @var string
+     */
+    public $responseData;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -67,6 +73,7 @@ class QueryLeaseAsynccallResponse extends Model
         'chainFailMessage' => 'chain_fail_message',
         'code'             => 'code',
         'message'          => 'message',
+        'responseData'     => 'response_data',
     ];
 
     public function validate()
@@ -99,6 +106,9 @@ class QueryLeaseAsynccallResponse extends Model
         }
         if (null !== $this->message) {
             $res['message'] = $this->message;
+        }
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
         }
 
         return $res;
@@ -135,6 +145,9 @@ class QueryLeaseAsynccallResponse extends Model
         }
         if (isset($map['message'])) {
             $model->message = $map['message'];
+        }
+        if (isset($map['response_data'])) {
+            $model->responseData = $map['response_data'];
         }
 
         return $model;

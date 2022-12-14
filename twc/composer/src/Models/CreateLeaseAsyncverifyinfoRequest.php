@@ -168,11 +168,13 @@ class CreateLeaseAsyncverifyinfoRequest extends Model
         Model::validateMaxLength('leaseCorpId', $this->leaseCorpId, 50);
         Model::validateMaxLength('leaseCorpName', $this->leaseCorpName, 50);
         Model::validateMaxLength('leaseCorpOwnerName', $this->leaseCorpOwnerName, 50);
+        Model::validateMaxLength('leaseId', $this->leaseId, 32);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('userName', $this->userName, 10);
         Model::validateRequired('leaseId', $this->leaseId, true);
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('verifyResult', $this->verifyResult, true);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
     }
 
     public function toMap()

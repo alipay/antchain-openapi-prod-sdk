@@ -55,6 +55,14 @@ class RenbaoExtInfo extends Model
      * @var string
      */
     public $identifyNo;
+
+    // 银行代码
+    /**
+     * @example BOC
+     *
+     * @var string
+     */
+    public $bankCode;
     protected $_name = [
         'recBankAreaCode' => 'rec_bank_area_code',
         'accountNo'       => 'account_no',
@@ -62,6 +70,7 @@ class RenbaoExtInfo extends Model
         'accountName'     => 'account_name',
         'cnaps'           => 'cnaps',
         'identifyNo'      => 'identify_no',
+        'bankCode'        => 'bank_code',
     ];
 
     public function validate()
@@ -72,12 +81,14 @@ class RenbaoExtInfo extends Model
         Model::validateRequired('accountName', $this->accountName, true);
         Model::validateRequired('cnaps', $this->cnaps, true);
         Model::validateRequired('identifyNo', $this->identifyNo, true);
+        Model::validateRequired('bankCode', $this->bankCode, true);
         Model::validateMaxLength('recBankAreaCode', $this->recBankAreaCode, 8);
         Model::validateMaxLength('accountNo', $this->accountNo, 32);
         Model::validateMaxLength('bankName', $this->bankName, 32);
         Model::validateMaxLength('accountName', $this->accountName, 64);
         Model::validateMaxLength('cnaps', $this->cnaps, 16);
         Model::validateMaxLength('identifyNo', $this->identifyNo, 32);
+        Model::validateMaxLength('bankCode', $this->bankCode, 16);
     }
 
     public function toMap()
@@ -100,6 +111,9 @@ class RenbaoExtInfo extends Model
         }
         if (null !== $this->identifyNo) {
             $res['identify_no'] = $this->identifyNo;
+        }
+        if (null !== $this->bankCode) {
+            $res['bank_code'] = $this->bankCode;
         }
 
         return $res;
@@ -130,6 +144,9 @@ class RenbaoExtInfo extends Model
         }
         if (isset($map['identify_no'])) {
             $model->identifyNo = $map['identify_no'];
+        }
+        if (isset($map['bank_code'])) {
+            $model->bankCode = $map['bank_code'];
         }
 
         return $model;

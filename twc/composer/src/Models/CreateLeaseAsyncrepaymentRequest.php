@@ -187,6 +187,16 @@ class CreateLeaseAsyncrepaymentRequest extends Model
         Model::validateMaxLength('leaseId', $this->leaseId, 50);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('returnDescription', $this->returnDescription, 256);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+        Model::validateMinLength('returnDescription', $this->returnDescription, 1);
+        Model::validateMinimum('remainReturnMoney', $this->remainReturnMoney, 0);
+        Model::validateMinimum('remainReturnTerm', $this->remainReturnTerm, 0);
+        Model::validateMinimum('returnIndex', $this->returnIndex, 1);
+        Model::validateMinimum('returnMoney', $this->returnMoney, 0);
+        Model::validateMinimum('source', $this->source, 1);
+        Model::validateMaximum('remainReturnTerm', $this->remainReturnTerm, 1024);
+        Model::validateMaximum('returnIndex', $this->returnIndex, 1024);
+        Model::validateMaximum('source', $this->source, 2);
     }
 
     public function toMap()

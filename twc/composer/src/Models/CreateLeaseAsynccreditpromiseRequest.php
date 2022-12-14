@@ -137,7 +137,14 @@ class CreateLeaseAsynccreditpromiseRequest extends Model
         Model::validateRequired('promiseTxHash', $this->promiseTxHash, true);
         Model::validateRequired('returnMoneyList', $this->returnMoneyList, true);
         Model::validateRequired('returnTimeList', $this->returnTimeList, true);
+        Model::validateMaxLength('leaseId', $this->leaseId, 32);
         Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('promiseHash', $this->promiseHash, 70);
+        Model::validateMaxLength('promiseTxHash', $this->promiseTxHash, 70);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+        Model::validateMinLength('promiseHash', $this->promiseHash, 1);
+        Model::validateMinLength('promiseTxHash', $this->promiseTxHash, 1);
+        Model::validateMinimum('returnRate', $this->returnRate, 0);
     }
 
     public function toMap()

@@ -127,6 +127,11 @@ class CreateLeaseAsyncclearingRequest extends Model
         Model::validateMaxLength('clearingAccount', $this->clearingAccount, 64);
         Model::validateMaxLength('leaseId', $this->leaseId, 50);
         Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('memo', $this->memo, 128);
+        Model::validateMinLength('clearingAccount', $this->clearingAccount, 0);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+        Model::validateMaximum('returnIndex', $this->returnIndex, 1024);
+        Model::validateMinimum('returnIndex', $this->returnIndex, 1);
     }
 
     public function toMap()
