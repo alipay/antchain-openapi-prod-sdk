@@ -75,7 +75,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 清分资金的来源，比如用户xx元，商家yy元
         [NameInMap("memo")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=128)]
         public string Memo { get; set; }
 
         // 融资租赁资金方id

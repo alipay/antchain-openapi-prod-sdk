@@ -30,7 +30,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 租赁平台金融科技id
         [NameInMap("lease_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=32)]
         public string LeaseId { get; set; }
 
         // 订单id 长度不可超过50
@@ -60,12 +60,12 @@ namespace AntChain.SDK.TWC.Models
 
         // 根据融资租赁合同及其补充协议哈希
         [NameInMap("promise_hash")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=70)]
         public string PromiseHash { get; set; }
 
         // 根据融资租赁合同及其补充协议存证交易hash
         [NameInMap("promise_tx_hash")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=70)]
         public string PromiseTxHash { get; set; }
 
         // 归还金额

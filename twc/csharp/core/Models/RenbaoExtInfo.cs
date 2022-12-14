@@ -40,6 +40,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=32)]
         public string IdentifyNo { get; set; }
 
+        // 银行代码
+        [NameInMap("bank_code")]
+        [Validation(Required=true, MaxLength=16)]
+        public string BankCode { get; set; }
+
     }
 
 }

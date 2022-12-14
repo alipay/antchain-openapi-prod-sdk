@@ -65,7 +65,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 租赁服务平台id
         [NameInMap("lease_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=32)]
         public string LeaseId { get; set; }
 
         // 放款流水单号

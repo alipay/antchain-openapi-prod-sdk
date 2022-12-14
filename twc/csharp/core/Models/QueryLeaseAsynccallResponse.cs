@@ -52,6 +52,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string Message { get; set; }
 
+        // 查询对应的具体的数据
+        [NameInMap("response_data")]
+        [Validation(Required=false)]
+        public string ResponseData { get; set; }
+
     }
 
 }
