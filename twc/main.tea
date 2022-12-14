@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.14',
+    sdk_version = '1.8.16',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1151,6 +1151,8 @@ model RenbaoExtInfo {
   cnaps: string(maxLength=16, name='cnaps', example='827330119378'),
   // 统一社会信用代码
   identifyNo: string(maxLength=32, name='identify_no', example='173829930011029381'),
+  // 银行代码
+  bankCode: string(maxLength=16, name='bank_code', example='BOC'),
 }
 
 // 司法纠纷平台案件维权事件响应信息
@@ -11427,7 +11429,7 @@ model CreateLeaseAsyncverifyinfoRequest = {
   // 承租法定代表人姓名 长度不可超过50
   leaseCorpOwnerName?: string(maxLength=50, name='lease_corp_owner_name'),
   // 租赁服务平台id
-  leaseId: string(name='lease_id'),
+  leaseId: string(maxLength=32, minLength=1, name='lease_id'),
   // 放款流水单号
   loan?: string(name='loan'),
   // 订单id 长度不可超过50
@@ -11493,7 +11495,7 @@ model CreateLeaseAsynccreditpromiseRequest = {
   // 融资租赁承诺额外字段
   creditPromiseExtraInfoList?: [ string ](name='credit_promise_extra_info_list'),
   // 租赁平台金融科技id
-  leaseId: string(name='lease_id'),
+  leaseId: string(maxLength=32, minLength=1, name='lease_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, name='order_id'),
   // 垫付金额
@@ -11505,15 +11507,15 @@ model CreateLeaseAsynccreditpromiseRequest = {
   // 垫付日 格式为2019-8-31 12:00:00
   payInAdvanceTimeList: [ string ](name='pay_in_advance_time_list'),
   // 根据融资租赁合同及其补充协议哈希
-  promiseHash: string(name='promise_hash'),
+  promiseHash: string(maxLength=70, minLength=1, name='promise_hash'),
   // 根据融资租赁合同及其补充协议存证交易hash
-  promiseTxHash: string(name='promise_tx_hash'),
+  promiseTxHash: string(maxLength=70, minLength=1, name='promise_tx_hash'),
   // 归还金额
   returnMoney?: long(name='return_money'),
   // 还款金额，精确到毫厘，即123400表示12.34元
   returnMoneyList: [ long ](name='return_money_list'),
   // 还款比例，精确到小数点后四位 12.34% 表示为1234
-  returnRate?: long(name='return_rate'),
+  returnRate?: long(minimum=0, name='return_rate'),
   // 归还日，格式为"2019-07-31 12:00:00"
   returnTime?: string(name='return_time'),
   // 归还日，格式为"2019-07-31 12:00:00"
@@ -11561,7 +11563,7 @@ model CreateLeaseAsyncclearingRequest = {
   // 融资租赁业务id，由资方控制台创建返回
   applicationId?: string(name='application_id'),
   // 清分收款账号 长度不超过64
-  clearingAccount: string(maxLength=64, name='clearing_account'),
+  clearingAccount: string(maxLength=64, minLength=0, name='clearing_account'),
   // 清分金额,精确到毫厘，即123400表示12.34元
   clearingMoney: long(name='clearing_money'),
   // 清分订单号 长度不超过128
@@ -11573,15 +11575,15 @@ model CreateLeaseAsyncclearingRequest = {
   // 融资租赁额外字段
   extraInfo?: string(name='extra_info'),
   // 租赁平台商户Id 长度不可超过50
-  leaseId: string(maxLength=50, name='lease_id'),
+  leaseId: string(maxLength=50, minLength=1, name='lease_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, name='order_id'),
   // 还款批次
-  returnIndex: long(name='return_index'),
+  returnIndex: long(maximum=1024, minimum=1, name='return_index'),
   // 开始时间，格式为"2019-07-31 12:00:00"
   startTime: string(name='start_time'),
   // 清分资金的来源，比如用户xx元，商家yy元
-  memo?: string(name='memo'),
+  memo?: string(maxLength=128, name='memo'),
   // 融资租赁资金方id
   creditId?: string(name='credit_id'),
 }
@@ -11631,7 +11633,7 @@ model CreateLeaseAsyncrepaymentRequest = {
   // 是否最终订单还款结束
   isFinish: boolean(name='is_finish'),
   // 租赁平台商户Id 长度不可超过50
-  leaseId: string(maxLength=50, name='lease_id'),
+  leaseId: string(maxLength=50, minLength=1, name='lease_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, name='order_id'),
   // 逾期天数,支用到期日开始计算
@@ -11643,23 +11645,23 @@ model CreateLeaseAsyncrepaymentRequest = {
   // 逾期状态,暂时都以0处理，目前不处理
   overdueStatus?: long(name='overdue_status'),
   // 剩余应还金额，精确到毫厘，即123400表示12.34元
-  remainReturnMoney: long(name='remain_return_money'),
+  remainReturnMoney: long(minimum=0, name='remain_return_money'),
   // 剩余应还期数
-  remainReturnTerm: long(name='remain_return_term'),
+  remainReturnTerm: long(maximum=1024, minimum=0, name='remain_return_term'),
   // 每次还款流水凭证，需要融资方确认，id一样则不处理
   repaymentUniqueId: string(name='repayment_unique_id'),
   // 还款结果简要描述,长度不超过256
-  returnDescription: string(maxLength=256, name='return_description'),
+  returnDescription: string(maxLength=256, minLength=1, name='return_description'),
   // 还款批次
-  returnIndex: long(name='return_index'),
+  returnIndex: long(maximum=1024, minimum=1, name='return_index'),
   // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
-  returnMoney: long(name='return_money'),
+  returnMoney: long(minimum=0, name='return_money'),
   // 还款结果状态,1.成功 2.失败
   returnStatus: long(name='return_status'),
   // 还款日期，格式为"2019-07-31 12:00:00"
   returnTime: string(name='return_time'),
   // 还款来源,1.共管账号，2.网商清分
-  source: long(name='source'),
+  source: long(maximum=2, minimum=1, name='source'),
   // 逾期后还款状态,1未还款,2已还款
   status?: long(name='status'),
   // 原所有权id
@@ -11903,6 +11905,8 @@ model QueryLeaseAsynccallResponse = {
   code?: string(name='code'),
   // 结果描述
   message?: string(name='message'),
+  // 查询对应的具体的数据
+  responseData?: string(name='response_data'),
 }
 
 /**
