@@ -2519,6 +2519,8 @@ export class RenbaoExtInfo extends $tea.Model {
   cnaps: string;
   // 统一社会信用代码
   identifyNo: string;
+  // 银行代码
+  bankCode: string;
   static names(): { [key: string]: string } {
     return {
       recBankAreaCode: 'rec_bank_area_code',
@@ -2527,6 +2529,7 @@ export class RenbaoExtInfo extends $tea.Model {
       accountName: 'account_name',
       cnaps: 'cnaps',
       identifyNo: 'identify_no',
+      bankCode: 'bank_code',
     };
   }
 
@@ -2538,6 +2541,7 @@ export class RenbaoExtInfo extends $tea.Model {
       accountName: 'string',
       cnaps: 'string',
       identifyNo: 'string',
+      bankCode: 'string',
     };
   }
 
@@ -21110,6 +21114,8 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
   code?: string;
   // 结果描述
   message?: string;
+  // 查询对应的具体的数据
+  responseData?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -21120,6 +21126,7 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
       chainFailMessage: 'chain_fail_message',
       code: 'code',
       message: 'message',
+      responseData: 'response_data',
     };
   }
 
@@ -21133,6 +21140,7 @@ export class QueryLeaseAsynccallResponse extends $tea.Model {
       chainFailMessage: 'string',
       code: 'string',
       message: 'string',
+      responseData: 'string',
     };
   }
 
@@ -29983,7 +29991,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.14",
+          sdk_version: "1.8.16",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
