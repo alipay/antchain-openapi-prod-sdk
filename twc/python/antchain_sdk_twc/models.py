@@ -4116,6 +4116,7 @@ class RenbaoExtInfo(TeaModel):
         account_name: str = None,
         cnaps: str = None,
         identify_no: str = None,
+        bank_code: str = None,
     ):
         # 银行区域代码，可网上查询各银行最新对应的区域代码，比如杭州的区域代码为：3301
         self.rec_bank_area_code = rec_bank_area_code
@@ -4129,6 +4130,8 @@ class RenbaoExtInfo(TeaModel):
         self.cnaps = cnaps
         # 统一社会信用代码
         self.identify_no = identify_no
+        # 银行代码
+        self.bank_code = bank_code
 
     def validate(self):
         self.validate_required(self.rec_bank_area_code, 'rec_bank_area_code')
@@ -4149,6 +4152,9 @@ class RenbaoExtInfo(TeaModel):
         self.validate_required(self.identify_no, 'identify_no')
         if self.identify_no is not None:
             self.validate_max_length(self.identify_no, 'identify_no', 32)
+        self.validate_required(self.bank_code, 'bank_code')
+        if self.bank_code is not None:
+            self.validate_max_length(self.bank_code, 'bank_code', 16)
 
     def to_map(self):
         _map = super().to_map()
@@ -4168,6 +4174,8 @@ class RenbaoExtInfo(TeaModel):
             result['cnaps'] = self.cnaps
         if self.identify_no is not None:
             result['identify_no'] = self.identify_no
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
         return result
 
     def from_map(self, m: dict = None):
@@ -4184,6 +4192,8 @@ class RenbaoExtInfo(TeaModel):
             self.cnaps = m.get('cnaps')
         if m.get('identify_no') is not None:
             self.identify_no = m.get('identify_no')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
         return self
 
 
@@ -33239,6 +33249,8 @@ class CreateLeaseAsyncverifyinfoRequest(TeaModel):
         if self.lease_corp_owner_name is not None:
             self.validate_max_length(self.lease_corp_owner_name, 'lease_corp_owner_name', 50)
         self.validate_required(self.lease_id, 'lease_id')
+        if self.lease_id is not None:
+            self.validate_max_length(self.lease_id, 'lease_id', 32)
         self.validate_required(self.order_id, 'order_id')
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
@@ -33467,13 +33479,21 @@ class CreateLeaseAsynccreditpromiseRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.lease_id, 'lease_id')
+        if self.lease_id is not None:
+            self.validate_max_length(self.lease_id, 'lease_id', 32)
         self.validate_required(self.order_id, 'order_id')
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
         self.validate_required(self.pay_in_advance_time_list, 'pay_in_advance_time_list')
         self.validate_required(self.promise_hash, 'promise_hash')
+        if self.promise_hash is not None:
+            self.validate_max_length(self.promise_hash, 'promise_hash', 70)
         self.validate_required(self.promise_tx_hash, 'promise_tx_hash')
+        if self.promise_tx_hash is not None:
+            self.validate_max_length(self.promise_tx_hash, 'promise_tx_hash', 70)
         self.validate_required(self.return_money_list, 'return_money_list')
+        if self.return_rate is not None:
+            self.validate_minimum(self.return_rate, 'return_rate', 0)
         self.validate_required(self.return_time_list, 'return_time_list')
 
     def to_map(self):
@@ -33683,7 +33703,12 @@ class CreateLeaseAsyncclearingRequest(TeaModel):
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
         self.validate_required(self.return_index, 'return_index')
+        if self.return_index is not None:
+            self.validate_maximum(self.return_index, 'return_index', 1024)
+            self.validate_minimum(self.return_index, 'return_index', 1)
         self.validate_required(self.start_time, 'start_time')
+        if self.memo is not None:
+            self.validate_max_length(self.memo, 'memo', 128)
 
     def to_map(self):
         _map = super().to_map()
@@ -33903,16 +33928,29 @@ class CreateLeaseAsyncrepaymentRequest(TeaModel):
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
         self.validate_required(self.remain_return_money, 'remain_return_money')
+        if self.remain_return_money is not None:
+            self.validate_minimum(self.remain_return_money, 'remain_return_money', 0)
         self.validate_required(self.remain_return_term, 'remain_return_term')
+        if self.remain_return_term is not None:
+            self.validate_maximum(self.remain_return_term, 'remain_return_term', 1024)
+            self.validate_minimum(self.remain_return_term, 'remain_return_term', 0)
         self.validate_required(self.repayment_unique_id, 'repayment_unique_id')
         self.validate_required(self.return_description, 'return_description')
         if self.return_description is not None:
             self.validate_max_length(self.return_description, 'return_description', 256)
         self.validate_required(self.return_index, 'return_index')
+        if self.return_index is not None:
+            self.validate_maximum(self.return_index, 'return_index', 1024)
+            self.validate_minimum(self.return_index, 'return_index', 1)
         self.validate_required(self.return_money, 'return_money')
+        if self.return_money is not None:
+            self.validate_minimum(self.return_money, 'return_money', 0)
         self.validate_required(self.return_status, 'return_status')
         self.validate_required(self.return_time, 'return_time')
         self.validate_required(self.source, 'source')
+        if self.source is not None:
+            self.validate_maximum(self.source, 'source', 2)
+            self.validate_minimum(self.source, 'source', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -34611,6 +34649,7 @@ class QueryLeaseAsynccallResponse(TeaModel):
         chain_fail_message: str = None,
         code: str = None,
         message: str = None,
+        response_data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -34631,6 +34670,8 @@ class QueryLeaseAsynccallResponse(TeaModel):
         self.code = code
         # 结果描述
         self.message = message
+        # 查询对应的具体的数据
+        self.response_data = response_data
 
     def validate(self):
         pass
@@ -34657,6 +34698,8 @@ class QueryLeaseAsynccallResponse(TeaModel):
             result['code'] = self.code
         if self.message is not None:
             result['message'] = self.message
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
         return result
 
     def from_map(self, m: dict = None):
@@ -34677,6 +34720,8 @@ class QueryLeaseAsynccallResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
         return self
 
 
