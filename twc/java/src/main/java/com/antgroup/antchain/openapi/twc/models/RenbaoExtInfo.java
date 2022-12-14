@@ -34,6 +34,11 @@ public class RenbaoExtInfo extends TeaModel {
     @Validation(required = true, maxLength = 32)
     public String identifyNo;
 
+    // 银行代码
+    @NameInMap("bank_code")
+    @Validation(required = true, maxLength = 16)
+    public String bankCode;
+
     public static RenbaoExtInfo build(java.util.Map<String, ?> map) throws Exception {
         RenbaoExtInfo self = new RenbaoExtInfo();
         return TeaModel.build(map, self);
@@ -85,6 +90,14 @@ public class RenbaoExtInfo extends TeaModel {
     }
     public String getIdentifyNo() {
         return this.identifyNo;
+    }
+
+    public RenbaoExtInfo setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+        return this;
+    }
+    public String getBankCode() {
+        return this.bankCode;
     }
 
 }

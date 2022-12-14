@@ -52,7 +52,7 @@ public class CreateLeaseAsyncverifyinfoRequest extends TeaModel {
 
     // 租赁服务平台id
     @NameInMap("lease_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 32, minLength = 1)
     public String leaseId;
 
     // 放款流水单号

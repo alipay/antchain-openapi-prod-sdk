@@ -21,7 +21,7 @@ public class CreateLeaseAsynccreditpromiseRequest extends TeaModel {
 
     // 租赁平台金融科技id
     @NameInMap("lease_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 32, minLength = 1)
     public String leaseId;
 
     // 订单id 长度不可超过50
@@ -48,12 +48,12 @@ public class CreateLeaseAsynccreditpromiseRequest extends TeaModel {
 
     // 根据融资租赁合同及其补充协议哈希
     @NameInMap("promise_hash")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 70, minLength = 1)
     public String promiseHash;
 
     // 根据融资租赁合同及其补充协议存证交易hash
     @NameInMap("promise_tx_hash")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 70, minLength = 1)
     public String promiseTxHash;
 
     // 归还金额

@@ -26,7 +26,7 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
 
     // 租赁平台商户Id 长度不可超过50
     @NameInMap("lease_id")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String leaseId;
 
     // 订单id 长度不可超过50
@@ -57,7 +57,7 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
 
     // 剩余应还期数
     @NameInMap("remain_return_term")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 1024)
     public Long remainReturnTerm;
 
     // 每次还款流水凭证，需要融资方确认，id一样则不处理
@@ -67,12 +67,12 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
 
     // 还款结果简要描述,长度不超过256
     @NameInMap("return_description")
-    @Validation(required = true, maxLength = 256)
+    @Validation(required = true, maxLength = 256, minLength = 1)
     public String returnDescription;
 
     // 还款批次
     @NameInMap("return_index")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 1024, minimum = 1)
     public Long returnIndex;
 
     // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
@@ -92,7 +92,7 @@ public class CreateLeaseAsyncrepaymentRequest extends TeaModel {
 
     // 还款来源,1.共管账号，2.网商清分
     @NameInMap("source")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 2, minimum = 1)
     public Long source;
 
     // 逾期后还款状态,1未还款,2已还款

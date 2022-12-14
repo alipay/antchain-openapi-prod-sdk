@@ -39,6 +39,10 @@ public class QueryLeaseAsynccallResponse extends TeaModel {
     @NameInMap("message")
     public String message;
 
+    // 查询对应的具体的数据
+    @NameInMap("response_data")
+    public String responseData;
+
     public static QueryLeaseAsynccallResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryLeaseAsynccallResponse self = new QueryLeaseAsynccallResponse();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class QueryLeaseAsynccallResponse extends TeaModel {
     }
     public String getMessage() {
         return this.message;
+    }
+
+    public QueryLeaseAsynccallResponse setResponseData(String responseData) {
+        this.responseData = responseData;
+        return this;
+    }
+    public String getResponseData() {
+        return this.responseData;
     }
 
 }

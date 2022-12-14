@@ -45,7 +45,7 @@ public class CreateLeaseAsyncclearingRequest extends TeaModel {
 
     // 租赁平台商户Id 长度不可超过50
     @NameInMap("lease_id")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String leaseId;
 
     // 订单id 长度不可超过50
@@ -55,7 +55,7 @@ public class CreateLeaseAsyncclearingRequest extends TeaModel {
 
     // 还款批次
     @NameInMap("return_index")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 1024, minimum = 1)
     public Long returnIndex;
 
     // 开始时间，格式为"2019-07-31 12:00:00"
@@ -65,6 +65,7 @@ public class CreateLeaseAsyncclearingRequest extends TeaModel {
 
     // 清分资金的来源，比如用户xx元，商家yy元
     @NameInMap("memo")
+    @Validation(maxLength = 128)
     public String memo;
 
     // 融资租赁资金方id
