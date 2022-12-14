@@ -3347,6 +3347,8 @@ type RenbaoExtInfo struct {
 	Cnaps *string `json:"cnaps,omitempty" xml:"cnaps,omitempty" require:"true" maxLength:"16"`
 	// 统一社会信用代码
 	IdentifyNo *string `json:"identify_no,omitempty" xml:"identify_no,omitempty" require:"true" maxLength:"32"`
+	// 银行代码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true" maxLength:"16"`
 }
 
 func (s RenbaoExtInfo) String() string {
@@ -3384,6 +3386,11 @@ func (s *RenbaoExtInfo) SetCnaps(v string) *RenbaoExtInfo {
 
 func (s *RenbaoExtInfo) SetIdentifyNo(v string) *RenbaoExtInfo {
 	s.IdentifyNo = &v
+	return s
+}
+
+func (s *RenbaoExtInfo) SetBankCode(v string) *RenbaoExtInfo {
+	s.BankCode = &v
 	return s
 }
 
@@ -27049,7 +27056,7 @@ type CreateLeaseAsyncverifyinfoRequest struct {
 	// 承租法定代表人姓名 长度不可超过50
 	LeaseCorpOwnerName *string `json:"lease_corp_owner_name,omitempty" xml:"lease_corp_owner_name,omitempty" maxLength:"50"`
 	// 租赁服务平台id
-	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
 	// 放款流水单号
 	Loan *string `json:"loan,omitempty" xml:"loan,omitempty"`
 	// 订单id 长度不可超过50
@@ -27252,7 +27259,7 @@ type CreateLeaseAsynccreditpromiseRequest struct {
 	// 融资租赁承诺额外字段
 	CreditPromiseExtraInfoList []*string `json:"credit_promise_extra_info_list,omitempty" xml:"credit_promise_extra_info_list,omitempty" type:"Repeated"`
 	// 租赁平台金融科技id
-	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
 	// 垫付金额
@@ -27264,15 +27271,15 @@ type CreateLeaseAsynccreditpromiseRequest struct {
 	// 垫付日 格式为2019-8-31 12:00:00
 	PayInAdvanceTimeList []*string `json:"pay_in_advance_time_list,omitempty" xml:"pay_in_advance_time_list,omitempty" require:"true" type:"Repeated"`
 	// 根据融资租赁合同及其补充协议哈希
-	PromiseHash *string `json:"promise_hash,omitempty" xml:"promise_hash,omitempty" require:"true"`
+	PromiseHash *string `json:"promise_hash,omitempty" xml:"promise_hash,omitempty" require:"true" maxLength:"70" minLength:"1"`
 	// 根据融资租赁合同及其补充协议存证交易hash
-	PromiseTxHash *string `json:"promise_tx_hash,omitempty" xml:"promise_tx_hash,omitempty" require:"true"`
+	PromiseTxHash *string `json:"promise_tx_hash,omitempty" xml:"promise_tx_hash,omitempty" require:"true" maxLength:"70" minLength:"1"`
 	// 归还金额
 	ReturnMoney *int64 `json:"return_money,omitempty" xml:"return_money,omitempty"`
 	// 还款金额，精确到毫厘，即123400表示12.34元
 	ReturnMoneyList []*int64 `json:"return_money_list,omitempty" xml:"return_money_list,omitempty" require:"true" type:"Repeated"`
 	// 还款比例，精确到小数点后四位 12.34% 表示为1234
-	ReturnRate *int64 `json:"return_rate,omitempty" xml:"return_rate,omitempty"`
+	ReturnRate *int64 `json:"return_rate,omitempty" xml:"return_rate,omitempty" minimum:"0"`
 	// 归还日，格式为"2019-07-31 12:00:00"
 	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty"`
 	// 归还日，格式为"2019-07-31 12:00:00"
@@ -27432,7 +27439,7 @@ type CreateLeaseAsyncclearingRequest struct {
 	// 融资租赁业务id，由资方控制台创建返回
 	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
 	// 清分收款账号 长度不超过64
-	ClearingAccount *string `json:"clearing_account,omitempty" xml:"clearing_account,omitempty" require:"true" maxLength:"64"`
+	ClearingAccount *string `json:"clearing_account,omitempty" xml:"clearing_account,omitempty" require:"true" maxLength:"64" minLength:"0"`
 	// 清分金额,精确到毫厘，即123400表示12.34元
 	ClearingMoney *int64 `json:"clearing_money,omitempty" xml:"clearing_money,omitempty" require:"true"`
 	// 清分订单号 长度不超过128
@@ -27444,15 +27451,15 @@ type CreateLeaseAsyncclearingRequest struct {
 	// 融资租赁额外字段
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// 租赁平台商户Id 长度不可超过50
-	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
 	// 还款批次
-	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true"`
+	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true" maximum:"1024" minimum:"1"`
 	// 开始时间，格式为"2019-07-31 12:00:00"
 	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
 	// 清分资金的来源，比如用户xx元，商家yy元
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" maxLength:"128"`
 	// 融资租赁资金方id
 	CreditId *string `json:"credit_id,omitempty" xml:"credit_id,omitempty"`
 }
@@ -27604,7 +27611,7 @@ type CreateLeaseAsyncrepaymentRequest struct {
 	// 是否最终订单还款结束
 	IsFinish *bool `json:"is_finish,omitempty" xml:"is_finish,omitempty" require:"true"`
 	// 租赁平台商户Id 长度不可超过50
-	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50"`
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
 	// 逾期天数,支用到期日开始计算
@@ -27616,23 +27623,23 @@ type CreateLeaseAsyncrepaymentRequest struct {
 	// 逾期状态,暂时都以0处理，目前不处理
 	OverdueStatus *int64 `json:"overdue_status,omitempty" xml:"overdue_status,omitempty"`
 	// 剩余应还金额，精确到毫厘，即123400表示12.34元
-	RemainReturnMoney *int64 `json:"remain_return_money,omitempty" xml:"remain_return_money,omitempty" require:"true"`
+	RemainReturnMoney *int64 `json:"remain_return_money,omitempty" xml:"remain_return_money,omitempty" require:"true" minimum:"0"`
 	// 剩余应还期数
-	RemainReturnTerm *int64 `json:"remain_return_term,omitempty" xml:"remain_return_term,omitempty" require:"true"`
+	RemainReturnTerm *int64 `json:"remain_return_term,omitempty" xml:"remain_return_term,omitempty" require:"true" maximum:"1024" minimum:"0"`
 	// 每次还款流水凭证，需要融资方确认，id一样则不处理
 	RepaymentUniqueId *string `json:"repayment_unique_id,omitempty" xml:"repayment_unique_id,omitempty" require:"true"`
 	// 还款结果简要描述,长度不超过256
-	ReturnDescription *string `json:"return_description,omitempty" xml:"return_description,omitempty" require:"true" maxLength:"256"`
+	ReturnDescription *string `json:"return_description,omitempty" xml:"return_description,omitempty" require:"true" maxLength:"256" minLength:"1"`
 	// 还款批次
-	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true"`
+	ReturnIndex *int64 `json:"return_index,omitempty" xml:"return_index,omitempty" require:"true" maximum:"1024" minimum:"1"`
 	// 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
-	ReturnMoney *int64 `json:"return_money,omitempty" xml:"return_money,omitempty" require:"true"`
+	ReturnMoney *int64 `json:"return_money,omitempty" xml:"return_money,omitempty" require:"true" minimum:"0"`
 	// 还款结果状态,1.成功 2.失败
 	ReturnStatus *int64 `json:"return_status,omitempty" xml:"return_status,omitempty" require:"true"`
 	// 还款日期，格式为"2019-07-31 12:00:00"
 	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty" require:"true"`
 	// 还款来源,1.共管账号，2.网商清分
-	Source *int64 `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	Source *int64 `json:"source,omitempty" xml:"source,omitempty" require:"true" maximum:"2" minimum:"1"`
 	// 逾期后还款状态,1未还款,2已还款
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
 	// 原所有权id
@@ -28272,6 +28279,8 @@ type QueryLeaseAsynccallResponse struct {
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 	// 结果描述
 	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 查询对应的具体的数据
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
 }
 
 func (s QueryLeaseAsynccallResponse) String() string {
@@ -28319,6 +28328,11 @@ func (s *QueryLeaseAsynccallResponse) SetCode(v string) *QueryLeaseAsynccallResp
 
 func (s *QueryLeaseAsynccallResponse) SetMessage(v string) *QueryLeaseAsynccallResponse {
 	s.Message = &v
+	return s
+}
+
+func (s *QueryLeaseAsynccallResponse) SetResponseData(v string) *QueryLeaseAsynccallResponse {
+	s.ResponseData = &v
 	return s
 }
 
@@ -40460,7 +40474,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.14"),
+				"sdk_version":      tea.String("1.8.16"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
