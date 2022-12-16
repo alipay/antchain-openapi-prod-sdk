@@ -533,6 +533,39 @@ func (s *FormIndexDTO) SetTxTimestamp(v string) *FormIndexDTO {
 	return s
 }
 
+// 授权信息
+type Authorization struct {
+	// 授权内容的类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 要获取的授权字段
+	Fields []*string `json:"fields,omitempty" xml:"fields,omitempty" require:"true" type:"Repeated"`
+	// 签名时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s Authorization) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Authorization) GoString() string {
+	return s.String()
+}
+
+func (s *Authorization) SetAuthType(v string) *Authorization {
+	s.AuthType = &v
+	return s
+}
+
+func (s *Authorization) SetFields(v []*string) *Authorization {
+	s.Fields = v
+	return s
+}
+
+func (s *Authorization) SetTimestamp(v int64) *Authorization {
+	s.Timestamp = &v
+	return s
+}
+
 type CreateMypocketChainaccountRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1252,6 +1285,90 @@ func (s *QueryMypocketUserinfoResponse) SetNickName(v string) *QueryMypocketUser
 
 func (s *QueryMypocketUserinfoResponse) SetAvatar(v string) *QueryMypocketUserinfoResponse {
 	s.Avatar = &v
+	return s
+}
+
+type QueryMypocketUserauthinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户授权信息
+	Authorization *Authorization `json:"authorization,omitempty" xml:"authorization,omitempty" require:"true"`
+	// 签名字符串
+	DidSign *string `json:"did_sign,omitempty" xml:"did_sign,omitempty" require:"true"`
+	// 签名的用户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+}
+
+func (s QueryMypocketUserauthinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketUserauthinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketUserauthinfoRequest) SetAuthToken(v string) *QueryMypocketUserauthinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoRequest) SetProductInstanceId(v string) *QueryMypocketUserauthinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoRequest) SetAuthorization(v *Authorization) *QueryMypocketUserauthinfoRequest {
+	s.Authorization = v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoRequest) SetDidSign(v string) *QueryMypocketUserauthinfoRequest {
+	s.DidSign = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoRequest) SetDid(v string) *QueryMypocketUserauthinfoRequest {
+	s.Did = &v
+	return s
+}
+
+type QueryMypocketUserauthinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权信息详情
+	AuthorizationInfo []*NameValuePair `json:"authorization_info,omitempty" xml:"authorization_info,omitempty" type:"Repeated"`
+}
+
+func (s QueryMypocketUserauthinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketUserauthinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketUserauthinfoResponse) SetReqMsgId(v string) *QueryMypocketUserauthinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoResponse) SetResultCode(v string) *QueryMypocketUserauthinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoResponse) SetResultMsg(v string) *QueryMypocketUserauthinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMypocketUserauthinfoResponse) SetAuthorizationInfo(v []*NameValuePair) *QueryMypocketUserauthinfoResponse {
+	s.AuthorizationInfo = v
 	return s
 }
 
@@ -4574,7 +4691,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.10"),
+				"sdk_version":      tea.String("1.3.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4929,6 +5046,40 @@ func (client *Client) QueryMypocketUserinfoEx(request *QueryMypocketUserinfoRequ
 	}
 	_result = &QueryMypocketUserinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据授权信息获取用户信息字段
+ * Summary: 查询用户授权信息
+ */
+func (client *Client) QueryMypocketUserauthinfo(request *QueryMypocketUserauthinfoRequest) (_result *QueryMypocketUserauthinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMypocketUserauthinfoResponse{}
+	_body, _err := client.QueryMypocketUserauthinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据授权信息获取用户信息字段
+ * Summary: 查询用户授权信息
+ */
+func (client *Client) QueryMypocketUserauthinfoEx(request *QueryMypocketUserauthinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMypocketUserauthinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMypocketUserauthinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userauthinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
