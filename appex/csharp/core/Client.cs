@@ -137,7 +137,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.10"},
+                        {"sdk_version", "1.3.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.10"},
+                        {"sdk_version", "1.3.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -693,6 +693,48 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMypocketUserinfoResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.userinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据授权信息获取用户信息字段
+         * Summary: 查询用户授权信息
+         */
+        public QueryMypocketUserauthinfoResponse QueryMypocketUserauthinfo(QueryMypocketUserauthinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMypocketUserauthinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据授权信息获取用户信息字段
+         * Summary: 查询用户授权信息
+         */
+        public async Task<QueryMypocketUserauthinfoResponse> QueryMypocketUserauthinfoAsync(QueryMypocketUserauthinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMypocketUserauthinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据授权信息获取用户信息字段
+         * Summary: 查询用户授权信息
+         */
+        public QueryMypocketUserauthinfoResponse QueryMypocketUserauthinfoEx(QueryMypocketUserauthinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketUserauthinfoResponse>(DoRequest("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据授权信息获取用户信息字段
+         * Summary: 查询用户授权信息
+         */
+        public async Task<QueryMypocketUserauthinfoResponse> QueryMypocketUserauthinfoExAsync(QueryMypocketUserauthinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketUserauthinfoResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
