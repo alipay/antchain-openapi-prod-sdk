@@ -409,6 +409,35 @@ export class FormIndexDTO extends $tea.Model {
   }
 }
 
+// 授权信息
+export class Authorization extends $tea.Model {
+  // 授权内容的类型
+  authType: string;
+  // 要获取的授权字段
+  fields: string[];
+  // 签名时间戳
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authType: 'auth_type',
+      fields: 'fields',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authType: 'string',
+      fields: { 'type': 'array', 'itemType': 'string' },
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateMypocketChainaccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -985,6 +1014,73 @@ export class QueryMypocketUserinfoResponse extends $tea.Model {
       resultMsg: 'string',
       nickName: 'string',
       avatar: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketUserauthinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户授权信息
+  authorization: Authorization;
+  // 签名字符串
+  didSign: string;
+  // 签名的用户did
+  did: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authorization: 'authorization',
+      didSign: 'did_sign',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authorization: Authorization,
+      didSign: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketUserauthinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权信息详情
+  authorizationInfo?: NameValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authorizationInfo: 'authorization_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authorizationInfo: { 'type': 'array', 'itemType': NameValuePair },
     };
   }
 
@@ -3564,7 +3660,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.10",
+          sdk_version: "1.3.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3779,6 +3875,25 @@ export default class Client {
   async queryMypocketUserinfoEx(request: QueryMypocketUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketUserinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMypocketUserinfoResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketUserinfoResponse({}));
+  }
+
+  /**
+   * Description: 根据授权信息获取用户信息字段
+   * Summary: 查询用户授权信息
+   */
+  async queryMypocketUserauthinfo(request: QueryMypocketUserauthinfoRequest): Promise<QueryMypocketUserauthinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMypocketUserauthinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据授权信息获取用户信息字段
+   * Summary: 查询用户授权信息
+   */
+  async queryMypocketUserauthinfoEx(request: QueryMypocketUserauthinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketUserauthinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMypocketUserauthinfoResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketUserauthinfoResponse({}));
   }
 
   /**
