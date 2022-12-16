@@ -71,6 +71,8 @@ use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayRequest;
 use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayResponse;
 use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountRequest;
 use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountResponse;
+use AntChain\APPEX\Models\QueryMypocketUserauthinfoRequest;
+use AntChain\APPEX\Models\QueryMypocketUserauthinfoResponse;
 use AntChain\APPEX\Models\QueryMypocketUserinfoRequest;
 use AntChain\APPEX\Models\QueryMypocketUserinfoResponse;
 use AntChain\APPEX\Models\QuerySolutionBmsRequest;
@@ -240,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.10',
+                    'sdk_version'      => '1.3.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -581,6 +583,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryMypocketUserinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据授权信息获取用户信息字段
+     * Summary: 查询用户授权信息.
+     *
+     * @param QueryMypocketUserauthinfoRequest $request
+     *
+     * @return QueryMypocketUserauthinfoResponse
+     */
+    public function queryMypocketUserauthinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMypocketUserauthinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据授权信息获取用户信息字段
+     * Summary: 查询用户授权信息.
+     *
+     * @param QueryMypocketUserauthinfoRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryMypocketUserauthinfoResponse
+     */
+    public function queryMypocketUserauthinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMypocketUserauthinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
