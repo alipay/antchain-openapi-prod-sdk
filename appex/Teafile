@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "APPEX",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-appex:1.3.10",
-    "go": "github.com/antchain-openapi-sdk-go/appex/client:v1.3.10",
-    "csharp": "AntChain.SDK.APPEX:1.3.10",
-    "ts": "@antchain/appex:1.3.10",
-    "php": "antchain/appex:1.3.10",
-    "python": "antchain_sdk_appex:1.3.10"
+    "java": "com.antgroup.antchain.openapi:openapi-appex:1.3.12",
+    "go": "github.com/antchain-openapi-sdk-go/appex/client:v1.3.12",
+    "csharp": "AntChain.SDK.APPEX:1.3.12",
+    "ts": "@antchain/appex:1.3.12",
+    "php": "antchain/appex:1.3.12",
+    "python": "antchain_sdk_appex:1.3.12"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

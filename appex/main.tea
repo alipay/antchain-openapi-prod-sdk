@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.10',
+    sdk_version = '1.3.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -274,6 +274,16 @@ model FormIndexDTO {
   txHash: string(name='tx_hash', example='063a580c6f208a71e4cf57672049e9f59df76412e4d810e4c26950c9147c3ced'),
   // 交易时间戳
   txTimestamp: string(name='tx_timestamp', example='1597130279858'),
+}
+
+// 授权信息
+model Authorization {
+  // 授权内容的类型
+  authType: string(name='auth_type', example='profile'),
+  // 要获取的授权字段
+  fields: [ string ](name='fields', example='phone'),
+  // 签名时间戳
+  timestamp: long(name='timestamp', example='10000000'),
 }
 
 model CreateMypocketChainaccountRequest = {
@@ -643,6 +653,48 @@ async function queryMypocketUserinfo(request: QueryMypocketUserinfoRequest): Que
 async function queryMypocketUserinfoEx(request: QueryMypocketUserinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketUserinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMypocketUserauthinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户授权信息
+  authorization: Authorization(name='authorization'),
+  // 签名字符串
+  didSign: string(name='did_sign'),
+  // 签名的用户did
+  did: string(name='did'),
+}
+
+model QueryMypocketUserauthinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权信息详情
+  authorizationInfo?: [ NameValuePair ](name='authorization_info'),
+}
+
+/**
+ * Description: 根据授权信息获取用户信息字段
+ * Summary: 查询用户授权信息
+ */
+async function queryMypocketUserauthinfo(request: QueryMypocketUserauthinfoRequest): QueryMypocketUserauthinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMypocketUserauthinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据授权信息获取用户信息字段
+ * Summary: 查询用户授权信息
+ */
+async function queryMypocketUserauthinfoEx(request: QueryMypocketUserauthinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketUserauthinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateUserDidRequest = {
