@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.10'
+                    'sdk_version': '1.3.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.10'
+                    'sdk_version': '1.3.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -773,6 +773,62 @@ class Client:
         return TeaCore.from_map(
             appex_models.QueryMypocketUserinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.mypocket.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mypocket_userauthinfo(
+        self,
+        request: appex_models.QueryMypocketUserauthinfoRequest,
+    ) -> appex_models.QueryMypocketUserauthinfoResponse:
+        """
+        Description: 根据授权信息获取用户信息字段
+        Summary: 查询用户授权信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mypocket_userauthinfo_ex(request, headers, runtime)
+
+    async def query_mypocket_userauthinfo_async(
+        self,
+        request: appex_models.QueryMypocketUserauthinfoRequest,
+    ) -> appex_models.QueryMypocketUserauthinfoResponse:
+        """
+        Description: 根据授权信息获取用户信息字段
+        Summary: 查询用户授权信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mypocket_userauthinfo_ex_async(request, headers, runtime)
+
+    def query_mypocket_userauthinfo_ex(
+        self,
+        request: appex_models.QueryMypocketUserauthinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketUserauthinfoResponse:
+        """
+        Description: 根据授权信息获取用户信息字段
+        Summary: 查询用户授权信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketUserauthinfoResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mypocket_userauthinfo_ex_async(
+        self,
+        request: appex_models.QueryMypocketUserauthinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketUserauthinfoResponse:
+        """
+        Description: 根据授权信息获取用户信息字段
+        Summary: 查询用户授权信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketUserauthinfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_user_did(

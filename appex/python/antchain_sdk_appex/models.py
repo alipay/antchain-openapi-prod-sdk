@@ -674,6 +674,50 @@ class FormIndexDTO(TeaModel):
         return self
 
 
+class Authorization(TeaModel):
+    def __init__(
+        self,
+        auth_type: str = None,
+        fields: List[str] = None,
+        timestamp: int = None,
+    ):
+        # 授权内容的类型
+        self.auth_type = auth_type
+        # 要获取的授权字段
+        self.fields = fields
+        # 签名时间戳
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.fields, 'fields')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.fields is not None:
+            result['fields'] = self.fields
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('fields') is not None:
+            self.fields = m.get('fields')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
 class CreateMypocketChainaccountRequest(TeaModel):
     def __init__(
         self,
@@ -1599,6 +1643,123 @@ class QueryMypocketUserinfoResponse(TeaModel):
             self.nick_name = m.get('nick_name')
         if m.get('avatar') is not None:
             self.avatar = m.get('avatar')
+        return self
+
+
+class QueryMypocketUserauthinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        authorization: Authorization = None,
+        did_sign: str = None,
+        did: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户授权信息
+        self.authorization = authorization
+        # 签名字符串
+        self.did_sign = did_sign
+        # 签名的用户did
+        self.did = did
+
+    def validate(self):
+        self.validate_required(self.authorization, 'authorization')
+        if self.authorization:
+            self.authorization.validate()
+        self.validate_required(self.did_sign, 'did_sign')
+        self.validate_required(self.did, 'did')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.authorization is not None:
+            result['authorization'] = self.authorization.to_map()
+        if self.did_sign is not None:
+            result['did_sign'] = self.did_sign
+        if self.did is not None:
+            result['did'] = self.did
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('authorization') is not None:
+            temp_model = Authorization()
+            self.authorization = temp_model.from_map(m['authorization'])
+        if m.get('did_sign') is not None:
+            self.did_sign = m.get('did_sign')
+        if m.get('did') is not None:
+            self.did = m.get('did')
+        return self
+
+
+class QueryMypocketUserauthinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        authorization_info: List[NameValuePair] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权信息详情
+        self.authorization_info = authorization_info
+
+    def validate(self):
+        if self.authorization_info:
+            for k in self.authorization_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['authorization_info'] = []
+        if self.authorization_info is not None:
+            for k in self.authorization_info:
+                result['authorization_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.authorization_info = []
+        if m.get('authorization_info') is not None:
+            for k in m.get('authorization_info'):
+                temp_model = NameValuePair()
+                self.authorization_info.append(temp_model.from_map(k))
         return self
 
 
