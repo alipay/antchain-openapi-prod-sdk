@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.7"),
-                    new TeaPair("_prod_code", "RISKPLUS"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.16.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2675,6 +2673,25 @@ public class Client {
     public BatchqueryUmktRtMixedmarketingResponse batchqueryUmktRtMixedmarketingEx(BatchqueryUmktRtMixedmarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktRtMixedmarketingResponse());
+    }
+
+    /**
+     * Description: 调用营销盾空号检测
+     * Summary: 调用营销盾空号检测
+     */
+    public ApplyUmktPhonenumberstatusforsmsResponse applyUmktPhonenumberstatusforsms(ApplyUmktPhonenumberstatusforsmsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyUmktPhonenumberstatusforsmsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用营销盾空号检测
+     * Summary: 调用营销盾空号检测
+     */
+    public ApplyUmktPhonenumberstatusforsmsResponse applyUmktPhonenumberstatusforsmsEx(ApplyUmktPhonenumberstatusforsmsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktPhonenumberstatusforsmsResponse());
     }
 
     /**
