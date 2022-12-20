@@ -2721,6 +2721,7 @@ class RecordScreenData(TeaModel):
         zip_file_hash: str = None,
         main_evidence_name: str = None,
         evidence_order_num: str = None,
+        correction_url: str = None,
     ):
         # 错误原因（状态为FAIL才有数据）
         self.error_reason = error_reason
@@ -2762,6 +2763,8 @@ class RecordScreenData(TeaModel):
         self.main_evidence_name = main_evidence_name
         # 取证申请单号
         self.evidence_order_num = evidence_order_num
+        # 补正说明函下载地址
+        self.correction_url = correction_url
 
     def validate(self):
         self.validate_required(self.gmt_end, 'gmt_end')
@@ -2817,6 +2820,8 @@ class RecordScreenData(TeaModel):
             result['main_evidence_name'] = self.main_evidence_name
         if self.evidence_order_num is not None:
             result['evidence_order_num'] = self.evidence_order_num
+        if self.correction_url is not None:
+            result['correction_url'] = self.correction_url
         return result
 
     def from_map(self, m: dict = None):
@@ -2862,6 +2867,8 @@ class RecordScreenData(TeaModel):
             self.main_evidence_name = m.get('main_evidence_name')
         if m.get('evidence_order_num') is not None:
             self.evidence_order_num = m.get('evidence_order_num')
+        if m.get('correction_url') is not None:
+            self.correction_url = m.get('correction_url')
         return self
 
 
@@ -3093,6 +3100,62 @@ class MonitorProviderType(TeaModel):
             for k in m.get('monitor_providers'):
                 temp_model = MonitorProviderCapability()
                 self.monitor_providers.append(temp_model.from_map(k))
+        return self
+
+
+class AdditionalFileInfo(TeaModel):
+    def __init__(
+        self,
+        content_summary_file_id: str = None,
+        ownership_file_ids: List[str] = None,
+        portrait_auth_file_id: str = None,
+        others_work_auth_file_id: str = None,
+        other_file_id_list: List[str] = None,
+    ):
+        # 内容梗概文件fileId
+        self.content_summary_file_id = content_summary_file_id
+        # 权利归属证明文件
+        self.ownership_file_ids = ownership_file_ids
+        # 肖像权授权文件fileId
+        self.portrait_auth_file_id = portrait_auth_file_id
+        # 他人作品授权文件fileId
+        self.others_work_auth_file_id = others_work_auth_file_id
+        # 其他文件fileId列表
+        self.other_file_id_list = other_file_id_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_summary_file_id is not None:
+            result['content_summary_file_id'] = self.content_summary_file_id
+        if self.ownership_file_ids is not None:
+            result['ownership_file_ids'] = self.ownership_file_ids
+        if self.portrait_auth_file_id is not None:
+            result['portrait_auth_file_id'] = self.portrait_auth_file_id
+        if self.others_work_auth_file_id is not None:
+            result['others_work_auth_file_id'] = self.others_work_auth_file_id
+        if self.other_file_id_list is not None:
+            result['other_file_id_list'] = self.other_file_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content_summary_file_id') is not None:
+            self.content_summary_file_id = m.get('content_summary_file_id')
+        if m.get('ownership_file_ids') is not None:
+            self.ownership_file_ids = m.get('ownership_file_ids')
+        if m.get('portrait_auth_file_id') is not None:
+            self.portrait_auth_file_id = m.get('portrait_auth_file_id')
+        if m.get('others_work_auth_file_id') is not None:
+            self.others_work_auth_file_id = m.get('others_work_auth_file_id')
+        if m.get('other_file_id_list') is not None:
+            self.other_file_id_list = m.get('other_file_id_list')
         return self
 
 
@@ -3720,6 +3783,58 @@ class NotaryInfo(TeaModel):
             self.notary_paper_path = m.get('notary_paper_path')
         if m.get('notary_time') is not None:
             self.notary_time = m.get('notary_time')
+        return self
+
+
+class DciExplanationInfo(TeaModel):
+    def __init__(
+        self,
+        creation_purpose: str = None,
+        creation_process: str = None,
+        originality: str = None,
+        font_copyright: str = None,
+    ):
+        # 创作目的，描述作品创作的目的
+        self.creation_purpose = creation_purpose
+        # 创作过程，具体的创作过程
+        self.creation_process = creation_process
+        # 阐述作品的独创性
+        self.originality = originality
+        # 创作过程涉及到字体使用相关版权说明
+        self.font_copyright = font_copyright
+
+    def validate(self):
+        self.validate_required(self.creation_purpose, 'creation_purpose')
+        self.validate_required(self.creation_process, 'creation_process')
+        self.validate_required(self.originality, 'originality')
+        self.validate_required(self.font_copyright, 'font_copyright')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_purpose is not None:
+            result['creation_purpose'] = self.creation_purpose
+        if self.creation_process is not None:
+            result['creation_process'] = self.creation_process
+        if self.originality is not None:
+            result['originality'] = self.originality
+        if self.font_copyright is not None:
+            result['font_copyright'] = self.font_copyright
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('creation_purpose') is not None:
+            self.creation_purpose = m.get('creation_purpose')
+        if m.get('creation_process') is not None:
+            self.creation_process = m.get('creation_process')
+        if m.get('originality') is not None:
+            self.originality = m.get('originality')
+        if m.get('font_copyright') is not None:
+            self.font_copyright = m.get('font_copyright')
         return self
 
 
@@ -4531,6 +4646,7 @@ class QueryRegisterstatusResponse(TeaModel):
         package_tx_hash: str = None,
         statement_url: str = None,
         security: SecurityData = None,
+        correction_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4564,6 +4680,8 @@ class QueryRegisterstatusResponse(TeaModel):
         self.statement_url = statement_url
         # 安全信息
         self.security = security
+        # 补正说明函下载地址
+        self.correction_url = correction_url
 
     def validate(self):
         if self.security:
@@ -4607,6 +4725,8 @@ class QueryRegisterstatusResponse(TeaModel):
             result['statement_url'] = self.statement_url
         if self.security is not None:
             result['security'] = self.security.to_map()
+        if self.correction_url is not None:
+            result['correction_url'] = self.correction_url
         return result
 
     def from_map(self, m: dict = None):
@@ -4644,6 +4764,8 @@ class QueryRegisterstatusResponse(TeaModel):
         if m.get('security') is not None:
             temp_model = SecurityData()
             self.security = temp_model.from_map(m['security'])
+        if m.get('correction_url') is not None:
+            self.correction_url = m.get('correction_url')
         return self
 
 
@@ -7618,7 +7740,6 @@ class QueryDciPreregistrationRequest(TeaModel):
         self.dci_content_id = dci_content_id
 
     def validate(self):
-        self.validate_required(self.dci_user_id, 'dci_user_id')
         self.validate_required(self.dci_content_id, 'dci_content_id')
 
     def to_map(self):
@@ -7679,6 +7800,7 @@ class QueryDciPreregistrationResponse(TeaModel):
         apply_obtain_date: str = None,
         dci_code_obtain_date: str = None,
         error_reason: str = None,
+        error_reason_cn: str = None,
         publication_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -7733,6 +7855,8 @@ class QueryDciPreregistrationResponse(TeaModel):
         self.dci_code_obtain_date = dci_code_obtain_date
         # 错误原因
         self.error_reason = error_reason
+        # 错误中文原因
+        self.error_reason_cn = error_reason_cn
         # 公式地址
         self.publication_url = publication_url
 
@@ -7797,6 +7921,8 @@ class QueryDciPreregistrationResponse(TeaModel):
             result['dci_code_obtain_date'] = self.dci_code_obtain_date
         if self.error_reason is not None:
             result['error_reason'] = self.error_reason
+        if self.error_reason_cn is not None:
+            result['error_reason_cn'] = self.error_reason_cn
         if self.publication_url is not None:
             result['publication_url'] = self.publication_url
         return result
@@ -7855,6 +7981,8 @@ class QueryDciPreregistrationResponse(TeaModel):
             self.dci_code_obtain_date = m.get('dci_code_obtain_date')
         if m.get('error_reason') is not None:
             self.error_reason = m.get('error_reason')
+        if m.get('error_reason_cn') is not None:
+            self.error_reason_cn = m.get('error_reason_cn')
         if m.get('publication_url') is not None:
             self.publication_url = m.get('publication_url')
         return self
@@ -8579,25 +8707,42 @@ class CreateDciRegistrationRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         dci_content_id: str = None,
+        explanation_info: DciExplanationInfo = None,
+        additional_file_info: AdditionalFileInfo = None,
+        invoice_info: InvoiceInfo = None,
+        client_token: str = None,
         creation_statement: str = None,
         ancillary_evidence_path_list: List[str] = None,
-        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # DC456
+        # DC123456
         self.dci_content_id = dci_content_id
-        # 作品创作申明
-        self.creation_statement = creation_statement
-        # 补充授权文件
-        self.ancillary_evidence_path_list = ancillary_evidence_path_list
-        # 客户端令牌
+        # 数登申请声明
+        self.explanation_info = explanation_info
+        # 补充文件相关信息
+        self.additional_file_info = additional_file_info
+        # 发票信息--当前支持普票
+        self.invoice_info = invoice_info
+        # 幂等字段
         self.client_token = client_token
+        # 废弃待删除
+        self.creation_statement = creation_statement
+        # 废弃待删除
+        self.ancillary_evidence_path_list = ancillary_evidence_path_list
 
     def validate(self):
         self.validate_required(self.dci_content_id, 'dci_content_id')
-        self.validate_required(self.creation_statement, 'creation_statement')
+        self.validate_required(self.explanation_info, 'explanation_info')
+        if self.explanation_info:
+            self.explanation_info.validate()
+        if self.additional_file_info:
+            self.additional_file_info.validate()
+        self.validate_required(self.invoice_info, 'invoice_info')
+        if self.invoice_info:
+            self.invoice_info.validate()
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -8611,12 +8756,18 @@ class CreateDciRegistrationRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.dci_content_id is not None:
             result['dci_content_id'] = self.dci_content_id
+        if self.explanation_info is not None:
+            result['explanation_info'] = self.explanation_info.to_map()
+        if self.additional_file_info is not None:
+            result['additional_file_info'] = self.additional_file_info.to_map()
+        if self.invoice_info is not None:
+            result['invoice_info'] = self.invoice_info.to_map()
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         if self.creation_statement is not None:
             result['creation_statement'] = self.creation_statement
         if self.ancillary_evidence_path_list is not None:
             result['ancillary_evidence_path_list'] = self.ancillary_evidence_path_list
-        if self.client_token is not None:
-            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -8627,12 +8778,21 @@ class CreateDciRegistrationRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('dci_content_id') is not None:
             self.dci_content_id = m.get('dci_content_id')
+        if m.get('explanation_info') is not None:
+            temp_model = DciExplanationInfo()
+            self.explanation_info = temp_model.from_map(m['explanation_info'])
+        if m.get('additional_file_info') is not None:
+            temp_model = AdditionalFileInfo()
+            self.additional_file_info = temp_model.from_map(m['additional_file_info'])
+        if m.get('invoice_info') is not None:
+            temp_model = InvoiceInfo()
+            self.invoice_info = temp_model.from_map(m['invoice_info'])
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         if m.get('creation_statement') is not None:
             self.creation_statement = m.get('creation_statement')
         if m.get('ancillary_evidence_path_list') is not None:
             self.ancillary_evidence_path_list = m.get('ancillary_evidence_path_list')
-        if m.get('client_token') is not None:
-            self.client_token = m.get('client_token')
         return self
 
 
@@ -8642,6 +8802,7 @@ class CreateDciRegistrationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        digital_register_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8649,6 +8810,8 @@ class CreateDciRegistrationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 数登申请id
+        self.digital_register_id = digital_register_id
 
     def validate(self):
         pass
@@ -8665,6 +8828,8 @@ class CreateDciRegistrationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8675,6 +8840,8 @@ class CreateDciRegistrationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
         return self
 
 
@@ -8773,16 +8940,19 @@ class QueryDciRegistrationRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        digital_register_id: str = None,
         dci_content_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # dci内容id
+        # 数登申请id
+        self.digital_register_id = digital_register_id
+        # 废弃待删除
         self.dci_content_id = dci_content_id
 
     def validate(self):
-        self.validate_required(self.dci_content_id, 'dci_content_id')
+        self.validate_required(self.digital_register_id, 'digital_register_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -8794,6 +8964,8 @@ class QueryDciRegistrationRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
         if self.dci_content_id is not None:
             result['dci_content_id'] = self.dci_content_id
         return result
@@ -8804,6 +8976,8 @@ class QueryDciRegistrationRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
         if m.get('dci_content_id') is not None:
             self.dci_content_id = m.get('dci_content_id')
         return self
@@ -8824,8 +8998,19 @@ class QueryDciRegistrationResponse(TeaModel):
         register_sample_png_file_id: str = None,
         register_download_times_left: int = None,
         error_reason: str = None,
+        error_reason_cn: str = None,
         invoice_file_id_list: List[str] = None,
         apply_register_time: str = None,
+        reg_number: str = None,
+        dci_content_id: str = None,
+        digital_register_status: str = None,
+        digital_register_apply_time: str = None,
+        digital_register_completion_time: str = None,
+        digital_register_cert_png_url: str = None,
+        digital_register_sample_png_url: str = None,
+        download_times_left: int = None,
+        invoice_url_list: List[str] = None,
+        fail_detail: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8833,32 +9018,58 @@ class QueryDciRegistrationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 状态
+        # 废弃待删除
         self.content_status = content_status
-        # 登记证书txHash
+        # 废弃待删除
         self.register_cert_tx_hash = register_cert_tx_hash
-        # 登记证书存证高度
+        # 废弃待删除
         self.register_cert_block_height = register_cert_block_height
-        # 登记证书tsr
+        # 废弃待删除
         self.register_cert_tsr = register_cert_tsr
-        # 登记证书预览fileId
+        # 废弃待删除
         self.register_cert_png_file_id = register_cert_png_file_id
-        # 数登样本oss fileId
+        # 废弃待删除
         self.register_sample_file_id = register_sample_file_id
-        # 数登样本预览oss fileId
+        # 废弃待删除
         self.register_sample_png_file_id = register_sample_png_file_id
-        # 剩余下载次数
+        # 废弃待删除
         self.register_download_times_left = register_download_times_left
-        # 错误原因
+        # 废弃待删除
         self.error_reason = error_reason
-        # 发票oss fileId List
+        # 废弃待删除
+        self.error_reason_cn = error_reason_cn
+        # 废弃待删除
         self.invoice_file_id_list = invoice_file_id_list
-        # 数登申请时间
+        # 废弃待删除
         self.apply_register_time = apply_register_time
+        # 数登登记号
+        self.reg_number = reg_number
+        # dci申领id
+        self.dci_content_id = dci_content_id
+        # 数登状态
+        self.digital_register_status = digital_register_status
+        # 数登申请时间
+        self.digital_register_apply_time = digital_register_apply_time
+        # 数登完成时间
+        self.digital_register_completion_time = digital_register_completion_time
+        # 数登证书预览图url
+        self.digital_register_cert_png_url = digital_register_cert_png_url
+        # 样本证书预览图url
+        self.digital_register_sample_png_url = digital_register_sample_png_url
+        # 证书本月剩余下载次数
+        self.download_times_left = download_times_left
+        # 发票下载链接list
+        self.invoice_url_list = invoice_url_list
+        # 数登失败详情
+        self.fail_detail = fail_detail
 
     def validate(self):
         if self.apply_register_time is not None:
             self.validate_pattern(self.apply_register_time, 'apply_register_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.digital_register_apply_time is not None:
+            self.validate_pattern(self.digital_register_apply_time, 'digital_register_apply_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.digital_register_completion_time is not None:
+            self.validate_pattern(self.digital_register_completion_time, 'digital_register_completion_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -8890,10 +9101,32 @@ class QueryDciRegistrationResponse(TeaModel):
             result['register_download_times_left'] = self.register_download_times_left
         if self.error_reason is not None:
             result['error_reason'] = self.error_reason
+        if self.error_reason_cn is not None:
+            result['error_reason_cn'] = self.error_reason_cn
         if self.invoice_file_id_list is not None:
             result['invoice_file_id_list'] = self.invoice_file_id_list
         if self.apply_register_time is not None:
             result['apply_register_time'] = self.apply_register_time
+        if self.reg_number is not None:
+            result['reg_number'] = self.reg_number
+        if self.dci_content_id is not None:
+            result['dci_content_id'] = self.dci_content_id
+        if self.digital_register_status is not None:
+            result['digital_register_status'] = self.digital_register_status
+        if self.digital_register_apply_time is not None:
+            result['digital_register_apply_time'] = self.digital_register_apply_time
+        if self.digital_register_completion_time is not None:
+            result['digital_register_completion_time'] = self.digital_register_completion_time
+        if self.digital_register_cert_png_url is not None:
+            result['digital_register_cert_png_url'] = self.digital_register_cert_png_url
+        if self.digital_register_sample_png_url is not None:
+            result['digital_register_sample_png_url'] = self.digital_register_sample_png_url
+        if self.download_times_left is not None:
+            result['download_times_left'] = self.download_times_left
+        if self.invoice_url_list is not None:
+            result['invoice_url_list'] = self.invoice_url_list
+        if self.fail_detail is not None:
+            result['fail_detail'] = self.fail_detail
         return result
 
     def from_map(self, m: dict = None):
@@ -8922,10 +9155,32 @@ class QueryDciRegistrationResponse(TeaModel):
             self.register_download_times_left = m.get('register_download_times_left')
         if m.get('error_reason') is not None:
             self.error_reason = m.get('error_reason')
+        if m.get('error_reason_cn') is not None:
+            self.error_reason_cn = m.get('error_reason_cn')
         if m.get('invoice_file_id_list') is not None:
             self.invoice_file_id_list = m.get('invoice_file_id_list')
         if m.get('apply_register_time') is not None:
             self.apply_register_time = m.get('apply_register_time')
+        if m.get('reg_number') is not None:
+            self.reg_number = m.get('reg_number')
+        if m.get('dci_content_id') is not None:
+            self.dci_content_id = m.get('dci_content_id')
+        if m.get('digital_register_status') is not None:
+            self.digital_register_status = m.get('digital_register_status')
+        if m.get('digital_register_apply_time') is not None:
+            self.digital_register_apply_time = m.get('digital_register_apply_time')
+        if m.get('digital_register_completion_time') is not None:
+            self.digital_register_completion_time = m.get('digital_register_completion_time')
+        if m.get('digital_register_cert_png_url') is not None:
+            self.digital_register_cert_png_url = m.get('digital_register_cert_png_url')
+        if m.get('digital_register_sample_png_url') is not None:
+            self.digital_register_sample_png_url = m.get('digital_register_sample_png_url')
+        if m.get('download_times_left') is not None:
+            self.download_times_left = m.get('download_times_left')
+        if m.get('invoice_url_list') is not None:
+            self.invoice_url_list = m.get('invoice_url_list')
+        if m.get('fail_detail') is not None:
+            self.fail_detail = m.get('fail_detail')
         return self
 
 
@@ -8934,19 +9189,23 @@ class GetDciRegistrationcertRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        dci_content_id: str = None,
+        digital_register_id: str = None,
         client_token: str = None,
+        dci_content_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # dci内容id
-        self.dci_content_id = dci_content_id
+        # 数登申请id
+        self.digital_register_id = digital_register_id
         # 幂等字段
         self.client_token = client_token
+        # 废弃待删除
+        self.dci_content_id = dci_content_id
 
     def validate(self):
-        self.validate_required(self.dci_content_id, 'dci_content_id')
+        self.validate_required(self.digital_register_id, 'digital_register_id')
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -8958,10 +9217,12 @@ class GetDciRegistrationcertRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.dci_content_id is not None:
-            result['dci_content_id'] = self.dci_content_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.dci_content_id is not None:
+            result['dci_content_id'] = self.dci_content_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8970,10 +9231,12 @@ class GetDciRegistrationcertRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('dci_content_id') is not None:
-            self.dci_content_id = m.get('dci_content_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('dci_content_id') is not None:
+            self.dci_content_id = m.get('dci_content_id')
         return self
 
 
@@ -8985,8 +9248,12 @@ class GetDciRegistrationcertResponse(TeaModel):
         result_msg: str = None,
         cert_status: str = None,
         certificate_url: str = None,
-        download_times_left: int = None,
         error_reason: str = None,
+        error_reason_cn: str = None,
+        digital_register_status: str = None,
+        download_url: str = None,
+        download_times_left: int = None,
+        fail_detail: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8994,14 +9261,22 @@ class GetDciRegistrationcertResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 证书状态
+        # 废弃待删除
         self.cert_status = cert_status
-        # 证书下载链接
+        # 废弃待删除
         self.certificate_url = certificate_url
+        # 废弃待删除
+        self.error_reason = error_reason
+        # 废弃待删除
+        self.error_reason_cn = error_reason_cn
+        # 数登状态
+        self.digital_register_status = digital_register_status
+        # 数登证书&样本证书压缩包url
+        self.download_url = download_url
         # 剩余下载次数
         self.download_times_left = download_times_left
-        # 错误原因
-        self.error_reason = error_reason
+        # 失败详情
+        self.fail_detail = fail_detail
 
     def validate(self):
         pass
@@ -9022,10 +9297,18 @@ class GetDciRegistrationcertResponse(TeaModel):
             result['cert_status'] = self.cert_status
         if self.certificate_url is not None:
             result['certificate_url'] = self.certificate_url
-        if self.download_times_left is not None:
-            result['download_times_left'] = self.download_times_left
         if self.error_reason is not None:
             result['error_reason'] = self.error_reason
+        if self.error_reason_cn is not None:
+            result['error_reason_cn'] = self.error_reason_cn
+        if self.digital_register_status is not None:
+            result['digital_register_status'] = self.digital_register_status
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        if self.download_times_left is not None:
+            result['download_times_left'] = self.download_times_left
+        if self.fail_detail is not None:
+            result['fail_detail'] = self.fail_detail
         return result
 
     def from_map(self, m: dict = None):
@@ -9040,10 +9323,18 @@ class GetDciRegistrationcertResponse(TeaModel):
             self.cert_status = m.get('cert_status')
         if m.get('certificate_url') is not None:
             self.certificate_url = m.get('certificate_url')
-        if m.get('download_times_left') is not None:
-            self.download_times_left = m.get('download_times_left')
         if m.get('error_reason') is not None:
             self.error_reason = m.get('error_reason')
+        if m.get('error_reason_cn') is not None:
+            self.error_reason_cn = m.get('error_reason_cn')
+        if m.get('digital_register_status') is not None:
+            self.digital_register_status = m.get('digital_register_status')
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        if m.get('download_times_left') is not None:
+            self.download_times_left = m.get('download_times_left')
+        if m.get('fail_detail') is not None:
+            self.fail_detail = m.get('fail_detail')
         return self
 
 
@@ -9389,33 +9680,34 @@ class GetDciPayurlRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        digital_register_id: str = None,
+        client_token: str = None,
         dci_user_id: str = None,
         dci_content_id: str = None,
         pay_ment: str = None,
         invoice_info: InvoiceInfo = None,
-        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # dci用户id
-        self.dci_user_id = dci_user_id
-        # dci内容id
-        self.dci_content_id = dci_content_id
-        # 支付方式 0：支付宝
-        self.pay_ment = pay_ment
-        # 发票信息-当前支持普票
-        self.invoice_info = invoice_info
-        # 客户端token，幂等号，用来保证并发请求幂等性
+        # 数登申请id
+        self.digital_register_id = digital_register_id
+        # 幂等字段
         self.client_token = client_token
+        # 废弃待删除
+        self.dci_user_id = dci_user_id
+        # 废弃待删除
+        self.dci_content_id = dci_content_id
+        # 废弃待删除
+        self.pay_ment = pay_ment
+        # 废弃待删除
+        self.invoice_info = invoice_info
 
     def validate(self):
-        self.validate_required(self.dci_user_id, 'dci_user_id')
-        self.validate_required(self.dci_content_id, 'dci_content_id')
-        self.validate_required(self.invoice_info, 'invoice_info')
+        self.validate_required(self.digital_register_id, 'digital_register_id')
+        self.validate_required(self.client_token, 'client_token')
         if self.invoice_info:
             self.invoice_info.validate()
-        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -9427,6 +9719,10 @@ class GetDciPayurlRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         if self.dci_user_id is not None:
             result['dci_user_id'] = self.dci_user_id
         if self.dci_content_id is not None:
@@ -9435,8 +9731,6 @@ class GetDciPayurlRequest(TeaModel):
             result['pay_ment'] = self.pay_ment
         if self.invoice_info is not None:
             result['invoice_info'] = self.invoice_info.to_map()
-        if self.client_token is not None:
-            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -9445,6 +9739,10 @@ class GetDciPayurlRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         if m.get('dci_user_id') is not None:
             self.dci_user_id = m.get('dci_user_id')
         if m.get('dci_content_id') is not None:
@@ -9454,8 +9752,6 @@ class GetDciPayurlRequest(TeaModel):
         if m.get('invoice_info') is not None:
             temp_model = InvoiceInfo()
             self.invoice_info = temp_model.from_map(m['invoice_info'])
-        if m.get('client_token') is not None:
-            self.client_token = m.get('client_token')
         return self
 
 
@@ -9513,20 +9809,22 @@ class QueryDciPayRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        digital_register_id: str = None,
         dci_user_id: str = None,
         dci_content_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # dci用户id
+        # 数登申请id
+        self.digital_register_id = digital_register_id
+        # 废弃待删除
         self.dci_user_id = dci_user_id
-        # dci内容id
+        # 废弃待删除
         self.dci_content_id = dci_content_id
 
     def validate(self):
-        self.validate_required(self.dci_user_id, 'dci_user_id')
-        self.validate_required(self.dci_content_id, 'dci_content_id')
+        self.validate_required(self.digital_register_id, 'digital_register_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -9538,6 +9836,8 @@ class QueryDciPayRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
         if self.dci_user_id is not None:
             result['dci_user_id'] = self.dci_user_id
         if self.dci_content_id is not None:
@@ -9550,6 +9850,8 @@ class QueryDciPayRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
         if m.get('dci_user_id') is not None:
             self.dci_user_id = m.get('dci_user_id')
         if m.get('dci_content_id') is not None:
@@ -9563,6 +9865,7 @@ class QueryDciPayResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        pay_status: str = None,
         pay_state: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -9573,6 +9876,8 @@ class QueryDciPayResponse(TeaModel):
         self.result_msg = result_msg
         # 支付状态
         # （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+        self.pay_status = pay_status
+        # 废弃待删除
         self.pay_state = pay_state
 
     def validate(self):
@@ -9590,6 +9895,8 @@ class QueryDciPayResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.pay_status is not None:
+            result['pay_status'] = self.pay_status
         if self.pay_state is not None:
             result['pay_state'] = self.pay_state
         return result
@@ -9602,6 +9909,8 @@ class QueryDciPayResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('pay_status') is not None:
+            self.pay_status = m.get('pay_status')
         if m.get('pay_state') is not None:
             self.pay_state = m.get('pay_state')
         return self
@@ -9744,6 +10053,8 @@ class RefuseDciRegistrationRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_id: str = None,
+        code: str = None,
+        fail_detail: str = None,
         client_token: str = None,
     ):
         # OAuth模式下的授权token
@@ -9751,11 +10062,18 @@ class RefuseDciRegistrationRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 任务ID
         self.task_id = task_id
-        # 客户端token，幂等号，用来保证并发请求幂等性
+        # 复审失败原因
+        self.code = code
+        # 失败详情
+        self.fail_detail = fail_detail
+        # 幂等字段
         self.client_token = client_token
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.fail_detail, 'fail_detail')
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -9769,6 +10087,10 @@ class RefuseDciRegistrationRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.fail_detail is not None:
+            result['fail_detail'] = self.fail_detail
         if self.client_token is not None:
             result['client_token'] = self.client_token
         return result
@@ -9781,6 +10103,10 @@ class RefuseDciRegistrationRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('fail_detail') is not None:
+            self.fail_detail = m.get('fail_detail')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
         return self
@@ -10824,6 +11150,379 @@ class OperateNotaryOrderRequest(TeaModel):
 
 
 class OperateNotaryOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryDciPreviewRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        dci_preview_id: str = None,
+        dci_basis_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # dci作品预览id
+        self.dci_preview_id = dci_preview_id
+        # basis的dci content id
+        self.dci_basis_id = dci_basis_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.dci_preview_id is not None:
+            result['dci_preview_id'] = self.dci_preview_id
+        if self.dci_basis_id is not None:
+            result['dci_basis_id'] = self.dci_basis_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('dci_preview_id') is not None:
+            self.dci_preview_id = m.get('dci_preview_id')
+        if m.get('dci_basis_id') is not None:
+            self.dci_basis_id = m.get('dci_basis_id')
+        return self
+
+
+class QueryDciPreviewResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_preview_status: str = None,
+        file_part_preview_status: str = None,
+        file_preview_url: str = None,
+        file_part_preview_url: str = None,
+        work_name: str = None,
+        dci_code: str = None,
+        file_type: str = None,
+        query_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 作品预览处理状态
+        self.file_preview_status = file_preview_status
+        # 作品片段预览状态
+        self.file_part_preview_status = file_part_preview_status
+        # 作品预览处理结果
+        self.file_preview_url = file_preview_url
+        # 作品预览截取片段结果
+        self.file_part_preview_url = file_part_preview_url
+        # 作品名称
+        self.work_name = work_name
+        # dci码
+        self.dci_code = dci_code
+        # 文件类型
+        self.file_type = file_type
+        # 当前查询时间
+        self.query_time = query_time
+
+    def validate(self):
+        if self.query_time is not None:
+            self.validate_pattern(self.query_time, 'query_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_preview_status is not None:
+            result['file_preview_status'] = self.file_preview_status
+        if self.file_part_preview_status is not None:
+            result['file_part_preview_status'] = self.file_part_preview_status
+        if self.file_preview_url is not None:
+            result['file_preview_url'] = self.file_preview_url
+        if self.file_part_preview_url is not None:
+            result['file_part_preview_url'] = self.file_part_preview_url
+        if self.work_name is not None:
+            result['work_name'] = self.work_name
+        if self.dci_code is not None:
+            result['dci_code'] = self.dci_code
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.query_time is not None:
+            result['query_time'] = self.query_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_preview_status') is not None:
+            self.file_preview_status = m.get('file_preview_status')
+        if m.get('file_part_preview_status') is not None:
+            self.file_part_preview_status = m.get('file_part_preview_status')
+        if m.get('file_preview_url') is not None:
+            self.file_preview_url = m.get('file_preview_url')
+        if m.get('file_part_preview_url') is not None:
+            self.file_part_preview_url = m.get('file_part_preview_url')
+        if m.get('work_name') is not None:
+            self.work_name = m.get('work_name')
+        if m.get('dci_code') is not None:
+            self.dci_code = m.get('dci_code')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('query_time') is not None:
+            self.query_time = m.get('query_time')
+        return self
+
+
+class RetryDciRegistrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        digital_register_id: str = None,
+        dci_content_id: str = None,
+        explanation_info: DciExplanationInfo = None,
+        additional_file_info: AdditionalFileInfo = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待补正数登申请id
+        self.digital_register_id = digital_register_id
+        # 替换dci申领id
+        self.dci_content_id = dci_content_id
+        # 数登申请声明
+        self.explanation_info = explanation_info
+        # 补充文件信息
+        self.additional_file_info = additional_file_info
+        # 幂等字段
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.digital_register_id, 'digital_register_id')
+        self.validate_required(self.explanation_info, 'explanation_info')
+        if self.explanation_info:
+            self.explanation_info.validate()
+        if self.additional_file_info:
+            self.additional_file_info.validate()
+        self.validate_required(self.client_token, 'client_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
+        if self.dci_content_id is not None:
+            result['dci_content_id'] = self.dci_content_id
+        if self.explanation_info is not None:
+            result['explanation_info'] = self.explanation_info.to_map()
+        if self.additional_file_info is not None:
+            result['additional_file_info'] = self.additional_file_info.to_map()
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
+        if m.get('dci_content_id') is not None:
+            self.dci_content_id = m.get('dci_content_id')
+        if m.get('explanation_info') is not None:
+            temp_model = DciExplanationInfo()
+            self.explanation_info = temp_model.from_map(m['explanation_info'])
+        if m.get('additional_file_info') is not None:
+            temp_model = AdditionalFileInfo()
+            self.additional_file_info = temp_model.from_map(m['additional_file_info'])
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class RetryDciRegistrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CloseDciRegistrationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        digital_register_id: str = None,
+        name: str = None,
+        mobile_no: str = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数登id
+        self.digital_register_id = digital_register_id
+        # 退费人名称
+        self.name = name
+        # 联系手机号
+        self.mobile_no = mobile_no
+        # 幂等字段
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.digital_register_id, 'digital_register_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.mobile_no, 'mobile_no')
+        self.validate_required(self.client_token, 'client_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.mobile_no is not None:
+            result['mobile_no'] = self.mobile_no
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('mobile_no') is not None:
+            self.mobile_no = m.get('mobile_no')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class CloseDciRegistrationResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

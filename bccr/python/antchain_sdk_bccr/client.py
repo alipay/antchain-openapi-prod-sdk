@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.16'
+                    'sdk_version': '1.17.33',
+                    '_prod_code': 'BCCR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.16'
+                    'sdk_version': '1.17.33',
+                    '_prod_code': 'BCCR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2012,8 +2016,8 @@ class Client:
         request: bccr_models.QueryDciRegistrationsubmitRequest,
     ) -> bccr_models.QueryDciRegistrationsubmitResponse:
         """
-        Description: 查询数登提交状态
-        Summary: 查询数登提交状态
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2024,8 +2028,8 @@ class Client:
         request: bccr_models.QueryDciRegistrationsubmitRequest,
     ) -> bccr_models.QueryDciRegistrationsubmitResponse:
         """
-        Description: 查询数登提交状态
-        Summary: 查询数登提交状态
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2038,8 +2042,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciRegistrationsubmitResponse:
         """
-        Description: 查询数登提交状态
-        Summary: 查询数登提交状态
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2054,8 +2058,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciRegistrationsubmitResponse:
         """
-        Description: 查询数登提交状态
-        Summary: 查询数登提交状态
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2292,8 +2296,8 @@ class Client:
         request: bccr_models.QueryDciRegistrationcertRequest,
     ) -> bccr_models.QueryDciRegistrationcertResponse:
         """
-        Description: 查询数字登记证书
-        Summary: 查询数字登记证书
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2304,8 +2308,8 @@ class Client:
         request: bccr_models.QueryDciRegistrationcertRequest,
     ) -> bccr_models.QueryDciRegistrationcertResponse:
         """
-        Description: 查询数字登记证书
-        Summary: 查询数字登记证书
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2318,8 +2322,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciRegistrationcertResponse:
         """
-        Description: 查询数字登记证书
-        Summary: 查询数字登记证书
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2334,8 +2338,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciRegistrationcertResponse:
         """
-        Description: 查询数字登记证书
-        Summary: 查询数字登记证书
+        Description: 已废弃接口
+        Summary: 已废弃接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2404,8 +2408,8 @@ class Client:
         request: bccr_models.QueryDciPayRequest,
     ) -> bccr_models.QueryDciPayResponse:
         """
-        Description: 查询支付
-        Summary: 数登支付-查询支付
+        Description: 查询数登支付结果
+        Summary: 查询数登支付结果
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2416,8 +2420,8 @@ class Client:
         request: bccr_models.QueryDciPayRequest,
     ) -> bccr_models.QueryDciPayResponse:
         """
-        Description: 查询支付
-        Summary: 数登支付-查询支付
+        Description: 查询数登支付结果
+        Summary: 查询数登支付结果
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2430,8 +2434,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciPayResponse:
         """
-        Description: 查询支付
-        Summary: 数登支付-查询支付
+        Description: 查询数登支付结果
+        Summary: 查询数登支付结果
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2446,8 +2450,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.QueryDciPayResponse:
         """
-        Description: 查询支付
-        Summary: 数登支付-查询支付
+        Description: 查询数登支付结果
+        Summary: 查询数登支付结果
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2516,8 +2520,8 @@ class Client:
         request: bccr_models.RefuseDciRegistrationRequest,
     ) -> bccr_models.RefuseDciRegistrationResponse:
         """
-        Description: dci数登审核失败结果回调
-        Summary: dci数登审核失败结果回调
+        Description: 数登审核失败结果回调
+        Summary: 数登审核失败结果回调
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2528,8 +2532,8 @@ class Client:
         request: bccr_models.RefuseDciRegistrationRequest,
     ) -> bccr_models.RefuseDciRegistrationResponse:
         """
-        Description: dci数登审核失败结果回调
-        Summary: dci数登审核失败结果回调
+        Description: 数登审核失败结果回调
+        Summary: 数登审核失败结果回调
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2542,8 +2546,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.RefuseDciRegistrationResponse:
         """
-        Description: dci数登审核失败结果回调
-        Summary: dci数登审核失败结果回调
+        Description: 数登审核失败结果回调
+        Summary: 数登审核失败结果回调
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2558,8 +2562,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.RefuseDciRegistrationResponse:
         """
-        Description: dci数登审核失败结果回调
-        Summary: dci数登审核失败结果回调
+        Description: 数登审核失败结果回调
+        Summary: 数登审核失败结果回调
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3013,6 +3017,174 @@ class Client:
         return TeaCore.from_map(
             bccr_models.OperateNotaryOrderResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.notary.order.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dci_preview(
+        self,
+        request: bccr_models.QueryDciPreviewRequest,
+    ) -> bccr_models.QueryDciPreviewResponse:
+        """
+        Description: 查询DCI作品预览结果
+        Summary: 查询DCI作品预览结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_preview_ex(request, headers, runtime)
+
+    async def query_dci_preview_async(
+        self,
+        request: bccr_models.QueryDciPreviewRequest,
+    ) -> bccr_models.QueryDciPreviewResponse:
+        """
+        Description: 查询DCI作品预览结果
+        Summary: 查询DCI作品预览结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_preview_ex_async(request, headers, runtime)
+
+    def query_dci_preview_ex(
+        self,
+        request: bccr_models.QueryDciPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreviewResponse:
+        """
+        Description: 查询DCI作品预览结果
+        Summary: 查询DCI作品预览结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreviewResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_preview_ex_async(
+        self,
+        request: bccr_models.QueryDciPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreviewResponse:
+        """
+        Description: 查询DCI作品预览结果
+        Summary: 查询DCI作品预览结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreviewResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_dci_registration(
+        self,
+        request: bccr_models.RetryDciRegistrationRequest,
+    ) -> bccr_models.RetryDciRegistrationResponse:
+        """
+        Description: 补正数登申请
+        Summary: 补正数登申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_dci_registration_ex(request, headers, runtime)
+
+    async def retry_dci_registration_async(
+        self,
+        request: bccr_models.RetryDciRegistrationRequest,
+    ) -> bccr_models.RetryDciRegistrationResponse:
+        """
+        Description: 补正数登申请
+        Summary: 补正数登申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_dci_registration_ex_async(request, headers, runtime)
+
+    def retry_dci_registration_ex(
+        self,
+        request: bccr_models.RetryDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RetryDciRegistrationResponse:
+        """
+        Description: 补正数登申请
+        Summary: 补正数登申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RetryDciRegistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.registration.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_dci_registration_ex_async(
+        self,
+        request: bccr_models.RetryDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RetryDciRegistrationResponse:
+        """
+        Description: 补正数登申请
+        Summary: 补正数登申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RetryDciRegistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def close_dci_registration(
+        self,
+        request: bccr_models.CloseDciRegistrationRequest,
+    ) -> bccr_models.CloseDciRegistrationResponse:
+        """
+        Description: 数登停止申请
+        Summary: 数登停止申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.close_dci_registration_ex(request, headers, runtime)
+
+    async def close_dci_registration_async(
+        self,
+        request: bccr_models.CloseDciRegistrationRequest,
+    ) -> bccr_models.CloseDciRegistrationResponse:
+        """
+        Description: 数登停止申请
+        Summary: 数登停止申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.close_dci_registration_ex_async(request, headers, runtime)
+
+    def close_dci_registration_ex(
+        self,
+        request: bccr_models.CloseDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CloseDciRegistrationResponse:
+        """
+        Description: 数登停止申请
+        Summary: 数登停止申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CloseDciRegistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def close_dci_registration_ex_async(
+        self,
+        request: bccr_models.CloseDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CloseDciRegistrationResponse:
+        """
+        Description: 数登停止申请
+        Summary: 数登停止申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CloseDciRegistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
