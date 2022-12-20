@@ -18428,6 +18428,97 @@ func (s *BatchqueryUmktRtMixedmarketingResponse) SetQueryResults(v []*CustomerUm
 	return s
 }
 
+type ApplyUmktPhonenumberstatusforsmsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 12345
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 用户模版类型
+	ParamTemplate *string `json:"param_template,omitempty" xml:"param_template,omitempty" require:"true"`
+}
+
+func (s ApplyUmktPhonenumberstatusforsmsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktPhonenumberstatusforsmsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsRequest) SetAuthToken(v string) *ApplyUmktPhonenumberstatusforsmsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsRequest) SetProductInstanceId(v string) *ApplyUmktPhonenumberstatusforsmsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsRequest) SetCustomerKey(v string) *ApplyUmktPhonenumberstatusforsmsRequest {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsRequest) SetParamTemplate(v string) *ApplyUmktPhonenumberstatusforsmsRequest {
+	s.ParamTemplate = &v
+	return s
+}
+
+type ApplyUmktPhonenumberstatusforsmsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 12345
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty"`
+	// 用户凭证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 号码当前归属的基础运营商
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+}
+
+func (s ApplyUmktPhonenumberstatusforsmsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktPhonenumberstatusforsmsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetReqMsgId(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetResultCode(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetResultMsg(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetCustomerKey(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetStatus(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ApplyUmktPhonenumberstatusforsmsResponse) SetCarrier(v string) *ApplyUmktPhonenumberstatusforsmsResponse {
+	s.Carrier = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18670,9 +18761,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.7"),
-				"_prod_code":       tea.String("RISKPLUS"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.16.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -23196,6 +23285,40 @@ func (client *Client) BatchqueryUmktRtMixedmarketingEx(request *BatchqueryUmktRt
 	}
 	_result = &BatchqueryUmktRtMixedmarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.mixedmarketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用营销盾空号检测
+ * Summary: 调用营销盾空号检测
+ */
+func (client *Client) ApplyUmktPhonenumberstatusforsms(request *ApplyUmktPhonenumberstatusforsmsRequest) (_result *ApplyUmktPhonenumberstatusforsmsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyUmktPhonenumberstatusforsmsResponse{}
+	_body, _err := client.ApplyUmktPhonenumberstatusforsmsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用营销盾空号检测
+ * Summary: 调用营销盾空号检测
+ */
+func (client *Client) ApplyUmktPhonenumberstatusforsmsEx(request *ApplyUmktPhonenumberstatusforsmsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyUmktPhonenumberstatusforsmsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyUmktPhonenumberstatusforsmsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.phonenumberstatusforsms.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
