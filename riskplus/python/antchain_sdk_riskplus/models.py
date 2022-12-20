@@ -23038,6 +23038,118 @@ class BatchqueryUmktRtMixedmarketingResponse(TeaModel):
         return self
 
 
+class ApplyUmktPhonenumberstatusforsmsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_key: str = None,
+        param_template: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 12345
+        self.customer_key = customer_key
+        # 用户模版类型
+        self.param_template = param_template
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+        self.validate_required(self.param_template, 'param_template')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.param_template is not None:
+            result['param_template'] = self.param_template
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('param_template') is not None:
+            self.param_template = m.get('param_template')
+        return self
+
+
+class ApplyUmktPhonenumberstatusforsmsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        customer_key: str = None,
+        status: str = None,
+        carrier: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 12345
+        self.customer_key = customer_key
+        # 用户凭证状态
+        self.status = status
+        # 号码当前归属的基础运营商
+        self.carrier = carrier
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.status is not None:
+            result['status'] = self.status
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,

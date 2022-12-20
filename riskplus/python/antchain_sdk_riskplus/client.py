@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.7',
-                    '_prod_code': 'RISKPLUS',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.16.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.7',
-                    '_prod_code': 'RISKPLUS',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.16.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -7603,6 +7599,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.BatchqueryUmktRtMixedmarketingResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_umkt_phonenumberstatusforsms(
+        self,
+        request: riskplus_models.ApplyUmktPhonenumberstatusforsmsRequest,
+    ) -> riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用营销盾空号检测
+        Summary: 调用营销盾空号检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_umkt_phonenumberstatusforsms_ex(request, headers, runtime)
+
+    async def apply_umkt_phonenumberstatusforsms_async(
+        self,
+        request: riskplus_models.ApplyUmktPhonenumberstatusforsmsRequest,
+    ) -> riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用营销盾空号检测
+        Summary: 调用营销盾空号检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_umkt_phonenumberstatusforsms_ex_async(request, headers, runtime)
+
+    def apply_umkt_phonenumberstatusforsms_ex(
+        self,
+        request: riskplus_models.ApplyUmktPhonenumberstatusforsmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用营销盾空号检测
+        Summary: 调用营销盾空号检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse(),
+            self.do_request('1.0', 'riskplus.umkt.phonenumberstatusforsms.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_umkt_phonenumberstatusforsms_ex_async(
+        self,
+        request: riskplus_models.ApplyUmktPhonenumberstatusforsmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse:
+        """
+        Description: 调用营销盾空号检测
+        Summary: 调用营销盾空号检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.phonenumberstatusforsms.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
