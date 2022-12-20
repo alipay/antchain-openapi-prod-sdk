@@ -26,17 +26,41 @@ class GetDciRegistrationcertResponse extends Model
      */
     public $resultMsg;
 
-    // 证书状态
+    // 废弃待删除
     /**
      * @var string
      */
     public $certStatus;
 
-    // 证书下载链接
+    // 废弃待删除
     /**
      * @var string
      */
     public $certificateUrl;
+
+    // 废弃待删除
+    /**
+     * @var string
+     */
+    public $errorReason;
+
+    // 废弃待删除
+    /**
+     * @var string
+     */
+    public $errorReasonCn;
+
+    // 数登状态
+    /**
+     * @var string
+     */
+    public $digitalRegisterStatus;
+
+    // 数登证书&样本证书压缩包url
+    /**
+     * @var string
+     */
+    public $downloadUrl;
 
     // 剩余下载次数
     /**
@@ -44,19 +68,23 @@ class GetDciRegistrationcertResponse extends Model
      */
     public $downloadTimesLeft;
 
-    // 错误原因
+    // 失败详情
     /**
      * @var string
      */
-    public $errorReason;
+    public $failDetail;
     protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'certStatus'        => 'cert_status',
-        'certificateUrl'    => 'certificate_url',
-        'downloadTimesLeft' => 'download_times_left',
-        'errorReason'       => 'error_reason',
+        'reqMsgId'              => 'req_msg_id',
+        'resultCode'            => 'result_code',
+        'resultMsg'             => 'result_msg',
+        'certStatus'            => 'cert_status',
+        'certificateUrl'        => 'certificate_url',
+        'errorReason'           => 'error_reason',
+        'errorReasonCn'         => 'error_reason_cn',
+        'digitalRegisterStatus' => 'digital_register_status',
+        'downloadUrl'           => 'download_url',
+        'downloadTimesLeft'     => 'download_times_left',
+        'failDetail'            => 'fail_detail',
     ];
 
     public function validate()
@@ -81,11 +109,23 @@ class GetDciRegistrationcertResponse extends Model
         if (null !== $this->certificateUrl) {
             $res['certificate_url'] = $this->certificateUrl;
         }
+        if (null !== $this->errorReason) {
+            $res['error_reason'] = $this->errorReason;
+        }
+        if (null !== $this->errorReasonCn) {
+            $res['error_reason_cn'] = $this->errorReasonCn;
+        }
+        if (null !== $this->digitalRegisterStatus) {
+            $res['digital_register_status'] = $this->digitalRegisterStatus;
+        }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
         if (null !== $this->downloadTimesLeft) {
             $res['download_times_left'] = $this->downloadTimesLeft;
         }
-        if (null !== $this->errorReason) {
-            $res['error_reason'] = $this->errorReason;
+        if (null !== $this->failDetail) {
+            $res['fail_detail'] = $this->failDetail;
         }
 
         return $res;
@@ -114,11 +154,23 @@ class GetDciRegistrationcertResponse extends Model
         if (isset($map['certificate_url'])) {
             $model->certificateUrl = $map['certificate_url'];
         }
+        if (isset($map['error_reason'])) {
+            $model->errorReason = $map['error_reason'];
+        }
+        if (isset($map['error_reason_cn'])) {
+            $model->errorReasonCn = $map['error_reason_cn'];
+        }
+        if (isset($map['digital_register_status'])) {
+            $model->digitalRegisterStatus = $map['digital_register_status'];
+        }
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
+        }
         if (isset($map['download_times_left'])) {
             $model->downloadTimesLeft = $map['download_times_left'];
         }
-        if (isset($map['error_reason'])) {
-            $model->errorReason = $map['error_reason'];
+        if (isset($map['fail_detail'])) {
+            $model->failDetail = $map['fail_detail'];
         }
 
         return $model;

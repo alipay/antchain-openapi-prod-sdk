@@ -19,13 +19,19 @@ class QueryDciPayRequest extends Model
      */
     public $productInstanceId;
 
-    // dci用户id
+    // 数登申请id
+    /**
+     * @var string
+     */
+    public $digitalRegisterId;
+
+    // 废弃待删除
     /**
      * @var string
      */
     public $dciUserId;
 
-    // dci内容id
+    // 废弃待删除
     /**
      * @var string
      */
@@ -33,14 +39,14 @@ class QueryDciPayRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'digitalRegisterId' => 'digital_register_id',
         'dciUserId'         => 'dci_user_id',
         'dciContentId'      => 'dci_content_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('dciUserId', $this->dciUserId, true);
-        Model::validateRequired('dciContentId', $this->dciContentId, true);
+        Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
     }
 
     public function toMap()
@@ -51,6 +57,9 @@ class QueryDciPayRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->digitalRegisterId) {
+            $res['digital_register_id'] = $this->digitalRegisterId;
         }
         if (null !== $this->dciUserId) {
             $res['dci_user_id'] = $this->dciUserId;
@@ -75,6 +84,9 @@ class QueryDciPayRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['digital_register_id'])) {
+            $model->digitalRegisterId = $map['digital_register_id'];
         }
         if (isset($map['dci_user_id'])) {
             $model->dciUserId = $map['dci_user_id'];

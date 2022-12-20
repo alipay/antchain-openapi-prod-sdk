@@ -167,6 +167,14 @@ class RecordScreenData extends Model
      * @var string
      */
     public $evidenceOrderNum;
+
+    // 补正说明函下载地址
+    /**
+     * @example https://xxxx
+     *
+     * @var string
+     */
+    public $correctionUrl;
     protected $_name = [
         'errorReason'          => 'error_reason',
         'fileHash'             => 'file_hash',
@@ -188,6 +196,7 @@ class RecordScreenData extends Model
         'zipFileHash'          => 'zip_file_hash',
         'mainEvidenceName'     => 'main_evidence_name',
         'evidenceOrderNum'     => 'evidence_order_num',
+        'correctionUrl'        => 'correction_url',
     ];
 
     public function validate()
@@ -261,6 +270,9 @@ class RecordScreenData extends Model
         if (null !== $this->evidenceOrderNum) {
             $res['evidence_order_num'] = $this->evidenceOrderNum;
         }
+        if (null !== $this->correctionUrl) {
+            $res['correction_url'] = $this->correctionUrl;
+        }
 
         return $res;
     }
@@ -332,6 +344,9 @@ class RecordScreenData extends Model
         }
         if (isset($map['evidence_order_num'])) {
             $model->evidenceOrderNum = $map['evidence_order_num'];
+        }
+        if (isset($map['correction_url'])) {
+            $model->correctionUrl = $map['correction_url'];
         }
 
         return $model;

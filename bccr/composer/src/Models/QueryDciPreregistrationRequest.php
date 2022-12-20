@@ -39,7 +39,6 @@ class QueryDciPreregistrationRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('dciUserId', $this->dciUserId, true);
         Model::validateRequired('dciContentId', $this->dciContentId, true);
     }
 

@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDciPayResponse extends Model
+class CloseDciRegistrationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,25 +25,10 @@ class QueryDciPayResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 支付状态
-    // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
-    /**
-     * @var string
-     */
-    public $payStatus;
-
-    // 废弃待删除
-    /**
-     * @var string
-     */
-    public $payState;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'payStatus'  => 'pay_status',
-        'payState'   => 'pay_state',
     ];
 
     public function validate()
@@ -62,12 +47,6 @@ class QueryDciPayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->payStatus) {
-            $res['pay_status'] = $this->payStatus;
-        }
-        if (null !== $this->payState) {
-            $res['pay_state'] = $this->payState;
-        }
 
         return $res;
     }
@@ -75,7 +54,7 @@ class QueryDciPayResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDciPayResponse
+     * @return CloseDciRegistrationResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,12 +67,6 @@ class QueryDciPayResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['pay_status'])) {
-            $model->payStatus = $map['pay_status'];
-        }
-        if (isset($map['pay_state'])) {
-            $model->payState = $map['pay_state'];
         }
 
         return $model;

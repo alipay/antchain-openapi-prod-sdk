@@ -164,6 +164,12 @@ class QueryDciPreregistrationResponse extends Model
      */
     public $errorReason;
 
+    // 错误中文原因
+    /**
+     * @var string
+     */
+    public $errorReasonCn;
+
     // 公式地址
     /**
      * @var string
@@ -196,6 +202,7 @@ class QueryDciPreregistrationResponse extends Model
         'applyObtainDate'        => 'apply_obtain_date',
         'dciCodeObtainDate'      => 'dci_code_obtain_date',
         'errorReason'            => 'error_reason',
+        'errorReasonCn'          => 'error_reason_cn',
         'publicationUrl'         => 'publication_url',
     ];
 
@@ -283,6 +290,9 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (null !== $this->errorReason) {
             $res['error_reason'] = $this->errorReason;
+        }
+        if (null !== $this->errorReasonCn) {
+            $res['error_reason_cn'] = $this->errorReasonCn;
         }
         if (null !== $this->publicationUrl) {
             $res['publication_url'] = $this->publicationUrl;
@@ -376,6 +386,9 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (isset($map['error_reason'])) {
             $model->errorReason = $map['error_reason'];
+        }
+        if (isset($map['error_reason_cn'])) {
+            $model->errorReasonCn = $map['error_reason_cn'];
         }
         if (isset($map['publication_url'])) {
             $model->publicationUrl = $map['publication_url'];

@@ -25,7 +25,19 @@ class RefuseDciRegistrationRequest extends Model
      */
     public $taskId;
 
-    // 客户端token，幂等号，用来保证并发请求幂等性
+    // 复审失败原因
+    /**
+     * @var string
+     */
+    public $code;
+
+    // 失败详情
+    /**
+     * @var string
+     */
+    public $failDetail;
+
+    // 幂等字段
     /**
      * @var string
      */
@@ -34,12 +46,17 @@ class RefuseDciRegistrationRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'taskId'            => 'task_id',
+        'code'              => 'code',
+        'failDetail'        => 'fail_detail',
         'clientToken'       => 'client_token',
     ];
 
     public function validate()
     {
         Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('failDetail', $this->failDetail, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -53,6 +70,12 @@ class RefuseDciRegistrationRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->failDetail) {
+            $res['fail_detail'] = $this->failDetail;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
@@ -77,6 +100,12 @@ class RefuseDciRegistrationRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['fail_detail'])) {
+            $model->failDetail = $map['fail_detail'];
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];

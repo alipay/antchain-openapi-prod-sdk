@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetDciPayurlRequest extends Model
+class CloseDciRegistrationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,55 +19,43 @@ class GetDciPayurlRequest extends Model
      */
     public $productInstanceId;
 
-    // 数登申请id
+    // 数登id
     /**
      * @var string
      */
     public $digitalRegisterId;
+
+    // 退费人名称
+    /**
+     * @var string
+     */
+    public $name;
+
+    // 联系手机号
+    /**
+     * @var string
+     */
+    public $mobileNo;
 
     // 幂等字段
     /**
      * @var string
      */
     public $clientToken;
-
-    // 废弃待删除
-    /**
-     * @var string
-     */
-    public $dciUserId;
-
-    // 废弃待删除
-    /**
-     * @var string
-     */
-    public $dciContentId;
-
-    // 废弃待删除
-    /**
-     * @var string
-     */
-    public $payMent;
-
-    // 废弃待删除
-    /**
-     * @var InvoiceInfo
-     */
-    public $invoiceInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'digitalRegisterId' => 'digital_register_id',
+        'name'              => 'name',
+        'mobileNo'          => 'mobile_no',
         'clientToken'       => 'client_token',
-        'dciUserId'         => 'dci_user_id',
-        'dciContentId'      => 'dci_content_id',
-        'payMent'           => 'pay_ment',
-        'invoiceInfo'       => 'invoice_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('mobileNo', $this->mobileNo, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
@@ -83,20 +71,14 @@ class GetDciPayurlRequest extends Model
         if (null !== $this->digitalRegisterId) {
             $res['digital_register_id'] = $this->digitalRegisterId;
         }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->mobileNo) {
+            $res['mobile_no'] = $this->mobileNo;
+        }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
-        }
-        if (null !== $this->dciUserId) {
-            $res['dci_user_id'] = $this->dciUserId;
-        }
-        if (null !== $this->dciContentId) {
-            $res['dci_content_id'] = $this->dciContentId;
-        }
-        if (null !== $this->payMent) {
-            $res['pay_ment'] = $this->payMent;
-        }
-        if (null !== $this->invoiceInfo) {
-            $res['invoice_info'] = null !== $this->invoiceInfo ? $this->invoiceInfo->toMap() : null;
         }
 
         return $res;
@@ -105,7 +87,7 @@ class GetDciPayurlRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetDciPayurlRequest
+     * @return CloseDciRegistrationRequest
      */
     public static function fromMap($map = [])
     {
@@ -119,20 +101,14 @@ class GetDciPayurlRequest extends Model
         if (isset($map['digital_register_id'])) {
             $model->digitalRegisterId = $map['digital_register_id'];
         }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['mobile_no'])) {
+            $model->mobileNo = $map['mobile_no'];
+        }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
-        }
-        if (isset($map['dci_user_id'])) {
-            $model->dciUserId = $map['dci_user_id'];
-        }
-        if (isset($map['dci_content_id'])) {
-            $model->dciContentId = $map['dci_content_id'];
-        }
-        if (isset($map['pay_ment'])) {
-            $model->payMent = $map['pay_ment'];
-        }
-        if (isset($map['invoice_info'])) {
-            $model->invoiceInfo = InvoiceInfo::fromMap($map['invoice_info']);
         }
 
         return $model;

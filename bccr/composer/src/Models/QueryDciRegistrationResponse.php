@@ -26,91 +26,170 @@ class QueryDciRegistrationResponse extends Model
      */
     public $resultMsg;
 
-    // 状态
+    // 废弃待删除
     /**
      * @var string
      */
     public $contentStatus;
 
-    // 登记证书txHash
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerCertTxHash;
 
-    // 登记证书存证高度
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerCertBlockHeight;
 
-    // 登记证书tsr
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerCertTsr;
 
-    // 登记证书预览fileId
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerCertPngFileId;
 
-    // 数登样本oss fileId
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerSampleFileId;
 
-    // 数登样本预览oss fileId
+    // 废弃待删除
     /**
      * @var string
      */
     public $registerSamplePngFileId;
 
-    // 剩余下载次数
+    // 废弃待删除
     /**
      * @var int
      */
     public $registerDownloadTimesLeft;
 
-    // 错误原因
+    // 废弃待删除
     /**
      * @var string
      */
     public $errorReason;
 
-    // 发票oss fileId List
+    // 废弃待删除
+    /**
+     * @var string
+     */
+    public $errorReasonCn;
+
+    // 废弃待删除
     /**
      * @var string[]
      */
     public $invoiceFileIdList;
 
-    // 数登申请时间
+    // 废弃待删除
     /**
      * @var string
      */
     public $applyRegisterTime;
+
+    // 数登登记号
+    /**
+     * @var string
+     */
+    public $regNumber;
+
+    // dci申领id
+    /**
+     * @var string
+     */
+    public $dciContentId;
+
+    // 数登状态
+    /**
+     * @var string
+     */
+    public $digitalRegisterStatus;
+
+    // 数登申请时间
+    /**
+     * @var string
+     */
+    public $digitalRegisterApplyTime;
+
+    // 数登完成时间
+    /**
+     * @var string
+     */
+    public $digitalRegisterCompletionTime;
+
+    // 数登证书预览图url
+    /**
+     * @var string
+     */
+    public $digitalRegisterCertPngUrl;
+
+    // 样本证书预览图url
+    /**
+     * @var string
+     */
+    public $digitalRegisterSamplePngUrl;
+
+    // 证书本月剩余下载次数
+    /**
+     * @var int
+     */
+    public $downloadTimesLeft;
+
+    // 发票下载链接list
+    /**
+     * @var string[]
+     */
+    public $invoiceUrlList;
+
+    // 数登失败详情
+    /**
+     * @var string
+     */
+    public $failDetail;
     protected $_name = [
-        'reqMsgId'                  => 'req_msg_id',
-        'resultCode'                => 'result_code',
-        'resultMsg'                 => 'result_msg',
-        'contentStatus'             => 'content_status',
-        'registerCertTxHash'        => 'register_cert_tx_hash',
-        'registerCertBlockHeight'   => 'register_cert_block_height',
-        'registerCertTsr'           => 'register_cert_tsr',
-        'registerCertPngFileId'     => 'register_cert_png_file_id',
-        'registerSampleFileId'      => 'register_sample_file_id',
-        'registerSamplePngFileId'   => 'register_sample_png_file_id',
-        'registerDownloadTimesLeft' => 'register_download_times_left',
-        'errorReason'               => 'error_reason',
-        'invoiceFileIdList'         => 'invoice_file_id_list',
-        'applyRegisterTime'         => 'apply_register_time',
+        'reqMsgId'                      => 'req_msg_id',
+        'resultCode'                    => 'result_code',
+        'resultMsg'                     => 'result_msg',
+        'contentStatus'                 => 'content_status',
+        'registerCertTxHash'            => 'register_cert_tx_hash',
+        'registerCertBlockHeight'       => 'register_cert_block_height',
+        'registerCertTsr'               => 'register_cert_tsr',
+        'registerCertPngFileId'         => 'register_cert_png_file_id',
+        'registerSampleFileId'          => 'register_sample_file_id',
+        'registerSamplePngFileId'       => 'register_sample_png_file_id',
+        'registerDownloadTimesLeft'     => 'register_download_times_left',
+        'errorReason'                   => 'error_reason',
+        'errorReasonCn'                 => 'error_reason_cn',
+        'invoiceFileIdList'             => 'invoice_file_id_list',
+        'applyRegisterTime'             => 'apply_register_time',
+        'regNumber'                     => 'reg_number',
+        'dciContentId'                  => 'dci_content_id',
+        'digitalRegisterStatus'         => 'digital_register_status',
+        'digitalRegisterApplyTime'      => 'digital_register_apply_time',
+        'digitalRegisterCompletionTime' => 'digital_register_completion_time',
+        'digitalRegisterCertPngUrl'     => 'digital_register_cert_png_url',
+        'digitalRegisterSamplePngUrl'   => 'digital_register_sample_png_url',
+        'downloadTimesLeft'             => 'download_times_left',
+        'invoiceUrlList'                => 'invoice_url_list',
+        'failDetail'                    => 'fail_detail',
     ];
 
     public function validate()
     {
         Model::validatePattern('applyRegisterTime', $this->applyRegisterTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('digitalRegisterApplyTime', $this->digitalRegisterApplyTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('digitalRegisterCompletionTime', $this->digitalRegisterCompletionTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -152,11 +231,44 @@ class QueryDciRegistrationResponse extends Model
         if (null !== $this->errorReason) {
             $res['error_reason'] = $this->errorReason;
         }
+        if (null !== $this->errorReasonCn) {
+            $res['error_reason_cn'] = $this->errorReasonCn;
+        }
         if (null !== $this->invoiceFileIdList) {
             $res['invoice_file_id_list'] = $this->invoiceFileIdList;
         }
         if (null !== $this->applyRegisterTime) {
             $res['apply_register_time'] = $this->applyRegisterTime;
+        }
+        if (null !== $this->regNumber) {
+            $res['reg_number'] = $this->regNumber;
+        }
+        if (null !== $this->dciContentId) {
+            $res['dci_content_id'] = $this->dciContentId;
+        }
+        if (null !== $this->digitalRegisterStatus) {
+            $res['digital_register_status'] = $this->digitalRegisterStatus;
+        }
+        if (null !== $this->digitalRegisterApplyTime) {
+            $res['digital_register_apply_time'] = $this->digitalRegisterApplyTime;
+        }
+        if (null !== $this->digitalRegisterCompletionTime) {
+            $res['digital_register_completion_time'] = $this->digitalRegisterCompletionTime;
+        }
+        if (null !== $this->digitalRegisterCertPngUrl) {
+            $res['digital_register_cert_png_url'] = $this->digitalRegisterCertPngUrl;
+        }
+        if (null !== $this->digitalRegisterSamplePngUrl) {
+            $res['digital_register_sample_png_url'] = $this->digitalRegisterSamplePngUrl;
+        }
+        if (null !== $this->downloadTimesLeft) {
+            $res['download_times_left'] = $this->downloadTimesLeft;
+        }
+        if (null !== $this->invoiceUrlList) {
+            $res['invoice_url_list'] = $this->invoiceUrlList;
+        }
+        if (null !== $this->failDetail) {
+            $res['fail_detail'] = $this->failDetail;
         }
 
         return $res;
@@ -206,6 +318,9 @@ class QueryDciRegistrationResponse extends Model
         if (isset($map['error_reason'])) {
             $model->errorReason = $map['error_reason'];
         }
+        if (isset($map['error_reason_cn'])) {
+            $model->errorReasonCn = $map['error_reason_cn'];
+        }
         if (isset($map['invoice_file_id_list'])) {
             if (!empty($map['invoice_file_id_list'])) {
                 $model->invoiceFileIdList = $map['invoice_file_id_list'];
@@ -213,6 +328,38 @@ class QueryDciRegistrationResponse extends Model
         }
         if (isset($map['apply_register_time'])) {
             $model->applyRegisterTime = $map['apply_register_time'];
+        }
+        if (isset($map['reg_number'])) {
+            $model->regNumber = $map['reg_number'];
+        }
+        if (isset($map['dci_content_id'])) {
+            $model->dciContentId = $map['dci_content_id'];
+        }
+        if (isset($map['digital_register_status'])) {
+            $model->digitalRegisterStatus = $map['digital_register_status'];
+        }
+        if (isset($map['digital_register_apply_time'])) {
+            $model->digitalRegisterApplyTime = $map['digital_register_apply_time'];
+        }
+        if (isset($map['digital_register_completion_time'])) {
+            $model->digitalRegisterCompletionTime = $map['digital_register_completion_time'];
+        }
+        if (isset($map['digital_register_cert_png_url'])) {
+            $model->digitalRegisterCertPngUrl = $map['digital_register_cert_png_url'];
+        }
+        if (isset($map['digital_register_sample_png_url'])) {
+            $model->digitalRegisterSamplePngUrl = $map['digital_register_sample_png_url'];
+        }
+        if (isset($map['download_times_left'])) {
+            $model->downloadTimesLeft = $map['download_times_left'];
+        }
+        if (isset($map['invoice_url_list'])) {
+            if (!empty($map['invoice_url_list'])) {
+                $model->invoiceUrlList = $map['invoice_url_list'];
+            }
+        }
+        if (isset($map['fail_detail'])) {
+            $model->failDetail = $map['fail_detail'];
         }
 
         return $model;

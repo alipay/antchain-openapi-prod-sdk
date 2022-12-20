@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetDciRegistrationcertRequest extends Model
+class QueryDciPreviewRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,26 @@ class GetDciRegistrationcertRequest extends Model
      */
     public $productInstanceId;
 
-    // 数登申请id
+    // dci作品预览id
     /**
      * @var string
      */
-    public $digitalRegisterId;
+    public $dciPreviewId;
 
-    // 幂等字段
+    // basis的dci content id
     /**
      * @var string
      */
-    public $clientToken;
-
-    // 废弃待删除
-    /**
-     * @var string
-     */
-    public $dciContentId;
+    public $dciBasisId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'digitalRegisterId' => 'digital_register_id',
-        'clientToken'       => 'client_token',
-        'dciContentId'      => 'dci_content_id',
+        'dciPreviewId'      => 'dci_preview_id',
+        'dciBasisId'        => 'dci_basis_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
-        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -59,14 +50,11 @@ class GetDciRegistrationcertRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->digitalRegisterId) {
-            $res['digital_register_id'] = $this->digitalRegisterId;
+        if (null !== $this->dciPreviewId) {
+            $res['dci_preview_id'] = $this->dciPreviewId;
         }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
-        }
-        if (null !== $this->dciContentId) {
-            $res['dci_content_id'] = $this->dciContentId;
+        if (null !== $this->dciBasisId) {
+            $res['dci_basis_id'] = $this->dciBasisId;
         }
 
         return $res;
@@ -75,7 +63,7 @@ class GetDciRegistrationcertRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetDciRegistrationcertRequest
+     * @return QueryDciPreviewRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +74,11 @@ class GetDciRegistrationcertRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['digital_register_id'])) {
-            $model->digitalRegisterId = $map['digital_register_id'];
+        if (isset($map['dci_preview_id'])) {
+            $model->dciPreviewId = $map['dci_preview_id'];
         }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
-        }
-        if (isset($map['dci_content_id'])) {
-            $model->dciContentId = $map['dci_content_id'];
+        if (isset($map['dci_basis_id'])) {
+            $model->dciBasisId = $map['dci_basis_id'];
         }
 
         return $model;

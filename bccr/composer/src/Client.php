@@ -23,6 +23,8 @@ use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
 use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
 use AntChain\BCCR\Models\CallbackDciPayresultResponse;
+use AntChain\BCCR\Models\CloseDciRegistrationRequest;
+use AntChain\BCCR\Models\CloseDciRegistrationResponse;
 use AntChain\BCCR\Models\CreateCertificateRequest;
 use AntChain\BCCR\Models\CreateCertificateResponse;
 use AntChain\BCCR\Models\CreateDciPreregistrationRequest;
@@ -69,6 +71,8 @@ use AntChain\BCCR\Models\QueryDciPreregistrationRequest;
 use AntChain\BCCR\Models\QueryDciPreregistrationResponse;
 use AntChain\BCCR\Models\QueryDciPreregpublicationRequest;
 use AntChain\BCCR\Models\QueryDciPreregpublicationResponse;
+use AntChain\BCCR\Models\QueryDciPreviewRequest;
+use AntChain\BCCR\Models\QueryDciPreviewResponse;
 use AntChain\BCCR\Models\QueryDciRegistrationcertRequest;
 use AntChain\BCCR\Models\QueryDciRegistrationcertResponse;
 use AntChain\BCCR\Models\QueryDciRegistrationRequest;
@@ -113,6 +117,8 @@ use AntChain\BCCR\Models\RefuseDciRegistrationRequest;
 use AntChain\BCCR\Models\RefuseDciRegistrationResponse;
 use AntChain\BCCR\Models\RetryDciPreregistrationRequest;
 use AntChain\BCCR\Models\RetryDciPreregistrationResponse;
+use AntChain\BCCR\Models\RetryDciRegistrationRequest;
+use AntChain\BCCR\Models\RetryDciRegistrationResponse;
 use AntChain\BCCR\Models\StopMonitorTaskRequest;
 use AntChain\BCCR\Models\StopMonitorTaskResponse;
 use AntChain\BCCR\Models\UpdateDciUserRequest;
@@ -270,7 +276,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.16',
+                    'sdk_version'      => '1.17.33',
+                    '_prod_code'       => 'BCCR',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1340,8 +1348,8 @@ class Client
     }
 
     /**
-     * Description: 查询数登提交状态
-     * Summary: 查询数登提交状态
+     * Description: 已废弃接口
+     * Summary: 已废弃接口.
      *
      * @param QueryDciRegistrationsubmitRequest $request
      *
@@ -1356,8 +1364,8 @@ class Client
     }
 
     /**
-     * Description: 查询数登提交状态
-     * Summary: 查询数登提交状态
+     * Description: 已废弃接口
+     * Summary: 已废弃接口.
      *
      * @param QueryDciRegistrationsubmitRequest $request
      * @param string[]                          $headers
@@ -1505,8 +1513,8 @@ class Client
     }
 
     /**
-     * Description: 查询数字登记证书
-     * Summary: 查询数字登记证书.
+     * Description: 已废弃接口
+     * Summary: 已废弃接口.
      *
      * @param QueryDciRegistrationcertRequest $request
      *
@@ -1521,8 +1529,8 @@ class Client
     }
 
     /**
-     * Description: 查询数字登记证书
-     * Summary: 查询数字登记证书.
+     * Description: 已废弃接口
+     * Summary: 已废弃接口.
      *
      * @param QueryDciRegistrationcertRequest $request
      * @param string[]                        $headers
@@ -1571,8 +1579,8 @@ class Client
     }
 
     /**
-     * Description: 查询支付
-     * Summary: 数登支付-查询支付.
+     * Description: 查询数登支付结果
+     * Summary: 查询数登支付结果.
      *
      * @param QueryDciPayRequest $request
      *
@@ -1587,8 +1595,8 @@ class Client
     }
 
     /**
-     * Description: 查询支付
-     * Summary: 数登支付-查询支付.
+     * Description: 查询数登支付结果
+     * Summary: 查询数登支付结果.
      *
      * @param QueryDciPayRequest $request
      * @param string[]           $headers
@@ -1637,8 +1645,8 @@ class Client
     }
 
     /**
-     * Description: dci数登审核失败结果回调
-     * Summary: dci数登审核失败结果回调.
+     * Description: 数登审核失败结果回调
+     * Summary: 数登审核失败结果回调.
      *
      * @param RefuseDciRegistrationRequest $request
      *
@@ -1653,8 +1661,8 @@ class Client
     }
 
     /**
-     * Description: dci数登审核失败结果回调
-     * Summary: dci数登审核失败结果回调.
+     * Description: 数登审核失败结果回调
+     * Summary: 数登审核失败结果回调.
      *
      * @param RefuseDciRegistrationRequest $request
      * @param string[]                     $headers
@@ -1931,6 +1939,105 @@ class Client
         Utils::validateModel($request);
 
         return OperateNotaryOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.order.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询DCI作品预览结果
+     * Summary: 查询DCI作品预览结果.
+     *
+     * @param QueryDciPreviewRequest $request
+     *
+     * @return QueryDciPreviewResponse
+     */
+    public function queryDciPreview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciPreviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询DCI作品预览结果
+     * Summary: 查询DCI作品预览结果.
+     *
+     * @param QueryDciPreviewRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryDciPreviewResponse
+     */
+    public function queryDciPreviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciPreviewResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.preview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 补正数登申请
+     * Summary: 补正数登申请.
+     *
+     * @param RetryDciRegistrationRequest $request
+     *
+     * @return RetryDciRegistrationResponse
+     */
+    public function retryDciRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryDciRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 补正数登申请
+     * Summary: 补正数登申请.
+     *
+     * @param RetryDciRegistrationRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RetryDciRegistrationResponse
+     */
+    public function retryDciRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登停止申请
+     * Summary: 数登停止申请.
+     *
+     * @param CloseDciRegistrationRequest $request
+     *
+     * @return CloseDciRegistrationResponse
+     */
+    public function closeDciRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->closeDciRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登停止申请
+     * Summary: 数登停止申请.
+     *
+     * @param CloseDciRegistrationRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CloseDciRegistrationResponse
+     */
+    public function closeDciRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloseDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
