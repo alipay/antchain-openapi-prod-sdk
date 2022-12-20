@@ -41,13 +41,13 @@ class OperateIotbasicChainmodelRequest extends Model
     /**
      * @var string
      */
-    public $business;
+    public $bizScene;
 
     // 资产数据类型
     /**
      * @var string
      */
-    public $dataType;
+    public $dataScene;
 
     // 资产ID-key
     /**
@@ -72,8 +72,8 @@ class OperateIotbasicChainmodelRequest extends Model
         'action'             => 'action',
         'operatorId'         => 'operator_id',
         'paramSign'          => 'param_sign',
-        'business'           => 'business',
-        'dataType'           => 'data_type',
+        'bizScene'           => 'biz_scene',
+        'dataScene'          => 'data_scene',
         'assetsIdKey'        => 'assets_id_key',
         'assetsIdType'       => 'assets_id_type',
         'signatureCheckType' => 'signature_check_type',
@@ -84,8 +84,8 @@ class OperateIotbasicChainmodelRequest extends Model
         Model::validateRequired('action', $this->action, true);
         Model::validateRequired('operatorId', $this->operatorId, true);
         Model::validateRequired('paramSign', $this->paramSign, true);
-        Model::validateRequired('business', $this->business, true);
-        Model::validateRequired('dataType', $this->dataType, true);
+        Model::validateRequired('bizScene', $this->bizScene, true);
+        Model::validateRequired('dataScene', $this->dataScene, true);
         Model::validateRequired('assetsIdKey', $this->assetsIdKey, true);
         Model::validateRequired('assetsIdType', $this->assetsIdType, true);
         Model::validateRequired('signatureCheckType', $this->signatureCheckType, true);
@@ -109,11 +109,11 @@ class OperateIotbasicChainmodelRequest extends Model
         if (null !== $this->paramSign) {
             $res['param_sign'] = $this->paramSign;
         }
-        if (null !== $this->business) {
-            $res['business'] = $this->business;
+        if (null !== $this->bizScene) {
+            $res['biz_scene'] = $this->bizScene;
         }
-        if (null !== $this->dataType) {
-            $res['data_type'] = $this->dataType;
+        if (null !== $this->dataScene) {
+            $res['data_scene'] = $this->dataScene;
         }
         if (null !== $this->assetsIdKey) {
             $res['assets_id_key'] = $this->assetsIdKey;
@@ -151,11 +151,11 @@ class OperateIotbasicChainmodelRequest extends Model
         if (isset($map['param_sign'])) {
             $model->paramSign = $map['param_sign'];
         }
-        if (isset($map['business'])) {
-            $model->business = $map['business'];
+        if (isset($map['biz_scene'])) {
+            $model->bizScene = $map['biz_scene'];
         }
-        if (isset($map['data_type'])) {
-            $model->dataType = $map['data_type'];
+        if (isset($map['data_scene'])) {
+            $model->dataScene = $map['data_scene'];
         }
         if (isset($map['assets_id_key'])) {
             $model->assetsIdKey = $map['assets_id_key'];

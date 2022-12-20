@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchcreateIotbasicDeviceorderbatchRequest extends Model
+class QueryDeviceRegisterresultRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,41 @@ class BatchcreateIotbasicDeviceorderbatchRequest extends Model
      */
     public $productInstanceId;
 
-    // 业务类型
+    // 设备SN，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
     /**
      * @var string
      */
-    public $bizScene;
+    public $deviceSn;
+
+    // 设备厂商名称，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
+    /**
+     * @var string
+     */
+    public $corpName;
+
+    // 设备did，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
+    /**
+     * @var string
+     */
+    public $deviceDid;
 
     // 租户id
     /**
      * @var string
      */
     public $tenantId;
-
-    // 订单同步批量请求体
-    /**
-     * @var DeviceorderRequest[]
-     */
-    public $orderBatchSyncReq;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizScene'          => 'biz_scene',
+        'deviceSn'          => 'device_sn',
+        'corpName'          => 'corp_name',
+        'deviceDid'         => 'device_did',
         'tenantId'          => 'tenant_id',
-        'orderBatchSyncReq' => 'order_batch_sync_req',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizScene', $this->bizScene, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('orderBatchSyncReq', $this->orderBatchSyncReq, true);
     }
 
     public function toMap()
@@ -60,20 +65,17 @@ class BatchcreateIotbasicDeviceorderbatchRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizScene) {
-            $res['biz_scene'] = $this->bizScene;
+        if (null !== $this->deviceSn) {
+            $res['device_sn'] = $this->deviceSn;
+        }
+        if (null !== $this->corpName) {
+            $res['corp_name'] = $this->corpName;
+        }
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
-        }
-        if (null !== $this->orderBatchSyncReq) {
-            $res['order_batch_sync_req'] = [];
-            if (null !== $this->orderBatchSyncReq && \is_array($this->orderBatchSyncReq)) {
-                $n = 0;
-                foreach ($this->orderBatchSyncReq as $item) {
-                    $res['order_batch_sync_req'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
         }
 
         return $res;
@@ -82,7 +84,7 @@ class BatchcreateIotbasicDeviceorderbatchRequest extends Model
     /**
      * @param array $map
      *
-     * @return BatchcreateIotbasicDeviceorderbatchRequest
+     * @return QueryDeviceRegisterresultRequest
      */
     public static function fromMap($map = [])
     {
@@ -93,20 +95,17 @@ class BatchcreateIotbasicDeviceorderbatchRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_scene'])) {
-            $model->bizScene = $map['biz_scene'];
+        if (isset($map['device_sn'])) {
+            $model->deviceSn = $map['device_sn'];
+        }
+        if (isset($map['corp_name'])) {
+            $model->corpName = $map['corp_name'];
+        }
+        if (isset($map['device_did'])) {
+            $model->deviceDid = $map['device_did'];
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['order_batch_sync_req'])) {
-            if (!empty($map['order_batch_sync_req'])) {
-                $model->orderBatchSyncReq = [];
-                $n                        = 0;
-                foreach ($map['order_batch_sync_req'] as $item) {
-                    $model->orderBatchSyncReq[$n++] = null !== $item ? DeviceorderRequest::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

@@ -15,8 +15,17 @@ class GoodsDigitalFingerprintRegisterResultData extends Model
      * @var bool
      */
     public $success;
+
+    // 失败原因
+    /**
+     * @example describe
+     *
+     * @var string
+     */
+    public $describe;
     protected $_name = [
-        'success' => 'success',
+        'success'  => 'success',
+        'describe' => 'describe',
     ];
 
     public function validate()
@@ -29,6 +38,9 @@ class GoodsDigitalFingerprintRegisterResultData extends Model
         $res = [];
         if (null !== $this->success) {
             $res['success'] = $this->success;
+        }
+        if (null !== $this->describe) {
+            $res['describe'] = $this->describe;
         }
 
         return $res;
@@ -44,6 +56,9 @@ class GoodsDigitalFingerprintRegisterResultData extends Model
         $model = new self();
         if (isset($map['success'])) {
             $model->success = $map['success'];
+        }
+        if (isset($map['describe'])) {
+            $model->describe = $map['describe'];
         }
 
         return $model;

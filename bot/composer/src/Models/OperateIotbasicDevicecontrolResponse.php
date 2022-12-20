@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchcreateIotbasicDeviceorderbatchResponse extends Model
+class OperateIotbasicDevicecontrolResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,21 +26,21 @@ class BatchcreateIotbasicDeviceorderbatchResponse extends Model
      */
     public $resultMsg;
 
-    // 接口是否执行成功
+    // 是否成功
     /**
      * @var bool
      */
     public $success;
 
-    // 上链成功的集合
+    // 操作成功的设备did列表
     /**
-     * @var DeviceCollectResult[]
+     * @var string[]
      */
     public $successList;
 
-    // 上链失败的集合
+    // 操作失败的设备did及失败信息列表
     /**
-     * @var DeviceCollectFail[]
+     * @var DeviceControlFail[]
      */
     public $failList;
     protected $_name = [
@@ -72,13 +72,7 @@ class BatchcreateIotbasicDeviceorderbatchResponse extends Model
             $res['success'] = $this->success;
         }
         if (null !== $this->successList) {
-            $res['success_list'] = [];
-            if (null !== $this->successList && \is_array($this->successList)) {
-                $n = 0;
-                foreach ($this->successList as $item) {
-                    $res['success_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['success_list'] = $this->successList;
         }
         if (null !== $this->failList) {
             $res['fail_list'] = [];
@@ -96,7 +90,7 @@ class BatchcreateIotbasicDeviceorderbatchResponse extends Model
     /**
      * @param array $map
      *
-     * @return BatchcreateIotbasicDeviceorderbatchResponse
+     * @return OperateIotbasicDevicecontrolResponse
      */
     public static function fromMap($map = [])
     {
@@ -115,11 +109,7 @@ class BatchcreateIotbasicDeviceorderbatchResponse extends Model
         }
         if (isset($map['success_list'])) {
             if (!empty($map['success_list'])) {
-                $model->successList = [];
-                $n                  = 0;
-                foreach ($map['success_list'] as $item) {
-                    $model->successList[$n++] = null !== $item ? DeviceCollectResult::fromMap($item) : $item;
-                }
+                $model->successList = $map['success_list'];
             }
         }
         if (isset($map['fail_list'])) {
@@ -127,7 +117,7 @@ class BatchcreateIotbasicDeviceorderbatchResponse extends Model
                 $model->failList = [];
                 $n               = 0;
                 foreach ($map['fail_list'] as $item) {
-                    $model->failList[$n++] = null !== $item ? DeviceCollectFail::fromMap($item) : $item;
+                    $model->failList[$n++] = null !== $item ? DeviceControlFail::fromMap($item) : $item;
                 }
             }
         }

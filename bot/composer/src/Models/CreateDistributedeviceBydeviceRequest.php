@@ -165,7 +165,6 @@ class CreateDistributedeviceBydeviceRequest extends Model
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('signature', $this->signature, true);
         Model::validateRequired('sdkId', $this->sdkId, true);
-        Model::validateRequired('deviceName', $this->deviceName, true);
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
