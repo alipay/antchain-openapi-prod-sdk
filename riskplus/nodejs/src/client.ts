@@ -13831,6 +13831,77 @@ export class BatchqueryUmktRtMixedmarketingResponse extends $tea.Model {
   }
 }
 
+export class ApplyUmktPhonenumberstatusforsmsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 12345
+  customerKey: string;
+  // 用户模版类型
+  paramTemplate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerKey: 'customer_key',
+      paramTemplate: 'param_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerKey: 'string',
+      paramTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyUmktPhonenumberstatusforsmsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 12345
+  customerKey?: string;
+  // 用户凭证状态
+  status?: string;
+  // 号码当前归属的基础运营商
+  carrier?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerKey: 'customer_key',
+      status: 'status',
+      carrier: 'carrier',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerKey: 'string',
+      status: 'string',
+      carrier: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14032,9 +14103,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.7",
-          _prod_code: "RISKPLUS",
-          _prod_channel: "undefined",
+          sdk_version: "1.16.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -16594,6 +16663,25 @@ export default class Client {
   async batchqueryUmktRtMixedmarketingEx(request: BatchqueryUmktRtMixedmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtMixedmarketingResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryUmktRtMixedmarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtMixedmarketingResponse({}));
+  }
+
+  /**
+   * Description: 调用营销盾空号检测
+   * Summary: 调用营销盾空号检测
+   */
+  async applyUmktPhonenumberstatusforsms(request: ApplyUmktPhonenumberstatusforsmsRequest): Promise<ApplyUmktPhonenumberstatusforsmsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyUmktPhonenumberstatusforsmsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用营销盾空号检测
+   * Summary: 调用营销盾空号检测
+   */
+  async applyUmktPhonenumberstatusforsmsEx(request: ApplyUmktPhonenumberstatusforsmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktPhonenumberstatusforsmsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyUmktPhonenumberstatusforsmsResponse>(await this.doRequest("1.0", "riskplus.umkt.phonenumberstatusforsms.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktPhonenumberstatusforsmsResponse({}));
   }
 
   /**
