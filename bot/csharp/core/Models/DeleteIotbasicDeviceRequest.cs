@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class BatchcreateIotbasicDeviceorderbatchRequest : TeaModel {
+    public class DeleteIotbasicDeviceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 业务类型
-        [NameInMap("biz_scene")]
+        // 设备did
+        [NameInMap("device_did")]
         [Validation(Required=true)]
-        public string BizScene { get; set; }
+        public string DeviceDid { get; set; }
 
-        // 租户id
-        [NameInMap("tenant_id")]
+        // 设备所属用户
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public string TenantId { get; set; }
+        public string UserId { get; set; }
 
-        // 订单同步批量请求体
-        [NameInMap("order_batch_sync_req")]
+        // 设备did签名
+        [NameInMap("signature")]
         [Validation(Required=true)]
-        public List<DeviceorderRequest> OrderBatchSyncReq { get; set; }
+        public string Signature { get; set; }
 
     }
 

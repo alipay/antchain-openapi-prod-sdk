@@ -34,14 +34,14 @@ namespace AntChain.SDK.BOT.Models
         public string ParamSign { get; set; }
 
         // 所属业务
-        [NameInMap("business")]
+        [NameInMap("biz_scene")]
         [Validation(Required=true)]
-        public string Business { get; set; }
+        public string BizScene { get; set; }
 
         // 资产数据类型
-        [NameInMap("data_type")]
+        [NameInMap("data_scene")]
         [Validation(Required=true)]
-        public string DataType { get; set; }
+        public string DataScene { get; set; }
 
         // 资产ID-key
         [NameInMap("assets_id_key")]

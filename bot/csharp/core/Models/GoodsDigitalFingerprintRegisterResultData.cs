@@ -15,6 +15,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public bool? Success { get; set; }
 
+        // 失败原因
+        [NameInMap("describe")]
+        [Validation(Required=false)]
+        public string Describe { get; set; }
+
     }
 
 }

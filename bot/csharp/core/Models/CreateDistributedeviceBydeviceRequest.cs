@@ -113,7 +113,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 设备型号
         [NameInMap("device_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceName { get; set; }
 
         // 资产所有人标识（统一社会信用代码）
