@@ -137,9 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.7"},
-                        {"_prod_code", "RISKPLUS"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.16.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.7"},
-                        {"_prod_code", "RISKPLUS"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.16.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -5879,6 +5875,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryUmktRtMixedmarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用营销盾空号检测
+         * Summary: 调用营销盾空号检测
+         */
+        public ApplyUmktPhonenumberstatusforsmsResponse ApplyUmktPhonenumberstatusforsms(ApplyUmktPhonenumberstatusforsmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyUmktPhonenumberstatusforsmsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用营销盾空号检测
+         * Summary: 调用营销盾空号检测
+         */
+        public async Task<ApplyUmktPhonenumberstatusforsmsResponse> ApplyUmktPhonenumberstatusforsmsAsync(ApplyUmktPhonenumberstatusforsmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyUmktPhonenumberstatusforsmsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用营销盾空号检测
+         * Summary: 调用营销盾空号检测
+         */
+        public ApplyUmktPhonenumberstatusforsmsResponse ApplyUmktPhonenumberstatusforsmsEx(ApplyUmktPhonenumberstatusforsmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktPhonenumberstatusforsmsResponse>(DoRequest("1.0", "riskplus.umkt.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用营销盾空号检测
+         * Summary: 调用营销盾空号检测
+         */
+        public async Task<ApplyUmktPhonenumberstatusforsmsResponse> ApplyUmktPhonenumberstatusforsmsExAsync(ApplyUmktPhonenumberstatusforsmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktPhonenumberstatusforsmsResponse>(await DoRequestAsync("1.0", "riskplus.umkt.phonenumberstatusforsms.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
