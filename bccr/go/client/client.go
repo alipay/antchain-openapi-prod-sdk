@@ -2263,6 +2263,8 @@ type RecordScreenData struct {
 	MainEvidenceName *string `json:"main_evidence_name,omitempty" xml:"main_evidence_name,omitempty"`
 	// 取证申请单号
 	EvidenceOrderNum *string `json:"evidence_order_num,omitempty" xml:"evidence_order_num,omitempty"`
+	// 补正说明函下载地址
+	CorrectionUrl *string `json:"correction_url,omitempty" xml:"correction_url,omitempty"`
 }
 
 func (s RecordScreenData) String() string {
@@ -2370,6 +2372,11 @@ func (s *RecordScreenData) SetMainEvidenceName(v string) *RecordScreenData {
 
 func (s *RecordScreenData) SetEvidenceOrderNum(v string) *RecordScreenData {
 	s.EvidenceOrderNum = &v
+	return s
+}
+
+func (s *RecordScreenData) SetCorrectionUrl(v string) *RecordScreenData {
+	s.CorrectionUrl = &v
 	return s
 }
 
@@ -2569,6 +2576,53 @@ func (s *MonitorProviderType) SetFileFormat(v string) *MonitorProviderType {
 
 func (s *MonitorProviderType) SetMonitorProviders(v []*MonitorProviderCapability) *MonitorProviderType {
 	s.MonitorProviders = v
+	return s
+}
+
+// 数登上传文件结构体
+type AdditionalFileInfo struct {
+	// 内容梗概文件fileId
+	ContentSummaryFileId *string `json:"content_summary_file_id,omitempty" xml:"content_summary_file_id,omitempty"`
+	// 权利归属证明文件
+	OwnershipFileIds []*string `json:"ownership_file_ids,omitempty" xml:"ownership_file_ids,omitempty" type:"Repeated"`
+	// 肖像权授权文件fileId
+	PortraitAuthFileId *string `json:"portrait_auth_file_id,omitempty" xml:"portrait_auth_file_id,omitempty"`
+	// 他人作品授权文件fileId
+	OthersWorkAuthFileId *string `json:"others_work_auth_file_id,omitempty" xml:"others_work_auth_file_id,omitempty"`
+	// 其他文件fileId列表
+	OtherFileIdList []*string `json:"other_file_id_list,omitempty" xml:"other_file_id_list,omitempty" type:"Repeated"`
+}
+
+func (s AdditionalFileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AdditionalFileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AdditionalFileInfo) SetContentSummaryFileId(v string) *AdditionalFileInfo {
+	s.ContentSummaryFileId = &v
+	return s
+}
+
+func (s *AdditionalFileInfo) SetOwnershipFileIds(v []*string) *AdditionalFileInfo {
+	s.OwnershipFileIds = v
+	return s
+}
+
+func (s *AdditionalFileInfo) SetPortraitAuthFileId(v string) *AdditionalFileInfo {
+	s.PortraitAuthFileId = &v
+	return s
+}
+
+func (s *AdditionalFileInfo) SetOthersWorkAuthFileId(v string) *AdditionalFileInfo {
+	s.OthersWorkAuthFileId = &v
+	return s
+}
+
+func (s *AdditionalFileInfo) SetOtherFileIdList(v []*string) *AdditionalFileInfo {
+	s.OtherFileIdList = v
 	return s
 }
 
@@ -3032,6 +3086,46 @@ func (s *NotaryInfo) SetNotaryPaperPath(v string) *NotaryInfo {
 
 func (s *NotaryInfo) SetNotaryTime(v string) *NotaryInfo {
 	s.NotaryTime = &v
+	return s
+}
+
+// 数登申请声明：包括创作目的、创作过程、独创性和字体申明
+type DciExplanationInfo struct {
+	// 创作目的，描述作品创作的目的
+	CreationPurpose *string `json:"creation_purpose,omitempty" xml:"creation_purpose,omitempty" require:"true"`
+	// 创作过程，具体的创作过程
+	CreationProcess *string `json:"creation_process,omitempty" xml:"creation_process,omitempty" require:"true"`
+	// 阐述作品的独创性
+	Originality *string `json:"originality,omitempty" xml:"originality,omitempty" require:"true"`
+	// 创作过程涉及到字体使用相关版权说明
+	FontCopyright *string `json:"font_copyright,omitempty" xml:"font_copyright,omitempty" require:"true"`
+}
+
+func (s DciExplanationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DciExplanationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DciExplanationInfo) SetCreationPurpose(v string) *DciExplanationInfo {
+	s.CreationPurpose = &v
+	return s
+}
+
+func (s *DciExplanationInfo) SetCreationProcess(v string) *DciExplanationInfo {
+	s.CreationProcess = &v
+	return s
+}
+
+func (s *DciExplanationInfo) SetOriginality(v string) *DciExplanationInfo {
+	s.Originality = &v
+	return s
+}
+
+func (s *DciExplanationInfo) SetFontCopyright(v string) *DciExplanationInfo {
+	s.FontCopyright = &v
 	return s
 }
 
@@ -3705,6 +3799,8 @@ type QueryRegisterstatusResponse struct {
 	StatementUrl *string `json:"statement_url,omitempty" xml:"statement_url,omitempty"`
 	// 安全信息
 	Security *SecurityData `json:"security,omitempty" xml:"security,omitempty"`
+	// 补正说明函下载地址
+	CorrectionUrl *string `json:"correction_url,omitempty" xml:"correction_url,omitempty"`
 }
 
 func (s QueryRegisterstatusResponse) String() string {
@@ -3792,6 +3888,11 @@ func (s *QueryRegisterstatusResponse) SetStatementUrl(v string) *QueryRegisterst
 
 func (s *QueryRegisterstatusResponse) SetSecurity(v *SecurityData) *QueryRegisterstatusResponse {
 	s.Security = v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetCorrectionUrl(v string) *QueryRegisterstatusResponse {
+	s.CorrectionUrl = &v
 	return s
 }
 
@@ -6187,7 +6288,7 @@ type QueryDciPreregistrationRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// dci用户id
-	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty" require:"true"`
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
 	// dci内容id
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
 }
@@ -6273,6 +6374,8 @@ type QueryDciPreregistrationResponse struct {
 	DciCodeObtainDate *string `json:"dci_code_obtain_date,omitempty" xml:"dci_code_obtain_date,omitempty"`
 	// 错误原因
 	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
+	// 错误中文原因
+	ErrorReasonCn *string `json:"error_reason_cn,omitempty" xml:"error_reason_cn,omitempty"`
 	// 公式地址
 	PublicationUrl *string `json:"publication_url,omitempty" xml:"publication_url,omitempty"`
 }
@@ -6412,6 +6515,11 @@ func (s *QueryDciPreregistrationResponse) SetDciCodeObtainDate(v string) *QueryD
 
 func (s *QueryDciPreregistrationResponse) SetErrorReason(v string) *QueryDciPreregistrationResponse {
 	s.ErrorReason = &v
+	return s
+}
+
+func (s *QueryDciPreregistrationResponse) SetErrorReasonCn(v string) *QueryDciPreregistrationResponse {
+	s.ErrorReasonCn = &v
 	return s
 }
 
@@ -7019,14 +7127,20 @@ type CreateDciRegistrationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// DC456
+	// DC123456
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
-	// 作品创作申明
-	CreationStatement *string `json:"creation_statement,omitempty" xml:"creation_statement,omitempty" require:"true"`
-	// 补充授权文件
+	// 数登申请声明
+	ExplanationInfo *DciExplanationInfo `json:"explanation_info,omitempty" xml:"explanation_info,omitempty" require:"true"`
+	// 补充文件相关信息
+	AdditionalFileInfo *AdditionalFileInfo `json:"additional_file_info,omitempty" xml:"additional_file_info,omitempty"`
+	// 发票信息--当前支持普票
+	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 废弃待删除
+	CreationStatement *string `json:"creation_statement,omitempty" xml:"creation_statement,omitempty"`
+	// 废弃待删除
 	AncillaryEvidencePathList []*string `json:"ancillary_evidence_path_list,omitempty" xml:"ancillary_evidence_path_list,omitempty" type:"Repeated"`
-	// 客户端令牌
-	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
 }
 
 func (s CreateDciRegistrationRequest) String() string {
@@ -7052,6 +7166,26 @@ func (s *CreateDciRegistrationRequest) SetDciContentId(v string) *CreateDciRegis
 	return s
 }
 
+func (s *CreateDciRegistrationRequest) SetExplanationInfo(v *DciExplanationInfo) *CreateDciRegistrationRequest {
+	s.ExplanationInfo = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetAdditionalFileInfo(v *AdditionalFileInfo) *CreateDciRegistrationRequest {
+	s.AdditionalFileInfo = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetInvoiceInfo(v *InvoiceInfo) *CreateDciRegistrationRequest {
+	s.InvoiceInfo = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetClientToken(v string) *CreateDciRegistrationRequest {
+	s.ClientToken = &v
+	return s
+}
+
 func (s *CreateDciRegistrationRequest) SetCreationStatement(v string) *CreateDciRegistrationRequest {
 	s.CreationStatement = &v
 	return s
@@ -7062,11 +7196,6 @@ func (s *CreateDciRegistrationRequest) SetAncillaryEvidencePathList(v []*string)
 	return s
 }
 
-func (s *CreateDciRegistrationRequest) SetClientToken(v string) *CreateDciRegistrationRequest {
-	s.ClientToken = &v
-	return s
-}
-
 type CreateDciRegistrationResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7074,6 +7203,8 @@ type CreateDciRegistrationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty"`
 }
 
 func (s CreateDciRegistrationResponse) String() string {
@@ -7096,6 +7227,11 @@ func (s *CreateDciRegistrationResponse) SetResultCode(v string) *CreateDciRegist
 
 func (s *CreateDciRegistrationResponse) SetResultMsg(v string) *CreateDciRegistrationResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDciRegistrationResponse) SetDigitalRegisterId(v string) *CreateDciRegistrationResponse {
+	s.DigitalRegisterId = &v
 	return s
 }
 
@@ -7173,8 +7309,10 @@ type QueryDciRegistrationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// dci内容id
-	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 废弃待删除
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
 }
 
 func (s QueryDciRegistrationRequest) String() string {
@@ -7195,6 +7333,11 @@ func (s *QueryDciRegistrationRequest) SetProductInstanceId(v string) *QueryDciRe
 	return s
 }
 
+func (s *QueryDciRegistrationRequest) SetDigitalRegisterId(v string) *QueryDciRegistrationRequest {
+	s.DigitalRegisterId = &v
+	return s
+}
+
 func (s *QueryDciRegistrationRequest) SetDciContentId(v string) *QueryDciRegistrationRequest {
 	s.DciContentId = &v
 	return s
@@ -7207,28 +7350,50 @@ type QueryDciRegistrationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 状态
+	// 废弃待删除
 	ContentStatus *string `json:"content_status,omitempty" xml:"content_status,omitempty"`
-	// 登记证书txHash
+	// 废弃待删除
 	RegisterCertTxHash *string `json:"register_cert_tx_hash,omitempty" xml:"register_cert_tx_hash,omitempty"`
-	// 登记证书存证高度
+	// 废弃待删除
 	RegisterCertBlockHeight *string `json:"register_cert_block_height,omitempty" xml:"register_cert_block_height,omitempty"`
-	// 登记证书tsr
+	// 废弃待删除
 	RegisterCertTsr *string `json:"register_cert_tsr,omitempty" xml:"register_cert_tsr,omitempty"`
-	// 登记证书预览fileId
+	// 废弃待删除
 	RegisterCertPngFileId *string `json:"register_cert_png_file_id,omitempty" xml:"register_cert_png_file_id,omitempty"`
-	// 数登样本oss fileId
+	// 废弃待删除
 	RegisterSampleFileId *string `json:"register_sample_file_id,omitempty" xml:"register_sample_file_id,omitempty"`
-	// 数登样本预览oss fileId
+	// 废弃待删除
 	RegisterSamplePngFileId *string `json:"register_sample_png_file_id,omitempty" xml:"register_sample_png_file_id,omitempty"`
-	// 剩余下载次数
+	// 废弃待删除
 	RegisterDownloadTimesLeft *int64 `json:"register_download_times_left,omitempty" xml:"register_download_times_left,omitempty"`
-	// 错误原因
+	// 废弃待删除
 	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
-	// 发票oss fileId List
+	// 废弃待删除
+	ErrorReasonCn *string `json:"error_reason_cn,omitempty" xml:"error_reason_cn,omitempty"`
+	// 废弃待删除
 	InvoiceFileIdList []*string `json:"invoice_file_id_list,omitempty" xml:"invoice_file_id_list,omitempty" type:"Repeated"`
-	// 数登申请时间
+	// 废弃待删除
 	ApplyRegisterTime *string `json:"apply_register_time,omitempty" xml:"apply_register_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数登登记号
+	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty"`
+	// dci申领id
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
+	// 数登状态
+	DigitalRegisterStatus *string `json:"digital_register_status,omitempty" xml:"digital_register_status,omitempty"`
+	// 数登申请时间
+	DigitalRegisterApplyTime *string `json:"digital_register_apply_time,omitempty" xml:"digital_register_apply_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数登完成时间
+	DigitalRegisterCompletionTime *string `json:"digital_register_completion_time,omitempty" xml:"digital_register_completion_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数登证书预览图url
+	DigitalRegisterCertPngUrl *string `json:"digital_register_cert_png_url,omitempty" xml:"digital_register_cert_png_url,omitempty"`
+	// 样本证书预览图url
+	DigitalRegisterSamplePngUrl *string `json:"digital_register_sample_png_url,omitempty" xml:"digital_register_sample_png_url,omitempty"`
+	// 证书本月剩余下载次数
+	DownloadTimesLeft *int64 `json:"download_times_left,omitempty" xml:"download_times_left,omitempty"`
+	// 发票下载链接list
+	InvoiceUrlList []*string `json:"invoice_url_list,omitempty" xml:"invoice_url_list,omitempty" type:"Repeated"`
+	// 数登失败详情
+	FailDetail *string `json:"fail_detail,omitempty" xml:"fail_detail,omitempty"`
 }
 
 func (s QueryDciRegistrationResponse) String() string {
@@ -7299,6 +7464,11 @@ func (s *QueryDciRegistrationResponse) SetErrorReason(v string) *QueryDciRegistr
 	return s
 }
 
+func (s *QueryDciRegistrationResponse) SetErrorReasonCn(v string) *QueryDciRegistrationResponse {
+	s.ErrorReasonCn = &v
+	return s
+}
+
 func (s *QueryDciRegistrationResponse) SetInvoiceFileIdList(v []*string) *QueryDciRegistrationResponse {
 	s.InvoiceFileIdList = v
 	return s
@@ -7309,14 +7479,66 @@ func (s *QueryDciRegistrationResponse) SetApplyRegisterTime(v string) *QueryDciR
 	return s
 }
 
+func (s *QueryDciRegistrationResponse) SetRegNumber(v string) *QueryDciRegistrationResponse {
+	s.RegNumber = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDciContentId(v string) *QueryDciRegistrationResponse {
+	s.DciContentId = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterStatus(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterStatus = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterApplyTime(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterApplyTime = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterCompletionTime(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterCompletionTime = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterCertPngUrl(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterCertPngUrl = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterSamplePngUrl(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterSamplePngUrl = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetDownloadTimesLeft(v int64) *QueryDciRegistrationResponse {
+	s.DownloadTimesLeft = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetInvoiceUrlList(v []*string) *QueryDciRegistrationResponse {
+	s.InvoiceUrlList = v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetFailDetail(v string) *QueryDciRegistrationResponse {
+	s.FailDetail = &v
+	return s
+}
+
 type GetDciRegistrationcertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// dci内容id
-	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
 	// 幂等字段
-	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 废弃待删除
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
 }
 
 func (s GetDciRegistrationcertRequest) String() string {
@@ -7337,13 +7559,18 @@ func (s *GetDciRegistrationcertRequest) SetProductInstanceId(v string) *GetDciRe
 	return s
 }
 
-func (s *GetDciRegistrationcertRequest) SetDciContentId(v string) *GetDciRegistrationcertRequest {
-	s.DciContentId = &v
+func (s *GetDciRegistrationcertRequest) SetDigitalRegisterId(v string) *GetDciRegistrationcertRequest {
+	s.DigitalRegisterId = &v
 	return s
 }
 
 func (s *GetDciRegistrationcertRequest) SetClientToken(v string) *GetDciRegistrationcertRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertRequest) SetDciContentId(v string) *GetDciRegistrationcertRequest {
+	s.DciContentId = &v
 	return s
 }
 
@@ -7354,14 +7581,22 @@ type GetDciRegistrationcertResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 证书状态
+	// 废弃待删除
 	CertStatus *string `json:"cert_status,omitempty" xml:"cert_status,omitempty"`
-	// 证书下载链接
+	// 废弃待删除
 	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
+	// 废弃待删除
+	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
+	// 废弃待删除
+	ErrorReasonCn *string `json:"error_reason_cn,omitempty" xml:"error_reason_cn,omitempty"`
+	// 数登状态
+	DigitalRegisterStatus *string `json:"digital_register_status,omitempty" xml:"digital_register_status,omitempty"`
+	// 数登证书&样本证书压缩包url
+	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
 	// 剩余下载次数
 	DownloadTimesLeft *int64 `json:"download_times_left,omitempty" xml:"download_times_left,omitempty"`
-	// 错误原因
-	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
+	// 失败详情
+	FailDetail *string `json:"fail_detail,omitempty" xml:"fail_detail,omitempty"`
 }
 
 func (s GetDciRegistrationcertResponse) String() string {
@@ -7397,13 +7632,33 @@ func (s *GetDciRegistrationcertResponse) SetCertificateUrl(v string) *GetDciRegi
 	return s
 }
 
+func (s *GetDciRegistrationcertResponse) SetErrorReason(v string) *GetDciRegistrationcertResponse {
+	s.ErrorReason = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertResponse) SetErrorReasonCn(v string) *GetDciRegistrationcertResponse {
+	s.ErrorReasonCn = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertResponse) SetDigitalRegisterStatus(v string) *GetDciRegistrationcertResponse {
+	s.DigitalRegisterStatus = &v
+	return s
+}
+
+func (s *GetDciRegistrationcertResponse) SetDownloadUrl(v string) *GetDciRegistrationcertResponse {
+	s.DownloadUrl = &v
+	return s
+}
+
 func (s *GetDciRegistrationcertResponse) SetDownloadTimesLeft(v int64) *GetDciRegistrationcertResponse {
 	s.DownloadTimesLeft = &v
 	return s
 }
 
-func (s *GetDciRegistrationcertResponse) SetErrorReason(v string) *GetDciRegistrationcertResponse {
-	s.ErrorReason = &v
+func (s *GetDciRegistrationcertResponse) SetFailDetail(v string) *GetDciRegistrationcertResponse {
+	s.FailDetail = &v
 	return s
 }
 
@@ -7677,16 +7932,18 @@ type GetDciPayurlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// dci用户id
-	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty" require:"true"`
-	// dci内容id
-	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
-	// 支付方式 0：支付宝
-	PayMent *string `json:"pay_ment,omitempty" xml:"pay_ment,omitempty"`
-	// 发票信息-当前支持普票
-	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
-	// 客户端token，幂等号，用来保证并发请求幂等性
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 废弃待删除
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
+	// 废弃待删除
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
+	// 废弃待删除
+	PayMent *string `json:"pay_ment,omitempty" xml:"pay_ment,omitempty"`
+	// 废弃待删除
+	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty"`
 }
 
 func (s GetDciPayurlRequest) String() string {
@@ -7707,6 +7964,16 @@ func (s *GetDciPayurlRequest) SetProductInstanceId(v string) *GetDciPayurlReques
 	return s
 }
 
+func (s *GetDciPayurlRequest) SetDigitalRegisterId(v string) *GetDciPayurlRequest {
+	s.DigitalRegisterId = &v
+	return s
+}
+
+func (s *GetDciPayurlRequest) SetClientToken(v string) *GetDciPayurlRequest {
+	s.ClientToken = &v
+	return s
+}
+
 func (s *GetDciPayurlRequest) SetDciUserId(v string) *GetDciPayurlRequest {
 	s.DciUserId = &v
 	return s
@@ -7724,11 +7991,6 @@ func (s *GetDciPayurlRequest) SetPayMent(v string) *GetDciPayurlRequest {
 
 func (s *GetDciPayurlRequest) SetInvoiceInfo(v *InvoiceInfo) *GetDciPayurlRequest {
 	s.InvoiceInfo = v
-	return s
-}
-
-func (s *GetDciPayurlRequest) SetClientToken(v string) *GetDciPayurlRequest {
-	s.ClientToken = &v
 	return s
 }
 
@@ -7775,10 +8037,12 @@ type QueryDciPayRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// dci用户id
-	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty" require:"true"`
-	// dci内容id
-	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 废弃待删除
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
+	// 废弃待删除
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
 }
 
 func (s QueryDciPayRequest) String() string {
@@ -7796,6 +8060,11 @@ func (s *QueryDciPayRequest) SetAuthToken(v string) *QueryDciPayRequest {
 
 func (s *QueryDciPayRequest) SetProductInstanceId(v string) *QueryDciPayRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDciPayRequest) SetDigitalRegisterId(v string) *QueryDciPayRequest {
+	s.DigitalRegisterId = &v
 	return s
 }
 
@@ -7818,6 +8087,8 @@ type QueryDciPayResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付状态
 	// （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+	PayStatus *string `json:"pay_status,omitempty" xml:"pay_status,omitempty"`
+	// 废弃待删除
 	PayState *string `json:"pay_state,omitempty" xml:"pay_state,omitempty"`
 }
 
@@ -7841,6 +8112,11 @@ func (s *QueryDciPayResponse) SetResultCode(v string) *QueryDciPayResponse {
 
 func (s *QueryDciPayResponse) SetResultMsg(v string) *QueryDciPayResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciPayResponse) SetPayStatus(v string) *QueryDciPayResponse {
+	s.PayStatus = &v
 	return s
 }
 
@@ -7960,8 +8236,12 @@ type RefuseDciRegistrationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 客户端token，幂等号，用来保证并发请求幂等性
-	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 复审失败原因
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 失败详情
+	FailDetail *string `json:"fail_detail,omitempty" xml:"fail_detail,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 }
 
 func (s RefuseDciRegistrationRequest) String() string {
@@ -7984,6 +8264,16 @@ func (s *RefuseDciRegistrationRequest) SetProductInstanceId(v string) *RefuseDci
 
 func (s *RefuseDciRegistrationRequest) SetTaskId(v string) *RefuseDciRegistrationRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationRequest) SetCode(v string) *RefuseDciRegistrationRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationRequest) SetFailDetail(v string) *RefuseDciRegistrationRequest {
+	s.FailDetail = &v
 	return s
 }
 
@@ -8797,6 +9087,307 @@ func (s *OperateNotaryOrderResponse) SetResultCode(v string) *OperateNotaryOrder
 }
 
 func (s *OperateNotaryOrderResponse) SetResultMsg(v string) *OperateNotaryOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDciPreviewRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// dci作品预览id
+	DciPreviewId *string `json:"dci_preview_id,omitempty" xml:"dci_preview_id,omitempty"`
+	// basis的dci content id
+	DciBasisId *string `json:"dci_basis_id,omitempty" xml:"dci_basis_id,omitempty"`
+}
+
+func (s QueryDciPreviewRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciPreviewRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciPreviewRequest) SetAuthToken(v string) *QueryDciPreviewRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDciPreviewRequest) SetProductInstanceId(v string) *QueryDciPreviewRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDciPreviewRequest) SetDciPreviewId(v string) *QueryDciPreviewRequest {
+	s.DciPreviewId = &v
+	return s
+}
+
+func (s *QueryDciPreviewRequest) SetDciBasisId(v string) *QueryDciPreviewRequest {
+	s.DciBasisId = &v
+	return s
+}
+
+type QueryDciPreviewResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 作品预览处理状态
+	FilePreviewStatus *string `json:"file_preview_status,omitempty" xml:"file_preview_status,omitempty"`
+	// 作品片段预览状态
+	FilePartPreviewStatus *string `json:"file_part_preview_status,omitempty" xml:"file_part_preview_status,omitempty"`
+	// 作品预览处理结果
+	FilePreviewUrl *string `json:"file_preview_url,omitempty" xml:"file_preview_url,omitempty"`
+	// 作品预览截取片段结果
+	FilePartPreviewUrl *string `json:"file_part_preview_url,omitempty" xml:"file_part_preview_url,omitempty"`
+	// 作品名称
+	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty"`
+	// dci码
+	DciCode *string `json:"dci_code,omitempty" xml:"dci_code,omitempty"`
+	// 文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty"`
+	// 当前查询时间
+	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryDciPreviewResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciPreviewResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciPreviewResponse) SetReqMsgId(v string) *QueryDciPreviewResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetResultCode(v string) *QueryDciPreviewResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetResultMsg(v string) *QueryDciPreviewResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetFilePreviewStatus(v string) *QueryDciPreviewResponse {
+	s.FilePreviewStatus = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetFilePartPreviewStatus(v string) *QueryDciPreviewResponse {
+	s.FilePartPreviewStatus = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetFilePreviewUrl(v string) *QueryDciPreviewResponse {
+	s.FilePreviewUrl = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetFilePartPreviewUrl(v string) *QueryDciPreviewResponse {
+	s.FilePartPreviewUrl = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetWorkName(v string) *QueryDciPreviewResponse {
+	s.WorkName = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetDciCode(v string) *QueryDciPreviewResponse {
+	s.DciCode = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetFileType(v string) *QueryDciPreviewResponse {
+	s.FileType = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetQueryTime(v string) *QueryDciPreviewResponse {
+	s.QueryTime = &v
+	return s
+}
+
+type RetryDciRegistrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待补正数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 替换dci申领id
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
+	// 数登申请声明
+	ExplanationInfo *DciExplanationInfo `json:"explanation_info,omitempty" xml:"explanation_info,omitempty" require:"true"`
+	// 补充文件信息
+	AdditionalFileInfo *AdditionalFileInfo `json:"additional_file_info,omitempty" xml:"additional_file_info,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s RetryDciRegistrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RetryDciRegistrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RetryDciRegistrationRequest) SetAuthToken(v string) *RetryDciRegistrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetProductInstanceId(v string) *RetryDciRegistrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetDigitalRegisterId(v string) *RetryDciRegistrationRequest {
+	s.DigitalRegisterId = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetDciContentId(v string) *RetryDciRegistrationRequest {
+	s.DciContentId = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetExplanationInfo(v *DciExplanationInfo) *RetryDciRegistrationRequest {
+	s.ExplanationInfo = v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetAdditionalFileInfo(v *AdditionalFileInfo) *RetryDciRegistrationRequest {
+	s.AdditionalFileInfo = v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetClientToken(v string) *RetryDciRegistrationRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type RetryDciRegistrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RetryDciRegistrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RetryDciRegistrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RetryDciRegistrationResponse) SetReqMsgId(v string) *RetryDciRegistrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RetryDciRegistrationResponse) SetResultCode(v string) *RetryDciRegistrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RetryDciRegistrationResponse) SetResultMsg(v string) *RetryDciRegistrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CloseDciRegistrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数登id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 退费人名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 联系手机号
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s CloseDciRegistrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseDciRegistrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CloseDciRegistrationRequest) SetAuthToken(v string) *CloseDciRegistrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CloseDciRegistrationRequest) SetProductInstanceId(v string) *CloseDciRegistrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CloseDciRegistrationRequest) SetDigitalRegisterId(v string) *CloseDciRegistrationRequest {
+	s.DigitalRegisterId = &v
+	return s
+}
+
+func (s *CloseDciRegistrationRequest) SetName(v string) *CloseDciRegistrationRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CloseDciRegistrationRequest) SetMobileNo(v string) *CloseDciRegistrationRequest {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *CloseDciRegistrationRequest) SetClientToken(v string) *CloseDciRegistrationRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type CloseDciRegistrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CloseDciRegistrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloseDciRegistrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CloseDciRegistrationResponse) SetReqMsgId(v string) *CloseDciRegistrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CloseDciRegistrationResponse) SetResultCode(v string) *CloseDciRegistrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CloseDciRegistrationResponse) SetResultMsg(v string) *CloseDciRegistrationResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -9679,7 +10270,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.16"),
+				"sdk_version":      tea.String("1.17.33"),
+				"_prod_code":       tea.String("BCCR"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -10790,8 +11383,8 @@ func (client *Client) CreateDciRegistrationEx(request *CreateDciRegistrationRequ
 }
 
 /**
- * Description: 查询数登提交状态
- * Summary: 查询数登提交状态
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
  */
 func (client *Client) QueryDciRegistrationsubmit(request *QueryDciRegistrationsubmitRequest) (_result *QueryDciRegistrationsubmitResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -10806,8 +11399,8 @@ func (client *Client) QueryDciRegistrationsubmit(request *QueryDciRegistrationsu
 }
 
 /**
- * Description: 查询数登提交状态
- * Summary: 查询数登提交状态
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
  */
 func (client *Client) QueryDciRegistrationsubmitEx(request *QueryDciRegistrationsubmitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciRegistrationsubmitResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -10960,8 +11553,8 @@ func (client *Client) CreateDciRegistrationcertEx(request *CreateDciRegistration
 }
 
 /**
- * Description: 查询数字登记证书
- * Summary: 查询数字登记证书
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
  */
 func (client *Client) QueryDciRegistrationcert(request *QueryDciRegistrationcertRequest) (_result *QueryDciRegistrationcertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -10976,8 +11569,8 @@ func (client *Client) QueryDciRegistrationcert(request *QueryDciRegistrationcert
 }
 
 /**
- * Description: 查询数字登记证书
- * Summary: 查询数字登记证书
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
  */
 func (client *Client) QueryDciRegistrationcertEx(request *QueryDciRegistrationcertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciRegistrationcertResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -11028,8 +11621,8 @@ func (client *Client) GetDciPayurlEx(request *GetDciPayurlRequest, headers map[s
 }
 
 /**
- * Description: 查询支付
- * Summary: 数登支付-查询支付
+ * Description: 查询数登支付结果
+ * Summary: 查询数登支付结果
  */
 func (client *Client) QueryDciPay(request *QueryDciPayRequest) (_result *QueryDciPayResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -11044,8 +11637,8 @@ func (client *Client) QueryDciPay(request *QueryDciPayRequest) (_result *QueryDc
 }
 
 /**
- * Description: 查询支付
- * Summary: 数登支付-查询支付
+ * Description: 查询数登支付结果
+ * Summary: 查询数登支付结果
  */
 func (client *Client) QueryDciPayEx(request *QueryDciPayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciPayResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -11096,8 +11689,8 @@ func (client *Client) CallbackDciPayresultEx(request *CallbackDciPayresultReques
 }
 
 /**
- * Description: dci数登审核失败结果回调
- * Summary: dci数登审核失败结果回调
+ * Description: 数登审核失败结果回调
+ * Summary: 数登审核失败结果回调
  */
 func (client *Client) RefuseDciRegistration(request *RefuseDciRegistrationRequest) (_result *RefuseDciRegistrationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -11112,8 +11705,8 @@ func (client *Client) RefuseDciRegistration(request *RefuseDciRegistrationReques
 }
 
 /**
- * Description: dci数登审核失败结果回调
- * Summary: dci数登审核失败结果回调
+ * Description: 数登审核失败结果回调
+ * Summary: 数登审核失败结果回调
  */
 func (client *Client) RefuseDciRegistrationEx(request *RefuseDciRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefuseDciRegistrationResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -11394,6 +11987,108 @@ func (client *Client) OperateNotaryOrderEx(request *OperateNotaryOrderRequest, h
 	}
 	_result = &OperateNotaryOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.notary.order.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询DCI作品预览结果
+ * Summary: 查询DCI作品预览结果
+ */
+func (client *Client) QueryDciPreview(request *QueryDciPreviewRequest) (_result *QueryDciPreviewResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDciPreviewResponse{}
+	_body, _err := client.QueryDciPreviewEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询DCI作品预览结果
+ * Summary: 查询DCI作品预览结果
+ */
+func (client *Client) QueryDciPreviewEx(request *QueryDciPreviewRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciPreviewResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDciPreviewResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.preview.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 补正数登申请
+ * Summary: 补正数登申请
+ */
+func (client *Client) RetryDciRegistration(request *RetryDciRegistrationRequest) (_result *RetryDciRegistrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RetryDciRegistrationResponse{}
+	_body, _err := client.RetryDciRegistrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 补正数登申请
+ * Summary: 补正数登申请
+ */
+func (client *Client) RetryDciRegistrationEx(request *RetryDciRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RetryDciRegistrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RetryDciRegistrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registration.retry"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数登停止申请
+ * Summary: 数登停止申请
+ */
+func (client *Client) CloseDciRegistration(request *CloseDciRegistrationRequest) (_result *CloseDciRegistrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CloseDciRegistrationResponse{}
+	_body, _err := client.CloseDciRegistrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数登停止申请
+ * Summary: 数登停止申请
+ */
+func (client *Client) CloseDciRegistrationEx(request *CloseDciRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CloseDciRegistrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CloseDciRegistrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registration.close"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
