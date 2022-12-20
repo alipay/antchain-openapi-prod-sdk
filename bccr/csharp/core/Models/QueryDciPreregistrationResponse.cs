@@ -139,6 +139,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ErrorReason { get; set; }
 
+        // 错误中文原因
+        [NameInMap("error_reason_cn")]
+        [Validation(Required=false)]
+        public string ErrorReasonCn { get; set; }
+
         // 公式地址
         [NameInMap("publication_url")]
         [Validation(Required=false)]

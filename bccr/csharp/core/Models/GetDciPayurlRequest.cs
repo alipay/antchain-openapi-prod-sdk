@@ -18,30 +18,35 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // dci用户id
-        [NameInMap("dci_user_id")]
+        // 数登申请id
+        [NameInMap("digital_register_id")]
         [Validation(Required=true)]
+        public string DigitalRegisterId { get; set; }
+
+        // 幂等字段
+        [NameInMap("client_token")]
+        [Validation(Required=true)]
+        public string ClientToken { get; set; }
+
+        // 废弃待删除
+        [NameInMap("dci_user_id")]
+        [Validation(Required=false)]
         public string DciUserId { get; set; }
 
-        // dci内容id
+        // 废弃待删除
         [NameInMap("dci_content_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DciContentId { get; set; }
 
-        // 支付方式 0：支付宝
+        // 废弃待删除
         [NameInMap("pay_ment")]
         [Validation(Required=false)]
         public string PayMent { get; set; }
 
-        // 发票信息-当前支持普票
+        // 废弃待删除
         [NameInMap("invoice_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public InvoiceInfo InvoiceInfo { get; set; }
-
-        // 客户端token，幂等号，用来保证并发请求幂等性
-        [NameInMap("client_token")]
-        [Validation(Required=true)]
-        public string ClientToken { get; set; }
 
     }
 

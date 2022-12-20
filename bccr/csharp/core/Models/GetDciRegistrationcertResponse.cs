@@ -24,25 +24,45 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 证书状态
+        // 废弃待删除
         [NameInMap("cert_status")]
         [Validation(Required=false)]
         public string CertStatus { get; set; }
 
-        // 证书下载链接
+        // 废弃待删除
         [NameInMap("certificate_url")]
         [Validation(Required=false)]
         public string CertificateUrl { get; set; }
+
+        // 废弃待删除
+        [NameInMap("error_reason")]
+        [Validation(Required=false)]
+        public string ErrorReason { get; set; }
+
+        // 废弃待删除
+        [NameInMap("error_reason_cn")]
+        [Validation(Required=false)]
+        public string ErrorReasonCn { get; set; }
+
+        // 数登状态
+        [NameInMap("digital_register_status")]
+        [Validation(Required=false)]
+        public string DigitalRegisterStatus { get; set; }
+
+        // 数登证书&样本证书压缩包url
+        [NameInMap("download_url")]
+        [Validation(Required=false)]
+        public string DownloadUrl { get; set; }
 
         // 剩余下载次数
         [NameInMap("download_times_left")]
         [Validation(Required=false)]
         public long? DownloadTimesLeft { get; set; }
 
-        // 错误原因
-        [NameInMap("error_reason")]
+        // 失败详情
+        [NameInMap("fail_detail")]
         [Validation(Required=false)]
-        public string ErrorReason { get; set; }
+        public string FailDetail { get; set; }
 
     }
 

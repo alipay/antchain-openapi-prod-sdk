@@ -26,6 +26,11 @@ namespace AntChain.SDK.BCCR.Models
 
         // 支付状态
         // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+        [NameInMap("pay_status")]
+        [Validation(Required=false)]
+        public string PayStatus { get; set; }
+
+        // 废弃待删除
         [NameInMap("pay_state")]
         [Validation(Required=false)]
         public string PayState { get; set; }

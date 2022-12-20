@@ -18,9 +18,14 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // dci内容id
-        [NameInMap("dci_content_id")]
+        // 数登申请id
+        [NameInMap("digital_register_id")]
         [Validation(Required=true)]
+        public string DigitalRegisterId { get; set; }
+
+        // 废弃待删除
+        [NameInMap("dci_content_id")]
+        [Validation(Required=false)]
         public string DciContentId { get; set; }
 
     }

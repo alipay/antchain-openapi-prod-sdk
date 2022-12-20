@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class QueryDciPreregistrationRequest : TeaModel {
+    public class QueryDciPreviewRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // dci用户id
-        [NameInMap("dci_user_id")]
+        // dci作品预览id
+        [NameInMap("dci_preview_id")]
         [Validation(Required=false)]
-        public string DciUserId { get; set; }
+        public string DciPreviewId { get; set; }
 
-        // dci内容id
-        [NameInMap("dci_content_id")]
-        [Validation(Required=true)]
-        public string DciContentId { get; set; }
+        // basis的dci content id
+        [NameInMap("dci_basis_id")]
+        [Validation(Required=false)]
+        public string DciBasisId { get; set; }
 
     }
 

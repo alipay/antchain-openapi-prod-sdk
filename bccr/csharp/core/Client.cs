@@ -137,7 +137,9 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.16"},
+                        {"sdk_version", "1.17.33"},
+                        {"_prod_code", "BCCR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.16"},
+                        {"sdk_version", "1.17.33"},
+                        {"_prod_code", "BCCR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1620,8 +1624,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数登提交状态
-         * Summary: 查询数登提交状态
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public QueryDciRegistrationsubmitResponse QueryDciRegistrationsubmit(QueryDciRegistrationsubmitRequest request)
         {
@@ -1631,8 +1635,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数登提交状态
-         * Summary: 查询数登提交状态
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public async Task<QueryDciRegistrationsubmitResponse> QueryDciRegistrationsubmitAsync(QueryDciRegistrationsubmitRequest request)
         {
@@ -1642,8 +1646,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数登提交状态
-         * Summary: 查询数登提交状态
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public QueryDciRegistrationsubmitResponse QueryDciRegistrationsubmitEx(QueryDciRegistrationsubmitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1652,8 +1656,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数登提交状态
-         * Summary: 查询数登提交状态
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public async Task<QueryDciRegistrationsubmitResponse> QueryDciRegistrationsubmitExAsync(QueryDciRegistrationsubmitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1830,8 +1834,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数字登记证书
-         * Summary: 查询数字登记证书
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public QueryDciRegistrationcertResponse QueryDciRegistrationcert(QueryDciRegistrationcertRequest request)
         {
@@ -1841,8 +1845,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数字登记证书
-         * Summary: 查询数字登记证书
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public async Task<QueryDciRegistrationcertResponse> QueryDciRegistrationcertAsync(QueryDciRegistrationcertRequest request)
         {
@@ -1852,8 +1856,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数字登记证书
-         * Summary: 查询数字登记证书
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public QueryDciRegistrationcertResponse QueryDciRegistrationcertEx(QueryDciRegistrationcertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1862,8 +1866,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询数字登记证书
-         * Summary: 查询数字登记证书
+         * Description: 已废弃接口
+         * Summary: 已废弃接口
          */
         public async Task<QueryDciRegistrationcertResponse> QueryDciRegistrationcertExAsync(QueryDciRegistrationcertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1914,8 +1918,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询支付
-         * Summary: 数登支付-查询支付
+         * Description: 查询数登支付结果
+         * Summary: 查询数登支付结果
          */
         public QueryDciPayResponse QueryDciPay(QueryDciPayRequest request)
         {
@@ -1925,8 +1929,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询支付
-         * Summary: 数登支付-查询支付
+         * Description: 查询数登支付结果
+         * Summary: 查询数登支付结果
          */
         public async Task<QueryDciPayResponse> QueryDciPayAsync(QueryDciPayRequest request)
         {
@@ -1936,8 +1940,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询支付
-         * Summary: 数登支付-查询支付
+         * Description: 查询数登支付结果
+         * Summary: 查询数登支付结果
          */
         public QueryDciPayResponse QueryDciPayEx(QueryDciPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1946,8 +1950,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 查询支付
-         * Summary: 数登支付-查询支付
+         * Description: 查询数登支付结果
+         * Summary: 查询数登支付结果
          */
         public async Task<QueryDciPayResponse> QueryDciPayExAsync(QueryDciPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1998,8 +2002,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: dci数登审核失败结果回调
-         * Summary: dci数登审核失败结果回调
+         * Description: 数登审核失败结果回调
+         * Summary: 数登审核失败结果回调
          */
         public RefuseDciRegistrationResponse RefuseDciRegistration(RefuseDciRegistrationRequest request)
         {
@@ -2009,8 +2013,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: dci数登审核失败结果回调
-         * Summary: dci数登审核失败结果回调
+         * Description: 数登审核失败结果回调
+         * Summary: 数登审核失败结果回调
          */
         public async Task<RefuseDciRegistrationResponse> RefuseDciRegistrationAsync(RefuseDciRegistrationRequest request)
         {
@@ -2020,8 +2024,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: dci数登审核失败结果回调
-         * Summary: dci数登审核失败结果回调
+         * Description: 数登审核失败结果回调
+         * Summary: 数登审核失败结果回调
          */
         public RefuseDciRegistrationResponse RefuseDciRegistrationEx(RefuseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2030,8 +2034,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: dci数登审核失败结果回调
-         * Summary: dci数登审核失败结果回调
+         * Description: 数登审核失败结果回调
+         * Summary: 数登审核失败结果回调
          */
         public async Task<RefuseDciRegistrationResponse> RefuseDciRegistrationExAsync(RefuseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2373,6 +2377,132 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateNotaryOrderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询DCI作品预览结果
+         * Summary: 查询DCI作品预览结果
+         */
+        public QueryDciPreviewResponse QueryDciPreview(QueryDciPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDciPreviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询DCI作品预览结果
+         * Summary: 查询DCI作品预览结果
+         */
+        public async Task<QueryDciPreviewResponse> QueryDciPreviewAsync(QueryDciPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDciPreviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询DCI作品预览结果
+         * Summary: 查询DCI作品预览结果
+         */
+        public QueryDciPreviewResponse QueryDciPreviewEx(QueryDciPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciPreviewResponse>(DoRequest("1.0", "blockchain.bccr.dci.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询DCI作品预览结果
+         * Summary: 查询DCI作品预览结果
+         */
+        public async Task<QueryDciPreviewResponse> QueryDciPreviewExAsync(QueryDciPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciPreviewResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 补正数登申请
+         * Summary: 补正数登申请
+         */
+        public RetryDciRegistrationResponse RetryDciRegistration(RetryDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryDciRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 补正数登申请
+         * Summary: 补正数登申请
+         */
+        public async Task<RetryDciRegistrationResponse> RetryDciRegistrationAsync(RetryDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryDciRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 补正数登申请
+         * Summary: 补正数登申请
+         */
+        public RetryDciRegistrationResponse RetryDciRegistrationEx(RetryDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryDciRegistrationResponse>(DoRequest("1.0", "blockchain.bccr.dci.registration.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 补正数登申请
+         * Summary: 补正数登申请
+         */
+        public async Task<RetryDciRegistrationResponse> RetryDciRegistrationExAsync(RetryDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登停止申请
+         * Summary: 数登停止申请
+         */
+        public CloseDciRegistrationResponse CloseDciRegistration(CloseDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CloseDciRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登停止申请
+         * Summary: 数登停止申请
+         */
+        public async Task<CloseDciRegistrationResponse> CloseDciRegistrationAsync(CloseDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CloseDciRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登停止申请
+         * Summary: 数登停止申请
+         */
+        public CloseDciRegistrationResponse CloseDciRegistrationEx(CloseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseDciRegistrationResponse>(DoRequest("1.0", "blockchain.bccr.dci.registration.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登停止申请
+         * Summary: 数登停止申请
+         */
+        public async Task<CloseDciRegistrationResponse> CloseDciRegistrationExAsync(CloseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloseDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

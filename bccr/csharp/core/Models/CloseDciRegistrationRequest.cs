@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class RefuseDciRegistrationRequest : TeaModel {
+    public class CloseDciRegistrationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 任务ID
-        [NameInMap("task_id")]
+        // 数登id
+        [NameInMap("digital_register_id")]
         [Validation(Required=true)]
-        public string TaskId { get; set; }
+        public string DigitalRegisterId { get; set; }
 
-        // 复审失败原因
-        [NameInMap("code")]
+        // 退费人名称
+        [NameInMap("name")]
         [Validation(Required=true)]
-        public string Code { get; set; }
+        public string Name { get; set; }
 
-        // 失败详情
-        [NameInMap("fail_detail")]
+        // 联系手机号
+        [NameInMap("mobile_no")]
         [Validation(Required=true)]
-        public string FailDetail { get; set; }
+        public string MobileNo { get; set; }
 
         // 幂等字段
         [NameInMap("client_token")]

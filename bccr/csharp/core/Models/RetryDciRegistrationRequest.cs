@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class CreateDciRegistrationRequest : TeaModel {
+    public class RetryDciRegistrationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,9 +18,14 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // DC123456
-        [NameInMap("dci_content_id")]
+        // 待补正数登申请id
+        [NameInMap("digital_register_id")]
         [Validation(Required=true)]
+        public string DigitalRegisterId { get; set; }
+
+        // 替换dci申领id
+        [NameInMap("dci_content_id")]
+        [Validation(Required=false)]
         public string DciContentId { get; set; }
 
         // 数登申请声明
@@ -28,30 +33,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public DciExplanationInfo ExplanationInfo { get; set; }
 
-        // 补充文件相关信息
+        // 补充文件信息
         [NameInMap("additional_file_info")]
         [Validation(Required=false)]
         public AdditionalFileInfo AdditionalFileInfo { get; set; }
-
-        // 发票信息--当前支持普票
-        [NameInMap("invoice_info")]
-        [Validation(Required=true)]
-        public InvoiceInfo InvoiceInfo { get; set; }
 
         // 幂等字段
         [NameInMap("client_token")]
         [Validation(Required=true)]
         public string ClientToken { get; set; }
-
-        // 废弃待删除
-        [NameInMap("creation_statement")]
-        [Validation(Required=false)]
-        public string CreationStatement { get; set; }
-
-        // 废弃待删除
-        [NameInMap("ancillary_evidence_path_list")]
-        [Validation(Required=false)]
-        public List<string> AncillaryEvidencePathList { get; set; }
 
     }
 
