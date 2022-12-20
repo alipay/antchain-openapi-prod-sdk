@@ -27,6 +27,8 @@ use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardResponse;
+use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsRequest;
+use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
@@ -418,9 +420,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.7',
-                    '_prod_code'       => 'RISKPLUS',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.16.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4777,6 +4777,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryUmktRtMixedmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用营销盾空号检测
+     * Summary: 调用营销盾空号检测.
+     *
+     * @param ApplyUmktPhonenumberstatusforsmsRequest $request
+     *
+     * @return ApplyUmktPhonenumberstatusforsmsResponse
+     */
+    public function applyUmktPhonenumberstatusforsms($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyUmktPhonenumberstatusforsmsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用营销盾空号检测
+     * Summary: 调用营销盾空号检测.
+     *
+     * @param ApplyUmktPhonenumberstatusforsmsRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return ApplyUmktPhonenumberstatusforsmsResponse
+     */
+    public function applyUmktPhonenumberstatusforsmsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyUmktPhonenumberstatusforsmsResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.phonenumberstatusforsms.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
