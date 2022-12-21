@@ -10511,7 +10511,7 @@ type ApplyDubbridgeUsecreditRequest struct {
 	// 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
 	LoanWay *string `json:"loan_way,omitempty" xml:"loan_way,omitempty" require:"true"`
 	// 还款日
-	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -18761,7 +18761,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.0"),
+				"sdk_version":      tea.String("1.16.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
