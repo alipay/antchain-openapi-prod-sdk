@@ -108,6 +108,10 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     @NameInMap("error_reason")
     public String errorReason;
 
+    // 错误中文原因
+    @NameInMap("error_reason_cn")
+    public String errorReasonCn;
+
     // 公式地址
     @NameInMap("publication_url")
     public String publicationUrl;
@@ -323,6 +327,14 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     }
     public String getErrorReason() {
         return this.errorReason;
+    }
+
+    public QueryDciPreregistrationResponse setErrorReasonCn(String errorReasonCn) {
+        this.errorReasonCn = errorReasonCn;
+        return this;
+    }
+    public String getErrorReasonCn() {
+        return this.errorReasonCn;
     }
 
     public QueryDciPreregistrationResponse setPublicationUrl(String publicationUrl) {

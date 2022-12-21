@@ -11,23 +11,37 @@ public class CreateDciRegistrationRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // DC456
+    // DC123456
     @NameInMap("dci_content_id")
     @Validation(required = true)
     public String dciContentId;
 
-    // 作品创作申明
-    @NameInMap("creation_statement")
+    // 数登申请声明
+    @NameInMap("explanation_info")
     @Validation(required = true)
+    public DciExplanationInfo explanationInfo;
+
+    // 补充文件相关信息
+    @NameInMap("additional_file_info")
+    public AdditionalFileInfo additionalFileInfo;
+
+    // 发票信息--当前支持普票
+    @NameInMap("invoice_info")
+    @Validation(required = true)
+    public InvoiceInfo invoiceInfo;
+
+    // 幂等字段
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
+    // 废弃待删除
+    @NameInMap("creation_statement")
     public String creationStatement;
 
-    // 补充授权文件
+    // 废弃待删除
     @NameInMap("ancillary_evidence_path_list")
     public java.util.List<String> ancillaryEvidencePathList;
-
-    // 客户端令牌
-    @NameInMap("client_token")
-    public String clientToken;
 
     public static CreateDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciRegistrationRequest self = new CreateDciRegistrationRequest();
@@ -58,6 +72,38 @@ public class CreateDciRegistrationRequest extends TeaModel {
         return this.dciContentId;
     }
 
+    public CreateDciRegistrationRequest setExplanationInfo(DciExplanationInfo explanationInfo) {
+        this.explanationInfo = explanationInfo;
+        return this;
+    }
+    public DciExplanationInfo getExplanationInfo() {
+        return this.explanationInfo;
+    }
+
+    public CreateDciRegistrationRequest setAdditionalFileInfo(AdditionalFileInfo additionalFileInfo) {
+        this.additionalFileInfo = additionalFileInfo;
+        return this;
+    }
+    public AdditionalFileInfo getAdditionalFileInfo() {
+        return this.additionalFileInfo;
+    }
+
+    public CreateDciRegistrationRequest setInvoiceInfo(InvoiceInfo invoiceInfo) {
+        this.invoiceInfo = invoiceInfo;
+        return this;
+    }
+    public InvoiceInfo getInvoiceInfo() {
+        return this.invoiceInfo;
+    }
+
+    public CreateDciRegistrationRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
+    }
+
     public CreateDciRegistrationRequest setCreationStatement(String creationStatement) {
         this.creationStatement = creationStatement;
         return this;
@@ -72,14 +118,6 @@ public class CreateDciRegistrationRequest extends TeaModel {
     }
     public java.util.List<String> getAncillaryEvidencePathList() {
         return this.ancillaryEvidencePathList;
-    }
-
-    public CreateDciRegistrationRequest setClientToken(String clientToken) {
-        this.clientToken = clientToken;
-        return this;
-    }
-    public String getClientToken() {
-        return this.clientToken;
     }
 
 }

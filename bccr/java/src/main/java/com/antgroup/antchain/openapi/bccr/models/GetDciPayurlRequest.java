@@ -11,29 +11,31 @@ public class GetDciPayurlRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // dci用户id
-    @NameInMap("dci_user_id")
+    // 数登申请id
+    @NameInMap("digital_register_id")
     @Validation(required = true)
-    public String dciUserId;
+    public String digitalRegisterId;
 
-    // dci内容id
-    @NameInMap("dci_content_id")
-    @Validation(required = true)
-    public String dciContentId;
-
-    // 支付方式 0：支付宝
-    @NameInMap("pay_ment")
-    public String payMent;
-
-    // 发票信息-当前支持普票
-    @NameInMap("invoice_info")
-    @Validation(required = true)
-    public InvoiceInfo invoiceInfo;
-
-    // 客户端token，幂等号，用来保证并发请求幂等性
+    // 幂等字段
     @NameInMap("client_token")
     @Validation(required = true)
     public String clientToken;
+
+    // 废弃待删除
+    @NameInMap("dci_user_id")
+    public String dciUserId;
+
+    // 废弃待删除
+    @NameInMap("dci_content_id")
+    public String dciContentId;
+
+    // 废弃待删除
+    @NameInMap("pay_ment")
+    public String payMent;
+
+    // 废弃待删除
+    @NameInMap("invoice_info")
+    public InvoiceInfo invoiceInfo;
 
     public static GetDciPayurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetDciPayurlRequest self = new GetDciPayurlRequest();
@@ -54,6 +56,22 @@ public class GetDciPayurlRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public GetDciPayurlRequest setDigitalRegisterId(String digitalRegisterId) {
+        this.digitalRegisterId = digitalRegisterId;
+        return this;
+    }
+    public String getDigitalRegisterId() {
+        return this.digitalRegisterId;
+    }
+
+    public GetDciPayurlRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
     public GetDciPayurlRequest setDciUserId(String dciUserId) {
@@ -86,14 +104,6 @@ public class GetDciPayurlRequest extends TeaModel {
     }
     public InvoiceInfo getInvoiceInfo() {
         return this.invoiceInfo;
-    }
-
-    public GetDciPayurlRequest setClientToken(String clientToken) {
-        this.clientToken = clientToken;
-        return this;
-    }
-    public String getClientToken() {
-        return this.clientToken;
     }
 
 }

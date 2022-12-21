@@ -16,8 +16,19 @@ public class RefuseDciRegistrationRequest extends TeaModel {
     @Validation(required = true)
     public String taskId;
 
-    // 客户端token，幂等号，用来保证并发请求幂等性
+    // 复审失败原因
+    @NameInMap("code")
+    @Validation(required = true)
+    public String code;
+
+    // 失败详情
+    @NameInMap("fail_detail")
+    @Validation(required = true)
+    public String failDetail;
+
+    // 幂等字段
     @NameInMap("client_token")
+    @Validation(required = true)
     public String clientToken;
 
     public static RefuseDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -47,6 +58,22 @@ public class RefuseDciRegistrationRequest extends TeaModel {
     }
     public String getTaskId() {
         return this.taskId;
+    }
+
+    public RefuseDciRegistrationRequest setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
+    }
+
+    public RefuseDciRegistrationRequest setFailDetail(String failDetail) {
+        this.failDetail = failDetail;
+        return this;
+    }
+    public String getFailDetail() {
+        return this.failDetail;
     }
 
     public RefuseDciRegistrationRequest setClientToken(String clientToken) {

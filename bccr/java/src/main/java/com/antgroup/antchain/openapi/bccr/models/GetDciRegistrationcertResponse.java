@@ -16,21 +16,37 @@ public class GetDciRegistrationcertResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 证书状态
+    // 废弃待删除
     @NameInMap("cert_status")
     public String certStatus;
 
-    // 证书下载链接
+    // 废弃待删除
     @NameInMap("certificate_url")
     public String certificateUrl;
+
+    // 废弃待删除
+    @NameInMap("error_reason")
+    public String errorReason;
+
+    // 废弃待删除
+    @NameInMap("error_reason_cn")
+    public String errorReasonCn;
+
+    // 数登状态
+    @NameInMap("digital_register_status")
+    public String digitalRegisterStatus;
+
+    // 数登证书&样本证书压缩包url
+    @NameInMap("download_url")
+    public String downloadUrl;
 
     // 剩余下载次数
     @NameInMap("download_times_left")
     public Long downloadTimesLeft;
 
-    // 错误原因
-    @NameInMap("error_reason")
-    public String errorReason;
+    // 失败详情
+    @NameInMap("fail_detail")
+    public String failDetail;
 
     public static GetDciRegistrationcertResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDciRegistrationcertResponse self = new GetDciRegistrationcertResponse();
@@ -77,6 +93,38 @@ public class GetDciRegistrationcertResponse extends TeaModel {
         return this.certificateUrl;
     }
 
+    public GetDciRegistrationcertResponse setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
+        return this;
+    }
+    public String getErrorReason() {
+        return this.errorReason;
+    }
+
+    public GetDciRegistrationcertResponse setErrorReasonCn(String errorReasonCn) {
+        this.errorReasonCn = errorReasonCn;
+        return this;
+    }
+    public String getErrorReasonCn() {
+        return this.errorReasonCn;
+    }
+
+    public GetDciRegistrationcertResponse setDigitalRegisterStatus(String digitalRegisterStatus) {
+        this.digitalRegisterStatus = digitalRegisterStatus;
+        return this;
+    }
+    public String getDigitalRegisterStatus() {
+        return this.digitalRegisterStatus;
+    }
+
+    public GetDciRegistrationcertResponse setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+        return this;
+    }
+    public String getDownloadUrl() {
+        return this.downloadUrl;
+    }
+
     public GetDciRegistrationcertResponse setDownloadTimesLeft(Long downloadTimesLeft) {
         this.downloadTimesLeft = downloadTimesLeft;
         return this;
@@ -85,12 +133,12 @@ public class GetDciRegistrationcertResponse extends TeaModel {
         return this.downloadTimesLeft;
     }
 
-    public GetDciRegistrationcertResponse setErrorReason(String errorReason) {
-        this.errorReason = errorReason;
+    public GetDciRegistrationcertResponse setFailDetail(String failDetail) {
+        this.failDetail = failDetail;
         return this;
     }
-    public String getErrorReason() {
-        return this.errorReason;
+    public String getFailDetail() {
+        return this.failDetail;
     }
 
 }

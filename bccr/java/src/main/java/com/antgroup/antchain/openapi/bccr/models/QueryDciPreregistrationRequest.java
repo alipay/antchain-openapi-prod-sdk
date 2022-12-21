@@ -13,7 +13,6 @@ public class QueryDciPreregistrationRequest extends TeaModel {
 
     // dci用户id
     @NameInMap("dci_user_id")
-    @Validation(required = true)
     public String dciUserId;
 
     // dci内容id

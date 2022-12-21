@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.16")
+                    new TeaPair("sdk_version", "1.17.33")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -749,8 +749,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询数登提交状态
-     * Summary: 查询数登提交状态
+     * Description: 已废弃接口
+     * Summary: 已废弃接口
      */
     public QueryDciRegistrationsubmitResponse queryDciRegistrationsubmit(QueryDciRegistrationsubmitRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -759,8 +759,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询数登提交状态
-     * Summary: 查询数登提交状态
+     * Description: 已废弃接口
+     * Summary: 已废弃接口
      */
     public QueryDciRegistrationsubmitResponse queryDciRegistrationsubmitEx(QueryDciRegistrationsubmitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -844,8 +844,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询数字登记证书
-     * Summary: 查询数字登记证书
+     * Description: 已废弃接口
+     * Summary: 已废弃接口
      */
     public QueryDciRegistrationcertResponse queryDciRegistrationcert(QueryDciRegistrationcertRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -854,8 +854,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询数字登记证书
-     * Summary: 查询数字登记证书
+     * Description: 已废弃接口
+     * Summary: 已废弃接口
      */
     public QueryDciRegistrationcertResponse queryDciRegistrationcertEx(QueryDciRegistrationcertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -882,8 +882,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询支付
-     * Summary: 数登支付-查询支付
+     * Description: 查询数登支付结果
+     * Summary: 查询数登支付结果
      */
     public QueryDciPayResponse queryDciPay(QueryDciPayRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -892,8 +892,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询支付
-     * Summary: 数登支付-查询支付
+     * Description: 查询数登支付结果
+     * Summary: 查询数登支付结果
      */
     public QueryDciPayResponse queryDciPayEx(QueryDciPayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -920,8 +920,8 @@ public class Client {
     }
 
     /**
-     * Description: dci数登审核失败结果回调
-     * Summary: dci数登审核失败结果回调
+     * Description: 数登审核失败结果回调
+     * Summary: 数登审核失败结果回调
      */
     public RefuseDciRegistrationResponse refuseDciRegistration(RefuseDciRegistrationRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -930,8 +930,8 @@ public class Client {
     }
 
     /**
-     * Description: dci数登审核失败结果回调
-     * Summary: dci数登审核失败结果回调
+     * Description: 数登审核失败结果回调
+     * Summary: 数登审核失败结果回调
      */
     public RefuseDciRegistrationResponse refuseDciRegistrationEx(RefuseDciRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1088,6 +1088,63 @@ public class Client {
     public OperateNotaryOrderResponse operateNotaryOrderEx(OperateNotaryOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.order.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateNotaryOrderResponse());
+    }
+
+    /**
+     * Description: 查询DCI作品预览结果
+     * Summary: 查询DCI作品预览结果
+     */
+    public QueryDciPreviewResponse queryDciPreview(QueryDciPreviewRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciPreviewEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询DCI作品预览结果
+     * Summary: 查询DCI作品预览结果
+     */
+    public QueryDciPreviewResponse queryDciPreviewEx(QueryDciPreviewRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.preview.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciPreviewResponse());
+    }
+
+    /**
+     * Description: 补正数登申请
+     * Summary: 补正数登申请
+     */
+    public RetryDciRegistrationResponse retryDciRegistration(RetryDciRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.retryDciRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 补正数登申请
+     * Summary: 补正数登申请
+     */
+    public RetryDciRegistrationResponse retryDciRegistrationEx(RetryDciRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registration.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryDciRegistrationResponse());
+    }
+
+    /**
+     * Description: 数登停止申请
+     * Summary: 数登停止申请
+     */
+    public CloseDciRegistrationResponse closeDciRegistration(CloseDciRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.closeDciRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数登停止申请
+     * Summary: 数登停止申请
+     */
+    public CloseDciRegistrationResponse closeDciRegistrationEx(CloseDciRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registration.close", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CloseDciRegistrationResponse());
     }
 
     /**

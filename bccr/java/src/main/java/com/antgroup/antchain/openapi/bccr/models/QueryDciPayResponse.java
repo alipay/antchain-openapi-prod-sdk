@@ -18,6 +18,10 @@ public class QueryDciPayResponse extends TeaModel {
 
     // 支付状态
     // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+    @NameInMap("pay_status")
+    public String payStatus;
+
+    // 废弃待删除
     @NameInMap("pay_state")
     public String payState;
 
@@ -48,6 +52,14 @@ public class QueryDciPayResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryDciPayResponse setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
+        return this;
+    }
+    public String getPayStatus() {
+        return this.payStatus;
     }
 
     public QueryDciPayResponse setPayState(String payState) {

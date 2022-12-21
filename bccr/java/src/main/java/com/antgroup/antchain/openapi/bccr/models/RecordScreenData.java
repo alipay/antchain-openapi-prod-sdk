@@ -88,6 +88,10 @@ public class RecordScreenData extends TeaModel {
     @NameInMap("evidence_order_num")
     public String evidenceOrderNum;
 
+    // 补正说明函下载地址
+    @NameInMap("correction_url")
+    public String correctionUrl;
+
     public static RecordScreenData build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenData self = new RecordScreenData();
         return TeaModel.build(map, self);
@@ -251,6 +255,14 @@ public class RecordScreenData extends TeaModel {
     }
     public String getEvidenceOrderNum() {
         return this.evidenceOrderNum;
+    }
+
+    public RecordScreenData setCorrectionUrl(String correctionUrl) {
+        this.correctionUrl = correctionUrl;
+        return this;
+    }
+    public String getCorrectionUrl() {
+        return this.correctionUrl;
     }
 
 }

@@ -11,9 +11,13 @@ public class QueryDciRegistrationRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // dci内容id
-    @NameInMap("dci_content_id")
+    // 数登申请id
+    @NameInMap("digital_register_id")
     @Validation(required = true)
+    public String digitalRegisterId;
+
+    // 废弃待删除
+    @NameInMap("dci_content_id")
     public String dciContentId;
 
     public static QueryDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -35,6 +39,14 @@ public class QueryDciRegistrationRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryDciRegistrationRequest setDigitalRegisterId(String digitalRegisterId) {
+        this.digitalRegisterId = digitalRegisterId;
+        return this;
+    }
+    public String getDigitalRegisterId() {
+        return this.digitalRegisterId;
     }
 
     public QueryDciRegistrationRequest setDciContentId(String dciContentId) {

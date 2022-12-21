@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class CreateDciRegistrationResponse extends TeaModel {
+public class RetryDciRegistrationResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class CreateDciRegistrationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 数登申请id
-    @NameInMap("digital_register_id")
-    public String digitalRegisterId;
-
-    public static CreateDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateDciRegistrationResponse self = new CreateDciRegistrationResponse();
+    public static RetryDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
+        RetryDciRegistrationResponse self = new RetryDciRegistrationResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateDciRegistrationResponse setReqMsgId(String reqMsgId) {
+    public RetryDciRegistrationResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class CreateDciRegistrationResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateDciRegistrationResponse setResultCode(String resultCode) {
+    public RetryDciRegistrationResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class CreateDciRegistrationResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateDciRegistrationResponse setResultMsg(String resultMsg) {
+    public RetryDciRegistrationResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public CreateDciRegistrationResponse setDigitalRegisterId(String digitalRegisterId) {
-        this.digitalRegisterId = digitalRegisterId;
-        return this;
-    }
-    public String getDigitalRegisterId() {
-        return this.digitalRegisterId;
     }
 
 }

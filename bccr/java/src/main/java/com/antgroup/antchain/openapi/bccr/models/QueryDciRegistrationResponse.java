@@ -16,50 +16,96 @@ public class QueryDciRegistrationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 状态
+    // 废弃待删除
     @NameInMap("content_status")
     public String contentStatus;
 
-    // 登记证书txHash
+    // 废弃待删除
     @NameInMap("register_cert_tx_hash")
     public String registerCertTxHash;
 
-    // 登记证书存证高度
+    // 废弃待删除
     @NameInMap("register_cert_block_height")
     public String registerCertBlockHeight;
 
-    // 登记证书tsr
+    // 废弃待删除
     @NameInMap("register_cert_tsr")
     public String registerCertTsr;
 
-    // 登记证书预览fileId
+    // 废弃待删除
     @NameInMap("register_cert_png_file_id")
     public String registerCertPngFileId;
 
-    // 数登样本oss fileId
+    // 废弃待删除
     @NameInMap("register_sample_file_id")
     public String registerSampleFileId;
 
-    // 数登样本预览oss fileId
+    // 废弃待删除
     @NameInMap("register_sample_png_file_id")
     public String registerSamplePngFileId;
 
-    // 剩余下载次数
+    // 废弃待删除
     @NameInMap("register_download_times_left")
     public Long registerDownloadTimesLeft;
 
-    // 错误原因
+    // 废弃待删除
     @NameInMap("error_reason")
     public String errorReason;
 
-    // 发票oss fileId List
+    // 废弃待删除
+    @NameInMap("error_reason_cn")
+    public String errorReasonCn;
+
+    // 废弃待删除
     @NameInMap("invoice_file_id_list")
     public java.util.List<String> invoiceFileIdList;
 
-    // 数登申请时间
+    // 废弃待删除
     @NameInMap("apply_register_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String applyRegisterTime;
+
+    // 数登登记号
+    @NameInMap("reg_number")
+    public String regNumber;
+
+    // dci申领id
+    @NameInMap("dci_content_id")
+    public String dciContentId;
+
+    // 数登状态
+    @NameInMap("digital_register_status")
+    public String digitalRegisterStatus;
+
+    // 数登申请时间
+    @NameInMap("digital_register_apply_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String digitalRegisterApplyTime;
+
+    // 数登完成时间
+    @NameInMap("digital_register_completion_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String digitalRegisterCompletionTime;
+
+    // 数登证书预览图url
+    @NameInMap("digital_register_cert_png_url")
+    public String digitalRegisterCertPngUrl;
+
+    // 样本证书预览图url
+    @NameInMap("digital_register_sample_png_url")
+    public String digitalRegisterSamplePngUrl;
+
+    // 证书本月剩余下载次数
+    @NameInMap("download_times_left")
+    public Long downloadTimesLeft;
+
+    // 发票下载链接list
+    @NameInMap("invoice_url_list")
+    public java.util.List<String> invoiceUrlList;
+
+    // 数登失败详情
+    @NameInMap("fail_detail")
+    public String failDetail;
 
     public static QueryDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciRegistrationResponse self = new QueryDciRegistrationResponse();
@@ -162,6 +208,14 @@ public class QueryDciRegistrationResponse extends TeaModel {
         return this.errorReason;
     }
 
+    public QueryDciRegistrationResponse setErrorReasonCn(String errorReasonCn) {
+        this.errorReasonCn = errorReasonCn;
+        return this;
+    }
+    public String getErrorReasonCn() {
+        return this.errorReasonCn;
+    }
+
     public QueryDciRegistrationResponse setInvoiceFileIdList(java.util.List<String> invoiceFileIdList) {
         this.invoiceFileIdList = invoiceFileIdList;
         return this;
@@ -176,6 +230,86 @@ public class QueryDciRegistrationResponse extends TeaModel {
     }
     public String getApplyRegisterTime() {
         return this.applyRegisterTime;
+    }
+
+    public QueryDciRegistrationResponse setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
+        return this;
+    }
+    public String getRegNumber() {
+        return this.regNumber;
+    }
+
+    public QueryDciRegistrationResponse setDciContentId(String dciContentId) {
+        this.dciContentId = dciContentId;
+        return this;
+    }
+    public String getDciContentId() {
+        return this.dciContentId;
+    }
+
+    public QueryDciRegistrationResponse setDigitalRegisterStatus(String digitalRegisterStatus) {
+        this.digitalRegisterStatus = digitalRegisterStatus;
+        return this;
+    }
+    public String getDigitalRegisterStatus() {
+        return this.digitalRegisterStatus;
+    }
+
+    public QueryDciRegistrationResponse setDigitalRegisterApplyTime(String digitalRegisterApplyTime) {
+        this.digitalRegisterApplyTime = digitalRegisterApplyTime;
+        return this;
+    }
+    public String getDigitalRegisterApplyTime() {
+        return this.digitalRegisterApplyTime;
+    }
+
+    public QueryDciRegistrationResponse setDigitalRegisterCompletionTime(String digitalRegisterCompletionTime) {
+        this.digitalRegisterCompletionTime = digitalRegisterCompletionTime;
+        return this;
+    }
+    public String getDigitalRegisterCompletionTime() {
+        return this.digitalRegisterCompletionTime;
+    }
+
+    public QueryDciRegistrationResponse setDigitalRegisterCertPngUrl(String digitalRegisterCertPngUrl) {
+        this.digitalRegisterCertPngUrl = digitalRegisterCertPngUrl;
+        return this;
+    }
+    public String getDigitalRegisterCertPngUrl() {
+        return this.digitalRegisterCertPngUrl;
+    }
+
+    public QueryDciRegistrationResponse setDigitalRegisterSamplePngUrl(String digitalRegisterSamplePngUrl) {
+        this.digitalRegisterSamplePngUrl = digitalRegisterSamplePngUrl;
+        return this;
+    }
+    public String getDigitalRegisterSamplePngUrl() {
+        return this.digitalRegisterSamplePngUrl;
+    }
+
+    public QueryDciRegistrationResponse setDownloadTimesLeft(Long downloadTimesLeft) {
+        this.downloadTimesLeft = downloadTimesLeft;
+        return this;
+    }
+    public Long getDownloadTimesLeft() {
+        return this.downloadTimesLeft;
+    }
+
+    public QueryDciRegistrationResponse setInvoiceUrlList(java.util.List<String> invoiceUrlList) {
+        this.invoiceUrlList = invoiceUrlList;
+        return this;
+    }
+    public java.util.List<String> getInvoiceUrlList() {
+        return this.invoiceUrlList;
+    }
+
+    public QueryDciRegistrationResponse setFailDetail(String failDetail) {
+        this.failDetail = failDetail;
+        return this;
+    }
+    public String getFailDetail() {
+        return this.failDetail;
     }
 
 }
