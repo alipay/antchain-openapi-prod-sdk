@@ -13018,7 +13018,6 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.repay_type, 'repay_type')
         self.validate_required(self.loan_way, 'loan_way')
-        self.validate_required(self.repay_date, 'repay_date')
 
     def to_map(self):
         _map = super().to_map()
