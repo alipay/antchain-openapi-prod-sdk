@@ -7829,7 +7829,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
   loanWay: string;
   // 还款日
-  repayDate: string;
+  repayDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14103,7 +14103,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.0",
+          sdk_version: "1.16.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
