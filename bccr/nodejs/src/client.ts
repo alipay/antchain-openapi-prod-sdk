@@ -7621,8 +7621,6 @@ export default class Client {
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
           sdk_version: "1.17.33",
-          _prod_code: "BCCR",
-          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
