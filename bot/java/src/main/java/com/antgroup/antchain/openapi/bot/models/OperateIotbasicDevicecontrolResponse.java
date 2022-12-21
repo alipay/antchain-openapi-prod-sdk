@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
+public class OperateIotbasicDevicecontrolResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,24 +16,24 @@ public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 接口是否执行成功
+    // 是否成功
     @NameInMap("success")
     public Boolean success;
 
-    // 上链成功的集合
+    // 操作成功的设备did列表
     @NameInMap("success_list")
-    public java.util.List<DeviceCollectResult> successList;
+    public java.util.List<String> successList;
 
-    // 上链失败的集合
+    // 操作失败的设备did及失败信息列表
     @NameInMap("fail_list")
-    public java.util.List<DeviceCollectFail> failList;
+    public java.util.List<DeviceControlFail> failList;
 
-    public static BatchcreateIotbasicDeviceorderbatchResponse build(java.util.Map<String, ?> map) throws Exception {
-        BatchcreateIotbasicDeviceorderbatchResponse self = new BatchcreateIotbasicDeviceorderbatchResponse();
+    public static OperateIotbasicDevicecontrolResponse build(java.util.Map<String, ?> map) throws Exception {
+        OperateIotbasicDevicecontrolResponse self = new OperateIotbasicDevicecontrolResponse();
         return TeaModel.build(map, self);
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setReqMsgId(String reqMsgId) {
+    public OperateIotbasicDevicecontrolResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setResultCode(String resultCode) {
+    public OperateIotbasicDevicecontrolResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setResultMsg(String resultMsg) {
+    public OperateIotbasicDevicecontrolResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setSuccess(Boolean success) {
+    public OperateIotbasicDevicecontrolResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -65,19 +65,19 @@ public class BatchcreateIotbasicDeviceorderbatchResponse extends TeaModel {
         return this.success;
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setSuccessList(java.util.List<DeviceCollectResult> successList) {
+    public OperateIotbasicDevicecontrolResponse setSuccessList(java.util.List<String> successList) {
         this.successList = successList;
         return this;
     }
-    public java.util.List<DeviceCollectResult> getSuccessList() {
+    public java.util.List<String> getSuccessList() {
         return this.successList;
     }
 
-    public BatchcreateIotbasicDeviceorderbatchResponse setFailList(java.util.List<DeviceCollectFail> failList) {
+    public OperateIotbasicDevicecontrolResponse setFailList(java.util.List<DeviceControlFail> failList) {
         this.failList = failList;
         return this;
     }
-    public java.util.List<DeviceCollectFail> getFailList() {
+    public java.util.List<DeviceControlFail> getFailList() {
         return this.failList;
     }
 

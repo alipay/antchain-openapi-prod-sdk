@@ -9,6 +9,10 @@ public class GoodsDigitalFingerprintRegisterResultData extends TeaModel {
     @Validation(required = true)
     public Boolean success;
 
+    // 失败原因
+    @NameInMap("describe")
+    public String describe;
+
     public static GoodsDigitalFingerprintRegisterResultData build(java.util.Map<String, ?> map) throws Exception {
         GoodsDigitalFingerprintRegisterResultData self = new GoodsDigitalFingerprintRegisterResultData();
         return TeaModel.build(map, self);
@@ -20,6 +24,14 @@ public class GoodsDigitalFingerprintRegisterResultData extends TeaModel {
     }
     public Boolean getSuccess() {
         return this.success;
+    }
+
+    public GoodsDigitalFingerprintRegisterResultData setDescribe(String describe) {
+        this.describe = describe;
+        return this;
+    }
+    public String getDescribe() {
+        return this.describe;
     }
 
 }

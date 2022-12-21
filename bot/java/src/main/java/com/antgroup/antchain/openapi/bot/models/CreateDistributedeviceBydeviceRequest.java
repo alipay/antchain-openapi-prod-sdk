@@ -104,7 +104,6 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
 
     // 设备型号
     @NameInMap("device_name")
-    @Validation(required = true)
     public String deviceName;
 
     // 资产所有人标识（统一社会信用代码）

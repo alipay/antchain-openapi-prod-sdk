@@ -27,14 +27,14 @@ public class OperateIotbasicChainmodelRequest extends TeaModel {
     public String paramSign;
 
     // 所属业务
-    @NameInMap("business")
+    @NameInMap("biz_scene")
     @Validation(required = true)
-    public String business;
+    public String bizScene;
 
     // 资产数据类型
-    @NameInMap("data_type")
+    @NameInMap("data_scene")
     @Validation(required = true)
-    public String dataType;
+    public String dataScene;
 
     // 资产ID-key
     @NameInMap("assets_id_key")
@@ -96,20 +96,20 @@ public class OperateIotbasicChainmodelRequest extends TeaModel {
         return this.paramSign;
     }
 
-    public OperateIotbasicChainmodelRequest setBusiness(String business) {
-        this.business = business;
+    public OperateIotbasicChainmodelRequest setBizScene(String bizScene) {
+        this.bizScene = bizScene;
         return this;
     }
-    public String getBusiness() {
-        return this.business;
+    public String getBizScene() {
+        return this.bizScene;
     }
 
-    public OperateIotbasicChainmodelRequest setDataType(String dataType) {
-        this.dataType = dataType;
+    public OperateIotbasicChainmodelRequest setDataScene(String dataScene) {
+        this.dataScene = dataScene;
         return this;
     }
-    public String getDataType() {
-        return this.dataType;
+    public String getDataScene() {
+        return this.dataScene;
     }
 
     public OperateIotbasicChainmodelRequest setAssetsIdKey(String assetsIdKey) {
