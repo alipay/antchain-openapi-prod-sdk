@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.43',
+    sdk_version = '1.7.85',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -185,39 +185,6 @@ model IotBasicPermissionData {
   module: string(name='module', example='权限模块'),
 }
 
-// 商品数字指纹鉴定点
-model GoodsDigitalFingerprintPoint {
-  // 鉴定点子项
-  subPointName: string(name='sub_point_name', example='正面'),
-  // 微观图片url
-  microImageUrl: string(name='micro_image_url', example='http://1001'),
-  // 宏观图片url
-  macroImageUrl: string(name='macro_image_url', example='http://xxxx1002'),
-}
-
-// 告警策略
-model AlertStrategy {
-  // 主键ID 
-  id: long(name='id', example='1'),
-  // 创建时间
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更新时间
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 租户
-  tenantName: string(name='tenant_name', example='alipay'),
-  // 场景码
-  // 
-  scene?: string(name='scene', example='alipay-0101'),
-  // 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
-  strategyType: string(name='strategy_type', example='MONITOR'),
-  // 策略详情，json格式
-  strategyDetail: string(name='strategy_detail', example='[{  "alert_method": "DING_TALK",   "addresses": "",  "alert_strategy": "",   "params": {     "fail_days" : 10   } }, {  "alert_method": "EMAIL",   "addresses": "",  "alert_strategy": "",  "params": {       } }]'),
-  // 是否启用，默认false
-  enabled: boolean(name='enabled', example='true, false'),
-  // 备注
-  remark?: string(name='remark', example='这是一条测试数据'),
-}
-
 // sdk信息
 model SdkModel {
   // 主键id
@@ -294,20 +261,6 @@ model SceneModel {
   customerProcessor?: string(name='customer_processor', example='XXX_GPS_PROCESSOR'),
 }
 
-// 商品的鉴定点图片信息
-model BaiGoodsPoint {
-  // 鉴定点名称
-  pointName: string(name='point_name', example='内包装'),
-  // 鉴定点子项
-  subPointName: string(name='sub_point_name', example='正面'),
-  // 鉴定点图片的url
-  imageUrl?: string(name='image_url', example='https://xxxxxx/a.png'),
-  // 图片内容base64编码的字符串，该字段与image_url至少一个非空，同时传入以image_url为准
-  imageBase64?: string(name='image_base64', example='/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......'),
-  // 用户侧鉴定单关联id
-  userPointId?: string(name='user_point_id', example='100'),
-}
-
 // 数据校验失败返回体
 model DataVerifyFailureData {
   // 主键id 
@@ -338,44 +291,6 @@ model DataVerifyFailureData {
   extraData?: string(name='extra_data', example='{“DEVICE-ID”:"DEMO-001"}'),
   // 数据来源：0(普通数据上报)；1(MAAS数据上报)；2(设备业务数据上报);3(标签流转)
   source?: long(name='source', example='0'),
-}
-
-// 设备采购订单元素
-model IotBasicDeviceOrderItem {
-  // 蚂蚁链IoT平台设备唯一ID
-  deviceDid: string(name='device_did', example='12321321'),
-  // 设备唯一编号
-  deviceSn: string(name='device_sn', example='12321321'),
-  // 设备金额，精确到小数后两位
-  paymentAmount: string(name='payment_amount', example='234.01'),
-}
-
-// 原始数据包
-model RawData {
-  // 链上设备id
-  chainDeviceId?: string(name='chain_device_id', example='1122'),
-  // 数据内容
-  content: string(name='content', example='{"a","11"}'),
-  // 设备id
-  deviceId?: string(name='device_id', example='433'),
-  // 上链哈希
-  txHash: string(name='tx_hash', example='5533'),
-  // 上链时间
-  txTime: long(name='tx_time', example=''),
-  // 链上外围设备ID
-  chainPeripheralId?: string(name='chain_peripheral_id', example='123123'),
-  // 外围设备ID
-  peripheralId?: string(name='peripheral_id', example='123123'),
-}
-
-// iot平台角色信息
-model IotBasicRolePermission {
-  // 角色编码
-  roleCode: string(name='role_code', example='角色编码'),
-  // 角色名称
-  roleName: string(name='role_name', example='角色名称'),
-  // 权限列表
-  permissionList: [ IotBasicPermissionData ](name='permission_list', example='权限列表'),
 }
 
 // 租户信息
@@ -429,6 +344,91 @@ model GoodsDigitalFingerprintPointIdentificationResult {
   grade: string(name='grade', example='0.92'),
 }
 
+// 商品数字指纹鉴定点
+model GoodsDigitalFingerprintPoint {
+  // 鉴定点子项
+  subPointName: string(name='sub_point_name', example='正面'),
+  // 微观图片url
+  microImageUrl: string(name='micro_image_url', example='http://1001'),
+  // 宏观图片url
+  macroImageUrl: string(name='macro_image_url', example='http://xxxx1002'),
+}
+
+// 告警策略
+model AlertStrategy {
+  // 主键ID 
+  id: long(name='id', example='1'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 租户
+  tenantName: string(name='tenant_name', example='alipay'),
+  // 场景码
+  // 
+  scene?: string(name='scene', example='alipay-0101'),
+  // 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
+  strategyType: string(name='strategy_type', example='MONITOR'),
+  // 策略详情，json格式
+  strategyDetail: string(name='strategy_detail', example='[{  "alert_method": "DING_TALK",   "addresses": "",  "alert_strategy": "",   "params": {     "fail_days" : 10   } }, {  "alert_method": "EMAIL",   "addresses": "",  "alert_strategy": "",  "params": {       } }]'),
+  // 是否启用，默认false
+  enabled: boolean(name='enabled', example='true, false'),
+  // 备注
+  remark?: string(name='remark', example='这是一条测试数据'),
+}
+
+// 商品的鉴定点图片信息
+model BaiGoodsPoint {
+  // 鉴定点名称
+  pointName: string(name='point_name', example='内包装'),
+  // 鉴定点子项
+  subPointName: string(name='sub_point_name', example='正面'),
+  // 鉴定点图片的url
+  imageUrl?: string(name='image_url', example='https://xxxxxx/a.png'),
+  // 图片内容base64编码的字符串，该字段与image_url至少一个非空，同时传入以image_url为准
+  imageBase64?: string(name='image_base64', example='/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......'),
+  // 用户侧鉴定单关联id
+  userPointId?: string(name='user_point_id', example='100'),
+}
+
+// 设备采购订单元素
+model IotBasicDeviceOrderItem {
+  // 蚂蚁链IoT平台设备唯一ID
+  deviceDid: string(name='device_did', example='12321321'),
+  // 设备唯一编号
+  deviceSn: string(name='device_sn', example='12321321'),
+  // 设备金额，精确到小数后两位
+  paymentAmount: string(name='payment_amount', example='234.01'),
+}
+
+// 原始数据包
+model RawData {
+  // 链上设备id
+  chainDeviceId?: string(name='chain_device_id', example='1122'),
+  // 数据内容
+  content: string(name='content', example='{"a","11"}'),
+  // 设备id
+  deviceId?: string(name='device_id', example='433'),
+  // 上链哈希
+  txHash: string(name='tx_hash', example='5533'),
+  // 上链时间
+  txTime: long(name='tx_time', example=''),
+  // 链上外围设备ID
+  chainPeripheralId?: string(name='chain_peripheral_id', example='123123'),
+  // 外围设备ID
+  peripheralId?: string(name='peripheral_id', example='123123'),
+}
+
+// iot平台角色信息
+model IotBasicRolePermission {
+  // 角色编码
+  roleCode: string(name='role_code', example='角色编码'),
+  // 角色名称
+  roleName: string(name='role_name', example='角色名称'),
+  // 权限列表
+  permissionList: [ IotBasicPermissionData ](name='permission_list', example='权限列表'),
+}
+
 // 商品数字指纹鉴定结果
 model GoodsDigitalFingerprintIdentifyResultData {
   // 鉴定结果
@@ -437,12 +437,6 @@ model GoodsDigitalFingerprintIdentifyResultData {
   description: string(name='description', example='描述'),
   // 商品数字指纹鉴定点鉴定结果列表
   pointIdentificationResults: [ GoodsDigitalFingerprintPointIdentificationResult ](name='point_identification_results', example='{"sub_point_name":"正面","result":"REAL","grade":"0.92"}'),
-}
-
-// 溯源防伪码质检请求的请求数据
-model BaiQrcodeVerifyReqData {
-  // 二维码图片url
-  queryImageUrl: string(name='query_image_url', example='http://xxxxxx'),
 }
 
 // 租赁合同信息
@@ -473,6 +467,566 @@ model SdkPageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ SdkModel ](name='page_data', example='{...}'),
+}
+
+// 查询设备列表结构体
+model IotBasicDeviceQueryResponse {
+  // 设备名称	
+  // 
+  deviceName: string(name='device_name', example='智能防疫一体机'),
+  // 设备序列号
+  deviceSn: string(name='device_sn', example='CN12300x'),
+  // 设备品类名称	
+  deviceCategoryName: string(name='device_category_name', example='智能防疫机'),
+  // 设备型号
+  deviceModel: string(name='device_model', example='PL10'),
+  // 设备状态
+  deviceStatus?: string(name='device_status', example='online'),
+  // 设备安装位置
+  location?: string(name='location', example='浙江省杭州市西湖区 '),
+  // 设备注册时间
+  registerTime: string(name='register_time', example='2018-10-10T10:10:00Z'),
+  // 设备厂商
+  corpName: string(name='corp_name', example='蚂蚁数科'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='2088xx'),
+  // 客户名称
+  customerName: string(name='customer_name', example='测试客户xx '),
+  // 异常错误码
+  abnormalCode?: string(name='abnormal_code', example='SMILE_INIT_ERROR'),
+  // 设备唯一身份id
+  deviceDid?: string(name='device_did', example='did:private:12dsadadadf '),
+  // 账号ID
+  accountId: string(name='account_id', example='12321321'),
+  // 账户名称
+  accountName: string(name='account_name', example='张三'),
+  // 设备服务状态
+  serviceStatus: string(name='service_status', example='INIT'),
+  // 应用版本号
+  appVersion: string(name='app_version', example='1.1.13'),
+  // 服务有效期
+  validityTime?: string(name='validity_time', example='2024-4-01'),
+}
+
+// 租户关联信息请求结构体
+model TenantBindInfoReq {
+  // 租户关联扩展信息
+  extension?: string(name='extension', example='"CN,北京"'),
+  // 业务类型，默认空
+  bizType?: string(name='biz_type', example='null'),
+  // 组织机构代码，可为中文
+  tenantUid: string(name='tenant_uid', example='"12345"'),
+  // 组织结构名称
+  userName: string(name='user_name', example='"xx公司xx部门"'),
+}
+
+// 设备注册 请求对象
+model IotBasicDeviceRegisterInfo {
+  // 设备规格
+  deviceSpecs: string(name='device_specs', example='xxx'),
+  // 设备型号
+  deviceModel: string(name='device_model', example='xxx'),
+  // 设备名称
+  deviceName: string(name='device_name', example='test'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='xx'),
+  // 设备标签
+  nickName?: string(name='nick_name', example='telpo'),
+  // 安装位置
+  location?: string(name='location', example='杭州市'),
+  // 设备扩展信息
+  deviceExt?: string(name='device_ext', example='[{ "txHash" : "2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2" }]'),
+  // 设备安全认证ID
+  secId?: string(name='sec_id', example='secid'),
+}
+
+// 溯源码比对请求体
+model BaiQrcodeComparisonReqData {
+  // 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
+  traceId: string(maxLength=128, name='trace_id', example='trace_id_001'),
+  // query图片定位信息
+  queryImageLocation: BaiResourceLocation(name='query_image_location', example=''),
+  // gallery图片定位信息
+  galleryImageLocation: BaiResourceLocation(name='gallery_image_location', example=''),
+  // 是否允许降级
+  downgrade: boolean(name='downgrade', example='true, false'),
+}
+
+// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
+model WarehouseReqModel {
+  // 详细地址
+  address?: string(name='address', example='北京海淀区'),
+  // 面积 平方米单位*1e4
+  area?: long(name='area', example='1000000'),
+  // 海拔 米单位*1e2
+  elevation?: long(name='elevation', example='0'),
+  // 仓库高度 米单位*1e2
+  height?: long(name='height', example='1000'),
+  // 纬度 度数单位*1e9
+  latitude?: long(name='latitude', example='0'),
+  // 经度 度数单位*1e9
+  longitude?: long(name='longitude', example='35000000000'),
+  // 所在国家，中国
+  nation?: string(name='nation', example='中国'),
+  // 其他信息
+  otherInfo?: string(name='other_info', example='"自定义"'),
+  // 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
+  status?: string(name='status', example='"AVAILABLE"'),
+  // 仓库类型
+  type?: string(name='type', example='"自定义"'),
+}
+
+// PurchaseOrderInfoDetail 
+model PurchaseOrderInfoDetail {
+  // 租赁订单号
+  // 
+  orderNumber: string(name='order_number', example='dadadasda'),
+  // 收货人姓名
+  // 
+  consigneeName: string(name='consignee_name', example='立敢'),
+  // 收货人身份证号
+  consigneeIdNumber: string(name='consignee_id_number', example='424234324324234'),
+  // 收货人手机号
+  // 
+  consigneePhone: string(name='consignee_phone', example='13400113344'),
+  // 收货人地址
+  consigneeAddress: string(name='consignee_address', example='北京市海淀区XXXXXXXX'),
+  // 供货商名称
+  // 
+  supplierName: string(name='supplier_name', example='fsafsafaf'),
+  // 供货商租户id
+  // 
+  supplierId: string(name='supplier_id', example='fsffafaf'),
+  // 采购商id
+  // 
+  leaseId: string(name='lease_id', example='fafsafaf'),
+  // 商品信息列表
+  goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
+}
+
+// 设备不可操作标识类
+model DeviceDisableData {
+  // 设备sn号
+  deviceSn: string(name='device_sn', example='sn123'),
+  // 厂商
+  corpName: string(name='corp_name', example='telpo'),
+}
+
+// 设备属性关系对象
+model IotDeviceAttributeRelationshipData {
+  // id
+  id?: long(name='id', example='1'),
+  // 设备品类名称
+  deviceCategory: string(name='device_category', example='智能防疫机一体机'),
+  // 关系类型
+  relationType: string(name='relation_type', example='CORP'),
+  // 厂商名称
+  corpName?: string(name='corp_name', example='天波'),
+  // 设备型号
+  deviceModel?: string(name='device_model', example='TPS980'),
+  // 设备规格
+  deviceSpecs?: string(name='device_specs', example='安卓标准版'),
+  // 硬件模块
+  hardwareModule?: string(name='hardware_module', example='测温头'),
+}
+
+// 创建订单失败的返回结构体
+model InsertPurchaseOrderFailInfo {
+  // 订单ID
+  orderId: string(name='order_id', example='safsafafafa'),
+  // 订单保存失败的原因
+  failReason: string(name='fail_reason', example='fasfasfasfa'),
+}
+
+// 菜鸟分拣机设备监控信息
+model ScfLeaseEqpInfo {
+  // 设备类型
+  deviceType?: string(name='device_type', example='分拣机'),
+  // 运营日期
+  operationDate?: string(name='operation_date', example='20210720'),
+  // 修改时间
+  gmtModified?: string(name='gmt_modified', example='2021-07-20 14:08:17'),
+  // 维修金比例
+  maintenanceMoney?: string(name='maintenance_money', example='50'),
+  // 当日设备维修记录
+  maintainRecord?: string(name='maintain_record', example='error'),
+  // 设备识别号
+  deviceNo?: string(name='device_no', example='10010100101'),
+  // 创建时间
+  gmtCreate?: string(name='gmt_create', example='2021-07-20 14:08:17'),
+  // 当日分拣单数
+  sortingNum?: string(name='sorting_num', example='131222'),
+  // 当日运营时长,单位分钟
+  operationMinute?: string(name='operation_minute', example='1231321'),
+  // 04:00-16:00分拣单数/（派件分拣单数）
+  amNum?: string(name='am_num', example='130012'),
+  // 16:00-04:00分拣单数/ （揽件分拣单数)
+  pmNum?: string(name='pm_num', example='1210'),
+  // id
+  id?: string(name='id', example='3'),
+  // 设备验收日期
+  deviceAcceptanceDate?: string(name='device_acceptance_date', example='2021-07-20 11:33:59'),
+  // 数据更新时间
+  dataUpdateTime?: string(name='data_update_time', example='2021-07-20 11:32:35'),
+}
+
+// 房源信息同步实体类
+model HouseInfo {
+  // 房源唯一ID
+  houseId: string(name='house_id', example='a87'),
+  // 租赁模式
+  leaseMode?: string(name='lease_mode', example='合租'),
+  // 面积平方
+  acreage?: string(name='acreage', example='120㎡'),
+  // 房源类型：0住宅、1别墅、
+  // 2商铺、3写字楼
+  structure: long(name='structure', example='0'),
+  // 房屋地址
+  addr?: string(name='addr', example='hz'),
+  // 门锁设备DID
+  lockId?: string(name='lock_id', example='L91923'),
+  // 电表设备DID
+  ammeterId?: string(name='ammeter_id', example='A87345'),
+}
+
+// 信物链存证请求结构体
+model EvidenceStorageReq {
+  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
+  bizData?: string(name='biz_data', example='[{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]'),
+  // 不同上链方式
+  // 空/"": 默认
+  // "TTTS": 溯源
+  // "IOTPAY": 支付
+  // "CZ": 存证
+  // "RAW":文本
+  category: string(name='category', example='"CZ"'),
+  // 上链实体id(设备/空间)
+  // 不可和project_uid同时为空
+  iotDid?: string(name='iot_did', example='"did:iot:a9147bd2b83d4732b56dc06b346588f5619f80a2d4d2412fab535cbd37293a00"'),
+  // 需要上链的证据的哈希值
+  hash?: string(name='hash', example='"ace1213412313"'),
+  // 上链的附属信息
+  metaJson?: string(name='meta_json', example='"附属信息json"'),
+  // 上链的项目id,
+  // 不可和iot_did同时为空
+  projectUid?: string(name='project_uid', example='"上链的项目id"'),
+}
+
+// 收集信息
+model CollectContent {
+  // 链上设备Id
+  chainDeviceId: string(name='chain_device_id', example='1122'),
+  // 收集的内容
+  content: string(name='content', example='{"name","1"}'),
+  // 对内容的签名
+  signature: string(name='signature', example='wwexe02j'),
+  // 服务端发送的扩展数据（非可信设备直接产生的数据）
+  extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
+  // 数据模型Id
+  dataModelId?: string(name='data_model_id', example='00000001'),
+}
+
+// 租期信息
+model RentBillItem {
+  // 租约分期ID
+  billItemId: string(name='bill_item_id', example='12321321'),
+  // 租约分期名称
+  billItemName?: string(name='bill_item_name', example='第几期'),
+  // 租期开始日期
+  billItemBegin: string(name='bill_item_begin', example='2006-01-02 15:04:05'),
+  // 租期结束日期 
+  billItemEnd: string(name='bill_item_end', example='2006-02-02 15:04:05'),
+  // 租约金额
+  billItemMoney: string(name='bill_item_money', example='5000'),
+  // 租约支付状态
+  paymentState?: string(name='payment_state', example='待支付，已支付，支付失败'),
+}
+
+// 溯源二维码生成请求的请求数据
+model BaiQrcodeGenerateReqData {
+  // 二维码的码值
+  qrcodeContent: string(name='qrcode_content', example='TEST1234567890'),
+}
+
+// 数据模型
+model DataModel {
+  //  数据模型Id
+  dataModelId: string(name='data_model_id', example='112233'),
+  // 数据模型名称
+  dataModelName?: string(name='data_model_name', example='检测设备模型'),
+  // 数据模型
+  dataModel: string(name='data_model', example='{          "PIC-URL": {                 "type": "string",                 "require":false              } }'),
+  // 数据模型类别
+  bizType?: string(name='biz_type', example='ORDER'),
+  // 用户自定义版本
+  customerVersion?: string(name='customer_version', example='V1.0'),
+}
+
+// 溯源防伪码生成请求的响应数据
+model BaiQrcodeGenerateRespData {
+  // 二维码的base64字符串
+  generateResult: string(name='generate_result', example='/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......'),
+  // 生成结果码
+  generateCode: string(name='generate_code', example='200'),
+  // 用于异常场景下细化错误信息
+  generateMessage: string(name='generate_message', example='码值不正确'),
+  // 生成失败时的解决方案，用于异常场景下细化错误信息
+  unableGenerateSolution: string(name='unable_generate_solution', example='请调整码值重试'),
+}
+
+// 充电明细信息
+model ChargeDetail {
+  // 开始时间
+  detailStartTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_start_time', example='2018-10-10 10:10:00'),
+  // 结束时间
+  detailEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_end_time', example='2018-10-10 10:10:00'),
+  // 时段电价，小数点后4位
+  elecPrice?: string(name='elec_price', example='10.1010'),
+  // 时段服务费价格，小数点后4位
+  servicePrice?: string(name='service_price', example='12.6222'),
+  // 时段充电量，单位：度，小数点后2位
+  detailPower: string(name='detail_power', example='12.12'),
+  // 时段电费，小数点后2位
+  detailElecMoney?: string(name='detail_elec_money', example='10.10'),
+  // 时段服务费，小数点后2位
+  detailServiceMoney?: string(name='detail_service_money', example='10.10'),
+}
+
+// 更新设备和空间关联请求结构体
+model UpdateDeviceSpaceReq {
+  // API要更新的设备DID
+  deviceDid: string(name='device_did', example='"did:iot:xxxxx"'),
+  // 0-全部更新 (暂不支持)
+  // 1-添加  
+  // 2-删除
+  // 
+  updateMode: long(name='update_mode', example='1'),
+  // API要更新的设备部署库位
+  deviceSpace: [ string ](name='device_space', example='["did:iot:xxxx","did:iot:xxxxx"]'),
+}
+
+// 设备注册失败对象
+model IotBasicDeviceRegisterFail {
+  // 设备名称
+  deviceName: string(name='device_name', example='12321321'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='2088xx'),
+  // 错误编码
+  code: string(name='code', example='code'),
+  // 错误描述
+  message: string(name='message', example='message'),
+}
+
+// 设备类型
+model Device {
+  // 设备实体唯一Id
+  deviceId: string(name='device_id', example='123ABC'),
+  // 数据模型Id
+  deviceDataModelId: string(name='device_data_model_id', example='112233'),
+  // 场景码
+  scene: string(name='scene', example='SCENE1'),
+  // imei号
+  deviceImei: string(name='device_imei', example='223344'),
+  // 设备名称
+  deviceName?: string(name='device_name', example='设备1号'),
+  // 设备厂商名称
+  corpName?: string(name='corp_name', example='浙江一厂'),
+  // 设备ICCID
+  // 
+  // 
+  deviceIccid?: string(name='device_iccid', example='a1234'),
+  // 设备扩展信息
+  extraInfo?: string(name='extra_info', example='{“”:""}'),
+  // 设备链上Id
+  chainDeviceId: string(name='chain_device_id', example='223344'),
+  // 上链哈希
+  txHash: string(name='tx_hash', example='3344'),
+  // 上链时间
+  txTime: long(name='tx_time', example='224455'),
+  // 设备类型编码，必填，对应资管平台中的设备类型 
+  // 
+  // 枚举值：
+  // 
+  // 车辆 1000 
+  // 车辆 四轮车 1001 
+  // 车辆 四轮车 纯电四轮车 1002 
+  // 车辆 四轮车 混动四轮车 1003 
+  // 车辆 四轮车 燃油四轮车 1004 
+  // 车辆 两轮车 1011 
+  // 车辆 两轮车 两轮单车 1012 
+  // 车辆 两轮车 两轮助力车 1013 
+  // 
+  // 换电柜 2000 
+  // 换电柜 二轮车换电柜 2001 
+  // 
+  // 电池 3000 
+  // 电池 磷酸铁电池 3001 
+  // 电池 三元锂电池 3002 
+  // 
+  // 回收设备 4000 
+  // 
+  // 垃圾分类回收 4001 
+  // 
+  // 洗车机 5000
+  deviceTypeCode: long(name='device_type_code', example='5000'),
+  // 单价
+  initialPrice: long(name='initial_price', example='1000'),
+  // 投放时间
+  releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 出厂时间
+  factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+  deviceStatus?: string(name='device_status', example='NORMAL'),
+}
+
+// 新增厂商字典时需要传的产品信息
+model AddProductInfo {
+  // 产品名称
+  productName: string(name='product_name', example='防疫一体机'),
+  // 产品code
+  productCode: string(name='product_code', example='face_smart'),
+  // 产品描述
+  remark?: string(name='remark', example='智能防疫机'),
+}
+
+// 设备实体请求结构体，应用在注册/更新API的ThingsExtraParams
+model DeviceRegisterReqModel {
+  // 保留
+  authLevel?: long(name='auth_level', example='0'),
+  // 设备属性字符串，
+  // 阿里云设备类型，填入三元组
+  deviceAttribute?: string(name='device_attribute', example='"设备属性"'),
+  // 物模型ID，参考其他文档
+  deviceModelId?: string(name='device_model_id', example='"模型ID"'),
+  // 可传入自定义信息
+  otherInfo?: string(name='other_info', example='"自定义字段"'),
+  // 业务自定义，可以传入该实体的w3c服务节点
+  serviceEndpoint?: string(name='service_endpoint', example='"服务端点"'),
+  // 保留，默认
+  //     STATUS_REGISTERED(3)
+  status?: string(name='status', example='null'),
+}
+
+// 设备远程操作对象
+model DeviceOperateInfo {
+  // 蚂蚁链iot平台设备ID
+  deviceDid: string(name='device_did', example='213'),
+  // 设备签名
+  signature: string(name='signature', example='sua8e'),
+}
+
+// 菜鸟设备监控信息获取请求体
+model ScfLeaseEqpInfoQueryRequest {
+  // 设备识别号
+  deviceNo: string(name='device_no', example='10010100101'),
+  // 运营日期
+  operationDate: string(name='operation_date', example='2021-07-20 11:34:00'),
+}
+
+// 信物链查询实体身份请求结构体
+model DidBaseQueryReq {
+  // * "thingId"       原始ID
+  // * "certText"      证书文本
+  // * "certPublicKey"证书公钥
+  // * "didPublicKey" DID公钥
+  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
+  // * "didUsername"   DID用户名
+  // * "ownerDid"      所有者DID
+  // * "userDid"       使用者DID
+  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
+  // * "thingStatus"   实体状态
+  // * "thingModelId" 实体物模型类型
+  // * "thingAttribute"实体属性
+  // * "thingVersion"  实体版本
+  // * "spacesAttached"关联空间列表
+  // * "thingsAttached"关联实体列表（例：库位关联设备）
+  // * "authLevel"     授权等级
+  // * "thingServiceEndpoint" 服务列表
+  dataFilter: [ string ](name='data_filter', example='["如下1","如下2"]'),
+  // 是否从链上查询，从链上查询将返回txHash值
+  onChain: boolean(name='on_chain', example='false'),
+  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
+  thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
+}
+
+// 商品鉴定返回结果
+model BaiGoodsComparisonResponse {
+  // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
+  identificationResult: string(name='identification_result', example='REAL'),
+  // 鉴定补充信息
+  identificationMessage?: string(name='identification_message', example='鉴定成功'),
+  // 鉴定信息code
+  identificationCode?: string(name='identification_code', example='200'),
+}
+
+// 租户分页查询结果
+model PermissionedTenantPageResponse {
+  // 页数
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ PermissionedTenantModel ](name='page_data', example='{...}'),
+}
+
+// 商品鉴定返回结果
+model BaiGoodsIdentificationRespData {
+  // 鉴定结果
+  // REAL：鉴定为真
+  // FAKE：鉴定为假
+  // UNABLE_IDENTIFY：无法鉴定
+  identificationResult: string(name='identification_result', example='REAL'),
+  // 整体鉴定分数
+  grade: string(name='grade', example='0.99'),
+  // 整体鉴定报告描述
+  description?: string(name='description', example='AI鉴定成功'),
+  // 鉴定点鉴定结果列表
+  pointIdentificationResults: [ BaiGoodsPointIdentificationResult ](name='point_identification_results', example=''),
+  // 鉴定评价
+  appraiseMessage?: string(name='appraise_message', example='完全同一，趋于同一，和不同一'),
+  // 用户自定义字符串，系统不做处理，会在响应体中带回
+  outState?: string(name='out_state', example='state'),
+}
+
+// iot平台用户信息
+// 
+model IotBasicUserInfo {
+  // 租户ID
+  tenant: string(name='tenant', example='DWWS2D'),
+  // 金融云用户Id
+  // 
+  cloudUserId: string(name='cloud_user_id', example='12321321'),
+  // 金融云平台的登录名
+  // 
+  loginName: string(name='login_name', example='xxx@alitest.com'),
+  // 权限集合
+  permissionList: [ IotBasicRolePermission ](name='permission_list', example=''),
+}
+
+// 发行数据包
+model DistributeDataPackage {
+  // 原始数据
+  dataList: [ RawData ](name='data_list', example=''),
+  // 发行设备Id
+  distributeDeviceId: string(name='distribute_device_id', example='244'),
+  // 打包时间
+  packageTime: long(name='package_time', example=''),
+}
+
+// BAI提供的OCR接口返回值
+model BaiOcrResponse {
+  // 返回的结果体
+  data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
+}
+
+// 溯源防伪码质检请求的请求数据
+model BaiQrcodeVerifyReqData {
+  // 二维码图片url
+  queryImageUrl: string(name='query_image_url', example='http://xxxxxx'),
 }
 
 // 实体身份注册请求结构体
@@ -552,45 +1106,6 @@ model BaiGoodsPointCheckRespData {
   valid: boolean(name='valid', example='true, false'),
 }
 
-// 查询设备列表结构体
-model IotBasicDeviceQueryResponse {
-  // 设备名称	
-  // 
-  deviceName: string(name='device_name', example='智能防疫一体机'),
-  // 设备序列号
-  deviceSn: string(name='device_sn', example='CN12300x'),
-  // 设备品类名称	
-  deviceCategoryName: string(name='device_category_name', example='智能防疫机'),
-  // 设备型号
-  deviceModel: string(name='device_model', example='PL10'),
-  // 设备状态
-  deviceStatus?: string(name='device_status', example='online'),
-  // 设备安装位置
-  location?: string(name='location', example='浙江省杭州市西湖区 '),
-  // 设备注册时间
-  registerTime: string(name='register_time', example='2018-10-10T10:10:00Z'),
-  // 设备厂商
-  corpName: string(name='corp_name', example='蚂蚁数科'),
-  // 租户ID
-  tenantId: string(name='tenant_id', example='2088xx'),
-  // 客户名称
-  customerName: string(name='customer_name', example='测试客户xx '),
-  // 异常错误码
-  abnormalCode?: string(name='abnormal_code', example='SMILE_INIT_ERROR'),
-  // 设备唯一身份id
-  deviceDid?: string(name='device_did', example='did:private:12dsadadadf '),
-  // 账号ID
-  accountId: string(name='account_id', example='12321321'),
-  // 账户名称
-  accountName: string(name='account_name', example='张三'),
-  // 设备服务状态
-  serviceStatus: string(name='service_status', example='INIT'),
-  // 应用版本号
-  appVersion: string(name='app_version', example='1.1.13'),
-  // 服务有效期
-  validityTime?: string(name='validity_time', example='2024-4-01'),
-}
-
 // 数据校验失败分页查询结果
 model DataVerifyFailureDataPageResponse {
   // 页数
@@ -629,36 +1144,14 @@ model TsmCommonCmd {
   p2: long(name='p2', example='00'),
 }
 
-// 租户关联信息请求结构体
-model TenantBindInfoReq {
-  // 租户关联扩展信息
-  extension?: string(name='extension', example='"CN,北京"'),
-  // 业务类型，默认空
-  bizType?: string(name='biz_type', example='null'),
-  // 组织机构代码，可为中文
-  tenantUid: string(name='tenant_uid', example='"12345"'),
-  // 组织结构名称
-  userName: string(name='user_name', example='"xx公司xx部门"'),
-}
-
-// 设备注册 请求对象
-model IotBasicDeviceRegisterInfo {
-  // 设备规格
-  deviceSpecs: string(name='device_specs', example='xxx'),
-  // 设备型号
-  deviceModel: string(name='device_model', example='xxx'),
-  // 设备名称
-  deviceName: string(name='device_name', example='test'),
-  // 设备sn
-  deviceSn: string(name='device_sn', example='xx'),
-  // 设备标签
-  nickName?: string(name='nick_name', example='telpo'),
-  // 安装位置
-  location?: string(name='location', example='杭州市'),
-  // 设备扩展信息
-  deviceExt?: string(name='device_ext', example='[{ "txHash" : "2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2" }]'),
-  // 设备安全认证ID
-  secId?: string(name='sec_id', example='secid'),
+// 设备管控 失败对象
+model DeviceControlFail {
+  // 设备did
+  deviceDid: string(name='device_did', example='123'),
+  // 操作失败code
+  code: string(name='code', example='bad_param'),
+  // 操作失败信息
+  message: string(name='message', example='参数错误'),
 }
 
 // 信物链证据基本组成结构体
@@ -679,16 +1172,10 @@ model TlsnotaryUploadOssLinks {
   emlFileLink: string(name='eml_file_link', example='tlsnotary/{taskId}.eml'),
 }
 
-// 溯源码比对请求体
-model BaiQrcodeComparisonReqData {
-  // 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
-  traceId: string(maxLength=128, name='trace_id', example='trace_id_001'),
-  // query图片定位信息
-  queryImageLocation: BaiResourceLocation(name='query_image_location', example=''),
-  // gallery图片定位信息
-  galleryImageLocation: BaiResourceLocation(name='gallery_image_location', example=''),
-  // 是否允许降级
-  downgrade: boolean(name='downgrade', example='true, false'),
+// 二维码识别响应结构体
+model BaiQrcodeParseRespData {
+  // 二维码内容
+  codeValue: [ string ](name='code_value', example='1234567890'),
 }
 
 // 实体身份更新请求结构体，设备/仓库/空间/组织
@@ -719,56 +1206,10 @@ model LabelChainResult {
   errorMsg: string(name='error_msg', example='xxxxx'),
 }
 
-// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
-model WarehouseReqModel {
-  // 详细地址
-  address?: string(name='address', example='北京海淀区'),
-  // 面积 平方米单位*1e4
-  area?: long(name='area', example='1000000'),
-  // 海拔 米单位*1e2
-  elevation?: long(name='elevation', example='0'),
-  // 仓库高度 米单位*1e2
-  height?: long(name='height', example='1000'),
-  // 纬度 度数单位*1e9
-  latitude?: long(name='latitude', example='0'),
-  // 经度 度数单位*1e9
-  longitude?: long(name='longitude', example='35000000000'),
-  // 所在国家，中国
-  nation?: string(name='nation', example='中国'),
-  // 其他信息
-  otherInfo?: string(name='other_info', example='"自定义"'),
-  // 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
-  status?: string(name='status', example='"AVAILABLE"'),
-  // 仓库类型
-  type?: string(name='type', example='"自定义"'),
-}
-
-// PurchaseOrderInfoDetail 
-model PurchaseOrderInfoDetail {
-  // 租赁订单号
-  // 
-  orderNumber: string(name='order_number', example='dadadasda'),
-  // 收货人姓名
-  // 
-  consigneeName: string(name='consignee_name', example='立敢'),
-  // 收货人身份证号
-  consigneeIdNumber: string(name='consignee_id_number', example='424234324324234'),
-  // 收货人手机号
-  // 
-  consigneePhone: string(name='consignee_phone', example='13400113344'),
-  // 收货人地址
-  consigneeAddress: string(name='consignee_address', example='北京市海淀区XXXXXXXX'),
-  // 供货商名称
-  // 
-  supplierName: string(name='supplier_name', example='fsafsafaf'),
-  // 供货商租户id
-  // 
-  supplierId: string(name='supplier_id', example='fsffafaf'),
-  // 采购商id
-  // 
-  leaseId: string(name='lease_id', example='fafsafaf'),
-  // 商品信息列表
-  goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
+// 二维码识别请求
+model BaiQrcodeParseReqData {
+  // 待识别图片的url
+  imageUrl: string(name='image_url', example='http://testImage.com/xxxxx'),
 }
 
 // 电脑型号信息
@@ -833,40 +1274,8 @@ model SendCollectorResult {
 model GoodsDigitalFingerprintRegisterResultData {
   // 指纹图片入库是否成功
   success: boolean(name='success', example='true'),
-}
-
-// 设备不可操作标识类
-model DeviceDisableData {
-  // 设备sn号
-  deviceSn: string(name='device_sn', example='sn123'),
-  // 厂商
-  corpName: string(name='corp_name', example='telpo'),
-}
-
-// 设备属性关系对象
-model IotDeviceAttributeRelationshipData {
-  // id
-  id?: long(name='id', example='1'),
-  // 设备品类名称
-  deviceCategory: string(name='device_category', example='智能防疫机一体机'),
-  // 关系类型
-  relationType: string(name='relation_type', example='CORP'),
-  // 厂商名称
-  corpName?: string(name='corp_name', example='天波'),
-  // 设备型号
-  deviceModel?: string(name='device_model', example='TPS980'),
-  // 设备规格
-  deviceSpecs?: string(name='device_specs', example='安卓标准版'),
-  // 硬件模块
-  hardwareModule?: string(name='hardware_module', example='测温头'),
-}
-
-// 创建订单失败的返回结构体
-model InsertPurchaseOrderFailInfo {
-  // 订单ID
-  orderId: string(name='order_id', example='safsafafafa'),
-  // 订单保存失败的原因
-  failReason: string(name='fail_reason', example='fasfasfasfa'),
+  // 失败原因
+  describe?: string(name='describe', example='describe'),
 }
 
 // 租户项目创建请求结构体模型
@@ -879,57 +1288,6 @@ model TenantProjectCreateReq {
   blockchainUid?: string(name='blockchain_uid', example='1111111'),
   // 租户下唯一项目名称，用以标识项目聚合的存证等信息
   projectName: string(name='project_name', example='"唯一项目名称"'),
-}
-
-// 菜鸟分拣机设备监控信息
-model ScfLeaseEqpInfo {
-  // 设备类型
-  deviceType?: string(name='device_type', example='分拣机'),
-  // 运营日期
-  operationDate?: string(name='operation_date', example='20210720'),
-  // 修改时间
-  gmtModified?: string(name='gmt_modified', example='2021-07-20 14:08:17'),
-  // 维修金比例
-  maintenanceMoney?: string(name='maintenance_money', example='50'),
-  // 当日设备维修记录
-  maintainRecord?: string(name='maintain_record', example='error'),
-  // 设备识别号
-  deviceNo?: string(name='device_no', example='10010100101'),
-  // 创建时间
-  gmtCreate?: string(name='gmt_create', example='2021-07-20 14:08:17'),
-  // 当日分拣单数
-  sortingNum?: string(name='sorting_num', example='131222'),
-  // 当日运营时长,单位分钟
-  operationMinute?: string(name='operation_minute', example='1231321'),
-  // 04:00-16:00分拣单数/（派件分拣单数）
-  amNum?: string(name='am_num', example='130012'),
-  // 16:00-04:00分拣单数/ （揽件分拣单数)
-  pmNum?: string(name='pm_num', example='1210'),
-  // id
-  id?: string(name='id', example='3'),
-  // 设备验收日期
-  deviceAcceptanceDate?: string(name='device_acceptance_date', example='2021-07-20 11:33:59'),
-  // 数据更新时间
-  dataUpdateTime?: string(name='data_update_time', example='2021-07-20 11:32:35'),
-}
-
-// 房源信息同步实体类
-model HouseInfo {
-  // 房源唯一ID
-  houseId: string(name='house_id', example='a87'),
-  // 租赁模式
-  leaseMode?: string(name='lease_mode', example='合租'),
-  // 面积平方
-  acreage?: string(name='acreage', example='120㎡'),
-  // 房源类型：0住宅、1别墅、
-  // 2商铺、3写字楼
-  structure: long(name='structure', example='0'),
-  // 房屋地址
-  addr?: string(name='addr', example='hz'),
-  // 门锁设备DID
-  lockId?: string(name='lock_id', example='L91923'),
-  // 电表设备DID
-  ammeterId?: string(name='ammeter_id', example='A87345'),
 }
 
 // 设备硬件模块信息体
@@ -946,27 +1304,16 @@ model IotBasicDeviceHardWareModule {
   hardwareModuleParam: string(name='hardware_module_param', example='{"size":102}'),
 }
 
-// 信物链存证请求结构体
-model EvidenceStorageReq {
-  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
-  bizData?: string(name='biz_data', example='[{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]'),
-  // 不同上链方式
-  // 空/"": 默认
-  // "TTTS": 溯源
-  // "IOTPAY": 支付
-  // "CZ": 存证
-  // "RAW":文本
-  category: string(name='category', example='"CZ"'),
-  // 上链实体id(设备/空间)
-  // 不可和project_uid同时为空
-  iotDid?: string(name='iot_did', example='"did:iot:a9147bd2b83d4732b56dc06b346588f5619f80a2d4d2412fab535cbd37293a00"'),
-  // 需要上链的证据的哈希值
-  hash?: string(name='hash', example='"ace1213412313"'),
-  // 上链的附属信息
-  metaJson?: string(name='meta_json', example='"附属信息json"'),
-  // 上链的项目id,
-  // 不可和iot_did同时为空
-  projectUid?: string(name='project_uid', example='"上链的项目id"'),
+// 订单同步失败结果
+model DeviceOrderFail {
+  // 订单id
+  orderId: string(name='order_id', example='90'),
+  // 设备did
+  deviceDid: string(name='device_did', example='asdfg'),
+  // 返回code
+  code: string(name='code', example='Fail'),
+  // 失败
+  message: string(name='message', example='返回信息'),
 }
 
 // 二维码验真接口返回值
@@ -1000,48 +1347,12 @@ model CollectLabelContent {
   extraData?: string(name='extra_data', example='XXXXX'),
 }
 
-// 收集信息
-model CollectContent {
-  // 链上设备Id
-  chainDeviceId: string(name='chain_device_id', example='1122'),
-  // 收集的内容
-  content: string(name='content', example='{"name","1"}'),
-  // 对内容的签名
-  signature: string(name='signature', example='wwexe02j'),
-  // 服务端发送的扩展数据（非可信设备直接产生的数据）
-  extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
-  // 数据模型Id
-  dataModelId?: string(name='data_model_id', example='00000001'),
-}
-
-// 租期信息
-model RentBillItem {
-  // 租约分期ID
-  billItemId: string(name='bill_item_id', example='12321321'),
-  // 租约分期名称
-  billItemName?: string(name='bill_item_name', example='第几期'),
-  // 租期开始日期
-  billItemBegin: string(name='bill_item_begin', example='2006-01-02 15:04:05'),
-  // 租期结束日期 
-  billItemEnd: string(name='bill_item_end', example='2006-02-02 15:04:05'),
-  // 租约金额
-  billItemMoney: string(name='bill_item_money', example='5000'),
-  // 租约支付状态
-  paymentState?: string(name='payment_state', example='待支付，已支付，支付失败'),
-}
-
 // 数据上链成功结果数据
 model DeviceCollectResult {
   // 上链数据采集ID
   collectId: string(name='collect_id', example='j8o12u38'),
   // 上链id
   antchainId?: string(name='antchain_id', example='auit98'),
-}
-
-// 溯源二维码生成请求的请求数据
-model BaiQrcodeGenerateReqData {
-  // 二维码的码值
-  qrcodeContent: string(name='qrcode_content', example='TEST1234567890'),
 }
 
 // ProductKey分页查询结果
@@ -1062,18 +1373,22 @@ model ProductKeyPageResponse {
   pageData: [ ProductKeyModel ](name='page_data', example='{...}'),
 }
 
-// 数据模型
-model DataModel {
-  //  数据模型Id
-  dataModelId: string(name='data_model_id', example='112233'),
-  // 数据模型名称
-  dataModelName?: string(name='data_model_name', example='检测设备模型'),
-  // 数据模型
-  dataModel: string(name='data_model', example='{          "PIC-URL": {                 "type": "string",                 "require":false              } }'),
-  // 数据模型类别
-  bizType?: string(name='biz_type', example='ORDER'),
-  // 用户自定义版本
-  customerVersion?: string(name='customer_version', example='V1.0'),
+// 上链数据结果集
+model ChainModelResult {
+  // 所属业务
+  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  // 资产类型
+  dataScene: string(name='data_scene', example='LOCK_RECORD'),
+  // 资产id
+  assetId: string(name='asset_id', example='资产id'),
+  // 资产数据内容json
+  assetData: string(name='asset_data', example='{}'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='SDFJAG'),
+  // 上链时间
+  txTime: string(name='tx_time', example='2022-10-02 09:10:09'),
+  // 业务ID
+  businessId: string(name='business_id', example='业务ID'),
 }
 
 // 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
@@ -1118,36 +1433,6 @@ model LabelTrace {
   isSuccess?: boolean(name='is_success', example='true, false'),
   // 标签对应资产版本号
   version?: long(name='version', example='1'),
-}
-
-// 溯源防伪码生成请求的响应数据
-model BaiQrcodeGenerateRespData {
-  // 二维码的base64字符串
-  generateResult: string(name='generate_result', example='/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......'),
-  // 生成结果码
-  generateCode: string(name='generate_code', example='200'),
-  // 用于异常场景下细化错误信息
-  generateMessage: string(name='generate_message', example='码值不正确'),
-  // 生成失败时的解决方案，用于异常场景下细化错误信息
-  unableGenerateSolution: string(name='unable_generate_solution', example='请调整码值重试'),
-}
-
-// 充电明细信息
-model ChargeDetail {
-  // 开始时间
-  detailStartTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_start_time', example='2018-10-10 10:10:00'),
-  // 结束时间
-  detailEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_end_time', example='2018-10-10 10:10:00'),
-  // 时段电价，小数点后4位
-  elecPrice?: string(name='elec_price', example='10.1010'),
-  // 时段服务费价格，小数点后4位
-  servicePrice?: string(name='service_price', example='12.6222'),
-  // 时段充电量，单位：度，小数点后2位
-  detailPower: string(name='detail_power', example='12.12'),
-  // 时段电费，小数点后2位
-  detailElecMoney?: string(name='detail_elec_money', example='10.10'),
-  // 时段服务费，小数点后2位
-  detailServiceMoney?: string(name='detail_service_money', example='10.10'),
 }
 
 // 外围设备信息
@@ -1207,6 +1492,26 @@ model Peripheral {
   releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
 }
 
+// 订单计费数据
+model OrderPushInfo {
+  // 订单号
+  orderId: string(name='order_id', example='208395'),
+  // 时间戳，取订单上链timestamp字段
+  orderCollectTime: string(name='order_collect_time', example='1665490037182'),
+  // 订单总金额
+  totalAmount: string(name='total_amount', example='12000.37'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='1'),
+}
+
+// 订单同步成功列表
+model DeviceOrderResult {
+  // 上链id
+  antchainId: string(name='antchain_id', example='amdfgs'),
+  // 订单id
+  orderId: string(name='order_id', example='34'),
+}
+
 // 设备注册结果对象
 model IotBasicDeviceRegisterResult {
   // 设备did
@@ -1217,19 +1522,6 @@ model IotBasicDeviceRegisterResult {
   deviceName: string(name='device_name', example='test'),
   // 设备sn
   deviceSn: string(name='device_sn', example='12321321'),
-}
-
-// 更新设备和空间关联请求结构体
-model UpdateDeviceSpaceReq {
-  // API要更新的设备DID
-  deviceDid: string(name='device_did', example='"did:iot:xxxxx"'),
-  // 0-全部更新 (暂不支持)
-  // 1-添加  
-  // 2-删除
-  // 
-  updateMode: long(name='update_mode', example='1'),
-  // API要更新的设备部署库位
-  deviceSpace: [ string ](name='device_space', example='["did:iot:xxxx","did:iot:xxxxx"]'),
 }
 
 // 信物链实体身份注册请求结构体
@@ -1260,18 +1552,6 @@ model ThingsDidBaseRegisterRequest {
   // 信物链实体附加信息
   // 不同实体身份，有不同的json组织格式，参考另外技术文档
   thingExtraParams?: string(name='thing_extra_params', example='"附加信息"'),
-}
-
-// 设备注册失败对象
-model IotBasicDeviceRegisterFail {
-  // 设备名称
-  deviceName: string(name='device_name', example='12321321'),
-  // 设备sn
-  deviceSn: string(name='device_sn', example='2088xx'),
-  // 错误编码
-  code: string(name='code', example='code'),
-  // 错误描述
-  message: string(name='message', example='message'),
 }
 
 // 告警策略分页查询结果
@@ -1308,78 +1588,6 @@ model ScenePageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ SceneModel ](name='page_data', example='{...}'),
-}
-
-// 设备类型
-model Device {
-  // 设备实体唯一Id
-  deviceId: string(name='device_id', example='123ABC'),
-  // 数据模型Id
-  deviceDataModelId: string(name='device_data_model_id', example='112233'),
-  // 场景码
-  scene: string(name='scene', example='SCENE1'),
-  // imei号
-  deviceImei: string(name='device_imei', example='223344'),
-  // 设备名称
-  deviceName?: string(name='device_name', example='设备1号'),
-  // 设备厂商名称
-  corpName?: string(name='corp_name', example='浙江一厂'),
-  // 设备ICCID
-  // 
-  // 
-  deviceIccid?: string(name='device_iccid', example='a1234'),
-  // 设备扩展信息
-  extraInfo?: string(name='extra_info', example='{“”:""}'),
-  // 设备链上Id
-  chainDeviceId: string(name='chain_device_id', example='223344'),
-  // 上链哈希
-  txHash: string(name='tx_hash', example='3344'),
-  // 上链时间
-  txTime: long(name='tx_time', example='224455'),
-  // 设备类型编码，必填，对应资管平台中的设备类型 
-  // 
-  // 枚举值：
-  // 
-  // 车辆 1000 
-  // 车辆 四轮车 1001 
-  // 车辆 四轮车 纯电四轮车 1002 
-  // 车辆 四轮车 混动四轮车 1003 
-  // 车辆 四轮车 燃油四轮车 1004 
-  // 车辆 两轮车 1011 
-  // 车辆 两轮车 两轮单车 1012 
-  // 车辆 两轮车 两轮助力车 1013 
-  // 
-  // 换电柜 2000 
-  // 换电柜 二轮车换电柜 2001 
-  // 
-  // 电池 3000 
-  // 电池 磷酸铁电池 3001 
-  // 电池 三元锂电池 3002 
-  // 
-  // 回收设备 4000 
-  // 
-  // 垃圾分类回收 4001 
-  // 
-  // 洗车机 5000
-  deviceTypeCode: long(name='device_type_code', example='5000'),
-  // 单价
-  initialPrice: long(name='initial_price', example='1000'),
-  // 投放时间
-  releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
-  // 出厂时间
-  factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
-  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
-  deviceStatus?: string(name='device_status', example='NORMAL'),
-}
-
-// 新增厂商字典时需要传的产品信息
-model AddProductInfo {
-  // 产品名称
-  productName: string(name='product_name', example='防疫一体机'),
-  // 产品code
-  productCode: string(name='product_code', example='face_smart'),
-  // 产品描述
-  remark?: string(name='remark', example='智能防疫机'),
 }
 
 // 信物链实体查询返回的数据结构，对应数据表字段
@@ -1431,24 +1639,6 @@ model DidBaseQueryResp {
   did?: string(name='did', example='"did:iot:xxxx"'),
 }
 
-// 设备实体请求结构体，应用在注册/更新API的ThingsExtraParams
-model DeviceRegisterReqModel {
-  // 保留
-  authLevel?: long(name='auth_level', example='0'),
-  // 设备属性字符串，
-  // 阿里云设备类型，填入三元组
-  deviceAttribute?: string(name='device_attribute', example='"设备属性"'),
-  // 物模型ID，参考其他文档
-  deviceModelId?: string(name='device_model_id', example='"模型ID"'),
-  // 可传入自定义信息
-  otherInfo?: string(name='other_info', example='"自定义字段"'),
-  // 业务自定义，可以传入该实体的w3c服务节点
-  serviceEndpoint?: string(name='service_endpoint', example='"服务端点"'),
-  // 保留，默认
-  //     STATUS_REGISTERED(3)
-  status?: string(name='status', example='null'),
-}
-
 // 用户操作集合
 model IotBasicUserRequest {
   // 租户ID
@@ -1479,14 +1669,6 @@ model BizContentGroup {
   content: string(name='content', example='{"":"",""}'),
 }
 
-// 菜鸟设备监控信息获取请求体
-model ScfLeaseEqpInfoQueryRequest {
-  // 设备识别号
-  deviceNo: string(name='device_no', example='10010100101'),
-  // 运营日期
-  operationDate: string(name='operation_date', example='2021-07-20 11:34:00'),
-}
-
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
 model CorporateReqModel {
   // 组织地址
@@ -1505,32 +1687,6 @@ model CorporateReqModel {
   type?: string(name='type', example='LimitedCompany'),
 }
 
-// 信物链查询实体身份请求结构体
-model DidBaseQueryReq {
-  // * "thingId"       原始ID
-  // * "certText"      证书文本
-  // * "certPublicKey"证书公钥
-  // * "didPublicKey" DID公钥
-  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
-  // * "didUsername"   DID用户名
-  // * "ownerDid"      所有者DID
-  // * "userDid"       使用者DID
-  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
-  // * "thingStatus"   实体状态
-  // * "thingModelId" 实体物模型类型
-  // * "thingAttribute"实体属性
-  // * "thingVersion"  实体版本
-  // * "spacesAttached"关联空间列表
-  // * "thingsAttached"关联实体列表（例：库位关联设备）
-  // * "authLevel"     授权等级
-  // * "thingServiceEndpoint" 服务列表
-  dataFilter: [ string ](name='data_filter', example='["如下1","如下2"]'),
-  // 是否从链上查询，从链上查询将返回txHash值
-  onChain: boolean(name='on_chain', example='false'),
-  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
-  thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
-}
-
 // 商品数字指纹注册用户信息
 model GoodsDigitalFingerprintUserInfo {
   // 平台注册用户id
@@ -1543,36 +1699,12 @@ model GoodsDigitalFingerprintUserInfo {
   relationUserIdList?: [ string ](name='relation_user_id_list', example='["1001","1002"]'),
 }
 
-// 商品鉴定返回结果
-model BaiGoodsComparisonResponse {
-  // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
-  identificationResult: string(name='identification_result', example='REAL'),
-  // 鉴定补充信息
-  identificationMessage?: string(name='identification_message', example='鉴定成功'),
-  // 鉴定信息code
-  identificationCode?: string(name='identification_code', example='200'),
-}
-
 // 收集标签数据（元数据，无签名）
 model CollectLabelRawContent {
   // 1.设备端上报数据内容 2.与设备上报的数据一致，服务端不可修改 3.解析后需与DataModel匹配 4.映射 Label 对象结构化存储 5.转为JSON后如果是JSONObject 映射单个 Label 6.转为JSON后如果是JSONArray 映射多个 Label
   content: string(name='content', example='XXXXX'),
   // 数据模型ID 
   dataModelId: string(name='data_model_id', example='001202103171566166669'),
-}
-
-// 租户分页查询结果
-model PermissionedTenantPageResponse {
-  // 页数
-  pageIndex: long(name='page_index', example='1'),
-  // 页码
-  pageSize: long(name='page_size', example='10'),
-  // 总记录数
-  totalSize: long(name='total_size', example='100'),
-  // 总页数
-  totalPages: long(name='total_pages', example='10'),
-  // 数据
-  pageData: [ PermissionedTenantModel ](name='page_data', example='{...}'),
 }
 
 // 发行设备
@@ -1591,50 +1723,6 @@ model DistributeDevice {
   chainPeripheralId?: string(name='chain_peripheral_id', example='123123'),
   // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
   deviceStatus?: string(name='device_status', example='NORMAL'),
-}
-
-// 商品鉴定返回结果
-model BaiGoodsIdentificationRespData {
-  // 鉴定结果
-  // REAL：鉴定为真
-  // FAKE：鉴定为假
-  // UNABLE_IDENTIFY：无法鉴定
-  identificationResult: string(name='identification_result', example='REAL'),
-  // 整体鉴定分数
-  grade: string(name='grade', example='0.99'),
-  // 整体鉴定报告描述
-  description?: string(name='description', example='AI鉴定成功'),
-  // 鉴定点鉴定结果列表
-  pointIdentificationResults: [ BaiGoodsPointIdentificationResult ](name='point_identification_results', example=''),
-  // 鉴定评价
-  appraiseMessage?: string(name='appraise_message', example='完全同一，趋于同一，和不同一'),
-  // 用户自定义字符串，系统不做处理，会在响应体中带回
-  outState?: string(name='out_state', example='state'),
-}
-
-// iot平台用户信息
-// 
-model IotBasicUserInfo {
-  // 租户ID
-  tenant: string(name='tenant', example='DWWS2D'),
-  // 金融云用户Id
-  // 
-  cloudUserId: string(name='cloud_user_id', example='12321321'),
-  // 金融云平台的登录名
-  // 
-  loginName: string(name='login_name', example='xxx@alitest.com'),
-  // 权限集合
-  permissionList: [ IotBasicRolePermission ](name='permission_list', example=''),
-}
-
-// 发行数据包
-model DistributeDataPackage {
-  // 原始数据
-  dataList: [ RawData ](name='data_list', example=''),
-  // 发行设备Id
-  distributeDeviceId: string(name='distribute_device_id', example='244'),
-  // 打包时间
-  packageTime: long(name='package_time', example=''),
 }
 
 // 设备概览统计信息
@@ -1733,12 +1821,6 @@ model CollectInfo {
   assetData: string(name='asset_data', example='{"a":xx,"b":xx}'),
   // 上链数据采集id
   collectId: string(name='collect_id', example='289hj98u'),
-}
-
-// BAI提供的OCR接口返回值
-model BaiOcrResponse {
-  // 返回的结果体
-  data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
 }
 
 // 键值对
@@ -2469,6 +2551,52 @@ async function checkAiidentificationGoodsdigitalfingerprintEx(request: CheckAiid
   return doRequest('1.0' ,'blockchain.bot.aiidentification.goodsdigitalfingerprint.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model GetAiidentificationQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 二维码识别请求体
+  data: BaiQrcodeParseReqData(name='data'),
+}
+
+model GetAiidentificationQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 返回码
+  code?: string(name='code'),
+  // 返回信息
+  message?: string(name='message'),
+  // 二维码识别结果
+  data?: BaiQrcodeParseRespData(name='data'),
+}
+
+/**
+ * Description: 识别票据上的二维码
+ * Summary: AI二维码识别
+ */
+async function getAiidentificationQrcode(request: GetAiidentificationQrcodeRequest): GetAiidentificationQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAiidentificationQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 识别票据上的二维码
+ * Summary: AI二维码识别
+ */
+async function getAiidentificationQrcodeEx(request: GetAiidentificationQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAiidentificationQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateAcsDeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3186,9 +3314,9 @@ model OperateIotbasicChainmodelRequest = {
   // 参数签名校验
   paramSign: string(name='param_sign'),
   // 所属业务
-  business: string(name='business'),
+  bizScene: string(name='biz_scene'),
   // 资产数据类型
-  dataType: string(name='data_type'),
+  dataScene: string(name='data_scene'),
   // 资产ID-key
   assetsIdKey: string(name='assets_id_key'),
   // 资产ID-类型
@@ -4002,19 +4130,17 @@ async function importIotbasicDeviceorderEx(request: ImportIotbasicDeviceorderReq
   return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorder.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model BatchcreateIotbasicDeviceorderbatchRequest = {
+model ImportIotbasicDeviceorderbatchRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 业务类型
   bizScene: string(name='biz_scene'),
-  // 租户id
-  tenantId: string(name='tenant_id'),
   // 订单同步批量请求体
   orderBatchSyncReq: [ DeviceorderRequest ](name='order_batch_sync_req'),
 }
 
-model BatchcreateIotbasicDeviceorderbatchResponse = {
+model ImportIotbasicDeviceorderbatchResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -4023,29 +4149,391 @@ model BatchcreateIotbasicDeviceorderbatchResponse = {
   resultMsg?: string(name='result_msg'),
   // 接口是否执行成功
   success?: boolean(name='success'),
-  // 上链成功的集合
-  successList?: [ DeviceCollectResult ](name='success_list'),
-  // 上链失败的集合
-  failList?: [ DeviceCollectFail ](name='fail_list'),
+  // 订单上链成功的集合
+  successList?: [ DeviceOrderResult ](name='success_list'),
+  // 订单上链失败的集合
+  failList?: [ DeviceOrderFail ](name='fail_list'),
 }
 
 /**
  * Description: IoT设备平台-订单批量同步
  * Summary: IoT设备平台-订单批量同步
  */
-async function batchcreateIotbasicDeviceorderbatch(request: BatchcreateIotbasicDeviceorderbatchRequest): BatchcreateIotbasicDeviceorderbatchResponse {
+async function importIotbasicDeviceorderbatch(request: ImportIotbasicDeviceorderbatchRequest): ImportIotbasicDeviceorderbatchResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return batchcreateIotbasicDeviceorderbatchEx(request, headers, runtime);
+  return importIotbasicDeviceorderbatchEx(request, headers, runtime);
 }
 
 /**
  * Description: IoT设备平台-订单批量同步
  * Summary: IoT设备平台-订单批量同步
  */
-async function batchcreateIotbasicDeviceorderbatchEx(request: BatchcreateIotbasicDeviceorderbatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateIotbasicDeviceorderbatchResponse {
+async function importIotbasicDeviceorderbatchEx(request: ImportIotbasicDeviceorderbatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotbasicDeviceorderbatchResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorderbatch.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorderbatch.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备所属用户
+  userId: string(name='user_id'),
+  // 设备did签名
+  signature: string(name='signature'),
+}
+
+model DeleteIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-删除设备信息
+ * Summary: IoT设备平台-删除设备信息
+ */
+async function deleteIotbasicDevice(request: DeleteIotbasicDeviceRequest): DeleteIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-删除设备信息
+ * Summary: IoT设备平台-删除设备信息
+ */
+async function deleteIotbasicDeviceEx(request: DeleteIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicDevicecontrolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did 集合
+  deviceDidList?: string(name='device_did_list'),
+  // 设备did 集合
+  deviceOperateInfos?: [ DeviceOperateInfo ](name='device_operate_infos'),
+  // 设备操作类型
+  deviceOperation: string(name='device_operation'),
+  // 所属账号名称
+  userId: string(name='user_id'),
+}
+
+model OperateIotbasicDevicecontrolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 操作成功的设备did列表
+  successList?: [ string ](name='success_list'),
+  // 操作失败的设备did及失败信息列表
+  failList?: [ DeviceControlFail ](name='fail_list'),
+}
+
+/**
+ * Description: IoT设备平台-设备远程管控
+ * Summary: IoT设备平台-设备远程管控
+ */
+async function operateIotbasicDevicecontrol(request: OperateIotbasicDevicecontrolRequest): OperateIotbasicDevicecontrolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicDevicecontrolEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备远程管控
+ * Summary: IoT设备平台-设备远程管控
+ */
+async function operateIotbasicDevicecontrolEx(request: OperateIotbasicDevicecontrolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicDevicecontrolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicecontrol.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceRegisterresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备SN，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
+  deviceSn?: string(name='device_sn'),
+  // 设备厂商名称，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
+  corpName?: string(name='corp_name'),
+  // 设备did，可以传deviceSn和corpName，或者deviceDid，都传的以deviceDid为准
+  deviceDid?: string(name='device_did'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryDeviceRegisterresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+  // 设备did
+  deviceDid?: string(name='device_did'),
+  // 设备秘钥
+  privateKey?: string(name='private_key'),
+}
+
+/**
+ * Description: IoT设备平台-设备注册结果查询
+ * Summary: IoT设备平台-设备注册结果查询
+ */
+async function queryDeviceRegisterresult(request: QueryDeviceRegisterresultRequest): QueryDeviceRegisterresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceRegisterresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备注册结果查询
+ * Summary: IoT设备平台-设备注册结果查询
+ */
+async function queryDeviceRegisterresultEx(request: QueryDeviceRegisterresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceRegisterresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.registerresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备did签名
+  signature: string(name='signature'),
+}
+
+model QueryDeviceStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备did
+  deviceDid?: string(name='device_did'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+  // 设备状态
+  deviceStatus?: string(name='device_status'),
+  // 设备认证状态
+  authStatus?: string(name='auth_status'),
+}
+
+/**
+ * Description: IoT设备平台-设备状态查询
+ * Summary: IoT设备平台-设备状态查询
+ */
+async function queryDeviceStatus(request: QueryDeviceStatusRequest): QueryDeviceStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备状态查询
+ * Summary: IoT设备平台-设备状态查询
+ */
+async function queryDeviceStatusEx(request: QueryDeviceStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicOpenapiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作类型
+  operateType: string(name='operate_type'),
+  // 参数签名
+  paramSign: string(name='param_sign'),
+  // 业务操作类型
+  bizType: string(name='biz_type'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 类名（实现类），首字母小写
+  interfaceName: string(name='interface_name'),
+  // 方法名
+  methodName: string(name='method_name'),
+  // 参数类路径
+  paramClass: string(name='param_class'),
+  // 参数数据
+  paramList: string(name='param_list'),
+}
+
+model OperateIotbasicOpenapiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+  // 结果数据
+  result?: string(name='result'),
+}
+
+/**
+ * Description: IoT设备平台-openApi操作
+ * Summary: IoT设备平台-openApi操作
+ */
+async function operateIotbasicOpenapi(request: OperateIotbasicOpenapiRequest): OperateIotbasicOpenapiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicOpenapiEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-openApi操作
+ * Summary: IoT设备平台-openApi操作
+ */
+async function operateIotbasicOpenapiEx(request: OperateIotbasicOpenapiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicOpenapiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.openapi.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotbasicDevicecollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询结束时间
+  endTime?: string(name='end_time'),
+  // 资产类型
+  dataScene?: string(name='data_scene'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 上链hash
+  antchainId?: string(name='antchain_id'),
+  // 上链数据内容 json
+  assetData?: string(name='asset_data'),
+  // 每页数量
+  pageSize: long(maximum=100, minimum=1, name='page_size'),
+  // 当前页码
+  currentPage: long(name='current_page'),
+  // 业务id
+  businessId?: string(name='business_id'),
+  // 查询开始时间
+  startTime?: string(name='start_time'),
+}
+
+model QueryIotbasicDevicecollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页数据大小
+  pageSize?: long(name='page_size'),
+  // 数据总条数
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 查询结果
+  data?: [ ChainModelResult ](name='data'),
+}
+
+/**
+ * Description: 上链数据分页查询
+ * Summary: 上链数据分页查询
+ */
+async function queryIotbasicDevicecollect(request: QueryIotbasicDevicecollectRequest): QueryIotbasicDevicecollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotbasicDevicecollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上链数据分页查询
+ * Summary: 上链数据分页查询
+ */
+async function queryIotbasicDevicecollectEx(request: QueryIotbasicDevicecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotbasicDevicecollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicecollect.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotbasicDeviceorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 开始时间
+  startTime?: string(name='start_time'),
+  // 结束时间
+  endTime?: string(name='end_time'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 每页数据条数
+  pageSize: long(maximum=100, minimum=1, name='page_size'),
+  // 当前页数
+  currentPage: long(name='current_page'),
+  // 订单ID
+  orderId?: string(name='order_id'),
+  // 设备did
+  deviceDid?: string(name='device_did'),
+}
+
+model QueryIotbasicDeviceorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单明细
+  orderDetail?: [ IotBasicDeviceOrderItem ](name='order_detail'),
+  // 总记录数
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 订单上链数据分页查询
+ * Summary: 订单上链数据分页查询
+ */
+async function queryIotbasicDeviceorder(request: QueryIotbasicDeviceorderRequest): QueryIotbasicDeviceorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotbasicDeviceorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单上链数据分页查询
+ * Summary: 订单上链数据分页查询
+ */
+async function queryIotbasicDeviceorderEx(request: QueryIotbasicDeviceorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotbasicDeviceorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -4313,6 +4801,46 @@ async function addGoodsSku(request: AddGoodsSkuRequest): AddGoodsSkuResponse {
 async function addGoodsSkuEx(request: AddGoodsSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddGoodsSkuResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushMeterdataOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 订单计费数据列表
+  orderPushList: [ OrderPushInfo ](name='order_push_list'),
+}
+
+model PushMeterdataOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: Iotplatform-设备订单计费上传
+ * Summary: Iotplatform-设备订单计费上传
+ */
+async function pushMeterdataOrder(request: PushMeterdataOrderRequest): PushMeterdataOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushMeterdataOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: Iotplatform-设备订单计费上传
+ * Summary: Iotplatform-设备订单计费上传
+ */
+async function pushMeterdataOrderEx(request: PushMeterdataOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushMeterdataOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.meterdata.order.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDeviceDatamodelRequest = {
@@ -5705,7 +6233,7 @@ model CreateDistributedeviceBydeviceRequest = {
   // 投放时间
   releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
   // 设备型号
-  deviceName: string(name='device_name'),
+  deviceName?: string(name='device_name'),
   // 资产所有人标识（统一社会信用代码）
   owner?: string(name='owner'),
   // 资产所有人名称
