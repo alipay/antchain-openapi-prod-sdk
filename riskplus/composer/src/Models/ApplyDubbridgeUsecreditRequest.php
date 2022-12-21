@@ -88,7 +88,6 @@ class ApplyDubbridgeUsecreditRequest extends Model
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('repayType', $this->repayType, true);
         Model::validateRequired('loanWay', $this->loanWay, true);
-        Model::validateRequired('repayDate', $this->repayDate, true);
     }
 
     public function toMap()
