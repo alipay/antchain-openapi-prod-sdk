@@ -48,7 +48,6 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
 
     // 还款日
     @NameInMap("repay_date")
-    @Validation(required = true)
     public String repayDate;
 
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
