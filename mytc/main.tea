@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.2.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,149 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 上传者信息
+model UploaderInfo {
+  // 上传者证书hash
+  certHash: string(name='cert_hash', example='1654570807000'),
+  // 上传者身份证明
+  uploader: string(name='uploader', example='123'),
+  // 上传时间
+  uploadTime: long(name='upload_time', example='1654570807000'),
+  // 经度
+  longitude?: string(name='longitude', example='123'),
+  // 纬度
+  latitude?: string(name='latitude', example='123'),
+}
+
+// 区块信息
+model BlockInfo {
+  // 块高度
+  blockHeight: long(name='block_height', example='123'),
+  // 成块时间戳
+  timestamp: long(name='timestamp', example='1654570807000'),
+  // 交易摘要
+  txHash: string(name='tx_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+}
+
+// 环节项
+model PhaseItem {
+  // 标题
+  title: string(name='title', example='123'),
+  // 类型
+  // TEXT: 文本，
+  // IMAGE： 图片,
+  // VIDEO:  视频,
+  // LONGTEXT: 长文本,
+  // MAP: 地图,
+  // BANNER: 广告位,
+  // PDF: pdf文件,
+  // CERTIFICATE: 认证信息
+  // NESTED： 嵌套类型
+  // CUSTOMIZE： 自定义类型
+  type: string(name='type', example='TEXT'),
+  // 值
+  value: string(name='value', example='1654570807000'),
+  // 扩展信息
+  extInfo: string(name='ext_info', example='{"hello": "666"}'),
+}
+
+// 用户扫码信息
+model ScanUserInfo {
+  // 用户昵称
+  nick: string(name='nick', example='123'),
+  // 用户ID
+  userId: string(name='user_id', example='1654570807000'),
+  // 经度
+  longitude: long(name='longitude', example='123'),
+  // 纬度
+  latitude: long(name='latitude', example='123'),
+  // 用户来源
+  srcType: string(name='src_type', example='alipay'),
+  // 扫码时间
+  scanTime?: long(name='scan_time', example='1654570807000'),
+}
+
+// 码注册信息
+model CodeRegisterInfo {
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code', example='http://taobao.com/12345'),
+  // 状态,客户自定义状态，用于过滤查询使用
+  status?: string(maxLength=32, minLength=2, name='status', example='ACTIVE'),
+  // 关联溯源码列表，可以通过接口查询关联溯源码绑定的信息
+  relationCodes?: [ string ](name='relation_codes', example='http://taobao.com/12345'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度128
+  bizLabels?: [ string ](name='biz_labels', example='1654570807000'),
+  // 注册内容
+  content?: string(name='content', example='{"cipher": "123456"} '),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 注册溯源码记录唯一标识
+  uniqueId?: string(name='unique_id', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+}
+
+// 溯源码关联信息
+model CodeRelationInfo {
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(name='code', example='http://taobao.com/12345'),
+  // 状态,客户自定义状态，用于过滤查询使用，仅支持字母数字构成
+  // 
+  status?: string(name='status', example='ACTIVE'),
+  // 关联内容
+  content?: string(name='content', example='{"cipher": "123456"}'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度128
+  bizLabels?: [ string ](name='biz_labels', example='1654570807000'),
+  // 溯源码信息关联记录唯一标识
+  uniqueId?: string(name='unique_id', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+}
+
+// 区块链交易信息
+model BlockChainTransactionInfo {
+  // 区块链上交易哈希
+  txHash: string(name='tx_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 区块链标识
+  bizId: string(name='biz_id', example='1654570807000'),
+  // 消耗gas数量
+  gasUsed: string(name='gas_used', example='123'),
+  // 父区块哈希
+  parentHash: string(name='parent_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 收据根
+  receiptRoot: string(name='receipt_root', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 状态树根
+  stateRoot: string(name='state_root', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 交易根
+  transactionRoot: string(name='transaction_root', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+  // 版本
+  version: string(name='version', example='1'),
+  // 区块高度
+  number: long(name='number', example='165457'),
+  // 成块时间
+  timestamp: long(name='timestamp', example='1654570807000'),
+}
+
+// 首次扫描信息
+model ScanHeadInfo {
+  // 扫描时间
+  scanTime: long(name='scan_time', example='1654570807000'),
+  // 扫码次数
+  scanCount: long(name='scan_count', example='123'),
+  // 扫码地址
+  scanAddr: string(name='scan_addr', example='1654570807000'),
+}
+
+// 环节信息
+model PhaseInfo {
+  // 环节名称
+  name: string(name='name', example='商品信息'),
+  // 环节项
+  items: [ PhaseItem ](name='items', example=''),
+  // 上传者信息
+  uploadInfo: UploaderInfo(name='upload_info', example=''),
+  // 区块信息
+  blockInfo: BlockInfo(name='block_info', example=''),
 }
 
 // 键值对
@@ -383,6 +526,929 @@ async function finishAntiImagesync(request: FinishAntiImagesyncRequest): FinishA
 async function finishAntiImagesyncEx(request: FinishAntiImagesyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishAntiImagesyncResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntiQrcodeimageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 要生成图片二维码的字符串信息
+  qrCode: string(name='qr_code'),
+}
+
+model CreateAntiQrcodeimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的二维码图片的oss地址
+  qrcodeUrl?: string(name='qrcode_url'),
+  // 生成结果码，用于异常场景下细化错误信息
+  generateCode?: string(name='generate_code'),
+  // 生成结果码含义,用于异常场景下细化错误信息
+  generateMessage?: string(name='generate_message'),
+  // 生成失败时的解决方案,用于异常场景下细化错误信息
+  unableGenerateSolution?: string(name='unable_generate_solution'),
+}
+
+/**
+ * Description: 自研二维码生成
+ * Summary: 二维码防伪图片生成
+ */
+async function createAntiQrcodeimage(request: CreateAntiQrcodeimageRequest): CreateAntiQrcodeimageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntiQrcodeimageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自研二维码生成
+ * Summary: 二维码防伪图片生成
+ */
+async function createAntiQrcodeimageEx(request: CreateAntiQrcodeimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntiQrcodeimageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.qrcodeimage.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCodeRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  status: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 注册内容
+  content?: string(name='content'),
+  // 关联溯源码列表。最多200条关联码，关联码格式要求和溯源码要求一致。
+  // 可以通过接口查询关联溯源码绑定的信息。
+  relationCodes?: [ string ](name='relation_codes'),
+  // 关联溯源码递归检查，检查最多5层。默认NO_CHECK。枚举值如下，
+  // NO_CHECK:  不做递归检查;
+  // TREE_CHECK: 树结构检查;
+  // DAG_CHECK: 有向无环图检查;
+  recursionType?: string(maxLength=32, minLength=1, name='recursion_type'),
+  // 是否上链，默认true。
+  // 为false时，仅做DB数据保存不上链。
+  // 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+}
+
+model CreateCodeRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+  // 注册记录唯一标识
+  uniqueId?: string(name='unique_id'),
+}
+
+/**
+ * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+ * Summary: 溯源码注册
+ */
+async function createCodeRegistration(request: CreateCodeRegistrationRequest): CreateCodeRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCodeRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+ * Summary: 溯源码注册
+ */
+async function createCodeRegistrationEx(request: CreateCodeRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCodeRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.registration.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteCodeRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code?: string(maxLength=160, minLength=1, name='code'),
+  // 注册记录唯一标识
+  uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
+}
+
+model DeleteCodeRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+ * Summary: 溯源码注册记录删除
+ */
+async function deleteCodeRegistration(request: DeleteCodeRegistrationRequest): DeleteCodeRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteCodeRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+ * Summary: 溯源码注册记录删除
+ */
+async function deleteCodeRegistrationEx(request: DeleteCodeRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCodeRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.registration.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCodeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  status: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 
+  // 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+  // 关联内容
+  // 
+  content?: string(name='content'),
+}
+
+model CreateCodeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+  // 绑定信息记录唯一标识
+  uniqueId?: string(name='unique_id'),
+}
+
+/**
+ * Description: 将关联信息绑定到溯源码上。
+该接口调用存在以下业务维度限制：
+1. code + bizLables + bizType做唯一性判断。
+
+
+ * Summary: 溯源码关联信息
+ */
+async function createCodeRelation(request: CreateCodeRelationRequest): CreateCodeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCodeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 将关联信息绑定到溯源码上。
+该接口调用存在以下业务维度限制：
+1. code + bizLables + bizType做唯一性判断。
+
+
+ * Summary: 溯源码关联信息
+ */
+async function createCodeRelationEx(request: CreateCodeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCodeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.relation.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteCodeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code?: string(maxLength=160, minLength=1, name='code'),
+  // 关联信息记录唯一标识
+  // 
+  uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
+}
+
+model DeleteCodeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+ * Summary: 溯源码关联信息删除
+ */
+async function deleteCodeRelation(request: DeleteCodeRelationRequest): DeleteCodeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteCodeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+ * Summary: 溯源码关联信息删除
+ */
+async function deleteCodeRelationEx(request: DeleteCodeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCodeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.relation.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeCombineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 页码,当且仅当pageNum=1时返回溯源码最新注册信息
+  pageNum: long(minimum=1, name='page_num'),
+  // 页大小
+  pageSize: long(maximum=200, name='page_size'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 状态,客户自定义状态，用于过滤查询使用，只能由字符+数字构成，多个可以用"|"分隔
+  status?: string(maxLength=256, minLength=1, name='status'),
+  // 是否递归查询，默认false, 最多递归5层
+  // 
+  recursionFlag?: boolean(name='recursion_flag'),
+}
+
+model QueryCodeCombineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数据量
+  total?: long(name='total'),
+  // 注册码信息
+  registerInfo?: CodeRegisterInfo(name='register_info'),
+  // 关联信息
+  relationInfos?: [ CodeRelationInfo ](name='relation_infos'),
+}
+
+/**
+ * Description: 查询当前账户下的溯源码信息。
+会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+
+ * Summary: 溯源码查询
+ */
+async function queryCodeCombine(request: QueryCodeCombineRequest): QueryCodeCombineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeCombineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前账户下的溯源码信息。
+会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+
+ * Summary: 溯源码查询
+ */
+async function queryCodeCombineEx(request: QueryCodeCombineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeCombineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.combine.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  // 
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 页码
+  pageNum: long(minimum=1, name='page_num'),
+  // 页大小
+  pageSize: long(maximum=200, name='page_size'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 注册记录唯一标识
+  uniqueId?: string(maxLength=64, minLength=1, name='unique_id'),
+  // 状态,客户自定义状态，用于过滤查询使用。
+  // 状态信息只能由字母+数字构成，多个状态可以用"|"分隔
+  status?: string(maxLength=256, minLength=1, name='status'),
+  // 仅能取如下值范围：
+  // 1. ASC     按注册时间升序
+  // 2. DESC   按注册时间降序
+  // 默认降序
+  sortType?: string(name='sort_type'),
+}
+
+model QueryCodeRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数据量
+  total?: long(name='total'),
+  // 溯源码历史注册信息
+  data?: [ CodeRegisterInfo ](name='data'),
+}
+
+/**
+ * Description: 溯源码注册历史查询
+ * Summary: 溯源码注册历史查询
+ */
+async function queryCodeRegistration(request: QueryCodeRegistrationRequest): QueryCodeRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源码注册历史查询
+ * Summary: 溯源码注册历史查询
+ */
+async function queryCodeRegistrationEx(request: QueryCodeRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.registration.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 页码
+  pageNum: long(minimum=1, name='page_num'),
+  // 页大小
+  pageSize: long(maximum=200, name='page_size'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 绑定信息记录唯一标识
+  uniqueId?: string(maxLength=64, minLength=1, name='unique_id'),
+  // 状态,客户自定义状态，用于过滤查询使用，只能由字符+数字构成，多个可以用"|"分隔
+  status?: string(maxLength=256, minLength=1, name='status'),
+  // 仅能取如下值范围： 1. ASC 按注册时间升序 2. DESC 按注册时间降序 默认降序
+  sortType?: string(name='sort_type'),
+}
+
+model QueryCodeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总历史记录条数
+  total?: long(name='total'),
+  // 溯源码关联信息列表
+  data?: [ CodeRelationInfo ](name='data'),
+}
+
+/**
+ * Description: 溯源码关联历史信息查询
+ * Summary: 溯源码关联历史信息查询
+ */
+async function queryCodeRelation(request: QueryCodeRelationRequest): QueryCodeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源码关联历史信息查询
+ * Summary: 溯源码关联历史信息查询
+ */
+async function queryCodeRelationEx(request: QueryCodeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.relation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCodeDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 存证内容
+  // 
+  content: string(name='content'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+}
+
+model AddCodeDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+  // 注册记录唯一标识
+  uniqueId?: string(name='unique_id'),
+}
+
+/**
+ * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+2. 存证内容超过链上限制仅会将存证内容hash值上链。
+ * Summary: 原生存证
+ */
+async function addCodeDeposit(request: AddCodeDepositRequest): AddCodeDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCodeDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+2. 存证内容超过链上限制仅会将存证内容hash值上链。
+ * Summary: 原生存证
+ */
+async function addCodeDepositEx(request: AddCodeDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCodeDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.deposit.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 区块链上交易哈希
+  txHash: string(maxLength=64, minLength=1, name='tx_hash'),
+  // 是否展示交易具体内容，默认false
+  contentFlag?: boolean(name='content_flag'),
+}
+
+model QueryCodeCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证内容。
+  // 在注册溯源码、溯源码关联信息等接口调用情况下，上链内容会包装加密后上链。
+  // 因此返回内容不可读，需要按照指定要求解密读取。
+  content?: string(name='content'),
+  // 链交易信息
+  chainTransactionInfo?: BlockChainTransactionInfo(name='chain_transaction_info'),
+}
+
+/**
+ * Description: 链上交易详情查询
+ * Summary: 链上交易证书查询
+ */
+async function queryCodeCert(request: QueryCodeCertRequest): QueryCodeCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上交易详情查询
+ * Summary: 链上交易证书查询
+ */
+async function queryCodeCertEx(request: QueryCodeCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeStatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签
+  // 
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 开始时间
+  startTime?: long(name='start_time'),
+  // 截止时间
+  endTime?: long(name='end_time'),
+  // 支持以下查询维度：
+  // REGISTRATION  注册码统计
+  // RELATION  关联码信息统计
+  // DEPOSIT    存证信息统计
+  codeType?: string(maxLength=32, minLength=1, name='code_type'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+}
+
+model QueryCodeStatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上链交易量
+  transactionSize?: long(name='transaction_size'),
+  // 上链总数据存储容量占用
+  chainCapacity?: long(name='chain_capacity'),
+  // 记录条数，包括上链和未上链的总数据条数
+  recordSize?: long(name='record_size'),
+  // 对重复操作仅做一次记录的数据统计量。eg: 实际溯源码注册量，实际绑定信息的数据量。
+  validSize?: long(name='valid_size'),
+}
+
+/**
+ * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+若填写starTime和endTime，统计时间范围不能超过7天。
+ * Summary: 溯源统计信息查询
+ */
+async function queryCodeStat(request: QueryCodeStatRequest): QueryCodeStatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeStatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+若填写starTime和endTime，统计时间范围不能超过7天。
+ * Summary: 溯源统计信息查询
+ */
+async function queryCodeStatEx(request: QueryCodeStatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeStatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.stat.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCodeRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  // 
+  status: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 注册内容
+  // 
+  content?: string(name='content'),
+  // 关联溯源码列表。最多200条关联码，关联码格式要求和溯源码要求一致。 可以通过接口查询关联溯源码绑定的信息。
+  relationCodes?: [ string ](name='relation_codes'),
+  // 关联溯源码递归检查，检查最多5层。默认NO_CHECK。枚举值如下，
+  // NO_CHECK: 不做递归检查;
+  // TREE_CHECK: 树结构检查; 
+  // DAG_CHECK: 有向无环图检查;
+  recursionType?: string(maxLength=32, minLength=1, name='recursion_type'),
+  // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+}
+
+model AddCodeRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+  // 注册记录唯一标识
+  uniqueId?: string(name='unique_id'),
+}
+
+/**
+ * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+ * Summary: 溯源码(可重复)注册
+ */
+async function addCodeRegistration(request: AddCodeRegistrationRequest): AddCodeRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCodeRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+ * Summary: 溯源码(可重复)注册
+ */
+async function addCodeRegistrationEx(request: AddCodeRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCodeRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.registration.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCodeRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识。该字段不更新，仅做过滤使用。
+  code?: string(maxLength=160, minLength=1, name='code'),
+  // 注册记录唯一标识
+  uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  status?: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
+  // 若已上链，则不可更新该信息。
+  bizLabels?: [ string ](name='biz_labels'),
+  // 注册内容。若已上链，则不可更新该信息。
+  // 
+  content?: string(name='content'),
+  // 关联溯源码列表。最多200条关联码，关联码格式要求和溯源码要求一致。 可以通过接口查询关联溯源码绑定的信息。若已上链，则不可更新该信息。
+  relationCodes?: [ string ](name='relation_codes'),
+  // 关联溯源码递归检查，检查最多5层。默认NO_CHECK。枚举值如下， 
+  // NO_CHECK: 不做递归检查; 
+  // TREE_CHECK: 树结构检查;
+  // DAG_CHECK: 有向无环图检查;
+  recursionType?: string(maxLength=32, minLength=1, name='recursion_type'),
+  // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+}
+
+model UpdateCodeRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 更新已注册的溯源信息
+ * Summary: 溯源注册信息更新
+ */
+async function updateCodeRegistration(request: UpdateCodeRegistrationRequest): UpdateCodeRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCodeRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新已注册的溯源信息
+ * Summary: 溯源注册信息更新
+ */
+async function updateCodeRegistrationEx(request: UpdateCodeRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCodeRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.registration.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCodeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  // 
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  // 
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  // 
+  status: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64
+  bizLabels?: [ string ](name='biz_labels'),
+  // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+  // 关联内容
+  // 
+  content?: string(name='content'),
+}
+
+model AddCodeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链上交易哈希
+  txHash?: string(name='tx_hash'),
+  // 绑定信息记录唯一标识
+  uniqueId?: string(name='unique_id'),
+}
+
+/**
+ * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+ * Summary: 溯源码(可重复)关联信息
+ */
+async function addCodeRelation(request: AddCodeRelationRequest): AddCodeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCodeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+ * Summary: 溯源码(可重复)关联信息
+ */
+async function addCodeRelationEx(request: AddCodeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCodeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.relation.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCodeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型，客户自定义标签，做code数据隔离使用
+  bizType: string(maxLength=32, minLength=1, name='biz_type'),
+  // 溯源码，代表该账户的唯一资源标识
+  // 
+  code: string(maxLength=160, minLength=1, name='code'),
+  // 绑定信息记录唯一标识
+  uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
+  // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
+  status?: string(maxLength=32, minLength=1, name='status'),
+  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
+  bizLabels?: [ string ](name='biz_labels'),
+  // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
+  upChainFlag?: boolean(name='up_chain_flag'),
+  // 关联信息内容。若已上链，则不可更新该信息。
+  content?: string(name='content'),
+}
+
+model UpdateCodeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新绑定到溯源码上的关联信息。
+ * Summary: 溯源码关联信息更新
+ */
+async function updateCodeRelation(request: UpdateCodeRelationRequest): UpdateCodeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCodeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新绑定到溯源码上的关联信息。
+ * Summary: 溯源码关联信息更新
+ */
+async function updateCodeRelationEx(request: UpdateCodeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCodeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.code.relation.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMiniCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 溯源码
+  code: string(maxLength=160, name='code'),
+  // 用户信息
+  userInfo?: ScanUserInfo(name='user_info'),
+}
+
+model QueryMiniCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 首次扫描信息
+  scanInfo?: ScanHeadInfo(name='scan_info'),
+  // 溯源环节信息列表
+  phaseInfos?: [ PhaseInfo ](name='phase_infos'),
+}
+
+/**
+ * Description: 溯源码详情查询
+ * Summary: 溯源码详情查询
+ */
+async function queryMiniCode(request: QueryMiniCodeRequest): QueryMiniCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMiniCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源码详情查询
+ * Summary: 溯源码详情查询
+ */
+async function queryMiniCodeEx(request: QueryMiniCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMiniCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.mini.code.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMiniCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 溯源码信息
+  code: string(maxLength=160, name='code'),
+  // 交易哈希
+  txHash: string(maxLength=64, name='tx_hash'),
+}
+
+model QueryMiniCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块信息
+  blockInfo?: BlockInfo(name='block_info'),
+  // 上传者信息
+  uploadInfo?: UploaderInfo(name='upload_info'),
+}
+
+/**
+ * Description: 溯源证书查询
+ * Summary: 溯源证书查询
+ */
+async function queryMiniCert(request: QueryMiniCertRequest): QueryMiniCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMiniCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 溯源证书查询
+ * Summary: 溯源证书查询
+ */
+async function queryMiniCertEx(request: QueryMiniCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMiniCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.mini.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyMiniNfcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 动态秘钥字符串信息
+  code: string(maxLength=160, name='code'),
+  // NFC UID
+  uid?: string(name='uid'),
+}
+
+model VerifyMiniNfcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 校验结果
+  status?: string(name='status'),
+  // 校验信息
+  message?: string(name='message'),
+  // 校验解析溯源码
+  code?: string(name='code'),
+  // NFC UID
+  uid?: string(name='uid'),
+}
+
+/**
+ * Description: 动态秘钥NFC二维码校验
+ * Summary: 动态秘钥NFC二维码校验
+ */
+async function verifyMiniNfc(request: VerifyMiniNfcRequest): VerifyMiniNfcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyMiniNfcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 动态秘钥NFC二维码校验
+ * Summary: 动态秘钥NFC二维码校验
+ */
+async function verifyMiniNfcEx(request: VerifyMiniNfcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyMiniNfcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.mini.nfc.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
