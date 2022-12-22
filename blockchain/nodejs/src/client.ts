@@ -4930,6 +4930,10 @@ export class PoapInfo extends $tea.Model {
   renderType: string;
   // 3D模型降级使用的资源URL
   faultToleranceUrl?: string;
+  // 小程序详情跳转URL。临时链接，过期时间为 detail_alipays_url_expire_time 字段的值
+  detailAlipaysUrl?: string;
+  // 详情页跳转URL过期时间
+  detailAlipaysUrlExpireTime?: string;
   static names(): { [key: string]: string } {
     return {
       poapId: 'poap_id',
@@ -4939,6 +4943,8 @@ export class PoapInfo extends $tea.Model {
       poapUrl: 'poap_url',
       renderType: 'render_type',
       faultToleranceUrl: 'fault_tolerance_url',
+      detailAlipaysUrl: 'detail_alipays_url',
+      detailAlipaysUrlExpireTime: 'detail_alipays_url_expire_time',
     };
   }
 
@@ -4951,6 +4957,8 @@ export class PoapInfo extends $tea.Model {
       poapUrl: 'string',
       renderType: 'string',
       faultToleranceUrl: 'string',
+      detailAlipaysUrl: 'string',
+      detailAlipaysUrlExpireTime: 'string',
     };
   }
 
@@ -34520,6 +34528,14 @@ export class BindAuthPoapRequest extends $tea.Model {
   userCertNo?: string;
   // 用户手机号
   userMobile?: string;
+  // 定制id会有白名单进行权限限制。id格式要求：长度6-20，允许字母、数字、部分特殊字符(_#:|)
+  poapId?: string;
+  // 徽章关联权益时，用户领取权益的动作类型
+  profitAction?: string;
+  // 徽章关联权益时，用户领取权益的地址
+  profitUrl?: string;
+  // 徽章关联权益时附带信息，buttonName为自定义领取按钮名称，needAuth为是否需要授权，authId为授权请求id，authBizId为授权请求场景id
+  payload?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -34530,6 +34546,10 @@ export class BindAuthPoapRequest extends $tea.Model {
       userName: 'user_name',
       userCertNo: 'user_cert_no',
       userMobile: 'user_mobile',
+      poapId: 'poap_id',
+      profitAction: 'profit_action',
+      profitUrl: 'profit_url',
+      payload: 'payload',
     };
   }
 
@@ -34543,6 +34563,10 @@ export class BindAuthPoapRequest extends $tea.Model {
       userName: 'string',
       userCertNo: 'string',
       userMobile: 'string',
+      poapId: 'string',
+      profitAction: 'string',
+      profitUrl: 'string',
+      payload: 'string',
     };
   }
 
@@ -34634,6 +34658,270 @@ export class QueryAuthPoapResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       poapInfo: PoapInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAuthDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方生成的请求id，需保证唯一
+  authId: string;
+  // 调用方请求的数据类型
+  authType: string;
+  // 授权结果通知调用方的方式
+  callbackType: string;
+  // 授权结果通知调用方的地址
+  callbackUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authId: 'auth_id',
+      authType: 'auth_type',
+      callbackType: 'callback_type',
+      callbackUrl: 'callback_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authId: 'string',
+      authType: 'string',
+      callbackType: 'string',
+      callbackUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAuthDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权宝小程序的地址，调用方需要访问该地址从而进行用户授权
+  myauthUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      myauthUrl: 'myauth_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      myauthUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAuthDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方在发起授权请求时创建的请求id
+  authId: string;
+  // 授权数据类型
+  authType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authId: 'auth_id',
+      authType: 'auth_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authId: 'string',
+      authType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAuthDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 使用调用方的公钥加密后的授权数据
+  encryptedData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      encryptedData: 'encrypted_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      encryptedData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthIdentityauthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权宝生成的bizId 与 核身token 用 ; 拼接成的字符串
+  securityId: string;
+  // 核身的userid
+  userId: string;
+  // 核身对应的操作类型，目前只有0，代表创建did
+  operationType: number;
+  // 其它类型操作时的参数，json形式字符串
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      securityId: 'security_id',
+      userId: 'user_id',
+      operationType: 'operation_type',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      securityId: 'string',
+      userId: 'string',
+      operationType: 'number',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthIdentityauthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 核身结果
+  verifyResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      verifyResult: 'verify_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      verifyResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCertDetailurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 证书的bizId
+  bizId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCertDetailurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 证书的详情h5链接
+  detailUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detailUrl: 'detail_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detailUrl: 'string',
     };
   }
 
@@ -41109,6 +41397,9 @@ export class AddDidDtxPkRequest extends $tea.Model {
   publicKey: string;
   // keyId
   keyId: string;
+  // 需要传输给业务服务的JSON字段
+  // 
+  extension?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -41116,6 +41407,7 @@ export class AddDidDtxPkRequest extends $tea.Model {
       did: 'did',
       publicKey: 'public_key',
       keyId: 'key_id',
+      extension: 'extension',
     };
   }
 
@@ -41126,6 +41418,7 @@ export class AddDidDtxPkRequest extends $tea.Model {
       did: 'string',
       publicKey: 'string',
       keyId: 'string',
+      extension: 'string',
     };
   }
 
@@ -41135,6 +41428,61 @@ export class AddDidDtxPkRequest extends $tea.Model {
 }
 
 export class AddDidDtxPkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDidDtxVcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // vc原文
+  vc: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      vc: 'vc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      vc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDidDtxVcResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -49460,9 +49808,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.25",
-          _prod_code: "BLOCKCHAIN",
-          _prod_channel: "undefined",
+          sdk_version: "1.26.32",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -56620,6 +56966,82 @@ export default class Client {
   }
 
   /**
+   * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+   * Summary: 开启数据授权流程，首先记录授权请求
+   */
+  async startAuthData(request: StartAuthDataRequest): Promise<StartAuthDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startAuthDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+   * Summary: 开启数据授权流程，首先记录授权请求
+   */
+  async startAuthDataEx(request: StartAuthDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAuthDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartAuthDataResponse>(await this.doRequest("1.0", "baas.auth.data.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAuthDataResponse({}));
+  }
+
+  /**
+   * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+   * Summary: 请求授权的数据，加密传输
+   */
+  async getAuthData(request: GetAuthDataRequest): Promise<GetAuthDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAuthDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+   * Summary: 请求授权的数据，加密传输
+   */
+  async getAuthDataEx(request: GetAuthDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAuthDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAuthDataResponse>(await this.doRequest("1.0", "baas.auth.data.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAuthDataResponse({}));
+  }
+
+  /**
+   * Description: 查询核身结果
+   * Summary: 查询核身结果
+   */
+  async queryAuthIdentityauth(request: QueryAuthIdentityauthRequest): Promise<QueryAuthIdentityauthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthIdentityauthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询核身结果
+   * Summary: 查询核身结果
+   */
+  async queryAuthIdentityauthEx(request: QueryAuthIdentityauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthIdentityauthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthIdentityauthResponse>(await this.doRequest("1.0", "baas.auth.identityauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthIdentityauthResponse({}));
+  }
+
+  /**
+   * Description: 查询证书的详情h5链接
+   * Summary: 查询证书的详情h5链接
+   */
+  async queryAuthCertDetailurl(request: QueryAuthCertDetailurlRequest): Promise<QueryAuthCertDetailurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthCertDetailurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询证书的详情h5链接
+   * Summary: 查询证书的详情h5链接
+   */
+  async queryAuthCertDetailurlEx(request: QueryAuthCertDetailurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthCertDetailurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthCertDetailurlResponse>(await this.doRequest("1.0", "baas.auth.cert.detailurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthCertDetailurlResponse({}));
+  }
+
+  /**
    * Description: 通过代理模式为企业创建did
    * Summary: 通过代理模式为企业创建did
    */
@@ -58225,6 +58647,25 @@ export default class Client {
   async addDidDtxPkEx(request: AddDidDtxPkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddDidDtxPkResponse> {
     Util.validateModel(request);
     return $tea.cast<AddDidDtxPkResponse>(await this.doRequest("1.0", "baas.did.dtx.pk.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddDidDtxPkResponse({}));
+  }
+
+  /**
+   * Description: 端上密钥颁发vc
+   * Summary: 端上密钥颁发vc
+   */
+  async createDidDtxVc(request: CreateDidDtxVcRequest): Promise<CreateDidDtxVcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDidDtxVcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 端上密钥颁发vc
+   * Summary: 端上密钥颁发vc
+   */
+  async createDidDtxVcEx(request: CreateDidDtxVcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDidDtxVcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDidDtxVcResponse>(await this.doRequest("1.0", "baas.did.dtx.vc.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDidDtxVcResponse({}));
   }
 
   /**
