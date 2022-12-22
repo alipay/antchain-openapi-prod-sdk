@@ -48,6 +48,26 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string UserMobile { get; set; }
 
+        // 定制id会有白名单进行权限限制。id格式要求：长度6-20，允许字母、数字、部分特殊字符(_#:|)
+        [NameInMap("poap_id")]
+        [Validation(Required=false)]
+        public string PoapId { get; set; }
+
+        // 徽章关联权益时，用户领取权益的动作类型
+        [NameInMap("profit_action")]
+        [Validation(Required=false)]
+        public string ProfitAction { get; set; }
+
+        // 徽章关联权益时，用户领取权益的地址
+        [NameInMap("profit_url")]
+        [Validation(Required=false)]
+        public string ProfitUrl { get; set; }
+
+        // 徽章关联权益时附带信息，buttonName为自定义领取按钮名称，needAuth为是否需要授权，authId为授权请求id，authBizId为授权请求场景id
+        [NameInMap("payload")]
+        [Validation(Required=false)]
+        public string Payload { get; set; }
+
     }
 
 }

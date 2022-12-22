@@ -45,6 +45,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string FaultToleranceUrl { get; set; }
 
+        // 小程序详情跳转URL。临时链接，过期时间为 detail_alipays_url_expire_time 字段的值
+        [NameInMap("detail_alipays_url")]
+        [Validation(Required=false)]
+        public string DetailAlipaysUrl { get; set; }
+
+        // 详情页跳转URL过期时间
+        [NameInMap("detail_alipays_url_expire_time")]
+        [Validation(Required=false)]
+        public string DetailAlipaysUrlExpireTime { get; set; }
+
     }
 
 }

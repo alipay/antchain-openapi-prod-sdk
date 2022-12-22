@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class AddDidDtxPkRequest : TeaModel {
+    public class QueryAuthIdentityauthRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,26 +18,25 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 待操作的did
-        [NameInMap("did")]
+        // 授权宝生成的bizId 与 核身token 用 ; 拼接成的字符串
+        [NameInMap("security_id")]
         [Validation(Required=true)]
-        public string Did { get; set; }
+        public string SecurityId { get; set; }
 
-        // 待添加公钥
-        [NameInMap("public_key")]
+        // 核身的userid
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public string PublicKey { get; set; }
+        public string UserId { get; set; }
 
-        // keyId
-        [NameInMap("key_id")]
+        // 核身对应的操作类型，目前只有0，代表创建did
+        [NameInMap("operation_type")]
         [Validation(Required=true)]
-        public string KeyId { get; set; }
+        public long? OperationType { get; set; }
 
-        // 需要传输给业务服务的JSON字段
-        // 
-        [NameInMap("extension")]
+        // 其它类型操作时的参数，json形式字符串
+        [NameInMap("params")]
         [Validation(Required=false)]
-        public string Extension { get; set; }
+        public string Params { get; set; }
 
     }
 
