@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # 上传者信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.2.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # 上传者信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.2.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -323,7 +323,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mytc_models.RecognizeAntiQrcodeacResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.RecognizeAntiQrcodeacResponse(),
             self.do_request('1.0', 'antchain.mytc.anti.qrcodeac.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -355,7 +356,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mytc_models.RecognizeAntiQrcodeacResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.RecognizeAntiQrcodeacResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.anti.qrcodeac.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -394,7 +396,8 @@ class Client:
         Summary: 防伪码平台防伪底图上传初始化
         """
         UtilClient.validate_model(request)
-        return mytc_models.InitAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.InitAntiImagesyncResponse(),
             self.do_request('1.0', 'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -409,7 +412,8 @@ class Client:
         Summary: 防伪码平台防伪底图上传初始化
         """
         UtilClient.validate_model(request)
-        return mytc_models.InitAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.InitAntiImagesyncResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -465,7 +469,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mytc_models.UploadAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.UploadAntiImagesyncResponse(),
             self.do_request('1.0', 'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -497,7 +502,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mytc_models.UploadAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.UploadAntiImagesyncResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -536,7 +542,8 @@ class Client:
         Summary: 防伪码平台防伪底图上传完成
         """
         UtilClient.validate_model(request)
-        return mytc_models.FinishAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.FinishAntiImagesyncResponse(),
             self.do_request('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -551,8 +558,1045 @@ class Client:
         Summary: 防伪码平台防伪底图上传完成
         """
         UtilClient.validate_model(request)
-        return mytc_models.FinishAntiImagesyncResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.FinishAntiImagesyncResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_anti_qrcodeimage(
+        self,
+        request: mytc_models.CreateAntiQrcodeimageRequest,
+    ) -> mytc_models.CreateAntiQrcodeimageResponse:
+        """
+        Description: 自研二维码生成
+        Summary: 二维码防伪图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_anti_qrcodeimage_ex(request, headers, runtime)
+
+    async def create_anti_qrcodeimage_async(
+        self,
+        request: mytc_models.CreateAntiQrcodeimageRequest,
+    ) -> mytc_models.CreateAntiQrcodeimageResponse:
+        """
+        Description: 自研二维码生成
+        Summary: 二维码防伪图片生成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_anti_qrcodeimage_ex_async(request, headers, runtime)
+
+    def create_anti_qrcodeimage_ex(
+        self,
+        request: mytc_models.CreateAntiQrcodeimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateAntiQrcodeimageResponse:
+        """
+        Description: 自研二维码生成
+        Summary: 二维码防伪图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateAntiQrcodeimageResponse(),
+            self.do_request('1.0', 'antchain.mytc.anti.qrcodeimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_anti_qrcodeimage_ex_async(
+        self,
+        request: mytc_models.CreateAntiQrcodeimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateAntiQrcodeimageResponse:
+        """
+        Description: 自研二维码生成
+        Summary: 二维码防伪图片生成
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateAntiQrcodeimageResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.anti.qrcodeimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_code_registration(
+        self,
+        request: mytc_models.CreateCodeRegistrationRequest,
+    ) -> mytc_models.CreateCodeRegistrationResponse:
+        """
+        Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_code_registration_ex(request, headers, runtime)
+
+    async def create_code_registration_async(
+        self,
+        request: mytc_models.CreateCodeRegistrationRequest,
+    ) -> mytc_models.CreateCodeRegistrationResponse:
+        """
+        Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_code_registration_ex_async(request, headers, runtime)
+
+    def create_code_registration_ex(
+        self,
+        request: mytc_models.CreateCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateCodeRegistrationResponse:
+        """
+        Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateCodeRegistrationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.registration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_code_registration_ex_async(
+        self,
+        request: mytc_models.CreateCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateCodeRegistrationResponse:
+        """
+        Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateCodeRegistrationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.registration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_code_registration(
+        self,
+        request: mytc_models.DeleteCodeRegistrationRequest,
+    ) -> mytc_models.DeleteCodeRegistrationResponse:
+        """
+        Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+        Summary: 溯源码注册记录删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_code_registration_ex(request, headers, runtime)
+
+    async def delete_code_registration_async(
+        self,
+        request: mytc_models.DeleteCodeRegistrationRequest,
+    ) -> mytc_models.DeleteCodeRegistrationResponse:
+        """
+        Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+        Summary: 溯源码注册记录删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_code_registration_ex_async(request, headers, runtime)
+
+    def delete_code_registration_ex(
+        self,
+        request: mytc_models.DeleteCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.DeleteCodeRegistrationResponse:
+        """
+        Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+        Summary: 溯源码注册记录删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.DeleteCodeRegistrationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.registration.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_code_registration_ex_async(
+        self,
+        request: mytc_models.DeleteCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.DeleteCodeRegistrationResponse:
+        """
+        Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+        Summary: 溯源码注册记录删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.DeleteCodeRegistrationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.registration.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_code_relation(
+        self,
+        request: mytc_models.CreateCodeRelationRequest,
+    ) -> mytc_models.CreateCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码关联信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_code_relation_ex(request, headers, runtime)
+
+    async def create_code_relation_async(
+        self,
+        request: mytc_models.CreateCodeRelationRequest,
+    ) -> mytc_models.CreateCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码关联信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_code_relation_ex_async(request, headers, runtime)
+
+    def create_code_relation_ex(
+        self,
+        request: mytc_models.CreateCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码关联信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateCodeRelationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_code_relation_ex_async(
+        self,
+        request: mytc_models.CreateCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CreateCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码关联信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CreateCodeRelationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_code_relation(
+        self,
+        request: mytc_models.DeleteCodeRelationRequest,
+    ) -> mytc_models.DeleteCodeRelationResponse:
+        """
+        Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+        Summary: 溯源码关联信息删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_code_relation_ex(request, headers, runtime)
+
+    async def delete_code_relation_async(
+        self,
+        request: mytc_models.DeleteCodeRelationRequest,
+    ) -> mytc_models.DeleteCodeRelationResponse:
+        """
+        Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+        Summary: 溯源码关联信息删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_code_relation_ex_async(request, headers, runtime)
+
+    def delete_code_relation_ex(
+        self,
+        request: mytc_models.DeleteCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.DeleteCodeRelationResponse:
+        """
+        Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+        Summary: 溯源码关联信息删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.DeleteCodeRelationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.relation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_code_relation_ex_async(
+        self,
+        request: mytc_models.DeleteCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.DeleteCodeRelationResponse:
+        """
+        Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+        Summary: 溯源码关联信息删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.DeleteCodeRelationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.relation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code_combine(
+        self,
+        request: mytc_models.QueryCodeCombineRequest,
+    ) -> mytc_models.QueryCodeCombineResponse:
+        """
+        Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        Summary: 溯源码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_combine_ex(request, headers, runtime)
+
+    async def query_code_combine_async(
+        self,
+        request: mytc_models.QueryCodeCombineRequest,
+    ) -> mytc_models.QueryCodeCombineResponse:
+        """
+        Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        Summary: 溯源码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_combine_ex_async(request, headers, runtime)
+
+    def query_code_combine_ex(
+        self,
+        request: mytc_models.QueryCodeCombineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeCombineResponse:
+        """
+        Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        Summary: 溯源码查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeCombineResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.combine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_combine_ex_async(
+        self,
+        request: mytc_models.QueryCodeCombineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeCombineResponse:
+        """
+        Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        Summary: 溯源码查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeCombineResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.combine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code_registration(
+        self,
+        request: mytc_models.QueryCodeRegistrationRequest,
+    ) -> mytc_models.QueryCodeRegistrationResponse:
+        """
+        Description: 溯源码注册历史查询
+        Summary: 溯源码注册历史查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_registration_ex(request, headers, runtime)
+
+    async def query_code_registration_async(
+        self,
+        request: mytc_models.QueryCodeRegistrationRequest,
+    ) -> mytc_models.QueryCodeRegistrationResponse:
+        """
+        Description: 溯源码注册历史查询
+        Summary: 溯源码注册历史查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_registration_ex_async(request, headers, runtime)
+
+    def query_code_registration_ex(
+        self,
+        request: mytc_models.QueryCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeRegistrationResponse:
+        """
+        Description: 溯源码注册历史查询
+        Summary: 溯源码注册历史查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeRegistrationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_registration_ex_async(
+        self,
+        request: mytc_models.QueryCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeRegistrationResponse:
+        """
+        Description: 溯源码注册历史查询
+        Summary: 溯源码注册历史查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeRegistrationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code_relation(
+        self,
+        request: mytc_models.QueryCodeRelationRequest,
+    ) -> mytc_models.QueryCodeRelationResponse:
+        """
+        Description: 溯源码关联历史信息查询
+        Summary: 溯源码关联历史信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_relation_ex(request, headers, runtime)
+
+    async def query_code_relation_async(
+        self,
+        request: mytc_models.QueryCodeRelationRequest,
+    ) -> mytc_models.QueryCodeRelationResponse:
+        """
+        Description: 溯源码关联历史信息查询
+        Summary: 溯源码关联历史信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_relation_ex_async(request, headers, runtime)
+
+    def query_code_relation_ex(
+        self,
+        request: mytc_models.QueryCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeRelationResponse:
+        """
+        Description: 溯源码关联历史信息查询
+        Summary: 溯源码关联历史信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeRelationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.relation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_relation_ex_async(
+        self,
+        request: mytc_models.QueryCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeRelationResponse:
+        """
+        Description: 溯源码关联历史信息查询
+        Summary: 溯源码关联历史信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeRelationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.relation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_code_deposit(
+        self,
+        request: mytc_models.AddCodeDepositRequest,
+    ) -> mytc_models.AddCodeDepositResponse:
+        """
+        Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+        Summary: 原生存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_code_deposit_ex(request, headers, runtime)
+
+    async def add_code_deposit_async(
+        self,
+        request: mytc_models.AddCodeDepositRequest,
+    ) -> mytc_models.AddCodeDepositResponse:
+        """
+        Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+        Summary: 原生存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_code_deposit_ex_async(request, headers, runtime)
+
+    def add_code_deposit_ex(
+        self,
+        request: mytc_models.AddCodeDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeDepositResponse:
+        """
+        Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+        Summary: 原生存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeDepositResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.deposit.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_code_deposit_ex_async(
+        self,
+        request: mytc_models.AddCodeDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeDepositResponse:
+        """
+        Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+        Summary: 原生存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeDepositResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.deposit.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code_cert(
+        self,
+        request: mytc_models.QueryCodeCertRequest,
+    ) -> mytc_models.QueryCodeCertResponse:
+        """
+        Description: 链上交易详情查询
+        Summary: 链上交易证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_cert_ex(request, headers, runtime)
+
+    async def query_code_cert_async(
+        self,
+        request: mytc_models.QueryCodeCertRequest,
+    ) -> mytc_models.QueryCodeCertResponse:
+        """
+        Description: 链上交易详情查询
+        Summary: 链上交易证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_cert_ex_async(request, headers, runtime)
+
+    def query_code_cert_ex(
+        self,
+        request: mytc_models.QueryCodeCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeCertResponse:
+        """
+        Description: 链上交易详情查询
+        Summary: 链上交易证书查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeCertResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_cert_ex_async(
+        self,
+        request: mytc_models.QueryCodeCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeCertResponse:
+        """
+        Description: 链上交易详情查询
+        Summary: 链上交易证书查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeCertResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code_stat(
+        self,
+        request: mytc_models.QueryCodeStatRequest,
+    ) -> mytc_models.QueryCodeStatResponse:
+        """
+        Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+        若填写starTime和endTime，统计时间范围不能超过7天。
+        Summary: 溯源统计信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_stat_ex(request, headers, runtime)
+
+    async def query_code_stat_async(
+        self,
+        request: mytc_models.QueryCodeStatRequest,
+    ) -> mytc_models.QueryCodeStatResponse:
+        """
+        Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+        若填写starTime和endTime，统计时间范围不能超过7天。
+        Summary: 溯源统计信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_stat_ex_async(request, headers, runtime)
+
+    def query_code_stat_ex(
+        self,
+        request: mytc_models.QueryCodeStatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeStatResponse:
+        """
+        Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+        若填写starTime和endTime，统计时间范围不能超过7天。
+        Summary: 溯源统计信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeStatResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.stat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_stat_ex_async(
+        self,
+        request: mytc_models.QueryCodeStatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryCodeStatResponse:
+        """
+        Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+        若填写starTime和endTime，统计时间范围不能超过7天。
+        Summary: 溯源统计信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryCodeStatResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.stat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_code_registration(
+        self,
+        request: mytc_models.AddCodeRegistrationRequest,
+    ) -> mytc_models.AddCodeRegistrationResponse:
+        """
+        Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码(可重复)注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_code_registration_ex(request, headers, runtime)
+
+    async def add_code_registration_async(
+        self,
+        request: mytc_models.AddCodeRegistrationRequest,
+    ) -> mytc_models.AddCodeRegistrationResponse:
+        """
+        Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码(可重复)注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_code_registration_ex_async(request, headers, runtime)
+
+    def add_code_registration_ex(
+        self,
+        request: mytc_models.AddCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeRegistrationResponse:
+        """
+        Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码(可重复)注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeRegistrationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.registration.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_code_registration_ex_async(
+        self,
+        request: mytc_models.AddCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeRegistrationResponse:
+        """
+        Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+        Summary: 溯源码(可重复)注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeRegistrationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.registration.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_code_registration(
+        self,
+        request: mytc_models.UpdateCodeRegistrationRequest,
+    ) -> mytc_models.UpdateCodeRegistrationResponse:
+        """
+        Description: 更新已注册的溯源信息
+        Summary: 溯源注册信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_code_registration_ex(request, headers, runtime)
+
+    async def update_code_registration_async(
+        self,
+        request: mytc_models.UpdateCodeRegistrationRequest,
+    ) -> mytc_models.UpdateCodeRegistrationResponse:
+        """
+        Description: 更新已注册的溯源信息
+        Summary: 溯源注册信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_code_registration_ex_async(request, headers, runtime)
+
+    def update_code_registration_ex(
+        self,
+        request: mytc_models.UpdateCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UpdateCodeRegistrationResponse:
+        """
+        Description: 更新已注册的溯源信息
+        Summary: 溯源注册信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UpdateCodeRegistrationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.registration.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_code_registration_ex_async(
+        self,
+        request: mytc_models.UpdateCodeRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UpdateCodeRegistrationResponse:
+        """
+        Description: 更新已注册的溯源信息
+        Summary: 溯源注册信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UpdateCodeRegistrationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.registration.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_code_relation(
+        self,
+        request: mytc_models.AddCodeRelationRequest,
+    ) -> mytc_models.AddCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码(可重复)关联信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_code_relation_ex(request, headers, runtime)
+
+    async def add_code_relation_async(
+        self,
+        request: mytc_models.AddCodeRelationRequest,
+    ) -> mytc_models.AddCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码(可重复)关联信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_code_relation_ex_async(request, headers, runtime)
+
+    def add_code_relation_ex(
+        self,
+        request: mytc_models.AddCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码(可重复)关联信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeRelationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.relation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_code_relation_ex_async(
+        self,
+        request: mytc_models.AddCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.AddCodeRelationResponse:
+        """
+        Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+        Summary: 溯源码(可重复)关联信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.AddCodeRelationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.relation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_code_relation(
+        self,
+        request: mytc_models.UpdateCodeRelationRequest,
+    ) -> mytc_models.UpdateCodeRelationResponse:
+        """
+        Description: 更新绑定到溯源码上的关联信息。
+        Summary: 溯源码关联信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_code_relation_ex(request, headers, runtime)
+
+    async def update_code_relation_async(
+        self,
+        request: mytc_models.UpdateCodeRelationRequest,
+    ) -> mytc_models.UpdateCodeRelationResponse:
+        """
+        Description: 更新绑定到溯源码上的关联信息。
+        Summary: 溯源码关联信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_code_relation_ex_async(request, headers, runtime)
+
+    def update_code_relation_ex(
+        self,
+        request: mytc_models.UpdateCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UpdateCodeRelationResponse:
+        """
+        Description: 更新绑定到溯源码上的关联信息。
+        Summary: 溯源码关联信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UpdateCodeRelationResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.relation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_code_relation_ex_async(
+        self,
+        request: mytc_models.UpdateCodeRelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UpdateCodeRelationResponse:
+        """
+        Description: 更新绑定到溯源码上的关联信息。
+        Summary: 溯源码关联信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.UpdateCodeRelationResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.relation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mini_code(
+        self,
+        request: mytc_models.QueryMiniCodeRequest,
+    ) -> mytc_models.QueryMiniCodeResponse:
+        """
+        Description: 溯源码详情查询
+        Summary: 溯源码详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mini_code_ex(request, headers, runtime)
+
+    async def query_mini_code_async(
+        self,
+        request: mytc_models.QueryMiniCodeRequest,
+    ) -> mytc_models.QueryMiniCodeResponse:
+        """
+        Description: 溯源码详情查询
+        Summary: 溯源码详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mini_code_ex_async(request, headers, runtime)
+
+    def query_mini_code_ex(
+        self,
+        request: mytc_models.QueryMiniCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryMiniCodeResponse:
+        """
+        Description: 溯源码详情查询
+        Summary: 溯源码详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryMiniCodeResponse(),
+            self.do_request('1.0', 'antchain.mytc.mini.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mini_code_ex_async(
+        self,
+        request: mytc_models.QueryMiniCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryMiniCodeResponse:
+        """
+        Description: 溯源码详情查询
+        Summary: 溯源码详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryMiniCodeResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.mini.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mini_cert(
+        self,
+        request: mytc_models.QueryMiniCertRequest,
+    ) -> mytc_models.QueryMiniCertResponse:
+        """
+        Description: 溯源证书查询
+        Summary: 溯源证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mini_cert_ex(request, headers, runtime)
+
+    async def query_mini_cert_async(
+        self,
+        request: mytc_models.QueryMiniCertRequest,
+    ) -> mytc_models.QueryMiniCertResponse:
+        """
+        Description: 溯源证书查询
+        Summary: 溯源证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mini_cert_ex_async(request, headers, runtime)
+
+    def query_mini_cert_ex(
+        self,
+        request: mytc_models.QueryMiniCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryMiniCertResponse:
+        """
+        Description: 溯源证书查询
+        Summary: 溯源证书查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryMiniCertResponse(),
+            self.do_request('1.0', 'antchain.mytc.mini.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mini_cert_ex_async(
+        self,
+        request: mytc_models.QueryMiniCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.QueryMiniCertResponse:
+        """
+        Description: 溯源证书查询
+        Summary: 溯源证书查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.QueryMiniCertResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.mini.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_mini_nfc(
+        self,
+        request: mytc_models.VerifyMiniNfcRequest,
+    ) -> mytc_models.VerifyMiniNfcResponse:
+        """
+        Description: 动态秘钥NFC二维码校验
+        Summary: 动态秘钥NFC二维码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_mini_nfc_ex(request, headers, runtime)
+
+    async def verify_mini_nfc_async(
+        self,
+        request: mytc_models.VerifyMiniNfcRequest,
+    ) -> mytc_models.VerifyMiniNfcResponse:
+        """
+        Description: 动态秘钥NFC二维码校验
+        Summary: 动态秘钥NFC二维码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_mini_nfc_ex_async(request, headers, runtime)
+
+    def verify_mini_nfc_ex(
+        self,
+        request: mytc_models.VerifyMiniNfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.VerifyMiniNfcResponse:
+        """
+        Description: 动态秘钥NFC二维码校验
+        Summary: 动态秘钥NFC二维码校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.VerifyMiniNfcResponse(),
+            self.do_request('1.0', 'antchain.mytc.mini.nfc.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_mini_nfc_ex_async(
+        self,
+        request: mytc_models.VerifyMiniNfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.VerifyMiniNfcResponse:
+        """
+        Description: 动态秘钥NFC二维码校验
+        Summary: 动态秘钥NFC二维码校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.VerifyMiniNfcResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.mini.nfc.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
@@ -590,7 +1634,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return mytc_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -605,6 +1650,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return mytc_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            mytc_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
