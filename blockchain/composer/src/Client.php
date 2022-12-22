@@ -227,6 +227,8 @@ use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidDtxPersonRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidDtxPersonResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidDtxVcRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidDtxVcResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCorporateRequest;
@@ -407,6 +409,8 @@ use AntChain\BLOCKCHAIN\Models\GetAuthClaimRecentRequest;
 use AntChain\BLOCKCHAIN\Models\GetAuthClaimRecentResponse;
 use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateRequest;
 use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateResponse;
+use AntChain\BLOCKCHAIN\Models\GetAuthDataRequest;
+use AntChain\BLOCKCHAIN\Models\GetAuthDataResponse;
 use AntChain\BLOCKCHAIN\Models\GetAuthFrontendAccesstokenRequest;
 use AntChain\BLOCKCHAIN\Models\GetAuthFrontendAccesstokenResponse;
 use AntChain\BLOCKCHAIN\Models\GetBlockchainMiniprogramRequest;
@@ -551,10 +555,14 @@ use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertClaimRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertClaimResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCertDetailurlRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCertDetailurlResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertProgressRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertProgressResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthPoapRequest;
@@ -887,6 +895,8 @@ use AntChain\BLOCKCHAIN\Models\StartAuthAssetIssueRequest;
 use AntChain\BLOCKCHAIN\Models\StartAuthAssetIssueResponse;
 use AntChain\BLOCKCHAIN\Models\StartAuthCorporateSignRequest;
 use AntChain\BLOCKCHAIN\Models\StartAuthCorporateSignResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthDataRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthDataResponse;
 use AntChain\BLOCKCHAIN\Models\StartAuthVcAuthRequest;
 use AntChain\BLOCKCHAIN\Models\StartAuthVcAuthResponse;
 use AntChain\BLOCKCHAIN\Models\StartAuthVcBatchauthRequest;
@@ -1292,9 +1302,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.25',
-                    '_prod_code'       => 'BLOCKCHAIN',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.26.32',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -13640,6 +13648,138 @@ class Client
     }
 
     /**
+     * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+     * Summary: 开启数据授权流程，首先记录授权请求
+     *
+     * @param StartAuthDataRequest $request
+     *
+     * @return StartAuthDataResponse
+     */
+    public function startAuthData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+     * Summary: 开启数据授权流程，首先记录授权请求
+     *
+     * @param StartAuthDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return StartAuthDataResponse
+     */
+    public function startAuthDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthDataResponse::fromMap($this->doRequest('1.0', 'baas.auth.data.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+     * Summary: 请求授权的数据，加密传输.
+     *
+     * @param GetAuthDataRequest $request
+     *
+     * @return GetAuthDataResponse
+     */
+    public function getAuthData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAuthDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+     * Summary: 请求授权的数据，加密传输.
+     *
+     * @param GetAuthDataRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return GetAuthDataResponse
+     */
+    public function getAuthDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAuthDataResponse::fromMap($this->doRequest('1.0', 'baas.auth.data.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询核身结果
+     * Summary: 查询核身结果.
+     *
+     * @param QueryAuthIdentityauthRequest $request
+     *
+     * @return QueryAuthIdentityauthResponse
+     */
+    public function queryAuthIdentityauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthIdentityauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询核身结果
+     * Summary: 查询核身结果.
+     *
+     * @param QueryAuthIdentityauthRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryAuthIdentityauthResponse
+     */
+    public function queryAuthIdentityauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthIdentityauthResponse::fromMap($this->doRequest('1.0', 'baas.auth.identityauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询证书的详情h5链接
+     * Summary: 查询证书的详情h5链接.
+     *
+     * @param QueryAuthCertDetailurlRequest $request
+     *
+     * @return QueryAuthCertDetailurlResponse
+     */
+    public function queryAuthCertDetailurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthCertDetailurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询证书的详情h5链接
+     * Summary: 查询证书的详情h5链接.
+     *
+     * @param QueryAuthCertDetailurlRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryAuthCertDetailurlResponse
+     */
+    public function queryAuthCertDetailurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthCertDetailurlResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.detailurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 通过代理模式为企业创建did
      * Summary: 通过代理模式为企业创建did.
      *
@@ -16421,6 +16561,39 @@ class Client
         Utils::validateModel($request);
 
         return AddDidDtxPkResponse::fromMap($this->doRequest('1.0', 'baas.did.dtx.pk.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 端上密钥颁发vc
+     * Summary: 端上密钥颁发vc.
+     *
+     * @param CreateDidDtxVcRequest $request
+     *
+     * @return CreateDidDtxVcResponse
+     */
+    public function createDidDtxVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidDtxVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 端上密钥颁发vc
+     * Summary: 端上密钥颁发vc.
+     *
+     * @param CreateDidDtxVcRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateDidDtxVcResponse
+     */
+    public function createDidDtxVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidDtxVcResponse::fromMap($this->doRequest('1.0', 'baas.did.dtx.vc.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

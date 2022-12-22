@@ -36,12 +36,20 @@ class AddDidDtxPkRequest extends Model
      * @var string
      */
     public $keyId;
+
+    // 需要传输给业务服务的JSON字段
+    //
+    /**
+     * @var string
+     */
+    public $extension;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'did'               => 'did',
         'publicKey'         => 'public_key',
         'keyId'             => 'key_id',
+        'extension'         => 'extension',
     ];
 
     public function validate()
@@ -69,6 +77,9 @@ class AddDidDtxPkRequest extends Model
         if (null !== $this->keyId) {
             $res['key_id'] = $this->keyId;
         }
+        if (null !== $this->extension) {
+            $res['extension'] = $this->extension;
+        }
 
         return $res;
     }
@@ -95,6 +106,9 @@ class AddDidDtxPkRequest extends Model
         }
         if (isset($map['key_id'])) {
             $model->keyId = $map['key_id'];
+        }
+        if (isset($map['extension'])) {
+            $model->extension = $map['extension'];
         }
 
         return $model;

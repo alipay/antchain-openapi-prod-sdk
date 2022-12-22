@@ -63,14 +63,32 @@ class PoapInfo extends Model
      * @var string
      */
     public $faultToleranceUrl;
+
+    // 小程序详情跳转URL。临时链接，过期时间为 detail_alipays_url_expire_time 字段的值
+    /**
+     * @example alipays://platformapi/startapp?
+     *
+     * @var string
+     */
+    public $detailAlipaysUrl;
+
+    // 详情页跳转URL过期时间
+    /**
+     * @example 2022-12-31 23:59:59
+     *
+     * @var string
+     */
+    public $detailAlipaysUrlExpireTime;
     protected $_name = [
-        'poapId'            => 'poap_id',
-        'poapName'          => 'poap_name',
-        'uniHash'           => 'uni_hash',
-        'status'            => 'status',
-        'poapUrl'           => 'poap_url',
-        'renderType'        => 'render_type',
-        'faultToleranceUrl' => 'fault_tolerance_url',
+        'poapId'                     => 'poap_id',
+        'poapName'                   => 'poap_name',
+        'uniHash'                    => 'uni_hash',
+        'status'                     => 'status',
+        'poapUrl'                    => 'poap_url',
+        'renderType'                 => 'render_type',
+        'faultToleranceUrl'          => 'fault_tolerance_url',
+        'detailAlipaysUrl'           => 'detail_alipays_url',
+        'detailAlipaysUrlExpireTime' => 'detail_alipays_url_expire_time',
     ];
 
     public function validate()
@@ -106,6 +124,12 @@ class PoapInfo extends Model
         if (null !== $this->faultToleranceUrl) {
             $res['fault_tolerance_url'] = $this->faultToleranceUrl;
         }
+        if (null !== $this->detailAlipaysUrl) {
+            $res['detail_alipays_url'] = $this->detailAlipaysUrl;
+        }
+        if (null !== $this->detailAlipaysUrlExpireTime) {
+            $res['detail_alipays_url_expire_time'] = $this->detailAlipaysUrlExpireTime;
+        }
 
         return $res;
     }
@@ -138,6 +162,12 @@ class PoapInfo extends Model
         }
         if (isset($map['fault_tolerance_url'])) {
             $model->faultToleranceUrl = $map['fault_tolerance_url'];
+        }
+        if (isset($map['detail_alipays_url'])) {
+            $model->detailAlipaysUrl = $map['detail_alipays_url'];
+        }
+        if (isset($map['detail_alipays_url_expire_time'])) {
+            $model->detailAlipaysUrlExpireTime = $map['detail_alipays_url_expire_time'];
         }
 
         return $model;

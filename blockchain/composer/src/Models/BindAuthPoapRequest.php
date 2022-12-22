@@ -54,6 +54,30 @@ class BindAuthPoapRequest extends Model
      * @var string
      */
     public $userMobile;
+
+    // 定制id会有白名单进行权限限制。id格式要求：长度6-20，允许字母、数字、部分特殊字符(_#:|)
+    /**
+     * @var string
+     */
+    public $poapId;
+
+    // 徽章关联权益时，用户领取权益的动作类型
+    /**
+     * @var string
+     */
+    public $profitAction;
+
+    // 徽章关联权益时，用户领取权益的地址
+    /**
+     * @var string
+     */
+    public $profitUrl;
+
+    // 徽章关联权益时附带信息，buttonName为自定义领取按钮名称，needAuth为是否需要授权，authId为授权请求id，authBizId为授权请求场景id
+    /**
+     * @var string
+     */
+    public $payload;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +87,10 @@ class BindAuthPoapRequest extends Model
         'userName'          => 'user_name',
         'userCertNo'        => 'user_cert_no',
         'userMobile'        => 'user_mobile',
+        'poapId'            => 'poap_id',
+        'profitAction'      => 'profit_action',
+        'profitUrl'         => 'profit_url',
+        'payload'           => 'payload',
     ];
 
     public function validate()
@@ -97,6 +125,18 @@ class BindAuthPoapRequest extends Model
         }
         if (null !== $this->userMobile) {
             $res['user_mobile'] = $this->userMobile;
+        }
+        if (null !== $this->poapId) {
+            $res['poap_id'] = $this->poapId;
+        }
+        if (null !== $this->profitAction) {
+            $res['profit_action'] = $this->profitAction;
+        }
+        if (null !== $this->profitUrl) {
+            $res['profit_url'] = $this->profitUrl;
+        }
+        if (null !== $this->payload) {
+            $res['payload'] = $this->payload;
         }
 
         return $res;
@@ -133,6 +173,18 @@ class BindAuthPoapRequest extends Model
         }
         if (isset($map['user_mobile'])) {
             $model->userMobile = $map['user_mobile'];
+        }
+        if (isset($map['poap_id'])) {
+            $model->poapId = $map['poap_id'];
+        }
+        if (isset($map['profit_action'])) {
+            $model->profitAction = $map['profit_action'];
+        }
+        if (isset($map['profit_url'])) {
+            $model->profitUrl = $map['profit_url'];
+        }
+        if (isset($map['payload'])) {
+            $model->payload = $map['payload'];
         }
 
         return $model;
