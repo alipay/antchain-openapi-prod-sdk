@@ -11,16 +11,52 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MYTC\Models\AddCodeDepositRequest;
+use AntChain\MYTC\Models\AddCodeDepositResponse;
+use AntChain\MYTC\Models\AddCodeRegistrationRequest;
+use AntChain\MYTC\Models\AddCodeRegistrationResponse;
+use AntChain\MYTC\Models\AddCodeRelationRequest;
+use AntChain\MYTC\Models\AddCodeRelationResponse;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\MYTC\Models\CreateAntiQrcodeimageRequest;
+use AntChain\MYTC\Models\CreateAntiQrcodeimageResponse;
+use AntChain\MYTC\Models\CreateCodeRegistrationRequest;
+use AntChain\MYTC\Models\CreateCodeRegistrationResponse;
+use AntChain\MYTC\Models\CreateCodeRelationRequest;
+use AntChain\MYTC\Models\CreateCodeRelationResponse;
+use AntChain\MYTC\Models\DeleteCodeRegistrationRequest;
+use AntChain\MYTC\Models\DeleteCodeRegistrationResponse;
+use AntChain\MYTC\Models\DeleteCodeRelationRequest;
+use AntChain\MYTC\Models\DeleteCodeRelationResponse;
 use AntChain\MYTC\Models\FinishAntiImagesyncRequest;
 use AntChain\MYTC\Models\FinishAntiImagesyncResponse;
 use AntChain\MYTC\Models\InitAntiImagesyncRequest;
 use AntChain\MYTC\Models\InitAntiImagesyncResponse;
+use AntChain\MYTC\Models\QueryCodeCertRequest;
+use AntChain\MYTC\Models\QueryCodeCertResponse;
+use AntChain\MYTC\Models\QueryCodeCombineRequest;
+use AntChain\MYTC\Models\QueryCodeCombineResponse;
+use AntChain\MYTC\Models\QueryCodeRegistrationRequest;
+use AntChain\MYTC\Models\QueryCodeRegistrationResponse;
+use AntChain\MYTC\Models\QueryCodeRelationRequest;
+use AntChain\MYTC\Models\QueryCodeRelationResponse;
+use AntChain\MYTC\Models\QueryCodeStatRequest;
+use AntChain\MYTC\Models\QueryCodeStatResponse;
+use AntChain\MYTC\Models\QueryMiniCertRequest;
+use AntChain\MYTC\Models\QueryMiniCertResponse;
+use AntChain\MYTC\Models\QueryMiniCodeRequest;
+use AntChain\MYTC\Models\QueryMiniCodeResponse;
 use AntChain\MYTC\Models\RecognizeAntiQrcodeacRequest;
 use AntChain\MYTC\Models\RecognizeAntiQrcodeacResponse;
+use AntChain\MYTC\Models\UpdateCodeRegistrationRequest;
+use AntChain\MYTC\Models\UpdateCodeRegistrationResponse;
+use AntChain\MYTC\Models\UpdateCodeRelationRequest;
+use AntChain\MYTC\Models\UpdateCodeRelationResponse;
 use AntChain\MYTC\Models\UploadAntiImagesyncRequest;
 use AntChain\MYTC\Models\UploadAntiImagesyncResponse;
+use AntChain\MYTC\Models\VerifyMiniNfcRequest;
+use AntChain\MYTC\Models\VerifyMiniNfcResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -140,7 +176,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对
+            // 上传者信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -168,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.2.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -380,6 +416,614 @@ class Client
         Utils::validateModel($request);
 
         return FinishAntiImagesyncResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自研二维码生成
+     * Summary: 二维码防伪图片生成.
+     *
+     * @param CreateAntiQrcodeimageRequest $request
+     *
+     * @return CreateAntiQrcodeimageResponse
+     */
+    public function createAntiQrcodeimage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntiQrcodeimageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自研二维码生成
+     * Summary: 二维码防伪图片生成.
+     *
+     * @param CreateAntiQrcodeimageRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateAntiQrcodeimageResponse
+     */
+    public function createAntiQrcodeimageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntiQrcodeimageResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.qrcodeimage.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+     * 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码注册.
+     *
+     * @param CreateCodeRegistrationRequest $request
+     *
+     * @return CreateCodeRegistrationResponse
+     */
+    public function createCodeRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCodeRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+     * 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码注册.
+     *
+     * @param CreateCodeRegistrationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateCodeRegistrationResponse
+     */
+    public function createCodeRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCodeRegistrationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.registration.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+     * Summary: 溯源码注册记录删除.
+     *
+     * @param DeleteCodeRegistrationRequest $request
+     *
+     * @return DeleteCodeRegistrationResponse
+     */
+    public function deleteCodeRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteCodeRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+     * Summary: 溯源码注册记录删除.
+     *
+     * @param DeleteCodeRegistrationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DeleteCodeRegistrationResponse
+     */
+    public function deleteCodeRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteCodeRegistrationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.registration.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上。
+     * 该接口调用存在以下业务维度限制：
+     * 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码关联信息.
+     *
+     * @param CreateCodeRelationRequest $request
+     *
+     * @return CreateCodeRelationResponse
+     */
+    public function createCodeRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCodeRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上。
+     * 该接口调用存在以下业务维度限制：
+     * 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码关联信息.
+     *
+     * @param CreateCodeRelationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateCodeRelationResponse
+     */
+    public function createCodeRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCodeRelationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.relation.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+     * 若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+     * Summary: 溯源码关联信息删除.
+     *
+     * @param DeleteCodeRelationRequest $request
+     *
+     * @return DeleteCodeRelationResponse
+     */
+    public function deleteCodeRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteCodeRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+     * 若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+     * Summary: 溯源码关联信息删除.
+     *
+     * @param DeleteCodeRelationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return DeleteCodeRelationResponse
+     */
+    public function deleteCodeRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteCodeRelationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.relation.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前账户下的溯源码信息。
+     * 会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+     * Summary: 溯源码查询.
+     *
+     * @param QueryCodeCombineRequest $request
+     *
+     * @return QueryCodeCombineResponse
+     */
+    public function queryCodeCombine($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeCombineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前账户下的溯源码信息。
+     * 会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+     * Summary: 溯源码查询.
+     *
+     * @param QueryCodeCombineRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryCodeCombineResponse
+     */
+    public function queryCodeCombineEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeCombineResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.combine.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源码注册历史查询
+     * Summary: 溯源码注册历史查询.
+     *
+     * @param QueryCodeRegistrationRequest $request
+     *
+     * @return QueryCodeRegistrationResponse
+     */
+    public function queryCodeRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码注册历史查询
+     * Summary: 溯源码注册历史查询.
+     *
+     * @param QueryCodeRegistrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryCodeRegistrationResponse
+     */
+    public function queryCodeRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeRegistrationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.registration.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源码关联历史信息查询
+     * Summary: 溯源码关联历史信息查询.
+     *
+     * @param QueryCodeRelationRequest $request
+     *
+     * @return QueryCodeRelationResponse
+     */
+    public function queryCodeRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码关联历史信息查询
+     * Summary: 溯源码关联历史信息查询.
+     *
+     * @param QueryCodeRelationRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryCodeRelationResponse
+     */
+    public function queryCodeRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeRelationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.relation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+     * 2. 存证内容超过链上限制仅会将存证内容hash值上链。
+     * Summary: 原生存证
+     *
+     * @param AddCodeDepositRequest $request
+     *
+     * @return AddCodeDepositResponse
+     */
+    public function addCodeDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCodeDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+     * 2. 存证内容超过链上限制仅会将存证内容hash值上链。
+     * Summary: 原生存证
+     *
+     * @param AddCodeDepositRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return AddCodeDepositResponse
+     */
+    public function addCodeDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCodeDepositResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.deposit.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 链上交易详情查询
+     * Summary: 链上交易证书查询.
+     *
+     * @param QueryCodeCertRequest $request
+     *
+     * @return QueryCodeCertResponse
+     */
+    public function queryCodeCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 链上交易详情查询
+     * Summary: 链上交易证书查询.
+     *
+     * @param QueryCodeCertRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryCodeCertResponse
+     */
+    public function queryCodeCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeCertResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.cert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+     * 若填写starTime和endTime，统计时间范围不能超过7天。
+     * Summary: 溯源统计信息查询.
+     *
+     * @param QueryCodeStatRequest $request
+     *
+     * @return QueryCodeStatResponse
+     */
+    public function queryCodeStat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeStatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。
+     * 若填写starTime和endTime，统计时间范围不能超过7天。
+     * Summary: 溯源统计信息查询.
+     *
+     * @param QueryCodeStatRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryCodeStatResponse
+     */
+    public function queryCodeStatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeStatResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.stat.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码(可重复)注册.
+     *
+     * @param AddCodeRegistrationRequest $request
+     *
+     * @return AddCodeRegistrationResponse
+     */
+    public function addCodeRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCodeRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码(可重复)注册.
+     *
+     * @param AddCodeRegistrationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return AddCodeRegistrationResponse
+     */
+    public function addCodeRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCodeRegistrationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.registration.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新已注册的溯源信息
+     * Summary: 溯源注册信息更新.
+     *
+     * @param UpdateCodeRegistrationRequest $request
+     *
+     * @return UpdateCodeRegistrationResponse
+     */
+    public function updateCodeRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateCodeRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新已注册的溯源信息
+     * Summary: 溯源注册信息更新.
+     *
+     * @param UpdateCodeRegistrationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UpdateCodeRegistrationResponse
+     */
+    public function updateCodeRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateCodeRegistrationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.registration.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码(可重复)关联信息.
+     *
+     * @param AddCodeRelationRequest $request
+     *
+     * @return AddCodeRelationResponse
+     */
+    public function addCodeRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCodeRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码(可重复)关联信息.
+     *
+     * @param AddCodeRelationRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AddCodeRelationResponse
+     */
+    public function addCodeRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCodeRelationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.relation.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新绑定到溯源码上的关联信息。
+     * Summary: 溯源码关联信息更新.
+     *
+     * @param UpdateCodeRelationRequest $request
+     *
+     * @return UpdateCodeRelationResponse
+     */
+    public function updateCodeRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateCodeRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新绑定到溯源码上的关联信息。
+     * Summary: 溯源码关联信息更新.
+     *
+     * @param UpdateCodeRelationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UpdateCodeRelationResponse
+     */
+    public function updateCodeRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateCodeRelationResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.relation.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源码详情查询
+     * Summary: 溯源码详情查询.
+     *
+     * @param QueryMiniCodeRequest $request
+     *
+     * @return QueryMiniCodeResponse
+     */
+    public function queryMiniCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMiniCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码详情查询
+     * Summary: 溯源码详情查询.
+     *
+     * @param QueryMiniCodeRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryMiniCodeResponse
+     */
+    public function queryMiniCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMiniCodeResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.mini.code.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 溯源证书查询
+     * Summary: 溯源证书查询.
+     *
+     * @param QueryMiniCertRequest $request
+     *
+     * @return QueryMiniCertResponse
+     */
+    public function queryMiniCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMiniCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源证书查询
+     * Summary: 溯源证书查询.
+     *
+     * @param QueryMiniCertRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryMiniCertResponse
+     */
+    public function queryMiniCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMiniCertResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.mini.cert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 动态秘钥NFC二维码校验
+     * Summary: 动态秘钥NFC二维码校验.
+     *
+     * @param VerifyMiniNfcRequest $request
+     *
+     * @return VerifyMiniNfcResponse
+     */
+    public function verifyMiniNfc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyMiniNfcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 动态秘钥NFC二维码校验
+     * Summary: 动态秘钥NFC二维码校验.
+     *
+     * @param VerifyMiniNfcRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return VerifyMiniNfcResponse
+     */
+    public function verifyMiniNfcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyMiniNfcResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.mini.nfc.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
