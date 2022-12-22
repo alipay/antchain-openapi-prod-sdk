@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -575,6 +575,802 @@ namespace AntChain.SDK.MYTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<FinishAntiImagesyncResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自研二维码生成
+         * Summary: 二维码防伪图片生成
+         */
+        public CreateAntiQrcodeimageResponse CreateAntiQrcodeimage(CreateAntiQrcodeimageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntiQrcodeimageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自研二维码生成
+         * Summary: 二维码防伪图片生成
+         */
+        public async Task<CreateAntiQrcodeimageResponse> CreateAntiQrcodeimageAsync(CreateAntiQrcodeimageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntiQrcodeimageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自研二维码生成
+         * Summary: 二维码防伪图片生成
+         */
+        public CreateAntiQrcodeimageResponse CreateAntiQrcodeimageEx(CreateAntiQrcodeimageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntiQrcodeimageResponse>(DoRequest("1.0", "antchain.mytc.anti.qrcodeimage.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自研二维码生成
+         * Summary: 二维码防伪图片生成
+         */
+        public async Task<CreateAntiQrcodeimageResponse> CreateAntiQrcodeimageExAsync(CreateAntiQrcodeimageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntiQrcodeimageResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.qrcodeimage.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码注册
+         */
+        public CreateCodeRegistrationResponse CreateCodeRegistration(CreateCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCodeRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码注册
+         */
+        public async Task<CreateCodeRegistrationResponse> CreateCodeRegistrationAsync(CreateCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCodeRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码注册
+         */
+        public CreateCodeRegistrationResponse CreateCodeRegistrationEx(CreateCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCodeRegistrationResponse>(DoRequest("1.0", "antchain.mytc.code.registration.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+        主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码注册
+         */
+        public async Task<CreateCodeRegistrationResponse> CreateCodeRegistrationExAsync(CreateCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCodeRegistrationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.registration.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+         * Summary: 溯源码注册记录删除
+         */
+        public DeleteCodeRegistrationResponse DeleteCodeRegistration(DeleteCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteCodeRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+         * Summary: 溯源码注册记录删除
+         */
+        public async Task<DeleteCodeRegistrationResponse> DeleteCodeRegistrationAsync(DeleteCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteCodeRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+         * Summary: 溯源码注册记录删除
+         */
+        public DeleteCodeRegistrationResponse DeleteCodeRegistrationEx(DeleteCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCodeRegistrationResponse>(DoRequest("1.0", "antchain.mytc.code.registration.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+         * Summary: 溯源码注册记录删除
+         */
+        public async Task<DeleteCodeRegistrationResponse> DeleteCodeRegistrationExAsync(DeleteCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCodeRegistrationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.registration.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        
+        
+         * Summary: 溯源码关联信息
+         */
+        public CreateCodeRelationResponse CreateCodeRelation(CreateCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCodeRelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        
+        
+         * Summary: 溯源码关联信息
+         */
+        public async Task<CreateCodeRelationResponse> CreateCodeRelationAsync(CreateCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCodeRelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        
+        
+         * Summary: 溯源码关联信息
+         */
+        public CreateCodeRelationResponse CreateCodeRelationEx(CreateCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCodeRelationResponse>(DoRequest("1.0", "antchain.mytc.code.relation.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上。
+        该接口调用存在以下业务维度限制：
+        1. code + bizLables + bizType做唯一性判断。
+        
+        
+         * Summary: 溯源码关联信息
+         */
+        public async Task<CreateCodeRelationResponse> CreateCodeRelationExAsync(CreateCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCodeRelationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.relation.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+         * Summary: 溯源码关联信息删除
+         */
+        public DeleteCodeRelationResponse DeleteCodeRelation(DeleteCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteCodeRelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+         * Summary: 溯源码关联信息删除
+         */
+        public async Task<DeleteCodeRelationResponse> DeleteCodeRelationAsync(DeleteCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteCodeRelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+         * Summary: 溯源码关联信息删除
+         */
+        public DeleteCodeRelationResponse DeleteCodeRelationEx(DeleteCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCodeRelationResponse>(DoRequest("1.0", "antchain.mytc.code.relation.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+        若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+         * Summary: 溯源码关联信息删除
+         */
+        public async Task<DeleteCodeRelationResponse> DeleteCodeRelationExAsync(DeleteCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteCodeRelationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.relation.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        
+         * Summary: 溯源码查询
+         */
+        public QueryCodeCombineResponse QueryCodeCombine(QueryCodeCombineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeCombineEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        
+         * Summary: 溯源码查询
+         */
+        public async Task<QueryCodeCombineResponse> QueryCodeCombineAsync(QueryCodeCombineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeCombineExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        
+         * Summary: 溯源码查询
+         */
+        public QueryCodeCombineResponse QueryCodeCombineEx(QueryCodeCombineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeCombineResponse>(DoRequest("1.0", "antchain.mytc.code.combine.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前账户下的溯源码信息。
+        会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+        
+         * Summary: 溯源码查询
+         */
+        public async Task<QueryCodeCombineResponse> QueryCodeCombineExAsync(QueryCodeCombineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeCombineResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.combine.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册历史查询
+         * Summary: 溯源码注册历史查询
+         */
+        public QueryCodeRegistrationResponse QueryCodeRegistration(QueryCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册历史查询
+         * Summary: 溯源码注册历史查询
+         */
+        public async Task<QueryCodeRegistrationResponse> QueryCodeRegistrationAsync(QueryCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册历史查询
+         * Summary: 溯源码注册历史查询
+         */
+        public QueryCodeRegistrationResponse QueryCodeRegistrationEx(QueryCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeRegistrationResponse>(DoRequest("1.0", "antchain.mytc.code.registration.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册历史查询
+         * Summary: 溯源码注册历史查询
+         */
+        public async Task<QueryCodeRegistrationResponse> QueryCodeRegistrationExAsync(QueryCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeRegistrationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.registration.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码关联历史信息查询
+         * Summary: 溯源码关联历史信息查询
+         */
+        public QueryCodeRelationResponse QueryCodeRelation(QueryCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeRelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码关联历史信息查询
+         * Summary: 溯源码关联历史信息查询
+         */
+        public async Task<QueryCodeRelationResponse> QueryCodeRelationAsync(QueryCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeRelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码关联历史信息查询
+         * Summary: 溯源码关联历史信息查询
+         */
+        public QueryCodeRelationResponse QueryCodeRelationEx(QueryCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeRelationResponse>(DoRequest("1.0", "antchain.mytc.code.relation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码关联历史信息查询
+         * Summary: 溯源码关联历史信息查询
+         */
+        public async Task<QueryCodeRelationResponse> QueryCodeRelationExAsync(QueryCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeRelationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.relation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+         * Summary: 原生存证
+         */
+        public AddCodeDepositResponse AddCodeDeposit(AddCodeDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCodeDepositEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+         * Summary: 原生存证
+         */
+        public async Task<AddCodeDepositResponse> AddCodeDepositAsync(AddCodeDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCodeDepositExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+         * Summary: 原生存证
+         */
+        public AddCodeDepositResponse AddCodeDepositEx(AddCodeDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeDepositResponse>(DoRequest("1.0", "antchain.mytc.code.deposit.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+        2. 存证内容超过链上限制仅会将存证内容hash值上链。
+         * Summary: 原生存证
+         */
+        public async Task<AddCodeDepositResponse> AddCodeDepositExAsync(AddCodeDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeDepositResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.deposit.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上交易详情查询
+         * Summary: 链上交易证书查询
+         */
+        public QueryCodeCertResponse QueryCodeCert(QueryCodeCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeCertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上交易详情查询
+         * Summary: 链上交易证书查询
+         */
+        public async Task<QueryCodeCertResponse> QueryCodeCertAsync(QueryCodeCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeCertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上交易详情查询
+         * Summary: 链上交易证书查询
+         */
+        public QueryCodeCertResponse QueryCodeCertEx(QueryCodeCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeCertResponse>(DoRequest("1.0", "antchain.mytc.code.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上交易详情查询
+         * Summary: 链上交易证书查询
+         */
+        public async Task<QueryCodeCertResponse> QueryCodeCertExAsync(QueryCodeCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeCertResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+        若填写starTime和endTime，统计时间范围不能超过7天。
+         * Summary: 溯源统计信息查询
+         */
+        public QueryCodeStatResponse QueryCodeStat(QueryCodeStatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeStatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+        若填写starTime和endTime，统计时间范围不能超过7天。
+         * Summary: 溯源统计信息查询
+         */
+        public async Task<QueryCodeStatResponse> QueryCodeStatAsync(QueryCodeStatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeStatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+        若填写starTime和endTime，统计时间范围不能超过7天。
+         * Summary: 溯源统计信息查询
+         */
+        public QueryCodeStatResponse QueryCodeStatEx(QueryCodeStatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeStatResponse>(DoRequest("1.0", "antchain.mytc.code.stat.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+        若填写starTime和endTime，统计时间范围不能超过7天。
+         * Summary: 溯源统计信息查询
+         */
+        public async Task<QueryCodeStatResponse> QueryCodeStatExAsync(QueryCodeStatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeStatResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.stat.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码(可重复)注册
+         */
+        public AddCodeRegistrationResponse AddCodeRegistration(AddCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCodeRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码(可重复)注册
+         */
+        public async Task<AddCodeRegistrationResponse> AddCodeRegistrationAsync(AddCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCodeRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码(可重复)注册
+         */
+        public AddCodeRegistrationResponse AddCodeRegistrationEx(AddCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeRegistrationResponse>(DoRequest("1.0", "antchain.mytc.code.registration.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+         * Summary: 溯源码(可重复)注册
+         */
+        public async Task<AddCodeRegistrationResponse> AddCodeRegistrationExAsync(AddCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeRegistrationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.registration.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新已注册的溯源信息
+         * Summary: 溯源注册信息更新
+         */
+        public UpdateCodeRegistrationResponse UpdateCodeRegistration(UpdateCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateCodeRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新已注册的溯源信息
+         * Summary: 溯源注册信息更新
+         */
+        public async Task<UpdateCodeRegistrationResponse> UpdateCodeRegistrationAsync(UpdateCodeRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateCodeRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新已注册的溯源信息
+         * Summary: 溯源注册信息更新
+         */
+        public UpdateCodeRegistrationResponse UpdateCodeRegistrationEx(UpdateCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCodeRegistrationResponse>(DoRequest("1.0", "antchain.mytc.code.registration.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新已注册的溯源信息
+         * Summary: 溯源注册信息更新
+         */
+        public async Task<UpdateCodeRegistrationResponse> UpdateCodeRegistrationExAsync(UpdateCodeRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCodeRegistrationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.registration.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+         * Summary: 溯源码(可重复)关联信息
+         */
+        public AddCodeRelationResponse AddCodeRelation(AddCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCodeRelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+         * Summary: 溯源码(可重复)关联信息
+         */
+        public async Task<AddCodeRelationResponse> AddCodeRelationAsync(AddCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCodeRelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+         * Summary: 溯源码(可重复)关联信息
+         */
+        public AddCodeRelationResponse AddCodeRelationEx(AddCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeRelationResponse>(DoRequest("1.0", "antchain.mytc.code.relation.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+         * Summary: 溯源码(可重复)关联信息
+         */
+        public async Task<AddCodeRelationResponse> AddCodeRelationExAsync(AddCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCodeRelationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.relation.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新绑定到溯源码上的关联信息。
+         * Summary: 溯源码关联信息更新
+         */
+        public UpdateCodeRelationResponse UpdateCodeRelation(UpdateCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateCodeRelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新绑定到溯源码上的关联信息。
+         * Summary: 溯源码关联信息更新
+         */
+        public async Task<UpdateCodeRelationResponse> UpdateCodeRelationAsync(UpdateCodeRelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateCodeRelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新绑定到溯源码上的关联信息。
+         * Summary: 溯源码关联信息更新
+         */
+        public UpdateCodeRelationResponse UpdateCodeRelationEx(UpdateCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCodeRelationResponse>(DoRequest("1.0", "antchain.mytc.code.relation.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新绑定到溯源码上的关联信息。
+         * Summary: 溯源码关联信息更新
+         */
+        public async Task<UpdateCodeRelationResponse> UpdateCodeRelationExAsync(UpdateCodeRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCodeRelationResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.relation.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码详情查询
+         * Summary: 溯源码详情查询
+         */
+        public QueryMiniCodeResponse QueryMiniCode(QueryMiniCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMiniCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码详情查询
+         * Summary: 溯源码详情查询
+         */
+        public async Task<QueryMiniCodeResponse> QueryMiniCodeAsync(QueryMiniCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMiniCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码详情查询
+         * Summary: 溯源码详情查询
+         */
+        public QueryMiniCodeResponse QueryMiniCodeEx(QueryMiniCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiniCodeResponse>(DoRequest("1.0", "antchain.mytc.mini.code.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码详情查询
+         * Summary: 溯源码详情查询
+         */
+        public async Task<QueryMiniCodeResponse> QueryMiniCodeExAsync(QueryMiniCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiniCodeResponse>(await DoRequestAsync("1.0", "antchain.mytc.mini.code.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源证书查询
+         * Summary: 溯源证书查询
+         */
+        public QueryMiniCertResponse QueryMiniCert(QueryMiniCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMiniCertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源证书查询
+         * Summary: 溯源证书查询
+         */
+        public async Task<QueryMiniCertResponse> QueryMiniCertAsync(QueryMiniCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMiniCertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源证书查询
+         * Summary: 溯源证书查询
+         */
+        public QueryMiniCertResponse QueryMiniCertEx(QueryMiniCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiniCertResponse>(DoRequest("1.0", "antchain.mytc.mini.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源证书查询
+         * Summary: 溯源证书查询
+         */
+        public async Task<QueryMiniCertResponse> QueryMiniCertExAsync(QueryMiniCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiniCertResponse>(await DoRequestAsync("1.0", "antchain.mytc.mini.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动态秘钥NFC二维码校验
+         * Summary: 动态秘钥NFC二维码校验
+         */
+        public VerifyMiniNfcResponse VerifyMiniNfc(VerifyMiniNfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyMiniNfcEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动态秘钥NFC二维码校验
+         * Summary: 动态秘钥NFC二维码校验
+         */
+        public async Task<VerifyMiniNfcResponse> VerifyMiniNfcAsync(VerifyMiniNfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyMiniNfcExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动态秘钥NFC二维码校验
+         * Summary: 动态秘钥NFC二维码校验
+         */
+        public VerifyMiniNfcResponse VerifyMiniNfcEx(VerifyMiniNfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyMiniNfcResponse>(DoRequest("1.0", "antchain.mytc.mini.nfc.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动态秘钥NFC二维码校验
+         * Summary: 动态秘钥NFC二维码校验
+         */
+        public async Task<VerifyMiniNfcResponse> VerifyMiniNfcExAsync(VerifyMiniNfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyMiniNfcResponse>(await DoRequestAsync("1.0", "antchain.mytc.mini.nfc.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
