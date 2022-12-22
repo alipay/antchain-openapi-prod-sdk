@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.1")
+                    new TeaPair("sdk_version", "1.2.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -275,6 +275,368 @@ public class Client {
     public FinishAntiImagesyncResponse finishAntiImagesyncEx(FinishAntiImagesyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishAntiImagesyncResponse());
+    }
+
+    /**
+     * Description: 自研二维码生成
+     * Summary: 二维码防伪图片生成
+     */
+    public CreateAntiQrcodeimageResponse createAntiQrcodeimage(CreateAntiQrcodeimageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntiQrcodeimageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自研二维码生成
+     * Summary: 二维码防伪图片生成
+     */
+    public CreateAntiQrcodeimageResponse createAntiQrcodeimageEx(CreateAntiQrcodeimageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.qrcodeimage.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntiQrcodeimageResponse());
+    }
+
+    /**
+     * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+    主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码注册
+     */
+    public CreateCodeRegistrationResponse createCodeRegistration(CreateCodeRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCodeRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码注册, 会根据bizType+code确定唯一一条记录信息。
+    主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码注册
+     */
+    public CreateCodeRegistrationResponse createCodeRegistrationEx(CreateCodeRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.registration.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCodeRegistrationResponse());
+    }
+
+    /**
+     * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+     * Summary: 溯源码注册记录删除
+     */
+    public DeleteCodeRegistrationResponse deleteCodeRegistration(DeleteCodeRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteCodeRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 若溯源码注册的最新记录未上链，则可以被删除。若删除后，通过antchain.mytc.code.combine.query接口不能查询到相关码注册记录
+     * Summary: 溯源码注册记录删除
+     */
+    public DeleteCodeRegistrationResponse deleteCodeRegistrationEx(DeleteCodeRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.registration.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCodeRegistrationResponse());
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上。
+    该接口调用存在以下业务维度限制：
+    1. code + bizLables + bizType做唯一性判断。
+    
+    
+     * Summary: 溯源码关联信息
+     */
+    public CreateCodeRelationResponse createCodeRelation(CreateCodeRelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCodeRelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上。
+    该接口调用存在以下业务维度限制：
+    1. code + bizLables + bizType做唯一性判断。
+    
+    
+     * Summary: 溯源码关联信息
+     */
+    public CreateCodeRelationResponse createCodeRelationEx(CreateCodeRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.relation.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCodeRelationResponse());
+    }
+
+    /**
+     * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+    若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+     * Summary: 溯源码关联信息删除
+     */
+    public DeleteCodeRelationResponse deleteCodeRelation(DeleteCodeRelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteCodeRelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 仅未上链的码关联信息可以被删除。仅删除code,bizType,bizSub1,bizSub2,bizSub3全部匹配的未上链的关联信息。
+    若删除后，通过antchain.mytc.code.combine.query接口不能查询到该码关联记录。
+     * Summary: 溯源码关联信息删除
+     */
+    public DeleteCodeRelationResponse deleteCodeRelationEx(DeleteCodeRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.relation.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCodeRelationResponse());
+    }
+
+    /**
+     * Description: 查询当前账户下的溯源码信息。
+    会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+    
+     * Summary: 溯源码查询
+     */
+    public QueryCodeCombineResponse queryCodeCombine(QueryCodeCombineRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCodeCombineEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询当前账户下的溯源码信息。
+    会查询最新的溯源码注册信息，以及各个业务维度的最新关联信息列表。
+    
+     * Summary: 溯源码查询
+     */
+    public QueryCodeCombineResponse queryCodeCombineEx(QueryCodeCombineRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.combine.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCodeCombineResponse());
+    }
+
+    /**
+     * Description: 溯源码注册历史查询
+     * Summary: 溯源码注册历史查询
+     */
+    public QueryCodeRegistrationResponse queryCodeRegistration(QueryCodeRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCodeRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码注册历史查询
+     * Summary: 溯源码注册历史查询
+     */
+    public QueryCodeRegistrationResponse queryCodeRegistrationEx(QueryCodeRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.registration.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCodeRegistrationResponse());
+    }
+
+    /**
+     * Description: 溯源码关联历史信息查询
+     * Summary: 溯源码关联历史信息查询
+     */
+    public QueryCodeRelationResponse queryCodeRelation(QueryCodeRelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCodeRelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码关联历史信息查询
+     * Summary: 溯源码关联历史信息查询
+     */
+    public QueryCodeRelationResponse queryCodeRelationEx(QueryCodeRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.relation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCodeRelationResponse());
+    }
+
+    /**
+     * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+    2. 存证内容超过链上限制仅会将存证内容hash值上链。
+     * Summary: 原生存证
+     */
+    public AddCodeDepositResponse addCodeDeposit(AddCodeDepositRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCodeDepositEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1. 原生存证，交易内容上链存证，返回链上唯一交易哈希。
+    2. 存证内容超过链上限制仅会将存证内容hash值上链。
+     * Summary: 原生存证
+     */
+    public AddCodeDepositResponse addCodeDepositEx(AddCodeDepositRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.deposit.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCodeDepositResponse());
+    }
+
+    /**
+     * Description: 链上交易详情查询
+     * Summary: 链上交易证书查询
+     */
+    public QueryCodeCertResponse queryCodeCert(QueryCodeCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCodeCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 链上交易详情查询
+     * Summary: 链上交易证书查询
+     */
+    public QueryCodeCertResponse queryCodeCertEx(QueryCodeCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.cert.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCodeCertResponse());
+    }
+
+    /**
+     * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+    若填写starTime和endTime，统计时间范围不能超过7天。
+     * Summary: 溯源统计信息查询
+     */
+    public QueryCodeStatResponse queryCodeStat(QueryCodeStatRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCodeStatEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源统计信息查询，不填写starTime和endTime会查询全量注册信息。 
+    若填写starTime和endTime，统计时间范围不能超过7天。
+     * Summary: 溯源统计信息查询
+     */
+    public QueryCodeStatResponse queryCodeStatEx(QueryCodeStatRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.stat.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCodeStatResponse());
+    }
+
+    /**
+     * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码(可重复)注册
+     */
+    public AddCodeRegistrationResponse addCodeRegistration(AddCodeRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCodeRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码注册，可重复注册。 主要用于绑定关联码(relationCodes)、自定义维度(bizLables)等码全局信息，在没有码全局信息的情况下，可以不注册。
+     * Summary: 溯源码(可重复)注册
+     */
+    public AddCodeRegistrationResponse addCodeRegistrationEx(AddCodeRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.registration.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCodeRegistrationResponse());
+    }
+
+    /**
+     * Description: 更新已注册的溯源信息
+     * Summary: 溯源注册信息更新
+     */
+    public UpdateCodeRegistrationResponse updateCodeRegistration(UpdateCodeRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCodeRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新已注册的溯源信息
+     * Summary: 溯源注册信息更新
+     */
+    public UpdateCodeRegistrationResponse updateCodeRegistrationEx(UpdateCodeRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.registration.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCodeRegistrationResponse());
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码(可重复)关联信息
+     */
+    public AddCodeRelationResponse addCodeRelation(AddCodeRelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCodeRelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 将关联信息绑定到溯源码上，可重复注册。 该接口调用存在以下业务维度限制： 1. code + bizLables + bizType做唯一性判断。
+     * Summary: 溯源码(可重复)关联信息
+     */
+    public AddCodeRelationResponse addCodeRelationEx(AddCodeRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.relation.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCodeRelationResponse());
+    }
+
+    /**
+     * Description: 更新绑定到溯源码上的关联信息。
+     * Summary: 溯源码关联信息更新
+     */
+    public UpdateCodeRelationResponse updateCodeRelation(UpdateCodeRelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCodeRelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新绑定到溯源码上的关联信息。
+     * Summary: 溯源码关联信息更新
+     */
+    public UpdateCodeRelationResponse updateCodeRelationEx(UpdateCodeRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.code.relation.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCodeRelationResponse());
+    }
+
+    /**
+     * Description: 溯源码详情查询
+     * Summary: 溯源码详情查询
+     */
+    public QueryMiniCodeResponse queryMiniCode(QueryMiniCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMiniCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码详情查询
+     * Summary: 溯源码详情查询
+     */
+    public QueryMiniCodeResponse queryMiniCodeEx(QueryMiniCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.mini.code.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMiniCodeResponse());
+    }
+
+    /**
+     * Description: 溯源证书查询
+     * Summary: 溯源证书查询
+     */
+    public QueryMiniCertResponse queryMiniCert(QueryMiniCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMiniCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源证书查询
+     * Summary: 溯源证书查询
+     */
+    public QueryMiniCertResponse queryMiniCertEx(QueryMiniCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.mini.cert.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMiniCertResponse());
+    }
+
+    /**
+     * Description: 动态秘钥NFC二维码校验
+     * Summary: 动态秘钥NFC二维码校验
+     */
+    public VerifyMiniNfcResponse verifyMiniNfc(VerifyMiniNfcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyMiniNfcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 动态秘钥NFC二维码校验
+     * Summary: 动态秘钥NFC二维码校验
+     */
+    public VerifyMiniNfcResponse verifyMiniNfcEx(VerifyMiniNfcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.mini.nfc.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyMiniNfcResponse());
     }
 
     /**
