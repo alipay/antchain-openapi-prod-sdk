@@ -37,6 +37,14 @@ public class PoapInfo extends TeaModel {
     @NameInMap("fault_tolerance_url")
     public String faultToleranceUrl;
 
+    // 小程序详情跳转URL。临时链接，过期时间为 detail_alipays_url_expire_time 字段的值
+    @NameInMap("detail_alipays_url")
+    public String detailAlipaysUrl;
+
+    // 详情页跳转URL过期时间
+    @NameInMap("detail_alipays_url_expire_time")
+    public String detailAlipaysUrlExpireTime;
+
     public static PoapInfo build(java.util.Map<String, ?> map) throws Exception {
         PoapInfo self = new PoapInfo();
         return TeaModel.build(map, self);
@@ -96,6 +104,22 @@ public class PoapInfo extends TeaModel {
     }
     public String getFaultToleranceUrl() {
         return this.faultToleranceUrl;
+    }
+
+    public PoapInfo setDetailAlipaysUrl(String detailAlipaysUrl) {
+        this.detailAlipaysUrl = detailAlipaysUrl;
+        return this;
+    }
+    public String getDetailAlipaysUrl() {
+        return this.detailAlipaysUrl;
+    }
+
+    public PoapInfo setDetailAlipaysUrlExpireTime(String detailAlipaysUrlExpireTime) {
+        this.detailAlipaysUrlExpireTime = detailAlipaysUrlExpireTime;
+        return this;
+    }
+    public String getDetailAlipaysUrlExpireTime() {
+        return this.detailAlipaysUrlExpireTime;
     }
 
 }

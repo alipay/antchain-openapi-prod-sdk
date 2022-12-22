@@ -26,6 +26,11 @@ public class AddDidDtxPkRequest extends TeaModel {
     @Validation(required = true)
     public String keyId;
 
+    // 需要传输给业务服务的JSON字段
+    // 
+    @NameInMap("extension")
+    public String extension;
+
     public static AddDidDtxPkRequest build(java.util.Map<String, ?> map) throws Exception {
         AddDidDtxPkRequest self = new AddDidDtxPkRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class AddDidDtxPkRequest extends TeaModel {
     }
     public String getKeyId() {
         return this.keyId;
+    }
+
+    public AddDidDtxPkRequest setExtension(String extension) {
+        this.extension = extension;
+        return this;
+    }
+    public String getExtension() {
+        return this.extension;
     }
 
 }

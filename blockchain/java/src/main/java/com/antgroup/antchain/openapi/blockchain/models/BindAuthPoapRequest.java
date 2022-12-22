@@ -37,6 +37,22 @@ public class BindAuthPoapRequest extends TeaModel {
     @NameInMap("user_mobile")
     public String userMobile;
 
+    // 定制id会有白名单进行权限限制。id格式要求：长度6-20，允许字母、数字、部分特殊字符(_#:|)
+    @NameInMap("poap_id")
+    public String poapId;
+
+    // 徽章关联权益时，用户领取权益的动作类型
+    @NameInMap("profit_action")
+    public String profitAction;
+
+    // 徽章关联权益时，用户领取权益的地址
+    @NameInMap("profit_url")
+    public String profitUrl;
+
+    // 徽章关联权益时附带信息，buttonName为自定义领取按钮名称，needAuth为是否需要授权，authId为授权请求id，authBizId为授权请求场景id
+    @NameInMap("payload")
+    public String payload;
+
     public static BindAuthPoapRequest build(java.util.Map<String, ?> map) throws Exception {
         BindAuthPoapRequest self = new BindAuthPoapRequest();
         return TeaModel.build(map, self);
@@ -104,6 +120,38 @@ public class BindAuthPoapRequest extends TeaModel {
     }
     public String getUserMobile() {
         return this.userMobile;
+    }
+
+    public BindAuthPoapRequest setPoapId(String poapId) {
+        this.poapId = poapId;
+        return this;
+    }
+    public String getPoapId() {
+        return this.poapId;
+    }
+
+    public BindAuthPoapRequest setProfitAction(String profitAction) {
+        this.profitAction = profitAction;
+        return this;
+    }
+    public String getProfitAction() {
+        return this.profitAction;
+    }
+
+    public BindAuthPoapRequest setProfitUrl(String profitUrl) {
+        this.profitUrl = profitUrl;
+        return this;
+    }
+    public String getProfitUrl() {
+        return this.profitUrl;
+    }
+
+    public BindAuthPoapRequest setPayload(String payload) {
+        this.payload = payload;
+        return this;
+    }
+    public String getPayload() {
+        return this.payload;
     }
 
 }

@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.26.25"),
-                    new TeaPair("_prod_code", "BLOCKCHAIN"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.26.32")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -7273,6 +7271,82 @@ public class Client {
     }
 
     /**
+     * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+     * Summary: 开启数据授权流程，首先记录授权请求
+     */
+    public StartAuthDataResponse startAuthData(StartAuthDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startAuthDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+     * Summary: 开启数据授权流程，首先记录授权请求
+     */
+    public StartAuthDataResponse startAuthDataEx(StartAuthDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.data.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAuthDataResponse());
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+     * Summary: 请求授权的数据，加密传输
+     */
+    public GetAuthDataResponse getAuthData(GetAuthDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAuthDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+     * Summary: 请求授权的数据，加密传输
+     */
+    public GetAuthDataResponse getAuthDataEx(GetAuthDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.data.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAuthDataResponse());
+    }
+
+    /**
+     * Description: 查询核身结果
+     * Summary: 查询核身结果
+     */
+    public QueryAuthIdentityauthResponse queryAuthIdentityauth(QueryAuthIdentityauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthIdentityauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询核身结果
+     * Summary: 查询核身结果
+     */
+    public QueryAuthIdentityauthResponse queryAuthIdentityauthEx(QueryAuthIdentityauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.identityauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthIdentityauthResponse());
+    }
+
+    /**
+     * Description: 查询证书的详情h5链接
+     * Summary: 查询证书的详情h5链接
+     */
+    public QueryAuthCertDetailurlResponse queryAuthCertDetailurl(QueryAuthCertDetailurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthCertDetailurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询证书的详情h5链接
+     * Summary: 查询证书的详情h5链接
+     */
+    public QueryAuthCertDetailurlResponse queryAuthCertDetailurlEx(QueryAuthCertDetailurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.detailurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCertDetailurlResponse());
+    }
+
+    /**
      * Description: 通过代理模式为企业创建did
      * Summary: 通过代理模式为企业创建did
      */
@@ -8878,6 +8952,25 @@ public class Client {
     public AddDidDtxPkResponse addDidDtxPkEx(AddDidDtxPkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.did.dtx.pk.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDidDtxPkResponse());
+    }
+
+    /**
+     * Description: 端上密钥颁发vc
+     * Summary: 端上密钥颁发vc
+     */
+    public CreateDidDtxVcResponse createDidDtxVc(CreateDidDtxVcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidDtxVcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 端上密钥颁发vc
+     * Summary: 端上密钥颁发vc
+     */
+    public CreateDidDtxVcResponse createDidDtxVcEx(CreateDidDtxVcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.dtx.vc.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidDtxVcResponse());
     }
 
     /**
