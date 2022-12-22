@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.25',
-    _prod_code = 'BLOCKCHAIN',
-    _prod_channel = 'undefined'
+    sdk_version = '1.26.32',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2056,6 +2054,10 @@ model PoapInfo {
   renderType: string(name='render_type', example='2D_IMAGE'),
   // 3D模型降级使用的资源URL
   faultToleranceUrl?: string(name='fault_tolerance_url', example='http://xxx.png'),
+  // 小程序详情跳转URL。临时链接，过期时间为 detail_alipays_url_expire_time 字段的值
+  detailAlipaysUrl?: string(name='detail_alipays_url', example='alipays://platformapi/startapp?'),
+  // 详情页跳转URL过期时间
+  detailAlipaysUrlExpireTime?: string(name='detail_alipays_url_expire_time', example='2022-12-31 23:59:59'),
 }
 
 // 阿里云区块链小程序权限控制信息
@@ -19891,6 +19893,14 @@ model BindAuthPoapRequest = {
   userCertNo?: string(name='user_cert_no'),
   // 用户手机号
   userMobile?: string(name='user_mobile'),
+  // 定制id会有白名单进行权限限制。id格式要求：长度6-20，允许字母、数字、部分特殊字符(_#:|)
+  poapId?: string(name='poap_id'),
+  // 徽章关联权益时，用户领取权益的动作类型
+  profitAction?: string(name='profit_action'),
+  // 徽章关联权益时，用户领取权益的地址
+  profitUrl?: string(name='profit_url'),
+  // 徽章关联权益时附带信息，buttonName为自定义领取按钮名称，needAuth为是否需要授权，authId为授权请求id，authBizId为授权请求场景id
+  payload?: string(name='payload'),
 }
 
 model BindAuthPoapResponse = {
@@ -19959,6 +19969,172 @@ async function queryAuthPoap(request: QueryAuthPoapRequest): QueryAuthPoapRespon
 async function queryAuthPoapEx(request: QueryAuthPoapRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthPoapResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.poap.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartAuthDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的请求id，需保证唯一
+  authId: string(name='auth_id'),
+  // 调用方请求的数据类型
+  authType: string(name='auth_type'),
+  // 授权结果通知调用方的方式
+  callbackType: string(name='callback_type'),
+  // 授权结果通知调用方的地址
+  callbackUrl: string(name='callback_url'),
+}
+
+model StartAuthDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权宝小程序的地址，调用方需要访问该地址从而进行用户授权
+  myauthUrl?: string(name='myauth_url'),
+}
+
+/**
+ * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+ * Summary: 开启数据授权流程，首先记录授权请求
+ */
+async function startAuthData(request: StartAuthDataRequest): StartAuthDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startAuthDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权宝数据授权流程，需要请求方先进行请求记录。
+ * Summary: 开启数据授权流程，首先记录授权请求
+ */
+async function startAuthDataEx(request: StartAuthDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartAuthDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.data.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAuthDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方在发起授权请求时创建的请求id
+  authId: string(name='auth_id'),
+  // 授权数据类型
+  authType: string(name='auth_type'),
+}
+
+model GetAuthDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 使用调用方的公钥加密后的授权数据
+  encryptedData?: string(name='encrypted_data'),
+}
+
+/**
+ * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+ * Summary: 请求授权的数据，加密传输
+ */
+async function getAuthData(request: GetAuthDataRequest): GetAuthDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAuthDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权宝数据授权流程，调用方经过授权之后请求数据
+ * Summary: 请求授权的数据，加密传输
+ */
+async function getAuthDataEx(request: GetAuthDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAuthDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.data.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthIdentityauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权宝生成的bizId 与 核身token 用 ; 拼接成的字符串
+  securityId: string(name='security_id'),
+  // 核身的userid
+  userId: string(name='user_id'),
+  // 核身对应的操作类型，目前只有0，代表创建did
+  operationType: long(name='operation_type'),
+  // 其它类型操作时的参数，json形式字符串
+  params?: string(name='params'),
+}
+
+model QueryAuthIdentityauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核身结果
+  verifyResult?: boolean(name='verify_result'),
+}
+
+/**
+ * Description: 查询核身结果
+ * Summary: 查询核身结果
+ */
+async function queryAuthIdentityauth(request: QueryAuthIdentityauthRequest): QueryAuthIdentityauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthIdentityauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询核身结果
+ * Summary: 查询核身结果
+ */
+async function queryAuthIdentityauthEx(request: QueryAuthIdentityauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthIdentityauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.identityauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthCertDetailurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 证书的bizId
+  bizId: string(name='biz_id'),
+}
+
+model QueryAuthCertDetailurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书的详情h5链接
+  detailUrl?: string(name='detail_url'),
+}
+
+/**
+ * Description: 查询证书的详情h5链接
+ * Summary: 查询证书的详情h5链接
+ */
+async function queryAuthCertDetailurl(request: QueryAuthCertDetailurlRequest): QueryAuthCertDetailurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthCertDetailurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询证书的详情h5链接
+ * Summary: 查询证书的详情h5链接
+ */
+async function queryAuthCertDetailurlEx(request: QueryAuthCertDetailurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthCertDetailurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.cert.detailurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
@@ -23975,6 +24151,9 @@ model AddDidDtxPkRequest = {
   publicKey: string(name='public_key'),
   // keyId
   keyId: string(name='key_id'),
+  // 需要传输给业务服务的JSON字段
+  // 
+  extension?: string(name='extension'),
 }
 
 model AddDidDtxPkResponse = {
@@ -24003,6 +24182,42 @@ async function addDidDtxPk(request: AddDidDtxPkRequest): AddDidDtxPkResponse {
 async function addDidDtxPkEx(request: AddDidDtxPkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddDidDtxPkResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.did.dtx.pk.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDidDtxVcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // vc原文
+  vc: string(name='vc'),
+}
+
+model CreateDidDtxVcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 端上密钥颁发vc
+ * Summary: 端上密钥颁发vc
+ */
+async function createDidDtxVc(request: CreateDidDtxVcRequest): CreateDidDtxVcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDidDtxVcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 端上密钥颁发vc
+ * Summary: 端上密钥颁发vc
+ */
+async function createDidDtxVcEx(request: CreateDidDtxVcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDidDtxVcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.dtx.vc.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartMydidcommunAgencySettleinRequest = {
