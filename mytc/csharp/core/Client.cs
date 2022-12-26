@@ -138,6 +138,8 @@ namespace AntChain.SDK.MYTC
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.2.5"},
+                        {"_prod_code", "MYTC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -262,6 +264,8 @@ namespace AntChain.SDK.MYTC
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.2.5"},
+                        {"_prod_code", "MYTC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
