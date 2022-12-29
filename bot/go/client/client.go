@@ -1955,8 +1955,10 @@ func (s *EvidenceStorageReq) SetProjectUid(v string) *EvidenceStorageReq {
 
 // 收集信息
 type CollectContent struct {
-	// 链上设备Id
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 链上设备ID（与可信设备ID至少填一项）
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 可信设备ID（与链上设备ID至少填一项）
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 	// 收集的内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 	// 对内容的签名
@@ -1977,6 +1979,11 @@ func (s CollectContent) GoString() string {
 
 func (s *CollectContent) SetChainDeviceId(v string) *CollectContent {
 	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectContent) SetTrustiotDeviceId(v int64) *CollectContent {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -4739,10 +4746,10 @@ func (s *IotBasicUserRequest) SetLoginName(v string) *IotBasicUserRequest {
 
 // 设备业务数据
 type BizContentGroup struct {
-	// 设备链上Id，与scene参数至少有一个参数不为空
-	//
-	//
+	// 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
 	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 	// 业务Id
 	//
 	//
@@ -4767,6 +4774,11 @@ func (s BizContentGroup) GoString() string {
 
 func (s *BizContentGroup) SetChainDeviceId(v string) *BizContentGroup {
 	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *BizContentGroup) SetTrustiotDeviceId(v int64) *BizContentGroup {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -12183,6 +12195,8 @@ type ImportDeviceResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 链上设备Id
 	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 }
 
 func (s ImportDeviceResponse) String() string {
@@ -12210,6 +12224,11 @@ func (s *ImportDeviceResponse) SetResultMsg(v string) *ImportDeviceResponse {
 
 func (s *ImportDeviceResponse) SetChainDeviceId(v string) *ImportDeviceResponse {
 	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *ImportDeviceResponse) SetTrustiotDeviceId(v int64) *ImportDeviceResponse {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -12757,6 +12776,8 @@ type CreateDistributedeviceBydeviceidResponse struct {
 	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
 	// 发行设备Id
 	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceidResponse) String() string {
@@ -12789,6 +12810,11 @@ func (s *CreateDistributedeviceBydeviceidResponse) SetChainDeviceId(v string) *C
 
 func (s *CreateDistributedeviceBydeviceidResponse) SetDistributeDeviceId(v string) *CreateDistributedeviceBydeviceidResponse {
 	s.DistributeDeviceId = &v
+	return s
+}
+
+func (s *CreateDistributedeviceBydeviceidResponse) SetTrustiotDeviceId(v int64) *CreateDistributedeviceBydeviceidResponse {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -14122,6 +14148,8 @@ type CreateDistributedeviceByperipheralidResponse struct {
 	// 链上外围设备Id
 	//
 	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty"`
+	// 可信设备ID
+	TrustiotPeripheralId *int64 `json:"trustiot_peripheral_id,omitempty" xml:"trustiot_peripheral_id,omitempty"`
 }
 
 func (s CreateDistributedeviceByperipheralidResponse) String() string {
@@ -14154,6 +14182,11 @@ func (s *CreateDistributedeviceByperipheralidResponse) SetDistributeDeviceId(v s
 
 func (s *CreateDistributedeviceByperipheralidResponse) SetChainPeripheralId(v string) *CreateDistributedeviceByperipheralidResponse {
 	s.ChainPeripheralId = &v
+	return s
+}
+
+func (s *CreateDistributedeviceByperipheralidResponse) SetTrustiotPeripheralId(v int64) *CreateDistributedeviceByperipheralidResponse {
+	s.TrustiotPeripheralId = &v
 	return s
 }
 
@@ -14636,6 +14669,8 @@ type CreateDistributedeviceBydeviceResponse struct {
 	//
 	//
 	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceResponse) String() string {
@@ -14668,6 +14703,11 @@ func (s *CreateDistributedeviceBydeviceResponse) SetChainDeviceid(v string) *Cre
 
 func (s *CreateDistributedeviceBydeviceResponse) SetDistributeDeviceId(v string) *CreateDistributedeviceBydeviceResponse {
 	s.DistributeDeviceId = &v
+	return s
+}
+
+func (s *CreateDistributedeviceBydeviceResponse) SetTrustiotDeviceId(v int64) *CreateDistributedeviceBydeviceResponse {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -15307,6 +15347,8 @@ type UpdateDeviceInfobydeviceResponse struct {
 	//
 	//
 	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
 }
 
 func (s UpdateDeviceInfobydeviceResponse) String() string {
@@ -15339,6 +15381,11 @@ func (s *UpdateDeviceInfobydeviceResponse) SetChainDeviceId(v string) *UpdateDev
 
 func (s *UpdateDeviceInfobydeviceResponse) SetDistributeDeviceId(v string) *UpdateDeviceInfobydeviceResponse {
 	s.DistributeDeviceId = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceResponse) SetTrustiotDeviceId(v int64) *UpdateDeviceInfobydeviceResponse {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -21319,9 +21366,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.85"),
-				"_prod_code":       tea.String("BOT"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.7.94"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
