@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.85',
-    _prod_code = 'BOT',
-    _prod_channel = 'undefined'
+    sdk_version = '1.7.94',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -714,8 +712,10 @@ model EvidenceStorageReq {
 
 // 收集信息
 model CollectContent {
-  // 链上设备Id
-  chainDeviceId: string(name='chain_device_id', example='1122'),
+  // 链上设备ID（与可信设备ID至少填一项）
+  chainDeviceId?: string(name='chain_device_id', example='1122'),
+  // 可信设备ID（与链上设备ID至少填一项）
+  trustiotDeviceId?: long(name='trustiot_device_id', example='7006071575519457281'),
   // 收集的内容
   content: string(name='content', example='{"name","1"}'),
   // 对内容的签名
@@ -1651,10 +1651,10 @@ model IotBasicUserRequest {
 
 // 设备业务数据
 model BizContentGroup {
-  // 设备链上Id，与scene参数至少有一个参数不为空
-  // 
-  // 
+  // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
   chainDeviceId?: string(name='chain_device_id', example='txhash123'),
+  // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+  trustiotDeviceId?: long(name='trustiot_device_id', example='7006071575519457281'),
   // 业务Id
   // 
   // 
@@ -4999,6 +4999,8 @@ model ImportDeviceResponse = {
   resultMsg?: string(name='result_msg'),
   // 链上设备Id
   chainDeviceId?: string(name='chain_device_id'),
+  // 可信设备ID
+  trustiotDeviceId?: long(name='trustiot_device_id'),
 }
 
 /**
@@ -5278,6 +5280,8 @@ model CreateDistributedeviceBydeviceidResponse = {
   chainDeviceId?: string(name='chain_device_id'),
   // 发行设备Id
   distributeDeviceId?: string(name='distribute_device_id'),
+  // 可信设备ID
+  trustiotDeviceId?: long(name='trustiot_device_id'),
 }
 
 /**
@@ -5981,6 +5985,8 @@ model CreateDistributedeviceByperipheralidResponse = {
   // 链上外围设备Id
   // 
   chainPeripheralId?: string(name='chain_peripheral_id'),
+  // 可信设备ID
+  trustiotPeripheralId?: long(name='trustiot_peripheral_id'),
 }
 
 /**
@@ -6255,6 +6261,8 @@ model CreateDistributedeviceBydeviceResponse = {
   // 
   // 
   distributeDeviceId?: string(name='distribute_device_id'),
+  // 可信设备ID
+  trustiotDeviceId?: long(name='trustiot_device_id'),
 }
 
 /**
@@ -6609,6 +6617,8 @@ model UpdateDeviceInfobydeviceResponse = {
   // 
   // 
   distributeDeviceId?: string(name='distribute_device_id'),
+  // 可信设备ID
+  trustiotDeviceId?: long(name='trustiot_device_id'),
 }
 
 /**
