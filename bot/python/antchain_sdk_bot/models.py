@@ -2394,13 +2394,16 @@ class CollectContent(TeaModel):
     def __init__(
         self,
         chain_device_id: str = None,
+        trustiot_device_id: int = None,
         content: str = None,
         signature: str = None,
         extra_data: str = None,
         data_model_id: str = None,
     ):
-        # 链上设备Id
+        # 链上设备ID（与可信设备ID至少填一项）
         self.chain_device_id = chain_device_id
+        # 可信设备ID（与链上设备ID至少填一项）
+        self.trustiot_device_id = trustiot_device_id
         # 收集的内容
         self.content = content
         # 对内容的签名
@@ -2411,7 +2414,6 @@ class CollectContent(TeaModel):
         self.data_model_id = data_model_id
 
     def validate(self):
-        self.validate_required(self.chain_device_id, 'chain_device_id')
         self.validate_required(self.content, 'content')
         self.validate_required(self.signature, 'signature')
 
@@ -2423,6 +2425,8 @@ class CollectContent(TeaModel):
         result = dict()
         if self.chain_device_id is not None:
             result['chain_device_id'] = self.chain_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         if self.content is not None:
             result['content'] = self.content
         if self.signature is not None:
@@ -2437,6 +2441,8 @@ class CollectContent(TeaModel):
         m = m or dict()
         if m.get('chain_device_id') is not None:
             self.chain_device_id = m.get('chain_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         if m.get('content') is not None:
             self.content = m.get('content')
         if m.get('signature') is not None:
@@ -5921,14 +5927,15 @@ class BizContentGroup(TeaModel):
     def __init__(
         self,
         chain_device_id: str = None,
+        trustiot_device_id: int = None,
         biz_id: str = None,
         biz_type: str = None,
         content: str = None,
     ):
-        # 设备链上Id，与scene参数至少有一个参数不为空
-        # 
-        # 
+        # 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
         self.chain_device_id = chain_device_id
+        # 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+        self.trustiot_device_id = trustiot_device_id
         # 业务Id
         # 
         # 
@@ -5955,6 +5962,8 @@ class BizContentGroup(TeaModel):
         result = dict()
         if self.chain_device_id is not None:
             result['chain_device_id'] = self.chain_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
         if self.biz_type is not None:
@@ -5967,6 +5976,8 @@ class BizContentGroup(TeaModel):
         m = m or dict()
         if m.get('chain_device_id') is not None:
             self.chain_device_id = m.get('chain_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
         if m.get('biz_type') is not None:
@@ -15333,6 +15344,7 @@ class ImportDeviceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         chain_device_id: str = None,
+        trustiot_device_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15342,6 +15354,8 @@ class ImportDeviceResponse(TeaModel):
         self.result_msg = result_msg
         # 链上设备Id
         self.chain_device_id = chain_device_id
+        # 可信设备ID
+        self.trustiot_device_id = trustiot_device_id
 
     def validate(self):
         pass
@@ -15360,6 +15374,8 @@ class ImportDeviceResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.chain_device_id is not None:
             result['chain_device_id'] = self.chain_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -15372,6 +15388,8 @@ class ImportDeviceResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('chain_device_id') is not None:
             self.chain_device_id = m.get('chain_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         return self
 
 
@@ -16035,6 +16053,7 @@ class CreateDistributedeviceBydeviceidResponse(TeaModel):
         result_msg: str = None,
         chain_device_id: str = None,
         distribute_device_id: str = None,
+        trustiot_device_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -16046,6 +16065,8 @@ class CreateDistributedeviceBydeviceidResponse(TeaModel):
         self.chain_device_id = chain_device_id
         # 发行设备Id
         self.distribute_device_id = distribute_device_id
+        # 可信设备ID
+        self.trustiot_device_id = trustiot_device_id
 
     def validate(self):
         pass
@@ -16066,6 +16087,8 @@ class CreateDistributedeviceBydeviceidResponse(TeaModel):
             result['chain_device_id'] = self.chain_device_id
         if self.distribute_device_id is not None:
             result['distribute_device_id'] = self.distribute_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -16080,6 +16103,8 @@ class CreateDistributedeviceBydeviceidResponse(TeaModel):
             self.chain_device_id = m.get('chain_device_id')
         if m.get('distribute_device_id') is not None:
             self.distribute_device_id = m.get('distribute_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         return self
 
 
@@ -17807,6 +17832,7 @@ class CreateDistributedeviceByperipheralidResponse(TeaModel):
         result_msg: str = None,
         distribute_device_id: str = None,
         chain_peripheral_id: str = None,
+        trustiot_peripheral_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -17820,6 +17846,8 @@ class CreateDistributedeviceByperipheralidResponse(TeaModel):
         # 链上外围设备Id
         # 
         self.chain_peripheral_id = chain_peripheral_id
+        # 可信设备ID
+        self.trustiot_peripheral_id = trustiot_peripheral_id
 
     def validate(self):
         pass
@@ -17840,6 +17868,8 @@ class CreateDistributedeviceByperipheralidResponse(TeaModel):
             result['distribute_device_id'] = self.distribute_device_id
         if self.chain_peripheral_id is not None:
             result['chain_peripheral_id'] = self.chain_peripheral_id
+        if self.trustiot_peripheral_id is not None:
+            result['trustiot_peripheral_id'] = self.trustiot_peripheral_id
         return result
 
     def from_map(self, m: dict = None):
@@ -17854,6 +17884,8 @@ class CreateDistributedeviceByperipheralidResponse(TeaModel):
             self.distribute_device_id = m.get('distribute_device_id')
         if m.get('chain_peripheral_id') is not None:
             self.chain_peripheral_id = m.get('chain_peripheral_id')
+        if m.get('trustiot_peripheral_id') is not None:
+            self.trustiot_peripheral_id = m.get('trustiot_peripheral_id')
         return self
 
 
@@ -18446,6 +18478,7 @@ class CreateDistributedeviceBydeviceResponse(TeaModel):
         result_msg: str = None,
         chain_deviceid: str = None,
         distribute_device_id: str = None,
+        trustiot_device_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -18461,6 +18494,8 @@ class CreateDistributedeviceBydeviceResponse(TeaModel):
         # 
         # 
         self.distribute_device_id = distribute_device_id
+        # 可信设备ID
+        self.trustiot_device_id = trustiot_device_id
 
     def validate(self):
         pass
@@ -18481,6 +18516,8 @@ class CreateDistributedeviceBydeviceResponse(TeaModel):
             result['chain_deviceid'] = self.chain_deviceid
         if self.distribute_device_id is not None:
             result['distribute_device_id'] = self.distribute_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -18495,6 +18532,8 @@ class CreateDistributedeviceBydeviceResponse(TeaModel):
             self.chain_deviceid = m.get('chain_deviceid')
         if m.get('distribute_device_id') is not None:
             self.distribute_device_id = m.get('distribute_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         return self
 
 
@@ -19277,6 +19316,7 @@ class UpdateDeviceInfobydeviceResponse(TeaModel):
         result_msg: str = None,
         chain_device_id: str = None,
         distribute_device_id: str = None,
+        trustiot_device_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -19292,6 +19332,8 @@ class UpdateDeviceInfobydeviceResponse(TeaModel):
         # 
         # 
         self.distribute_device_id = distribute_device_id
+        # 可信设备ID
+        self.trustiot_device_id = trustiot_device_id
 
     def validate(self):
         pass
@@ -19312,6 +19354,8 @@ class UpdateDeviceInfobydeviceResponse(TeaModel):
             result['chain_device_id'] = self.chain_device_id
         if self.distribute_device_id is not None:
             result['distribute_device_id'] = self.distribute_device_id
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -19326,6 +19370,8 @@ class UpdateDeviceInfobydeviceResponse(TeaModel):
             self.chain_device_id = m.get('chain_device_id')
         if m.get('distribute_device_id') is not None:
             self.distribute_device_id = m.get('distribute_device_id')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         return self
 
 
