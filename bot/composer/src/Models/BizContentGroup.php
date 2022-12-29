@@ -8,15 +8,21 @@ use AlibabaCloud\Tea\Model;
 
 class BizContentGroup extends Model
 {
-    // 设备链上Id，与scene参数至少有一个参数不为空
-    //
-    //
+    // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
     /**
      * @example txhash123
      *
      * @var string
      */
     public $chainDeviceId;
+
+    // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+    /**
+     * @example 7006071575519457281
+     *
+     * @var int
+     */
+    public $trustiotDeviceId;
 
     // 业务Id
     //
@@ -48,10 +54,11 @@ class BizContentGroup extends Model
      */
     public $content;
     protected $_name = [
-        'chainDeviceId' => 'chain_device_id',
-        'bizId'         => 'biz_id',
-        'bizType'       => 'biz_type',
-        'content'       => 'content',
+        'chainDeviceId'    => 'chain_device_id',
+        'trustiotDeviceId' => 'trustiot_device_id',
+        'bizId'            => 'biz_id',
+        'bizType'          => 'biz_type',
+        'content'          => 'content',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class BizContentGroup extends Model
         $res = [];
         if (null !== $this->chainDeviceId) {
             $res['chain_device_id'] = $this->chainDeviceId;
+        }
+        if (null !== $this->trustiotDeviceId) {
+            $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
@@ -90,6 +100,9 @@ class BizContentGroup extends Model
         $model = new self();
         if (isset($map['chain_device_id'])) {
             $model->chainDeviceId = $map['chain_device_id'];
+        }
+        if (isset($map['trustiot_device_id'])) {
+            $model->trustiotDeviceId = $map['trustiot_device_id'];
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];

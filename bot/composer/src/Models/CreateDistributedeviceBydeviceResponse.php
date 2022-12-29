@@ -41,12 +41,19 @@ class CreateDistributedeviceBydeviceResponse extends Model
      * @var string
      */
     public $distributeDeviceId;
+
+    // 可信设备ID
+    /**
+     * @var int
+     */
+    public $trustiotDeviceId;
     protected $_name = [
         'reqMsgId'           => 'req_msg_id',
         'resultCode'         => 'result_code',
         'resultMsg'          => 'result_msg',
         'chainDeviceid'      => 'chain_deviceid',
         'distributeDeviceId' => 'distribute_device_id',
+        'trustiotDeviceId'   => 'trustiot_device_id',
     ];
 
     public function validate()
@@ -70,6 +77,9 @@ class CreateDistributedeviceBydeviceResponse extends Model
         }
         if (null !== $this->distributeDeviceId) {
             $res['distribute_device_id'] = $this->distributeDeviceId;
+        }
+        if (null !== $this->trustiotDeviceId) {
+            $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
 
         return $res;
@@ -97,6 +107,9 @@ class CreateDistributedeviceBydeviceResponse extends Model
         }
         if (isset($map['distribute_device_id'])) {
             $model->distributeDeviceId = $map['distribute_device_id'];
+        }
+        if (isset($map['trustiot_device_id'])) {
+            $model->trustiotDeviceId = $map['trustiot_device_id'];
         }
 
         return $model;

@@ -39,12 +39,19 @@ class CreateDistributedeviceByperipheralidResponse extends Model
      * @var string
      */
     public $chainPeripheralId;
+
+    // 可信设备ID
+    /**
+     * @var int
+     */
+    public $trustiotPeripheralId;
     protected $_name = [
-        'reqMsgId'           => 'req_msg_id',
-        'resultCode'         => 'result_code',
-        'resultMsg'          => 'result_msg',
-        'distributeDeviceId' => 'distribute_device_id',
-        'chainPeripheralId'  => 'chain_peripheral_id',
+        'reqMsgId'             => 'req_msg_id',
+        'resultCode'           => 'result_code',
+        'resultMsg'            => 'result_msg',
+        'distributeDeviceId'   => 'distribute_device_id',
+        'chainPeripheralId'    => 'chain_peripheral_id',
+        'trustiotPeripheralId' => 'trustiot_peripheral_id',
     ];
 
     public function validate()
@@ -68,6 +75,9 @@ class CreateDistributedeviceByperipheralidResponse extends Model
         }
         if (null !== $this->chainPeripheralId) {
             $res['chain_peripheral_id'] = $this->chainPeripheralId;
+        }
+        if (null !== $this->trustiotPeripheralId) {
+            $res['trustiot_peripheral_id'] = $this->trustiotPeripheralId;
         }
 
         return $res;
@@ -95,6 +105,9 @@ class CreateDistributedeviceByperipheralidResponse extends Model
         }
         if (isset($map['chain_peripheral_id'])) {
             $model->chainPeripheralId = $map['chain_peripheral_id'];
+        }
+        if (isset($map['trustiot_peripheral_id'])) {
+            $model->trustiotPeripheralId = $map['trustiot_peripheral_id'];
         }
 
         return $model;

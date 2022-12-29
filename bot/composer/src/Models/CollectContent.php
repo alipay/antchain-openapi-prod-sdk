@@ -8,13 +8,21 @@ use AlibabaCloud\Tea\Model;
 
 class CollectContent extends Model
 {
-    // 链上设备Id
+    // 链上设备ID（与可信设备ID至少填一项）
     /**
      * @example 1122
      *
      * @var string
      */
     public $chainDeviceId;
+
+    // 可信设备ID（与链上设备ID至少填一项）
+    /**
+     * @example 7006071575519457281
+     *
+     * @var int
+     */
+    public $trustiotDeviceId;
 
     // 收集的内容
     /**
@@ -48,16 +56,16 @@ class CollectContent extends Model
      */
     public $dataModelId;
     protected $_name = [
-        'chainDeviceId' => 'chain_device_id',
-        'content'       => 'content',
-        'signature'     => 'signature',
-        'extraData'     => 'extra_data',
-        'dataModelId'   => 'data_model_id',
+        'chainDeviceId'    => 'chain_device_id',
+        'trustiotDeviceId' => 'trustiot_device_id',
+        'content'          => 'content',
+        'signature'        => 'signature',
+        'extraData'        => 'extra_data',
+        'dataModelId'      => 'data_model_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('chainDeviceId', $this->chainDeviceId, true);
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('signature', $this->signature, true);
     }
@@ -67,6 +75,9 @@ class CollectContent extends Model
         $res = [];
         if (null !== $this->chainDeviceId) {
             $res['chain_device_id'] = $this->chainDeviceId;
+        }
+        if (null !== $this->trustiotDeviceId) {
+            $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
         if (null !== $this->content) {
             $res['content'] = $this->content;
@@ -94,6 +105,9 @@ class CollectContent extends Model
         $model = new self();
         if (isset($map['chain_device_id'])) {
             $model->chainDeviceId = $map['chain_device_id'];
+        }
+        if (isset($map['trustiot_device_id'])) {
+            $model->trustiotDeviceId = $map['trustiot_device_id'];
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];

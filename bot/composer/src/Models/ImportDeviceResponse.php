@@ -31,11 +31,18 @@ class ImportDeviceResponse extends Model
      * @var string
      */
     public $chainDeviceId;
+
+    // 可信设备ID
+    /**
+     * @var int
+     */
+    public $trustiotDeviceId;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'chainDeviceId' => 'chain_device_id',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'chainDeviceId'    => 'chain_device_id',
+        'trustiotDeviceId' => 'trustiot_device_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class ImportDeviceResponse extends Model
         }
         if (null !== $this->chainDeviceId) {
             $res['chain_device_id'] = $this->chainDeviceId;
+        }
+        if (null !== $this->trustiotDeviceId) {
+            $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class ImportDeviceResponse extends Model
         }
         if (isset($map['chain_device_id'])) {
             $model->chainDeviceId = $map['chain_device_id'];
+        }
+        if (isset($map['trustiot_device_id'])) {
+            $model->trustiotDeviceId = $map['trustiot_device_id'];
         }
 
         return $model;
