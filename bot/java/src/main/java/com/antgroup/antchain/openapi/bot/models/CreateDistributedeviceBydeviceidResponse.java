@@ -24,6 +24,10 @@ public class CreateDistributedeviceBydeviceidResponse extends TeaModel {
     @NameInMap("distribute_device_id")
     public String distributeDeviceId;
 
+    // 可信设备ID
+    @NameInMap("trustiot_device_id")
+    public Long trustiotDeviceId;
+
     public static CreateDistributedeviceBydeviceidResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDistributedeviceBydeviceidResponse self = new CreateDistributedeviceBydeviceidResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CreateDistributedeviceBydeviceidResponse extends TeaModel {
     }
     public String getDistributeDeviceId() {
         return this.distributeDeviceId;
+    }
+
+    public CreateDistributedeviceBydeviceidResponse setTrustiotDeviceId(Long trustiotDeviceId) {
+        this.trustiotDeviceId = trustiotDeviceId;
+        return this;
+    }
+    public Long getTrustiotDeviceId() {
+        return this.trustiotDeviceId;
     }
 
 }

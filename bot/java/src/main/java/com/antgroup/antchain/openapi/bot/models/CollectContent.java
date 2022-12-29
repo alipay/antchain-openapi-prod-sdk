@@ -4,10 +4,13 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class CollectContent extends TeaModel {
-    // 链上设备Id
+    // 链上设备ID（与可信设备ID至少填一项）
     @NameInMap("chain_device_id")
-    @Validation(required = true)
     public String chainDeviceId;
+
+    // 可信设备ID（与链上设备ID至少填一项）
+    @NameInMap("trustiot_device_id")
+    public Long trustiotDeviceId;
 
     // 收集的内容
     @NameInMap("content")
@@ -38,6 +41,14 @@ public class CollectContent extends TeaModel {
     }
     public String getChainDeviceId() {
         return this.chainDeviceId;
+    }
+
+    public CollectContent setTrustiotDeviceId(Long trustiotDeviceId) {
+        this.trustiotDeviceId = trustiotDeviceId;
+        return this;
+    }
+    public Long getTrustiotDeviceId() {
+        return this.trustiotDeviceId;
     }
 
     public CollectContent setContent(String content) {

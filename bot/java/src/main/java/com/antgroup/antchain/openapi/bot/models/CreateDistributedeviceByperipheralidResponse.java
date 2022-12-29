@@ -26,6 +26,10 @@ public class CreateDistributedeviceByperipheralidResponse extends TeaModel {
     @NameInMap("chain_peripheral_id")
     public String chainPeripheralId;
 
+    // 可信设备ID
+    @NameInMap("trustiot_peripheral_id")
+    public Long trustiotPeripheralId;
+
     public static CreateDistributedeviceByperipheralidResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDistributedeviceByperipheralidResponse self = new CreateDistributedeviceByperipheralidResponse();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class CreateDistributedeviceByperipheralidResponse extends TeaModel {
     }
     public String getChainPeripheralId() {
         return this.chainPeripheralId;
+    }
+
+    public CreateDistributedeviceByperipheralidResponse setTrustiotPeripheralId(Long trustiotPeripheralId) {
+        this.trustiotPeripheralId = trustiotPeripheralId;
+        return this;
+    }
+    public Long getTrustiotPeripheralId() {
+        return this.trustiotPeripheralId;
     }
 
 }

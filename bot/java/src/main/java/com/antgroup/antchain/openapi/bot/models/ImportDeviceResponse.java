@@ -20,6 +20,10 @@ public class ImportDeviceResponse extends TeaModel {
     @NameInMap("chain_device_id")
     public String chainDeviceId;
 
+    // 可信设备ID
+    @NameInMap("trustiot_device_id")
+    public Long trustiotDeviceId;
+
     public static ImportDeviceResponse build(java.util.Map<String, ?> map) throws Exception {
         ImportDeviceResponse self = new ImportDeviceResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ImportDeviceResponse extends TeaModel {
     }
     public String getChainDeviceId() {
         return this.chainDeviceId;
+    }
+
+    public ImportDeviceResponse setTrustiotDeviceId(Long trustiotDeviceId) {
+        this.trustiotDeviceId = trustiotDeviceId;
+        return this;
+    }
+    public Long getTrustiotDeviceId() {
+        return this.trustiotDeviceId;
     }
 
 }

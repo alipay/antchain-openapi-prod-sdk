@@ -4,11 +4,13 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class BizContentGroup extends TeaModel {
-    // 设备链上Id，与scene参数至少有一个参数不为空
-    // 
-    // 
+    // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
     @NameInMap("chain_device_id")
     public String chainDeviceId;
+
+    // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+    @NameInMap("trustiot_device_id")
+    public Long trustiotDeviceId;
 
     // 业务Id
     // 
@@ -42,6 +44,14 @@ public class BizContentGroup extends TeaModel {
     }
     public String getChainDeviceId() {
         return this.chainDeviceId;
+    }
+
+    public BizContentGroup setTrustiotDeviceId(Long trustiotDeviceId) {
+        this.trustiotDeviceId = trustiotDeviceId;
+        return this;
+    }
+    public Long getTrustiotDeviceId() {
+        return this.trustiotDeviceId;
     }
 
     public BizContentGroup setBizId(String bizId) {
