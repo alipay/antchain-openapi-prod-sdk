@@ -1436,8 +1436,10 @@ export class EvidenceStorageReq extends $tea.Model {
 
 // 收集信息
 export class CollectContent extends $tea.Model {
-  // 链上设备Id
-  chainDeviceId: string;
+  // 链上设备ID（与可信设备ID至少填一项）
+  chainDeviceId?: string;
+  // 可信设备ID（与链上设备ID至少填一项）
+  trustiotDeviceId?: number;
   // 收集的内容
   content: string;
   // 对内容的签名
@@ -1449,6 +1451,7 @@ export class CollectContent extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       chainDeviceId: 'chain_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
       content: 'content',
       signature: 'signature',
       extraData: 'extra_data',
@@ -1459,6 +1462,7 @@ export class CollectContent extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       chainDeviceId: 'string',
+      trustiotDeviceId: 'number',
       content: 'string',
       signature: 'string',
       extraData: 'string',
@@ -3690,10 +3694,10 @@ export class IotBasicUserRequest extends $tea.Model {
 
 // 设备业务数据
 export class BizContentGroup extends $tea.Model {
-  // 设备链上Id，与scene参数至少有一个参数不为空
-  // 
-  // 
+  // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
   chainDeviceId?: string;
+  // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+  trustiotDeviceId?: number;
   // 业务Id
   // 
   // 
@@ -3709,6 +3713,7 @@ export class BizContentGroup extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       chainDeviceId: 'chain_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
       bizId: 'biz_id',
       bizType: 'biz_type',
       content: 'content',
@@ -3718,6 +3723,7 @@ export class BizContentGroup extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       chainDeviceId: 'string',
+      trustiotDeviceId: 'number',
       bizId: 'string',
       bizType: 'string',
       content: 'string',
@@ -9318,12 +9324,15 @@ export class ImportDeviceResponse extends $tea.Model {
   resultMsg?: string;
   // 链上设备Id
   chainDeviceId?: string;
+  // 可信设备ID
+  trustiotDeviceId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       chainDeviceId: 'chain_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
     };
   }
 
@@ -9333,6 +9342,7 @@ export class ImportDeviceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       chainDeviceId: 'string',
+      trustiotDeviceId: 'number',
     };
   }
 
@@ -9756,6 +9766,8 @@ export class CreateDistributedeviceBydeviceidResponse extends $tea.Model {
   chainDeviceId?: string;
   // 发行设备Id
   distributeDeviceId?: string;
+  // 可信设备ID
+  trustiotDeviceId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9763,6 +9775,7 @@ export class CreateDistributedeviceBydeviceidResponse extends $tea.Model {
       resultMsg: 'result_msg',
       chainDeviceId: 'chain_device_id',
       distributeDeviceId: 'distribute_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
     };
   }
 
@@ -9773,6 +9786,7 @@ export class CreateDistributedeviceBydeviceidResponse extends $tea.Model {
       resultMsg: 'string',
       chainDeviceId: 'string',
       distributeDeviceId: 'string',
+      trustiotDeviceId: 'number',
     };
   }
 
@@ -10855,6 +10869,8 @@ export class CreateDistributedeviceByperipheralidResponse extends $tea.Model {
   // 链上外围设备Id
   // 
   chainPeripheralId?: string;
+  // 可信设备ID
+  trustiotPeripheralId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -10862,6 +10878,7 @@ export class CreateDistributedeviceByperipheralidResponse extends $tea.Model {
       resultMsg: 'result_msg',
       distributeDeviceId: 'distribute_device_id',
       chainPeripheralId: 'chain_peripheral_id',
+      trustiotPeripheralId: 'trustiot_peripheral_id',
     };
   }
 
@@ -10872,6 +10889,7 @@ export class CreateDistributedeviceByperipheralidResponse extends $tea.Model {
       resultMsg: 'string',
       distributeDeviceId: 'string',
       chainPeripheralId: 'string',
+      trustiotPeripheralId: 'number',
     };
   }
 
@@ -11266,6 +11284,8 @@ export class CreateDistributedeviceBydeviceResponse extends $tea.Model {
   // 
   // 
   distributeDeviceId?: string;
+  // 可信设备ID
+  trustiotDeviceId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11273,6 +11293,7 @@ export class CreateDistributedeviceBydeviceResponse extends $tea.Model {
       resultMsg: 'result_msg',
       chainDeviceid: 'chain_deviceid',
       distributeDeviceId: 'distribute_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
     };
   }
 
@@ -11283,6 +11304,7 @@ export class CreateDistributedeviceBydeviceResponse extends $tea.Model {
       resultMsg: 'string',
       chainDeviceid: 'string',
       distributeDeviceId: 'string',
+      trustiotDeviceId: 'number',
     };
   }
 
@@ -11796,6 +11818,8 @@ export class UpdateDeviceInfobydeviceResponse extends $tea.Model {
   // 
   // 
   distributeDeviceId?: string;
+  // 可信设备ID
+  trustiotDeviceId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11803,6 +11827,7 @@ export class UpdateDeviceInfobydeviceResponse extends $tea.Model {
       resultMsg: 'result_msg',
       chainDeviceId: 'chain_device_id',
       distributeDeviceId: 'distribute_device_id',
+      trustiotDeviceId: 'trustiot_device_id',
     };
   }
 
@@ -11813,6 +11838,7 @@ export class UpdateDeviceInfobydeviceResponse extends $tea.Model {
       resultMsg: 'string',
       chainDeviceId: 'string',
       distributeDeviceId: 'string',
+      trustiotDeviceId: 'number',
     };
   }
 
@@ -16480,9 +16506,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.85",
-          _prod_code: "BOT",
-          _prod_channel: "undefined",
+          sdk_version: "1.7.94",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
