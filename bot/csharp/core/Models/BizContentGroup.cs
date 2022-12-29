@@ -10,12 +10,15 @@ namespace AntChain.SDK.BOT.Models
 {
     // 设备业务数据
     public class BizContentGroup : TeaModel {
-        // 设备链上Id，与scene参数至少有一个参数不为空
-        // 
-        // 
+        // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
         [NameInMap("chain_device_id")]
         [Validation(Required=false)]
         public string ChainDeviceId { get; set; }
+
+        // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+        [NameInMap("trustiot_device_id")]
+        [Validation(Required=false)]
+        public long? TrustiotDeviceId { get; set; }
 
         // 业务Id
         // 

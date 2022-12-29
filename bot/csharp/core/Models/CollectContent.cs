@@ -10,10 +10,15 @@ namespace AntChain.SDK.BOT.Models
 {
     // 收集信息
     public class CollectContent : TeaModel {
-        // 链上设备Id
+        // 链上设备ID（与可信设备ID至少填一项）
         [NameInMap("chain_device_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ChainDeviceId { get; set; }
+
+        // 可信设备ID（与链上设备ID至少填一项）
+        [NameInMap("trustiot_device_id")]
+        [Validation(Required=false)]
+        public long? TrustiotDeviceId { get; set; }
 
         // 收集的内容
         [NameInMap("content")]

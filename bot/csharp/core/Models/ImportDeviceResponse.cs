@@ -29,6 +29,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ChainDeviceId { get; set; }
 
+        // 可信设备ID
+        [NameInMap("trustiot_device_id")]
+        [Validation(Required=false)]
+        public long? TrustiotDeviceId { get; set; }
+
     }
 
 }
