@@ -6,7 +6,7 @@ namespace AntChain\TAM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SaveAoneNeedsResponse extends Model
+class QueryScOperationcenterResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class SaveAoneNeedsResponse extends Model
      */
     public $resultMsg;
 
-    // 返回数据
+    // 是否成功
     /**
-     * @var string
+     * @var bool
      */
-    public $result;
+    public $success;
+
+    // 事件详情
+    /**
+     * @var Emergency
+     */
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'result'     => 'result',
+        'success'    => 'success',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class SaveAoneNeedsResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->result) {
-            $res['result'] = $this->result;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class SaveAoneNeedsResponse extends Model
     /**
      * @param array $map
      *
-     * @return SaveAoneNeedsResponse
+     * @return QueryScOperationcenterResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class SaveAoneNeedsResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result'])) {
-            $model->result = $map['result'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['data'])) {
+            $model->data = Emergency::fromMap($map['data']);
         }
 
         return $model;

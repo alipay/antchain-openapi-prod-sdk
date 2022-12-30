@@ -11,12 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\TAM\Models\ImportScFileRequest;
+use AntChain\TAM\Models\ImportScFileResponse;
+use AntChain\TAM\Models\ImportScOperationcenterRequest;
+use AntChain\TAM\Models\ImportScOperationcenterResponse;
+use AntChain\TAM\Models\OperateScOperationcenterRequest;
+use AntChain\TAM\Models\OperateScOperationcenterResponse;
 use AntChain\TAM\Models\QueryAoneRequest;
 use AntChain\TAM\Models\QueryAoneResponse;
 use AntChain\TAM\Models\QueryCustomRequest;
 use AntChain\TAM\Models\QueryCustomResponse;
-use AntChain\TAM\Models\SaveAoneNeedsRequest;
-use AntChain\TAM\Models\SaveAoneNeedsResponse;
+use AntChain\TAM\Models\QueryScOperationcenterRequest;
+use AntChain\TAM\Models\QueryScOperationcenterResponse;
 use AntChain\TAM\Models\SaveAoneRequest;
 use AntChain\TAM\Models\SaveAoneResponse;
 use AntChain\Util\UtilClient;
@@ -138,7 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 附件上传
+            // 附件上传表单参数
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -166,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.18',
+                    'sdk_version'      => '1.1.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -312,35 +318,134 @@ class Client
     }
 
     /**
-     * Description: 提交客户项目需求
-     * Summary: 提交项目需求
+     * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+     * Summary: 前端提交需求表单.
      *
-     * @param SaveAoneNeedsRequest $request
+     * @param ImportScOperationcenterRequest $request
      *
-     * @return SaveAoneNeedsResponse
+     * @return ImportScOperationcenterResponse
      */
-    public function saveAoneNeeds($request)
+    public function importScOperationcenter($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->saveAoneNeedsEx($request, $headers, $runtime);
+        return $this->importScOperationcenterEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 提交客户项目需求
-     * Summary: 提交项目需求
+     * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+     * Summary: 前端提交需求表单.
      *
-     * @param SaveAoneNeedsRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
+     * @param ImportScOperationcenterRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
      *
-     * @return SaveAoneNeedsResponse
+     * @return ImportScOperationcenterResponse
      */
-    public function saveAoneNeedsEx($request, $headers, $runtime)
+    public function importScOperationcenterEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return SaveAoneNeedsResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.aone.needs.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ImportScOperationcenterResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.operationcenter.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发送验证码
+     * Summary: 发送验证码
+     *
+     * @param OperateScOperationcenterRequest $request
+     *
+     * @return OperateScOperationcenterResponse
+     */
+    public function operateScOperationcenter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateScOperationcenterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发送验证码
+     * Summary: 发送验证码
+     *
+     * @param OperateScOperationcenterRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return OperateScOperationcenterResponse
+     */
+    public function operateScOperationcenterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateScOperationcenterResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.operationcenter.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询跟进情况
+     * Summary: 查询跟进情况.
+     *
+     * @param QueryScOperationcenterRequest $request
+     *
+     * @return QueryScOperationcenterResponse
+     */
+    public function queryScOperationcenter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScOperationcenterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询跟进情况
+     * Summary: 查询跟进情况.
+     *
+     * @param QueryScOperationcenterRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryScOperationcenterResponse
+     */
+    public function queryScOperationcenterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScOperationcenterResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.operationcenter.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 附件上传
+     * Summary: 附件上传.
+     *
+     * @param ImportScFileRequest $request
+     *
+     * @return ImportScFileResponse
+     */
+    public function importScFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importScFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 附件上传
+     * Summary: 附件上传.
+     *
+     * @param ImportScFileRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ImportScFileResponse
+     */
+    public function importScFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportScFileResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
