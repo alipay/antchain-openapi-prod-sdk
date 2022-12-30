@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -145,6 +145,67 @@ func (s *Config) SetMaxRequests(v int) *Config {
 
 func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// 附件上传表单参数
+type FormParam struct {
+	//
+	OssAccessKeyId *string `json:"oss_access_key_id,omitempty" xml:"oss_access_key_id,omitempty" require:"true"`
+	//
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty" require:"true"`
+	//
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	//
+	Policy *string `json:"policy,omitempty" xml:"policy,omitempty" require:"true"`
+	//
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	//
+	SuccessActionStatus *string `json:"success_action_status,omitempty" xml:"success_action_status,omitempty" require:"true"`
+	//
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+}
+
+func (s FormParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FormParam) GoString() string {
+	return s.String()
+}
+
+func (s *FormParam) SetOssAccessKeyId(v string) *FormParam {
+	s.OssAccessKeyId = &v
+	return s
+}
+
+func (s *FormParam) SetCallback(v string) *FormParam {
+	s.Callback = &v
+	return s
+}
+
+func (s *FormParam) SetKey(v string) *FormParam {
+	s.Key = &v
+	return s
+}
+
+func (s *FormParam) SetPolicy(v string) *FormParam {
+	s.Policy = &v
+	return s
+}
+
+func (s *FormParam) SetSignature(v string) *FormParam {
+	s.Signature = &v
+	return s
+}
+
+func (s *FormParam) SetSuccessActionStatus(v string) *FormParam {
+	s.SuccessActionStatus = &v
+	return s
+}
+
+func (s *FormParam) SetAppName(v string) *FormParam {
+	s.AppName = &v
 	return s
 }
 
@@ -326,6 +387,250 @@ func (s UploadRequestArray) GoString() string {
 
 func (s *UploadRequestArray) SetUploadArray(v *UploadRequest) *UploadRequestArray {
 	s.UploadArray = v
+	return s
+}
+
+// 事件详情
+type Emergency struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 账号
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
+	// 钉钉群
+	Group *string `json:"group,omitempty" xml:"group,omitempty" require:"true"`
+	// 当前记录状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s Emergency) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Emergency) GoString() string {
+	return s.String()
+}
+
+func (s *Emergency) SetTitle(v string) *Emergency {
+	s.Title = &v
+	return s
+}
+
+func (s *Emergency) SetAccount(v string) *Emergency {
+	s.Account = &v
+	return s
+}
+
+func (s *Emergency) SetName(v string) *Emergency {
+	s.Name = &v
+	return s
+}
+
+func (s *Emergency) SetPhone(v string) *Emergency {
+	s.Phone = &v
+	return s
+}
+
+func (s *Emergency) SetEmail(v string) *Emergency {
+	s.Email = &v
+	return s
+}
+
+func (s *Emergency) SetGroup(v string) *Emergency {
+	s.Group = &v
+	return s
+}
+
+func (s *Emergency) SetStatus(v string) *Emergency {
+	s.Status = &v
+	return s
+}
+
+//
+type Upload struct {
+	//
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty" require:"true"`
+	//
+	FileUniqueId *string `json:"file_unique_id,omitempty" xml:"file_unique_id,omitempty" require:"true"`
+	//
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	//
+	FormParam *FormParam `json:"form_param,omitempty" xml:"form_param,omitempty" require:"true"`
+}
+
+func (s Upload) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Upload) GoString() string {
+	return s.String()
+}
+
+func (s *Upload) SetEndpoint(v string) *Upload {
+	s.Endpoint = &v
+	return s
+}
+
+func (s *Upload) SetFileUniqueId(v string) *Upload {
+	s.FileUniqueId = &v
+	return s
+}
+
+func (s *Upload) SetFileUrl(v string) *Upload {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *Upload) SetFormParam(v *FormParam) *Upload {
+	s.FormParam = v
+	return s
+}
+
+// 返回结果
+type ResultOncall struct {
+	// 是否成功
+	Success *string `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 提示信息
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
+	// 保存的工单主键id（成功才有）
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+}
+
+func (s ResultOncall) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultOncall) GoString() string {
+	return s.String()
+}
+
+func (s *ResultOncall) SetSuccess(v string) *ResultOncall {
+	s.Success = &v
+	return s
+}
+
+func (s *ResultOncall) SetResultMsg(v string) *ResultOncall {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResultOncall) SetId(v string) *ResultOncall {
+	s.Id = &v
+	return s
+}
+
+// 提交表单入参
+type SubmitRequest struct {
+	// 测试
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 问题描述（富文本）
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 影响
+	Influence *string `json:"influence,omitempty" xml:"influence,omitempty" require:"true"`
+	// 账号
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 钉钉群
+	Group *string `json:"group,omitempty" xml:"group,omitempty" require:"true"`
+	// 校验令牌（接入RDS校验）
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty" require:"true"`
+	// 验证码
+	VerifyCode *string `json:"verify_code,omitempty" xml:"verify_code,omitempty" require:"true"`
+	// RDS的bizNo
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 公有化PUBLIC、私有化PRIVATE
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 上传附件的URL
+	FileUrl []*string `json:"file_url,omitempty" xml:"file_url,omitempty" type:"Repeated"`
+}
+
+func (s SubmitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitRequest) SetTitle(v string) *SubmitRequest {
+	s.Title = &v
+	return s
+}
+
+func (s *SubmitRequest) SetDescription(v string) *SubmitRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *SubmitRequest) SetInfluence(v string) *SubmitRequest {
+	s.Influence = &v
+	return s
+}
+
+func (s *SubmitRequest) SetAccount(v string) *SubmitRequest {
+	s.Account = &v
+	return s
+}
+
+func (s *SubmitRequest) SetName(v string) *SubmitRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *SubmitRequest) SetPhone(v string) *SubmitRequest {
+	s.Phone = &v
+	return s
+}
+
+func (s *SubmitRequest) SetEmail(v string) *SubmitRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *SubmitRequest) SetGroup(v string) *SubmitRequest {
+	s.Group = &v
+	return s
+}
+
+func (s *SubmitRequest) SetToken(v string) *SubmitRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *SubmitRequest) SetIp(v string) *SubmitRequest {
+	s.Ip = &v
+	return s
+}
+
+func (s *SubmitRequest) SetVerifyCode(v string) *SubmitRequest {
+	s.VerifyCode = &v
+	return s
+}
+
+func (s *SubmitRequest) SetBizNo(v string) *SubmitRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *SubmitRequest) SetType(v string) *SubmitRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *SubmitRequest) SetFileUrl(v []*string) *SubmitRequest {
+	s.FileUrl = v
 	return s
 }
 
@@ -650,137 +955,301 @@ func (s *QueryAoneResponse) SetData(v string) *QueryAoneResponse {
 	return s
 }
 
-type SaveAoneNeedsRequest struct {
+type ImportScOperationcenterRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 产品线
-	ProductLine *string `json:"product_line,omitempty" xml:"product_line,omitempty" require:"true"`
-	// 产品名称
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 问题类型
-	IssueType *string `json:"issue_type,omitempty" xml:"issue_type,omitempty" require:"true"`
-	// 期望日期
-	ExpectedAt *string `json:"expected_at,omitempty" xml:"expected_at,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 创建者的工号
-	Author *string `json:"author,omitempty" xml:"author,omitempty" require:"true"`
-	// 解决者/指派者的工号
-	AssignedTo *string `json:"assigned_to,omitempty" xml:"assigned_to,omitempty" require:"true"`
-	// 标题
-	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 跟踪者的工号
-	WatcherUsers []*string `json:"watcher_users,omitempty" xml:"watcher_users,omitempty" require:"true" type:"Repeated"`
-	// 优先级
-	PriorityId *int64 `json:"priority_id,omitempty" xml:"priority_id,omitempty" require:"true"`
-	// 上传文件集合
-	Uploadlist *UploadRequestArray `json:"uploadlist,omitempty" xml:"uploadlist,omitempty"`
+	// 提交表单入参
+	SubmitRequest *SubmitRequest `json:"submit_request,omitempty" xml:"submit_request,omitempty" require:"true"`
+	// 站位
+	FlagId *string `json:"flag_id,omitempty" xml:"flag_id,omitempty"`
 }
 
-func (s SaveAoneNeedsRequest) String() string {
+func (s ImportScOperationcenterRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SaveAoneNeedsRequest) GoString() string {
+func (s ImportScOperationcenterRequest) GoString() string {
 	return s.String()
 }
 
-func (s *SaveAoneNeedsRequest) SetAuthToken(v string) *SaveAoneNeedsRequest {
+func (s *ImportScOperationcenterRequest) SetAuthToken(v string) *ImportScOperationcenterRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *SaveAoneNeedsRequest) SetProductLine(v string) *SaveAoneNeedsRequest {
-	s.ProductLine = &v
+func (s *ImportScOperationcenterRequest) SetSubmitRequest(v *SubmitRequest) *ImportScOperationcenterRequest {
+	s.SubmitRequest = v
 	return s
 }
 
-func (s *SaveAoneNeedsRequest) SetProductName(v string) *SaveAoneNeedsRequest {
-	s.ProductName = &v
+func (s *ImportScOperationcenterRequest) SetFlagId(v string) *ImportScOperationcenterRequest {
+	s.FlagId = &v
 	return s
 }
 
-func (s *SaveAoneNeedsRequest) SetIssueType(v string) *SaveAoneNeedsRequest {
-	s.IssueType = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetExpectedAt(v string) *SaveAoneNeedsRequest {
-	s.ExpectedAt = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetAuthor(v string) *SaveAoneNeedsRequest {
-	s.Author = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetAssignedTo(v string) *SaveAoneNeedsRequest {
-	s.AssignedTo = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetSubject(v string) *SaveAoneNeedsRequest {
-	s.Subject = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetDescription(v string) *SaveAoneNeedsRequest {
-	s.Description = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetWatcherUsers(v []*string) *SaveAoneNeedsRequest {
-	s.WatcherUsers = v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetPriorityId(v int64) *SaveAoneNeedsRequest {
-	s.PriorityId = &v
-	return s
-}
-
-func (s *SaveAoneNeedsRequest) SetUploadlist(v *UploadRequestArray) *SaveAoneNeedsRequest {
-	s.Uploadlist = v
-	return s
-}
-
-type SaveAoneNeedsResponse struct {
+type ImportScOperationcenterResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回数据
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 保存的工单主键id（成功才有）
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 }
 
-func (s SaveAoneNeedsResponse) String() string {
+func (s ImportScOperationcenterResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SaveAoneNeedsResponse) GoString() string {
+func (s ImportScOperationcenterResponse) GoString() string {
 	return s.String()
 }
 
-func (s *SaveAoneNeedsResponse) SetReqMsgId(v string) *SaveAoneNeedsResponse {
+func (s *ImportScOperationcenterResponse) SetReqMsgId(v string) *ImportScOperationcenterResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *SaveAoneNeedsResponse) SetResultCode(v string) *SaveAoneNeedsResponse {
+func (s *ImportScOperationcenterResponse) SetResultCode(v string) *ImportScOperationcenterResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *SaveAoneNeedsResponse) SetResultMsg(v string) *SaveAoneNeedsResponse {
+func (s *ImportScOperationcenterResponse) SetResultMsg(v string) *ImportScOperationcenterResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *SaveAoneNeedsResponse) SetResult(v string) *SaveAoneNeedsResponse {
-	s.Result = &v
+func (s *ImportScOperationcenterResponse) SetSuccess(v bool) *ImportScOperationcenterResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ImportScOperationcenterResponse) SetId(v string) *ImportScOperationcenterResponse {
+	s.Id = &v
+	return s
+}
+
+type OperateScOperationcenterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 手机号/邮箱
+	Receiver *string `json:"receiver,omitempty" xml:"receiver,omitempty" require:"true"`
+}
+
+func (s OperateScOperationcenterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateScOperationcenterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateScOperationcenterRequest) SetAuthToken(v string) *OperateScOperationcenterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateScOperationcenterRequest) SetReceiver(v string) *OperateScOperationcenterRequest {
+	s.Receiver = &v
+	return s
+}
+
+type OperateScOperationcenterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateScOperationcenterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateScOperationcenterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateScOperationcenterResponse) SetReqMsgId(v string) *OperateScOperationcenterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateScOperationcenterResponse) SetResultCode(v string) *OperateScOperationcenterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateScOperationcenterResponse) SetResultMsg(v string) *OperateScOperationcenterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateScOperationcenterResponse) SetSuccess(v bool) *OperateScOperationcenterResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryScOperationcenterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s QueryScOperationcenterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScOperationcenterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScOperationcenterRequest) SetAuthToken(v string) *QueryScOperationcenterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScOperationcenterRequest) SetId(v string) *QueryScOperationcenterRequest {
+	s.Id = &v
+	return s
+}
+
+type QueryScOperationcenterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 事件详情
+	Data *Emergency `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryScOperationcenterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScOperationcenterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScOperationcenterResponse) SetReqMsgId(v string) *QueryScOperationcenterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScOperationcenterResponse) SetResultCode(v string) *QueryScOperationcenterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScOperationcenterResponse) SetResultMsg(v string) *QueryScOperationcenterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScOperationcenterResponse) SetSuccess(v bool) *QueryScOperationcenterResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryScOperationcenterResponse) SetData(v *Emergency) *QueryScOperationcenterResponse {
+	s.Data = v
+	return s
+}
+
+type ImportScFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	//
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	//
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	//
+	BusinessName *string `json:"business_name,omitempty" xml:"business_name,omitempty" require:"true"`
+}
+
+func (s ImportScFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportScFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportScFileRequest) SetAuthToken(v string) *ImportScFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportScFileRequest) SetKey(v string) *ImportScFileRequest {
+	s.Key = &v
+	return s
+}
+
+func (s *ImportScFileRequest) SetFileName(v string) *ImportScFileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *ImportScFileRequest) SetBusinessName(v string) *ImportScFileRequest {
+	s.BusinessName = &v
+	return s
+}
+
+type ImportScFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	//
+	Data *Upload `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ImportScFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportScFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportScFileResponse) SetReqMsgId(v string) *ImportScFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportScFileResponse) SetResultCode(v string) *ImportScFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportScFileResponse) SetResultMsg(v string) *ImportScFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportScFileResponse) SetSuccess(v bool) *ImportScFileResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ImportScFileResponse) SetData(v *Upload) *ImportScFileResponse {
+	s.Data = v
 	return s
 }
 
@@ -906,7 +1375,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.18"),
+				"sdk_version":      tea.String("1.1.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -932,8 +1401,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -1057,14 +1534,14 @@ func (client *Client) QueryAoneEx(request *QueryAoneRequest, headers map[string]
 }
 
 /**
- * Description: 提交客户项目需求
- * Summary: 提交项目需求
+ * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+ * Summary: 前端提交需求表单
  */
-func (client *Client) SaveAoneNeeds(request *SaveAoneNeedsRequest) (_result *SaveAoneNeedsResponse, _err error) {
+func (client *Client) ImportScOperationcenter(request *ImportScOperationcenterRequest) (_result *ImportScOperationcenterResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &SaveAoneNeedsResponse{}
-	_body, _err := client.SaveAoneNeedsEx(request, headers, runtime)
+	_result = &ImportScOperationcenterResponse{}
+	_body, _err := client.ImportScOperationcenterEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1073,16 +1550,118 @@ func (client *Client) SaveAoneNeeds(request *SaveAoneNeedsRequest) (_result *Sav
 }
 
 /**
- * Description: 提交客户项目需求
- * Summary: 提交项目需求
+ * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+ * Summary: 前端提交需求表单
  */
-func (client *Client) SaveAoneNeedsEx(request *SaveAoneNeedsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveAoneNeedsResponse, _err error) {
+func (client *Client) ImportScOperationcenterEx(request *ImportScOperationcenterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportScOperationcenterResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &SaveAoneNeedsResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.aone.needs.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ImportScOperationcenterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.operationcenter.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发送验证码
+ * Summary: 发送验证码
+ */
+func (client *Client) OperateScOperationcenter(request *OperateScOperationcenterRequest) (_result *OperateScOperationcenterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateScOperationcenterResponse{}
+	_body, _err := client.OperateScOperationcenterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发送验证码
+ * Summary: 发送验证码
+ */
+func (client *Client) OperateScOperationcenterEx(request *OperateScOperationcenterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateScOperationcenterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateScOperationcenterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.operationcenter.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询跟进情况
+ * Summary: 查询跟进情况
+ */
+func (client *Client) QueryScOperationcenter(request *QueryScOperationcenterRequest) (_result *QueryScOperationcenterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScOperationcenterResponse{}
+	_body, _err := client.QueryScOperationcenterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询跟进情况
+ * Summary: 查询跟进情况
+ */
+func (client *Client) QueryScOperationcenterEx(request *QueryScOperationcenterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScOperationcenterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScOperationcenterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.operationcenter.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 附件上传
+ * Summary: 附件上传
+ */
+func (client *Client) ImportScFile(request *ImportScFileRequest) (_result *ImportScFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportScFileResponse{}
+	_body, _err := client.ImportScFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 附件上传
+ * Summary: 附件上传
+ */
+func (client *Client) ImportScFileEx(request *ImportScFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportScFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportScFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.file.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
