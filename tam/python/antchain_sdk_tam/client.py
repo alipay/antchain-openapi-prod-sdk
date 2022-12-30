@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 附件上传
+            # 附件上传表单参数
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.18'
+                    'sdk_version': '1.1.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 附件上传
+            # 附件上传表单参数
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.18'
+                    'sdk_version': '1.1.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 查询售后中心项目信息
         """
         UtilClient.validate_model(request)
-        return tam_models.QueryCustomResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.QueryCustomResponse(),
             self.do_request('1.0', 'antcloud.tam.custom.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 查询售后中心项目信息
         """
         UtilClient.validate_model(request)
-        return tam_models.QueryCustomResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.QueryCustomResponse(),
             await self.do_request_async('1.0', 'antcloud.tam.custom.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 提交到aone
         """
         UtilClient.validate_model(request)
-        return tam_models.SaveAoneResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.SaveAoneResponse(),
             self.do_request('1.0', 'antcloud.tam.aone.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 提交到aone
         """
         UtilClient.validate_model(request)
-        return tam_models.SaveAoneResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.SaveAoneResponse(),
             await self.do_request_async('1.0', 'antcloud.tam.aone.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 查询aone详情
         """
         UtilClient.validate_model(request)
-        return tam_models.QueryAoneResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.QueryAoneResponse(),
             self.do_request('1.0', 'antcloud.tam.aone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,60 +434,231 @@ class Client:
         Summary: 查询aone详情
         """
         UtilClient.validate_model(request)
-        return tam_models.QueryAoneResponse().from_map(
+        return TeaCore.from_map(
+            tam_models.QueryAoneResponse(),
             await self.do_request_async('1.0', 'antcloud.tam.aone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def save_aone_needs(
+    def import_sc_operationcenter(
         self,
-        request: tam_models.SaveAoneNeedsRequest,
-    ) -> tam_models.SaveAoneNeedsResponse:
+        request: tam_models.ImportScOperationcenterRequest,
+    ) -> tam_models.ImportScOperationcenterResponse:
         """
-        Description: 提交客户项目需求
-        Summary: 提交项目需求
+        Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+        Summary: 前端提交需求表单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.save_aone_needs_ex(request, headers, runtime)
+        return self.import_sc_operationcenter_ex(request, headers, runtime)
 
-    async def save_aone_needs_async(
+    async def import_sc_operationcenter_async(
         self,
-        request: tam_models.SaveAoneNeedsRequest,
-    ) -> tam_models.SaveAoneNeedsResponse:
+        request: tam_models.ImportScOperationcenterRequest,
+    ) -> tam_models.ImportScOperationcenterResponse:
         """
-        Description: 提交客户项目需求
-        Summary: 提交项目需求
+        Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+        Summary: 前端提交需求表单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.save_aone_needs_ex_async(request, headers, runtime)
+        return await self.import_sc_operationcenter_ex_async(request, headers, runtime)
 
-    def save_aone_needs_ex(
+    def import_sc_operationcenter_ex(
         self,
-        request: tam_models.SaveAoneNeedsRequest,
+        request: tam_models.ImportScOperationcenterRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tam_models.SaveAoneNeedsResponse:
+    ) -> tam_models.ImportScOperationcenterResponse:
         """
-        Description: 提交客户项目需求
-        Summary: 提交项目需求
+        Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+        Summary: 前端提交需求表单
         """
         UtilClient.validate_model(request)
-        return tam_models.SaveAoneNeedsResponse().from_map(
-            self.do_request('1.0', 'antcloud.tam.aone.needs.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return TeaCore.from_map(
+            tam_models.ImportScOperationcenterResponse(),
+            self.do_request('1.0', 'antcloud.tam.sc.operationcenter.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def save_aone_needs_ex_async(
+    async def import_sc_operationcenter_ex_async(
         self,
-        request: tam_models.SaveAoneNeedsRequest,
+        request: tam_models.ImportScOperationcenterRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tam_models.SaveAoneNeedsResponse:
+    ) -> tam_models.ImportScOperationcenterResponse:
         """
-        Description: 提交客户项目需求
-        Summary: 提交项目需求
+        Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+        Summary: 前端提交需求表单
         """
         UtilClient.validate_model(request)
-        return tam_models.SaveAoneNeedsResponse().from_map(
-            await self.do_request_async('1.0', 'antcloud.tam.aone.needs.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return TeaCore.from_map(
+            tam_models.ImportScOperationcenterResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.sc.operationcenter.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_sc_operationcenter(
+        self,
+        request: tam_models.OperateScOperationcenterRequest,
+    ) -> tam_models.OperateScOperationcenterResponse:
+        """
+        Description: 发送验证码
+        Summary: 发送验证码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_sc_operationcenter_ex(request, headers, runtime)
+
+    async def operate_sc_operationcenter_async(
+        self,
+        request: tam_models.OperateScOperationcenterRequest,
+    ) -> tam_models.OperateScOperationcenterResponse:
+        """
+        Description: 发送验证码
+        Summary: 发送验证码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_sc_operationcenter_ex_async(request, headers, runtime)
+
+    def operate_sc_operationcenter_ex(
+        self,
+        request: tam_models.OperateScOperationcenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.OperateScOperationcenterResponse:
+        """
+        Description: 发送验证码
+        Summary: 发送验证码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.OperateScOperationcenterResponse(),
+            self.do_request('1.0', 'antcloud.tam.sc.operationcenter.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_sc_operationcenter_ex_async(
+        self,
+        request: tam_models.OperateScOperationcenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.OperateScOperationcenterResponse:
+        """
+        Description: 发送验证码
+        Summary: 发送验证码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.OperateScOperationcenterResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.sc.operationcenter.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sc_operationcenter(
+        self,
+        request: tam_models.QueryScOperationcenterRequest,
+    ) -> tam_models.QueryScOperationcenterResponse:
+        """
+        Description: 查询跟进情况
+        Summary: 查询跟进情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sc_operationcenter_ex(request, headers, runtime)
+
+    async def query_sc_operationcenter_async(
+        self,
+        request: tam_models.QueryScOperationcenterRequest,
+    ) -> tam_models.QueryScOperationcenterResponse:
+        """
+        Description: 查询跟进情况
+        Summary: 查询跟进情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sc_operationcenter_ex_async(request, headers, runtime)
+
+    def query_sc_operationcenter_ex(
+        self,
+        request: tam_models.QueryScOperationcenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryScOperationcenterResponse:
+        """
+        Description: 查询跟进情况
+        Summary: 查询跟进情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryScOperationcenterResponse(),
+            self.do_request('1.0', 'antcloud.tam.sc.operationcenter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sc_operationcenter_ex_async(
+        self,
+        request: tam_models.QueryScOperationcenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryScOperationcenterResponse:
+        """
+        Description: 查询跟进情况
+        Summary: 查询跟进情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryScOperationcenterResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.sc.operationcenter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_sc_file(
+        self,
+        request: tam_models.ImportScFileRequest,
+    ) -> tam_models.ImportScFileResponse:
+        """
+        Description: 附件上传
+        Summary: 附件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_sc_file_ex(request, headers, runtime)
+
+    async def import_sc_file_async(
+        self,
+        request: tam_models.ImportScFileRequest,
+    ) -> tam_models.ImportScFileResponse:
+        """
+        Description: 附件上传
+        Summary: 附件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_sc_file_ex_async(request, headers, runtime)
+
+    def import_sc_file_ex(
+        self,
+        request: tam_models.ImportScFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.ImportScFileResponse:
+        """
+        Description: 附件上传
+        Summary: 附件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.ImportScFileResponse(),
+            self.do_request('1.0', 'antcloud.tam.sc.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_sc_file_ex_async(
+        self,
+        request: tam_models.ImportScFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.ImportScFileResponse:
+        """
+        Description: 附件上传
+        Summary: 附件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.ImportScFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.sc.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
