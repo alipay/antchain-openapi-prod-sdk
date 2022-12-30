@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.18"},
+                        {"sdk_version", "1.1.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.18"},
+                        {"sdk_version", "1.1.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -444,45 +444,171 @@ namespace AntChain.SDK.TAM
         }
 
         /**
-         * Description: 提交客户项目需求
-         * Summary: 提交项目需求
+         * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+         * Summary: 前端提交需求表单
          */
-        public SaveAoneNeedsResponse SaveAoneNeeds(SaveAoneNeedsRequest request)
+        public ImportScOperationcenterResponse ImportScOperationcenter(ImportScOperationcenterRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return SaveAoneNeedsEx(request, headers, runtime);
+            return ImportScOperationcenterEx(request, headers, runtime);
         }
 
         /**
-         * Description: 提交客户项目需求
-         * Summary: 提交项目需求
+         * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+         * Summary: 前端提交需求表单
          */
-        public async Task<SaveAoneNeedsResponse> SaveAoneNeedsAsync(SaveAoneNeedsRequest request)
+        public async Task<ImportScOperationcenterResponse> ImportScOperationcenterAsync(ImportScOperationcenterRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await SaveAoneNeedsExAsync(request, headers, runtime);
+            return await ImportScOperationcenterExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 提交客户项目需求
-         * Summary: 提交项目需求
+         * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+         * Summary: 前端提交需求表单
          */
-        public SaveAoneNeedsResponse SaveAoneNeedsEx(SaveAoneNeedsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ImportScOperationcenterResponse ImportScOperationcenterEx(ImportScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SaveAoneNeedsResponse>(DoRequest("1.0", "antcloud.tam.aone.needs.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ImportScOperationcenterResponse>(DoRequest("1.0", "antcloud.tam.sc.operationcenter.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 提交客户项目需求
-         * Summary: 提交项目需求
+         * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+         * Summary: 前端提交需求表单
          */
-        public async Task<SaveAoneNeedsResponse> SaveAoneNeedsExAsync(SaveAoneNeedsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ImportScOperationcenterResponse> ImportScOperationcenterExAsync(ImportScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SaveAoneNeedsResponse>(await DoRequestAsync("1.0", "antcloud.tam.aone.needs.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ImportScOperationcenterResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.operationcenter.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发送验证码
+         * Summary: 发送验证码
+         */
+        public OperateScOperationcenterResponse OperateScOperationcenter(OperateScOperationcenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateScOperationcenterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发送验证码
+         * Summary: 发送验证码
+         */
+        public async Task<OperateScOperationcenterResponse> OperateScOperationcenterAsync(OperateScOperationcenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateScOperationcenterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发送验证码
+         * Summary: 发送验证码
+         */
+        public OperateScOperationcenterResponse OperateScOperationcenterEx(OperateScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateScOperationcenterResponse>(DoRequest("1.0", "antcloud.tam.sc.operationcenter.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发送验证码
+         * Summary: 发送验证码
+         */
+        public async Task<OperateScOperationcenterResponse> OperateScOperationcenterExAsync(OperateScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateScOperationcenterResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.operationcenter.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询跟进情况
+         * Summary: 查询跟进情况
+         */
+        public QueryScOperationcenterResponse QueryScOperationcenter(QueryScOperationcenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScOperationcenterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询跟进情况
+         * Summary: 查询跟进情况
+         */
+        public async Task<QueryScOperationcenterResponse> QueryScOperationcenterAsync(QueryScOperationcenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScOperationcenterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询跟进情况
+         * Summary: 查询跟进情况
+         */
+        public QueryScOperationcenterResponse QueryScOperationcenterEx(QueryScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScOperationcenterResponse>(DoRequest("1.0", "antcloud.tam.sc.operationcenter.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询跟进情况
+         * Summary: 查询跟进情况
+         */
+        public async Task<QueryScOperationcenterResponse> QueryScOperationcenterExAsync(QueryScOperationcenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScOperationcenterResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.operationcenter.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 附件上传
+         * Summary: 附件上传
+         */
+        public ImportScFileResponse ImportScFile(ImportScFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportScFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 附件上传
+         * Summary: 附件上传
+         */
+        public async Task<ImportScFileResponse> ImportScFileAsync(ImportScFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportScFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 附件上传
+         * Summary: 附件上传
+         */
+        public ImportScFileResponse ImportScFileEx(ImportScFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportScFileResponse>(DoRequest("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 附件上传
+         * Summary: 附件上传
+         */
+        public async Task<ImportScFileResponse> ImportScFileExAsync(ImportScFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportScFileResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

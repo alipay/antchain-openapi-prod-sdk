@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAM.Models
 {
-    public class SaveAoneNeedsResponse : TeaModel {
+    public class ImportScOperationcenterResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.TAM.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回数据
-        [NameInMap("result")]
+        // 是否成功
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public string Result { get; set; }
+        public bool? Success { get; set; }
+
+        // 保存的工单主键id（成功才有）
+        [NameInMap("id")]
+        [Validation(Required=false)]
+        public string Id { get; set; }
 
     }
 
