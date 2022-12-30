@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TAM",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-tam:1.0.18",
-    "go": "github.com/antchain-openapi-sdk-go/tam/client:v1.0.18",
-    "csharp": "AntChain.SDK.TAM:1.0.18",
-    "ts": "@antchain/tam:1.0.18",
-    "php": "antchain/tam:1.0.18",
-    "python": "antchain_sdk_tam:1.0.18"
+    "java": "com.antgroup.antchain.openapi:openapi-tam:1.1.2",
+    "go": "github.com/antchain-openapi-sdk-go/tam/client:v1.1.2",
+    "csharp": "AntChain.SDK.TAM:1.1.2",
+    "ts": "@antchain/tam:1.1.2",
+    "php": "antchain/tam:1.1.2",
+    "python": "antchain_sdk_tam:1.1.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

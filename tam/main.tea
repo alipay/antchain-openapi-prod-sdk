@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.18',
+    sdk_version = '1.1.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,24 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 附件上传表单参数
+model FormParam {
+  //  
+  ossAccessKeyId: string(name='oss_access_key_id', example=' '),
+  //  
+  callback: string(name='callback', example=' '),
+  //  
+  key: string(name='key', example=' '),
+  //  
+  policy: string(name='policy', example=' '),
+  //  
+  signature: string(name='signature', example=' '),
+  //  
+  successActionStatus: string(name='success_action_status', example=' '),
+  //  
+  appName: string(name='app_name', example=' '),
+}
+
 // 附件上传
 model UploadRequest {
   // 文件流/文件地址
@@ -211,6 +229,78 @@ model AcesProject {
 model UploadRequestArray {
   // 文件数据
   uploadArray: UploadRequest(name='upload_array', example='[uploadResult,uploadResult]'),
+}
+
+// 事件详情
+model Emergency {
+  // 标题
+  title: string(name='title', example=' '),
+  // 账号
+  account: string(name='account', example=' '),
+  // 姓名
+  name: string(name='name', example=' '),
+  // 手机号
+  phone: string(name='phone', example=' '),
+  // 邮箱
+  email: string(name='email', example=' '),
+  // 钉钉群
+  group: string(name='group', example=' '),
+  // 当前记录状态
+  status: string(name='status', example='当前记录状态( SUCCESS_START发起成功， FAIL_STAT发起失败， FAIL_CONN未接通， SUCCESS_CONN已接通)'),
+}
+
+//  
+model Upload {
+  //  
+  endpoint: string(name='endpoint', example=' '),
+  //  
+  fileUniqueId: string(name='file_unique_id', example=' '),
+  //  
+  fileUrl: string(name='file_url', example=' '),
+  //  
+  formParam: FormParam(name='form_param', example=''),
+}
+
+// 返回结果
+model ResultOncall {
+  // 是否成功
+  success: string(name='success', example=' '),
+  // 提示信息
+  resultMsg: string(name='result_msg', example=' '),
+  // 保存的工单主键id（成功才有）
+  id?: string(name='id', example=' '),
+}
+
+// 提交表单入参
+model SubmitRequest {
+  // 测试
+  title: string(name='title', example='测试'),
+  // 问题描述（富文本）
+  description: string(name='description', example='无'),
+  // 影响
+  influence: string(name='influence', example='影响'),
+  // 账号
+  account: string(name='account', example=' '),
+  // 姓名
+  name: string(name='name', example=' '),
+  // 手机号
+  phone?: string(name='phone', example=' '),
+  // 邮箱
+  email?: string(name='email', example=' '),
+  // 钉钉群
+  group: string(name='group', example=' '),
+  // 校验令牌（接入RDS校验）
+  token: string(name='token', example=' '),
+  // ip
+  ip: string(name='ip', example=' '),
+  // 验证码
+  verifyCode: string(name='verify_code', example=' '),
+  // RDS的bizNo
+  bizNo: string(name='biz_no', example=' '),
+  // 公有化PUBLIC、私有化PRIVATE
+  type: string(name='type', example=' '),
+  // 上传附件的URL
+  fileUrl?: [ string ](name='file_url', example=' '),
 }
 
 // 返回结构
@@ -362,60 +452,163 @@ async function queryAoneEx(request: QueryAoneRequest, headers: map[string]string
   return doRequest('1.0' ,'antcloud.tam.aone.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model SaveAoneNeedsRequest = {
+model ImportScOperationcenterRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 产品线
-  productLine: string(name='product_line'),
-  // 产品名称
-  productName: string(name='product_name'),
-  // 问题类型
-  issueType: string(name='issue_type'),
-  // 期望日期
-  expectedAt?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expected_at'),
-  // 创建者的工号
-  author: string(name='author'),
-  // 解决者/指派者的工号
-  assignedTo: string(name='assigned_to'),
-  // 标题
-  subject: string(name='subject'),
-  // 描述
-  description: string(name='description'),
-  // 跟踪者的工号
-  watcherUsers: [ string ](name='watcher_users'),
-  // 优先级
-  priorityId: long(name='priority_id'),
-  // 上传文件集合
-  uploadlist?: UploadRequestArray(name='uploadlist'),
+  // 提交表单入参
+  submitRequest: SubmitRequest(name='submit_request'),
+  // 站位
+  flagId?: string(name='flag_id'),
 }
 
-model SaveAoneNeedsResponse = {
+model ImportScOperationcenterResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回数据
-  result?: string(name='result'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 保存的工单主键id（成功才有）
+  id?: string(name='id'),
 }
 
 /**
- * Description: 提交客户项目需求
- * Summary: 提交项目需求
+ * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+ * Summary: 前端提交需求表单
  */
-async function saveAoneNeeds(request: SaveAoneNeedsRequest): SaveAoneNeedsResponse {
+async function importScOperationcenter(request: ImportScOperationcenterRequest): ImportScOperationcenterResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return saveAoneNeedsEx(request, headers, runtime);
+  return importScOperationcenterEx(request, headers, runtime);
 }
 
 /**
- * Description: 提交客户项目需求
- * Summary: 提交项目需求
+ * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+ * Summary: 前端提交需求表单
  */
-async function saveAoneNeedsEx(request: SaveAoneNeedsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveAoneNeedsResponse {
+async function importScOperationcenterEx(request: ImportScOperationcenterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportScOperationcenterResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antcloud.tam.aone.needs.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antcloud.tam.sc.operationcenter.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateScOperationcenterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 手机号/邮箱
+  receiver: string(name='receiver'),
+}
+
+model OperateScOperationcenterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发送验证码
+ * Summary: 发送验证码
+ */
+async function operateScOperationcenter(request: OperateScOperationcenterRequest): OperateScOperationcenterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateScOperationcenterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发送验证码
+ * Summary: 发送验证码
+ */
+async function operateScOperationcenterEx(request: OperateScOperationcenterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateScOperationcenterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.sc.operationcenter.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScOperationcenterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+}
+
+model QueryScOperationcenterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 事件详情
+  data?: Emergency(name='data'),
+}
+
+/**
+ * Description: 查询跟进情况
+ * Summary: 查询跟进情况
+ */
+async function queryScOperationcenter(request: QueryScOperationcenterRequest): QueryScOperationcenterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScOperationcenterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询跟进情况
+ * Summary: 查询跟进情况
+ */
+async function queryScOperationcenterEx(request: QueryScOperationcenterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScOperationcenterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.sc.operationcenter.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportScFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  //  
+  key: string(name='key'),
+  //  
+  fileName: string(name='file_name'),
+  //  
+  businessName: string(name='business_name'),
+}
+
+model ImportScFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  //  
+  data?: Upload(name='data'),
+}
+
+/**
+ * Description: 附件上传
+ * Summary: 附件上传
+ */
+async function importScFile(request: ImportScFileRequest): ImportScFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importScFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 附件上传
+ * Summary: 附件上传
+ */
+async function importScFileEx(request: ImportScFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportScFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.sc.file.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
