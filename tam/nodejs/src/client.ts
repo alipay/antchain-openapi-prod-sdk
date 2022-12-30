@@ -77,6 +77,51 @@ export class Config extends $tea.Model {
   }
 }
 
+// 附件上传表单参数
+export class FormParam extends $tea.Model {
+  //  
+  ossAccessKeyId: string;
+  //  
+  callback: string;
+  //  
+  key: string;
+  //  
+  policy: string;
+  //  
+  signature: string;
+  //  
+  successActionStatus: string;
+  //  
+  appName: string;
+  static names(): { [key: string]: string } {
+    return {
+      ossAccessKeyId: 'oss_access_key_id',
+      callback: 'callback',
+      key: 'key',
+      policy: 'policy',
+      signature: 'signature',
+      successActionStatus: 'success_action_status',
+      appName: 'app_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ossAccessKeyId: 'string',
+      callback: 'string',
+      key: 'string',
+      policy: 'string',
+      signature: 'string',
+      successActionStatus: 'string',
+      appName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 附件上传
 export class UploadRequest extends $tea.Model {
   // 文件流/文件地址
@@ -213,6 +258,186 @@ export class UploadRequestArray extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       uploadArray: UploadRequest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 事件详情
+export class Emergency extends $tea.Model {
+  // 标题
+  title: string;
+  // 账号
+  account: string;
+  // 姓名
+  name: string;
+  // 手机号
+  phone: string;
+  // 邮箱
+  email: string;
+  // 钉钉群
+  group: string;
+  // 当前记录状态
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      account: 'account',
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+      group: 'group',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      account: 'string',
+      name: 'string',
+      phone: 'string',
+      email: 'string',
+      group: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+//  
+export class Upload extends $tea.Model {
+  //  
+  endpoint: string;
+  //  
+  fileUniqueId: string;
+  //  
+  fileUrl: string;
+  //  
+  formParam: FormParam;
+  static names(): { [key: string]: string } {
+    return {
+      endpoint: 'endpoint',
+      fileUniqueId: 'file_unique_id',
+      fileUrl: 'file_url',
+      formParam: 'form_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      endpoint: 'string',
+      fileUniqueId: 'string',
+      fileUrl: 'string',
+      formParam: FormParam,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 返回结果
+export class ResultOncall extends $tea.Model {
+  // 是否成功
+  success: string;
+  // 提示信息
+  resultMsg: string;
+  // 保存的工单主键id（成功才有）
+  id?: string;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+      resultMsg: 'result_msg',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'string',
+      resultMsg: 'string',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 提交表单入参
+export class SubmitRequest extends $tea.Model {
+  // 测试
+  title: string;
+  // 问题描述（富文本）
+  description: string;
+  // 影响
+  influence: string;
+  // 账号
+  account: string;
+  // 姓名
+  name: string;
+  // 手机号
+  phone?: string;
+  // 邮箱
+  email?: string;
+  // 钉钉群
+  group: string;
+  // 校验令牌（接入RDS校验）
+  token: string;
+  // ip
+  ip: string;
+  // 验证码
+  verifyCode: string;
+  // RDS的bizNo
+  bizNo: string;
+  // 公有化PUBLIC、私有化PRIVATE
+  type: string;
+  // 上传附件的URL
+  fileUrl?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      description: 'description',
+      influence: 'influence',
+      account: 'account',
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+      group: 'group',
+      token: 'token',
+      ip: 'ip',
+      verifyCode: 'verify_code',
+      bizNo: 'biz_no',
+      type: 'type',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      description: 'string',
+      influence: 'string',
+      account: 'string',
+      name: 'string',
+      phone: 'string',
+      email: 'string',
+      group: 'string',
+      token: 'string',
+      ip: 'string',
+      verifyCode: 'string',
+      bizNo: 'string',
+      type: 'string',
+      fileUrl: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -483,62 +708,26 @@ export class QueryAoneResponse extends $tea.Model {
   }
 }
 
-export class SaveAoneNeedsRequest extends $tea.Model {
+export class ImportScOperationcenterRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 产品线
-  productLine: string;
-  // 产品名称
-  productName: string;
-  // 问题类型
-  issueType: string;
-  // 期望日期
-  expectedAt?: string;
-  // 创建者的工号
-  author: string;
-  // 解决者/指派者的工号
-  assignedTo: string;
-  // 标题
-  subject: string;
-  // 描述
-  description: string;
-  // 跟踪者的工号
-  watcherUsers: string[];
-  // 优先级
-  priorityId: number;
-  // 上传文件集合
-  uploadlist?: UploadRequestArray;
+  // 提交表单入参
+  submitRequest: SubmitRequest;
+  // 站位
+  flagId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      productLine: 'product_line',
-      productName: 'product_name',
-      issueType: 'issue_type',
-      expectedAt: 'expected_at',
-      author: 'author',
-      assignedTo: 'assigned_to',
-      subject: 'subject',
-      description: 'description',
-      watcherUsers: 'watcher_users',
-      priorityId: 'priority_id',
-      uploadlist: 'uploadlist',
+      submitRequest: 'submit_request',
+      flagId: 'flag_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      productLine: 'string',
-      productName: 'string',
-      issueType: 'string',
-      expectedAt: 'string',
-      author: 'string',
-      assignedTo: 'string',
-      subject: 'string',
-      description: 'string',
-      watcherUsers: { 'type': 'array', 'itemType': 'string' },
-      priorityId: 'number',
-      uploadlist: UploadRequestArray,
+      submitRequest: SubmitRequest,
+      flagId: 'string',
     };
   }
 
@@ -547,21 +736,24 @@ export class SaveAoneNeedsRequest extends $tea.Model {
   }
 }
 
-export class SaveAoneNeedsResponse extends $tea.Model {
+export class ImportScOperationcenterResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回数据
-  result?: string;
+  // 是否成功
+  success?: boolean;
+  // 保存的工单主键id（成功才有）
+  id?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      result: 'result',
+      success: 'success',
+      id: 'id',
     };
   }
 
@@ -570,7 +762,192 @@ export class SaveAoneNeedsResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      result: 'string',
+      success: 'boolean',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateScOperationcenterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 手机号/邮箱
+  receiver: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      receiver: 'receiver',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      receiver: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateScOperationcenterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScOperationcenterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // id
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScOperationcenterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 事件详情
+  data?: Emergency;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      data: Emergency,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportScFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  //  
+  key: string;
+  //  
+  fileName: string;
+  //  
+  businessName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      key: 'key',
+      fileName: 'file_name',
+      businessName: 'business_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      key: 'string',
+      fileName: 'string',
+      businessName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportScFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  //  
+  data?: Upload;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      data: Upload,
     };
   }
 
@@ -692,7 +1069,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.18",
+          sdk_version: "1.1.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -796,22 +1173,79 @@ export default class Client {
   }
 
   /**
-   * Description: 提交客户项目需求
-   * Summary: 提交项目需求
+   * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+   * Summary: 前端提交需求表单
    */
-  async saveAoneNeeds(request: SaveAoneNeedsRequest): Promise<SaveAoneNeedsResponse> {
+  async importScOperationcenter(request: ImportScOperationcenterRequest): Promise<ImportScOperationcenterResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.saveAoneNeedsEx(request, headers, runtime);
+    return await this.importScOperationcenterEx(request, headers, runtime);
   }
 
   /**
-   * Description: 提交客户项目需求
-   * Summary: 提交项目需求
+   * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+   * Summary: 前端提交需求表单
    */
-  async saveAoneNeedsEx(request: SaveAoneNeedsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveAoneNeedsResponse> {
+  async importScOperationcenterEx(request: ImportScOperationcenterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportScOperationcenterResponse> {
     Util.validateModel(request);
-    return $tea.cast<SaveAoneNeedsResponse>(await this.doRequest("1.0", "antcloud.tam.aone.needs.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveAoneNeedsResponse({}));
+    return $tea.cast<ImportScOperationcenterResponse>(await this.doRequest("1.0", "antcloud.tam.sc.operationcenter.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportScOperationcenterResponse({}));
+  }
+
+  /**
+   * Description: 发送验证码
+   * Summary: 发送验证码
+   */
+  async operateScOperationcenter(request: OperateScOperationcenterRequest): Promise<OperateScOperationcenterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateScOperationcenterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发送验证码
+   * Summary: 发送验证码
+   */
+  async operateScOperationcenterEx(request: OperateScOperationcenterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateScOperationcenterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateScOperationcenterResponse>(await this.doRequest("1.0", "antcloud.tam.sc.operationcenter.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateScOperationcenterResponse({}));
+  }
+
+  /**
+   * Description: 查询跟进情况
+   * Summary: 查询跟进情况
+   */
+  async queryScOperationcenter(request: QueryScOperationcenterRequest): Promise<QueryScOperationcenterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScOperationcenterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询跟进情况
+   * Summary: 查询跟进情况
+   */
+  async queryScOperationcenterEx(request: QueryScOperationcenterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScOperationcenterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScOperationcenterResponse>(await this.doRequest("1.0", "antcloud.tam.sc.operationcenter.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScOperationcenterResponse({}));
+  }
+
+  /**
+   * Description: 附件上传
+   * Summary: 附件上传
+   */
+  async importScFile(request: ImportScFileRequest): Promise<ImportScFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importScFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 附件上传
+   * Summary: 附件上传
+   */
+  async importScFileEx(request: ImportScFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportScFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportScFileResponse>(await this.doRequest("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportScFileResponse({}));
   }
 
 }
