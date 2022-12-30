@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tam.models;
 
 import com.aliyun.tea.*;
 
-public class SaveAoneNeedsResponse extends TeaModel {
+public class OperateScOperationcenterResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SaveAoneNeedsResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回数据
-    @NameInMap("result")
-    public String result;
+    // 是否成功
+    @NameInMap("success")
+    public Boolean success;
 
-    public static SaveAoneNeedsResponse build(java.util.Map<String, ?> map) throws Exception {
-        SaveAoneNeedsResponse self = new SaveAoneNeedsResponse();
+    public static OperateScOperationcenterResponse build(java.util.Map<String, ?> map) throws Exception {
+        OperateScOperationcenterResponse self = new OperateScOperationcenterResponse();
         return TeaModel.build(map, self);
     }
 
-    public SaveAoneNeedsResponse setReqMsgId(String reqMsgId) {
+    public OperateScOperationcenterResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SaveAoneNeedsResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SaveAoneNeedsResponse setResultCode(String resultCode) {
+    public OperateScOperationcenterResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SaveAoneNeedsResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SaveAoneNeedsResponse setResultMsg(String resultMsg) {
+    public OperateScOperationcenterResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class SaveAoneNeedsResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SaveAoneNeedsResponse setResult(String result) {
-        this.result = result;
+    public OperateScOperationcenterResponse setSuccess(Boolean success) {
+        this.success = success;
         return this;
     }
-    public String getResult() {
-        return this.result;
+    public Boolean getSuccess() {
+        return this.success;
     }
 
 }

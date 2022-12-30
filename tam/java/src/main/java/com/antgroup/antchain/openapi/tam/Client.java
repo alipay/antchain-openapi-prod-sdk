@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.18")
+                    new TeaPair("sdk_version", "1.1.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -217,21 +217,78 @@ public class Client {
     }
 
     /**
-     * Description: 提交客户项目需求
-     * Summary: 提交项目需求
+     * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+     * Summary: 前端提交需求表单
      */
-    public SaveAoneNeedsResponse saveAoneNeeds(SaveAoneNeedsRequest request) throws Exception {
+    public ImportScOperationcenterResponse importScOperationcenter(ImportScOperationcenterRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.saveAoneNeedsEx(request, headers, runtime);
+        return this.importScOperationcenterEx(request, headers, runtime);
     }
 
     /**
-     * Description: 提交客户项目需求
-     * Summary: 提交项目需求
+     * Description: 智能外呼需求，前端提交表单后调用此接口将数据落入售后中心
+     * Summary: 前端提交需求表单
      */
-    public SaveAoneNeedsResponse saveAoneNeedsEx(SaveAoneNeedsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ImportScOperationcenterResponse importScOperationcenterEx(ImportScOperationcenterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tam.aone.needs.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAoneNeedsResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tam.sc.operationcenter.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportScOperationcenterResponse());
+    }
+
+    /**
+     * Description: 发送验证码
+     * Summary: 发送验证码
+     */
+    public OperateScOperationcenterResponse operateScOperationcenter(OperateScOperationcenterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateScOperationcenterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发送验证码
+     * Summary: 发送验证码
+     */
+    public OperateScOperationcenterResponse operateScOperationcenterEx(OperateScOperationcenterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tam.sc.operationcenter.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateScOperationcenterResponse());
+    }
+
+    /**
+     * Description: 查询跟进情况
+     * Summary: 查询跟进情况
+     */
+    public QueryScOperationcenterResponse queryScOperationcenter(QueryScOperationcenterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryScOperationcenterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询跟进情况
+     * Summary: 查询跟进情况
+     */
+    public QueryScOperationcenterResponse queryScOperationcenterEx(QueryScOperationcenterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tam.sc.operationcenter.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScOperationcenterResponse());
+    }
+
+    /**
+     * Description: 附件上传
+     * Summary: 附件上传
+     */
+    public ImportScFileResponse importScFile(ImportScFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importScFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 附件上传
+     * Summary: 附件上传
+     */
+    public ImportScFileResponse importScFileEx(ImportScFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportScFileResponse());
     }
 }
