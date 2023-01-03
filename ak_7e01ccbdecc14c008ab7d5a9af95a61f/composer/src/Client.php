@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\ConfirmAntchainBbpContractReconciliationRequest;
+use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\ConfirmAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\ImportDemoSaasTestTestbRequest;
+use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\ImportDemoSaasTestTestbResponse;
 use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\QueryDemoSaasTestTestaRequest;
 use AntChain\Ak_7e01ccbdecc14c008ab7d5a9af95a61f\Models\QueryDemoSaasTestTestaResponse;
 use AntChain\Util\UtilClient;
@@ -132,6 +136,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 对账单
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +164,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
+                    '_prod_code'       => 'ak_7e01ccbdecc14c008ab7d5a9af95a61f',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -206,6 +213,39 @@ class Client
     }
 
     /**
+     * Description: 结算单确认
+     * Summary: 结算单确认.
+     *
+     * @param ConfirmAntchainBbpContractReconciliationRequest $request
+     *
+     * @return ConfirmAntchainBbpContractReconciliationResponse
+     */
+    public function confirmAntchainBbpContractReconciliation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 结算单确认
+     * Summary: 结算单确认.
+     *
+     * @param ConfirmAntchainBbpContractReconciliationRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return ConfirmAntchainBbpContractReconciliationResponse
+     */
+    public function confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: testa
      * Summary: 测试用api.
      *
@@ -236,5 +276,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoSaasTestTestaResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportDemoSaasTestTestbRequest $request
+     *
+     * @return ImportDemoSaasTestTestbResponse
+     */
+    public function importDemoSaasTestTestb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDemoSaasTestTestbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testB
+     * Summary: 测试用api.
+     *
+     * @param ImportDemoSaasTestTestbRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ImportDemoSaasTestTestbResponse
+     */
+    public function importDemoSaasTestTestbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDemoSaasTestTestbResponse::fromMap($this->doRequest('1.0', 'demo.saas.test.testb.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
