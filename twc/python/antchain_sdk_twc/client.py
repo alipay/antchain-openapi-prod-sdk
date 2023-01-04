@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.16',
-                    '_prod_code': 'TWC',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.8.22'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.16',
-                    '_prod_code': 'TWC',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.8.22'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -6161,6 +6157,230 @@ class Client:
         return TeaCore.from_map(
             twc_models.ExecContractPayResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.pay.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_contract_pay(
+        self,
+        request: twc_models.UnbindContractPayRequest,
+    ) -> twc_models.UnbindContractPayResponse:
+        """
+        Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 代扣强制解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_contract_pay_ex(request, headers, runtime)
+
+    async def unbind_contract_pay_async(
+        self,
+        request: twc_models.UnbindContractPayRequest,
+    ) -> twc_models.UnbindContractPayResponse:
+        """
+        Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 代扣强制解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_contract_pay_ex_async(request, headers, runtime)
+
+    def unbind_contract_pay_ex(
+        self,
+        request: twc_models.UnbindContractPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UnbindContractPayResponse:
+        """
+        Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 代扣强制解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UnbindContractPayResponse(),
+            self.do_request('1.0', 'twc.notary.contract.pay.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_contract_pay_ex_async(
+        self,
+        request: twc_models.UnbindContractPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UnbindContractPayResponse:
+        """
+        Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+        Summary: 代扣强制解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UnbindContractPayResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.pay.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_complain(
+        self,
+        request: twc_models.QueryContractComplainRequest,
+    ) -> twc_models.QueryContractComplainResponse:
+        """
+        Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+        Summary: 投诉数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_complain_ex(request, headers, runtime)
+
+    async def query_contract_complain_async(
+        self,
+        request: twc_models.QueryContractComplainRequest,
+    ) -> twc_models.QueryContractComplainResponse:
+        """
+        Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+        Summary: 投诉数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_complain_ex_async(request, headers, runtime)
+
+    def query_contract_complain_ex(
+        self,
+        request: twc_models.QueryContractComplainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractComplainResponse:
+        """
+        Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+        Summary: 投诉数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractComplainResponse(),
+            self.do_request('1.0', 'twc.notary.contract.complain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_complain_ex_async(
+        self,
+        request: twc_models.QueryContractComplainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractComplainResponse:
+        """
+        Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+        Summary: 投诉数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractComplainResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.complain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_contract_complainfeedback(
+        self,
+        request: twc_models.SendContractComplainfeedbackRequest,
+    ) -> twc_models.SendContractComplainfeedbackResponse:
+        """
+        Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+        Summary: 投诉反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_contract_complainfeedback_ex(request, headers, runtime)
+
+    async def send_contract_complainfeedback_async(
+        self,
+        request: twc_models.SendContractComplainfeedbackRequest,
+    ) -> twc_models.SendContractComplainfeedbackResponse:
+        """
+        Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+        Summary: 投诉反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_contract_complainfeedback_ex_async(request, headers, runtime)
+
+    def send_contract_complainfeedback_ex(
+        self,
+        request: twc_models.SendContractComplainfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SendContractComplainfeedbackResponse:
+        """
+        Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+        Summary: 投诉反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SendContractComplainfeedbackResponse(),
+            self.do_request('1.0', 'twc.notary.contract.complainfeedback.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_contract_complainfeedback_ex_async(
+        self,
+        request: twc_models.SendContractComplainfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SendContractComplainfeedbackResponse:
+        """
+        Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+        Summary: 投诉反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SendContractComplainfeedbackResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.complainfeedback.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_contract_complainimage(
+        self,
+        request: twc_models.UploadContractComplainimageRequest,
+    ) -> twc_models.UploadContractComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_contract_complainimage_ex(request, headers, runtime)
+
+    async def upload_contract_complainimage_async(
+        self,
+        request: twc_models.UploadContractComplainimageRequest,
+    ) -> twc_models.UploadContractComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_contract_complainimage_ex_async(request, headers, runtime)
+
+    def upload_contract_complainimage_ex(
+        self,
+        request: twc_models.UploadContractComplainimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadContractComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadContractComplainimageResponse(),
+            self.do_request('1.0', 'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_contract_complainimage_ex_async(
+        self,
+        request: twc_models.UploadContractComplainimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadContractComplainimageResponse:
+        """
+        Description: 商户上传处理图片
+        Summary: 商户上传处理图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadContractComplainimageResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
@@ -15345,6 +15565,118 @@ class Client:
         return TeaCore.from_map(
             twc_models.GetInternalFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_encrypt_text(
+        self,
+        request: twc_models.CreateEncryptTextRequest,
+    ) -> twc_models.CreateEncryptTextResponse:
+        """
+        Description: 加密文本存证
+        Summary: 加密文本存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_encrypt_text_ex(request, headers, runtime)
+
+    async def create_encrypt_text_async(
+        self,
+        request: twc_models.CreateEncryptTextRequest,
+    ) -> twc_models.CreateEncryptTextResponse:
+        """
+        Description: 加密文本存证
+        Summary: 加密文本存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_encrypt_text_ex_async(request, headers, runtime)
+
+    def create_encrypt_text_ex(
+        self,
+        request: twc_models.CreateEncryptTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateEncryptTextResponse:
+        """
+        Description: 加密文本存证
+        Summary: 加密文本存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateEncryptTextResponse(),
+            self.do_request('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_encrypt_text_ex_async(
+        self,
+        request: twc_models.CreateEncryptTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateEncryptTextResponse:
+        """
+        Description: 加密文本存证
+        Summary: 加密文本存证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateEncryptTextResponse(),
+            await self.do_request_async('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_encrypt_text(
+        self,
+        request: twc_models.GetEncryptTextRequest,
+    ) -> twc_models.GetEncryptTextResponse:
+        """
+        Description: 查询加密文本存证内容
+        Summary: 查询加密文本存证内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_encrypt_text_ex(request, headers, runtime)
+
+    async def get_encrypt_text_async(
+        self,
+        request: twc_models.GetEncryptTextRequest,
+    ) -> twc_models.GetEncryptTextResponse:
+        """
+        Description: 查询加密文本存证内容
+        Summary: 查询加密文本存证内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_encrypt_text_ex_async(request, headers, runtime)
+
+    def get_encrypt_text_ex(
+        self,
+        request: twc_models.GetEncryptTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetEncryptTextResponse:
+        """
+        Description: 查询加密文本存证内容
+        Summary: 查询加密文本存证内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetEncryptTextResponse(),
+            self.do_request('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_encrypt_text_ex_async(
+        self,
+        request: twc_models.GetEncryptTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetEncryptTextResponse:
+        """
+        Description: 查询加密文本存证内容
+        Summary: 查询加密文本存证内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetEncryptTextResponse(),
+            await self.do_request_async('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_flow_instance(
