@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.16',
-    _prod_code = 'TWC',
-    _prod_channel = 'undefined'
+    sdk_version = '1.8.22',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2052,6 +2050,25 @@ model ContractSignFieldSealId {
   sealType?: string(name='seal_type', example='0'),
   // 签署区Id
   signfieldId?: string(name='signfield_id', example='52adb35497b141e3893912b3a2ea4f42'),
+}
+
+// 协商记录
+model ReplayDetailInfo {
+  // 回复人名称
+  replierName: string(name='replier_name', example='刘*'),
+  // 回复人角色
+  // 用户：USER
+  // 商家：MERCHANT
+  // 系统：SYSTEM
+  // 审核小二：AUDITOR
+  // 政府单位：GOVERNMENT
+  replierRole: string(name='replier_role', example='USER'),
+  // 回复时间
+  gmtCreate: string(name='gmt_create', example='2020-02-14 14:23:12'),
+  // 回复内容
+  content: string(name='content', example='已退款退货给您，物流单号为：12344444'),
+  // 回复图片
+  images: [ string ](name='images', example='http://mdn.alipay.com/wsdk/img?fileid=A*ME4GQq2j-5oAAAAAAAAAAAAAAQAAAQ&t=83fed12ef006ebcd8df04dfe79faad6c&bi=openpunsh&ts=0&zoom=original'),
 }
 
 // 文件模板中的输入项组件
@@ -7341,6 +7358,219 @@ async function execContractPay(request: ExecContractPayRequest): ExecContractPay
 async function execContractPayEx(request: ExecContractPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractPayResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.pay.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindContractPayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id，平台方用户创建时生成的id。用户解约失败时该字段会通过解约申请消息透传给商家。
+  userTuid: string(name='user_tuid'),
+  // 外部代扣协议号，用户解约失败时该字段会通过解约申请消息透传给商家。
+  externalAgreementNo: string(name='external_agreement_no'),
+  // 是否允许解约
+  allowUnsign: boolean(name='allow_unsign'),
+}
+
+model UnbindContractPayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否解约成功
+  unsignSuccess?: boolean(name='unsign_success'),
+  // 业务处理结果码
+  code?: string(name='code'),
+  // 业务结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 代扣强制解约
+ */
+async function unbindContractPay(request: UnbindContractPayRequest): UnbindContractPayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindContractPayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 代扣强制解约
+ */
+async function unbindContractPayEx(request: UnbindContractPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindContractPayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.pay.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractComplainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投诉单号
+  complainEventId: string(maxLength=64, name='complain_event_id'),
+}
+
+model QueryContractComplainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投诉单号
+  complainEventId?: string(name='complain_event_id'),
+  // 投诉单状态
+  // 商家处理中：MERCHANT_PROCESSING
+  // 商家已反馈：MERCHANT_FEEDBACKED
+  // 投诉已完结：FINISHED
+  // 投诉已撤销：CANCELLED
+  // 平台处理中：PLATFORM_PROCESSING
+  // 平台处理完结：PLATFORM_FINISH
+  // 系统关闭：CLOSED
+  status?: string(name='status'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 商家订单号
+  merchantOrderNo?: string(name='merchant_order_no'),
+  // 投诉单创建时间
+  gmtCreate?: string(name='gmt_create'),
+  // 投诉单修改时间
+  gmtModified?: string(name='gmt_modified'),
+  // 投诉单完结时间
+  gmtFinished?: string(name='gmt_finished'),
+  // 用户投诉诉求
+  leafCategoryName?: string(name='leaf_category_name'),
+  // 用户投诉原因
+  complainReason?: string(name='complain_reason'),
+  // 用户投诉内容
+  content?: string(name='content'),
+  // 投诉图片
+  images?: [ string ](name='images'),
+  // 投诉人电话号码
+  phoneNo?: string(name='phone_no'),
+  // 交易金额，单位元
+  tradeAmount?: string(name='trade_amount'),
+  // 用户与商家之间的协商记录
+  replyDetailInfos?: [ ReplayDetailInfo ](name='reply_detail_infos'),
+}
+
+/**
+ * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+ * Summary: 投诉数据查询
+ */
+async function queryContractComplain(request: QueryContractComplainRequest): QueryContractComplainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractComplainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+ * Summary: 投诉数据查询
+ */
+async function queryContractComplainEx(request: QueryContractComplainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractComplainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.complain.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendContractComplainfeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝侧投诉单号
+  complainEventId: string(maxLength=64, name='complain_event_id'),
+  // 反馈类目ID
+  // 00:使用体验保障金退款；
+  // 02:通过其他方式退款;
+  // 03:已发货;
+  // 04:其他;
+  // 05:已完成售后服务;
+  // 06:非我方责任范围；
+  feedbackCode: string(maxLength=32, name='feedback_code'),
+  // 反馈内容，字数不超过200个字
+  feedbackContent: string(maxLength=200, name='feedback_content'),
+  // 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+  feedbackImages?: string(name='feedback_images'),
+  // 处理投诉人，字数不超过6个字
+  operator?: string(maxLength=32, name='operator'),
+}
+
+model SendContractComplainfeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否反馈成功
+  submitSuccess?: boolean(name='submit_success'),
+  // 业务处理结果码
+  code?: string(name='code'),
+  // 业务结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+ * Summary: 投诉反馈
+ */
+async function sendContractComplainfeedback(request: SendContractComplainfeedbackRequest): SendContractComplainfeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendContractComplainfeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+ * Summary: 投诉反馈
+ */
+async function sendContractComplainfeedbackEx(request: SendContractComplainfeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendContractComplainfeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.complainfeedback.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadContractComplainimageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 图片名称，支持后缀格式：jpg、jpeg、png
+  fileName: string(maxLength=32, name='file_name'),
+  // 图片二进制字节流
+  content: string(name='content'),
+}
+
+model UploadContractComplainimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片id
+  imageId?: string(name='image_id'),
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+async function uploadContractComplainimage(request: UploadContractComplainimageRequest): UploadContractComplainimageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadContractComplainimageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+async function uploadContractComplainimageEx(request: UploadContractComplainimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadContractComplainimageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncInnerTransRequest = {
@@ -16179,6 +16409,98 @@ async function getInternalFile(request: GetInternalFileRequest): GetInternalFile
 async function getInternalFileEx(request: GetInternalFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInternalFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.internal.file.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateEncryptTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户本地加密后的存证内容
+  notaryContent: string(name='notary_content'),
+  // 存证阶段
+  phase: string(name='phase'),
+  // 存证事务id
+  transactionId: string(name='transaction_id'),
+  // 存证拓展信息
+  properties?: string(name='properties'),
+  // 存证类型，支持
+  // ● TEXT_HASH：文本哈希
+  // ● TEXT_RAW：源文本（默认）
+  textNotaryType?: string(name='text_notary_type'),
+  // 哈希算法，当存证类型为TEXT_HASH时必填，目前支持两种
+  // ● SHA256
+  // ● SM3
+  hashAlgorithm?: string(name='hash_algorithm'),
+}
+
+model CreateEncryptTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易哈希，链上存证地址
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 加密文本存证
+ * Summary: 加密文本存证
+ */
+async function createEncryptText(request: CreateEncryptTextRequest): CreateEncryptTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createEncryptTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 加密文本存证
+ * Summary: 加密文本存证
+ */
+async function createEncryptTextEx(request: CreateEncryptTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEncryptTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.encrypt.text.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEncryptTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证地址
+  txHash: string(name='tx_hash'),
+  // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+  targetAccountId?: string(name='target_account_id'),
+}
+
+model GetEncryptTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证内容
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 查询加密文本存证内容
+ * Summary: 查询加密文本存证内容
+ */
+async function getEncryptText(request: GetEncryptTextRequest): GetEncryptTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEncryptTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询加密文本存证内容
+ * Summary: 查询加密文本存证内容
+ */
+async function getEncryptTextEx(request: GetEncryptTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEncryptTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.encrypt.text.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateFlowInstanceRequest = {
