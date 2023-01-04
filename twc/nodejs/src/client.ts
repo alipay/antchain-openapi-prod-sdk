@@ -4806,6 +4806,48 @@ export class ContractSignFieldSealId extends $tea.Model {
   }
 }
 
+// 协商记录
+export class ReplayDetailInfo extends $tea.Model {
+  // 回复人名称
+  replierName: string;
+  // 回复人角色
+  // 用户：USER
+  // 商家：MERCHANT
+  // 系统：SYSTEM
+  // 审核小二：AUDITOR
+  // 政府单位：GOVERNMENT
+  replierRole: string;
+  // 回复时间
+  gmtCreate: string;
+  // 回复内容
+  content: string;
+  // 回复图片
+  images: string[];
+  static names(): { [key: string]: string } {
+    return {
+      replierName: 'replier_name',
+      replierRole: 'replier_role',
+      gmtCreate: 'gmt_create',
+      content: 'content',
+      images: 'images',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      replierName: 'string',
+      replierRole: 'string',
+      gmtCreate: 'string',
+      content: 'string',
+      images: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 文件模板中的输入项组件
 export class ContractTemplateStructComponent extends $tea.Model {
   // 填充字体,默认1，1-宋体，2-新宋体,4-黑体，5-楷体
@@ -13590,6 +13632,351 @@ export class ExecContractPayResponse extends $tea.Model {
       triggerSuccess: 'boolean',
       code: 'string',
       msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindContractPayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户id，平台方用户创建时生成的id。用户解约失败时该字段会通过解约申请消息透传给商家。
+  userTuid: string;
+  // 外部代扣协议号，用户解约失败时该字段会通过解约申请消息透传给商家。
+  externalAgreementNo: string;
+  // 是否允许解约
+  allowUnsign: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userTuid: 'user_tuid',
+      externalAgreementNo: 'external_agreement_no',
+      allowUnsign: 'allow_unsign',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userTuid: 'string',
+      externalAgreementNo: 'string',
+      allowUnsign: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindContractPayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否解约成功
+  unsignSuccess?: boolean;
+  // 业务处理结果码
+  code?: string;
+  // 业务结果描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      unsignSuccess: 'unsign_success',
+      code: 'code',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      unsignSuccess: 'boolean',
+      code: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractComplainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投诉单号
+  complainEventId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      complainEventId: 'complain_event_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      complainEventId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractComplainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投诉单号
+  complainEventId?: string;
+  // 投诉单状态
+  // 商家处理中：MERCHANT_PROCESSING
+  // 商家已反馈：MERCHANT_FEEDBACKED
+  // 投诉已完结：FINISHED
+  // 投诉已撤销：CANCELLED
+  // 平台处理中：PLATFORM_PROCESSING
+  // 平台处理完结：PLATFORM_FINISH
+  // 系统关闭：CLOSED
+  status?: string;
+  // 支付宝交易号
+  tradeNo?: string;
+  // 商家订单号
+  merchantOrderNo?: string;
+  // 投诉单创建时间
+  gmtCreate?: string;
+  // 投诉单修改时间
+  gmtModified?: string;
+  // 投诉单完结时间
+  gmtFinished?: string;
+  // 用户投诉诉求
+  leafCategoryName?: string;
+  // 用户投诉原因
+  complainReason?: string;
+  // 用户投诉内容
+  content?: string;
+  // 投诉图片
+  images?: string[];
+  // 投诉人电话号码
+  phoneNo?: string;
+  // 交易金额，单位元
+  tradeAmount?: string;
+  // 用户与商家之间的协商记录
+  replyDetailInfos?: ReplayDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      complainEventId: 'complain_event_id',
+      status: 'status',
+      tradeNo: 'trade_no',
+      merchantOrderNo: 'merchant_order_no',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      gmtFinished: 'gmt_finished',
+      leafCategoryName: 'leaf_category_name',
+      complainReason: 'complain_reason',
+      content: 'content',
+      images: 'images',
+      phoneNo: 'phone_no',
+      tradeAmount: 'trade_amount',
+      replyDetailInfos: 'reply_detail_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      complainEventId: 'string',
+      status: 'string',
+      tradeNo: 'string',
+      merchantOrderNo: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      gmtFinished: 'string',
+      leafCategoryName: 'string',
+      complainReason: 'string',
+      content: 'string',
+      images: { 'type': 'array', 'itemType': 'string' },
+      phoneNo: 'string',
+      tradeAmount: 'string',
+      replyDetailInfos: { 'type': 'array', 'itemType': ReplayDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendContractComplainfeedbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝侧投诉单号
+  complainEventId: string;
+  // 反馈类目ID
+  // 00:使用体验保障金退款；
+  // 02:通过其他方式退款;
+  // 03:已发货;
+  // 04:其他;
+  // 05:已完成售后服务;
+  // 06:非我方责任范围；
+  feedbackCode: string;
+  // 反馈内容，字数不超过200个字
+  feedbackContent: string;
+  // 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+  feedbackImages?: string;
+  // 处理投诉人，字数不超过6个字
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      complainEventId: 'complain_event_id',
+      feedbackCode: 'feedback_code',
+      feedbackContent: 'feedback_content',
+      feedbackImages: 'feedback_images',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      complainEventId: 'string',
+      feedbackCode: 'string',
+      feedbackContent: 'string',
+      feedbackImages: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendContractComplainfeedbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否反馈成功
+  submitSuccess?: boolean;
+  // 业务处理结果码
+  code?: string;
+  // 业务结果描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      submitSuccess: 'submit_success',
+      code: 'code',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      submitSuccess: 'boolean',
+      code: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadContractComplainimageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 图片名称，支持后缀格式：jpg、jpeg、png
+  fileName: string;
+  // 图片二进制字节流
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileName: 'file_name',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileName: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadContractComplainimageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 图片id
+  imageId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      imageId: 'image_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      imageId: 'string',
     };
   }
 
@@ -28324,6 +28711,152 @@ export class GetInternalFileResponse extends $tea.Model {
   }
 }
 
+export class CreateEncryptTextRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户本地加密后的存证内容
+  notaryContent: string;
+  // 存证阶段
+  phase: string;
+  // 存证事务id
+  transactionId: string;
+  // 存证拓展信息
+  properties?: string;
+  // 存证类型，支持
+  // ● TEXT_HASH：文本哈希
+  // ● TEXT_RAW：源文本（默认）
+  textNotaryType?: string;
+  // 哈希算法，当存证类型为TEXT_HASH时必填，目前支持两种
+  // ● SHA256
+  // ● SM3
+  hashAlgorithm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notaryContent: 'notary_content',
+      phase: 'phase',
+      transactionId: 'transaction_id',
+      properties: 'properties',
+      textNotaryType: 'text_notary_type',
+      hashAlgorithm: 'hash_algorithm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notaryContent: 'string',
+      phase: 'string',
+      transactionId: 'string',
+      properties: 'string',
+      textNotaryType: 'string',
+      hashAlgorithm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateEncryptTextResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易哈希，链上存证地址
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEncryptTextRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证地址
+  txHash: string;
+  // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+  targetAccountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txHash: 'tx_hash',
+      targetAccountId: 'target_account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txHash: 'string',
+      targetAccountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEncryptTextResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证内容
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateFlowInstanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -29991,9 +30524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.16",
-          _prod_code: "TWC",
-          _prod_channel: "undefined",
+          sdk_version: "1.8.22",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -32036,6 +32567,82 @@ export default class Client {
   async execContractPayEx(request: ExecContractPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecContractPayResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecContractPayResponse>(await this.doRequest("1.0", "twc.notary.contract.pay.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecContractPayResponse({}));
+  }
+
+  /**
+   * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+   * Summary: 代扣强制解约
+   */
+  async unbindContractPay(request: UnbindContractPayRequest): Promise<UnbindContractPayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unbindContractPayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+   * Summary: 代扣强制解约
+   */
+  async unbindContractPayEx(request: UnbindContractPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindContractPayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnbindContractPayResponse>(await this.doRequest("1.0", "twc.notary.contract.pay.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindContractPayResponse({}));
+  }
+
+  /**
+   * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+   * Summary: 投诉数据查询
+   */
+  async queryContractComplain(request: QueryContractComplainRequest): Promise<QueryContractComplainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractComplainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+   * Summary: 投诉数据查询
+   */
+  async queryContractComplainEx(request: QueryContractComplainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractComplainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractComplainResponse>(await this.doRequest("1.0", "twc.notary.contract.complain.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractComplainResponse({}));
+  }
+
+  /**
+   * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+   * Summary: 投诉反馈
+   */
+  async sendContractComplainfeedback(request: SendContractComplainfeedbackRequest): Promise<SendContractComplainfeedbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendContractComplainfeedbackEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+   * Summary: 投诉反馈
+   */
+  async sendContractComplainfeedbackEx(request: SendContractComplainfeedbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendContractComplainfeedbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendContractComplainfeedbackResponse>(await this.doRequest("1.0", "twc.notary.contract.complainfeedback.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendContractComplainfeedbackResponse({}));
+  }
+
+  /**
+   * Description: 商户上传处理图片
+   * Summary: 商户上传处理图片
+   */
+  async uploadContractComplainimage(request: UploadContractComplainimageRequest): Promise<UploadContractComplainimageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadContractComplainimageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商户上传处理图片
+   * Summary: 商户上传处理图片
+   */
+  async uploadContractComplainimageEx(request: UploadContractComplainimageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadContractComplainimageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadContractComplainimageResponse>(await this.doRequest("1.0", "twc.notary.contract.complainimage.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadContractComplainimageResponse({}));
   }
 
   /**
@@ -35152,6 +35759,44 @@ export default class Client {
   async getInternalFileEx(request: GetInternalFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInternalFileResponse> {
     Util.validateModel(request);
     return $tea.cast<GetInternalFileResponse>(await this.doRequest("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInternalFileResponse({}));
+  }
+
+  /**
+   * Description: 加密文本存证
+   * Summary: 加密文本存证
+   */
+  async createEncryptText(request: CreateEncryptTextRequest): Promise<CreateEncryptTextResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createEncryptTextEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 加密文本存证
+   * Summary: 加密文本存证
+   */
+  async createEncryptTextEx(request: CreateEncryptTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateEncryptTextResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateEncryptTextResponse>(await this.doRequest("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateEncryptTextResponse({}));
+  }
+
+  /**
+   * Description: 查询加密文本存证内容
+   * Summary: 查询加密文本存证内容
+   */
+  async getEncryptText(request: GetEncryptTextRequest): Promise<GetEncryptTextResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getEncryptTextEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询加密文本存证内容
+   * Summary: 查询加密文本存证内容
+   */
+  async getEncryptTextEx(request: GetEncryptTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEncryptTextResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetEncryptTextResponse>(await this.doRequest("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEncryptTextResponse({}));
   }
 
   /**
