@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.16"),
-                    new TeaPair("_prod_code", "TWC"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.8.22")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2158,6 +2156,82 @@ public class Client {
     public ExecContractPayResponse execContractPayEx(ExecContractPayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.pay.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecContractPayResponse());
+    }
+
+    /**
+     * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 代扣强制解约
+     */
+    public UnbindContractPayResponse unbindContractPay(UnbindContractPayRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindContractPayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 代扣强制解约
+     */
+    public UnbindContractPayResponse unbindContractPayEx(UnbindContractPayRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.pay.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindContractPayResponse());
+    }
+
+    /**
+     * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+     * Summary: 投诉数据查询
+     */
+    public QueryContractComplainResponse queryContractComplain(QueryContractComplainRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractComplainEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+     * Summary: 投诉数据查询
+     */
+    public QueryContractComplainResponse queryContractComplainEx(QueryContractComplainRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.complain.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractComplainResponse());
+    }
+
+    /**
+     * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+     * Summary: 投诉反馈
+     */
+    public SendContractComplainfeedbackResponse sendContractComplainfeedback(SendContractComplainfeedbackRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendContractComplainfeedbackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+     * Summary: 投诉反馈
+     */
+    public SendContractComplainfeedbackResponse sendContractComplainfeedbackEx(SendContractComplainfeedbackRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.complainfeedback.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendContractComplainfeedbackResponse());
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片
+     */
+    public UploadContractComplainimageResponse uploadContractComplainimage(UploadContractComplainimageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadContractComplainimageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片
+     */
+    public UploadContractComplainimageResponse uploadContractComplainimageEx(UploadContractComplainimageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.complainimage.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadContractComplainimageResponse());
     }
 
     /**
@@ -5274,6 +5348,44 @@ public class Client {
     public GetInternalFileResponse getInternalFileEx(GetInternalFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInternalFileResponse());
+    }
+
+    /**
+     * Description: 加密文本存证
+     * Summary: 加密文本存证
+     */
+    public CreateEncryptTextResponse createEncryptText(CreateEncryptTextRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createEncryptTextEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 加密文本存证
+     * Summary: 加密文本存证
+     */
+    public CreateEncryptTextResponse createEncryptTextEx(CreateEncryptTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEncryptTextResponse());
+    }
+
+    /**
+     * Description: 查询加密文本存证内容
+     * Summary: 查询加密文本存证内容
+     */
+    public GetEncryptTextResponse getEncryptText(GetEncryptTextRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEncryptTextEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询加密文本存证内容
+     * Summary: 查询加密文本存证内容
+     */
+    public GetEncryptTextResponse getEncryptTextEx(GetEncryptTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEncryptTextResponse());
     }
 
     /**
