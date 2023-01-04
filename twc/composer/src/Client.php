@@ -141,6 +141,8 @@ use AntChain\TWC\Models\CreateEcocontractTextRequest;
 use AntChain\TWC\Models\CreateEcocontractTextResponse;
 use AntChain\TWC\Models\CreateEcocontractTransRequest;
 use AntChain\TWC\Models\CreateEcocontractTransResponse;
+use AntChain\TWC\Models\CreateEncryptTextRequest;
+use AntChain\TWC\Models\CreateEncryptTextResponse;
 use AntChain\TWC\Models\CreateFileRequest;
 use AntChain\TWC\Models\CreateFileResponse;
 use AntChain\TWC\Models\CreateFinanceFilenotaryRequest;
@@ -323,6 +325,8 @@ use AntChain\TWC\Models\GetCourtFilenotaryRequest;
 use AntChain\TWC\Models\GetCourtFilenotaryResponse;
 use AntChain\TWC\Models\GetCourtTextnotaryRequest;
 use AntChain\TWC\Models\GetCourtTextnotaryResponse;
+use AntChain\TWC\Models\GetEncryptTextRequest;
+use AntChain\TWC\Models\GetEncryptTextResponse;
 use AntChain\TWC\Models\GetFileRequest;
 use AntChain\TWC\Models\GetFileResponse;
 use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
@@ -385,6 +389,8 @@ use AntChain\TWC\Models\QueryContractAccountRequest;
 use AntChain\TWC\Models\QueryContractAccountResponse;
 use AntChain\TWC\Models\QueryContractAccountsealsRequest;
 use AntChain\TWC\Models\QueryContractAccountsealsResponse;
+use AntChain\TWC\Models\QueryContractComplainRequest;
+use AntChain\TWC\Models\QueryContractComplainResponse;
 use AntChain\TWC\Models\QueryContractFlowRequest;
 use AntChain\TWC\Models\QueryContractFlowResponse;
 use AntChain\TWC\Models\QueryContractFlowsignerRequest;
@@ -527,6 +533,8 @@ use AntChain\TWC\Models\SaveJusticePartyRequest;
 use AntChain\TWC\Models\SaveJusticePartyResponse;
 use AntChain\TWC\Models\SaveWitnessSnapshotRequest;
 use AntChain\TWC\Models\SaveWitnessSnapshotResponse;
+use AntChain\TWC\Models\SendContractComplainfeedbackRequest;
+use AntChain\TWC\Models\SendContractComplainfeedbackResponse;
 use AntChain\TWC\Models\SendContractInvitationRequest;
 use AntChain\TWC\Models\SendContractInvitationResponse;
 use AntChain\TWC\Models\SendWithholdDeductRequest;
@@ -557,6 +565,8 @@ use AntChain\TWC\Models\SyncInnerTwcopenRequest;
 use AntChain\TWC\Models\SyncInnerTwcopenResponse;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusRequest;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusResponse;
+use AntChain\TWC\Models\UnbindContractPayRequest;
+use AntChain\TWC\Models\UnbindContractPayResponse;
 use AntChain\TWC\Models\UpdateContractMerchantRequest;
 use AntChain\TWC\Models\UpdateContractMerchantResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
@@ -579,6 +589,8 @@ use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertResponse;
 use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
+use AntChain\TWC\Models\UploadContractComplainimageRequest;
+use AntChain\TWC\Models\UploadContractComplainimageResponse;
 use AntChain\TWC\Models\VerifyContractDocsignRequest;
 use AntChain\TWC\Models\VerifyContractDocsignResponse;
 use AntChain\TWC\Models\VerifyContractTextsignRequest;
@@ -738,9 +750,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.16',
-                    '_prod_code'       => 'TWC',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.8.22',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4253,6 +4263,138 @@ class Client
         Utils::validateModel($request);
 
         return ExecContractPayResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.pay.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 代扣强制解约.
+     *
+     * @param UnbindContractPayRequest $request
+     *
+     * @return UnbindContractPayResponse
+     */
+    public function unbindContractPay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindContractPayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+     * Summary: 代扣强制解约.
+     *
+     * @param UnbindContractPayRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UnbindContractPayResponse
+     */
+    public function unbindContractPayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindContractPayResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.pay.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+     * Summary: 投诉数据查询.
+     *
+     * @param QueryContractComplainRequest $request
+     *
+     * @return QueryContractComplainResponse
+     */
+    public function queryContractComplain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractComplainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+     * Summary: 投诉数据查询.
+     *
+     * @param QueryContractComplainRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryContractComplainResponse
+     */
+    public function queryContractComplainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractComplainResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complain.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+     * Summary: 投诉反馈.
+     *
+     * @param SendContractComplainfeedbackRequest $request
+     *
+     * @return SendContractComplainfeedbackResponse
+     */
+    public function sendContractComplainfeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendContractComplainfeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+     * Summary: 投诉反馈.
+     *
+     * @param SendContractComplainfeedbackRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SendContractComplainfeedbackResponse
+     */
+    public function sendContractComplainfeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendContractComplainfeedbackResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complainfeedback.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片.
+     *
+     * @param UploadContractComplainimageRequest $request
+     *
+     * @return UploadContractComplainimageResponse
+     */
+    public function uploadContractComplainimage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadContractComplainimageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户上传处理图片
+     * Summary: 商户上传处理图片.
+     *
+     * @param UploadContractComplainimageRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UploadContractComplainimageResponse
+     */
+    public function uploadContractComplainimageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadContractComplainimageResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9665,6 +9807,72 @@ class Client
         Utils::validateModel($request);
 
         return GetInternalFileResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 加密文本存证
+     * Summary: 加密文本存证
+     *
+     * @param CreateEncryptTextRequest $request
+     *
+     * @return CreateEncryptTextResponse
+     */
+    public function createEncryptText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createEncryptTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 加密文本存证
+     * Summary: 加密文本存证
+     *
+     * @param CreateEncryptTextRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateEncryptTextResponse
+     */
+    public function createEncryptTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateEncryptTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询加密文本存证内容
+     * Summary: 查询加密文本存证内容.
+     *
+     * @param GetEncryptTextRequest $request
+     *
+     * @return GetEncryptTextResponse
+     */
+    public function getEncryptText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEncryptTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询加密文本存证内容
+     * Summary: 查询加密文本存证内容.
+     *
+     * @param GetEncryptTextRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetEncryptTextResponse
+     */
+    public function getEncryptTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEncryptTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
