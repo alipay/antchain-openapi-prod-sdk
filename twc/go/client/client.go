@@ -6387,6 +6387,58 @@ func (s *ContractSignFieldSealId) SetSignfieldId(v string) *ContractSignFieldSea
 	return s
 }
 
+// 协商记录
+type ReplayDetailInfo struct {
+	// 回复人名称
+	ReplierName *string `json:"replier_name,omitempty" xml:"replier_name,omitempty" require:"true"`
+	// 回复人角色
+	// 用户：USER
+	// 商家：MERCHANT
+	// 系统：SYSTEM
+	// 审核小二：AUDITOR
+	// 政府单位：GOVERNMENT
+	ReplierRole *string `json:"replier_role,omitempty" xml:"replier_role,omitempty" require:"true"`
+	// 回复时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 回复内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 回复图片
+	Images []*string `json:"images,omitempty" xml:"images,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ReplayDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplayDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ReplayDetailInfo) SetReplierName(v string) *ReplayDetailInfo {
+	s.ReplierName = &v
+	return s
+}
+
+func (s *ReplayDetailInfo) SetReplierRole(v string) *ReplayDetailInfo {
+	s.ReplierRole = &v
+	return s
+}
+
+func (s *ReplayDetailInfo) SetGmtCreate(v string) *ReplayDetailInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ReplayDetailInfo) SetContent(v string) *ReplayDetailInfo {
+	s.Content = &v
+	return s
+}
+
+func (s *ReplayDetailInfo) SetImages(v []*string) *ReplayDetailInfo {
+	s.Images = v
+	return s
+}
+
 // 文件模板中的输入项组件
 type ContractTemplateStructComponent struct {
 	// 填充字体,默认1，1-宋体，2-新宋体,4-黑体，5-楷体
@@ -18137,6 +18189,467 @@ func (s *ExecContractPayResponse) SetCode(v string) *ExecContractPayResponse {
 
 func (s *ExecContractPayResponse) SetMsg(v string) *ExecContractPayResponse {
 	s.Msg = &v
+	return s
+}
+
+type UnbindContractPayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id，平台方用户创建时生成的id。用户解约失败时该字段会通过解约申请消息透传给商家。
+	UserTuid *string `json:"user_tuid,omitempty" xml:"user_tuid,omitempty" require:"true"`
+	// 外部代扣协议号，用户解约失败时该字段会通过解约申请消息透传给商家。
+	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
+	// 是否允许解约
+	AllowUnsign *bool `json:"allow_unsign,omitempty" xml:"allow_unsign,omitempty" require:"true"`
+}
+
+func (s UnbindContractPayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindContractPayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindContractPayRequest) SetAuthToken(v string) *UnbindContractPayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindContractPayRequest) SetProductInstanceId(v string) *UnbindContractPayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindContractPayRequest) SetUserTuid(v string) *UnbindContractPayRequest {
+	s.UserTuid = &v
+	return s
+}
+
+func (s *UnbindContractPayRequest) SetExternalAgreementNo(v string) *UnbindContractPayRequest {
+	s.ExternalAgreementNo = &v
+	return s
+}
+
+func (s *UnbindContractPayRequest) SetAllowUnsign(v bool) *UnbindContractPayRequest {
+	s.AllowUnsign = &v
+	return s
+}
+
+type UnbindContractPayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否解约成功
+	UnsignSuccess *bool `json:"unsign_success,omitempty" xml:"unsign_success,omitempty"`
+	// 业务处理结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s UnbindContractPayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindContractPayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindContractPayResponse) SetReqMsgId(v string) *UnbindContractPayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindContractPayResponse) SetResultCode(v string) *UnbindContractPayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindContractPayResponse) SetResultMsg(v string) *UnbindContractPayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnbindContractPayResponse) SetUnsignSuccess(v bool) *UnbindContractPayResponse {
+	s.UnsignSuccess = &v
+	return s
+}
+
+func (s *UnbindContractPayResponse) SetCode(v string) *UnbindContractPayResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *UnbindContractPayResponse) SetMsg(v string) *UnbindContractPayResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryContractComplainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投诉单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty" require:"true" maxLength:"64"`
+}
+
+func (s QueryContractComplainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractComplainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractComplainRequest) SetAuthToken(v string) *QueryContractComplainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractComplainRequest) SetProductInstanceId(v string) *QueryContractComplainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractComplainRequest) SetComplainEventId(v string) *QueryContractComplainRequest {
+	s.ComplainEventId = &v
+	return s
+}
+
+type QueryContractComplainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投诉单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty"`
+	// 投诉单状态
+	// 商家处理中：MERCHANT_PROCESSING
+	// 商家已反馈：MERCHANT_FEEDBACKED
+	// 投诉已完结：FINISHED
+	// 投诉已撤销：CANCELLED
+	// 平台处理中：PLATFORM_PROCESSING
+	// 平台处理完结：PLATFORM_FINISH
+	// 系统关闭：CLOSED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 商家订单号
+	MerchantOrderNo *string `json:"merchant_order_no,omitempty" xml:"merchant_order_no,omitempty"`
+	// 投诉单创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
+	// 投诉单修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+	// 投诉单完结时间
+	GmtFinished *string `json:"gmt_finished,omitempty" xml:"gmt_finished,omitempty"`
+	// 用户投诉诉求
+	LeafCategoryName *string `json:"leaf_category_name,omitempty" xml:"leaf_category_name,omitempty"`
+	// 用户投诉原因
+	ComplainReason *string `json:"complain_reason,omitempty" xml:"complain_reason,omitempty"`
+	// 用户投诉内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 投诉图片
+	Images []*string `json:"images,omitempty" xml:"images,omitempty" type:"Repeated"`
+	// 投诉人电话号码
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 交易金额，单位元
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	// 用户与商家之间的协商记录
+	ReplyDetailInfos []*ReplayDetailInfo `json:"reply_detail_infos,omitempty" xml:"reply_detail_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryContractComplainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractComplainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractComplainResponse) SetReqMsgId(v string) *QueryContractComplainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetResultCode(v string) *QueryContractComplainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetResultMsg(v string) *QueryContractComplainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetComplainEventId(v string) *QueryContractComplainResponse {
+	s.ComplainEventId = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetStatus(v string) *QueryContractComplainResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetTradeNo(v string) *QueryContractComplainResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetMerchantOrderNo(v string) *QueryContractComplainResponse {
+	s.MerchantOrderNo = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetGmtCreate(v string) *QueryContractComplainResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetGmtModified(v string) *QueryContractComplainResponse {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetGmtFinished(v string) *QueryContractComplainResponse {
+	s.GmtFinished = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetLeafCategoryName(v string) *QueryContractComplainResponse {
+	s.LeafCategoryName = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetComplainReason(v string) *QueryContractComplainResponse {
+	s.ComplainReason = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetContent(v string) *QueryContractComplainResponse {
+	s.Content = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetImages(v []*string) *QueryContractComplainResponse {
+	s.Images = v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetPhoneNo(v string) *QueryContractComplainResponse {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetTradeAmount(v string) *QueryContractComplainResponse {
+	s.TradeAmount = &v
+	return s
+}
+
+func (s *QueryContractComplainResponse) SetReplyDetailInfos(v []*ReplayDetailInfo) *QueryContractComplainResponse {
+	s.ReplyDetailInfos = v
+	return s
+}
+
+type SendContractComplainfeedbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝侧投诉单号
+	ComplainEventId *string `json:"complain_event_id,omitempty" xml:"complain_event_id,omitempty" require:"true" maxLength:"64"`
+	// 反馈类目ID
+	// 00:使用体验保障金退款；
+	// 02:通过其他方式退款;
+	// 03:已发货;
+	// 04:其他;
+	// 05:已完成售后服务;
+	// 06:非我方责任范围；
+	FeedbackCode *string `json:"feedback_code,omitempty" xml:"feedback_code,omitempty" require:"true" maxLength:"32"`
+	// 反馈内容，字数不超过200个字
+	FeedbackContent *string `json:"feedback_content,omitempty" xml:"feedback_content,omitempty" require:"true" maxLength:"200"`
+	// 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
+	FeedbackImages *string `json:"feedback_images,omitempty" xml:"feedback_images,omitempty"`
+	// 处理投诉人，字数不超过6个字
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" maxLength:"32"`
+}
+
+func (s SendContractComplainfeedbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendContractComplainfeedbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendContractComplainfeedbackRequest) SetAuthToken(v string) *SendContractComplainfeedbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetProductInstanceId(v string) *SendContractComplainfeedbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetComplainEventId(v string) *SendContractComplainfeedbackRequest {
+	s.ComplainEventId = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetFeedbackCode(v string) *SendContractComplainfeedbackRequest {
+	s.FeedbackCode = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetFeedbackContent(v string) *SendContractComplainfeedbackRequest {
+	s.FeedbackContent = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetFeedbackImages(v string) *SendContractComplainfeedbackRequest {
+	s.FeedbackImages = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackRequest) SetOperator(v string) *SendContractComplainfeedbackRequest {
+	s.Operator = &v
+	return s
+}
+
+type SendContractComplainfeedbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否反馈成功
+	SubmitSuccess *bool `json:"submit_success,omitempty" xml:"submit_success,omitempty"`
+	// 业务处理结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s SendContractComplainfeedbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendContractComplainfeedbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendContractComplainfeedbackResponse) SetReqMsgId(v string) *SendContractComplainfeedbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackResponse) SetResultCode(v string) *SendContractComplainfeedbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackResponse) SetResultMsg(v string) *SendContractComplainfeedbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackResponse) SetSubmitSuccess(v bool) *SendContractComplainfeedbackResponse {
+	s.SubmitSuccess = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackResponse) SetCode(v string) *SendContractComplainfeedbackResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SendContractComplainfeedbackResponse) SetMsg(v string) *SendContractComplainfeedbackResponse {
+	s.Msg = &v
+	return s
+}
+
+type UploadContractComplainimageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 图片名称，支持后缀格式：jpg、jpeg、png
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true" maxLength:"32"`
+	// 图片二进制字节流
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s UploadContractComplainimageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadContractComplainimageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadContractComplainimageRequest) SetAuthToken(v string) *UploadContractComplainimageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadContractComplainimageRequest) SetProductInstanceId(v string) *UploadContractComplainimageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadContractComplainimageRequest) SetFileName(v string) *UploadContractComplainimageRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *UploadContractComplainimageRequest) SetContent(v string) *UploadContractComplainimageRequest {
+	s.Content = &v
+	return s
+}
+
+type UploadContractComplainimageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片id
+	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
+}
+
+func (s UploadContractComplainimageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadContractComplainimageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadContractComplainimageResponse) SetReqMsgId(v string) *UploadContractComplainimageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadContractComplainimageResponse) SetResultCode(v string) *UploadContractComplainimageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadContractComplainimageResponse) SetResultMsg(v string) *UploadContractComplainimageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadContractComplainimageResponse) SetImageId(v string) *UploadContractComplainimageResponse {
+	s.ImageId = &v
 	return s
 }
 
@@ -38336,6 +38849,192 @@ func (s *GetInternalFileResponse) SetHashAlgorithm(v string) *GetInternalFileRes
 	return s
 }
 
+type CreateEncryptTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户本地加密后的存证内容
+	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty" require:"true"`
+	// 存证阶段
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 存证事务id
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 存证拓展信息
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 存证类型，支持
+	// ● TEXT_HASH：文本哈希
+	// ● TEXT_RAW：源文本（默认）
+	TextNotaryType *string `json:"text_notary_type,omitempty" xml:"text_notary_type,omitempty"`
+	// 哈希算法，当存证类型为TEXT_HASH时必填，目前支持两种
+	// ● SHA256
+	// ● SM3
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+}
+
+func (s CreateEncryptTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEncryptTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEncryptTextRequest) SetAuthToken(v string) *CreateEncryptTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetProductInstanceId(v string) *CreateEncryptTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetNotaryContent(v string) *CreateEncryptTextRequest {
+	s.NotaryContent = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetPhase(v string) *CreateEncryptTextRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetTransactionId(v string) *CreateEncryptTextRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetProperties(v string) *CreateEncryptTextRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetTextNotaryType(v string) *CreateEncryptTextRequest {
+	s.TextNotaryType = &v
+	return s
+}
+
+func (s *CreateEncryptTextRequest) SetHashAlgorithm(v string) *CreateEncryptTextRequest {
+	s.HashAlgorithm = &v
+	return s
+}
+
+type CreateEncryptTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易哈希，链上存证地址
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s CreateEncryptTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateEncryptTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateEncryptTextResponse) SetReqMsgId(v string) *CreateEncryptTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateEncryptTextResponse) SetResultCode(v string) *CreateEncryptTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateEncryptTextResponse) SetResultMsg(v string) *CreateEncryptTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateEncryptTextResponse) SetTxHash(v string) *CreateEncryptTextResponse {
+	s.TxHash = &v
+	return s
+}
+
+type GetEncryptTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证地址
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+	TargetAccountId *string `json:"target_account_id,omitempty" xml:"target_account_id,omitempty"`
+}
+
+func (s GetEncryptTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEncryptTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetEncryptTextRequest) SetAuthToken(v string) *GetEncryptTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetEncryptTextRequest) SetProductInstanceId(v string) *GetEncryptTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetEncryptTextRequest) SetTxHash(v string) *GetEncryptTextRequest {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetEncryptTextRequest) SetTargetAccountId(v string) *GetEncryptTextRequest {
+	s.TargetAccountId = &v
+	return s
+}
+
+type GetEncryptTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s GetEncryptTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetEncryptTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetEncryptTextResponse) SetReqMsgId(v string) *GetEncryptTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetEncryptTextResponse) SetResultCode(v string) *GetEncryptTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetEncryptTextResponse) SetResultMsg(v string) *GetEncryptTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetEncryptTextResponse) SetContent(v string) *GetEncryptTextResponse {
+	s.Content = &v
+	return s
+}
+
 type CreateFlowInstanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -40474,9 +41173,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.16"),
-				"_prod_code":       tea.String("TWC"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.8.22"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -44099,6 +44796,142 @@ func (client *Client) ExecContractPayEx(request *ExecContractPayRequest, headers
 	}
 	_result = &ExecContractPayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.pay.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 代扣强制解约
+ */
+func (client *Client) UnbindContractPay(request *UnbindContractPayRequest) (_result *UnbindContractPayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnbindContractPayResponse{}
+	_body, _err := client.UnbindContractPayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
+ * Summary: 代扣强制解约
+ */
+func (client *Client) UnbindContractPayEx(request *UnbindContractPayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindContractPayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnbindContractPayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.pay.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+ * Summary: 投诉数据查询
+ */
+func (client *Client) QueryContractComplain(request *QueryContractComplainRequest) (_result *QueryContractComplainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractComplainResponse{}
+	_body, _err := client.QueryContractComplainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
+ * Summary: 投诉数据查询
+ */
+func (client *Client) QueryContractComplainEx(request *QueryContractComplainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractComplainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractComplainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complain.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+ * Summary: 投诉反馈
+ */
+func (client *Client) SendContractComplainfeedback(request *SendContractComplainfeedbackRequest) (_result *SendContractComplainfeedbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendContractComplainfeedbackResponse{}
+	_body, _err := client.SendContractComplainfeedbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
+ * Summary: 投诉反馈
+ */
+func (client *Client) SendContractComplainfeedbackEx(request *SendContractComplainfeedbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendContractComplainfeedbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendContractComplainfeedbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complainfeedback.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+func (client *Client) UploadContractComplainimage(request *UploadContractComplainimageRequest) (_result *UploadContractComplainimageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadContractComplainimageResponse{}
+	_body, _err := client.UploadContractComplainimageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户上传处理图片
+ * Summary: 商户上传处理图片
+ */
+func (client *Client) UploadContractComplainimageEx(request *UploadContractComplainimageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadContractComplainimageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadContractComplainimageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complainimage.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -49675,6 +50508,74 @@ func (client *Client) GetInternalFileEx(request *GetInternalFileRequest, headers
 	}
 	_result = &GetInternalFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.file.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 加密文本存证
+ * Summary: 加密文本存证
+ */
+func (client *Client) CreateEncryptText(request *CreateEncryptTextRequest) (_result *CreateEncryptTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateEncryptTextResponse{}
+	_body, _err := client.CreateEncryptTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 加密文本存证
+ * Summary: 加密文本存证
+ */
+func (client *Client) CreateEncryptTextEx(request *CreateEncryptTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEncryptTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateEncryptTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.encrypt.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询加密文本存证内容
+ * Summary: 查询加密文本存证内容
+ */
+func (client *Client) GetEncryptText(request *GetEncryptTextRequest) (_result *GetEncryptTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetEncryptTextResponse{}
+	_body, _err := client.GetEncryptTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询加密文本存证内容
+ * Summary: 查询加密文本存证内容
+ */
+func (client *Client) GetEncryptTextEx(request *GetEncryptTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEncryptTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetEncryptTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.encrypt.text.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
