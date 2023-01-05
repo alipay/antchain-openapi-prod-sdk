@@ -11,8 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\BindDemoAaaBbbCccRequest;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\ConfirmAntchainBbpContractReconciliationRequest;
 use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\ConfirmAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\ExecAntchainBbpContractReconciliationRequest;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\ExecAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryAntchainBbpContractReconciliationRequest;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryDemoAaaBbbCccRequest;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryDemoAbcAbcAbcRequest;
+use AntChain\Ak_12efccd8bd334687a38543f32758eba0\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -160,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -207,6 +217,39 @@ class Client
     }
 
     /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口.
+     *
+     * @param ExecAntchainBbpContractReconciliationRequest $request
+     *
+     * @return ExecAntchainBbpContractReconciliationResponse
+     */
+    public function execAntchainBbpContractReconciliation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口.
+     *
+     * @param ExecAntchainBbpContractReconciliationRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return ExecAntchainBbpContractReconciliationResponse
+     */
+    public function execAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 结算单确认
      * Summary: 结算单确认.
      *
@@ -237,5 +280,137 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单.
+     *
+     * @param QueryAntchainBbpContractReconciliationRequest $request
+     *
+     * @return QueryAntchainBbpContractReconciliationResponse
+     */
+    public function queryAntchainBbpContractReconciliation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单.
+     *
+     * @param QueryAntchainBbpContractReconciliationRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryAntchainBbpContractReconciliationResponse
+     */
+    public function queryAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建
+     * Summary: 自动化测试创建.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建
+     * Summary: 自动化测试创建.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
