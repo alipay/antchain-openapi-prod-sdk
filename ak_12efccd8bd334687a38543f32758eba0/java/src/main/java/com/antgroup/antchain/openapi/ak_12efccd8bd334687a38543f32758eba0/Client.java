@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,6 +160,25 @@ public class Client {
     }
 
     /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口
+     */
+    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliation(ExecAntchainBbpContractReconciliationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntchainBbpContractReconciliationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口
+     */
+    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliationEx(ExecAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntchainBbpContractReconciliationResponse());
+    }
+
+    /**
      * Description: 结算单确认
      * Summary: 结算单确认
      */
@@ -176,5 +195,81 @@ public class Client {
     public ConfirmAntchainBbpContractReconciliationResponse confirmAntchainBbpContractReconciliationEx(ConfirmAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAntchainBbpContractReconciliationResponse());
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单
+     */
+    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliation(QueryAntchainBbpContractReconciliationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainBbpContractReconciliationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单
+     */
+    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliationEx(QueryAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainBbpContractReconciliationResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建
+     * Summary: 自动化测试创建
+     */
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建
+     * Summary: 自动化测试创建
+     */
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse());
     }
 }
