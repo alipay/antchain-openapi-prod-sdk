@@ -134,9 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
-                    '_prod_code': 'ak_7186a91da6a6476b8d8f8f21b9ed79b4',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,9 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
-                    '_prod_code': 'ak_7186a91da6a6476b8d8f8f21b9ed79b4',
-                    '_prod_channel': 'saas'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -327,4 +323,60 @@ class Client:
         return TeaCore.from_map(
             ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.QueryAntchainBbpEnterpriseBusinessscopeResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.enterprise.businessscope.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_aaa_bbb_ccc(
+        self,
+        request: ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccRequest,
+    ) -> ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+
+    async def bind_demo_aaa_bbb_ccc_async(
+        self,
+        request: ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccRequest,
+    ) -> ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+
+    def bind_demo_aaa_bbb_ccc_ex(
+        self,
+        request: ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_aaa_bbb_ccc_ex_async(
+        self,
+        request: ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7186a_91da_6a_6476b_8d_8f_8f_21b_9ed_79b_4_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
