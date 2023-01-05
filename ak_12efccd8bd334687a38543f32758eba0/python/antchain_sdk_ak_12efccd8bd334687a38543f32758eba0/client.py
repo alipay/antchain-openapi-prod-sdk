@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def exec_antchain_bbp_contract_reconciliation(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
+
+    async def exec_antchain_bbp_contract_reconciliation_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
+
+    def exec_antchain_bbp_contract_reconciliation_ex(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antchain_bbp_contract_reconciliation_ex_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse:
+        """
+        Description: 对账单执行
+        Summary: 对账单执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ExecAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def confirm_antchain_bbp_contract_reconciliation(
         self,
@@ -325,4 +381,228 @@ class Client:
         return TeaCore.from_map(
             ak__12efccd_8bd_334687a_38543f_32758eba_0_models.ConfirmAntchainBbpContractReconciliationResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_bbp_contract_reconciliation(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse:
+        """
+        Description: 查询结算单
+        Summary: 查询结算单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_bbp_contract_reconciliation_ex(request, headers, runtime)
+
+    async def query_antchain_bbp_contract_reconciliation_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse:
+        """
+        Description: 查询结算单
+        Summary: 查询结算单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_bbp_contract_reconciliation_ex_async(request, headers, runtime)
+
+    def query_antchain_bbp_contract_reconciliation_ex(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse:
+        """
+        Description: 查询结算单
+        Summary: 查询结算单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse(),
+            self.do_request('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_bbp_contract_reconciliation_ex_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse:
+        """
+        Description: 查询结算单
+        Summary: 查询结算单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryAntchainBbpContractReconciliationResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_aaa_bbb_ccc(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+
+    async def bind_demo_aaa_bbb_ccc_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+
+    def bind_demo_aaa_bbb_ccc_ex(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_aaa_bbb_ccc_ex_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建
+        Summary: 自动化测试创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_abc_abc_abc(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_abc_abc_abc_ex(request, headers, runtime)
+
+    async def query_demo_abc_abc_abc_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_abc_abc_abc_ex_async(request, headers, runtime)
+
+    def query_demo_abc_abc_abc_ex(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse(),
+            self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_abc_abc_abc_ex_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse:
+        """
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAbcAbcAbcResponse(),
+            await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_aaa_bbb_ccc(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建1
+        Summary: 自动化测试创建（勿动）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+
+    async def query_demo_aaa_bbb_ccc_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccRequest,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建1
+        Summary: 自动化测试创建（勿动）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+
+    def query_demo_aaa_bbb_ccc_ex(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建1
+        Summary: 自动化测试创建（勿动）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_aaa_bbb_ccc_ex_async(
+        self,
+        request: ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建1
+        Summary: 自动化测试创建（勿动）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__12efccd_8bd_334687a_38543f_32758eba_0_models.QueryDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
