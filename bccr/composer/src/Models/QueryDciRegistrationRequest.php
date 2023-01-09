@@ -25,7 +25,7 @@ class QueryDciRegistrationRequest extends Model
      */
     public $digitalRegisterId;
 
-    // 废弃待删除
+    // dci申领id
     /**
      * @var string
      */
@@ -39,7 +39,6 @@ class QueryDciRegistrationRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
     }
 
     public function toMap()

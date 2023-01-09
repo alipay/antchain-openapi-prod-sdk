@@ -104,6 +104,12 @@ class QueryDciRegistrationResponse extends Model
      */
     public $regNumber;
 
+    // 数登id
+    /**
+     * @var string
+     */
+    public $digitalRegisterId;
+
     // dci申领id
     /**
      * @var string
@@ -157,6 +163,24 @@ class QueryDciRegistrationResponse extends Model
      * @var string
      */
     public $failDetail;
+
+    // 补正类型
+    /**
+     * @var string
+     */
+    public $amendType;
+
+    // 用户申请表url
+    /**
+     * @var string
+     */
+    public $applyFormUrl;
+
+    // 数登流水号
+    /**
+     * @var string
+     */
+    public $flowNumber;
     protected $_name = [
         'reqMsgId'                      => 'req_msg_id',
         'resultCode'                    => 'result_code',
@@ -174,6 +198,7 @@ class QueryDciRegistrationResponse extends Model
         'invoiceFileIdList'             => 'invoice_file_id_list',
         'applyRegisterTime'             => 'apply_register_time',
         'regNumber'                     => 'reg_number',
+        'digitalRegisterId'             => 'digital_register_id',
         'dciContentId'                  => 'dci_content_id',
         'digitalRegisterStatus'         => 'digital_register_status',
         'digitalRegisterApplyTime'      => 'digital_register_apply_time',
@@ -183,6 +208,9 @@ class QueryDciRegistrationResponse extends Model
         'downloadTimesLeft'             => 'download_times_left',
         'invoiceUrlList'                => 'invoice_url_list',
         'failDetail'                    => 'fail_detail',
+        'amendType'                     => 'amend_type',
+        'applyFormUrl'                  => 'apply_form_url',
+        'flowNumber'                    => 'flow_number',
     ];
 
     public function validate()
@@ -243,6 +271,9 @@ class QueryDciRegistrationResponse extends Model
         if (null !== $this->regNumber) {
             $res['reg_number'] = $this->regNumber;
         }
+        if (null !== $this->digitalRegisterId) {
+            $res['digital_register_id'] = $this->digitalRegisterId;
+        }
         if (null !== $this->dciContentId) {
             $res['dci_content_id'] = $this->dciContentId;
         }
@@ -269,6 +300,15 @@ class QueryDciRegistrationResponse extends Model
         }
         if (null !== $this->failDetail) {
             $res['fail_detail'] = $this->failDetail;
+        }
+        if (null !== $this->amendType) {
+            $res['amend_type'] = $this->amendType;
+        }
+        if (null !== $this->applyFormUrl) {
+            $res['apply_form_url'] = $this->applyFormUrl;
+        }
+        if (null !== $this->flowNumber) {
+            $res['flow_number'] = $this->flowNumber;
         }
 
         return $res;
@@ -332,6 +372,9 @@ class QueryDciRegistrationResponse extends Model
         if (isset($map['reg_number'])) {
             $model->regNumber = $map['reg_number'];
         }
+        if (isset($map['digital_register_id'])) {
+            $model->digitalRegisterId = $map['digital_register_id'];
+        }
         if (isset($map['dci_content_id'])) {
             $model->dciContentId = $map['dci_content_id'];
         }
@@ -360,6 +403,15 @@ class QueryDciRegistrationResponse extends Model
         }
         if (isset($map['fail_detail'])) {
             $model->failDetail = $map['fail_detail'];
+        }
+        if (isset($map['amend_type'])) {
+            $model->amendType = $map['amend_type'];
+        }
+        if (isset($map['apply_form_url'])) {
+            $model->applyFormUrl = $map['apply_form_url'];
+        }
+        if (isset($map['flow_number'])) {
+            $model->flowNumber = $map['flow_number'];
         }
 
         return $model;

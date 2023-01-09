@@ -73,6 +73,12 @@ class QueryDciPreviewResponse extends Model
      * @var string
      */
     public $queryTime;
+
+    // 数登登记号
+    /**
+     * @var string
+     */
+    public $regNumber;
     protected $_name = [
         'reqMsgId'              => 'req_msg_id',
         'resultCode'            => 'result_code',
@@ -85,6 +91,7 @@ class QueryDciPreviewResponse extends Model
         'dciCode'               => 'dci_code',
         'fileType'              => 'file_type',
         'queryTime'             => 'query_time',
+        'regNumber'             => 'reg_number',
     ];
 
     public function validate()
@@ -127,6 +134,9 @@ class QueryDciPreviewResponse extends Model
         }
         if (null !== $this->queryTime) {
             $res['query_time'] = $this->queryTime;
+        }
+        if (null !== $this->regNumber) {
+            $res['reg_number'] = $this->regNumber;
         }
 
         return $res;
@@ -172,6 +182,9 @@ class QueryDciPreviewResponse extends Model
         }
         if (isset($map['query_time'])) {
             $model->queryTime = $map['query_time'];
+        }
+        if (isset($map['reg_number'])) {
+            $model->regNumber = $map['reg_number'];
         }
 
         return $model;
