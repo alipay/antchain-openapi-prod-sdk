@@ -46,6 +46,13 @@ namespace AntChain.SDK.BAASPLUS.Models
         [Validation(Required=false)]
         public bool? Passed { get; set; }
 
+        // return_code=0，核验一致
+        // return_code=1，核验不一致
+        // return_code=2，库无
+        [NameInMap("return_code")]
+        [Validation(Required=false)]
+        public string ReturnCode { get; set; }
+
     }
 
 }
