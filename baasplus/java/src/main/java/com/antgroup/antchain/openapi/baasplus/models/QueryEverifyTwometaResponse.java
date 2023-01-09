@@ -34,6 +34,12 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     @NameInMap("code")
     public String code;
 
+    // return_code=0，核验一致
+    // return_code=1，核验不一致
+    // return_code=2，库无
+    @NameInMap("return_code")
+    public String returnCode;
+
     public static QueryEverifyTwometaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyTwometaResponse self = new QueryEverifyTwometaResponse();
         return TeaModel.build(map, self);
@@ -93,6 +99,14 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     }
     public String getCode() {
         return this.code;
+    }
+
+    public QueryEverifyTwometaResponse setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
+        return this;
+    }
+    public String getReturnCode() {
+        return this.returnCode;
     }
 
 }

@@ -34,6 +34,12 @@ public class QueryEverifyFourmetaResponse extends TeaModel {
     @NameInMap("passed")
     public Boolean passed;
 
+    // return_code=0，核验一致
+    // return_code=1，核验不一致
+    // return_code=2，库无
+    @NameInMap("return_code")
+    public String returnCode;
+
     public static QueryEverifyFourmetaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyFourmetaResponse self = new QueryEverifyFourmetaResponse();
         return TeaModel.build(map, self);
@@ -93,6 +99,14 @@ public class QueryEverifyFourmetaResponse extends TeaModel {
     }
     public Boolean getPassed() {
         return this.passed;
+    }
+
+    public QueryEverifyFourmetaResponse setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
+        return this;
+    }
+    public String getReturnCode() {
+        return this.returnCode;
     }
 
 }
