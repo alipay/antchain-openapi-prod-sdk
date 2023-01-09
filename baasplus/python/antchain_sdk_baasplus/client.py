@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 区块信息
+            # 命中结果详情
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2'
+                    'sdk_version': '1.1.4',
+                    '_prod_code': 'BAASPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 区块信息
+            # 命中结果详情
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2'
+                    'sdk_version': '1.1.4',
+                    '_prod_code': 'BAASPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 链上交易移动端权限修改
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateBmpbrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.plus.bmpbrowser.privilege.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 链上交易移动端权限修改
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateBmpbrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.plus.bmpbrowser.privilege.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 个人脱敏信息身份核验（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalmaskResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalmaskResponse(),
             self.do_request('1.0', 'baas.plus.individualid.internalmask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 个人脱敏信息身份核验（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalmaskResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalmaskResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.internalmask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 企业认证四要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternalfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternalfourmetaResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.internalfourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 企业认证四要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternalfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternalfourmetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.internalfourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 企业认证三要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternalthreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternalthreemetaResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.internalthreemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 企业认证三要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternalthreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternalthreemetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.internalthreemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 企业认证二要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternaltwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternaltwometaResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.internaltwometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 企业认证二要素（数据来自数据枢纽）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidInternaltwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidInternaltwometaResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.internaltwometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEnterpriseidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEnterpriseidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 查询企业认证四要素—法人实人认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 查询企业认证四要素—法人实人认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 个人实名认证四要素（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalfourmetaResponse(),
             self.do_request('1.0', 'baas.plus.individualid.internalfourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 个人实名认证四要素（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalfourmetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.internalfourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 个人实名认证三要素（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalthreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalthreemetaResponse(),
             self.do_request('1.0', 'baas.plus.individualid.internalthreemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 个人实名认证三要素（数据来自蚁盾）
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternalthreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternalthreemetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.internalthreemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 个人实名认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternaltwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternaltwometaResponse(),
             self.do_request('1.0', 'baas.plus.individualid.internaltwometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 个人实名认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidInternaltwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidInternaltwometaResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.internaltwometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 发起内容评估
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateBaicorpInternalevaluationasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateBaicorpInternalevaluationasyncResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalevaluationasync.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 发起内容评估
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateBaicorpInternalevaluationasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateBaicorpInternalevaluationasyncResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalevaluationasync.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 提交内容监测任务接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateBaicorpInternalmonitorasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateBaicorpInternalmonitorasyncResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalmonitorasync.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 提交内容监测任务接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateBaicorpInternalmonitorasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateBaicorpInternalmonitorasyncResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalmonitorasync.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: 查询内容评估结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalevaluationasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalevaluationasyncResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalevaluationasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: 查询内容评估结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalevaluationasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalevaluationasyncResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalevaluationasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: 查询内容监测任务结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalmonitorasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalmonitorasyncResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalmonitorasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1054,8 @@ class Client:
         Summary: 查询内容监测任务结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalmonitorasyncResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalmonitorasyncResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalmonitorasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1094,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyEnterpriseidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1110,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyEnterpriseidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyEnterpriseidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1150,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1166,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1206,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyIndividualidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1222,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyIndividualidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1262,8 @@ class Client:
         Summary: 个人实人刷脸认证-查询认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidFaceauthResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1278,8 @@ class Client:
         Summary: 个人实人刷脸认证-查询认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1318,8 @@ class Client:
         Summary: 区块链数据服务-获取区块链当前块高
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceBlockchainheightResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceBlockchainheightResponse(),
             self.do_request('1.0', 'baas.plus.dataservice.blockchainheight.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1334,8 @@ class Client:
         Summary: 区块链数据服务-获取区块链当前块高
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceBlockchainheightResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceBlockchainheightResponse(),
             await self.do_request_async('1.0', 'baas.plus.dataservice.blockchainheight.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1374,8 @@ class Client:
         Summary: 区块链数据服务-获取链交易总数
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceTransactioncountResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceTransactioncountResponse(),
             self.do_request('1.0', 'baas.plus.dataservice.transactioncount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1390,8 @@ class Client:
         Summary: 区块链数据服务-获取链交易总数
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceTransactioncountResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceTransactioncountResponse(),
             await self.do_request_async('1.0', 'baas.plus.dataservice.transactioncount.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1430,8 @@ class Client:
         Summary: 区块链数据服务-获取交易详情
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceTransactioninfoResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceTransactioninfoResponse(),
             self.do_request('1.0', 'baas.plus.dataservice.transactioninfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1446,8 @@ class Client:
         Summary: 区块链数据服务-获取交易详情
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetDataserviceTransactioninfoResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetDataserviceTransactioninfoResponse(),
             await self.do_request_async('1.0', 'baas.plus.dataservice.transactioninfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1486,8 @@ class Client:
         Summary: 区块链数据服务-获取链最近n条块信息
         """
         UtilClient.validate_model(request)
-        return baasplus_models.ListDataserviceLastblocksResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.ListDataserviceLastblocksResponse(),
             self.do_request('1.0', 'baas.plus.dataservice.lastblocks.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1502,8 @@ class Client:
         Summary: 区块链数据服务-获取链最近n条块信息
         """
         UtilClient.validate_model(request)
-        return baasplus_models.ListDataserviceLastblocksResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.ListDataserviceLastblocksResponse(),
             await self.do_request_async('1.0', 'baas.plus.dataservice.lastblocks.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1542,8 @@ class Client:
         Summary: 可信时间凭证服务-获取时间凭证
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasAttestationResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasAttestationResponse(),
             self.do_request('1.0', 'baas.plus.tas.attestation.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,7 +1558,8 @@ class Client:
         Summary: 可信时间凭证服务-获取时间凭证
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasAttestationResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasAttestationResponse(),
             await self.do_request_async('1.0', 'baas.plus.tas.attestation.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1548,7 +1598,8 @@ class Client:
         Summary: 可信时间凭证服务-校验时间凭证接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.VerifyTasCtsrResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.VerifyTasCtsrResponse(),
             self.do_request('1.0', 'baas.plus.tas.ctsr.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1563,7 +1614,8 @@ class Client:
         Summary: 可信时间凭证服务-校验时间凭证接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.VerifyTasCtsrResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.VerifyTasCtsrResponse(),
             await self.do_request_async('1.0', 'baas.plus.tas.ctsr.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1602,7 +1654,8 @@ class Client:
         Summary: 可信时间凭证服务-下载时间凭证证书
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasCertificateResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasCertificateResponse(),
             self.do_request('1.0', 'baas.plus.tas.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1617,7 +1670,8 @@ class Client:
         Summary: 可信时间凭证服务-下载时间凭证证书
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasCertificateResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasCertificateResponse(),
             await self.do_request_async('1.0', 'baas.plus.tas.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +1710,8 @@ class Client:
         Summary: 可信时间——获取带事务的时间凭证
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasTransactionattestationResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasTransactionattestationResponse(),
             self.do_request('1.0', 'baas.plus.tas.transactionattestation.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +1726,8 @@ class Client:
         Summary: 可信时间——获取带事务的时间凭证
         """
         UtilClient.validate_model(request)
-        return baasplus_models.GetTasTransactionattestationResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.GetTasTransactionattestationResponse(),
             await self.do_request_async('1.0', 'baas.plus.tas.transactionattestation.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +1766,8 @@ class Client:
         Summary: 企业认证四要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyFourmetaResponse(),
             self.do_request('1.0', 'baas.plus.everify.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +1782,8 @@ class Client:
         Summary: 企业认证四要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +1822,8 @@ class Client:
         Summary: 企业认证三要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyThreemetaResponse(),
             self.do_request('1.0', 'baas.plus.everify.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +1838,8 @@ class Client:
         Summary: 企业认证三要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1818,7 +1878,8 @@ class Client:
         Summary: 企业认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyTwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyTwometaResponse(),
             self.do_request('1.0', 'baas.plus.everify.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1833,7 +1894,8 @@ class Client:
         Summary: 企业认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyTwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyTwometaResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1872,7 +1934,8 @@ class Client:
         Summary: 内容搜索查询接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalsearchlibraryResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalsearchlibraryResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalsearchlibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1887,7 +1950,8 @@ class Client:
         Summary: 内容搜索查询接口
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBaicorpInternalsearchlibraryResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBaicorpInternalsearchlibraryResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalsearchlibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1926,7 +1990,8 @@ class Client:
         Summary: 更新检索
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateBaicorpInternalsearchlibraryResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateBaicorpInternalsearchlibraryResponse(),
             self.do_request('1.0', 'baas.plus.baicorp.internalsearchlibrary.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1941,7 +2006,8 @@ class Client:
         Summary: 更新检索
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateBaicorpInternalsearchlibraryResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateBaicorpInternalsearchlibraryResponse(),
             await self.do_request_async('1.0', 'baas.plus.baicorp.internalsearchlibrary.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1980,7 +2046,8 @@ class Client:
         Summary: 对公打款-总行查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthRootbankResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthRootbankResponse(),
             self.do_request('1.0', 'baas.plus.epayauth.rootbank.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1995,7 +2062,8 @@ class Client:
         Summary: 对公打款-总行查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthRootbankResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthRootbankResponse(),
             await self.do_request_async('1.0', 'baas.plus.epayauth.rootbank.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2034,7 +2102,8 @@ class Client:
         Summary: 业务申请保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdapplyprotEcapplyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdapplyprotEcapplyResponse(),
             self.do_request('1.0', 'baas.plus.ydapplyprot.ecapply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2049,7 +2118,8 @@ class Client:
         Summary: 业务申请保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdapplyprotEcapplyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdapplyprotEcapplyResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydapplyprot.ecapply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2088,7 +2158,8 @@ class Client:
         Summary: 先享后付保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdpacprotEcpacResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdpacprotEcpacResponse(),
             self.do_request('1.0', 'baas.plus.ydpacprot.ecpac.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2103,7 +2174,8 @@ class Client:
         Summary: 先享后付保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdpacprotEcpacResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdpacprotEcpacResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydpacprot.ecpac.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2142,7 +2214,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotTwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotTwometaResponse(),
             self.do_request('1.0', 'baas.plus.ydauthprot.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2157,7 +2230,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotTwometaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotTwometaResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydauthprot.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2196,7 +2270,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotThreemetaResponse(),
             self.do_request('1.0', 'baas.plus.ydauthprot.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2211,7 +2286,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydauthprot.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2250,7 +2326,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotFourmetaResponse(),
             self.do_request('1.0', 'baas.plus.ydauthprot.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2265,7 +2342,8 @@ class Client:
         Summary: 身份认证保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdauthprotFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdauthprotFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydauthprot.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2304,7 +2382,8 @@ class Client:
         Summary: 营销保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdmktprotEcmarketcampaignResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdmktprotEcmarketcampaignResponse(),
             self.do_request('1.0', 'baas.plus.ydmktprot.ecmarketcampaign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2319,7 +2398,8 @@ class Client:
         Summary: 营销保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdmktprotEcmarketcampaignResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdmktprotEcmarketcampaignResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydmktprot.ecmarketcampaign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2358,7 +2438,8 @@ class Client:
         Summary: 注册保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdregprotEcregisterResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdregprotEcregisterResponse(),
             self.do_request('1.0', 'baas.plus.ydregprot.ecregister.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2373,7 +2454,8 @@ class Client:
         Summary: 注册保护
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryYdregprotEcregisterResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryYdregprotEcregisterResponse(),
             await self.do_request_async('1.0', 'baas.plus.ydregprot.ecregister.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2412,7 +2494,8 @@ class Client:
         Summary: 支行查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthBranchbankResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthBranchbankResponse(),
             self.do_request('1.0', 'baas.plus.epayauth.branchbank.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2427,7 +2510,8 @@ class Client:
         Summary: 支行查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthBranchbankResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthBranchbankResponse(),
             await self.do_request_async('1.0', 'baas.plus.epayauth.branchbank.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2466,7 +2550,8 @@ class Client:
         Summary: 行政地区编码查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthDistrictResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthDistrictResponse(),
             self.do_request('1.0', 'baas.plus.epayauth.district.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2481,7 +2566,8 @@ class Client:
         Summary: 行政地区编码查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthDistrictResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthDistrictResponse(),
             await self.do_request_async('1.0', 'baas.plus.epayauth.district.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2520,7 +2606,8 @@ class Client:
         Summary: 发起打款验证申请
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEpayauthVerifyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEpayauthVerifyResponse(),
             self.do_request('1.0', 'baas.plus.epayauth.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2535,7 +2622,8 @@ class Client:
         Summary: 发起打款验证申请
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEpayauthVerifyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEpayauthVerifyResponse(),
             await self.do_request_async('1.0', 'baas.plus.epayauth.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2574,7 +2662,8 @@ class Client:
         Summary: 打款验证金额校验
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthVerifyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthVerifyResponse(),
             self.do_request('1.0', 'baas.plus.epayauth.verify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2589,7 +2678,8 @@ class Client:
         Summary: 打款验证金额校验
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEpayauthVerifyResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEpayauthVerifyResponse(),
             await self.do_request_async('1.0', 'baas.plus.epayauth.verify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2628,7 +2718,8 @@ class Client:
         Summary: 链上交易二维码生成
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBmpbrowserTransactionqrcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBmpbrowserTransactionqrcodeResponse(),
             self.do_request('1.0', 'baas.plus.bmpbrowser.transactionqrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2643,7 +2734,8 @@ class Client:
         Summary: 链上交易二维码生成
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBmpbrowserTransactionqrcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBmpbrowserTransactionqrcodeResponse(),
             await self.do_request_async('1.0', 'baas.plus.bmpbrowser.transactionqrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2682,7 +2774,8 @@ class Client:
         Summary: 批量开通 链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddBmpbrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.plus.bmpbrowser.privilege.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2697,7 +2790,8 @@ class Client:
         Summary: 批量开通 链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddBmpbrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.plus.bmpbrowser.privilege.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2736,7 +2830,8 @@ class Client:
         Summary: 身份证信息识别
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIdcocrIdcardResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIdcocrIdcardResponse(),
             self.do_request('1.0', 'baas.plus.idcocr.idcard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2751,7 +2846,8 @@ class Client:
         Summary: 身份证信息识别
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIdcocrIdcardResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIdcocrIdcardResponse(),
             await self.do_request_async('1.0', 'baas.plus.idcocr.idcard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2790,7 +2886,8 @@ class Client:
         Summary: 申请证书
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitCaCertificateResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitCaCertificateResponse(),
             self.do_request('1.0', 'baas.plus.ca.certificate.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2805,7 +2902,8 @@ class Client:
         Summary: 申请证书
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitCaCertificateResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitCaCertificateResponse(),
             await self.do_request_async('1.0', 'baas.plus.ca.certificate.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2844,7 +2942,8 @@ class Client:
         Summary: 内容风险识别接口服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitContentriskInternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitContentriskInternalResponse(),
             self.do_request('1.0', 'baas.plus.contentrisk.internal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2859,7 +2958,8 @@ class Client:
         Summary: 内容风险识别接口服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitContentriskInternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitContentriskInternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.contentrisk.internal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2898,7 +2998,8 @@ class Client:
         Summary: 内容风险识别结果查询接口服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryContentriskInternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryContentriskInternalResponse(),
             self.do_request('1.0', 'baas.plus.contentrisk.internal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2913,7 +3014,8 @@ class Client:
         Summary: 内容风险识别结果查询接口服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryContentriskInternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryContentriskInternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.contentrisk.internal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2952,7 +3054,8 @@ class Client:
         Summary: 个人实人认证服务端比对-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidImageauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidImageauthResponse(),
             self.do_request('1.0', 'baas.plus.individualid.imageauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2967,7 +3070,8 @@ class Client:
         Summary: 个人实人认证服务端比对-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidImageauthResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidImageauthResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.imageauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3006,7 +3110,8 @@ class Client:
         Summary: 访问账户生成
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddIotcseAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddIotcseAccountResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.account.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3021,7 +3126,8 @@ class Client:
         Summary: 访问账户生成
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddIotcseAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddIotcseAccountResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.account.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3060,7 +3166,8 @@ class Client:
         Summary: 存证上链
         """
         UtilClient.validate_model(request)
-        return baasplus_models.SaveIotcseEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.SaveIotcseEvidenceResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.evidence.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3075,7 +3182,8 @@ class Client:
         Summary: 存证上链
         """
         UtilClient.validate_model(request)
-        return baasplus_models.SaveIotcseEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.SaveIotcseEvidenceResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.evidence.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3114,7 +3222,8 @@ class Client:
         Summary: 存证上链查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseEvidenceResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.evidence.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3129,7 +3238,8 @@ class Client:
         Summary: 存证上链查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseEvidenceResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.evidence.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3168,7 +3278,8 @@ class Client:
         Summary: 代理创建企业did
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateDidCorporatedidagentResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateDidCorporatedidagentResponse(),
             self.do_request('1.0', 'baas.plus.did.corporatedidagent.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3183,7 +3294,8 @@ class Client:
         Summary: 代理创建企业did
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CreateDidCorporatedidagentResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CreateDidCorporatedidagentResponse(),
             await self.do_request_async('1.0', 'baas.plus.did.corporatedidagent.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3222,7 +3334,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauthinternal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3237,7 +3350,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitIndividualidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauthinternal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3276,7 +3390,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyIndividualidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauthinternal.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3291,7 +3406,8 @@ class Client:
         Summary: 个人实人刷脸认证-认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyIndividualidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauthinternal.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3330,7 +3446,8 @@ class Client:
         Summary: 个人实人刷脸认证-查询认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.individualid.faceauthinternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3345,7 +3462,8 @@ class Client:
         Summary: 个人实人刷脸认证-查询认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIndividualidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIndividualidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.individualid.faceauthinternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3384,7 +3502,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEnterpriseidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauthinternal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3399,7 +3518,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证初始化
         """
         UtilClient.validate_model(request)
-        return baasplus_models.InitEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.InitEnterpriseidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauthinternal.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3438,7 +3558,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyEnterpriseidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauthinternal.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3453,7 +3574,8 @@ class Client:
         Summary: 企业认证四要素-法人实人认证开始
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CertifyEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CertifyEnterpriseidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauthinternal.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3492,7 +3614,8 @@ class Client:
         Summary: 企业认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyTwometainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyTwometainternalResponse(),
             self.do_request('1.0', 'baas.plus.everify.twometainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3507,7 +3630,8 @@ class Client:
         Summary: 企业认证二要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyTwometainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyTwometainternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.twometainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3546,7 +3670,8 @@ class Client:
         Summary: 企业认证三要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyThreemetainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyThreemetainternalResponse(),
             self.do_request('1.0', 'baas.plus.everify.threemetainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3561,7 +3686,8 @@ class Client:
         Summary: 企业认证三要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyThreemetainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyThreemetainternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.threemetainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3600,7 +3726,8 @@ class Client:
         Summary: 企业认证四要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyFourmetainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyFourmetainternalResponse(),
             self.do_request('1.0', 'baas.plus.everify.fourmetainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3615,7 +3742,8 @@ class Client:
         Summary: 企业认证四要素
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEverifyFourmetainternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEverifyFourmetainternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.everify.fourmetainternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3654,7 +3782,8 @@ class Client:
         Summary: 查询企业认证四要素—法人实人认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidFaceauthinternalResponse(),
             self.do_request('1.0', 'baas.plus.enterpriseid.faceauthinternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3669,7 +3798,8 @@ class Client:
         Summary: 查询企业认证四要素—法人实人认证结果
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryEnterpriseidFaceauthinternalResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryEnterpriseidFaceauthinternalResponse(),
             await self.do_request_async('1.0', 'baas.plus.enterpriseid.faceauthinternal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3708,7 +3838,8 @@ class Client:
         Summary: 物联网区块链身份注册
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddIotcseThingsdidResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.thingsdid.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3723,7 +3854,8 @@ class Client:
         Summary: 物联网区块链身份注册
         """
         UtilClient.validate_model(request)
-        return baasplus_models.AddIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.AddIotcseThingsdidResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.thingsdid.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3762,7 +3894,8 @@ class Client:
         Summary: 物联网区块链身份更新
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseThingsdidResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.thingsdid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3777,7 +3910,8 @@ class Client:
         Summary: 物联网区块链身份更新
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseThingsdidResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.thingsdid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3816,7 +3950,8 @@ class Client:
         Summary: 物联网区块链身份查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseThingsdidResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.thingsdid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3831,7 +3966,8 @@ class Client:
         Summary: 物联网区块链身份查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseThingsdidResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseThingsdidResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.thingsdid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3873,7 +4009,8 @@ class Client:
         Summary: 异步轮询请求
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseAsyncprocessResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseAsyncprocessResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.asyncprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3889,7 +4026,8 @@ class Client:
         Summary: 异步轮询请求
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseAsyncprocessResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseAsyncprocessResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.asyncprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3928,7 +4066,8 @@ class Client:
         Summary: 物联网区块链身份分组
         """
         UtilClient.validate_model(request)
-        return baasplus_models.ExecIotcseGroupResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.ExecIotcseGroupResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.group.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3943,7 +4082,8 @@ class Client:
         Summary: 物联网区块链身份分组
         """
         UtilClient.validate_model(request)
-        return baasplus_models.ExecIotcseGroupResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.ExecIotcseGroupResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.group.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3982,7 +4122,8 @@ class Client:
         Summary: 物联网区块链分组设备查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseGroupdeviceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseGroupdeviceResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.groupdevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3997,7 +4138,8 @@ class Client:
         Summary: 物联网区块链分组设备查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseGroupdeviceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseGroupdeviceResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.groupdevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4036,7 +4178,8 @@ class Client:
         Summary: 物联网区块链身份设备分组查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseDevicegroupResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseDevicegroupResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.devicegroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4051,7 +4194,8 @@ class Client:
         Summary: 物联网区块链身份设备分组查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseDevicegroupResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseDevicegroupResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.devicegroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4090,7 +4234,8 @@ class Client:
         Summary: 物联网区块链身份租户设备查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseTenantdeviceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseTenantdeviceResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.tenantdevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4105,7 +4250,8 @@ class Client:
         Summary: 物联网区块链身份租户设备查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseTenantdeviceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseTenantdeviceResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.tenantdevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4144,7 +4290,8 @@ class Client:
         Summary: 物联网区块链身份设备状态更新
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseDevicestatusResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseDevicestatusResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.devicestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4159,7 +4306,8 @@ class Client:
         Summary: 物联网区块链身份设备状态更新
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseDevicestatusResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseDevicestatusResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.devicestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4198,7 +4346,8 @@ class Client:
         Summary: 物联网区块链身份设备物模型查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseDevicemodelResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseDevicemodelResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.devicemodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4213,7 +4362,8 @@ class Client:
         Summary: 物联网区块链身份设备物模型查询
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseDevicemodelResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseDevicemodelResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.devicemodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4252,7 +4402,8 @@ class Client:
         Summary: 物联网区块链身份设备空间关联
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseDevicespaceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseDevicespaceResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.devicespace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4267,7 +4418,8 @@ class Client:
         Summary: 物联网区块链身份设备空间关联
         """
         UtilClient.validate_model(request)
-        return baasplus_models.UpdateIotcseDevicespaceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.UpdateIotcseDevicespaceResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.devicespace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4306,7 +4458,8 @@ class Client:
         Summary: 物联网区块链身份批量存证数据读取
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseEvidencebatchResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseEvidencebatchResponse(),
             self.do_request('1.0', 'baas.plus.iotcse.evidencebatch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4321,7 +4474,8 @@ class Client:
         Summary: 物联网区块链身份批量存证数据读取
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryIotcseEvidencebatchResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryIotcseEvidencebatchResponse(),
             await self.do_request_async('1.0', 'baas.plus.iotcse.evidencebatch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4360,7 +4514,8 @@ class Client:
         Summary: AI认知服务营业执照ocr服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBlocrBusinesslicenseResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBlocrBusinesslicenseResponse(),
             self.do_request('1.0', 'baas.plus.blocr.businesslicense.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4375,7 +4530,8 @@ class Client:
         Summary: AI认知服务营业执照ocr服务
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBlocrBusinesslicenseResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBlocrBusinesslicenseResponse(),
             await self.do_request_async('1.0', 'baas.plus.blocr.businesslicense.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4414,7 +4570,8 @@ class Client:
         Summary: AI认知服务增值税发票ocr识别
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryInvoicesocrVatinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryInvoicesocrVatinvoiceResponse(),
             self.do_request('1.0', 'baas.plus.invoicesocr.vatinvoice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4429,7 +4586,8 @@ class Client:
         Summary: AI认知服务增值税发票ocr识别
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryInvoicesocrVatinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryInvoicesocrVatinvoiceResponse(),
             await self.do_request_async('1.0', 'baas.plus.invoicesocr.vatinvoice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4468,7 +4626,8 @@ class Client:
         Summary: 查询用户链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBmpbrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.plus.bmpbrowser.privilege.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4483,7 +4642,8 @@ class Client:
         Summary: 查询用户链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.QueryBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.QueryBmpbrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.plus.bmpbrowser.privilege.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4522,7 +4682,8 @@ class Client:
         Summary: 批量取消 链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CancelBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CancelBmpbrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.plus.bmpbrowser.privilege.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4537,6 +4698,7 @@ class Client:
         Summary: 批量取消 链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return baasplus_models.CancelBmpbrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            baasplus_models.CancelBmpbrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.plus.bmpbrowser.privilege.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
