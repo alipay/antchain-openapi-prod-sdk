@@ -13902,6 +13902,85 @@ export class ApplyUmktPhonenumberstatusforsmsResponse extends $tea.Model {
   }
 }
 
+export class BatchqueryUmktRtTopnRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 用户列表传输模版
+  queryTemplate: string;
+  // 用户凭证信息
+  customerKeys: string[];
+  // 业务流水号
+  bizSerialNo: string;
+  // 访问类型，PROD/TEST，正式流量/测试流量
+  visitType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      queryTemplate: 'query_template',
+      customerKeys: 'customer_keys',
+      bizSerialNo: 'biz_serial_no',
+      visitType: 'visit_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      queryTemplate: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+      bizSerialNo: 'string',
+      visitType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtTopnResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理是否成功
+  success?: boolean;
+  // 实时营销单条结果
+  queryResult?: CustomerUmktInfoModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResult: { 'type': 'array', 'itemType': CustomerUmktInfoModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14103,7 +14182,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.1",
+          sdk_version: "1.16.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -16682,6 +16761,25 @@ export default class Client {
   async applyUmktPhonenumberstatusforsmsEx(request: ApplyUmktPhonenumberstatusforsmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktPhonenumberstatusforsmsResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyUmktPhonenumberstatusforsmsResponse>(await this.doRequest("1.0", "riskplus.umkt.phonenumberstatusforsms.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktPhonenumberstatusforsmsResponse({}));
+  }
+
+  /**
+   * Description: 营销实时topN圈客
+   * Summary: 营销实时topN圈客
+   */
+  async batchqueryUmktRtTopn(request: BatchqueryUmktRtTopnRequest): Promise<BatchqueryUmktRtTopnResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryUmktRtTopnEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销实时topN圈客
+   * Summary: 营销实时topN圈客
+   */
+  async batchqueryUmktRtTopnEx(request: BatchqueryUmktRtTopnRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtTopnResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryUmktRtTopnResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.topn.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtTopnResponse({}));
   }
 
   /**
