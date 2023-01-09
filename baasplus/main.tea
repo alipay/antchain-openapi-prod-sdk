@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.2',
+    sdk_version = '1.1.4',
+    _prod_code = 'BAASPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +161,54 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 命中结果详情
+model HitDetectItems {
+  // RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
+  detectTypeCode?: string(name='detect_type_code', example='RULEORMODEL'),
+  // 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
+  hitDetectResource?: string(name='hit_detect_resource', example='百度'),
+  // 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
+  hitContent?: string(name='hit_content', example='百度，腾讯'),
+  // 级别
+  detectResourceLevel?: string(name='detect_resource_level', example='1'),
+}
+
+// 侵权结果
+model AntiPiracyResultObject {
+  // 侵权主体
+  infrHost?: string(name='infr_host', example='infr_host'),
+  // 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
+  infrTime?: long(name='infr_time', example='1567740257000'),
+  // 侵权标题
+  infrTitle?: string(name='infr_title', example='title'),
+  // 侵权网址
+  infrUrl?: string(name='infr_url', example='www.baidu.com'),
+  // 默认值：VIDEO
+  productionType?: string(name='production_type', example='VIDEO'),
+  // 相似度
+  similarity?: string(name='similarity', example='66.66'),
+}
+
+// 机构（可以为银行或地区）
+model Institution {
+  // 人行联行号/行政地区编码
+  code: string(name='code', example='308584000013'),
+  // 银行全称/行政地区名称
+  name: string(name='name', example='招商银行'),
+}
+
+// 携带自己定义的服务类型
+model DidDocServicesInfo {
+  // 服务的扩展字段
+  extension?: string(name='extension', example='json string'),
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string(name='id', example='service-id1'),
+  // 服务的可访问地址
+  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string(name='type', example='KYBServiceType'),
+}
+
 // 区块信息
 model BlockInfo {
   // 区块链唯一性标识
@@ -181,42 +231,6 @@ model BlockInfo {
   size: long(name='size', example=''),
 }
 
-// 机构（可以为银行或地区）
-model Institution {
-  // 人行联行号/行政地区编码
-  code: string(name='code', example='308584000013'),
-  // 银行全称/行政地区名称
-  name: string(name='name', example='招商银行'),
-}
-
-// 侵权结果
-model AntiPiracyResultObject {
-  // 侵权主体
-  infrHost?: string(name='infr_host', example='infr_host'),
-  // 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
-  infrTime?: long(name='infr_time', example='1567740257000'),
-  // 侵权标题
-  infrTitle?: string(name='infr_title', example='title'),
-  // 侵权网址
-  infrUrl?: string(name='infr_url', example='www.baidu.com'),
-  // 默认值：VIDEO
-  productionType?: string(name='production_type', example='VIDEO'),
-  // 相似度
-  similarity?: string(name='similarity', example='66.66'),
-}
-
-// 命中结果详情
-model HitDetectItems {
-  // RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
-  detectTypeCode?: string(name='detect_type_code', example='RULEORMODEL'),
-  // 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
-  hitDetectResource?: string(name='hit_detect_resource', example='百度'),
-  // 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
-  hitContent?: string(name='hit_content', example='百度，腾讯'),
-  // 级别
-  detectResourceLevel?: string(name='detect_resource_level', example='1'),
-}
-
 // 用于内部业务统计的信息，外部商户请忽略
 model BizInfo {
   // BPWZPFCN
@@ -225,18 +239,6 @@ model BizInfo {
   code?: string(name='code', example='BAAS_ANTFIN|BAAS_ALICLOUD|MORSE|RECEIVABLE|TRACE|GLOBAL_PAYMENT|JUDICIAL|INVOICE'),
   // 内部产品码
   productCode?: string(name='product_code', example='BAI'),
-}
-
-// 携带自己定义的服务类型
-model DidDocServicesInfo {
-  // 服务的扩展字段
-  extension?: string(name='extension', example='json string'),
-  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-  id: string(name='id', example='service-id1'),
-  // 服务的可访问地址
-  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
-  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-  type: string(name='type', example='KYBServiceType'),
 }
 
 model UpdateBmpbrowserPrivilegeRequest = {
@@ -1505,6 +1507,10 @@ model QueryEverifyFourmetaResponse = {
   openTime?: string(name='open_time'),
   // 认证是否通过
   passed?: boolean(name='passed'),
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string(name='return_code'),
 }
 
 /**
@@ -1555,6 +1561,10 @@ model QueryEverifyThreemetaResponse = {
   openTime?: string(name='open_time'),
   // 认证是否通过
   passed?: boolean(name='passed'),
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string(name='return_code'),
 }
 
 /**
@@ -1603,6 +1613,10 @@ model QueryEverifyTwometaResponse = {
   // 1:企业信息有误
   // 2:企业非正常营业
   code?: string(name='code'),
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string(name='return_code'),
 }
 
 /**
