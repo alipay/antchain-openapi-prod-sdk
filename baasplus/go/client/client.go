@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -148,6 +148,166 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 命中结果详情
+type HitDetectItems struct {
+	// RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
+	DetectTypeCode *string `json:"detect_type_code,omitempty" xml:"detect_type_code,omitempty"`
+	// 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
+	HitDetectResource *string `json:"hit_detect_resource,omitempty" xml:"hit_detect_resource,omitempty"`
+	// 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
+	HitContent *string `json:"hit_content,omitempty" xml:"hit_content,omitempty"`
+	// 级别
+	DetectResourceLevel *string `json:"detect_resource_level,omitempty" xml:"detect_resource_level,omitempty"`
+}
+
+func (s HitDetectItems) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HitDetectItems) GoString() string {
+	return s.String()
+}
+
+func (s *HitDetectItems) SetDetectTypeCode(v string) *HitDetectItems {
+	s.DetectTypeCode = &v
+	return s
+}
+
+func (s *HitDetectItems) SetHitDetectResource(v string) *HitDetectItems {
+	s.HitDetectResource = &v
+	return s
+}
+
+func (s *HitDetectItems) SetHitContent(v string) *HitDetectItems {
+	s.HitContent = &v
+	return s
+}
+
+func (s *HitDetectItems) SetDetectResourceLevel(v string) *HitDetectItems {
+	s.DetectResourceLevel = &v
+	return s
+}
+
+// 侵权结果
+type AntiPiracyResultObject struct {
+	// 侵权主体
+	InfrHost *string `json:"infr_host,omitempty" xml:"infr_host,omitempty"`
+	// 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
+	InfrTime *int64 `json:"infr_time,omitempty" xml:"infr_time,omitempty"`
+	// 侵权标题
+	InfrTitle *string `json:"infr_title,omitempty" xml:"infr_title,omitempty"`
+	// 侵权网址
+	InfrUrl *string `json:"infr_url,omitempty" xml:"infr_url,omitempty"`
+	// 默认值：VIDEO
+	ProductionType *string `json:"production_type,omitempty" xml:"production_type,omitempty"`
+	// 相似度
+	Similarity *string `json:"similarity,omitempty" xml:"similarity,omitempty"`
+}
+
+func (s AntiPiracyResultObject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntiPiracyResultObject) GoString() string {
+	return s.String()
+}
+
+func (s *AntiPiracyResultObject) SetInfrHost(v string) *AntiPiracyResultObject {
+	s.InfrHost = &v
+	return s
+}
+
+func (s *AntiPiracyResultObject) SetInfrTime(v int64) *AntiPiracyResultObject {
+	s.InfrTime = &v
+	return s
+}
+
+func (s *AntiPiracyResultObject) SetInfrTitle(v string) *AntiPiracyResultObject {
+	s.InfrTitle = &v
+	return s
+}
+
+func (s *AntiPiracyResultObject) SetInfrUrl(v string) *AntiPiracyResultObject {
+	s.InfrUrl = &v
+	return s
+}
+
+func (s *AntiPiracyResultObject) SetProductionType(v string) *AntiPiracyResultObject {
+	s.ProductionType = &v
+	return s
+}
+
+func (s *AntiPiracyResultObject) SetSimilarity(v string) *AntiPiracyResultObject {
+	s.Similarity = &v
+	return s
+}
+
+// 机构（可以为银行或地区）
+type Institution struct {
+	// 人行联行号/行政地区编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 银行全称/行政地区名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s Institution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Institution) GoString() string {
+	return s.String()
+}
+
+func (s *Institution) SetCode(v string) *Institution {
+	s.Code = &v
+	return s
+}
+
+func (s *Institution) SetName(v string) *Institution {
+	s.Name = &v
+	return s
+}
+
+// 携带自己定义的服务类型
+type DidDocServicesInfo struct {
+	// 服务的扩展字段
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
+	// 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 服务的可访问地址
+	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
+	// 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s DidDocServicesInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidDocServicesInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DidDocServicesInfo) SetExtension(v string) *DidDocServicesInfo {
+	s.Extension = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetId(v string) *DidDocServicesInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetServiceEndpoint(v string) *DidDocServicesInfo {
+	s.ServiceEndpoint = &v
+	return s
+}
+
+func (s *DidDocServicesInfo) SetType(v string) *DidDocServicesInfo {
+	s.Type = &v
+	return s
+}
+
 // 区块信息
 type BlockInfo struct {
 	// 区块链唯一性标识
@@ -223,126 +383,6 @@ func (s *BlockInfo) SetSize(v int64) *BlockInfo {
 	return s
 }
 
-// 机构（可以为银行或地区）
-type Institution struct {
-	// 人行联行号/行政地区编码
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 银行全称/行政地区名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s Institution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Institution) GoString() string {
-	return s.String()
-}
-
-func (s *Institution) SetCode(v string) *Institution {
-	s.Code = &v
-	return s
-}
-
-func (s *Institution) SetName(v string) *Institution {
-	s.Name = &v
-	return s
-}
-
-// 侵权结果
-type AntiPiracyResultObject struct {
-	// 侵权主体
-	InfrHost *string `json:"infr_host,omitempty" xml:"infr_host,omitempty"`
-	// 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
-	InfrTime *int64 `json:"infr_time,omitempty" xml:"infr_time,omitempty"`
-	// 侵权标题
-	InfrTitle *string `json:"infr_title,omitempty" xml:"infr_title,omitempty"`
-	// 侵权网址
-	InfrUrl *string `json:"infr_url,omitempty" xml:"infr_url,omitempty"`
-	// 默认值：VIDEO
-	ProductionType *string `json:"production_type,omitempty" xml:"production_type,omitempty"`
-	// 相似度
-	Similarity *string `json:"similarity,omitempty" xml:"similarity,omitempty"`
-}
-
-func (s AntiPiracyResultObject) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AntiPiracyResultObject) GoString() string {
-	return s.String()
-}
-
-func (s *AntiPiracyResultObject) SetInfrHost(v string) *AntiPiracyResultObject {
-	s.InfrHost = &v
-	return s
-}
-
-func (s *AntiPiracyResultObject) SetInfrTime(v int64) *AntiPiracyResultObject {
-	s.InfrTime = &v
-	return s
-}
-
-func (s *AntiPiracyResultObject) SetInfrTitle(v string) *AntiPiracyResultObject {
-	s.InfrTitle = &v
-	return s
-}
-
-func (s *AntiPiracyResultObject) SetInfrUrl(v string) *AntiPiracyResultObject {
-	s.InfrUrl = &v
-	return s
-}
-
-func (s *AntiPiracyResultObject) SetProductionType(v string) *AntiPiracyResultObject {
-	s.ProductionType = &v
-	return s
-}
-
-func (s *AntiPiracyResultObject) SetSimilarity(v string) *AntiPiracyResultObject {
-	s.Similarity = &v
-	return s
-}
-
-// 命中结果详情
-type HitDetectItems struct {
-	// RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
-	DetectTypeCode *string `json:"detect_type_code,omitempty" xml:"detect_type_code,omitempty"`
-	// 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
-	HitDetectResource *string `json:"hit_detect_resource,omitempty" xml:"hit_detect_resource,omitempty"`
-	// 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
-	HitContent *string `json:"hit_content,omitempty" xml:"hit_content,omitempty"`
-	// 级别
-	DetectResourceLevel *string `json:"detect_resource_level,omitempty" xml:"detect_resource_level,omitempty"`
-}
-
-func (s HitDetectItems) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HitDetectItems) GoString() string {
-	return s.String()
-}
-
-func (s *HitDetectItems) SetDetectTypeCode(v string) *HitDetectItems {
-	s.DetectTypeCode = &v
-	return s
-}
-
-func (s *HitDetectItems) SetHitDetectResource(v string) *HitDetectItems {
-	s.HitDetectResource = &v
-	return s
-}
-
-func (s *HitDetectItems) SetHitContent(v string) *HitDetectItems {
-	s.HitContent = &v
-	return s
-}
-
-func (s *HitDetectItems) SetDetectResourceLevel(v string) *HitDetectItems {
-	s.DetectResourceLevel = &v
-	return s
-}
-
 // 用于内部业务统计的信息，外部商户请忽略
 type BizInfo struct {
 	// BPWZPFCN
@@ -373,46 +413,6 @@ func (s *BizInfo) SetCode(v string) *BizInfo {
 
 func (s *BizInfo) SetProductCode(v string) *BizInfo {
 	s.ProductCode = &v
-	return s
-}
-
-// 携带自己定义的服务类型
-type DidDocServicesInfo struct {
-	// 服务的扩展字段
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
-	// 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 服务的可访问地址
-	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty" require:"true"`
-	// 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s DidDocServicesInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DidDocServicesInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DidDocServicesInfo) SetExtension(v string) *DidDocServicesInfo {
-	s.Extension = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetId(v string) *DidDocServicesInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetServiceEndpoint(v string) *DidDocServicesInfo {
-	s.ServiceEndpoint = &v
-	return s
-}
-
-func (s *DidDocServicesInfo) SetType(v string) *DidDocServicesInfo {
-	s.Type = &v
 	return s
 }
 
@@ -3147,6 +3147,10 @@ type QueryEverifyFourmetaResponse struct {
 	OpenTime *string `json:"open_time,omitempty" xml:"open_time,omitempty"`
 	// 认证是否通过
 	Passed *bool `json:"passed,omitempty" xml:"passed,omitempty"`
+	// return_code=0，核验一致
+	// return_code=1，核验不一致
+	// return_code=2，库无
+	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 }
 
 func (s QueryEverifyFourmetaResponse) String() string {
@@ -3189,6 +3193,11 @@ func (s *QueryEverifyFourmetaResponse) SetOpenTime(v string) *QueryEverifyFourme
 
 func (s *QueryEverifyFourmetaResponse) SetPassed(v bool) *QueryEverifyFourmetaResponse {
 	s.Passed = &v
+	return s
+}
+
+func (s *QueryEverifyFourmetaResponse) SetReturnCode(v string) *QueryEverifyFourmetaResponse {
+	s.ReturnCode = &v
 	return s
 }
 
@@ -3254,6 +3263,10 @@ type QueryEverifyThreemetaResponse struct {
 	OpenTime *string `json:"open_time,omitempty" xml:"open_time,omitempty"`
 	// 认证是否通过
 	Passed *bool `json:"passed,omitempty" xml:"passed,omitempty"`
+	// return_code=0，核验一致
+	// return_code=1，核验不一致
+	// return_code=2，库无
+	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 }
 
 func (s QueryEverifyThreemetaResponse) String() string {
@@ -3296,6 +3309,11 @@ func (s *QueryEverifyThreemetaResponse) SetOpenTime(v string) *QueryEverifyThree
 
 func (s *QueryEverifyThreemetaResponse) SetPassed(v bool) *QueryEverifyThreemetaResponse {
 	s.Passed = &v
+	return s
+}
+
+func (s *QueryEverifyThreemetaResponse) SetReturnCode(v string) *QueryEverifyThreemetaResponse {
+	s.ReturnCode = &v
 	return s
 }
 
@@ -3354,6 +3372,10 @@ type QueryEverifyTwometaResponse struct {
 	// 1:企业信息有误
 	// 2:企业非正常营业
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// return_code=0，核验一致
+	// return_code=1，核验不一致
+	// return_code=2，库无
+	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 }
 
 func (s QueryEverifyTwometaResponse) String() string {
@@ -3396,6 +3418,11 @@ func (s *QueryEverifyTwometaResponse) SetPassed(v bool) *QueryEverifyTwometaResp
 
 func (s *QueryEverifyTwometaResponse) SetCode(v string) *QueryEverifyTwometaResponse {
 	s.Code = &v
+	return s
+}
+
+func (s *QueryEverifyTwometaResponse) SetReturnCode(v string) *QueryEverifyTwometaResponse {
+	s.ReturnCode = &v
 	return s
 }
 
@@ -8178,7 +8205,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.4"),
+				"_prod_code":       tea.String("BAASPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -8204,8 +8233,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
