@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.33',
+    sdk_version = '1.17.37',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2877,8 +2877,8 @@ model QueryDciRegistrationRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 数登申请id
-  digitalRegisterId: string(name='digital_register_id'),
-  // 废弃待删除
+  digitalRegisterId?: string(name='digital_register_id'),
+  // dci申领id
   dciContentId?: string(name='dci_content_id'),
 }
 
@@ -2915,6 +2915,8 @@ model QueryDciRegistrationResponse = {
   applyRegisterTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='apply_register_time'),
   // 数登登记号
   regNumber?: string(name='reg_number'),
+  // 数登id
+  digitalRegisterId?: string(name='digital_register_id'),
   // dci申领id
   dciContentId?: string(name='dci_content_id'),
   // 数登状态
@@ -2933,6 +2935,12 @@ model QueryDciRegistrationResponse = {
   invoiceUrlList?: [ string ](name='invoice_url_list'),
   // 数登失败详情
   failDetail?: string(name='fail_detail'),
+  // 补正类型
+  amendType?: string(name='amend_type'),
+  // 用户申请表url
+  applyFormUrl?: string(name='apply_form_url'),
+  // 数登流水号
+  flowNumber?: string(name='flow_number'),
 }
 
 /**
@@ -3722,6 +3730,8 @@ model QueryDciPreviewResponse = {
   fileType?: string(name='file_type'),
   // 当前查询时间
   queryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='query_time'),
+  // 数登登记号
+  regNumber?: string(name='reg_number'),
 }
 
 /**
