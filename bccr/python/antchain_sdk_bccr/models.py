@@ -8948,11 +8948,11 @@ class QueryDciRegistrationRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 数登申请id
         self.digital_register_id = digital_register_id
-        # 废弃待删除
+        # dci申领id
         self.dci_content_id = dci_content_id
 
     def validate(self):
-        self.validate_required(self.digital_register_id, 'digital_register_id')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -9002,6 +9002,7 @@ class QueryDciRegistrationResponse(TeaModel):
         invoice_file_id_list: List[str] = None,
         apply_register_time: str = None,
         reg_number: str = None,
+        digital_register_id: str = None,
         dci_content_id: str = None,
         digital_register_status: str = None,
         digital_register_apply_time: str = None,
@@ -9011,6 +9012,9 @@ class QueryDciRegistrationResponse(TeaModel):
         download_times_left: int = None,
         invoice_url_list: List[str] = None,
         fail_detail: str = None,
+        amend_type: str = None,
+        apply_form_url: str = None,
+        flow_number: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9044,6 +9048,8 @@ class QueryDciRegistrationResponse(TeaModel):
         self.apply_register_time = apply_register_time
         # 数登登记号
         self.reg_number = reg_number
+        # 数登id
+        self.digital_register_id = digital_register_id
         # dci申领id
         self.dci_content_id = dci_content_id
         # 数登状态
@@ -9062,6 +9068,12 @@ class QueryDciRegistrationResponse(TeaModel):
         self.invoice_url_list = invoice_url_list
         # 数登失败详情
         self.fail_detail = fail_detail
+        # 补正类型
+        self.amend_type = amend_type
+        # 用户申请表url
+        self.apply_form_url = apply_form_url
+        # 数登流水号
+        self.flow_number = flow_number
 
     def validate(self):
         if self.apply_register_time is not None:
@@ -9109,6 +9121,8 @@ class QueryDciRegistrationResponse(TeaModel):
             result['apply_register_time'] = self.apply_register_time
         if self.reg_number is not None:
             result['reg_number'] = self.reg_number
+        if self.digital_register_id is not None:
+            result['digital_register_id'] = self.digital_register_id
         if self.dci_content_id is not None:
             result['dci_content_id'] = self.dci_content_id
         if self.digital_register_status is not None:
@@ -9127,6 +9141,12 @@ class QueryDciRegistrationResponse(TeaModel):
             result['invoice_url_list'] = self.invoice_url_list
         if self.fail_detail is not None:
             result['fail_detail'] = self.fail_detail
+        if self.amend_type is not None:
+            result['amend_type'] = self.amend_type
+        if self.apply_form_url is not None:
+            result['apply_form_url'] = self.apply_form_url
+        if self.flow_number is not None:
+            result['flow_number'] = self.flow_number
         return result
 
     def from_map(self, m: dict = None):
@@ -9163,6 +9183,8 @@ class QueryDciRegistrationResponse(TeaModel):
             self.apply_register_time = m.get('apply_register_time')
         if m.get('reg_number') is not None:
             self.reg_number = m.get('reg_number')
+        if m.get('digital_register_id') is not None:
+            self.digital_register_id = m.get('digital_register_id')
         if m.get('dci_content_id') is not None:
             self.dci_content_id = m.get('dci_content_id')
         if m.get('digital_register_status') is not None:
@@ -9181,6 +9203,12 @@ class QueryDciRegistrationResponse(TeaModel):
             self.invoice_url_list = m.get('invoice_url_list')
         if m.get('fail_detail') is not None:
             self.fail_detail = m.get('fail_detail')
+        if m.get('amend_type') is not None:
+            self.amend_type = m.get('amend_type')
+        if m.get('apply_form_url') is not None:
+            self.apply_form_url = m.get('apply_form_url')
+        if m.get('flow_number') is not None:
+            self.flow_number = m.get('flow_number')
         return self
 
 
@@ -11253,6 +11281,7 @@ class QueryDciPreviewResponse(TeaModel):
         dci_code: str = None,
         file_type: str = None,
         query_time: str = None,
+        reg_number: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11276,6 +11305,8 @@ class QueryDciPreviewResponse(TeaModel):
         self.file_type = file_type
         # 当前查询时间
         self.query_time = query_time
+        # 数登登记号
+        self.reg_number = reg_number
 
     def validate(self):
         if self.query_time is not None:
@@ -11309,6 +11340,8 @@ class QueryDciPreviewResponse(TeaModel):
             result['file_type'] = self.file_type
         if self.query_time is not None:
             result['query_time'] = self.query_time
+        if self.reg_number is not None:
+            result['reg_number'] = self.reg_number
         return result
 
     def from_map(self, m: dict = None):
@@ -11335,6 +11368,8 @@ class QueryDciPreviewResponse(TeaModel):
             self.file_type = m.get('file_type')
         if m.get('query_time') is not None:
             self.query_time = m.get('query_time')
+        if m.get('reg_number') is not None:
+            self.reg_number = m.get('reg_number')
         return self
 
 
