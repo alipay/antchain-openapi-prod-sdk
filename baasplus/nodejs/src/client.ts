@@ -77,6 +77,138 @@ export class Config extends $tea.Model {
   }
 }
 
+// 命中结果详情
+export class HitDetectItems extends $tea.Model {
+  // RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
+  detectTypeCode?: string;
+  // 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
+  hitDetectResource?: string;
+  // 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
+  hitContent?: string;
+  // 级别
+  detectResourceLevel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      detectTypeCode: 'detect_type_code',
+      hitDetectResource: 'hit_detect_resource',
+      hitContent: 'hit_content',
+      detectResourceLevel: 'detect_resource_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      detectTypeCode: 'string',
+      hitDetectResource: 'string',
+      hitContent: 'string',
+      detectResourceLevel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 侵权结果
+export class AntiPiracyResultObject extends $tea.Model {
+  // 侵权主体
+  infrHost?: string;
+  // 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
+  infrTime?: number;
+  // 侵权标题
+  infrTitle?: string;
+  // 侵权网址
+  infrUrl?: string;
+  // 默认值：VIDEO
+  productionType?: string;
+  // 相似度
+  similarity?: string;
+  static names(): { [key: string]: string } {
+    return {
+      infrHost: 'infr_host',
+      infrTime: 'infr_time',
+      infrTitle: 'infr_title',
+      infrUrl: 'infr_url',
+      productionType: 'production_type',
+      similarity: 'similarity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      infrHost: 'string',
+      infrTime: 'number',
+      infrTitle: 'string',
+      infrUrl: 'string',
+      productionType: 'string',
+      similarity: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构（可以为银行或地区）
+export class Institution extends $tea.Model {
+  // 人行联行号/行政地区编码
+  code: string;
+  // 银行全称/行政地区名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 携带自己定义的服务类型
+export class DidDocServicesInfo extends $tea.Model {
+  // 服务的扩展字段
+  extension?: string;
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string;
+  // 服务的可访问地址
+  serviceEndpoint: string;
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      extension: 'extension',
+      id: 'id',
+      serviceEndpoint: 'service_endpoint',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      extension: 'string',
+      id: 'string',
+      serviceEndpoint: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 区块信息
 export class BlockInfo extends $tea.Model {
   // 区块链唯一性标识
@@ -130,105 +262,6 @@ export class BlockInfo extends $tea.Model {
   }
 }
 
-// 机构（可以为银行或地区）
-export class Institution extends $tea.Model {
-  // 人行联行号/行政地区编码
-  code: string;
-  // 银行全称/行政地区名称
-  name: string;
-  static names(): { [key: string]: string } {
-    return {
-      code: 'code',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      code: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 侵权结果
-export class AntiPiracyResultObject extends $tea.Model {
-  // 侵权主体
-  infrHost?: string;
-  // 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
-  infrTime?: number;
-  // 侵权标题
-  infrTitle?: string;
-  // 侵权网址
-  infrUrl?: string;
-  // 默认值：VIDEO
-  productionType?: string;
-  // 相似度
-  similarity?: string;
-  static names(): { [key: string]: string } {
-    return {
-      infrHost: 'infr_host',
-      infrTime: 'infr_time',
-      infrTitle: 'infr_title',
-      infrUrl: 'infr_url',
-      productionType: 'production_type',
-      similarity: 'similarity',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      infrHost: 'string',
-      infrTime: 'number',
-      infrTitle: 'string',
-      infrUrl: 'string',
-      productionType: 'string',
-      similarity: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 命中结果详情
-export class HitDetectItems extends $tea.Model {
-  // RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
-  detectTypeCode?: string;
-  // 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
-  hitDetectResource?: string;
-  // 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
-  hitContent?: string;
-  // 级别
-  detectResourceLevel?: string;
-  static names(): { [key: string]: string } {
-    return {
-      detectTypeCode: 'detect_type_code',
-      hitDetectResource: 'hit_detect_resource',
-      hitContent: 'hit_content',
-      detectResourceLevel: 'detect_resource_level',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      detectTypeCode: 'string',
-      hitDetectResource: 'string',
-      hitContent: 'string',
-      detectResourceLevel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 用于内部业务统计的信息，外部商户请忽略
 export class BizInfo extends $tea.Model {
   // BPWZPFCN
@@ -250,39 +283,6 @@ export class BizInfo extends $tea.Model {
       clientTenent: 'string',
       code: 'string',
       productCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 携带自己定义的服务类型
-export class DidDocServicesInfo extends $tea.Model {
-  // 服务的扩展字段
-  extension?: string;
-  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-  id: string;
-  // 服务的可访问地址
-  serviceEndpoint: string;
-  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-  type: string;
-  static names(): { [key: string]: string } {
-    return {
-      extension: 'extension',
-      id: 'id',
-      serviceEndpoint: 'service_endpoint',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      extension: 'string',
-      id: 'string',
-      serviceEndpoint: 'string',
-      type: 'string',
     };
   }
 
@@ -2366,6 +2366,10 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
   openTime?: string;
   // 认证是否通过
   passed?: boolean;
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2375,6 +2379,7 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       enterpriseStatus: 'enterprise_status',
       openTime: 'open_time',
       passed: 'passed',
+      returnCode: 'return_code',
     };
   }
 
@@ -2387,6 +2392,7 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       enterpriseStatus: 'string',
       openTime: 'string',
       passed: 'boolean',
+      returnCode: 'string',
     };
   }
 
@@ -2447,6 +2453,10 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
   openTime?: string;
   // 认证是否通过
   passed?: boolean;
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2456,6 +2466,7 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       enterpriseStatus: 'enterprise_status',
       openTime: 'open_time',
       passed: 'passed',
+      returnCode: 'return_code',
     };
   }
 
@@ -2468,6 +2479,7 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       enterpriseStatus: 'string',
       openTime: 'string',
       passed: 'boolean',
+      returnCode: 'string',
     };
   }
 
@@ -2524,6 +2536,10 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
   // 1:企业信息有误
   // 2:企业非正常营业
   code?: string;
+  // return_code=0，核验一致
+  // return_code=1，核验不一致
+  // return_code=2，库无
+  returnCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2533,6 +2549,7 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       openTime: 'open_time',
       passed: 'passed',
       code: 'code',
+      returnCode: 'return_code',
     };
   }
 
@@ -2545,6 +2562,7 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       openTime: 'string',
       passed: 'boolean',
       code: 'string',
+      returnCode: 'string',
     };
   }
 
@@ -6299,7 +6317,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.4",
+          _prod_code: "BAASPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
