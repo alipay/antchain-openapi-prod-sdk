@@ -89,6 +89,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string RegNumber { get; set; }
 
+        // 数登id
+        [NameInMap("digital_register_id")]
+        [Validation(Required=false)]
+        public string DigitalRegisterId { get; set; }
+
         // dci申领id
         [NameInMap("dci_content_id")]
         [Validation(Required=false)]
@@ -133,6 +138,21 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("fail_detail")]
         [Validation(Required=false)]
         public string FailDetail { get; set; }
+
+        // 补正类型
+        [NameInMap("amend_type")]
+        [Validation(Required=false)]
+        public string AmendType { get; set; }
+
+        // 用户申请表url
+        [NameInMap("apply_form_url")]
+        [Validation(Required=false)]
+        public string ApplyFormUrl { get; set; }
+
+        // 数登流水号
+        [NameInMap("flow_number")]
+        [Validation(Required=false)]
+        public string FlowNumber { get; set; }
 
     }
 

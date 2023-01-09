@@ -20,10 +20,10 @@ namespace AntChain.SDK.BCCR.Models
 
         // 数登申请id
         [NameInMap("digital_register_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DigitalRegisterId { get; set; }
 
-        // 废弃待删除
+        // dci申领id
         [NameInMap("dci_content_id")]
         [Validation(Required=false)]
         public string DciContentId { get; set; }

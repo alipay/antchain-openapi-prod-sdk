@@ -64,6 +64,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string QueryTime { get; set; }
 
+        // 数登登记号
+        [NameInMap("reg_number")]
+        [Validation(Required=false)]
+        public string RegNumber { get; set; }
+
     }
 
 }
