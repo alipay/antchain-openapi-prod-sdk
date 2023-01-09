@@ -69,6 +69,10 @@ public class QueryDciRegistrationResponse extends TeaModel {
     @NameInMap("reg_number")
     public String regNumber;
 
+    // 数登id
+    @NameInMap("digital_register_id")
+    public String digitalRegisterId;
+
     // dci申领id
     @NameInMap("dci_content_id")
     public String dciContentId;
@@ -106,6 +110,18 @@ public class QueryDciRegistrationResponse extends TeaModel {
     // 数登失败详情
     @NameInMap("fail_detail")
     public String failDetail;
+
+    // 补正类型
+    @NameInMap("amend_type")
+    public String amendType;
+
+    // 用户申请表url
+    @NameInMap("apply_form_url")
+    public String applyFormUrl;
+
+    // 数登流水号
+    @NameInMap("flow_number")
+    public String flowNumber;
 
     public static QueryDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciRegistrationResponse self = new QueryDciRegistrationResponse();
@@ -240,6 +256,14 @@ public class QueryDciRegistrationResponse extends TeaModel {
         return this.regNumber;
     }
 
+    public QueryDciRegistrationResponse setDigitalRegisterId(String digitalRegisterId) {
+        this.digitalRegisterId = digitalRegisterId;
+        return this;
+    }
+    public String getDigitalRegisterId() {
+        return this.digitalRegisterId;
+    }
+
     public QueryDciRegistrationResponse setDciContentId(String dciContentId) {
         this.dciContentId = dciContentId;
         return this;
@@ -310,6 +334,30 @@ public class QueryDciRegistrationResponse extends TeaModel {
     }
     public String getFailDetail() {
         return this.failDetail;
+    }
+
+    public QueryDciRegistrationResponse setAmendType(String amendType) {
+        this.amendType = amendType;
+        return this;
+    }
+    public String getAmendType() {
+        return this.amendType;
+    }
+
+    public QueryDciRegistrationResponse setApplyFormUrl(String applyFormUrl) {
+        this.applyFormUrl = applyFormUrl;
+        return this;
+    }
+    public String getApplyFormUrl() {
+        return this.applyFormUrl;
+    }
+
+    public QueryDciRegistrationResponse setFlowNumber(String flowNumber) {
+        this.flowNumber = flowNumber;
+        return this;
+    }
+    public String getFlowNumber() {
+        return this.flowNumber;
     }
 
 }

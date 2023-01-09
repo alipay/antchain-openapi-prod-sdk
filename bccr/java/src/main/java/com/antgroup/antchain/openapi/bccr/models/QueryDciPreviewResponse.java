@@ -49,6 +49,10 @@ public class QueryDciPreviewResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String queryTime;
 
+    // 数登登记号
+    @NameInMap("reg_number")
+    public String regNumber;
+
     public static QueryDciPreviewResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciPreviewResponse self = new QueryDciPreviewResponse();
         return TeaModel.build(map, self);
@@ -140,6 +144,14 @@ public class QueryDciPreviewResponse extends TeaModel {
     }
     public String getQueryTime() {
         return this.queryTime;
+    }
+
+    public QueryDciPreviewResponse setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
+        return this;
+    }
+    public String getRegNumber() {
+        return this.regNumber;
     }
 
 }

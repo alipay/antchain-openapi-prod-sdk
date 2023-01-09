@@ -13,10 +13,9 @@ public class QueryDciRegistrationRequest extends TeaModel {
 
     // 数登申请id
     @NameInMap("digital_register_id")
-    @Validation(required = true)
     public String digitalRegisterId;
 
-    // 废弃待删除
+    // dci申领id
     @NameInMap("dci_content_id")
     public String dciContentId;
 
