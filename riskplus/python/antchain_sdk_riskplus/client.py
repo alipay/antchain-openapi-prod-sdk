@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.1'
+                    'sdk_version': '1.16.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.1'
+                    'sdk_version': '1.16.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -7655,6 +7655,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ApplyUmktPhonenumberstatusforsmsResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.phonenumberstatusforsms.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_rt_topn(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTopnRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTopnResponse:
+        """
+        Description: 营销实时topN圈客
+        Summary: 营销实时topN圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_rt_topn_ex(request, headers, runtime)
+
+    async def batchquery_umkt_rt_topn_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTopnRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTopnResponse:
+        """
+        Description: 营销实时topN圈客
+        Summary: 营销实时topN圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_rt_topn_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_rt_topn_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTopnRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTopnResponse:
+        """
+        Description: 营销实时topN圈客
+        Summary: 营销实时topN圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTopnResponse(),
+            self.do_request('1.0', 'riskplus.umkt.rt.topn.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_rt_topn_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTopnRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTopnResponse:
+        """
+        Description: 营销实时topN圈客
+        Summary: 营销实时topN圈客
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTopnResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.topn.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
