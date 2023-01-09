@@ -51,6 +51,14 @@ class QueryEverifyFourmetaResponse extends Model
      * @var bool
      */
     public $passed;
+
+    // return_code=0，核验一致
+    // return_code=1，核验不一致
+    // return_code=2，库无
+    /**
+     * @var string
+     */
+    public $returnCode;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -59,6 +67,7 @@ class QueryEverifyFourmetaResponse extends Model
         'enterpriseStatus' => 'enterprise_status',
         'openTime'         => 'open_time',
         'passed'           => 'passed',
+        'returnCode'       => 'return_code',
     ];
 
     public function validate()
@@ -88,6 +97,9 @@ class QueryEverifyFourmetaResponse extends Model
         }
         if (null !== $this->passed) {
             $res['passed'] = $this->passed;
+        }
+        if (null !== $this->returnCode) {
+            $res['return_code'] = $this->returnCode;
         }
 
         return $res;
@@ -121,6 +133,9 @@ class QueryEverifyFourmetaResponse extends Model
         }
         if (isset($map['passed'])) {
             $model->passed = $map['passed'];
+        }
+        if (isset($map['return_code'])) {
+            $model->returnCode = $map['return_code'];
         }
 
         return $model;

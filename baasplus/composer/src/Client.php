@@ -288,7 +288,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 区块信息
+            // 命中结果详情
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -316,7 +316,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.2',
+                    'sdk_version'      => '1.1.4',
+                    '_prod_code'       => 'BAASPLUS',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
