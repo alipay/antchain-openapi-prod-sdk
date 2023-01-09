@@ -7310,8 +7310,8 @@ type QueryDciRegistrationRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数登申请id
-	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
-	// 废弃待删除
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty"`
+	// dci申领id
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
 }
 
@@ -7376,6 +7376,8 @@ type QueryDciRegistrationResponse struct {
 	ApplyRegisterTime *string `json:"apply_register_time,omitempty" xml:"apply_register_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 数登登记号
 	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty"`
+	// 数登id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty"`
 	// dci申领id
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
 	// 数登状态
@@ -7394,6 +7396,12 @@ type QueryDciRegistrationResponse struct {
 	InvoiceUrlList []*string `json:"invoice_url_list,omitempty" xml:"invoice_url_list,omitempty" type:"Repeated"`
 	// 数登失败详情
 	FailDetail *string `json:"fail_detail,omitempty" xml:"fail_detail,omitempty"`
+	// 补正类型
+	AmendType *string `json:"amend_type,omitempty" xml:"amend_type,omitempty"`
+	// 用户申请表url
+	ApplyFormUrl *string `json:"apply_form_url,omitempty" xml:"apply_form_url,omitempty"`
+	// 数登流水号
+	FlowNumber *string `json:"flow_number,omitempty" xml:"flow_number,omitempty"`
 }
 
 func (s QueryDciRegistrationResponse) String() string {
@@ -7484,6 +7492,11 @@ func (s *QueryDciRegistrationResponse) SetRegNumber(v string) *QueryDciRegistrat
 	return s
 }
 
+func (s *QueryDciRegistrationResponse) SetDigitalRegisterId(v string) *QueryDciRegistrationResponse {
+	s.DigitalRegisterId = &v
+	return s
+}
+
 func (s *QueryDciRegistrationResponse) SetDciContentId(v string) *QueryDciRegistrationResponse {
 	s.DciContentId = &v
 	return s
@@ -7526,6 +7539,21 @@ func (s *QueryDciRegistrationResponse) SetInvoiceUrlList(v []*string) *QueryDciR
 
 func (s *QueryDciRegistrationResponse) SetFailDetail(v string) *QueryDciRegistrationResponse {
 	s.FailDetail = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetAmendType(v string) *QueryDciRegistrationResponse {
+	s.AmendType = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetApplyFormUrl(v string) *QueryDciRegistrationResponse {
+	s.ApplyFormUrl = &v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetFlowNumber(v string) *QueryDciRegistrationResponse {
+	s.FlowNumber = &v
 	return s
 }
 
@@ -9152,6 +9180,8 @@ type QueryDciPreviewResponse struct {
 	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty"`
 	// 当前查询时间
 	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数登登记号
+	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty"`
 }
 
 func (s QueryDciPreviewResponse) String() string {
@@ -9214,6 +9244,11 @@ func (s *QueryDciPreviewResponse) SetFileType(v string) *QueryDciPreviewResponse
 
 func (s *QueryDciPreviewResponse) SetQueryTime(v string) *QueryDciPreviewResponse {
 	s.QueryTime = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetRegNumber(v string) *QueryDciPreviewResponse {
+	s.RegNumber = &v
 	return s
 }
 
@@ -10270,7 +10305,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.33"),
+				"sdk_version":      tea.String("1.17.37"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
