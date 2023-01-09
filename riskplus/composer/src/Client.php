@@ -37,6 +37,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMixedmarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtTopnResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
@@ -420,7 +422,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.1',
+                    'sdk_version'      => '1.16.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4810,6 +4812,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyUmktPhonenumberstatusforsmsResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.phonenumberstatusforsms.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销实时topN圈客
+     * Summary: 营销实时topN圈客.
+     *
+     * @param BatchqueryUmktRtTopnRequest $request
+     *
+     * @return BatchqueryUmktRtTopnResponse
+     */
+    public function batchqueryUmktRtTopn($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRtTopnEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销实时topN圈客
+     * Summary: 营销实时topN圈客.
+     *
+     * @param BatchqueryUmktRtTopnRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BatchqueryUmktRtTopnResponse
+     */
+    public function batchqueryUmktRtTopnEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRtTopnResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.topn.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
