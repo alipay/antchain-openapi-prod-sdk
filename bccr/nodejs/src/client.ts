@@ -5374,8 +5374,8 @@ export class QueryDciRegistrationRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 数登申请id
-  digitalRegisterId: string;
-  // 废弃待删除
+  digitalRegisterId?: string;
+  // dci申领id
   dciContentId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5433,6 +5433,8 @@ export class QueryDciRegistrationResponse extends $tea.Model {
   applyRegisterTime?: string;
   // 数登登记号
   regNumber?: string;
+  // 数登id
+  digitalRegisterId?: string;
   // dci申领id
   dciContentId?: string;
   // 数登状态
@@ -5451,6 +5453,12 @@ export class QueryDciRegistrationResponse extends $tea.Model {
   invoiceUrlList?: string[];
   // 数登失败详情
   failDetail?: string;
+  // 补正类型
+  amendType?: string;
+  // 用户申请表url
+  applyFormUrl?: string;
+  // 数登流水号
+  flowNumber?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5469,6 +5477,7 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       invoiceFileIdList: 'invoice_file_id_list',
       applyRegisterTime: 'apply_register_time',
       regNumber: 'reg_number',
+      digitalRegisterId: 'digital_register_id',
       dciContentId: 'dci_content_id',
       digitalRegisterStatus: 'digital_register_status',
       digitalRegisterApplyTime: 'digital_register_apply_time',
@@ -5478,6 +5487,9 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       downloadTimesLeft: 'download_times_left',
       invoiceUrlList: 'invoice_url_list',
       failDetail: 'fail_detail',
+      amendType: 'amend_type',
+      applyFormUrl: 'apply_form_url',
+      flowNumber: 'flow_number',
     };
   }
 
@@ -5499,6 +5511,7 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       invoiceFileIdList: { 'type': 'array', 'itemType': 'string' },
       applyRegisterTime: 'string',
       regNumber: 'string',
+      digitalRegisterId: 'string',
       dciContentId: 'string',
       digitalRegisterStatus: 'string',
       digitalRegisterApplyTime: 'string',
@@ -5508,6 +5521,9 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       downloadTimesLeft: 'number',
       invoiceUrlList: { 'type': 'array', 'itemType': 'string' },
       failDetail: 'string',
+      amendType: 'string',
+      applyFormUrl: 'string',
+      flowNumber: 'string',
     };
   }
 
@@ -6767,6 +6783,8 @@ export class QueryDciPreviewResponse extends $tea.Model {
   fileType?: string;
   // 当前查询时间
   queryTime?: string;
+  // 数登登记号
+  regNumber?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6780,6 +6798,7 @@ export class QueryDciPreviewResponse extends $tea.Model {
       dciCode: 'dci_code',
       fileType: 'file_type',
       queryTime: 'query_time',
+      regNumber: 'reg_number',
     };
   }
 
@@ -6796,6 +6815,7 @@ export class QueryDciPreviewResponse extends $tea.Model {
       dciCode: 'string',
       fileType: 'string',
       queryTime: 'string',
+      regNumber: 'string',
     };
   }
 
@@ -7620,7 +7640,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.33",
+          sdk_version: "1.17.37",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
