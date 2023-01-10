@@ -59,7 +59,11 @@ public class QueryDubbridgeRepayResultResponse extends TeaModel {
 
     // 还款信息列表
     @NameInMap("repay_infos")
-    public RepayInfos repayInfos;
+    public java.util.List<RepayInfos> repayInfos;
+
+    // 还款日期
+    @NameInMap("repay_date")
+    public String repayDate;
 
     public static QueryDubbridgeRepayResultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepayResultResponse self = new QueryDubbridgeRepayResultResponse();
@@ -154,12 +158,20 @@ public class QueryDubbridgeRepayResultResponse extends TeaModel {
         return this.failReason;
     }
 
-    public QueryDubbridgeRepayResultResponse setRepayInfos(RepayInfos repayInfos) {
+    public QueryDubbridgeRepayResultResponse setRepayInfos(java.util.List<RepayInfos> repayInfos) {
         this.repayInfos = repayInfos;
         return this;
     }
-    public RepayInfos getRepayInfos() {
+    public java.util.List<RepayInfos> getRepayInfos() {
         return this.repayInfos;
+    }
+
+    public QueryDubbridgeRepayResultResponse setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
     }
 
 }

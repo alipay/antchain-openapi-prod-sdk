@@ -59,6 +59,18 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("click_id")
     public String clickId;
 
+    // 订单号
+    @NameInMap("order_no")
+    public String orderNo;
+
+    // 风险字段
+    @NameInMap("risk_data")
+    public String riskData;
+
+    // 扩展字段
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static QueryDubbridgeRouterFundrouterRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterRequest self = new QueryDubbridgeRouterFundrouterRequest();
         return TeaModel.build(map, self);
@@ -166,6 +178,30 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getClickId() {
         return this.clickId;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setRiskData(String riskData) {
+        this.riskData = riskData;
+        return this;
+    }
+    public String getRiskData() {
+        return this.riskData;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

@@ -39,6 +39,21 @@ public class ApplyDubbridgeCustomerAgreementsignRequest extends TeaModel {
     @NameInMap("fund_code")
     public String fundCode;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
+    // 项目编号
+    @NameInMap("project_code")
+    @Validation(required = true)
+    public String projectCode;
+
+    // 渠道号
+    @NameInMap("org_code")
+    @Validation(required = true)
+    public String orgCode;
+
     public static ApplyDubbridgeCustomerAgreementsignRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCustomerAgreementsignRequest self = new ApplyDubbridgeCustomerAgreementsignRequest();
         return TeaModel.build(map, self);
@@ -106,6 +121,30 @@ public class ApplyDubbridgeCustomerAgreementsignRequest extends TeaModel {
     }
     public String getFundCode() {
         return this.fundCode;
+    }
+
+    public ApplyDubbridgeCustomerAgreementsignRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public ApplyDubbridgeCustomerAgreementsignRequest setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
+        return this;
+    }
+    public String getProjectCode() {
+        return this.projectCode;
+    }
+
+    public ApplyDubbridgeCustomerAgreementsignRequest setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+        return this;
+    }
+    public String getOrgCode() {
+        return this.orgCode;
     }
 
 }

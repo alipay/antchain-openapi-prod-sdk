@@ -46,6 +46,16 @@ public class CreditAmount extends TeaModel {
     @Validation(required = true)
     public String status;
 
+    // 发放日期（兼容字段）
+    @NameInMap("pay_date_sup")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String payDateSup;
+
+    // 到期日期（兼容字段）
+    @NameInMap("expire_date_sup")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String expireDateSup;
+
     public static CreditAmount build(java.util.Map<String, ?> map) throws Exception {
         CreditAmount self = new CreditAmount();
         return TeaModel.build(map, self);
@@ -113,6 +123,22 @@ public class CreditAmount extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public CreditAmount setPayDateSup(String payDateSup) {
+        this.payDateSup = payDateSup;
+        return this;
+    }
+    public String getPayDateSup() {
+        return this.payDateSup;
+    }
+
+    public CreditAmount setExpireDateSup(String expireDateSup) {
+        this.expireDateSup = expireDateSup;
+        return this;
+    }
+    public String getExpireDateSup() {
+        return this.expireDateSup;
     }
 
 }

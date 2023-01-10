@@ -43,6 +43,18 @@ public class QueryDubbridgeCustomerAgreementsignResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String invalidTime;
 
+    // 客户名称
+    @NameInMap("custom_name")
+    public String customName;
+
+    // 支付宝会员id
+    @NameInMap("alipay_user_id")
+    public String alipayUserId;
+
+    // 用以唯一标识用户签约记录的编号
+    @NameInMap("protocol_no")
+    public String protocolNo;
+
     public static QueryDubbridgeCustomerAgreementsignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCustomerAgreementsignResponse self = new QueryDubbridgeCustomerAgreementsignResponse();
         return TeaModel.build(map, self);
@@ -118,6 +130,30 @@ public class QueryDubbridgeCustomerAgreementsignResponse extends TeaModel {
     }
     public String getInvalidTime() {
         return this.invalidTime;
+    }
+
+    public QueryDubbridgeCustomerAgreementsignResponse setCustomName(String customName) {
+        this.customName = customName;
+        return this;
+    }
+    public String getCustomName() {
+        return this.customName;
+    }
+
+    public QueryDubbridgeCustomerAgreementsignResponse setAlipayUserId(String alipayUserId) {
+        this.alipayUserId = alipayUserId;
+        return this;
+    }
+    public String getAlipayUserId() {
+        return this.alipayUserId;
+    }
+
+    public QueryDubbridgeCustomerAgreementsignResponse setProtocolNo(String protocolNo) {
+        this.protocolNo = protocolNo;
+        return this;
+    }
+    public String getProtocolNo() {
+        return this.protocolNo;
     }
 
 }

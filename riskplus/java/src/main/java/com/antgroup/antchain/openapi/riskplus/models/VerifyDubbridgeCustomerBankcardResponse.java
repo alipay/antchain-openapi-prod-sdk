@@ -24,6 +24,10 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     @NameInMap("sign_result")
     public String signResult;
 
+    // 客户号
+    @NameInMap("customer_no")
+    public String customerNo;
+
     public static VerifyDubbridgeCustomerBankcardResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyDubbridgeCustomerBankcardResponse self = new VerifyDubbridgeCustomerBankcardResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     }
     public String getSignResult() {
         return this.signResult;
+    }
+
+    public VerifyDubbridgeCustomerBankcardResponse setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
+        return this;
+    }
+    public String getCustomerNo() {
+        return this.customerNo;
     }
 
 }

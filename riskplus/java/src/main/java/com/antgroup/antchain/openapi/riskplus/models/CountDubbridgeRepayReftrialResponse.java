@@ -20,6 +20,22 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     @NameInMap("repay_trail_list")
     public java.util.List<RepayTrail> repayTrailList;
 
+    // 还款日
+    @NameInMap("repay_date")
+    public String repayDate;
+
+    // 还款账户
+    @NameInMap("repay_account")
+    public String repayAccount;
+
+    // 总利息
+    @NameInMap("total_interest")
+    public Long totalInterest;
+
+    // 授信信息
+    @NameInMap("apply_info")
+    public ApplyInfo applyInfo;
+
     public static CountDubbridgeRepayReftrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialResponse self = new CountDubbridgeRepayReftrialResponse();
         return TeaModel.build(map, self);
@@ -55,6 +71,38 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     }
     public java.util.List<RepayTrail> getRepayTrailList() {
         return this.repayTrailList;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setRepayAccount(String repayAccount) {
+        this.repayAccount = repayAccount;
+        return this;
+    }
+    public String getRepayAccount() {
+        return this.repayAccount;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setTotalInterest(Long totalInterest) {
+        this.totalInterest = totalInterest;
+        return this;
+    }
+    public Long getTotalInterest() {
+        return this.totalInterest;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setApplyInfo(ApplyInfo applyInfo) {
+        this.applyInfo = applyInfo;
+        return this;
+    }
+    public ApplyInfo getApplyInfo() {
+        return this.applyInfo;
     }
 
 }

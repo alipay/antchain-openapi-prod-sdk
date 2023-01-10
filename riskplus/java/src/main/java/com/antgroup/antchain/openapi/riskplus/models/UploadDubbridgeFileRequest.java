@@ -39,6 +39,11 @@ public class UploadDubbridgeFileRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
+    // 文件类型
+    @NameInMap("file_type")
+    @Validation(required = true)
+    public String fileType;
+
     public static UploadDubbridgeFileRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadDubbridgeFileRequest self = new UploadDubbridgeFileRequest();
         return TeaModel.build(map, self);
@@ -106,6 +111,14 @@ public class UploadDubbridgeFileRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadDubbridgeFileRequest setFileType(String fileType) {
+        this.fileType = fileType;
+        return this;
+    }
+    public String getFileType() {
+        return this.fileType;
     }
 
 }

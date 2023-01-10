@@ -48,6 +48,15 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     @NameInMap("apply_no")
     public String applyNo;
 
+    // 资金方编号
+    @NameInMap("fund_code")
+    public String fundCode;
+
+    // 冷静期结束日期
+    @NameInMap("cooling_period")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String coolingPeriod;
+
     public static QueryDubbridgeCreditStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCreditStatusResponse self = new QueryDubbridgeCreditStatusResponse();
         return TeaModel.build(map, self);
@@ -139,6 +148,22 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     }
     public String getApplyNo() {
         return this.applyNo;
+    }
+
+    public QueryDubbridgeCreditStatusResponse setFundCode(String fundCode) {
+        this.fundCode = fundCode;
+        return this;
+    }
+    public String getFundCode() {
+        return this.fundCode;
+    }
+
+    public QueryDubbridgeCreditStatusResponse setCoolingPeriod(String coolingPeriod) {
+        this.coolingPeriod = coolingPeriod;
+        return this;
+    }
+    public String getCoolingPeriod() {
+        return this.coolingPeriod;
     }
 
 }

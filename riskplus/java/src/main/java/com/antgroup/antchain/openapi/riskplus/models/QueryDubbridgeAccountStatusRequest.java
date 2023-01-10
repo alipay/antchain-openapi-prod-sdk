@@ -24,6 +24,15 @@ public class QueryDubbridgeAccountStatusRequest extends TeaModel {
     @Validation(required = true)
     public String bizType;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
+    // 渠道号
+    @NameInMap("org_code")
+    public String orgCode;
+
     public static QueryDubbridgeAccountStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountStatusRequest self = new QueryDubbridgeAccountStatusRequest();
         return TeaModel.build(map, self);
@@ -67,6 +76,22 @@ public class QueryDubbridgeAccountStatusRequest extends TeaModel {
     }
     public String getBizType() {
         return this.bizType;
+    }
+
+    public QueryDubbridgeAccountStatusRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public QueryDubbridgeAccountStatusRequest setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+        return this;
+    }
+    public String getOrgCode() {
+        return this.orgCode;
     }
 
 }

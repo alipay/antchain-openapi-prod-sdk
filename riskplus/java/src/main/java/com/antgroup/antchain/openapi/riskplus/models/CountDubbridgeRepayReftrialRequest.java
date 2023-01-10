@@ -41,6 +41,10 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     @Validation(required = true)
     public String repayType;
 
+    // 还款日
+    @NameInMap("repay_date")
+    public String repayDate;
+
     public static CountDubbridgeRepayReftrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialRequest self = new CountDubbridgeRepayReftrialRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     }
     public String getRepayType() {
         return this.repayType;
+    }
+
+    public CountDubbridgeRepayReftrialRequest setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
     }
 
 }

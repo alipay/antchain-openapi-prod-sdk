@@ -50,6 +50,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("repay_date")
     public String repayDate;
 
+    // 渠道类型
+    @NameInMap("channel_type")
+    public String channelType;
+
+    // 客户类型
+    @NameInMap("custom_type")
+    public String customType;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -133,6 +141,22 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getRepayDate() {
         return this.repayDate;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setChannelType(String channelType) {
+        this.channelType = channelType;
+        return this;
+    }
+    public String getChannelType() {
+        return this.channelType;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setCustomType(String customType) {
+        this.customType = customType;
+        return this;
+    }
+    public String getCustomType() {
+        return this.customType;
     }
 
 }
