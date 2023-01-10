@@ -1943,7 +1943,7 @@ type WorksInfo struct {
 	// 作品名称
 	WorksName *string `json:"works_name,omitempty" xml:"works_name,omitempty" require:"true"`
 	// 作品类型
-	WorksType *string `json:"works_type,omitempty" xml:"works_type,omitempty" require:"true"`
+	WorksType *string `json:"works_type,omitempty" xml:"works_type,omitempty"`
 	// 作品类型英文标识
 	WorksTypeEn *string `json:"works_type_en,omitempty" xml:"works_type_en,omitempty"`
 }
@@ -10305,7 +10305,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.37"),
+				"sdk_version":      tea.String("1.17.38"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
