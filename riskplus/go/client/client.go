@@ -3770,6 +3770,74 @@ func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
 	return s
 }
 
+// 授信信息
+type ApplyInfo struct {
+	// 授信编号
+	ApplyNo *string `json:"apply_no,omitempty" xml:"apply_no,omitempty"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
+	// 资金方名称
+	FundName *string `json:"fund_name,omitempty" xml:"fund_name,omitempty"`
+	// 贷款利率
+	RateValue *int64 `json:"rate_value,omitempty" xml:"rate_value,omitempty"`
+	// 贷款日利率
+	RateValueDay *int64 `json:"rate_value_day,omitempty" xml:"rate_value_day,omitempty"`
+	// 年天数
+	DaysNumYear *int64 `json:"days_num_year,omitempty" xml:"days_num_year,omitempty"`
+	// 总授信额度
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty"`
+	// 可用额度
+	BalanceAmount *int64 `json:"balance_amount,omitempty" xml:"balance_amount,omitempty"`
+}
+
+func (s ApplyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInfo) SetApplyNo(v string) *ApplyInfo {
+	s.ApplyNo = &v
+	return s
+}
+
+func (s *ApplyInfo) SetFundCode(v string) *ApplyInfo {
+	s.FundCode = &v
+	return s
+}
+
+func (s *ApplyInfo) SetFundName(v string) *ApplyInfo {
+	s.FundName = &v
+	return s
+}
+
+func (s *ApplyInfo) SetRateValue(v int64) *ApplyInfo {
+	s.RateValue = &v
+	return s
+}
+
+func (s *ApplyInfo) SetRateValueDay(v int64) *ApplyInfo {
+	s.RateValueDay = &v
+	return s
+}
+
+func (s *ApplyInfo) SetDaysNumYear(v int64) *ApplyInfo {
+	s.DaysNumYear = &v
+	return s
+}
+
+func (s *ApplyInfo) SetTotalAmount(v int64) *ApplyInfo {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *ApplyInfo) SetBalanceAmount(v int64) *ApplyInfo {
+	s.BalanceAmount = &v
+	return s
+}
+
 // 是否联登结构体
 type CustomRelationStatus struct {
 	// 是否联登
@@ -4618,6 +4686,10 @@ type CreditAmount struct {
 	RepayWay *string `json:"repay_way,omitempty" xml:"repay_way,omitempty" require:"true"`
 	// 状态0-正常 1-冻结 2-终止
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发放日期（兼容字段）
+	PayDateSup *string `json:"pay_date_sup,omitempty" xml:"pay_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 到期日期（兼容字段）
+	ExpireDateSup *string `json:"expire_date_sup,omitempty" xml:"expire_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s CreditAmount) String() string {
@@ -4665,6 +4737,16 @@ func (s *CreditAmount) SetRepayWay(v string) *CreditAmount {
 
 func (s *CreditAmount) SetStatus(v string) *CreditAmount {
 	s.Status = &v
+	return s
+}
+
+func (s *CreditAmount) SetPayDateSup(v string) *CreditAmount {
+	s.PayDateSup = &v
+	return s
+}
+
+func (s *CreditAmount) SetExpireDateSup(v string) *CreditAmount {
+	s.ExpireDateSup = &v
 	return s
 }
 
@@ -7732,6 +7814,12 @@ type QueryDubbridgeRouterFundrouterRequest struct {
 	TrafficMktId *string `json:"traffic_mkt_id,omitempty" xml:"traffic_mkt_id,omitempty"`
 	// 预留
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 风险字段
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryDubbridgeRouterFundrouterRequest) String() string {
@@ -7804,6 +7892,21 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetTrafficMktId(v string) *Query
 
 func (s *QueryDubbridgeRouterFundrouterRequest) SetClickId(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.ClickId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetOrderNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetRiskData(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.RiskData = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetExtInfo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -8037,6 +8140,8 @@ type UploadDubbridgeFileRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
 }
 
 func (s UploadDubbridgeFileRequest) String() string {
@@ -8084,6 +8189,11 @@ func (s *UploadDubbridgeFileRequest) SetFileObjectName(v string) *UploadDubbridg
 
 func (s *UploadDubbridgeFileRequest) SetFileId(v string) *UploadDubbridgeFileRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *UploadDubbridgeFileRequest) SetFileType(v string) *UploadDubbridgeFileRequest {
+	s.FileType = &v
 	return s
 }
 
@@ -8329,6 +8439,8 @@ type VerifyDubbridgeCustomerBankcardResponse struct {
 	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty"`
 	// 签约结果
 	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
 }
 
 func (s VerifyDubbridgeCustomerBankcardResponse) String() string {
@@ -8361,6 +8473,11 @@ func (s *VerifyDubbridgeCustomerBankcardResponse) SetBindSerialNo(v string) *Ver
 
 func (s *VerifyDubbridgeCustomerBankcardResponse) SetSignResult(v string) *VerifyDubbridgeCustomerBankcardResponse {
 	s.SignResult = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardResponse) SetCustomerNo(v string) *VerifyDubbridgeCustomerBankcardResponse {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -8523,6 +8640,10 @@ type QueryDubbridgeCreditStatusResponse struct {
 	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
 	// 授信申请编号
 	ApplyNo *string `json:"apply_no,omitempty" xml:"apply_no,omitempty"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
+	// 冷静期结束日期
+	CoolingPeriod *string `json:"cooling_period,omitempty" xml:"cooling_period,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s QueryDubbridgeCreditStatusResponse) String() string {
@@ -8585,6 +8706,16 @@ func (s *QueryDubbridgeCreditStatusResponse) SetCustomNo(v string) *QueryDubbrid
 
 func (s *QueryDubbridgeCreditStatusResponse) SetApplyNo(v string) *QueryDubbridgeCreditStatusResponse {
 	s.ApplyNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetFundCode(v string) *QueryDubbridgeCreditStatusResponse {
+	s.FundCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetCoolingPeriod(v string) *QueryDubbridgeCreditStatusResponse {
+	s.CoolingPeriod = &v
 	return s
 }
 
@@ -9038,6 +9169,12 @@ type ApplyDubbridgeCustomerAgreementsignRequest struct {
 	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
 	// 资金方编号
 	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 项目编号
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
+	// 渠道号
+	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty" require:"true"`
 }
 
 func (s ApplyDubbridgeCustomerAgreementsignRequest) String() string {
@@ -9085,6 +9222,21 @@ func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetIdType(v string) *ApplyD
 
 func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetFundCode(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
 	s.FundCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetChannelCode(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetProjectCode(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
+	s.ProjectCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetOrgCode(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
+	s.OrgCode = &v
 	return s
 }
 
@@ -9144,6 +9296,10 @@ type QueryDubbridgeAccountStatusRequest struct {
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 	// 查询业务
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 渠道号
+	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty"`
 }
 
 func (s QueryDubbridgeAccountStatusRequest) String() string {
@@ -9176,6 +9332,16 @@ func (s *QueryDubbridgeAccountStatusRequest) SetOpenId(v string) *QueryDubbridge
 
 func (s *QueryDubbridgeAccountStatusRequest) SetBizType(v string) *QueryDubbridgeAccountStatusRequest {
 	s.BizType = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountStatusRequest) SetChannelCode(v string) *QueryDubbridgeAccountStatusRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountStatusRequest) SetOrgCode(v string) *QueryDubbridgeAccountStatusRequest {
+	s.OrgCode = &v
 	return s
 }
 
@@ -9471,6 +9637,12 @@ type QueryDubbridgeCustomerAgreementsignResponse struct {
 	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 协议失效时间(用户代扣协议的失效时间，格式为yyyy-MM-dd HH:mm:ss)
 	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 客户名称
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 支付宝会员id
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+	// 用以唯一标识用户签约记录的编号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
 }
 
 func (s QueryDubbridgeCustomerAgreementsignResponse) String() string {
@@ -9523,6 +9695,21 @@ func (s *QueryDubbridgeCustomerAgreementsignResponse) SetValidTime(v string) *Qu
 
 func (s *QueryDubbridgeCustomerAgreementsignResponse) SetInvalidTime(v string) *QueryDubbridgeCustomerAgreementsignResponse {
 	s.InvalidTime = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerAgreementsignResponse) SetCustomName(v string) *QueryDubbridgeCustomerAgreementsignResponse {
+	s.CustomName = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerAgreementsignResponse) SetAlipayUserId(v string) *QueryDubbridgeCustomerAgreementsignResponse {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerAgreementsignResponse) SetProtocolNo(v string) *QueryDubbridgeCustomerAgreementsignResponse {
+	s.ProtocolNo = &v
 	return s
 }
 
@@ -10116,6 +10303,8 @@ type CountDubbridgeRepayReftrialRequest struct {
 	ApplyPeriod *int64 `json:"apply_period,omitempty" xml:"apply_period,omitempty" require:"true"`
 	// 还款方式1：等额本息，2：等额本金
 	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+	// 还款日
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
 }
 
 func (s CountDubbridgeRepayReftrialRequest) String() string {
@@ -10166,6 +10355,11 @@ func (s *CountDubbridgeRepayReftrialRequest) SetRepayType(v string) *CountDubbri
 	return s
 }
 
+func (s *CountDubbridgeRepayReftrialRequest) SetRepayDate(v string) *CountDubbridgeRepayReftrialRequest {
+	s.RepayDate = &v
+	return s
+}
+
 type CountDubbridgeRepayReftrialResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -10175,6 +10369,14 @@ type CountDubbridgeRepayReftrialResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 还款计划试算结果
 	RepayTrailList []*RepayTrail `json:"repay_trail_list,omitempty" xml:"repay_trail_list,omitempty" type:"Repeated"`
+	// 还款日
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
+	// 还款账户
+	RepayAccount *string `json:"repay_account,omitempty" xml:"repay_account,omitempty"`
+	// 总利息
+	TotalInterest *int64 `json:"total_interest,omitempty" xml:"total_interest,omitempty"`
+	// 授信信息
+	ApplyInfo *ApplyInfo `json:"apply_info,omitempty" xml:"apply_info,omitempty"`
 }
 
 func (s CountDubbridgeRepayReftrialResponse) String() string {
@@ -10202,6 +10404,26 @@ func (s *CountDubbridgeRepayReftrialResponse) SetResultMsg(v string) *CountDubbr
 
 func (s *CountDubbridgeRepayReftrialResponse) SetRepayTrailList(v []*RepayTrail) *CountDubbridgeRepayReftrialResponse {
 	s.RepayTrailList = v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetRepayDate(v string) *CountDubbridgeRepayReftrialResponse {
+	s.RepayDate = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetRepayAccount(v string) *CountDubbridgeRepayReftrialResponse {
+	s.RepayAccount = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetTotalInterest(v int64) *CountDubbridgeRepayReftrialResponse {
+	s.TotalInterest = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetApplyInfo(v *ApplyInfo) *CountDubbridgeRepayReftrialResponse {
+	s.ApplyInfo = v
 	return s
 }
 
@@ -10512,6 +10734,10 @@ type ApplyDubbridgeUsecreditRequest struct {
 	LoanWay *string `json:"loan_way,omitempty" xml:"loan_way,omitempty" require:"true"`
 	// 还款日
 	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
+	// 渠道类型
+	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
+	// 客户类型
+	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -10569,6 +10795,16 @@ func (s *ApplyDubbridgeUsecreditRequest) SetLoanWay(v string) *ApplyDubbridgeUse
 
 func (s *ApplyDubbridgeUsecreditRequest) SetRepayDate(v string) *ApplyDubbridgeUsecreditRequest {
 	s.RepayDate = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetChannelType(v string) *ApplyDubbridgeUsecreditRequest {
+	s.ChannelType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetCustomType(v string) *ApplyDubbridgeUsecreditRequest {
+	s.CustomType = &v
 	return s
 }
 
@@ -11187,7 +11423,9 @@ type QueryDubbridgeRepayResultResponse struct {
 	// 失败原因
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
 	// 还款信息列表
-	RepayInfos *RepayInfos `json:"repay_infos,omitempty" xml:"repay_infos,omitempty"`
+	RepayInfos []*RepayInfos `json:"repay_infos,omitempty" xml:"repay_infos,omitempty" type:"Repeated"`
+	// 还款日期
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
 }
 
 func (s QueryDubbridgeRepayResultResponse) String() string {
@@ -11253,8 +11491,13 @@ func (s *QueryDubbridgeRepayResultResponse) SetFailReason(v string) *QueryDubbri
 	return s
 }
 
-func (s *QueryDubbridgeRepayResultResponse) SetRepayInfos(v *RepayInfos) *QueryDubbridgeRepayResultResponse {
+func (s *QueryDubbridgeRepayResultResponse) SetRepayInfos(v []*RepayInfos) *QueryDubbridgeRepayResultResponse {
 	s.RepayInfos = v
+	return s
+}
+
+func (s *QueryDubbridgeRepayResultResponse) SetRepayDate(v string) *QueryDubbridgeRepayResultResponse {
+	s.RepayDate = &v
 	return s
 }
 
@@ -18866,7 +19109,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.2"),
+				"sdk_version":      tea.String("1.16.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
