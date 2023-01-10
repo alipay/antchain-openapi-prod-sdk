@@ -2733,6 +2733,55 @@ export class RtopGenderDistribution extends $tea.Model {
   }
 }
 
+// 授信信息
+export class ApplyInfo extends $tea.Model {
+  // 授信编号
+  applyNo?: string;
+  // 资金方编号
+  fundCode?: string;
+  // 资金方名称
+  fundName?: string;
+  // 贷款利率
+  rateValue?: number;
+  // 贷款日利率
+  rateValueDay?: number;
+  // 年天数
+  daysNumYear?: number;
+  // 总授信额度
+  totalAmount?: number;
+  // 可用额度
+  balanceAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      applyNo: 'apply_no',
+      fundCode: 'fund_code',
+      fundName: 'fund_name',
+      rateValue: 'rate_value',
+      rateValueDay: 'rate_value_day',
+      daysNumYear: 'days_num_year',
+      totalAmount: 'total_amount',
+      balanceAmount: 'balance_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applyNo: 'string',
+      fundCode: 'string',
+      fundName: 'string',
+      rateValue: 'number',
+      rateValueDay: 'number',
+      daysNumYear: 'number',
+      totalAmount: 'number',
+      balanceAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 是否联登结构体
 export class CustomRelationStatus extends $tea.Model {
   // 是否联登
@@ -3421,6 +3470,10 @@ export class CreditAmount extends $tea.Model {
   repayWay: string;
   // 状态0-正常 1-冻结 2-终止
   status: string;
+  // 发放日期（兼容字段）
+  payDateSup?: string;
+  // 到期日期（兼容字段）
+  expireDateSup?: string;
   static names(): { [key: string]: string } {
     return {
       creditAmount: 'credit_amount',
@@ -3431,6 +3484,8 @@ export class CreditAmount extends $tea.Model {
       rateValue: 'rate_value',
       repayWay: 'repay_way',
       status: 'status',
+      payDateSup: 'pay_date_sup',
+      expireDateSup: 'expire_date_sup',
     };
   }
 
@@ -3444,6 +3499,8 @@ export class CreditAmount extends $tea.Model {
       rateValue: 'number',
       repayWay: 'string',
       status: 'string',
+      payDateSup: 'string',
+      expireDateSup: 'string',
     };
   }
 
@@ -5771,6 +5828,12 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   trafficMktId?: string;
   // 预留
   clickId?: string;
+  // 订单号
+  orderNo?: string;
+  // 风险字段
+  riskData?: string;
+  // 扩展字段
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5786,6 +5849,9 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       trafficAdId: 'traffic_ad_id',
       trafficMktId: 'traffic_mkt_id',
       clickId: 'click_id',
+      orderNo: 'order_no',
+      riskData: 'risk_data',
+      extInfo: 'ext_info',
     };
   }
 
@@ -5804,6 +5870,9 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       trafficAdId: 'string',
       trafficMktId: 'string',
       clickId: 'string',
+      orderNo: 'string',
+      riskData: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -5977,6 +6046,8 @@ export class UploadDubbridgeFileRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 文件类型
+  fileType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5987,6 +6058,7 @@ export class UploadDubbridgeFileRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      fileType: 'file_type',
     };
   }
 
@@ -6000,6 +6072,7 @@ export class UploadDubbridgeFileRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      fileType: 'string',
     };
   }
 
@@ -6189,6 +6262,8 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
   bindSerialNo?: string;
   // 签约结果
   signResult?: string;
+  // 客户号
+  customerNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6196,6 +6271,7 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
       resultMsg: 'result_msg',
       bindSerialNo: 'bind_serial_no',
       signResult: 'sign_result',
+      customerNo: 'customer_no',
     };
   }
 
@@ -6206,6 +6282,7 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
       resultMsg: 'string',
       bindSerialNo: 'string',
       signResult: 'string',
+      customerNo: 'string',
     };
   }
 
@@ -6343,6 +6420,10 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
   customNo?: string;
   // 授信申请编号
   applyNo?: string;
+  // 资金方编号
+  fundCode?: string;
+  // 冷静期结束日期
+  coolingPeriod?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6356,6 +6437,8 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       creditInfo: 'credit_info',
       customNo: 'custom_no',
       applyNo: 'apply_no',
+      fundCode: 'fund_code',
+      coolingPeriod: 'cooling_period',
     };
   }
 
@@ -6372,6 +6455,8 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       creditInfo: CreditAmount,
       customNo: 'string',
       applyNo: 'string',
+      fundCode: 'string',
+      coolingPeriod: 'string',
     };
   }
 
@@ -6720,6 +6805,12 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
   idType?: string;
   // 资金方编号
   fundCode?: string;
+  // 渠道号
+  channelCode: string;
+  // 项目编号
+  projectCode: string;
+  // 渠道号
+  orgCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6730,6 +6821,9 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
       cardNo: 'card_no',
       idType: 'id_type',
       fundCode: 'fund_code',
+      channelCode: 'channel_code',
+      projectCode: 'project_code',
+      orgCode: 'org_code',
     };
   }
 
@@ -6743,6 +6837,9 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
       cardNo: 'string',
       idType: 'string',
       fundCode: 'string',
+      channelCode: 'string',
+      projectCode: 'string',
+      orgCode: 'string',
     };
   }
 
@@ -6797,6 +6894,10 @@ export class QueryDubbridgeAccountStatusRequest extends $tea.Model {
   openId?: string;
   // 查询业务
   bizType: string;
+  // 渠道号
+  channelCode: string;
+  // 渠道号
+  orgCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6804,6 +6905,8 @@ export class QueryDubbridgeAccountStatusRequest extends $tea.Model {
       customNo: 'custom_no',
       openId: 'open_id',
       bizType: 'biz_type',
+      channelCode: 'channel_code',
+      orgCode: 'org_code',
     };
   }
 
@@ -6814,6 +6917,8 @@ export class QueryDubbridgeAccountStatusRequest extends $tea.Model {
       customNo: 'string',
       openId: 'string',
       bizType: 'string',
+      channelCode: 'string',
+      orgCode: 'string',
     };
   }
 
@@ -7054,6 +7159,12 @@ export class QueryDubbridgeCustomerAgreementsignResponse extends $tea.Model {
   validTime?: string;
   // 协议失效时间(用户代扣协议的失效时间，格式为yyyy-MM-dd HH:mm:ss)
   invalidTime?: string;
+  // 客户名称
+  customName?: string;
+  // 支付宝会员id
+  alipayUserId?: string;
+  // 用以唯一标识用户签约记录的编号
+  protocolNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7065,6 +7176,9 @@ export class QueryDubbridgeCustomerAgreementsignResponse extends $tea.Model {
       signTime: 'sign_time',
       validTime: 'valid_time',
       invalidTime: 'invalid_time',
+      customName: 'custom_name',
+      alipayUserId: 'alipay_user_id',
+      protocolNo: 'protocol_no',
     };
   }
 
@@ -7079,6 +7193,9 @@ export class QueryDubbridgeCustomerAgreementsignResponse extends $tea.Model {
       signTime: 'string',
       validTime: 'string',
       invalidTime: 'string',
+      customName: 'string',
+      alipayUserId: 'string',
+      protocolNo: 'string',
     };
   }
 
@@ -7526,6 +7643,8 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
   applyPeriod: number;
   // 还款方式1：等额本息，2：等额本金
   repayType: string;
+  // 还款日
+  repayDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7536,6 +7655,7 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       applyAmount: 'apply_amount',
       applyPeriod: 'apply_period',
       repayType: 'repay_type',
+      repayDate: 'repay_date',
     };
   }
 
@@ -7549,6 +7669,7 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       applyAmount: 'number',
       applyPeriod: 'number',
       repayType: 'string',
+      repayDate: 'string',
     };
   }
 
@@ -7566,12 +7687,24 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
   resultMsg?: string;
   // 还款计划试算结果
   repayTrailList?: RepayTrail[];
+  // 还款日
+  repayDate?: string;
+  // 还款账户
+  repayAccount?: string;
+  // 总利息
+  totalInterest?: number;
+  // 授信信息
+  applyInfo?: ApplyInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       repayTrailList: 'repay_trail_list',
+      repayDate: 'repay_date',
+      repayAccount: 'repay_account',
+      totalInterest: 'total_interest',
+      applyInfo: 'apply_info',
     };
   }
 
@@ -7581,6 +7714,10 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       repayTrailList: { 'type': 'array', 'itemType': RepayTrail },
+      repayDate: 'string',
+      repayAccount: 'string',
+      totalInterest: 'number',
+      applyInfo: ApplyInfo,
     };
   }
 
@@ -7830,6 +7967,10 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   loanWay: string;
   // 还款日
   repayDate?: string;
+  // 渠道类型
+  channelType?: string;
+  // 客户类型
+  customType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7842,6 +7983,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       repayType: 'repay_type',
       loanWay: 'loan_way',
       repayDate: 'repay_date',
+      channelType: 'channel_type',
+      customType: 'custom_type',
     };
   }
 
@@ -7857,6 +8000,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       repayType: 'string',
       loanWay: 'string',
       repayDate: 'string',
+      channelType: 'string',
+      customType: 'string',
     };
   }
 
@@ -8345,7 +8490,9 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
   // 失败原因
   failReason?: string;
   // 还款信息列表
-  repayInfos?: RepayInfos;
+  repayInfos?: RepayInfos[];
+  // 还款日期
+  repayDate?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8360,6 +8507,7 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
       repayStatus: 'repay_status',
       failReason: 'fail_reason',
       repayInfos: 'repay_infos',
+      repayDate: 'repay_date',
     };
   }
 
@@ -8376,7 +8524,8 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
       repayAccount: 'string',
       repayStatus: 'string',
       failReason: 'string',
-      repayInfos: RepayInfos,
+      repayInfos: { 'type': 'array', 'itemType': RepayInfos },
+      repayDate: 'string',
     };
   }
 
@@ -14182,7 +14331,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.2",
+          sdk_version: "1.16.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
