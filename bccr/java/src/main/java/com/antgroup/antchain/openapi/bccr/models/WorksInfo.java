@@ -11,7 +11,6 @@ public class WorksInfo extends TeaModel {
 
     // 作品类型
     @NameInMap("works_type")
-    @Validation(required = true)
     public String worksType;
 
     // 作品类型英文标识
