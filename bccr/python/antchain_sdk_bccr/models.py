@@ -2384,7 +2384,6 @@ class WorksInfo(TeaModel):
 
     def validate(self):
         self.validate_required(self.works_name, 'works_name')
-        self.validate_required(self.works_type, 'works_type')
 
     def to_map(self):
         _map = super().to_map()
