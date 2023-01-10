@@ -54,6 +54,12 @@ class CountDubbridgeRepayReftrialRequest extends Model
      * @var string
      */
     public $repayType;
+
+    // 还款日
+    /**
+     * @var string
+     */
+    public $repayDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class CountDubbridgeRepayReftrialRequest extends Model
         'applyAmount'       => 'apply_amount',
         'applyPeriod'       => 'apply_period',
         'repayType'         => 'repay_type',
+        'repayDate'         => 'repay_date',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class CountDubbridgeRepayReftrialRequest extends Model
         if (null !== $this->repayType) {
             $res['repay_type'] = $this->repayType;
         }
+        if (null !== $this->repayDate) {
+            $res['repay_date'] = $this->repayDate;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class CountDubbridgeRepayReftrialRequest extends Model
         }
         if (isset($map['repay_type'])) {
             $model->repayType = $map['repay_type'];
+        }
+        if (isset($map['repay_date'])) {
+            $model->repayDate = $map['repay_date'];
         }
 
         return $model;

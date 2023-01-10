@@ -84,6 +84,24 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
      * @var string
      */
     public $clickId;
+
+    // 订单号
+    /**
+     * @var string
+     */
+    public $orderNo;
+
+    // 风险字段
+    /**
+     * @var string
+     */
+    public $riskData;
+
+    // 扩展字段
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -98,6 +116,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         'trafficAdId'       => 'traffic_ad_id',
         'trafficMktId'      => 'traffic_mkt_id',
         'clickId'           => 'click_id',
+        'orderNo'           => 'order_no',
+        'riskData'          => 'risk_data',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
@@ -150,6 +171,15 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         if (null !== $this->clickId) {
             $res['click_id'] = $this->clickId;
         }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->riskData) {
+            $res['risk_data'] = $this->riskData;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
 
         return $res;
     }
@@ -200,6 +230,15 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         }
         if (isset($map['click_id'])) {
             $model->clickId = $map['click_id'];
+        }
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['risk_data'])) {
+            $model->riskData = $map['risk_data'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

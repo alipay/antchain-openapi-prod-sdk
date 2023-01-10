@@ -37,12 +37,19 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
      * @var string
      */
     public $signResult;
+
+    // 客户号
+    /**
+     * @var string
+     */
+    public $customerNo;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'bindSerialNo' => 'bind_serial_no',
         'signResult'   => 'sign_result',
+        'customerNo'   => 'customer_no',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         }
         if (null !== $this->signResult) {
             $res['sign_result'] = $this->signResult;
+        }
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         }
         if (isset($map['sign_result'])) {
             $model->signResult = $map['sign_result'];
+        }
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
 
         return $model;

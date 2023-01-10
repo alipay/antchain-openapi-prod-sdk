@@ -73,15 +73,33 @@ class CreditAmount extends Model
      * @var string
      */
     public $status;
+
+    // 发放日期（兼容字段）
+    /**
+     * @example yyyy-MM-dd
+     *
+     * @var string
+     */
+    public $payDateSup;
+
+    // 到期日期（兼容字段）
+    /**
+     * @example yyyy-MM-dd
+     *
+     * @var string
+     */
+    public $expireDateSup;
     protected $_name = [
-        'creditAmount' => 'credit_amount',
-        'restAmount'   => 'rest_amount',
-        'payDate'      => 'pay_date',
-        'expireDate'   => 'expire_date',
-        'rateUnit'     => 'rate_unit',
-        'rateValue'    => 'rate_value',
-        'repayWay'     => 'repay_way',
-        'status'       => 'status',
+        'creditAmount'  => 'credit_amount',
+        'restAmount'    => 'rest_amount',
+        'payDate'       => 'pay_date',
+        'expireDate'    => 'expire_date',
+        'rateUnit'      => 'rate_unit',
+        'rateValue'     => 'rate_value',
+        'repayWay'      => 'repay_way',
+        'status'        => 'status',
+        'payDateSup'    => 'pay_date_sup',
+        'expireDateSup' => 'expire_date_sup',
     ];
 
     public function validate()
@@ -96,6 +114,8 @@ class CreditAmount extends Model
         Model::validateRequired('status', $this->status, true);
         Model::validatePattern('payDate', $this->payDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('expireDate', $this->expireDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('payDateSup', $this->payDateSup, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('expireDateSup', $this->expireDateSup, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -124,6 +144,12 @@ class CreditAmount extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->payDateSup) {
+            $res['pay_date_sup'] = $this->payDateSup;
+        }
+        if (null !== $this->expireDateSup) {
+            $res['expire_date_sup'] = $this->expireDateSup;
         }
 
         return $res;
@@ -160,6 +186,12 @@ class CreditAmount extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['pay_date_sup'])) {
+            $model->payDateSup = $map['pay_date_sup'];
+        }
+        if (isset($map['expire_date_sup'])) {
+            $model->expireDateSup = $map['expire_date_sup'];
         }
 
         return $model;

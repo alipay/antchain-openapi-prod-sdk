@@ -73,22 +73,37 @@ class QueryDubbridgeCreditStatusResponse extends Model
      * @var string
      */
     public $applyNo;
+
+    // 资金方编号
+    /**
+     * @var string
+     */
+    public $fundCode;
+
+    // 冷静期结束日期
+    /**
+     * @var string
+     */
+    public $coolingPeriod;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'status'     => 'status',
-        'msg'        => 'msg',
-        'creditAmt'  => 'credit_amt',
-        'period'     => 'period',
-        'repayType'  => 'repay_type',
-        'creditInfo' => 'credit_info',
-        'customNo'   => 'custom_no',
-        'applyNo'    => 'apply_no',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'status'        => 'status',
+        'msg'           => 'msg',
+        'creditAmt'     => 'credit_amt',
+        'period'        => 'period',
+        'repayType'     => 'repay_type',
+        'creditInfo'    => 'credit_info',
+        'customNo'      => 'custom_no',
+        'applyNo'       => 'apply_no',
+        'fundCode'      => 'fund_code',
+        'coolingPeriod' => 'cooling_period',
     ];
 
     public function validate()
     {
+        Model::validatePattern('coolingPeriod', $this->coolingPeriod, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -126,6 +141,12 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (null !== $this->applyNo) {
             $res['apply_no'] = $this->applyNo;
+        }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
+        }
+        if (null !== $this->coolingPeriod) {
+            $res['cooling_period'] = $this->coolingPeriod;
         }
 
         return $res;
@@ -171,6 +192,12 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (isset($map['apply_no'])) {
             $model->applyNo = $map['apply_no'];
+        }
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
+        }
+        if (isset($map['cooling_period'])) {
+            $model->coolingPeriod = $map['cooling_period'];
         }
 
         return $model;

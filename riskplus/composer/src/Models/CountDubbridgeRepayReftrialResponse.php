@@ -31,11 +31,39 @@ class CountDubbridgeRepayReftrialResponse extends Model
      * @var RepayTrail[]
      */
     public $repayTrailList;
+
+    // 还款日
+    /**
+     * @var string
+     */
+    public $repayDate;
+
+    // 还款账户
+    /**
+     * @var string
+     */
+    public $repayAccount;
+
+    // 总利息
+    /**
+     * @var int
+     */
+    public $totalInterest;
+
+    // 授信信息
+    /**
+     * @var ApplyInfo
+     */
+    public $applyInfo;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
         'resultMsg'      => 'result_msg',
         'repayTrailList' => 'repay_trail_list',
+        'repayDate'      => 'repay_date',
+        'repayAccount'   => 'repay_account',
+        'totalInterest'  => 'total_interest',
+        'applyInfo'      => 'apply_info',
     ];
 
     public function validate()
@@ -62,6 +90,18 @@ class CountDubbridgeRepayReftrialResponse extends Model
                     $res['repay_trail_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->repayDate) {
+            $res['repay_date'] = $this->repayDate;
+        }
+        if (null !== $this->repayAccount) {
+            $res['repay_account'] = $this->repayAccount;
+        }
+        if (null !== $this->totalInterest) {
+            $res['total_interest'] = $this->totalInterest;
+        }
+        if (null !== $this->applyInfo) {
+            $res['apply_info'] = null !== $this->applyInfo ? $this->applyInfo->toMap() : null;
         }
 
         return $res;
@@ -92,6 +132,18 @@ class CountDubbridgeRepayReftrialResponse extends Model
                     $model->repayTrailList[$n++] = null !== $item ? RepayTrail::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['repay_date'])) {
+            $model->repayDate = $map['repay_date'];
+        }
+        if (isset($map['repay_account'])) {
+            $model->repayAccount = $map['repay_account'];
+        }
+        if (isset($map['total_interest'])) {
+            $model->totalInterest = $map['total_interest'];
+        }
+        if (isset($map['apply_info'])) {
+            $model->applyInfo = ApplyInfo::fromMap($map['apply_info']);
         }
 
         return $model;

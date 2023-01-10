@@ -36,17 +36,32 @@ class QueryDubbridgeAccountStatusRequest extends Model
      * @var string
      */
     public $bizType;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $orgCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'customNo'          => 'custom_no',
         'openId'            => 'open_id',
         'bizType'           => 'biz_type',
+        'channelCode'       => 'channel_code',
+        'orgCode'           => 'org_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizType', $this->bizType, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -66,6 +81,12 @@ class QueryDubbridgeAccountStatusRequest extends Model
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->orgCode) {
+            $res['org_code'] = $this->orgCode;
         }
 
         return $res;
@@ -93,6 +114,12 @@ class QueryDubbridgeAccountStatusRequest extends Model
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['org_code'])) {
+            $model->orgCode = $map['org_code'];
         }
 
         return $model;

@@ -54,6 +54,24 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
      * @var string
      */
     public $fundCode;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
+
+    // 项目编号
+    /**
+     * @var string
+     */
+    public $projectCode;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $orgCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +81,9 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         'cardNo'            => 'card_no',
         'idType'            => 'id_type',
         'fundCode'          => 'fund_code',
+        'channelCode'       => 'channel_code',
+        'projectCode'       => 'project_code',
+        'orgCode'           => 'org_code',
     ];
 
     public function validate()
@@ -71,6 +92,9 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         Model::validateRequired('customNo', $this->customNo, true);
         Model::validateRequired('customName', $this->customName, true);
         Model::validateRequired('cardNo', $this->cardNo, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('projectCode', $this->projectCode, true);
+        Model::validateRequired('orgCode', $this->orgCode, true);
     }
 
     public function toMap()
@@ -99,6 +123,15 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         }
         if (null !== $this->fundCode) {
             $res['fund_code'] = $this->fundCode;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->projectCode) {
+            $res['project_code'] = $this->projectCode;
+        }
+        if (null !== $this->orgCode) {
+            $res['org_code'] = $this->orgCode;
         }
 
         return $res;
@@ -135,6 +168,15 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         }
         if (isset($map['fund_code'])) {
             $model->fundCode = $map['fund_code'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['project_code'])) {
+            $model->projectCode = $map['project_code'];
+        }
+        if (isset($map['org_code'])) {
+            $model->orgCode = $map['org_code'];
         }
 
         return $model;

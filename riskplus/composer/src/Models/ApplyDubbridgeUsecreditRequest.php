@@ -66,6 +66,18 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $repayDate;
+
+    // 渠道类型
+    /**
+     * @var string
+     */
+    public $channelType;
+
+    // 客户类型
+    /**
+     * @var string
+     */
+    public $customType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +89,8 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'repayType'         => 'repay_type',
         'loanWay'           => 'loan_way',
         'repayDate'         => 'repay_date',
+        'channelType'       => 'channel_type',
+        'customType'        => 'custom_type',
     ];
 
     public function validate()
@@ -123,6 +137,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
         if (null !== $this->repayDate) {
             $res['repay_date'] = $this->repayDate;
         }
+        if (null !== $this->channelType) {
+            $res['channel_type'] = $this->channelType;
+        }
+        if (null !== $this->customType) {
+            $res['custom_type'] = $this->customType;
+        }
 
         return $res;
     }
@@ -164,6 +184,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['repay_date'])) {
             $model->repayDate = $map['repay_date'];
+        }
+        if (isset($map['channel_type'])) {
+            $model->channelType = $map['channel_type'];
+        }
+        if (isset($map['custom_type'])) {
+            $model->customType = $map['custom_type'];
         }
 
         return $model;

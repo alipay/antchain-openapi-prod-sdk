@@ -85,9 +85,15 @@ class QueryDubbridgeRepayResultResponse extends Model
 
     // 还款信息列表
     /**
-     * @var RepayInfos
+     * @var RepayInfos[]
      */
     public $repayInfos;
+
+    // 还款日期
+    /**
+     * @var string
+     */
+    public $repayDate;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -101,6 +107,7 @@ class QueryDubbridgeRepayResultResponse extends Model
         'repayStatus'  => 'repay_status',
         'failReason'   => 'fail_reason',
         'repayInfos'   => 'repay_infos',
+        'repayDate'    => 'repay_date',
     ];
 
     public function validate()
@@ -144,7 +151,16 @@ class QueryDubbridgeRepayResultResponse extends Model
             $res['fail_reason'] = $this->failReason;
         }
         if (null !== $this->repayInfos) {
-            $res['repay_infos'] = null !== $this->repayInfos ? $this->repayInfos->toMap() : null;
+            $res['repay_infos'] = [];
+            if (null !== $this->repayInfos && \is_array($this->repayInfos)) {
+                $n = 0;
+                foreach ($this->repayInfos as $item) {
+                    $res['repay_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->repayDate) {
+            $res['repay_date'] = $this->repayDate;
         }
 
         return $res;
@@ -192,7 +208,16 @@ class QueryDubbridgeRepayResultResponse extends Model
             $model->failReason = $map['fail_reason'];
         }
         if (isset($map['repay_infos'])) {
-            $model->repayInfos = RepayInfos::fromMap($map['repay_infos']);
+            if (!empty($map['repay_infos'])) {
+                $model->repayInfos = [];
+                $n                 = 0;
+                foreach ($map['repay_infos'] as $item) {
+                    $model->repayInfos[$n++] = null !== $item ? RepayInfos::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['repay_date'])) {
+            $model->repayDate = $map['repay_date'];
         }
 
         return $model;
