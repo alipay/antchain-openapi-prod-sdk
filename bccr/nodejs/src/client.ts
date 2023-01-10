@@ -1469,7 +1469,7 @@ export class WorksInfo extends $tea.Model {
   // 作品名称
   worksName: string;
   // 作品类型
-  worksType: string;
+  worksType?: string;
   // 作品类型英文标识
   worksTypeEn?: string;
   static names(): { [key: string]: string } {
@@ -7640,7 +7640,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.37",
+          sdk_version: "1.17.38",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
