@@ -17,7 +17,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 作品类型
         [NameInMap("works_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string WorksType { get; set; }
 
         // 作品类型英文标识
