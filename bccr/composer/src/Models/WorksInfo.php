@@ -40,7 +40,6 @@ class WorksInfo extends Model
     public function validate()
     {
         Model::validateRequired('worksName', $this->worksName, true);
-        Model::validateRequired('worksType', $this->worksType, true);
     }
 
     public function toMap()
