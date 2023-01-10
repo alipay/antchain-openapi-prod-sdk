@@ -48,6 +48,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string RepayType { get; set; }
 
+        // 还款日
+        [NameInMap("repay_date")]
+        [Validation(Required=false)]
+        public string RepayDate { get; set; }
+
     }
 
 }

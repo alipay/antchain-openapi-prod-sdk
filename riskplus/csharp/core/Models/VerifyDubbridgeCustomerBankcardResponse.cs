@@ -34,6 +34,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SignResult { get; set; }
 
+        // 客户号
+        [NameInMap("customer_no")]
+        [Validation(Required=false)]
+        public string CustomerNo { get; set; }
+
     }
 
 }

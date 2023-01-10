@@ -29,6 +29,26 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<RepayTrail> RepayTrailList { get; set; }
 
+        // 还款日
+        [NameInMap("repay_date")]
+        [Validation(Required=false)]
+        public string RepayDate { get; set; }
+
+        // 还款账户
+        [NameInMap("repay_account")]
+        [Validation(Required=false)]
+        public string RepayAccount { get; set; }
+
+        // 总利息
+        [NameInMap("total_interest")]
+        [Validation(Required=false)]
+        public long? TotalInterest { get; set; }
+
+        // 授信信息
+        [NameInMap("apply_info")]
+        [Validation(Required=false)]
+        public ApplyInfo ApplyInfo { get; set; }
+
     }
 
 }

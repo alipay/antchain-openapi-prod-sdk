@@ -64,6 +64,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ApplyNo { get; set; }
 
+        // 资金方编号
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
+
+        // 冷静期结束日期
+        [NameInMap("cooling_period")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string CoolingPeriod { get; set; }
+
     }
 
 }

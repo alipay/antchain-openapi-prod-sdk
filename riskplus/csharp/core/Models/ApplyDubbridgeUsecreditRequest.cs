@@ -58,6 +58,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string RepayDate { get; set; }
 
+        // 渠道类型
+        [NameInMap("channel_type")]
+        [Validation(Required=false)]
+        public string ChannelType { get; set; }
+
+        // 客户类型
+        [NameInMap("custom_type")]
+        [Validation(Required=false)]
+        public string CustomType { get; set; }
+
     }
 
 }

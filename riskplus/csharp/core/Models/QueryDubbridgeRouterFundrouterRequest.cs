@@ -73,6 +73,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ClickId { get; set; }
 
+        // 订单号
+        [NameInMap("order_no")]
+        [Validation(Required=false)]
+        public string OrderNo { get; set; }
+
+        // 风险字段
+        [NameInMap("risk_data")]
+        [Validation(Required=false)]
+        public string RiskData { get; set; }
+
+        // 扩展字段
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }

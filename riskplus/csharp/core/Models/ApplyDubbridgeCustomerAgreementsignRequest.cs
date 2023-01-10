@@ -48,6 +48,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string FundCode { get; set; }
 
+        // 渠道号
+        [NameInMap("channel_code")]
+        [Validation(Required=true)]
+        public string ChannelCode { get; set; }
+
+        // 项目编号
+        [NameInMap("project_code")]
+        [Validation(Required=true)]
+        public string ProjectCode { get; set; }
+
+        // 渠道号
+        [NameInMap("org_code")]
+        [Validation(Required=true)]
+        public string OrgCode { get; set; }
+
     }
 
 }

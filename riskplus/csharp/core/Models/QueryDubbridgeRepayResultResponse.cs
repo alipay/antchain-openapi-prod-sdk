@@ -76,7 +76,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 还款信息列表
         [NameInMap("repay_infos")]
         [Validation(Required=false)]
-        public RepayInfos RepayInfos { get; set; }
+        public List<RepayInfos> RepayInfos { get; set; }
+
+        // 还款日期
+        [NameInMap("repay_date")]
+        [Validation(Required=false)]
+        public string RepayDate { get; set; }
 
     }
 

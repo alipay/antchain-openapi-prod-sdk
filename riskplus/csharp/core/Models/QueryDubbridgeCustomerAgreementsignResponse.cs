@@ -54,6 +54,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string InvalidTime { get; set; }
 
+        // 客户名称
+        [NameInMap("custom_name")]
+        [Validation(Required=false)]
+        public string CustomName { get; set; }
+
+        // 支付宝会员id
+        [NameInMap("alipay_user_id")]
+        [Validation(Required=false)]
+        public string AlipayUserId { get; set; }
+
+        // 用以唯一标识用户签约记录的编号
+        [NameInMap("protocol_no")]
+        [Validation(Required=false)]
+        public string ProtocolNo { get; set; }
+
     }
 
 }

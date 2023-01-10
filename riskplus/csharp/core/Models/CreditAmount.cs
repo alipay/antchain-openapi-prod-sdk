@@ -52,6 +52,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Status { get; set; }
 
+        // 发放日期（兼容字段）
+        [NameInMap("pay_date_sup")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string PayDateSup { get; set; }
+
+        // 到期日期（兼容字段）
+        [NameInMap("expire_date_sup")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string ExpireDateSup { get; set; }
+
     }
 
 }
