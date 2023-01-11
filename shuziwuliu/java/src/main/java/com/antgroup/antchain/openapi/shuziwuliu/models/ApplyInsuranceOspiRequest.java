@@ -171,6 +171,10 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(maxLength = 100)
     public String consigneeName;
 
+    // 询价code
+    @NameInMap("quote_mark")
+    public String quoteMark;
+
     public static ApplyInsuranceOspiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceOspiRequest self = new ApplyInsuranceOspiRequest();
         return TeaModel.build(map, self);
@@ -438,6 +442,14 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     }
     public String getConsigneeName() {
         return this.consigneeName;
+    }
+
+    public ApplyInsuranceOspiRequest setQuoteMark(String quoteMark) {
+        this.quoteMark = quoteMark;
+        return this;
+    }
+    public String getQuoteMark() {
+        return this.quoteMark;
     }
 
 }

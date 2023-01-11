@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.143")
+                    new TeaPair("sdk_version", "1.6.5"),
+                    new TeaPair("_prod_code", "SHUZIWULIU"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2175,6 +2177,44 @@ public class Client {
     public NotifyInsuranceReportresultResponse notifyInsuranceReportresultEx(NotifyInsuranceReportresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyInsuranceReportresultResponse());
+    }
+
+    /**
+     * Description: 不可达项目投保接口
+     * Summary: 跨境退货运费险-不可达项目投保接口
+     */
+    public ApplyCbrfInsureResponse applyCbrfInsure(ApplyCbrfInsureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyCbrfInsureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 不可达项目投保接口
+     * Summary: 跨境退货运费险-不可达项目投保接口
+     */
+    public ApplyCbrfInsureResponse applyCbrfInsureEx(ApplyCbrfInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.cbrf.insure.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyCbrfInsureResponse());
+    }
+
+    /**
+     * Description: 不可达项目理赔接口
+     * Summary: 跨境退货运费险-不可达项目理赔接口
+     */
+    public RepayCbrfClaimResponse repayCbrfClaim(RepayCbrfClaimRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.repayCbrfClaimEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 不可达项目理赔接口
+     * Summary: 跨境退货运费险-不可达项目理赔接口
+     */
+    public RepayCbrfClaimResponse repayCbrfClaimEx(RepayCbrfClaimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RepayCbrfClaimResponse());
     }
 
     /**
