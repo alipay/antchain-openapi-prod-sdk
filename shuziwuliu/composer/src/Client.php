@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SHUZIWULIU\Models\ApplyCbrfInsureRequest;
+use AntChain\SHUZIWULIU\Models\ApplyCbrfInsureResponse;
 use AntChain\SHUZIWULIU\Models\ApplyCreditIssueclearRequest;
 use AntChain\SHUZIWULIU\Models\ApplyCreditIssueclearResponse;
 use AntChain\SHUZIWULIU\Models\ApplyCreditmodeIssueclearRequest;
@@ -221,6 +223,8 @@ use AntChain\SHUZIWULIU\Models\QueryWaybillStatusRequest;
 use AntChain\SHUZIWULIU\Models\QueryWaybillStatusResponse;
 use AntChain\SHUZIWULIU\Models\ReopenCreditDriverRequest;
 use AntChain\SHUZIWULIU\Models\ReopenCreditDriverResponse;
+use AntChain\SHUZIWULIU\Models\RepayCbrfClaimRequest;
+use AntChain\SHUZIWULIU\Models\RepayCbrfClaimResponse;
 use AntChain\SHUZIWULIU\Models\RepayInsuranceCbrfRequest;
 use AntChain\SHUZIWULIU\Models\RepayInsuranceCbrfResponse;
 use AntChain\SHUZIWULIU\Models\SaveBillPaybilltariffRequest;
@@ -480,7 +484,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.143',
+                    'sdk_version'      => '1.6.5',
+                    '_prod_code'       => 'SHUZIWULIU',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4026,6 +4032,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyInsuranceReportresultResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 不可达项目投保接口
+     * Summary: 跨境退货运费险-不可达项目投保接口.
+     *
+     * @param ApplyCbrfInsureRequest $request
+     *
+     * @return ApplyCbrfInsureResponse
+     */
+    public function applyCbrfInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyCbrfInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 不可达项目投保接口
+     * Summary: 跨境退货运费险-不可达项目投保接口.
+     *
+     * @param ApplyCbrfInsureRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyCbrfInsureResponse
+     */
+    public function applyCbrfInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyCbrfInsureResponse::fromMap($this->doRequest('1.0', 'digital.logistic.cbrf.insure.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 不可达项目理赔接口
+     * Summary: 跨境退货运费险-不可达项目理赔接口.
+     *
+     * @param RepayCbrfClaimRequest $request
+     *
+     * @return RepayCbrfClaimResponse
+     */
+    public function repayCbrfClaim($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayCbrfClaimEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 不可达项目理赔接口
+     * Summary: 跨境退货运费险-不可达项目理赔接口.
+     *
+     * @param RepayCbrfClaimRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return RepayCbrfClaimResponse
+     */
+    public function repayCbrfClaimEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayCbrfClaimResponse::fromMap($this->doRequest('1.0', 'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

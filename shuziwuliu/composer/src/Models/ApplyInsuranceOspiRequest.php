@@ -209,6 +209,12 @@ class ApplyInsuranceOspiRequest extends Model
      * @var string
      */
     public $consigneeName;
+
+    // 询价code
+    /**
+     * @var string
+     */
+    public $quoteMark;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -243,6 +249,7 @@ class ApplyInsuranceOspiRequest extends Model
         'isoCountry'          => 'iso_country',
         'cargoWorth'          => 'cargo_worth',
         'consigneeName'       => 'consignee_name',
+        'quoteMark'           => 'quote_mark',
     ];
 
     public function validate()
@@ -407,6 +414,9 @@ class ApplyInsuranceOspiRequest extends Model
         if (null !== $this->consigneeName) {
             $res['consignee_name'] = $this->consigneeName;
         }
+        if (null !== $this->quoteMark) {
+            $res['quote_mark'] = $this->quoteMark;
+        }
 
         return $res;
     }
@@ -517,6 +527,9 @@ class ApplyInsuranceOspiRequest extends Model
         }
         if (isset($map['consignee_name'])) {
             $model->consigneeName = $map['consignee_name'];
+        }
+        if (isset($map['quote_mark'])) {
+            $model->quoteMark = $map['quote_mark'];
         }
 
         return $model;

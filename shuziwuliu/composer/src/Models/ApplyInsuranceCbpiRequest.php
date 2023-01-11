@@ -29,7 +29,7 @@ class ApplyInsuranceCbpiRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码.，PAIC---平安，PICC-人保
+    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
     /**
      * @var string
      */
