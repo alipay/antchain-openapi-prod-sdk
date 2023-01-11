@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.143',
+    sdk_version = '1.6.5',
+    _prod_code = 'SHUZIWULIU',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7476,6 +7478,8 @@ model ApplyInsuranceOspiRequest = {
   cargoWorth: string(name='cargo_worth'),
   // 收货人名称
   consigneeName?: string(maxLength=100, name='consignee_name'),
+  // 询价code
+  quoteMark?: string(name='quote_mark'),
 }
 
 model ApplyInsuranceOspiResponse = {
@@ -7783,7 +7787,7 @@ model ApplyInsuranceCbpiRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码.，PAIC---平安，PICC-人保
+  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码，06--跨境邮包险
   externalProductCode: string(maxLength=2, name='external_product_code'),
@@ -8259,6 +8263,192 @@ async function notifyInsuranceReportresult(request: NotifyInsuranceReportresultR
 async function notifyInsuranceReportresultEx(request: NotifyInsuranceReportresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInsuranceReportresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyCbrfInsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保司编码
+  insuranceCode: string(maxLength=32, name='insurance_code'),
+  // 险种编码
+  // 
+  productCode: string(maxLength=2, name='product_code'),
+  // 保险协议中的投保人全称
+  policyholderName: string(maxLength=200, name='policyholder_name'),
+  // 投保人证件类型，01--居民身份证、03--营业执照
+  policyholderIdType: string(maxLength=2, name='policyholder_id_type'),
+  // 投保人证件号码
+  policyholderIdNo: string(maxLength=50, name='policyholder_id_no'),
+  // 被保人姓名，实际的保险被保人名称
+  insuredName: string(maxLength=200, name='insured_name'),
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  insuredIdType: string(maxLength=2, name='insured_id_type'),
+  // 被保人证件号码
+  insuredIdNo: string(maxLength=50, name='insured_id_no'),
+  // 受益人名称，实际的保险受益人名称
+  beneficiaryName?: string(maxLength=200, name='beneficiary_name'),
+  // 受益人证件类型，01--居民身份证、03--营业执照
+  beneficiaryIdType?: string(maxLength=2, name='beneficiary_id_type'),
+  // 受益人证件号码
+  beneficiaryIdNo?: string(maxLength=50, name='beneficiary_id_no'),
+  // 保司针对当前的项目所给的方案名
+  schemeName: string(maxLength=200, name='scheme_name'),
+  // 保司针对当前的项目所给的项目名
+  projectName?: string(maxLength=200, name='project_name'),
+  // 保险金额，单位（元），最多支持2位小数，超过2位拒绝
+  insuranceAmount?: string(maxLength=20, name='insurance_amount'),
+  // 保险起期,yyyy-MM-dd HH:mm:ss
+  insureStart: string(maxLength=50, name='insure_start'),
+  // 客户的订单编号
+  relatedOrderNo: string(maxLength=150, name='related_order_no'),
+  // 此包裹的成交撮合的电商平台名称
+  ecommercePlatformName: string(maxLength=200, name='ecommerce_platform_name'),
+  // 承运此包裹的物流CP商名称
+  logisticsProvider: string(maxLength=200, name='logistics_provider'),
+  // 货物的揽收时间
+  collectionTime?: string(maxLength=50, name='collection_time'),
+  // yyyy-MM-dd HH:mm:ss 交付航司确认的时间
+  deliveryTime: string(maxLength=50, name='delivery_time'),
+  // 2位ISO缩写
+  destCountry: string(maxLength=32, name='dest_country'),
+  // 商家唯一脱敏的编码
+  merchantId: string(maxLength=200, name='merchant_id'),
+  // 买家唯一脱敏的编码
+  buyerId: string(maxLength=200, name='buyer_id'),
+  // 货物重量，单位（kg）
+  cargoWeight: string(maxLength=50, name='cargo_weight'),
+  // 货物类型的大类
+  cargoType: string(maxLength=200, name='cargo_type'),
+  // 实际的货物名称
+  cargoName: string(maxLength=200, name='cargo_name'),
+  // 货物的美金商品价值
+  cargoValue: string(maxLength=20, name='cargo_value'),
+}
+
+model ApplyCbrfInsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保响应编码
+  // 
+  insuredReceiptNo?: string(name='insured_receipt_no'),
+  // 投保时的标的订单号
+  relatedOrderNo?: string(name='related_order_no'),
+  // 保司出具的保单编号
+  // 
+  policyNo?: string(name='policy_no'),
+  // 返回时间
+  // 
+  responseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='response_time'),
+  // 幂等标识；true:幂等结果；false: 非幂等结果
+  // 
+  idemFlag?: boolean(name='idem_flag'),
+}
+
+/**
+ * Description: 不可达项目投保接口
+ * Summary: 跨境退货运费险-不可达项目投保接口
+ */
+async function applyCbrfInsure(request: ApplyCbrfInsureRequest): ApplyCbrfInsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyCbrfInsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 不可达项目投保接口
+ * Summary: 跨境退货运费险-不可达项目投保接口
+ */
+async function applyCbrfInsureEx(request: ApplyCbrfInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyCbrfInsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.cbrf.insure.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayCbrfClaimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请报案人的名称
+  reporterName?: string(maxLength=200, name='reporter_name'),
+  // 申请报案人的联系方式
+  reporterPhoneNum?: string(maxLength=20, name='reporter_phone_num'),
+  // 理赔时间，yyyy-MM-dd HH:mm:ss
+  claimTime: string(maxLength=50, name='claim_time'),
+  // 依据实际情况计算的理赔金额，单位元
+  claimAmount: string(maxLength=20, name='claim_amount'),
+  // 部分保司所需关联的投保响应编码
+  insuredReceiptNo: string(maxLength=200, name='insured_receipt_no'),
+  // PICC-人保
+  insuranceCode: string(maxLength=32, name='insurance_code'),
+  // 02-跨境退货运费险
+  productCode: string(maxLength=2, name='product_code'),
+  // 保司出具的保单编号
+  policyNo: string(maxLength=50, name='policy_no'),
+  // 客户的订单编号
+  relatedOrderNo: string(maxLength=150, name='related_order_no'),
+  // 此包裹的成交撮合的电商平台名称
+  ecommercePlatformName: string(maxLength=200, name='ecommerce_platform_name'),
+  // 承运此包裹的物流CP商名称
+  logisticsProvider: string(maxLength=200, name='logistics_provider'),
+  // 商家唯一脱敏的编码
+  merchantId: string(maxLength=200, name='merchant_id'),
+  // 买家唯一脱敏的编码
+  buyerId: string(maxLength=200, name='buyer_id'),
+  // 货物重量，单位（kg）
+  cargoWeight: string(maxLength=50, name='cargo_weight'),
+  // 货物类型的大类
+  cargoType: string(maxLength=200, name='cargo_type'),
+  // 实际的货物名称
+  cargoName: string(maxLength=200, name='cargo_name'),
+  // 到达国内仓时间 yyyy-MM-dd HH:mm:ss
+  dwaTime?: string(maxLength=50, name='dwa_time'),
+  // 2位ISO缩写
+  destCountry: string(maxLength=32, name='dest_country'),
+  // 索赔材料信息
+  // 数组内最多10项，url长度限制最大500，name长度限制最大200
+  claimInformations?: [ ClaimInformation ](name='claim_informations'),
+}
+
+model RepayCbrfClaimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 赔案号
+  claimNo?: string(name='claim_no'),
+  // 客户投保时的标的订单号
+  // 
+  relatedOrderNo?: string(name='related_order_no'),
+  // 保单号
+  policyNo?: string(name='policy_no'),
+  // 幂等标识。true：幂等结果;false：非幂等结果
+  // 
+  idemFlag?: boolean(name='idem_flag'),
+}
+
+/**
+ * Description: 不可达项目理赔接口
+ * Summary: 跨境退货运费险-不可达项目理赔接口
+ */
+async function repayCbrfClaim(request: RepayCbrfClaimRequest): RepayCbrfClaimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayCbrfClaimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 不可达项目理赔接口
+ * Summary: 跨境退货运费险-不可达项目理赔接口
+ */
+async function repayCbrfClaimEx(request: RepayCbrfClaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayCbrfClaimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
