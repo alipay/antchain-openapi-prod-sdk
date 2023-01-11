@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.143'
+                    'sdk_version': '1.6.5',
+                    '_prod_code': 'SHUZIWULIU',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.143'
+                    'sdk_version': '1.6.5',
+                    '_prod_code': 'SHUZIWULIU',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -6213,6 +6217,118 @@ class Client:
         return TeaCore.from_map(
             shuziwuliu_models.NotifyInsuranceReportresultResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_cbrf_insure(
+        self,
+        request: shuziwuliu_models.ApplyCbrfInsureRequest,
+    ) -> shuziwuliu_models.ApplyCbrfInsureResponse:
+        """
+        Description: 不可达项目投保接口
+        Summary: 跨境退货运费险-不可达项目投保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_cbrf_insure_ex(request, headers, runtime)
+
+    async def apply_cbrf_insure_async(
+        self,
+        request: shuziwuliu_models.ApplyCbrfInsureRequest,
+    ) -> shuziwuliu_models.ApplyCbrfInsureResponse:
+        """
+        Description: 不可达项目投保接口
+        Summary: 跨境退货运费险-不可达项目投保接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_cbrf_insure_ex_async(request, headers, runtime)
+
+    def apply_cbrf_insure_ex(
+        self,
+        request: shuziwuliu_models.ApplyCbrfInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyCbrfInsureResponse:
+        """
+        Description: 不可达项目投保接口
+        Summary: 跨境退货运费险-不可达项目投保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCbrfInsureResponse(),
+            self.do_request('1.0', 'digital.logistic.cbrf.insure.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_cbrf_insure_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyCbrfInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyCbrfInsureResponse:
+        """
+        Description: 不可达项目投保接口
+        Summary: 跨境退货运费险-不可达项目投保接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCbrfInsureResponse(),
+            await self.do_request_async('1.0', 'digital.logistic.cbrf.insure.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def repay_cbrf_claim(
+        self,
+        request: shuziwuliu_models.RepayCbrfClaimRequest,
+    ) -> shuziwuliu_models.RepayCbrfClaimResponse:
+        """
+        Description: 不可达项目理赔接口
+        Summary: 跨境退货运费险-不可达项目理赔接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.repay_cbrf_claim_ex(request, headers, runtime)
+
+    async def repay_cbrf_claim_async(
+        self,
+        request: shuziwuliu_models.RepayCbrfClaimRequest,
+    ) -> shuziwuliu_models.RepayCbrfClaimResponse:
+        """
+        Description: 不可达项目理赔接口
+        Summary: 跨境退货运费险-不可达项目理赔接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.repay_cbrf_claim_ex_async(request, headers, runtime)
+
+    def repay_cbrf_claim_ex(
+        self,
+        request: shuziwuliu_models.RepayCbrfClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.RepayCbrfClaimResponse:
+        """
+        Description: 不可达项目理赔接口
+        Summary: 跨境退货运费险-不可达项目理赔接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.RepayCbrfClaimResponse(),
+            self.do_request('1.0', 'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def repay_cbrf_claim_ex_async(
+        self,
+        request: shuziwuliu_models.RepayCbrfClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.RepayCbrfClaimResponse:
+        """
+        Description: 不可达项目理赔接口
+        Summary: 跨境退货运费险-不可达项目理赔接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.RepayCbrfClaimResponse(),
+            await self.do_request_async('1.0', 'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_auth_signinfo(
