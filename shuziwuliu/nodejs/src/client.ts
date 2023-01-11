@@ -13257,6 +13257,8 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   cargoWorth: string;
   // 收货人名称
   consigneeName?: string;
+  // 询价code
+  quoteMark?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13292,6 +13294,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       isoCountry: 'iso_country',
       cargoWorth: 'cargo_worth',
       consigneeName: 'consignee_name',
+      quoteMark: 'quote_mark',
     };
   }
 
@@ -13330,6 +13333,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       isoCountry: 'string',
       cargoWorth: 'string',
       consigneeName: 'string',
+      quoteMark: 'string',
     };
   }
 
@@ -13848,7 +13852,7 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码.，PAIC---平安，PICC-人保
+  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
   externalChannelCode: string;
   // 险种编码，06--跨境邮包险
   externalProductCode: string;
@@ -14668,6 +14672,336 @@ export class NotifyInsuranceReportresultResponse extends $tea.Model {
       resultMsg: 'string',
       tradeNo: 'string',
       reportNotifyStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyCbrfInsureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保司编码
+  insuranceCode: string;
+  // 险种编码
+  // 
+  productCode: string;
+  // 保险协议中的投保人全称
+  policyholderName: string;
+  // 投保人证件类型，01--居民身份证、03--营业执照
+  policyholderIdType: string;
+  // 投保人证件号码
+  policyholderIdNo: string;
+  // 被保人姓名，实际的保险被保人名称
+  insuredName: string;
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  insuredIdType: string;
+  // 被保人证件号码
+  insuredIdNo: string;
+  // 受益人名称，实际的保险受益人名称
+  beneficiaryName?: string;
+  // 受益人证件类型，01--居民身份证、03--营业执照
+  beneficiaryIdType?: string;
+  // 受益人证件号码
+  beneficiaryIdNo?: string;
+  // 保司针对当前的项目所给的方案名
+  schemeName: string;
+  // 保司针对当前的项目所给的项目名
+  projectName?: string;
+  // 保险金额，单位（元），最多支持2位小数，超过2位拒绝
+  insuranceAmount?: string;
+  // 保险起期,yyyy-MM-dd HH:mm:ss
+  insureStart: string;
+  // 客户的订单编号
+  relatedOrderNo: string;
+  // 此包裹的成交撮合的电商平台名称
+  ecommercePlatformName: string;
+  // 承运此包裹的物流CP商名称
+  logisticsProvider: string;
+  // 货物的揽收时间
+  collectionTime?: string;
+  // yyyy-MM-dd HH:mm:ss 交付航司确认的时间
+  deliveryTime: string;
+  // 2位ISO缩写
+  destCountry: string;
+  // 商家唯一脱敏的编码
+  merchantId: string;
+  // 买家唯一脱敏的编码
+  buyerId: string;
+  // 货物重量，单位（kg）
+  cargoWeight: string;
+  // 货物类型的大类
+  cargoType: string;
+  // 实际的货物名称
+  cargoName: string;
+  // 货物的美金商品价值
+  cargoValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      insuranceCode: 'insurance_code',
+      productCode: 'product_code',
+      policyholderName: 'policyholder_name',
+      policyholderIdType: 'policyholder_id_type',
+      policyholderIdNo: 'policyholder_id_no',
+      insuredName: 'insured_name',
+      insuredIdType: 'insured_id_type',
+      insuredIdNo: 'insured_id_no',
+      beneficiaryName: 'beneficiary_name',
+      beneficiaryIdType: 'beneficiary_id_type',
+      beneficiaryIdNo: 'beneficiary_id_no',
+      schemeName: 'scheme_name',
+      projectName: 'project_name',
+      insuranceAmount: 'insurance_amount',
+      insureStart: 'insure_start',
+      relatedOrderNo: 'related_order_no',
+      ecommercePlatformName: 'ecommerce_platform_name',
+      logisticsProvider: 'logistics_provider',
+      collectionTime: 'collection_time',
+      deliveryTime: 'delivery_time',
+      destCountry: 'dest_country',
+      merchantId: 'merchant_id',
+      buyerId: 'buyer_id',
+      cargoWeight: 'cargo_weight',
+      cargoType: 'cargo_type',
+      cargoName: 'cargo_name',
+      cargoValue: 'cargo_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      insuranceCode: 'string',
+      productCode: 'string',
+      policyholderName: 'string',
+      policyholderIdType: 'string',
+      policyholderIdNo: 'string',
+      insuredName: 'string',
+      insuredIdType: 'string',
+      insuredIdNo: 'string',
+      beneficiaryName: 'string',
+      beneficiaryIdType: 'string',
+      beneficiaryIdNo: 'string',
+      schemeName: 'string',
+      projectName: 'string',
+      insuranceAmount: 'string',
+      insureStart: 'string',
+      relatedOrderNo: 'string',
+      ecommercePlatformName: 'string',
+      logisticsProvider: 'string',
+      collectionTime: 'string',
+      deliveryTime: 'string',
+      destCountry: 'string',
+      merchantId: 'string',
+      buyerId: 'string',
+      cargoWeight: 'string',
+      cargoType: 'string',
+      cargoName: 'string',
+      cargoValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyCbrfInsureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投保响应编码
+  // 
+  insuredReceiptNo?: string;
+  // 投保时的标的订单号
+  relatedOrderNo?: string;
+  // 保司出具的保单编号
+  // 
+  policyNo?: string;
+  // 返回时间
+  // 
+  responseTime?: string;
+  // 幂等标识；true:幂等结果；false: 非幂等结果
+  // 
+  idemFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      insuredReceiptNo: 'insured_receipt_no',
+      relatedOrderNo: 'related_order_no',
+      policyNo: 'policy_no',
+      responseTime: 'response_time',
+      idemFlag: 'idem_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      insuredReceiptNo: 'string',
+      relatedOrderNo: 'string',
+      policyNo: 'string',
+      responseTime: 'string',
+      idemFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayCbrfClaimRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 申请报案人的名称
+  reporterName?: string;
+  // 申请报案人的联系方式
+  reporterPhoneNum?: string;
+  // 理赔时间，yyyy-MM-dd HH:mm:ss
+  claimTime: string;
+  // 依据实际情况计算的理赔金额，单位元
+  claimAmount: string;
+  // 部分保司所需关联的投保响应编码
+  insuredReceiptNo: string;
+  // PICC-人保
+  insuranceCode: string;
+  // 02-跨境退货运费险
+  productCode: string;
+  // 保司出具的保单编号
+  policyNo: string;
+  // 客户的订单编号
+  relatedOrderNo: string;
+  // 此包裹的成交撮合的电商平台名称
+  ecommercePlatformName: string;
+  // 承运此包裹的物流CP商名称
+  logisticsProvider: string;
+  // 商家唯一脱敏的编码
+  merchantId: string;
+  // 买家唯一脱敏的编码
+  buyerId: string;
+  // 货物重量，单位（kg）
+  cargoWeight: string;
+  // 货物类型的大类
+  cargoType: string;
+  // 实际的货物名称
+  cargoName: string;
+  // 到达国内仓时间 yyyy-MM-dd HH:mm:ss
+  dwaTime?: string;
+  // 2位ISO缩写
+  destCountry: string;
+  // 索赔材料信息
+  // 数组内最多10项，url长度限制最大500，name长度限制最大200
+  claimInformations?: ClaimInformation[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      reporterName: 'reporter_name',
+      reporterPhoneNum: 'reporter_phone_num',
+      claimTime: 'claim_time',
+      claimAmount: 'claim_amount',
+      insuredReceiptNo: 'insured_receipt_no',
+      insuranceCode: 'insurance_code',
+      productCode: 'product_code',
+      policyNo: 'policy_no',
+      relatedOrderNo: 'related_order_no',
+      ecommercePlatformName: 'ecommerce_platform_name',
+      logisticsProvider: 'logistics_provider',
+      merchantId: 'merchant_id',
+      buyerId: 'buyer_id',
+      cargoWeight: 'cargo_weight',
+      cargoType: 'cargo_type',
+      cargoName: 'cargo_name',
+      dwaTime: 'dwa_time',
+      destCountry: 'dest_country',
+      claimInformations: 'claim_informations',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      reporterName: 'string',
+      reporterPhoneNum: 'string',
+      claimTime: 'string',
+      claimAmount: 'string',
+      insuredReceiptNo: 'string',
+      insuranceCode: 'string',
+      productCode: 'string',
+      policyNo: 'string',
+      relatedOrderNo: 'string',
+      ecommercePlatformName: 'string',
+      logisticsProvider: 'string',
+      merchantId: 'string',
+      buyerId: 'string',
+      cargoWeight: 'string',
+      cargoType: 'string',
+      cargoName: 'string',
+      dwaTime: 'string',
+      destCountry: 'string',
+      claimInformations: { 'type': 'array', 'itemType': ClaimInformation },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayCbrfClaimResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 赔案号
+  claimNo?: string;
+  // 客户投保时的标的订单号
+  // 
+  relatedOrderNo?: string;
+  // 保单号
+  policyNo?: string;
+  // 幂等标识。true：幂等结果;false：非幂等结果
+  // 
+  idemFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      claimNo: 'claim_no',
+      relatedOrderNo: 'related_order_no',
+      policyNo: 'policy_no',
+      idemFlag: 'idem_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      claimNo: 'string',
+      relatedOrderNo: 'string',
+      policyNo: 'string',
+      idemFlag: 'boolean',
     };
   }
 
@@ -20747,7 +21081,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.143",
+          sdk_version: "1.6.5",
+          _prod_code: "SHUZIWULIU",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22809,6 +23145,44 @@ export default class Client {
   async notifyInsuranceReportresultEx(request: NotifyInsuranceReportresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInsuranceReportresultResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyInsuranceReportresultResponse>(await this.doRequest("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInsuranceReportresultResponse({}));
+  }
+
+  /**
+   * Description: 不可达项目投保接口
+   * Summary: 跨境退货运费险-不可达项目投保接口
+   */
+  async applyCbrfInsure(request: ApplyCbrfInsureRequest): Promise<ApplyCbrfInsureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyCbrfInsureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 不可达项目投保接口
+   * Summary: 跨境退货运费险-不可达项目投保接口
+   */
+  async applyCbrfInsureEx(request: ApplyCbrfInsureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyCbrfInsureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyCbrfInsureResponse>(await this.doRequest("1.0", "digital.logistic.cbrf.insure.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyCbrfInsureResponse({}));
+  }
+
+  /**
+   * Description: 不可达项目理赔接口
+   * Summary: 跨境退货运费险-不可达项目理赔接口
+   */
+  async repayCbrfClaim(request: RepayCbrfClaimRequest): Promise<RepayCbrfClaimResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.repayCbrfClaimEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 不可达项目理赔接口
+   * Summary: 跨境退货运费险-不可达项目理赔接口
+   */
+  async repayCbrfClaimEx(request: RepayCbrfClaimRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayCbrfClaimResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RepayCbrfClaimResponse>(await this.doRequest("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayCbrfClaimResponse({}));
   }
 
   /**
