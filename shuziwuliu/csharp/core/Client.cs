@@ -137,7 +137,9 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.143"},
+                        {"sdk_version", "1.6.5"},
+                        {"_prod_code", "SHUZIWULIU"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.143"},
+                        {"sdk_version", "1.6.5"},
+                        {"_prod_code", "SHUZIWULIU"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4775,6 +4779,90 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyInsuranceReportresultResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 不可达项目投保接口
+         * Summary: 跨境退货运费险-不可达项目投保接口
+         */
+        public ApplyCbrfInsureResponse ApplyCbrfInsure(ApplyCbrfInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyCbrfInsureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 不可达项目投保接口
+         * Summary: 跨境退货运费险-不可达项目投保接口
+         */
+        public async Task<ApplyCbrfInsureResponse> ApplyCbrfInsureAsync(ApplyCbrfInsureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyCbrfInsureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 不可达项目投保接口
+         * Summary: 跨境退货运费险-不可达项目投保接口
+         */
+        public ApplyCbrfInsureResponse ApplyCbrfInsureEx(ApplyCbrfInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCbrfInsureResponse>(DoRequest("1.0", "digital.logistic.cbrf.insure.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 不可达项目投保接口
+         * Summary: 跨境退货运费险-不可达项目投保接口
+         */
+        public async Task<ApplyCbrfInsureResponse> ApplyCbrfInsureExAsync(ApplyCbrfInsureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCbrfInsureResponse>(await DoRequestAsync("1.0", "digital.logistic.cbrf.insure.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 不可达项目理赔接口
+         * Summary: 跨境退货运费险-不可达项目理赔接口
+         */
+        public RepayCbrfClaimResponse RepayCbrfClaim(RepayCbrfClaimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RepayCbrfClaimEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 不可达项目理赔接口
+         * Summary: 跨境退货运费险-不可达项目理赔接口
+         */
+        public async Task<RepayCbrfClaimResponse> RepayCbrfClaimAsync(RepayCbrfClaimRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RepayCbrfClaimExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 不可达项目理赔接口
+         * Summary: 跨境退货运费险-不可达项目理赔接口
+         */
+        public RepayCbrfClaimResponse RepayCbrfClaimEx(RepayCbrfClaimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RepayCbrfClaimResponse>(DoRequest("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 不可达项目理赔接口
+         * Summary: 跨境退货运费险-不可达项目理赔接口
+         */
+        public async Task<RepayCbrfClaimResponse> RepayCbrfClaimExAsync(RepayCbrfClaimRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RepayCbrfClaimResponse>(await DoRequestAsync("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

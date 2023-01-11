@@ -178,6 +178,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false, MaxLength=100)]
         public string ConsigneeName { get; set; }
 
+        // 询价code
+        [NameInMap("quote_mark")]
+        [Validation(Required=false)]
+        public string QuoteMark { get; set; }
+
     }
 
 }
