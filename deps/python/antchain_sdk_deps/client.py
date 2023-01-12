@@ -5,12 +5,12 @@ import time
 from Tea.exceptions import TeaException, UnretryableException
 from Tea.request import TeaRequest
 from Tea.core import TeaCore
+from antchain_alipay_util.antchain_utils import AntchainUtils
 from typing import Dict
 
 from antchain_sdk_deps import models as deps_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_tea_util import models as util_models
-from antchain_alipay_util.client import Client as AntchainUtilClient
 from alibabacloud_rpc_util.client import Client as RPCUtilClient
 
 
@@ -131,11 +131,13 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.2.2'
+                    'sdk_version': '3.2.40',
+                    '_prod_code': 'deps',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -148,14 +150,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = TeaCore.do_action(_request, _runtime)
                 raw = UtilClient.read_as_string(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -233,11 +235,13 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.2.2'
+                    'sdk_version': '3.2.40',
+                    '_prod_code': 'deps',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -250,14 +254,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = await TeaCore.async_do_action(_request, _runtime)
                 raw = await UtilClient.read_as_string_async(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -306,7 +310,8 @@ class Client:
         Summary: 创建应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.application.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 创建应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 创建应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateApplicationServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.application.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 创建应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateApplicationServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 查询是否启用应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.EnabledApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.EnabledApplicationServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.application.service.enabled', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 查询是否启用应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.EnabledApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.EnabledApplicationServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.service.enabled', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 获取应用
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.application.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 获取应用
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 获取应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.application.service.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 获取应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.service.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 查询应用服务实例列表
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.application.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 查询应用服务实例列表
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 删除一个应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteApplicationServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.application.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 删除一个应用服务实例
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteApplicationServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteApplicationServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 获取应用发布包详情包括下载地址、校验码等。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationPackageResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationPackageResponse(),
             self.do_request('1.0', 'antcloud.deps.application.package.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 获取应用发布包详情包括下载地址、校验码等。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationPackageResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationPackageResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.package.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 查询应用发布包版本详情
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.app.version.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 查询应用发布包版本详情
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.version.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 删除应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.application.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 删除应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 列出应用
         """
         UtilClient.validate_model(request)
-        return deps_models.ListApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.application.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 列出应用
         """
         UtilClient.validate_model(request)
-        return deps_models.ListApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 列出应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppgroupResponse(),
             self.do_request('1.0', 'antcloud.deps.appgroup.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 列出应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppgroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appgroup.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: 查询应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationComputerResponse(),
             self.do_request('1.0', 'antcloud.deps.application.computer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: 查询应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationComputerResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.computer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: 获取一个应用的代码库信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationRepositoryResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationRepositoryResponse(),
             self.do_request('1.0', 'antcloud.deps.application.repository.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1054,8 @@ class Client:
         Summary: 获取一个应用的代码库信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationRepositoryResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationRepositoryResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.repository.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1094,8 @@ class Client:
         Summary: 应用分组查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppgroupResponse(),
             self.do_request('1.0', 'antcloud.deps.appgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1110,8 @@ class Client:
         Summary: 应用分组查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppgroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1150,8 @@ class Client:
         Summary: 查询应用等级
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplevelResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplevelResponse(),
             self.do_request('1.0', 'antcloud.deps.applevel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1166,8 @@ class Client:
         Summary: 查询应用等级
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplevelResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplevelResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.applevel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1206,8 @@ class Client:
         Summary: 查询应用
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.application.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1222,8 @@ class Client:
         Summary: 查询应用
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1227,7 +1265,8 @@ class Client:
         Summary: 创建应用版本
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.app.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1243,7 +1282,8 @@ class Client:
         Summary: 创建应用版本
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1282,7 +1322,8 @@ class Client:
         Summary: 查询应用增量统计信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppDeltaResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppDeltaResponse(),
             self.do_request('1.0', 'antcloud.deps.app.delta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1297,7 +1338,8 @@ class Client:
         Summary: 查询应用增量统计信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppDeltaResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppDeltaResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.delta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1336,7 +1378,8 @@ class Client:
         Summary: loadbalancer查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationLoadbalancerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationLoadbalancerResponse(),
             self.do_request('1.0', 'antcloud.deps.application.loadbalancer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1351,7 +1394,8 @@ class Client:
         Summary: loadbalancer查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationLoadbalancerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationLoadbalancerResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.loadbalancer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1390,7 +1434,8 @@ class Client:
         Summary: database查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationDatabaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationDatabaseResponse(),
             self.do_request('1.0', 'antcloud.deps.application.database.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1405,7 +1450,8 @@ class Client:
         Summary: database查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApplicationDatabaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApplicationDatabaseResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.database.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1444,7 +1490,8 @@ class Client:
         Summary: 获取上传应用发布包临时签名地址
         """
         UtilClient.validate_model(request)
-        return deps_models.UploadApplicationPackageResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UploadApplicationPackageResponse(),
             self.do_request('1.0', 'antcloud.deps.application.package.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1459,7 +1506,8 @@ class Client:
         Summary: 获取上传应用发布包临时签名地址
         """
         UtilClient.validate_model(request)
-        return deps_models.UploadApplicationPackageResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UploadApplicationPackageResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.package.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1510,7 +1558,8 @@ class Client:
         Summary: 同步创建对应的发布包版本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.SyncreateApplicationVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SyncreateApplicationVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.application.version.syncreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1529,7 +1578,8 @@ class Client:
         Summary: 同步创建对应的发布包版本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.SyncreateApplicationVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SyncreateApplicationVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.version.syncreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1568,7 +1618,8 @@ class Client:
         Summary: 获取connection
         """
         UtilClient.validate_model(request)
-        return deps_models.ListCloudconnectorConnectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListCloudconnectorConnectionResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconnector.connection.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1583,8 +1634,121 @@ class Client:
         Summary: 获取connection
         """
         UtilClient.validate_model(request)
-        return deps_models.ListCloudconnectorConnectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListCloudconnectorConnectionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconnector.connection.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_plan(
+        self,
+        request: deps_models.ApplyPlanRequest,
+    ) -> deps_models.ApplyPlanResponse:
+        """
+        Description: 部署单提交审批申请
+        Summary: 部署单提交审批申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_plan_ex(request, headers, runtime)
+
+    async def apply_plan_async(
+        self,
+        request: deps_models.ApplyPlanRequest,
+    ) -> deps_models.ApplyPlanResponse:
+        """
+        Description: 部署单提交审批申请
+        Summary: 部署单提交审批申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_plan_ex_async(request, headers, runtime)
+
+    def apply_plan_ex(
+        self,
+        request: deps_models.ApplyPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.ApplyPlanResponse:
+        """
+        Description: 部署单提交审批申请
+        Summary: 部署单提交审批申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.ApplyPlanResponse(),
+            self.do_request('1.0', 'antcloud.deps.plan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_plan_ex_async(
+        self,
+        request: deps_models.ApplyPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.ApplyPlanResponse:
+        """
+        Description: 部署单提交审批申请
+        Summary: 部署单提交审批申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.ApplyPlanResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.plan.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_optest(
+        self,
+        request: deps_models.GetOptestRequest,
+    ) -> deps_models.GetOptestResponse:
+        """
+        Description: 测试api元数据自动录入
+        Summary: 测试api元数据自动录入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_optest_ex(request, headers, runtime)
+
+    async def get_optest_async(
+        self,
+        request: deps_models.GetOptestRequest,
+    ) -> deps_models.GetOptestResponse:
+        """
+        Description: 测试api元数据自动录入
+        Summary: 测试api元数据自动录入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_optest_ex_async(request, headers, runtime)
+
+    def get_optest_ex(
+        self,
+        request: deps_models.GetOptestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.GetOptestResponse:
+        """
+        Description: 测试api元数据自动录入
+        Summary: 测试api元数据自动录入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.GetOptestResponse(),
+            self.do_request('1.0', 'antcloud.deps.optest.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_optest_ex_async(
+        self,
+        request: deps_models.GetOptestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.GetOptestResponse:
+        """
+        Description: 测试api元数据自动录入
+        Summary: 测试api元数据自动录入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.GetOptestResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.optest.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_appservicebuildpackrelation(
@@ -1622,7 +1786,8 @@ class Client:
         Summary: 查询技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppservicebuildpackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppservicebuildpackrelationResponse(),
             self.do_request('1.0', 'antcloud.deps.appservicebuildpackrelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1637,7 +1802,8 @@ class Client:
         Summary: 查询技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppservicebuildpackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppservicebuildpackrelationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appservicebuildpackrelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1676,7 +1842,8 @@ class Client:
         Summary: 更新应用关系
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppservicebuildpackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppservicebuildpackrelationResponse(),
             self.do_request('1.0', 'antcloud.deps.appservicebuildpackrelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1691,7 +1858,8 @@ class Client:
         Summary: 更新应用关系
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppservicebuildpackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppservicebuildpackrelationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appservicebuildpackrelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1730,7 +1898,8 @@ class Client:
         Summary: 查询环境变量
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamResponse(),
             self.do_request('1.0', 'antcloud.deps.appserviceenvparam.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1745,7 +1914,8 @@ class Client:
         Summary: 查询环境变量
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appserviceenvparam.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1784,7 +1954,8 @@ class Client:
         Summary: 查询环境变量
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamGroupbyappservicesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamGroupbyappservicesResponse(),
             self.do_request('1.0', 'antcloud.deps.appserviceenvparam.groupbyappservices.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1799,7 +1970,8 @@ class Client:
         Summary: 查询环境变量
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamGroupbyappservicesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamGroupbyappservicesResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appserviceenvparam.groupbyappservices.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1838,7 +2010,8 @@ class Client:
         Summary: 和修改点比较查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamQuerywithdiffResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamQuerywithdiffResponse(),
             self.do_request('1.0', 'antcloud.deps.appserviceenvparam.querywithdiff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1853,7 +2026,8 @@ class Client:
         Summary: 和修改点比较查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppserviceenvparamQuerywithdiffResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppserviceenvparamQuerywithdiffResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appserviceenvparam.querywithdiff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1892,7 +2066,8 @@ class Client:
         Summary: 更新参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppserviceenvparamUpdateparamsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppserviceenvparamUpdateparamsResponse(),
             self.do_request('1.0', 'antcloud.deps.appserviceenvparam.updateparams.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1907,7 +2082,8 @@ class Client:
         Summary: 更新参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppserviceenvparamUpdateparamsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppserviceenvparamUpdateparamsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appserviceenvparam.updateparams.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1946,7 +2122,8 @@ class Client:
         Summary: 查询技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApptechstackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApptechstackrelationResponse(),
             self.do_request('1.0', 'antcloud.deps.apptechstackrelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1961,7 +2138,8 @@ class Client:
         Summary: 查询技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryApptechstackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryApptechstackrelationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.apptechstackrelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2000,7 +2178,8 @@ class Client:
         Summary: 更新技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateApptechstackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateApptechstackrelationResponse(),
             self.do_request('1.0', 'antcloud.deps.apptechstackrelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2015,7 +2194,8 @@ class Client:
         Summary: 更新技术栈关系
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateApptechstackrelationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateApptechstackrelationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.apptechstackrelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2054,7 +2234,8 @@ class Client:
         Summary: 应用管理-创建应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2069,7 +2250,8 @@ class Client:
         Summary: 应用管理-创建应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2108,7 +2290,8 @@ class Client:
         Summary: 应用管理-应用分组创建
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2123,7 +2306,8 @@ class Client:
         Summary: 应用管理-应用分组创建
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2162,7 +2346,8 @@ class Client:
         Summary: 应用管理-获取应用基本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2177,7 +2362,8 @@ class Client:
         Summary: 应用管理-获取应用基本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2216,7 +2402,8 @@ class Client:
         Summary: 应用管理-查看应用所有应用服务数量
         """
         UtilClient.validate_model(request)
-        return deps_models.CountAppServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountAppServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.app.service.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2231,7 +2418,8 @@ class Client:
         Summary: 应用管理-查看应用所有应用服务数量
         """
         UtilClient.validate_model(request)
-        return deps_models.CountAppServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountAppServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.service.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2270,7 +2458,8 @@ class Client:
         Summary: (废弃)获取应用所有环境的部署图(经典)
         """
         UtilClient.validate_model(request)
-        return deps_models.AllAppDeployviewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AllAppDeployviewResponse(),
             self.do_request('1.0', 'antcloud.deps.app.deployview.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2285,7 +2474,8 @@ class Client:
         Summary: (废弃)获取应用所有环境的部署图(经典)
         """
         UtilClient.validate_model(request)
-        return deps_models.AllAppDeployviewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AllAppDeployviewResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.deployview.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2324,7 +2514,8 @@ class Client:
         Summary: 应用管理-批量查询应用
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2339,7 +2530,8 @@ class Client:
         Summary: 应用管理-批量查询应用
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2378,7 +2570,8 @@ class Client:
         Summary: 应用管理-获取单个应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2393,7 +2586,8 @@ class Client:
         Summary: 应用管理-获取单个应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2432,7 +2626,8 @@ class Client:
         Summary: 应用管理-批量查询应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2447,7 +2642,8 @@ class Client:
         Summary: 应用管理-批量查询应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2486,7 +2682,8 @@ class Client:
         Summary: 应用管理-查询当前应用的所有应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.app.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2501,7 +2698,8 @@ class Client:
         Summary: 应用管理-查询当前应用的所有应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2540,7 +2738,8 @@ class Client:
         Summary: 应用管理-用户收藏应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppFavouriteResponse(),
             self.do_request('1.0', 'antcloud.deps.app.favourite.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2555,7 +2754,8 @@ class Client:
         Summary: 应用管理-用户收藏应用
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppFavouriteResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.favourite.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2594,7 +2794,8 @@ class Client:
         Summary: 应用管理-用户取消收藏某应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppFavouriteResponse(),
             self.do_request('1.0', 'antcloud.deps.app.favourite.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2609,7 +2810,8 @@ class Client:
         Summary: 应用管理-用户取消收藏某应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppFavouriteResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.favourite.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2648,7 +2850,8 @@ class Client:
         Summary: 应用管理-更新应用信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2663,7 +2866,8 @@ class Client:
         Summary: 应用管理-更新应用信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2702,7 +2906,8 @@ class Client:
         Summary: 应用管理-更新应用分组信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2717,7 +2922,8 @@ class Client:
         Summary: 应用管理-更新应用分组信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2756,7 +2962,8 @@ class Client:
         Summary: 应用管理-列出当前用户收藏的应用
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppFavouriteResponse(),
             self.do_request('1.0', 'antcloud.deps.app.favourite.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2771,7 +2978,8 @@ class Client:
         Summary: 应用管理-列出当前用户收藏的应用
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppFavouriteResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppFavouriteResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.favourite.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2810,7 +3018,8 @@ class Client:
         Summary: 应用管理-删除应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2825,7 +3034,8 @@ class Client:
         Summary: 应用管理-删除应用
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2864,7 +3074,8 @@ class Client:
         Summary: 应用管理-删除应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2879,7 +3090,8 @@ class Client:
         Summary: 应用管理-删除应用分组
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2918,7 +3130,8 @@ class Client:
         Summary: 应用管理-应用维度查询经典应用服务发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.app.plan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2933,7 +3146,8 @@ class Client:
         Summary: 应用管理-应用维度查询经典应用服务发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.plan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2972,7 +3186,8 @@ class Client:
         Summary: 应用管理-判断应用分组是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistAppGroupResponse(),
             self.do_request('1.0', 'antcloud.deps.app.group.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2987,7 +3202,8 @@ class Client:
         Summary: 应用管理-判断应用分组是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistAppGroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistAppGroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.group.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3026,7 +3242,8 @@ class Client:
         Summary: 应用管理-当前登录用户信息查询（已废弃）
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryUserResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryUserResponse(),
             self.do_request('1.0', 'antcloud.deps.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3041,7 +3258,8 @@ class Client:
         Summary: 应用管理-当前登录用户信息查询（已废弃）
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryUserResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryUserResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3080,7 +3298,8 @@ class Client:
         Summary: 应用管理-判断应用是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistAppResponse(),
             self.do_request('1.0', 'antcloud.deps.app.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3095,7 +3314,8 @@ class Client:
         Summary: 应用管理-判断应用是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3134,7 +3354,8 @@ class Client:
         Summary: 查询技术栈信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.application.buildpack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3149,7 +3370,8 @@ class Client:
         Summary: 查询技术栈信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.buildpack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3188,7 +3410,8 @@ class Client:
         Summary: 查询指定应用的技术栈框架信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationTechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationTechstackResponse(),
             self.do_request('1.0', 'antcloud.deps.application.techstack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3203,7 +3426,8 @@ class Client:
         Summary: 查询指定应用的技术栈框架信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetApplicationTechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetApplicationTechstackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.application.techstack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3242,7 +3466,8 @@ class Client:
         Summary: 获取技术栈信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3257,7 +3482,8 @@ class Client:
         Summary: 获取技术栈信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3296,7 +3522,8 @@ class Client:
         Summary: 列出系统支持的所有技术栈框架
         """
         UtilClient.validate_model(request)
-        return deps_models.ListTechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListTechstackResponse(),
             self.do_request('1.0', 'antcloud.deps.techstack.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3311,7 +3538,8 @@ class Client:
         Summary: 列出系统支持的所有技术栈框架
         """
         UtilClient.validate_model(request)
-        return deps_models.ListTechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListTechstackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.techstack.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3350,7 +3578,8 @@ class Client:
         Summary: 搜索技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3365,7 +3594,8 @@ class Client:
         Summary: 搜索技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3404,7 +3634,8 @@ class Client:
         Summary: 创建一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3419,7 +3650,8 @@ class Client:
         Summary: 创建一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3458,7 +3690,8 @@ class Client:
         Summary: 更新技术栈包状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UploadfinishBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UploadfinishBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.uploadfinish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3473,7 +3706,8 @@ class Client:
         Summary: 更新技术栈包状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UploadfinishBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UploadfinishBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.uploadfinish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3512,7 +3746,8 @@ class Client:
         Summary: 发布一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.PublishBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.PublishBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3527,7 +3762,8 @@ class Client:
         Summary: 发布一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.PublishBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.PublishBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3566,7 +3802,8 @@ class Client:
         Summary: 更新一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3581,7 +3818,8 @@ class Client:
         Summary: 更新一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3620,7 +3858,8 @@ class Client:
         Summary: 根据名称查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbynamesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbynamesResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbynames.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3635,7 +3874,8 @@ class Client:
         Summary: 根据名称查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbynamesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbynamesResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbynames.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3674,7 +3914,8 @@ class Client:
         Summary: 计算
         """
         UtilClient.validate_model(request)
-        return deps_models.CountBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3689,7 +3930,8 @@ class Client:
         Summary: 计算
         """
         UtilClient.validate_model(request)
-        return deps_models.CountBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3728,7 +3970,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return deps_models.DeprecateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeprecateBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.deprecate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3743,7 +3986,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return deps_models.DeprecateBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeprecateBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.deprecate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3782,7 +4026,8 @@ class Client:
         Summary: 批量删除
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchdeleteBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchdeleteBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3797,7 +4042,8 @@ class Client:
         Summary: 批量删除
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchdeleteBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchdeleteBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3836,7 +4082,8 @@ class Client:
         Summary: 查询是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3851,7 +4098,8 @@ class Client:
         Summary: 查询是否存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3890,7 +4138,8 @@ class Client:
         Summary: 更新打包状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpackUpdatepackagesstatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpackUpdatepackagesstatusResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.updatepackagesstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3905,7 +4154,8 @@ class Client:
         Summary: 更新打包状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpackUpdatepackagesstatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpackUpdatepackagesstatusResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.updatepackagesstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3944,7 +4194,8 @@ class Client:
         Summary: 查询版本
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindidversionpairsbyversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindidversionpairsbyversionResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findidversionpairsbyversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3959,7 +4210,8 @@ class Client:
         Summary: 查询版本
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindidversionpairsbyversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindidversionpairsbyversionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findidversionpairsbyversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3998,7 +4250,8 @@ class Client:
         Summary: 根据技术栈分组查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackGroupbytechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackGroupbytechstackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.groupbytechstack.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4013,7 +4266,8 @@ class Client:
         Summary: 根据技术栈分组查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackGroupbytechstackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackGroupbytechstackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.groupbytechstack.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4052,7 +4306,8 @@ class Client:
         Summary: 查询可见技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindvisibletechstacksResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindvisibletechstacksResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findvisibletechstacks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4067,7 +4322,8 @@ class Client:
         Summary: 查询可见技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindvisibletechstacksResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindvisibletechstacksResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findvisibletechstacks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4106,7 +4362,8 @@ class Client:
         Summary: 查询可写技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindwritabletechstacksResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindwritabletechstacksResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findwritabletechstacks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4121,7 +4378,8 @@ class Client:
         Summary: 查询可写技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindwritabletechstacksResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindwritabletechstacksResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findwritabletechstacks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4160,7 +4418,8 @@ class Client:
         Summary: 查询os通过当前云
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindosbycurrentcloudResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindosbycurrentcloudResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findosbycurrentcloud.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4175,7 +4434,8 @@ class Client:
         Summary: 查询os通过当前云
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindosbycurrentcloudResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindosbycurrentcloudResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findosbycurrentcloud.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4214,7 +4474,8 @@ class Client:
         Summary: 查询buildpack
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappsvResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappsvResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbyappsv.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4229,7 +4490,8 @@ class Client:
         Summary: 查询buildpack
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappsvResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappsvResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbyappsv.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4268,7 +4530,8 @@ class Client:
         Summary: 通过app查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappsResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbyapps.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4283,7 +4546,8 @@ class Client:
         Summary: 通过app查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbyapps.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4322,7 +4586,8 @@ class Client:
         Summary: 通过app服务查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappservicesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappservicesResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbyappservices.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4337,7 +4602,8 @@ class Client:
         Summary: 通过app服务查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappservicesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappservicesResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbyappservices.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4376,7 +4642,8 @@ class Client:
         Summary: 通过appv1查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappvResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappvResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbyappv.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4391,7 +4658,8 @@ class Client:
         Summary: 通过appv1查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappvResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappvResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbyappv.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4430,7 +4698,8 @@ class Client:
         Summary: 通过app查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findbyapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4445,7 +4714,8 @@ class Client:
         Summary: 通过app查询
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindbyappResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindbyappResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findbyapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4484,7 +4754,8 @@ class Client:
         Summary: 生成url
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpackGeneratesignurlResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpackGeneratesignurlResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.generatesignurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4499,7 +4770,8 @@ class Client:
         Summary: 生成url
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpackGeneratesignurlResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpackGeneratesignurlResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.generatesignurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4538,7 +4810,8 @@ class Client:
         Summary: 查询pagessize
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackSumpackagessizeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackSumpackagessizeResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.sumpackagessize.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4553,7 +4826,8 @@ class Client:
         Summary: 查询pagessize
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackSumpackagessizeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackSumpackagessizeResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.sumpackagessize.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4592,7 +4866,8 @@ class Client:
         Summary: 查询是否supportcode
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackSupportcoderepoResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackSupportcoderepoResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.supportcoderepo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4607,7 +4882,8 @@ class Client:
         Summary: 查询是否supportcode
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackSupportcoderepoResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackSupportcoderepoResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.supportcoderepo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4646,7 +4922,8 @@ class Client:
         Summary: 查询Composite信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindavailablebyappserviceidsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindavailablebyappserviceidsResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.findavailablebyappserviceids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4661,7 +4938,8 @@ class Client:
         Summary: 查询Composite信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpackFindavailablebyappserviceidsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpackFindavailablebyappserviceidsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.findavailablebyappserviceids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4700,7 +4978,8 @@ class Client:
         Summary: pageQuery
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpacknewResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpacknew.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4715,7 +4994,8 @@ class Client:
         Summary: pageQuery
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBuildpacknewResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpacknew.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4754,7 +5034,8 @@ class Client:
         Summary: buildpacknewget
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBuildpacknewResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpacknew.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4769,7 +5050,8 @@ class Client:
         Summary: buildpacknewget
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBuildpacknewResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpacknew.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4808,7 +5090,8 @@ class Client:
         Summary: update
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpacknewUploadfinishResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpacknewUploadfinishResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpacknew.uploadfinish.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4823,7 +5106,8 @@ class Client:
         Summary: update
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpacknewUploadfinishResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpacknewUploadfinishResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpacknew.uploadfinish.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4862,7 +5146,8 @@ class Client:
         Summary: update
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpacknewResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpacknew.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4877,7 +5162,8 @@ class Client:
         Summary: update
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateBuildpacknewResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpacknew.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4916,7 +5202,8 @@ class Client:
         Summary: 创建技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpacknewResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpacknew.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4931,7 +5218,8 @@ class Client:
         Summary: 创建技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateBuildpacknewResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateBuildpacknewResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpacknew.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4970,7 +5258,8 @@ class Client:
         Summary: 发布一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.OnlineBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.OnlineBuildpackResponse(),
             self.do_request('1.0', 'antcloud.deps.buildpack.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4985,7 +5274,8 @@ class Client:
         Summary: 发布一个技术栈
         """
         UtilClient.validate_model(request)
-        return deps_models.OnlineBuildpackResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.OnlineBuildpackResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.buildpack.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5024,7 +5314,8 @@ class Client:
         Summary: 创建一个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5039,7 +5330,8 @@ class Client:
         Summary: 创建一个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5078,7 +5370,8 @@ class Client:
         Summary: 删除一个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5093,7 +5386,8 @@ class Client:
         Summary: 删除一个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5132,7 +5426,8 @@ class Client:
         Summary: 更新指定的全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5147,7 +5442,8 @@ class Client:
         Summary: 更新指定的全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5186,7 +5482,8 @@ class Client:
         Summary: 根据条件查询符合条件的全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5201,7 +5498,8 @@ class Client:
         Summary: 根据条件查询符合条件的全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5240,7 +5538,8 @@ class Client:
         Summary: 获取单个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5255,7 +5554,8 @@ class Client:
         Summary: 获取单个全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5294,7 +5594,8 @@ class Client:
         Summary: 创建一个应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5309,7 +5610,8 @@ class Client:
         Summary: 创建一个应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5348,7 +5650,8 @@ class Client:
         Summary: 删除一个应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5363,7 +5666,8 @@ class Client:
         Summary: 删除一个应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5402,7 +5706,8 @@ class Client:
         Summary: 更新指定的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5417,7 +5722,8 @@ class Client:
         Summary: 更新指定的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5456,7 +5762,8 @@ class Client:
         Summary: 获取指定的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5471,7 +5778,8 @@ class Client:
         Summary: 获取指定的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5510,7 +5818,8 @@ class Client:
         Summary: 查询符合条件的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5525,7 +5834,8 @@ class Client:
         Summary: 查询符合条件的应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5564,7 +5874,8 @@ class Client:
         Summary: 将一个应用参数模板保存为草稿
         """
         UtilClient.validate_model(request)
-        return deps_models.SaveConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SaveConfigTemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.config.template.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5579,7 +5890,8 @@ class Client:
         Summary: 将一个应用参数模板保存为草稿
         """
         UtilClient.validate_model(request)
-        return deps_models.SaveConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SaveConfigTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.template.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5618,7 +5930,8 @@ class Client:
         Summary: 发布一个应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigTemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.config.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5633,7 +5946,8 @@ class Client:
         Summary: 发布一个应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateConfigTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5672,7 +5986,8 @@ class Client:
         Summary: 获取某个应用最新版本的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.PullConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.PullConfigTemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.config.template.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5687,7 +6002,8 @@ class Client:
         Summary: 获取某个应用最新版本的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.PullConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.PullConfigTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.template.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5726,7 +6042,8 @@ class Client:
         Summary: 删除一个应用参数模板草稿
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigTemplatedraftResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigTemplatedraftResponse(),
             self.do_request('1.0', 'antcloud.deps.config.templatedraft.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5741,7 +6058,8 @@ class Client:
         Summary: 删除一个应用参数模板草稿
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteConfigTemplatedraftResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteConfigTemplatedraftResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.templatedraft.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5780,7 +6098,8 @@ class Client:
         Summary: 获取某个指定的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigTemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.config.template.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5795,7 +6114,8 @@ class Client:
         Summary: 获取某个指定的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.template.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5834,7 +6154,8 @@ class Client:
         Summary: 查询符合条件的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigTemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.config.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5849,7 +6170,8 @@ class Client:
         Summary: 查询符合条件的应用参数模板
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryConfigTemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryConfigTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5888,7 +6210,8 @@ class Client:
         Summary: 渲染一个指定的参数列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecConfigParseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecConfigParseResponse(),
             self.do_request('1.0', 'antcloud.deps.config.parse.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5903,7 +6226,8 @@ class Client:
         Summary: 渲染一个指定的参数列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecConfigParseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecConfigParseResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.parse.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5942,7 +6266,8 @@ class Client:
         Summary: 批量创建全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchcreateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchcreateConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5957,7 +6282,8 @@ class Client:
         Summary: 批量创建全局参数
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchcreateConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchcreateConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5996,7 +6322,8 @@ class Client:
         Summary: 批量创建应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchcreateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchcreateConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6011,7 +6338,8 @@ class Client:
         Summary: 批量创建应用参数
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchcreateConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchcreateConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6050,7 +6378,8 @@ class Client:
         Summary: 获取当前租户下的站点管理员视角的树形结构
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigSitetreeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigSitetreeResponse(),
             self.do_request('1.0', 'antcloud.deps.config.sitetree.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6065,7 +6394,8 @@ class Client:
         Summary: 获取当前租户下的站点管理员视角的树形结构
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigSitetreeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigSitetreeResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.sitetree.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6104,7 +6434,8 @@ class Client:
         Summary: 获取当前租户下的租户管理员视角的树形结构
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigTenanttreeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigTenanttreeResponse(),
             self.do_request('1.0', 'antcloud.deps.config.tenanttree.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6119,7 +6450,8 @@ class Client:
         Summary: 获取当前租户下的租户管理员视角的树形结构
         """
         UtilClient.validate_model(request)
-        return deps_models.GetConfigTenanttreeResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetConfigTenanttreeResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.tenanttree.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6158,7 +6490,8 @@ class Client:
         Summary: 检查应用参数是否已存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistConfigAppResponse(),
             self.do_request('1.0', 'antcloud.deps.config.app.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6173,7 +6506,8 @@ class Client:
         Summary: 检查应用参数是否已存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistConfigAppResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistConfigAppResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.app.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6212,7 +6546,8 @@ class Client:
         Summary: 检查全局参数是否已存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistConfigGlobalResponse(),
             self.do_request('1.0', 'antcloud.deps.config.global.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6227,7 +6562,8 @@ class Client:
         Summary: 检查全局参数是否已存在
         """
         UtilClient.validate_model(request)
-        return deps_models.ExistConfigGlobalResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExistConfigGlobalResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.config.global.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6266,7 +6602,8 @@ class Client:
         Summary: 列出指定租户下所有环境
         """
         UtilClient.validate_model(request)
-        return deps_models.ListWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6281,7 +6618,8 @@ class Client:
         Summary: 列出指定租户下所有环境
         """
         UtilClient.validate_model(request)
-        return deps_models.ListWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6320,7 +6658,8 @@ class Client:
         Summary: 查询指定环境信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6335,7 +6674,8 @@ class Client:
         Summary: 查询指定环境信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6374,7 +6714,8 @@ class Client:
         Summary: 查询部署单元列表
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCellResponse(),
             self.do_request('1.0', 'antcloud.deps.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6389,7 +6730,8 @@ class Client:
         Summary: 查询部署单元列表
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6428,7 +6770,8 @@ class Client:
         Summary: 查询环境增量统计信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspaceDeltaResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspaceDeltaResponse(),
             self.do_request('1.0', 'antcloud.deps.workspace.delta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6443,7 +6786,8 @@ class Client:
         Summary: 查询环境增量统计信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspaceDeltaResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspaceDeltaResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspace.delta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6482,7 +6826,8 @@ class Client:
         Summary: 创建工作空间组
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6497,7 +6842,8 @@ class Client:
         Summary: 创建工作空间组
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6536,7 +6882,8 @@ class Client:
         Summary: 查询环境组详细信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6551,7 +6898,8 @@ class Client:
         Summary: 查询环境组详细信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6590,7 +6938,8 @@ class Client:
         Summary: 删除指定工作空间组。
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6605,7 +6954,8 @@ class Client:
         Summary: 删除指定工作空间组。
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6644,7 +6994,8 @@ class Client:
         Summary: 查询workspace信息(V2)。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSingleworkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.singleworkspace.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6659,7 +7010,8 @@ class Client:
         Summary: 查询workspace信息(V2)。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSingleworkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.singleworkspace.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6698,7 +7050,8 @@ class Client:
         Summary: 查询指定环境信息。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSingleworkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSingleworkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.singleworkspacegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6713,7 +7066,8 @@ class Client:
         Summary: 查询指定环境信息。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSingleworkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSingleworkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.singleworkspacegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6752,7 +7106,8 @@ class Client:
         Summary: 查询部署单元列表。
         """
         UtilClient.validate_model(request)
-        return deps_models.ListCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListCellResponse(),
             self.do_request('1.0', 'antcloud.deps.cell.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6767,7 +7122,8 @@ class Client:
         Summary: 查询部署单元列表。
         """
         UtilClient.validate_model(request)
-        return deps_models.ListCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cell.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6806,7 +7162,8 @@ class Client:
         Summary: 创建workspace信息(V2)
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSingleworkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.singleworkspace.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6821,7 +7178,8 @@ class Client:
         Summary: 创建workspace信息(V2)
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSingleworkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.singleworkspace.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6860,7 +7218,8 @@ class Client:
         Summary: 删除workspace信息(V2)
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSingleworkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.singleworkspace.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6875,7 +7234,8 @@ class Client:
         Summary: 删除workspace信息(V2)
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSingleworkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.singleworkspace.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6914,7 +7274,8 @@ class Client:
         Summary: 创建专有网络vpc
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateVpcResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateVpcResponse(),
             self.do_request('1.0', 'antcloud.deps.vpc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6929,7 +7290,8 @@ class Client:
         Summary: 创建专有网络vpc
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateVpcResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateVpcResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.vpc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6968,7 +7330,8 @@ class Client:
         Summary: 更新workspacegroup。
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateWorkspacegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.workspacegroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6983,7 +7346,8 @@ class Client:
         Summary: 更新workspacegroup。
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateWorkspacegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateWorkspacegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspacegroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7022,7 +7386,8 @@ class Client:
         Summary: update workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSingleworkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.singleworkspace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7037,7 +7402,8 @@ class Client:
         Summary: update workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSingleworkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSingleworkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.singleworkspace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7076,7 +7442,8 @@ class Client:
         Summary: list regions
         """
         UtilClient.validate_model(request)
-        return deps_models.ListRegionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListRegionResponse(),
             self.do_request('1.0', 'antcloud.deps.region.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7091,7 +7458,8 @@ class Client:
         Summary: list regions
         """
         UtilClient.validate_model(request)
-        return deps_models.ListRegionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListRegionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.region.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7130,7 +7498,8 @@ class Client:
         Summary: zone list
         """
         UtilClient.validate_model(request)
-        return deps_models.ListZoneResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListZoneResponse(),
             self.do_request('1.0', 'antcloud.deps.zone.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7145,7 +7514,8 @@ class Client:
         Summary: zone list
         """
         UtilClient.validate_model(request)
-        return deps_models.ListZoneResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListZoneResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.zone.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7184,7 +7554,8 @@ class Client:
         Summary: 创建逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateCellgroupResponse(),
             self.do_request('1.0', 'antcloud.deps.cellgroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7199,7 +7570,8 @@ class Client:
         Summary: 创建逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateCellgroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cellgroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7238,7 +7610,8 @@ class Client:
         Summary: 删除逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteCellgroupResponse(),
             self.do_request('1.0', 'antcloud.deps.cellgroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7253,7 +7626,8 @@ class Client:
         Summary: 删除逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteCellgroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cellgroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7292,7 +7666,8 @@ class Client:
         Summary: 查询逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCellgroupResponse(),
             self.do_request('1.0', 'antcloud.deps.cellgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7307,7 +7682,8 @@ class Client:
         Summary: 查询逻辑单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCellgroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCellgroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cellgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7346,7 +7722,8 @@ class Client:
         Summary: 配置逻辑单元灾备信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateCellgroupDisasterinfoResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateCellgroupDisasterinfoResponse(),
             self.do_request('1.0', 'antcloud.deps.cellgroup.disasterinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7361,7 +7738,8 @@ class Client:
         Summary: 配置逻辑单元灾备信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateCellgroupDisasterinfoResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateCellgroupDisasterinfoResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cellgroup.disasterinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7400,7 +7778,8 @@ class Client:
         Summary: 创建部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateDeploymentCellResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.cell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7415,7 +7794,8 @@ class Client:
         Summary: 创建部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateDeploymentCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.cell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7454,7 +7834,8 @@ class Client:
         Summary: 删除部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteDeploymentCellResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.cell.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7469,7 +7850,8 @@ class Client:
         Summary: 删除部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteDeploymentCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.cell.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7508,7 +7890,8 @@ class Client:
         Summary: 查询部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryDeploymentCellResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7523,7 +7906,8 @@ class Client:
         Summary: 查询部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryDeploymentCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7562,7 +7946,8 @@ class Client:
         Summary: 更新部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateDeploymentCellResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.cell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7577,7 +7962,8 @@ class Client:
         Summary: 更新部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateDeploymentCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateDeploymentCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.cell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7616,7 +8002,8 @@ class Client:
         Summary: 批量查询部署单基础信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7631,7 +8018,8 @@ class Client:
         Summary: 批量查询部署单基础信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7679,7 +8067,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7697,7 +8086,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7745,7 +8135,8 @@ class Client:
         Summary: 创建发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7763,7 +8154,8 @@ class Client:
         Summary: 创建发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7802,7 +8194,8 @@ class Client:
         Summary: 获取部署
         """
         UtilClient.validate_model(request)
-        return deps_models.GetDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7817,7 +8210,8 @@ class Client:
         Summary: 获取部署
         """
         UtilClient.validate_model(request)
-        return deps_models.GetDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7862,7 +8256,8 @@ class Client:
         Summary: 重试部署
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7879,7 +8274,8 @@ class Client:
         Summary: 重试部署
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7918,7 +8314,8 @@ class Client:
         Summary: 开始部署
         """
         UtilClient.validate_model(request)
-        return deps_models.StartDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7933,7 +8330,8 @@ class Client:
         Summary: 开始部署
         """
         UtilClient.validate_model(request)
-        return deps_models.StartDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7972,7 +8370,8 @@ class Client:
         Summary: 获取部署应用（服务）
         """
         UtilClient.validate_model(request)
-        return deps_models.GetDeploymentApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetDeploymentApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.application.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7987,7 +8386,8 @@ class Client:
         Summary: 获取部署应用（服务）
         """
         UtilClient.validate_model(request)
-        return deps_models.GetDeploymentApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetDeploymentApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.application.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8038,7 +8438,8 @@ class Client:
         Summary: 回滚部署
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackDeploymentApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackDeploymentApplicationResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.application.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8057,7 +8458,8 @@ class Client:
         Summary: 回滚部署
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackDeploymentApplicationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackDeploymentApplicationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.application.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8096,7 +8498,8 @@ class Client:
         Summary: 重新初始化部署
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitDeploymentResponse(),
             self.do_request('1.0', 'antcloud.deps.deployment.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8111,7 +8514,8 @@ class Client:
         Summary: 重新初始化部署
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitDeploymentResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.deployment.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8150,7 +8554,8 @@ class Client:
         Summary: 查询指令模板
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCmdtemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.cmdtemplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8165,7 +8570,8 @@ class Client:
         Summary: 查询指令模板
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCmdtemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8204,7 +8610,8 @@ class Client:
         Summary: 获取指令模板详情。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetCmdtemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetCmdtemplateResponse(),
             self.do_request('1.0', 'antcloud.deps.cmdtemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8219,7 +8626,8 @@ class Client:
         Summary: 获取指令模板详情。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetCmdtemplateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetCmdtemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8258,7 +8666,8 @@ class Client:
         Summary: 同步执行指令。
         """
         UtilClient.validate_model(request)
-        return deps_models.SyncexecuteCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SyncexecuteCmdTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.cmd.task.syncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8273,7 +8682,8 @@ class Client:
         Summary: 同步执行指令。
         """
         UtilClient.validate_model(request)
-        return deps_models.SyncexecuteCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SyncexecuteCmdTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cmd.task.syncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8312,7 +8722,8 @@ class Client:
         Summary: 异步执行指令。
         """
         UtilClient.validate_model(request)
-        return deps_models.AsyncexecuteCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AsyncexecuteCmdTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.cmd.task.asyncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8327,7 +8738,8 @@ class Client:
         Summary: 异步执行指令。
         """
         UtilClient.validate_model(request)
-        return deps_models.AsyncexecuteCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AsyncexecuteCmdTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cmd.task.asyncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8366,7 +8778,8 @@ class Client:
         Summary: 查询执行指令任务结果。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetCmdTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.cmd.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8381,7 +8794,8 @@ class Client:
         Summary: 查询执行指令任务结果。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetCmdTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetCmdTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cmd.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8420,7 +8834,8 @@ class Client:
         Summary: 创建一个应用（服务）运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8435,7 +8850,8 @@ class Client:
         Summary: 创建一个应用（服务）运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8474,7 +8890,8 @@ class Client:
         Summary: 获取运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8489,7 +8906,8 @@ class Client:
         Summary: 获取运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.GetAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8528,7 +8946,8 @@ class Client:
         Summary: 开始运维
         """
         UtilClient.validate_model(request)
-        return deps_models.StartAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8543,7 +8962,8 @@ class Client:
         Summary: 开始运维
         """
         UtilClient.validate_model(request)
-        return deps_models.StartAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8582,7 +9002,8 @@ class Client:
         Summary: 重新初始化运维
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8597,7 +9018,8 @@ class Client:
         Summary: 重新初始化运维
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8645,7 +9067,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8663,7 +9086,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8708,7 +9132,8 @@ class Client:
         Summary: 重试运维
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryAppopsResponse(),
             self.do_request('1.0', 'antcloud.deps.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8725,7 +9150,8 @@ class Client:
         Summary: 重试运维
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryAppopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryAppopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8764,7 +9190,8 @@ class Client:
         Summary: 创建一个机器运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8779,7 +9206,8 @@ class Client:
         Summary: 创建一个机器运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8818,7 +9246,8 @@ class Client:
         Summary: 获取运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.GetComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8833,7 +9262,8 @@ class Client:
         Summary: 获取运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.GetComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8872,7 +9302,8 @@ class Client:
         Summary: 开始运维
         """
         UtilClient.validate_model(request)
-        return deps_models.StartComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8887,7 +9318,8 @@ class Client:
         Summary: 开始运维
         """
         UtilClient.validate_model(request)
-        return deps_models.StartComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8926,7 +9358,8 @@ class Client:
         Summary: 重新初始化运维
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8941,7 +9374,8 @@ class Client:
         Summary: 重新初始化运维
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8989,7 +9423,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9007,7 +9442,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9052,7 +9488,8 @@ class Client:
         Summary: 重试运维
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryComputeropsResponse(),
             self.do_request('1.0', 'antcloud.deps.computerops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9069,7 +9506,8 @@ class Client:
         Summary: 重试运维
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryComputeropsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryComputeropsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computerops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9108,7 +9546,8 @@ class Client:
         Summary: 查询应用服务的运维历史。
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOpsappsvcResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOpsappsvcResponse(),
             self.do_request('1.0', 'antcloud.deps.opsappsvc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9123,7 +9562,8 @@ class Client:
         Summary: 查询应用服务的运维历史。
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOpsappsvcResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOpsappsvcResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.opsappsvc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9162,7 +9602,8 @@ class Client:
         Summary: 异步执行Bash命令。
         """
         UtilClient.validate_model(request)
-        return deps_models.AsyncexecuteBashcmdResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AsyncexecuteBashcmdResponse(),
             self.do_request('1.0', 'antcloud.deps.bashcmd.asyncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9177,7 +9618,8 @@ class Client:
         Summary: 异步执行Bash命令。
         """
         UtilClient.validate_model(request)
-        return deps_models.AsyncexecuteBashcmdResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AsyncexecuteBashcmdResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bashcmd.asyncexecute', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9216,7 +9658,8 @@ class Client:
         Summary: 根据异步执行bash命令的任务ID查询结果。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBashcmdResultResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBashcmdResultResponse(),
             self.do_request('1.0', 'antcloud.deps.bashcmd.result.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9231,7 +9674,8 @@ class Client:
         Summary: 根据异步执行bash命令的任务ID查询结果。
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBashcmdResultResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBashcmdResultResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bashcmd.result.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9270,7 +9714,8 @@ class Client:
         Summary: 查询当前环境是否已开通蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigBgreleaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigBgreleaseResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.bgrelease.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9285,7 +9730,8 @@ class Client:
         Summary: 查询当前环境是否已开通蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigBgreleaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigBgreleaseResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.bgrelease.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9324,7 +9770,8 @@ class Client:
         Summary: 查询是否已开通蓝绿发布部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigBgdeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigBgdeploymentcellResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.bgdeploymentcell.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9339,7 +9786,8 @@ class Client:
         Summary: 查询是否已开通蓝绿发布部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigBgdeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigBgdeploymentcellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.bgdeploymentcell.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9378,7 +9826,8 @@ class Client:
         Summary: 查询是否已开通应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigAppserviceResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.appservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9393,7 +9842,8 @@ class Client:
         Summary: 查询是否已开通应用服务
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigAppserviceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.appservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9432,7 +9882,8 @@ class Client:
         Summary: 查询是否已开通共享中间件
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigSharedmwResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigSharedmwResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.sharedmw.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9447,7 +9898,8 @@ class Client:
         Summary: 查询是否已开通共享中间件
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigSharedmwResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigSharedmwResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.sharedmw.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9486,7 +9938,8 @@ class Client:
         Summary: 查询是否使用 v1 发布策略
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigVonereleaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigVonereleaseResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.vonerelease.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9501,7 +9954,8 @@ class Client:
         Summary: 查询是否使用 v1 发布策略
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigVonereleaseResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigVonereleaseResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.vonerelease.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9540,7 +9994,8 @@ class Client:
         Summary: 查询是否使用 v1 应用运维策略
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigVoneappopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigVoneappopsResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.voneappops.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9555,7 +10010,8 @@ class Client:
         Summary: 查询是否使用 v1 应用运维策略
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigVoneappopsResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigVoneappopsResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.voneappops.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9594,7 +10050,8 @@ class Client:
         Summary: 查询是否使用老版本界面
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigOlduiResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigOlduiResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.oldui.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9609,7 +10066,8 @@ class Client:
         Summary: 查询是否使用老版本界面
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigOlduiResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigOlduiResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.oldui.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9648,7 +10106,8 @@ class Client:
         Summary: 是否禁用 XDC LB
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigXdclbforbiddenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigXdclbforbiddenResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.xdclbforbidden.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9663,7 +10122,8 @@ class Client:
         Summary: 是否禁用 XDC LB
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckCloudconfigXdclbforbiddenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckCloudconfigXdclbforbiddenResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.xdclbforbidden.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9702,7 +10162,8 @@ class Client:
         Summary: 查询 openapi 配置信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCloudconfigOpenapiconfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCloudconfigOpenapiconfigResponse(),
             self.do_request('1.0', 'antcloud.deps.cloudconfig.openapiconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9717,7 +10178,8 @@ class Client:
         Summary: 查询 openapi 配置信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryCloudconfigOpenapiconfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryCloudconfigOpenapiconfigResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.cloudconfig.openapiconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9756,7 +10218,8 @@ class Client:
         Summary: 查询应用包个数
         """
         UtilClient.validate_model(request)
-        return deps_models.CountAppsPkgResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountAppsPkgResponse(),
             self.do_request('1.0', 'antcloud.deps.apps.pkg.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9771,7 +10234,8 @@ class Client:
         Summary: 查询应用包个数
         """
         UtilClient.validate_model(request)
-        return deps_models.CountAppsPkgResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountAppsPkgResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.apps.pkg.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9810,7 +10274,8 @@ class Client:
         Summary: 查询app下的资源统计
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppUnitresourcesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppUnitresourcesResponse(),
             self.do_request('1.0', 'antcloud.deps.app.unitresources.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9825,7 +10290,8 @@ class Client:
         Summary: 查询app下的资源统计
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryAppUnitresourcesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryAppUnitresourcesResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.app.unitresources.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9864,7 +10330,8 @@ class Client:
         Summary: 查询认证 token
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOauthTokenResponse(),
             self.do_request('1.0', 'antcloud.deps.oauth.token.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9879,7 +10346,8 @@ class Client:
         Summary: 查询认证 token
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOauthTokenResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.oauth.token.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9918,7 +10386,8 @@ class Client:
         Summary: 创建或更新 token
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateOauthTokenResponse(),
             self.do_request('1.0', 'antcloud.deps.oauth.token.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9933,7 +10402,8 @@ class Client:
         Summary: 创建或更新 token
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateOauthTokenResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.oauth.token.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9972,7 +10442,8 @@ class Client:
         Summary: 删除 token
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteOauthTokenResponse(),
             self.do_request('1.0', 'antcloud.deps.oauth.token.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9987,7 +10458,8 @@ class Client:
         Summary: 删除 token
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteOauthTokenResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteOauthTokenResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.oauth.token.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10026,7 +10498,8 @@ class Client:
         Summary: 查询 DZ
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBaseinfoDeploymentzonesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBaseinfoDeploymentzonesResponse(),
             self.do_request('1.0', 'antcloud.deps.baseinfo.deploymentzones.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10041,7 +10514,8 @@ class Client:
         Summary: 查询 DZ
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBaseinfoDeploymentzonesResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBaseinfoDeploymentzonesResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.baseinfo.deploymentzones.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10080,7 +10554,8 @@ class Client:
         Summary: 获取蓝绿发布概览
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10095,7 +10570,8 @@ class Client:
         Summary: 获取蓝绿发布概览
         """
         UtilClient.validate_model(request)
-        return deps_models.GetBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10134,7 +10610,8 @@ class Client:
         Summary: 查询蓝绿发布概览
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10149,7 +10626,8 @@ class Client:
         Summary: 查询蓝绿发布概览
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10188,7 +10666,8 @@ class Client:
         Summary: 查询蓝绿发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseArrangementprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseArrangementprogressResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangementprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10203,7 +10682,8 @@ class Client:
         Summary: 查询蓝绿发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseArrangementprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseArrangementprogressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangementprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10242,7 +10722,8 @@ class Client:
         Summary: 查询蓝绿发布任务进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseTaskprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseTaskprogressResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.taskprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10257,7 +10738,8 @@ class Client:
         Summary: 查询蓝绿发布任务进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseTaskprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseTaskprogressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.taskprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10296,7 +10778,8 @@ class Client:
         Summary: 执行蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10311,7 +10794,8 @@ class Client:
         Summary: 执行蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10350,7 +10834,8 @@ class Client:
         Summary: 验证确认蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10365,7 +10850,8 @@ class Client:
         Summary: 验证确认蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10404,7 +10890,8 @@ class Client:
         Summary: 蓝绿验证确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmBgreleaseArrangementvalidationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmBgreleaseArrangementvalidationResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangementvalidation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10419,7 +10906,8 @@ class Client:
         Summary: 蓝绿验证确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmBgreleaseArrangementvalidationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmBgreleaseArrangementvalidationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangementvalidation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10458,7 +10946,8 @@ class Client:
         Summary: 重试蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10473,7 +10962,8 @@ class Client:
         Summary: 重试蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10512,7 +11002,8 @@ class Client:
         Summary: 重试蓝绿发布任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryBgreleaseTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryBgreleaseTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10527,7 +11018,8 @@ class Client:
         Summary: 重试蓝绿发布任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryBgreleaseTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryBgreleaseTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10566,7 +11058,8 @@ class Client:
         Summary: 跳过蓝绿发布任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipBgreleaseTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipBgreleaseTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10581,7 +11074,8 @@ class Client:
         Summary: 跳过蓝绿发布任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipBgreleaseTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipBgreleaseTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10620,7 +11114,8 @@ class Client:
         Summary: 跳过蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10635,7 +11130,8 @@ class Client:
         Summary: 跳过蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10674,7 +11170,8 @@ class Client:
         Summary: 取消蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10689,7 +11186,8 @@ class Client:
         Summary: 取消蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10728,7 +11226,8 @@ class Client:
         Summary: 回滚蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10743,7 +11242,8 @@ class Client:
         Summary: 回滚蓝绿发布
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10782,7 +11282,8 @@ class Client:
         Summary: 蓝绿发布回滚重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryrollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryrollbackBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.retryrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10797,7 +11298,8 @@ class Client:
         Summary: 蓝绿发布回滚重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryrollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryrollbackBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.retryrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10836,7 +11338,8 @@ class Client:
         Summary: 蓝绿发布回滚确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmrollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmrollbackBgreleaseArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.arrangement.confirmrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10851,7 +11354,8 @@ class Client:
         Summary: 蓝绿发布回滚确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmrollbackBgreleaseArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmrollbackBgreleaseArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.arrangement.confirmrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10890,7 +11394,8 @@ class Client:
         Summary: 蓝绿发布灰度流量迁移
         """
         UtilClient.validate_model(request)
-        return deps_models.SwitchBgreleaseGraytrafficResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SwitchBgreleaseGraytrafficResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.graytraffic.switch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10905,7 +11410,8 @@ class Client:
         Summary: 蓝绿发布灰度流量迁移
         """
         UtilClient.validate_model(request)
-        return deps_models.SwitchBgreleaseGraytrafficResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SwitchBgreleaseGraytrafficResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.graytraffic.switch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10944,7 +11450,8 @@ class Client:
         Summary: 蓝绿发布灰度流量回滚
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackBgreleaseGraytrafficResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackBgreleaseGraytrafficResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.graytraffic.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10959,7 +11466,8 @@ class Client:
         Summary: 蓝绿发布灰度流量回滚
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackBgreleaseGraytrafficResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackBgreleaseGraytrafficResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.graytraffic.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10998,7 +11506,8 @@ class Client:
         Summary: 查询灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseGrayprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseGrayprogressResponse(),
             self.do_request('1.0', 'antcloud.deps.bgrelease.grayprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11013,7 +11522,8 @@ class Client:
         Summary: 查询灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryBgreleaseGrayprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryBgreleaseGrayprogressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.bgrelease.grayprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11052,7 +11562,8 @@ class Client:
         Summary: 获取灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetGrayProcessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetGrayProcessResponse(),
             self.do_request('1.0', 'antcloud.deps.gray.process.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11067,7 +11578,8 @@ class Client:
         Summary: 获取灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetGrayProcessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetGrayProcessResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.gray.process.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11106,7 +11618,8 @@ class Client:
         Summary: 查询灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryGrayProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryGrayProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.gray.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11121,7 +11634,8 @@ class Client:
         Summary: 查询灰度引流进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryGrayProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryGrayProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.gray.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11160,7 +11674,8 @@ class Client:
         Summary: 重新初始化灰度发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitGrayProcessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitGrayProcessResponse(),
             self.do_request('1.0', 'antcloud.deps.gray.process.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11175,7 +11690,8 @@ class Client:
         Summary: 重新初始化灰度发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitGrayProcessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitGrayProcessResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.gray.process.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11214,7 +11730,8 @@ class Client:
         Summary: 重试灰度发布子任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryGrayTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryGrayTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.gray.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11229,7 +11746,8 @@ class Client:
         Summary: 重试灰度发布子任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryGrayTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryGrayTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.gray.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11268,7 +11786,8 @@ class Client:
         Summary: 跳过灰度发布子任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipGrayTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipGrayTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.gray.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11283,7 +11802,8 @@ class Client:
         Summary: 跳过灰度发布子任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipGrayTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipGrayTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.gray.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11322,7 +11842,8 @@ class Client:
         Summary: 查询发布机器信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11337,7 +11858,8 @@ class Client:
         Summary: 查询发布机器信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11376,7 +11898,8 @@ class Client:
         Summary: 获取发布机器信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11391,7 +11914,8 @@ class Client:
         Summary: 获取发布机器信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11430,7 +11954,8 @@ class Client:
         Summary: 查询机器发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachineProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachineProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11445,7 +11970,8 @@ class Client:
         Summary: 查询机器发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachineProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachineProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11484,7 +12010,8 @@ class Client:
         Summary: 重试发布机器
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11499,7 +12026,8 @@ class Client:
         Summary: 重试发布机器
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11538,7 +12066,8 @@ class Client:
         Summary: 忽略机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11553,7 +12082,8 @@ class Client:
         Summary: 忽略机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11592,7 +12122,8 @@ class Client:
         Summary: 取消机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11607,7 +12138,8 @@ class Client:
         Summary: 取消机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11646,7 +12178,8 @@ class Client:
         Summary: 触发执行机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecMachineResponse(),
             self.do_request('1.0', 'antcloud.deps.machine.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11661,7 +12194,8 @@ class Client:
         Summary: 触发执行机器发布
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecMachineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecMachineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machine.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11700,7 +12234,8 @@ class Client:
         Summary: 查询机器分组发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11715,7 +12250,8 @@ class Client:
         Summary: 查询机器分组发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11754,7 +12290,8 @@ class Client:
         Summary: 重试机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11769,7 +12306,8 @@ class Client:
         Summary: 重试机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11808,7 +12346,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11823,7 +12362,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11862,7 +12402,8 @@ class Client:
         Summary: 分组取消
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11877,7 +12418,8 @@ class Client:
         Summary: 分组取消
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11916,7 +12458,8 @@ class Client:
         Summary: 分组删除
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11931,7 +12474,8 @@ class Client:
         Summary: 分组删除
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11970,7 +12514,8 @@ class Client:
         Summary: 更新分组
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11985,7 +12530,8 @@ class Client:
         Summary: 更新分组
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12024,7 +12570,8 @@ class Client:
         Summary: 机器分组确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12039,7 +12586,8 @@ class Client:
         Summary: 机器分组确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12078,7 +12626,8 @@ class Client:
         Summary: 机器分组进度批量查询
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchqueryMachinegroupProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchqueryMachinegroupProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.progress.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12093,7 +12642,8 @@ class Client:
         Summary: 机器分组进度批量查询
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchqueryMachinegroupProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchqueryMachinegroupProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.progress.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12132,7 +12682,8 @@ class Client:
         Summary: 分区预确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmMachinegroupReserveResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmMachinegroupReserveResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.reserve.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12147,7 +12698,8 @@ class Client:
         Summary: 分区预确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmMachinegroupReserveResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmMachinegroupReserveResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.reserve.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12186,7 +12738,8 @@ class Client:
         Summary: 修改分组 SLB 权重
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMachinegroupSlbmountweightResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMachinegroupSlbmountweightResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.slbmountweight.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12201,7 +12754,8 @@ class Client:
         Summary: 修改分组 SLB 权重
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMachinegroupSlbmountweightResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMachinegroupSlbmountweightResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.slbmountweight.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12240,7 +12794,8 @@ class Client:
         Summary: 查询分组 SLB 挂载进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupSlbmountprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupSlbmountprogressResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.slbmountprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12255,7 +12810,8 @@ class Client:
         Summary: 查询分组 SLB 挂载进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupSlbmountprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupSlbmountprogressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.slbmountprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12294,7 +12850,8 @@ class Client:
         Summary: 查询 slb 挂载状态
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupSlbmountResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.slbmount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12309,7 +12866,8 @@ class Client:
         Summary: 查询 slb 挂载状态
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMachinegroupSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMachinegroupSlbmountResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.slbmount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12348,7 +12906,8 @@ class Client:
         Summary: 获取分组信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.machinegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12363,7 +12922,8 @@ class Client:
         Summary: 获取分组信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinegroup.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12402,7 +12962,8 @@ class Client:
         Summary: 忽略分组任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachinetaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachinetaskResponse(),
             self.do_request('1.0', 'antcloud.deps.machinetask.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12417,7 +12978,8 @@ class Client:
         Summary: 忽略分组任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipMachinetaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipMachinetaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinetask.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12456,7 +13018,8 @@ class Client:
         Summary: 机器任务重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachinetaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachinetaskResponse(),
             self.do_request('1.0', 'antcloud.deps.machinetask.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12471,7 +13034,8 @@ class Client:
         Summary: 机器任务重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryMachinetaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryMachinetaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.machinetask.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12510,7 +13074,8 @@ class Client:
         Summary: 查询部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMetaCellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12525,7 +13090,8 @@ class Client:
         Summary: 查询部署单元
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMetaCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.cell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12564,7 +13130,8 @@ class Client:
         Summary: 创建 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateMetaDeploymentcellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.deploymentcell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12579,7 +13146,8 @@ class Client:
         Summary: 创建 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateMetaDeploymentcellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.deploymentcell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12618,7 +13186,8 @@ class Client:
         Summary: 更新 deployment zone
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMetaDeploymentcellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.deploymentcell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12633,7 +13202,8 @@ class Client:
         Summary: 更新 deployment zone
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMetaDeploymentcellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.deploymentcell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12672,7 +13242,8 @@ class Client:
         Summary: 获取 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMetaDeploymentcellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.deploymentcell.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12687,7 +13258,8 @@ class Client:
         Summary: 获取 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.GetMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetMetaDeploymentcellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.deploymentcell.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12726,7 +13298,8 @@ class Client:
         Summary: 批量获取 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMetaDeploymentcellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.deploymentcell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12741,7 +13314,8 @@ class Client:
         Summary: 批量获取 deployment cell
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryMetaDeploymentcellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryMetaDeploymentcellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.deploymentcell.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12780,7 +13354,8 @@ class Client:
         Summary: 创建通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateNotificationConfigResponse(),
             self.do_request('1.0', 'antcloud.deps.notification.config.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12795,7 +13370,8 @@ class Client:
         Summary: 创建通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateNotificationConfigResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.notification.config.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12834,7 +13410,8 @@ class Client:
         Summary: 更新通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateNotificationConfigResponse(),
             self.do_request('1.0', 'antcloud.deps.notification.config.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12849,7 +13426,8 @@ class Client:
         Summary: 更新通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateNotificationConfigResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.notification.config.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12888,7 +13466,8 @@ class Client:
         Summary: 查询通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryNotificationConfigResponse(),
             self.do_request('1.0', 'antcloud.deps.notification.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12903,7 +13482,8 @@ class Client:
         Summary: 查询通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryNotificationConfigResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.notification.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12942,7 +13522,8 @@ class Client:
         Summary: 删除通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteNotificationConfigResponse(),
             self.do_request('1.0', 'antcloud.deps.notification.config.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12957,7 +13538,8 @@ class Client:
         Summary: 删除通知配置
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteNotificationConfigResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteNotificationConfigResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.notification.config.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12996,7 +13578,8 @@ class Client:
         Summary: 查询用户信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperatorResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperatorResponse(),
             self.do_request('1.0', 'antcloud.deps.operator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13011,7 +13594,8 @@ class Client:
         Summary: 查询用户信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperatorResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperatorResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.operator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13050,7 +13634,8 @@ class Client:
         Summary: 回滚
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackPlanServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackPlanServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.service.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13065,7 +13650,8 @@ class Client:
         Summary: 回滚
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackPlanServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackPlanServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.service.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13104,7 +13690,8 @@ class Client:
         Summary: 创建发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13119,7 +13706,8 @@ class Client:
         Summary: 创建发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13158,7 +13746,8 @@ class Client:
         Summary: 发布单校验
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13173,7 +13762,8 @@ class Client:
         Summary: 发布单校验
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13212,7 +13802,8 @@ class Client:
         Summary: 校验运维单请求
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckPlanOperationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckPlanOperationResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.operation.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13227,7 +13818,8 @@ class Client:
         Summary: 校验运维单请求
         """
         UtilClient.validate_model(request)
-        return deps_models.CheckPlanOperationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CheckPlanOperationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.operation.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13266,7 +13858,8 @@ class Client:
         Summary: 创建运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanOperationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanOperationResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.operation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13281,7 +13874,8 @@ class Client:
         Summary: 创建运维单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanOperationResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanOperationResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.operation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13320,7 +13914,8 @@ class Client:
         Summary: 创建发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanAdvancedResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanAdvancedResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.advanced.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13335,7 +13930,8 @@ class Client:
         Summary: 创建发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.CreatePlanAdvancedResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreatePlanAdvancedResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.advanced.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13374,7 +13970,8 @@ class Client:
         Summary: 重新初始化发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13389,7 +13986,8 @@ class Client:
         Summary: 重新初始化发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13428,7 +14026,8 @@ class Client:
         Summary: 获取发布单信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13443,7 +14042,8 @@ class Client:
         Summary: 获取发布单信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13482,7 +14082,8 @@ class Client:
         Summary: 获取发布单基本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanBasicResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanBasicResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.basic.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13497,7 +14098,8 @@ class Client:
         Summary: 获取发布单基本信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanBasicResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanBasicResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.basic.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13536,7 +14138,8 @@ class Client:
         Summary: 获取发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.progress.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13551,7 +14154,8 @@ class Client:
         Summary: 获取发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetPlanProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetPlanProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.progress.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13590,7 +14194,8 @@ class Client:
         Summary: 查询发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13605,7 +14210,8 @@ class Client:
         Summary: 查询发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13644,7 +14250,8 @@ class Client:
         Summary: 发布单状态统计
         """
         UtilClient.validate_model(request)
-        return deps_models.CountPlanStateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountPlanStateResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.state.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13659,7 +14266,8 @@ class Client:
         Summary: 发布单状态统计
         """
         UtilClient.validate_model(request)
-        return deps_models.CountPlanStateResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CountPlanStateResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.state.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13698,7 +14306,8 @@ class Client:
         Summary:  执行
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13713,7 +14322,8 @@ class Client:
         Summary:  执行
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13752,7 +14362,8 @@ class Client:
         Summary: 重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13767,7 +14378,8 @@ class Client:
         Summary: 重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13806,7 +14418,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13821,7 +14434,8 @@ class Client:
         Summary: 取消发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13860,7 +14474,8 @@ class Client:
         Summary: 回滚发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackPlanResponse(),
             self.do_request('1.0', 'antcloud.deps.plan.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13875,7 +14490,8 @@ class Client:
         Summary: 回滚发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackPlanResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackPlanResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.plan.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13914,7 +14530,8 @@ class Client:
         Summary: 获取任务详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetTaskSummaryResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetTaskSummaryResponse(),
             self.do_request('1.0', 'antcloud.deps.task.summary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13929,7 +14546,8 @@ class Client:
         Summary: 获取任务详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetTaskSummaryResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetTaskSummaryResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.task.summary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13968,7 +14586,8 @@ class Client:
         Summary: 忽略任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13983,7 +14602,8 @@ class Client:
         Summary: 忽略任务
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.task.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14022,7 +14642,8 @@ class Client:
         Summary: 重试任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14037,7 +14658,8 @@ class Client:
         Summary: 重试任务
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.task.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14076,7 +14698,8 @@ class Client:
         Summary: 查询角色信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryRoleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryRoleResponse(),
             self.do_request('1.0', 'antcloud.deps.role.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14091,7 +14714,8 @@ class Client:
         Summary: 查询角色信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryRoleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryRoleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.role.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14130,7 +14754,8 @@ class Client:
         Summary: 创建应用服务分组集合
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateServicegroupcollectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateServicegroupcollectionResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroupcollection.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14145,7 +14770,8 @@ class Client:
         Summary: 创建应用服务分组集合
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateServicegroupcollectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateServicegroupcollectionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroupcollection.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14184,7 +14810,8 @@ class Client:
         Summary: 清除应用服务发布分组集合
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteServicegroupcollectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteServicegroupcollectionResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroupcollection.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14199,7 +14826,8 @@ class Client:
         Summary: 清除应用服务发布分组集合
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteServicegroupcollectionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteServicegroupcollectionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroupcollection.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14238,7 +14866,8 @@ class Client:
         Summary: 重试分组
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14253,7 +14882,8 @@ class Client:
         Summary: 重试分组
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14292,7 +14922,8 @@ class Client:
         Summary: 执行发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14307,7 +14938,8 @@ class Client:
         Summary: 执行发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14346,7 +14978,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14361,7 +14994,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14400,7 +15034,8 @@ class Client:
         Summary: 创建发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14415,7 +15050,8 @@ class Client:
         Summary: 创建发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14454,7 +15090,8 @@ class Client:
         Summary: 删除发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14469,7 +15106,8 @@ class Client:
         Summary: 删除发布分组
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14508,7 +15146,8 @@ class Client:
         Summary: 转换分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SwitchServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SwitchServicegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.servicegroup.switch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14523,7 +15162,8 @@ class Client:
         Summary: 转换分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SwitchServicegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SwitchServicegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.servicegroup.switch', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14562,7 +15202,8 @@ class Client:
         Summary: 获取发布服务详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14577,7 +15218,8 @@ class Client:
         Summary: 获取发布服务详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14616,7 +15258,8 @@ class Client:
         Summary: 获取应用发布信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.service.progress.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14631,7 +15274,8 @@ class Client:
         Summary: 获取应用发布信息
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.progress.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14670,7 +15314,8 @@ class Client:
         Summary: 查询发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceProgressResponse(),
             self.do_request('1.0', 'antcloud.deps.service.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14685,7 +15330,8 @@ class Client:
         Summary: 查询发布进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceProgressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceProgressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14724,7 +15370,8 @@ class Client:
         Summary: 查询SLB挂载信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceSlbmountResponse(),
             self.do_request('1.0', 'antcloud.deps.service.slbmount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14739,7 +15386,8 @@ class Client:
         Summary: 查询SLB挂载信息
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceSlbmountResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.slbmount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14778,7 +15426,8 @@ class Client:
         Summary: 批量查询 SLB 挂载信息
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchqueryServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchqueryServiceSlbmountResponse(),
             self.do_request('1.0', 'antcloud.deps.service.slbmount.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14793,7 +15442,8 @@ class Client:
         Summary: 批量查询 SLB 挂载信息
         """
         UtilClient.validate_model(request)
-        return deps_models.BatchqueryServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.BatchqueryServiceSlbmountResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.slbmount.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14832,7 +15482,8 @@ class Client:
         Summary: 更新slb挂载权重
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateServiceSlbmountResponse(),
             self.do_request('1.0', 'antcloud.deps.service.slbmount.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14847,7 +15498,8 @@ class Client:
         Summary: 更新slb挂载权重
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateServiceSlbmountResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateServiceSlbmountResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.slbmount.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14886,7 +15538,8 @@ class Client:
         Summary: 查询挂载进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceSlbmountprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceSlbmountprogressResponse(),
             self.do_request('1.0', 'antcloud.deps.service.slbmountprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14901,7 +15554,8 @@ class Client:
         Summary: 查询挂载进度
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceSlbmountprogressResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceSlbmountprogressResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.slbmountprogress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14940,7 +15594,8 @@ class Client:
         Summary: 查询最近一次发布成功的应用记录
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceLatestsuccessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceLatestsuccessResponse(),
             self.do_request('1.0', 'antcloud.deps.service.latestsuccess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14955,7 +15610,8 @@ class Client:
         Summary: 查询最近一次发布成功的应用记录
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceLatestsuccessResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceLatestsuccessResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.latestsuccess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14994,7 +15650,8 @@ class Client:
         Summary: 重新初始化
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15009,7 +15666,8 @@ class Client:
         Summary: 重新初始化
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15048,7 +15706,8 @@ class Client:
         Summary: 执行发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15063,7 +15722,8 @@ class Client:
         Summary: 执行发布单
         """
         UtilClient.validate_model(request)
-        return deps_models.ExecServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ExecServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15102,7 +15762,8 @@ class Client:
         Summary: 取消应用发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15117,7 +15778,8 @@ class Client:
         Summary: 取消应用发布
         """
         UtilClient.validate_model(request)
-        return deps_models.CancelServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CancelServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15156,7 +15818,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15171,7 +15834,8 @@ class Client:
         Summary: 忽略分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15210,7 +15874,8 @@ class Client:
         Summary: 触发服务发布
         """
         UtilClient.validate_model(request)
-        return deps_models.StartServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15225,7 +15890,8 @@ class Client:
         Summary: 触发服务发布
         """
         UtilClient.validate_model(request)
-        return deps_models.StartServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.StartServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15264,7 +15930,8 @@ class Client:
         Summary: 发布确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15279,7 +15946,8 @@ class Client:
         Summary: 发布确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15318,7 +15986,8 @@ class Client:
         Summary: 配置机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SetServiceMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SetServiceMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.service.machinegroup.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15333,7 +16002,8 @@ class Client:
         Summary: 配置机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.SetServiceMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SetServiceMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.machinegroup.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15372,7 +16042,8 @@ class Client:
         Summary: 重新初始化机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitServiceMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitServiceMachinegroupResponse(),
             self.do_request('1.0', 'antcloud.deps.service.machinegroup.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15387,7 +16058,8 @@ class Client:
         Summary: 重新初始化机器分组
         """
         UtilClient.validate_model(request)
-        return deps_models.ReinitServiceMachinegroupResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReinitServiceMachinegroupResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.machinegroup.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15426,7 +16098,8 @@ class Client:
         Summary: 查询可回滚服务
         """
         UtilClient.validate_model(request)
-        return deps_models.ListServiceRollbackversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListServiceRollbackversionResponse(),
             self.do_request('1.0', 'antcloud.deps.service.rollbackversion.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15441,7 +16114,8 @@ class Client:
         Summary: 查询可回滚服务
         """
         UtilClient.validate_model(request)
-        return deps_models.ListServiceRollbackversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListServiceRollbackversionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.rollbackversion.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15480,7 +16154,8 @@ class Client:
         Summary: 查询可回滚版本
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceRollbackversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceRollbackversionResponse(),
             self.do_request('1.0', 'antcloud.deps.service.rollbackversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15495,7 +16170,8 @@ class Client:
         Summary: 查询可回滚版本
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryServiceRollbackversionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryServiceRollbackversionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.rollbackversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15534,7 +16210,8 @@ class Client:
         Summary: 回滚应用
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15549,7 +16226,8 @@ class Client:
         Summary: 回滚应用
         """
         UtilClient.validate_model(request)
-        return deps_models.RollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RollbackServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15588,7 +16266,8 @@ class Client:
         Summary: 回滚确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmrollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmrollbackServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.confirmrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15603,7 +16282,8 @@ class Client:
         Summary: 回滚确认
         """
         UtilClient.validate_model(request)
-        return deps_models.ConfirmrollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ConfirmrollbackServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.confirmrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15642,7 +16322,8 @@ class Client:
         Summary: 回滚重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryrollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryrollbackServiceResponse(),
             self.do_request('1.0', 'antcloud.deps.service.retryrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15657,7 +16338,8 @@ class Client:
         Summary: 回滚重试
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryrollbackServiceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryrollbackServiceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.retryrollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15696,7 +16378,8 @@ class Client:
         Summary: 获取子流程进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.service.arrangement.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15711,7 +16394,8 @@ class Client:
         Summary: 获取子流程进度
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.arrangement.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15750,7 +16434,8 @@ class Client:
         Summary: 重试子流程
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryServiceArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.service.arrangement.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15765,7 +16450,8 @@ class Client:
         Summary: 重试子流程
         """
         UtilClient.validate_model(request)
-        return deps_models.RetryServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.RetryServiceArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.arrangement.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15804,7 +16490,8 @@ class Client:
         Summary: 忽略子流程
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServiceArrangementResponse(),
             self.do_request('1.0', 'antcloud.deps.service.arrangement.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15819,7 +16506,8 @@ class Client:
         Summary: 忽略子流程
         """
         UtilClient.validate_model(request)
-        return deps_models.SkipServiceArrangementResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SkipServiceArrangementResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.arrangement.skip', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15858,7 +16546,8 @@ class Client:
         Summary: query op log
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperationlogResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperationlogResponse(),
             self.do_request('1.0', 'antcloud.deps.operationlog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15873,7 +16562,8 @@ class Client:
         Summary: query op log
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperationlogResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperationlogResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.operationlog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15912,7 +16602,8 @@ class Client:
         Summary: operation time line
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperationlogTimelineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperationlogTimelineResponse(),
             self.do_request('1.0', 'antcloud.deps.operationlog.timeline.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15927,7 +16618,8 @@ class Client:
         Summary: operation time line
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryOperationlogTimelineResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryOperationlogTimelineResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.operationlog.timeline.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15966,7 +16658,8 @@ class Client:
         Summary: 获取发布应用详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceDetailResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceDetailResponse(),
             self.do_request('1.0', 'antcloud.deps.service.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15981,7 +16674,8 @@ class Client:
         Summary: 获取发布应用详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetServiceDetailResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetServiceDetailResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.service.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16020,7 +16714,8 @@ class Client:
         Summary: create cell
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateMetaCellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.cell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16035,7 +16730,8 @@ class Client:
         Summary: create cell
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateMetaCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.cell.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16074,7 +16770,8 @@ class Client:
         Summary: update cell
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMetaCellResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.cell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16089,7 +16786,8 @@ class Client:
         Summary: update cell
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateMetaCellResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateMetaCellResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.cell.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16128,7 +16826,8 @@ class Client:
         Summary: 关联 master zone
         """
         UtilClient.validate_model(request)
-        return deps_models.AddMetaMasterzonerelResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AddMetaMasterzonerelResponse(),
             self.do_request('1.0', 'antcloud.deps.meta.masterzonerel.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16143,8 +16842,905 @@ class Client:
         Summary: 关联 master zone
         """
         UtilClient.validate_model(request)
-        return deps_models.AddMetaMasterzonerelResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AddMetaMasterzonerelResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.meta.masterzonerel.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_customflowtemplate_summary(
+        self,
+        request: deps_models.QueryCustomflowtemplateSummaryRequest,
+    ) -> deps_models.QueryCustomflowtemplateSummaryResponse:
+        """
+        Description: 查询流程模版概要
+        Summary: 查询流程模版概要
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_customflowtemplate_summary_ex(request, headers, runtime)
+
+    async def query_customflowtemplate_summary_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateSummaryRequest,
+    ) -> deps_models.QueryCustomflowtemplateSummaryResponse:
+        """
+        Description: 查询流程模版概要
+        Summary: 查询流程模版概要
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_customflowtemplate_summary_ex_async(request, headers, runtime)
+
+    def query_customflowtemplate_summary_ex(
+        self,
+        request: deps_models.QueryCustomflowtemplateSummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateSummaryResponse:
+        """
+        Description: 查询流程模版概要
+        Summary: 查询流程模版概要
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateSummaryResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.summary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_customflowtemplate_summary_ex_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateSummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateSummaryResponse:
+        """
+        Description: 查询流程模版概要
+        Summary: 查询流程模版概要
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateSummaryResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.summary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_cmdtemplate(
+        self,
+        request: deps_models.CreateCmdtemplateRequest,
+    ) -> deps_models.CreateCmdtemplateResponse:
+        """
+        Description: 创建指令模板
+        Summary: 创建指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_cmdtemplate_ex(request, headers, runtime)
+
+    async def create_cmdtemplate_async(
+        self,
+        request: deps_models.CreateCmdtemplateRequest,
+    ) -> deps_models.CreateCmdtemplateResponse:
+        """
+        Description: 创建指令模板
+        Summary: 创建指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_cmdtemplate_ex_async(request, headers, runtime)
+
+    def create_cmdtemplate_ex(
+        self,
+        request: deps_models.CreateCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCmdtemplateResponse:
+        """
+        Description: 创建指令模板
+        Summary: 创建指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCmdtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_cmdtemplate_ex_async(
+        self,
+        request: deps_models.CreateCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCmdtemplateResponse:
+        """
+        Description: 创建指令模板
+        Summary: 创建指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCmdtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_cmdtemplate(
+        self,
+        request: deps_models.DeleteCmdtemplateRequest,
+    ) -> deps_models.DeleteCmdtemplateResponse:
+        """
+        Description: 删除指令模板
+        Summary: 删除指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_cmdtemplate_ex(request, headers, runtime)
+
+    async def delete_cmdtemplate_async(
+        self,
+        request: deps_models.DeleteCmdtemplateRequest,
+    ) -> deps_models.DeleteCmdtemplateResponse:
+        """
+        Description: 删除指令模板
+        Summary: 删除指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_cmdtemplate_ex_async(request, headers, runtime)
+
+    def delete_cmdtemplate_ex(
+        self,
+        request: deps_models.DeleteCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.DeleteCmdtemplateResponse:
+        """
+        Description: 删除指令模板
+        Summary: 删除指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.DeleteCmdtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_cmdtemplate_ex_async(
+        self,
+        request: deps_models.DeleteCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.DeleteCmdtemplateResponse:
+        """
+        Description: 删除指令模板
+        Summary: 删除指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.DeleteCmdtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_cmdtemplate(
+        self,
+        request: deps_models.UpdateCmdtemplateRequest,
+    ) -> deps_models.UpdateCmdtemplateResponse:
+        """
+        Description: 更新指令模板
+        Summary: 更新指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_cmdtemplate_ex(request, headers, runtime)
+
+    async def update_cmdtemplate_async(
+        self,
+        request: deps_models.UpdateCmdtemplateRequest,
+    ) -> deps_models.UpdateCmdtemplateResponse:
+        """
+        Description: 更新指令模板
+        Summary: 更新指令模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_cmdtemplate_ex_async(request, headers, runtime)
+
+    def update_cmdtemplate_ex(
+        self,
+        request: deps_models.UpdateCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.UpdateCmdtemplateResponse:
+        """
+        Description: 更新指令模板
+        Summary: 更新指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.UpdateCmdtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_cmdtemplate_ex_async(
+        self,
+        request: deps_models.UpdateCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.UpdateCmdtemplateResponse:
+        """
+        Description: 更新指令模板
+        Summary: 更新指令模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.UpdateCmdtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_cmdtemplate(
+        self,
+        request: deps_models.BindCmdtemplateRequest,
+    ) -> deps_models.BindCmdtemplateResponse:
+        """
+        Description: 指令模板授权
+        Summary: 指令模板授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_cmdtemplate_ex(request, headers, runtime)
+
+    async def bind_cmdtemplate_async(
+        self,
+        request: deps_models.BindCmdtemplateRequest,
+    ) -> deps_models.BindCmdtemplateResponse:
+        """
+        Description: 指令模板授权
+        Summary: 指令模板授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_cmdtemplate_ex_async(request, headers, runtime)
+
+    def bind_cmdtemplate_ex(
+        self,
+        request: deps_models.BindCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.BindCmdtemplateResponse:
+        """
+        Description: 指令模板授权
+        Summary: 指令模板授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.BindCmdtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_cmdtemplate_ex_async(
+        self,
+        request: deps_models.BindCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.BindCmdtemplateResponse:
+        """
+        Description: 指令模板授权
+        Summary: 指令模板授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.BindCmdtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_customflowtemplate(
+        self,
+        request: deps_models.QueryCustomflowtemplateRequest,
+    ) -> deps_models.QueryCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板
+        Summary: 查询流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_customflowtemplate_ex(request, headers, runtime)
+
+    async def query_customflowtemplate_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateRequest,
+    ) -> deps_models.QueryCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板
+        Summary: 查询流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_customflowtemplate_ex_async(request, headers, runtime)
+
+    def query_customflowtemplate_ex(
+        self,
+        request: deps_models.QueryCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板
+        Summary: 查询流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_customflowtemplate_ex_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板
+        Summary: 查询流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_customflowtemplate(
+        self,
+        request: deps_models.GetCustomflowtemplateRequest,
+    ) -> deps_models.GetCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板详情
+        Summary: 查询流程模板详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_customflowtemplate_ex(request, headers, runtime)
+
+    async def get_customflowtemplate_async(
+        self,
+        request: deps_models.GetCustomflowtemplateRequest,
+    ) -> deps_models.GetCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板详情
+        Summary: 查询流程模板详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_customflowtemplate_ex_async(request, headers, runtime)
+
+    def get_customflowtemplate_ex(
+        self,
+        request: deps_models.GetCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.GetCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板详情
+        Summary: 查询流程模板详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.GetCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_customflowtemplate_ex_async(
+        self,
+        request: deps_models.GetCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.GetCustomflowtemplateResponse:
+        """
+        Description: 查询流程模板详情
+        Summary: 查询流程模板详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.GetCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_customflowtemplate(
+        self,
+        request: deps_models.CreateCustomflowtemplateRequest,
+    ) -> deps_models.CreateCustomflowtemplateResponse:
+        """
+        Description: 创建流程模板
+        Summary: 创建流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_customflowtemplate_ex(request, headers, runtime)
+
+    async def create_customflowtemplate_async(
+        self,
+        request: deps_models.CreateCustomflowtemplateRequest,
+    ) -> deps_models.CreateCustomflowtemplateResponse:
+        """
+        Description: 创建流程模板
+        Summary: 创建流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_customflowtemplate_ex_async(request, headers, runtime)
+
+    def create_customflowtemplate_ex(
+        self,
+        request: deps_models.CreateCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCustomflowtemplateResponse:
+        """
+        Description: 创建流程模板
+        Summary: 创建流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_customflowtemplate_ex_async(
+        self,
+        request: deps_models.CreateCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCustomflowtemplateResponse:
+        """
+        Description: 创建流程模板
+        Summary: 创建流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_customflowtemplate(
+        self,
+        request: deps_models.UpdateCustomflowtemplateRequest,
+    ) -> deps_models.UpdateCustomflowtemplateResponse:
+        """
+        Description: 编辑流程模板
+        Summary: 编辑流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_customflowtemplate_ex(request, headers, runtime)
+
+    async def update_customflowtemplate_async(
+        self,
+        request: deps_models.UpdateCustomflowtemplateRequest,
+    ) -> deps_models.UpdateCustomflowtemplateResponse:
+        """
+        Description: 编辑流程模板
+        Summary: 编辑流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_customflowtemplate_ex_async(request, headers, runtime)
+
+    def update_customflowtemplate_ex(
+        self,
+        request: deps_models.UpdateCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.UpdateCustomflowtemplateResponse:
+        """
+        Description: 编辑流程模板
+        Summary: 编辑流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.UpdateCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_customflowtemplate_ex_async(
+        self,
+        request: deps_models.UpdateCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.UpdateCustomflowtemplateResponse:
+        """
+        Description: 编辑流程模板
+        Summary: 编辑流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.UpdateCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_customflowtemplate(
+        self,
+        request: deps_models.DeleteCustomflowtemplateRequest,
+    ) -> deps_models.DeleteCustomflowtemplateResponse:
+        """
+        Description: 删除流程模板
+        Summary: 删除流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_customflowtemplate_ex(request, headers, runtime)
+
+    async def delete_customflowtemplate_async(
+        self,
+        request: deps_models.DeleteCustomflowtemplateRequest,
+    ) -> deps_models.DeleteCustomflowtemplateResponse:
+        """
+        Description: 删除流程模板
+        Summary: 删除流程模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_customflowtemplate_ex_async(request, headers, runtime)
+
+    def delete_customflowtemplate_ex(
+        self,
+        request: deps_models.DeleteCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.DeleteCustomflowtemplateResponse:
+        """
+        Description: 删除流程模板
+        Summary: 删除流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.DeleteCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_customflowtemplate_ex_async(
+        self,
+        request: deps_models.DeleteCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.DeleteCustomflowtemplateResponse:
+        """
+        Description: 删除流程模板
+        Summary: 删除流程模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.DeleteCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_customflowtemplate(
+        self,
+        request: deps_models.BindCustomflowtemplateRequest,
+    ) -> deps_models.BindCustomflowtemplateResponse:
+        """
+        Description: 流程模板授权
+        Summary: 流程模板授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_customflowtemplate_ex(request, headers, runtime)
+
+    async def bind_customflowtemplate_async(
+        self,
+        request: deps_models.BindCustomflowtemplateRequest,
+    ) -> deps_models.BindCustomflowtemplateResponse:
+        """
+        Description: 流程模板授权
+        Summary: 流程模板授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_customflowtemplate_ex_async(request, headers, runtime)
+
+    def bind_customflowtemplate_ex(
+        self,
+        request: deps_models.BindCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.BindCustomflowtemplateResponse:
+        """
+        Description: 流程模板授权
+        Summary: 流程模板授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.BindCustomflowtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_customflowtemplate_ex_async(
+        self,
+        request: deps_models.BindCustomflowtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.BindCustomflowtemplateResponse:
+        """
+        Description: 流程模板授权
+        Summary: 流程模板授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.BindCustomflowtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_customflowtemplate_bind(
+        self,
+        request: deps_models.QueryCustomflowtemplateBindRequest,
+    ) -> deps_models.QueryCustomflowtemplateBindResponse:
+        """
+        Description: 流程模板授权查询
+        Summary: 流程模板授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_customflowtemplate_bind_ex(request, headers, runtime)
+
+    async def query_customflowtemplate_bind_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateBindRequest,
+    ) -> deps_models.QueryCustomflowtemplateBindResponse:
+        """
+        Description: 流程模板授权查询
+        Summary: 流程模板授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_customflowtemplate_bind_ex_async(request, headers, runtime)
+
+    def query_customflowtemplate_bind_ex(
+        self,
+        request: deps_models.QueryCustomflowtemplateBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateBindResponse:
+        """
+        Description: 流程模板授权查询
+        Summary: 流程模板授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateBindResponse(),
+            self.do_request('1.0', 'antcloud.deps.customflowtemplate.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_customflowtemplate_bind_ex_async(
+        self,
+        request: deps_models.QueryCustomflowtemplateBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCustomflowtemplateBindResponse:
+        """
+        Description: 流程模板授权查询
+        Summary: 流程模板授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCustomflowtemplateBindResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.customflowtemplate.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cmdtemplate_bind(
+        self,
+        request: deps_models.QueryCmdtemplateBindRequest,
+    ) -> deps_models.QueryCmdtemplateBindResponse:
+        """
+        Description: 指令模板授权查询
+        Summary: 指令模板授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cmdtemplate_bind_ex(request, headers, runtime)
+
+    async def query_cmdtemplate_bind_async(
+        self,
+        request: deps_models.QueryCmdtemplateBindRequest,
+    ) -> deps_models.QueryCmdtemplateBindResponse:
+        """
+        Description: 指令模板授权查询
+        Summary: 指令模板授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cmdtemplate_bind_ex_async(request, headers, runtime)
+
+    def query_cmdtemplate_bind_ex(
+        self,
+        request: deps_models.QueryCmdtemplateBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCmdtemplateBindResponse:
+        """
+        Description: 指令模板授权查询
+        Summary: 指令模板授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateBindResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cmdtemplate_bind_ex_async(
+        self,
+        request: deps_models.QueryCmdtemplateBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCmdtemplateBindResponse:
+        """
+        Description: 指令模板授权查询
+        Summary: 指令模板授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateBindResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cmdtemplate_versions(
+        self,
+        request: deps_models.QueryCmdtemplateVersionsRequest,
+    ) -> deps_models.QueryCmdtemplateVersionsResponse:
+        """
+        Description: 指令模板版本查询
+        Summary: 指令模板版本查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cmdtemplate_versions_ex(request, headers, runtime)
+
+    async def query_cmdtemplate_versions_async(
+        self,
+        request: deps_models.QueryCmdtemplateVersionsRequest,
+    ) -> deps_models.QueryCmdtemplateVersionsResponse:
+        """
+        Description: 指令模板版本查询
+        Summary: 指令模板版本查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cmdtemplate_versions_ex_async(request, headers, runtime)
+
+    def query_cmdtemplate_versions_ex(
+        self,
+        request: deps_models.QueryCmdtemplateVersionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCmdtemplateVersionsResponse:
+        """
+        Description: 指令模板版本查询
+        Summary: 指令模板版本查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateVersionsResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.versions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cmdtemplate_versions_ex_async(
+        self,
+        request: deps_models.QueryCmdtemplateVersionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.QueryCmdtemplateVersionsResponse:
+        """
+        Description: 指令模板版本查询
+        Summary: 指令模板版本查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.QueryCmdtemplateVersionsResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.versions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_cmdtemplate_version(
+        self,
+        request: deps_models.CreateCmdtemplateVersionRequest,
+    ) -> deps_models.CreateCmdtemplateVersionResponse:
+        """
+        Description: 指令模板版本创建
+        Summary: 指令模板版本创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_cmdtemplate_version_ex(request, headers, runtime)
+
+    async def create_cmdtemplate_version_async(
+        self,
+        request: deps_models.CreateCmdtemplateVersionRequest,
+    ) -> deps_models.CreateCmdtemplateVersionResponse:
+        """
+        Description: 指令模板版本创建
+        Summary: 指令模板版本创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_cmdtemplate_version_ex_async(request, headers, runtime)
+
+    def create_cmdtemplate_version_ex(
+        self,
+        request: deps_models.CreateCmdtemplateVersionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCmdtemplateVersionResponse:
+        """
+        Description: 指令模板版本创建
+        Summary: 指令模板版本创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCmdtemplateVersionResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_cmdtemplate_version_ex_async(
+        self,
+        request: deps_models.CreateCmdtemplateVersionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.CreateCmdtemplateVersionResponse:
+        """
+        Description: 指令模板版本创建
+        Summary: 指令模板版本创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.CreateCmdtemplateVersionResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def all_cmdtemplate(
+        self,
+        request: deps_models.AllCmdtemplateRequest,
+    ) -> deps_models.AllCmdtemplateResponse:
+        """
+        Description: 指令模板分页查询
+        Summary: 指令模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_cmdtemplate_ex(request, headers, runtime)
+
+    async def all_cmdtemplate_async(
+        self,
+        request: deps_models.AllCmdtemplateRequest,
+    ) -> deps_models.AllCmdtemplateResponse:
+        """
+        Description: 指令模板分页查询
+        Summary: 指令模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_cmdtemplate_ex_async(request, headers, runtime)
+
+    def all_cmdtemplate_ex(
+        self,
+        request: deps_models.AllCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.AllCmdtemplateResponse:
+        """
+        Description: 指令模板分页查询
+        Summary: 指令模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.AllCmdtemplateResponse(),
+            self.do_request('1.0', 'antcloud.deps.cmdtemplate.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_cmdtemplate_ex_async(
+        self,
+        request: deps_models.AllCmdtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> deps_models.AllCmdtemplateResponse:
+        """
+        Description: 指令模板分页查询
+        Summary: 指令模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            deps_models.AllCmdtemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.deps.cmdtemplate.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def assign_computer(
@@ -16182,7 +17778,8 @@ class Client:
         Summary: 分配应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.AssignComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AssignComputerResponse(),
             self.do_request('1.0', 'antcloud.deps.computer.assign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16197,7 +17794,8 @@ class Client:
         Summary: 分配应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.AssignComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.AssignComputerResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computer.assign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16236,7 +17834,8 @@ class Client:
         Summary: 释放应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.ReleaseComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReleaseComputerResponse(),
             self.do_request('1.0', 'antcloud.deps.computer.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16251,7 +17850,8 @@ class Client:
         Summary: 释放应用计算资源
         """
         UtilClient.validate_model(request)
-        return deps_models.ReleaseComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ReleaseComputerResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computer.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16290,7 +17890,8 @@ class Client:
         Summary: 获取异步任务
         """
         UtilClient.validate_model(request)
-        return deps_models.GetTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetTaskResponse(),
             self.do_request('1.0', 'antcloud.deps.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16305,7 +17906,8 @@ class Client:
         Summary: 获取异步任务
         """
         UtilClient.validate_model(request)
-        return deps_models.GetTaskResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetTaskResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.task.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16344,7 +17946,8 @@ class Client:
         Summary: 创建 ecs 实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateComputerResponse(),
             self.do_request('1.0', 'antcloud.deps.computer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16359,7 +17962,8 @@ class Client:
         Summary: 创建 ecs 实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateComputerResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateComputerResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.computer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16398,7 +18002,8 @@ class Client:
         Summary: 创建sidecar元数据信息
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16413,7 +18018,8 @@ class Client:
         Summary: 创建sidecar元数据信息
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16452,7 +18058,8 @@ class Client:
         Summary: 查询sidecar元信息列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16467,7 +18074,8 @@ class Client:
         Summary: 查询sidecar元信息列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16506,7 +18114,8 @@ class Client:
         Summary: 创建sidecar版本
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16521,7 +18130,8 @@ class Client:
         Summary: 创建sidecar版本
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.version.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16560,7 +18170,8 @@ class Client:
         Summary: 查询sidecar模板列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.version.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16575,7 +18186,8 @@ class Client:
         Summary: 查询sidecar模板列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.version.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16614,7 +18226,8 @@ class Client:
         Summary: 获取sidecar版本详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.version.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16629,7 +18242,8 @@ class Client:
         Summary: 获取sidecar版本详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.version.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16668,7 +18282,8 @@ class Client:
         Summary: 创建sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarRuleResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16683,7 +18298,8 @@ class Client:
         Summary: 创建sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarRuleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16722,7 +18338,8 @@ class Client:
         Summary: 获取sidecar单个规则详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarRuleResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rule.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16737,7 +18354,8 @@ class Client:
         Summary: 获取sidecar单个规则详情
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarRuleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rule.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16776,7 +18394,8 @@ class Client:
         Summary: 获取sidecar规则列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarRuleResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16791,7 +18410,8 @@ class Client:
         Summary: 获取sidecar规则列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarRuleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16830,7 +18450,8 @@ class Client:
         Summary: 创建sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarInstanceResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16845,7 +18466,8 @@ class Client:
         Summary: 创建sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateSidecarInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16884,7 +18506,8 @@ class Client:
         Summary: 查询sidecar版本实例列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarInstanceResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instance.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16899,7 +18522,8 @@ class Client:
         Summary: 查询sidecar版本实例列表
         """
         UtilClient.validate_model(request)
-        return deps_models.ListSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListSidecarInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instance.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16938,7 +18562,8 @@ class Client:
         Summary: 获取sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarInstanceResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16953,7 +18578,8 @@ class Client:
         Summary: 获取sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16992,7 +18618,8 @@ class Client:
         Summary: 获取sidecar类型
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17007,7 +18634,8 @@ class Client:
         Summary: 获取sidecar类型
         """
         UtilClient.validate_model(request)
-        return deps_models.GetSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17046,7 +18674,8 @@ class Client:
         Summary: 更新sidecar类型信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17061,7 +18690,8 @@ class Client:
         Summary: 更新sidecar类型信息
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17100,7 +18730,8 @@ class Client:
         Summary: 删除sidecar类型
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17115,7 +18746,8 @@ class Client:
         Summary: 删除sidecar类型
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17154,7 +18786,8 @@ class Client:
         Summary: 更新sidecar版本
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.version.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17169,7 +18802,8 @@ class Client:
         Summary: 更新sidecar版本
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.version.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17208,7 +18842,8 @@ class Client:
         Summary: 删除sidecar模板
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarVersionResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.version.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17223,7 +18858,8 @@ class Client:
         Summary: 删除sidecar模板
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarVersionResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarVersionResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.version.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17262,7 +18898,8 @@ class Client:
         Summary: 更新sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarInstanceResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17277,7 +18914,8 @@ class Client:
         Summary: 更新sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17316,7 +18954,8 @@ class Client:
         Summary: 删除sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarInstanceResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instance.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17331,7 +18970,8 @@ class Client:
         Summary: 删除sidecar版本实例
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarInstanceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarInstanceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instance.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17370,7 +19010,8 @@ class Client:
         Summary: 更新sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarRuleResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17385,7 +19026,8 @@ class Client:
         Summary: 更新sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarRuleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17424,7 +19066,8 @@ class Client:
         Summary: 删除sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarRuleResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rule.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17439,7 +19082,8 @@ class Client:
         Summary: 删除sidecar规则
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteSidecarRuleResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteSidecarRuleResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rule.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17478,7 +19122,8 @@ class Client:
         Summary: 更新sidecar版本状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarVersionstatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarVersionstatusResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.versionstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17493,7 +19138,8 @@ class Client:
         Summary: 更新sidecar版本状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarVersionstatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarVersionstatusResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.versionstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17532,7 +19178,8 @@ class Client:
         Summary: 更新sidecar版本实例状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarInstancestatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarInstancestatusResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.instancestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17547,7 +19194,8 @@ class Client:
         Summary: 更新sidecar版本实例状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarInstancestatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarInstancestatusResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.instancestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17586,7 +19234,8 @@ class Client:
         Summary: 更新sidecar规则状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarRulestatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarRulestatusResponse(),
             self.do_request('1.0', 'antcloud.deps.sidecar.rulestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17601,7 +19250,8 @@ class Client:
         Summary: 更新sidecar规则状态
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateSidecarRulestatusResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateSidecarRulestatusResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.sidecar.rulestatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17640,7 +19290,8 @@ class Client:
         Summary: 创建应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppbaselineSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.appbaseline.sidecar.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17655,7 +19306,8 @@ class Client:
         Summary: 创建应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateAppbaselineSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appbaseline.sidecar.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17694,7 +19346,8 @@ class Client:
         Summary: 查询应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppbaselineSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.appbaseline.sidecar.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17709,7 +19362,8 @@ class Client:
         Summary: 查询应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.ListAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListAppbaselineSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appbaseline.sidecar.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17748,7 +19402,8 @@ class Client:
         Summary: 删除应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppbaselineSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.appbaseline.sidecar.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17763,7 +19418,8 @@ class Client:
         Summary: 删除应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.DeleteAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.DeleteAppbaselineSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appbaseline.sidecar.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17802,7 +19458,8 @@ class Client:
         Summary: 更新应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppbaselineSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.appbaseline.sidecar.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17817,7 +19474,8 @@ class Client:
         Summary: 更新应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.UpdateAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.UpdateAppbaselineSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appbaseline.sidecar.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17856,7 +19514,8 @@ class Client:
         Summary: 创建或更新应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.SaveAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SaveAppbaselineSidecarResponse(),
             self.do_request('1.0', 'antcloud.deps.appbaseline.sidecar.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17871,7 +19530,8 @@ class Client:
         Summary: 创建或更新应用sidecar基线
         """
         UtilClient.validate_model(request)
-        return deps_models.SaveAppbaselineSidecarResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.SaveAppbaselineSidecarResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.appbaseline.sidecar.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17910,7 +19570,8 @@ class Client:
         Summary: 获取workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.GetWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetWorkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.workspace.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17925,7 +19586,8 @@ class Client:
         Summary: 获取workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.GetWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.GetWorkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspace.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17964,7 +19626,8 @@ class Client:
         Summary: 查询workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.workspace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17979,7 +19642,8 @@ class Client:
         Summary: 查询workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.QueryWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.QueryWorkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18018,7 +19682,8 @@ class Client:
         Summary: 创建workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateWorkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.workspace.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18033,7 +19698,8 @@ class Client:
         Summary: 创建workspace
         """
         UtilClient.validate_model(request)
-        return deps_models.CreateWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.CreateWorkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspace.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18072,7 +19738,8 @@ class Client:
         Summary: 查询workspace列表2.0
         """
         UtilClient.validate_model(request)
-        return deps_models.ListWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListWorkspaceResponse(),
             self.do_request('1.0', 'antcloud.deps.workspace.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18087,6 +19754,7 @@ class Client:
         Summary: 查询workspace列表2.0
         """
         UtilClient.validate_model(request)
-        return deps_models.ListWorkspaceResponse().from_map(
+        return TeaCore.from_map(
+            deps_models.ListWorkspaceResponse(),
             await self.do_request_async('1.0', 'antcloud.deps.workspace.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
