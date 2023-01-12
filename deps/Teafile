@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-deps:3.2.2",
-    "go": "github.com/antchain-openapi-sdk-go/deps/client:v3.2.2",
+    "java": "com.antgroup.antchain.openapi:openapi-deps:3.2.40",
+    "go": "github.com/antchain-openapi-sdk-go/deps/v3/client:v3.2.40",
     "csharp": "AntChain.SDK.Deps:3.2.2",
-    "ts": "@antchain/deps:3.2.2",
-    "php": "antchain/deps:3.2.2",
-    "python": "antchain_sdk_deps:3.2.2"
+    "ts": "@antchain/deps:3.2.40",
+    "php": "antchain/deps:3.2.40",
+    "python": "antchain_sdk_deps:3.2.40"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
