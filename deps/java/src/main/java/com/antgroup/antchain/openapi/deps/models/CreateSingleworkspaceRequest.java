@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class CreateSingleworkspaceRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -39,6 +40,16 @@ public class CreateSingleworkspaceRequest extends TeaModel {
     // 可用区
     @NameInMap("zones")
     public java.util.List<String> zones;
+
+    // region_id，由于和阿里云命名冲突，故用paas_region_id
+    @NameInMap("paas_region_id")
+    @Validation(required = true)
+    public String paasRegionId;
+
+    // zone_ids
+    @NameInMap("zone_ids")
+    @Validation(required = true)
+    public java.util.List<String> zoneIds;
 
     public static CreateSingleworkspaceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateSingleworkspaceRequest self = new CreateSingleworkspaceRequest();
@@ -107,6 +118,22 @@ public class CreateSingleworkspaceRequest extends TeaModel {
     }
     public java.util.List<String> getZones() {
         return this.zones;
+    }
+
+    public CreateSingleworkspaceRequest setPaasRegionId(String paasRegionId) {
+        this.paasRegionId = paasRegionId;
+        return this;
+    }
+    public String getPaasRegionId() {
+        return this.paasRegionId;
+    }
+
+    public CreateSingleworkspaceRequest setZoneIds(java.util.List<String> zoneIds) {
+        this.zoneIds = zoneIds;
+        return this;
+    }
+    public java.util.List<String> getZoneIds() {
+        return this.zoneIds;
     }
 
 }

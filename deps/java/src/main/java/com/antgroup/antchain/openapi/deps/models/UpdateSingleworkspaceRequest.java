@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class UpdateSingleworkspaceRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -14,22 +15,22 @@ public class UpdateSingleworkspaceRequest extends TeaModel {
     @NameInMap("display_name")
     public String displayName;
 
-    // VPC ｜ Classic
-    @NameInMap("network_type")
-    public String networkType;
-
-    // 地域id
-    @NameInMap("region")
-    public String region;
-
     // 可用区id列表
     @NameInMap("zones")
     public java.util.List<String> zones;
 
-    // 环境唯一标识
-    @NameInMap("name")
+    // zone_ids
+    @NameInMap("zone_ids")
+    public java.util.List<String> zoneIds;
+
+    // labels
+    @NameInMap("labels")
+    public String labels;
+
+    // workspace_id
+    @NameInMap("workspace_id")
     @Validation(required = true)
-    public String name;
+    public String workspaceId;
 
     public static UpdateSingleworkspaceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateSingleworkspaceRequest self = new UpdateSingleworkspaceRequest();
@@ -60,22 +61,6 @@ public class UpdateSingleworkspaceRequest extends TeaModel {
         return this.displayName;
     }
 
-    public UpdateSingleworkspaceRequest setNetworkType(String networkType) {
-        this.networkType = networkType;
-        return this;
-    }
-    public String getNetworkType() {
-        return this.networkType;
-    }
-
-    public UpdateSingleworkspaceRequest setRegion(String region) {
-        this.region = region;
-        return this;
-    }
-    public String getRegion() {
-        return this.region;
-    }
-
     public UpdateSingleworkspaceRequest setZones(java.util.List<String> zones) {
         this.zones = zones;
         return this;
@@ -84,12 +69,28 @@ public class UpdateSingleworkspaceRequest extends TeaModel {
         return this.zones;
     }
 
-    public UpdateSingleworkspaceRequest setName(String name) {
-        this.name = name;
+    public UpdateSingleworkspaceRequest setZoneIds(java.util.List<String> zoneIds) {
+        this.zoneIds = zoneIds;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public java.util.List<String> getZoneIds() {
+        return this.zoneIds;
+    }
+
+    public UpdateSingleworkspaceRequest setLabels(String labels) {
+        this.labels = labels;
+        return this;
+    }
+    public String getLabels() {
+        return this.labels;
+    }
+
+    public UpdateSingleworkspaceRequest setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+        return this;
+    }
+    public String getWorkspaceId() {
+        return this.workspaceId;
     }
 
 }

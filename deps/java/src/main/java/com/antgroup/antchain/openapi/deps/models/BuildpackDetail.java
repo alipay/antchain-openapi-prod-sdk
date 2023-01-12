@@ -30,7 +30,7 @@ public class BuildpackDetail extends TeaModel {
 
     // creationTime
     @NameInMap("creation_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String creationTime;
 
     // 当前技术栈版本是否是debug模式
@@ -71,7 +71,7 @@ public class BuildpackDetail extends TeaModel {
 
     // modificationTime
     @NameInMap("modification_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String modificationTime;
 
     // 原始类型
@@ -88,7 +88,7 @@ public class BuildpackDetail extends TeaModel {
 
     // 发布时间，日期格式
     @NameInMap("publication_time_date")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String publicationTimeDate;
 
     // 技术栈版本提供方所在域

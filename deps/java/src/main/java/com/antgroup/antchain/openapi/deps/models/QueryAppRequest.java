@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class QueryAppRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -33,6 +34,10 @@ public class QueryAppRequest extends TeaModel {
     // 查询类型，支持精准查询、模糊查询、前缀模糊查询，这里默认为模糊查询；查询类型针对字段 app_name, app_group_name
     @NameInMap("query_type")
     public String queryType;
+
+    // 是否查询无分组的应用
+    @NameInMap("none_app_group")
+    public Boolean noneAppGroup;
 
     public static QueryAppRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAppRequest self = new QueryAppRequest();
@@ -101,6 +106,14 @@ public class QueryAppRequest extends TeaModel {
     }
     public String getQueryType() {
         return this.queryType;
+    }
+
+    public QueryAppRequest setNoneAppGroup(Boolean noneAppGroup) {
+        this.noneAppGroup = noneAppGroup;
+        return this;
+    }
+    public Boolean getNoneAppGroup() {
+        return this.noneAppGroup;
     }
 
 }

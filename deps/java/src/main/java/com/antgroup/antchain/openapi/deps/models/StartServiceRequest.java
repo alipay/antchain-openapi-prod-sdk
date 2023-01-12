@@ -4,13 +4,14 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class StartServiceRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("tenant")
     public String tenant;
 
-    // id
+    // antcloud.deps.plan.progress.get 接口返回的：progress.executionProgresses[0].executionProgresses[0].id
     @NameInMap("id")
     @Validation(required = true)
     public String id;

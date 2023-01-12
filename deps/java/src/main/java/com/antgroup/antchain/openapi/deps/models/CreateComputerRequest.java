@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class CreateComputerRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -28,7 +29,7 @@ public class CreateComputerRequest extends TeaModel {
     public String name;
 
     // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：
-    // ()`~!@#^&*-_+=|{}[]:;'<>,.?/
+    // ()`~!@#^&*-_+=|{}[]:;_<>,.?/
     // 其中，Windows实例不能以斜线号（/）为密码首字符。
     @NameInMap("paasword")
     @Validation(maxLength = 30, minLength = 8)

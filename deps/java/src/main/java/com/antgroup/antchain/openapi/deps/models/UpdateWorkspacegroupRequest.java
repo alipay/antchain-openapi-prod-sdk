@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class UpdateWorkspacegroupRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -26,6 +27,10 @@ public class UpdateWorkspacegroupRequest extends TeaModel {
     // 包含工作空间名称。
     @NameInMap("workspaces")
     public java.util.List<String> workspaces;
+
+    // env_type
+    @NameInMap("env_type")
+    public String envType;
 
     public static UpdateWorkspacegroupRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateWorkspacegroupRequest self = new UpdateWorkspacegroupRequest();
@@ -78,6 +83,14 @@ public class UpdateWorkspacegroupRequest extends TeaModel {
     }
     public java.util.List<String> getWorkspaces() {
         return this.workspaces;
+    }
+
+    public UpdateWorkspacegroupRequest setEnvType(String envType) {
+        this.envType = envType;
+        return this;
+    }
+    public String getEnvType() {
+        return this.envType;
     }
 
 }

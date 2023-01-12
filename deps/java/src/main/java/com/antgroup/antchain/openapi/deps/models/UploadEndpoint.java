@@ -18,7 +18,7 @@ public class UploadEndpoint extends TeaModel {
 
     // 文件失效的日期时间
     @NameInMap("expiration")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String expiration;
 
     // 对象存储的上传目标文件路径

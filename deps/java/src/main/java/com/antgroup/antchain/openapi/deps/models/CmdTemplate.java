@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class CmdTemplate extends TeaModel {
-    // 指令模板定义的参数名称。比如：./install_env.sh --version 2.2，其中的 --version 就是参数名称
+    // 指令模板定义的参数名称。比如：./install_env.sh --version 2.2，其中的 --version 就是参数名称（没有用到）
     @NameInMap("arg_names")
     public java.util.List<String> argNames;
 
@@ -32,20 +32,19 @@ public class CmdTemplate extends TeaModel {
 
     // 指令名称
     @NameInMap("name")
-    @Validation(required = true)
     public String name;
 
     // 失败重试的间隔，单位为秒
     @NameInMap("retry_interval")
-    public Integer retryInterval;
+    public Long retryInterval;
 
     // 失败重试次数
     @NameInMap("retry_times")
-    public Integer retryTimes;
+    public Long retryTimes;
 
     // 单次执行的超时时间，单位为秒
     @NameInMap("time_out")
-    public Integer timeOut;
+    public Long timeOut;
 
     // 模板类型。目前取值列表：
     //                     SIMPLE_COMMAND：简单指令类型；
@@ -53,6 +52,30 @@ public class CmdTemplate extends TeaModel {
     @NameInMap("type")
     @Validation(required = true)
     public String type;
+
+    // 脚本内容
+    @NameInMap("script")
+    public String script;
+
+    // 指令模板id，genTimeSeriesId
+    @NameInMap("template_id")
+    public String templateId;
+
+    // 默认参数
+    @NameInMap("argument")
+    public String argument;
+
+    // 脚本参数（json 字符串）
+    @NameInMap("params")
+    public String params;
+
+    // 模板版本
+    @NameInMap("template_version")
+    public Long templateVersion;
+
+    // 模板类型
+    @NameInMap("template_type")
+    public String templateType;
 
     public static CmdTemplate build(java.util.Map<String, ?> map) throws Exception {
         CmdTemplate self = new CmdTemplate();
@@ -115,27 +138,27 @@ public class CmdTemplate extends TeaModel {
         return this.name;
     }
 
-    public CmdTemplate setRetryInterval(Integer retryInterval) {
+    public CmdTemplate setRetryInterval(Long retryInterval) {
         this.retryInterval = retryInterval;
         return this;
     }
-    public Integer getRetryInterval() {
+    public Long getRetryInterval() {
         return this.retryInterval;
     }
 
-    public CmdTemplate setRetryTimes(Integer retryTimes) {
+    public CmdTemplate setRetryTimes(Long retryTimes) {
         this.retryTimes = retryTimes;
         return this;
     }
-    public Integer getRetryTimes() {
+    public Long getRetryTimes() {
         return this.retryTimes;
     }
 
-    public CmdTemplate setTimeOut(Integer timeOut) {
+    public CmdTemplate setTimeOut(Long timeOut) {
         this.timeOut = timeOut;
         return this;
     }
-    public Integer getTimeOut() {
+    public Long getTimeOut() {
         return this.timeOut;
     }
 
@@ -145,6 +168,54 @@ public class CmdTemplate extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public CmdTemplate setScript(String script) {
+        this.script = script;
+        return this;
+    }
+    public String getScript() {
+        return this.script;
+    }
+
+    public CmdTemplate setTemplateId(String templateId) {
+        this.templateId = templateId;
+        return this;
+    }
+    public String getTemplateId() {
+        return this.templateId;
+    }
+
+    public CmdTemplate setArgument(String argument) {
+        this.argument = argument;
+        return this;
+    }
+    public String getArgument() {
+        return this.argument;
+    }
+
+    public CmdTemplate setParams(String params) {
+        this.params = params;
+        return this;
+    }
+    public String getParams() {
+        return this.params;
+    }
+
+    public CmdTemplate setTemplateVersion(Long templateVersion) {
+        this.templateVersion = templateVersion;
+        return this;
+    }
+    public Long getTemplateVersion() {
+        return this.templateVersion;
+    }
+
+    public CmdTemplate setTemplateType(String templateType) {
+        this.templateType = templateType;
+        return this;
+    }
+    public String getTemplateType() {
+        return this.templateType;
     }
 
 }

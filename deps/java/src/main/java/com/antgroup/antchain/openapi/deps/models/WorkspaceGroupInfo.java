@@ -6,7 +6,7 @@ import com.aliyun.tea.*;
 public class WorkspaceGroupInfo extends TeaModel {
     // 创建时间。
     @NameInMap("created_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createdTime;
 
     // 工作空间组显示名称。
@@ -36,7 +36,7 @@ public class WorkspaceGroupInfo extends TeaModel {
 
     // 修改时间。
     @NameInMap("modified_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String modifiedTime;
 
     // 工作空间组唯一标识。
@@ -62,6 +62,10 @@ public class WorkspaceGroupInfo extends TeaModel {
     // workspace name
     @NameInMap("identity")
     public String identity;
+
+    // env_type
+    @NameInMap("env_type")
+    public String envType;
 
     public static WorkspaceGroupInfo build(java.util.Map<String, ?> map) throws Exception {
         WorkspaceGroupInfo self = new WorkspaceGroupInfo();
@@ -162,6 +166,14 @@ public class WorkspaceGroupInfo extends TeaModel {
     }
     public String getIdentity() {
         return this.identity;
+    }
+
+    public WorkspaceGroupInfo setEnvType(String envType) {
+        this.envType = envType;
+        return this;
+    }
+    public String getEnvType() {
+        return this.envType;
     }
 
 }

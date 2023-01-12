@@ -19,7 +19,7 @@ public class DeployCell extends TeaModel {
 
     // 创建时间
     @NameInMap("created_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createdTime;
 
     // cell名称，与name一样，为了兼容已有代码
@@ -67,6 +67,10 @@ public class DeployCell extends TeaModel {
     @NameInMap("id")
     @Validation(required = true)
     public String id;
+
+    // labels jsonstring
+    @NameInMap("labels")
+    public String labels;
 
     public static DeployCell build(java.util.Map<String, ?> map) throws Exception {
         DeployCell self = new DeployCell();
@@ -183,6 +187,14 @@ public class DeployCell extends TeaModel {
     }
     public String getId() {
         return this.id;
+    }
+
+    public DeployCell setLabels(String labels) {
+        this.labels = labels;
+        return this;
+    }
+    public String getLabels() {
+        return this.labels;
     }
 
 }

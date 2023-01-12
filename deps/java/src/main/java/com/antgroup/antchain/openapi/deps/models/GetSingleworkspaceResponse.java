@@ -4,18 +4,21 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class GetSingleworkspaceResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
     // 创建时间。
     @NameInMap("created_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createdTime;
 
     // workspace工作空间的显示名称
@@ -28,7 +31,7 @@ public class GetSingleworkspaceResponse extends TeaModel {
 
     // 最近修改时间。
     @NameInMap("modified_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String modifiedTime;
 
     // workspace显示名称。
@@ -62,6 +65,10 @@ public class GetSingleworkspaceResponse extends TeaModel {
     // workspace对应的zoneId列表。
     @NameInMap("zones")
     public java.util.List<String> zones;
+
+    // PAAS唯一ID
+    @NameInMap("region_id")
+    public String regionId;
 
     public static GetSingleworkspaceResponse build(java.util.Map<String, ?> map) throws Exception {
         GetSingleworkspaceResponse self = new GetSingleworkspaceResponse();
@@ -186,6 +193,14 @@ public class GetSingleworkspaceResponse extends TeaModel {
     }
     public java.util.List<String> getZones() {
         return this.zones;
+    }
+
+    public GetSingleworkspaceResponse setRegionId(String regionId) {
+        this.regionId = regionId;
+        return this;
+    }
+    public String getRegionId() {
+        return this.regionId;
     }
 
 }

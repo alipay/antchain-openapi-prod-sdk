@@ -4,13 +4,14 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class GetPlanProgressRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("tenant")
     public String tenant;
 
-    // id
+    // 发布单id
     @NameInMap("id")
     @Validation(required = true)
     public String id;

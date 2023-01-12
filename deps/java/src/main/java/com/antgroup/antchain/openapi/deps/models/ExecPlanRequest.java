@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class ExecPlanRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -19,6 +20,10 @@ public class ExecPlanRequest extends TeaModel {
     @NameInMap("workspace")
     @Validation(required = true)
     public String workspace;
+
+    // 操作人账号名
+    @NameInMap("operator")
+    public String operator;
 
     public static ExecPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecPlanRequest self = new ExecPlanRequest();
@@ -55,6 +60,14 @@ public class ExecPlanRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public ExecPlanRequest setOperator(String operator) {
+        this.operator = operator;
+        return this;
+    }
+    public String getOperator() {
+        return this.operator;
     }
 
 }

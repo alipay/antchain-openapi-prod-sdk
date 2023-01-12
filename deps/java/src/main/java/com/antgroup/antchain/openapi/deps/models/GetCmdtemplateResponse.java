@@ -4,12 +4,15 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class GetCmdtemplateResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
@@ -17,6 +20,14 @@ public class GetCmdtemplateResponse extends TeaModel {
     @NameInMap("template")
     @Validation(required = true)
     public CmdTemplate template;
+
+    // 作用域
+    @NameInMap("scope")
+    public String scope;
+
+    // 作用域id
+    @NameInMap("scope_ids")
+    public java.util.List<String> scopeIds;
 
     public static GetCmdtemplateResponse build(java.util.Map<String, ?> map) throws Exception {
         GetCmdtemplateResponse self = new GetCmdtemplateResponse();
@@ -53,6 +64,22 @@ public class GetCmdtemplateResponse extends TeaModel {
     }
     public CmdTemplate getTemplate() {
         return this.template;
+    }
+
+    public GetCmdtemplateResponse setScope(String scope) {
+        this.scope = scope;
+        return this;
+    }
+    public String getScope() {
+        return this.scope;
+    }
+
+    public GetCmdtemplateResponse setScopeIds(java.util.List<String> scopeIds) {
+        this.scopeIds = scopeIds;
+        return this;
+    }
+    public java.util.List<String> getScopeIds() {
+        return this.scopeIds;
     }
 
 }

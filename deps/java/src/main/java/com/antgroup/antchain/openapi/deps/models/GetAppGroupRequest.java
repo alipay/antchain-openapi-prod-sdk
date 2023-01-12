@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class GetAppGroupRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -14,6 +15,10 @@ public class GetAppGroupRequest extends TeaModel {
     @NameInMap("name")
     @Validation(required = true)
     public String name;
+
+    // id和name选一个填即可
+    @NameInMap("id")
+    public String id;
 
     public static GetAppGroupRequest build(java.util.Map<String, ?> map) throws Exception {
         GetAppGroupRequest self = new GetAppGroupRequest();
@@ -42,6 +47,14 @@ public class GetAppGroupRequest extends TeaModel {
     }
     public String getName() {
         return this.name;
+    }
+
+    public GetAppGroupRequest setId(String id) {
+        this.id = id;
+        return this;
+    }
+    public String getId() {
+        return this.id;
     }
 
 }

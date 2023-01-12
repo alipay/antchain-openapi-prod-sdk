@@ -86,6 +86,7 @@ public class Client {
         );
 
         TeaRequest _lastRequest = null;
+        Exception _lastException = null;
         long _now = System.currentTimeMillis();
         int _retryTimes = 0;
         while (Tea.allowRetry((java.util.Map<String, Object>) runtime_.get("retry"), _retryTimes, _now)) {
@@ -105,11 +106,13 @@ public class Client {
                     new TeaPair("method", action),
                     new TeaPair("version", version),
                     new TeaPair("sign_type", "HmacSHA1"),
-                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.Client.getTimestamp()),
-                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.Client.getNonce()),
+                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getTimestamp()),
+                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.2.2")
+                    new TeaPair("sdk_version", "3.2.40"),
+                    new TeaPair("_prod_code", "deps"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -129,7 +132,7 @@ public class Client {
                     request_.query,
                     com.aliyun.common.Common.query(request)
                 );
-                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.Client.getSignature(signedParam, _accessKeySecret));
+                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
                 TeaResponse response_ = Tea.doAction(request_, runtime_);
 
@@ -137,7 +140,7 @@ public class Client {
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
                 java.util.Map<String, Object> res = com.aliyun.teautil.Common.assertAsMap(obj);
                 java.util.Map<String, Object> resp = com.aliyun.teautil.Common.assertAsMap(res.get("response"));
-                if (com.antgroup.antchain.openapi.antchain.util.Client.hasError(raw, _accessKeySecret)) {
+                if (com.antgroup.antchain.openapi.antchain.util.AntchainUtils.hasError(raw, _accessKeySecret)) {
                     throw new TeaException(TeaConverter.buildMap(
                         new TeaPair("message", resp.get("result_msg")),
                         new TeaPair("data", resp),
@@ -148,13 +151,14 @@ public class Client {
                 return resp;
             } catch (Exception e) {
                 if (Tea.isRetryable(e)) {
+                    _lastException = e;
                     continue;
                 }
-                throw new RuntimeException(e);
+                throw e;
             }
         }
 
-        throw new TeaUnretryableException(_lastRequest);
+        throw new TeaUnretryableException(_lastRequest, _lastException);
     }
 
     /**
@@ -621,6 +625,44 @@ public class Client {
     public ListCloudconnectorConnectionResponse listCloudconnectorConnectionEx(ListCloudconnectorConnectionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cloudconnector.connection.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCloudconnectorConnectionResponse());
+    }
+
+    /**
+     * Description: 部署单提交审批申请
+     * Summary: 部署单提交审批申请
+     */
+    public ApplyPlanResponse applyPlan(ApplyPlanRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 部署单提交审批申请
+     * Summary: 部署单提交审批申请
+     */
+    public ApplyPlanResponse applyPlanEx(ApplyPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.plan.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyPlanResponse());
+    }
+
+    /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入
+     */
+    public GetOptestResponse getOptest(GetOptestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getOptestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入
+     */
+    public GetOptestResponse getOptestEx(GetOptestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.optest.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOptestResponse());
     }
 
     /**
@@ -5757,6 +5799,310 @@ public class Client {
     public AddMetaMasterzonerelResponse addMetaMasterzonerelEx(AddMetaMasterzonerelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.meta.masterzonerel.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddMetaMasterzonerelResponse());
+    }
+
+    /**
+     * Description: 查询流程模版概要
+     * Summary: 查询流程模版概要
+     */
+    public QueryCustomflowtemplateSummaryResponse queryCustomflowtemplateSummary(QueryCustomflowtemplateSummaryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCustomflowtemplateSummaryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询流程模版概要
+     * Summary: 查询流程模版概要
+     */
+    public QueryCustomflowtemplateSummaryResponse queryCustomflowtemplateSummaryEx(QueryCustomflowtemplateSummaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.summary.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomflowtemplateSummaryResponse());
+    }
+
+    /**
+     * Description: 创建指令模板
+     * Summary: 创建指令模板
+     */
+    public CreateCmdtemplateResponse createCmdtemplate(CreateCmdtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCmdtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建指令模板
+     * Summary: 创建指令模板
+     */
+    public CreateCmdtemplateResponse createCmdtemplateEx(CreateCmdtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCmdtemplateResponse());
+    }
+
+    /**
+     * Description: 删除指令模板
+     * Summary: 删除指令模板
+     */
+    public DeleteCmdtemplateResponse deleteCmdtemplate(DeleteCmdtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteCmdtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除指令模板
+     * Summary: 删除指令模板
+     */
+    public DeleteCmdtemplateResponse deleteCmdtemplateEx(DeleteCmdtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCmdtemplateResponse());
+    }
+
+    /**
+     * Description: 更新指令模板
+     * Summary: 更新指令模板
+     */
+    public UpdateCmdtemplateResponse updateCmdtemplate(UpdateCmdtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCmdtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新指令模板
+     * Summary: 更新指令模板
+     */
+    public UpdateCmdtemplateResponse updateCmdtemplateEx(UpdateCmdtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCmdtemplateResponse());
+    }
+
+    /**
+     * Description: 指令模板授权
+     * Summary: 指令模板授权
+     */
+    public BindCmdtemplateResponse bindCmdtemplate(BindCmdtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindCmdtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 指令模板授权
+     * Summary: 指令模板授权
+     */
+    public BindCmdtemplateResponse bindCmdtemplateEx(BindCmdtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCmdtemplateResponse());
+    }
+
+    /**
+     * Description: 查询流程模板
+     * Summary: 查询流程模板
+     */
+    public QueryCustomflowtemplateResponse queryCustomflowtemplate(QueryCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询流程模板
+     * Summary: 查询流程模板
+     */
+    public QueryCustomflowtemplateResponse queryCustomflowtemplateEx(QueryCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 查询流程模板详情
+     * Summary: 查询流程模板详情
+     */
+    public GetCustomflowtemplateResponse getCustomflowtemplate(GetCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询流程模板详情
+     * Summary: 查询流程模板详情
+     */
+    public GetCustomflowtemplateResponse getCustomflowtemplateEx(GetCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 创建流程模板
+     * Summary: 创建流程模板
+     */
+    public CreateCustomflowtemplateResponse createCustomflowtemplate(CreateCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建流程模板
+     * Summary: 创建流程模板
+     */
+    public CreateCustomflowtemplateResponse createCustomflowtemplateEx(CreateCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 编辑流程模板
+     * Summary: 编辑流程模板
+     */
+    public UpdateCustomflowtemplateResponse updateCustomflowtemplate(UpdateCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 编辑流程模板
+     * Summary: 编辑流程模板
+     */
+    public UpdateCustomflowtemplateResponse updateCustomflowtemplateEx(UpdateCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 删除流程模板
+     * Summary: 删除流程模板
+     */
+    public DeleteCustomflowtemplateResponse deleteCustomflowtemplate(DeleteCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除流程模板
+     * Summary: 删除流程模板
+     */
+    public DeleteCustomflowtemplateResponse deleteCustomflowtemplateEx(DeleteCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 流程模板授权
+     * Summary: 流程模板授权
+     */
+    public BindCustomflowtemplateResponse bindCustomflowtemplate(BindCustomflowtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindCustomflowtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 流程模板授权
+     * Summary: 流程模板授权
+     */
+    public BindCustomflowtemplateResponse bindCustomflowtemplateEx(BindCustomflowtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCustomflowtemplateResponse());
+    }
+
+    /**
+     * Description: 流程模板授权查询
+     * Summary: 流程模板授权查询
+     */
+    public QueryCustomflowtemplateBindResponse queryCustomflowtemplateBind(QueryCustomflowtemplateBindRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCustomflowtemplateBindEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 流程模板授权查询
+     * Summary: 流程模板授权查询
+     */
+    public QueryCustomflowtemplateBindResponse queryCustomflowtemplateBindEx(QueryCustomflowtemplateBindRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.customflowtemplate.bind.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomflowtemplateBindResponse());
+    }
+
+    /**
+     * Description: 指令模板授权查询
+     * Summary: 指令模板授权查询
+     */
+    public QueryCmdtemplateBindResponse queryCmdtemplateBind(QueryCmdtemplateBindRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCmdtemplateBindEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 指令模板授权查询
+     * Summary: 指令模板授权查询
+     */
+    public QueryCmdtemplateBindResponse queryCmdtemplateBindEx(QueryCmdtemplateBindRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.bind.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCmdtemplateBindResponse());
+    }
+
+    /**
+     * Description: 指令模板版本查询
+     * Summary: 指令模板版本查询
+     */
+    public QueryCmdtemplateVersionsResponse queryCmdtemplateVersions(QueryCmdtemplateVersionsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCmdtemplateVersionsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 指令模板版本查询
+     * Summary: 指令模板版本查询
+     */
+    public QueryCmdtemplateVersionsResponse queryCmdtemplateVersionsEx(QueryCmdtemplateVersionsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.versions.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCmdtemplateVersionsResponse());
+    }
+
+    /**
+     * Description: 指令模板版本创建
+     * Summary: 指令模板版本创建
+     */
+    public CreateCmdtemplateVersionResponse createCmdtemplateVersion(CreateCmdtemplateVersionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCmdtemplateVersionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 指令模板版本创建
+     * Summary: 指令模板版本创建
+     */
+    public CreateCmdtemplateVersionResponse createCmdtemplateVersionEx(CreateCmdtemplateVersionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.version.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCmdtemplateVersionResponse());
+    }
+
+    /**
+     * Description: 指令模板分页查询
+     * Summary: 指令模板分页查询
+     */
+    public AllCmdtemplateResponse allCmdtemplate(AllCmdtemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.allCmdtemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 指令模板分页查询
+     * Summary: 指令模板分页查询
+     */
+    public AllCmdtemplateResponse allCmdtemplateEx(AllCmdtemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.deps.cmdtemplate.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllCmdtemplateResponse());
     }
 
     /**

@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class RollbackPlanRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -24,6 +25,10 @@ public class RollbackPlanRequest extends TeaModel {
     @NameInMap("workspace")
     @Validation(required = true)
     public String workspace;
+
+    // 操作人账号名
+    @NameInMap("operator")
+    public String operator;
 
     public static RollbackPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         RollbackPlanRequest self = new RollbackPlanRequest();
@@ -68,6 +73,14 @@ public class RollbackPlanRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public RollbackPlanRequest setOperator(String operator) {
+        this.operator = operator;
+        return this;
+    }
+    public String getOperator() {
+        return this.operator;
     }
 
 }

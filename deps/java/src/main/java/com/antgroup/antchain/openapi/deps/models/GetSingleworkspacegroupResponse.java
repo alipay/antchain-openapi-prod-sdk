@@ -4,12 +4,15 @@ package com.antgroup.antchain.openapi.deps.models;
 import com.aliyun.tea.*;
 
 public class GetSingleworkspacegroupResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
@@ -32,6 +35,10 @@ public class GetSingleworkspacegroupResponse extends TeaModel {
     // 包含工作空间名称列表。
     @NameInMap("workspaces")
     public java.util.List<String> workspaces;
+
+    // 环境类型标志
+    @NameInMap("env_type")
+    public String envType;
 
     public static GetSingleworkspacegroupResponse build(java.util.Map<String, ?> map) throws Exception {
         GetSingleworkspacegroupResponse self = new GetSingleworkspacegroupResponse();
@@ -100,6 +107,14 @@ public class GetSingleworkspacegroupResponse extends TeaModel {
     }
     public java.util.List<String> getWorkspaces() {
         return this.workspaces;
+    }
+
+    public GetSingleworkspacegroupResponse setEnvType(String envType) {
+        this.envType = envType;
+        return this;
+    }
+    public String getEnvType() {
+        return this.envType;
     }
 
 }

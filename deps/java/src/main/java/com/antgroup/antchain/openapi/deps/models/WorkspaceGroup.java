@@ -24,6 +24,10 @@ public class WorkspaceGroup extends TeaModel {
     @NameInMap("workspaces")
     public java.util.List<String> workspaces;
 
+    // env_type
+    @NameInMap("env_type")
+    public String envType;
+
     public static WorkspaceGroup build(java.util.Map<String, ?> map) throws Exception {
         WorkspaceGroup self = new WorkspaceGroup();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class WorkspaceGroup extends TeaModel {
     }
     public java.util.List<String> getWorkspaces() {
         return this.workspaces;
+    }
+
+    public WorkspaceGroup setEnvType(String envType) {
+        this.envType = envType;
+        return this;
+    }
+    public String getEnvType() {
+        return this.envType;
     }
 
 }

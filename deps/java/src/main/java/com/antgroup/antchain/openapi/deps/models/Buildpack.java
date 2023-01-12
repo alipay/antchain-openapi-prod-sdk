@@ -54,7 +54,7 @@ public class Buildpack extends TeaModel {
 
     // 发布时间
     @NameInMap("publication_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String publicationTime;
 
     // 技术栈版本是系统系统的还是用户自定义的
