@@ -1,0 +1,2437 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.1',
+    _prod_code = 'BAASDATAGW',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 链上交易中的事件
+model ChainInsightEvent {
+  // 事件的 topics 列表
+  topics: [ string ](name='topics', example='call_contract'),
+  // 解析后的交易 topics 列表
+  topicsDecoded?: [ string ](name='topics_decoded', example='call_contract'),
+  // 事件的内容
+  content: string(name='content', example='03123981'),
+  // 解析后的事件内容
+  contentDecoded?: string(name='content_decoded', example='{"name":"a"}'),
+}
+
+// MapKV
+model MapEntry {
+  // Key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// 数据洞察统计指标Meta元数据
+model ChainInsightStatisticMetricMeta {
+  // 统计指标的类型；枚举：Table，Histogram
+  type: string(name='type', example='Table'),
+  // 指标的展示名称
+  name: string(name='name', example='GasUsedByContractFunction'),
+  // 指标的实际名称（自定义指标ID）
+  metricName: string(name='metric_name', example='jasrq2-uadsfkhj23'),
+}
+
+// 数据洞察表格行
+model ChainInsightStatisticCustomTableRow {
+  // 表格的一行
+  row: [ MapEntry ](name='row', example=''),
+}
+
+// 导出任务检查点信息
+model TriggerCheckpoint {
+  // 当前处理的高度
+  height?: long(name='height', example='1023'),
+  // 检查点偏移量
+  index?: long(name='index', example='0'),
+  // 检查点的类型
+  type?: string(name='type', example='Block'),
+  // 最近的错误信息
+  lastError?: string(name='last_error', example='send timeout'),
+  // 错误计数
+  errorCount?: long(name='error_count', example='10'),
+  // 推送的事件数量
+  totalCount?: long(name='total_count', example='1000'),
+}
+
+// 数据洞察搜索结果的Item
+model ChainInsightSearchResultItem {
+  // 结果类型，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+  type: string(name='type', example='ChainData'),
+  // 结果所在的链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 结果与搜索请求的相关性程度，(0, 10000000]
+  score: long(name='score', example='9500000'),
+  // 搜索结果值
+  values: [ MapEntry ](name='values', example=''),
+}
+
+// 二维点
+model ChainInsightPoint {
+  // x坐标，4位定点小数， 10000 表示 1
+  x: long(name='x', example='10000'),
+  // y坐标，4位定点小数， 10000 表示 1
+  y: long(name='y', example='10000'),
+}
+
+// 链上交易
+model ChainInsightTransaction {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='数字资产'),
+  // 交易ID
+  id: string(name='id', example='450734c80f679db95a6d1d64ca0a5e1f4b71460ab520567861614f87fb9b4d75'),
+  // 交易类型
+  type: string(name='type', example='TX_CALL_CONTRACT'),
+  // 交易状态，VALID 表示合法，其它为错误码
+  state: string(name='state', example='VALID'),
+  // 交易发起者地址
+  from: string(name='from', example='8d881273a516ace01646381132b921dbbdeec771f01ca210ca213efdf4117b80'),
+  // 交易目标地址
+  to: string(name='to', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
+  // 交易原始输入，hex编码
+  input: string(name='input', example='28504d2e0000000000000000000000000'),
+  // 交易调用的函数名
+  function?: string(name='function', example='Add'),
+  // 交易输入解析后的 json string
+  inputDecoded?: string(name='input_decoded', example='{"arg1":"add", "arg2": "1"}'),
+  // 交易的返回值
+  output?: string(name='output', example='00'),
+  // 交易返回值解析后的 json string
+  outputDecoded?: string(name='output_decoded', example='{"idx_0": true}'),
+  // 交易所在区块高度
+  blockNum: long(name='block_num', example='1234'),
+  // 交易所在区块中的 index
+  txIndex: long(name='tx_index', example='0'),
+  // 原始交易的 json string
+  data?: string(name='data', example='string'),
+  // 交易中的事件
+  events?: [ ChainInsightEvent ](name='events', example=''),
+}
+
+// 数据洞察搜索请求
+model ChainInsightSearchRequest {
+  // 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
+  offset: long(name='offset', example='0'),
+  // 搜索的上下文，在查询下一页时，需要在请求中带入 Response 返回的 context
+  context?: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUpd+sbEVLJnjZgsdG'),
+  // 页大小
+  pagSize: long(name='pag_size', example='10'),
+  // 需要搜索的请求内容，可以使用 and、or、not、括号 组合查询逻辑
+  query: string(name='query', example='*'),
+  // 查询某个合约或者存证账户的时间轴返回结果
+  timelineQuery?: string(name='timeline_query', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
+  // 查询范围的开始时间戳，毫秒
+  startTime: long(name='start_time', example='0'),
+  // 查询范围的终止时间戳，单位毫秒
+  endTime: long(name='end_time', example='1666081939568'),
+  // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+  enabledTypes?: [ string ](name='enabled_types', example='ChainAddress'),
+}
+
+// 数据洞察合约接口参数信息
+model ChainInsightContractInterfaceArgument {
+  // 参数名
+  name: string(name='name', example='arg0'),
+  // 参数类型
+  type: string(name='type', example='String'),
+  // 参数位置，枚举：input，output，deposit
+  location: string(name='location', example='input'),
+  // 参数的业务名称
+  comment?: string(name='comment', example='商品名称'),
+}
+
+// 数据洞察统计任务
+model ChainInsightStatisticTask {
+  // 统计任务ID
+  id: string(name='id', example='yurjzxc'),
+  // 统计任务类型
+  type: string(name='type', example='ContractStatistic'),
+  // 所属链ID
+  bizId: string(name='biz_id', example='3bb5caa2df9946abb8d16f3a14ec11d4'),
+  // 统计的链上合约地址
+  address?: string(name='address', example='605f39005ab0c064243b743960e304b5edb78f37d155b0da5fb83ef73311a3c4'),
+  // 任务产出的指标信息
+  metrics: [ ChainInsightStatisticMetricMeta ](name='metrics', example=''),
+  // 任务创建时间，毫秒时间戳
+  createTime?: long(name='create_time', example='1666263972000'),
+  // 任务修改时间，毫秒时间戳
+  modifyTime?: long(name='modify_time', example='1666263972000'),
+  // 任务状态：Running： 运行中； Paused: 已暂停
+  status: string(name='status', example='Running'),
+}
+
+// 数据洞察折线图
+model ChainInsightHistogram {
+  // 横坐标名称
+  xLabel?: string(name='x_label', example='XName'),
+  // 纵坐标名称
+  yLabel?: string(name='y_label', example='YName'),
+  // 坐标集，按x增序
+  points: [ ChainInsightPoint ](name='points', example=''),
+  // 表格的名称或维度名称
+  name?: string(name='name', example='FuncA'),
+}
+
+// 查询自定义统计Table指标的返回结果
+model ChainInsightStatisticCustomTablesResponse {
+  // 页大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页码
+  current: long(name='current', example='1'),
+  // 总条数
+  total: long(name='total', example='123'),
+  // 表格每一行内容，    Key 为列名，    Value，列的取值
+  list: [ ChainInsightStatisticCustomTableRow ](name='list', example=''),
+}
+
+// 地址最近交易返回值
+model ChainInsightAddressLatestTxsResponse {
+  // 页大小
+  pageSize?: long(name='page_size', example='1'),
+  // 当前页码
+  current?: long(name='current', example='1'),
+  // 合计
+  total?: long(name='total', example='12'),
+  // 近期交易详情
+  list?: [ ChainInsightTransaction ](name='list', example=''),
+}
+
+// 业务数据检索的结果数据
+model DataSearchResultResponseLog {
+  // 数据关联的合约Meta信息
+  metaId: string(name='meta_id', example='5'),
+  // 交易调用的函数名称
+  function?: string(name='function', example='trasfer'),
+  // 交易产生的事件名称
+  topic?: string(name='topic', example='call_contract'),
+  // 交易所在的区块高度
+  blockNum: long(name='block_num', example='1284'),
+  // 交易ID
+  txId: string(name='tx_id', example='6958d7e93f116f4ca34c932671733ebe18839f0a674b3d6d7dac69e53eb6c607'),
+  // Json 序列化的交易请求参数
+  data?: string(name='data', example='{"from": "account1", "to": "account2"}'),
+  // 交易中合约输出的日志内容
+  log?: string(name='log', example='TransferEvent'),
+  // 索引数据枚举类型， interface, event, deposit ；分别对应合约调用、合约事件、原生存证
+  type: string(name='type', example='interface, event, deposit'),
+  // 交易上链时间戳，单位毫秒
+  txTimestamp: long(name='tx_timestamp', example='1632992019000'),
+}
+
+// 合约Meta
+model ContractMeta {
+  // MetaID
+  id?: long(name='id', example='1'),
+  // 合约Meta创建时间
+  createTime?: long(name='create_time', example='1635822971000'),
+  // 合约Meta更新时间
+  updateTime?: long(name='update_time', example='1635822971000'),
+  // 合约名称
+  contractName: string(name='contract_name', example='myContract'),
+  // 合约名称对应的Hex编码合约地址
+  contractAddr: string(name='contract_addr', example='6958d7e93f116f4ca34c932671733ebe18839f0a674b3d6d7dac69e53eb6c607'),
+  // 合约版本号，用于助记
+  contractVersion: string(name='contract_version', example='1.0'),
+  // 合约Meta的类型，枚举类型；
+  metaType: string(name='meta_type', example='WASM_ABI, SOLIDITY_ABI'),
+  // 合约Meta生效块高，留空表示从上一个已定义的区间结束开始生效； 否则表示具体的起始生效块高
+  startBlock?: long(name='start_block', example='0'),
+  // 合约Meta生效的截止块高，留空表示自动探测到下一个已定于的区间为止， 0 表示持续生效
+  endBlock?: long(name='end_block', example='0'),
+  // 合约是否对外该链其它租户开放； 0 表示否， 1表示开放
+  publicFlag?: long(name='public_flag', example='0'),
+  // 合约Meta对应类型的数据
+  metaContent: string(name='meta_content', example='ABI文件内容'),
+}
+
+// 数据洞察合约接口
+model ChainInsightContractInterface {
+  // 展示的函数名称
+  name?: string(name='name', example='functon'),
+  // 接口中使用的函数名称标识符
+  nameSig: string(name='name_sig', example='functon'),
+  // 接口的类型，枚举：function, event, deposit
+  type: string(name='type', example='function'),
+}
+
+// 数据实时检索搜索Request
+model DataSearchRequest {
+  // 所有请求字符串，支持使用 and, or 逻辑连接词和括号
+  query: string(name='query', example='data'),
+  // 分页，返回数据结果起始位置
+  offset?: long(name='offset', example='0'),
+  // 请求的结果数量，默认值 10
+  size?: long(name='size', example='10'),
+  // 是否按时间降序排列
+  reverse?: boolean(name='reverse', example='true, false'),
+  // 检索数据的截止时间范围，Unix时间戳（秒）
+  to?: long(name='to', example='1635229141'),
+  // 检索结果的总条数
+  total?: long(name='total', example='341'),
+}
+
+// 导出任务的日志
+model TriggerLog {
+  // 日志的唯一ID
+  uuid: string(name='uuid', example='123123'),
+  // 日志的发生时间
+  createTime?: long(name='create_time', example='1650965665000'),
+  // 日志的最近修改时间
+  modifyTime?: long(name='modify_time', example='1650965665000'),
+  // 日志发生的位置
+  position: TriggerCheckpoint(name='position', example=''),
+  // 日志状态
+  status: string(name='status', example='Pending'),
+}
+
+// 数据洞察搜索返回结果
+model ChainInsightSearchResponse {
+  // 搜索命中的结果总数
+  total: long(name='total', example='23'),
+  // 搜索总共消耗了多长时间，时间单位毫秒
+  took: long(name='took', example='234'),
+  // 当前搜索的 context；翻页时请求中的 context 需要配置为该值
+  context: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUp'),
+  // 搜索结果
+  items: [ ChainInsightSearchResultItem ](name='items', example=''),
+}
+
+// 地址标签信息
+model ChainInsightAddressLabel {
+  // 链上账户或者合约地址
+  address?: string(name='address', example='7de3c3db25fe18be036565cec621d7f1a90146467c3f44f118cddfd529e29f8d'),
+  // 账户或者合约的真实名称
+  name?: string(name='name', example='testaccount1'),
+  // 用户定义的地址描述信息
+  comments?: string(name='comments', example='地址描述信息'),
+  // 合约/账户地址的标签信息
+  labels?: [ MapEntry ](name='labels', example=''),
+}
+
+// 服务状态
+model ServiceStatus {
+  // 服务名称
+  service: string(name='service', example='data.gateway'),
+  // 服务的开通与关闭状态
+  state: string(name='state', example='SERVING,CLOSED,PAUSED'),
+}
+
+// 链上区块
+model ChainInsightBlock {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='数字资产'),
+  // 链ID
+  chain: string(name='chain', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 所在子网
+  network: string(name='network', example='_default'),
+  // 区块高度
+  number: long(name='number', example='123'),
+  // 区块Hash
+  hash: string(name='hash', example='11f9f576952714aafb14c6f06ec1796b9ce2553c4c319657bd814fe3ad2d9c19'),
+  // 区块创建时间戳
+  createTime: long(name='create_time', example='1665561926620'),
+  // 上一个区块Hash
+  previousHash: string(name='previous_hash', example='5238b4903d2622b38f04015f7e062c0450d07bfadd8f153327629542e82640e3'),
+  // 区块内交易列表
+  transactions: [ ChainInsightTransaction ](name='transactions', example=''),
+  // 区块的json序列化string
+  data?: string(name='data', example='{}'),
+}
+
+// 导出任务
+model Trigger {
+  // 导出任务唯一ID
+  name?: string(name='name', example='9BpaEJNt'),
+  // 导出目标
+  type: string(name='type', example='ManagedAliRocketMQTrigger'),
+  // 导出的事件类型
+  source?: string(name='source', example='Contract'),
+  // 创建时间戳
+  createTime?: long(name='create_time', example='1650965665000'),
+  // 最近的错误描述信息
+  errorMessage?: string(name='error_message', example='send timeout'),
+  // 任务的状态
+  status: string(name='status', example='Disabled'),
+  // 导出任务的待处理错误日志数量
+  pendingErrorLogs?: long(name='pending_error_logs', example='0'),
+  // 检查点信息
+  checkpoint?: TriggerCheckpoint(name='checkpoint', example=''),
+  // 导出任务配置
+  options: [ MapEntry ](name='options', example=''),
+}
+
+// 数据洞察链上地址信息
+model ChainInsightAddress {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='数字资产'),
+  // 账户或合约地址
+  address: string(name='address', example='8d881273a516ace01646381132b921dbbdeec771f01ca210ca213efdf4117b80'),
+  // 创建者租户ID
+  creatorOrganization?: string(name='creator_organization', example='ORGSUACN'),
+  // 创建者地址
+  creator: string(name='creator', example='e7d3e769f3f593dadcb8634cc5b09fc90dd3a61c4a06a79cb0923662fe6fae6b'),
+  // 创建时间
+  craeteTime: long(name='craete_time', example='1656568400000'),
+  // 创建交易ID
+  createTxId: string(name='create_tx_id', example='450734c80f679db95a6d1d64ca0a5e1f4b71460ab520567861614f87fb9b4d75'),
+  // 修改时间戳
+  modifyTime: long(name='modify_time', example='1665647616000'),
+  // 最近修改账户的交易ID
+  modifyTxId: string(name='modify_tx_id', example='450734c80f679db95a6d1d64ca0a5e1f4b71460ab520567861614f87fb9b4d75'),
+  // 地址类型，枚举：Account，Contract
+  type: string(name='type', example='Account'),
+  // 地址状态，枚举：NORMAL，FREEZE，RECOVERING，UNKNOWN
+  status: string(name='status', example='NORMAL'),
+  // 地址余额
+  balance: long(name='balance', example='0'),
+  // 认证Map
+  authMap: [ MapEntry ](name='auth_map', example=''),
+  // 地址恢复公钥
+  recoverKey: string(name='recover_key', example='028bff6d2fc69a8547061a438c3810374e07ff5e1623df5642c95057c167da9e0029f025c5fd59cfbabb6479167fb500025ca21fba1c163c1259c4a651721536'),
+  // 合约类型，仅当地址为合约时返回：WASM、SOLIDITY
+  contractType?: string(name='contract_type', example='WASM'),
+}
+
+// 数据导出映射关系
+model DataExportTableField {
+  // 列名称
+  columnName?: string(name='column_name', example='instance_id'),
+  // 事件中字段提取的 jq 表达式
+  field?: string(name='field', example='.instance_id'),
+  // 列类型
+  columnType?: string(name='column_type', example='varchar'),
+  // 列大小
+  columnSize?: long(name='column_size', example='255'),
+  // 列描述
+  columnDescription?: string(name='column_description', example='12eba21a66ed4d2795b833ce7ebd750c'),
+}
+
+model QueryDatasearchSearchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 检索的metaId范围；私有化不支持，参数留空
+  metaConditions?: [ string ](name='meta_conditions'),
+  // 检索请求
+  query: DataSearchRequest(name='query'),
+}
+
+model QueryDatasearchSearchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求下一页的Request
+  context?: DataSearchRequest(name='context'),
+  // 检索的结果
+  logs?: [ DataSearchResultResponseLog ](name='logs'),
+}
+
+/**
+ * Description: 检索索引的链上数据
+ * Summary: 检索索引的链上数据
+ */
+async function queryDatasearchSearch(request: QueryDatasearchSearchRequest): QueryDatasearchSearchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDatasearchSearchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 检索索引的链上数据
+ * Summary: 检索索引的链上数据
+ */
+async function queryDatasearchSearchEx(request: QueryDatasearchSearchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDatasearchSearchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.datasearch.search.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartDatasearchIndexRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约ABI meta ID
+  metaId: string(name='meta_id'),
+  // 合约 hex 编码的地址
+  contract: string(name='contract'),
+  // 索引的起始位置，同合约ABI的起始位置； 0 表示从头
+  startHeight: long(name='start_height'),
+  // 索引的终止位置，同合约ABI的终止位置；0 表示到最新
+  endHeight: long(name='end_height'),
+  // 索引类型，   interface  为合约方法及输入输出； event 为合约Logs; deposit 为原生存证
+  indexType: string(name='index_type'),
+}
+
+model StartDatasearchIndexResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约索引的任务的状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 针对某个数据类型的数据开启索引；该方法可重入
+ * Summary: 开启数据索引
+ */
+async function startDatasearchIndex(request: StartDatasearchIndexRequest): StartDatasearchIndexResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startDatasearchIndexEx(request, headers, runtime);
+}
+
+/**
+ * Description: 针对某个数据类型的数据开启索引；该方法可重入
+ * Summary: 开启数据索引
+ */
+async function startDatasearchIndexEx(request: StartDatasearchIndexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartDatasearchIndexResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.datasearch.index.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopDatasearchIndexRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约ABI的ID
+  metaId: string(name='meta_id'),
+  // 索引类型， interface 为合约方法及输入输出； event 为合约Logs; deposit 为原生存证
+  indexType: string(name='index_type'),
+}
+
+model StopDatasearchIndexResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约索引的任务的状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 针对某个分组的数据停止索引；该方法可重入
+ * Summary: 停止数据索引
+ */
+async function stopDatasearchIndex(request: StopDatasearchIndexRequest): StopDatasearchIndexResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopDatasearchIndexEx(request, headers, runtime);
+}
+
+/**
+ * Description: 针对某个分组的数据停止索引；该方法可重入
+ * Summary: 停止数据索引
+ */
+async function stopDatasearchIndexEx(request: StopDatasearchIndexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopDatasearchIndexResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.datasearch.index.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveDatasearchIndexRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约ABI meta ID
+  metaId: string(name='meta_id'),
+  // 索引类型， interface 为合约方法及输入输出； event 为合约Logs; deposit 为原生存证
+  indexType: string(name='index_type'),
+}
+
+model RemoveDatasearchIndexResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约索引的任务的状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 针对某个分组的数据删除索引（ES 中的数据仍然存在, 不会删除）；该方法不可重入
+ * Summary: 删除数据索引
+ */
+async function removeDatasearchIndex(request: RemoveDatasearchIndexRequest): RemoveDatasearchIndexResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeDatasearchIndexEx(request, headers, runtime);
+}
+
+/**
+ * Description: 针对某个分组的数据删除索引（ES 中的数据仍然存在, 不会删除）；该方法不可重入
+ * Summary: 删除数据索引
+ */
+async function removeDatasearchIndexEx(request: RemoveDatasearchIndexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveDatasearchIndexResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.datasearch.index.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDatasearchIndexRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约ABI meta ID
+  metaId: string(name='meta_id'),
+  // 索引类型， interface 为合约方法及输入输出； event 为合约Logs; deposit 为原生存证
+  indexType: string(name='index_type'),
+}
+
+model GetDatasearchIndexResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 索引的索引进度（块高）
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 查询分组的索引进度，返回当前索引的索引进度（块高）
+ * Summary: 查询数据索引进度
+ */
+async function getDatasearchIndex(request: GetDatasearchIndexRequest): GetDatasearchIndexResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDatasearchIndexEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询分组的索引进度，返回当前索引的索引进度（块高）
+ * Summary: 查询数据索引进度
+ */
+async function getDatasearchIndexEx(request: GetDatasearchIndexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDatasearchIndexResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.datasearch.index.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListContractmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约 hex 编码的地址, 留空表示所有合约
+  contractAddr?: string(name='contract_addr'),
+}
+
+model ListContractmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约Meta列表
+  metas?: [ ContractMeta ](name='metas'),
+}
+
+/**
+ * Description: 列出租户在链上的所有合约Meta
+ * Summary: 列出租户在链上的所有合约Meta
+ */
+async function listContractmeta(request: ListContractmetaRequest): ListContractmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listContractmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列出租户在链上的所有合约Meta
+ * Summary: 列出租户在链上的所有合约Meta
+ */
+async function listContractmetaEx(request: ListContractmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListContractmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.contractmeta.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContractmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约Meta
+  meta: ContractMeta(name='meta'),
+}
+
+model AddContractmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约Meta
+  meta?: ContractMeta(name='meta'),
+}
+
+/**
+ * Description: 新增合约Meta
+ * Summary: 新增合约Meta
+ */
+async function addContractmeta(request: AddContractmetaRequest): AddContractmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContractmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增合约Meta
+ * Summary: 新增合约Meta
+ */
+async function addContractmetaEx(request: AddContractmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContractmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.contractmeta.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteContractmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 要删除的合约MetaID
+  metaId: long(name='meta_id'),
+}
+
+model DeleteContractmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除合约meta
+ * Summary: 删除合约meta
+ */
+async function deleteContractmeta(request: DeleteContractmetaRequest): DeleteContractmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteContractmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除合约meta
+ * Summary: 删除合约meta
+ */
+async function deleteContractmetaEx(request: DeleteContractmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteContractmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.contractmeta.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetContractmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 合约MetaId
+  metaId: long(name='meta_id'),
+}
+
+model GetContractmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约Meta
+  meta?: ContractMeta(name='meta'),
+}
+
+/**
+ * Description: 查询meta具体信息
+ * Summary: 获取meta信息
+ */
+async function getContractmeta(request: GetContractmetaRequest): GetContractmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询meta具体信息
+ * Summary: 获取meta信息
+ */
+async function getContractmetaEx(request: GetContractmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.contractmeta.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDataexportPreviewdataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 任务配置
+  trigger: Trigger(name='trigger'),
+}
+
+model CreateDataexportPreviewdataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步任务ID
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 获取导出任务预览数据的异步任务ID
+ * Summary: 获取导出任务预览数据的异步任务ID
+ */
+async function createDataexportPreviewdata(request: CreateDataexportPreviewdataRequest): CreateDataexportPreviewdataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDataexportPreviewdataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取导出任务预览数据的异步任务ID
+ * Summary: 获取导出任务预览数据的异步任务ID
+ */
+async function createDataexportPreviewdataEx(request: CreateDataexportPreviewdataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDataexportPreviewdataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.previewdata.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataexportPreviewdataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 异步任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryDataexportPreviewdataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预览数据
+  data?: [ string ](name='data'),
+}
+
+/**
+ * Description: 查询数据预览任务结果
+ * Summary: 查询数据预览任务结果
+ */
+async function queryDataexportPreviewdata(request: QueryDataexportPreviewdataRequest): QueryDataexportPreviewdataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataexportPreviewdataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据预览任务结果
+ * Summary: 查询数据预览任务结果
+ */
+async function queryDataexportPreviewdataEx(request: QueryDataexportPreviewdataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataexportPreviewdataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.previewdata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDataexportPreviewsmappingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 获取的映射类型
+  type: string(name='type'),
+  // 预览返回的数据
+  data: [ string ](name='data'),
+}
+
+model GetDataexportPreviewsmappingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 映射关系列表
+  data?: [ DataExportTableField ](name='data'),
+}
+
+/**
+ * Description: 查询默认字段映射
+ * Summary: 查询默认字段映射
+ */
+async function getDataexportPreviewsmapping(request: GetDataexportPreviewsmappingRequest): GetDataexportPreviewsmappingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDataexportPreviewsmappingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询默认字段映射
+ * Summary: 查询默认字段映射
+ */
+async function getDataexportPreviewsmappingEx(request: GetDataexportPreviewsmappingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDataexportPreviewsmappingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.previewsmapping.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDataexportTriggerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户唯一标识符（租户ID）
+  tenantId: string(name='tenant_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 导出任务
+  trigger: Trigger(name='trigger'),
+}
+
+model CreateDataexportTriggerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建导出任务
+ * Summary: 创建导出任务
+ */
+async function createDataexportTrigger(request: CreateDataexportTriggerRequest): CreateDataexportTriggerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDataexportTriggerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建导出任务
+ * Summary: 创建导出任务
+ */
+async function createDataexportTriggerEx(request: CreateDataexportTriggerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDataexportTriggerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.trigger.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataexportPreviewsqlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  tenantId: string(name='tenant_id'),
+  // -
+  bizId: string(name='biz_id'),
+  // -
+  trigger: Trigger(name='trigger'),
+}
+
+model QueryDataexportPreviewsqlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建表的SQL语句
+  sql?: string(name='sql'),
+}
+
+/**
+ * Description: 查询建表语句
+ * Summary: 查询建表语句
+ */
+async function queryDataexportPreviewsql(request: QueryDataexportPreviewsqlRequest): QueryDataexportPreviewsqlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataexportPreviewsqlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询建表语句
+ * Summary: 查询建表语句
+ */
+async function queryDataexportPreviewsqlEx(request: QueryDataexportPreviewsqlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataexportPreviewsqlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.previewsql.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDataexportTriggerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  tenantId: string(name='tenant_id'),
+  // -
+  bizId: string(name='biz_id'),
+}
+
+model ListDataexportTriggerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -
+  triggers?: [ Trigger ](name='triggers'),
+}
+
+/**
+ * Description: 列出导出任务
+ * Summary: 列出导出任务
+ */
+async function listDataexportTrigger(request: ListDataexportTriggerRequest): ListDataexportTriggerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDataexportTriggerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列出导出任务
+ * Summary: 列出导出任务
+ */
+async function listDataexportTriggerEx(request: ListDataexportTriggerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDataexportTriggerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.trigger.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateDataexportTriggerstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  tenantId: string(name='tenant_id'),
+  // -
+  bizId: string(name='biz_id'),
+  // 导出任务ID
+  name: string(name='name'),
+  // 操作
+  action: string(name='action'),
+}
+
+model OperateDataexportTriggerstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -
+  trigger?: Trigger(name='trigger'),
+}
+
+/**
+ * Description: 修改导出任务状态
+ * Summary: 修改导出任务状态
+ */
+async function operateDataexportTriggerstatus(request: OperateDataexportTriggerstatusRequest): OperateDataexportTriggerstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateDataexportTriggerstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务状态
+ * Summary: 修改导出任务状态
+ */
+async function operateDataexportTriggerstatusEx(request: OperateDataexportTriggerstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateDataexportTriggerstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.triggerstatus.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateDataexportTriggerconfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  tenantId: string(name='tenant_id'),
+  // -
+  bizId: string(name='biz_id'),
+  // 导出任务ID
+  name: string(name='name'),
+  // -
+  trigger: Trigger(name='trigger'),
+}
+
+model OperateDataexportTriggerconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -
+  trigger?: Trigger(name='trigger'),
+}
+
+/**
+ * Description: 修改导出任务配置
+ * Summary: 修改导出任务配置
+ */
+async function operateDataexportTriggerconfig(request: OperateDataexportTriggerconfigRequest): OperateDataexportTriggerconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateDataexportTriggerconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务配置
+ * Summary: 修改导出任务配置
+ */
+async function operateDataexportTriggerconfigEx(request: OperateDataexportTriggerconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateDataexportTriggerconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.triggerconfig.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDataexportTriggerlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // tenant_id
+  tenantId: string(name='tenant_id'),
+  // biz_id
+  bizId: string(name='biz_id'),
+  // 导出任务ID
+  name: string(name='name'),
+  // 状态过滤条件
+  action?: string(name='action'),
+  // -
+  pageNo?: long(name='page_no'),
+  // -
+  pageSize?: long(name='page_size'),
+}
+
+model ListDataexportTriggerlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -
+  pageSize?: long(name='page_size'),
+  // -
+  current?: long(name='current'),
+  // -
+  total?: long(name='total'),
+  // -
+  list?: [ TriggerLog ](name='list'),
+}
+
+/**
+ * Description: 列出导出任务失败日志
+ * Summary: 列出导出任务失败日志
+ */
+async function listDataexportTriggerlog(request: ListDataexportTriggerlogRequest): ListDataexportTriggerlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDataexportTriggerlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列出导出任务失败日志
+ * Summary: 列出导出任务失败日志
+ */
+async function listDataexportTriggerlogEx(request: ListDataexportTriggerlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDataexportTriggerlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.triggerlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateDataexportTriggerlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // tenant_id
+  tenantId: string(name='tenant_id'),
+  // biz_id
+  bizId: string(name='biz_id'),
+  // 导出任务ID
+  name: string(name='name'),
+  // 操作
+  action: string(name='action'),
+  // 导出任务日志ID列表
+  logs: [ string ](name='logs'),
+}
+
+model OperateDataexportTriggerlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 操作导出任务失败日志
+ * Summary: 操作导出任务失败日志
+ */
+async function operateDataexportTriggerlog(request: OperateDataexportTriggerlogRequest): OperateDataexportTriggerlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateDataexportTriggerlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 操作导出任务失败日志
+ * Summary: 操作导出任务失败日志
+ */
+async function operateDataexportTriggerlogEx(request: OperateDataexportTriggerlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateDataexportTriggerlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.dataexport.triggerlog.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightLabelsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 需要查询的地址列表
+  hexAddresses: [ string ](name='hex_addresses'),
+}
+
+model QueryChaininsightLabelsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址的标签信息
+  result?: [ ChainInsightAddressLabel ](name='result'),
+}
+
+/**
+ * Description: 查询地址标签
+ * Summary: 查询地址标签
+ */
+async function queryChaininsightLabels(request: QueryChaininsightLabelsRequest): QueryChaininsightLabelsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightLabelsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询地址标签
+ * Summary: 查询地址标签
+ */
+async function queryChaininsightLabelsEx(request: QueryChaininsightLabelsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightLabelsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.labels.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChaininsightLabelsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 更新的 label 内容
+  label: ChainInsightAddressLabel(name='label'),
+}
+
+model UpdateChaininsightLabelsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 更新地址标签
+ * Summary: 更新地址标签
+ */
+async function updateChaininsightLabels(request: UpdateChaininsightLabelsRequest): UpdateChaininsightLabelsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChaininsightLabelsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新地址标签
+ * Summary: 更新地址标签
+ */
+async function updateChaininsightLabelsEx(request: UpdateChaininsightLabelsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChaininsightLabelsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.labels.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightSearchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 需要搜索的链ID列表，为空是表示搜索联盟内的所有链
+  bizIds?: [ string ](name='biz_ids'),
+  // 搜索请求
+  request: ChainInsightSearchRequest(name='request'),
+}
+
+model QueryChaininsightSearchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 搜索结果
+  result?: ChainInsightSearchResponse(name='result'),
+}
+
+/**
+ * Description: 链上搜索
+ * Summary: 链上搜索
+ */
+async function queryChaininsightSearch(request: QueryChaininsightSearchRequest): QueryChaininsightSearchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightSearchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上搜索
+ * Summary: 链上搜索
+ */
+async function queryChaininsightSearchEx(request: QueryChaininsightSearchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightSearchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.search.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightAddressRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+}
+
+model QueryChaininsightAddressResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightAddress(name='result'),
+}
+
+/**
+ * Description: 查询链上地址详情
+ * Summary: 查询链上地址详情
+ */
+async function queryChaininsightAddress(request: QueryChaininsightAddressRequest): QueryChaininsightAddressResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightAddressEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链上地址详情
+ * Summary: 查询链上地址详情
+ */
+async function queryChaininsightAddressEx(request: QueryChaininsightAddressRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightAddressResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.address.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightTransactionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 交易ID
+  txId: string(name='tx_id'),
+  // hex编码的TEE交易解密Key，留空表示不解密
+  teeKey?: string(name='tee_key'),
+}
+
+model QueryChaininsightTransactionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightTransaction(name='result'),
+}
+
+/**
+ * Description: 查询链上交易详情
+ * Summary: 查询链上交易详情
+ */
+async function queryChaininsightTransaction(request: QueryChaininsightTransactionRequest): QueryChaininsightTransactionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightTransactionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链上交易详情
+ * Summary: 查询链上交易详情
+ */
+async function queryChaininsightTransactionEx(request: QueryChaininsightTransactionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightTransactionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightBlockRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 区块高度
+  num: long(name='num'),
+}
+
+model QueryChaininsightBlockResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightBlock(name='result'),
+}
+
+/**
+ * Description: 查询链上区块详情
+ * Summary: 查询链上区块详情
+ */
+async function queryChaininsightBlock(request: QueryChaininsightBlockRequest): QueryChaininsightBlockResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightBlockEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链上区块详情
+ * Summary: 查询链上区块详情
+ */
+async function queryChaininsightBlockEx(request: QueryChaininsightBlockRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightBlockResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.block.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightAddresslatesttxsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 页码
+  pageNo?: long(name='page_no'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+}
+
+model QueryChaininsightAddresslatesttxsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightAddressLatestTxsResponse(name='result'),
+}
+
+/**
+ * Description: 查询地址近期交易
+ * Summary: 查询地址近期交易
+ */
+async function queryChaininsightAddresslatesttxs(request: QueryChaininsightAddresslatesttxsRequest): QueryChaininsightAddresslatesttxsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightAddresslatesttxsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询地址近期交易
+ * Summary: 查询地址近期交易
+ */
+async function queryChaininsightAddresslatesttxsEx(request: QueryChaininsightAddresslatesttxsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightAddresslatesttxsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.addresslatesttxs.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListChaininsightContractinterfaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 需要查询的版本信息，0表示最新
+  ver: string(name='ver'),
+}
+
+model ListChaininsightContractinterfaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: [ ChainInsightContractInterface ](name='result'),
+}
+
+/**
+ * Description: 列出合约全部接口
+ * Summary: 列出合约全部接口
+ */
+async function listChaininsightContractinterface(request: ListChaininsightContractinterfaceRequest): ListChaininsightContractinterfaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listChaininsightContractinterfaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列出合约全部接口
+ * Summary: 列出合约全部接口
+ */
+async function listChaininsightContractinterfaceEx(request: ListChaininsightContractinterfaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListChaininsightContractinterfaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contractinterface.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailChaininsightContractinterfaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 版本信息（块高）
+  ver: string(name='ver'),
+  // 接口
+  contractInterface: ChainInsightContractInterface(name='contract_interface'),
+}
+
+model DetailChaininsightContractinterfaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: [ ChainInsightContractInterfaceArgument ](name='result'),
+}
+
+/**
+ * Description: 查询合约接口信息
+ * Summary: 查询合约接口信息
+ */
+async function detailChaininsightContractinterface(request: DetailChaininsightContractinterfaceRequest): DetailChaininsightContractinterfaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailChaininsightContractinterfaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询合约接口信息
+ * Summary: 查询合约接口信息
+ */
+async function detailChaininsightContractinterfaceEx(request: DetailChaininsightContractinterfaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailChaininsightContractinterfaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contractinterface.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChaininsightContractinterfaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 版本信息
+  ver: string(name='ver'),
+  // 接口信息
+  contractInterface: ChainInsightContractInterface(name='contract_interface'),
+  // 新的接口参数信息
+  interfaceArgument: ChainInsightContractInterfaceArgument(name='interface_argument'),
+}
+
+model UpdateChaininsightContractinterfaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 更新合约接口信息
+ * Summary: 更新合约接口信息
+ */
+async function updateChaininsightContractinterface(request: UpdateChaininsightContractinterfaceRequest): UpdateChaininsightContractinterfaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChaininsightContractinterfaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新合约接口信息
+ * Summary: 更新合约接口信息
+ */
+async function updateChaininsightContractinterfaceEx(request: UpdateChaininsightContractinterfaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChaininsightContractinterfaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contractinterface.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadChaininsightAbiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址
+  hexAddress: string(name='hex_address'),
+  // 对应的合约版本
+  ver: string(name='ver'),
+  // ABI文件原始内容
+  file: string(name='file'),
+}
+
+model UploadChaininsightAbiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 上传合约ABI文件
+ * Summary: 上传合约ABI文件
+ */
+async function uploadChaininsightAbi(request: UploadChaininsightAbiRequest): UploadChaininsightAbiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadChaininsightAbiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传合约ABI文件
+ * Summary: 上传合约ABI文件
+ */
+async function uploadChaininsightAbiEx(request: UploadChaininsightAbiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadChaininsightAbiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.abi.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightAddresshistogramrxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 地址
+  hexAddress: string(name='hex_address'),
+  // 开始时间戳，毫秒
+  startTime: long(name='start_time'),
+  // 结束时间戳，毫秒
+  endTime: long(name='end_time'),
+}
+
+model QueryChaininsightAddresshistogramrxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightHistogram(name='result'),
+}
+
+/**
+ * Description: 查询地址的接收交易数量趋势
+ * Summary: 查询地址的接收交易数量趋势
+ */
+async function queryChaininsightAddresshistogramrx(request: QueryChaininsightAddresshistogramrxRequest): QueryChaininsightAddresshistogramrxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightAddresshistogramrxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询地址的接收交易数量趋势
+ * Summary: 查询地址的接收交易数量趋势
+ */
+async function queryChaininsightAddresshistogramrxEx(request: QueryChaininsightAddresshistogramrxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightAddresshistogramrxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.addresshistogramrx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightAddresshistogramtxRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 地址
+  hexAddress: string(name='hex_address'),
+  // 开始时间戳
+  startTime: long(name='start_time'),
+  // 结束时间戳
+  endTime: long(name='end_time'),
+}
+
+model QueryChaininsightAddresshistogramtxResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightHistogram(name='result'),
+}
+
+/**
+ * Description: 查询地址的发送交易数量趋势
+ * Summary: 查询地址的发送交易数量趋势
+ */
+async function queryChaininsightAddresshistogramtx(request: QueryChaininsightAddresshistogramtxRequest): QueryChaininsightAddresshistogramtxResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightAddresshistogramtxEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询地址的发送交易数量趋势
+ * Summary: 查询地址的发送交易数量趋势
+ */
+async function queryChaininsightAddresshistogramtxEx(request: QueryChaininsightAddresshistogramtxRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightAddresshistogramtxResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.addresshistogramtx.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightChaintxhistogramRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 链ID，可选；留空表示联盟内所有链
+  bizId?: string(name='biz_id'),
+  // 开始时间戳
+  startTime: long(name='start_time'),
+  // 结束时间戳
+  endTime: long(name='end_time'),
+}
+
+model QueryChaininsightChaintxhistogramResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightHistogram(name='result'),
+}
+
+/**
+ * Description: 查询链交易数量趋势
+ * Summary: 查询链交易数量趋势
+ */
+async function queryChaininsightChaintxhistogram(request: QueryChaininsightChaintxhistogramRequest): QueryChaininsightChaintxhistogramResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightChaintxhistogramEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链交易数量趋势
+ * Summary: 查询链交易数量趋势
+ */
+async function queryChaininsightChaintxhistogramEx(request: QueryChaininsightChaintxhistogramRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightChaintxhistogramResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.chaintxhistogram.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryChaininsightTransactionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BatchqueryChaininsightTransactionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量查询链上交易详情
+ * Summary: 批量查询链上交易详情
+ */
+async function batchqueryChaininsightTransaction(request: BatchqueryChaininsightTransactionRequest): BatchqueryChaininsightTransactionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryChaininsightTransactionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量查询链上交易详情
+ * Summary: 批量查询链上交易详情
+ */
+async function batchqueryChaininsightTransactionEx(request: BatchqueryChaininsightTransactionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryChaininsightTransactionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.transaction.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListChaininsightStatisticRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 统计类型，ContractStatistic：合约性能检测指标
+  type?: string(name='type'),
+  // 合约地址
+  hexAddress?: string(name='hex_address'),
+}
+
+model ListChaininsightStatisticResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: [ ChainInsightStatisticTask ](name='result'),
+}
+
+/**
+ * Description: 查询统计任务
+ * Summary: 查询统计任务
+ */
+async function listChaininsightStatistic(request: ListChaininsightStatisticRequest): ListChaininsightStatisticResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listChaininsightStatisticEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询统计任务
+ * Summary: 查询统计任务
+ */
+async function listChaininsightStatisticEx(request: ListChaininsightStatisticRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListChaininsightStatisticResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statistic.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddChaininsightStatisticRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 统计类型，    ContractStatistic： 合约性能检测指标
+  type: string(name='type'),
+  // 链上合约地址
+  hexAddress?: string(name='hex_address'),
+}
+
+model AddChaininsightStatisticResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightStatisticTask(name='result'),
+}
+
+/**
+ * Description: 新建统计任务
+ * Summary: 新建统计任务
+ */
+async function addChaininsightStatistic(request: AddChaininsightStatisticRequest): AddChaininsightStatisticResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addChaininsightStatisticEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新建统计任务
+ * Summary: 新建统计任务
+ */
+async function addChaininsightStatisticEx(request: AddChaininsightStatisticRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddChaininsightStatisticResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statistic.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateChaininsightStatisticRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 统计任务ID
+  taskId: string(name='task_id'),
+  // 操作方式； Delete 删除
+  operation: string(name='operation'),
+}
+
+model OperateChaininsightStatisticResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightStatisticTask(name='result'),
+}
+
+/**
+ * Description: 操作统计任务
+ * Summary: 操作统计任务
+ */
+async function operateChaininsightStatistic(request: OperateChaininsightStatisticRequest): OperateChaininsightStatisticResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateChaininsightStatisticEx(request, headers, runtime);
+}
+
+/**
+ * Description: 操作统计任务
+ * Summary: 操作统计任务
+ */
+async function operateChaininsightStatisticEx(request: OperateChaininsightStatisticRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateChaininsightStatisticResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statistic.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightStatistichistogramRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 自定义通知指标的ID
+  name: string(name='name'),
+  // 多个维度名称，空表示所有维度
+  dimensions?: [ string ](name='dimensions'),
+  // 查询开始时间，毫秒时间戳
+  startTime: long(name='start_time'),
+  // 查询结束时间，毫秒时间戳
+  endTime: long(name='end_time'),
+}
+
+model QueryChaininsightStatistichistogramResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: [ ChainInsightHistogram ](name='result'),
+}
+
+/**
+ * Description: 查询统计任务的统计结果直方图
+ * Summary: 查询统计任务的统计结果直方图
+ */
+async function queryChaininsightStatistichistogram(request: QueryChaininsightStatistichistogramRequest): QueryChaininsightStatistichistogramResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightStatistichistogramEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询统计任务的统计结果直方图
+ * Summary: 查询统计任务的统计结果直方图
+ */
+async function queryChaininsightStatistichistogramEx(request: QueryChaininsightStatistichistogramRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightStatistichistogramResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statistichistogram.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightStatistictableRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 自定义统计的指标ID
+  name: string(name='name'),
+  // 多个维度名称，空表示所有维度
+  dimensions?: [ string ](name='dimensions'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 页码
+  pageNo?: long(name='page_no'),
+}
+
+model QueryChaininsightStatistictableResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: ChainInsightStatisticCustomTablesResponse(name='result'),
+}
+
+/**
+ * Description: 查询统计任务的统计结果表格
+ * Summary: 查询统计任务的统计结果表格
+ */
+async function queryChaininsightStatistictable(request: QueryChaininsightStatistictableRequest): QueryChaininsightStatistictableResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightStatistictableEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询统计任务的统计结果表格
+ * Summary: 查询统计任务的统计结果表格
+ */
+async function queryChaininsightStatistictableEx(request: QueryChaininsightStatistictableRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightStatistictableResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statistictable.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateChaininsightQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // QR码类型，枚举值：CONTRACT / HEXADDRESS / TX / CHAIN / BLOCK / TIMELINE
+  pageType: string(name='page_type'),
+  // 页面对应的参数
+  paramMap: [ MapEntry ](name='param_map'),
+}
+
+model CreateChaininsightQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // base64编码的png图片
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 生成支付宝小程序二维码
+ * Summary: 生成支付宝小程序二维码
+ */
+async function createChaininsightQrcode(request: CreateChaininsightQrcodeRequest): CreateChaininsightQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createChaininsightQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生成支付宝小程序二维码
+ * Summary: 生成支付宝小程序二维码
+ */
+async function createChaininsightQrcodeEx(request: CreateChaininsightQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChaininsightQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.qrcode.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterChainsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链唯一标识符
+  bizId: string(name='biz_id'),
+  // 链配置的最后更新时间（用于标识版本）
+  ver: long(name='ver'),
+  // 链类型
+  type: string(name='type'),
+  // 节点RPC接口地址
+  mychainNodes?: [ string ](name='mychain_nodes'),
+  // MyChain版本
+  mychainType?: string(name='mychain_type'),
+  // base64编码的JDS
+  mychainTruststore?: string(name='mychain_truststore'),
+  // -
+  mychainTruststorePassword?: string(name='mychain_truststore_password'),
+  // -
+  mychainClientCrt?: string(name='mychain_client_crt'),
+  // -
+  mychainClientKey?: string(name='mychain_client_key'),
+  // -
+  mychainClientKeyPwd?: string(name='mychain_client_key_pwd'),
+  // -
+  mychainTlsAlgo?: string(name='mychain_tls_algo'),
+  // -
+  mychainIdentityAlgo?: string(name='mychain_identity_algo'),
+  // 子链 groupID
+  mychainGroupid?: string(name='mychain_groupid'),
+  // 子链的父链ID
+  mychainParentBizid?: string(name='mychain_parent_bizid'),
+}
+
+model RegisterChainsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 注册链信息
+ * Summary: 注册链信息
+ */
+async function registerChains(request: RegisterChainsRequest): RegisterChainsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerChainsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册链信息
+ * Summary: 注册链信息
+ */
+async function registerChainsEx(request: RegisterChainsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterChainsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chains.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateChainsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  bizId: string(name='biz_id'),
+  // 不留空表示给租户开通权限
+  tenantId?: string(name='tenant_id'),
+  // 操作类型，默认留空表示开通
+  type?: string(name='type'),
+}
+
+model OperateChainsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 操作数据网关开通状态
+ * Summary: 操作数据网关开通状态
+ */
+async function operateChains(request: OperateChainsRequest): OperateChainsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateChainsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 操作数据网关开通状态
+ * Summary: 操作数据网关开通状态
+ */
+async function operateChainsEx(request: OperateChainsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateChainsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chains.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetChainsStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // -
+  bizId: string(name='biz_id'),
+  // -
+  tenantId?: string(name='tenant_id'),
+}
+
+model GetChainsStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -
+  status?: [ ServiceStatus ](name='status'),
+}
+
+/**
+ * Description: 查询某条链的服务开通状态
+ * Summary: 查询某条链的服务开通状态
+ */
+async function getChainsStatus(request: GetChainsStatusRequest): GetChainsStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getChainsStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询某条链的服务开通状态
+ * Summary: 查询某条链的服务开通状态
+ */
+async function getChainsStatusEx(request: GetChainsStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetChainsStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chains.status.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
