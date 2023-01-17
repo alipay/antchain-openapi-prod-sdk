@@ -27511,6 +27511,8 @@ type CreateLeaseRiskResponse struct {
 	Paas *string `json:"paas,omitempty" xml:"paas,omitempty"`
 	// 风控识别id，与订单id对应
 	RiskId *string `json:"risk_id,omitempty" xml:"risk_id,omitempty"`
+	// 风控规则对应的版本号
+	RiskVersion *string `json:"risk_version,omitempty" xml:"risk_version,omitempty"`
 }
 
 func (s CreateLeaseRiskResponse) String() string {
@@ -27543,6 +27545,11 @@ func (s *CreateLeaseRiskResponse) SetPaas(v string) *CreateLeaseRiskResponse {
 
 func (s *CreateLeaseRiskResponse) SetRiskId(v string) *CreateLeaseRiskResponse {
 	s.RiskId = &v
+	return s
+}
+
+func (s *CreateLeaseRiskResponse) SetRiskVersion(v string) *CreateLeaseRiskResponse {
+	s.RiskVersion = &v
 	return s
 }
 
@@ -38849,7 +38856,7 @@ func (s *GetInternalFileResponse) SetHashAlgorithm(v string) *GetInternalFileRes
 	return s
 }
 
-type CreateEncryptTextRequest struct {
+type CreateDataflowTextRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -38871,55 +38878,55 @@ type CreateEncryptTextRequest struct {
 	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
 }
 
-func (s CreateEncryptTextRequest) String() string {
+func (s CreateDataflowTextRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateEncryptTextRequest) GoString() string {
+func (s CreateDataflowTextRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateEncryptTextRequest) SetAuthToken(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetAuthToken(v string) *CreateDataflowTextRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetProductInstanceId(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetProductInstanceId(v string) *CreateDataflowTextRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetNotaryContent(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetNotaryContent(v string) *CreateDataflowTextRequest {
 	s.NotaryContent = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetPhase(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetPhase(v string) *CreateDataflowTextRequest {
 	s.Phase = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetTransactionId(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetTransactionId(v string) *CreateDataflowTextRequest {
 	s.TransactionId = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetProperties(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetProperties(v string) *CreateDataflowTextRequest {
 	s.Properties = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetTextNotaryType(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetTextNotaryType(v string) *CreateDataflowTextRequest {
 	s.TextNotaryType = &v
 	return s
 }
 
-func (s *CreateEncryptTextRequest) SetHashAlgorithm(v string) *CreateEncryptTextRequest {
+func (s *CreateDataflowTextRequest) SetHashAlgorithm(v string) *CreateDataflowTextRequest {
 	s.HashAlgorithm = &v
 	return s
 }
 
-type CreateEncryptTextResponse struct {
+type CreateDataflowTextResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -38930,73 +38937,73 @@ type CreateEncryptTextResponse struct {
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
 }
 
-func (s CreateEncryptTextResponse) String() string {
+func (s CreateDataflowTextResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateEncryptTextResponse) GoString() string {
+func (s CreateDataflowTextResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateEncryptTextResponse) SetReqMsgId(v string) *CreateEncryptTextResponse {
+func (s *CreateDataflowTextResponse) SetReqMsgId(v string) *CreateDataflowTextResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateEncryptTextResponse) SetResultCode(v string) *CreateEncryptTextResponse {
+func (s *CreateDataflowTextResponse) SetResultCode(v string) *CreateDataflowTextResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateEncryptTextResponse) SetResultMsg(v string) *CreateEncryptTextResponse {
+func (s *CreateDataflowTextResponse) SetResultMsg(v string) *CreateDataflowTextResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateEncryptTextResponse) SetTxHash(v string) *CreateEncryptTextResponse {
+func (s *CreateDataflowTextResponse) SetTxHash(v string) *CreateDataflowTextResponse {
 	s.TxHash = &v
 	return s
 }
 
-type GetEncryptTextRequest struct {
+type GetDataflowTextRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 存证地址
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+	// 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
 	TargetAccountId *string `json:"target_account_id,omitempty" xml:"target_account_id,omitempty"`
 }
 
-func (s GetEncryptTextRequest) String() string {
+func (s GetDataflowTextRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetEncryptTextRequest) GoString() string {
+func (s GetDataflowTextRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetEncryptTextRequest) SetAuthToken(v string) *GetEncryptTextRequest {
+func (s *GetDataflowTextRequest) SetAuthToken(v string) *GetDataflowTextRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetEncryptTextRequest) SetProductInstanceId(v string) *GetEncryptTextRequest {
+func (s *GetDataflowTextRequest) SetProductInstanceId(v string) *GetDataflowTextRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetEncryptTextRequest) SetTxHash(v string) *GetEncryptTextRequest {
+func (s *GetDataflowTextRequest) SetTxHash(v string) *GetDataflowTextRequest {
 	s.TxHash = &v
 	return s
 }
 
-func (s *GetEncryptTextRequest) SetTargetAccountId(v string) *GetEncryptTextRequest {
+func (s *GetDataflowTextRequest) SetTargetAccountId(v string) *GetDataflowTextRequest {
 	s.TargetAccountId = &v
 	return s
 }
 
-type GetEncryptTextResponse struct {
+type GetDataflowTextResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -39007,31 +39014,621 @@ type GetEncryptTextResponse struct {
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 }
 
-func (s GetEncryptTextResponse) String() string {
+func (s GetDataflowTextResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetEncryptTextResponse) GoString() string {
+func (s GetDataflowTextResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetEncryptTextResponse) SetReqMsgId(v string) *GetEncryptTextResponse {
+func (s *GetDataflowTextResponse) SetReqMsgId(v string) *GetDataflowTextResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetEncryptTextResponse) SetResultCode(v string) *GetEncryptTextResponse {
+func (s *GetDataflowTextResponse) SetResultCode(v string) *GetDataflowTextResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetEncryptTextResponse) SetResultMsg(v string) *GetEncryptTextResponse {
+func (s *GetDataflowTextResponse) SetResultMsg(v string) *GetDataflowTextResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetEncryptTextResponse) SetContent(v string) *GetEncryptTextResponse {
+func (s *GetDataflowTextResponse) SetContent(v string) *GetDataflowTextResponse {
 	s.Content = &v
+	return s
+}
+
+type CreateDataflowTransRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证主体信息，使用存证公钥加密
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 子业务ID，选填
+	SubBizId *string `json:"sub_biz_id,omitempty" xml:"sub_biz_id,omitempty"`
+	// 扩展属性信息，使用存证公钥加密，选填
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+}
+
+func (s CreateDataflowTransRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowTransRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowTransRequest) SetAuthToken(v string) *CreateDataflowTransRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDataflowTransRequest) SetProductInstanceId(v string) *CreateDataflowTransRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDataflowTransRequest) SetCustomer(v string) *CreateDataflowTransRequest {
+	s.Customer = &v
+	return s
+}
+
+func (s *CreateDataflowTransRequest) SetSubBizId(v string) *CreateDataflowTransRequest {
+	s.SubBizId = &v
+	return s
+}
+
+func (s *CreateDataflowTransRequest) SetProperties(v string) *CreateDataflowTransRequest {
+	s.Properties = &v
+	return s
+}
+
+type CreateDataflowTransResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证事务id
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+}
+
+func (s CreateDataflowTransResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowTransResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowTransResponse) SetReqMsgId(v string) *CreateDataflowTransResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDataflowTransResponse) SetResultCode(v string) *CreateDataflowTransResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDataflowTransResponse) SetResultMsg(v string) *CreateDataflowTransResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDataflowTransResponse) SetTransactionId(v string) *CreateDataflowTransResponse {
+	s.TransactionId = &v
+	return s
+}
+
+type DeployDataflowContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 信封密钥。存证方本地自行派生一堆非对称密钥，将公钥作为信封密钥。存证方用户后续读取链上信息（如存证密钥、存证数据原文）时，为避免链上明文信息泄漏，会使用该信封密钥对所有链上数据进行加密后再返回，保障数据安全。
+	Pubkey *string `json:"pubkey,omitempty" xml:"pubkey,omitempty" require:"true"`
+}
+
+func (s DeployDataflowContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployDataflowContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeployDataflowContractRequest) SetAuthToken(v string) *DeployDataflowContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeployDataflowContractRequest) SetProductInstanceId(v string) *DeployDataflowContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeployDataflowContractRequest) SetPubkey(v string) *DeployDataflowContractRequest {
+	s.Pubkey = &v
+	return s
+}
+
+type DeployDataflowContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发起部署的请求回执，用于后续做部署结果查询。
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s DeployDataflowContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployDataflowContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeployDataflowContractResponse) SetReqMsgId(v string) *DeployDataflowContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeployDataflowContractResponse) SetResultCode(v string) *DeployDataflowContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeployDataflowContractResponse) SetResultMsg(v string) *DeployDataflowContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeployDataflowContractResponse) SetOrderId(v string) *DeployDataflowContractResponse {
+	s.OrderId = &v
+	return s
+}
+
+type CreateDataflowAuthorizeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 被授权账户的租户ID
+	TargetTenant *string `json:"target_tenant,omitempty" xml:"target_tenant,omitempty" require:"true"`
+	// 授权类型：
+	// 1. PUBKEY_UPLOAD：上传信封公钥
+	// 2. GET_NOTARY：查询存证原文
+	// 3. CHECK_NOTARY：核验存证信息
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为：
+	// 1. TXHASH：交易哈希维度授权
+	// 2. ACCOUNT：账号维度授权
+	AuthScope *string `json:"auth_scope,omitempty" xml:"auth_scope,omitempty"`
+	// 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+	TxHashList []*string `json:"tx_hash_list,omitempty" xml:"tx_hash_list,omitempty" type:"Repeated"`
+	// 授权有效的时间戳
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true"`
+}
+
+func (s CreateDataflowAuthorizeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowAuthorizeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetAuthToken(v string) *CreateDataflowAuthorizeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetProductInstanceId(v string) *CreateDataflowAuthorizeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetTargetTenant(v string) *CreateDataflowAuthorizeRequest {
+	s.TargetTenant = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetAuthType(v string) *CreateDataflowAuthorizeRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetAuthScope(v string) *CreateDataflowAuthorizeRequest {
+	s.AuthScope = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetTxHashList(v []*string) *CreateDataflowAuthorizeRequest {
+	s.TxHashList = v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeRequest) SetExpireTime(v int64) *CreateDataflowAuthorizeRequest {
+	s.ExpireTime = &v
+	return s
+}
+
+type CreateDataflowAuthorizeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发起授权的请求回执，用于后续做发起授权结果查询。
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s CreateDataflowAuthorizeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowAuthorizeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowAuthorizeResponse) SetReqMsgId(v string) *CreateDataflowAuthorizeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeResponse) SetResultCode(v string) *CreateDataflowAuthorizeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeResponse) SetResultMsg(v string) *CreateDataflowAuthorizeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDataflowAuthorizeResponse) SetOrderId(v string) *CreateDataflowAuthorizeResponse {
+	s.OrderId = &v
+	return s
+}
+
+type CancelDataflowAuthorizeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 目标租户ID
+	TargetTenant *string `json:"target_tenant,omitempty" xml:"target_tenant,omitempty" require:"true"`
+	// 授权类型： 1. PUBKEY_UPLOAD：上传信封公钥 2. GET_NOTARY：查询存证原文 3. CHECK_NOTARY：核验存证信息
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为： 1. TXHASH：交易哈希维度授权 2. ACCOUNT：账号维度授权
+	AuthScope *string `json:"auth_scope,omitempty" xml:"auth_scope,omitempty"`
+	// 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+	TxHashList []*string `json:"tx_hash_list,omitempty" xml:"tx_hash_list,omitempty" type:"Repeated"`
+}
+
+func (s CancelDataflowAuthorizeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDataflowAuthorizeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetAuthToken(v string) *CancelDataflowAuthorizeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetProductInstanceId(v string) *CancelDataflowAuthorizeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetTargetTenant(v string) *CancelDataflowAuthorizeRequest {
+	s.TargetTenant = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetAuthType(v string) *CancelDataflowAuthorizeRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetAuthScope(v string) *CancelDataflowAuthorizeRequest {
+	s.AuthScope = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeRequest) SetTxHashList(v []*string) *CancelDataflowAuthorizeRequest {
+	s.TxHashList = v
+	return s
+}
+
+type CancelDataflowAuthorizeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发起授权的请求回执，用于后续做撤销授权的结果查询。
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s CancelDataflowAuthorizeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDataflowAuthorizeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDataflowAuthorizeResponse) SetReqMsgId(v string) *CancelDataflowAuthorizeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeResponse) SetResultCode(v string) *CancelDataflowAuthorizeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeResponse) SetResultMsg(v string) *CancelDataflowAuthorizeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelDataflowAuthorizeResponse) SetOrderId(v string) *CancelDataflowAuthorizeResponse {
+	s.OrderId = &v
+	return s
+}
+
+type QueryDataflowActionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询类型：
+	// 1. 合约部署：DEPLOY
+	// 2. 授权：AUTH
+	// 3. 撤销授权：CANCEL_AUTH
+	// 4. 密钥上传：PUB_KEY_UPLOAD
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
+	// 发起操作的请求回执
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryDataflowActionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDataflowActionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDataflowActionRequest) SetAuthToken(v string) *QueryDataflowActionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDataflowActionRequest) SetProductInstanceId(v string) *QueryDataflowActionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDataflowActionRequest) SetQueryType(v string) *QueryDataflowActionRequest {
+	s.QueryType = &v
+	return s
+}
+
+func (s *QueryDataflowActionRequest) SetOrderId(v string) *QueryDataflowActionRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryDataflowActionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 信封公钥加密后的存证公钥信息，当查询类型为DEPLOY且status为密钥上传成功时返回。
+	EncryptedPubkey *string `json:"encrypted_pubkey,omitempty" xml:"encrypted_pubkey,omitempty"`
+}
+
+func (s QueryDataflowActionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDataflowActionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDataflowActionResponse) SetReqMsgId(v string) *QueryDataflowActionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDataflowActionResponse) SetResultCode(v string) *QueryDataflowActionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDataflowActionResponse) SetResultMsg(v string) *QueryDataflowActionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDataflowActionResponse) SetStatus(v int64) *QueryDataflowActionResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDataflowActionResponse) SetEncryptedPubkey(v string) *QueryDataflowActionResponse {
+	s.EncryptedPubkey = &v
+	return s
+}
+
+type UploadDataflowPubkeyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 信封公钥内容
+	Pubkey *string `json:"pubkey,omitempty" xml:"pubkey,omitempty" require:"true"`
+	// 存证方的租户ID
+	FromTenant *string `json:"from_tenant,omitempty" xml:"from_tenant,omitempty" require:"true"`
+}
+
+func (s UploadDataflowPubkeyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDataflowPubkeyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDataflowPubkeyRequest) SetAuthToken(v string) *UploadDataflowPubkeyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyRequest) SetProductInstanceId(v string) *UploadDataflowPubkeyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyRequest) SetPubkey(v string) *UploadDataflowPubkeyRequest {
+	s.Pubkey = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyRequest) SetFromTenant(v string) *UploadDataflowPubkeyRequest {
+	s.FromTenant = &v
+	return s
+}
+
+type UploadDataflowPubkeyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发起密钥上传的请求回执，用于后续做密钥上传结果查询。
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s UploadDataflowPubkeyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDataflowPubkeyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDataflowPubkeyResponse) SetReqMsgId(v string) *UploadDataflowPubkeyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyResponse) SetResultCode(v string) *UploadDataflowPubkeyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyResponse) SetResultMsg(v string) *UploadDataflowPubkeyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadDataflowPubkeyResponse) SetOrderId(v string) *UploadDataflowPubkeyResponse {
+	s.OrderId = &v
+	return s
+}
+
+type CreateDataflowAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链上账号名称，真实名称会在前加租户ID
+	ThirdPartyAccountId *string `json:"third_party_account_id,omitempty" xml:"third_party_account_id,omitempty" require:"true"`
+	// 账户密钥算法
+	KeyAlgorithm *string `json:"key_algorithm,omitempty" xml:"key_algorithm,omitempty"`
+}
+
+func (s CreateDataflowAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowAccountRequest) SetAuthToken(v string) *CreateDataflowAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDataflowAccountRequest) SetProductInstanceId(v string) *CreateDataflowAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDataflowAccountRequest) SetThirdPartyAccountId(v string) *CreateDataflowAccountRequest {
+	s.ThirdPartyAccountId = &v
+	return s
+}
+
+func (s *CreateDataflowAccountRequest) SetKeyAlgorithm(v string) *CreateDataflowAccountRequest {
+	s.KeyAlgorithm = &v
+	return s
+}
+
+type CreateDataflowAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实际生成的链上账户ID
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty"`
+}
+
+func (s CreateDataflowAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDataflowAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDataflowAccountResponse) SetReqMsgId(v string) *CreateDataflowAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDataflowAccountResponse) SetResultCode(v string) *CreateDataflowAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDataflowAccountResponse) SetResultMsg(v string) *CreateDataflowAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDataflowAccountResponse) SetChainAccount(v string) *CreateDataflowAccountResponse {
+	s.ChainAccount = &v
 	return s
 }
 
@@ -41173,7 +41770,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.22"),
+				"sdk_version":      tea.String("1.8.27"),
+				"_prod_code":       tea.String("TWC"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -50516,14 +51115,14 @@ func (client *Client) GetInternalFileEx(request *GetInternalFileRequest, headers
 }
 
 /**
- * Description: 加密文本存证
- * Summary: 加密文本存证
+ * Description: 数据流转文本存证
+ * Summary: 数据流转文本存证
  */
-func (client *Client) CreateEncryptText(request *CreateEncryptTextRequest) (_result *CreateEncryptTextResponse, _err error) {
+func (client *Client) CreateDataflowText(request *CreateDataflowTextRequest) (_result *CreateDataflowTextResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &CreateEncryptTextResponse{}
-	_body, _err := client.CreateEncryptTextEx(request, headers, runtime)
+	_result = &CreateDataflowTextResponse{}
+	_body, _err := client.CreateDataflowTextEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -50532,16 +51131,16 @@ func (client *Client) CreateEncryptText(request *CreateEncryptTextRequest) (_res
 }
 
 /**
- * Description: 加密文本存证
- * Summary: 加密文本存证
+ * Description: 数据流转文本存证
+ * Summary: 数据流转文本存证
  */
-func (client *Client) CreateEncryptTextEx(request *CreateEncryptTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEncryptTextResponse, _err error) {
+func (client *Client) CreateDataflowTextEx(request *CreateDataflowTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDataflowTextResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateEncryptTextResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.encrypt.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CreateDataflowTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -50550,14 +51149,14 @@ func (client *Client) CreateEncryptTextEx(request *CreateEncryptTextRequest, hea
 }
 
 /**
- * Description: 查询加密文本存证内容
- * Summary: 查询加密文本存证内容
+ * Description: 查询数据流转文本存证内容
+ * Summary: 查询数据流转文本存证内容
  */
-func (client *Client) GetEncryptText(request *GetEncryptTextRequest) (_result *GetEncryptTextResponse, _err error) {
+func (client *Client) GetDataflowText(request *GetDataflowTextRequest) (_result *GetDataflowTextResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetEncryptTextResponse{}
-	_body, _err := client.GetEncryptTextEx(request, headers, runtime)
+	_result = &GetDataflowTextResponse{}
+	_body, _err := client.GetDataflowTextEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -50566,16 +51165,254 @@ func (client *Client) GetEncryptText(request *GetEncryptTextRequest) (_result *G
 }
 
 /**
- * Description: 查询加密文本存证内容
- * Summary: 查询加密文本存证内容
+ * Description: 查询数据流转文本存证内容
+ * Summary: 查询数据流转文本存证内容
  */
-func (client *Client) GetEncryptTextEx(request *GetEncryptTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEncryptTextResponse, _err error) {
+func (client *Client) GetDataflowTextEx(request *GetDataflowTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDataflowTextResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetEncryptTextResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.encrypt.text.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetDataflowTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.text.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证创建存证事务
+ * Summary: 数据流转存证创建存证事务
+ */
+func (client *Client) CreateDataflowTrans(request *CreateDataflowTransRequest) (_result *CreateDataflowTransResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDataflowTransResponse{}
+	_body, _err := client.CreateDataflowTransEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证创建存证事务
+ * Summary: 数据流转存证创建存证事务
+ */
+func (client *Client) CreateDataflowTransEx(request *CreateDataflowTransRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDataflowTransResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDataflowTransResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.trans.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+ * Summary: 发起管理合约部署
+ */
+func (client *Client) DeployDataflowContract(request *DeployDataflowContractRequest) (_result *DeployDataflowContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeployDataflowContractResponse{}
+	_body, _err := client.DeployDataflowContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+ * Summary: 发起管理合约部署
+ */
+func (client *Client) DeployDataflowContractEx(request *DeployDataflowContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeployDataflowContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeployDataflowContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.contract.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+ * Summary: 发起授权
+ */
+func (client *Client) CreateDataflowAuthorize(request *CreateDataflowAuthorizeRequest) (_result *CreateDataflowAuthorizeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDataflowAuthorizeResponse{}
+	_body, _err := client.CreateDataflowAuthorizeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+ * Summary: 发起授权
+ */
+func (client *Client) CreateDataflowAuthorizeEx(request *CreateDataflowAuthorizeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDataflowAuthorizeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDataflowAuthorizeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.authorize.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证方对撤销已经发起的权限授予。
+ * Summary: 撤销授权
+ */
+func (client *Client) CancelDataflowAuthorize(request *CancelDataflowAuthorizeRequest) (_result *CancelDataflowAuthorizeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelDataflowAuthorizeResponse{}
+	_body, _err := client.CancelDataflowAuthorizeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证方对撤销已经发起的权限授予。
+ * Summary: 撤销授权
+ */
+func (client *Client) CancelDataflowAuthorizeEx(request *CancelDataflowAuthorizeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelDataflowAuthorizeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelDataflowAuthorizeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.authorize.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+ * Summary: 查询对存证合约的各类操作执行结果
+ */
+func (client *Client) QueryDataflowAction(request *QueryDataflowActionRequest) (_result *QueryDataflowActionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDataflowActionResponse{}
+	_body, _err := client.QueryDataflowActionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+ * Summary: 查询对存证合约的各类操作执行结果
+ */
+func (client *Client) QueryDataflowActionEx(request *QueryDataflowActionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDataflowActionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDataflowActionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.action.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+ * Summary: 发起信封密钥上传
+ */
+func (client *Client) UploadDataflowPubkey(request *UploadDataflowPubkeyRequest) (_result *UploadDataflowPubkeyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadDataflowPubkeyResponse{}
+	_body, _err := client.UploadDataflowPubkeyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+ * Summary: 发起信封密钥上传
+ */
+func (client *Client) UploadDataflowPubkeyEx(request *UploadDataflowPubkeyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadDataflowPubkeyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadDataflowPubkeyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.pubkey.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证创建链上账户
+ * Summary: 数据流转存证创建链上账户
+ */
+func (client *Client) CreateDataflowAccount(request *CreateDataflowAccountRequest) (_result *CreateDataflowAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDataflowAccountResponse{}
+	_body, _err := client.CreateDataflowAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转存证创建链上账户
+ * Summary: 数据流转存证创建链上账户
+ */
+func (client *Client) CreateDataflowAccountEx(request *CreateDataflowAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDataflowAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDataflowAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.dataflow.account.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
