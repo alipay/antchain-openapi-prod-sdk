@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class CreateLeaseRiskResponse : TeaModel {
+    public class QueryDataflowActionResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,22 +24,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 风控结果
-        // SUCCESS：通过
-        // FAIL：不通过
-        [NameInMap("paas")]
+        // 操作状态
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string Paas { get; set; }
+        public long? Status { get; set; }
 
-        // 风控识别id，与订单id对应
-        [NameInMap("risk_id")]
+        // 信封公钥加密后的存证公钥信息，当查询类型为DEPLOY且status为密钥上传成功时返回。
+        [NameInMap("encrypted_pubkey")]
         [Validation(Required=false)]
-        public string RiskId { get; set; }
-
-        // 风控规则对应的版本号
-        [NameInMap("risk_version")]
-        [Validation(Required=false)]
-        public string RiskVersion { get; set; }
+        public string EncryptedPubkey { get; set; }
 
     }
 

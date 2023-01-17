@@ -137,7 +137,9 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.22"},
+                        {"sdk_version", "1.8.27"},
+                        {"_prod_code", "TWC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.22"},
+                        {"sdk_version", "1.8.27"},
+                        {"_prod_code", "TWC"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -11792,87 +11796,381 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 加密文本存证
-         * Summary: 加密文本存证
+         * Description: 数据流转文本存证
+         * Summary: 数据流转文本存证
          */
-        public CreateEncryptTextResponse CreateEncryptText(CreateEncryptTextRequest request)
+        public CreateDataflowTextResponse CreateDataflowText(CreateDataflowTextRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateEncryptTextEx(request, headers, runtime);
+            return CreateDataflowTextEx(request, headers, runtime);
         }
 
         /**
-         * Description: 加密文本存证
-         * Summary: 加密文本存证
+         * Description: 数据流转文本存证
+         * Summary: 数据流转文本存证
          */
-        public async Task<CreateEncryptTextResponse> CreateEncryptTextAsync(CreateEncryptTextRequest request)
+        public async Task<CreateDataflowTextResponse> CreateDataflowTextAsync(CreateDataflowTextRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateEncryptTextExAsync(request, headers, runtime);
+            return await CreateDataflowTextExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 加密文本存证
-         * Summary: 加密文本存证
+         * Description: 数据流转文本存证
+         * Summary: 数据流转文本存证
          */
-        public CreateEncryptTextResponse CreateEncryptTextEx(CreateEncryptTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public CreateDataflowTextResponse CreateDataflowTextEx(CreateDataflowTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateEncryptTextResponse>(DoRequest("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<CreateDataflowTextResponse>(DoRequest("1.0", "twc.notary.dataflow.text.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 加密文本存证
-         * Summary: 加密文本存证
+         * Description: 数据流转文本存证
+         * Summary: 数据流转文本存证
          */
-        public async Task<CreateEncryptTextResponse> CreateEncryptTextExAsync(CreateEncryptTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<CreateDataflowTextResponse> CreateDataflowTextExAsync(CreateDataflowTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateEncryptTextResponse>(await DoRequestAsync("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<CreateDataflowTextResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.text.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询加密文本存证内容
-         * Summary: 查询加密文本存证内容
+         * Description: 查询数据流转文本存证内容
+         * Summary: 查询数据流转文本存证内容
          */
-        public GetEncryptTextResponse GetEncryptText(GetEncryptTextRequest request)
+        public GetDataflowTextResponse GetDataflowText(GetDataflowTextRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetEncryptTextEx(request, headers, runtime);
+            return GetDataflowTextEx(request, headers, runtime);
         }
 
         /**
-         * Description: 查询加密文本存证内容
-         * Summary: 查询加密文本存证内容
+         * Description: 查询数据流转文本存证内容
+         * Summary: 查询数据流转文本存证内容
          */
-        public async Task<GetEncryptTextResponse> GetEncryptTextAsync(GetEncryptTextRequest request)
+        public async Task<GetDataflowTextResponse> GetDataflowTextAsync(GetDataflowTextRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetEncryptTextExAsync(request, headers, runtime);
+            return await GetDataflowTextExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 查询加密文本存证内容
-         * Summary: 查询加密文本存证内容
+         * Description: 查询数据流转文本存证内容
+         * Summary: 查询数据流转文本存证内容
          */
-        public GetEncryptTextResponse GetEncryptTextEx(GetEncryptTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public GetDataflowTextResponse GetDataflowTextEx(GetDataflowTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetEncryptTextResponse>(DoRequest("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetDataflowTextResponse>(DoRequest("1.0", "twc.notary.dataflow.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询加密文本存证内容
-         * Summary: 查询加密文本存证内容
+         * Description: 查询数据流转文本存证内容
+         * Summary: 查询数据流转文本存证内容
          */
-        public async Task<GetEncryptTextResponse> GetEncryptTextExAsync(GetEncryptTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<GetDataflowTextResponse> GetDataflowTextExAsync(GetDataflowTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetEncryptTextResponse>(await DoRequestAsync("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetDataflowTextResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证创建存证事务
+         * Summary: 数据流转存证创建存证事务
+         */
+        public CreateDataflowTransResponse CreateDataflowTrans(CreateDataflowTransRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDataflowTransEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证创建存证事务
+         * Summary: 数据流转存证创建存证事务
+         */
+        public async Task<CreateDataflowTransResponse> CreateDataflowTransAsync(CreateDataflowTransRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDataflowTransExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证创建存证事务
+         * Summary: 数据流转存证创建存证事务
+         */
+        public CreateDataflowTransResponse CreateDataflowTransEx(CreateDataflowTransRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowTransResponse>(DoRequest("1.0", "twc.notary.dataflow.trans.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证创建存证事务
+         * Summary: 数据流转存证创建存证事务
+         */
+        public async Task<CreateDataflowTransResponse> CreateDataflowTransExAsync(CreateDataflowTransRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowTransResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.trans.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+         * Summary: 发起管理合约部署
+         */
+        public DeployDataflowContractResponse DeployDataflowContract(DeployDataflowContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeployDataflowContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+         * Summary: 发起管理合约部署
+         */
+        public async Task<DeployDataflowContractResponse> DeployDataflowContractAsync(DeployDataflowContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeployDataflowContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+         * Summary: 发起管理合约部署
+         */
+        public DeployDataflowContractResponse DeployDataflowContractEx(DeployDataflowContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployDataflowContractResponse>(DoRequest("1.0", "twc.notary.dataflow.contract.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+         * Summary: 发起管理合约部署
+         */
+        public async Task<DeployDataflowContractResponse> DeployDataflowContractExAsync(DeployDataflowContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeployDataflowContractResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.contract.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+         * Summary: 发起授权
+         */
+        public CreateDataflowAuthorizeResponse CreateDataflowAuthorize(CreateDataflowAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDataflowAuthorizeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+         * Summary: 发起授权
+         */
+        public async Task<CreateDataflowAuthorizeResponse> CreateDataflowAuthorizeAsync(CreateDataflowAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDataflowAuthorizeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+         * Summary: 发起授权
+         */
+        public CreateDataflowAuthorizeResponse CreateDataflowAuthorizeEx(CreateDataflowAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowAuthorizeResponse>(DoRequest("1.0", "twc.notary.dataflow.authorize.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+         * Summary: 发起授权
+         */
+        public async Task<CreateDataflowAuthorizeResponse> CreateDataflowAuthorizeExAsync(CreateDataflowAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowAuthorizeResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.authorize.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证方对撤销已经发起的权限授予。
+         * Summary: 撤销授权
+         */
+        public CancelDataflowAuthorizeResponse CancelDataflowAuthorize(CancelDataflowAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDataflowAuthorizeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证方对撤销已经发起的权限授予。
+         * Summary: 撤销授权
+         */
+        public async Task<CancelDataflowAuthorizeResponse> CancelDataflowAuthorizeAsync(CancelDataflowAuthorizeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDataflowAuthorizeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证方对撤销已经发起的权限授予。
+         * Summary: 撤销授权
+         */
+        public CancelDataflowAuthorizeResponse CancelDataflowAuthorizeEx(CancelDataflowAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDataflowAuthorizeResponse>(DoRequest("1.0", "twc.notary.dataflow.authorize.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证方对撤销已经发起的权限授予。
+         * Summary: 撤销授权
+         */
+        public async Task<CancelDataflowAuthorizeResponse> CancelDataflowAuthorizeExAsync(CancelDataflowAuthorizeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDataflowAuthorizeResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.authorize.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+         * Summary: 查询对存证合约的各类操作执行结果
+         */
+        public QueryDataflowActionResponse QueryDataflowAction(QueryDataflowActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDataflowActionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+         * Summary: 查询对存证合约的各类操作执行结果
+         */
+        public async Task<QueryDataflowActionResponse> QueryDataflowActionAsync(QueryDataflowActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDataflowActionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+         * Summary: 查询对存证合约的各类操作执行结果
+         */
+        public QueryDataflowActionResponse QueryDataflowActionEx(QueryDataflowActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataflowActionResponse>(DoRequest("1.0", "twc.notary.dataflow.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+         * Summary: 查询对存证合约的各类操作执行结果
+         */
+        public async Task<QueryDataflowActionResponse> QueryDataflowActionExAsync(QueryDataflowActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataflowActionResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+         * Summary: 发起信封密钥上传
+         */
+        public UploadDataflowPubkeyResponse UploadDataflowPubkey(UploadDataflowPubkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadDataflowPubkeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+         * Summary: 发起信封密钥上传
+         */
+        public async Task<UploadDataflowPubkeyResponse> UploadDataflowPubkeyAsync(UploadDataflowPubkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadDataflowPubkeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+         * Summary: 发起信封密钥上传
+         */
+        public UploadDataflowPubkeyResponse UploadDataflowPubkeyEx(UploadDataflowPubkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadDataflowPubkeyResponse>(DoRequest("1.0", "twc.notary.dataflow.pubkey.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+         * Summary: 发起信封密钥上传
+         */
+        public async Task<UploadDataflowPubkeyResponse> UploadDataflowPubkeyExAsync(UploadDataflowPubkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadDataflowPubkeyResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.pubkey.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证创建链上账户
+         * Summary: 数据流转存证创建链上账户
+         */
+        public CreateDataflowAccountResponse CreateDataflowAccount(CreateDataflowAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDataflowAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证创建链上账户
+         * Summary: 数据流转存证创建链上账户
+         */
+        public async Task<CreateDataflowAccountResponse> CreateDataflowAccountAsync(CreateDataflowAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDataflowAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转存证创建链上账户
+         * Summary: 数据流转存证创建链上账户
+         */
+        public CreateDataflowAccountResponse CreateDataflowAccountEx(CreateDataflowAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowAccountResponse>(DoRequest("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转存证创建链上账户
+         * Summary: 数据流转存证创建链上账户
+         */
+        public async Task<CreateDataflowAccountResponse> CreateDataflowAccountExAsync(CreateDataflowAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDataflowAccountResponse>(await DoRequestAsync("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

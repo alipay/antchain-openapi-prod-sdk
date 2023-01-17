@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class CreateEncryptTextResponse : TeaModel {
+    public class GetDataflowTextResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 交易哈希，链上存证地址
-        [NameInMap("tx_hash")]
+        // 存证内容
+        [NameInMap("content")]
         [Validation(Required=false)]
-        public string TxHash { get; set; }
+        public string Content { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class GetEncryptTextResponse : TeaModel {
+    public class UploadDataflowPubkeyResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 存证内容
-        [NameInMap("content")]
+        // 发起密钥上传的请求回执，用于后续做密钥上传结果查询。
+        [NameInMap("order_id")]
         [Validation(Required=false)]
-        public string Content { get; set; }
+        public string OrderId { get; set; }
 
     }
 

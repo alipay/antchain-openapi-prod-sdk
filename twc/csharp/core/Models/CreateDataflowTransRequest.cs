@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class GetEncryptTextRequest : TeaModel {
+    public class CreateDataflowTransRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 存证地址
-        [NameInMap("tx_hash")]
+        // 存证主体信息，使用存证公钥加密
+        [NameInMap("customer")]
         [Validation(Required=true)]
-        public string TxHash { get; set; }
+        public string Customer { get; set; }
 
-        // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
-        [NameInMap("target_account_id")]
+        // 子业务ID，选填
+        [NameInMap("sub_biz_id")]
         [Validation(Required=false)]
-        public string TargetAccountId { get; set; }
+        public string SubBizId { get; set; }
+
+        // 扩展属性信息，使用存证公钥加密，选填
+        [NameInMap("properties")]
+        [Validation(Required=false)]
+        public string Properties { get; set; }
 
     }
 
