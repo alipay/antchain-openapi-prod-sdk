@@ -33752,6 +33752,7 @@ class CreateLeaseRiskResponse(TeaModel):
         result_msg: str = None,
         paas: str = None,
         risk_id: str = None,
+        risk_version: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -33765,6 +33766,8 @@ class CreateLeaseRiskResponse(TeaModel):
         self.paas = paas
         # 风控识别id，与订单id对应
         self.risk_id = risk_id
+        # 风控规则对应的版本号
+        self.risk_version = risk_version
 
     def validate(self):
         pass
@@ -33785,6 +33788,8 @@ class CreateLeaseRiskResponse(TeaModel):
             result['paas'] = self.paas
         if self.risk_id is not None:
             result['risk_id'] = self.risk_id
+        if self.risk_version is not None:
+            result['risk_version'] = self.risk_version
         return result
 
     def from_map(self, m: dict = None):
@@ -33799,6 +33804,8 @@ class CreateLeaseRiskResponse(TeaModel):
             self.paas = m.get('paas')
         if m.get('risk_id') is not None:
             self.risk_id = m.get('risk_id')
+        if m.get('risk_version') is not None:
+            self.risk_version = m.get('risk_version')
         return self
 
 
@@ -47386,7 +47393,7 @@ class GetInternalFileResponse(TeaModel):
         return self
 
 
-class CreateEncryptTextRequest(TeaModel):
+class CreateDataflowTextRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -47468,7 +47475,7 @@ class CreateEncryptTextRequest(TeaModel):
         return self
 
 
-class CreateEncryptTextResponse(TeaModel):
+class CreateDataflowTextResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -47517,7 +47524,7 @@ class CreateEncryptTextResponse(TeaModel):
         return self
 
 
-class GetEncryptTextRequest(TeaModel):
+class GetDataflowTextRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -47530,7 +47537,7 @@ class GetEncryptTextRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 存证地址
         self.tx_hash = tx_hash
-        # 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+        # 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
         self.target_account_id = target_account_id
 
     def validate(self):
@@ -47565,7 +47572,7 @@ class GetEncryptTextRequest(TeaModel):
         return self
 
 
-class GetEncryptTextResponse(TeaModel):
+class GetDataflowTextResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -47611,6 +47618,741 @@ class GetEncryptTextResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('content') is not None:
             self.content = m.get('content')
+        return self
+
+
+class CreateDataflowTransRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer: str = None,
+        sub_biz_id: str = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证主体信息，使用存证公钥加密
+        self.customer = customer
+        # 子业务ID，选填
+        self.sub_biz_id = sub_biz_id
+        # 扩展属性信息，使用存证公钥加密，选填
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.customer, 'customer')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer is not None:
+            result['customer'] = self.customer
+        if self.sub_biz_id is not None:
+            result['sub_biz_id'] = self.sub_biz_id
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer') is not None:
+            self.customer = m.get('customer')
+        if m.get('sub_biz_id') is not None:
+            self.sub_biz_id = m.get('sub_biz_id')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class CreateDataflowTransResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        transaction_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证事务id
+        self.transaction_id = transaction_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        return self
+
+
+class DeployDataflowContractRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        pubkey: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 信封密钥。存证方本地自行派生一堆非对称密钥，将公钥作为信封密钥。存证方用户后续读取链上信息（如存证密钥、存证数据原文）时，为避免链上明文信息泄漏，会使用该信封密钥对所有链上数据进行加密后再返回，保障数据安全。
+        self.pubkey = pubkey
+
+    def validate(self):
+        self.validate_required(self.pubkey, 'pubkey')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.pubkey is not None:
+            result['pubkey'] = self.pubkey
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('pubkey') is not None:
+            self.pubkey = m.get('pubkey')
+        return self
+
+
+class DeployDataflowContractResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 发起部署的请求回执，用于后续做部署结果查询。
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class CreateDataflowAuthorizeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        target_tenant: str = None,
+        auth_type: str = None,
+        auth_scope: str = None,
+        tx_hash_list: List[str] = None,
+        expire_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被授权账户的租户ID
+        self.target_tenant = target_tenant
+        # 授权类型：
+        # 1. PUBKEY_UPLOAD：上传信封公钥
+        # 2. GET_NOTARY：查询存证原文
+        # 3. CHECK_NOTARY：核验存证信息
+        self.auth_type = auth_type
+        # 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为：
+        # 1. TXHASH：交易哈希维度授权
+        # 2. ACCOUNT：账号维度授权
+        self.auth_scope = auth_scope
+        # 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+        self.tx_hash_list = tx_hash_list
+        # 授权有效的时间戳
+        self.expire_time = expire_time
+
+    def validate(self):
+        self.validate_required(self.target_tenant, 'target_tenant')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.expire_time, 'expire_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.target_tenant is not None:
+            result['target_tenant'] = self.target_tenant
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_scope is not None:
+            result['auth_scope'] = self.auth_scope
+        if self.tx_hash_list is not None:
+            result['tx_hash_list'] = self.tx_hash_list
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('target_tenant') is not None:
+            self.target_tenant = m.get('target_tenant')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_scope') is not None:
+            self.auth_scope = m.get('auth_scope')
+        if m.get('tx_hash_list') is not None:
+            self.tx_hash_list = m.get('tx_hash_list')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        return self
+
+
+class CreateDataflowAuthorizeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 发起授权的请求回执，用于后续做发起授权结果查询。
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class CancelDataflowAuthorizeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        target_tenant: str = None,
+        auth_type: str = None,
+        auth_scope: str = None,
+        tx_hash_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 目标租户ID
+        self.target_tenant = target_tenant
+        # 授权类型： 1. PUBKEY_UPLOAD：上传信封公钥 2. GET_NOTARY：查询存证原文 3. CHECK_NOTARY：核验存证信息
+        self.auth_type = auth_type
+        # 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为： 1. TXHASH：交易哈希维度授权 2. ACCOUNT：账号维度授权
+        self.auth_scope = auth_scope
+        # 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+        self.tx_hash_list = tx_hash_list
+
+    def validate(self):
+        self.validate_required(self.target_tenant, 'target_tenant')
+        self.validate_required(self.auth_type, 'auth_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.target_tenant is not None:
+            result['target_tenant'] = self.target_tenant
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_scope is not None:
+            result['auth_scope'] = self.auth_scope
+        if self.tx_hash_list is not None:
+            result['tx_hash_list'] = self.tx_hash_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('target_tenant') is not None:
+            self.target_tenant = m.get('target_tenant')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_scope') is not None:
+            self.auth_scope = m.get('auth_scope')
+        if m.get('tx_hash_list') is not None:
+            self.tx_hash_list = m.get('tx_hash_list')
+        return self
+
+
+class CancelDataflowAuthorizeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 发起授权的请求回执，用于后续做撤销授权的结果查询。
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryDataflowActionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        query_type: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询类型：
+        # 1. 合约部署：DEPLOY
+        # 2. 授权：AUTH
+        # 3. 撤销授权：CANCEL_AUTH
+        # 4. 密钥上传：PUB_KEY_UPLOAD
+        self.query_type = query_type
+        # 发起操作的请求回执
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.query_type, 'query_type')
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryDataflowActionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: int = None,
+        encrypted_pubkey: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作状态
+        self.status = status
+        # 信封公钥加密后的存证公钥信息，当查询类型为DEPLOY且status为密钥上传成功时返回。
+        self.encrypted_pubkey = encrypted_pubkey
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.encrypted_pubkey is not None:
+            result['encrypted_pubkey'] = self.encrypted_pubkey
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('encrypted_pubkey') is not None:
+            self.encrypted_pubkey = m.get('encrypted_pubkey')
+        return self
+
+
+class UploadDataflowPubkeyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        pubkey: str = None,
+        from_tenant: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 信封公钥内容
+        self.pubkey = pubkey
+        # 存证方的租户ID
+        self.from_tenant = from_tenant
+
+    def validate(self):
+        self.validate_required(self.pubkey, 'pubkey')
+        self.validate_required(self.from_tenant, 'from_tenant')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.pubkey is not None:
+            result['pubkey'] = self.pubkey
+        if self.from_tenant is not None:
+            result['from_tenant'] = self.from_tenant
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('pubkey') is not None:
+            self.pubkey = m.get('pubkey')
+        if m.get('from_tenant') is not None:
+            self.from_tenant = m.get('from_tenant')
+        return self
+
+
+class UploadDataflowPubkeyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 发起密钥上传的请求回执，用于后续做密钥上传结果查询。
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class CreateDataflowAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_account_id: str = None,
+        key_algorithm: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链上账号名称，真实名称会在前加租户ID
+        self.third_party_account_id = third_party_account_id
+        # 账户密钥算法
+        self.key_algorithm = key_algorithm
+
+    def validate(self):
+        self.validate_required(self.third_party_account_id, 'third_party_account_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_account_id is not None:
+            result['third_party_account_id'] = self.third_party_account_id
+        if self.key_algorithm is not None:
+            result['key_algorithm'] = self.key_algorithm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_account_id') is not None:
+            self.third_party_account_id = m.get('third_party_account_id')
+        if m.get('key_algorithm') is not None:
+            self.key_algorithm = m.get('key_algorithm')
+        return self
+
+
+class CreateDataflowAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        chain_account: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 实际生成的链上账户ID
+        self.chain_account = chain_account
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.chain_account is not None:
+            result['chain_account'] = self.chain_account
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('chain_account') is not None:
+            self.chain_account = m.get('chain_account')
         return self
 
 

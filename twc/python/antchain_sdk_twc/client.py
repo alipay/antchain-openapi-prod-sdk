@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.22'
+                    'sdk_version': '1.8.27',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.22'
+                    'sdk_version': '1.8.27',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -15567,116 +15571,508 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def create_encrypt_text(
+    def create_dataflow_text(
         self,
-        request: twc_models.CreateEncryptTextRequest,
-    ) -> twc_models.CreateEncryptTextResponse:
+        request: twc_models.CreateDataflowTextRequest,
+    ) -> twc_models.CreateDataflowTextResponse:
         """
-        Description: 加密文本存证
-        Summary: 加密文本存证
+        Description: 数据流转文本存证
+        Summary: 数据流转文本存证
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_encrypt_text_ex(request, headers, runtime)
+        return self.create_dataflow_text_ex(request, headers, runtime)
 
-    async def create_encrypt_text_async(
+    async def create_dataflow_text_async(
         self,
-        request: twc_models.CreateEncryptTextRequest,
-    ) -> twc_models.CreateEncryptTextResponse:
+        request: twc_models.CreateDataflowTextRequest,
+    ) -> twc_models.CreateDataflowTextResponse:
         """
-        Description: 加密文本存证
-        Summary: 加密文本存证
+        Description: 数据流转文本存证
+        Summary: 数据流转文本存证
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.create_encrypt_text_ex_async(request, headers, runtime)
+        return await self.create_dataflow_text_ex_async(request, headers, runtime)
 
-    def create_encrypt_text_ex(
+    def create_dataflow_text_ex(
         self,
-        request: twc_models.CreateEncryptTextRequest,
+        request: twc_models.CreateDataflowTextRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreateEncryptTextResponse:
+    ) -> twc_models.CreateDataflowTextResponse:
         """
-        Description: 加密文本存证
-        Summary: 加密文本存证
+        Description: 数据流转文本存证
+        Summary: 数据流转文本存证
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            twc_models.CreateEncryptTextResponse(),
-            self.do_request('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            twc_models.CreateDataflowTextResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def create_encrypt_text_ex_async(
+    async def create_dataflow_text_ex_async(
         self,
-        request: twc_models.CreateEncryptTextRequest,
+        request: twc_models.CreateDataflowTextRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreateEncryptTextResponse:
+    ) -> twc_models.CreateDataflowTextResponse:
         """
-        Description: 加密文本存证
-        Summary: 加密文本存证
+        Description: 数据流转文本存证
+        Summary: 数据流转文本存证
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            twc_models.CreateEncryptTextResponse(),
-            await self.do_request_async('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            twc_models.CreateDataflowTextResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_encrypt_text(
+    def get_dataflow_text(
         self,
-        request: twc_models.GetEncryptTextRequest,
-    ) -> twc_models.GetEncryptTextResponse:
+        request: twc_models.GetDataflowTextRequest,
+    ) -> twc_models.GetDataflowTextResponse:
         """
-        Description: 查询加密文本存证内容
-        Summary: 查询加密文本存证内容
+        Description: 查询数据流转文本存证内容
+        Summary: 查询数据流转文本存证内容
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_encrypt_text_ex(request, headers, runtime)
+        return self.get_dataflow_text_ex(request, headers, runtime)
 
-    async def get_encrypt_text_async(
+    async def get_dataflow_text_async(
         self,
-        request: twc_models.GetEncryptTextRequest,
-    ) -> twc_models.GetEncryptTextResponse:
+        request: twc_models.GetDataflowTextRequest,
+    ) -> twc_models.GetDataflowTextResponse:
         """
-        Description: 查询加密文本存证内容
-        Summary: 查询加密文本存证内容
+        Description: 查询数据流转文本存证内容
+        Summary: 查询数据流转文本存证内容
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.get_encrypt_text_ex_async(request, headers, runtime)
+        return await self.get_dataflow_text_ex_async(request, headers, runtime)
 
-    def get_encrypt_text_ex(
+    def get_dataflow_text_ex(
         self,
-        request: twc_models.GetEncryptTextRequest,
+        request: twc_models.GetDataflowTextRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetEncryptTextResponse:
+    ) -> twc_models.GetDataflowTextResponse:
         """
-        Description: 查询加密文本存证内容
-        Summary: 查询加密文本存证内容
+        Description: 查询数据流转文本存证内容
+        Summary: 查询数据流转文本存证内容
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            twc_models.GetEncryptTextResponse(),
-            self.do_request('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            twc_models.GetDataflowTextResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def get_encrypt_text_ex_async(
+    async def get_dataflow_text_ex_async(
         self,
-        request: twc_models.GetEncryptTextRequest,
+        request: twc_models.GetDataflowTextRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetEncryptTextResponse:
+    ) -> twc_models.GetDataflowTextResponse:
         """
-        Description: 查询加密文本存证内容
-        Summary: 查询加密文本存证内容
+        Description: 查询数据流转文本存证内容
+        Summary: 查询数据流转文本存证内容
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            twc_models.GetEncryptTextResponse(),
-            await self.do_request_async('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            twc_models.GetDataflowTextResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dataflow_trans(
+        self,
+        request: twc_models.CreateDataflowTransRequest,
+    ) -> twc_models.CreateDataflowTransResponse:
+        """
+        Description: 数据流转存证创建存证事务
+        Summary: 数据流转存证创建存证事务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dataflow_trans_ex(request, headers, runtime)
+
+    async def create_dataflow_trans_async(
+        self,
+        request: twc_models.CreateDataflowTransRequest,
+    ) -> twc_models.CreateDataflowTransResponse:
+        """
+        Description: 数据流转存证创建存证事务
+        Summary: 数据流转存证创建存证事务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dataflow_trans_ex_async(request, headers, runtime)
+
+    def create_dataflow_trans_ex(
+        self,
+        request: twc_models.CreateDataflowTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowTransResponse:
+        """
+        Description: 数据流转存证创建存证事务
+        Summary: 数据流转存证创建存证事务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowTransResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dataflow_trans_ex_async(
+        self,
+        request: twc_models.CreateDataflowTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowTransResponse:
+        """
+        Description: 数据流转存证创建存证事务
+        Summary: 数据流转存证创建存证事务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowTransResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_dataflow_contract(
+        self,
+        request: twc_models.DeployDataflowContractRequest,
+    ) -> twc_models.DeployDataflowContractResponse:
+        """
+        Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+        Summary: 发起管理合约部署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_dataflow_contract_ex(request, headers, runtime)
+
+    async def deploy_dataflow_contract_async(
+        self,
+        request: twc_models.DeployDataflowContractRequest,
+    ) -> twc_models.DeployDataflowContractResponse:
+        """
+        Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+        Summary: 发起管理合约部署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_dataflow_contract_ex_async(request, headers, runtime)
+
+    def deploy_dataflow_contract_ex(
+        self,
+        request: twc_models.DeployDataflowContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeployDataflowContractResponse:
+        """
+        Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+        Summary: 发起管理合约部署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeployDataflowContractResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_dataflow_contract_ex_async(
+        self,
+        request: twc_models.DeployDataflowContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeployDataflowContractResponse:
+        """
+        Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+        Summary: 发起管理合约部署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeployDataflowContractResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dataflow_authorize(
+        self,
+        request: twc_models.CreateDataflowAuthorizeRequest,
+    ) -> twc_models.CreateDataflowAuthorizeResponse:
+        """
+        Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+        Summary: 发起授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dataflow_authorize_ex(request, headers, runtime)
+
+    async def create_dataflow_authorize_async(
+        self,
+        request: twc_models.CreateDataflowAuthorizeRequest,
+    ) -> twc_models.CreateDataflowAuthorizeResponse:
+        """
+        Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+        Summary: 发起授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dataflow_authorize_ex_async(request, headers, runtime)
+
+    def create_dataflow_authorize_ex(
+        self,
+        request: twc_models.CreateDataflowAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowAuthorizeResponse:
+        """
+        Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+        Summary: 发起授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowAuthorizeResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.authorize.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dataflow_authorize_ex_async(
+        self,
+        request: twc_models.CreateDataflowAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowAuthorizeResponse:
+        """
+        Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+        Summary: 发起授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowAuthorizeResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.authorize.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_dataflow_authorize(
+        self,
+        request: twc_models.CancelDataflowAuthorizeRequest,
+    ) -> twc_models.CancelDataflowAuthorizeResponse:
+        """
+        Description: 存证方对撤销已经发起的权限授予。
+        Summary: 撤销授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_dataflow_authorize_ex(request, headers, runtime)
+
+    async def cancel_dataflow_authorize_async(
+        self,
+        request: twc_models.CancelDataflowAuthorizeRequest,
+    ) -> twc_models.CancelDataflowAuthorizeResponse:
+        """
+        Description: 存证方对撤销已经发起的权限授予。
+        Summary: 撤销授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_dataflow_authorize_ex_async(request, headers, runtime)
+
+    def cancel_dataflow_authorize_ex(
+        self,
+        request: twc_models.CancelDataflowAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelDataflowAuthorizeResponse:
+        """
+        Description: 存证方对撤销已经发起的权限授予。
+        Summary: 撤销授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelDataflowAuthorizeResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.authorize.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_dataflow_authorize_ex_async(
+        self,
+        request: twc_models.CancelDataflowAuthorizeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelDataflowAuthorizeResponse:
+        """
+        Description: 存证方对撤销已经发起的权限授予。
+        Summary: 撤销授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelDataflowAuthorizeResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.authorize.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dataflow_action(
+        self,
+        request: twc_models.QueryDataflowActionRequest,
+    ) -> twc_models.QueryDataflowActionResponse:
+        """
+        Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+        Summary: 查询对存证合约的各类操作执行结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dataflow_action_ex(request, headers, runtime)
+
+    async def query_dataflow_action_async(
+        self,
+        request: twc_models.QueryDataflowActionRequest,
+    ) -> twc_models.QueryDataflowActionResponse:
+        """
+        Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+        Summary: 查询对存证合约的各类操作执行结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dataflow_action_ex_async(request, headers, runtime)
+
+    def query_dataflow_action_ex(
+        self,
+        request: twc_models.QueryDataflowActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryDataflowActionResponse:
+        """
+        Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+        Summary: 查询对存证合约的各类操作执行结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryDataflowActionResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dataflow_action_ex_async(
+        self,
+        request: twc_models.QueryDataflowActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryDataflowActionResponse:
+        """
+        Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+        Summary: 查询对存证合约的各类操作执行结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryDataflowActionResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_dataflow_pubkey(
+        self,
+        request: twc_models.UploadDataflowPubkeyRequest,
+    ) -> twc_models.UploadDataflowPubkeyResponse:
+        """
+        Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+        Summary: 发起信封密钥上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_dataflow_pubkey_ex(request, headers, runtime)
+
+    async def upload_dataflow_pubkey_async(
+        self,
+        request: twc_models.UploadDataflowPubkeyRequest,
+    ) -> twc_models.UploadDataflowPubkeyResponse:
+        """
+        Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+        Summary: 发起信封密钥上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_dataflow_pubkey_ex_async(request, headers, runtime)
+
+    def upload_dataflow_pubkey_ex(
+        self,
+        request: twc_models.UploadDataflowPubkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadDataflowPubkeyResponse:
+        """
+        Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+        Summary: 发起信封密钥上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadDataflowPubkeyResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.pubkey.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_dataflow_pubkey_ex_async(
+        self,
+        request: twc_models.UploadDataflowPubkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadDataflowPubkeyResponse:
+        """
+        Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+        Summary: 发起信封密钥上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadDataflowPubkeyResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.pubkey.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dataflow_account(
+        self,
+        request: twc_models.CreateDataflowAccountRequest,
+    ) -> twc_models.CreateDataflowAccountResponse:
+        """
+        Description: 数据流转存证创建链上账户
+        Summary: 数据流转存证创建链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dataflow_account_ex(request, headers, runtime)
+
+    async def create_dataflow_account_async(
+        self,
+        request: twc_models.CreateDataflowAccountRequest,
+    ) -> twc_models.CreateDataflowAccountResponse:
+        """
+        Description: 数据流转存证创建链上账户
+        Summary: 数据流转存证创建链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dataflow_account_ex_async(request, headers, runtime)
+
+    def create_dataflow_account_ex(
+        self,
+        request: twc_models.CreateDataflowAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowAccountResponse:
+        """
+        Description: 数据流转存证创建链上账户
+        Summary: 数据流转存证创建链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowAccountResponse(),
+            self.do_request('1.0', 'twc.notary.dataflow.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dataflow_account_ex_async(
+        self,
+        request: twc_models.CreateDataflowAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateDataflowAccountResponse:
+        """
+        Description: 数据流转存证创建链上账户
+        Summary: 数据流转存证创建链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateDataflowAccountResponse(),
+            await self.do_request_async('1.0', 'twc.notary.dataflow.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_flow_instance(
