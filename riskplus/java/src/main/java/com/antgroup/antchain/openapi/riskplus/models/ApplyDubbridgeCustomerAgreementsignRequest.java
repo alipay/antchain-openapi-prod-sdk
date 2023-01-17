@@ -41,17 +41,14 @@ public class ApplyDubbridgeCustomerAgreementsignRequest extends TeaModel {
 
     // 渠道号
     @NameInMap("channel_code")
-    @Validation(required = true)
     public String channelCode;
 
     // 项目编号
     @NameInMap("project_code")
-    @Validation(required = true)
     public String projectCode;
 
     // 渠道号
     @NameInMap("org_code")
-    @Validation(required = true)
     public String orgCode;
 
     public static ApplyDubbridgeCustomerAgreementsignRequest build(java.util.Map<String, ?> map) throws Exception {
