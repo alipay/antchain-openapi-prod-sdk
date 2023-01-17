@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateEncryptTextResponse extends Model
+class GetDataflowTextResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class CreateEncryptTextResponse extends Model
      */
     public $resultMsg;
 
-    // 交易哈希，链上存证地址
+    // 存证内容
     /**
      * @var string
      */
-    public $txHash;
+    public $content;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'txHash'     => 'tx_hash',
+        'content'    => 'content',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class CreateEncryptTextResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->content) {
+            $res['content'] = $this->content;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class CreateEncryptTextResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateEncryptTextResponse
+     * @return GetDataflowTextResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class CreateEncryptTextResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['content'])) {
+            $model->content = $map['content'];
         }
 
         return $model;

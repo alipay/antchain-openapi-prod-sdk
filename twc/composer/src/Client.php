@@ -55,6 +55,8 @@ use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
 use AntChain\TWC\Models\CancelContractPaysingletradeResponse;
 use AntChain\TWC\Models\CancelContractPaytradeRequest;
 use AntChain\TWC\Models\CancelContractPaytradeResponse;
+use AntChain\TWC\Models\CancelDataflowAuthorizeRequest;
+use AntChain\TWC\Models\CancelDataflowAuthorizeResponse;
 use AntChain\TWC\Models\CancelLeaseInsuranceRequest;
 use AntChain\TWC\Models\CancelLeaseInsuranceResponse;
 use AntChain\TWC\Models\CertifyEnterpriseFaceauthRequest;
@@ -137,12 +139,18 @@ use AntChain\TWC\Models\CreateCourtFilenotaryRequest;
 use AntChain\TWC\Models\CreateCourtFilenotaryResponse;
 use AntChain\TWC\Models\CreateCourtTextnotaryRequest;
 use AntChain\TWC\Models\CreateCourtTextnotaryResponse;
+use AntChain\TWC\Models\CreateDataflowAccountRequest;
+use AntChain\TWC\Models\CreateDataflowAccountResponse;
+use AntChain\TWC\Models\CreateDataflowAuthorizeRequest;
+use AntChain\TWC\Models\CreateDataflowAuthorizeResponse;
+use AntChain\TWC\Models\CreateDataflowTextRequest;
+use AntChain\TWC\Models\CreateDataflowTextResponse;
+use AntChain\TWC\Models\CreateDataflowTransRequest;
+use AntChain\TWC\Models\CreateDataflowTransResponse;
 use AntChain\TWC\Models\CreateEcocontractTextRequest;
 use AntChain\TWC\Models\CreateEcocontractTextResponse;
 use AntChain\TWC\Models\CreateEcocontractTransRequest;
 use AntChain\TWC\Models\CreateEcocontractTransResponse;
-use AntChain\TWC\Models\CreateEncryptTextRequest;
-use AntChain\TWC\Models\CreateEncryptTextResponse;
 use AntChain\TWC\Models\CreateFileRequest;
 use AntChain\TWC\Models\CreateFileResponse;
 use AntChain\TWC\Models\CreateFinanceFilenotaryRequest;
@@ -283,6 +291,8 @@ use AntChain\TWC\Models\DeleteJointconstraintRecordRequest;
 use AntChain\TWC\Models\DeleteJointconstraintRecordResponse;
 use AntChain\TWC\Models\DeleteSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\DeleteSueBreakpromiseinfoResponse;
+use AntChain\TWC\Models\DeployDataflowContractRequest;
+use AntChain\TWC\Models\DeployDataflowContractResponse;
 use AntChain\TWC\Models\DeployLeaseContractRequest;
 use AntChain\TWC\Models\DeployLeaseContractResponse;
 use AntChain\TWC\Models\DeployMytfTappRequest;
@@ -325,8 +335,8 @@ use AntChain\TWC\Models\GetCourtFilenotaryRequest;
 use AntChain\TWC\Models\GetCourtFilenotaryResponse;
 use AntChain\TWC\Models\GetCourtTextnotaryRequest;
 use AntChain\TWC\Models\GetCourtTextnotaryResponse;
-use AntChain\TWC\Models\GetEncryptTextRequest;
-use AntChain\TWC\Models\GetEncryptTextResponse;
+use AntChain\TWC\Models\GetDataflowTextRequest;
+use AntChain\TWC\Models\GetDataflowTextResponse;
 use AntChain\TWC\Models\GetFileRequest;
 use AntChain\TWC\Models\GetFileResponse;
 use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
@@ -425,6 +435,8 @@ use AntChain\TWC\Models\QueryContractTradestatusRequest;
 use AntChain\TWC\Models\QueryContractTradestatusResponse;
 use AntChain\TWC\Models\QueryContractWordspositionRequest;
 use AntChain\TWC\Models\QueryContractWordspositionResponse;
+use AntChain\TWC\Models\QueryDataflowActionRequest;
+use AntChain\TWC\Models\QueryDataflowActionResponse;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthResponse;
 use AntChain\TWC\Models\QueryFlowCertificateRequest;
@@ -591,6 +603,8 @@ use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
 use AntChain\TWC\Models\UploadContractComplainimageRequest;
 use AntChain\TWC\Models\UploadContractComplainimageResponse;
+use AntChain\TWC\Models\UploadDataflowPubkeyRequest;
+use AntChain\TWC\Models\UploadDataflowPubkeyResponse;
 use AntChain\TWC\Models\VerifyContractDocsignRequest;
 use AntChain\TWC\Models\VerifyContractDocsignResponse;
 use AntChain\TWC\Models\VerifyContractTextsignRequest;
@@ -750,7 +764,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.22',
+                    'sdk_version'      => '1.8.27',
+                    '_prod_code'       => 'TWC',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -9810,69 +9826,300 @@ class Client
     }
 
     /**
-     * Description: 加密文本存证
-     * Summary: 加密文本存证
+     * Description: 数据流转文本存证
+     * Summary: 数据流转文本存证
      *
-     * @param CreateEncryptTextRequest $request
+     * @param CreateDataflowTextRequest $request
      *
-     * @return CreateEncryptTextResponse
+     * @return CreateDataflowTextResponse
      */
-    public function createEncryptText($request)
+    public function createDataflowText($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->createEncryptTextEx($request, $headers, $runtime);
+        return $this->createDataflowTextEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 加密文本存证
-     * Summary: 加密文本存证
+     * Description: 数据流转文本存证
+     * Summary: 数据流转文本存证
      *
-     * @param CreateEncryptTextRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
+     * @param CreateDataflowTextRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
      *
-     * @return CreateEncryptTextResponse
+     * @return CreateDataflowTextResponse
      */
-    public function createEncryptTextEx($request, $headers, $runtime)
+    public function createDataflowTextEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CreateEncryptTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.encrypt.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateDataflowTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 查询加密文本存证内容
-     * Summary: 查询加密文本存证内容.
+     * Description: 查询数据流转文本存证内容
+     * Summary: 查询数据流转文本存证内容.
      *
-     * @param GetEncryptTextRequest $request
+     * @param GetDataflowTextRequest $request
      *
-     * @return GetEncryptTextResponse
+     * @return GetDataflowTextResponse
      */
-    public function getEncryptText($request)
+    public function getDataflowText($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getEncryptTextEx($request, $headers, $runtime);
+        return $this->getDataflowTextEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询加密文本存证内容
-     * Summary: 查询加密文本存证内容.
+     * Description: 查询数据流转文本存证内容
+     * Summary: 查询数据流转文本存证内容.
      *
-     * @param GetEncryptTextRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
+     * @param GetDataflowTextRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
      *
-     * @return GetEncryptTextResponse
+     * @return GetDataflowTextResponse
      */
-    public function getEncryptTextEx($request, $headers, $runtime)
+    public function getDataflowTextEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetEncryptTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.encrypt.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetDataflowTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据流转存证创建存证事务
+     * Summary: 数据流转存证创建存证事务
+     *
+     * @param CreateDataflowTransRequest $request
+     *
+     * @return CreateDataflowTransResponse
+     */
+    public function createDataflowTrans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataflowTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据流转存证创建存证事务
+     * Summary: 数据流转存证创建存证事务
+     *
+     * @param CreateDataflowTransRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateDataflowTransResponse
+     */
+    public function createDataflowTransEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataflowTransResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.trans.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+     * Summary: 发起管理合约部署.
+     *
+     * @param DeployDataflowContractRequest $request
+     *
+     * @return DeployDataflowContractResponse
+     */
+    public function deployDataflowContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployDataflowContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+     * Summary: 发起管理合约部署.
+     *
+     * @param DeployDataflowContractRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DeployDataflowContractResponse
+     */
+    public function deployDataflowContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployDataflowContractResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.contract.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+     * Summary: 发起授权.
+     *
+     * @param CreateDataflowAuthorizeRequest $request
+     *
+     * @return CreateDataflowAuthorizeResponse
+     */
+    public function createDataflowAuthorize($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataflowAuthorizeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+     * Summary: 发起授权.
+     *
+     * @param CreateDataflowAuthorizeRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDataflowAuthorizeResponse
+     */
+    public function createDataflowAuthorizeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataflowAuthorizeResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.authorize.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证方对撤销已经发起的权限授予。
+     * Summary: 撤销授权.
+     *
+     * @param CancelDataflowAuthorizeRequest $request
+     *
+     * @return CancelDataflowAuthorizeResponse
+     */
+    public function cancelDataflowAuthorize($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDataflowAuthorizeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证方对撤销已经发起的权限授予。
+     * Summary: 撤销授权.
+     *
+     * @param CancelDataflowAuthorizeRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CancelDataflowAuthorizeResponse
+     */
+    public function cancelDataflowAuthorizeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDataflowAuthorizeResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.authorize.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+     * Summary: 查询对存证合约的各类操作执行结果.
+     *
+     * @param QueryDataflowActionRequest $request
+     *
+     * @return QueryDataflowActionResponse
+     */
+    public function queryDataflowAction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataflowActionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+     * Summary: 查询对存证合约的各类操作执行结果.
+     *
+     * @param QueryDataflowActionRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryDataflowActionResponse
+     */
+    public function queryDataflowActionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataflowActionResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.action.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+     * Summary: 发起信封密钥上传.
+     *
+     * @param UploadDataflowPubkeyRequest $request
+     *
+     * @return UploadDataflowPubkeyResponse
+     */
+    public function uploadDataflowPubkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadDataflowPubkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+     * Summary: 发起信封密钥上传.
+     *
+     * @param UploadDataflowPubkeyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UploadDataflowPubkeyResponse
+     */
+    public function uploadDataflowPubkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadDataflowPubkeyResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.pubkey.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据流转存证创建链上账户
+     * Summary: 数据流转存证创建链上账户.
+     *
+     * @param CreateDataflowAccountRequest $request
+     *
+     * @return CreateDataflowAccountResponse
+     */
+    public function createDataflowAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataflowAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据流转存证创建链上账户
+     * Summary: 数据流转存证创建链上账户.
+     *
+     * @param CreateDataflowAccountRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateDataflowAccountResponse
+     */
+    public function createDataflowAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataflowAccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.dataflow.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

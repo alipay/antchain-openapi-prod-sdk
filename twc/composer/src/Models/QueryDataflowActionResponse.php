@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseRiskResponse extends Model
+class QueryDataflowActionResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,32 +26,23 @@ class CreateLeaseRiskResponse extends Model
      */
     public $resultMsg;
 
-    // 风控结果
-    // SUCCESS：通过
-    // FAIL：不通过
+    // 操作状态
     /**
-     * @var string
+     * @var int
      */
-    public $paas;
+    public $status;
 
-    // 风控识别id，与订单id对应
+    // 信封公钥加密后的存证公钥信息，当查询类型为DEPLOY且status为密钥上传成功时返回。
     /**
      * @var string
      */
-    public $riskId;
-
-    // 风控规则对应的版本号
-    /**
-     * @var string
-     */
-    public $riskVersion;
+    public $encryptedPubkey;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'paas'        => 'paas',
-        'riskId'      => 'risk_id',
-        'riskVersion' => 'risk_version',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'status'          => 'status',
+        'encryptedPubkey' => 'encrypted_pubkey',
     ];
 
     public function validate()
@@ -70,14 +61,11 @@ class CreateLeaseRiskResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->paas) {
-            $res['paas'] = $this->paas;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
-        if (null !== $this->riskId) {
-            $res['risk_id'] = $this->riskId;
-        }
-        if (null !== $this->riskVersion) {
-            $res['risk_version'] = $this->riskVersion;
+        if (null !== $this->encryptedPubkey) {
+            $res['encrypted_pubkey'] = $this->encryptedPubkey;
         }
 
         return $res;
@@ -86,7 +74,7 @@ class CreateLeaseRiskResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateLeaseRiskResponse
+     * @return QueryDataflowActionResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +88,11 @@ class CreateLeaseRiskResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['paas'])) {
-            $model->paas = $map['paas'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
-        if (isset($map['risk_id'])) {
-            $model->riskId = $map['risk_id'];
-        }
-        if (isset($map['risk_version'])) {
-            $model->riskVersion = $map['risk_version'];
+        if (isset($map['encrypted_pubkey'])) {
+            $model->encryptedPubkey = $map['encrypted_pubkey'];
         }
 
         return $model;

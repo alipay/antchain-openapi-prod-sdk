@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateEncryptTextRequest extends Model
+class CreateDataflowTextRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -110,7 +110,7 @@ class CreateEncryptTextRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateEncryptTextRequest
+     * @return CreateDataflowTextRequest
      */
     public static function fromMap($map = [])
     {

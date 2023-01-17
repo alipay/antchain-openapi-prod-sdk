@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEncryptTextRequest extends Model
+class QueryDataflowActionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,32 @@ class GetEncryptTextRequest extends Model
      */
     public $productInstanceId;
 
-    // 存证地址
+    // 查询类型：
+    // 1. 合约部署：DEPLOY
+    // 2. 授权：AUTH
+    // 3. 撤销授权：CANCEL_AUTH
+    // 4. 密钥上传：PUB_KEY_UPLOAD
     /**
      * @var string
      */
-    public $txHash;
+    public $queryType;
 
-    // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+    // 发起操作的请求回执
     /**
      * @var string
      */
-    public $targetAccountId;
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'txHash'            => 'tx_hash',
-        'targetAccountId'   => 'target_account_id',
+        'queryType'         => 'query_type',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('queryType', $this->queryType, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -51,11 +56,11 @@ class GetEncryptTextRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->queryType) {
+            $res['query_type'] = $this->queryType;
         }
-        if (null !== $this->targetAccountId) {
-            $res['target_account_id'] = $this->targetAccountId;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -64,7 +69,7 @@ class GetEncryptTextRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetEncryptTextRequest
+     * @return QueryDataflowActionRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +80,11 @@ class GetEncryptTextRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['query_type'])) {
+            $model->queryType = $map['query_type'];
         }
-        if (isset($map['target_account_id'])) {
-            $model->targetAccountId = $map['target_account_id'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;
