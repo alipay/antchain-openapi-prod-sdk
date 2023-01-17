@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.22")
+                    new TeaPair("sdk_version", "1.8.27"),
+                    new TeaPair("_prod_code", "TWC"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -5351,41 +5353,174 @@ public class Client {
     }
 
     /**
-     * Description: 加密文本存证
-     * Summary: 加密文本存证
+     * Description: 数据流转文本存证
+     * Summary: 数据流转文本存证
      */
-    public CreateEncryptTextResponse createEncryptText(CreateEncryptTextRequest request) throws Exception {
+    public CreateDataflowTextResponse createDataflowText(CreateDataflowTextRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createEncryptTextEx(request, headers, runtime);
+        return this.createDataflowTextEx(request, headers, runtime);
     }
 
     /**
-     * Description: 加密文本存证
-     * Summary: 加密文本存证
+     * Description: 数据流转文本存证
+     * Summary: 数据流转文本存证
      */
-    public CreateEncryptTextResponse createEncryptTextEx(CreateEncryptTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateDataflowTextResponse createDataflowTextEx(CreateDataflowTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateEncryptTextResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.text.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDataflowTextResponse());
     }
 
     /**
-     * Description: 查询加密文本存证内容
-     * Summary: 查询加密文本存证内容
+     * Description: 查询数据流转文本存证内容
+     * Summary: 查询数据流转文本存证内容
      */
-    public GetEncryptTextResponse getEncryptText(GetEncryptTextRequest request) throws Exception {
+    public GetDataflowTextResponse getDataflowText(GetDataflowTextRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getEncryptTextEx(request, headers, runtime);
+        return this.getDataflowTextEx(request, headers, runtime);
     }
 
     /**
-     * Description: 查询加密文本存证内容
-     * Summary: 查询加密文本存证内容
+     * Description: 查询数据流转文本存证内容
+     * Summary: 查询数据流转文本存证内容
      */
-    public GetEncryptTextResponse getEncryptTextEx(GetEncryptTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetDataflowTextResponse getDataflowTextEx(GetDataflowTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEncryptTextResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.text.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDataflowTextResponse());
+    }
+
+    /**
+     * Description: 数据流转存证创建存证事务
+     * Summary: 数据流转存证创建存证事务
+     */
+    public CreateDataflowTransResponse createDataflowTrans(CreateDataflowTransRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDataflowTransEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据流转存证创建存证事务
+     * Summary: 数据流转存证创建存证事务
+     */
+    public CreateDataflowTransResponse createDataflowTransEx(CreateDataflowTransRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.trans.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDataflowTransResponse());
+    }
+
+    /**
+     * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+     * Summary: 发起管理合约部署
+     */
+    public DeployDataflowContractResponse deployDataflowContract(DeployDataflowContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deployDataflowContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+     * Summary: 发起管理合约部署
+     */
+    public DeployDataflowContractResponse deployDataflowContractEx(DeployDataflowContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.contract.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployDataflowContractResponse());
+    }
+
+    /**
+     * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+     * Summary: 发起授权
+     */
+    public CreateDataflowAuthorizeResponse createDataflowAuthorize(CreateDataflowAuthorizeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDataflowAuthorizeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+     * Summary: 发起授权
+     */
+    public CreateDataflowAuthorizeResponse createDataflowAuthorizeEx(CreateDataflowAuthorizeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.authorize.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDataflowAuthorizeResponse());
+    }
+
+    /**
+     * Description: 存证方对撤销已经发起的权限授予。
+     * Summary: 撤销授权
+     */
+    public CancelDataflowAuthorizeResponse cancelDataflowAuthorize(CancelDataflowAuthorizeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelDataflowAuthorizeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证方对撤销已经发起的权限授予。
+     * Summary: 撤销授权
+     */
+    public CancelDataflowAuthorizeResponse cancelDataflowAuthorizeEx(CancelDataflowAuthorizeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.authorize.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelDataflowAuthorizeResponse());
+    }
+
+    /**
+     * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+     * Summary: 查询对存证合约的各类操作执行结果
+     */
+    public QueryDataflowActionResponse queryDataflowAction(QueryDataflowActionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDataflowActionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+     * Summary: 查询对存证合约的各类操作执行结果
+     */
+    public QueryDataflowActionResponse queryDataflowActionEx(QueryDataflowActionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.action.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDataflowActionResponse());
+    }
+
+    /**
+     * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+     * Summary: 发起信封密钥上传
+     */
+    public UploadDataflowPubkeyResponse uploadDataflowPubkey(UploadDataflowPubkeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadDataflowPubkeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+     * Summary: 发起信封密钥上传
+     */
+    public UploadDataflowPubkeyResponse uploadDataflowPubkeyEx(UploadDataflowPubkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.pubkey.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadDataflowPubkeyResponse());
+    }
+
+    /**
+     * Description: 数据流转存证创建链上账户
+     * Summary: 数据流转存证创建链上账户
+     */
+    public CreateDataflowAccountResponse createDataflowAccount(CreateDataflowAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDataflowAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据流转存证创建链上账户
+     * Summary: 数据流转存证创建链上账户
+     */
+    public CreateDataflowAccountResponse createDataflowAccountEx(CreateDataflowAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDataflowAccountResponse());
     }
 
     /**

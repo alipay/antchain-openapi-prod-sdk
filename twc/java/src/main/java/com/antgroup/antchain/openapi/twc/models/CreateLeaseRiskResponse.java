@@ -26,6 +26,10 @@ public class CreateLeaseRiskResponse extends TeaModel {
     @NameInMap("risk_id")
     public String riskId;
 
+    // 风控规则对应的版本号
+    @NameInMap("risk_version")
+    public String riskVersion;
+
     public static CreateLeaseRiskResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseRiskResponse self = new CreateLeaseRiskResponse();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class CreateLeaseRiskResponse extends TeaModel {
     }
     public String getRiskId() {
         return this.riskId;
+    }
+
+    public CreateLeaseRiskResponse setRiskVersion(String riskVersion) {
+        this.riskVersion = riskVersion;
+        return this;
+    }
+    public String getRiskVersion() {
+        return this.riskVersion;
     }
 
 }

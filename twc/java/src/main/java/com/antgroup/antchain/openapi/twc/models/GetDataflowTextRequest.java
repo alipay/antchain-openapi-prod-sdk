@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetEncryptTextRequest extends TeaModel {
+public class GetDataflowTextRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,16 +16,16 @@ public class GetEncryptTextRequest extends TeaModel {
     @Validation(required = true)
     public String txHash;
 
-    // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+    // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
     @NameInMap("target_account_id")
     public String targetAccountId;
 
-    public static GetEncryptTextRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetEncryptTextRequest self = new GetEncryptTextRequest();
+    public static GetDataflowTextRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetDataflowTextRequest self = new GetDataflowTextRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetEncryptTextRequest setAuthToken(String authToken) {
+    public GetDataflowTextRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -33,7 +33,7 @@ public class GetEncryptTextRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetEncryptTextRequest setProductInstanceId(String productInstanceId) {
+    public GetDataflowTextRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -41,7 +41,7 @@ public class GetEncryptTextRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetEncryptTextRequest setTxHash(String txHash) {
+    public GetDataflowTextRequest setTxHash(String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -49,7 +49,7 @@ public class GetEncryptTextRequest extends TeaModel {
         return this.txHash;
     }
 
-    public GetEncryptTextRequest setTargetAccountId(String targetAccountId) {
+    public GetDataflowTextRequest setTargetAccountId(String targetAccountId) {
         this.targetAccountId = targetAccountId;
         return this;
     }

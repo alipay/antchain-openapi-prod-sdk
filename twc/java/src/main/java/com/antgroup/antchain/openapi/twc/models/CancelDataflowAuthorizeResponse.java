@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetEncryptTextResponse extends TeaModel {
+public class CancelDataflowAuthorizeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class GetEncryptTextResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 存证内容
-    @NameInMap("content")
-    public String content;
+    // 发起授权的请求回执，用于后续做撤销授权的结果查询。
+    @NameInMap("order_id")
+    public String orderId;
 
-    public static GetEncryptTextResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetEncryptTextResponse self = new GetEncryptTextResponse();
+    public static CancelDataflowAuthorizeResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelDataflowAuthorizeResponse self = new CancelDataflowAuthorizeResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetEncryptTextResponse setReqMsgId(String reqMsgId) {
+    public CancelDataflowAuthorizeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class GetEncryptTextResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetEncryptTextResponse setResultCode(String resultCode) {
+    public CancelDataflowAuthorizeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class GetEncryptTextResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetEncryptTextResponse setResultMsg(String resultMsg) {
+    public CancelDataflowAuthorizeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class GetEncryptTextResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetEncryptTextResponse setContent(String content) {
-        this.content = content;
+    public CancelDataflowAuthorizeResponse setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
-    public String getContent() {
-        return this.content;
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }

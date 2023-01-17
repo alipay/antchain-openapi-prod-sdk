@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class CreateEncryptTextResponse extends TeaModel {
+public class UploadDataflowPubkeyResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class CreateEncryptTextResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 交易哈希，链上存证地址
-    @NameInMap("tx_hash")
-    public String txHash;
+    // 发起密钥上传的请求回执，用于后续做密钥上传结果查询。
+    @NameInMap("order_id")
+    public String orderId;
 
-    public static CreateEncryptTextResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateEncryptTextResponse self = new CreateEncryptTextResponse();
+    public static UploadDataflowPubkeyResponse build(java.util.Map<String, ?> map) throws Exception {
+        UploadDataflowPubkeyResponse self = new UploadDataflowPubkeyResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateEncryptTextResponse setReqMsgId(String reqMsgId) {
+    public UploadDataflowPubkeyResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class CreateEncryptTextResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateEncryptTextResponse setResultCode(String resultCode) {
+    public UploadDataflowPubkeyResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class CreateEncryptTextResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateEncryptTextResponse setResultMsg(String resultMsg) {
+    public UploadDataflowPubkeyResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class CreateEncryptTextResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateEncryptTextResponse setTxHash(String txHash) {
-        this.txHash = txHash;
+    public UploadDataflowPubkeyResponse setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
-    public String getTxHash() {
-        return this.txHash;
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }

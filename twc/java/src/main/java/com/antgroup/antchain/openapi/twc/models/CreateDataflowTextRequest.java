@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class CreateEncryptTextRequest extends TeaModel {
+public class CreateDataflowTextRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -42,12 +42,12 @@ public class CreateEncryptTextRequest extends TeaModel {
     @NameInMap("hash_algorithm")
     public String hashAlgorithm;
 
-    public static CreateEncryptTextRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateEncryptTextRequest self = new CreateEncryptTextRequest();
+    public static CreateDataflowTextRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateDataflowTextRequest self = new CreateDataflowTextRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateEncryptTextRequest setAuthToken(String authToken) {
+    public CreateDataflowTextRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -55,7 +55,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateEncryptTextRequest setProductInstanceId(String productInstanceId) {
+    public CreateDataflowTextRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -63,7 +63,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateEncryptTextRequest setNotaryContent(String notaryContent) {
+    public CreateDataflowTextRequest setNotaryContent(String notaryContent) {
         this.notaryContent = notaryContent;
         return this;
     }
@@ -71,7 +71,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.notaryContent;
     }
 
-    public CreateEncryptTextRequest setPhase(String phase) {
+    public CreateDataflowTextRequest setPhase(String phase) {
         this.phase = phase;
         return this;
     }
@@ -79,7 +79,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.phase;
     }
 
-    public CreateEncryptTextRequest setTransactionId(String transactionId) {
+    public CreateDataflowTextRequest setTransactionId(String transactionId) {
         this.transactionId = transactionId;
         return this;
     }
@@ -87,7 +87,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.transactionId;
     }
 
-    public CreateEncryptTextRequest setProperties(String properties) {
+    public CreateDataflowTextRequest setProperties(String properties) {
         this.properties = properties;
         return this;
     }
@@ -95,7 +95,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.properties;
     }
 
-    public CreateEncryptTextRequest setTextNotaryType(String textNotaryType) {
+    public CreateDataflowTextRequest setTextNotaryType(String textNotaryType) {
         this.textNotaryType = textNotaryType;
         return this;
     }
@@ -103,7 +103,7 @@ public class CreateEncryptTextRequest extends TeaModel {
         return this.textNotaryType;
     }
 
-    public CreateEncryptTextRequest setHashAlgorithm(String hashAlgorithm) {
+    public CreateDataflowTextRequest setHashAlgorithm(String hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
         return this;
     }
