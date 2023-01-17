@@ -11345,9 +11345,6 @@ class ApplyDubbridgeCustomerAgreementsignRequest(TeaModel):
         self.validate_required(self.custom_no, 'custom_no')
         self.validate_required(self.custom_name, 'custom_name')
         self.validate_required(self.card_no, 'card_no')
-        self.validate_required(self.channel_code, 'channel_code')
-        self.validate_required(self.project_code, 'project_code')
-        self.validate_required(self.org_code, 'org_code')
 
     def to_map(self):
         _map = super().to_map()
