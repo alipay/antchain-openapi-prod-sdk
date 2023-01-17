@@ -9170,11 +9170,11 @@ type ApplyDubbridgeCustomerAgreementsignRequest struct {
 	// 资金方编号
 	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 	// 渠道号
-	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
 	// 项目编号
-	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty"`
 	// 渠道号
-	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty" require:"true"`
+	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty"`
 }
 
 func (s ApplyDubbridgeCustomerAgreementsignRequest) String() string {
@@ -19109,7 +19109,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.3"),
+				"sdk_version":      tea.String("1.16.4"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
