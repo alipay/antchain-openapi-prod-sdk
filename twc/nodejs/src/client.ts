@@ -20611,6 +20611,8 @@ export class CreateLeaseRiskResponse extends $tea.Model {
   paas?: string;
   // 风控识别id，与订单id对应
   riskId?: string;
+  // 风控规则对应的版本号
+  riskVersion?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -20618,6 +20620,7 @@ export class CreateLeaseRiskResponse extends $tea.Model {
       resultMsg: 'result_msg',
       paas: 'paas',
       riskId: 'risk_id',
+      riskVersion: 'risk_version',
     };
   }
 
@@ -20628,6 +20631,7 @@ export class CreateLeaseRiskResponse extends $tea.Model {
       resultMsg: 'string',
       paas: 'string',
       riskId: 'string',
+      riskVersion: 'string',
     };
   }
 
@@ -28711,7 +28715,7 @@ export class GetInternalFileResponse extends $tea.Model {
   }
 }
 
-export class CreateEncryptTextRequest extends $tea.Model {
+export class CreateDataflowTextRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -28762,7 +28766,7 @@ export class CreateEncryptTextRequest extends $tea.Model {
   }
 }
 
-export class CreateEncryptTextResponse extends $tea.Model {
+export class CreateDataflowTextResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -28794,13 +28798,13 @@ export class CreateEncryptTextResponse extends $tea.Model {
   }
 }
 
-export class GetEncryptTextRequest extends $tea.Model {
+export class GetDataflowTextRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // 存证地址
   txHash: string;
-  // 存证方使用的链上账号，当存证地址来自其他存证方用户时必填
+  // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
   targetAccountId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -28825,7 +28829,7 @@ export class GetEncryptTextRequest extends $tea.Model {
   }
 }
 
-export class GetEncryptTextResponse extends $tea.Model {
+export class GetDataflowTextResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -28849,6 +28853,480 @@ export class GetEncryptTextResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowTransRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证主体信息，使用存证公钥加密
+  customer: string;
+  // 子业务ID，选填
+  subBizId?: string;
+  // 扩展属性信息，使用存证公钥加密，选填
+  properties?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customer: 'customer',
+      subBizId: 'sub_biz_id',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customer: 'string',
+      subBizId: 'string',
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowTransResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证事务id
+  transactionId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transactionId: 'transaction_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transactionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployDataflowContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 信封密钥。存证方本地自行派生一堆非对称密钥，将公钥作为信封密钥。存证方用户后续读取链上信息（如存证密钥、存证数据原文）时，为避免链上明文信息泄漏，会使用该信封密钥对所有链上数据进行加密后再返回，保障数据安全。
+  pubkey: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pubkey: 'pubkey',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pubkey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeployDataflowContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发起部署的请求回执，用于后续做部署结果查询。
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowAuthorizeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 被授权账户的租户ID
+  targetTenant: string;
+  // 授权类型：
+  // 1. PUBKEY_UPLOAD：上传信封公钥
+  // 2. GET_NOTARY：查询存证原文
+  // 3. CHECK_NOTARY：核验存证信息
+  authType: string;
+  // 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为：
+  // 1. TXHASH：交易哈希维度授权
+  // 2. ACCOUNT：账号维度授权
+  authScope?: string;
+  // 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+  txHashList?: string[];
+  // 授权有效的时间戳
+  expireTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      targetTenant: 'target_tenant',
+      authType: 'auth_type',
+      authScope: 'auth_scope',
+      txHashList: 'tx_hash_list',
+      expireTime: 'expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      targetTenant: 'string',
+      authType: 'string',
+      authScope: 'string',
+      txHashList: { 'type': 'array', 'itemType': 'string' },
+      expireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowAuthorizeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发起授权的请求回执，用于后续做发起授权结果查询。
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDataflowAuthorizeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 目标租户ID
+  targetTenant: string;
+  // 授权类型： 1. PUBKEY_UPLOAD：上传信封公钥 2. GET_NOTARY：查询存证原文 3. CHECK_NOTARY：核验存证信息
+  authType: string;
+  // 授权范围，授权类型为GET_NOTARY或者CHECK_NOTARY时必填，取值为： 1. TXHASH：交易哈希维度授权 2. ACCOUNT：账号维度授权
+  authScope?: string;
+  // 授权的目标存证地址，当授权类型为GET_NOTARY或者CHECK_NOTARY，且授权范围为TXHASH时必填，最多20个
+  txHashList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      targetTenant: 'target_tenant',
+      authType: 'auth_type',
+      authScope: 'auth_scope',
+      txHashList: 'tx_hash_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      targetTenant: 'string',
+      authType: 'string',
+      authScope: 'string',
+      txHashList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDataflowAuthorizeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发起授权的请求回执，用于后续做撤销授权的结果查询。
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataflowActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询类型：
+  // 1. 合约部署：DEPLOY
+  // 2. 授权：AUTH
+  // 3. 撤销授权：CANCEL_AUTH
+  // 4. 密钥上传：PUB_KEY_UPLOAD
+  queryType: string;
+  // 发起操作的请求回执
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryType: 'query_type',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryType: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataflowActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作状态
+  status?: number;
+  // 信封公钥加密后的存证公钥信息，当查询类型为DEPLOY且status为密钥上传成功时返回。
+  encryptedPubkey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      encryptedPubkey: 'encrypted_pubkey',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'number',
+      encryptedPubkey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDataflowPubkeyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 信封公钥内容
+  pubkey: string;
+  // 存证方的租户ID
+  fromTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pubkey: 'pubkey',
+      fromTenant: 'from_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pubkey: 'string',
+      fromTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDataflowPubkeyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发起密钥上传的请求回执，用于后续做密钥上传结果查询。
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链上账号名称，真实名称会在前加租户ID
+  thirdPartyAccountId: string;
+  // 账户密钥算法
+  keyAlgorithm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thirdPartyAccountId: 'third_party_account_id',
+      keyAlgorithm: 'key_algorithm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thirdPartyAccountId: 'string',
+      keyAlgorithm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDataflowAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实际生成的链上账户ID
+  chainAccount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chainAccount: 'chain_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chainAccount: 'string',
     };
   }
 
@@ -30524,7 +31002,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.22",
+          sdk_version: "1.8.27",
+          _prod_code: "TWC",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -35762,41 +36242,174 @@ export default class Client {
   }
 
   /**
-   * Description: 加密文本存证
-   * Summary: 加密文本存证
+   * Description: 数据流转文本存证
+   * Summary: 数据流转文本存证
    */
-  async createEncryptText(request: CreateEncryptTextRequest): Promise<CreateEncryptTextResponse> {
+  async createDataflowText(request: CreateDataflowTextRequest): Promise<CreateDataflowTextResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.createEncryptTextEx(request, headers, runtime);
+    return await this.createDataflowTextEx(request, headers, runtime);
   }
 
   /**
-   * Description: 加密文本存证
-   * Summary: 加密文本存证
+   * Description: 数据流转文本存证
+   * Summary: 数据流转文本存证
    */
-  async createEncryptTextEx(request: CreateEncryptTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateEncryptTextResponse> {
+  async createDataflowTextEx(request: CreateDataflowTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDataflowTextResponse> {
     Util.validateModel(request);
-    return $tea.cast<CreateEncryptTextResponse>(await this.doRequest("1.0", "twc.notary.encrypt.text.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateEncryptTextResponse({}));
+    return $tea.cast<CreateDataflowTextResponse>(await this.doRequest("1.0", "twc.notary.dataflow.text.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDataflowTextResponse({}));
   }
 
   /**
-   * Description: 查询加密文本存证内容
-   * Summary: 查询加密文本存证内容
+   * Description: 查询数据流转文本存证内容
+   * Summary: 查询数据流转文本存证内容
    */
-  async getEncryptText(request: GetEncryptTextRequest): Promise<GetEncryptTextResponse> {
+  async getDataflowText(request: GetDataflowTextRequest): Promise<GetDataflowTextResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getEncryptTextEx(request, headers, runtime);
+    return await this.getDataflowTextEx(request, headers, runtime);
   }
 
   /**
-   * Description: 查询加密文本存证内容
-   * Summary: 查询加密文本存证内容
+   * Description: 查询数据流转文本存证内容
+   * Summary: 查询数据流转文本存证内容
    */
-  async getEncryptTextEx(request: GetEncryptTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEncryptTextResponse> {
+  async getDataflowTextEx(request: GetDataflowTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDataflowTextResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetEncryptTextResponse>(await this.doRequest("1.0", "twc.notary.encrypt.text.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEncryptTextResponse({}));
+    return $tea.cast<GetDataflowTextResponse>(await this.doRequest("1.0", "twc.notary.dataflow.text.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDataflowTextResponse({}));
+  }
+
+  /**
+   * Description: 数据流转存证创建存证事务
+   * Summary: 数据流转存证创建存证事务
+   */
+  async createDataflowTrans(request: CreateDataflowTransRequest): Promise<CreateDataflowTransResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDataflowTransEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据流转存证创建存证事务
+   * Summary: 数据流转存证创建存证事务
+   */
+  async createDataflowTransEx(request: CreateDataflowTransRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDataflowTransResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDataflowTransResponse>(await this.doRequest("1.0", "twc.notary.dataflow.trans.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDataflowTransResponse({}));
+  }
+
+  /**
+   * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+   * Summary: 发起管理合约部署
+   */
+  async deployDataflowContract(request: DeployDataflowContractRequest): Promise<DeployDataflowContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deployDataflowContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
+   * Summary: 发起管理合约部署
+   */
+  async deployDataflowContractEx(request: DeployDataflowContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeployDataflowContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeployDataflowContractResponse>(await this.doRequest("1.0", "twc.notary.dataflow.contract.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeployDataflowContractResponse({}));
+  }
+
+  /**
+   * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+   * Summary: 发起授权
+   */
+  async createDataflowAuthorize(request: CreateDataflowAuthorizeRequest): Promise<CreateDataflowAuthorizeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDataflowAuthorizeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
+   * Summary: 发起授权
+   */
+  async createDataflowAuthorizeEx(request: CreateDataflowAuthorizeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDataflowAuthorizeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDataflowAuthorizeResponse>(await this.doRequest("1.0", "twc.notary.dataflow.authorize.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDataflowAuthorizeResponse({}));
+  }
+
+  /**
+   * Description: 存证方对撤销已经发起的权限授予。
+   * Summary: 撤销授权
+   */
+  async cancelDataflowAuthorize(request: CancelDataflowAuthorizeRequest): Promise<CancelDataflowAuthorizeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelDataflowAuthorizeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证方对撤销已经发起的权限授予。
+   * Summary: 撤销授权
+   */
+  async cancelDataflowAuthorizeEx(request: CancelDataflowAuthorizeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDataflowAuthorizeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelDataflowAuthorizeResponse>(await this.doRequest("1.0", "twc.notary.dataflow.authorize.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDataflowAuthorizeResponse({}));
+  }
+
+  /**
+   * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+   * Summary: 查询对存证合约的各类操作执行结果
+   */
+  async queryDataflowAction(request: QueryDataflowActionRequest): Promise<QueryDataflowActionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDataflowActionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
+   * Summary: 查询对存证合约的各类操作执行结果
+   */
+  async queryDataflowActionEx(request: QueryDataflowActionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDataflowActionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDataflowActionResponse>(await this.doRequest("1.0", "twc.notary.dataflow.action.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDataflowActionResponse({}));
+  }
+
+  /**
+   * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+   * Summary: 发起信封密钥上传
+   */
+  async uploadDataflowPubkey(request: UploadDataflowPubkeyRequest): Promise<UploadDataflowPubkeyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadDataflowPubkeyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
+   * Summary: 发起信封密钥上传
+   */
+  async uploadDataflowPubkeyEx(request: UploadDataflowPubkeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadDataflowPubkeyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadDataflowPubkeyResponse>(await this.doRequest("1.0", "twc.notary.dataflow.pubkey.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadDataflowPubkeyResponse({}));
+  }
+
+  /**
+   * Description: 数据流转存证创建链上账户
+   * Summary: 数据流转存证创建链上账户
+   */
+  async createDataflowAccount(request: CreateDataflowAccountRequest): Promise<CreateDataflowAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDataflowAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据流转存证创建链上账户
+   * Summary: 数据流转存证创建链上账户
+   */
+  async createDataflowAccountEx(request: CreateDataflowAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDataflowAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDataflowAccountResponse>(await this.doRequest("1.0", "twc.notary.dataflow.account.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDataflowAccountResponse({}));
   }
 
   /**
