@@ -92,9 +92,6 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         Model::validateRequired('customNo', $this->customNo, true);
         Model::validateRequired('customName', $this->customName, true);
         Model::validateRequired('cardNo', $this->cardNo, true);
-        Model::validateRequired('channelCode', $this->channelCode, true);
-        Model::validateRequired('projectCode', $this->projectCode, true);
-        Model::validateRequired('orgCode', $this->orgCode, true);
     }
 
     public function toMap()
