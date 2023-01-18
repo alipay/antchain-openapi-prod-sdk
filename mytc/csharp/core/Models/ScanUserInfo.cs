@@ -23,12 +23,12 @@ namespace AntChain.SDK.MYTC.Models
         // 经度
         [NameInMap("longitude")]
         [Validation(Required=true)]
-        public long? Longitude { get; set; }
+        public string Longitude { get; set; }
 
         // 纬度
         [NameInMap("latitude")]
         [Validation(Required=true)]
-        public long? Latitude { get; set; }
+        public string Latitude { get; set; }
 
         // 用户来源
         [NameInMap("src_type")]

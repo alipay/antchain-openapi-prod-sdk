@@ -39,11 +39,6 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false, MaxLength=32)]
         public string Status { get; set; }
 
-        // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-        [NameInMap("biz_labels")]
-        [Validation(Required=false)]
-        public List<string> BizLabels { get; set; }
-
         // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
         [NameInMap("up_chain_flag")]
         [Validation(Required=false)]

@@ -29,6 +29,11 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public ScanHeadInfo ScanInfo { get; set; }
 
+        // 商品信息
+        [NameInMap("product_info")]
+        [Validation(Required=false)]
+        public ProudctInfo ProductInfo { get; set; }
+
         // 溯源环节信息列表
         [NameInMap("phase_infos")]
         [Validation(Required=false)]
