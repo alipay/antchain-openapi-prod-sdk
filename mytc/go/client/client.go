@@ -286,9 +286,9 @@ type ScanUserInfo struct {
 	// 用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 经度
-	Longitude *int64 `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
 	// 纬度
-	Latitude *int64 `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
 	// 用户来源
 	SrcType *string `json:"src_type,omitempty" xml:"src_type,omitempty" require:"true"`
 	// 扫码时间
@@ -313,12 +313,12 @@ func (s *ScanUserInfo) SetUserId(v string) *ScanUserInfo {
 	return s
 }
 
-func (s *ScanUserInfo) SetLongitude(v int64) *ScanUserInfo {
+func (s *ScanUserInfo) SetLongitude(v string) *ScanUserInfo {
 	s.Longitude = &v
 	return s
 }
 
-func (s *ScanUserInfo) SetLatitude(v int64) *ScanUserInfo {
+func (s *ScanUserInfo) SetLatitude(v string) *ScanUserInfo {
 	s.Latitude = &v
 	return s
 }
@@ -391,6 +391,32 @@ func (s *CodeRegisterInfo) SetTxHash(v string) *CodeRegisterInfo {
 
 func (s *CodeRegisterInfo) SetUniqueId(v string) *CodeRegisterInfo {
 	s.UniqueId = &v
+	return s
+}
+
+// 商品信息
+type ProudctInfo struct {
+	// 商品名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 商品图片链接列表
+	ProudctImages []*string `json:"proudct_images,omitempty" xml:"proudct_images,omitempty" type:"Repeated"`
+}
+
+func (s ProudctInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProudctInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ProudctInfo) SetName(v string) *ProudctInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ProudctInfo) SetProudctImages(v []*string) *ProudctInfo {
+	s.ProudctImages = v
 	return s
 }
 
@@ -2349,9 +2375,6 @@ type UpdateCodeRegistrationRequest struct {
 	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
 	Status *string `json:"status,omitempty" xml:"status,omitempty" maxLength:"32" minLength:"1"`
-	// 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-	// 若已上链，则不可更新该信息。
-	BizLabels []*string `json:"biz_labels,omitempty" xml:"biz_labels,omitempty" type:"Repeated"`
 	// 注册内容。若已上链，则不可更新该信息。
 	//
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
@@ -2401,11 +2424,6 @@ func (s *UpdateCodeRegistrationRequest) SetUniqueId(v string) *UpdateCodeRegistr
 
 func (s *UpdateCodeRegistrationRequest) SetStatus(v string) *UpdateCodeRegistrationRequest {
 	s.Status = &v
-	return s
-}
-
-func (s *UpdateCodeRegistrationRequest) SetBizLabels(v []*string) *UpdateCodeRegistrationRequest {
-	s.BizLabels = v
 	return s
 }
 
@@ -2597,8 +2615,6 @@ type UpdateCodeRelationRequest struct {
 	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
 	Status *string `json:"status,omitempty" xml:"status,omitempty" maxLength:"32" minLength:"1"`
-	// 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-	BizLabels []*string `json:"biz_labels,omitempty" xml:"biz_labels,omitempty" type:"Repeated"`
 	// 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
 	UpChainFlag *bool `json:"up_chain_flag,omitempty" xml:"up_chain_flag,omitempty"`
 	// 关联信息内容。若已上链，则不可更新该信息。
@@ -2640,11 +2656,6 @@ func (s *UpdateCodeRelationRequest) SetUniqueId(v string) *UpdateCodeRelationReq
 
 func (s *UpdateCodeRelationRequest) SetStatus(v string) *UpdateCodeRelationRequest {
 	s.Status = &v
-	return s
-}
-
-func (s *UpdateCodeRelationRequest) SetBizLabels(v []*string) *UpdateCodeRelationRequest {
-	s.BizLabels = v
 	return s
 }
 
@@ -2737,6 +2748,8 @@ type QueryMiniCodeResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 首次扫描信息
 	ScanInfo *ScanHeadInfo `json:"scan_info,omitempty" xml:"scan_info,omitempty"`
+	// 商品信息
+	ProductInfo *ProudctInfo `json:"product_info,omitempty" xml:"product_info,omitempty"`
 	// 溯源环节信息列表
 	PhaseInfos []*PhaseInfo `json:"phase_infos,omitempty" xml:"phase_infos,omitempty" type:"Repeated"`
 }
@@ -2766,6 +2779,11 @@ func (s *QueryMiniCodeResponse) SetResultMsg(v string) *QueryMiniCodeResponse {
 
 func (s *QueryMiniCodeResponse) SetScanInfo(v *ScanHeadInfo) *QueryMiniCodeResponse {
 	s.ScanInfo = v
+	return s
+}
+
+func (s *QueryMiniCodeResponse) SetProductInfo(v *ProudctInfo) *QueryMiniCodeResponse {
+	s.ProductInfo = v
 	return s
 }
 
@@ -3198,7 +3216,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.5"),
+				"sdk_version":      tea.String("1.2.7"),
 				"_prod_code":       tea.String("MYTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
