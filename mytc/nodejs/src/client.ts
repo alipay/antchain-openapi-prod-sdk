@@ -194,9 +194,9 @@ export class ScanUserInfo extends $tea.Model {
   // 用户ID
   userId: string;
   // 经度
-  longitude: number;
+  longitude: string;
   // 纬度
-  latitude: number;
+  latitude: string;
   // 用户来源
   srcType: string;
   // 扫码时间
@@ -216,8 +216,8 @@ export class ScanUserInfo extends $tea.Model {
     return {
       nick: 'string',
       userId: 'string',
-      longitude: 'number',
-      latitude: 'number',
+      longitude: 'string',
+      latitude: 'string',
       srcType: 'string',
       scanTime: 'number',
     };
@@ -265,6 +265,31 @@ export class CodeRegisterInfo extends $tea.Model {
       content: 'string',
       txHash: 'string',
       uniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品信息
+export class ProudctInfo extends $tea.Model {
+  // 商品名称
+  name: string;
+  // 商品图片链接列表
+  proudctImages?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      proudctImages: 'proudct_images',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      proudctImages: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -1758,9 +1783,6 @@ export class UpdateCodeRegistrationRequest extends $tea.Model {
   uniqueId: string;
   // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
   status?: string;
-  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-  // 若已上链，则不可更新该信息。
-  bizLabels?: string[];
   // 注册内容。若已上链，则不可更新该信息。
   // 
   content?: string;
@@ -1781,7 +1803,6 @@ export class UpdateCodeRegistrationRequest extends $tea.Model {
       code: 'code',
       uniqueId: 'unique_id',
       status: 'status',
-      bizLabels: 'biz_labels',
       content: 'content',
       relationCodes: 'relation_codes',
       recursionType: 'recursion_type',
@@ -1797,7 +1818,6 @@ export class UpdateCodeRegistrationRequest extends $tea.Model {
       code: 'string',
       uniqueId: 'string',
       status: 'string',
-      bizLabels: { 'type': 'array', 'itemType': 'string' },
       content: 'string',
       relationCodes: { 'type': 'array', 'itemType': 'string' },
       recursionType: 'string',
@@ -1942,8 +1962,6 @@ export class UpdateCodeRelationRequest extends $tea.Model {
   uniqueId: string;
   // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
   status?: string;
-  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-  bizLabels?: string[];
   // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
   upChainFlag?: boolean;
   // 关联信息内容。若已上链，则不可更新该信息。
@@ -1956,7 +1974,6 @@ export class UpdateCodeRelationRequest extends $tea.Model {
       code: 'code',
       uniqueId: 'unique_id',
       status: 'status',
-      bizLabels: 'biz_labels',
       upChainFlag: 'up_chain_flag',
       content: 'content',
     };
@@ -1970,7 +1987,6 @@ export class UpdateCodeRelationRequest extends $tea.Model {
       code: 'string',
       uniqueId: 'string',
       status: 'string',
-      bizLabels: { 'type': 'array', 'itemType': 'string' },
       upChainFlag: 'boolean',
       content: 'string',
     };
@@ -2049,6 +2065,8 @@ export class QueryMiniCodeResponse extends $tea.Model {
   resultMsg?: string;
   // 首次扫描信息
   scanInfo?: ScanHeadInfo;
+  // 商品信息
+  productInfo?: ProudctInfo;
   // 溯源环节信息列表
   phaseInfos?: PhaseInfo[];
   static names(): { [key: string]: string } {
@@ -2057,6 +2075,7 @@ export class QueryMiniCodeResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       scanInfo: 'scan_info',
+      productInfo: 'product_info',
       phaseInfos: 'phase_infos',
     };
   }
@@ -2067,6 +2086,7 @@ export class QueryMiniCodeResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       scanInfo: ScanHeadInfo,
+      productInfo: ProudctInfo,
       phaseInfos: { 'type': 'array', 'itemType': PhaseInfo },
     };
   }
@@ -2419,7 +2439,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.5",
+          sdk_version: "1.2.7",
           _prod_code: "MYTC",
           _prod_channel: "undefined",
         };
