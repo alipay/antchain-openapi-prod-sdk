@@ -32,10 +32,6 @@ public class UpdateCodeRelationRequest extends TeaModel {
     @Validation(maxLength = 32, minLength = 1)
     public String status;
 
-    // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-    @NameInMap("biz_labels")
-    public java.util.List<String> bizLabels;
-
     // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
     @NameInMap("up_chain_flag")
     public Boolean upChainFlag;
@@ -95,14 +91,6 @@ public class UpdateCodeRelationRequest extends TeaModel {
     }
     public String getStatus() {
         return this.status;
-    }
-
-    public UpdateCodeRelationRequest setBizLabels(java.util.List<String> bizLabels) {
-        this.bizLabels = bizLabels;
-        return this;
-    }
-    public java.util.List<String> getBizLabels() {
-        return this.bizLabels;
     }
 
     public UpdateCodeRelationRequest setUpChainFlag(Boolean upChainFlag) {

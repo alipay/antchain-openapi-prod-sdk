@@ -31,11 +31,6 @@ public class UpdateCodeRegistrationRequest extends TeaModel {
     @Validation(maxLength = 32, minLength = 1)
     public String status;
 
-    // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-    // 若已上链，则不可更新该信息。
-    @NameInMap("biz_labels")
-    public java.util.List<String> bizLabels;
-
     // 注册内容。若已上链，则不可更新该信息。
     // 
     @NameInMap("content")
@@ -108,14 +103,6 @@ public class UpdateCodeRegistrationRequest extends TeaModel {
     }
     public String getStatus() {
         return this.status;
-    }
-
-    public UpdateCodeRegistrationRequest setBizLabels(java.util.List<String> bizLabels) {
-        this.bizLabels = bizLabels;
-        return this;
-    }
-    public java.util.List<String> getBizLabels() {
-        return this.bizLabels;
     }
 
     public UpdateCodeRegistrationRequest setContent(String content) {

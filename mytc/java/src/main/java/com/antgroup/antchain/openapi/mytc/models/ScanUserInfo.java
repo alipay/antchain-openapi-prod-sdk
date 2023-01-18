@@ -17,12 +17,12 @@ public class ScanUserInfo extends TeaModel {
     // 经度
     @NameInMap("longitude")
     @Validation(required = true)
-    public Long longitude;
+    public String longitude;
 
     // 纬度
     @NameInMap("latitude")
     @Validation(required = true)
-    public Long latitude;
+    public String latitude;
 
     // 用户来源
     @NameInMap("src_type")
@@ -54,19 +54,19 @@ public class ScanUserInfo extends TeaModel {
         return this.userId;
     }
 
-    public ScanUserInfo setLongitude(Long longitude) {
+    public ScanUserInfo setLongitude(String longitude) {
         this.longitude = longitude;
         return this;
     }
-    public Long getLongitude() {
+    public String getLongitude() {
         return this.longitude;
     }
 
-    public ScanUserInfo setLatitude(Long latitude) {
+    public ScanUserInfo setLatitude(String latitude) {
         this.latitude = latitude;
         return this;
     }
-    public Long getLatitude() {
+    public String getLatitude() {
         return this.latitude;
     }
 

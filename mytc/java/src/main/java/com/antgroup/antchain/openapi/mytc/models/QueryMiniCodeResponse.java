@@ -20,6 +20,10 @@ public class QueryMiniCodeResponse extends TeaModel {
     @NameInMap("scan_info")
     public ScanHeadInfo scanInfo;
 
+    // 商品信息
+    @NameInMap("product_info")
+    public ProudctInfo productInfo;
+
     // 溯源环节信息列表
     @NameInMap("phase_infos")
     public java.util.List<PhaseInfo> phaseInfos;
@@ -59,6 +63,14 @@ public class QueryMiniCodeResponse extends TeaModel {
     }
     public ScanHeadInfo getScanInfo() {
         return this.scanInfo;
+    }
+
+    public QueryMiniCodeResponse setProductInfo(ProudctInfo productInfo) {
+        this.productInfo = productInfo;
+        return this;
+    }
+    public ProudctInfo getProductInfo() {
+        return this.productInfo;
     }
 
     public QueryMiniCodeResponse setPhaseInfos(java.util.List<PhaseInfo> phaseInfos) {
