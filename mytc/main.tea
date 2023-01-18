@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.5',
+    sdk_version = '1.2.7',
     _prod_code = 'MYTC',
     _prod_channel = 'undefined'
   };
@@ -214,9 +214,9 @@ model ScanUserInfo {
   // 用户ID
   userId: string(name='user_id', example='1654570807000'),
   // 经度
-  longitude: long(name='longitude', example='123'),
+  longitude: string(name='longitude', example='123'),
   // 纬度
-  latitude: long(name='latitude', example='123'),
+  latitude: string(name='latitude', example='123'),
   // 用户来源
   srcType: string(name='src_type', example='alipay'),
   // 扫码时间
@@ -239,6 +239,14 @@ model CodeRegisterInfo {
   txHash?: string(name='tx_hash', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
   // 注册溯源码记录唯一标识
   uniqueId?: string(name='unique_id', example='2ba028918edd6566fd0674dd33fc5e53b72c8e33439562e1598d1bdab341b0f1'),
+}
+
+// 商品信息
+model ProudctInfo {
+  // 商品名称
+  name: string(name='name', example='爆款鞋子'),
+  // 商品图片链接列表
+  proudctImages?: [ string ](name='proudct_images', example=''),
 }
 
 // 溯源码关联信息
@@ -1173,9 +1181,6 @@ model UpdateCodeRegistrationRequest = {
   uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
   // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
   status?: string(maxLength=32, minLength=1, name='status'),
-  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-  // 若已上链，则不可更新该信息。
-  bizLabels?: [ string ](name='biz_labels'),
   // 注册内容。若已上链，则不可更新该信息。
   // 
   content?: string(name='content'),
@@ -1287,8 +1292,6 @@ model UpdateCodeRelationRequest = {
   uniqueId: string(maxLength=64, minLength=1, name='unique_id'),
   // 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
   status?: string(maxLength=32, minLength=1, name='status'),
-  // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-  bizLabels?: [ string ](name='biz_labels'),
   // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
   upChainFlag?: boolean(name='up_chain_flag'),
   // 关联信息内容。若已上链，则不可更新该信息。
@@ -1342,6 +1345,8 @@ model QueryMiniCodeResponse = {
   resultMsg?: string(name='result_msg'),
   // 首次扫描信息
   scanInfo?: ScanHeadInfo(name='scan_info'),
+  // 商品信息
+  productInfo?: ProudctInfo(name='product_info'),
   // 溯源环节信息列表
   phaseInfos?: [ PhaseInfo ](name='phase_infos'),
 }
