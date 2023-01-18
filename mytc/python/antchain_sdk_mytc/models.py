@@ -323,8 +323,8 @@ class ScanUserInfo(TeaModel):
         self,
         nick: str = None,
         user_id: str = None,
-        longitude: int = None,
-        latitude: int = None,
+        longitude: str = None,
+        latitude: str = None,
         src_type: str = None,
         scan_time: int = None,
     ):
@@ -456,6 +456,41 @@ class CodeRegisterInfo(TeaModel):
             self.tx_hash = m.get('tx_hash')
         if m.get('unique_id') is not None:
             self.unique_id = m.get('unique_id')
+        return self
+
+
+class ProudctInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        proudct_images: List[str] = None,
+    ):
+        # 商品名称
+        self.name = name
+        # 商品图片链接列表
+        self.proudct_images = proudct_images
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.proudct_images is not None:
+            result['proudct_images'] = self.proudct_images
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('proudct_images') is not None:
+            self.proudct_images = m.get('proudct_images')
         return self
 
 
@@ -2937,7 +2972,6 @@ class UpdateCodeRegistrationRequest(TeaModel):
         code: str = None,
         unique_id: str = None,
         status: str = None,
-        biz_labels: List[str] = None,
         content: str = None,
         relation_codes: List[str] = None,
         recursion_type: str = None,
@@ -2954,9 +2988,6 @@ class UpdateCodeRegistrationRequest(TeaModel):
         self.unique_id = unique_id
         # 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
         self.status = status
-        # 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-        # 若已上链，则不可更新该信息。
-        self.biz_labels = biz_labels
         # 注册内容。若已上链，则不可更新该信息。
         # 
         self.content = content
@@ -3002,8 +3033,6 @@ class UpdateCodeRegistrationRequest(TeaModel):
             result['unique_id'] = self.unique_id
         if self.status is not None:
             result['status'] = self.status
-        if self.biz_labels is not None:
-            result['biz_labels'] = self.biz_labels
         if self.content is not None:
             result['content'] = self.content
         if self.relation_codes is not None:
@@ -3028,8 +3057,6 @@ class UpdateCodeRegistrationRequest(TeaModel):
             self.unique_id = m.get('unique_id')
         if m.get('status') is not None:
             self.status = m.get('status')
-        if m.get('biz_labels') is not None:
-            self.biz_labels = m.get('biz_labels')
         if m.get('content') is not None:
             self.content = m.get('content')
         if m.get('relation_codes') is not None:
@@ -3243,7 +3270,6 @@ class UpdateCodeRelationRequest(TeaModel):
         code: str = None,
         unique_id: str = None,
         status: str = None,
-        biz_labels: List[str] = None,
         up_chain_flag: bool = None,
         content: str = None,
     ):
@@ -3259,8 +3285,6 @@ class UpdateCodeRelationRequest(TeaModel):
         self.unique_id = unique_id
         # 状态,客户自定义状态，用于过滤查询使用。只能由字符+数字构成
         self.status = status
-        # 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-        self.biz_labels = biz_labels
         # 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
         self.up_chain_flag = up_chain_flag
         # 关联信息内容。若已上链，则不可更新该信息。
@@ -3297,8 +3321,6 @@ class UpdateCodeRelationRequest(TeaModel):
             result['unique_id'] = self.unique_id
         if self.status is not None:
             result['status'] = self.status
-        if self.biz_labels is not None:
-            result['biz_labels'] = self.biz_labels
         if self.up_chain_flag is not None:
             result['up_chain_flag'] = self.up_chain_flag
         if self.content is not None:
@@ -3319,8 +3341,6 @@ class UpdateCodeRelationRequest(TeaModel):
             self.unique_id = m.get('unique_id')
         if m.get('status') is not None:
             self.status = m.get('status')
-        if m.get('biz_labels') is not None:
-            self.biz_labels = m.get('biz_labels')
         if m.get('up_chain_flag') is not None:
             self.up_chain_flag = m.get('up_chain_flag')
         if m.get('content') is not None:
@@ -3430,6 +3450,7 @@ class QueryMiniCodeResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         scan_info: ScanHeadInfo = None,
+        product_info: ProudctInfo = None,
         phase_infos: List[PhaseInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3440,12 +3461,16 @@ class QueryMiniCodeResponse(TeaModel):
         self.result_msg = result_msg
         # 首次扫描信息
         self.scan_info = scan_info
+        # 商品信息
+        self.product_info = product_info
         # 溯源环节信息列表
         self.phase_infos = phase_infos
 
     def validate(self):
         if self.scan_info:
             self.scan_info.validate()
+        if self.product_info:
+            self.product_info.validate()
         if self.phase_infos:
             for k in self.phase_infos:
                 if k:
@@ -3465,6 +3490,8 @@ class QueryMiniCodeResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.scan_info is not None:
             result['scan_info'] = self.scan_info.to_map()
+        if self.product_info is not None:
+            result['product_info'] = self.product_info.to_map()
         result['phase_infos'] = []
         if self.phase_infos is not None:
             for k in self.phase_infos:
@@ -3482,6 +3509,9 @@ class QueryMiniCodeResponse(TeaModel):
         if m.get('scan_info') is not None:
             temp_model = ScanHeadInfo()
             self.scan_info = temp_model.from_map(m['scan_info'])
+        if m.get('product_info') is not None:
+            temp_model = ProudctInfo()
+            self.product_info = temp_model.from_map(m['product_info'])
         self.phase_infos = []
         if m.get('phase_infos') is not None:
             for k in m.get('phase_infos'):
