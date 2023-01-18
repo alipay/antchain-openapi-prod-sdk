@@ -32,17 +32,24 @@ class QueryMiniCodeResponse extends Model
      */
     public $scanInfo;
 
+    // 商品信息
+    /**
+     * @var ProudctInfo
+     */
+    public $productInfo;
+
     // 溯源环节信息列表
     /**
      * @var PhaseInfo[]
      */
     public $phaseInfos;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'scanInfo'   => 'scan_info',
-        'phaseInfos' => 'phase_infos',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'scanInfo'    => 'scan_info',
+        'productInfo' => 'product_info',
+        'phaseInfos'  => 'phase_infos',
     ];
 
     public function validate()
@@ -63,6 +70,9 @@ class QueryMiniCodeResponse extends Model
         }
         if (null !== $this->scanInfo) {
             $res['scan_info'] = null !== $this->scanInfo ? $this->scanInfo->toMap() : null;
+        }
+        if (null !== $this->productInfo) {
+            $res['product_info'] = null !== $this->productInfo ? $this->productInfo->toMap() : null;
         }
         if (null !== $this->phaseInfos) {
             $res['phase_infos'] = [];
@@ -96,6 +106,9 @@ class QueryMiniCodeResponse extends Model
         }
         if (isset($map['scan_info'])) {
             $model->scanInfo = ScanHeadInfo::fromMap($map['scan_info']);
+        }
+        if (isset($map['product_info'])) {
+            $model->productInfo = ProudctInfo::fromMap($map['product_info']);
         }
         if (isset($map['phase_infos'])) {
             if (!empty($map['phase_infos'])) {

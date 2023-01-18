@@ -28,7 +28,7 @@ class ScanUserInfo extends Model
     /**
      * @example 123
      *
-     * @var int
+     * @var string
      */
     public $longitude;
 
@@ -36,7 +36,7 @@ class ScanUserInfo extends Model
     /**
      * @example 123
      *
-     * @var int
+     * @var string
      */
     public $latitude;
 

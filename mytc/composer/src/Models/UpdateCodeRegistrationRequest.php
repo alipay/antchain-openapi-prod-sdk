@@ -43,13 +43,6 @@ class UpdateCodeRegistrationRequest extends Model
      */
     public $status;
 
-    // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。
-    // 若已上链，则不可更新该信息。
-    /**
-     * @var string[]
-     */
-    public $bizLabels;
-
     // 注册内容。若已上链，则不可更新该信息。
     //
     /**
@@ -84,7 +77,6 @@ class UpdateCodeRegistrationRequest extends Model
         'code'              => 'code',
         'uniqueId'          => 'unique_id',
         'status'            => 'status',
-        'bizLabels'         => 'biz_labels',
         'content'           => 'content',
         'relationCodes'     => 'relation_codes',
         'recursionType'     => 'recursion_type',
@@ -128,9 +120,6 @@ class UpdateCodeRegistrationRequest extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
-        if (null !== $this->bizLabels) {
-            $res['biz_labels'] = $this->bizLabels;
-        }
         if (null !== $this->content) {
             $res['content'] = $this->content;
         }
@@ -172,11 +161,6 @@ class UpdateCodeRegistrationRequest extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
-        }
-        if (isset($map['biz_labels'])) {
-            if (!empty($map['biz_labels'])) {
-                $model->bizLabels = $map['biz_labels'];
-            }
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];

@@ -44,12 +44,6 @@ class UpdateCodeRelationRequest extends Model
      */
     public $status;
 
-    // 业务维度列表，最多5个。各个业务维度依次从高到低。每个业务维度最大长度64。若已上链，则不可更新该信息。
-    /**
-     * @var string[]
-     */
-    public $bizLabels;
-
     // 是否上链，默认true。 为false时，仅做DB数据保存不上链。 若content数据大小超过要求限制，仅会保存content的hash值上链
     /**
      * @var bool
@@ -68,7 +62,6 @@ class UpdateCodeRelationRequest extends Model
         'code'              => 'code',
         'uniqueId'          => 'unique_id',
         'status'            => 'status',
-        'bizLabels'         => 'biz_labels',
         'upChainFlag'       => 'up_chain_flag',
         'content'           => 'content',
     ];
@@ -109,9 +102,6 @@ class UpdateCodeRelationRequest extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
-        if (null !== $this->bizLabels) {
-            $res['biz_labels'] = $this->bizLabels;
-        }
         if (null !== $this->upChainFlag) {
             $res['up_chain_flag'] = $this->upChainFlag;
         }
@@ -147,11 +137,6 @@ class UpdateCodeRelationRequest extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
-        }
-        if (isset($map['biz_labels'])) {
-            if (!empty($map['biz_labels'])) {
-                $model->bizLabels = $map['biz_labels'];
-            }
         }
         if (isset($map['up_chain_flag'])) {
             $model->upChainFlag = $map['up_chain_flag'];
