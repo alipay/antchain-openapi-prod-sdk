@@ -195,8 +195,8 @@ class EmissionsCategoryStatistics(TeaModel):
         self,
         emission_dategory_no: str = None,
         emission_category_name: str = None,
-        emission: int = None,
-        rate: int = None,
+        emission: str = None,
+        rate: str = None,
         unit: str = None,
     ):
         # 排放类型编码
@@ -486,8 +486,8 @@ class EmissionsReductionStatistics(TeaModel):
         self,
         reduction_method: str = None,
         reduction_method_name: str = None,
-        reduction_amount: int = None,
-        reduction_ratio: int = None,
+        reduction_amount: str = None,
+        reduction_ratio: str = None,
         data_unit: str = None,
     ):
         # 减排方法
@@ -582,7 +582,7 @@ class EmissionCounteractionStatistics(TeaModel):
         self,
         assert_type: str = None,
         assert_type_name: str = None,
-        counteraction_amount: int = None,
+        counteraction_amount: str = None,
         data_unit: str = None,
     ):
         # 碳抵消类别
@@ -678,6 +678,42 @@ class AnyStatisticalItem(TeaModel):
             self.unit = m.get('unit')
         if m.get('unit_label') is not None:
             self.unit_label = m.get('unit_label')
+        return self
+
+
+class CarbonAccountInfo(TeaModel):
+    def __init__(
+        self,
+        user_did: str = None,
+        user_name: str = None,
+    ):
+        # 账户did
+        self.user_did = user_did
+        # 账户名称
+        self.user_name = user_name
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.user_name, 'user_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
         return self
 
 
@@ -786,12 +822,12 @@ class EmissionsCityStatistics(TeaModel):
         self,
         city_no: str = None,
         city_name: str = None,
-        emission_amount: int = None,
-        emission_amount_today: int = None,
-        reduction_amount: int = None,
-        reduction_amount_today: int = None,
-        counteraction_amount: int = None,
-        counteraction_amount_today: int = None,
+        emission_amount: str = None,
+        emission_amount_today: str = None,
+        reduction_amount: str = None,
+        reduction_amount_today: str = None,
+        counteraction_amount: str = None,
+        counteraction_amount_today: str = None,
         data_unit: str = None,
     ):
         # 城市编码
@@ -870,6 +906,90 @@ class EmissionsCityStatistics(TeaModel):
             self.counteraction_amount_today = m.get('counteraction_amount_today')
         if m.get('data_unit') is not None:
             self.data_unit = m.get('data_unit')
+        return self
+
+
+class AuthenticationInfoVO(TeaModel):
+    def __init__(
+        self,
+        authentication_no: str = None,
+        authorizer_did: str = None,
+        authorizer_name: str = None,
+        authorized_did: str = None,
+        authorized_name: str = None,
+        data_transfer_type: str = None,
+        authentication_deetail: str = None,
+        status: str = None,
+    ):
+        # 授权记录编码
+        self.authentication_no = authentication_no
+        # 收取方did
+        self.authorizer_did = authorizer_did
+        # 授权方名称
+        self.authorizer_name = authorizer_name
+        # 被授权方did
+        self.authorized_did = authorized_did
+        # 被授权方名称
+        self.authorized_name = authorized_name
+        # 数据协作类型
+        self.data_transfer_type = data_transfer_type
+        # 授权详情
+        self.authentication_deetail = authentication_deetail
+        # 授权状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.authentication_no, 'authentication_no')
+        self.validate_required(self.authorizer_did, 'authorizer_did')
+        self.validate_required(self.authorizer_name, 'authorizer_name')
+        self.validate_required(self.authorized_did, 'authorized_did')
+        self.validate_required(self.authorized_name, 'authorized_name')
+        self.validate_required(self.data_transfer_type, 'data_transfer_type')
+        self.validate_required(self.authentication_deetail, 'authentication_deetail')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.authorizer_did is not None:
+            result['authorizer_did'] = self.authorizer_did
+        if self.authorizer_name is not None:
+            result['authorizer_name'] = self.authorizer_name
+        if self.authorized_did is not None:
+            result['authorized_did'] = self.authorized_did
+        if self.authorized_name is not None:
+            result['authorized_name'] = self.authorized_name
+        if self.data_transfer_type is not None:
+            result['data_transfer_type'] = self.data_transfer_type
+        if self.authentication_deetail is not None:
+            result['authentication_deetail'] = self.authentication_deetail
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('authorizer_did') is not None:
+            self.authorizer_did = m.get('authorizer_did')
+        if m.get('authorizer_name') is not None:
+            self.authorizer_name = m.get('authorizer_name')
+        if m.get('authorized_did') is not None:
+            self.authorized_did = m.get('authorized_did')
+        if m.get('authorized_name') is not None:
+            self.authorized_name = m.get('authorized_name')
+        if m.get('data_transfer_type') is not None:
+            self.data_transfer_type = m.get('data_transfer_type')
+        if m.get('authentication_deetail') is not None:
+            self.authentication_deetail = m.get('authentication_deetail')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
@@ -983,7 +1103,7 @@ class EmissionsLocationStatistics(TeaModel):
         self,
         location_no: str = None,
         location_name: str = None,
-        emission_amount: int = None,
+        emission_amount: str = None,
         data_unit: str = None,
     ):
         # 盘查单元编码
@@ -1921,12 +2041,12 @@ class QueryEmissionTotalResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        total_emission: int = None,
-        total_emission_today: int = None,
-        total_reduction: int = None,
-        total_reduction_today: int = None,
-        total_counteraction: int = None,
-        total_counteraction_today: int = None,
+        total_emission: str = None,
+        total_emission_today: str = None,
+        total_reduction: str = None,
+        total_reduction_today: str = None,
+        total_counteraction: str = None,
+        total_counteraction_today: str = None,
         data_unit: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3043,6 +3163,661 @@ class QueryPdcpAccountResponse(TeaModel):
         if m.get('carbon_account_info') is not None:
             temp_model = AccountRegisterResponse()
             self.carbon_account_info = temp_model.from_map(m['carbon_account_info'])
+        return self
+
+
+class AddPdcpAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        authentication_no: str = None,
+        authorizer_did: str = None,
+        authorized_did: str = None,
+        data_transfer_type: str = None,
+        authentication_detail: str = None,
+        status: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权记录的唯一标记
+        self.authentication_no = authentication_no
+        # 授权方did
+        self.authorizer_did = authorizer_did
+        # 被授权方did
+        self.authorized_did = authorized_did
+        # 数据协作类型
+        self.data_transfer_type = data_transfer_type
+        # 授权详情
+        self.authentication_detail = authentication_detail
+        # 授权状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.authentication_no, 'authentication_no')
+        self.validate_required(self.authorizer_did, 'authorizer_did')
+        self.validate_required(self.authorized_did, 'authorized_did')
+        self.validate_required(self.data_transfer_type, 'data_transfer_type')
+        self.validate_required(self.authentication_detail, 'authentication_detail')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.authorizer_did is not None:
+            result['authorizer_did'] = self.authorizer_did
+        if self.authorized_did is not None:
+            result['authorized_did'] = self.authorized_did
+        if self.data_transfer_type is not None:
+            result['data_transfer_type'] = self.data_transfer_type
+        if self.authentication_detail is not None:
+            result['authentication_detail'] = self.authentication_detail
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('authorizer_did') is not None:
+            self.authorizer_did = m.get('authorizer_did')
+        if m.get('authorized_did') is not None:
+            self.authorized_did = m.get('authorized_did')
+        if m.get('data_transfer_type') is not None:
+            self.data_transfer_type = m.get('data_transfer_type')
+        if m.get('authentication_detail') is not None:
+            self.authentication_detail = m.get('authentication_detail')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class AddPdcpAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdatePdcpAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        authentication_no: str = None,
+        status: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权记录编码
+        self.authentication_no = authentication_no
+        # 授权状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.authentication_no, 'authentication_no')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class UpdatePdcpAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryGatewayAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_name: str = None,
+        page_number: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.user_name = user_name
+        # 当前页码，默认1
+        self.page_number = page_number
+        # 页面大小，默认20
+        self.page_size = page_size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryGatewayAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        account_info_list: List[CarbonAccountInfo] = None,
+        total: int = None,
+        page_number: int = None,
+        page_size: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账户信息列表
+        self.account_info_list = account_info_list
+        # 总量
+        self.total = total
+        # 当前页面
+        self.page_number = page_number
+        # 页面大小
+        self.page_size = page_size
+
+    def validate(self):
+        if self.account_info_list:
+            for k in self.account_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['account_info_list'] = []
+        if self.account_info_list is not None:
+            for k in self.account_info_list:
+                result['account_info_list'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.account_info_list = []
+        if m.get('account_info_list') is not None:
+            for k in m.get('account_info_list'):
+                temp_model = CarbonAccountInfo()
+                self.account_info_list.append(temp_model.from_map(k))
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryPdcpAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        authentication_no: str = None,
+        authorizer_did: str = None,
+        authorizer_name: str = None,
+        authorized_did: str = None,
+        authorized_name: str = None,
+        data_transfer_type: str = None,
+        status: str = None,
+        page_number: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权记录编码
+        self.authentication_no = authentication_no
+        # 授权方did
+        self.authorizer_did = authorizer_did
+        # 模糊匹配
+        self.authorizer_name = authorizer_name
+        # 被授权方did
+        self.authorized_did = authorized_did
+        # 模糊匹配
+        self.authorized_name = authorized_name
+        # 数据协作类型
+        self.data_transfer_type = data_transfer_type
+        # 授权状态
+        self.status = status
+        # 当前页面
+        self.page_number = page_number
+        # 页面大小
+        self.page_size = page_size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.authorizer_did is not None:
+            result['authorizer_did'] = self.authorizer_did
+        if self.authorizer_name is not None:
+            result['authorizer_name'] = self.authorizer_name
+        if self.authorized_did is not None:
+            result['authorized_did'] = self.authorized_did
+        if self.authorized_name is not None:
+            result['authorized_name'] = self.authorized_name
+        if self.data_transfer_type is not None:
+            result['data_transfer_type'] = self.data_transfer_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('authorizer_did') is not None:
+            self.authorizer_did = m.get('authorizer_did')
+        if m.get('authorizer_name') is not None:
+            self.authorizer_name = m.get('authorizer_name')
+        if m.get('authorized_did') is not None:
+            self.authorized_did = m.get('authorized_did')
+        if m.get('authorized_name') is not None:
+            self.authorized_name = m.get('authorized_name')
+        if m.get('data_transfer_type') is not None:
+            self.data_transfer_type = m.get('data_transfer_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryPdcpAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        page_number: int = None,
+        page_size: int = None,
+        authentication_info_list: List[AuthenticationInfoVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总量
+        self.total = total
+        # 当前页面
+        self.page_number = page_number
+        # 页面大小
+        self.page_size = page_size
+        # 授权信息
+        self.authentication_info_list = authentication_info_list
+
+    def validate(self):
+        if self.authentication_info_list:
+            for k in self.authentication_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        result['authentication_info_list'] = []
+        if self.authentication_info_list is not None:
+            for k in self.authentication_info_list:
+                result['authentication_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        self.authentication_info_list = []
+        if m.get('authentication_info_list') is not None:
+            for k in m.get('authentication_info_list'):
+                temp_model = AuthenticationInfoVO()
+                self.authentication_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPdcpDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        authentication_no: str = None,
+        data_type: str = None,
+        page_number: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权记录编码
+        self.authentication_no = authentication_no
+        # 数据类型
+        self.data_type = data_type
+        # 当前页面
+        self.page_number = page_number
+        # 页面大小
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.authentication_no, 'authentication_no')
+        self.validate_required(self.data_type, 'data_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryPdcpDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        page_number: int = None,
+        page_size: int = None,
+        data_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总数
+        self.total = total
+        # 当前页面
+        self.page_number = page_number
+        # 页面大小
+        self.page_size = page_size
+        # 数据列表
+        self.data_list = data_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.data_list is not None:
+            result['data_list'] = self.data_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('data_list') is not None:
+            self.data_list = m.get('data_list')
         return self
 
 

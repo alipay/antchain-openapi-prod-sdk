@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.0',
+                    'sdk_version': '2.1.2',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.0',
+                    'sdk_version': '2.1.2',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -1169,6 +1169,286 @@ class Client:
         return TeaCore.from_map(
             stlr_models.QueryPdcpAccountResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_pdcp_auth(
+        self,
+        request: stlr_models.AddPdcpAuthRequest,
+    ) -> stlr_models.AddPdcpAuthResponse:
+        """
+        Description: 新增授权接口
+        Summary: 新增授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_pdcp_auth_ex(request, headers, runtime)
+
+    async def add_pdcp_auth_async(
+        self,
+        request: stlr_models.AddPdcpAuthRequest,
+    ) -> stlr_models.AddPdcpAuthResponse:
+        """
+        Description: 新增授权接口
+        Summary: 新增授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_pdcp_auth_ex_async(request, headers, runtime)
+
+    def add_pdcp_auth_ex(
+        self,
+        request: stlr_models.AddPdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddPdcpAuthResponse:
+        """
+        Description: 新增授权接口
+        Summary: 新增授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddPdcpAuthResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.auth.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_pdcp_auth_ex_async(
+        self,
+        request: stlr_models.AddPdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddPdcpAuthResponse:
+        """
+        Description: 新增授权接口
+        Summary: 新增授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddPdcpAuthResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.auth.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_pdcp_auth(
+        self,
+        request: stlr_models.UpdatePdcpAuthRequest,
+    ) -> stlr_models.UpdatePdcpAuthResponse:
+        """
+        Description: 授权取消、授权审批接口
+        Summary: 授权接口变更
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pdcp_auth_ex(request, headers, runtime)
+
+    async def update_pdcp_auth_async(
+        self,
+        request: stlr_models.UpdatePdcpAuthRequest,
+    ) -> stlr_models.UpdatePdcpAuthResponse:
+        """
+        Description: 授权取消、授权审批接口
+        Summary: 授权接口变更
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_pdcp_auth_ex_async(request, headers, runtime)
+
+    def update_pdcp_auth_ex(
+        self,
+        request: stlr_models.UpdatePdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdatePdcpAuthResponse:
+        """
+        Description: 授权取消、授权审批接口
+        Summary: 授权接口变更
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdatePdcpAuthResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.auth.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_pdcp_auth_ex_async(
+        self,
+        request: stlr_models.UpdatePdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.UpdatePdcpAuthResponse:
+        """
+        Description: 授权取消、授权审批接口
+        Summary: 授权接口变更
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.UpdatePdcpAuthResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.auth.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gateway_account(
+        self,
+        request: stlr_models.QueryGatewayAccountRequest,
+    ) -> stlr_models.QueryGatewayAccountResponse:
+        """
+        Description: 路由账户查询接口
+        Summary: 路由账户查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gateway_account_ex(request, headers, runtime)
+
+    async def query_gateway_account_async(
+        self,
+        request: stlr_models.QueryGatewayAccountRequest,
+    ) -> stlr_models.QueryGatewayAccountResponse:
+        """
+        Description: 路由账户查询接口
+        Summary: 路由账户查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gateway_account_ex_async(request, headers, runtime)
+
+    def query_gateway_account_ex(
+        self,
+        request: stlr_models.QueryGatewayAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryGatewayAccountResponse:
+        """
+        Description: 路由账户查询接口
+        Summary: 路由账户查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryGatewayAccountResponse(),
+            self.do_request('1.0', 'antchain.carbon.gateway.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gateway_account_ex_async(
+        self,
+        request: stlr_models.QueryGatewayAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryGatewayAccountResponse:
+        """
+        Description: 路由账户查询接口
+        Summary: 路由账户查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryGatewayAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.gateway.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_auth(
+        self,
+        request: stlr_models.QueryPdcpAuthRequest,
+    ) -> stlr_models.QueryPdcpAuthResponse:
+        """
+        Description: 授权记录查询
+        Summary: 授权记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_auth_ex(request, headers, runtime)
+
+    async def query_pdcp_auth_async(
+        self,
+        request: stlr_models.QueryPdcpAuthRequest,
+    ) -> stlr_models.QueryPdcpAuthResponse:
+        """
+        Description: 授权记录查询
+        Summary: 授权记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_auth_ex_async(request, headers, runtime)
+
+    def query_pdcp_auth_ex(
+        self,
+        request: stlr_models.QueryPdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpAuthResponse:
+        """
+        Description: 授权记录查询
+        Summary: 授权记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpAuthResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_auth_ex_async(
+        self,
+        request: stlr_models.QueryPdcpAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpAuthResponse:
+        """
+        Description: 授权记录查询
+        Summary: 授权记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpAuthResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_data(
+        self,
+        request: stlr_models.QueryPdcpDataRequest,
+    ) -> stlr_models.QueryPdcpDataResponse:
+        """
+        Description: 授权数据查询
+        Summary: 授权数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_data_ex(request, headers, runtime)
+
+    async def query_pdcp_data_async(
+        self,
+        request: stlr_models.QueryPdcpDataRequest,
+    ) -> stlr_models.QueryPdcpDataResponse:
+        """
+        Description: 授权数据查询
+        Summary: 授权数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_data_ex_async(request, headers, runtime)
+
+    def query_pdcp_data_ex(
+        self,
+        request: stlr_models.QueryPdcpDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDataResponse:
+        """
+        Description: 授权数据查询
+        Summary: 授权数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDataResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_data_ex_async(
+        self,
+        request: stlr_models.QueryPdcpDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDataResponse:
+        """
+        Description: 授权数据查询
+        Summary: 授权数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_ecar_avitivedata(
