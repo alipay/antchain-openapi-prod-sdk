@@ -28,7 +28,7 @@ class EmissionsReductionStatistics extends Model
     /**
      * @example 123123.11
      *
-     * @var int
+     * @var string
      */
     public $reductionAmount;
 
@@ -36,7 +36,7 @@ class EmissionsReductionStatistics extends Model
     /**
      * @example 0.22
      *
-     * @var int
+     * @var string
      */
     public $reductionRatio;
 

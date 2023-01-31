@@ -28,7 +28,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 222.22
      *
-     * @var int
+     * @var string
      */
     public $emissionAmount;
 
@@ -36,7 +36,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 22.22
      *
-     * @var int
+     * @var string
      */
     public $emissionAmountToday;
 
@@ -44,7 +44,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 21.11
      *
-     * @var int
+     * @var string
      */
     public $reductionAmount;
 
@@ -52,7 +52,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 9.11
      *
-     * @var int
+     * @var string
      */
     public $reductionAmountToday;
 
@@ -60,7 +60,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 9.11
      *
-     * @var int
+     * @var string
      */
     public $counteractionAmount;
 
@@ -68,7 +68,7 @@ class EmissionsCityStatistics extends Model
     /**
      * @example 2.11
      *
-     * @var int
+     * @var string
      */
     public $counteractionAmountToday;
 

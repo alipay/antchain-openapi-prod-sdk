@@ -15,6 +15,8 @@ use AntChain\STLR\Models\AddEcarAvitivedataRequest;
 use AntChain\STLR\Models\AddEcarAvitivedataResponse;
 use AntChain\STLR\Models\AddEcarGreenoperationRequest;
 use AntChain\STLR\Models\AddEcarGreenoperationResponse;
+use AntChain\STLR\Models\AddPdcpAuthRequest;
+use AntChain\STLR\Models\AddPdcpAuthResponse;
 use AntChain\STLR\Models\CountEcarActivedataRequest;
 use AntChain\STLR\Models\CountEcarActivedataResponse;
 use AntChain\STLR\Models\CountEcarGreenoperationRequest;
@@ -53,12 +55,20 @@ use AntChain\STLR\Models\QueryEmissionReductionRequest;
 use AntChain\STLR\Models\QueryEmissionReductionResponse;
 use AntChain\STLR\Models\QueryEmissionTotalRequest;
 use AntChain\STLR\Models\QueryEmissionTotalResponse;
+use AntChain\STLR\Models\QueryGatewayAccountRequest;
+use AntChain\STLR\Models\QueryGatewayAccountResponse;
 use AntChain\STLR\Models\QueryPdcpAccountRequest;
 use AntChain\STLR\Models\QueryPdcpAccountResponse;
+use AntChain\STLR\Models\QueryPdcpAuthRequest;
+use AntChain\STLR\Models\QueryPdcpAuthResponse;
+use AntChain\STLR\Models\QueryPdcpDataRequest;
+use AntChain\STLR\Models\QueryPdcpDataResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
+use AntChain\STLR\Models\UpdatePdcpAuthRequest;
+use AntChain\STLR\Models\UpdatePdcpAuthResponse;
 use AntChain\STLR\Models\UploadEcarFileRequest;
 use AntChain\STLR\Models\UploadEcarFileResponse;
 use AntChain\STLR\Models\UploadPdcpBlockchainRequest;
@@ -210,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.1.0',
+                    'sdk_version'      => '2.1.2',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -784,6 +794,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryPdcpAccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增授权接口
+     * Summary: 新增授权接口.
+     *
+     * @param AddPdcpAuthRequest $request
+     *
+     * @return AddPdcpAuthResponse
+     */
+    public function addPdcpAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addPdcpAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增授权接口
+     * Summary: 新增授权接口.
+     *
+     * @param AddPdcpAuthRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return AddPdcpAuthResponse
+     */
+    public function addPdcpAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddPdcpAuthResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.auth.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更.
+     *
+     * @param UpdatePdcpAuthRequest $request
+     *
+     * @return UpdatePdcpAuthResponse
+     */
+    public function updatePdcpAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updatePdcpAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更.
+     *
+     * @param UpdatePdcpAuthRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return UpdatePdcpAuthResponse
+     */
+    public function updatePdcpAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdatePdcpAuthResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.auth.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 路由账户查询接口
+     * Summary: 路由账户查询接口.
+     *
+     * @param QueryGatewayAccountRequest $request
+     *
+     * @return QueryGatewayAccountResponse
+     */
+    public function queryGatewayAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGatewayAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 路由账户查询接口
+     * Summary: 路由账户查询接口.
+     *
+     * @param QueryGatewayAccountRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryGatewayAccountResponse
+     */
+    public function queryGatewayAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGatewayAccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.gateway.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权记录查询
+     * Summary: 授权记录查询.
+     *
+     * @param QueryPdcpAuthRequest $request
+     *
+     * @return QueryPdcpAuthResponse
+     */
+    public function queryPdcpAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权记录查询
+     * Summary: 授权记录查询.
+     *
+     * @param QueryPdcpAuthRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryPdcpAuthResponse
+     */
+    public function queryPdcpAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpAuthResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.auth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权数据查询
+     * Summary: 授权数据查询.
+     *
+     * @param QueryPdcpDataRequest $request
+     *
+     * @return QueryPdcpDataResponse
+     */
+    public function queryPdcpData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权数据查询
+     * Summary: 授权数据查询.
+     *
+     * @param QueryPdcpDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryPdcpDataResponse
+     */
+    public function queryPdcpDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpDataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

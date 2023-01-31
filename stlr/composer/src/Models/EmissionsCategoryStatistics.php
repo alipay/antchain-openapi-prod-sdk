@@ -28,7 +28,7 @@ class EmissionsCategoryStatistics extends Model
     /**
      * @example 11.22
      *
-     * @var int
+     * @var string
      */
     public $emission;
 
@@ -36,7 +36,7 @@ class EmissionsCategoryStatistics extends Model
     /**
      * @example 0.56
      *
-     * @var int
+     * @var string
      */
     public $rate;
 

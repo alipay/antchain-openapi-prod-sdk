@@ -28,7 +28,7 @@ class EmissionsLocationStatistics extends Model
     /**
      * @example 2223.22
      *
-     * @var int
+     * @var string
      */
     public $emissionAmount;
 

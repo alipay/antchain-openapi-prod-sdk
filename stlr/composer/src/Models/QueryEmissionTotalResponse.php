@@ -28,37 +28,37 @@ class QueryEmissionTotalResponse extends Model
 
     // 累计排放量
     /**
-     * @var int
+     * @var string
      */
     public $totalEmission;
 
     // 今日新增碳排放量
     /**
-     * @var int
+     * @var string
      */
     public $totalEmissionToday;
 
     // 累计减碳量
     /**
-     * @var int
+     * @var string
      */
     public $totalReduction;
 
     // 今日减碳量
     /**
-     * @var int
+     * @var string
      */
     public $totalReductionToday;
 
     // 累计抵消量
     /**
-     * @var int
+     * @var string
      */
     public $totalCounteraction;
 
     // 今日抵消量
     /**
-     * @var int
+     * @var string
      */
     public $totalCounteractionToday;
 

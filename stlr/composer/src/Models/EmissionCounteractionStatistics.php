@@ -28,7 +28,7 @@ class EmissionCounteractionStatistics extends Model
     /**
      * @example 22.22
      *
-     * @var int
+     * @var string
      */
     public $counteractionAmount;
 
