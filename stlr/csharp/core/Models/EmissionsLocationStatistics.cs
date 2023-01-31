@@ -23,7 +23,7 @@ namespace AntChain.SDK.STLR.Models
         // 盘查单元排放量
         [NameInMap("emission_amount")]
         [Validation(Required=true)]
-        public long? EmissionAmount { get; set; }
+        public string EmissionAmount { get; set; }
 
         // 排放量单位，默认为：tCO2e
         [NameInMap("data_unit")]

@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.0"},
+                        {"sdk_version", "2.1.2"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.0"},
+                        {"sdk_version", "2.1.2"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -991,6 +991,216 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryPdcpAccountResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增授权接口
+         * Summary: 新增授权接口
+         */
+        public AddPdcpAuthResponse AddPdcpAuth(AddPdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddPdcpAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增授权接口
+         * Summary: 新增授权接口
+         */
+        public async Task<AddPdcpAuthResponse> AddPdcpAuthAsync(AddPdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddPdcpAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增授权接口
+         * Summary: 新增授权接口
+         */
+        public AddPdcpAuthResponse AddPdcpAuthEx(AddPdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddPdcpAuthResponse>(DoRequest("1.0", "antchain.carbon.pdcp.auth.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增授权接口
+         * Summary: 新增授权接口
+         */
+        public async Task<AddPdcpAuthResponse> AddPdcpAuthExAsync(AddPdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddPdcpAuthResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.auth.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权取消、授权审批接口
+         * Summary: 授权接口变更
+         */
+        public UpdatePdcpAuthResponse UpdatePdcpAuth(UpdatePdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdatePdcpAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权取消、授权审批接口
+         * Summary: 授权接口变更
+         */
+        public async Task<UpdatePdcpAuthResponse> UpdatePdcpAuthAsync(UpdatePdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdatePdcpAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权取消、授权审批接口
+         * Summary: 授权接口变更
+         */
+        public UpdatePdcpAuthResponse UpdatePdcpAuthEx(UpdatePdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdatePdcpAuthResponse>(DoRequest("1.0", "antchain.carbon.pdcp.auth.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权取消、授权审批接口
+         * Summary: 授权接口变更
+         */
+        public async Task<UpdatePdcpAuthResponse> UpdatePdcpAuthExAsync(UpdatePdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdatePdcpAuthResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.auth.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 路由账户查询接口
+         * Summary: 路由账户查询接口
+         */
+        public QueryGatewayAccountResponse QueryGatewayAccount(QueryGatewayAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGatewayAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 路由账户查询接口
+         * Summary: 路由账户查询接口
+         */
+        public async Task<QueryGatewayAccountResponse> QueryGatewayAccountAsync(QueryGatewayAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGatewayAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 路由账户查询接口
+         * Summary: 路由账户查询接口
+         */
+        public QueryGatewayAccountResponse QueryGatewayAccountEx(QueryGatewayAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGatewayAccountResponse>(DoRequest("1.0", "antchain.carbon.gateway.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 路由账户查询接口
+         * Summary: 路由账户查询接口
+         */
+        public async Task<QueryGatewayAccountResponse> QueryGatewayAccountExAsync(QueryGatewayAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGatewayAccountResponse>(await DoRequestAsync("1.0", "antchain.carbon.gateway.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权记录查询
+         * Summary: 授权记录查询
+         */
+        public QueryPdcpAuthResponse QueryPdcpAuth(QueryPdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdcpAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权记录查询
+         * Summary: 授权记录查询
+         */
+        public async Task<QueryPdcpAuthResponse> QueryPdcpAuthAsync(QueryPdcpAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdcpAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权记录查询
+         * Summary: 授权记录查询
+         */
+        public QueryPdcpAuthResponse QueryPdcpAuthEx(QueryPdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpAuthResponse>(DoRequest("1.0", "antchain.carbon.pdcp.auth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权记录查询
+         * Summary: 授权记录查询
+         */
+        public async Task<QueryPdcpAuthResponse> QueryPdcpAuthExAsync(QueryPdcpAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpAuthResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.auth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权数据查询
+         * Summary: 授权数据查询
+         */
+        public QueryPdcpDataResponse QueryPdcpData(QueryPdcpDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPdcpDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权数据查询
+         * Summary: 授权数据查询
+         */
+        public async Task<QueryPdcpDataResponse> QueryPdcpDataAsync(QueryPdcpDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPdcpDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权数据查询
+         * Summary: 授权数据查询
+         */
+        public QueryPdcpDataResponse QueryPdcpDataEx(QueryPdcpDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpDataResponse>(DoRequest("1.0", "antchain.carbon.pdcp.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权数据查询
+         * Summary: 授权数据查询
+         */
+        public async Task<QueryPdcpDataResponse> QueryPdcpDataExAsync(QueryPdcpDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPdcpDataResponse>(await DoRequestAsync("1.0", "antchain.carbon.pdcp.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

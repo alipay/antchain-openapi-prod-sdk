@@ -27,32 +27,32 @@ namespace AntChain.SDK.STLR.Models
         // 累计排放量
         [NameInMap("total_emission")]
         [Validation(Required=false)]
-        public long? TotalEmission { get; set; }
+        public string TotalEmission { get; set; }
 
         // 今日新增碳排放量
         [NameInMap("total_emission_today")]
         [Validation(Required=false)]
-        public long? TotalEmissionToday { get; set; }
+        public string TotalEmissionToday { get; set; }
 
         // 累计减碳量
         [NameInMap("total_reduction")]
         [Validation(Required=false)]
-        public long? TotalReduction { get; set; }
+        public string TotalReduction { get; set; }
 
         // 今日减碳量
         [NameInMap("total_reduction_today")]
         [Validation(Required=false)]
-        public long? TotalReductionToday { get; set; }
+        public string TotalReductionToday { get; set; }
 
         // 累计抵消量
         [NameInMap("total_counteraction")]
         [Validation(Required=false)]
-        public long? TotalCounteraction { get; set; }
+        public string TotalCounteraction { get; set; }
 
         // 今日抵消量
         [NameInMap("total_counteraction_today")]
         [Validation(Required=false)]
-        public long? TotalCounteractionToday { get; set; }
+        public string TotalCounteractionToday { get; set; }
 
         // 排放数据单位
         [NameInMap("data_unit")]

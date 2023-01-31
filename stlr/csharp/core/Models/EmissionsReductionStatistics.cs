@@ -23,12 +23,12 @@ namespace AntChain.SDK.STLR.Models
         // 减排量
         [NameInMap("reduction_amount")]
         [Validation(Required=true)]
-        public long? ReductionAmount { get; set; }
+        public string ReductionAmount { get; set; }
 
         // 减排量占比
         [NameInMap("reduction_ratio")]
         [Validation(Required=true)]
-        public long? ReductionRatio { get; set; }
+        public string ReductionRatio { get; set; }
 
         // 减排量单位
         [NameInMap("data_unit")]

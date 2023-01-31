@@ -23,7 +23,7 @@ namespace AntChain.SDK.STLR.Models
         // 抵消量
         [NameInMap("counteraction_amount")]
         [Validation(Required=true)]
-        public long? CounteractionAmount { get; set; }
+        public string CounteractionAmount { get; set; }
 
         // 排放量单位，默认为：tCO2e
         [NameInMap("data_unit")]
