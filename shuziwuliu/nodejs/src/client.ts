@@ -13404,7 +13404,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安，CICP-中华财险
+  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
   externalChannelCode: string;
   // 险种编码
   // 04--海外邮包险
@@ -13661,7 +13661,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   externalChannelCode: string;
   // 险种编码，05-驿站宝
   externalProductCode: string;
@@ -14067,7 +14067,7 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   externalChannelCode: string;
   // 险种编码，05-驿站宝
   externalProductCode: string;
@@ -14089,19 +14089,18 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   accidentDistrictCode: string;
   // 出险详细地址，事发出险地的详细地址
   accidentAddress: string;
-  // 出险详细经过
-  accidentDetail: string;
   // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
   accidentCauseCode: string;
-  // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-  lossType: string;
+  // 出险详细经过
+  accidentDetail: string;
   // 损失预估总金额，单位（元），最多支持2位小数
   lossEstimateTotalAmount: string;
-  // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-  // 
-  complaintJobNo?: string;
+  // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+  lossType: string;
   // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
   courierCompany?: string;
+  // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+  complaintJobNo?: string;
   // 运单号，申请理赔所关联的运单号，包裹出险可填
   wayBillNo?: string;
   // 支付信息
@@ -14142,12 +14141,12 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       accidentCityCode: 'accident_city_code',
       accidentDistrictCode: 'accident_district_code',
       accidentAddress: 'accident_address',
-      accidentDetail: 'accident_detail',
       accidentCauseCode: 'accident_cause_code',
-      lossType: 'loss_type',
+      accidentDetail: 'accident_detail',
       lossEstimateTotalAmount: 'loss_estimate_total_amount',
-      complaintJobNo: 'complaint_job_no',
+      lossType: 'loss_type',
       courierCompany: 'courier_company',
+      complaintJobNo: 'complaint_job_no',
       wayBillNo: 'way_bill_no',
       paymentInfo: 'payment_info',
       personLoss: 'person_loss',
@@ -14179,12 +14178,12 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       accidentCityCode: 'string',
       accidentDistrictCode: 'string',
       accidentAddress: 'string',
-      accidentDetail: 'string',
       accidentCauseCode: 'string',
-      lossType: 'string',
+      accidentDetail: 'string',
       lossEstimateTotalAmount: 'string',
-      complaintJobNo: 'string',
+      lossType: 'string',
       courierCompany: 'string',
+      complaintJobNo: 'string',
       wayBillNo: 'string',
       paymentInfo: PaymentInfo,
       personLoss: PersonLoss,
@@ -14245,7 +14244,7 @@ export class QueryInsuranceYzbreportRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   // 
   externalChannelCode: string;
   // 保单号
@@ -21081,9 +21080,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.5",
-          _prod_code: "SHUZIWULIU",
-          _prod_channel: "undefined",
+          sdk_version: "1.6.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
