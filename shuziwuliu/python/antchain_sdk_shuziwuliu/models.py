@@ -23053,7 +23053,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安，CICP-中华财险
+        # 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
         self.external_channel_code = external_channel_code
         # 险种编码
         # 04--海外邮包险
@@ -23561,7 +23561,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安
+        # 保司编码，PAIC---平安、CPIC---太保
         self.external_channel_code = external_channel_code
         # 险种编码，05-驿站宝
         self.external_product_code = external_product_code
@@ -24358,12 +24358,12 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         accident_city_code: str = None,
         accident_district_code: str = None,
         accident_address: str = None,
-        accident_detail: str = None,
         accident_cause_code: str = None,
-        loss_type: str = None,
+        accident_detail: str = None,
         loss_estimate_total_amount: str = None,
-        complaint_job_no: str = None,
+        loss_type: str = None,
         courier_company: str = None,
+        complaint_job_no: str = None,
         way_bill_no: str = None,
         payment_info: PaymentInfo = None,
         person_loss: PersonLoss = None,
@@ -24386,7 +24386,7 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安
+        # 保司编码，PAIC---平安、CPIC---太保
         self.external_channel_code = external_channel_code
         # 险种编码，05-驿站宝
         self.external_product_code = external_product_code
@@ -24408,19 +24408,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         self.accident_district_code = accident_district_code
         # 出险详细地址，事发出险地的详细地址
         self.accident_address = accident_address
-        # 出险详细经过
-        self.accident_detail = accident_detail
         # 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
         self.accident_cause_code = accident_cause_code
-        # 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-        self.loss_type = loss_type
+        # 出险详细经过
+        self.accident_detail = accident_detail
         # 损失预估总金额，单位（元），最多支持2位小数
         self.loss_estimate_total_amount = loss_estimate_total_amount
-        # 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-        # 
-        self.complaint_job_no = complaint_job_no
+        # 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+        self.loss_type = loss_type
         # 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
         self.courier_company = courier_company
+        # 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+        self.complaint_job_no = complaint_job_no
         # 运单号，申请理赔所关联的运单号，包裹出险可填
         self.way_bill_no = way_bill_no
         # 支付信息
@@ -24481,20 +24480,20 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         self.validate_required(self.accident_address, 'accident_address')
         if self.accident_address is not None:
             self.validate_max_length(self.accident_address, 'accident_address', 500)
-        self.validate_required(self.accident_detail, 'accident_detail')
-        if self.accident_detail is not None:
-            self.validate_max_length(self.accident_detail, 'accident_detail', 500)
         self.validate_required(self.accident_cause_code, 'accident_cause_code')
         if self.accident_cause_code is not None:
             self.validate_max_length(self.accident_cause_code, 'accident_cause_code', 10)
+        self.validate_required(self.accident_detail, 'accident_detail')
+        if self.accident_detail is not None:
+            self.validate_max_length(self.accident_detail, 'accident_detail', 500)
+        self.validate_required(self.loss_estimate_total_amount, 'loss_estimate_total_amount')
         self.validate_required(self.loss_type, 'loss_type')
         if self.loss_type is not None:
             self.validate_max_length(self.loss_type, 'loss_type', 50)
-        self.validate_required(self.loss_estimate_total_amount, 'loss_estimate_total_amount')
-        if self.complaint_job_no is not None:
-            self.validate_max_length(self.complaint_job_no, 'complaint_job_no', 100)
         if self.courier_company is not None:
             self.validate_max_length(self.courier_company, 'courier_company', 200)
+        if self.complaint_job_no is not None:
+            self.validate_max_length(self.complaint_job_no, 'complaint_job_no', 100)
         if self.way_bill_no is not None:
             self.validate_max_length(self.way_bill_no, 'way_bill_no', 100)
         if self.payment_info:
@@ -24554,18 +24553,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             result['accident_district_code'] = self.accident_district_code
         if self.accident_address is not None:
             result['accident_address'] = self.accident_address
-        if self.accident_detail is not None:
-            result['accident_detail'] = self.accident_detail
         if self.accident_cause_code is not None:
             result['accident_cause_code'] = self.accident_cause_code
-        if self.loss_type is not None:
-            result['loss_type'] = self.loss_type
+        if self.accident_detail is not None:
+            result['accident_detail'] = self.accident_detail
         if self.loss_estimate_total_amount is not None:
             result['loss_estimate_total_amount'] = self.loss_estimate_total_amount
-        if self.complaint_job_no is not None:
-            result['complaint_job_no'] = self.complaint_job_no
+        if self.loss_type is not None:
+            result['loss_type'] = self.loss_type
         if self.courier_company is not None:
             result['courier_company'] = self.courier_company
+        if self.complaint_job_no is not None:
+            result['complaint_job_no'] = self.complaint_job_no
         if self.way_bill_no is not None:
             result['way_bill_no'] = self.way_bill_no
         if self.payment_info is not None:
@@ -24624,18 +24623,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             self.accident_district_code = m.get('accident_district_code')
         if m.get('accident_address') is not None:
             self.accident_address = m.get('accident_address')
-        if m.get('accident_detail') is not None:
-            self.accident_detail = m.get('accident_detail')
         if m.get('accident_cause_code') is not None:
             self.accident_cause_code = m.get('accident_cause_code')
-        if m.get('loss_type') is not None:
-            self.loss_type = m.get('loss_type')
+        if m.get('accident_detail') is not None:
+            self.accident_detail = m.get('accident_detail')
         if m.get('loss_estimate_total_amount') is not None:
             self.loss_estimate_total_amount = m.get('loss_estimate_total_amount')
-        if m.get('complaint_job_no') is not None:
-            self.complaint_job_no = m.get('complaint_job_no')
+        if m.get('loss_type') is not None:
+            self.loss_type = m.get('loss_type')
         if m.get('courier_company') is not None:
             self.courier_company = m.get('courier_company')
+        if m.get('complaint_job_no') is not None:
+            self.complaint_job_no = m.get('complaint_job_no')
         if m.get('way_bill_no') is not None:
             self.way_bill_no = m.get('way_bill_no')
         if m.get('payment_info') is not None:
@@ -24738,7 +24737,7 @@ class QueryInsuranceYzbreportRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 保司编码，PAIC---平安
+        # 保司编码，PAIC---平安、CPIC---太保
         # 
         self.external_channel_code = external_channel_code
         # 保单号
