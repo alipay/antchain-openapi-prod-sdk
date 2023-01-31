@@ -17,12 +17,12 @@ public class EmissionsCategoryStatistics extends TeaModel {
     // 排放量
     @NameInMap("emission")
     @Validation(required = true)
-    public Long emission;
+    public String emission;
 
     // 排放占比，可直接换算成百分数即为百分占比
     @NameInMap("rate")
     @Validation(required = true)
-    public Long rate;
+    public String rate;
 
     // 排放量单位
     @NameInMap("unit")
@@ -50,19 +50,19 @@ public class EmissionsCategoryStatistics extends TeaModel {
         return this.emissionCategoryName;
     }
 
-    public EmissionsCategoryStatistics setEmission(Long emission) {
+    public EmissionsCategoryStatistics setEmission(String emission) {
         this.emission = emission;
         return this;
     }
-    public Long getEmission() {
+    public String getEmission() {
         return this.emission;
     }
 
-    public EmissionsCategoryStatistics setRate(Long rate) {
+    public EmissionsCategoryStatistics setRate(String rate) {
         this.rate = rate;
         return this;
     }
-    public Long getRate() {
+    public String getRate() {
         return this.rate;
     }
 

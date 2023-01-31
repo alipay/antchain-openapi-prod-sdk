@@ -17,12 +17,12 @@ public class EmissionsReductionStatistics extends TeaModel {
     // 减排量
     @NameInMap("reduction_amount")
     @Validation(required = true)
-    public Long reductionAmount;
+    public String reductionAmount;
 
     // 减排量占比
     @NameInMap("reduction_ratio")
     @Validation(required = true)
-    public Long reductionRatio;
+    public String reductionRatio;
 
     // 减排量单位
     @NameInMap("data_unit")
@@ -50,19 +50,19 @@ public class EmissionsReductionStatistics extends TeaModel {
         return this.reductionMethodName;
     }
 
-    public EmissionsReductionStatistics setReductionAmount(Long reductionAmount) {
+    public EmissionsReductionStatistics setReductionAmount(String reductionAmount) {
         this.reductionAmount = reductionAmount;
         return this;
     }
-    public Long getReductionAmount() {
+    public String getReductionAmount() {
         return this.reductionAmount;
     }
 
-    public EmissionsReductionStatistics setReductionRatio(Long reductionRatio) {
+    public EmissionsReductionStatistics setReductionRatio(String reductionRatio) {
         this.reductionRatio = reductionRatio;
         return this;
     }
-    public Long getReductionRatio() {
+    public String getReductionRatio() {
         return this.reductionRatio;
     }
 

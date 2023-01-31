@@ -17,7 +17,7 @@ public class EmissionCounteractionStatistics extends TeaModel {
     // 抵消量
     @NameInMap("counteraction_amount")
     @Validation(required = true)
-    public Long counteractionAmount;
+    public String counteractionAmount;
 
     // 排放量单位，默认为：tCO2e
     @NameInMap("data_unit")
@@ -45,11 +45,11 @@ public class EmissionCounteractionStatistics extends TeaModel {
         return this.assertTypeName;
     }
 
-    public EmissionCounteractionStatistics setCounteractionAmount(Long counteractionAmount) {
+    public EmissionCounteractionStatistics setCounteractionAmount(String counteractionAmount) {
         this.counteractionAmount = counteractionAmount;
         return this;
     }
-    public Long getCounteractionAmount() {
+    public String getCounteractionAmount() {
         return this.counteractionAmount;
     }
 

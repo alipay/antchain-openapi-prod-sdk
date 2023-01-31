@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.1.0"),
-                    new TeaPair("_prod_code", "STLR"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "2.1.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -463,6 +461,101 @@ public class Client {
     public QueryPdcpAccountResponse queryPdcpAccountEx(QueryPdcpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.account.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpAccountResponse());
+    }
+
+    /**
+     * Description: 新增授权接口
+     * Summary: 新增授权接口
+     */
+    public AddPdcpAuthResponse addPdcpAuth(AddPdcpAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addPdcpAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增授权接口
+     * Summary: 新增授权接口
+     */
+    public AddPdcpAuthResponse addPdcpAuthEx(AddPdcpAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.auth.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddPdcpAuthResponse());
+    }
+
+    /**
+     * Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更
+     */
+    public UpdatePdcpAuthResponse updatePdcpAuth(UpdatePdcpAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updatePdcpAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权取消、授权审批接口
+     * Summary: 授权接口变更
+     */
+    public UpdatePdcpAuthResponse updatePdcpAuthEx(UpdatePdcpAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.auth.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePdcpAuthResponse());
+    }
+
+    /**
+     * Description: 路由账户查询接口
+     * Summary: 路由账户查询接口
+     */
+    public QueryGatewayAccountResponse queryGatewayAccount(QueryGatewayAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGatewayAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 路由账户查询接口
+     * Summary: 路由账户查询接口
+     */
+    public QueryGatewayAccountResponse queryGatewayAccountEx(QueryGatewayAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.gateway.account.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGatewayAccountResponse());
+    }
+
+    /**
+     * Description: 授权记录查询
+     * Summary: 授权记录查询
+     */
+    public QueryPdcpAuthResponse queryPdcpAuth(QueryPdcpAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权记录查询
+     * Summary: 授权记录查询
+     */
+    public QueryPdcpAuthResponse queryPdcpAuthEx(QueryPdcpAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.auth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpAuthResponse());
+    }
+
+    /**
+     * Description: 授权数据查询
+     * Summary: 授权数据查询
+     */
+    public QueryPdcpDataResponse queryPdcpData(QueryPdcpDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权数据查询
+     * Summary: 授权数据查询
+     */
+    public QueryPdcpDataResponse queryPdcpDataEx(QueryPdcpDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpDataResponse());
     }
 
     /**

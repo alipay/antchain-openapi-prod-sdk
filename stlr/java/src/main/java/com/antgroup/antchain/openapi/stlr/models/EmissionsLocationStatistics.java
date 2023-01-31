@@ -17,7 +17,7 @@ public class EmissionsLocationStatistics extends TeaModel {
     // 盘查单元排放量
     @NameInMap("emission_amount")
     @Validation(required = true)
-    public Long emissionAmount;
+    public String emissionAmount;
 
     // 排放量单位，默认为：tCO2e
     @NameInMap("data_unit")
@@ -45,11 +45,11 @@ public class EmissionsLocationStatistics extends TeaModel {
         return this.locationName;
     }
 
-    public EmissionsLocationStatistics setEmissionAmount(Long emissionAmount) {
+    public EmissionsLocationStatistics setEmissionAmount(String emissionAmount) {
         this.emissionAmount = emissionAmount;
         return this;
     }
-    public Long getEmissionAmount() {
+    public String getEmissionAmount() {
         return this.emissionAmount;
     }
 

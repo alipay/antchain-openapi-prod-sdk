@@ -17,32 +17,32 @@ public class EmissionsCityStatistics extends TeaModel {
     // 累计排放量
     @NameInMap("emission_amount")
     @Validation(required = true)
-    public Long emissionAmount;
+    public String emissionAmount;
 
     // 今日新增碳排放量
     @NameInMap("emission_amount_today")
     @Validation(required = true)
-    public Long emissionAmountToday;
+    public String emissionAmountToday;
 
     // 总减碳量
     @NameInMap("reduction_amount")
     @Validation(required = true)
-    public Long reductionAmount;
+    public String reductionAmount;
 
     // 今日减碳量
     @NameInMap("reduction_amount_today")
     @Validation(required = true)
-    public Long reductionAmountToday;
+    public String reductionAmountToday;
 
     // 总抵消量
     @NameInMap("counteraction_amount")
     @Validation(required = true)
-    public Long counteractionAmount;
+    public String counteractionAmount;
 
     // 今日抵消量
     @NameInMap("counteraction_amount_today")
     @Validation(required = true)
-    public Long counteractionAmountToday;
+    public String counteractionAmountToday;
 
     // 排放量单位，默认为：
     @NameInMap("data_unit")
@@ -70,51 +70,51 @@ public class EmissionsCityStatistics extends TeaModel {
         return this.cityName;
     }
 
-    public EmissionsCityStatistics setEmissionAmount(Long emissionAmount) {
+    public EmissionsCityStatistics setEmissionAmount(String emissionAmount) {
         this.emissionAmount = emissionAmount;
         return this;
     }
-    public Long getEmissionAmount() {
+    public String getEmissionAmount() {
         return this.emissionAmount;
     }
 
-    public EmissionsCityStatistics setEmissionAmountToday(Long emissionAmountToday) {
+    public EmissionsCityStatistics setEmissionAmountToday(String emissionAmountToday) {
         this.emissionAmountToday = emissionAmountToday;
         return this;
     }
-    public Long getEmissionAmountToday() {
+    public String getEmissionAmountToday() {
         return this.emissionAmountToday;
     }
 
-    public EmissionsCityStatistics setReductionAmount(Long reductionAmount) {
+    public EmissionsCityStatistics setReductionAmount(String reductionAmount) {
         this.reductionAmount = reductionAmount;
         return this;
     }
-    public Long getReductionAmount() {
+    public String getReductionAmount() {
         return this.reductionAmount;
     }
 
-    public EmissionsCityStatistics setReductionAmountToday(Long reductionAmountToday) {
+    public EmissionsCityStatistics setReductionAmountToday(String reductionAmountToday) {
         this.reductionAmountToday = reductionAmountToday;
         return this;
     }
-    public Long getReductionAmountToday() {
+    public String getReductionAmountToday() {
         return this.reductionAmountToday;
     }
 
-    public EmissionsCityStatistics setCounteractionAmount(Long counteractionAmount) {
+    public EmissionsCityStatistics setCounteractionAmount(String counteractionAmount) {
         this.counteractionAmount = counteractionAmount;
         return this;
     }
-    public Long getCounteractionAmount() {
+    public String getCounteractionAmount() {
         return this.counteractionAmount;
     }
 
-    public EmissionsCityStatistics setCounteractionAmountToday(Long counteractionAmountToday) {
+    public EmissionsCityStatistics setCounteractionAmountToday(String counteractionAmountToday) {
         this.counteractionAmountToday = counteractionAmountToday;
         return this;
     }
-    public Long getCounteractionAmountToday() {
+    public String getCounteractionAmountToday() {
         return this.counteractionAmountToday;
     }
 

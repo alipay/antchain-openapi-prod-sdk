@@ -18,27 +18,27 @@ public class QueryEmissionTotalResponse extends TeaModel {
 
     // 累计排放量
     @NameInMap("total_emission")
-    public Long totalEmission;
+    public String totalEmission;
 
     // 今日新增碳排放量
     @NameInMap("total_emission_today")
-    public Long totalEmissionToday;
+    public String totalEmissionToday;
 
     // 累计减碳量
     @NameInMap("total_reduction")
-    public Long totalReduction;
+    public String totalReduction;
 
     // 今日减碳量
     @NameInMap("total_reduction_today")
-    public Long totalReductionToday;
+    public String totalReductionToday;
 
     // 累计抵消量
     @NameInMap("total_counteraction")
-    public Long totalCounteraction;
+    public String totalCounteraction;
 
     // 今日抵消量
     @NameInMap("total_counteraction_today")
-    public Long totalCounteractionToday;
+    public String totalCounteractionToday;
 
     // 排放数据单位
     @NameInMap("data_unit")
@@ -73,51 +73,51 @@ public class QueryEmissionTotalResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryEmissionTotalResponse setTotalEmission(Long totalEmission) {
+    public QueryEmissionTotalResponse setTotalEmission(String totalEmission) {
         this.totalEmission = totalEmission;
         return this;
     }
-    public Long getTotalEmission() {
+    public String getTotalEmission() {
         return this.totalEmission;
     }
 
-    public QueryEmissionTotalResponse setTotalEmissionToday(Long totalEmissionToday) {
+    public QueryEmissionTotalResponse setTotalEmissionToday(String totalEmissionToday) {
         this.totalEmissionToday = totalEmissionToday;
         return this;
     }
-    public Long getTotalEmissionToday() {
+    public String getTotalEmissionToday() {
         return this.totalEmissionToday;
     }
 
-    public QueryEmissionTotalResponse setTotalReduction(Long totalReduction) {
+    public QueryEmissionTotalResponse setTotalReduction(String totalReduction) {
         this.totalReduction = totalReduction;
         return this;
     }
-    public Long getTotalReduction() {
+    public String getTotalReduction() {
         return this.totalReduction;
     }
 
-    public QueryEmissionTotalResponse setTotalReductionToday(Long totalReductionToday) {
+    public QueryEmissionTotalResponse setTotalReductionToday(String totalReductionToday) {
         this.totalReductionToday = totalReductionToday;
         return this;
     }
-    public Long getTotalReductionToday() {
+    public String getTotalReductionToday() {
         return this.totalReductionToday;
     }
 
-    public QueryEmissionTotalResponse setTotalCounteraction(Long totalCounteraction) {
+    public QueryEmissionTotalResponse setTotalCounteraction(String totalCounteraction) {
         this.totalCounteraction = totalCounteraction;
         return this;
     }
-    public Long getTotalCounteraction() {
+    public String getTotalCounteraction() {
         return this.totalCounteraction;
     }
 
-    public QueryEmissionTotalResponse setTotalCounteractionToday(Long totalCounteractionToday) {
+    public QueryEmissionTotalResponse setTotalCounteractionToday(String totalCounteractionToday) {
         this.totalCounteractionToday = totalCounteractionToday;
         return this;
     }
-    public Long getTotalCounteractionToday() {
+    public String getTotalCounteractionToday() {
         return this.totalCounteractionToday;
     }
 
