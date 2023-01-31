@@ -29829,6 +29829,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
 				"sdk_version":      tea.String("1.6.6"),
+				"_prod_code":       tea.String("SHUZIWULIU"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
