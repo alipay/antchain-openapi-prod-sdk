@@ -19,7 +19,7 @@ class QueryInsuranceYzbreportRequest extends Model
      */
     public $productInstanceId;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安、CPIC---太保
     //
     /**
      * @var string

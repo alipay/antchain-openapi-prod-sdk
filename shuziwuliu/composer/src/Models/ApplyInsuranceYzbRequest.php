@@ -29,7 +29,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安、CPIC---太保
     /**
      * @var string
      */

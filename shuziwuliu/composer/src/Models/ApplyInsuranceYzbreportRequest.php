@@ -29,7 +29,7 @@ class ApplyInsuranceYzbreportRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安、CPIC---太保
     /**
      * @var string
      */
@@ -95,23 +95,17 @@ class ApplyInsuranceYzbreportRequest extends Model
      */
     public $accidentAddress;
 
-    // 出险详细经过
-    /**
-     * @var string
-     */
-    public $accidentDetail;
-
     // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
     /**
      * @var string
      */
     public $accidentCauseCode;
 
-    // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+    // 出险详细经过
     /**
      * @var string
      */
-    public $lossType;
+    public $accidentDetail;
 
     // 损失预估总金额，单位（元），最多支持2位小数
     /**
@@ -119,18 +113,23 @@ class ApplyInsuranceYzbreportRequest extends Model
      */
     public $lossEstimateTotalAmount;
 
-    // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-    //
+    // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
     /**
      * @var string
      */
-    public $complaintJobNo;
+    public $lossType;
 
     // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
     /**
      * @var string
      */
     public $courierCompany;
+
+    // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+    /**
+     * @var string
+     */
+    public $complaintJobNo;
 
     // 运单号，申请理赔所关联的运单号，包裹出险可填
     /**
@@ -218,12 +217,12 @@ class ApplyInsuranceYzbreportRequest extends Model
         'accidentCityCode'        => 'accident_city_code',
         'accidentDistrictCode'    => 'accident_district_code',
         'accidentAddress'         => 'accident_address',
-        'accidentDetail'          => 'accident_detail',
         'accidentCauseCode'       => 'accident_cause_code',
-        'lossType'                => 'loss_type',
+        'accidentDetail'          => 'accident_detail',
         'lossEstimateTotalAmount' => 'loss_estimate_total_amount',
-        'complaintJobNo'          => 'complaint_job_no',
+        'lossType'                => 'loss_type',
         'courierCompany'          => 'courier_company',
+        'complaintJobNo'          => 'complaint_job_no',
         'wayBillNo'               => 'way_bill_no',
         'paymentInfo'             => 'payment_info',
         'personLoss'              => 'person_loss',
@@ -252,10 +251,10 @@ class ApplyInsuranceYzbreportRequest extends Model
         Model::validateRequired('accidentCityCode', $this->accidentCityCode, true);
         Model::validateRequired('accidentDistrictCode', $this->accidentDistrictCode, true);
         Model::validateRequired('accidentAddress', $this->accidentAddress, true);
-        Model::validateRequired('accidentDetail', $this->accidentDetail, true);
         Model::validateRequired('accidentCauseCode', $this->accidentCauseCode, true);
-        Model::validateRequired('lossType', $this->lossType, true);
+        Model::validateRequired('accidentDetail', $this->accidentDetail, true);
         Model::validateRequired('lossEstimateTotalAmount', $this->lossEstimateTotalAmount, true);
+        Model::validateRequired('lossType', $this->lossType, true);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
@@ -267,11 +266,11 @@ class ApplyInsuranceYzbreportRequest extends Model
         Model::validateMaxLength('accidentCityCode', $this->accidentCityCode, 10);
         Model::validateMaxLength('accidentDistrictCode', $this->accidentDistrictCode, 10);
         Model::validateMaxLength('accidentAddress', $this->accidentAddress, 500);
-        Model::validateMaxLength('accidentDetail', $this->accidentDetail, 500);
         Model::validateMaxLength('accidentCauseCode', $this->accidentCauseCode, 10);
+        Model::validateMaxLength('accidentDetail', $this->accidentDetail, 500);
         Model::validateMaxLength('lossType', $this->lossType, 50);
-        Model::validateMaxLength('complaintJobNo', $this->complaintJobNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
+        Model::validateMaxLength('complaintJobNo', $this->complaintJobNo, 100);
         Model::validateMaxLength('wayBillNo', $this->wayBillNo, 100);
         Model::validateMaxLength('dutyWorkNo', $this->dutyWorkNo, 100);
         Model::validateMaxLength('pkgInDate', $this->pkgInDate, 20);
@@ -325,23 +324,23 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (null !== $this->accidentAddress) {
             $res['accident_address'] = $this->accidentAddress;
         }
-        if (null !== $this->accidentDetail) {
-            $res['accident_detail'] = $this->accidentDetail;
-        }
         if (null !== $this->accidentCauseCode) {
             $res['accident_cause_code'] = $this->accidentCauseCode;
         }
-        if (null !== $this->lossType) {
-            $res['loss_type'] = $this->lossType;
+        if (null !== $this->accidentDetail) {
+            $res['accident_detail'] = $this->accidentDetail;
         }
         if (null !== $this->lossEstimateTotalAmount) {
             $res['loss_estimate_total_amount'] = $this->lossEstimateTotalAmount;
         }
-        if (null !== $this->complaintJobNo) {
-            $res['complaint_job_no'] = $this->complaintJobNo;
+        if (null !== $this->lossType) {
+            $res['loss_type'] = $this->lossType;
         }
         if (null !== $this->courierCompany) {
             $res['courier_company'] = $this->courierCompany;
+        }
+        if (null !== $this->complaintJobNo) {
+            $res['complaint_job_no'] = $this->complaintJobNo;
         }
         if (null !== $this->wayBillNo) {
             $res['way_bill_no'] = $this->wayBillNo;
@@ -439,23 +438,23 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (isset($map['accident_address'])) {
             $model->accidentAddress = $map['accident_address'];
         }
-        if (isset($map['accident_detail'])) {
-            $model->accidentDetail = $map['accident_detail'];
-        }
         if (isset($map['accident_cause_code'])) {
             $model->accidentCauseCode = $map['accident_cause_code'];
         }
-        if (isset($map['loss_type'])) {
-            $model->lossType = $map['loss_type'];
+        if (isset($map['accident_detail'])) {
+            $model->accidentDetail = $map['accident_detail'];
         }
         if (isset($map['loss_estimate_total_amount'])) {
             $model->lossEstimateTotalAmount = $map['loss_estimate_total_amount'];
         }
-        if (isset($map['complaint_job_no'])) {
-            $model->complaintJobNo = $map['complaint_job_no'];
+        if (isset($map['loss_type'])) {
+            $model->lossType = $map['loss_type'];
         }
         if (isset($map['courier_company'])) {
             $model->courierCompany = $map['courier_company'];
+        }
+        if (isset($map['complaint_job_no'])) {
+            $model->complaintJobNo = $map['complaint_job_no'];
         }
         if (isset($map['way_bill_no'])) {
             $model->wayBillNo = $map['way_bill_no'];
