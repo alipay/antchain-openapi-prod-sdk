@@ -27,7 +27,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码，PAIC---平安，CICP-中华财险
+        // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }

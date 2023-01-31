@@ -27,7 +27,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码，PAIC---平安
+        // 保司编码，PAIC---平安、CPIC---太保
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
@@ -82,36 +82,35 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=500)]
         public string AccidentAddress { get; set; }
 
-        // 出险详细经过
-        [NameInMap("accident_detail")]
-        [Validation(Required=true, MaxLength=500)]
-        public string AccidentDetail { get; set; }
-
         // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
         [NameInMap("accident_cause_code")]
         [Validation(Required=true, MaxLength=10)]
         public string AccidentCauseCode { get; set; }
 
-        // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-        [NameInMap("loss_type")]
-        [Validation(Required=true, MaxLength=50)]
-        public string LossType { get; set; }
+        // 出险详细经过
+        [NameInMap("accident_detail")]
+        [Validation(Required=true, MaxLength=500)]
+        public string AccidentDetail { get; set; }
 
         // 损失预估总金额，单位（元），最多支持2位小数
         [NameInMap("loss_estimate_total_amount")]
         [Validation(Required=true)]
         public string LossEstimateTotalAmount { get; set; }
 
-        // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-        // 
-        [NameInMap("complaint_job_no")]
-        [Validation(Required=false, MaxLength=100)]
-        public string ComplaintJobNo { get; set; }
+        // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+        [NameInMap("loss_type")]
+        [Validation(Required=true, MaxLength=50)]
+        public string LossType { get; set; }
 
         // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
         [NameInMap("courier_company")]
         [Validation(Required=false, MaxLength=200)]
         public string CourierCompany { get; set; }
+
+        // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+        [NameInMap("complaint_job_no")]
+        [Validation(Required=false, MaxLength=100)]
+        public string ComplaintJobNo { get; set; }
 
         // 运单号，申请理赔所关联的运单号，包裹出险可填
         [NameInMap("way_bill_no")]

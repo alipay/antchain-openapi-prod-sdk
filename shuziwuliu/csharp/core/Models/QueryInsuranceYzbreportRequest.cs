@@ -18,7 +18,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 保司编码，PAIC---平安
+        // 保司编码，PAIC---平安、CPIC---太保
         // 
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
