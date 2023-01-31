@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.1.0',
-    _prod_code = 'STLR',
-    _prod_channel = 'undefined'
+    sdk_version = '2.1.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -176,9 +174,9 @@ model EmissionsCategoryStatistics {
   // 排放类型名称
   emissionCategoryName: string(name='emission_category_name', example='间接排放'),
   // 排放量
-  emission: long(name='emission', example='11.22'),
+  emission: string(name='emission', example='11.22'),
   // 排放占比，可直接换算成百分数即为百分占比
-  rate: long(name='rate', example='0.56'),
+  rate: string(name='rate', example='0.56'),
   // 排放量单位
   unit: string(name='unit', example='tCO2e'),
 }
@@ -244,9 +242,9 @@ model EmissionsReductionStatistics {
   // 减排方法名称
   reductionMethodName: string(name='reduction_method_name', example='使用绿电'),
   // 减排量
-  reductionAmount: long(name='reduction_amount', example='123123.11'),
+  reductionAmount: string(name='reduction_amount', example='123123.11'),
   // 减排量占比
-  reductionRatio: long(name='reduction_ratio', example='0.22'),
+  reductionRatio: string(name='reduction_ratio', example='0.22'),
   // 减排量单位
   dataUnit: string(name='data_unit', example='tCO2e'),
 }
@@ -266,7 +264,7 @@ model EmissionCounteractionStatistics {
   // 碳抵消类别名称
   assertTypeName: string(name='assert_type_name', example='配额'),
   // 抵消量
-  counteractionAmount: long(name='counteraction_amount', example='22.22'),
+  counteractionAmount: string(name='counteraction_amount', example='22.22'),
   // 排放量单位，默认为：tCO2e
   dataUnit: string(name='data_unit', example='tCO2e'),
 }
@@ -281,6 +279,14 @@ model AnyStatisticalItem {
   unit: string(name='unit', example='t'),
   // 单位标签
   unitLabel: string(name='unit_label', example='吨'),
+}
+
+// 账户信息
+model CarbonAccountInfo {
+  // 账户did
+  userDid: string(name='user_did', example='did:private:xxx'),
+  // 账户名称
+  userName: string(name='user_name', example='xxx企业'),
 }
 
 // 账户开通返回
@@ -312,19 +318,39 @@ model EmissionsCityStatistics {
   // 城市名称
   cityName: string(name='city_name', example='南充市'),
   // 累计排放量
-  emissionAmount: long(name='emission_amount', example='222.22'),
+  emissionAmount: string(name='emission_amount', example='222.22'),
   // 今日新增碳排放量
-  emissionAmountToday: long(name='emission_amount_today', example='22.22'),
+  emissionAmountToday: string(name='emission_amount_today', example='22.22'),
   // 总减碳量
-  reductionAmount: long(name='reduction_amount', example='21.11'),
+  reductionAmount: string(name='reduction_amount', example='21.11'),
   // 今日减碳量
-  reductionAmountToday: long(name='reduction_amount_today', example='9.11'),
+  reductionAmountToday: string(name='reduction_amount_today', example='9.11'),
   // 总抵消量
-  counteractionAmount: long(name='counteraction_amount', example='9.11'),
+  counteractionAmount: string(name='counteraction_amount', example='9.11'),
   // 今日抵消量
-  counteractionAmountToday: long(name='counteraction_amount_today', example='2.11'),
+  counteractionAmountToday: string(name='counteraction_amount_today', example='2.11'),
   // 排放量单位，默认为：
   dataUnit: string(name='data_unit', example='tCO2e'),
+}
+
+// 授权信息
+model AuthenticationInfoVO {
+  // 授权记录编码
+  authenticationNo: string(name='authentication_no', example='授权记录编码'),
+  // 收取方did
+  authorizerDid: string(name='authorizer_did', example='收取方did'),
+  // 授权方名称
+  authorizerName: string(name='authorizer_name', example='授权方名称'),
+  // 被授权方did
+  authorizedDid: string(name='authorized_did', example='被授权方did'),
+  // 被授权方名称
+  authorizedName: string(name='authorized_name', example='被授权方名称'),
+  // 数据协作类型
+  dataTransferType: string(name='data_transfer_type', example='数据协作类型'),
+  // 授权详情
+  authenticationDeetail: string(name='authentication_deetail', example='{}'),
+  // 授权状态
+  status: string(name='status', example='Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权'),
 }
 
 // 数据值条目
@@ -356,7 +382,7 @@ model EmissionsLocationStatistics {
   // 盘查单元名称
   locationName: string(name='location_name', example='2022亚运会游泳馆'),
   // 盘查单元排放量
-  emissionAmount: long(name='emission_amount', example='2223.22'),
+  emissionAmount: string(name='emission_amount', example='2223.22'),
   // 排放量单位，默认为：tCO2e
   dataUnit: string(name='data_unit', example='tCO2e'),
 }
@@ -669,17 +695,17 @@ model QueryEmissionTotalResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 累计排放量
-  totalEmission?: long(name='total_emission'),
+  totalEmission?: string(name='total_emission'),
   // 今日新增碳排放量
-  totalEmissionToday?: long(name='total_emission_today'),
+  totalEmissionToday?: string(name='total_emission_today'),
   // 累计减碳量
-  totalReduction?: long(name='total_reduction'),
+  totalReduction?: string(name='total_reduction'),
   // 今日减碳量
-  totalReductionToday?: long(name='total_reduction_today'),
+  totalReductionToday?: string(name='total_reduction_today'),
   // 累计抵消量
-  totalCounteraction?: long(name='total_counteraction'),
+  totalCounteraction?: string(name='total_counteraction'),
   // 今日抵消量
-  totalCounteractionToday?: long(name='total_counteraction_today'),
+  totalCounteractionToday?: string(name='total_counteraction_today'),
   // 排放数据单位
   dataUnit?: string(name='data_unit'),
 }
@@ -1106,6 +1132,248 @@ async function queryPdcpAccount(request: QueryPdcpAccountRequest): QueryPdcpAcco
 async function queryPdcpAccountEx(request: QueryPdcpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpAccountResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.pdcp.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddPdcpAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权记录的唯一标记
+  authenticationNo: string(name='authentication_no'),
+  // 授权方did
+  authorizerDid: string(name='authorizer_did'),
+  // 被授权方did
+  authorizedDid: string(name='authorized_did'),
+  // 数据协作类型
+  dataTransferType: string(name='data_transfer_type'),
+  // 授权详情
+  authenticationDetail: string(name='authentication_detail'),
+  // 授权状态
+  status: string(name='status'),
+}
+
+model AddPdcpAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新增授权接口
+ * Summary: 新增授权接口
+ */
+async function addPdcpAuth(request: AddPdcpAuthRequest): AddPdcpAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addPdcpAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增授权接口
+ * Summary: 新增授权接口
+ */
+async function addPdcpAuthEx(request: AddPdcpAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddPdcpAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.auth.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdatePdcpAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权记录编码
+  authenticationNo: string(name='authentication_no'),
+  // 授权状态
+  status: string(name='status'),
+}
+
+model UpdatePdcpAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 授权取消、授权审批接口
+ * Summary: 授权接口变更
+ */
+async function updatePdcpAuth(request: UpdatePdcpAuthRequest): UpdatePdcpAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updatePdcpAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权取消、授权审批接口
+ * Summary: 授权接口变更
+ */
+async function updatePdcpAuthEx(request: UpdatePdcpAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdatePdcpAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.auth.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  userName?: string(name='user_name'),
+  // 当前页码，默认1
+  pageNumber?: long(name='page_number'),
+  // 页面大小，默认20
+  pageSize?: long(name='page_size'),
+}
+
+model QueryGatewayAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户信息列表
+  accountInfoList?: [ CarbonAccountInfo ](name='account_info_list'),
+  // 总量
+  total?: long(name='total'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 路由账户查询接口
+ * Summary: 路由账户查询接口
+ */
+async function queryGatewayAccount(request: QueryGatewayAccountRequest): QueryGatewayAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 路由账户查询接口
+ * Summary: 路由账户查询接口
+ */
+async function queryGatewayAccountEx(request: QueryGatewayAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.gateway.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权记录编码
+  authenticationNo?: string(name='authentication_no'),
+  // 授权方did
+  authorizerDid?: string(name='authorizer_did'),
+  // 模糊匹配
+  authorizerName?: string(name='authorizer_name'),
+  // 被授权方did
+  authorizedDid?: string(name='authorized_did'),
+  // 模糊匹配
+  authorizedName?: string(name='authorized_name'),
+  // 数据协作类型
+  dataTransferType?: string(name='data_transfer_type'),
+  // 授权状态
+  status?: string(name='status'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+}
+
+model QueryPdcpAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总量
+  total?: long(name='total'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 授权信息
+  authenticationInfoList?: [ AuthenticationInfoVO ](name='authentication_info_list'),
+}
+
+/**
+ * Description: 授权记录查询
+ * Summary: 授权记录查询
+ */
+async function queryPdcpAuth(request: QueryPdcpAuthRequest): QueryPdcpAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权记录查询
+ * Summary: 授权记录查询
+ */
+async function queryPdcpAuthEx(request: QueryPdcpAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.auth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权记录编码
+  authenticationNo: string(name='authentication_no'),
+  // 数据类型
+  dataType: string(name='data_type'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+}
+
+model QueryPdcpDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数
+  total?: long(name='total'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 数据列表
+  dataList?: [ string ](name='data_list'),
+}
+
+/**
+ * Description: 授权数据查询
+ * Summary: 授权数据查询
+ */
+async function queryPdcpData(request: QueryPdcpDataRequest): QueryPdcpDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权数据查询
+ * Summary: 授权数据查询
+ */
+async function queryPdcpDataEx(request: QueryPdcpDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddEcarAvitivedataRequest = {
