@@ -11,7 +11,7 @@ public class QueryInsuranceYzbreportRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安、CPIC---太保
     // 
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)

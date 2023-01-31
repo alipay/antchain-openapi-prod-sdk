@@ -20,7 +20,7 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安、CPIC---太保
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
@@ -75,36 +75,35 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @Validation(required = true, maxLength = 500)
     public String accidentAddress;
 
-    // 出险详细经过
-    @NameInMap("accident_detail")
-    @Validation(required = true, maxLength = 500)
-    public String accidentDetail;
-
     // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
     @NameInMap("accident_cause_code")
     @Validation(required = true, maxLength = 10)
     public String accidentCauseCode;
 
-    // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-    @NameInMap("loss_type")
-    @Validation(required = true, maxLength = 50)
-    public String lossType;
+    // 出险详细经过
+    @NameInMap("accident_detail")
+    @Validation(required = true, maxLength = 500)
+    public String accidentDetail;
 
     // 损失预估总金额，单位（元），最多支持2位小数
     @NameInMap("loss_estimate_total_amount")
     @Validation(required = true)
     public String lossEstimateTotalAmount;
 
-    // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-    // 
-    @NameInMap("complaint_job_no")
-    @Validation(maxLength = 100)
-    public String complaintJobNo;
+    // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+    @NameInMap("loss_type")
+    @Validation(required = true, maxLength = 50)
+    public String lossType;
 
     // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
     @NameInMap("courier_company")
     @Validation(maxLength = 200)
     public String courierCompany;
+
+    // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+    @NameInMap("complaint_job_no")
+    @Validation(maxLength = 100)
+    public String complaintJobNo;
 
     // 运单号，申请理赔所关联的运单号，包裹出险可填
     @NameInMap("way_bill_no")
@@ -277,14 +276,6 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
         return this.accidentAddress;
     }
 
-    public ApplyInsuranceYzbreportRequest setAccidentDetail(String accidentDetail) {
-        this.accidentDetail = accidentDetail;
-        return this;
-    }
-    public String getAccidentDetail() {
-        return this.accidentDetail;
-    }
-
     public ApplyInsuranceYzbreportRequest setAccidentCauseCode(String accidentCauseCode) {
         this.accidentCauseCode = accidentCauseCode;
         return this;
@@ -293,12 +284,12 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
         return this.accidentCauseCode;
     }
 
-    public ApplyInsuranceYzbreportRequest setLossType(String lossType) {
-        this.lossType = lossType;
+    public ApplyInsuranceYzbreportRequest setAccidentDetail(String accidentDetail) {
+        this.accidentDetail = accidentDetail;
         return this;
     }
-    public String getLossType() {
-        return this.lossType;
+    public String getAccidentDetail() {
+        return this.accidentDetail;
     }
 
     public ApplyInsuranceYzbreportRequest setLossEstimateTotalAmount(String lossEstimateTotalAmount) {
@@ -309,12 +300,12 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
         return this.lossEstimateTotalAmount;
     }
 
-    public ApplyInsuranceYzbreportRequest setComplaintJobNo(String complaintJobNo) {
-        this.complaintJobNo = complaintJobNo;
+    public ApplyInsuranceYzbreportRequest setLossType(String lossType) {
+        this.lossType = lossType;
         return this;
     }
-    public String getComplaintJobNo() {
-        return this.complaintJobNo;
+    public String getLossType() {
+        return this.lossType;
     }
 
     public ApplyInsuranceYzbreportRequest setCourierCompany(String courierCompany) {
@@ -323,6 +314,14 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     }
     public String getCourierCompany() {
         return this.courierCompany;
+    }
+
+    public ApplyInsuranceYzbreportRequest setComplaintJobNo(String complaintJobNo) {
+        this.complaintJobNo = complaintJobNo;
+        return this;
+    }
+    public String getComplaintJobNo() {
+        return this.complaintJobNo;
     }
 
     public ApplyInsuranceYzbreportRequest setWayBillNo(String wayBillNo) {
