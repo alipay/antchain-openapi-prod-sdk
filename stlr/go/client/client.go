@@ -182,9 +182,9 @@ type EmissionsCategoryStatistics struct {
 	// 排放类型名称
 	EmissionCategoryName *string `json:"emission_category_name,omitempty" xml:"emission_category_name,omitempty" require:"true"`
 	// 排放量
-	Emission *int64 `json:"emission,omitempty" xml:"emission,omitempty" require:"true"`
+	Emission *string `json:"emission,omitempty" xml:"emission,omitempty" require:"true"`
 	// 排放占比，可直接换算成百分数即为百分占比
-	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	Rate *string `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
 	// 排放量单位
 	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
 }
@@ -207,12 +207,12 @@ func (s *EmissionsCategoryStatistics) SetEmissionCategoryName(v string) *Emissio
 	return s
 }
 
-func (s *EmissionsCategoryStatistics) SetEmission(v int64) *EmissionsCategoryStatistics {
+func (s *EmissionsCategoryStatistics) SetEmission(v string) *EmissionsCategoryStatistics {
 	s.Emission = &v
 	return s
 }
 
-func (s *EmissionsCategoryStatistics) SetRate(v int64) *EmissionsCategoryStatistics {
+func (s *EmissionsCategoryStatistics) SetRate(v string) *EmissionsCategoryStatistics {
 	s.Rate = &v
 	return s
 }
@@ -412,9 +412,9 @@ type EmissionsReductionStatistics struct {
 	// 减排方法名称
 	ReductionMethodName *string `json:"reduction_method_name,omitempty" xml:"reduction_method_name,omitempty" require:"true"`
 	// 减排量
-	ReductionAmount *int64 `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
+	ReductionAmount *string `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
 	// 减排量占比
-	ReductionRatio *int64 `json:"reduction_ratio,omitempty" xml:"reduction_ratio,omitempty" require:"true"`
+	ReductionRatio *string `json:"reduction_ratio,omitempty" xml:"reduction_ratio,omitempty" require:"true"`
 	// 减排量单位
 	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
@@ -437,12 +437,12 @@ func (s *EmissionsReductionStatistics) SetReductionMethodName(v string) *Emissio
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetReductionAmount(v int64) *EmissionsReductionStatistics {
+func (s *EmissionsReductionStatistics) SetReductionAmount(v string) *EmissionsReductionStatistics {
 	s.ReductionAmount = &v
 	return s
 }
 
-func (s *EmissionsReductionStatistics) SetReductionRatio(v int64) *EmissionsReductionStatistics {
+func (s *EmissionsReductionStatistics) SetReductionRatio(v string) *EmissionsReductionStatistics {
 	s.ReductionRatio = &v
 	return s
 }
@@ -485,7 +485,7 @@ type EmissionCounteractionStatistics struct {
 	// 碳抵消类别名称
 	AssertTypeName *string `json:"assert_type_name,omitempty" xml:"assert_type_name,omitempty" require:"true"`
 	// 抵消量
-	CounteractionAmount *int64 `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
 	// 排放量单位，默认为：tCO2e
 	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
@@ -508,7 +508,7 @@ func (s *EmissionCounteractionStatistics) SetAssertTypeName(v string) *EmissionC
 	return s
 }
 
-func (s *EmissionCounteractionStatistics) SetCounteractionAmount(v int64) *EmissionCounteractionStatistics {
+func (s *EmissionCounteractionStatistics) SetCounteractionAmount(v string) *EmissionCounteractionStatistics {
 	s.CounteractionAmount = &v
 	return s
 }
@@ -555,6 +555,32 @@ func (s *AnyStatisticalItem) SetUnit(v string) *AnyStatisticalItem {
 
 func (s *AnyStatisticalItem) SetUnitLabel(v string) *AnyStatisticalItem {
 	s.UnitLabel = &v
+	return s
+}
+
+// 账户信息
+type CarbonAccountInfo struct {
+	// 账户did
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+	// 账户名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+}
+
+func (s CarbonAccountInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarbonAccountInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarbonAccountInfo) SetUserDid(v string) *CarbonAccountInfo {
+	s.UserDid = &v
+	return s
+}
+
+func (s *CarbonAccountInfo) SetUserName(v string) *CarbonAccountInfo {
+	s.UserName = &v
 	return s
 }
 
@@ -636,17 +662,17 @@ type EmissionsCityStatistics struct {
 	// 城市名称
 	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
 	// 累计排放量
-	EmissionAmount *int64 `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
 	// 今日新增碳排放量
-	EmissionAmountToday *int64 `json:"emission_amount_today,omitempty" xml:"emission_amount_today,omitempty" require:"true"`
+	EmissionAmountToday *string `json:"emission_amount_today,omitempty" xml:"emission_amount_today,omitempty" require:"true"`
 	// 总减碳量
-	ReductionAmount *int64 `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
+	ReductionAmount *string `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
 	// 今日减碳量
-	ReductionAmountToday *int64 `json:"reduction_amount_today,omitempty" xml:"reduction_amount_today,omitempty" require:"true"`
+	ReductionAmountToday *string `json:"reduction_amount_today,omitempty" xml:"reduction_amount_today,omitempty" require:"true"`
 	// 总抵消量
-	CounteractionAmount *int64 `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
 	// 今日抵消量
-	CounteractionAmountToday *int64 `json:"counteraction_amount_today,omitempty" xml:"counteraction_amount_today,omitempty" require:"true"`
+	CounteractionAmountToday *string `json:"counteraction_amount_today,omitempty" xml:"counteraction_amount_today,omitempty" require:"true"`
 	// 排放量单位，默认为：
 	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
@@ -669,38 +695,106 @@ func (s *EmissionsCityStatistics) SetCityName(v string) *EmissionsCityStatistics
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetEmissionAmount(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetEmissionAmount(v string) *EmissionsCityStatistics {
 	s.EmissionAmount = &v
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetEmissionAmountToday(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetEmissionAmountToday(v string) *EmissionsCityStatistics {
 	s.EmissionAmountToday = &v
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetReductionAmount(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetReductionAmount(v string) *EmissionsCityStatistics {
 	s.ReductionAmount = &v
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetReductionAmountToday(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetReductionAmountToday(v string) *EmissionsCityStatistics {
 	s.ReductionAmountToday = &v
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetCounteractionAmount(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetCounteractionAmount(v string) *EmissionsCityStatistics {
 	s.CounteractionAmount = &v
 	return s
 }
 
-func (s *EmissionsCityStatistics) SetCounteractionAmountToday(v int64) *EmissionsCityStatistics {
+func (s *EmissionsCityStatistics) SetCounteractionAmountToday(v string) *EmissionsCityStatistics {
 	s.CounteractionAmountToday = &v
 	return s
 }
 
 func (s *EmissionsCityStatistics) SetDataUnit(v string) *EmissionsCityStatistics {
 	s.DataUnit = &v
+	return s
+}
+
+// 授权信息
+type AuthenticationInfoVO struct {
+	// 授权记录编码
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	// 收取方did
+	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty" require:"true"`
+	// 授权方名称
+	AuthorizerName *string `json:"authorizer_name,omitempty" xml:"authorizer_name,omitempty" require:"true"`
+	// 被授权方did
+	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty" require:"true"`
+	// 被授权方名称
+	AuthorizedName *string `json:"authorized_name,omitempty" xml:"authorized_name,omitempty" require:"true"`
+	// 数据协作类型
+	DataTransferType *string `json:"data_transfer_type,omitempty" xml:"data_transfer_type,omitempty" require:"true"`
+	// 授权详情
+	AuthenticationDeetail *string `json:"authentication_deetail,omitempty" xml:"authentication_deetail,omitempty" require:"true"`
+	// 授权状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s AuthenticationInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthenticationInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *AuthenticationInfoVO) SetAuthenticationNo(v string) *AuthenticationInfoVO {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizerDid(v string) *AuthenticationInfoVO {
+	s.AuthorizerDid = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizerName(v string) *AuthenticationInfoVO {
+	s.AuthorizerName = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizedDid(v string) *AuthenticationInfoVO {
+	s.AuthorizedDid = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizedName(v string) *AuthenticationInfoVO {
+	s.AuthorizedName = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetDataTransferType(v string) *AuthenticationInfoVO {
+	s.DataTransferType = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthenticationDeetail(v string) *AuthenticationInfoVO {
+	s.AuthenticationDeetail = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetStatus(v string) *AuthenticationInfoVO {
+	s.Status = &v
 	return s
 }
 
@@ -784,7 +878,7 @@ type EmissionsLocationStatistics struct {
 	// 盘查单元名称
 	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
 	// 盘查单元排放量
-	EmissionAmount *int64 `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
 	// 排放量单位，默认为：tCO2e
 	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
@@ -807,7 +901,7 @@ func (s *EmissionsLocationStatistics) SetLocationName(v string) *EmissionsLocati
 	return s
 }
 
-func (s *EmissionsLocationStatistics) SetEmissionAmount(v int64) *EmissionsLocationStatistics {
+func (s *EmissionsLocationStatistics) SetEmissionAmount(v string) *EmissionsLocationStatistics {
 	s.EmissionAmount = &v
 	return s
 }
@@ -1530,17 +1624,17 @@ type QueryEmissionTotalResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 累计排放量
-	TotalEmission *int64 `json:"total_emission,omitempty" xml:"total_emission,omitempty"`
+	TotalEmission *string `json:"total_emission,omitempty" xml:"total_emission,omitempty"`
 	// 今日新增碳排放量
-	TotalEmissionToday *int64 `json:"total_emission_today,omitempty" xml:"total_emission_today,omitempty"`
+	TotalEmissionToday *string `json:"total_emission_today,omitempty" xml:"total_emission_today,omitempty"`
 	// 累计减碳量
-	TotalReduction *int64 `json:"total_reduction,omitempty" xml:"total_reduction,omitempty"`
+	TotalReduction *string `json:"total_reduction,omitempty" xml:"total_reduction,omitempty"`
 	// 今日减碳量
-	TotalReductionToday *int64 `json:"total_reduction_today,omitempty" xml:"total_reduction_today,omitempty"`
+	TotalReductionToday *string `json:"total_reduction_today,omitempty" xml:"total_reduction_today,omitempty"`
 	// 累计抵消量
-	TotalCounteraction *int64 `json:"total_counteraction,omitempty" xml:"total_counteraction,omitempty"`
+	TotalCounteraction *string `json:"total_counteraction,omitempty" xml:"total_counteraction,omitempty"`
 	// 今日抵消量
-	TotalCounteractionToday *int64 `json:"total_counteraction_today,omitempty" xml:"total_counteraction_today,omitempty"`
+	TotalCounteractionToday *string `json:"total_counteraction_today,omitempty" xml:"total_counteraction_today,omitempty"`
 	// 排放数据单位
 	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty"`
 }
@@ -1568,32 +1662,32 @@ func (s *QueryEmissionTotalResponse) SetResultMsg(v string) *QueryEmissionTotalR
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalEmission(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalEmission(v string) *QueryEmissionTotalResponse {
 	s.TotalEmission = &v
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalEmissionToday(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalEmissionToday(v string) *QueryEmissionTotalResponse {
 	s.TotalEmissionToday = &v
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalReduction(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalReduction(v string) *QueryEmissionTotalResponse {
 	s.TotalReduction = &v
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalReductionToday(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalReductionToday(v string) *QueryEmissionTotalResponse {
 	s.TotalReductionToday = &v
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalCounteraction(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalCounteraction(v string) *QueryEmissionTotalResponse {
 	s.TotalCounteraction = &v
 	return s
 }
 
-func (s *QueryEmissionTotalResponse) SetTotalCounteractionToday(v int64) *QueryEmissionTotalResponse {
+func (s *QueryEmissionTotalResponse) SetTotalCounteractionToday(v string) *QueryEmissionTotalResponse {
 	s.TotalCounteractionToday = &v
 	return s
 }
@@ -2380,6 +2474,538 @@ func (s *QueryPdcpAccountResponse) SetResultMsg(v string) *QueryPdcpAccountRespo
 
 func (s *QueryPdcpAccountResponse) SetCarbonAccountInfo(v *AccountRegisterResponse) *QueryPdcpAccountResponse {
 	s.CarbonAccountInfo = v
+	return s
+}
+
+type AddPdcpAuthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权记录的唯一标记
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	// 授权方did
+	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty" require:"true"`
+	// 被授权方did
+	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty" require:"true"`
+	// 数据协作类型
+	DataTransferType *string `json:"data_transfer_type,omitempty" xml:"data_transfer_type,omitempty" require:"true"`
+	// 授权详情
+	AuthenticationDetail *string `json:"authentication_detail,omitempty" xml:"authentication_detail,omitempty" require:"true"`
+	// 授权状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s AddPdcpAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddPdcpAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddPdcpAuthRequest) SetAuthToken(v string) *AddPdcpAuthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetProductInstanceId(v string) *AddPdcpAuthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetAuthenticationNo(v string) *AddPdcpAuthRequest {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetAuthorizerDid(v string) *AddPdcpAuthRequest {
+	s.AuthorizerDid = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetAuthorizedDid(v string) *AddPdcpAuthRequest {
+	s.AuthorizedDid = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetDataTransferType(v string) *AddPdcpAuthRequest {
+	s.DataTransferType = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetAuthenticationDetail(v string) *AddPdcpAuthRequest {
+	s.AuthenticationDetail = &v
+	return s
+}
+
+func (s *AddPdcpAuthRequest) SetStatus(v string) *AddPdcpAuthRequest {
+	s.Status = &v
+	return s
+}
+
+type AddPdcpAuthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddPdcpAuthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddPdcpAuthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddPdcpAuthResponse) SetReqMsgId(v string) *AddPdcpAuthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddPdcpAuthResponse) SetResultCode(v string) *AddPdcpAuthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddPdcpAuthResponse) SetResultMsg(v string) *AddPdcpAuthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdatePdcpAuthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权记录编码
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	// 授权状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s UpdatePdcpAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePdcpAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePdcpAuthRequest) SetAuthToken(v string) *UpdatePdcpAuthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdatePdcpAuthRequest) SetProductInstanceId(v string) *UpdatePdcpAuthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdatePdcpAuthRequest) SetAuthenticationNo(v string) *UpdatePdcpAuthRequest {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *UpdatePdcpAuthRequest) SetStatus(v string) *UpdatePdcpAuthRequest {
+	s.Status = &v
+	return s
+}
+
+type UpdatePdcpAuthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdatePdcpAuthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePdcpAuthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePdcpAuthResponse) SetReqMsgId(v string) *UpdatePdcpAuthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdatePdcpAuthResponse) SetResultCode(v string) *UpdatePdcpAuthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdatePdcpAuthResponse) SetResultMsg(v string) *UpdatePdcpAuthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryGatewayAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 当前页码，默认1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小，默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryGatewayAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGatewayAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGatewayAccountRequest) SetAuthToken(v string) *QueryGatewayAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGatewayAccountRequest) SetProductInstanceId(v string) *QueryGatewayAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGatewayAccountRequest) SetUserName(v string) *QueryGatewayAccountRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *QueryGatewayAccountRequest) SetPageNumber(v int64) *QueryGatewayAccountRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryGatewayAccountRequest) SetPageSize(v int64) *QueryGatewayAccountRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryGatewayAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账户信息列表
+	AccountInfoList []*CarbonAccountInfo `json:"account_info_list,omitempty" xml:"account_info_list,omitempty" type:"Repeated"`
+	// 总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryGatewayAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGatewayAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGatewayAccountResponse) SetReqMsgId(v string) *QueryGatewayAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetResultCode(v string) *QueryGatewayAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetResultMsg(v string) *QueryGatewayAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetAccountInfoList(v []*CarbonAccountInfo) *QueryGatewayAccountResponse {
+	s.AccountInfoList = v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetTotal(v int64) *QueryGatewayAccountResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetPageNumber(v int64) *QueryGatewayAccountResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryGatewayAccountResponse) SetPageSize(v int64) *QueryGatewayAccountResponse {
+	s.PageSize = &v
+	return s
+}
+
+type QueryPdcpAuthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权记录编码
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty"`
+	// 授权方did
+	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty"`
+	// 模糊匹配
+	AuthorizerName *string `json:"authorizer_name,omitempty" xml:"authorizer_name,omitempty"`
+	// 被授权方did
+	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty"`
+	// 模糊匹配
+	AuthorizedName *string `json:"authorized_name,omitempty" xml:"authorized_name,omitempty"`
+	// 数据协作类型
+	DataTransferType *string `json:"data_transfer_type,omitempty" xml:"data_transfer_type,omitempty"`
+	// 授权状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryPdcpAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthToken(v string) *QueryPdcpAuthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetProductInstanceId(v string) *QueryPdcpAuthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthenticationNo(v string) *QueryPdcpAuthRequest {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthorizerDid(v string) *QueryPdcpAuthRequest {
+	s.AuthorizerDid = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthorizerName(v string) *QueryPdcpAuthRequest {
+	s.AuthorizerName = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthorizedDid(v string) *QueryPdcpAuthRequest {
+	s.AuthorizedDid = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetAuthorizedName(v string) *QueryPdcpAuthRequest {
+	s.AuthorizedName = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetDataTransferType(v string) *QueryPdcpAuthRequest {
+	s.DataTransferType = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetStatus(v string) *QueryPdcpAuthRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetPageNumber(v int64) *QueryPdcpAuthRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpAuthRequest) SetPageSize(v int64) *QueryPdcpAuthRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryPdcpAuthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 授权信息
+	AuthenticationInfoList []*AuthenticationInfoVO `json:"authentication_info_list,omitempty" xml:"authentication_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryPdcpAuthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpAuthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpAuthResponse) SetReqMsgId(v string) *QueryPdcpAuthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetResultCode(v string) *QueryPdcpAuthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetResultMsg(v string) *QueryPdcpAuthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetTotal(v int64) *QueryPdcpAuthResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetPageNumber(v int64) *QueryPdcpAuthResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetPageSize(v int64) *QueryPdcpAuthResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryPdcpAuthResponse) SetAuthenticationInfoList(v []*AuthenticationInfoVO) *QueryPdcpAuthResponse {
+	s.AuthenticationInfoList = v
+	return s
+}
+
+type QueryPdcpDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权记录编码
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	// 数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryPdcpDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDataRequest) SetAuthToken(v string) *QueryPdcpDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpDataRequest) SetProductInstanceId(v string) *QueryPdcpDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpDataRequest) SetAuthenticationNo(v string) *QueryPdcpDataRequest {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *QueryPdcpDataRequest) SetDataType(v string) *QueryPdcpDataRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *QueryPdcpDataRequest) SetPageNumber(v int64) *QueryPdcpDataRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpDataRequest) SetPageSize(v int64) *QueryPdcpDataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryPdcpDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据列表
+	DataList []*string `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryPdcpDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDataResponse) SetReqMsgId(v string) *QueryPdcpDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetResultCode(v string) *QueryPdcpDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetResultMsg(v string) *QueryPdcpDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetTotal(v int64) *QueryPdcpDataResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetPageNumber(v int64) *QueryPdcpDataResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetPageSize(v int64) *QueryPdcpDataResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryPdcpDataResponse) SetDataList(v []*string) *QueryPdcpDataResponse {
+	s.DataList = v
 	return s
 }
 
@@ -3641,7 +4267,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.0"),
+				"sdk_version":      tea.String("2.1.2"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4236,6 +4862,176 @@ func (client *Client) QueryPdcpAccountEx(request *QueryPdcpAccountRequest, heade
 	}
 	_result = &QueryPdcpAccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新增授权接口
+ * Summary: 新增授权接口
+ */
+func (client *Client) AddPdcpAuth(request *AddPdcpAuthRequest) (_result *AddPdcpAuthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddPdcpAuthResponse{}
+	_body, _err := client.AddPdcpAuthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新增授权接口
+ * Summary: 新增授权接口
+ */
+func (client *Client) AddPdcpAuthEx(request *AddPdcpAuthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddPdcpAuthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddPdcpAuthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.auth.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权取消、授权审批接口
+ * Summary: 授权接口变更
+ */
+func (client *Client) UpdatePdcpAuth(request *UpdatePdcpAuthRequest) (_result *UpdatePdcpAuthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdatePdcpAuthResponse{}
+	_body, _err := client.UpdatePdcpAuthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权取消、授权审批接口
+ * Summary: 授权接口变更
+ */
+func (client *Client) UpdatePdcpAuthEx(request *UpdatePdcpAuthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdatePdcpAuthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdatePdcpAuthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.auth.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 路由账户查询接口
+ * Summary: 路由账户查询接口
+ */
+func (client *Client) QueryGatewayAccount(request *QueryGatewayAccountRequest) (_result *QueryGatewayAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGatewayAccountResponse{}
+	_body, _err := client.QueryGatewayAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 路由账户查询接口
+ * Summary: 路由账户查询接口
+ */
+func (client *Client) QueryGatewayAccountEx(request *QueryGatewayAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGatewayAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGatewayAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.gateway.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权记录查询
+ * Summary: 授权记录查询
+ */
+func (client *Client) QueryPdcpAuth(request *QueryPdcpAuthRequest) (_result *QueryPdcpAuthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpAuthResponse{}
+	_body, _err := client.QueryPdcpAuthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权记录查询
+ * Summary: 授权记录查询
+ */
+func (client *Client) QueryPdcpAuthEx(request *QueryPdcpAuthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpAuthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpAuthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.auth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权数据查询
+ * Summary: 授权数据查询
+ */
+func (client *Client) QueryPdcpData(request *QueryPdcpDataRequest) (_result *QueryPdcpDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpDataResponse{}
+	_body, _err := client.QueryPdcpDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权数据查询
+ * Summary: 授权数据查询
+ */
+func (client *Client) QueryPdcpDataEx(request *QueryPdcpDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
