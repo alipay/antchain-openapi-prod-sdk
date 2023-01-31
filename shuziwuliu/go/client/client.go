@@ -18834,7 +18834,7 @@ type ApplyInsuranceOspireportRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安，CICP-中华财险
+	// 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码
 	// 04--海外邮包险
@@ -19212,7 +19212,7 @@ type ApplyInsuranceYzbRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安
+	// 保司编码，PAIC---平安、CPIC---太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码，05-驿站宝
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
@@ -19841,7 +19841,7 @@ type ApplyInsuranceYzbreportRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安
+	// 保司编码，PAIC---平安、CPIC---太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码，05-驿站宝
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
@@ -19863,19 +19863,18 @@ type ApplyInsuranceYzbreportRequest struct {
 	AccidentDistrictCode *string `json:"accident_district_code,omitempty" xml:"accident_district_code,omitempty" require:"true" maxLength:"10"`
 	// 出险详细地址，事发出险地的详细地址
 	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" require:"true" maxLength:"500"`
-	// 出险详细经过
-	AccidentDetail *string `json:"accident_detail,omitempty" xml:"accident_detail,omitempty" require:"true" maxLength:"500"`
 	// 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
 	AccidentCauseCode *string `json:"accident_cause_code,omitempty" xml:"accident_cause_code,omitempty" require:"true" maxLength:"10"`
-	// 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-	LossType *string `json:"loss_type,omitempty" xml:"loss_type,omitempty" require:"true" maxLength:"50"`
+	// 出险详细经过
+	AccidentDetail *string `json:"accident_detail,omitempty" xml:"accident_detail,omitempty" require:"true" maxLength:"500"`
 	// 损失预估总金额，单位（元），最多支持2位小数
 	LossEstimateTotalAmount *string `json:"loss_estimate_total_amount,omitempty" xml:"loss_estimate_total_amount,omitempty" require:"true"`
-	// 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-	//
-	ComplaintJobNo *string `json:"complaint_job_no,omitempty" xml:"complaint_job_no,omitempty" maxLength:"100"`
+	// 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+	LossType *string `json:"loss_type,omitempty" xml:"loss_type,omitempty" require:"true" maxLength:"50"`
 	// 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
 	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" maxLength:"200"`
+	// 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+	ComplaintJobNo *string `json:"complaint_job_no,omitempty" xml:"complaint_job_no,omitempty" maxLength:"100"`
 	// 运单号，申请理赔所关联的运单号，包裹出险可填
 	WayBillNo *string `json:"way_bill_no,omitempty" xml:"way_bill_no,omitempty" maxLength:"100"`
 	// 支付信息
@@ -19980,18 +19979,13 @@ func (s *ApplyInsuranceYzbreportRequest) SetAccidentAddress(v string) *ApplyInsu
 	return s
 }
 
-func (s *ApplyInsuranceYzbreportRequest) SetAccidentDetail(v string) *ApplyInsuranceYzbreportRequest {
-	s.AccidentDetail = &v
-	return s
-}
-
 func (s *ApplyInsuranceYzbreportRequest) SetAccidentCauseCode(v string) *ApplyInsuranceYzbreportRequest {
 	s.AccidentCauseCode = &v
 	return s
 }
 
-func (s *ApplyInsuranceYzbreportRequest) SetLossType(v string) *ApplyInsuranceYzbreportRequest {
-	s.LossType = &v
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentDetail(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentDetail = &v
 	return s
 }
 
@@ -20000,13 +19994,18 @@ func (s *ApplyInsuranceYzbreportRequest) SetLossEstimateTotalAmount(v string) *A
 	return s
 }
 
-func (s *ApplyInsuranceYzbreportRequest) SetComplaintJobNo(v string) *ApplyInsuranceYzbreportRequest {
-	s.ComplaintJobNo = &v
+func (s *ApplyInsuranceYzbreportRequest) SetLossType(v string) *ApplyInsuranceYzbreportRequest {
+	s.LossType = &v
 	return s
 }
 
 func (s *ApplyInsuranceYzbreportRequest) SetCourierCompany(v string) *ApplyInsuranceYzbreportRequest {
 	s.CourierCompany = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetComplaintJobNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.ComplaintJobNo = &v
 	return s
 }
 
@@ -20120,7 +20119,7 @@ type QueryInsuranceYzbreportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 保司编码，PAIC---平安
+	// 保司编码，PAIC---平安、CPIC---太保
 	//
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 保单号
@@ -29829,9 +29828,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.5"),
-				"_prod_code":       tea.String("SHUZIWULIU"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.6.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
