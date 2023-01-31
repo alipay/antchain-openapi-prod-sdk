@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.5',
-    _prod_code = 'SHUZIWULIU',
-    _prod_channel = 'undefined'
+    sdk_version = '1.6.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7532,7 +7530,7 @@ model ApplyInsuranceOspireportRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安，CICP-中华财险
+  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码
   // 04--海外邮包险
@@ -7681,7 +7679,7 @@ model ApplyInsuranceYzbRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码，05-驿站宝
   externalProductCode: string(maxLength=2, name='external_product_code'),
@@ -7911,7 +7909,7 @@ model ApplyInsuranceYzbreportRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码，05-驿站宝
   externalProductCode: string(maxLength=2, name='external_product_code'),
@@ -7933,19 +7931,18 @@ model ApplyInsuranceYzbreportRequest = {
   accidentDistrictCode: string(maxLength=10, name='accident_district_code'),
   // 出险详细地址，事发出险地的详细地址
   accidentAddress: string(maxLength=500, name='accident_address'),
-  // 出险详细经过
-  accidentDetail: string(maxLength=500, name='accident_detail'),
   // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
   accidentCauseCode: string(maxLength=10, name='accident_cause_code'),
-  // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
-  lossType: string(maxLength=50, name='loss_type'),
+  // 出险详细经过
+  accidentDetail: string(maxLength=500, name='accident_detail'),
   // 损失预估总金额，单位（元），最多支持2位小数
   lossEstimateTotalAmount: string(name='loss_estimate_total_amount'),
-  // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
-  // 
-  complaintJobNo?: string(maxLength=100, name='complaint_job_no'),
+  // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+  lossType: string(maxLength=50, name='loss_type'),
   // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
   courierCompany?: string(maxLength=200, name='courier_company'),
+  // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+  complaintJobNo?: string(maxLength=100, name='complaint_job_no'),
   // 运单号，申请理赔所关联的运单号，包裹出险可填
   wayBillNo?: string(maxLength=100, name='way_bill_no'),
   // 支付信息
@@ -8008,7 +8005,7 @@ model QueryInsuranceYzbreportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安、CPIC---太保
   // 
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 保单号
