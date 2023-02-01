@@ -11501,6 +11501,149 @@ func (s *QueryDubbridgeRepayResultResponse) SetRepayDate(v string) *QueryDubbrid
 	return s
 }
 
+type QueryDubbridgeCreditPermitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 身份证号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 姓名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 合作方产品编号
+	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
+	// 1:app
+	// 2:H5
+	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
+	// 客户类型
+	// ("1", "新增客户"),("2", "存量激活客户"),("3", "目标营销账户")
+	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
+	// 流量来源名称
+	TrafficSourceName *string `json:"traffic_source_name,omitempty" xml:"traffic_source_name,omitempty"`
+	// 广告位标志
+	TrafficAdId *string `json:"traffic_ad_id,omitempty" xml:"traffic_ad_id,omitempty"`
+	// 营销id
+	TrafficMktId *string `json:"traffic_mkt_id,omitempty" xml:"traffic_mkt_id,omitempty"`
+	// 点击id
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+}
+
+func (s QueryDubbridgeCreditPermitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditPermitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetAuthToken(v string) *QueryDubbridgeCreditPermitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditPermitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetCardNo(v string) *QueryDubbridgeCreditPermitRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetMobile(v string) *QueryDubbridgeCreditPermitRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetCustomName(v string) *QueryDubbridgeCreditPermitRequest {
+	s.CustomName = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetProdNo(v string) *QueryDubbridgeCreditPermitRequest {
+	s.ProdNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetChannelType(v string) *QueryDubbridgeCreditPermitRequest {
+	s.ChannelType = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetCustomType(v string) *QueryDubbridgeCreditPermitRequest {
+	s.CustomType = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetTrafficPlatform(v string) *QueryDubbridgeCreditPermitRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetTrafficSourceName(v string) *QueryDubbridgeCreditPermitRequest {
+	s.TrafficSourceName = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetTrafficAdId(v string) *QueryDubbridgeCreditPermitRequest {
+	s.TrafficAdId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetTrafficMktId(v string) *QueryDubbridgeCreditPermitRequest {
+	s.TrafficMktId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitRequest) SetClickId(v string) *QueryDubbridgeCreditPermitRequest {
+	s.ClickId = &v
+	return s
+}
+
+type QueryDubbridgeCreditPermitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Y：准入
+	// N：未准入
+	EnableApply *string `json:"enable_apply,omitempty" xml:"enable_apply,omitempty"`
+}
+
+func (s QueryDubbridgeCreditPermitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditPermitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditPermitResponse) SetReqMsgId(v string) *QueryDubbridgeCreditPermitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitResponse) SetResultCode(v string) *QueryDubbridgeCreditPermitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitResponse) SetResultMsg(v string) *QueryDubbridgeCreditPermitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditPermitResponse) SetEnableApply(v string) *QueryDubbridgeCreditPermitResponse {
+	s.EnableApply = &v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19109,9 +19252,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.4"),
-				"_prod_code":       tea.String("RISKPLUS"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.16.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -21161,6 +21302,40 @@ func (client *Client) QueryDubbridgeRepayResultEx(request *QueryDubbridgeRepayRe
 	}
 	_result = &QueryDubbridgeRepayResultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.repay.result.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢准入接口
+ * Summary: 天枢准入接口
+ */
+func (client *Client) QueryDubbridgeCreditPermit(request *QueryDubbridgeCreditPermitRequest) (_result *QueryDubbridgeCreditPermitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCreditPermitResponse{}
+	_body, _err := client.QueryDubbridgeCreditPermitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢准入接口
+ * Summary: 天枢准入接口
+ */
+func (client *Client) QueryDubbridgeCreditPermitEx(request *QueryDubbridgeCreditPermitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditPermitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCreditPermitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.permit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
