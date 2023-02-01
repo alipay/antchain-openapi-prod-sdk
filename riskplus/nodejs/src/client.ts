@@ -8534,6 +8534,108 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeCreditPermitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 身份证号
+  cardNo?: string;
+  // 手机号
+  mobile: string;
+  // 姓名
+  customName?: string;
+  // 合作方产品编号
+  prodNo?: string;
+  // 1:app
+  // 2:H5
+  channelType?: string;
+  // 客户类型
+  // ("1", "新增客户"),("2", "存量激活客户"),("3", "目标营销账户")
+  customType?: string;
+  // 导流平台
+  trafficPlatform?: string;
+  // 流量来源名称
+  trafficSourceName?: string;
+  // 广告位标志
+  trafficAdId?: string;
+  // 营销id
+  trafficMktId?: string;
+  // 点击id
+  clickId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cardNo: 'card_no',
+      mobile: 'mobile',
+      customName: 'custom_name',
+      prodNo: 'prod_no',
+      channelType: 'channel_type',
+      customType: 'custom_type',
+      trafficPlatform: 'traffic_platform',
+      trafficSourceName: 'traffic_source_name',
+      trafficAdId: 'traffic_ad_id',
+      trafficMktId: 'traffic_mkt_id',
+      clickId: 'click_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cardNo: 'string',
+      mobile: 'string',
+      customName: 'string',
+      prodNo: 'string',
+      channelType: 'string',
+      customType: 'string',
+      trafficPlatform: 'string',
+      trafficSourceName: 'string',
+      trafficAdId: 'string',
+      trafficMktId: 'string',
+      clickId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditPermitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // Y：准入
+  // N：未准入
+  enableApply?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      enableApply: 'enable_apply',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      enableApply: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14331,9 +14433,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.4",
-          _prod_code: "RISKPLUS",
-          _prod_channel: "undefined",
+          sdk_version: "1.16.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -15500,6 +15600,25 @@ export default class Client {
   async queryDubbridgeRepayResultEx(request: QueryDubbridgeRepayResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepayResultResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeRepayResultResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepayResultResponse({}));
+  }
+
+  /**
+   * Description: 天枢准入接口
+   * Summary: 天枢准入接口
+   */
+  async queryDubbridgeCreditPermit(request: QueryDubbridgeCreditPermitRequest): Promise<QueryDubbridgeCreditPermitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCreditPermitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢准入接口
+   * Summary: 天枢准入接口
+   */
+  async queryDubbridgeCreditPermitEx(request: QueryDubbridgeCreditPermitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditPermitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCreditPermitResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditPermitResponse({}));
   }
 
   /**
