@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.4',
-    _prod_code = 'RISKPLUS',
-    _prod_channel = 'undefined'
+    sdk_version = '1.16.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -4540,6 +4538,67 @@ async function queryDubbridgeRepayResult(request: QueryDubbridgeRepayResultReque
 async function queryDubbridgeRepayResultEx(request: QueryDubbridgeRepayResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepayResultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.repay.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCreditPermitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证号
+  cardNo?: string(name='card_no'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 姓名
+  customName?: string(name='custom_name'),
+  // 合作方产品编号
+  prodNo?: string(name='prod_no'),
+  // 1:app
+  // 2:H5
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  // ("1", "新增客户"),("2", "存量激活客户"),("3", "目标营销账户")
+  customType?: string(name='custom_type'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量来源名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 营销id
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 点击id
+  clickId?: string(name='click_id'),
+}
+
+model QueryDubbridgeCreditPermitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Y：准入
+  // N：未准入
+  enableApply?: string(name='enable_apply'),
+}
+
+/**
+ * Description: 天枢准入接口
+ * Summary: 天枢准入接口
+ */
+async function queryDubbridgeCreditPermit(request: QueryDubbridgeCreditPermitRequest): QueryDubbridgeCreditPermitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCreditPermitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢准入接口
+ * Summary: 天枢准入接口
+ */
+async function queryDubbridgeCreditPermitEx(request: QueryDubbridgeCreditPermitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditPermitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.credit.permit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
