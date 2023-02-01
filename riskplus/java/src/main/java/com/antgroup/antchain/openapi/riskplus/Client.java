@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.4"),
-                    new TeaPair("_prod_code", "RISKPLUS"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.16.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1282,6 +1280,25 @@ public class Client {
     public QueryDubbridgeRepayResultResponse queryDubbridgeRepayResultEx(QueryDubbridgeRepayResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRepayResultResponse());
+    }
+
+    /**
+     * Description: 天枢准入接口
+     * Summary: 天枢准入接口
+     */
+    public QueryDubbridgeCreditPermitResponse queryDubbridgeCreditPermit(QueryDubbridgeCreditPermitRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCreditPermitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢准入接口
+     * Summary: 天枢准入接口
+     */
+    public QueryDubbridgeCreditPermitResponse queryDubbridgeCreditPermitEx(QueryDubbridgeCreditPermitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCreditPermitResponse());
     }
 
     /**
