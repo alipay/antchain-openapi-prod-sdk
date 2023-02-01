@@ -14198,6 +14198,169 @@ class QueryDubbridgeRepayResultResponse(TeaModel):
         return self
 
 
+class QueryDubbridgeCreditPermitRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        card_no: str = None,
+        mobile: str = None,
+        custom_name: str = None,
+        prod_no: str = None,
+        channel_type: str = None,
+        custom_type: str = None,
+        traffic_platform: str = None,
+        traffic_source_name: str = None,
+        traffic_ad_id: str = None,
+        traffic_mkt_id: str = None,
+        click_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 身份证号
+        self.card_no = card_no
+        # 手机号
+        self.mobile = mobile
+        # 姓名
+        self.custom_name = custom_name
+        # 合作方产品编号
+        self.prod_no = prod_no
+        # 1:app
+        # 2:H5
+        self.channel_type = channel_type
+        # 客户类型
+        # ("1", "新增客户"),("2", "存量激活客户"),("3", "目标营销账户")
+        self.custom_type = custom_type
+        # 导流平台
+        self.traffic_platform = traffic_platform
+        # 流量来源名称
+        self.traffic_source_name = traffic_source_name
+        # 广告位标志
+        self.traffic_ad_id = traffic_ad_id
+        # 营销id
+        self.traffic_mkt_id = traffic_mkt_id
+        # 点击id
+        self.click_id = click_id
+
+    def validate(self):
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.card_no is not None:
+            result['card_no'] = self.card_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.custom_name is not None:
+            result['custom_name'] = self.custom_name
+        if self.prod_no is not None:
+            result['prod_no'] = self.prod_no
+        if self.channel_type is not None:
+            result['channel_type'] = self.channel_type
+        if self.custom_type is not None:
+            result['custom_type'] = self.custom_type
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.traffic_source_name is not None:
+            result['traffic_source_name'] = self.traffic_source_name
+        if self.traffic_ad_id is not None:
+            result['traffic_ad_id'] = self.traffic_ad_id
+        if self.traffic_mkt_id is not None:
+            result['traffic_mkt_id'] = self.traffic_mkt_id
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('card_no') is not None:
+            self.card_no = m.get('card_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('custom_name') is not None:
+            self.custom_name = m.get('custom_name')
+        if m.get('prod_no') is not None:
+            self.prod_no = m.get('prod_no')
+        if m.get('channel_type') is not None:
+            self.channel_type = m.get('channel_type')
+        if m.get('custom_type') is not None:
+            self.custom_type = m.get('custom_type')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('traffic_source_name') is not None:
+            self.traffic_source_name = m.get('traffic_source_name')
+        if m.get('traffic_ad_id') is not None:
+            self.traffic_ad_id = m.get('traffic_ad_id')
+        if m.get('traffic_mkt_id') is not None:
+            self.traffic_mkt_id = m.get('traffic_mkt_id')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        return self
+
+
+class QueryDubbridgeCreditPermitResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        enable_apply: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # Y：准入
+        # N：未准入
+        self.enable_apply = enable_apply
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.enable_apply is not None:
+            result['enable_apply'] = self.enable_apply
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('enable_apply') is not None:
+            self.enable_apply = m.get('enable_apply')
+        return self
+
+
 class VerifyFinserviceZhimaIdentifyRequest(TeaModel):
     def __init__(
         self,
