@@ -137,9 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.4"},
-                        {"_prod_code", "RISKPLUS"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.16.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.4"},
-                        {"_prod_code", "RISKPLUS"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.16.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2801,6 +2797,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeRepayResultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.repay.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢准入接口
+         * Summary: 天枢准入接口
+         */
+        public QueryDubbridgeCreditPermitResponse QueryDubbridgeCreditPermit(QueryDubbridgeCreditPermitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeCreditPermitEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢准入接口
+         * Summary: 天枢准入接口
+         */
+        public async Task<QueryDubbridgeCreditPermitResponse> QueryDubbridgeCreditPermitAsync(QueryDubbridgeCreditPermitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeCreditPermitExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢准入接口
+         * Summary: 天枢准入接口
+         */
+        public QueryDubbridgeCreditPermitResponse QueryDubbridgeCreditPermitEx(QueryDubbridgeCreditPermitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCreditPermitResponse>(DoRequest("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢准入接口
+         * Summary: 天枢准入接口
+         */
+        public async Task<QueryDubbridgeCreditPermitResponse> QueryDubbridgeCreditPermitExAsync(QueryDubbridgeCreditPermitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCreditPermitResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
