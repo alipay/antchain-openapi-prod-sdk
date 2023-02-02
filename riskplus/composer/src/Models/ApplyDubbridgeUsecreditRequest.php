@@ -78,6 +78,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $customType;
+
+    // 风险数据对象（json字符串）
+    /**
+     * @var string
+     */
+    public $riskData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -91,6 +97,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'repayDate'         => 'repay_date',
         'channelType'       => 'channel_type',
         'customType'        => 'custom_type',
+        'riskData'          => 'risk_data',
     ];
 
     public function validate()
@@ -143,6 +150,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         if (null !== $this->customType) {
             $res['custom_type'] = $this->customType;
         }
+        if (null !== $this->riskData) {
+            $res['risk_data'] = $this->riskData;
+        }
 
         return $res;
     }
@@ -190,6 +200,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['custom_type'])) {
             $model->customType = $map['custom_type'];
+        }
+        if (isset($map['risk_data'])) {
+            $model->riskData = $map['risk_data'];
         }
 
         return $model;
