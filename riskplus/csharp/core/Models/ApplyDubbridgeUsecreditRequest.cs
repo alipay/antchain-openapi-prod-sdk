@@ -68,6 +68,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CustomType { get; set; }
 
+        // 风险数据对象（json字符串）
+        [NameInMap("risk_data")]
+        [Validation(Required=false)]
+        public string RiskData { get; set; }
+
     }
 
 }
