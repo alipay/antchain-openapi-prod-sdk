@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_df4e87d629564dbe99de26ec397fe8b0"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,6 +162,44 @@ public class Client {
     }
 
     /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口
+     */
+    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliation(ExecAntchainBbpContractReconciliationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntchainBbpContractReconciliationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 对账单执行
+     * Summary: 对账单执行接口
+     */
+    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliationEx(ExecAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntchainBbpContractReconciliationResponse());
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单
+     */
+    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliation(QueryAntchainBbpContractReconciliationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainBbpContractReconciliationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询结算单
+     * Summary: 查询结算单
+     */
+    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliationEx(QueryAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainBbpContractReconciliationResponse());
+    }
+
+    /**
      * Description: testa
      * Summary: 测试用api
      */
@@ -178,5 +216,24 @@ public class Client {
     public QueryDemoSaasTestTestaResponse queryDemoSaasTestTestaEx(QueryDemoSaasTestTestaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.saas.test.testa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoSaasTestTestaResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse());
     }
 }
