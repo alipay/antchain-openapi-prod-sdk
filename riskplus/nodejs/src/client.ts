@@ -7971,6 +7971,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   channelType?: string;
   // 客户类型
   customType?: string;
+  // 风险数据对象（json字符串）
+  riskData?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7985,6 +7987,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       repayDate: 'repay_date',
       channelType: 'channel_type',
       customType: 'custom_type',
+      riskData: 'risk_data',
     };
   }
 
@@ -8002,6 +8005,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       repayDate: 'string',
       channelType: 'string',
       customType: 'string',
+      riskData: 'string',
     };
   }
 
@@ -14433,7 +14437,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.5",
+          sdk_version: "1.16.6",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
