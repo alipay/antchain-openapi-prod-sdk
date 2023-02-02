@@ -10738,6 +10738,8 @@ type ApplyDubbridgeUsecreditRequest struct {
 	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
 	// 客户类型
 	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
+	// 风险数据对象（json字符串）
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -10805,6 +10807,11 @@ func (s *ApplyDubbridgeUsecreditRequest) SetChannelType(v string) *ApplyDubbridg
 
 func (s *ApplyDubbridgeUsecreditRequest) SetCustomType(v string) *ApplyDubbridgeUsecreditRequest {
 	s.CustomType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetRiskData(v string) *ApplyDubbridgeUsecreditRequest {
+	s.RiskData = &v
 	return s
 }
 
@@ -19252,7 +19259,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.5"),
+				"sdk_version":      tea.String("1.16.6"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
