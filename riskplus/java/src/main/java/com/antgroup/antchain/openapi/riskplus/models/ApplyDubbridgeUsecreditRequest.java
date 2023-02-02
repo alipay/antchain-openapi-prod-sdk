@@ -58,6 +58,10 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("custom_type")
     public String customType;
 
+    // 风险数据对象（json字符串）
+    @NameInMap("risk_data")
+    public String riskData;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -157,6 +161,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getCustomType() {
         return this.customType;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setRiskData(String riskData) {
+        this.riskData = riskData;
+        return this;
+    }
+    public String getRiskData() {
+        return this.riskData;
     }
 
 }
