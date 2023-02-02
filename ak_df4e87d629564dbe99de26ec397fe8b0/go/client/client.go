@@ -148,6 +148,242 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 对账单
+type Reconciliation struct {
+	// 供应商
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 供应商名称
+	SupName *string `json:"sup_name,omitempty" xml:"sup_name,omitempty" require:"true"`
+	// 结算金额(单位分)
+	SettlementAmount *int64 `json:"settlement_amount,omitempty" xml:"settlement_amount,omitempty" require:"true"`
+	// 长城确认时间
+	ConfirmDateGw *string `json:"confirm_date_gw,omitempty" xml:"confirm_date_gw,omitempty" require:"true"`
+	// 长城方确认人
+	ConfirmerGw *string `json:"confirmer_gw,omitempty" xml:"confirmer_gw,omitempty" require:"true"`
+	// 长城确认状态
+	ConfirmStateGw *string `json:"confirm_state_gw,omitempty" xml:"confirm_state_gw,omitempty" require:"true"`
+	// 服务方确认时间
+	ConfirmDateSup *string `json:"confirm_date_sup,omitempty" xml:"confirm_date_sup,omitempty" require:"true"`
+	// 服务方确认人
+	ConfirmerSup *string `json:"confirmer_sup,omitempty" xml:"confirmer_sup,omitempty" require:"true"`
+	// 服务方确认状态
+	ConfirmStateSup *string `json:"confirm_state_sup,omitempty" xml:"confirm_state_sup,omitempty" require:"true"`
+	// 计算时间
+	SocreDate *string `json:"socre_date,omitempty" xml:"socre_date,omitempty" require:"true"`
+}
+
+func (s Reconciliation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Reconciliation) GoString() string {
+	return s.String()
+}
+
+func (s *Reconciliation) SetSupCode(v string) *Reconciliation {
+	s.SupCode = &v
+	return s
+}
+
+func (s *Reconciliation) SetSupName(v string) *Reconciliation {
+	s.SupName = &v
+	return s
+}
+
+func (s *Reconciliation) SetSettlementAmount(v int64) *Reconciliation {
+	s.SettlementAmount = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmDateGw(v string) *Reconciliation {
+	s.ConfirmDateGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmerGw(v string) *Reconciliation {
+	s.ConfirmerGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmStateGw(v string) *Reconciliation {
+	s.ConfirmStateGw = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmDateSup(v string) *Reconciliation {
+	s.ConfirmDateSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmerSup(v string) *Reconciliation {
+	s.ConfirmerSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetConfirmStateSup(v string) *Reconciliation {
+	s.ConfirmStateSup = &v
+	return s
+}
+
+func (s *Reconciliation) SetSocreDate(v string) *Reconciliation {
+	s.SocreDate = &v
+	return s
+}
+
+type ExecAntchainBbpContractReconciliationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 供应商
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 结算时间
+	ScoreDate *string `json:"score_date,omitempty" xml:"score_date,omitempty" require:"true"`
+}
+
+func (s ExecAntchainBbpContractReconciliationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainBbpContractReconciliationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetAuthToken(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetProductInstanceId(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetSupCode(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.SupCode = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationRequest) SetScoreDate(v string) *ExecAntchainBbpContractReconciliationRequest {
+	s.ScoreDate = &v
+	return s
+}
+
+type ExecAntchainBbpContractReconciliationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结算单
+	Reconciliation *Reconciliation `json:"reconciliation,omitempty" xml:"reconciliation,omitempty"`
+}
+
+func (s ExecAntchainBbpContractReconciliationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainBbpContractReconciliationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetReqMsgId(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetResultCode(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetResultMsg(v string) *ExecAntchainBbpContractReconciliationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntchainBbpContractReconciliationResponse) SetReconciliation(v *Reconciliation) *ExecAntchainBbpContractReconciliationResponse {
+	s.Reconciliation = v
+	return s
+}
+
+type QueryAntchainBbpContractReconciliationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 供应商code
+	SupCode *string `json:"sup_code,omitempty" xml:"sup_code,omitempty" require:"true"`
+	// 月份
+	ScoreDates []*string `json:"score_dates,omitempty" xml:"score_dates,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryAntchainBbpContractReconciliationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainBbpContractReconciliationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainBbpContractReconciliationRequest) SetAuthToken(v string) *QueryAntchainBbpContractReconciliationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationRequest) SetProductInstanceId(v string) *QueryAntchainBbpContractReconciliationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationRequest) SetSupCode(v string) *QueryAntchainBbpContractReconciliationRequest {
+	s.SupCode = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationRequest) SetScoreDates(v []*string) *QueryAntchainBbpContractReconciliationRequest {
+	s.ScoreDates = v
+	return s
+}
+
+type QueryAntchainBbpContractReconciliationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结算单
+	Reconciliations []*Reconciliation `json:"reconciliations,omitempty" xml:"reconciliations,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntchainBbpContractReconciliationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainBbpContractReconciliationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainBbpContractReconciliationResponse) SetReqMsgId(v string) *QueryAntchainBbpContractReconciliationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationResponse) SetResultCode(v string) *QueryAntchainBbpContractReconciliationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationResponse) SetResultMsg(v string) *QueryAntchainBbpContractReconciliationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainBbpContractReconciliationResponse) SetReconciliations(v []*Reconciliation) *QueryAntchainBbpContractReconciliationResponse {
+	s.Reconciliations = v
+	return s
+}
+
 type QueryDemoSaasTestTestaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -222,6 +458,62 @@ func (s *QueryDemoSaasTestTestaResponse) SetResultMsg(v string) *QueryDemoSaasTe
 
 func (s *QueryDemoSaasTestTestaResponse) SetSex(v string) *QueryDemoSaasTestTestaResponse {
 	s.Sex = &v
+	return s
+}
+
+type QueryDemoAbcAbcAbcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoAbcAbcAbcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAbcAbcAbcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAbcAbcAbcRequest) SetAuthToken(v string) *QueryDemoAbcAbcAbcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcRequest) SetProductInstanceId(v string) *QueryDemoAbcAbcAbcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoAbcAbcAbcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoAbcAbcAbcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAbcAbcAbcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetReqMsgId(v string) *QueryDemoAbcAbcAbcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetResultCode(v string) *QueryDemoAbcAbcAbcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetResultMsg(v string) *QueryDemoAbcAbcAbcResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -347,7 +639,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_df4e87d629564dbe99de26ec397fe8b0"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -406,6 +698,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
+ */
+func (client *Client) ExecAntchainBbpContractReconciliation(request *ExecAntchainBbpContractReconciliationRequest) (_result *ExecAntchainBbpContractReconciliationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.ExecAntchainBbpContractReconciliationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对账单执行
+ * Summary: 对账单执行接口
+ */
+func (client *Client) ExecAntchainBbpContractReconciliationEx(request *ExecAntchainBbpContractReconciliationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntchainBbpContractReconciliationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.reconciliation.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询结算单
+ * Summary: 查询结算单
+ */
+func (client *Client) QueryAntchainBbpContractReconciliation(request *QueryAntchainBbpContractReconciliationRequest) (_result *QueryAntchainBbpContractReconciliationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.QueryAntchainBbpContractReconciliationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询结算单
+ * Summary: 查询结算单
+ */
+func (client *Client) QueryAntchainBbpContractReconciliationEx(request *QueryAntchainBbpContractReconciliationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainBbpContractReconciliationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainBbpContractReconciliationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.contract.reconciliation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: testa
  * Summary: 测试用api
  */
@@ -432,6 +792,40 @@ func (client *Client) QueryDemoSaasTestTestaEx(request *QueryDemoSaasTestTestaRe
 	}
 	_result = &QueryDemoSaasTestTestaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.saas.test.testa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试创建,用于测试API的修改
+ * Summary: 自动化测试创建,用于测试API的修改勿动
+ */
+func (client *Client) QueryDemoAbcAbcAbc(request *QueryDemoAbcAbcAbcRequest) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoAbcAbcAbcResponse{}
+	_body, _err := client.QueryDemoAbcAbcAbcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试创建,用于测试API的修改
+ * Summary: 自动化测试创建,用于测试API的修改勿动
+ */
+func (client *Client) QueryDemoAbcAbcAbcEx(request *QueryDemoAbcAbcAbcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoAbcAbcAbcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.abc.abc.abc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
