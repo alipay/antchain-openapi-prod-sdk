@@ -13233,6 +13233,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         repay_date: str = None,
         channel_type: str = None,
         custom_type: str = None,
+        risk_data: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13257,6 +13258,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.channel_type = channel_type
         # 客户类型
         self.custom_type = custom_type
+        # 风险数据对象（json字符串）
+        self.risk_data = risk_data
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -13297,6 +13300,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             result['channel_type'] = self.channel_type
         if self.custom_type is not None:
             result['custom_type'] = self.custom_type
+        if self.risk_data is not None:
+            result['risk_data'] = self.risk_data
         return result
 
     def from_map(self, m: dict = None):
@@ -13325,6 +13330,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             self.channel_type = m.get('channel_type')
         if m.get('custom_type') is not None:
             self.custom_type = m.get('custom_type')
+        if m.get('risk_data') is not None:
+            self.risk_data = m.get('risk_data')
         return self
 
 
