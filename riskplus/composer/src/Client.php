@@ -223,6 +223,8 @@ use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoRequest;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
@@ -424,7 +426,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.6',
+                    'sdk_version'      => '1.16.8',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4882,6 +4884,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryUmktRtTopnResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.topn.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口.
+     *
+     * @param QueryUmktRobotcallStatisticinfoRequest $request
+     *
+     * @return QueryUmktRobotcallStatisticinfoResponse
+     */
+    public function queryUmktRobotcallStatisticinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktRobotcallStatisticinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口.
+     *
+     * @param QueryUmktRobotcallStatisticinfoRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryUmktRobotcallStatisticinfoResponse
+     */
+    public function queryUmktRobotcallStatisticinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
