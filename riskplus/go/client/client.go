@@ -19017,6 +19017,118 @@ func (s *BatchqueryUmktRtTopnResponse) SetQueryResult(v []*CustomerUmktInfoModel
 	return s
 }
 
+type QueryUmktRobotcallStatisticinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客户透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty" require:"true"`
+}
+
+func (s QueryUmktRobotcallStatisticinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRobotcallStatisticinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRobotcallStatisticinfoRequest) SetAuthToken(v string) *QueryUmktRobotcallStatisticinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoRequest) SetProductInstanceId(v string) *QueryUmktRobotcallStatisticinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoRequest) SetSceneStrategyId(v int64) *QueryUmktRobotcallStatisticinfoRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoRequest) SetOutInfo(v string) *QueryUmktRobotcallStatisticinfoRequest {
+	s.OutInfo = &v
+	return s
+}
+
+type QueryUmktRobotcallStatisticinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 全量手机号数量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 累计拨打次数
+	CallCount *int64 `json:"call_count,omitempty" xml:"call_count,omitempty"`
+	// 已经拨打的手机号数量
+	CalleeCount *int64 `json:"callee_count,omitempty" xml:"callee_count,omitempty"`
+	// 已拨打次数中接通的数量
+	ConnectCount *int64 `json:"connect_count,omitempty" xml:"connect_count,omitempty"`
+	// 拨打率
+	CallRate *int64 `json:"call_rate,omitempty" xml:"call_rate,omitempty"`
+	// 接通率
+	ConnectRate *int64 `json:"connect_rate,omitempty" xml:"connect_rate,omitempty"`
+}
+
+func (s QueryUmktRobotcallStatisticinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRobotcallStatisticinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetReqMsgId(v string) *QueryUmktRobotcallStatisticinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetResultCode(v string) *QueryUmktRobotcallStatisticinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetResultMsg(v string) *QueryUmktRobotcallStatisticinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetTotalCount(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetCallCount(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.CallCount = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetCalleeCount(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.CalleeCount = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectCount(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.ConnectCount = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetCallRate(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.CallRate = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectRate(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+	s.ConnectRate = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19259,7 +19371,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.6"),
+				"sdk_version":      tea.String("1.16.8"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -23887,6 +23999,40 @@ func (client *Client) BatchqueryUmktRtTopnEx(request *BatchqueryUmktRtTopnReques
 	}
 	_result = &BatchqueryUmktRtTopnResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.topn.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+func (client *Client) QueryUmktRobotcallStatisticinfo(request *QueryUmktRobotcallStatisticinfoRequest) (_result *QueryUmktRobotcallStatisticinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktRobotcallStatisticinfoResponse{}
+	_body, _err := client.QueryUmktRobotcallStatisticinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+func (client *Client) QueryUmktRobotcallStatisticinfoEx(request *QueryUmktRobotcallStatisticinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktRobotcallStatisticinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktRobotcallStatisticinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.statisticinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
