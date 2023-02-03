@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.6"},
+                        {"sdk_version", "1.16.8"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.6"},
+                        {"sdk_version", "1.16.8"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6005,6 +6005,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryUmktRtTopnResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.topn.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public QueryUmktRobotcallStatisticinfoResponse QueryUmktRobotcallStatisticinfo(QueryUmktRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktRobotcallStatisticinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public async Task<QueryUmktRobotcallStatisticinfoResponse> QueryUmktRobotcallStatisticinfoAsync(QueryUmktRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktRobotcallStatisticinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public QueryUmktRobotcallStatisticinfoResponse QueryUmktRobotcallStatisticinfoEx(QueryUmktRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktRobotcallStatisticinfoResponse>(DoRequest("1.0", "riskplus.umkt.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public async Task<QueryUmktRobotcallStatisticinfoResponse> QueryUmktRobotcallStatisticinfoExAsync(QueryUmktRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktRobotcallStatisticinfoResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
