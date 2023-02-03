@@ -23725,6 +23725,139 @@ class BatchqueryUmktRtTopnResponse(TeaModel):
         return self
 
 
+class QueryUmktRobotcallStatisticinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: int = None,
+        out_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 客户透传字段
+        self.out_info = out_info
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.out_info, 'out_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        return self
+
+
+class QueryUmktRobotcallStatisticinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_count: int = None,
+        call_count: int = None,
+        callee_count: int = None,
+        connect_count: int = None,
+        call_rate: int = None,
+        connect_rate: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 全量手机号数量
+        self.total_count = total_count
+        # 累计拨打次数
+        self.call_count = call_count
+        # 已经拨打的手机号数量
+        self.callee_count = callee_count
+        # 已拨打次数中接通的数量
+        self.connect_count = connect_count
+        # 拨打率
+        self.call_rate = call_rate
+        # 接通率
+        self.connect_rate = connect_rate
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.call_count is not None:
+            result['call_count'] = self.call_count
+        if self.callee_count is not None:
+            result['callee_count'] = self.callee_count
+        if self.connect_count is not None:
+            result['connect_count'] = self.connect_count
+        if self.call_rate is not None:
+            result['call_rate'] = self.call_rate
+        if self.connect_rate is not None:
+            result['connect_rate'] = self.connect_rate
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('call_count') is not None:
+            self.call_count = m.get('call_count')
+        if m.get('callee_count') is not None:
+            self.callee_count = m.get('callee_count')
+        if m.get('connect_count') is not None:
+            self.connect_count = m.get('connect_count')
+        if m.get('call_rate') is not None:
+            self.call_rate = m.get('call_rate')
+        if m.get('connect_rate') is not None:
+            self.connect_rate = m.get('connect_rate')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.6',
+                    'sdk_version': '1.16.8',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.6',
+                    'sdk_version': '1.16.8',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -7771,6 +7771,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.BatchqueryUmktRtTopnResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.topn.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_robotcall_statisticinfo(
+        self,
+        request: riskplus_models.QueryUmktRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryUmktRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_robotcall_statisticinfo_ex(request, headers, runtime)
+
+    async def query_umkt_robotcall_statisticinfo_async(
+        self,
+        request: riskplus_models.QueryUmktRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryUmktRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_robotcall_statisticinfo_ex_async(request, headers, runtime)
+
+    def query_umkt_robotcall_statisticinfo_ex(
+        self,
+        request: riskplus_models.QueryUmktRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktRobotcallStatisticinfoResponse(),
+            self.do_request('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_robotcall_statisticinfo_ex_async(
+        self,
+        request: riskplus_models.QueryUmktRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktRobotcallStatisticinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
