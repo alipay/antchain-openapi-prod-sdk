@@ -14236,6 +14236,89 @@ export class BatchqueryUmktRtTopnResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktRobotcallStatisticinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktRobotcallStatisticinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 全量手机号数量
+  totalCount?: number;
+  // 累计拨打次数
+  callCount?: number;
+  // 已经拨打的手机号数量
+  calleeCount?: number;
+  // 已拨打次数中接通的数量
+  connectCount?: number;
+  // 拨打率
+  callRate?: number;
+  // 接通率
+  connectRate?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      callCount: 'call_count',
+      calleeCount: 'callee_count',
+      connectCount: 'connect_count',
+      callRate: 'call_rate',
+      connectRate: 'connect_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      callCount: 'number',
+      calleeCount: 'number',
+      connectCount: 'number',
+      callRate: 'number',
+      connectRate: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14437,7 +14520,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.6",
+          sdk_version: "1.16.8",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -17056,6 +17139,25 @@ export default class Client {
   async batchqueryUmktRtTopnEx(request: BatchqueryUmktRtTopnRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtTopnResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryUmktRtTopnResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.topn.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtTopnResponse({}));
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary: 外呼任务统计查询接口
+   */
+  async queryUmktRobotcallStatisticinfo(request: QueryUmktRobotcallStatisticinfoRequest): Promise<QueryUmktRobotcallStatisticinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktRobotcallStatisticinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary: 外呼任务统计查询接口
+   */
+  async queryUmktRobotcallStatisticinfoEx(request: QueryUmktRobotcallStatisticinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRobotcallStatisticinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktRobotcallStatisticinfoResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.statisticinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRobotcallStatisticinfoResponse({}));
   }
 
   /**
