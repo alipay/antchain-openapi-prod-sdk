@@ -279,10 +279,13 @@ export class ProudctInfo extends $tea.Model {
   name: string;
   // 商品图片链接列表
   proudctImages?: string[];
+  // 商品描述
+  productDesc?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
       proudctImages: 'proudct_images',
+      productDesc: 'product_desc',
     };
   }
 
@@ -290,6 +293,7 @@ export class ProudctInfo extends $tea.Model {
     return {
       name: 'string',
       proudctImages: { 'type': 'array', 'itemType': 'string' },
+      productDesc: 'string',
     };
   }
 
@@ -2439,9 +2443,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.7",
-          _prod_code: "MYTC",
-          _prod_channel: "undefined",
+          sdk_version: "1.2.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
