@@ -14283,9 +14283,9 @@ export class QueryUmktRobotcallStatisticinfoResponse extends $tea.Model {
   // 已拨打次数中接通的数量
   connectCount?: number;
   // 拨打率
-  callRate?: number;
+  callRate?: string;
   // 接通率
-  connectRate?: number;
+  connectRate?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -14309,8 +14309,8 @@ export class QueryUmktRobotcallStatisticinfoResponse extends $tea.Model {
       callCount: 'number',
       calleeCount: 'number',
       connectCount: 'number',
-      callRate: 'number',
-      connectRate: 'number',
+      callRate: 'string',
+      connectRate: 'string',
     };
   }
 
@@ -14520,7 +14520,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.8",
+          sdk_version: "1.16.10",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
