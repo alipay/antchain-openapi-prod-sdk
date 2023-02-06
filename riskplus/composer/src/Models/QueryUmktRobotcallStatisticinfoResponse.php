@@ -52,13 +52,13 @@ class QueryUmktRobotcallStatisticinfoResponse extends Model
 
     // 拨打率
     /**
-     * @var int
+     * @var string
      */
     public $callRate;
 
     // 接通率
     /**
-     * @var int
+     * @var string
      */
     public $connectRate;
     protected $_name = [
