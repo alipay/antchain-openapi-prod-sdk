@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckRouteThreemetaRequest extends Model
+class QueryThreemetaSeconddistributeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,23 +19,11 @@ class CheckRouteThreemetaRequest extends Model
      */
     public $productInstanceId;
 
-    // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+    // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
     /**
      * @var string
      */
     public $outerOrderNo;
-
-    // 姓名
-    /**
-     * @var string
-     */
-    public $certName;
-
-    // 身份证号
-    /**
-     * @var string
-     */
-    public $certNo;
 
     // 手机号
     /**
@@ -43,19 +31,13 @@ class CheckRouteThreemetaRequest extends Model
      */
     public $mobile;
 
-    // 使用场景
+    // 日期
     /**
      * @var string
      */
-    public $scene;
+    public $date;
 
-    // 三要素的加密方式，NONE/MD5/SHA256
-    /**
-     * @var string
-     */
-    public $reqEncType;
-
-    // map结果的json数据格式，预留字段
+    // 扩展信息，Map的json格式
     /**
      * @var string
      */
@@ -64,21 +46,16 @@ class CheckRouteThreemetaRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
         'mobile'            => 'mobile',
-        'scene'             => 'scene',
-        'reqEncType'        => 'req_enc_type',
+        'date'              => 'date',
         'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('date', $this->date, true);
     }
 
     public function toMap()
@@ -93,20 +70,11 @@ class CheckRouteThreemetaRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->certName) {
-            $res['cert_name'] = $this->certName;
-        }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
-        }
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
-        }
-        if (null !== $this->reqEncType) {
-            $res['req_enc_type'] = $this->reqEncType;
+        if (null !== $this->date) {
+            $res['date'] = $this->date;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -118,7 +86,7 @@ class CheckRouteThreemetaRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckRouteThreemetaRequest
+     * @return QueryThreemetaSeconddistributeRequest
      */
     public static function fromMap($map = [])
     {
@@ -132,20 +100,11 @@ class CheckRouteThreemetaRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['cert_name'])) {
-            $model->certName = $map['cert_name'];
-        }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
-        }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
         }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
-        }
-        if (isset($map['req_enc_type'])) {
-            $model->reqEncType = $map['req_enc_type'];
+        if (isset($map['date'])) {
+            $model->date = $map['date'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

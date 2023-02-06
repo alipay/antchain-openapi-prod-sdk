@@ -23,6 +23,8 @@ use AntChain\REALPERSON\Models\CheckRouteThreemetaRequest;
 use AntChain\REALPERSON\Models\CheckRouteThreemetaResponse;
 use AntChain\REALPERSON\Models\CheckRouteTwometaRequest;
 use AntChain\REALPERSON\Models\CheckRouteTwometaResponse;
+use AntChain\REALPERSON\Models\CheckThreemetaBankcardRequest;
+use AntChain\REALPERSON\Models\CheckThreemetaBankcardResponse;
 use AntChain\REALPERSON\Models\CheckTwometaHashRequest;
 use AntChain\REALPERSON\Models\CheckTwometaHashResponse;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -45,6 +47,8 @@ use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
+use AntChain\REALPERSON\Models\QueryThreemetaSeconddistributeRequest;
+use AntChain\REALPERSON\Models\QueryThreemetaSeconddistributeResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -198,9 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.1',
-                    '_prod_code'       => 'REALPERSON',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.10.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -889,6 +891,72 @@ class Client
         Utils::validateModel($request);
 
         return RecognizeDocIndividualcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人银行卡三要素
+     * Summary: 个人银行卡三要素.
+     *
+     * @param CheckThreemetaBankcardRequest $request
+     *
+     * @return CheckThreemetaBankcardResponse
+     */
+    public function checkThreemetaBankcard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkThreemetaBankcardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人银行卡三要素
+     * Summary: 个人银行卡三要素.
+     *
+     * @param CheckThreemetaBankcardRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CheckThreemetaBankcardResponse
+     */
+    public function checkThreemetaBankcardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckThreemetaBankcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号.
+     *
+     * @param QueryThreemetaSeconddistributeRequest $request
+     *
+     * @return QueryThreemetaSeconddistributeResponse
+     */
+    public function queryThreemetaSeconddistribute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThreemetaSeconddistributeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号.
+     *
+     * @param QueryThreemetaSeconddistributeRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryThreemetaSeconddistributeResponse
+     */
+    public function queryThreemetaSeconddistributeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThreemetaSeconddistributeResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
