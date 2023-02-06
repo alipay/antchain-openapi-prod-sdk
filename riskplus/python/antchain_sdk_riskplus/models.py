@@ -23784,8 +23784,8 @@ class QueryUmktRobotcallStatisticinfoResponse(TeaModel):
         call_count: int = None,
         callee_count: int = None,
         connect_count: int = None,
-        call_rate: int = None,
-        connect_rate: int = None,
+        call_rate: str = None,
+        connect_rate: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
