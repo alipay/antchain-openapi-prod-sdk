@@ -400,6 +400,8 @@ type ProudctInfo struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 商品图片链接列表
 	ProudctImages []*string `json:"proudct_images,omitempty" xml:"proudct_images,omitempty" type:"Repeated"`
+	// 商品描述
+	ProductDesc *string `json:"product_desc,omitempty" xml:"product_desc,omitempty"`
 }
 
 func (s ProudctInfo) String() string {
@@ -417,6 +419,11 @@ func (s *ProudctInfo) SetName(v string) *ProudctInfo {
 
 func (s *ProudctInfo) SetProudctImages(v []*string) *ProudctInfo {
 	s.ProudctImages = v
+	return s
+}
+
+func (s *ProudctInfo) SetProductDesc(v string) *ProudctInfo {
+	s.ProductDesc = &v
 	return s
 }
 
@@ -2881,7 +2888,7 @@ type VerifyMiniNfcRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 动态秘钥字符串信息
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true" maxLength:"160"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true" maxLength:"250"`
 	// NFC UID
 	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
 }
@@ -3216,9 +3223,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.7"),
-				"_prod_code":       tea.String("MYTC"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.2.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
