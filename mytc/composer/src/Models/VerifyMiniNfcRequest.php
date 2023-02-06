@@ -40,7 +40,7 @@ class VerifyMiniNfcRequest extends Model
     public function validate()
     {
         Model::validateRequired('code', $this->code, true);
-        Model::validateMaxLength('code', $this->code, 160);
+        Model::validateMaxLength('code', $this->code, 250);
     }
 
     public function toMap()

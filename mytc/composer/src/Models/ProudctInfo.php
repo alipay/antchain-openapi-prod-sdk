@@ -23,9 +23,18 @@ class ProudctInfo extends Model
      * @var string[]
      */
     public $proudctImages;
+
+    // 商品描述
+    /**
+     * @example 匠心铸造，大师杰作
+     *
+     * @var string
+     */
+    public $productDesc;
     protected $_name = [
         'name'          => 'name',
         'proudctImages' => 'proudct_images',
+        'productDesc'   => 'product_desc',
     ];
 
     public function validate()
@@ -41,6 +50,9 @@ class ProudctInfo extends Model
         }
         if (null !== $this->proudctImages) {
             $res['proudct_images'] = $this->proudctImages;
+        }
+        if (null !== $this->productDesc) {
+            $res['product_desc'] = $this->productDesc;
         }
 
         return $res;
@@ -61,6 +73,9 @@ class ProudctInfo extends Model
             if (!empty($map['proudct_images'])) {
                 $model->proudctImages = $map['proudct_images'];
             }
+        }
+        if (isset($map['product_desc'])) {
+            $model->productDesc = $map['product_desc'];
         }
 
         return $model;
