@@ -19071,9 +19071,9 @@ type QueryUmktRobotcallStatisticinfoResponse struct {
 	// 已拨打次数中接通的数量
 	ConnectCount *int64 `json:"connect_count,omitempty" xml:"connect_count,omitempty"`
 	// 拨打率
-	CallRate *int64 `json:"call_rate,omitempty" xml:"call_rate,omitempty"`
+	CallRate *string `json:"call_rate,omitempty" xml:"call_rate,omitempty"`
 	// 接通率
-	ConnectRate *int64 `json:"connect_rate,omitempty" xml:"connect_rate,omitempty"`
+	ConnectRate *string `json:"connect_rate,omitempty" xml:"connect_rate,omitempty"`
 }
 
 func (s QueryUmktRobotcallStatisticinfoResponse) String() string {
@@ -19119,12 +19119,12 @@ func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectCount(v int64) *Quer
 	return s
 }
 
-func (s *QueryUmktRobotcallStatisticinfoResponse) SetCallRate(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetCallRate(v string) *QueryUmktRobotcallStatisticinfoResponse {
 	s.CallRate = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectRate(v int64) *QueryUmktRobotcallStatisticinfoResponse {
+func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectRate(v string) *QueryUmktRobotcallStatisticinfoResponse {
 	s.ConnectRate = &v
 	return s
 }
@@ -19371,7 +19371,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.8"),
+				"sdk_version":      tea.String("1.16.10"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
