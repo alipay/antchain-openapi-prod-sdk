@@ -464,11 +464,14 @@ class ProudctInfo(TeaModel):
         self,
         name: str = None,
         proudct_images: List[str] = None,
+        product_desc: str = None,
     ):
         # 商品名称
         self.name = name
         # 商品图片链接列表
         self.proudct_images = proudct_images
+        # 商品描述
+        self.product_desc = product_desc
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -483,6 +486,8 @@ class ProudctInfo(TeaModel):
             result['name'] = self.name
         if self.proudct_images is not None:
             result['proudct_images'] = self.proudct_images
+        if self.product_desc is not None:
+            result['product_desc'] = self.product_desc
         return result
 
     def from_map(self, m: dict = None):
@@ -491,6 +496,8 @@ class ProudctInfo(TeaModel):
             self.name = m.get('name')
         if m.get('proudct_images') is not None:
             self.proudct_images = m.get('proudct_images')
+        if m.get('product_desc') is not None:
+            self.product_desc = m.get('product_desc')
         return self
 
 
@@ -3653,7 +3660,7 @@ class VerifyMiniNfcRequest(TeaModel):
     def validate(self):
         self.validate_required(self.code, 'code')
         if self.code is not None:
-            self.validate_max_length(self.code, 'code', 160)
+            self.validate_max_length(self.code, 'code', 250)
 
     def to_map(self):
         _map = super().to_map()
