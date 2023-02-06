@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.1',
-    _prod_code = 'REALPERSON',
-    _prod_channel = 'undefined'
+    sdk_version = '1.10.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -601,6 +599,8 @@ model CheckRouteThreemetaRequest = {
   mobile: string(name='mobile'),
   // 使用场景
   scene: string(name='scene'),
+  // 三要素的加密方式，NONE/MD5/SHA256
+  reqEncType?: string(name='req_enc_type'),
   // map结果的json数据格式，预留字段
   externParam?: string(name='extern_param'),
 }
@@ -1242,6 +1242,100 @@ async function recognizeDocIndividualcard(request: RecognizeDocIndividualcardReq
 async function recognizeDocIndividualcardEx(request: RecognizeDocIndividualcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeDocIndividualcardResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckThreemetaBankcardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 银行卡号
+  bankCard: string(name='bank_card'),
+  // 扩展信息，Map的json格式
+  externParam?: string(name='extern_param'),
+}
+
+model CheckThreemetaBankcardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true:匹配成功 false：匹配失败
+  match?: string(name='match'),
+  // 扩展信息，Map的json格式。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人银行卡三要素
+ * Summary: 个人银行卡三要素
+ */
+async function checkThreemetaBankcard(request: CheckThreemetaBankcardRequest): CheckThreemetaBankcardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkThreemetaBankcardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人银行卡三要素
+ * Summary: 个人银行卡三要素
+ */
+async function checkThreemetaBankcardEx(request: CheckThreemetaBankcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckThreemetaBankcardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThreemetaSeconddistributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 日期
+  date: string(name='date'),
+  // 扩展信息，Map的json格式
+  externParam?: string(name='extern_param'),
+}
+
+model QueryThreemetaSeconddistributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
+  result?: string(name='result'),
+  // 扩展信息，Map的json格式。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号
+ */
+async function queryThreemetaSeconddistribute(request: QueryThreemetaSeconddistributeRequest): QueryThreemetaSeconddistributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThreemetaSeconddistributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号
+ */
+async function queryThreemetaSeconddistributeEx(request: QueryThreemetaSeconddistributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThreemetaSeconddistributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
