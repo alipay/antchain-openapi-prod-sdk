@@ -1187,6 +1187,8 @@ type CheckRouteThreemetaRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 使用场景
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 三要素的加密方式，NONE/MD5/SHA256
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
 	// map结果的json数据格式，预留字段
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -1231,6 +1233,11 @@ func (s *CheckRouteThreemetaRequest) SetMobile(v string) *CheckRouteThreemetaReq
 
 func (s *CheckRouteThreemetaRequest) SetScene(v string) *CheckRouteThreemetaRequest {
 	s.Scene = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetReqEncType(v string) *CheckRouteThreemetaRequest {
+	s.ReqEncType = &v
 	return s
 }
 
@@ -2612,6 +2619,209 @@ func (s *RecognizeDocIndividualcardResponse) SetExtInfo(v string) *RecognizeDocI
 	return s
 }
 
+type CheckThreemetaBankcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 扩展信息，Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckThreemetaBankcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckThreemetaBankcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckThreemetaBankcardRequest) SetAuthToken(v string) *CheckThreemetaBankcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetProductInstanceId(v string) *CheckThreemetaBankcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetOuterOrderNo(v string) *CheckThreemetaBankcardRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertName(v string) *CheckThreemetaBankcardRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertNo(v string) *CheckThreemetaBankcardRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetBankCard(v string) *CheckThreemetaBankcardRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetExternParam(v string) *CheckThreemetaBankcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckThreemetaBankcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，Map的json格式。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckThreemetaBankcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckThreemetaBankcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckThreemetaBankcardResponse) SetReqMsgId(v string) *CheckThreemetaBankcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetResultCode(v string) *CheckThreemetaBankcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetResultMsg(v string) *CheckThreemetaBankcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetMatch(v string) *CheckThreemetaBankcardResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetExternInfo(v string) *CheckThreemetaBankcardResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryThreemetaSeconddistributeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 扩展信息，Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaSeconddistributeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaSeconddistributeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetAuthToken(v string) *QueryThreemetaSeconddistributeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetProductInstanceId(v string) *QueryThreemetaSeconddistributeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetOuterOrderNo(v string) *QueryThreemetaSeconddistributeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetMobile(v string) *QueryThreemetaSeconddistributeRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetDate(v string) *QueryThreemetaSeconddistributeRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeRequest) SetExternParam(v string) *QueryThreemetaSeconddistributeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaSeconddistributeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// YES：二次放号；NO：不是二次放号；CANCELLED：已销号
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 扩展信息，Map的json格式。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaSeconddistributeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaSeconddistributeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaSeconddistributeResponse) SetReqMsgId(v string) *QueryThreemetaSeconddistributeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeResponse) SetResultCode(v string) *QueryThreemetaSeconddistributeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeResponse) SetResultMsg(v string) *QueryThreemetaSeconddistributeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeResponse) SetResult(v string) *QueryThreemetaSeconddistributeResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *QueryThreemetaSeconddistributeResponse) SetExternInfo(v string) *QueryThreemetaSeconddistributeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2854,9 +3064,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.1"),
-				"_prod_code":       tea.String("REALPERSON"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.10.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3580,6 +3788,74 @@ func (client *Client) RecognizeDocIndividualcardEx(request *RecognizeDocIndividu
 	}
 	_result = &RecognizeDocIndividualcardResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.doc.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡三要素
+ * Summary: 个人银行卡三要素
+ */
+func (client *Client) CheckThreemetaBankcard(request *CheckThreemetaBankcardRequest) (_result *CheckThreemetaBankcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckThreemetaBankcardResponse{}
+	_body, _err := client.CheckThreemetaBankcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡三要素
+ * Summary: 个人银行卡三要素
+ */
+func (client *Client) CheckThreemetaBankcardEx(request *CheckThreemetaBankcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckThreemetaBankcardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckThreemetaBankcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.bankcard.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号
+ */
+func (client *Client) QueryThreemetaSeconddistribute(request *QueryThreemetaSeconddistributeRequest) (_result *QueryThreemetaSeconddistributeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaSeconddistributeResponse{}
+	_body, _err := client.QueryThreemetaSeconddistributeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号
+ */
+func (client *Client) QueryThreemetaSeconddistributeEx(request *QueryThreemetaSeconddistributeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaSeconddistributeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaSeconddistributeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.seconddistribute.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
