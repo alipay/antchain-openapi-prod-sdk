@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.8',
+    sdk_version = '1.16.10',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -8092,9 +8092,9 @@ model QueryUmktRobotcallStatisticinfoResponse = {
   // 已拨打次数中接通的数量
   connectCount?: long(name='connect_count'),
   // 拨打率
-  callRate?: long(name='call_rate'),
+  callRate?: string(name='call_rate'),
   // 接通率
-  connectRate?: long(name='connect_rate'),
+  connectRate?: string(name='connect_rate'),
 }
 
 /**
