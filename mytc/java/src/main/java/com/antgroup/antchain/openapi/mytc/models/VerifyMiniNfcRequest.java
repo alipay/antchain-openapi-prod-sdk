@@ -13,7 +13,7 @@ public class VerifyMiniNfcRequest extends TeaModel {
 
     // 动态秘钥字符串信息
     @NameInMap("code")
-    @Validation(required = true, maxLength = 160)
+    @Validation(required = true, maxLength = 250)
     public String code;
 
     // NFC UID
