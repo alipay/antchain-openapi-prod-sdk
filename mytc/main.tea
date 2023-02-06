@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.7',
-    _prod_code = 'MYTC',
-    _prod_channel = 'undefined'
+    sdk_version = '1.2.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -247,6 +245,8 @@ model ProudctInfo {
   name: string(name='name', example='爆款鞋子'),
   // 商品图片链接列表
   proudctImages?: [ string ](name='proudct_images', example=''),
+  // 商品描述
+  productDesc?: string(name='product_desc', example='匠心铸造，大师杰作'),
 }
 
 // 溯源码关联信息
@@ -1417,7 +1417,7 @@ model VerifyMiniNfcRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 动态秘钥字符串信息
-  code: string(maxLength=160, name='code'),
+  code: string(maxLength=250, name='code'),
   // NFC UID
   uid?: string(name='uid'),
 }

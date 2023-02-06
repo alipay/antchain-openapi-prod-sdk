@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MYTC",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mytc:1.2.7",
-    "go": "github.com/antchain-openapi-sdk-go/mytc/client:v1.2.7",
-    "csharp": "AntChain.SDK.MYTC:1.2.7",
-    "ts": "@antchain/mytc:1.2.7",
-    "php": "antchain/mytc:1.2.7",
-    "python": "antchain_sdk_mytc:1.2.7"
+    "java": "com.antgroup.antchain.openapi:openapi-mytc:1.2.9",
+    "go": "github.com/antchain-openapi-sdk-go/mytc/client:v1.2.9",
+    "csharp": "AntChain.SDK.MYTC:1.2.9",
+    "ts": "@antchain/mytc:1.2.9",
+    "php": "antchain/mytc:1.2.9",
+    "python": "antchain_sdk_mytc:1.2.9"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
