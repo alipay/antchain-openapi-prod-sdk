@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.1"),
-                    new TeaPair("_prod_code", "REALPERSON"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.10.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -541,6 +539,44 @@ public class Client {
     public RecognizeDocIndividualcardResponse recognizeDocIndividualcardEx(RecognizeDocIndividualcardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeDocIndividualcardResponse());
+    }
+
+    /**
+     * Description: 个人银行卡三要素
+     * Summary: 个人银行卡三要素
+     */
+    public CheckThreemetaBankcardResponse checkThreemetaBankcard(CheckThreemetaBankcardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkThreemetaBankcardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人银行卡三要素
+     * Summary: 个人银行卡三要素
+     */
+    public CheckThreemetaBankcardResponse checkThreemetaBankcardEx(CheckThreemetaBankcardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.bankcard.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckThreemetaBankcardResponse());
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号
+     */
+    public QueryThreemetaSeconddistributeResponse queryThreemetaSeconddistribute(QueryThreemetaSeconddistributeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryThreemetaSeconddistributeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号
+     */
+    public QueryThreemetaSeconddistributeResponse queryThreemetaSeconddistributeEx(QueryThreemetaSeconddistributeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThreemetaSeconddistributeResponse());
     }
 
     /**

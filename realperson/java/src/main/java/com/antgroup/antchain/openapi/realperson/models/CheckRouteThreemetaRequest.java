@@ -36,6 +36,10 @@ public class CheckRouteThreemetaRequest extends TeaModel {
     @Validation(required = true)
     public String scene;
 
+    // 三要素的加密方式，NONE/MD5/SHA256
+    @NameInMap("req_enc_type")
+    public String reqEncType;
+
     // map结果的json数据格式，预留字段
     @NameInMap("extern_param")
     public String externParam;
@@ -99,6 +103,14 @@ public class CheckRouteThreemetaRequest extends TeaModel {
     }
     public String getScene() {
         return this.scene;
+    }
+
+    public CheckRouteThreemetaRequest setReqEncType(String reqEncType) {
+        this.reqEncType = reqEncType;
+        return this;
+    }
+    public String getReqEncType() {
+        return this.reqEncType;
     }
 
     public CheckRouteThreemetaRequest setExternParam(String externParam) {
