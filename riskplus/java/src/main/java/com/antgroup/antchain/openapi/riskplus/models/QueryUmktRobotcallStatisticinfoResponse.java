@@ -34,11 +34,11 @@ public class QueryUmktRobotcallStatisticinfoResponse extends TeaModel {
 
     // 拨打率
     @NameInMap("call_rate")
-    public Long callRate;
+    public String callRate;
 
     // 接通率
     @NameInMap("connect_rate")
-    public Long connectRate;
+    public String connectRate;
 
     public static QueryUmktRobotcallStatisticinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryUmktRobotcallStatisticinfoResponse self = new QueryUmktRobotcallStatisticinfoResponse();
@@ -101,19 +101,19 @@ public class QueryUmktRobotcallStatisticinfoResponse extends TeaModel {
         return this.connectCount;
     }
 
-    public QueryUmktRobotcallStatisticinfoResponse setCallRate(Long callRate) {
+    public QueryUmktRobotcallStatisticinfoResponse setCallRate(String callRate) {
         this.callRate = callRate;
         return this;
     }
-    public Long getCallRate() {
+    public String getCallRate() {
         return this.callRate;
     }
 
-    public QueryUmktRobotcallStatisticinfoResponse setConnectRate(Long connectRate) {
+    public QueryUmktRobotcallStatisticinfoResponse setConnectRate(String connectRate) {
         this.connectRate = connectRate;
         return this;
     }
-    public Long getConnectRate() {
+    public String getConnectRate() {
         return this.connectRate;
     }
 
