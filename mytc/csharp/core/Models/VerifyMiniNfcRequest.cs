@@ -20,7 +20,7 @@ namespace AntChain.SDK.MYTC.Models
 
         // 动态秘钥字符串信息
         [NameInMap("code")]
-        [Validation(Required=true, MaxLength=160)]
+        [Validation(Required=true, MaxLength=250)]
         public string Code { get; set; }
 
         // NFC UID

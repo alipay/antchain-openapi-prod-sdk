@@ -20,6 +20,11 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public List<string> ProudctImages { get; set; }
 
+        // 商品描述
+        [NameInMap("product_desc")]
+        [Validation(Required=false)]
+        public string ProductDesc { get; set; }
+
     }
 
 }
