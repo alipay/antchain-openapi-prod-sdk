@@ -47,12 +47,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 拨打率
         [NameInMap("call_rate")]
         [Validation(Required=false)]
-        public long? CallRate { get; set; }
+        public string CallRate { get; set; }
 
         // 接通率
         [NameInMap("connect_rate")]
         [Validation(Required=false)]
-        public long? ConnectRate { get; set; }
+        public string ConnectRate { get; set; }
 
     }
 
