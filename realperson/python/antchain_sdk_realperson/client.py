@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.1',
-                    '_prod_code': 'REALPERSON',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.10.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.1',
-                    '_prod_code': 'REALPERSON',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.10.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1371,6 +1367,118 @@ class Client:
         return TeaCore.from_map(
             realperson_models.RecognizeDocIndividualcardResponse(),
             await self.do_request_async('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_threemeta_bankcard(
+        self,
+        request: realperson_models.CheckThreemetaBankcardRequest,
+    ) -> realperson_models.CheckThreemetaBankcardResponse:
+        """
+        Description: 个人银行卡三要素
+        Summary: 个人银行卡三要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_threemeta_bankcard_ex(request, headers, runtime)
+
+    async def check_threemeta_bankcard_async(
+        self,
+        request: realperson_models.CheckThreemetaBankcardRequest,
+    ) -> realperson_models.CheckThreemetaBankcardResponse:
+        """
+        Description: 个人银行卡三要素
+        Summary: 个人银行卡三要素
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_threemeta_bankcard_ex_async(request, headers, runtime)
+
+    def check_threemeta_bankcard_ex(
+        self,
+        request: realperson_models.CheckThreemetaBankcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckThreemetaBankcardResponse:
+        """
+        Description: 个人银行卡三要素
+        Summary: 个人银行卡三要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckThreemetaBankcardResponse(),
+            self.do_request('1.0', 'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_threemeta_bankcard_ex_async(
+        self,
+        request: realperson_models.CheckThreemetaBankcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckThreemetaBankcardResponse:
+        """
+        Description: 个人银行卡三要素
+        Summary: 个人银行卡三要素
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckThreemetaBankcardResponse(),
+            await self.do_request_async('1.0', 'di.realperson.threemeta.bankcard.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_threemeta_seconddistribute(
+        self,
+        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_threemeta_seconddistribute_ex(request, headers, runtime)
+
+    async def query_threemeta_seconddistribute_async(
+        self,
+        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_threemeta_seconddistribute_ex_async(request, headers, runtime)
+
+    def query_threemeta_seconddistribute_ex(
+        self,
+        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaSeconddistributeResponse(),
+            self.do_request('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_threemeta_seconddistribute_ex_async(
+        self,
+        request: realperson_models.QueryThreemetaSeconddistributeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaSeconddistributeResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaSeconddistributeResponse(),
+            await self.do_request_async('1.0', 'di.realperson.threemeta.seconddistribute.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
