@@ -137,9 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.1"},
-                        {"_prod_code", "REALPERSON"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.10.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.1"},
-                        {"_prod_code", "REALPERSON"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.10.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1163,6 +1159,90 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RecognizeDocIndividualcardResponse>(await DoRequestAsync("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡三要素
+         * Summary: 个人银行卡三要素
+         */
+        public CheckThreemetaBankcardResponse CheckThreemetaBankcard(CheckThreemetaBankcardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckThreemetaBankcardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡三要素
+         * Summary: 个人银行卡三要素
+         */
+        public async Task<CheckThreemetaBankcardResponse> CheckThreemetaBankcardAsync(CheckThreemetaBankcardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckThreemetaBankcardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡三要素
+         * Summary: 个人银行卡三要素
+         */
+        public CheckThreemetaBankcardResponse CheckThreemetaBankcardEx(CheckThreemetaBankcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckThreemetaBankcardResponse>(DoRequest("1.0", "di.realperson.threemeta.bankcard.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡三要素
+         * Summary: 个人银行卡三要素
+         */
+        public async Task<CheckThreemetaBankcardResponse> CheckThreemetaBankcardExAsync(CheckThreemetaBankcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckThreemetaBankcardResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.bankcard.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public QueryThreemetaSeconddistributeResponse QueryThreemetaSeconddistribute(QueryThreemetaSeconddistributeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThreemetaSeconddistributeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public async Task<QueryThreemetaSeconddistributeResponse> QueryThreemetaSeconddistributeAsync(QueryThreemetaSeconddistributeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThreemetaSeconddistributeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public QueryThreemetaSeconddistributeResponse QueryThreemetaSeconddistributeEx(QueryThreemetaSeconddistributeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaSeconddistributeResponse>(DoRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人运营商二次放号
+         * Summary: 个人运营商二次放号
+         */
+        public async Task<QueryThreemetaSeconddistributeResponse> QueryThreemetaSeconddistributeExAsync(QueryThreemetaSeconddistributeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaSeconddistributeResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

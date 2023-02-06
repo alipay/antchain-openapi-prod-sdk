@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class CheckRouteThreemetaRequest : TeaModel {
+    public class CheckThreemetaBankcardRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
         [NameInMap("outer_order_no")]
         [Validation(Required=true)]
         public string OuterOrderNo { get; set; }
@@ -33,22 +33,12 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
-        // 手机号
-        [NameInMap("mobile")]
+        // 银行卡号
+        [NameInMap("bank_card")]
         [Validation(Required=true)]
-        public string Mobile { get; set; }
+        public string BankCard { get; set; }
 
-        // 使用场景
-        [NameInMap("scene")]
-        [Validation(Required=true)]
-        public string Scene { get; set; }
-
-        // 三要素的加密方式，NONE/MD5/SHA256
-        [NameInMap("req_enc_type")]
-        [Validation(Required=false)]
-        public string ReqEncType { get; set; }
-
-        // map结果的json数据格式，预留字段
+        // 扩展信息，Map的json格式
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
