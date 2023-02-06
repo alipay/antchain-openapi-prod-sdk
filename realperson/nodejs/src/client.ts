@@ -844,6 +844,8 @@ export class CheckRouteThreemetaRequest extends $tea.Model {
   mobile: string;
   // 使用场景
   scene: string;
+  // 三要素的加密方式，NONE/MD5/SHA256
+  reqEncType?: string;
   // map结果的json数据格式，预留字段
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -855,6 +857,7 @@ export class CheckRouteThreemetaRequest extends $tea.Model {
       certNo: 'cert_no',
       mobile: 'mobile',
       scene: 'scene',
+      reqEncType: 'req_enc_type',
       externParam: 'extern_param',
     };
   }
@@ -868,6 +871,7 @@ export class CheckRouteThreemetaRequest extends $tea.Model {
       certNo: 'string',
       mobile: 'string',
       scene: 'string',
+      reqEncType: 'string',
       externParam: 'string',
     };
   }
@@ -1886,6 +1890,160 @@ export class RecognizeDocIndividualcardResponse extends $tea.Model {
   }
 }
 
+export class CheckThreemetaBankcardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string;
+  // 姓名
+  certName: string;
+  // 身份证号
+  certNo: string;
+  // 银行卡号
+  bankCard: string;
+  // 扩展信息，Map的json格式
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      bankCard: 'bank_card',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      bankCard: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckThreemetaBankcardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true:匹配成功 false：匹配失败
+  match?: string;
+  // 扩展信息，Map的json格式。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      match: 'match',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      match: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaSeconddistributeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string;
+  // 手机号
+  mobile: string;
+  // 日期
+  date: string;
+  // 扩展信息，Map的json格式
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      mobile: 'mobile',
+      date: 'date',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      mobile: 'string',
+      date: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaSeconddistributeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // YES：二次放号；NO：不是二次放号；CANCELLED：已销号
+  result?: string;
+  // 扩展信息，Map的json格式。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2087,9 +2245,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.1",
-          _prod_code: "REALPERSON",
-          _prod_channel: "undefined",
+          sdk_version: "1.10.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2515,6 +2671,44 @@ export default class Client {
   async recognizeDocIndividualcardEx(request: RecognizeDocIndividualcardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeDocIndividualcardResponse> {
     Util.validateModel(request);
     return $tea.cast<RecognizeDocIndividualcardResponse>(await this.doRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeDocIndividualcardResponse({}));
+  }
+
+  /**
+   * Description: 个人银行卡三要素
+   * Summary: 个人银行卡三要素
+   */
+  async checkThreemetaBankcard(request: CheckThreemetaBankcardRequest): Promise<CheckThreemetaBankcardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkThreemetaBankcardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人银行卡三要素
+   * Summary: 个人银行卡三要素
+   */
+  async checkThreemetaBankcardEx(request: CheckThreemetaBankcardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckThreemetaBankcardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckThreemetaBankcardResponse>(await this.doRequest("1.0", "di.realperson.threemeta.bankcard.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckThreemetaBankcardResponse({}));
+  }
+
+  /**
+   * Description: 个人运营商二次放号
+   * Summary: 个人运营商二次放号
+   */
+  async queryThreemetaSeconddistribute(request: QueryThreemetaSeconddistributeRequest): Promise<QueryThreemetaSeconddistributeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThreemetaSeconddistributeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人运营商二次放号
+   * Summary: 个人运营商二次放号
+   */
+  async queryThreemetaSeconddistributeEx(request: QueryThreemetaSeconddistributeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaSeconddistributeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThreemetaSeconddistributeResponse>(await this.doRequest("1.0", "di.realperson.threemeta.seconddistribute.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaSeconddistributeResponse({}));
   }
 
   /**
