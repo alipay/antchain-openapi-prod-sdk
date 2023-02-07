@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -2466,6 +2466,46 @@ func (s *IaasErrorInfo) SetRequestId(v string) *IaasErrorInfo {
 	return s
 }
 
+// 单个维度实例，例如WORKSPACE_A
+type DimInstance struct {
+	// ID字段，实际不会使用，只是数据库中的索引
+	DimId *string `json:"dim_id,omitempty" xml:"dim_id,omitempty" require:"true"`
+	// dim_identity
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s DimInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DimInstance) GoString() string {
+	return s.String()
+}
+
+func (s *DimInstance) SetDimId(v string) *DimInstance {
+	s.DimId = &v
+	return s
+}
+
+func (s *DimInstance) SetDimIdentity(v string) *DimInstance {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *DimInstance) SetValue(v string) *DimInstance {
+	s.Value = &v
+	return s
+}
+
+func (s *DimInstance) SetDescription(v string) *DimInstance {
+	s.Description = &v
+	return s
+}
+
 // 技术栈运行时属性
 type BuildpackInstances struct {
 	// ecs个数
@@ -2650,8 +2690,8 @@ type AppPortraitAppNodeEcsList struct {
 	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
 	// ip
 	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// load_balancer_spec
-	LoadBalancerSpec *string `json:"load_balancer_spec,omitempty" xml:"load_balancer_spec,omitempty"`
+	// 实例规格
+	InstSpec *string `json:"inst_spec,omitempty" xml:"inst_spec,omitempty"`
 	// cpu
 	Cpu *string `json:"cpu,omitempty" xml:"cpu,omitempty"`
 	// memory
@@ -2687,8 +2727,8 @@ func (s *AppPortraitAppNodeEcsList) SetIp(v string) *AppPortraitAppNodeEcsList {
 	return s
 }
 
-func (s *AppPortraitAppNodeEcsList) SetLoadBalancerSpec(v string) *AppPortraitAppNodeEcsList {
-	s.LoadBalancerSpec = &v
+func (s *AppPortraitAppNodeEcsList) SetInstSpec(v string) *AppPortraitAppNodeEcsList {
+	s.InstSpec = &v
 	return s
 }
 
@@ -4814,6 +4854,8 @@ type Computer struct {
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 	// zoneId
 	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// CELLA
+	CellRef *string `json:"cell_ref,omitempty" xml:"cell_ref,omitempty"`
 }
 
 func (s Computer) String() string {
@@ -5091,6 +5133,11 @@ func (s *Computer) SetWorkspaceId(v string) *Computer {
 
 func (s *Computer) SetZoneId(v string) *Computer {
 	s.ZoneId = &v
+	return s
+}
+
+func (s *Computer) SetCellRef(v string) *Computer {
+	s.CellRef = &v
 	return s
 }
 
@@ -5520,7 +5567,7 @@ type AppPortraitAppUsability struct {
 	// 应用名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 应用可用性
-	AppUsability *int64 `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
+	AppUsability *string `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
 	// 年同比
 	Y2y *string `json:"y2y,omitempty" xml:"y2y,omitempty"`
 	// 原因列表
@@ -5545,7 +5592,7 @@ func (s *AppPortraitAppUsability) SetAppName(v string) *AppPortraitAppUsability 
 	return s
 }
 
-func (s *AppPortraitAppUsability) SetAppUsability(v int64) *AppPortraitAppUsability {
+func (s *AppPortraitAppUsability) SetAppUsability(v string) *AppPortraitAppUsability {
 	s.AppUsability = &v
 	return s
 }
@@ -5875,17 +5922,19 @@ type AppPortraitContainerUsageList struct {
 	// namespace
 	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
 	// request_cpu
-	RequestCpu *int64 `json:"request_cpu,omitempty" xml:"request_cpu,omitempty" require:"true"`
+	RequestCpu *string `json:"request_cpu,omitempty" xml:"request_cpu,omitempty" require:"true"`
 	// request_mem
-	RequestMem *int64 `json:"request_mem,omitempty" xml:"request_mem,omitempty" require:"true"`
+	RequestMem *string `json:"request_mem,omitempty" xml:"request_mem,omitempty" require:"true"`
 	// limit_cpu
-	LimitCpu *int64 `json:"limit_cpu,omitempty" xml:"limit_cpu,omitempty" require:"true"`
+	LimitCpu *string `json:"limit_cpu,omitempty" xml:"limit_cpu,omitempty" require:"true"`
 	// limit_mem
-	LimitMem *int64 `json:"limit_mem,omitempty" xml:"limit_mem,omitempty" require:"true"`
+	LimitMem *string `json:"limit_mem,omitempty" xml:"limit_mem,omitempty" require:"true"`
 	// average_cpu
-	AverageCpu *int64 `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
+	AverageCpu *string `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
 	// average_mem
-	AverageMem *int64 `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
+	AverageMem *string `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
+	// 建议1：xxxxx
+	Tips *string `json:"tips,omitempty" xml:"tips,omitempty" require:"true"`
 }
 
 func (s AppPortraitContainerUsageList) String() string {
@@ -5901,44 +5950,49 @@ func (s *AppPortraitContainerUsageList) SetNamespace(v string) *AppPortraitConta
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetRequestCpu(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetRequestCpu(v string) *AppPortraitContainerUsageList {
 	s.RequestCpu = &v
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetRequestMem(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetRequestMem(v string) *AppPortraitContainerUsageList {
 	s.RequestMem = &v
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetLimitCpu(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetLimitCpu(v string) *AppPortraitContainerUsageList {
 	s.LimitCpu = &v
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetLimitMem(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetLimitMem(v string) *AppPortraitContainerUsageList {
 	s.LimitMem = &v
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetAverageCpu(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetAverageCpu(v string) *AppPortraitContainerUsageList {
 	s.AverageCpu = &v
 	return s
 }
 
-func (s *AppPortraitContainerUsageList) SetAverageMem(v int64) *AppPortraitContainerUsageList {
+func (s *AppPortraitContainerUsageList) SetAverageMem(v string) *AppPortraitContainerUsageList {
 	s.AverageMem = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetTips(v string) *AppPortraitContainerUsageList {
+	s.Tips = &v
 	return s
 }
 
 // 应用画像告警数趋势结构体
 type AppPortraitAlertCountTrend struct {
 	// 日期
-	Day *string `json:"day,omitempty" xml:"day,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	Day *string `json:"day,omitempty" xml:"day,omitempty" require:"true"`
 	// 本周期
-	NowCycle *string `json:"now_cycle,omitempty" xml:"now_cycle,omitempty" require:"true"`
+	NowCycle *int64 `json:"now_cycle,omitempty" xml:"now_cycle,omitempty" require:"true"`
 	// 上周期
-	LastCycle *string `json:"last_cycle,omitempty" xml:"last_cycle,omitempty" require:"true"`
+	LastCycle *int64 `json:"last_cycle,omitempty" xml:"last_cycle,omitempty" require:"true"`
 }
 
 func (s AppPortraitAlertCountTrend) String() string {
@@ -5954,12 +6008,12 @@ func (s *AppPortraitAlertCountTrend) SetDay(v string) *AppPortraitAlertCountTren
 	return s
 }
 
-func (s *AppPortraitAlertCountTrend) SetNowCycle(v string) *AppPortraitAlertCountTrend {
+func (s *AppPortraitAlertCountTrend) SetNowCycle(v int64) *AppPortraitAlertCountTrend {
 	s.NowCycle = &v
 	return s
 }
 
-func (s *AppPortraitAlertCountTrend) SetLastCycle(v string) *AppPortraitAlertCountTrend {
+func (s *AppPortraitAlertCountTrend) SetLastCycle(v int64) *AppPortraitAlertCountTrend {
 	s.LastCycle = &v
 	return s
 }
@@ -6001,10 +6055,16 @@ func (s *Grant) SetSchema(v *DbSchema) *Grant {
 type AppPortraitActionTrailQuery struct {
 	// 操作时间
 	ActiontrailTimestamp *string `json:"actiontrail_timestamp,omitempty" xml:"actiontrail_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// title
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 	// 状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发布单id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用服务
+	AppService *string `json:"app_service,omitempty" xml:"app_service,omitempty" require:"true"`
+	// 操作内容
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
+	// 执行人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 }
 
 func (s AppPortraitActionTrailQuery) String() string {
@@ -6020,13 +6080,28 @@ func (s *AppPortraitActionTrailQuery) SetActiontrailTimestamp(v string) *AppPort
 	return s
 }
 
-func (s *AppPortraitActionTrailQuery) SetTitle(v string) *AppPortraitActionTrailQuery {
-	s.Title = &v
+func (s *AppPortraitActionTrailQuery) SetStatus(v string) *AppPortraitActionTrailQuery {
+	s.Status = &v
 	return s
 }
 
-func (s *AppPortraitActionTrailQuery) SetStatus(v string) *AppPortraitActionTrailQuery {
-	s.Status = &v
+func (s *AppPortraitActionTrailQuery) SetId(v string) *AppPortraitActionTrailQuery {
+	s.Id = &v
+	return s
+}
+
+func (s *AppPortraitActionTrailQuery) SetAppService(v string) *AppPortraitActionTrailQuery {
+	s.AppService = &v
+	return s
+}
+
+func (s *AppPortraitActionTrailQuery) SetOperateType(v string) *AppPortraitActionTrailQuery {
+	s.OperateType = &v
+	return s
+}
+
+func (s *AppPortraitActionTrailQuery) SetOperator(v string) *AppPortraitActionTrailQuery {
+	s.Operator = &v
 	return s
 }
 
@@ -6263,9 +6338,9 @@ func (s *ComputerQuota) SetDisk(v int64) *ComputerQuota {
 // 可用性趋势查询
 type AppPortraitAppUsabilityTrendQuery struct {
 	// 时间以天为单位
-	Day *string `json:"day,omitempty" xml:"day,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	Day *string `json:"day,omitempty" xml:"day,omitempty"`
 	// 应用可用性
-	AppUsability *int64 `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
+	AppUsability *string `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
 }
 
 func (s AppPortraitAppUsabilityTrendQuery) String() string {
@@ -6281,7 +6356,7 @@ func (s *AppPortraitAppUsabilityTrendQuery) SetDay(v string) *AppPortraitAppUsab
 	return s
 }
 
-func (s *AppPortraitAppUsabilityTrendQuery) SetAppUsability(v int64) *AppPortraitAppUsabilityTrendQuery {
+func (s *AppPortraitAppUsabilityTrendQuery) SetAppUsability(v string) *AppPortraitAppUsabilityTrendQuery {
 	s.AppUsability = &v
 	return s
 }
@@ -7664,6 +7739,116 @@ func (s *MapStringToIntegerEntity) SetKey(v string) *MapStringToIntegerEntity {
 
 func (s *MapStringToIntegerEntity) SetValue(v int64) *MapStringToIntegerEntity {
 	s.Value = &v
+	return s
+}
+
+// 单维度实例的配额信息
+type SingleDimGroupQuotaInstance struct {
+	// 配额实例所属的 配额id
+	QuotaId *string `json:"quota_id,omitempty" xml:"quota_id,omitempty" require:"true"`
+	// 配额实例id
+	QuotaInsId *string `json:"quota_ins_id,omitempty" xml:"quota_ins_id,omitempty" require:"true"`
+	// 维度实例组合id
+	DimInsGroupId *string `json:"dim_ins_group_id,omitempty" xml:"dim_ins_group_id,omitempty"`
+	// 维度标识
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty"`
+	// 维度实例的值，比如某个具体的workspace_id
+	DimInsValue *string `json:"dim_ins_value,omitempty" xml:"dim_ins_value,omitempty"`
+	// resource
+	Resource *string `json:"resource,omitempty" xml:"resource,omitempty" require:"true"`
+	// 表示是无限大还是无限小
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 限额值
+	HardLimit *int64 `json:"hard_limit,omitempty" xml:"hard_limit,omitempty" require:"true"`
+	// 已经使用的额度
+	InUse *int64 `json:"in_use,omitempty" xml:"in_use,omitempty" require:"true"`
+	// 预分配的额度
+	Reserved *int64 `json:"reserved,omitempty" xml:"reserved,omitempty"`
+	// 保留额度
+	Remain *int64 `json:"remain,omitempty" xml:"remain,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// quota乘数因子，用以解决k8s资源可以用小数表示的问题。由于OP不支持浮点数，请用字符串表示
+	QuotaFactor *string `json:"quota_factor,omitempty" xml:"quota_factor,omitempty" require:"true"`
+}
+
+func (s SingleDimGroupQuotaInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SingleDimGroupQuotaInstance) GoString() string {
+	return s.String()
+}
+
+func (s *SingleDimGroupQuotaInstance) SetQuotaId(v string) *SingleDimGroupQuotaInstance {
+	s.QuotaId = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetQuotaInsId(v string) *SingleDimGroupQuotaInstance {
+	s.QuotaInsId = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetDimInsGroupId(v string) *SingleDimGroupQuotaInstance {
+	s.DimInsGroupId = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetDimIdentity(v string) *SingleDimGroupQuotaInstance {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetDimInsValue(v string) *SingleDimGroupQuotaInstance {
+	s.DimInsValue = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetResource(v string) *SingleDimGroupQuotaInstance {
+	s.Resource = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetStatus(v string) *SingleDimGroupQuotaInstance {
+	s.Status = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetHardLimit(v int64) *SingleDimGroupQuotaInstance {
+	s.HardLimit = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetInUse(v int64) *SingleDimGroupQuotaInstance {
+	s.InUse = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetReserved(v int64) *SingleDimGroupQuotaInstance {
+	s.Reserved = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetRemain(v int64) *SingleDimGroupQuotaInstance {
+	s.Remain = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetUtcCreate(v string) *SingleDimGroupQuotaInstance {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetUtcModified(v string) *SingleDimGroupQuotaInstance {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *SingleDimGroupQuotaInstance) SetQuotaFactor(v string) *SingleDimGroupQuotaInstance {
+	s.QuotaFactor = &v
 	return s
 }
 
@@ -9316,11 +9501,11 @@ type AppPortraitAppNodeList struct {
 	// 返回ecs节点数据
 	Ecs []*AppPortraitAppNodeEcsList `json:"ecs,omitempty" xml:"ecs,omitempty" type:"Repeated"`
 	// 返回slb节点数据
-	Slb *AppPortraitAppNodeEcsList `json:"slb,omitempty" xml:"slb,omitempty"`
+	Slb []*AppPortraitAppNodeEcsList `json:"slb,omitempty" xml:"slb,omitempty" type:"Repeated"`
 	// 返回rds节点数据
-	Rds *AppPortraitAppNodeEcsList `json:"rds,omitempty" xml:"rds,omitempty"`
+	Rds []*AppPortraitAppNodeEcsList `json:"rds,omitempty" xml:"rds,omitempty" type:"Repeated"`
 	// 返回pod节点数据
-	Pod *AppPortraitAppNodeEcsList `json:"pod,omitempty" xml:"pod,omitempty"`
+	Pod []*AppPortraitAppNodeEcsList `json:"pod,omitempty" xml:"pod,omitempty" type:"Repeated"`
 }
 
 func (s AppPortraitAppNodeList) String() string {
@@ -9336,17 +9521,17 @@ func (s *AppPortraitAppNodeList) SetEcs(v []*AppPortraitAppNodeEcsList) *AppPort
 	return s
 }
 
-func (s *AppPortraitAppNodeList) SetSlb(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+func (s *AppPortraitAppNodeList) SetSlb(v []*AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
 	s.Slb = v
 	return s
 }
 
-func (s *AppPortraitAppNodeList) SetRds(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+func (s *AppPortraitAppNodeList) SetRds(v []*AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
 	s.Rds = v
 	return s
 }
 
-func (s *AppPortraitAppNodeList) SetPod(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+func (s *AppPortraitAppNodeList) SetPod(v []*AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
 	s.Pod = v
 	return s
 }
@@ -9384,14 +9569,42 @@ func (s *SLSProject) SetRegion(v string) *SLSProject {
 	return s
 }
 
+// 维度组合实例，类似表示WORKSPACE_A下的APP_B
+type DimInstanceGroup struct {
+	// dim_group_id
+	DimGroupId *string `json:"dim_group_id,omitempty" xml:"dim_group_id,omitempty" require:"true"`
+	// dim_instances
+	DimInstances []*DimInstance `json:"dim_instances,omitempty" xml:"dim_instances,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DimInstanceGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DimInstanceGroup) GoString() string {
+	return s.String()
+}
+
+func (s *DimInstanceGroup) SetDimGroupId(v string) *DimInstanceGroup {
+	s.DimGroupId = &v
+	return s
+}
+
+func (s *DimInstanceGroup) SetDimInstances(v []*DimInstance) *DimInstanceGroup {
+	s.DimInstances = v
+	return s
+}
+
 // 查询应用画像ecs利用率
 type AppPortraitEcsUsageGet struct {
 	// cpu平均利用率
-	AverageCpu *int64 `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
+	AverageCpu *string `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
 	// 内存平均利用率
-	AverageMem *int64 `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
+	AverageMem *string `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
 	// 磁盘平均利用率
-	AverageDisk *int64 `json:"average_disk,omitempty" xml:"average_disk,omitempty" require:"true"`
+	AverageDisk *string `json:"average_disk,omitempty" xml:"average_disk,omitempty" require:"true"`
+	// 建议1：xxxxx
+	Tips *string `json:"tips,omitempty" xml:"tips,omitempty" require:"true"`
 }
 
 func (s AppPortraitEcsUsageGet) String() string {
@@ -9402,18 +9615,23 @@ func (s AppPortraitEcsUsageGet) GoString() string {
 	return s.String()
 }
 
-func (s *AppPortraitEcsUsageGet) SetAverageCpu(v int64) *AppPortraitEcsUsageGet {
+func (s *AppPortraitEcsUsageGet) SetAverageCpu(v string) *AppPortraitEcsUsageGet {
 	s.AverageCpu = &v
 	return s
 }
 
-func (s *AppPortraitEcsUsageGet) SetAverageMem(v int64) *AppPortraitEcsUsageGet {
+func (s *AppPortraitEcsUsageGet) SetAverageMem(v string) *AppPortraitEcsUsageGet {
 	s.AverageMem = &v
 	return s
 }
 
-func (s *AppPortraitEcsUsageGet) SetAverageDisk(v int64) *AppPortraitEcsUsageGet {
+func (s *AppPortraitEcsUsageGet) SetAverageDisk(v string) *AppPortraitEcsUsageGet {
 	s.AverageDisk = &v
+	return s
+}
+
+func (s *AppPortraitEcsUsageGet) SetTips(v string) *AppPortraitEcsUsageGet {
+	s.Tips = &v
 	return s
 }
 
@@ -9931,7 +10149,7 @@ func (s *StarAgentInfo) SetStatus(v string) *StarAgentInfo {
 // 应用画像健康分趋势查询结构体
 type AppPortraitAppHealthScoreTrendQuery struct {
 	// 日期
-	Day *string `json:"day,omitempty" xml:"day,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	Day *string `json:"day,omitempty" xml:"day,omitempty"`
 	// 健康分分值
 	HealthScore *int64 `json:"health_score,omitempty" xml:"health_score,omitempty"`
 }
@@ -9998,6 +10216,32 @@ func (s *CellGroup) SetProperties(v []*Property) *CellGroup {
 
 func (s *CellGroup) SetInstancestatus(v string) *CellGroup {
 	s.Instancestatus = &v
+	return s
+}
+
+// AppPortraitAppGroupList
+type AppPortraitAppGroupList struct {
+	// 应用分组id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用分组名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s AppPortraitAppGroupList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppGroupList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppGroupList) SetId(v string) *AppPortraitAppGroupList {
+	s.Id = &v
+	return s
+}
+
+func (s *AppPortraitAppGroupList) SetName(v string) *AppPortraitAppGroupList {
+	s.Name = &v
 	return s
 }
 
@@ -10238,18 +10482,28 @@ func (s *IaasConnMetadata) SetUtcCreate(v string) *IaasConnMetadata {
 
 // 应用画像告警明细列表
 type AppPortraitAlertList struct {
-	// 告警节点ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
-	// 节点名
-	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty" require:"true"`
-	// 告警指标
-	Metric *string `json:"metric,omitempty" xml:"metric,omitempty" require:"true"`
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 告警事件ID
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 告警级别
 	Severity *string `json:"severity,omitempty" xml:"severity,omitempty" require:"true"`
 	// 告警内容
 	AlertContent *string `json:"alert_content,omitempty" xml:"alert_content,omitempty" require:"true"`
 	// 告警时间
 	GmtOccurTimestamp *string `json:"gmt_occur_timestamp,omitempty" xml:"gmt_occur_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 相关链接
+	AlarmUrl *string `json:"alarm_url,omitempty" xml:"alarm_url,omitempty" require:"true"`
+	//      * HEALTHY(0), // 健康
+	//      * PENDING(1), // 触发中
+	//      * FIRING(2), // 告警中
+	//      * SUSPENDED(3), // 已暂停
+	//      * SILENCED(4), // 已静默
+	//      * RECOVERED(5), // 已恢复
+	//
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s AppPortraitAlertList) String() string {
@@ -10260,18 +10514,18 @@ func (s AppPortraitAlertList) GoString() string {
 	return s.String()
 }
 
-func (s *AppPortraitAlertList) SetNodeId(v string) *AppPortraitAlertList {
-	s.NodeId = &v
+func (s *AppPortraitAlertList) SetTitle(v string) *AppPortraitAlertList {
+	s.Title = &v
 	return s
 }
 
-func (s *AppPortraitAlertList) SetNodeName(v string) *AppPortraitAlertList {
-	s.NodeName = &v
+func (s *AppPortraitAlertList) SetEventId(v string) *AppPortraitAlertList {
+	s.EventId = &v
 	return s
 }
 
-func (s *AppPortraitAlertList) SetMetric(v string) *AppPortraitAlertList {
-	s.Metric = &v
+func (s *AppPortraitAlertList) SetAppName(v string) *AppPortraitAlertList {
+	s.AppName = &v
 	return s
 }
 
@@ -10287,6 +10541,16 @@ func (s *AppPortraitAlertList) SetAlertContent(v string) *AppPortraitAlertList {
 
 func (s *AppPortraitAlertList) SetGmtOccurTimestamp(v string) *AppPortraitAlertList {
 	s.GmtOccurTimestamp = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetAlarmUrl(v string) *AppPortraitAlertList {
+	s.AlarmUrl = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetStatus(v int64) *AppPortraitAlertList {
+	s.Status = &v
 	return s
 }
 
@@ -11008,6 +11272,122 @@ func (s *DatabaseSecurityIp) SetType(v string) *DatabaseSecurityIp {
 	return s
 }
 
+// 系统配置项
+type Feature struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// cloud_name
+	CloudName *string `json:"cloud_name,omitempty" xml:"cloud_name,omitempty" require:"true"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// feature_name
+	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty" require:"true"`
+	// content
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// conditional_content
+	ConditionalContent *string `json:"conditional_content,omitempty" xml:"conditional_content,omitempty"`
+	// utc_create
+	//
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s Feature) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Feature) GoString() string {
+	return s.String()
+}
+
+func (s *Feature) SetId(v string) *Feature {
+	s.Id = &v
+	return s
+}
+
+func (s *Feature) SetCloudName(v string) *Feature {
+	s.CloudName = &v
+	return s
+}
+
+func (s *Feature) SetRegionId(v string) *Feature {
+	s.RegionId = &v
+	return s
+}
+
+func (s *Feature) SetDescription(v string) *Feature {
+	s.Description = &v
+	return s
+}
+
+func (s *Feature) SetFeatureName(v string) *Feature {
+	s.FeatureName = &v
+	return s
+}
+
+func (s *Feature) SetContent(v string) *Feature {
+	s.Content = &v
+	return s
+}
+
+func (s *Feature) SetConditionalContent(v string) *Feature {
+	s.ConditionalContent = &v
+	return s
+}
+
+func (s *Feature) SetUtcCreate(v string) *Feature {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *Feature) SetUtcModified(v string) *Feature {
+	s.UtcModified = &v
+	return s
+}
+
+// 单维度配额
+type SingleDimGroup struct {
+	// 维度标识, 如: WORKSPACE
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty" require:"true"`
+	// 维度实例的值, 如: 0000000001
+	DimInsValue *string `json:"dim_ins_value,omitempty" xml:"dim_ins_value,omitempty" require:"true"`
+	// resource_identity
+	ResourceIdentity *string `json:"resource_identity,omitempty" xml:"resource_identity,omitempty" require:"true"`
+	// 申请的数量，要注意quota_factor，比如当quota_factor=0.1时，申请实际为1的资源时，这里要填10
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s SingleDimGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SingleDimGroup) GoString() string {
+	return s.String()
+}
+
+func (s *SingleDimGroup) SetDimIdentity(v string) *SingleDimGroup {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *SingleDimGroup) SetDimInsValue(v string) *SingleDimGroup {
+	s.DimInsValue = &v
+	return s
+}
+
+func (s *SingleDimGroup) SetResourceIdentity(v string) *SingleDimGroup {
+	s.ResourceIdentity = &v
+	return s
+}
+
+func (s *SingleDimGroup) SetCount(v int64) *SingleDimGroup {
+	s.Count = &v
+	return s
+}
+
 // DatabaseEngine
 type DatabaseEngine struct {
 	// iaas_type
@@ -11106,6 +11486,95 @@ func (s *ComputerParam) SetInstanceName(v string) *ComputerParam {
 
 func (s *ComputerParam) SetZoneId(v string) *ComputerParam {
 	s.ZoneId = &v
+	return s
+}
+
+// 单维度配额信息
+type SingleDimGroupQuota struct {
+	// quota_id
+	QuotaId *string `json:"quota_id,omitempty" xml:"quota_id,omitempty" require:"true"`
+	// 后端用，前端无需关心
+	DimGroupId *string `json:"dim_group_id,omitempty" xml:"dim_group_id,omitempty"`
+	// dim_identity
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty" require:"true"`
+	// resource_identity
+	ResourceIdentity *string `json:"resource_identity,omitempty" xml:"resource_identity,omitempty" require:"true"`
+	// 配额最大值，注意:1. hardLimit为 -1时 表时无限大2. hardLimit为 -2时 表时无限小
+	HardLimit *int64 `json:"hard_limit,omitempty" xml:"hard_limit,omitempty" require:"true"`
+	// 后端用，前端无需关心
+	SyncInterface *string `json:"sync_interface,omitempty" xml:"sync_interface,omitempty"`
+	// 创建者
+	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 维度实例的值，比如某个workspace的ID
+	DimInsValue *string `json:"dim_ins_value,omitempty" xml:"dim_ins_value,omitempty" require:"true"`
+	// 由于额度只支持整数，用这个浮点数factor表示乘数因子，
+	QuotaFactor *string `json:"quota_factor,omitempty" xml:"quota_factor,omitempty"`
+}
+
+func (s SingleDimGroupQuota) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SingleDimGroupQuota) GoString() string {
+	return s.String()
+}
+
+func (s *SingleDimGroupQuota) SetQuotaId(v string) *SingleDimGroupQuota {
+	s.QuotaId = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetDimGroupId(v string) *SingleDimGroupQuota {
+	s.DimGroupId = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetDimIdentity(v string) *SingleDimGroupQuota {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetResourceIdentity(v string) *SingleDimGroupQuota {
+	s.ResourceIdentity = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetHardLimit(v int64) *SingleDimGroupQuota {
+	s.HardLimit = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetSyncInterface(v string) *SingleDimGroupQuota {
+	s.SyncInterface = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetCreatorName(v string) *SingleDimGroupQuota {
+	s.CreatorName = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetUtcCreate(v string) *SingleDimGroupQuota {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetUtcModified(v string) *SingleDimGroupQuota {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetDimInsValue(v string) *SingleDimGroupQuota {
+	s.DimInsValue = &v
+	return s
+}
+
+func (s *SingleDimGroupQuota) SetQuotaFactor(v string) *SingleDimGroupQuota {
+	s.QuotaFactor = &v
 	return s
 }
 
@@ -14330,6 +14799,183 @@ func (s *GetAppgrayconfigsResponse) SetData(v []*MapStringToBooleanEntity) *GetA
 	return s
 }
 
+type QueryOptestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// string
+	Str *string `json:"str,omitempty" xml:"str,omitempty" require:"true"`
+	// long
+	Lon *int64 `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
+	// arr_str
+	ArrStr []*string `json:"arr_str,omitempty" xml:"arr_str,omitempty" type:"Repeated"`
+	// stru
+	Stru *Zone `json:"stru,omitempty" xml:"stru,omitempty"`
+	// arr_stru
+	ArrStru []*VPC `json:"arr_stru,omitempty" xml:"arr_stru,omitempty" type:"Repeated"`
+}
+
+func (s QueryOptestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOptestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOptestRequest) SetAuthToken(v string) *QueryOptestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOptestRequest) SetStr(v string) *QueryOptestRequest {
+	s.Str = &v
+	return s
+}
+
+func (s *QueryOptestRequest) SetLon(v int64) *QueryOptestRequest {
+	s.Lon = &v
+	return s
+}
+
+func (s *QueryOptestRequest) SetArrStr(v []*string) *QueryOptestRequest {
+	s.ArrStr = v
+	return s
+}
+
+func (s *QueryOptestRequest) SetStru(v *Zone) *QueryOptestRequest {
+	s.Stru = v
+	return s
+}
+
+func (s *QueryOptestRequest) SetArrStru(v []*VPC) *QueryOptestRequest {
+	s.ArrStru = v
+	return s
+}
+
+type QueryOptestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// str
+	Str *string `json:"str,omitempty" xml:"str,omitempty"`
+	// lon
+	Lon *int64 `json:"lon,omitempty" xml:"lon,omitempty"`
+	// stru
+	Stru *VPC `json:"stru,omitempty" xml:"stru,omitempty"`
+	// arr_str
+	ArrStr []*string `json:"arr_str,omitempty" xml:"arr_str,omitempty" type:"Repeated"`
+	// arr_stru
+	ArrStru []*VPC `json:"arr_stru,omitempty" xml:"arr_stru,omitempty" type:"Repeated"`
+}
+
+func (s QueryOptestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOptestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOptestResponse) SetReqMsgId(v string) *QueryOptestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOptestResponse) SetResultCode(v string) *QueryOptestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOptestResponse) SetResultMsg(v string) *QueryOptestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOptestResponse) SetStr(v string) *QueryOptestResponse {
+	s.Str = &v
+	return s
+}
+
+func (s *QueryOptestResponse) SetLon(v int64) *QueryOptestResponse {
+	s.Lon = &v
+	return s
+}
+
+func (s *QueryOptestResponse) SetStru(v *VPC) *QueryOptestResponse {
+	s.Stru = v
+	return s
+}
+
+func (s *QueryOptestResponse) SetArrStr(v []*string) *QueryOptestResponse {
+	s.ArrStr = v
+	return s
+}
+
+func (s *QueryOptestResponse) SetArrStru(v []*VPC) *QueryOptestResponse {
+	s.ArrStru = v
+	return s
+}
+
+type BindOptestplusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// optestplus
+	Optestplus *string `json:"optestplus,omitempty" xml:"optestplus,omitempty" require:"true"`
+}
+
+func (s BindOptestplusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindOptestplusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindOptestplusRequest) SetAuthToken(v string) *BindOptestplusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindOptestplusRequest) SetOptestplus(v string) *BindOptestplusRequest {
+	s.Optestplus = &v
+	return s
+}
+
+type BindOptestplusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindOptestplusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindOptestplusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindOptestplusResponse) SetReqMsgId(v string) *BindOptestplusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindOptestplusResponse) SetResultCode(v string) *BindOptestplusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindOptestplusResponse) SetResultMsg(v string) *BindOptestplusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ListAppportraitAppRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -14445,6 +15091,8 @@ type GetAppportraitAppRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// TenantName
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 工作空间id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 }
 
 func (s GetAppportraitAppRequest) String() string {
@@ -14475,6 +15123,11 @@ func (s *GetAppportraitAppRequest) SetTenantName(v string) *GetAppportraitAppReq
 	return s
 }
 
+func (s *GetAppportraitAppRequest) SetWorkspaceId(v string) *GetAppportraitAppRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
 type GetAppportraitAppResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -14483,7 +15136,7 @@ type GetAppportraitAppResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回应用详情信息
-	Data []*AppPortraitAppGet `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Data *AppPortraitAppGet `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s GetAppportraitAppResponse) String() string {
@@ -14509,7 +15162,7 @@ func (s *GetAppportraitAppResponse) SetResultMsg(v string) *GetAppportraitAppRes
 	return s
 }
 
-func (s *GetAppportraitAppResponse) SetData(v []*AppPortraitAppGet) *GetAppportraitAppResponse {
+func (s *GetAppportraitAppResponse) SetData(v *AppPortraitAppGet) *GetAppportraitAppResponse {
 	s.Data = v
 	return s
 }
@@ -14517,14 +15170,14 @@ func (s *GetAppportraitAppResponse) SetData(v []*AppPortraitAppGet) *GetAppportr
 type GetAppportraitYearusabilityRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 工作空间名称Id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 工作空间名称
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 租户名称
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 查询的年份
 	Year *int64 `json:"year,omitempty" xml:"year,omitempty" require:"true"`
 }
@@ -14542,8 +15195,8 @@ func (s *GetAppportraitYearusabilityRequest) SetAuthToken(v string) *GetAppportr
 	return s
 }
 
-func (s *GetAppportraitYearusabilityRequest) SetWorkspaceId(v string) *GetAppportraitYearusabilityRequest {
-	s.WorkspaceId = &v
+func (s *GetAppportraitYearusabilityRequest) SetWorkspaceName(v string) *GetAppportraitYearusabilityRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -14557,8 +15210,8 @@ func (s *GetAppportraitYearusabilityRequest) SetTenantName(v string) *GetAppport
 	return s
 }
 
-func (s *GetAppportraitYearusabilityRequest) SetAppId(v string) *GetAppportraitYearusabilityRequest {
-	s.AppId = &v
+func (s *GetAppportraitYearusabilityRequest) SetAppName(v string) *GetAppportraitYearusabilityRequest {
+	s.AppName = &v
 	return s
 }
 
@@ -14609,16 +15262,16 @@ func (s *GetAppportraitYearusabilityResponse) SetData(v *AppPortraitAppUsability
 type GetAppportraitMonthusabilityRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 工作空间名称Id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 工作空间名称
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 租户名称
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 查询的月份
-	Month *int64 `json:"month,omitempty" xml:"month,omitempty" require:"true"`
+	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
 }
 
 func (s GetAppportraitMonthusabilityRequest) String() string {
@@ -14634,8 +15287,8 @@ func (s *GetAppportraitMonthusabilityRequest) SetAuthToken(v string) *GetAppport
 	return s
 }
 
-func (s *GetAppportraitMonthusabilityRequest) SetWorkspaceId(v string) *GetAppportraitMonthusabilityRequest {
-	s.WorkspaceId = &v
+func (s *GetAppportraitMonthusabilityRequest) SetWorkspaceName(v string) *GetAppportraitMonthusabilityRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -14649,12 +15302,12 @@ func (s *GetAppportraitMonthusabilityRequest) SetTenantName(v string) *GetApppor
 	return s
 }
 
-func (s *GetAppportraitMonthusabilityRequest) SetAppId(v string) *GetAppportraitMonthusabilityRequest {
-	s.AppId = &v
+func (s *GetAppportraitMonthusabilityRequest) SetAppName(v string) *GetAppportraitMonthusabilityRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *GetAppportraitMonthusabilityRequest) SetMonth(v int64) *GetAppportraitMonthusabilityRequest {
+func (s *GetAppportraitMonthusabilityRequest) SetMonth(v string) *GetAppportraitMonthusabilityRequest {
 	s.Month = &v
 	return s
 }
@@ -14701,18 +15354,18 @@ func (s *GetAppportraitMonthusabilityResponse) SetData(v *AppPortraitAppUsabilit
 type QueryAppportraitUsabilitytrendRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间utc毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间utc毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s QueryAppportraitUsabilitytrendRequest) String() string {
@@ -14728,8 +15381,8 @@ func (s *QueryAppportraitUsabilitytrendRequest) SetAuthToken(v string) *QueryApp
 	return s
 }
 
-func (s *QueryAppportraitUsabilitytrendRequest) SetWorkspaceId(v string) *QueryAppportraitUsabilitytrendRequest {
-	s.WorkspaceId = &v
+func (s *QueryAppportraitUsabilitytrendRequest) SetWorkspaceName(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -14743,17 +15396,17 @@ func (s *QueryAppportraitUsabilitytrendRequest) SetTenantId(v string) *QueryAppp
 	return s
 }
 
-func (s *QueryAppportraitUsabilitytrendRequest) SetAppId(v string) *QueryAppportraitUsabilitytrendRequest {
-	s.AppId = &v
+func (s *QueryAppportraitUsabilitytrendRequest) SetAppName(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *QueryAppportraitUsabilitytrendRequest) SetStartTimestamp(v string) *QueryAppportraitUsabilitytrendRequest {
+func (s *QueryAppportraitUsabilitytrendRequest) SetStartTimestamp(v int64) *QueryAppportraitUsabilitytrendRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *QueryAppportraitUsabilitytrendRequest) SetEndTimestamp(v string) *QueryAppportraitUsabilitytrendRequest {
+func (s *QueryAppportraitUsabilitytrendRequest) SetEndTimestamp(v int64) *QueryAppportraitUsabilitytrendRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -14800,18 +15453,18 @@ func (s *QueryAppportraitUsabilitytrendResponse) SetData(v []*AppPortraitAppUsab
 type QueryAppportraitHealthscoreRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
 	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s QueryAppportraitHealthscoreRequest) String() string {
@@ -14827,8 +15480,8 @@ func (s *QueryAppportraitHealthscoreRequest) SetAuthToken(v string) *QueryApppor
 	return s
 }
 
-func (s *QueryAppportraitHealthscoreRequest) SetWorkspaceId(v string) *QueryAppportraitHealthscoreRequest {
-	s.WorkspaceId = &v
+func (s *QueryAppportraitHealthscoreRequest) SetWorkspaceName(v string) *QueryAppportraitHealthscoreRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -14842,17 +15495,17 @@ func (s *QueryAppportraitHealthscoreRequest) SetTenantId(v string) *QueryAppport
 	return s
 }
 
-func (s *QueryAppportraitHealthscoreRequest) SetAppId(v string) *QueryAppportraitHealthscoreRequest {
-	s.AppId = &v
+func (s *QueryAppportraitHealthscoreRequest) SetAppName(v string) *QueryAppportraitHealthscoreRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *QueryAppportraitHealthscoreRequest) SetStartTimestamp(v string) *QueryAppportraitHealthscoreRequest {
+func (s *QueryAppportraitHealthscoreRequest) SetStartTimestamp(v int64) *QueryAppportraitHealthscoreRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *QueryAppportraitHealthscoreRequest) SetEndTimestamp(v string) *QueryAppportraitHealthscoreRequest {
+func (s *QueryAppportraitHealthscoreRequest) SetEndTimestamp(v int64) *QueryAppportraitHealthscoreRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -14899,18 +15552,18 @@ func (s *QueryAppportraitHealthscoreResponse) SetData(v *AppPortraitAppHealthSco
 type QueryAppportraitHealthscoretrendRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 工作空间id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 工作空间name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 租户名称
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// 应用id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 应用name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
 	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s QueryAppportraitHealthscoretrendRequest) String() string {
@@ -14926,8 +15579,8 @@ func (s *QueryAppportraitHealthscoretrendRequest) SetAuthToken(v string) *QueryA
 	return s
 }
 
-func (s *QueryAppportraitHealthscoretrendRequest) SetWorkspaceId(v string) *QueryAppportraitHealthscoretrendRequest {
-	s.WorkspaceId = &v
+func (s *QueryAppportraitHealthscoretrendRequest) SetWorkspaceName(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -14941,17 +15594,17 @@ func (s *QueryAppportraitHealthscoretrendRequest) SetTenantName(v string) *Query
 	return s
 }
 
-func (s *QueryAppportraitHealthscoretrendRequest) SetAppId(v string) *QueryAppportraitHealthscoretrendRequest {
-	s.AppId = &v
+func (s *QueryAppportraitHealthscoretrendRequest) SetAppName(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *QueryAppportraitHealthscoretrendRequest) SetStartTimestamp(v string) *QueryAppportraitHealthscoretrendRequest {
+func (s *QueryAppportraitHealthscoretrendRequest) SetStartTimestamp(v int64) *QueryAppportraitHealthscoretrendRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *QueryAppportraitHealthscoretrendRequest) SetEndTimestamp(v string) *QueryAppportraitHealthscoretrendRequest {
+func (s *QueryAppportraitHealthscoretrendRequest) SetEndTimestamp(v int64) *QueryAppportraitHealthscoretrendRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -14998,18 +15651,18 @@ func (s *QueryAppportraitHealthscoretrendResponse) SetData(v []*AppPortraitAppHe
 type QueryAppportraitAlertcounttrendRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间,utc毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间，utc毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s QueryAppportraitAlertcounttrendRequest) String() string {
@@ -15025,8 +15678,8 @@ func (s *QueryAppportraitAlertcounttrendRequest) SetAuthToken(v string) *QueryAp
 	return s
 }
 
-func (s *QueryAppportraitAlertcounttrendRequest) SetWorkspaceId(v string) *QueryAppportraitAlertcounttrendRequest {
-	s.WorkspaceId = &v
+func (s *QueryAppportraitAlertcounttrendRequest) SetWorkspaceName(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -15040,17 +15693,17 @@ func (s *QueryAppportraitAlertcounttrendRequest) SetTenantName(v string) *QueryA
 	return s
 }
 
-func (s *QueryAppportraitAlertcounttrendRequest) SetAppId(v string) *QueryAppportraitAlertcounttrendRequest {
-	s.AppId = &v
+func (s *QueryAppportraitAlertcounttrendRequest) SetAppName(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *QueryAppportraitAlertcounttrendRequest) SetStartTimestamp(v string) *QueryAppportraitAlertcounttrendRequest {
+func (s *QueryAppportraitAlertcounttrendRequest) SetStartTimestamp(v int64) *QueryAppportraitAlertcounttrendRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *QueryAppportraitAlertcounttrendRequest) SetEndTimestamp(v string) *QueryAppportraitAlertcounttrendRequest {
+func (s *QueryAppportraitAlertcounttrendRequest) SetEndTimestamp(v int64) *QueryAppportraitAlertcounttrendRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -15097,18 +15750,18 @@ func (s *QueryAppportraitAlertcounttrendResponse) SetData(v []*AppPortraitAlertC
 type ListAppportraitAlertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// eco0sh0prod
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间，utc毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间，utc毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 	// 分页大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 当前页码，从1开始
@@ -15128,8 +15781,8 @@ func (s *ListAppportraitAlertRequest) SetAuthToken(v string) *ListAppportraitAle
 	return s
 }
 
-func (s *ListAppportraitAlertRequest) SetWorkspaceId(v string) *ListAppportraitAlertRequest {
-	s.WorkspaceId = &v
+func (s *ListAppportraitAlertRequest) SetWorkspaceName(v string) *ListAppportraitAlertRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -15143,17 +15796,17 @@ func (s *ListAppportraitAlertRequest) SetTenantName(v string) *ListAppportraitAl
 	return s
 }
 
-func (s *ListAppportraitAlertRequest) SetAppId(v string) *ListAppportraitAlertRequest {
-	s.AppId = &v
+func (s *ListAppportraitAlertRequest) SetAppName(v string) *ListAppportraitAlertRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *ListAppportraitAlertRequest) SetStartTimestamp(v string) *ListAppportraitAlertRequest {
+func (s *ListAppportraitAlertRequest) SetStartTimestamp(v int64) *ListAppportraitAlertRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *ListAppportraitAlertRequest) SetEndTimestamp(v string) *ListAppportraitAlertRequest {
+func (s *ListAppportraitAlertRequest) SetEndTimestamp(v int64) *ListAppportraitAlertRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -15177,6 +15830,12 @@ type ListAppportraitAlertResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回数据
 	Data []*AppPortraitAlertList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 }
 
 func (s ListAppportraitAlertResponse) String() string {
@@ -15207,21 +15866,36 @@ func (s *ListAppportraitAlertResponse) SetData(v []*AppPortraitAlertList) *ListA
 	return s
 }
 
+func (s *ListAppportraitAlertResponse) SetPageNum(v int64) *ListAppportraitAlertResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitAlertResponse) SetPageSize(v int64) *ListAppportraitAlertResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitAlertResponse) SetTotal(v int64) *ListAppportraitAlertResponse {
+	s.Total = &v
+	return s
+}
+
 type GetAppportraitEcsusageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间 utc毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间utc毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s GetAppportraitEcsusageRequest) String() string {
@@ -15237,8 +15911,8 @@ func (s *GetAppportraitEcsusageRequest) SetAuthToken(v string) *GetAppportraitEc
 	return s
 }
 
-func (s *GetAppportraitEcsusageRequest) SetWorkspaceId(v string) *GetAppportraitEcsusageRequest {
-	s.WorkspaceId = &v
+func (s *GetAppportraitEcsusageRequest) SetWorkspaceName(v string) *GetAppportraitEcsusageRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -15252,17 +15926,17 @@ func (s *GetAppportraitEcsusageRequest) SetTenantName(v string) *GetAppportraitE
 	return s
 }
 
-func (s *GetAppportraitEcsusageRequest) SetAppId(v string) *GetAppportraitEcsusageRequest {
-	s.AppId = &v
+func (s *GetAppportraitEcsusageRequest) SetAppName(v string) *GetAppportraitEcsusageRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *GetAppportraitEcsusageRequest) SetStartTimestamp(v string) *GetAppportraitEcsusageRequest {
+func (s *GetAppportraitEcsusageRequest) SetStartTimestamp(v int64) *GetAppportraitEcsusageRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *GetAppportraitEcsusageRequest) SetEndTimestamp(v string) *GetAppportraitEcsusageRequest {
+func (s *GetAppportraitEcsusageRequest) SetEndTimestamp(v int64) *GetAppportraitEcsusageRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -15309,18 +15983,18 @@ func (s *GetAppportraitEcsusageResponse) SetData(v *AppPortraitEcsUsageGet) *Get
 type QueryAppportraitContainerusageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间utc毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间 utc毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 }
 
 func (s QueryAppportraitContainerusageRequest) String() string {
@@ -15336,8 +16010,8 @@ func (s *QueryAppportraitContainerusageRequest) SetAuthToken(v string) *QueryApp
 	return s
 }
 
-func (s *QueryAppportraitContainerusageRequest) SetWorkspaceId(v string) *QueryAppportraitContainerusageRequest {
-	s.WorkspaceId = &v
+func (s *QueryAppportraitContainerusageRequest) SetWorkspaceName(v string) *QueryAppportraitContainerusageRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -15351,17 +16025,17 @@ func (s *QueryAppportraitContainerusageRequest) SetTenantName(v string) *QueryAp
 	return s
 }
 
-func (s *QueryAppportraitContainerusageRequest) SetAppId(v string) *QueryAppportraitContainerusageRequest {
-	s.AppId = &v
+func (s *QueryAppportraitContainerusageRequest) SetAppName(v string) *QueryAppportraitContainerusageRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *QueryAppportraitContainerusageRequest) SetStartTimestamp(v string) *QueryAppportraitContainerusageRequest {
+func (s *QueryAppportraitContainerusageRequest) SetStartTimestamp(v int64) *QueryAppportraitContainerusageRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *QueryAppportraitContainerusageRequest) SetEndTimestamp(v string) *QueryAppportraitContainerusageRequest {
+func (s *QueryAppportraitContainerusageRequest) SetEndTimestamp(v int64) *QueryAppportraitContainerusageRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -15408,18 +16082,18 @@ func (s *QueryAppportraitContainerusageResponse) SetData(v []*AppPortraitContain
 type ListAppportraitActiontrailRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// 应用id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 查询开始时间
-	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 查询结束时间
-	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 查询开始时间，毫秒
+	StartTimestamp *int64 `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true"`
+	// 查询结束时间，毫秒
+	EndTimestamp *int64 `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true"`
 	// 分页大小，默认为10，默
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 当前页码，从1开始
@@ -15439,8 +16113,8 @@ func (s *ListAppportraitActiontrailRequest) SetAuthToken(v string) *ListAppportr
 	return s
 }
 
-func (s *ListAppportraitActiontrailRequest) SetWorkspaceId(v string) *ListAppportraitActiontrailRequest {
-	s.WorkspaceId = &v
+func (s *ListAppportraitActiontrailRequest) SetWorkspaceName(v string) *ListAppportraitActiontrailRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -15454,17 +16128,17 @@ func (s *ListAppportraitActiontrailRequest) SetTenantName(v string) *ListAppport
 	return s
 }
 
-func (s *ListAppportraitActiontrailRequest) SetAppId(v string) *ListAppportraitActiontrailRequest {
-	s.AppId = &v
+func (s *ListAppportraitActiontrailRequest) SetAppName(v string) *ListAppportraitActiontrailRequest {
+	s.AppName = &v
 	return s
 }
 
-func (s *ListAppportraitActiontrailRequest) SetStartTimestamp(v string) *ListAppportraitActiontrailRequest {
+func (s *ListAppportraitActiontrailRequest) SetStartTimestamp(v int64) *ListAppportraitActiontrailRequest {
 	s.StartTimestamp = &v
 	return s
 }
 
-func (s *ListAppportraitActiontrailRequest) SetEndTimestamp(v string) *ListAppportraitActiontrailRequest {
+func (s *ListAppportraitActiontrailRequest) SetEndTimestamp(v int64) *ListAppportraitActiontrailRequest {
 	s.EndTimestamp = &v
 	return s
 }
@@ -15493,7 +16167,7 @@ type ListAppportraitActiontrailResponse struct {
 	// 每页大小，默认10
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 总数
-	Total *string `json:"total,omitempty" xml:"total,omitempty"`
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 }
 
 func (s ListAppportraitActiontrailResponse) String() string {
@@ -15534,7 +16208,7 @@ func (s *ListAppportraitActiontrailResponse) SetPageSize(v int64) *ListAppportra
 	return s
 }
 
-func (s *ListAppportraitActiontrailResponse) SetTotal(v string) *ListAppportraitActiontrailResponse {
+func (s *ListAppportraitActiontrailResponse) SetTotal(v int64) *ListAppportraitActiontrailResponse {
 	s.Total = &v
 	return s
 }
@@ -15542,10 +16216,10 @@ func (s *ListAppportraitActiontrailResponse) SetTotal(v string) *ListAppportrait
 type ListAppportraitNodeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 工作空间名称
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// tenant_name
@@ -15565,13 +16239,13 @@ func (s *ListAppportraitNodeRequest) SetAuthToken(v string) *ListAppportraitNode
 	return s
 }
 
-func (s *ListAppportraitNodeRequest) SetWorkspaceId(v string) *ListAppportraitNodeRequest {
-	s.WorkspaceId = &v
+func (s *ListAppportraitNodeRequest) SetWorkspaceName(v string) *ListAppportraitNodeRequest {
+	s.WorkspaceName = &v
 	return s
 }
 
-func (s *ListAppportraitNodeRequest) SetAppId(v string) *ListAppportraitNodeRequest {
-	s.AppId = &v
+func (s *ListAppportraitNodeRequest) SetAppName(v string) *ListAppportraitNodeRequest {
+	s.AppName = &v
 	return s
 }
 
@@ -15621,6 +16295,501 @@ func (s *ListAppportraitNodeResponse) SetResultMsg(v string) *ListAppportraitNod
 
 func (s *ListAppportraitNodeResponse) SetData(v *AppPortraitAppNodeList) *ListAppportraitNodeResponse {
 	s.Data = v
+	return s
+}
+
+type ListAppportraitAppgroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s ListAppportraitAppgroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAppgroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAppgroupRequest) SetAuthToken(v string) *ListAppportraitAppgroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitAppgroupRequest) SetTenantId(v string) *ListAppportraitAppgroupRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListAppportraitAppgroupRequest) SetTenantName(v string) *ListAppportraitAppgroupRequest {
+	s.TenantName = &v
+	return s
+}
+
+type ListAppportraitAppgroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用分组列表
+	Data []*AppPortraitAppGroupList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListAppportraitAppgroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAppgroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAppgroupResponse) SetReqMsgId(v string) *ListAppportraitAppgroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitAppgroupResponse) SetResultCode(v string) *ListAppportraitAppgroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitAppgroupResponse) SetResultMsg(v string) *ListAppportraitAppgroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitAppgroupResponse) SetData(v []*AppPortraitAppGroupList) *ListAppportraitAppgroupResponse {
+	s.Data = v
+	return s
+}
+
+type ListAppportraitEcsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// page_number
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+}
+
+func (s ListAppportraitEcsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitEcsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitEcsRequest) SetAuthToken(v string) *ListAppportraitEcsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitEcsRequest) SetWorkspaceName(v string) *ListAppportraitEcsRequest {
+	s.WorkspaceName = &v
+	return s
+}
+
+func (s *ListAppportraitEcsRequest) SetAppName(v string) *ListAppportraitEcsRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *ListAppportraitEcsRequest) SetPageSize(v int64) *ListAppportraitEcsRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitEcsRequest) SetPageNumber(v int64) *ListAppportraitEcsRequest {
+	s.PageNumber = &v
+	return s
+}
+
+type ListAppportraitEcsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1
+	Data []*AppPortraitAppNodeEcsList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 100
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ListAppportraitEcsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitEcsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitEcsResponse) SetReqMsgId(v string) *ListAppportraitEcsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetResultCode(v string) *ListAppportraitEcsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetResultMsg(v string) *ListAppportraitEcsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetData(v []*AppPortraitAppNodeEcsList) *ListAppportraitEcsResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetPageNum(v int64) *ListAppportraitEcsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetPageSize(v int64) *ListAppportraitEcsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitEcsResponse) SetTotal(v int64) *ListAppportraitEcsResponse {
+	s.Total = &v
+	return s
+}
+
+type ListAppportraitRdsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// page_num
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s ListAppportraitRdsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitRdsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitRdsRequest) SetAuthToken(v string) *ListAppportraitRdsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitRdsRequest) SetWorkspaceName(v string) *ListAppportraitRdsRequest {
+	s.WorkspaceName = &v
+	return s
+}
+
+func (s *ListAppportraitRdsRequest) SetAppName(v string) *ListAppportraitRdsRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *ListAppportraitRdsRequest) SetPageSize(v int64) *ListAppportraitRdsRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitRdsRequest) SetPageNum(v int64) *ListAppportraitRdsRequest {
+	s.PageNum = &v
+	return s
+}
+
+type ListAppportraitRdsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1
+	Data []*AppPortraitAppNodeEcsList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 100
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ListAppportraitRdsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitRdsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitRdsResponse) SetReqMsgId(v string) *ListAppportraitRdsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetResultCode(v string) *ListAppportraitRdsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetResultMsg(v string) *ListAppportraitRdsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetData(v []*AppPortraitAppNodeEcsList) *ListAppportraitRdsResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetPageNum(v int64) *ListAppportraitRdsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetPageSize(v int64) *ListAppportraitRdsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitRdsResponse) SetTotal(v int64) *ListAppportraitRdsResponse {
+	s.Total = &v
+	return s
+}
+
+type ListAppportraitSlbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 1
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 10
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s ListAppportraitSlbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitSlbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitSlbRequest) SetAuthToken(v string) *ListAppportraitSlbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitSlbRequest) SetWorkspaceName(v string) *ListAppportraitSlbRequest {
+	s.WorkspaceName = &v
+	return s
+}
+
+func (s *ListAppportraitSlbRequest) SetAppName(v string) *ListAppportraitSlbRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *ListAppportraitSlbRequest) SetPageSize(v int64) *ListAppportraitSlbRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitSlbRequest) SetPageNum(v int64) *ListAppportraitSlbRequest {
+	s.PageNum = &v
+	return s
+}
+
+type ListAppportraitSlbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1
+	Data []*AppPortraitAppNodeEcsList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 100
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ListAppportraitSlbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitSlbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitSlbResponse) SetReqMsgId(v string) *ListAppportraitSlbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetResultCode(v string) *ListAppportraitSlbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetResultMsg(v string) *ListAppportraitSlbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetData(v []*AppPortraitAppNodeEcsList) *ListAppportraitSlbResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetPageNum(v int64) *ListAppportraitSlbResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetPageSize(v int64) *ListAppportraitSlbResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitSlbResponse) SetTotal(v int64) *ListAppportraitSlbResponse {
+	s.Total = &v
+	return s
+}
+
+type ListAppportraitPodRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 1
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 10
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s ListAppportraitPodRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitPodRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitPodRequest) SetAuthToken(v string) *ListAppportraitPodRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitPodRequest) SetWorkspaceName(v string) *ListAppportraitPodRequest {
+	s.WorkspaceName = &v
+	return s
+}
+
+func (s *ListAppportraitPodRequest) SetAppName(v string) *ListAppportraitPodRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *ListAppportraitPodRequest) SetPageSize(v int64) *ListAppportraitPodRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitPodRequest) SetPageNum(v int64) *ListAppportraitPodRequest {
+	s.PageNum = &v
+	return s
+}
+
+type ListAppportraitPodResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1
+	Data []*AppPortraitAppNodeEcsList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 1
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 1
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 200
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ListAppportraitPodResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitPodResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitPodResponse) SetReqMsgId(v string) *ListAppportraitPodResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetResultCode(v string) *ListAppportraitPodResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetResultMsg(v string) *ListAppportraitPodResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetData(v []*AppPortraitAppNodeEcsList) *ListAppportraitPodResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetPageNum(v int64) *ListAppportraitPodResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetPageSize(v int64) *ListAppportraitPodResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitPodResponse) SetTotal(v int64) *ListAppportraitPodResponse {
+	s.Total = &v
 	return s
 }
 
@@ -16647,6 +17816,8 @@ type ImportLoadbalanceResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入的 loadbalance 序列号
 	LoadbalanceIdMapping *string `json:"loadbalance_id_mapping,omitempty" xml:"loadbalance_id_mapping,omitempty"`
+	// paas_request_id
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
 
 func (s ImportLoadbalanceResponse) String() string {
@@ -16674,6 +17845,11 @@ func (s *ImportLoadbalanceResponse) SetResultMsg(v string) *ImportLoadbalanceRes
 
 func (s *ImportLoadbalanceResponse) SetLoadbalanceIdMapping(v string) *ImportLoadbalanceResponse {
 	s.LoadbalanceIdMapping = &v
+	return s
+}
+
+func (s *ImportLoadbalanceResponse) SetPaasRequestId(v string) *ImportLoadbalanceResponse {
+	s.PaasRequestId = &v
 	return s
 }
 
@@ -19385,7 +20561,7 @@ type DeleteResourceVpcRequest struct {
 	// 要删除的VPC所在的地域identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
 	// 要删除的VPC ID
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
 	// workspace id
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// unbind_only
@@ -21018,6 +22194,13 @@ type CreateSlsLogstoreRequest struct {
 	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty" require:"true"`
 	// 是否添加索引
 	AddIndex *bool `json:"add_index,omitempty" xml:"add_index,omitempty"`
+	// 是否自动分裂Shard。
+	//
+	// true：自动分裂Shard。
+	// false：不自动分裂Shard。
+	AutoSplit *bool `json:"auto_split,omitempty" xml:"auto_split,omitempty"`
+	// 自动分裂时最大的Shard个数，最小值是1，最大值是64。
+	MaxSplitShard *int64 `json:"max_split_shard,omitempty" xml:"max_split_shard,omitempty"`
 }
 
 func (s CreateSlsLogstoreRequest) String() string {
@@ -21065,6 +22248,16 @@ func (s *CreateSlsLogstoreRequest) SetTtl(v int64) *CreateSlsLogstoreRequest {
 
 func (s *CreateSlsLogstoreRequest) SetAddIndex(v bool) *CreateSlsLogstoreRequest {
 	s.AddIndex = &v
+	return s
+}
+
+func (s *CreateSlsLogstoreRequest) SetAutoSplit(v bool) *CreateSlsLogstoreRequest {
+	s.AutoSplit = &v
+	return s
+}
+
+func (s *CreateSlsLogstoreRequest) SetMaxSplitShard(v int64) *CreateSlsLogstoreRequest {
+	s.MaxSplitShard = &v
 	return s
 }
 
@@ -22544,6 +23737,10 @@ type QueryVpcVswitchRequest struct {
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
 	// vswitch iaas id
 	VswitchId *string `json:"vswitch_id,omitempty" xml:"vswitch_id,omitempty"`
+	// 起始页，1为起点
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 最大50，默认值50
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 }
 
 func (s QueryVpcVswitchRequest) String() string {
@@ -22569,6 +23766,16 @@ func (s *QueryVpcVswitchRequest) SetVswitchId(v string) *QueryVpcVswitchRequest 
 	return s
 }
 
+func (s *QueryVpcVswitchRequest) SetPageNumber(v int64) *QueryVpcVswitchRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryVpcVswitchRequest) SetPageSize(v int64) *QueryVpcVswitchRequest {
+	s.PageSize = &v
+	return s
+}
+
 type QueryVpcVswitchResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -22578,6 +23785,8 @@ type QueryVpcVswitchResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vswitch detail infos
 	Data []*VSwitchVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
 func (s QueryVpcVswitchResponse) String() string {
@@ -22605,6 +23814,11 @@ func (s *QueryVpcVswitchResponse) SetResultMsg(v string) *QueryVpcVswitchRespons
 
 func (s *QueryVpcVswitchResponse) SetData(v []*VSwitchVO) *QueryVpcVswitchResponse {
 	s.Data = v
+	return s
+}
+
+func (s *QueryVpcVswitchResponse) SetTotalCount(v int64) *QueryVpcVswitchResponse {
+	s.TotalCount = &v
 	return s
 }
 
@@ -29490,6 +30704,10 @@ type QueryFeatureRequest struct {
 	PaasRegionId *string `json:"paas_region_id,omitempty" xml:"paas_region_id,omitempty" require:"true"`
 	// project_id
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 要查询的功能
+	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty"`
 }
 
 func (s QueryFeatureRequest) String() string {
@@ -29512,6 +30730,16 @@ func (s *QueryFeatureRequest) SetPaasRegionId(v string) *QueryFeatureRequest {
 
 func (s *QueryFeatureRequest) SetProjectId(v string) *QueryFeatureRequest {
 	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryFeatureRequest) SetWorkspaceId(v string) *QueryFeatureRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryFeatureRequest) SetFeatureName(v string) *QueryFeatureRequest {
+	s.FeatureName = &v
 	return s
 }
 
@@ -29856,6 +31084,8 @@ type AddLoadbalanceAssignResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步返回ID，用于查询当前任务的状态
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
 
 func (s AddLoadbalanceAssignResponse) String() string {
@@ -29878,6 +31108,11 @@ func (s *AddLoadbalanceAssignResponse) SetResultCode(v string) *AddLoadbalanceAs
 
 func (s *AddLoadbalanceAssignResponse) SetResultMsg(v string) *AddLoadbalanceAssignResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddLoadbalanceAssignResponse) SetPaasRequestId(v string) *AddLoadbalanceAssignResponse {
+	s.PaasRequestId = &v
 	return s
 }
 
@@ -30668,6 +31903,10 @@ type ListUnifiedresourceVswitchRequest struct {
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
 	// 要查询的交换机的ID
 	VSwitchId *string `json:"v_switch_id,omitempty" xml:"v_switch_id,omitempty"`
+	// 最大50
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 以1为起点
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
 }
 
 func (s ListUnifiedresourceVswitchRequest) String() string {
@@ -30698,6 +31937,16 @@ func (s *ListUnifiedresourceVswitchRequest) SetVSwitchId(v string) *ListUnifiedr
 	return s
 }
 
+func (s *ListUnifiedresourceVswitchRequest) SetPageSize(v int64) *ListUnifiedresourceVswitchRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListUnifiedresourceVswitchRequest) SetPageNumber(v int64) *ListUnifiedresourceVswitchRequest {
+	s.PageNumber = &v
+	return s
+}
+
 type ListUnifiedresourceVswitchResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -30707,6 +31956,8 @@ type ListUnifiedresourceVswitchResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 交换机的详细信息
 	Data []*VSwitch `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 总量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
 func (s ListUnifiedresourceVswitchResponse) String() string {
@@ -30734,6 +31985,11 @@ func (s *ListUnifiedresourceVswitchResponse) SetResultMsg(v string) *ListUnified
 
 func (s *ListUnifiedresourceVswitchResponse) SetData(v []*VSwitch) *ListUnifiedresourceVswitchResponse {
 	s.Data = v
+	return s
+}
+
+func (s *ListUnifiedresourceVswitchResponse) SetTotalCount(v int64) *ListUnifiedresourceVswitchResponse {
+	s.TotalCount = &v
 	return s
 }
 
@@ -31310,6 +32566,8 @@ type QueryResourcemetaAppserviceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// app_names
+	AppNames []*string `json:"app_names,omitempty" xml:"app_names,omitempty" type:"Repeated"`
 }
 
 func (s QueryResourcemetaAppserviceRequest) String() string {
@@ -31327,6 +32585,11 @@ func (s *QueryResourcemetaAppserviceRequest) SetAuthToken(v string) *QueryResour
 
 func (s *QueryResourcemetaAppserviceRequest) SetWorkspace(v string) *QueryResourcemetaAppserviceRequest {
 	s.Workspace = &v
+	return s
+}
+
+func (s *QueryResourcemetaAppserviceRequest) SetAppNames(v []*string) *QueryResourcemetaAppserviceRequest {
+	s.AppNames = v
 	return s
 }
 
@@ -33325,6 +34588,970 @@ func (s *RemoveMiddlewareclusterResponse) SetResultMsg(v string) *RemoveMiddlewa
 	return s
 }
 
+type QueryQuotaInstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// quota类的ID，请使用Quota API查询获取
+	QuotaId *string `json:"quota_id,omitempty" xml:"quota_id,omitempty"`
+	// 接入配额的时候,在配额中注册的资源标识
+	ResourceIdentity *string `json:"resource_identity,omitempty" xml:"resource_identity,omitempty"`
+	// 当状态为INFINITE,即无限大.当状态为INFINITESIMAL时,即为无限小
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 上限值
+	HardLimit *int64 `json:"hard_limit,omitempty" xml:"hard_limit,omitempty"`
+	// in_use
+	InUse *int64 `json:"in_use,omitempty" xml:"in_use,omitempty"`
+	// 维度实例组合ID
+	DimInstanceGroupId *string `json:"dim_instance_group_id,omitempty" xml:"dim_instance_group_id,omitempty"`
+	// page_number
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 维度标记
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty"`
+	// 维度的值
+	DimInsValue *string `json:"dim_ins_value,omitempty" xml:"dim_ins_value,omitempty"`
+}
+
+func (s QueryQuotaInstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQuotaInstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQuotaInstanceRequest) SetAuthToken(v string) *QueryQuotaInstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetQuotaId(v string) *QueryQuotaInstanceRequest {
+	s.QuotaId = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetResourceIdentity(v string) *QueryQuotaInstanceRequest {
+	s.ResourceIdentity = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetStatus(v string) *QueryQuotaInstanceRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetHardLimit(v int64) *QueryQuotaInstanceRequest {
+	s.HardLimit = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetInUse(v int64) *QueryQuotaInstanceRequest {
+	s.InUse = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetDimInstanceGroupId(v string) *QueryQuotaInstanceRequest {
+	s.DimInstanceGroupId = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetPageNumber(v int64) *QueryQuotaInstanceRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetPageSize(v int64) *QueryQuotaInstanceRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetDimIdentity(v string) *QueryQuotaInstanceRequest {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceRequest) SetDimInsValue(v string) *QueryQuotaInstanceRequest {
+	s.DimInsValue = &v
+	return s
+}
+
+type QueryQuotaInstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回值
+	Data []*SingleDimGroupQuotaInstance `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// total_count
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// page_number
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryQuotaInstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQuotaInstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQuotaInstanceResponse) SetReqMsgId(v string) *QueryQuotaInstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetResultCode(v string) *QueryQuotaInstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetResultMsg(v string) *QueryQuotaInstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetData(v []*SingleDimGroupQuotaInstance) *QueryQuotaInstanceResponse {
+	s.Data = v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetTotalCount(v int64) *QueryQuotaInstanceResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetPageNumber(v int64) *QueryQuotaInstanceResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryQuotaInstanceResponse) SetPageSize(v int64) *QueryQuotaInstanceResponse {
+	s.PageSize = &v
+	return s
+}
+
+type QuerySingledimquotaInstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// single_dim_groups
+	SingleDimGroups []*SingleDimGroup `json:"single_dim_groups,omitempty" xml:"single_dim_groups,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QuerySingledimquotaInstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySingledimquotaInstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySingledimquotaInstanceRequest) SetAuthToken(v string) *QuerySingledimquotaInstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySingledimquotaInstanceRequest) SetSingleDimGroups(v []*SingleDimGroup) *QuerySingledimquotaInstanceRequest {
+	s.SingleDimGroups = v
+	return s
+}
+
+type QuerySingledimquotaInstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回值
+	Data []*SingleDimGroupQuotaInstance `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QuerySingledimquotaInstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySingledimquotaInstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySingledimquotaInstanceResponse) SetReqMsgId(v string) *QuerySingledimquotaInstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySingledimquotaInstanceResponse) SetResultCode(v string) *QuerySingledimquotaInstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySingledimquotaInstanceResponse) SetResultMsg(v string) *QuerySingledimquotaInstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySingledimquotaInstanceResponse) SetData(v []*SingleDimGroupQuotaInstance) *QuerySingledimquotaInstanceResponse {
+	s.Data = v
+	return s
+}
+
+type QueryQuotaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	//  维度标识, 可选
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty"`
+	// resource_identity
+	ResourceIdentity *string `json:"resource_identity,omitempty" xml:"resource_identity,omitempty"`
+}
+
+func (s QueryQuotaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQuotaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQuotaRequest) SetAuthToken(v string) *QueryQuotaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQuotaRequest) SetDimIdentity(v string) *QueryQuotaRequest {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *QueryQuotaRequest) SetResourceIdentity(v string) *QueryQuotaRequest {
+	s.ResourceIdentity = &v
+	return s
+}
+
+type QueryQuotaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*SingleDimGroupQuota `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryQuotaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQuotaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQuotaResponse) SetReqMsgId(v string) *QueryQuotaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQuotaResponse) SetResultCode(v string) *QueryQuotaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQuotaResponse) SetResultMsg(v string) *QueryQuotaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQuotaResponse) SetData(v []*SingleDimGroupQuota) *QueryQuotaResponse {
+	s.Data = v
+	return s
+}
+
+type CreateQuotaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 维度标记
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty" require:"true"`
+	// resource
+	Resource *string `json:"resource,omitempty" xml:"resource,omitempty" require:"true"`
+	// 额度值，实际值还需要乘上quota_factor
+	HardLimit *int64 `json:"hard_limit,omitempty" xml:"hard_limit,omitempty" require:"true"`
+	// 同步资源用
+	SyncInterface *string `json:"sync_interface,omitempty" xml:"sync_interface,omitempty"`
+	// 关于配额的描述信息
+	QuotaDesc *string `json:"quota_desc,omitempty" xml:"quota_desc,omitempty"`
+	// 由于OP不支持浮点数，请用字符串表示浮点数，比如”0.1“-带双引号
+	QuotaFactor *string `json:"quota_factor,omitempty" xml:"quota_factor,omitempty"`
+}
+
+func (s CreateQuotaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateQuotaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateQuotaRequest) SetAuthToken(v string) *CreateQuotaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetDimIdentity(v string) *CreateQuotaRequest {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetResource(v string) *CreateQuotaRequest {
+	s.Resource = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetHardLimit(v int64) *CreateQuotaRequest {
+	s.HardLimit = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetSyncInterface(v string) *CreateQuotaRequest {
+	s.SyncInterface = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetQuotaDesc(v string) *CreateQuotaRequest {
+	s.QuotaDesc = &v
+	return s
+}
+
+func (s *CreateQuotaRequest) SetQuotaFactor(v string) *CreateQuotaRequest {
+	s.QuotaFactor = &v
+	return s
+}
+
+type CreateQuotaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ID，用于后续删除更新操作
+	QuotaId *string `json:"quota_id,omitempty" xml:"quota_id,omitempty"`
+}
+
+func (s CreateQuotaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateQuotaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateQuotaResponse) SetReqMsgId(v string) *CreateQuotaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateQuotaResponse) SetResultCode(v string) *CreateQuotaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateQuotaResponse) SetResultMsg(v string) *CreateQuotaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateQuotaResponse) SetQuotaId(v string) *CreateQuotaResponse {
+	s.QuotaId = &v
+	return s
+}
+
+type UpdateQuotaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 从Query接口找到此ID
+	QuotaId *string `json:"quota_id,omitempty" xml:"quota_id,omitempty" require:"true"`
+	// 额度，不更新请保持原值，不要留空
+	HardLimit *int64 `json:"hard_limit,omitempty" xml:"hard_limit,omitempty" require:"true"`
+}
+
+func (s UpdateQuotaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateQuotaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateQuotaRequest) SetAuthToken(v string) *UpdateQuotaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateQuotaRequest) SetQuotaId(v string) *UpdateQuotaRequest {
+	s.QuotaId = &v
+	return s
+}
+
+func (s *UpdateQuotaRequest) SetHardLimit(v int64) *UpdateQuotaRequest {
+	s.HardLimit = &v
+	return s
+}
+
+type UpdateQuotaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateQuotaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateQuotaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateQuotaResponse) SetReqMsgId(v string) *UpdateQuotaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateQuotaResponse) SetResultCode(v string) *UpdateQuotaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateQuotaResponse) SetResultMsg(v string) *UpdateQuotaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type FindcreateQuotaInstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// single_dim_groups
+	SingleDimGroups []*SingleDimGroup `json:"single_dim_groups,omitempty" xml:"single_dim_groups,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FindcreateQuotaInstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FindcreateQuotaInstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FindcreateQuotaInstanceRequest) SetAuthToken(v string) *FindcreateQuotaInstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FindcreateQuotaInstanceRequest) SetSingleDimGroups(v []*SingleDimGroup) *FindcreateQuotaInstanceRequest {
+	s.SingleDimGroups = v
+	return s
+}
+
+type FindcreateQuotaInstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*SingleDimGroupQuotaInstance `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s FindcreateQuotaInstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FindcreateQuotaInstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FindcreateQuotaInstanceResponse) SetReqMsgId(v string) *FindcreateQuotaInstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FindcreateQuotaInstanceResponse) SetResultCode(v string) *FindcreateQuotaInstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FindcreateQuotaInstanceResponse) SetResultMsg(v string) *FindcreateQuotaInstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FindcreateQuotaInstanceResponse) SetData(v []*SingleDimGroupQuotaInstance) *FindcreateQuotaInstanceResponse {
+	s.Data = v
+	return s
+}
+
+type UpdateQuotaInstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// params
+	Params []*SingleDimGroupQuota `json:"params,omitempty" xml:"params,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateQuotaInstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateQuotaInstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateQuotaInstanceRequest) SetAuthToken(v string) *UpdateQuotaInstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateQuotaInstanceRequest) SetParams(v []*SingleDimGroupQuota) *UpdateQuotaInstanceRequest {
+	s.Params = v
+	return s
+}
+
+type UpdateQuotaInstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateQuotaInstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateQuotaInstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateQuotaInstanceResponse) SetReqMsgId(v string) *UpdateQuotaInstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateQuotaInstanceResponse) SetResultCode(v string) *UpdateQuotaInstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateQuotaInstanceResponse) SetResultMsg(v string) *UpdateQuotaInstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CheckQuotaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 检查的值
+	DimGroups []*SingleDimGroup `json:"dim_groups,omitempty" xml:"dim_groups,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CheckQuotaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckQuotaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckQuotaRequest) SetAuthToken(v string) *CheckQuotaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckQuotaRequest) SetDimGroups(v []*SingleDimGroup) *CheckQuotaRequest {
+	s.DimGroups = v
+	return s
+}
+
+type CheckQuotaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是够超额
+	QuotaExceed *bool `json:"quota_exceed,omitempty" xml:"quota_exceed,omitempty"`
+	// quota实例ID
+	QuotaInsId *string `json:"quota_ins_id,omitempty" xml:"quota_ins_id,omitempty"`
+	// dim_identity
+	DimIdentity *string `json:"dim_identity,omitempty" xml:"dim_identity,omitempty"`
+	// 维度值
+	DimInsValue *string `json:"dim_ins_value,omitempty" xml:"dim_ins_value,omitempty"`
+	// resource
+	Resource *string `json:"resource,omitempty" xml:"resource,omitempty"`
+	// 申请的资源的数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 当前剩余的量
+	Remain *int64 `json:"remain,omitempty" xml:"remain,omitempty"`
+}
+
+func (s CheckQuotaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckQuotaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckQuotaResponse) SetReqMsgId(v string) *CheckQuotaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetResultCode(v string) *CheckQuotaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetResultMsg(v string) *CheckQuotaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetQuotaExceed(v bool) *CheckQuotaResponse {
+	s.QuotaExceed = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetQuotaInsId(v string) *CheckQuotaResponse {
+	s.QuotaInsId = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetDimIdentity(v string) *CheckQuotaResponse {
+	s.DimIdentity = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetDimInsValue(v string) *CheckQuotaResponse {
+	s.DimInsValue = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetResource(v string) *CheckQuotaResponse {
+	s.Resource = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetCount(v int64) *CheckQuotaResponse {
+	s.Count = &v
+	return s
+}
+
+func (s *CheckQuotaResponse) SetRemain(v int64) *CheckQuotaResponse {
+	s.Remain = &v
+	return s
+}
+
+type OpenTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 申请事项，描述一个事情即可，
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 单位为秒
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 额外的描述信息
+	Options []*MapStringToStringEntity `json:"options,omitempty" xml:"options,omitempty" type:"Repeated"`
+	// 此Token用途API对应的入参，应该是一个简单Object
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s OpenTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenTokenRequest) SetAuthToken(v string) *OpenTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenTokenRequest) SetAction(v string) *OpenTokenRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OpenTokenRequest) SetTimeout(v int64) *OpenTokenRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *OpenTokenRequest) SetOptions(v []*MapStringToStringEntity) *OpenTokenRequest {
+	s.Options = v
+	return s
+}
+
+func (s *OpenTokenRequest) SetParam(v string) *OpenTokenRequest {
+	s.Param = &v
+	return s
+}
+
+type OpenTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// dddd
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s OpenTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenTokenResponse) SetReqMsgId(v string) *OpenTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenTokenResponse) SetResultCode(v string) *OpenTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenTokenResponse) SetResultMsg(v string) *OpenTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenTokenResponse) SetToken(v string) *OpenTokenResponse {
+	s.Token = &v
+	return s
+}
+
+type SyncQuotaInstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// quota_instance_ids，从quota.instance.query返回
+	QuotaInstanceIds []*string `json:"quota_instance_ids,omitempty" xml:"quota_instance_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SyncQuotaInstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncQuotaInstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncQuotaInstanceRequest) SetAuthToken(v string) *SyncQuotaInstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncQuotaInstanceRequest) SetQuotaInstanceIds(v []*string) *SyncQuotaInstanceRequest {
+	s.QuotaInstanceIds = v
+	return s
+}
+
+type SyncQuotaInstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 依次返回成功与否
+	Data []*bool `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s SyncQuotaInstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncQuotaInstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncQuotaInstanceResponse) SetReqMsgId(v string) *SyncQuotaInstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncQuotaInstanceResponse) SetResultCode(v string) *SyncQuotaInstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncQuotaInstanceResponse) SetResultMsg(v string) *SyncQuotaInstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncQuotaInstanceResponse) SetData(v []*bool) *SyncQuotaInstanceResponse {
+	s.Data = v
+	return s
+}
+
+type UpdateFeatureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// feature_id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 可以序列化成Map的Json字符串
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 详情参考 https://velocity.apache.org/engine/
+	ConditionalContent *string `json:"conditional_content,omitempty" xml:"conditional_content,omitempty"`
+}
+
+func (s UpdateFeatureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFeatureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFeatureRequest) SetAuthToken(v string) *UpdateFeatureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateFeatureRequest) SetId(v string) *UpdateFeatureRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *UpdateFeatureRequest) SetContent(v string) *UpdateFeatureRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *UpdateFeatureRequest) SetConditionalContent(v string) *UpdateFeatureRequest {
+	s.ConditionalContent = &v
+	return s
+}
+
+type UpdateFeatureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateFeatureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateFeatureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateFeatureResponse) SetReqMsgId(v string) *UpdateFeatureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateFeatureResponse) SetResultCode(v string) *UpdateFeatureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateFeatureResponse) SetResultMsg(v string) *UpdateFeatureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListFeatureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// feature_name
+	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty"`
+}
+
+func (s ListFeatureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListFeatureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListFeatureRequest) SetAuthToken(v string) *ListFeatureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListFeatureRequest) SetRegionId(v string) *ListFeatureRequest {
+	s.RegionId = &v
+	return s
+}
+
+func (s *ListFeatureRequest) SetFeatureName(v string) *ListFeatureRequest {
+	s.FeatureName = &v
+	return s
+}
+
+type ListFeatureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*Feature `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListFeatureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListFeatureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListFeatureResponse) SetReqMsgId(v string) *ListFeatureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListFeatureResponse) SetResultCode(v string) *ListFeatureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListFeatureResponse) SetResultMsg(v string) *ListFeatureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListFeatureResponse) SetData(v []*Feature) *ListFeatureResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -33447,7 +35674,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.14"),
+				"sdk_version":      tea.String("1.4.58"),
+				"_prod_code":       tea.String("CAS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -33473,8 +35702,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -34822,6 +37059,74 @@ func (client *Client) GetAppgrayconfigsEx(request *GetAppgrayconfigsRequest, hea
 }
 
 /**
+ * Description: 测试api元数据自动录入
+ * Summary: 测试api元数据自动录入
+ */
+func (client *Client) QueryOptest(request *QueryOptestRequest) (_result *QueryOptestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOptestResponse{}
+	_body, _err := client.QueryOptestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试api元数据自动录入
+ * Summary: 测试api元数据自动录入
+ */
+func (client *Client) QueryOptestEx(request *QueryOptestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOptestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOptestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.optest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: optestplus
+ * Summary: optestplus
+ */
+func (client *Client) BindOptestplus(request *BindOptestplusRequest) (_result *BindOptestplusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindOptestplusResponse{}
+	_body, _err := client.BindOptestplusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: optestplus
+ * Summary: optestplus
+ */
+func (client *Client) BindOptestplusEx(request *BindOptestplusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindOptestplusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindOptestplusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.optestplus.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 应用画像获取应用名称列表
  * Summary: 应用画像获取应用名称列表
  */
@@ -35256,6 +37561,176 @@ func (client *Client) ListAppportraitNodeEx(request *ListAppportraitNodeRequest,
 	}
 	_result = &ListAppportraitNodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.node.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像应用分组列表
+ * Summary: 应用画像应用分组列表
+ */
+func (client *Client) ListAppportraitAppgroup(request *ListAppportraitAppgroupRequest) (_result *ListAppportraitAppgroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitAppgroupResponse{}
+	_body, _err := client.ListAppportraitAppgroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像应用分组列表
+ * Summary: 应用画像应用分组列表
+ */
+func (client *Client) ListAppportraitAppgroupEx(request *ListAppportraitAppgroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitAppgroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitAppgroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.appgroup.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 111
+ * Summary: ece列表
+ */
+func (client *Client) ListAppportraitEcs(request *ListAppportraitEcsRequest) (_result *ListAppportraitEcsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitEcsResponse{}
+	_body, _err := client.ListAppportraitEcsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 111
+ * Summary: ece列表
+ */
+func (client *Client) ListAppportraitEcsEx(request *ListAppportraitEcsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitEcsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitEcsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.ecs.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: rds列表
+ */
+func (client *Client) ListAppportraitRds(request *ListAppportraitRdsRequest) (_result *ListAppportraitRdsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitRdsResponse{}
+	_body, _err := client.ListAppportraitRdsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: rds列表
+ */
+func (client *Client) ListAppportraitRdsEx(request *ListAppportraitRdsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitRdsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitRdsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.rds.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: slb列表
+ */
+func (client *Client) ListAppportraitSlb(request *ListAppportraitSlbRequest) (_result *ListAppportraitSlbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitSlbResponse{}
+	_body, _err := client.ListAppportraitSlbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: slb列表
+ */
+func (client *Client) ListAppportraitSlbEx(request *ListAppportraitSlbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitSlbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitSlbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.slb.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: pod列表
+ */
+func (client *Client) ListAppportraitPod(request *ListAppportraitPodRequest) (_result *ListAppportraitPodResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitPodResponse{}
+	_body, _err := client.ListAppportraitPodEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 1
+ * Summary: pod列表
+ */
+func (client *Client) ListAppportraitPodEx(request *ListAppportraitPodRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitPodResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitPodResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.pod.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -42260,6 +44735,414 @@ func (client *Client) RemoveMiddlewareclusterEx(request *RemoveMiddlewarecluster
 	}
 	_result = &RemoveMiddlewareclusterResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.middlewarecluster.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+ * Summary: 查询当前配额实例的额度
+ */
+func (client *Client) QueryQuotaInstance(request *QueryQuotaInstanceRequest) (_result *QueryQuotaInstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQuotaInstanceResponse{}
+	_body, _err := client.QueryQuotaInstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+ * Summary: 查询当前配额实例的额度
+ */
+func (client *Client) QueryQuotaInstanceEx(request *QueryQuotaInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQuotaInstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQuotaInstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.instance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+ * Summary: 查询单实例维度的配额实例信息
+ */
+func (client *Client) QuerySingledimquotaInstance(request *QuerySingledimquotaInstanceRequest) (_result *QuerySingledimquotaInstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySingledimquotaInstanceResponse{}
+	_body, _err := client.QuerySingledimquotaInstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+ * Summary: 查询单实例维度的配额实例信息
+ */
+func (client *Client) QuerySingledimquotaInstanceEx(request *QuerySingledimquotaInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySingledimquotaInstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySingledimquotaInstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.singledimquota.instance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+ * Summary: 查询限额对象
+ */
+func (client *Client) QueryQuota(request *QueryQuotaRequest) (_result *QueryQuotaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQuotaResponse{}
+	_body, _err := client.QueryQuotaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+ * Summary: 查询限额对象
+ */
+func (client *Client) QueryQuotaEx(request *QueryQuotaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQuotaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQuotaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+ * Summary: 创建一个额度，用于某个维度的默认额度
+ */
+func (client *Client) CreateQuota(request *CreateQuotaRequest) (_result *CreateQuotaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateQuotaResponse{}
+	_body, _err := client.CreateQuotaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+ * Summary: 创建一个额度，用于某个维度的默认额度
+ */
+func (client *Client) CreateQuotaEx(request *CreateQuotaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateQuotaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateQuotaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+ * Summary: 更新维度配额
+ */
+func (client *Client) UpdateQuota(request *UpdateQuotaRequest) (_result *UpdateQuotaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateQuotaResponse{}
+	_body, _err := client.UpdateQuotaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+ * Summary: 更新维度配额
+ */
+func (client *Client) UpdateQuotaEx(request *UpdateQuotaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateQuotaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateQuotaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+ * Summary: 创建一个额度实例，用于某个维度实例
+ */
+func (client *Client) FindcreateQuotaInstance(request *FindcreateQuotaInstanceRequest) (_result *FindcreateQuotaInstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FindcreateQuotaInstanceResponse{}
+	_body, _err := client.FindcreateQuotaInstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+ * Summary: 创建一个额度实例，用于某个维度实例
+ */
+func (client *Client) FindcreateQuotaInstanceEx(request *FindcreateQuotaInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FindcreateQuotaInstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FindcreateQuotaInstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.instance.findcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新一个额度实例，用于某个维度实例
+ * Summary: 更新一个额度实例，用于某个维度实例
+ */
+func (client *Client) UpdateQuotaInstance(request *UpdateQuotaInstanceRequest) (_result *UpdateQuotaInstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateQuotaInstanceResponse{}
+	_body, _err := client.UpdateQuotaInstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新一个额度实例，用于某个维度实例
+ * Summary: 更新一个额度实例，用于某个维度实例
+ */
+func (client *Client) UpdateQuotaInstanceEx(request *UpdateQuotaInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateQuotaInstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateQuotaInstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.instance.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 检查额度是否够
+ * Summary: 检查额度是否够
+ */
+func (client *Client) CheckQuota(request *CheckQuotaRequest) (_result *CheckQuotaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckQuotaResponse{}
+	_body, _err := client.CheckQuotaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 检查额度是否够
+ * Summary: 检查额度是否够
+ */
+func (client *Client) CheckQuotaEx(request *CheckQuotaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckQuotaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckQuotaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建一个任务用Token，用于保证任务的幂等性
+ * Summary: 创建一个任务用Token
+ */
+func (client *Client) OpenToken(request *OpenTokenRequest) (_result *OpenTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenTokenResponse{}
+	_body, _err := client.OpenTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建一个任务用Token，用于保证任务的幂等性
+ * Summary: 创建一个任务用Token
+ */
+func (client *Client) OpenTokenEx(request *OpenTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.token.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 同步当前数据库记录的额度与实际使用的额度
+ * Summary: 同步当前数据库记录的额度与实际使用的额度
+ */
+func (client *Client) SyncQuotaInstance(request *SyncQuotaInstanceRequest) (_result *SyncQuotaInstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncQuotaInstanceResponse{}
+	_body, _err := client.SyncQuotaInstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 同步当前数据库记录的额度与实际使用的额度
+ * Summary: 同步当前数据库记录的额度与实际使用的额度
+ */
+func (client *Client) SyncQuotaInstanceEx(request *SyncQuotaInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncQuotaInstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncQuotaInstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.quota.instance.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新某个开关
+ * Summary: 更新某个开关
+ */
+func (client *Client) UpdateFeature(request *UpdateFeatureRequest) (_result *UpdateFeatureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateFeatureResponse{}
+	_body, _err := client.UpdateFeatureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新某个开关
+ * Summary: 更新某个开关
+ */
+func (client *Client) UpdateFeatureEx(request *UpdateFeatureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateFeatureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateFeatureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.feature.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前系统配置项
+ * Summary: 获取当前系统配置项
+ */
+func (client *Client) ListFeature(request *ListFeatureRequest) (_result *ListFeatureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListFeatureResponse{}
+	_body, _err := client.ListFeatureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前系统配置项
+ * Summary: 获取当前系统配置项
+ */
+func (client *Client) ListFeatureEx(request *ListFeatureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListFeatureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListFeatureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.feature.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
