@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.14',
+    sdk_version = '1.4.58',
+    _prod_code = 'CAS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -849,6 +851,18 @@ model IaasErrorInfo {
   requestId?: string(name='request_id', example='requestId'),
 }
 
+// 单个维度实例，例如WORKSPACE_A
+model DimInstance {
+  // ID字段，实际不会使用，只是数据库中的索引
+  dimId: string(name='dim_id', example='0000000001'),
+  // dim_identity
+  dimIdentity: string(name='dim_identity', example='WORKSPACE'),
+  // value
+  value: string(name='value', example='0000000001'),
+  // description
+  description?: string(name='description', example='description'),
+}
+
 // 技术栈运行时属性
 model BuildpackInstances {
   // ecs个数
@@ -929,8 +943,8 @@ model AppPortraitAppNodeEcsList {
   zoneId?: string(name='zone_id', example='zone_id'),
   // ip
   ip?: string(name='ip', example='ip'),
-  // load_balancer_spec
-  loadBalancerSpec?: string(name='load_balancer_spec', example='load_balancer_spec'),
+  // 实例规格
+  instSpec?: string(name='inst_spec', example='4核8g'),
   // cpu
   cpu?: string(name='cpu', example='cpu'),
   // memory
@@ -1650,6 +1664,8 @@ model Computer {
   workspaceId?: string(name='workspace_id', example='workspace_id'),
   // zoneId
   zoneId?: string(name='zone_id', example='0000000001'),
+  // CELLA
+  cellRef?: string(name='cell_ref', example='CELLA'),
 }
 
 // 路由条目的详细信息。
@@ -1791,7 +1807,7 @@ model AppPortraitAppUsability {
   // 应用名称
   appName: string(name='app_name', example='app_name'),
   // 应用可用性
-  appUsability?: long(name='app_usability', example='0.9998'),
+  appUsability?: string(name='app_usability', example='0.9998'),
   // 年同比
   y2y?: string(name='y2y', example='0.06'),
   // 原因列表
@@ -1895,27 +1911,29 @@ model AppPortraitContainerUsageList {
   // namespace
   namespace: string(name='namespace', example='dev'),
   // request_cpu
-  requestCpu: long(name='request_cpu', example='2'),
+  requestCpu: string(name='request_cpu', example='200m'),
   // request_mem
-  requestMem: long(name='request_mem', example='5'),
+  requestMem: string(name='request_mem', example='200Gi'),
   // limit_cpu
-  limitCpu: long(name='limit_cpu', example='4'),
+  limitCpu: string(name='limit_cpu', example='200m'),
   // limit_mem
-  limitMem: long(name='limit_mem', example='8'),
+  limitMem: string(name='limit_mem', example='200Gi'),
   // average_cpu
-  averageCpu: long(name='average_cpu', example='0.1'),
+  averageCpu: string(name='average_cpu', example='0.1'),
   // average_mem
-  averageMem: long(name='average_mem', example='0.7'),
+  averageMem: string(name='average_mem', example='0.7'),
+  // 建议1：xxxxx
+  tips: string(name='tips', example='建议1：xxxxx'),
 }
 
 // 应用画像告警数趋势结构体
 model AppPortraitAlertCountTrend {
   // 日期
-  day: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10T10:10:00Z'),
+  day: string(name='day', example='2022-01-03'),
   // 本周期
-  nowCycle: string(name='now_cycle', example='80'),
+  nowCycle: long(name='now_cycle', example='80'),
   // 上周期
-  lastCycle: string(name='last_cycle', example='30'),
+  lastCycle: long(name='last_cycle', example='30'),
 }
 
 // 数据库Grant
@@ -1932,10 +1950,16 @@ model Grant {
 model AppPortraitActionTrailQuery {
   // 操作时间
   actiontrailTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='actiontrail_timestamp', example='2018-10-10T10:10:00Z'),
-  // title
-  title: string(name='title', example='title'),
   // 状态
   status: string(name='status', example='成功'),
+  // 发布单id
+  id: string(name='id', example='CNSH_NJ202205111559258629'),
+  // 应用服务
+  appService: string(name='app_service', example='medicalscore'),
+  // 操作内容
+  operateType: string(name='operate_type', example='发布'),
+  // 执行人
+  operator: string(name='operator', example='周大侠'),
 }
 
 // 旧版应用管理-发布包上传策略
@@ -2009,9 +2033,9 @@ model ComputerQuota {
 // 可用性趋势查询
 model AppPortraitAppUsabilityTrendQuery {
   // 时间以天为单位
-  day?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10'),
+  day?: string(name='day', example='2018-10-10'),
   // 应用可用性
-  appUsability?: long(name='app_usability', example='0.9999'),
+  appUsability?: string(name='app_usability', example='0.9999'),
 }
 
 // RegionDto
@@ -2424,6 +2448,38 @@ model MapStringToIntegerEntity {
   key: string(name='key', example='key'),
   // value
   value: long(name='value', example=''),
+}
+
+// 单维度实例的配额信息
+model SingleDimGroupQuotaInstance {
+  // 配额实例所属的 配额id
+  quotaId: string(name='quota_id', example='0000000001'),
+  // 配额实例id
+  quotaInsId: string(name='quota_ins_id', example='0000000001'),
+  // 维度实例组合id
+  dimInsGroupId?: string(name='dim_ins_group_id', example='0000000001'),
+  // 维度标识
+  dimIdentity?: string(name='dim_identity', example='WORKSPACE'),
+  // 维度实例的值，比如某个具体的workspace_id
+  dimInsValue?: string(name='dim_ins_value', example='0000000001'),
+  // resource
+  resource: string(name='resource', example='CPU'),
+  // 表示是无限大还是无限小
+  status?: string(name='status', example='INFINITE'),
+  // 限额值
+  hardLimit: long(name='hard_limit', example='1'),
+  // 已经使用的额度
+  inUse: long(name='in_use', example='1'),
+  // 预分配的额度
+  reserved?: long(name='reserved', example='1'),
+  // 保留额度
+  remain?: long(name='remain', example=''),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // quota乘数因子，用以解决k8s资源可以用小数表示的问题。由于OP不支持浮点数，请用字符串表示
+  quotaFactor: string(name='quota_factor', example='0.1'),
 }
 
 // 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
@@ -2920,11 +2976,11 @@ model AppPortraitAppNodeList {
   // 返回ecs节点数据
   ecs?: [ AppPortraitAppNodeEcsList ](name='ecs', example=''),
   // 返回slb节点数据
-  slb?: AppPortraitAppNodeEcsList(name='slb', example=''),
+  slb?: [ AppPortraitAppNodeEcsList ](name='slb', example=''),
   // 返回rds节点数据
-  rds?: AppPortraitAppNodeEcsList(name='rds', example=''),
+  rds?: [ AppPortraitAppNodeEcsList ](name='rds', example=''),
   // 返回pod节点数据
-  pod?: AppPortraitAppNodeEcsList(name='pod', example=''),
+  pod?: [ AppPortraitAppNodeEcsList ](name='pod', example=''),
 }
 
 // 阿里云日志服务(SLS)-日志项目
@@ -2937,14 +2993,24 @@ model SLSProject {
   region?: string(name='region', example='region'),
 }
 
+// 维度组合实例，类似表示WORKSPACE_A下的APP_B
+model DimInstanceGroup {
+  // dim_group_id
+  dimGroupId: string(name='dim_group_id', example='0000000001'),
+  // dim_instances
+  dimInstances: [ DimInstance ](name='dim_instances', example=''),
+}
+
 // 查询应用画像ecs利用率
 model AppPortraitEcsUsageGet {
   // cpu平均利用率
-  averageCpu: long(name='average_cpu', example='0.6'),
+  averageCpu: string(name='average_cpu', example='0.6'),
   // 内存平均利用率
-  averageMem: long(name='average_mem', example='0.7'),
+  averageMem: string(name='average_mem', example='0.7'),
   // 磁盘平均利用率
-  averageDisk: long(name='average_disk', example='0.2'),
+  averageDisk: string(name='average_disk', example='0.2'),
+  // 建议1：xxxxx
+  tips: string(name='tips', example='建议1：xxxxx'),
 }
 
 // 阿里云日志服务(SLS)-日志库
@@ -3100,7 +3166,7 @@ model StarAgentInfo {
 // 应用画像健康分趋势查询结构体
 model AppPortraitAppHealthScoreTrendQuery {
   // 日期
-  day?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10T10:10:00Z'),
+  day?: string(name='day', example='2020-01-01'),
   // 健康分分值
   healthScore?: long(name='health_score', example='88'),
 }
@@ -3117,6 +3183,14 @@ model CellGroup {
   properties?: [ Property ](name='properties', example='properties'),
   // instancestatus
   instancestatus: string(name='instancestatus', example='instancestatus'),
+}
+
+// AppPortraitAppGroupList
+model AppPortraitAppGroupList {
+  // 应用分组id
+  id: string(name='id', example='id'),
+  // 应用分组名称
+  name: string(name='name', example='name'),
 }
 
 // SecurityGroupParam
@@ -3191,18 +3265,28 @@ model IaasConnMetadata {
 
 // 应用画像告警明细列表
 model AppPortraitAlertList {
-  // 告警节点ID
-  nodeId: string(name='node_id', example='node_id'),
-  // 节点名
-  nodeName: string(name='node_name', example='node_name'),
-  // 告警指标
-  metric: string(name='metric', example='metric'),
+  // 标题
+  title: string(name='title', example='点餐码校验'),
+  // 告警事件ID
+  eventId: string(name='event_id', example='367_1653287760000_450529734'),
+  // 应用名
+  appName: string(name='app_name', example='应用名'),
   // 告警级别
   severity: string(name='severity', example='INFO'),
   // 告警内容
   alertContent: string(name='alert_content', example='告警内容'),
   // 告警时间
   gmtOccurTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_occur_timestamp', example='2018-10-10T10:10:00Z'),
+  // 相关链接
+  alarmUrl: string(name='alarm_url', example='https://sofa.console.aliyun.com/business/product/multiMinute/preview/3076?workspaceName=eco0shbpaas0prod&tenantName=DIVIXWCN'),
+  //      * HEALTHY(0), // 健康
+  //      * PENDING(1), // 触发中
+  //      * FIRING(2), // 告警中
+  //      * SUSPENDED(3), // 已暂停
+  //      * SILENCED(4), // 已静默
+  //      * RECOVERED(5), // 已恢复
+  // 
+  status: long(name='status', example='1'),
 }
 
 // 应用服务查询
@@ -3417,6 +3501,41 @@ model DatabaseSecurityIp {
   type?: string(name='type', example='type'),
 }
 
+// 系统配置项
+model Feature {
+  // id
+  id: string(name='id', example='id'),
+  // cloud_name
+  cloudName: string(name='cloud_name', example='cloud_name'),
+  // region_id
+  regionId: string(name='region_id', example='region_id'),
+  // description
+  description: string(name='description', example='description'),
+  // feature_name
+  featureName: string(name='feature_name', example='feature_name'),
+  // content
+  content: string(name='content', example='content'),
+  // conditional_content
+  conditionalContent?: string(name='conditional_content', example='conditional_content'),
+  // utc_create
+  // 
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// 单维度配额
+model SingleDimGroup {
+  // 维度标识, 如: WORKSPACE
+  dimIdentity: string(name='dim_identity', example='WORKSPACE'),
+  // 维度实例的值, 如: 0000000001
+  dimInsValue: string(name='dim_ins_value', example='0000000001'),
+  // resource_identity
+  resourceIdentity: string(name='resource_identity', example='CPU'),
+  // 申请的数量，要注意quota_factor，比如当quota_factor=0.1时，申请实际为1的资源时，这里要填10
+  count: long(name='count', example=''),
+}
+
 // DatabaseEngine
 model DatabaseEngine {
   // iaas_type
@@ -3445,6 +3564,32 @@ model ComputerParam {
   instanceName?: string(name='instance_name', example='instance_name'),
   // zone_id
   zoneId?: string(name='zone_id', example='zone_id'),
+}
+
+// 单维度配额信息
+model SingleDimGroupQuota {
+  // quota_id
+  quotaId: string(name='quota_id', example='0000000001'),
+  // 后端用，前端无需关心
+  dimGroupId?: string(name='dim_group_id', example='0000000001'),
+  // dim_identity
+  dimIdentity: string(name='dim_identity', example='WORKSPACE'),
+  // resource_identity
+  resourceIdentity: string(name='resource_identity', example='CPU'),
+  // 配额最大值，注意:1. hardLimit为 -1时 表时无限大2. hardLimit为 -2时 表时无限小
+  hardLimit: long(name='hard_limit', example=''),
+  // 后端用，前端无需关心
+  syncInterface?: string(name='sync_interface', example='同步接口'),
+  // 创建者
+  creatorName?: string(name='creator_name', example='yushan'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // 维度实例的值，比如某个workspace的ID
+  dimInsValue: string(name='dim_ins_value', example='00000001'),
+  // 由于额度只支持整数，用这个浮点数factor表示乘数因子，
+  quotaFactor?: string(name='quota_factor', example='1'),
 }
 
 // LB的vip类型
@@ -5107,6 +5252,94 @@ async function getAppgrayconfigsEx(request: GetAppgrayconfigsRequest, headers: m
   return doRequest('1.0' ,'antcloud.cas.appgrayconfigs.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryOptestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // string
+  str: string(name='str'),
+  // long
+  lon: long(name='lon'),
+  // arr_str
+  arrStr?: [ string ](name='arr_str'),
+  // stru
+  stru?: Zone(name='stru'),
+  // arr_stru
+  arrStru?: [ VPC ](name='arr_stru'),
+}
+
+model QueryOptestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // str
+  str?: string(name='str'),
+  // lon
+  lon?: long(name='lon'),
+  // stru
+  stru?: VPC(name='stru'),
+  // arr_str
+  arrStr?: [ string ](name='arr_str'),
+  // arr_stru
+  arrStru?: [ VPC ](name='arr_stru'),
+}
+
+/**
+ * Description: 测试api元数据自动录入
+ * Summary: 测试api元数据自动录入
+ */
+async function queryOptest(request: QueryOptestRequest): QueryOptestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOptestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试api元数据自动录入
+ * Summary: 测试api元数据自动录入
+ */
+async function queryOptestEx(request: QueryOptestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOptestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.optest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindOptestplusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // optestplus
+  optestplus: string(name='optestplus'),
+}
+
+model BindOptestplusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: optestplus
+ * Summary: optestplus
+ */
+async function bindOptestplus(request: BindOptestplusRequest): BindOptestplusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindOptestplusEx(request, headers, runtime);
+}
+
+/**
+ * Description: optestplus
+ * Summary: optestplus
+ */
+async function bindOptestplusEx(request: BindOptestplusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindOptestplusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.optestplus.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ListAppportraitAppRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -5165,6 +5398,8 @@ model GetAppportraitAppRequest = {
   tenantId?: string(name='tenant_id'),
   // TenantName
   tenantName?: string(name='tenant_name'),
+  // 工作空间id
+  workspaceId: string(name='workspace_id'),
 }
 
 model GetAppportraitAppResponse = {
@@ -5175,7 +5410,7 @@ model GetAppportraitAppResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回应用详情信息
-  data?: [ AppPortraitAppGet ](name='data'),
+  data?: AppPortraitAppGet(name='data'),
 }
 
 /**
@@ -5200,14 +5435,14 @@ async function getAppportraitAppEx(request: GetAppportraitAppRequest, headers: m
 model GetAppportraitYearusabilityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 工作空间名称Id
-  workspaceId: string(name='workspace_id'),
+  // 工作空间名称
+  workspaceName: string(name='workspace_name'),
   // 租户id
   tenantId?: string(name='tenant_id'),
   // 租户名称
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
+  // app_name
+  appName: string(name='app_name'),
   // 查询的年份
   year: long(name='year'),
 }
@@ -5245,16 +5480,16 @@ async function getAppportraitYearusabilityEx(request: GetAppportraitYearusabilit
 model GetAppportraitMonthusabilityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 工作空间名称Id
-  workspaceId: string(name='workspace_id'),
+  // 工作空间名称
+  workspaceName: string(name='workspace_name'),
   // 租户id
   tenantId?: string(name='tenant_id'),
   // 租户名称
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
+  // app_name
+  appName: string(name='app_name'),
   // 查询的月份
-  month: long(name='month'),
+  month: string(name='month'),
 }
 
 model GetAppportraitMonthusabilityResponse = {
@@ -5290,18 +5525,18 @@ async function getAppportraitMonthusabilityEx(request: GetAppportraitMonthusabil
 model QueryAppportraitUsabilitytrendRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
-  // app_id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // app_name
+  appName: string(name='app_name'),
+  // 查询开始时间utc毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间utc毫秒
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model QueryAppportraitUsabilitytrendResponse = {
@@ -5337,18 +5572,18 @@ async function queryAppportraitUsabilitytrendEx(request: QueryAppportraitUsabili
 model QueryAppportraitHealthscoreRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
-  // app_id
-  appId: string(name='app_id'),
+  // app_name
+  appName: string(name='app_name'),
   // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  startTimestamp: long(name='start_timestamp'),
   // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model QueryAppportraitHealthscoreResponse = {
@@ -5384,18 +5619,18 @@ async function queryAppportraitHealthscoreEx(request: QueryAppportraitHealthscor
 model QueryAppportraitHealthscoretrendRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 工作空间id
-  workspaceId: string(name='workspace_id'),
+  // 工作空间name
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // 租户名称
   tenantName?: string(name='tenant_name'),
-  // 应用id
-  appId: string(name='app_id'),
+  // 应用name
+  appName: string(name='app_name'),
   // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  startTimestamp: long(name='start_timestamp'),
   // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model QueryAppportraitHealthscoretrendResponse = {
@@ -5431,18 +5666,18 @@ async function queryAppportraitHealthscoretrendEx(request: QueryAppportraitHealt
 model QueryAppportraitAlertcounttrendRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // app_name
+  appName: string(name='app_name'),
+  // 查询开始时间,utc毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间，utc毫秒
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model QueryAppportraitAlertcounttrendResponse = {
@@ -5478,18 +5713,18 @@ async function queryAppportraitAlertcounttrendEx(request: QueryAppportraitAlertc
 model ListAppportraitAlertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // eco0sh0prod
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 查询开始时间，utc毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间，utc毫秒
+  endTimestamp: long(name='end_timestamp'),
   // 分页大小
   pageSize?: long(name='page_size'),
   // 当前页码，从1开始
@@ -5505,6 +5740,12 @@ model ListAppportraitAlertResponse = {
   resultMsg?: string(name='result_msg'),
   // 返回数据
   data?: [ AppPortraitAlertList ](name='data'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 总数
+  total?: long(name='total'),
 }
 
 /**
@@ -5529,18 +5770,18 @@ async function listAppportraitAlertEx(request: ListAppportraitAlertRequest, head
 model GetAppportraitEcsusageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // app_name
+  appName: string(name='app_name'),
+  // 查询开始时间 utc毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间utc毫秒
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model GetAppportraitEcsusageResponse = {
@@ -5576,18 +5817,18 @@ async function getAppportraitEcsusageEx(request: GetAppportraitEcsusageRequest, 
 model QueryAppportraitContainerusageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
-  // app_id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // app_name
+  appName: string(name='app_name'),
+  // 查询开始时间utc毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间 utc毫秒
+  endTimestamp: long(name='end_timestamp'),
 }
 
 model QueryAppportraitContainerusageResponse = {
@@ -5623,18 +5864,18 @@ async function queryAppportraitContainerusageEx(request: QueryAppportraitContain
 model ListAppportraitActiontrailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
   tenantName?: string(name='tenant_name'),
-  // 应用id
-  appId: string(name='app_id'),
-  // 查询开始时间
-  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
-  // 查询结束时间
-  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // app_name
+  appName: string(name='app_name'),
+  // 查询开始时间，毫秒
+  startTimestamp: long(name='start_timestamp'),
+  // 查询结束时间，毫秒
+  endTimestamp: long(name='end_timestamp'),
   // 分页大小，默认为10，默
   pageSize: long(name='page_size'),
   // 当前页码，从1开始
@@ -5655,7 +5896,7 @@ model ListAppportraitActiontrailResponse = {
   // 每页大小，默认10
   pageSize?: long(name='page_size'),
   // 总数
-  total?: string(name='total'),
+  total?: long(name='total'),
 }
 
 /**
@@ -5680,10 +5921,10 @@ async function listAppportraitActiontrailEx(request: ListAppportraitActiontrailR
 model ListAppportraitNodeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // workspace_id
-  workspaceId: string(name='workspace_id'),
-  // app_id
-  appId: string(name='app_id'),
+  // 工作空间名称
+  workspaceName: string(name='workspace_name'),
+  // 应用名
+  appName: string(name='app_name'),
   // tenant_id
   tenantId?: string(name='tenant_id'),
   // tenant_name
@@ -5718,6 +5959,241 @@ async function listAppportraitNode(request: ListAppportraitNodeRequest): ListApp
 async function listAppportraitNodeEx(request: ListAppportraitNodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitNodeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitAppgroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // tenant_id
+  tenantId: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+}
+
+model ListAppportraitAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用分组列表
+  data?: [ AppPortraitAppGroupList ](name='data'),
+}
+
+/**
+ * Description: 查询应用画像应用分组列表
+ * Summary: 应用画像应用分组列表
+ */
+async function listAppportraitAppgroup(request: ListAppportraitAppgroupRequest): ListAppportraitAppgroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitAppgroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询应用画像应用分组列表
+ * Summary: 应用画像应用分组列表
+ */
+async function listAppportraitAppgroupEx(request: ListAppportraitAppgroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitAppgroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.appgroup.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitEcsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
+  // app_name
+  appName: string(name='app_name'),
+  // page_size
+  pageSize?: long(name='page_size'),
+  // page_number
+  pageNumber?: long(name='page_number'),
+}
+
+model ListAppportraitEcsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  data?: [ AppPortraitAppNodeEcsList ](name='data'),
+  // 1
+  pageNum?: long(name='page_num'),
+  // 10
+  pageSize?: long(name='page_size'),
+  // 100
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 111
+ * Summary: ece列表
+ */
+async function listAppportraitEcs(request: ListAppportraitEcsRequest): ListAppportraitEcsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitEcsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 111
+ * Summary: ece列表
+ */
+async function listAppportraitEcsEx(request: ListAppportraitEcsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitEcsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.ecs.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitRdsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
+  // app_name
+  appName: string(name='app_name'),
+  // page_size
+  pageSize?: long(name='page_size'),
+  // page_num
+  pageNum?: long(name='page_num'),
+}
+
+model ListAppportraitRdsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  data?: [ AppPortraitAppNodeEcsList ](name='data'),
+  // 1
+  pageNum?: long(name='page_num'),
+  // 10
+  pageSize?: long(name='page_size'),
+  // 100
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 1
+ * Summary: rds列表
+ */
+async function listAppportraitRds(request: ListAppportraitRdsRequest): ListAppportraitRdsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitRdsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1
+ * Summary: rds列表
+ */
+async function listAppportraitRdsEx(request: ListAppportraitRdsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitRdsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.rds.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitSlbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
+  // app_name
+  appName: string(name='app_name'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // 10
+  pageNum?: long(name='page_num'),
+}
+
+model ListAppportraitSlbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  data?: [ AppPortraitAppNodeEcsList ](name='data'),
+  // 1
+  pageNum?: long(name='page_num'),
+  // 10
+  pageSize?: long(name='page_size'),
+  // 100
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 1
+ * Summary: slb列表
+ */
+async function listAppportraitSlb(request: ListAppportraitSlbRequest): ListAppportraitSlbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitSlbEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1
+ * Summary: slb列表
+ */
+async function listAppportraitSlbEx(request: ListAppportraitSlbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitSlbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.slb.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitPodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_name
+  workspaceName: string(name='workspace_name'),
+  // app_name
+  appName: string(name='app_name'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // 10
+  pageNum?: long(name='page_num'),
+}
+
+model ListAppportraitPodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  data?: [ AppPortraitAppNodeEcsList ](name='data'),
+  // 1
+  pageNum?: long(name='page_num'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // 200
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 1
+ * Summary: pod列表
+ */
+async function listAppportraitPod(request: ListAppportraitPodRequest): ListAppportraitPodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitPodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1
+ * Summary: pod列表
+ */
+async function listAppportraitPodEx(request: ListAppportraitPodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitPodResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.pod.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateComputerRequest = {
@@ -6194,6 +6670,8 @@ model ImportLoadbalanceResponse = {
   resultMsg?: string(name='result_msg'),
   // 导入的 loadbalance 序列号
   loadbalanceIdMapping?: string(name='loadbalance_id_mapping'),
+  // paas_request_id
+  paasRequestId?: string(name='paas_request_id'),
 }
 
 /**
@@ -7689,7 +8167,7 @@ model DeleteResourceVpcRequest = {
   // 要删除的VPC所在的地域identity
   region: string(name='region'),
   // 要删除的VPC ID
-  vpcId: string(name='vpc_id'),
+  vpcId?: string(name='vpc_id'),
   // workspace id
   workspace: string(name='workspace'),
   // unbind_only
@@ -8508,6 +8986,13 @@ model CreateSlsLogstoreRequest = {
   ttl: long(name='ttl'),
   // 是否添加索引
   addIndex?: boolean(name='add_index'),
+  // 是否自动分裂Shard。
+  // 
+  // true：自动分裂Shard。
+  // false：不自动分裂Shard。
+  autoSplit?: boolean(name='auto_split'),
+  // 自动分裂时最大的Shard个数，最小值是1，最大值是64。
+  maxSplitShard?: long(name='max_split_shard'),
 }
 
 model CreateSlsLogstoreResponse = {
@@ -9255,6 +9740,10 @@ model QueryVpcVswitchRequest = {
   vpcId: string(name='vpc_id'),
   // vswitch iaas id
   vswitchId?: string(name='vswitch_id'),
+  // 起始页，1为起点
+  pageNumber?: long(name='page_number'),
+  // 最大50，默认值50
+  pageSize?: long(name='page_size'),
 }
 
 model QueryVpcVswitchResponse = {
@@ -9266,6 +9755,8 @@ model QueryVpcVswitchResponse = {
   resultMsg?: string(name='result_msg'),
   // vswitch detail infos
   data?: [ VSwitchVO ](name='data'),
+  // 总数
+  totalCount?: long(name='total_count'),
 }
 
 /**
@@ -12700,6 +13191,10 @@ model QueryFeatureRequest = {
   paasRegionId: string(name='paas_region_id'),
   // project_id
   projectId: string(name='project_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id'),
+  // 要查询的功能
+  featureName?: string(name='feature_name'),
 }
 
 model QueryFeatureResponse = {
@@ -12898,6 +13393,8 @@ model AddLoadbalanceAssignResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 异步返回ID，用于查询当前任务的状态
+  paasRequestId?: string(name='paas_request_id'),
 }
 
 /**
@@ -13341,6 +13838,10 @@ model ListUnifiedresourceVswitchRequest = {
   vpcId?: string(name='vpc_id'),
   // 要查询的交换机的ID
   vSwitchId?: string(name='v_switch_id'),
+  // 最大50
+  pageSize?: long(name='page_size'),
+  // 以1为起点
+  pageNumber?: long(name='page_number'),
 }
 
 model ListUnifiedresourceVswitchResponse = {
@@ -13352,6 +13853,8 @@ model ListUnifiedresourceVswitchResponse = {
   resultMsg?: string(name='result_msg'),
   // 交换机的详细信息
   data?: [ VSwitch ](name='data'),
+  // 总量
+  totalCount?: long(name='total_count'),
 }
 
 /**
@@ -13682,6 +14185,8 @@ model QueryResourcemetaAppserviceRequest = {
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
+  // app_names
+  appNames?: [ string ](name='app_names'),
 }
 
 model QueryResourcemetaAppserviceResponse = {
@@ -14702,5 +15207,505 @@ async function removeMiddlewarecluster(request: RemoveMiddlewareclusterRequest):
 async function removeMiddlewareclusterEx(request: RemoveMiddlewareclusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveMiddlewareclusterResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQuotaInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // quota类的ID，请使用Quota API查询获取
+  quotaId?: string(name='quota_id'),
+  // 接入配额的时候,在配额中注册的资源标识
+  resourceIdentity?: string(name='resource_identity'),
+  // 当状态为INFINITE,即无限大.当状态为INFINITESIMAL时,即为无限小
+  status?: string(name='status'),
+  // 上限值
+  hardLimit?: long(name='hard_limit'),
+  // in_use
+  inUse?: long(name='in_use'),
+  // 维度实例组合ID
+  dimInstanceGroupId?: string(name='dim_instance_group_id'),
+  // page_number
+  pageNumber: long(name='page_number'),
+  // page_size
+  pageSize: long(name='page_size'),
+  // 维度标记
+  dimIdentity?: string(name='dim_identity'),
+  // 维度的值
+  dimInsValue?: string(name='dim_ins_value'),
+}
+
+model QueryQuotaInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值
+  data?: [ SingleDimGroupQuotaInstance ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
+  // page_number
+  pageNumber?: long(name='page_number'),
+  // page_size
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+ * Summary: 查询当前配额实例的额度
+ */
+async function queryQuotaInstance(request: QueryQuotaInstanceRequest): QueryQuotaInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQuotaInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+ * Summary: 查询当前配额实例的额度
+ */
+async function queryQuotaInstanceEx(request: QueryQuotaInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQuotaInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.instance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySingledimquotaInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // single_dim_groups
+  singleDimGroups: [ SingleDimGroup ](name='single_dim_groups'),
+}
+
+model QuerySingledimquotaInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值
+  data?: [ SingleDimGroupQuotaInstance ](name='data'),
+}
+
+/**
+ * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+ * Summary: 查询单实例维度的配额实例信息
+ */
+async function querySingledimquotaInstance(request: QuerySingledimquotaInstanceRequest): QuerySingledimquotaInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySingledimquotaInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+ * Summary: 查询单实例维度的配额实例信息
+ */
+async function querySingledimquotaInstanceEx(request: QuerySingledimquotaInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySingledimquotaInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.singledimquota.instance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQuotaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  //  维度标识, 可选
+  dimIdentity?: string(name='dim_identity'),
+  // resource_identity
+  resourceIdentity?: string(name='resource_identity'),
+}
+
+model QueryQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ SingleDimGroupQuota ](name='data'),
+}
+
+/**
+ * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+ * Summary: 查询限额对象
+ */
+async function queryQuota(request: QueryQuotaRequest): QueryQuotaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQuotaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+ * Summary: 查询限额对象
+ */
+async function queryQuotaEx(request: QueryQuotaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQuotaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateQuotaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 维度标记
+  dimIdentity: string(name='dim_identity'),
+  // resource
+  resource: string(name='resource'),
+  // 额度值，实际值还需要乘上quota_factor
+  hardLimit: long(name='hard_limit'),
+  // 同步资源用
+  syncInterface?: string(name='sync_interface'),
+  // 关于配额的描述信息
+  quotaDesc?: string(name='quota_desc'),
+  // 由于OP不支持浮点数，请用字符串表示浮点数，比如”0.1“-带双引号
+  quotaFactor?: string(name='quota_factor'),
+}
+
+model CreateQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ID，用于后续删除更新操作
+  quotaId?: string(name='quota_id'),
+}
+
+/**
+ * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+ * Summary: 创建一个额度，用于某个维度的默认额度
+ */
+async function createQuota(request: CreateQuotaRequest): CreateQuotaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createQuotaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+ * Summary: 创建一个额度，用于某个维度的默认额度
+ */
+async function createQuotaEx(request: CreateQuotaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateQuotaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateQuotaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 从Query接口找到此ID
+  quotaId: string(name='quota_id'),
+  // 额度，不更新请保持原值，不要留空
+  hardLimit: long(name='hard_limit'),
+}
+
+model UpdateQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+ * Summary: 更新维度配额
+ */
+async function updateQuota(request: UpdateQuotaRequest): UpdateQuotaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateQuotaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+ * Summary: 更新维度配额
+ */
+async function updateQuotaEx(request: UpdateQuotaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateQuotaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FindcreateQuotaInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // single_dim_groups
+  singleDimGroups: [ SingleDimGroup ](name='single_dim_groups'),
+}
+
+model FindcreateQuotaInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ SingleDimGroupQuotaInstance ](name='data'),
+}
+
+/**
+ * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+ * Summary: 创建一个额度实例，用于某个维度实例
+ */
+async function findcreateQuotaInstance(request: FindcreateQuotaInstanceRequest): FindcreateQuotaInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return findcreateQuotaInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+ * Summary: 创建一个额度实例，用于某个维度实例
+ */
+async function findcreateQuotaInstanceEx(request: FindcreateQuotaInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FindcreateQuotaInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.instance.findcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateQuotaInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // params
+  params: [ SingleDimGroupQuota ](name='params'),
+}
+
+model UpdateQuotaInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新一个额度实例，用于某个维度实例
+ * Summary: 更新一个额度实例，用于某个维度实例
+ */
+async function updateQuotaInstance(request: UpdateQuotaInstanceRequest): UpdateQuotaInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateQuotaInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新一个额度实例，用于某个维度实例
+ * Summary: 更新一个额度实例，用于某个维度实例
+ */
+async function updateQuotaInstanceEx(request: UpdateQuotaInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateQuotaInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.instance.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckQuotaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 检查的值
+  dimGroups: [ SingleDimGroup ](name='dim_groups'),
+}
+
+model CheckQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是够超额
+  quotaExceed?: boolean(name='quota_exceed'),
+  // quota实例ID
+  quotaInsId?: string(name='quota_ins_id'),
+  // dim_identity
+  dimIdentity?: string(name='dim_identity'),
+  // 维度值
+  dimInsValue?: string(name='dim_ins_value'),
+  // resource
+  resource?: string(name='resource'),
+  // 申请的资源的数量
+  count?: long(name='count'),
+  // 当前剩余的量
+  remain?: long(name='remain'),
+}
+
+/**
+ * Description: 检查额度是否够
+ * Summary: 检查额度是否够
+ */
+async function checkQuota(request: CheckQuotaRequest): CheckQuotaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkQuotaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 检查额度是否够
+ * Summary: 检查额度是否够
+ */
+async function checkQuotaEx(request: CheckQuotaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckQuotaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 申请事项，描述一个事情即可，
+  action: string(name='action'),
+  // 单位为秒
+  timeout?: long(name='timeout'),
+  // 额外的描述信息
+  options?: [ MapStringToStringEntity ](name='options'),
+  // 此Token用途API对应的入参，应该是一个简单Object
+  param: string(name='param'),
+}
+
+model OpenTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // dddd
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 创建一个任务用Token，用于保证任务的幂等性
+ * Summary: 创建一个任务用Token
+ */
+async function openToken(request: OpenTokenRequest): OpenTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建一个任务用Token，用于保证任务的幂等性
+ * Summary: 创建一个任务用Token
+ */
+async function openTokenEx(request: OpenTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.token.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncQuotaInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // quota_instance_ids，从quota.instance.query返回
+  quotaInstanceIds: [ string ](name='quota_instance_ids'),
+}
+
+model SyncQuotaInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 依次返回成功与否
+  data?: [ boolean ](name='data'),
+}
+
+/**
+ * Description: 同步当前数据库记录的额度与实际使用的额度
+ * Summary: 同步当前数据库记录的额度与实际使用的额度
+ */
+async function syncQuotaInstance(request: SyncQuotaInstanceRequest): SyncQuotaInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncQuotaInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步当前数据库记录的额度与实际使用的额度
+ * Summary: 同步当前数据库记录的额度与实际使用的额度
+ */
+async function syncQuotaInstanceEx(request: SyncQuotaInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncQuotaInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.quota.instance.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateFeatureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // feature_id
+  id: string(name='id'),
+  // 可以序列化成Map的Json字符串
+  content?: string(name='content'),
+  // 详情参考 https://velocity.apache.org/engine/
+  conditionalContent?: string(name='conditional_content'),
+}
+
+model UpdateFeatureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新某个开关
+ * Summary: 更新某个开关
+ */
+async function updateFeature(request: UpdateFeatureRequest): UpdateFeatureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateFeatureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新某个开关
+ * Summary: 更新某个开关
+ */
+async function updateFeatureEx(request: UpdateFeatureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFeatureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.feature.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListFeatureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // region_id
+  regionId: string(name='region_id'),
+  // feature_name
+  featureName?: string(name='feature_name'),
+}
+
+model ListFeatureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ Feature ](name='data'),
+}
+
+/**
+ * Description: 获取当前系统配置项
+ * Summary: 获取当前系统配置项
+ */
+async function listFeature(request: ListFeatureRequest): ListFeatureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listFeatureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取当前系统配置项
+ * Summary: 获取当前系统配置项
+ */
+async function listFeatureEx(request: ListFeatureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListFeatureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.feature.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
