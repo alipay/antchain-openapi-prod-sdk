@@ -31,11 +31,18 @@ class ImportLoadbalanceResponse extends Model
      * @var string
      */
     public $loadbalanceIdMapping;
+
+    // paas_request_id
+    /**
+     * @var string
+     */
+    public $paasRequestId;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
         'resultMsg'            => 'result_msg',
         'loadbalanceIdMapping' => 'loadbalance_id_mapping',
+        'paasRequestId'        => 'paas_request_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class ImportLoadbalanceResponse extends Model
         }
         if (null !== $this->loadbalanceIdMapping) {
             $res['loadbalance_id_mapping'] = $this->loadbalanceIdMapping;
+        }
+        if (null !== $this->paasRequestId) {
+            $res['paas_request_id'] = $this->paasRequestId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class ImportLoadbalanceResponse extends Model
         }
         if (isset($map['loadbalance_id_mapping'])) {
             $model->loadbalanceIdMapping = $map['loadbalance_id_mapping'];
+        }
+        if (isset($map['paas_request_id'])) {
+            $model->paasRequestId = $map['paas_request_id'];
         }
 
         return $model;

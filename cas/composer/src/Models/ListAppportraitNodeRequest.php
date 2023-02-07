@@ -14,17 +14,17 @@ class ListAppportraitNodeRequest extends Model
      */
     public $authToken;
 
-    // workspace_id
+    // 工作空间名称
     /**
      * @var string
      */
-    public $workspaceId;
+    public $workspaceName;
 
-    // app_id
+    // 应用名
     /**
      * @var string
      */
-    public $appId;
+    public $appName;
 
     // tenant_id
     /**
@@ -38,17 +38,17 @@ class ListAppportraitNodeRequest extends Model
      */
     public $tenantName;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'workspaceId' => 'workspace_id',
-        'appId'       => 'app_id',
-        'tenantId'    => 'tenant_id',
-        'tenantName'  => 'tenant_name',
+        'authToken'     => 'auth_token',
+        'workspaceName' => 'workspace_name',
+        'appName'       => 'app_name',
+        'tenantId'      => 'tenant_id',
+        'tenantName'    => 'tenant_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('workspaceId', $this->workspaceId, true);
-        Model::validateRequired('appId', $this->appId, true);
+        Model::validateRequired('workspaceName', $this->workspaceName, true);
+        Model::validateRequired('appName', $this->appName, true);
     }
 
     public function toMap()
@@ -57,11 +57,11 @@ class ListAppportraitNodeRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->workspaceId) {
-            $res['workspace_id'] = $this->workspaceId;
+        if (null !== $this->workspaceName) {
+            $res['workspace_name'] = $this->workspaceName;
         }
-        if (null !== $this->appId) {
-            $res['app_id'] = $this->appId;
+        if (null !== $this->appName) {
+            $res['app_name'] = $this->appName;
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
@@ -84,11 +84,11 @@ class ListAppportraitNodeRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['workspace_id'])) {
-            $model->workspaceId = $map['workspace_id'];
+        if (isset($map['workspace_name'])) {
+            $model->workspaceName = $map['workspace_name'];
         }
-        if (isset($map['app_id'])) {
-            $model->appId = $map['app_id'];
+        if (isset($map['app_name'])) {
+            $model->appName = $map['app_name'];
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];

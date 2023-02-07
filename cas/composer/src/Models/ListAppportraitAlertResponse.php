@@ -31,11 +31,32 @@ class ListAppportraitAlertResponse extends Model
      * @var AppPortraitAlertList[]
      */
     public $data;
+
+    // 当前页码
+    /**
+     * @var int
+     */
+    public $pageNum;
+
+    // 分页大小
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 总数
+    /**
+     * @var int
+     */
+    public $total;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'data'       => 'data',
+        'pageNum'    => 'page_num',
+        'pageSize'   => 'page_size',
+        'total'      => 'total',
     ];
 
     public function validate()
@@ -62,6 +83,15 @@ class ListAppportraitAlertResponse extends Model
                     $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->pageNum) {
+            $res['page_num'] = $this->pageNum;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
         }
 
         return $res;
@@ -92,6 +122,15 @@ class ListAppportraitAlertResponse extends Model
                     $model->data[$n++] = null !== $item ? AppPortraitAlertList::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['page_num'])) {
+            $model->pageNum = $map['page_num'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['total'])) {
+            $model->total = $map['total'];
         }
 
         return $model;

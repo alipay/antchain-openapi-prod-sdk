@@ -55,7 +55,6 @@ class DeleteResourceVpcRequest extends Model
     public function validate()
     {
         Model::validateRequired('region', $this->region, true);
-        Model::validateRequired('vpcId', $this->vpcId, true);
         Model::validateRequired('workspace', $this->workspace, true);
     }
 

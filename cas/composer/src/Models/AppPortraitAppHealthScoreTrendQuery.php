@@ -10,7 +10,7 @@ class AppPortraitAppHealthScoreTrendQuery extends Model
 {
     // 日期
     /**
-     * @example 2018-10-10T10:10:00Z
+     * @example 2020-01-01
      *
      * @var string
      */
@@ -30,7 +30,6 @@ class AppPortraitAppHealthScoreTrendQuery extends Model
 
     public function validate()
     {
-        Model::validatePattern('day', $this->day, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

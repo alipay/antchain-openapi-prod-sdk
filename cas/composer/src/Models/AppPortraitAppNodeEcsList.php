@@ -32,13 +32,13 @@ class AppPortraitAppNodeEcsList extends Model
      */
     public $ip;
 
-    // load_balancer_spec
+    // 实例规格
     /**
-     * @example load_balancer_spec
+     * @example 4核8g
      *
      * @var string
      */
-    public $loadBalancerSpec;
+    public $instSpec;
 
     // cpu
     /**
@@ -80,15 +80,15 @@ class AppPortraitAppNodeEcsList extends Model
      */
     public $status;
     protected $_name = [
-        'id'               => 'id',
-        'zoneId'           => 'zone_id',
-        'ip'               => 'ip',
-        'loadBalancerSpec' => 'load_balancer_spec',
-        'cpu'              => 'cpu',
-        'memory'           => 'memory',
-        'version'          => 'version',
-        'name'             => 'name',
-        'status'           => 'status',
+        'id'       => 'id',
+        'zoneId'   => 'zone_id',
+        'ip'       => 'ip',
+        'instSpec' => 'inst_spec',
+        'cpu'      => 'cpu',
+        'memory'   => 'memory',
+        'version'  => 'version',
+        'name'     => 'name',
+        'status'   => 'status',
     ];
 
     public function validate()
@@ -107,8 +107,8 @@ class AppPortraitAppNodeEcsList extends Model
         if (null !== $this->ip) {
             $res['ip'] = $this->ip;
         }
-        if (null !== $this->loadBalancerSpec) {
-            $res['load_balancer_spec'] = $this->loadBalancerSpec;
+        if (null !== $this->instSpec) {
+            $res['inst_spec'] = $this->instSpec;
         }
         if (null !== $this->cpu) {
             $res['cpu'] = $this->cpu;
@@ -146,8 +146,8 @@ class AppPortraitAppNodeEcsList extends Model
         if (isset($map['ip'])) {
             $model->ip = $map['ip'];
         }
-        if (isset($map['load_balancer_spec'])) {
-            $model->loadBalancerSpec = $map['load_balancer_spec'];
+        if (isset($map['inst_spec'])) {
+            $model->instSpec = $map['inst_spec'];
         }
         if (isset($map['cpu'])) {
             $model->cpu = $map['cpu'];

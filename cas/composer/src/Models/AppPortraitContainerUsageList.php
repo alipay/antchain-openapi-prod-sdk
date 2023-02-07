@@ -18,33 +18,33 @@ class AppPortraitContainerUsageList extends Model
 
     // request_cpu
     /**
-     * @example 2
+     * @example 200m
      *
-     * @var int
+     * @var string
      */
     public $requestCpu;
 
     // request_mem
     /**
-     * @example 5
+     * @example 200Gi
      *
-     * @var int
+     * @var string
      */
     public $requestMem;
 
     // limit_cpu
     /**
-     * @example 4
+     * @example 200m
      *
-     * @var int
+     * @var string
      */
     public $limitCpu;
 
     // limit_mem
     /**
-     * @example 8
+     * @example 200Gi
      *
-     * @var int
+     * @var string
      */
     public $limitMem;
 
@@ -52,7 +52,7 @@ class AppPortraitContainerUsageList extends Model
     /**
      * @example 0.1
      *
-     * @var int
+     * @var string
      */
     public $averageCpu;
 
@@ -60,9 +60,17 @@ class AppPortraitContainerUsageList extends Model
     /**
      * @example 0.7
      *
-     * @var int
+     * @var string
      */
     public $averageMem;
+
+    // 建议1：xxxxx
+    /**
+     * @example 建议1：xxxxx
+     *
+     * @var string
+     */
+    public $tips;
     protected $_name = [
         'namespace'  => 'namespace',
         'requestCpu' => 'request_cpu',
@@ -71,6 +79,7 @@ class AppPortraitContainerUsageList extends Model
         'limitMem'   => 'limit_mem',
         'averageCpu' => 'average_cpu',
         'averageMem' => 'average_mem',
+        'tips'       => 'tips',
     ];
 
     public function validate()
@@ -82,6 +91,7 @@ class AppPortraitContainerUsageList extends Model
         Model::validateRequired('limitMem', $this->limitMem, true);
         Model::validateRequired('averageCpu', $this->averageCpu, true);
         Model::validateRequired('averageMem', $this->averageMem, true);
+        Model::validateRequired('tips', $this->tips, true);
     }
 
     public function toMap()
@@ -107,6 +117,9 @@ class AppPortraitContainerUsageList extends Model
         }
         if (null !== $this->averageMem) {
             $res['average_mem'] = $this->averageMem;
+        }
+        if (null !== $this->tips) {
+            $res['tips'] = $this->tips;
         }
 
         return $res;
@@ -140,6 +153,9 @@ class AppPortraitContainerUsageList extends Model
         }
         if (isset($map['average_mem'])) {
             $model->averageMem = $map['average_mem'];
+        }
+        if (isset($map['tips'])) {
+            $model->tips = $map['tips'];
         }
 
         return $model;

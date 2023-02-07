@@ -46,7 +46,7 @@ class ListAppportraitActiontrailResponse extends Model
 
     // 总数
     /**
-     * @var string
+     * @var int
      */
     public $total;
     protected $_name = [

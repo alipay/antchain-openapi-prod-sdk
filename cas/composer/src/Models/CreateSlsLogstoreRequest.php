@@ -55,15 +55,32 @@ class CreateSlsLogstoreRequest extends Model
      * @var bool
      */
     public $addIndex;
+
+    // 是否自动分裂Shard。
+    //
+    // true：自动分裂Shard。
+    // false：不自动分裂Shard。
+    /**
+     * @var bool
+     */
+    public $autoSplit;
+
+    // 自动分裂时最大的Shard个数，最小值是1，最大值是64。
+    /**
+     * @var int
+     */
+    public $maxSplitShard;
     protected $_name = [
-        'authToken'    => 'auth_token',
-        'logstoreName' => 'logstore_name',
-        'projectName'  => 'project_name',
-        'slsRegionId'  => 'sls_region_id',
-        'shardCount'   => 'shard_count',
-        'tenantId'     => 'tenant_id',
-        'ttl'          => 'ttl',
-        'addIndex'     => 'add_index',
+        'authToken'     => 'auth_token',
+        'logstoreName'  => 'logstore_name',
+        'projectName'   => 'project_name',
+        'slsRegionId'   => 'sls_region_id',
+        'shardCount'    => 'shard_count',
+        'tenantId'      => 'tenant_id',
+        'ttl'           => 'ttl',
+        'addIndex'      => 'add_index',
+        'autoSplit'     => 'auto_split',
+        'maxSplitShard' => 'max_split_shard',
     ];
 
     public function validate()
@@ -101,6 +118,12 @@ class CreateSlsLogstoreRequest extends Model
         if (null !== $this->addIndex) {
             $res['add_index'] = $this->addIndex;
         }
+        if (null !== $this->autoSplit) {
+            $res['auto_split'] = $this->autoSplit;
+        }
+        if (null !== $this->maxSplitShard) {
+            $res['max_split_shard'] = $this->maxSplitShard;
+        }
 
         return $res;
     }
@@ -136,6 +159,12 @@ class CreateSlsLogstoreRequest extends Model
         }
         if (isset($map['add_index'])) {
             $model->addIndex = $map['add_index'];
+        }
+        if (isset($map['auto_split'])) {
+            $model->autoSplit = $map['auto_split'];
+        }
+        if (isset($map['max_split_shard'])) {
+            $model->maxSplitShard = $map['max_split_shard'];
         }
 
         return $model;

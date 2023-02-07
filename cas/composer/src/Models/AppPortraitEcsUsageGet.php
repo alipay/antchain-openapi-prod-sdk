@@ -12,7 +12,7 @@ class AppPortraitEcsUsageGet extends Model
     /**
      * @example 0.6
      *
-     * @var int
+     * @var string
      */
     public $averageCpu;
 
@@ -20,7 +20,7 @@ class AppPortraitEcsUsageGet extends Model
     /**
      * @example 0.7
      *
-     * @var int
+     * @var string
      */
     public $averageMem;
 
@@ -28,13 +28,22 @@ class AppPortraitEcsUsageGet extends Model
     /**
      * @example 0.2
      *
-     * @var int
+     * @var string
      */
     public $averageDisk;
+
+    // 建议1：xxxxx
+    /**
+     * @example 建议1：xxxxx
+     *
+     * @var string
+     */
+    public $tips;
     protected $_name = [
         'averageCpu'  => 'average_cpu',
         'averageMem'  => 'average_mem',
         'averageDisk' => 'average_disk',
+        'tips'        => 'tips',
     ];
 
     public function validate()
@@ -42,6 +51,7 @@ class AppPortraitEcsUsageGet extends Model
         Model::validateRequired('averageCpu', $this->averageCpu, true);
         Model::validateRequired('averageMem', $this->averageMem, true);
         Model::validateRequired('averageDisk', $this->averageDisk, true);
+        Model::validateRequired('tips', $this->tips, true);
     }
 
     public function toMap()
@@ -55,6 +65,9 @@ class AppPortraitEcsUsageGet extends Model
         }
         if (null !== $this->averageDisk) {
             $res['average_disk'] = $this->averageDisk;
+        }
+        if (null !== $this->tips) {
+            $res['tips'] = $this->tips;
         }
 
         return $res;
@@ -76,6 +89,9 @@ class AppPortraitEcsUsageGet extends Model
         }
         if (isset($map['average_disk'])) {
             $model->averageDisk = $map['average_disk'];
+        }
+        if (isset($map['tips'])) {
+            $model->tips = $map['tips'];
         }
 
         return $model;

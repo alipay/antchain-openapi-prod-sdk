@@ -25,10 +25,24 @@ class QueryFeatureRequest extends Model
      * @var string
      */
     public $projectId;
+
+    // workspace_id
+    /**
+     * @var string
+     */
+    public $workspaceId;
+
+    // 要查询的功能
+    /**
+     * @var string
+     */
+    public $featureName;
     protected $_name = [
         'authToken'    => 'auth_token',
         'paasRegionId' => 'paas_region_id',
         'projectId'    => 'project_id',
+        'workspaceId'  => 'workspace_id',
+        'featureName'  => 'feature_name',
     ];
 
     public function validate()
@@ -48,6 +62,12 @@ class QueryFeatureRequest extends Model
         }
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
+        }
+        if (null !== $this->workspaceId) {
+            $res['workspace_id'] = $this->workspaceId;
+        }
+        if (null !== $this->featureName) {
+            $res['feature_name'] = $this->featureName;
         }
 
         return $res;
@@ -69,6 +89,12 @@ class QueryFeatureRequest extends Model
         }
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];
+        }
+        if (isset($map['workspace_id'])) {
+            $model->workspaceId = $map['workspace_id'];
+        }
+        if (isset($map['feature_name'])) {
+            $model->featureName = $map['feature_name'];
         }
 
         return $model;

@@ -20,7 +20,7 @@ class AppPortraitAppNodeList extends Model
     /**
      * @example
      *
-     * @var AppPortraitAppNodeEcsList
+     * @var AppPortraitAppNodeEcsList[]
      */
     public $slb;
 
@@ -28,7 +28,7 @@ class AppPortraitAppNodeList extends Model
     /**
      * @example
      *
-     * @var AppPortraitAppNodeEcsList
+     * @var AppPortraitAppNodeEcsList[]
      */
     public $rds;
 
@@ -36,7 +36,7 @@ class AppPortraitAppNodeList extends Model
     /**
      * @example
      *
-     * @var AppPortraitAppNodeEcsList
+     * @var AppPortraitAppNodeEcsList[]
      */
     public $pod;
     protected $_name = [
@@ -63,13 +63,31 @@ class AppPortraitAppNodeList extends Model
             }
         }
         if (null !== $this->slb) {
-            $res['slb'] = null !== $this->slb ? $this->slb->toMap() : null;
+            $res['slb'] = [];
+            if (null !== $this->slb && \is_array($this->slb)) {
+                $n = 0;
+                foreach ($this->slb as $item) {
+                    $res['slb'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->rds) {
-            $res['rds'] = null !== $this->rds ? $this->rds->toMap() : null;
+            $res['rds'] = [];
+            if (null !== $this->rds && \is_array($this->rds)) {
+                $n = 0;
+                foreach ($this->rds as $item) {
+                    $res['rds'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->pod) {
-            $res['pod'] = null !== $this->pod ? $this->pod->toMap() : null;
+            $res['pod'] = [];
+            if (null !== $this->pod && \is_array($this->pod)) {
+                $n = 0;
+                foreach ($this->pod as $item) {
+                    $res['pod'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -93,13 +111,31 @@ class AppPortraitAppNodeList extends Model
             }
         }
         if (isset($map['slb'])) {
-            $model->slb = AppPortraitAppNodeEcsList::fromMap($map['slb']);
+            if (!empty($map['slb'])) {
+                $model->slb = [];
+                $n          = 0;
+                foreach ($map['slb'] as $item) {
+                    $model->slb[$n++] = null !== $item ? AppPortraitAppNodeEcsList::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['rds'])) {
-            $model->rds = AppPortraitAppNodeEcsList::fromMap($map['rds']);
+            if (!empty($map['rds'])) {
+                $model->rds = [];
+                $n          = 0;
+                foreach ($map['rds'] as $item) {
+                    $model->rds[$n++] = null !== $item ? AppPortraitAppNodeEcsList::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['pod'])) {
-            $model->pod = AppPortraitAppNodeEcsList::fromMap($map['pod']);
+            if (!empty($map['pod'])) {
+                $model->pod = [];
+                $n          = 0;
+                foreach ($map['pod'] as $item) {
+                    $model->pod[$n++] = null !== $item ? AppPortraitAppNodeEcsList::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

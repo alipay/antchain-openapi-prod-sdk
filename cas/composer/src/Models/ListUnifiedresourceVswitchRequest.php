@@ -31,11 +31,25 @@ class ListUnifiedresourceVswitchRequest extends Model
      * @var string
      */
     public $vSwitchId;
+
+    // 最大50
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 以1为起点
+    /**
+     * @var int
+     */
+    public $pageNumber;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'region'    => 'region',
-        'vpcId'     => 'vpc_id',
-        'vSwitchId' => 'v_switch_id',
+        'authToken'  => 'auth_token',
+        'region'     => 'region',
+        'vpcId'      => 'vpc_id',
+        'vSwitchId'  => 'v_switch_id',
+        'pageSize'   => 'page_size',
+        'pageNumber' => 'page_number',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class ListUnifiedresourceVswitchRequest extends Model
         }
         if (null !== $this->vSwitchId) {
             $res['v_switch_id'] = $this->vSwitchId;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->pageNumber) {
+            $res['page_number'] = $this->pageNumber;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class ListUnifiedresourceVswitchRequest extends Model
         }
         if (isset($map['v_switch_id'])) {
             $model->vSwitchId = $map['v_switch_id'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['page_number'])) {
+            $model->pageNumber = $map['page_number'];
         }
 
         return $model;

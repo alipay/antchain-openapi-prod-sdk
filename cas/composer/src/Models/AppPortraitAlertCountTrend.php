@@ -10,7 +10,7 @@ class AppPortraitAlertCountTrend extends Model
 {
     // 日期
     /**
-     * @example 2018-10-10T10:10:00Z
+     * @example 2022-01-03
      *
      * @var string
      */
@@ -20,7 +20,7 @@ class AppPortraitAlertCountTrend extends Model
     /**
      * @example 80
      *
-     * @var string
+     * @var int
      */
     public $nowCycle;
 
@@ -28,7 +28,7 @@ class AppPortraitAlertCountTrend extends Model
     /**
      * @example 30
      *
-     * @var string
+     * @var int
      */
     public $lastCycle;
     protected $_name = [
@@ -42,7 +42,6 @@ class AppPortraitAlertCountTrend extends Model
         Model::validateRequired('day', $this->day, true);
         Model::validateRequired('nowCycle', $this->nowCycle, true);
         Model::validateRequired('lastCycle', $this->lastCycle, true);
-        Model::validatePattern('day', $this->day, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

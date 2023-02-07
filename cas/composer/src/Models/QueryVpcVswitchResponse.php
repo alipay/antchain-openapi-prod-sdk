@@ -31,11 +31,18 @@ class QueryVpcVswitchResponse extends Model
      * @var VSwitchVO[]
      */
     public $data;
+
+    // 总数
+    /**
+     * @var int
+     */
+    public $totalCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'data'       => 'data',
+        'totalCount' => 'total_count',
     ];
 
     public function validate()
@@ -62,6 +69,9 @@ class QueryVpcVswitchResponse extends Model
                     $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class QueryVpcVswitchResponse extends Model
                     $model->data[$n++] = null !== $item ? VSwitchVO::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
 
         return $model;

@@ -31,16 +31,24 @@ class GetAppportraitAppRequest extends Model
      * @var string
      */
     public $tenantName;
+
+    // 工作空间id
+    /**
+     * @var string
+     */
+    public $workspaceId;
     protected $_name = [
-        'authToken'  => 'auth_token',
-        'name'       => 'name',
-        'tenantId'   => 'tenant_id',
-        'tenantName' => 'tenant_name',
+        'authToken'   => 'auth_token',
+        'name'        => 'name',
+        'tenantId'    => 'tenant_id',
+        'tenantName'  => 'tenant_name',
+        'workspaceId' => 'workspace_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class GetAppportraitAppRequest extends Model
         }
         if (null !== $this->tenantName) {
             $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->workspaceId) {
+            $res['workspace_id'] = $this->workspaceId;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class GetAppportraitAppRequest extends Model
         }
         if (isset($map['tenant_name'])) {
             $model->tenantName = $map['tenant_name'];
+        }
+        if (isset($map['workspace_id'])) {
+            $model->workspaceId = $map['workspace_id'];
         }
 
         return $model;

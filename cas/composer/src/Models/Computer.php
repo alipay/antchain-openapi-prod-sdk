@@ -439,6 +439,14 @@ class Computer extends Model
      * @var string
      */
     public $zoneId;
+
+    // CELLA
+    /**
+     * @example CELLA
+     *
+     * @var string
+     */
+    public $cellRef;
     protected $_name = [
         'appId'                 => 'app_id',
         'appServiceIds'         => 'app_service_ids',
@@ -494,6 +502,7 @@ class Computer extends Model
         'vSwitchIaasId'         => 'v_switch_iaas_id',
         'workspaceId'           => 'workspace_id',
         'zoneId'                => 'zone_id',
+        'cellRef'               => 'cell_ref',
     ];
 
     public function validate()
@@ -687,6 +696,9 @@ class Computer extends Model
         }
         if (null !== $this->zoneId) {
             $res['zone_id'] = $this->zoneId;
+        }
+        if (null !== $this->cellRef) {
+            $res['cell_ref'] = $this->cellRef;
         }
 
         return $res;
@@ -883,6 +895,9 @@ class Computer extends Model
         }
         if (isset($map['zone_id'])) {
             $model->zoneId = $map['zone_id'];
+        }
+        if (isset($map['cell_ref'])) {
+            $model->cellRef = $map['cell_ref'];
         }
 
         return $model;

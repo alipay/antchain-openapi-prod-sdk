@@ -19,9 +19,16 @@ class QueryResourcemetaAppserviceRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // app_names
+    /**
+     * @var string[]
+     */
+    public $appNames;
     protected $_name = [
         'authToken' => 'auth_token',
         'workspace' => 'workspace',
+        'appNames'  => 'app_names',
     ];
 
     public function validate()
@@ -37,6 +44,9 @@ class QueryResourcemetaAppserviceRequest extends Model
         }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
+        }
+        if (null !== $this->appNames) {
+            $res['app_names'] = $this->appNames;
         }
 
         return $res;
@@ -55,6 +65,11 @@ class QueryResourcemetaAppserviceRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['app_names'])) {
+            if (!empty($map['app_names'])) {
+                $model->appNames = $map['app_names'];
+            }
         }
 
         return $model;

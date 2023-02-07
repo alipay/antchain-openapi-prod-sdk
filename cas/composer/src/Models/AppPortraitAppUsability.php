@@ -28,7 +28,7 @@ class AppPortraitAppUsability extends Model
     /**
      * @example 0.9998
      *
-     * @var int
+     * @var string
      */
     public $appUsability;
 

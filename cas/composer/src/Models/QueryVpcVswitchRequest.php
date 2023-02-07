@@ -25,10 +25,24 @@ class QueryVpcVswitchRequest extends Model
      * @var string
      */
     public $vswitchId;
+
+    // 起始页，1为起点
+    /**
+     * @var int
+     */
+    public $pageNumber;
+
+    // 最大50，默认值50
+    /**
+     * @var int
+     */
+    public $pageSize;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'vpcId'     => 'vpc_id',
-        'vswitchId' => 'vswitch_id',
+        'authToken'  => 'auth_token',
+        'vpcId'      => 'vpc_id',
+        'vswitchId'  => 'vswitch_id',
+        'pageNumber' => 'page_number',
+        'pageSize'   => 'page_size',
     ];
 
     public function validate()
@@ -47,6 +61,12 @@ class QueryVpcVswitchRequest extends Model
         }
         if (null !== $this->vswitchId) {
             $res['vswitch_id'] = $this->vswitchId;
+        }
+        if (null !== $this->pageNumber) {
+            $res['page_number'] = $this->pageNumber;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
 
         return $res;
@@ -68,6 +88,12 @@ class QueryVpcVswitchRequest extends Model
         }
         if (isset($map['vswitch_id'])) {
             $model->vswitchId = $map['vswitch_id'];
+        }
+        if (isset($map['page_number'])) {
+            $model->pageNumber = $map['page_number'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
 
         return $model;

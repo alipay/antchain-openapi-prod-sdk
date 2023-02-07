@@ -53,6 +53,10 @@ use AntChain\CAS\Models\BatchdeleteApplicationPackageRequest;
 use AntChain\CAS\Models\BatchdeleteApplicationPackageResponse;
 use AntChain\CAS\Models\BindDnsProviderRequest;
 use AntChain\CAS\Models\BindDnsProviderResponse;
+use AntChain\CAS\Models\BindOptestplusRequest;
+use AntChain\CAS\Models\BindOptestplusResponse;
+use AntChain\CAS\Models\CheckQuotaRequest;
+use AntChain\CAS\Models\CheckQuotaResponse;
 use AntChain\CAS\Models\CreateAppgroupRequest;
 use AntChain\CAS\Models\CreateAppgroupResponse;
 use AntChain\CAS\Models\CreateApplevelRequest;
@@ -85,6 +89,8 @@ use AntChain\CAS\Models\CreateLoadbalanceVcomputergroupRequest;
 use AntChain\CAS\Models\CreateLoadbalanceVcomputergroupResponse;
 use AntChain\CAS\Models\CreateMetaWorkspaceRequest;
 use AntChain\CAS\Models\CreateMetaWorkspaceResponse;
+use AntChain\CAS\Models\CreateQuotaRequest;
+use AntChain\CAS\Models\CreateQuotaResponse;
 use AntChain\CAS\Models\CreateResourceComputerRequest;
 use AntChain\CAS\Models\CreateResourceComputerResponse;
 use AntChain\CAS\Models\CreateResourceSecuritygroupRequest;
@@ -181,6 +187,8 @@ use AntChain\CAS\Models\ExistApplicationRequest;
 use AntChain\CAS\Models\ExistApplicationResponse;
 use AntChain\CAS\Models\ExistAppserviceRequest;
 use AntChain\CAS\Models\ExistAppserviceResponse;
+use AntChain\CAS\Models\FindcreateQuotaInstanceRequest;
+use AntChain\CAS\Models\FindcreateQuotaInstanceResponse;
 use AntChain\CAS\Models\GetAppgrayconfigsRequest;
 use AntChain\CAS\Models\GetAppgrayconfigsResponse;
 use AntChain\CAS\Models\GetAppgroupSystemtreeRequest;
@@ -255,10 +263,20 @@ use AntChain\CAS\Models\ListAppportraitActiontrailRequest;
 use AntChain\CAS\Models\ListAppportraitActiontrailResponse;
 use AntChain\CAS\Models\ListAppportraitAlertRequest;
 use AntChain\CAS\Models\ListAppportraitAlertResponse;
+use AntChain\CAS\Models\ListAppportraitAppgroupRequest;
+use AntChain\CAS\Models\ListAppportraitAppgroupResponse;
 use AntChain\CAS\Models\ListAppportraitAppRequest;
 use AntChain\CAS\Models\ListAppportraitAppResponse;
+use AntChain\CAS\Models\ListAppportraitEcsRequest;
+use AntChain\CAS\Models\ListAppportraitEcsResponse;
 use AntChain\CAS\Models\ListAppportraitNodeRequest;
 use AntChain\CAS\Models\ListAppportraitNodeResponse;
+use AntChain\CAS\Models\ListAppportraitPodRequest;
+use AntChain\CAS\Models\ListAppportraitPodResponse;
+use AntChain\CAS\Models\ListAppportraitRdsRequest;
+use AntChain\CAS\Models\ListAppportraitRdsResponse;
+use AntChain\CAS\Models\ListAppportraitSlbRequest;
+use AntChain\CAS\Models\ListAppportraitSlbResponse;
 use AntChain\CAS\Models\ListAppserviceCellRequest;
 use AntChain\CAS\Models\ListAppserviceCellResponse;
 use AntChain\CAS\Models\ListAppserviceRequest;
@@ -271,6 +289,8 @@ use AntChain\CAS\Models\ListComputerRequest;
 use AntChain\CAS\Models\ListComputerResponse;
 use AntChain\CAS\Models\ListDnsProviderRequest;
 use AntChain\CAS\Models\ListDnsProviderResponse;
+use AntChain\CAS\Models\ListFeatureRequest;
+use AntChain\CAS\Models\ListFeatureResponse;
 use AntChain\CAS\Models\ListMetaWorkspaceRequest;
 use AntChain\CAS\Models\ListMetaWorkspaceResponse;
 use AntChain\CAS\Models\ListRegionAccessibleRequest;
@@ -307,6 +327,8 @@ use AntChain\CAS\Models\ListVpcCidrblockRequest;
 use AntChain\CAS\Models\ListVpcCidrblockResponse;
 use AntChain\CAS\Models\ListVpcImportRequest;
 use AntChain\CAS\Models\ListVpcImportResponse;
+use AntChain\CAS\Models\OpenTokenRequest;
+use AntChain\CAS\Models\OpenTokenResponse;
 use AntChain\CAS\Models\QueryAppportraitAlertcounttrendRequest;
 use AntChain\CAS\Models\QueryAppportraitAlertcounttrendResponse;
 use AntChain\CAS\Models\QueryAppportraitContainerusageRequest;
@@ -387,8 +409,14 @@ use AntChain\CAS\Models\QueryMetaWorkspaceRequest;
 use AntChain\CAS\Models\QueryMetaWorkspaceResponse;
 use AntChain\CAS\Models\QueryMiddlewareclusterRequest;
 use AntChain\CAS\Models\QueryMiddlewareclusterResponse;
+use AntChain\CAS\Models\QueryOptestRequest;
+use AntChain\CAS\Models\QueryOptestResponse;
 use AntChain\CAS\Models\QueryProviderRequest;
 use AntChain\CAS\Models\QueryProviderResponse;
+use AntChain\CAS\Models\QueryQuotaInstanceRequest;
+use AntChain\CAS\Models\QueryQuotaInstanceResponse;
+use AntChain\CAS\Models\QueryQuotaRequest;
+use AntChain\CAS\Models\QueryQuotaResponse;
 use AntChain\CAS\Models\QueryRequestFinaltaskRequest;
 use AntChain\CAS\Models\QueryRequestFinaltaskResponse;
 use AntChain\CAS\Models\QueryRequestRequest;
@@ -413,6 +441,8 @@ use AntChain\CAS\Models\QuerySecuritygroupPermissionRequest;
 use AntChain\CAS\Models\QuerySecuritygroupPermissionResponse;
 use AntChain\CAS\Models\QuerySecuritygroupRequest;
 use AntChain\CAS\Models\QuerySecuritygroupResponse;
+use AntChain\CAS\Models\QuerySingledimquotaInstanceRequest;
+use AntChain\CAS\Models\QuerySingledimquotaInstanceResponse;
 use AntChain\CAS\Models\QuerySlsLogRequest;
 use AntChain\CAS\Models\QuerySlsLogResponse;
 use AntChain\CAS\Models\QueryTaskLogRequest;
@@ -487,6 +517,8 @@ use AntChain\CAS\Models\SyncComputerRequest;
 use AntChain\CAS\Models\SyncComputerResponse;
 use AntChain\CAS\Models\SyncLoadbalanceRequest;
 use AntChain\CAS\Models\SyncLoadbalanceResponse;
+use AntChain\CAS\Models\SyncQuotaInstanceRequest;
+use AntChain\CAS\Models\SyncQuotaInstanceResponse;
 use AntChain\CAS\Models\UpdateAppgroupRequest;
 use AntChain\CAS\Models\UpdateAppgroupResponse;
 use AntChain\CAS\Models\UpdateApplevelRequest;
@@ -507,6 +539,8 @@ use AntChain\CAS\Models\UpdateDatabaseSpecRequest;
 use AntChain\CAS\Models\UpdateDatabaseSpecResponse;
 use AntChain\CAS\Models\UpdateDiskStrategyRequest;
 use AntChain\CAS\Models\UpdateDiskStrategyResponse;
+use AntChain\CAS\Models\UpdateFeatureRequest;
+use AntChain\CAS\Models\UpdateFeatureResponse;
 use AntChain\CAS\Models\UpdateLoadbalanaceSecurityipRequest;
 use AntChain\CAS\Models\UpdateLoadbalanaceSecurityipResponse;
 use AntChain\CAS\Models\UpdateLoadbalanceAccesscontrolRequest;
@@ -521,6 +555,10 @@ use AntChain\CAS\Models\UpdateLoadbalanceSpecRequest;
 use AntChain\CAS\Models\UpdateLoadbalanceSpecResponse;
 use AntChain\CAS\Models\UpdateLoadbalanceVcomputergroupRequest;
 use AntChain\CAS\Models\UpdateLoadbalanceVcomputergroupResponse;
+use AntChain\CAS\Models\UpdateQuotaInstanceRequest;
+use AntChain\CAS\Models\UpdateQuotaInstanceResponse;
+use AntChain\CAS\Models\UpdateQuotaRequest;
+use AntChain\CAS\Models\UpdateQuotaResponse;
 use AntChain\CAS\Models\UpdateSlsConfigRequest;
 use AntChain\CAS\Models\UpdateSlsConfigResponse;
 use AntChain\CAS\Models\UpdateVpcVswitchRequest;
@@ -674,7 +712,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.14',
+                    'sdk_version'      => '1.4.58',
+                    '_prod_code'       => 'CAS',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2008,6 +2048,72 @@ class Client
     }
 
     /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入.
+     *
+     * @param QueryOptestRequest $request
+     *
+     * @return QueryOptestResponse
+     */
+    public function queryOptest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOptestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入.
+     *
+     * @param QueryOptestRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryOptestResponse
+     */
+    public function queryOptestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOptestResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.optest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: optestplus
+     * Summary: optestplus.
+     *
+     * @param BindOptestplusRequest $request
+     *
+     * @return BindOptestplusResponse
+     */
+    public function bindOptestplus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindOptestplusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: optestplus
+     * Summary: optestplus.
+     *
+     * @param BindOptestplusRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return BindOptestplusResponse
+     */
+    public function bindOptestplusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindOptestplusResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.optestplus.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 应用画像获取应用名称列表
      * Summary: 应用画像获取应用名称列表.
      *
@@ -2434,6 +2540,171 @@ class Client
         Utils::validateModel($request);
 
         return ListAppportraitNodeResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询应用画像应用分组列表
+     * Summary: 应用画像应用分组列表.
+     *
+     * @param ListAppportraitAppgroupRequest $request
+     *
+     * @return ListAppportraitAppgroupResponse
+     */
+    public function listAppportraitAppgroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitAppgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询应用画像应用分组列表
+     * Summary: 应用画像应用分组列表.
+     *
+     * @param ListAppportraitAppgroupRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ListAppportraitAppgroupResponse
+     */
+    public function listAppportraitAppgroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitAppgroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.appgroup.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 111
+     * Summary: ece列表.
+     *
+     * @param ListAppportraitEcsRequest $request
+     *
+     * @return ListAppportraitEcsResponse
+     */
+    public function listAppportraitEcs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitEcsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 111
+     * Summary: ece列表.
+     *
+     * @param ListAppportraitEcsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAppportraitEcsResponse
+     */
+    public function listAppportraitEcsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitEcsResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.ecs.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1
+     * Summary: rds列表.
+     *
+     * @param ListAppportraitRdsRequest $request
+     *
+     * @return ListAppportraitRdsResponse
+     */
+    public function listAppportraitRds($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitRdsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: rds列表.
+     *
+     * @param ListAppportraitRdsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAppportraitRdsResponse
+     */
+    public function listAppportraitRdsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitRdsResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.rds.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1
+     * Summary: slb列表.
+     *
+     * @param ListAppportraitSlbRequest $request
+     *
+     * @return ListAppportraitSlbResponse
+     */
+    public function listAppportraitSlb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitSlbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: slb列表.
+     *
+     * @param ListAppportraitSlbRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAppportraitSlbResponse
+     */
+    public function listAppportraitSlbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitSlbResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.slb.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1
+     * Summary: pod列表.
+     *
+     * @param ListAppportraitPodRequest $request
+     *
+     * @return ListAppportraitPodResponse
+     */
+    public function listAppportraitPod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitPodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: pod列表.
+     *
+     * @param ListAppportraitPodRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAppportraitPodResponse
+     */
+    public function listAppportraitPodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitPodResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.pod.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9232,5 +9503,401 @@ class Client
         Utils::validateModel($request);
 
         return RemoveMiddlewareclusterResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+     * Summary: 查询当前配额实例的额度.
+     *
+     * @param QueryQuotaInstanceRequest $request
+     *
+     * @return QueryQuotaInstanceResponse
+     */
+    public function queryQuotaInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQuotaInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+     * Summary: 查询当前配额实例的额度.
+     *
+     * @param QueryQuotaInstanceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryQuotaInstanceResponse
+     */
+    public function queryQuotaInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQuotaInstanceResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.instance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+     * Summary: 查询单实例维度的配额实例信息.
+     *
+     * @param QuerySingledimquotaInstanceRequest $request
+     *
+     * @return QuerySingledimquotaInstanceResponse
+     */
+    public function querySingledimquotaInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySingledimquotaInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+     * Summary: 查询单实例维度的配额实例信息.
+     *
+     * @param QuerySingledimquotaInstanceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QuerySingledimquotaInstanceResponse
+     */
+    public function querySingledimquotaInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySingledimquotaInstanceResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.singledimquota.instance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+     * Summary: 查询限额对象
+     *
+     * @param QueryQuotaRequest $request
+     *
+     * @return QueryQuotaResponse
+     */
+    public function queryQuota($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+     * Summary: 查询限额对象
+     *
+     * @param QueryQuotaRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryQuotaResponse
+     */
+    public function queryQuotaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQuotaResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+     * Summary: 创建一个额度，用于某个维度的默认额度.
+     *
+     * @param CreateQuotaRequest $request
+     *
+     * @return CreateQuotaResponse
+     */
+    public function createQuota($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+     * Summary: 创建一个额度，用于某个维度的默认额度.
+     *
+     * @param CreateQuotaRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return CreateQuotaResponse
+     */
+    public function createQuotaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateQuotaResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+     * Summary: 更新维度配额.
+     *
+     * @param UpdateQuotaRequest $request
+     *
+     * @return UpdateQuotaResponse
+     */
+    public function updateQuota($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+     * Summary: 更新维度配额.
+     *
+     * @param UpdateQuotaRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return UpdateQuotaResponse
+     */
+    public function updateQuotaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateQuotaResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+     * Summary: 创建一个额度实例，用于某个维度实例.
+     *
+     * @param FindcreateQuotaInstanceRequest $request
+     *
+     * @return FindcreateQuotaInstanceResponse
+     */
+    public function findcreateQuotaInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->findcreateQuotaInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+     * Summary: 创建一个额度实例，用于某个维度实例.
+     *
+     * @param FindcreateQuotaInstanceRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return FindcreateQuotaInstanceResponse
+     */
+    public function findcreateQuotaInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FindcreateQuotaInstanceResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.instance.findcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新一个额度实例，用于某个维度实例
+     * Summary: 更新一个额度实例，用于某个维度实例.
+     *
+     * @param UpdateQuotaInstanceRequest $request
+     *
+     * @return UpdateQuotaInstanceResponse
+     */
+    public function updateQuotaInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateQuotaInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新一个额度实例，用于某个维度实例
+     * Summary: 更新一个额度实例，用于某个维度实例.
+     *
+     * @param UpdateQuotaInstanceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateQuotaInstanceResponse
+     */
+    public function updateQuotaInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateQuotaInstanceResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.instance.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 检查额度是否够
+     * Summary: 检查额度是否够
+     *
+     * @param CheckQuotaRequest $request
+     *
+     * @return CheckQuotaResponse
+     */
+    public function checkQuota($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 检查额度是否够
+     * Summary: 检查额度是否够
+     *
+     * @param CheckQuotaRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return CheckQuotaResponse
+     */
+    public function checkQuotaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckQuotaResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建一个任务用Token，用于保证任务的幂等性
+     * Summary: 创建一个任务用Token.
+     *
+     * @param OpenTokenRequest $request
+     *
+     * @return OpenTokenResponse
+     */
+    public function openToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建一个任务用Token，用于保证任务的幂等性
+     * Summary: 创建一个任务用Token.
+     *
+     * @param OpenTokenRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return OpenTokenResponse
+     */
+    public function openTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.token.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步当前数据库记录的额度与实际使用的额度
+     * Summary: 同步当前数据库记录的额度与实际使用的额度.
+     *
+     * @param SyncQuotaInstanceRequest $request
+     *
+     * @return SyncQuotaInstanceResponse
+     */
+    public function syncQuotaInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncQuotaInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步当前数据库记录的额度与实际使用的额度
+     * Summary: 同步当前数据库记录的额度与实际使用的额度.
+     *
+     * @param SyncQuotaInstanceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SyncQuotaInstanceResponse
+     */
+    public function syncQuotaInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncQuotaInstanceResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.quota.instance.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新某个开关
+     * Summary: 更新某个开关.
+     *
+     * @param UpdateFeatureRequest $request
+     *
+     * @return UpdateFeatureResponse
+     */
+    public function updateFeature($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateFeatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新某个开关
+     * Summary: 更新某个开关.
+     *
+     * @param UpdateFeatureRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return UpdateFeatureResponse
+     */
+    public function updateFeatureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateFeatureResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.feature.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取当前系统配置项
+     * Summary: 获取当前系统配置项.
+     *
+     * @param ListFeatureRequest $request
+     *
+     * @return ListFeatureResponse
+     */
+    public function listFeature($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listFeatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取当前系统配置项
+     * Summary: 获取当前系统配置项.
+     *
+     * @param ListFeatureRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return ListFeatureResponse
+     */
+    public function listFeatureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListFeatureResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.feature.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
