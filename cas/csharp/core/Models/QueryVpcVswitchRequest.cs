@@ -24,6 +24,16 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string VswitchId { get; set; }
 
+        // 起始页，1为起点
+        [NameInMap("page_number")]
+        [Validation(Required=false)]
+        public long? PageNumber { get; set; }
+
+        // 最大50，默认值50
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
     }
 
 }

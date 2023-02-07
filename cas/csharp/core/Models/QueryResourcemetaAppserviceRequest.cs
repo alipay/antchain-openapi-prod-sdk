@@ -19,6 +19,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string Workspace { get; set; }
 
+        // app_names
+        [NameInMap("app_names")]
+        [Validation(Required=false)]
+        public List<string> AppNames { get; set; }
+
     }
 
 }

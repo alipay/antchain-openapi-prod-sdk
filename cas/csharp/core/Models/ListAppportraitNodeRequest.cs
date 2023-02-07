@@ -14,15 +14,15 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // workspace_id
-        [NameInMap("workspace_id")]
+        // 工作空间名称
+        [NameInMap("workspace_name")]
         [Validation(Required=true)]
-        public string WorkspaceId { get; set; }
+        public string WorkspaceName { get; set; }
 
-        // app_id
-        [NameInMap("app_id")]
+        // 应用名
+        [NameInMap("app_name")]
         [Validation(Required=true)]
-        public string AppId { get; set; }
+        public string AppName { get; set; }
 
         // tenant_id
         [NameInMap("tenant_id")]

@@ -25,10 +25,10 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string Ip { get; set; }
 
-        // load_balancer_spec
-        [NameInMap("load_balancer_spec")]
+        // 实例规格
+        [NameInMap("inst_spec")]
         [Validation(Required=false)]
-        public string LoadBalancerSpec { get; set; }
+        public string InstSpec { get; set; }
 
         // cpu
         [NameInMap("cpu")]

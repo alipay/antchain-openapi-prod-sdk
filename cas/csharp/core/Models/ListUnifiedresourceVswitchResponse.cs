@@ -29,6 +29,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public List<VSwitch> Data { get; set; }
 
+        // 总量
+        [NameInMap("total_count")]
+        [Validation(Required=false)]
+        public long? TotalCount { get; set; }
+
     }
 
 }

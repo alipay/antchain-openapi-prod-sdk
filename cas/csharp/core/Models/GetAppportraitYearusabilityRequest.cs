@@ -14,10 +14,10 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 工作空间名称Id
-        [NameInMap("workspace_id")]
+        // 工作空间名称
+        [NameInMap("workspace_name")]
         [Validation(Required=true)]
-        public string WorkspaceId { get; set; }
+        public string WorkspaceName { get; set; }
 
         // 租户id
         [NameInMap("tenant_id")]
@@ -29,10 +29,10 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string TenantName { get; set; }
 
-        // app_id
-        [NameInMap("app_id")]
+        // app_name
+        [NameInMap("app_name")]
         [Validation(Required=true)]
-        public string AppId { get; set; }
+        public string AppName { get; set; }
 
         // 查询的年份
         [NameInMap("year")]

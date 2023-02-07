@@ -12,7 +12,7 @@ namespace AntChain.SDK.CAS.Models
     public class AppPortraitAppHealthScoreTrendQuery : TeaModel {
         // 日期
         [NameInMap("day")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string Day { get; set; }
 
         // 健康分分值

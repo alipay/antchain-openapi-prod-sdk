@@ -10,20 +10,20 @@ namespace AntChain.SDK.CAS.Models
 {
     // 应用画像告警明细列表
     public class AppPortraitAlertList : TeaModel {
-        // 告警节点ID
-        [NameInMap("node_id")]
+        // 标题
+        [NameInMap("title")]
         [Validation(Required=true)]
-        public string NodeId { get; set; }
+        public string Title { get; set; }
 
-        // 节点名
-        [NameInMap("node_name")]
+        // 告警事件ID
+        [NameInMap("event_id")]
         [Validation(Required=true)]
-        public string NodeName { get; set; }
+        public string EventId { get; set; }
 
-        // 告警指标
-        [NameInMap("metric")]
+        // 应用名
+        [NameInMap("app_name")]
         [Validation(Required=true)]
-        public string Metric { get; set; }
+        public string AppName { get; set; }
 
         // 告警级别
         [NameInMap("severity")]
@@ -39,6 +39,22 @@ namespace AntChain.SDK.CAS.Models
         [NameInMap("gmt_occur_timestamp")]
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtOccurTimestamp { get; set; }
+
+        // 相关链接
+        [NameInMap("alarm_url")]
+        [Validation(Required=true)]
+        public string AlarmUrl { get; set; }
+
+        //      * HEALTHY(0), // 健康
+        //      * PENDING(1), // 触发中
+        //      * FIRING(2), // 告警中
+        //      * SUSPENDED(3), // 已暂停
+        //      * SILENCED(4), // 已静默
+        //      * RECOVERED(5), // 已恢复
+        // 
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public long? Status { get; set; }
 
     }
 

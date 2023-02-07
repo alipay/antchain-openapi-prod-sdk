@@ -18,32 +18,37 @@ namespace AntChain.SDK.CAS.Models
         // request_cpu
         [NameInMap("request_cpu")]
         [Validation(Required=true)]
-        public long? RequestCpu { get; set; }
+        public string RequestCpu { get; set; }
 
         // request_mem
         [NameInMap("request_mem")]
         [Validation(Required=true)]
-        public long? RequestMem { get; set; }
+        public string RequestMem { get; set; }
 
         // limit_cpu
         [NameInMap("limit_cpu")]
         [Validation(Required=true)]
-        public long? LimitCpu { get; set; }
+        public string LimitCpu { get; set; }
 
         // limit_mem
         [NameInMap("limit_mem")]
         [Validation(Required=true)]
-        public long? LimitMem { get; set; }
+        public string LimitMem { get; set; }
 
         // average_cpu
         [NameInMap("average_cpu")]
         [Validation(Required=true)]
-        public long? AverageCpu { get; set; }
+        public string AverageCpu { get; set; }
 
         // average_mem
         [NameInMap("average_mem")]
         [Validation(Required=true)]
-        public long? AverageMem { get; set; }
+        public string AverageMem { get; set; }
+
+        // 建议1：xxxxx
+        [NameInMap("tips")]
+        [Validation(Required=true)]
+        public string Tips { get; set; }
 
     }
 

@@ -42,7 +42,7 @@ namespace AntChain.SDK.CAS.Models
         // 总数
         [NameInMap("total")]
         [Validation(Required=false)]
-        public string Total { get; set; }
+        public long? Total { get; set; }
 
     }
 

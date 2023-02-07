@@ -13,17 +13,22 @@ namespace AntChain.SDK.CAS.Models
         // cpu平均利用率
         [NameInMap("average_cpu")]
         [Validation(Required=true)]
-        public long? AverageCpu { get; set; }
+        public string AverageCpu { get; set; }
 
         // 内存平均利用率
         [NameInMap("average_mem")]
         [Validation(Required=true)]
-        public long? AverageMem { get; set; }
+        public string AverageMem { get; set; }
 
         // 磁盘平均利用率
         [NameInMap("average_disk")]
         [Validation(Required=true)]
-        public long? AverageDisk { get; set; }
+        public string AverageDisk { get; set; }
+
+        // 建议1：xxxxx
+        [NameInMap("tips")]
+        [Validation(Required=true)]
+        public string Tips { get; set; }
 
     }
 

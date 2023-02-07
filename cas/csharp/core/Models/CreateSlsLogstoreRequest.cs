@@ -49,6 +49,19 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public bool? AddIndex { get; set; }
 
+        // 是否自动分裂Shard。
+        // 
+        // true：自动分裂Shard。
+        // false：不自动分裂Shard。
+        [NameInMap("auto_split")]
+        [Validation(Required=false)]
+        public bool? AutoSplit { get; set; }
+
+        // 自动分裂时最大的Shard个数，最小值是1，最大值是64。
+        [NameInMap("max_split_shard")]
+        [Validation(Required=false)]
+        public long? MaxSplitShard { get; set; }
+
     }
 
 }

@@ -280,6 +280,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string ZoneId { get; set; }
 
+        // CELLA
+        [NameInMap("cell_ref")]
+        [Validation(Required=false)]
+        public string CellRef { get; set; }
+
     }
 
 }

@@ -18,17 +18,17 @@ namespace AntChain.SDK.CAS.Models
         // 返回slb节点数据
         [NameInMap("slb")]
         [Validation(Required=false)]
-        public AppPortraitAppNodeEcsList Slb { get; set; }
+        public List<AppPortraitAppNodeEcsList> Slb { get; set; }
 
         // 返回rds节点数据
         [NameInMap("rds")]
         [Validation(Required=false)]
-        public AppPortraitAppNodeEcsList Rds { get; set; }
+        public List<AppPortraitAppNodeEcsList> Rds { get; set; }
 
         // 返回pod节点数据
         [NameInMap("pod")]
         [Validation(Required=false)]
-        public AppPortraitAppNodeEcsList Pod { get; set; }
+        public List<AppPortraitAppNodeEcsList> Pod { get; set; }
 
     }
 

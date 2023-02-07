@@ -27,7 +27,7 @@ namespace AntChain.SDK.CAS.Models
         // 返回应用详情信息
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<AppPortraitAppGet> Data { get; set; }
+        public AppPortraitAppGet Data { get; set; }
 
     }
 

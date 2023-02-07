@@ -137,7 +137,9 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.14"},
+                        {"sdk_version", "1.4.58"},
+                        {"_prod_code", "CAS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.14"},
+                        {"sdk_version", "1.4.58"},
+                        {"_prod_code", "CAS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1956,6 +1960,90 @@ namespace AntChain.SDK.CAS
         }
 
         /**
+         * Description: 测试api元数据自动录入
+         * Summary: 测试api元数据自动录入
+         */
+        public QueryOptestResponse QueryOptest(QueryOptestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOptestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试api元数据自动录入
+         * Summary: 测试api元数据自动录入
+         */
+        public async Task<QueryOptestResponse> QueryOptestAsync(QueryOptestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOptestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试api元数据自动录入
+         * Summary: 测试api元数据自动录入
+         */
+        public QueryOptestResponse QueryOptestEx(QueryOptestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOptestResponse>(DoRequest("1.0", "antcloud.cas.optest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试api元数据自动录入
+         * Summary: 测试api元数据自动录入
+         */
+        public async Task<QueryOptestResponse> QueryOptestExAsync(QueryOptestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOptestResponse>(await DoRequestAsync("1.0", "antcloud.cas.optest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: optestplus
+         * Summary: optestplus
+         */
+        public BindOptestplusResponse BindOptestplus(BindOptestplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindOptestplusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: optestplus
+         * Summary: optestplus
+         */
+        public async Task<BindOptestplusResponse> BindOptestplusAsync(BindOptestplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindOptestplusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: optestplus
+         * Summary: optestplus
+         */
+        public BindOptestplusResponse BindOptestplusEx(BindOptestplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindOptestplusResponse>(DoRequest("1.0", "antcloud.cas.optestplus.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: optestplus
+         * Summary: optestplus
+         */
+        public async Task<BindOptestplusResponse> BindOptestplusExAsync(BindOptestplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindOptestplusResponse>(await DoRequestAsync("1.0", "antcloud.cas.optestplus.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 应用画像获取应用名称列表
          * Summary: 应用画像获取应用名称列表
          */
@@ -2499,6 +2587,216 @@ namespace AntChain.SDK.CAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListAppportraitNodeResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像应用分组列表
+         * Summary: 应用画像应用分组列表
+         */
+        public ListAppportraitAppgroupResponse ListAppportraitAppgroup(ListAppportraitAppgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitAppgroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像应用分组列表
+         * Summary: 应用画像应用分组列表
+         */
+        public async Task<ListAppportraitAppgroupResponse> ListAppportraitAppgroupAsync(ListAppportraitAppgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitAppgroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像应用分组列表
+         * Summary: 应用画像应用分组列表
+         */
+        public ListAppportraitAppgroupResponse ListAppportraitAppgroupEx(ListAppportraitAppgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAppgroupResponse>(DoRequest("1.0", "antcloud.cas.appportrait.appgroup.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像应用分组列表
+         * Summary: 应用画像应用分组列表
+         */
+        public async Task<ListAppportraitAppgroupResponse> ListAppportraitAppgroupExAsync(ListAppportraitAppgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAppgroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.appgroup.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 111
+         * Summary: ece列表
+         */
+        public ListAppportraitEcsResponse ListAppportraitEcs(ListAppportraitEcsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitEcsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 111
+         * Summary: ece列表
+         */
+        public async Task<ListAppportraitEcsResponse> ListAppportraitEcsAsync(ListAppportraitEcsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitEcsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 111
+         * Summary: ece列表
+         */
+        public ListAppportraitEcsResponse ListAppportraitEcsEx(ListAppportraitEcsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitEcsResponse>(DoRequest("1.0", "antcloud.cas.appportrait.ecs.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 111
+         * Summary: ece列表
+         */
+        public async Task<ListAppportraitEcsResponse> ListAppportraitEcsExAsync(ListAppportraitEcsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitEcsResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.ecs.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: rds列表
+         */
+        public ListAppportraitRdsResponse ListAppportraitRds(ListAppportraitRdsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitRdsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: rds列表
+         */
+        public async Task<ListAppportraitRdsResponse> ListAppportraitRdsAsync(ListAppportraitRdsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitRdsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: rds列表
+         */
+        public ListAppportraitRdsResponse ListAppportraitRdsEx(ListAppportraitRdsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitRdsResponse>(DoRequest("1.0", "antcloud.cas.appportrait.rds.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: rds列表
+         */
+        public async Task<ListAppportraitRdsResponse> ListAppportraitRdsExAsync(ListAppportraitRdsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitRdsResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.rds.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: slb列表
+         */
+        public ListAppportraitSlbResponse ListAppportraitSlb(ListAppportraitSlbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitSlbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: slb列表
+         */
+        public async Task<ListAppportraitSlbResponse> ListAppportraitSlbAsync(ListAppportraitSlbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitSlbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: slb列表
+         */
+        public ListAppportraitSlbResponse ListAppportraitSlbEx(ListAppportraitSlbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitSlbResponse>(DoRequest("1.0", "antcloud.cas.appportrait.slb.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: slb列表
+         */
+        public async Task<ListAppportraitSlbResponse> ListAppportraitSlbExAsync(ListAppportraitSlbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitSlbResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.slb.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: pod列表
+         */
+        public ListAppportraitPodResponse ListAppportraitPod(ListAppportraitPodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitPodEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: pod列表
+         */
+        public async Task<ListAppportraitPodResponse> ListAppportraitPodAsync(ListAppportraitPodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitPodExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 1
+         * Summary: pod列表
+         */
+        public ListAppportraitPodResponse ListAppportraitPodEx(ListAppportraitPodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitPodResponse>(DoRequest("1.0", "antcloud.cas.appportrait.pod.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 1
+         * Summary: pod列表
+         */
+        public async Task<ListAppportraitPodResponse> ListAppportraitPodExAsync(ListAppportraitPodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitPodResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.pod.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -11151,6 +11449,510 @@ namespace AntChain.SDK.CAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RemoveMiddlewareclusterResponse>(await DoRequestAsync("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+         * Summary: 查询当前配额实例的额度
+         */
+        public QueryQuotaInstanceResponse QueryQuotaInstance(QueryQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQuotaInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+         * Summary: 查询当前配额实例的额度
+         */
+        public async Task<QueryQuotaInstanceResponse> QueryQuotaInstanceAsync(QueryQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQuotaInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+         * Summary: 查询当前配额实例的额度
+         */
+        public QueryQuotaInstanceResponse QueryQuotaInstanceEx(QueryQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQuotaInstanceResponse>(DoRequest("1.0", "antcloud.cas.quota.instance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+         * Summary: 查询当前配额实例的额度
+         */
+        public async Task<QueryQuotaInstanceResponse> QueryQuotaInstanceExAsync(QueryQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQuotaInstanceResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.instance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+         * Summary: 查询单实例维度的配额实例信息
+         */
+        public QuerySingledimquotaInstanceResponse QuerySingledimquotaInstance(QuerySingledimquotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySingledimquotaInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+         * Summary: 查询单实例维度的配额实例信息
+         */
+        public async Task<QuerySingledimquotaInstanceResponse> QuerySingledimquotaInstanceAsync(QuerySingledimquotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySingledimquotaInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+         * Summary: 查询单实例维度的配额实例信息
+         */
+        public QuerySingledimquotaInstanceResponse QuerySingledimquotaInstanceEx(QuerySingledimquotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySingledimquotaInstanceResponse>(DoRequest("1.0", "antcloud.cas.singledimquota.instance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+         * Summary: 查询单实例维度的配额实例信息
+         */
+        public async Task<QuerySingledimquotaInstanceResponse> QuerySingledimquotaInstanceExAsync(QuerySingledimquotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySingledimquotaInstanceResponse>(await DoRequestAsync("1.0", "antcloud.cas.singledimquota.instance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+         * Summary: 查询限额对象
+         */
+        public QueryQuotaResponse QueryQuota(QueryQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQuotaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+         * Summary: 查询限额对象
+         */
+        public async Task<QueryQuotaResponse> QueryQuotaAsync(QueryQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQuotaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+         * Summary: 查询限额对象
+         */
+        public QueryQuotaResponse QueryQuotaEx(QueryQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQuotaResponse>(DoRequest("1.0", "antcloud.cas.quota.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+         * Summary: 查询限额对象
+         */
+        public async Task<QueryQuotaResponse> QueryQuotaExAsync(QueryQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQuotaResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+         * Summary: 创建一个额度，用于某个维度的默认额度
+         */
+        public CreateQuotaResponse CreateQuota(CreateQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateQuotaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+         * Summary: 创建一个额度，用于某个维度的默认额度
+         */
+        public async Task<CreateQuotaResponse> CreateQuotaAsync(CreateQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateQuotaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+         * Summary: 创建一个额度，用于某个维度的默认额度
+         */
+        public CreateQuotaResponse CreateQuotaEx(CreateQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateQuotaResponse>(DoRequest("1.0", "antcloud.cas.quota.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+         * Summary: 创建一个额度，用于某个维度的默认额度
+         */
+        public async Task<CreateQuotaResponse> CreateQuotaExAsync(CreateQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateQuotaResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+         * Summary: 更新维度配额
+         */
+        public UpdateQuotaResponse UpdateQuota(UpdateQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateQuotaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+         * Summary: 更新维度配额
+         */
+        public async Task<UpdateQuotaResponse> UpdateQuotaAsync(UpdateQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateQuotaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+         * Summary: 更新维度配额
+         */
+        public UpdateQuotaResponse UpdateQuotaEx(UpdateQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateQuotaResponse>(DoRequest("1.0", "antcloud.cas.quota.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+         * Summary: 更新维度配额
+         */
+        public async Task<UpdateQuotaResponse> UpdateQuotaExAsync(UpdateQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateQuotaResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+         * Summary: 创建一个额度实例，用于某个维度实例
+         */
+        public FindcreateQuotaInstanceResponse FindcreateQuotaInstance(FindcreateQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FindcreateQuotaInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+         * Summary: 创建一个额度实例，用于某个维度实例
+         */
+        public async Task<FindcreateQuotaInstanceResponse> FindcreateQuotaInstanceAsync(FindcreateQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FindcreateQuotaInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+         * Summary: 创建一个额度实例，用于某个维度实例
+         */
+        public FindcreateQuotaInstanceResponse FindcreateQuotaInstanceEx(FindcreateQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FindcreateQuotaInstanceResponse>(DoRequest("1.0", "antcloud.cas.quota.instance.findcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+         * Summary: 创建一个额度实例，用于某个维度实例
+         */
+        public async Task<FindcreateQuotaInstanceResponse> FindcreateQuotaInstanceExAsync(FindcreateQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FindcreateQuotaInstanceResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.instance.findcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新一个额度实例，用于某个维度实例
+         * Summary: 更新一个额度实例，用于某个维度实例
+         */
+        public UpdateQuotaInstanceResponse UpdateQuotaInstance(UpdateQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateQuotaInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新一个额度实例，用于某个维度实例
+         * Summary: 更新一个额度实例，用于某个维度实例
+         */
+        public async Task<UpdateQuotaInstanceResponse> UpdateQuotaInstanceAsync(UpdateQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateQuotaInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新一个额度实例，用于某个维度实例
+         * Summary: 更新一个额度实例，用于某个维度实例
+         */
+        public UpdateQuotaInstanceResponse UpdateQuotaInstanceEx(UpdateQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateQuotaInstanceResponse>(DoRequest("1.0", "antcloud.cas.quota.instance.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新一个额度实例，用于某个维度实例
+         * Summary: 更新一个额度实例，用于某个维度实例
+         */
+        public async Task<UpdateQuotaInstanceResponse> UpdateQuotaInstanceExAsync(UpdateQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateQuotaInstanceResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.instance.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 检查额度是否够
+         * Summary: 检查额度是否够
+         */
+        public CheckQuotaResponse CheckQuota(CheckQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckQuotaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 检查额度是否够
+         * Summary: 检查额度是否够
+         */
+        public async Task<CheckQuotaResponse> CheckQuotaAsync(CheckQuotaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckQuotaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 检查额度是否够
+         * Summary: 检查额度是否够
+         */
+        public CheckQuotaResponse CheckQuotaEx(CheckQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckQuotaResponse>(DoRequest("1.0", "antcloud.cas.quota.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 检查额度是否够
+         * Summary: 检查额度是否够
+         */
+        public async Task<CheckQuotaResponse> CheckQuotaExAsync(CheckQuotaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckQuotaResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建一个任务用Token，用于保证任务的幂等性
+         * Summary: 创建一个任务用Token
+         */
+        public OpenTokenResponse OpenToken(OpenTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建一个任务用Token，用于保证任务的幂等性
+         * Summary: 创建一个任务用Token
+         */
+        public async Task<OpenTokenResponse> OpenTokenAsync(OpenTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建一个任务用Token，用于保证任务的幂等性
+         * Summary: 创建一个任务用Token
+         */
+        public OpenTokenResponse OpenTokenEx(OpenTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenTokenResponse>(DoRequest("1.0", "antcloud.cas.token.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建一个任务用Token，用于保证任务的幂等性
+         * Summary: 创建一个任务用Token
+         */
+        public async Task<OpenTokenResponse> OpenTokenExAsync(OpenTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenTokenResponse>(await DoRequestAsync("1.0", "antcloud.cas.token.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步当前数据库记录的额度与实际使用的额度
+         * Summary: 同步当前数据库记录的额度与实际使用的额度
+         */
+        public SyncQuotaInstanceResponse SyncQuotaInstance(SyncQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncQuotaInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步当前数据库记录的额度与实际使用的额度
+         * Summary: 同步当前数据库记录的额度与实际使用的额度
+         */
+        public async Task<SyncQuotaInstanceResponse> SyncQuotaInstanceAsync(SyncQuotaInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncQuotaInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步当前数据库记录的额度与实际使用的额度
+         * Summary: 同步当前数据库记录的额度与实际使用的额度
+         */
+        public SyncQuotaInstanceResponse SyncQuotaInstanceEx(SyncQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncQuotaInstanceResponse>(DoRequest("1.0", "antcloud.cas.quota.instance.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步当前数据库记录的额度与实际使用的额度
+         * Summary: 同步当前数据库记录的额度与实际使用的额度
+         */
+        public async Task<SyncQuotaInstanceResponse> SyncQuotaInstanceExAsync(SyncQuotaInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncQuotaInstanceResponse>(await DoRequestAsync("1.0", "antcloud.cas.quota.instance.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新某个开关
+         * Summary: 更新某个开关
+         */
+        public UpdateFeatureResponse UpdateFeature(UpdateFeatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateFeatureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新某个开关
+         * Summary: 更新某个开关
+         */
+        public async Task<UpdateFeatureResponse> UpdateFeatureAsync(UpdateFeatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateFeatureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新某个开关
+         * Summary: 更新某个开关
+         */
+        public UpdateFeatureResponse UpdateFeatureEx(UpdateFeatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateFeatureResponse>(DoRequest("1.0", "antcloud.cas.feature.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新某个开关
+         * Summary: 更新某个开关
+         */
+        public async Task<UpdateFeatureResponse> UpdateFeatureExAsync(UpdateFeatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateFeatureResponse>(await DoRequestAsync("1.0", "antcloud.cas.feature.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前系统配置项
+         * Summary: 获取当前系统配置项
+         */
+        public ListFeatureResponse ListFeature(ListFeatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListFeatureEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前系统配置项
+         * Summary: 获取当前系统配置项
+         */
+        public async Task<ListFeatureResponse> ListFeatureAsync(ListFeatureRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListFeatureExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前系统配置项
+         * Summary: 获取当前系统配置项
+         */
+        public ListFeatureResponse ListFeatureEx(ListFeatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFeatureResponse>(DoRequest("1.0", "antcloud.cas.feature.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前系统配置项
+         * Summary: 获取当前系统配置项
+         */
+        public async Task<ListFeatureResponse> ListFeatureExAsync(ListFeatureRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFeatureResponse>(await DoRequestAsync("1.0", "antcloud.cas.feature.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

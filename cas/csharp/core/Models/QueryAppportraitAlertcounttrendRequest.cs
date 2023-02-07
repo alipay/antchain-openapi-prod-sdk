@@ -14,10 +14,10 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // workspace_id
-        [NameInMap("workspace_id")]
+        // workspace_name
+        [NameInMap("workspace_name")]
         [Validation(Required=true)]
-        public string WorkspaceId { get; set; }
+        public string WorkspaceName { get; set; }
 
         // tenant_id
         [NameInMap("tenant_id")]
@@ -29,20 +29,20 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string TenantName { get; set; }
 
-        // app_id
-        [NameInMap("app_id")]
+        // app_name
+        [NameInMap("app_name")]
         [Validation(Required=true)]
-        public string AppId { get; set; }
+        public string AppName { get; set; }
 
-        // 查询开始时间
+        // 查询开始时间,utc毫秒
         [NameInMap("start_timestamp")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string StartTimestamp { get; set; }
+        [Validation(Required=true)]
+        public long? StartTimestamp { get; set; }
 
-        // 查询结束时间
+        // 查询结束时间，utc毫秒
         [NameInMap("end_timestamp")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string EndTimestamp { get; set; }
+        [Validation(Required=true)]
+        public long? EndTimestamp { get; set; }
 
     }
 

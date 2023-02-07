@@ -24,6 +24,16 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string ProjectId { get; set; }
 
+        // workspace_id
+        [NameInMap("workspace_id")]
+        [Validation(Required=false)]
+        public string WorkspaceId { get; set; }
+
+        // 要查询的功能
+        [NameInMap("feature_name")]
+        [Validation(Required=false)]
+        public string FeatureName { get; set; }
+
     }
 
 }

@@ -12,13 +12,13 @@ namespace AntChain.SDK.CAS.Models
     public class AppPortraitAppUsabilityTrendQuery : TeaModel {
         // 时间以天为单位
         [NameInMap("day")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string Day { get; set; }
 
         // 应用可用性
         [NameInMap("app_usability")]
         [Validation(Required=false)]
-        public long? AppUsability { get; set; }
+        public string AppUsability { get; set; }
 
     }
 

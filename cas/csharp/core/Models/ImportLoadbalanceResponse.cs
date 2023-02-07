@@ -29,6 +29,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string LoadbalanceIdMapping { get; set; }
 
+        // paas_request_id
+        [NameInMap("paas_request_id")]
+        [Validation(Required=false)]
+        public string PaasRequestId { get; set; }
+
     }
 
 }

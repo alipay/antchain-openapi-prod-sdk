@@ -21,7 +21,7 @@ namespace AntChain.SDK.CAS.Models
 
         // 要删除的VPC ID
         [NameInMap("vpc_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string VpcId { get; set; }
 
         // workspace id

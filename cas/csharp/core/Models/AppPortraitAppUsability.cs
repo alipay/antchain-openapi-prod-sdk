@@ -23,7 +23,7 @@ namespace AntChain.SDK.CAS.Models
         // 应用可用性
         [NameInMap("app_usability")]
         [Validation(Required=false)]
-        public long? AppUsability { get; set; }
+        public string AppUsability { get; set; }
 
         // 年同比
         [NameInMap("y2y")]

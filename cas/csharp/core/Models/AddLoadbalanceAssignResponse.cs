@@ -24,6 +24,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 异步返回ID，用于查询当前任务的状态
+        [NameInMap("paas_request_id")]
+        [Validation(Required=false)]
+        public string PaasRequestId { get; set; }
+
     }
 
 }

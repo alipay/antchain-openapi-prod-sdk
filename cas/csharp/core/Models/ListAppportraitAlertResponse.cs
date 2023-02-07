@@ -29,6 +29,21 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public List<AppPortraitAlertList> Data { get; set; }
 
+        // 当前页码
+        [NameInMap("page_num")]
+        [Validation(Required=false)]
+        public long? PageNum { get; set; }
+
+        // 分页大小
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 总数
+        [NameInMap("total")]
+        [Validation(Required=false)]
+        public long? Total { get; set; }
+
     }
 
 }

@@ -29,6 +29,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string TenantName { get; set; }
 
+        // 工作空间id
+        [NameInMap("workspace_id")]
+        [Validation(Required=true)]
+        public string WorkspaceId { get; set; }
+
     }
 
 }
