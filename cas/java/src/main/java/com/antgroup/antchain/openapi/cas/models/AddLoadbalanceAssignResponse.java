@@ -16,6 +16,10 @@ public class AddLoadbalanceAssignResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 异步返回ID，用于查询当前任务的状态
+    @NameInMap("paas_request_id")
+    public String paasRequestId;
+
     public static AddLoadbalanceAssignResponse build(java.util.Map<String, ?> map) throws Exception {
         AddLoadbalanceAssignResponse self = new AddLoadbalanceAssignResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class AddLoadbalanceAssignResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public AddLoadbalanceAssignResponse setPaasRequestId(String paasRequestId) {
+        this.paasRequestId = paasRequestId;
+        return this;
+    }
+    public String getPaasRequestId() {
+        return this.paasRequestId;
     }
 
 }

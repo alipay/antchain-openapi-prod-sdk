@@ -8,10 +8,10 @@ public class GetAppportraitYearusabilityRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 工作空间名称Id
-    @NameInMap("workspace_id")
+    // 工作空间名称
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
     // 租户id
     @NameInMap("tenant_id")
@@ -21,10 +21,10 @@ public class GetAppportraitYearusabilityRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
-    // app_id
-    @NameInMap("app_id")
+    // app_name
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
     // 查询的年份
     @NameInMap("year")
@@ -44,12 +44,12 @@ public class GetAppportraitYearusabilityRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetAppportraitYearusabilityRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public GetAppportraitYearusabilityRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
     public GetAppportraitYearusabilityRequest setTenantId(String tenantId) {
@@ -68,12 +68,12 @@ public class GetAppportraitYearusabilityRequest extends TeaModel {
         return this.tenantName;
     }
 
-    public GetAppportraitYearusabilityRequest setAppId(String appId) {
-        this.appId = appId;
+    public GetAppportraitYearusabilityRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
     public GetAppportraitYearusabilityRequest setYear(Long year) {

@@ -8,15 +8,15 @@ public class ListAppportraitNodeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // workspace_id
-    @NameInMap("workspace_id")
+    // 工作空间名称
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
-    // app_id
-    @NameInMap("app_id")
+    // 应用名
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
     // tenant_id
     @NameInMap("tenant_id")
@@ -39,20 +39,20 @@ public class ListAppportraitNodeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ListAppportraitNodeRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public ListAppportraitNodeRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
-    public ListAppportraitNodeRequest setAppId(String appId) {
-        this.appId = appId;
+    public ListAppportraitNodeRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
     public ListAppportraitNodeRequest setTenantId(String tenantId) {

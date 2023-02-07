@@ -13,6 +13,10 @@ public class QueryResourcemetaAppserviceRequest extends TeaModel {
     @Validation(required = true)
     public String workspace;
 
+    // app_names
+    @NameInMap("app_names")
+    public java.util.List<String> appNames;
+
     public static QueryResourcemetaAppserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryResourcemetaAppserviceRequest self = new QueryResourcemetaAppserviceRequest();
         return TeaModel.build(map, self);
@@ -32,6 +36,14 @@ public class QueryResourcemetaAppserviceRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public QueryResourcemetaAppserviceRequest setAppNames(java.util.List<String> appNames) {
+        this.appNames = appNames;
+        return this;
+    }
+    public java.util.List<String> getAppNames() {
+        return this.appNames;
     }
 
 }

@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.14")
+                    new TeaPair("sdk_version", "1.4.58"),
+                    new TeaPair("_prod_code", "CAS"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -901,6 +903,44 @@ public class Client {
     }
 
     /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入
+     */
+    public QueryOptestResponse queryOptest(QueryOptestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOptestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试api元数据自动录入
+     * Summary: 测试api元数据自动录入
+     */
+    public QueryOptestResponse queryOptestEx(QueryOptestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.optest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOptestResponse());
+    }
+
+    /**
+     * Description: optestplus
+     * Summary: optestplus
+     */
+    public BindOptestplusResponse bindOptestplus(BindOptestplusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindOptestplusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: optestplus
+     * Summary: optestplus
+     */
+    public BindOptestplusResponse bindOptestplusEx(BindOptestplusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.optestplus.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindOptestplusResponse());
+    }
+
+    /**
      * Description: 应用画像获取应用名称列表
      * Summary: 应用画像获取应用名称列表
      */
@@ -1145,6 +1185,101 @@ public class Client {
     public ListAppportraitNodeResponse listAppportraitNodeEx(ListAppportraitNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitNodeResponse());
+    }
+
+    /**
+     * Description: 查询应用画像应用分组列表
+     * Summary: 应用画像应用分组列表
+     */
+    public ListAppportraitAppgroupResponse listAppportraitAppgroup(ListAppportraitAppgroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitAppgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询应用画像应用分组列表
+     * Summary: 应用画像应用分组列表
+     */
+    public ListAppportraitAppgroupResponse listAppportraitAppgroupEx(ListAppportraitAppgroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.appgroup.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitAppgroupResponse());
+    }
+
+    /**
+     * Description: 111
+     * Summary: ece列表
+     */
+    public ListAppportraitEcsResponse listAppportraitEcs(ListAppportraitEcsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitEcsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 111
+     * Summary: ece列表
+     */
+    public ListAppportraitEcsResponse listAppportraitEcsEx(ListAppportraitEcsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.ecs.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitEcsResponse());
+    }
+
+    /**
+     * Description: 1
+     * Summary: rds列表
+     */
+    public ListAppportraitRdsResponse listAppportraitRds(ListAppportraitRdsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitRdsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: rds列表
+     */
+    public ListAppportraitRdsResponse listAppportraitRdsEx(ListAppportraitRdsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.rds.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitRdsResponse());
+    }
+
+    /**
+     * Description: 1
+     * Summary: slb列表
+     */
+    public ListAppportraitSlbResponse listAppportraitSlb(ListAppportraitSlbRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitSlbEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: slb列表
+     */
+    public ListAppportraitSlbResponse listAppportraitSlbEx(ListAppportraitSlbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.slb.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitSlbResponse());
+    }
+
+    /**
+     * Description: 1
+     * Summary: pod列表
+     */
+    public ListAppportraitPodResponse listAppportraitPod(ListAppportraitPodRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitPodEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1
+     * Summary: pod列表
+     */
+    public ListAppportraitPodResponse listAppportraitPodEx(ListAppportraitPodRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.pod.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitPodResponse());
     }
 
     /**
@@ -5059,5 +5194,233 @@ public class Client {
     public RemoveMiddlewareclusterResponse removeMiddlewareclusterEx(RemoveMiddlewareclusterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveMiddlewareclusterResponse());
+    }
+
+    /**
+     * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+     * Summary: 查询当前配额实例的额度
+     */
+    public QueryQuotaInstanceResponse queryQuotaInstance(QueryQuotaInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQuotaInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 配额实例指的就是某个工作空间或者某个APP的关于某个资源的额度
+     * Summary: 查询当前配额实例的额度
+     */
+    public QueryQuotaInstanceResponse queryQuotaInstanceEx(QueryQuotaInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.instance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQuotaInstanceResponse());
+    }
+
+    /**
+     * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+     * Summary: 查询单实例维度的配额实例信息
+     */
+    public QuerySingledimquotaInstanceResponse querySingledimquotaInstance(QuerySingledimquotaInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySingledimquotaInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询单实例维度的配额实例信息,如果没有该维度实例时则会先创建该维度实例
+     * Summary: 查询单实例维度的配额实例信息
+     */
+    public QuerySingledimquotaInstanceResponse querySingledimquotaInstanceEx(QuerySingledimquotaInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.singledimquota.instance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySingledimquotaInstanceResponse());
+    }
+
+    /**
+     * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+     * Summary: 查询限额对象
+     */
+    public QueryQuotaResponse queryQuota(QueryQuotaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQuotaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询限额对象，非限额实例。限额对象仅仅包含资源组合描述信息。请根据返回的QuotaId查询具体的实例信息
+     * Summary: 查询限额对象
+     */
+    public QueryQuotaResponse queryQuotaEx(QueryQuotaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQuotaResponse());
+    }
+
+    /**
+     * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+     * Summary: 创建一个额度，用于某个维度的默认额度
+     */
+    public CreateQuotaResponse createQuota(CreateQuotaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createQuotaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注意概念，额度对某个资源从哪些维度限定的数量，举个例子，给所有workspace都配置一个默认值，而非某个单独实例
+     * Summary: 创建一个额度，用于某个维度的默认额度
+     */
+    public CreateQuotaResponse createQuotaEx(CreateQuotaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateQuotaResponse());
+    }
+
+    /**
+     * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+     * Summary: 更新维度配额
+     */
+    public UpdateQuotaResponse updateQuota(UpdateQuotaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateQuotaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新维度配额，非维度实例，这个一般是全站级别的额度。
+     * Summary: 更新维度配额
+     */
+    public UpdateQuotaResponse updateQuotaEx(UpdateQuotaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateQuotaResponse());
+    }
+
+    /**
+     * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+     * Summary: 创建一个额度实例，用于某个维度实例
+     */
+    public FindcreateQuotaInstanceResponse findcreateQuotaInstance(FindcreateQuotaInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.findcreateQuotaInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建一个额度实例，用于某个维度实例，如果已经存在。返回已经存在。请用用这个接口查询当前额度
+     * Summary: 创建一个额度实例，用于某个维度实例
+     */
+    public FindcreateQuotaInstanceResponse findcreateQuotaInstanceEx(FindcreateQuotaInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.instance.findcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FindcreateQuotaInstanceResponse());
+    }
+
+    /**
+     * Description: 更新一个额度实例，用于某个维度实例
+     * Summary: 更新一个额度实例，用于某个维度实例
+     */
+    public UpdateQuotaInstanceResponse updateQuotaInstance(UpdateQuotaInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateQuotaInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新一个额度实例，用于某个维度实例
+     * Summary: 更新一个额度实例，用于某个维度实例
+     */
+    public UpdateQuotaInstanceResponse updateQuotaInstanceEx(UpdateQuotaInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.instance.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateQuotaInstanceResponse());
+    }
+
+    /**
+     * Description: 检查额度是否够
+     * Summary: 检查额度是否够
+     */
+    public CheckQuotaResponse checkQuota(CheckQuotaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkQuotaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 检查额度是否够
+     * Summary: 检查额度是否够
+     */
+    public CheckQuotaResponse checkQuotaEx(CheckQuotaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckQuotaResponse());
+    }
+
+    /**
+     * Description: 创建一个任务用Token，用于保证任务的幂等性
+     * Summary: 创建一个任务用Token
+     */
+    public OpenTokenResponse openToken(OpenTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建一个任务用Token，用于保证任务的幂等性
+     * Summary: 创建一个任务用Token
+     */
+    public OpenTokenResponse openTokenEx(OpenTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.token.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenTokenResponse());
+    }
+
+    /**
+     * Description: 同步当前数据库记录的额度与实际使用的额度
+     * Summary: 同步当前数据库记录的额度与实际使用的额度
+     */
+    public SyncQuotaInstanceResponse syncQuotaInstance(SyncQuotaInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncQuotaInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步当前数据库记录的额度与实际使用的额度
+     * Summary: 同步当前数据库记录的额度与实际使用的额度
+     */
+    public SyncQuotaInstanceResponse syncQuotaInstanceEx(SyncQuotaInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.quota.instance.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncQuotaInstanceResponse());
+    }
+
+    /**
+     * Description: 更新某个开关
+     * Summary: 更新某个开关
+     */
+    public UpdateFeatureResponse updateFeature(UpdateFeatureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateFeatureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新某个开关
+     * Summary: 更新某个开关
+     */
+    public UpdateFeatureResponse updateFeatureEx(UpdateFeatureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.feature.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateFeatureResponse());
+    }
+
+    /**
+     * Description: 获取当前系统配置项
+     * Summary: 获取当前系统配置项
+     */
+    public ListFeatureResponse listFeature(ListFeatureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listFeatureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取当前系统配置项
+     * Summary: 获取当前系统配置项
+     */
+    public ListFeatureResponse listFeatureEx(ListFeatureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.feature.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListFeatureResponse());
     }
 }

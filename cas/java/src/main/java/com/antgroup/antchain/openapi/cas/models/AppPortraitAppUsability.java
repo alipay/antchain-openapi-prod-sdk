@@ -16,7 +16,7 @@ public class AppPortraitAppUsability extends TeaModel {
 
     // 应用可用性
     @NameInMap("app_usability")
-    public Long appUsability;
+    public String appUsability;
 
     // 年同比
     @NameInMap("y2y")
@@ -47,11 +47,11 @@ public class AppPortraitAppUsability extends TeaModel {
         return this.appName;
     }
 
-    public AppPortraitAppUsability setAppUsability(Long appUsability) {
+    public AppPortraitAppUsability setAppUsability(String appUsability) {
         this.appUsability = appUsability;
         return this;
     }
-    public Long getAppUsability() {
+    public String getAppUsability() {
         return this.appUsability;
     }
 

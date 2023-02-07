@@ -15,7 +15,6 @@ public class DeleteResourceVpcRequest extends TeaModel {
 
     // 要删除的VPC ID
     @NameInMap("vpc_id")
-    @Validation(required = true)
     public String vpcId;
 
     // workspace id

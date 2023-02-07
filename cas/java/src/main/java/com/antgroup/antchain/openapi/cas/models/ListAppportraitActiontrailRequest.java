@@ -8,10 +8,10 @@ public class ListAppportraitActiontrailRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // workspace_id
-    @NameInMap("workspace_id")
+    // workspace_name
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
     // tenant_id
     @NameInMap("tenant_id")
@@ -21,20 +21,20 @@ public class ListAppportraitActiontrailRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
-    // 应用id
-    @NameInMap("app_id")
+    // app_name
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
-    // 查询开始时间
+    // 查询开始时间，毫秒
     @NameInMap("start_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String startTimestamp;
+    @Validation(required = true)
+    public Long startTimestamp;
 
-    // 查询结束时间
+    // 查询结束时间，毫秒
     @NameInMap("end_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String endTimestamp;
+    @Validation(required = true)
+    public Long endTimestamp;
 
     // 分页大小，默认为10，默
     @NameInMap("page_size")
@@ -59,12 +59,12 @@ public class ListAppportraitActiontrailRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ListAppportraitActiontrailRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public ListAppportraitActiontrailRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
     public ListAppportraitActiontrailRequest setTenantId(String tenantId) {
@@ -83,27 +83,27 @@ public class ListAppportraitActiontrailRequest extends TeaModel {
         return this.tenantName;
     }
 
-    public ListAppportraitActiontrailRequest setAppId(String appId) {
-        this.appId = appId;
+    public ListAppportraitActiontrailRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
-    public ListAppportraitActiontrailRequest setStartTimestamp(String startTimestamp) {
+    public ListAppportraitActiontrailRequest setStartTimestamp(Long startTimestamp) {
         this.startTimestamp = startTimestamp;
         return this;
     }
-    public String getStartTimestamp() {
+    public Long getStartTimestamp() {
         return this.startTimestamp;
     }
 
-    public ListAppportraitActiontrailRequest setEndTimestamp(String endTimestamp) {
+    public ListAppportraitActiontrailRequest setEndTimestamp(Long endTimestamp) {
         this.endTimestamp = endTimestamp;
         return this;
     }
-    public String getEndTimestamp() {
+    public Long getEndTimestamp() {
         return this.endTimestamp;
     }
 

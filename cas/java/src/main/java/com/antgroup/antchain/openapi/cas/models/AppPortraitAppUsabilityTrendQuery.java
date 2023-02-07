@@ -6,12 +6,11 @@ import com.aliyun.tea.*;
 public class AppPortraitAppUsabilityTrendQuery extends TeaModel {
     // 时间以天为单位
     @NameInMap("day")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String day;
 
     // 应用可用性
     @NameInMap("app_usability")
-    public Long appUsability;
+    public String appUsability;
 
     public static AppPortraitAppUsabilityTrendQuery build(java.util.Map<String, ?> map) throws Exception {
         AppPortraitAppUsabilityTrendQuery self = new AppPortraitAppUsabilityTrendQuery();
@@ -26,11 +25,11 @@ public class AppPortraitAppUsabilityTrendQuery extends TeaModel {
         return this.day;
     }
 
-    public AppPortraitAppUsabilityTrendQuery setAppUsability(Long appUsability) {
+    public AppPortraitAppUsabilityTrendQuery setAppUsability(String appUsability) {
         this.appUsability = appUsability;
         return this;
     }
-    public Long getAppUsability() {
+    public String getAppUsability() {
         return this.appUsability;
     }
 

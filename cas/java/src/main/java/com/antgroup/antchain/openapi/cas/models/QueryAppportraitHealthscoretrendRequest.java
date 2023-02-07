@@ -8,10 +8,10 @@ public class QueryAppportraitHealthscoretrendRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 工作空间id
-    @NameInMap("workspace_id")
+    // 工作空间name
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
     // tenant_id
     @NameInMap("tenant_id")
@@ -21,20 +21,20 @@ public class QueryAppportraitHealthscoretrendRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
-    // 应用id
-    @NameInMap("app_id")
+    // 应用name
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
     // 查询开始时间
     @NameInMap("start_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String startTimestamp;
+    @Validation(required = true)
+    public Long startTimestamp;
 
     // 查询结束时间
     @NameInMap("end_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String endTimestamp;
+    @Validation(required = true)
+    public Long endTimestamp;
 
     public static QueryAppportraitHealthscoretrendRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAppportraitHealthscoretrendRequest self = new QueryAppportraitHealthscoretrendRequest();
@@ -49,12 +49,12 @@ public class QueryAppportraitHealthscoretrendRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAppportraitHealthscoretrendRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public QueryAppportraitHealthscoretrendRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
     public QueryAppportraitHealthscoretrendRequest setTenantId(String tenantId) {
@@ -73,27 +73,27 @@ public class QueryAppportraitHealthscoretrendRequest extends TeaModel {
         return this.tenantName;
     }
 
-    public QueryAppportraitHealthscoretrendRequest setAppId(String appId) {
-        this.appId = appId;
+    public QueryAppportraitHealthscoretrendRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
-    public QueryAppportraitHealthscoretrendRequest setStartTimestamp(String startTimestamp) {
+    public QueryAppportraitHealthscoretrendRequest setStartTimestamp(Long startTimestamp) {
         this.startTimestamp = startTimestamp;
         return this;
     }
-    public String getStartTimestamp() {
+    public Long getStartTimestamp() {
         return this.startTimestamp;
     }
 
-    public QueryAppportraitHealthscoretrendRequest setEndTimestamp(String endTimestamp) {
+    public QueryAppportraitHealthscoretrendRequest setEndTimestamp(Long endTimestamp) {
         this.endTimestamp = endTimestamp;
         return this;
     }
-    public String getEndTimestamp() {
+    public Long getEndTimestamp() {
         return this.endTimestamp;
     }
 

@@ -4,20 +4,20 @@ package com.antgroup.antchain.openapi.cas.models;
 import com.aliyun.tea.*;
 
 public class AppPortraitAlertList extends TeaModel {
-    // 告警节点ID
-    @NameInMap("node_id")
+    // 标题
+    @NameInMap("title")
     @Validation(required = true)
-    public String nodeId;
+    public String title;
 
-    // 节点名
-    @NameInMap("node_name")
+    // 告警事件ID
+    @NameInMap("event_id")
     @Validation(required = true)
-    public String nodeName;
+    public String eventId;
 
-    // 告警指标
-    @NameInMap("metric")
+    // 应用名
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String metric;
+    public String appName;
 
     // 告警级别
     @NameInMap("severity")
@@ -34,33 +34,49 @@ public class AppPortraitAlertList extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtOccurTimestamp;
 
+    // 相关链接
+    @NameInMap("alarm_url")
+    @Validation(required = true)
+    public String alarmUrl;
+
+    //      * HEALTHY(0), // 健康
+    //      * PENDING(1), // 触发中
+    //      * FIRING(2), // 告警中
+    //      * SUSPENDED(3), // 已暂停
+    //      * SILENCED(4), // 已静默
+    //      * RECOVERED(5), // 已恢复
+    // 
+    @NameInMap("status")
+    @Validation(required = true)
+    public Long status;
+
     public static AppPortraitAlertList build(java.util.Map<String, ?> map) throws Exception {
         AppPortraitAlertList self = new AppPortraitAlertList();
         return TeaModel.build(map, self);
     }
 
-    public AppPortraitAlertList setNodeId(String nodeId) {
-        this.nodeId = nodeId;
+    public AppPortraitAlertList setTitle(String title) {
+        this.title = title;
         return this;
     }
-    public String getNodeId() {
-        return this.nodeId;
+    public String getTitle() {
+        return this.title;
     }
 
-    public AppPortraitAlertList setNodeName(String nodeName) {
-        this.nodeName = nodeName;
+    public AppPortraitAlertList setEventId(String eventId) {
+        this.eventId = eventId;
         return this;
     }
-    public String getNodeName() {
-        return this.nodeName;
+    public String getEventId() {
+        return this.eventId;
     }
 
-    public AppPortraitAlertList setMetric(String metric) {
-        this.metric = metric;
+    public AppPortraitAlertList setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getMetric() {
-        return this.metric;
+    public String getAppName() {
+        return this.appName;
     }
 
     public AppPortraitAlertList setSeverity(String severity) {
@@ -85,6 +101,22 @@ public class AppPortraitAlertList extends TeaModel {
     }
     public String getGmtOccurTimestamp() {
         return this.gmtOccurTimestamp;
+    }
+
+    public AppPortraitAlertList setAlarmUrl(String alarmUrl) {
+        this.alarmUrl = alarmUrl;
+        return this;
+    }
+    public String getAlarmUrl() {
+        return this.alarmUrl;
+    }
+
+    public AppPortraitAlertList setStatus(Long status) {
+        this.status = status;
+        return this;
+    }
+    public Long getStatus() {
+        return this.status;
     }
 
 }

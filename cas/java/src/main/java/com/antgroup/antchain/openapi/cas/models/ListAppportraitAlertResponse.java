@@ -20,6 +20,18 @@ public class ListAppportraitAlertResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<AppPortraitAlertList> data;
 
+    // 当前页码
+    @NameInMap("page_num")
+    public Long pageNum;
+
+    // 分页大小
+    @NameInMap("page_size")
+    public Long pageSize;
+
+    // 总数
+    @NameInMap("total")
+    public Long total;
+
     public static ListAppportraitAlertResponse build(java.util.Map<String, ?> map) throws Exception {
         ListAppportraitAlertResponse self = new ListAppportraitAlertResponse();
         return TeaModel.build(map, self);
@@ -55,6 +67,30 @@ public class ListAppportraitAlertResponse extends TeaModel {
     }
     public java.util.List<AppPortraitAlertList> getData() {
         return this.data;
+    }
+
+    public ListAppportraitAlertResponse setPageNum(Long pageNum) {
+        this.pageNum = pageNum;
+        return this;
+    }
+    public Long getPageNum() {
+        return this.pageNum;
+    }
+
+    public ListAppportraitAlertResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public ListAppportraitAlertResponse setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+    public Long getTotal() {
+        return this.total;
     }
 
 }

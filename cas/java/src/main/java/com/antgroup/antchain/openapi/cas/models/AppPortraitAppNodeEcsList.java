@@ -16,9 +16,9 @@ public class AppPortraitAppNodeEcsList extends TeaModel {
     @NameInMap("ip")
     public String ip;
 
-    // load_balancer_spec
-    @NameInMap("load_balancer_spec")
-    public String loadBalancerSpec;
+    // 实例规格
+    @NameInMap("inst_spec")
+    public String instSpec;
 
     // cpu
     @NameInMap("cpu")
@@ -69,12 +69,12 @@ public class AppPortraitAppNodeEcsList extends TeaModel {
         return this.ip;
     }
 
-    public AppPortraitAppNodeEcsList setLoadBalancerSpec(String loadBalancerSpec) {
-        this.loadBalancerSpec = loadBalancerSpec;
+    public AppPortraitAppNodeEcsList setInstSpec(String instSpec) {
+        this.instSpec = instSpec;
         return this;
     }
-    public String getLoadBalancerSpec() {
-        return this.loadBalancerSpec;
+    public String getInstSpec() {
+        return this.instSpec;
     }
 
     public AppPortraitAppNodeEcsList setCpu(String cpu) {

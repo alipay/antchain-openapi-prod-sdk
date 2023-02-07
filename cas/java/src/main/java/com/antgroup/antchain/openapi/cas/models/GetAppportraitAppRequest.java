@@ -21,6 +21,11 @@ public class GetAppportraitAppRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
+    // 工作空间id
+    @NameInMap("workspace_id")
+    @Validation(required = true)
+    public String workspaceId;
+
     public static GetAppportraitAppRequest build(java.util.Map<String, ?> map) throws Exception {
         GetAppportraitAppRequest self = new GetAppportraitAppRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class GetAppportraitAppRequest extends TeaModel {
     }
     public String getTenantName() {
         return this.tenantName;
+    }
+
+    public GetAppportraitAppRequest setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+        return this;
+    }
+    public String getWorkspaceId() {
+        return this.workspaceId;
     }
 
 }

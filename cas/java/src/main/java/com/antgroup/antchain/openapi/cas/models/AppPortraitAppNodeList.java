@@ -10,15 +10,15 @@ public class AppPortraitAppNodeList extends TeaModel {
 
     // 返回slb节点数据
     @NameInMap("slb")
-    public AppPortraitAppNodeEcsList slb;
+    public java.util.List<AppPortraitAppNodeEcsList> slb;
 
     // 返回rds节点数据
     @NameInMap("rds")
-    public AppPortraitAppNodeEcsList rds;
+    public java.util.List<AppPortraitAppNodeEcsList> rds;
 
     // 返回pod节点数据
     @NameInMap("pod")
-    public AppPortraitAppNodeEcsList pod;
+    public java.util.List<AppPortraitAppNodeEcsList> pod;
 
     public static AppPortraitAppNodeList build(java.util.Map<String, ?> map) throws Exception {
         AppPortraitAppNodeList self = new AppPortraitAppNodeList();
@@ -33,27 +33,27 @@ public class AppPortraitAppNodeList extends TeaModel {
         return this.ecs;
     }
 
-    public AppPortraitAppNodeList setSlb(AppPortraitAppNodeEcsList slb) {
+    public AppPortraitAppNodeList setSlb(java.util.List<AppPortraitAppNodeEcsList> slb) {
         this.slb = slb;
         return this;
     }
-    public AppPortraitAppNodeEcsList getSlb() {
+    public java.util.List<AppPortraitAppNodeEcsList> getSlb() {
         return this.slb;
     }
 
-    public AppPortraitAppNodeList setRds(AppPortraitAppNodeEcsList rds) {
+    public AppPortraitAppNodeList setRds(java.util.List<AppPortraitAppNodeEcsList> rds) {
         this.rds = rds;
         return this;
     }
-    public AppPortraitAppNodeEcsList getRds() {
+    public java.util.List<AppPortraitAppNodeEcsList> getRds() {
         return this.rds;
     }
 
-    public AppPortraitAppNodeList setPod(AppPortraitAppNodeEcsList pod) {
+    public AppPortraitAppNodeList setPod(java.util.List<AppPortraitAppNodeEcsList> pod) {
         this.pod = pod;
         return this;
     }
-    public AppPortraitAppNodeEcsList getPod() {
+    public java.util.List<AppPortraitAppNodeEcsList> getPod() {
         return this.pod;
     }
 

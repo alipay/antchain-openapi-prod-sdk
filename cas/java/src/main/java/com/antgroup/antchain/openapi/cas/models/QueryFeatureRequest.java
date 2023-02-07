@@ -18,6 +18,14 @@ public class QueryFeatureRequest extends TeaModel {
     @Validation(required = true)
     public String projectId;
 
+    // workspace_id
+    @NameInMap("workspace_id")
+    public String workspaceId;
+
+    // 要查询的功能
+    @NameInMap("feature_name")
+    public String featureName;
+
     public static QueryFeatureRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFeatureRequest self = new QueryFeatureRequest();
         return TeaModel.build(map, self);
@@ -45,6 +53,22 @@ public class QueryFeatureRequest extends TeaModel {
     }
     public String getProjectId() {
         return this.projectId;
+    }
+
+    public QueryFeatureRequest setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+        return this;
+    }
+    public String getWorkspaceId() {
+        return this.workspaceId;
+    }
+
+    public QueryFeatureRequest setFeatureName(String featureName) {
+        this.featureName = featureName;
+        return this;
+    }
+    public String getFeatureName() {
+        return this.featureName;
     }
 
 }

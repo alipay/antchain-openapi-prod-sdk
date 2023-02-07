@@ -40,6 +40,17 @@ public class CreateSlsLogstoreRequest extends TeaModel {
     @NameInMap("add_index")
     public Boolean addIndex;
 
+    // 是否自动分裂Shard。
+    // 
+    // true：自动分裂Shard。
+    // false：不自动分裂Shard。
+    @NameInMap("auto_split")
+    public Boolean autoSplit;
+
+    // 自动分裂时最大的Shard个数，最小值是1，最大值是64。
+    @NameInMap("max_split_shard")
+    public Long maxSplitShard;
+
     public static CreateSlsLogstoreRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateSlsLogstoreRequest self = new CreateSlsLogstoreRequest();
         return TeaModel.build(map, self);
@@ -107,6 +118,22 @@ public class CreateSlsLogstoreRequest extends TeaModel {
     }
     public Boolean getAddIndex() {
         return this.addIndex;
+    }
+
+    public CreateSlsLogstoreRequest setAutoSplit(Boolean autoSplit) {
+        this.autoSplit = autoSplit;
+        return this;
+    }
+    public Boolean getAutoSplit() {
+        return this.autoSplit;
+    }
+
+    public CreateSlsLogstoreRequest setMaxSplitShard(Long maxSplitShard) {
+        this.maxSplitShard = maxSplitShard;
+        return this;
+    }
+    public Long getMaxSplitShard() {
+        return this.maxSplitShard;
     }
 
 }

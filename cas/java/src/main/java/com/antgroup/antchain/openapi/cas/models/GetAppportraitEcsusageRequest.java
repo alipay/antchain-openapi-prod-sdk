@@ -8,10 +8,10 @@ public class GetAppportraitEcsusageRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // workspace_id
-    @NameInMap("workspace_id")
+    // workspace_name
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
     // tenant_id
     @NameInMap("tenant_id")
@@ -21,20 +21,20 @@ public class GetAppportraitEcsusageRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
-    // app_id
-    @NameInMap("app_id")
+    // app_name
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
-    // 查询开始时间
+    // 查询开始时间 utc毫秒
     @NameInMap("start_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String startTimestamp;
+    @Validation(required = true)
+    public Long startTimestamp;
 
-    // 查询结束时间
+    // 查询结束时间utc毫秒
     @NameInMap("end_timestamp")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String endTimestamp;
+    @Validation(required = true)
+    public Long endTimestamp;
 
     public static GetAppportraitEcsusageRequest build(java.util.Map<String, ?> map) throws Exception {
         GetAppportraitEcsusageRequest self = new GetAppportraitEcsusageRequest();
@@ -49,12 +49,12 @@ public class GetAppportraitEcsusageRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetAppportraitEcsusageRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public GetAppportraitEcsusageRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
     public GetAppportraitEcsusageRequest setTenantId(String tenantId) {
@@ -73,27 +73,27 @@ public class GetAppportraitEcsusageRequest extends TeaModel {
         return this.tenantName;
     }
 
-    public GetAppportraitEcsusageRequest setAppId(String appId) {
-        this.appId = appId;
+    public GetAppportraitEcsusageRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
-    public GetAppportraitEcsusageRequest setStartTimestamp(String startTimestamp) {
+    public GetAppportraitEcsusageRequest setStartTimestamp(Long startTimestamp) {
         this.startTimestamp = startTimestamp;
         return this;
     }
-    public String getStartTimestamp() {
+    public Long getStartTimestamp() {
         return this.startTimestamp;
     }
 
-    public GetAppportraitEcsusageRequest setEndTimestamp(String endTimestamp) {
+    public GetAppportraitEcsusageRequest setEndTimestamp(Long endTimestamp) {
         this.endTimestamp = endTimestamp;
         return this;
     }
-    public String getEndTimestamp() {
+    public Long getEndTimestamp() {
         return this.endTimestamp;
     }
 

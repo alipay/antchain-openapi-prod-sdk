@@ -18,7 +18,7 @@ public class GetAppportraitAppResponse extends TeaModel {
 
     // 返回应用详情信息
     @NameInMap("data")
-    public java.util.List<AppPortraitAppGet> data;
+    public AppPortraitAppGet data;
 
     public static GetAppportraitAppResponse build(java.util.Map<String, ?> map) throws Exception {
         GetAppportraitAppResponse self = new GetAppportraitAppResponse();
@@ -49,11 +49,11 @@ public class GetAppportraitAppResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetAppportraitAppResponse setData(java.util.List<AppPortraitAppGet> data) {
+    public GetAppportraitAppResponse setData(AppPortraitAppGet data) {
         this.data = data;
         return this;
     }
-    public java.util.List<AppPortraitAppGet> getData() {
+    public AppPortraitAppGet getData() {
         return this.data;
     }
 

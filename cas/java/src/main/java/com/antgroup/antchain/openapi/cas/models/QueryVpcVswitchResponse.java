@@ -20,6 +20,10 @@ public class QueryVpcVswitchResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<VSwitchVO> data;
 
+    // 总数
+    @NameInMap("total_count")
+    public Long totalCount;
+
     public static QueryVpcVswitchResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryVpcVswitchResponse self = new QueryVpcVswitchResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryVpcVswitchResponse extends TeaModel {
     }
     public java.util.List<VSwitchVO> getData() {
         return this.data;
+    }
+
+    public QueryVpcVswitchResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
     }
 
 }

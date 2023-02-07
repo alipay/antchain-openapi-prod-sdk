@@ -17,6 +17,14 @@ public class QueryVpcVswitchRequest extends TeaModel {
     @NameInMap("vswitch_id")
     public String vswitchId;
 
+    // 起始页，1为起点
+    @NameInMap("page_number")
+    public Long pageNumber;
+
+    // 最大50，默认值50
+    @NameInMap("page_size")
+    public Long pageSize;
+
     public static QueryVpcVswitchRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryVpcVswitchRequest self = new QueryVpcVswitchRequest();
         return TeaModel.build(map, self);
@@ -44,6 +52,22 @@ public class QueryVpcVswitchRequest extends TeaModel {
     }
     public String getVswitchId() {
         return this.vswitchId;
+    }
+
+    public QueryVpcVswitchRequest setPageNumber(Long pageNumber) {
+        this.pageNumber = pageNumber;
+        return this;
+    }
+    public Long getPageNumber() {
+        return this.pageNumber;
+    }
+
+    public QueryVpcVswitchRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }

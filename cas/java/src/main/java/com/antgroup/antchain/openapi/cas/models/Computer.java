@@ -225,6 +225,10 @@ public class Computer extends TeaModel {
     @NameInMap("zone_id")
     public String zoneId;
 
+    // CELLA
+    @NameInMap("cell_ref")
+    public String cellRef;
+
     public static Computer build(java.util.Map<String, ?> map) throws Exception {
         Computer self = new Computer();
         return TeaModel.build(map, self);
@@ -660,6 +664,14 @@ public class Computer extends TeaModel {
     }
     public String getZoneId() {
         return this.zoneId;
+    }
+
+    public Computer setCellRef(String cellRef) {
+        this.cellRef = cellRef;
+        return this;
+    }
+    public String getCellRef() {
+        return this.cellRef;
     }
 
 }

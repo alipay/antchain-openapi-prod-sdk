@@ -8,10 +8,10 @@ public class GetAppportraitMonthusabilityRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 工作空间名称Id
-    @NameInMap("workspace_id")
+    // 工作空间名称
+    @NameInMap("workspace_name")
     @Validation(required = true)
-    public String workspaceId;
+    public String workspaceName;
 
     // 租户id
     @NameInMap("tenant_id")
@@ -21,15 +21,15 @@ public class GetAppportraitMonthusabilityRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
-    // app_id
-    @NameInMap("app_id")
+    // app_name
+    @NameInMap("app_name")
     @Validation(required = true)
-    public String appId;
+    public String appName;
 
     // 查询的月份
     @NameInMap("month")
     @Validation(required = true)
-    public Long month;
+    public String month;
 
     public static GetAppportraitMonthusabilityRequest build(java.util.Map<String, ?> map) throws Exception {
         GetAppportraitMonthusabilityRequest self = new GetAppportraitMonthusabilityRequest();
@@ -44,12 +44,12 @@ public class GetAppportraitMonthusabilityRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetAppportraitMonthusabilityRequest setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public GetAppportraitMonthusabilityRequest setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
         return this;
     }
-    public String getWorkspaceId() {
-        return this.workspaceId;
+    public String getWorkspaceName() {
+        return this.workspaceName;
     }
 
     public GetAppportraitMonthusabilityRequest setTenantId(String tenantId) {
@@ -68,19 +68,19 @@ public class GetAppportraitMonthusabilityRequest extends TeaModel {
         return this.tenantName;
     }
 
-    public GetAppportraitMonthusabilityRequest setAppId(String appId) {
-        this.appId = appId;
+    public GetAppportraitMonthusabilityRequest setAppName(String appName) {
+        this.appName = appName;
         return this;
     }
-    public String getAppId() {
-        return this.appId;
+    public String getAppName() {
+        return this.appName;
     }
 
-    public GetAppportraitMonthusabilityRequest setMonth(Long month) {
+    public GetAppportraitMonthusabilityRequest setMonth(String month) {
         this.month = month;
         return this;
     }
-    public Long getMonth() {
+    public String getMonth() {
         return this.month;
     }
 

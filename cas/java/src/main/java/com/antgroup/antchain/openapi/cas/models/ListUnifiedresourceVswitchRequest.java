@@ -21,6 +21,14 @@ public class ListUnifiedresourceVswitchRequest extends TeaModel {
     @NameInMap("v_switch_id")
     public String vSwitchId;
 
+    // 最大50
+    @NameInMap("page_size")
+    public Long pageSize;
+
+    // 以1为起点
+    @NameInMap("page_number")
+    public Long pageNumber;
+
     public static ListUnifiedresourceVswitchRequest build(java.util.Map<String, ?> map) throws Exception {
         ListUnifiedresourceVswitchRequest self = new ListUnifiedresourceVswitchRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class ListUnifiedresourceVswitchRequest extends TeaModel {
     }
     public String getVSwitchId() {
         return this.vSwitchId;
+    }
+
+    public ListUnifiedresourceVswitchRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public ListUnifiedresourceVswitchRequest setPageNumber(Long pageNumber) {
+        this.pageNumber = pageNumber;
+        return this;
+    }
+    public Long getPageNumber() {
+        return this.pageNumber;
     }
 
 }

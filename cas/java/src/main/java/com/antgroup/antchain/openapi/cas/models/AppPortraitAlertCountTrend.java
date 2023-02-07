@@ -6,18 +6,18 @@ import com.aliyun.tea.*;
 public class AppPortraitAlertCountTrend extends TeaModel {
     // 日期
     @NameInMap("day")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String day;
 
     // 本周期
     @NameInMap("now_cycle")
     @Validation(required = true)
-    public String nowCycle;
+    public Long nowCycle;
 
     // 上周期
     @NameInMap("last_cycle")
     @Validation(required = true)
-    public String lastCycle;
+    public Long lastCycle;
 
     public static AppPortraitAlertCountTrend build(java.util.Map<String, ?> map) throws Exception {
         AppPortraitAlertCountTrend self = new AppPortraitAlertCountTrend();
@@ -32,19 +32,19 @@ public class AppPortraitAlertCountTrend extends TeaModel {
         return this.day;
     }
 
-    public AppPortraitAlertCountTrend setNowCycle(String nowCycle) {
+    public AppPortraitAlertCountTrend setNowCycle(Long nowCycle) {
         this.nowCycle = nowCycle;
         return this;
     }
-    public String getNowCycle() {
+    public Long getNowCycle() {
         return this.nowCycle;
     }
 
-    public AppPortraitAlertCountTrend setLastCycle(String lastCycle) {
+    public AppPortraitAlertCountTrend setLastCycle(Long lastCycle) {
         this.lastCycle = lastCycle;
         return this;
     }
-    public String getLastCycle() {
+    public Long getLastCycle() {
         return this.lastCycle;
     }
 

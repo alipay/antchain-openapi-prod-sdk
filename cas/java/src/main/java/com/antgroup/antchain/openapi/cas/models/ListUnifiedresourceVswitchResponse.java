@@ -20,6 +20,10 @@ public class ListUnifiedresourceVswitchResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<VSwitch> data;
 
+    // 总量
+    @NameInMap("total_count")
+    public Long totalCount;
+
     public static ListUnifiedresourceVswitchResponse build(java.util.Map<String, ?> map) throws Exception {
         ListUnifiedresourceVswitchResponse self = new ListUnifiedresourceVswitchResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ListUnifiedresourceVswitchResponse extends TeaModel {
     }
     public java.util.List<VSwitch> getData() {
         return this.data;
+    }
+
+    public ListUnifiedresourceVswitchResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
     }
 
 }

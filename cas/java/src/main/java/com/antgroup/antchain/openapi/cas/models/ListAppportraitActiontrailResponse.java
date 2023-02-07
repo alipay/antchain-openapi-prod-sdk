@@ -30,7 +30,7 @@ public class ListAppportraitActiontrailResponse extends TeaModel {
 
     // 总数
     @NameInMap("total")
-    public String total;
+    public Long total;
 
     public static ListAppportraitActiontrailResponse build(java.util.Map<String, ?> map) throws Exception {
         ListAppportraitActiontrailResponse self = new ListAppportraitActiontrailResponse();
@@ -85,11 +85,11 @@ public class ListAppportraitActiontrailResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public ListAppportraitActiontrailResponse setTotal(String total) {
+    public ListAppportraitActiontrailResponse setTotal(Long total) {
         this.total = total;
         return this;
     }
-    public String getTotal() {
+    public Long getTotal() {
         return this.total;
     }
 

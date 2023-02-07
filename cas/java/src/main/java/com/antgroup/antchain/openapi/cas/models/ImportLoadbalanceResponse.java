@@ -20,6 +20,10 @@ public class ImportLoadbalanceResponse extends TeaModel {
     @NameInMap("loadbalance_id_mapping")
     public String loadbalanceIdMapping;
 
+    // paas_request_id
+    @NameInMap("paas_request_id")
+    public String paasRequestId;
+
     public static ImportLoadbalanceResponse build(java.util.Map<String, ?> map) throws Exception {
         ImportLoadbalanceResponse self = new ImportLoadbalanceResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ImportLoadbalanceResponse extends TeaModel {
     }
     public String getLoadbalanceIdMapping() {
         return this.loadbalanceIdMapping;
+    }
+
+    public ImportLoadbalanceResponse setPaasRequestId(String paasRequestId) {
+        this.paasRequestId = paasRequestId;
+        return this;
+    }
+    public String getPaasRequestId() {
+        return this.paasRequestId;
     }
 
 }

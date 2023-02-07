@@ -9,15 +9,30 @@ public class AppPortraitActionTrailQuery extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String actiontrailTimestamp;
 
-    // title
-    @NameInMap("title")
-    @Validation(required = true)
-    public String title;
-
     // 状态
     @NameInMap("status")
     @Validation(required = true)
     public String status;
+
+    // 发布单id
+    @NameInMap("id")
+    @Validation(required = true)
+    public String id;
+
+    // 应用服务
+    @NameInMap("app_service")
+    @Validation(required = true)
+    public String appService;
+
+    // 操作内容
+    @NameInMap("operate_type")
+    @Validation(required = true)
+    public String operateType;
+
+    // 执行人
+    @NameInMap("operator")
+    @Validation(required = true)
+    public String operator;
 
     public static AppPortraitActionTrailQuery build(java.util.Map<String, ?> map) throws Exception {
         AppPortraitActionTrailQuery self = new AppPortraitActionTrailQuery();
@@ -32,20 +47,44 @@ public class AppPortraitActionTrailQuery extends TeaModel {
         return this.actiontrailTimestamp;
     }
 
-    public AppPortraitActionTrailQuery setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-    public String getTitle() {
-        return this.title;
-    }
-
     public AppPortraitActionTrailQuery setStatus(String status) {
         this.status = status;
         return this;
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public AppPortraitActionTrailQuery setId(String id) {
+        this.id = id;
+        return this;
+    }
+    public String getId() {
+        return this.id;
+    }
+
+    public AppPortraitActionTrailQuery setAppService(String appService) {
+        this.appService = appService;
+        return this;
+    }
+    public String getAppService() {
+        return this.appService;
+    }
+
+    public AppPortraitActionTrailQuery setOperateType(String operateType) {
+        this.operateType = operateType;
+        return this;
+    }
+    public String getOperateType() {
+        return this.operateType;
+    }
+
+    public AppPortraitActionTrailQuery setOperator(String operator) {
+        this.operator = operator;
+        return this;
+    }
+    public String getOperator() {
+        return this.operator;
     }
 
 }
