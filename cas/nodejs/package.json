@@ -1,6 +1,6 @@
 {
   "name": "@antchain/cas",
-  "version": "1.4.58",
+  "version": "1.4.59",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
