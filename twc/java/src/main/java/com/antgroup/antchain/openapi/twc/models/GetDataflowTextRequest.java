@@ -17,8 +17,8 @@ public class GetDataflowTextRequest extends TeaModel {
     public String txHash;
 
     // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-    @NameInMap("target_account_id")
-    public String targetAccountId;
+    @NameInMap("target_tenant_id")
+    public String targetTenantId;
 
     public static GetDataflowTextRequest build(java.util.Map<String, ?> map) throws Exception {
         GetDataflowTextRequest self = new GetDataflowTextRequest();
@@ -49,12 +49,12 @@ public class GetDataflowTextRequest extends TeaModel {
         return this.txHash;
     }
 
-    public GetDataflowTextRequest setTargetAccountId(String targetAccountId) {
-        this.targetAccountId = targetAccountId;
+    public GetDataflowTextRequest setTargetTenantId(String targetTenantId) {
+        this.targetTenantId = targetTenantId;
         return this;
     }
-    public String getTargetAccountId() {
-        return this.targetAccountId;
+    public String getTargetTenantId() {
+        return this.targetTenantId;
     }
 
 }

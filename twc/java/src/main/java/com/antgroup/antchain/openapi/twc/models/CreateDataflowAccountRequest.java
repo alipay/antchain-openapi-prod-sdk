@@ -12,9 +12,9 @@ public class CreateDataflowAccountRequest extends TeaModel {
     public String productInstanceId;
 
     // 链上账号名称，真实名称会在前加租户ID
-    @NameInMap("third_party_account_id")
+    @NameInMap("biz_chain_account")
     @Validation(required = true)
-    public String thirdPartyAccountId;
+    public String bizChainAccount;
 
     // 账户密钥算法
     @NameInMap("key_algorithm")
@@ -41,12 +41,12 @@ public class CreateDataflowAccountRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateDataflowAccountRequest setThirdPartyAccountId(String thirdPartyAccountId) {
-        this.thirdPartyAccountId = thirdPartyAccountId;
+    public CreateDataflowAccountRequest setBizChainAccount(String bizChainAccount) {
+        this.bizChainAccount = bizChainAccount;
         return this;
     }
-    public String getThirdPartyAccountId() {
-        return this.thirdPartyAccountId;
+    public String getBizChainAccount() {
+        return this.bizChainAccount;
     }
 
     public CreateDataflowAccountRequest setKeyAlgorithm(String keyAlgorithm) {
