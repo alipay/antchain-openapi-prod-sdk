@@ -29,7 +29,7 @@ class StartAuthDataRequest extends Model
     /**
      * @var string
      */
-    public $authType;
+    public $dataType;
 
     // 授权结果通知调用方的方式
     /**
@@ -46,7 +46,7 @@ class StartAuthDataRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'authId'            => 'auth_id',
-        'authType'          => 'auth_type',
+        'dataType'          => 'data_type',
         'callbackType'      => 'callback_type',
         'callbackUrl'       => 'callback_url',
     ];
@@ -54,7 +54,7 @@ class StartAuthDataRequest extends Model
     public function validate()
     {
         Model::validateRequired('authId', $this->authId, true);
-        Model::validateRequired('authType', $this->authType, true);
+        Model::validateRequired('dataType', $this->dataType, true);
         Model::validateRequired('callbackType', $this->callbackType, true);
         Model::validateRequired('callbackUrl', $this->callbackUrl, true);
     }
@@ -71,8 +71,8 @@ class StartAuthDataRequest extends Model
         if (null !== $this->authId) {
             $res['auth_id'] = $this->authId;
         }
-        if (null !== $this->authType) {
-            $res['auth_type'] = $this->authType;
+        if (null !== $this->dataType) {
+            $res['data_type'] = $this->dataType;
         }
         if (null !== $this->callbackType) {
             $res['callback_type'] = $this->callbackType;
@@ -101,8 +101,8 @@ class StartAuthDataRequest extends Model
         if (isset($map['auth_id'])) {
             $model->authId = $map['auth_id'];
         }
-        if (isset($map['auth_type'])) {
-            $model->authType = $map['auth_type'];
+        if (isset($map['data_type'])) {
+            $model->dataType = $map['data_type'];
         }
         if (isset($map['callback_type'])) {
             $model->callbackType = $map['callback_type'];
