@@ -24,9 +24,9 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         public string AuthId { get; set; }
 
         // 授权数据类型
-        [NameInMap("auth_type")]
+        [NameInMap("data_type")]
         [Validation(Required=true)]
-        public string AuthType { get; set; }
+        public string DataType { get; set; }
 
     }
 
