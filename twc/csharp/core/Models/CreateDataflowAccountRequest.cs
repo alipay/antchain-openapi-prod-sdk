@@ -19,9 +19,9 @@ namespace AntChain.SDK.TWC.Models
         public string ProductInstanceId { get; set; }
 
         // 链上账号名称，真实名称会在前加租户ID
-        [NameInMap("third_party_account_id")]
+        [NameInMap("biz_chain_account")]
         [Validation(Required=true)]
-        public string ThirdPartyAccountId { get; set; }
+        public string BizChainAccount { get; set; }
 
         // 账户密钥算法
         [NameInMap("key_algorithm")]

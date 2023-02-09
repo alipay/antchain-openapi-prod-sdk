@@ -24,9 +24,9 @@ namespace AntChain.SDK.TWC.Models
         public string TxHash { get; set; }
 
         // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-        [NameInMap("target_account_id")]
+        [NameInMap("target_tenant_id")]
         [Validation(Required=false)]
-        public string TargetAccountId { get; set; }
+        public string TargetTenantId { get; set; }
 
     }
 
