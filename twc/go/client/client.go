@@ -38972,7 +38972,7 @@ type GetDataflowTextRequest struct {
 	// 存证地址
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 	// 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-	TargetAccountId *string `json:"target_account_id,omitempty" xml:"target_account_id,omitempty"`
+	TargetTenantId *string `json:"target_tenant_id,omitempty" xml:"target_tenant_id,omitempty"`
 }
 
 func (s GetDataflowTextRequest) String() string {
@@ -38998,8 +38998,8 @@ func (s *GetDataflowTextRequest) SetTxHash(v string) *GetDataflowTextRequest {
 	return s
 }
 
-func (s *GetDataflowTextRequest) SetTargetAccountId(v string) *GetDataflowTextRequest {
-	s.TargetAccountId = &v
+func (s *GetDataflowTextRequest) SetTargetTenantId(v string) *GetDataflowTextRequest {
+	s.TargetTenantId = &v
 	return s
 }
 
@@ -39560,7 +39560,7 @@ type CreateDataflowAccountRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 链上账号名称，真实名称会在前加租户ID
-	ThirdPartyAccountId *string `json:"third_party_account_id,omitempty" xml:"third_party_account_id,omitempty" require:"true"`
+	BizChainAccount *string `json:"biz_chain_account,omitempty" xml:"biz_chain_account,omitempty" require:"true"`
 	// 账户密钥算法
 	KeyAlgorithm *string `json:"key_algorithm,omitempty" xml:"key_algorithm,omitempty"`
 }
@@ -39583,8 +39583,8 @@ func (s *CreateDataflowAccountRequest) SetProductInstanceId(v string) *CreateDat
 	return s
 }
 
-func (s *CreateDataflowAccountRequest) SetThirdPartyAccountId(v string) *CreateDataflowAccountRequest {
-	s.ThirdPartyAccountId = &v
+func (s *CreateDataflowAccountRequest) SetBizChainAccount(v string) *CreateDataflowAccountRequest {
+	s.BizChainAccount = &v
 	return s
 }
 
@@ -41770,7 +41770,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.27"),
+				"sdk_version":      tea.String("1.8.29"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
