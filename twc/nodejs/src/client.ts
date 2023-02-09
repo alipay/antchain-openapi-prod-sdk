@@ -28805,13 +28805,13 @@ export class GetDataflowTextRequest extends $tea.Model {
   // 存证地址
   txHash: string;
   // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-  targetAccountId?: string;
+  targetTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       txHash: 'tx_hash',
-      targetAccountId: 'target_account_id',
+      targetTenantId: 'target_tenant_id',
     };
   }
 
@@ -28820,7 +28820,7 @@ export class GetDataflowTextRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       txHash: 'string',
-      targetAccountId: 'string',
+      targetTenantId: 'string',
     };
   }
 
@@ -29277,14 +29277,14 @@ export class CreateDataflowAccountRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 链上账号名称，真实名称会在前加租户ID
-  thirdPartyAccountId: string;
+  bizChainAccount: string;
   // 账户密钥算法
   keyAlgorithm?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      thirdPartyAccountId: 'third_party_account_id',
+      bizChainAccount: 'biz_chain_account',
       keyAlgorithm: 'key_algorithm',
     };
   }
@@ -29293,7 +29293,7 @@ export class CreateDataflowAccountRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      thirdPartyAccountId: 'string',
+      bizChainAccount: 'string',
       keyAlgorithm: 'string',
     };
   }
@@ -31002,7 +31002,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.27",
+          sdk_version: "1.8.29",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
