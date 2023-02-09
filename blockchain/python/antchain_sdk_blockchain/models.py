@@ -56388,7 +56388,7 @@ class StartAuthDataRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         auth_id: str = None,
-        auth_type: str = None,
+        data_type: str = None,
         callback_type: str = None,
         callback_url: str = None,
     ):
@@ -56398,7 +56398,7 @@ class StartAuthDataRequest(TeaModel):
         # 调用方生成的请求id，需保证唯一
         self.auth_id = auth_id
         # 调用方请求的数据类型
-        self.auth_type = auth_type
+        self.data_type = data_type
         # 授权结果通知调用方的方式
         self.callback_type = callback_type
         # 授权结果通知调用方的地址
@@ -56406,7 +56406,7 @@ class StartAuthDataRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.auth_id, 'auth_id')
-        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.data_type, 'data_type')
         self.validate_required(self.callback_type, 'callback_type')
         self.validate_required(self.callback_url, 'callback_url')
 
@@ -56422,8 +56422,8 @@ class StartAuthDataRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.auth_id is not None:
             result['auth_id'] = self.auth_id
-        if self.auth_type is not None:
-            result['auth_type'] = self.auth_type
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
         if self.callback_type is not None:
             result['callback_type'] = self.callback_type
         if self.callback_url is not None:
@@ -56438,8 +56438,8 @@ class StartAuthDataRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('auth_id') is not None:
             self.auth_id = m.get('auth_id')
-        if m.get('auth_type') is not None:
-            self.auth_type = m.get('auth_type')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
         if m.get('callback_type') is not None:
             self.callback_type = m.get('callback_type')
         if m.get('callback_url') is not None:
@@ -56502,7 +56502,7 @@ class GetAuthDataRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         auth_id: str = None,
-        auth_type: str = None,
+        data_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -56510,11 +56510,11 @@ class GetAuthDataRequest(TeaModel):
         # 调用方在发起授权请求时创建的请求id
         self.auth_id = auth_id
         # 授权数据类型
-        self.auth_type = auth_type
+        self.data_type = data_type
 
     def validate(self):
         self.validate_required(self.auth_id, 'auth_id')
-        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.data_type, 'data_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -56528,8 +56528,8 @@ class GetAuthDataRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.auth_id is not None:
             result['auth_id'] = self.auth_id
-        if self.auth_type is not None:
-            result['auth_type'] = self.auth_type
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
         return result
 
     def from_map(self, m: dict = None):
@@ -56540,8 +56540,8 @@ class GetAuthDataRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('auth_id') is not None:
             self.auth_id = m.get('auth_id')
-        if m.get('auth_type') is not None:
-            self.auth_type = m.get('auth_type')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
         return self
 
 
