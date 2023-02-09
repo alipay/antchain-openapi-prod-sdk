@@ -47530,7 +47530,7 @@ class GetDataflowTextRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         tx_hash: str = None,
-        target_account_id: str = None,
+        target_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -47538,7 +47538,7 @@ class GetDataflowTextRequest(TeaModel):
         # 存证地址
         self.tx_hash = tx_hash
         # 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-        self.target_account_id = target_account_id
+        self.target_tenant_id = target_tenant_id
 
     def validate(self):
         self.validate_required(self.tx_hash, 'tx_hash')
@@ -47555,8 +47555,8 @@ class GetDataflowTextRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.tx_hash is not None:
             result['tx_hash'] = self.tx_hash
-        if self.target_account_id is not None:
-            result['target_account_id'] = self.target_account_id
+        if self.target_tenant_id is not None:
+            result['target_tenant_id'] = self.target_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -47567,8 +47567,8 @@ class GetDataflowTextRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
-        if m.get('target_account_id') is not None:
-            self.target_account_id = m.get('target_account_id')
+        if m.get('target_tenant_id') is not None:
+            self.target_tenant_id = m.get('target_tenant_id')
         return self
 
 
@@ -48264,19 +48264,19 @@ class CreateDataflowAccountRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        third_party_account_id: str = None,
+        biz_chain_account: str = None,
         key_algorithm: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 链上账号名称，真实名称会在前加租户ID
-        self.third_party_account_id = third_party_account_id
+        self.biz_chain_account = biz_chain_account
         # 账户密钥算法
         self.key_algorithm = key_algorithm
 
     def validate(self):
-        self.validate_required(self.third_party_account_id, 'third_party_account_id')
+        self.validate_required(self.biz_chain_account, 'biz_chain_account')
 
     def to_map(self):
         _map = super().to_map()
@@ -48288,8 +48288,8 @@ class CreateDataflowAccountRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.third_party_account_id is not None:
-            result['third_party_account_id'] = self.third_party_account_id
+        if self.biz_chain_account is not None:
+            result['biz_chain_account'] = self.biz_chain_account
         if self.key_algorithm is not None:
             result['key_algorithm'] = self.key_algorithm
         return result
@@ -48300,8 +48300,8 @@ class CreateDataflowAccountRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('third_party_account_id') is not None:
-            self.third_party_account_id = m.get('third_party_account_id')
+        if m.get('biz_chain_account') is not None:
+            self.biz_chain_account = m.get('biz_chain_account')
         if m.get('key_algorithm') is not None:
             self.key_algorithm = m.get('key_algorithm')
         return self
