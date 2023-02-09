@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.27',
+    sdk_version = '1.8.29',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -16474,7 +16474,7 @@ model GetDataflowTextRequest = {
   // 存证地址
   txHash: string(name='tx_hash'),
   // 存证方使用的8位英文租户id，当存证地址来自其他存证方用户时必填
-  targetAccountId?: string(name='target_account_id'),
+  targetTenantId?: string(name='target_tenant_id'),
 }
 
 model GetDataflowTextResponse = {
@@ -16773,7 +16773,7 @@ model CreateDataflowAccountRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 链上账号名称，真实名称会在前加租户ID
-  thirdPartyAccountId: string(name='third_party_account_id'),
+  bizChainAccount: string(name='biz_chain_account'),
   // 账户密钥算法
   keyAlgorithm?: string(name='key_algorithm'),
 }
