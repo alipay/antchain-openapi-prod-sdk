@@ -45204,7 +45204,7 @@ type StartAuthDataRequest struct {
 	// 调用方生成的请求id，需保证唯一
 	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty" require:"true"`
 	// 调用方请求的数据类型
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 	// 授权结果通知调用方的方式
 	CallbackType *string `json:"callback_type,omitempty" xml:"callback_type,omitempty" require:"true"`
 	// 授权结果通知调用方的地址
@@ -45234,8 +45234,8 @@ func (s *StartAuthDataRequest) SetAuthId(v string) *StartAuthDataRequest {
 	return s
 }
 
-func (s *StartAuthDataRequest) SetAuthType(v string) *StartAuthDataRequest {
-	s.AuthType = &v
+func (s *StartAuthDataRequest) SetDataType(v string) *StartAuthDataRequest {
+	s.DataType = &v
 	return s
 }
 
@@ -45295,7 +45295,7 @@ type GetAuthDataRequest struct {
 	// 调用方在发起授权请求时创建的请求id
 	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty" require:"true"`
 	// 授权数据类型
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 }
 
 func (s GetAuthDataRequest) String() string {
@@ -45321,8 +45321,8 @@ func (s *GetAuthDataRequest) SetAuthId(v string) *GetAuthDataRequest {
 	return s
 }
 
-func (s *GetAuthDataRequest) SetAuthType(v string) *GetAuthDataRequest {
-	s.AuthType = &v
+func (s *GetAuthDataRequest) SetDataType(v string) *GetAuthDataRequest {
+	s.DataType = &v
 	return s
 }
 
@@ -64824,7 +64824,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.32"),
+				"sdk_version":      tea.String("1.26.33"),
+				"_prod_code":       tea.String("BLOCKCHAIN"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
