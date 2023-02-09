@@ -17,9 +17,9 @@ public class StartAuthDataRequest extends TeaModel {
     public String authId;
 
     // 调用方请求的数据类型
-    @NameInMap("auth_type")
+    @NameInMap("data_type")
     @Validation(required = true)
-    public String authType;
+    public String dataType;
 
     // 授权结果通知调用方的方式
     @NameInMap("callback_type")
@@ -60,12 +60,12 @@ public class StartAuthDataRequest extends TeaModel {
         return this.authId;
     }
 
-    public StartAuthDataRequest setAuthType(String authType) {
-        this.authType = authType;
+    public StartAuthDataRequest setDataType(String dataType) {
+        this.dataType = dataType;
         return this;
     }
-    public String getAuthType() {
-        return this.authType;
+    public String getDataType() {
+        return this.dataType;
     }
 
     public StartAuthDataRequest setCallbackType(String callbackType) {

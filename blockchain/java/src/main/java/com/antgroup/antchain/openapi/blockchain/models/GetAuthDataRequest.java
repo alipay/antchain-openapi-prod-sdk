@@ -17,9 +17,9 @@ public class GetAuthDataRequest extends TeaModel {
     public String authId;
 
     // 授权数据类型
-    @NameInMap("auth_type")
+    @NameInMap("data_type")
     @Validation(required = true)
-    public String authType;
+    public String dataType;
 
     public static GetAuthDataRequest build(java.util.Map<String, ?> map) throws Exception {
         GetAuthDataRequest self = new GetAuthDataRequest();
@@ -50,12 +50,12 @@ public class GetAuthDataRequest extends TeaModel {
         return this.authId;
     }
 
-    public GetAuthDataRequest setAuthType(String authType) {
-        this.authType = authType;
+    public GetAuthDataRequest setDataType(String dataType) {
+        this.dataType = dataType;
         return this;
     }
-    public String getAuthType() {
-        return this.authType;
+    public String getDataType() {
+        return this.dataType;
     }
 
 }
