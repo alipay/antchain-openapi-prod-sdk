@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.32',
+    sdk_version = '1.26.33',
+    _prod_code = 'BLOCKCHAIN',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -19978,7 +19980,7 @@ model StartAuthDataRequest = {
   // 调用方生成的请求id，需保证唯一
   authId: string(name='auth_id'),
   // 调用方请求的数据类型
-  authType: string(name='auth_type'),
+  dataType: string(name='data_type'),
   // 授权结果通知调用方的方式
   callbackType: string(name='callback_type'),
   // 授权结果通知调用方的地址
@@ -20022,7 +20024,7 @@ model GetAuthDataRequest = {
   // 调用方在发起授权请求时创建的请求id
   authId: string(name='auth_id'),
   // 授权数据类型
-  authType: string(name='auth_type'),
+  dataType: string(name='data_type'),
 }
 
 model GetAuthDataResponse = {
