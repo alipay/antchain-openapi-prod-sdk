@@ -29,12 +29,12 @@ class GetDataflowTextRequest extends Model
     /**
      * @var string
      */
-    public $targetAccountId;
+    public $targetTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'txHash'            => 'tx_hash',
-        'targetAccountId'   => 'target_account_id',
+        'targetTenantId'    => 'target_tenant_id',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class GetDataflowTextRequest extends Model
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
         }
-        if (null !== $this->targetAccountId) {
-            $res['target_account_id'] = $this->targetAccountId;
+        if (null !== $this->targetTenantId) {
+            $res['target_tenant_id'] = $this->targetTenantId;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class GetDataflowTextRequest extends Model
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
         }
-        if (isset($map['target_account_id'])) {
-            $model->targetAccountId = $map['target_account_id'];
+        if (isset($map['target_tenant_id'])) {
+            $model->targetTenantId = $map['target_tenant_id'];
         }
 
         return $model;

@@ -23,7 +23,7 @@ class CreateDataflowAccountRequest extends Model
     /**
      * @var string
      */
-    public $thirdPartyAccountId;
+    public $bizChainAccount;
 
     // 账户密钥算法
     /**
@@ -31,15 +31,15 @@ class CreateDataflowAccountRequest extends Model
      */
     public $keyAlgorithm;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'thirdPartyAccountId' => 'third_party_account_id',
-        'keyAlgorithm'        => 'key_algorithm',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'bizChainAccount'   => 'biz_chain_account',
+        'keyAlgorithm'      => 'key_algorithm',
     ];
 
     public function validate()
     {
-        Model::validateRequired('thirdPartyAccountId', $this->thirdPartyAccountId, true);
+        Model::validateRequired('bizChainAccount', $this->bizChainAccount, true);
     }
 
     public function toMap()
@@ -51,8 +51,8 @@ class CreateDataflowAccountRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->thirdPartyAccountId) {
-            $res['third_party_account_id'] = $this->thirdPartyAccountId;
+        if (null !== $this->bizChainAccount) {
+            $res['biz_chain_account'] = $this->bizChainAccount;
         }
         if (null !== $this->keyAlgorithm) {
             $res['key_algorithm'] = $this->keyAlgorithm;
@@ -75,8 +75,8 @@ class CreateDataflowAccountRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['third_party_account_id'])) {
-            $model->thirdPartyAccountId = $map['third_party_account_id'];
+        if (isset($map['biz_chain_account'])) {
+            $model->bizChainAccount = $map['biz_chain_account'];
         }
         if (isset($map['key_algorithm'])) {
             $model->keyAlgorithm = $map['key_algorithm'];
