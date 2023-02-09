@@ -34673,7 +34673,7 @@ export class StartAuthDataRequest extends $tea.Model {
   // 调用方生成的请求id，需保证唯一
   authId: string;
   // 调用方请求的数据类型
-  authType: string;
+  dataType: string;
   // 授权结果通知调用方的方式
   callbackType: string;
   // 授权结果通知调用方的地址
@@ -34683,7 +34683,7 @@ export class StartAuthDataRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       authId: 'auth_id',
-      authType: 'auth_type',
+      dataType: 'data_type',
       callbackType: 'callback_type',
       callbackUrl: 'callback_url',
     };
@@ -34694,7 +34694,7 @@ export class StartAuthDataRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       authId: 'string',
-      authType: 'string',
+      dataType: 'string',
       callbackType: 'string',
       callbackUrl: 'string',
     };
@@ -34744,13 +34744,13 @@ export class GetAuthDataRequest extends $tea.Model {
   // 调用方在发起授权请求时创建的请求id
   authId: string;
   // 授权数据类型
-  authType: string;
+  dataType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       authId: 'auth_id',
-      authType: 'auth_type',
+      dataType: 'data_type',
     };
   }
 
@@ -34759,7 +34759,7 @@ export class GetAuthDataRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       authId: 'string',
-      authType: 'string',
+      dataType: 'string',
     };
   }
 
@@ -49808,7 +49808,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.32",
+          sdk_version: "1.26.33",
+          _prod_code: "BLOCKCHAIN",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
