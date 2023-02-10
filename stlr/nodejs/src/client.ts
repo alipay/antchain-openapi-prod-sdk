@@ -2262,7 +2262,7 @@ export class QueryPdcpDataRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 授权记录编码
-  authenticationNo: string;
+  authenticationNo?: string;
   // 数据类型
   dataType: string;
   // 当前页面
@@ -3297,7 +3297,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.1.2",
+          sdk_version: "2.1.3",
+          _prod_code: "STLR",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
