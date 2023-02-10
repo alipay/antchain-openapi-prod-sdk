@@ -20,7 +20,7 @@ namespace AntChain.SDK.STLR.Models
 
         // 授权记录编码
         [NameInMap("authentication_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthenticationNo { get; set; }
 
         // 数据类型
