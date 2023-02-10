@@ -53,7 +53,6 @@ class QueryPdcpDataRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('authenticationNo', $this->authenticationNo, true);
         Model::validateRequired('dataType', $this->dataType, true);
     }
 
