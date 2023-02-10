@@ -13,7 +13,6 @@ public class QueryPdcpDataRequest extends TeaModel {
 
     // 授权记录编码
     @NameInMap("authentication_no")
-    @Validation(required = true)
     public String authenticationNo;
 
     // 数据类型
