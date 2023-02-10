@@ -3711,7 +3711,6 @@ class QueryPdcpDataRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
-        self.validate_required(self.authentication_no, 'authentication_no')
         self.validate_required(self.data_type, 'data_type')
 
     def to_map(self):
