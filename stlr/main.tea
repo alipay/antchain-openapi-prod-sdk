@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.1.2',
+    sdk_version = '2.1.3',
+    _prod_code = 'STLR',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1331,7 +1333,7 @@ model QueryPdcpDataRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 授权记录编码
-  authenticationNo: string(name='authentication_no'),
+  authenticationNo?: string(name='authentication_no'),
   // 数据类型
   dataType: string(name='data_type'),
   // 当前页面
