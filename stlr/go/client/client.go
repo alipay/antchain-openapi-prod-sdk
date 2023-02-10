@@ -2902,7 +2902,7 @@ type QueryPdcpDataRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 授权记录编码
-	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty"`
 	// 数据类型
 	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 	// 当前页面
@@ -4267,7 +4267,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.2"),
+				"sdk_version":      tea.String("2.1.3"),
+				"_prod_code":       tea.String("STLR"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
