@@ -77,14 +77,17 @@ export class Config extends $tea.Model {
   }
 }
 
-export class BindDemoCenterAbilityRequest extends $tea.Model {
+export class BindDemoAaaBbbCccRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 123
+  data: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      data: 'data',
     };
   }
 
@@ -92,6 +95,7 @@ export class BindDemoCenterAbilityRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      data: 'string',
     };
   }
 
@@ -100,58 +104,7 @@ export class BindDemoCenterAbilityRequest extends $tea.Model {
   }
 }
 
-export class BindDemoCenterAbilityResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindDemoMoreAbilityTestRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindDemoMoreAbilityTestResponse extends $tea.Model {
+export class BindDemoAaaBbbCccResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -292,7 +245,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -339,41 +292,22 @@ export default class Client {
   }
 
   /**
-   * Description: 测试能力中心九期API打标&能力绑定API使用
-   * Summary: 能力中心九期测试
+   * Description: 自动化测试创建test
+   * Summary: 自动化测试创建test
    */
-  async bindDemoCenterAbility(request: BindDemoCenterAbilityRequest): Promise<BindDemoCenterAbilityResponse> {
+  async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.bindDemoCenterAbilityEx(request, headers, runtime);
+    return await this.bindDemoAaaBbbCccEx(request, headers, runtime);
   }
 
   /**
-   * Description: 测试能力中心九期API打标&能力绑定API使用
-   * Summary: 能力中心九期测试
+   * Description: 自动化测试创建test
+   * Summary: 自动化测试创建test
    */
-  async bindDemoCenterAbilityEx(request: BindDemoCenterAbilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoCenterAbilityResponse> {
+  async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
     Util.validateModel(request);
-    return $tea.cast<BindDemoCenterAbilityResponse>(await this.doRequest("1.0", "demo.center.ability.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoCenterAbilityResponse({}));
-  }
-
-  /**
-   * Description: 测试API绑定多个标签时的情况
-   * Summary: API绑定多个标签
-   */
-  async bindDemoMoreAbilityTest(request: BindDemoMoreAbilityTestRequest): Promise<BindDemoMoreAbilityTestResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.bindDemoMoreAbilityTestEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 测试API绑定多个标签时的情况
-   * Summary: API绑定多个标签
-   */
-  async bindDemoMoreAbilityTestEx(request: BindDemoMoreAbilityTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoMoreAbilityTestResponse> {
-    Util.validateModel(request);
-    return $tea.cast<BindDemoMoreAbilityTestResponse>(await this.doRequest("1.0", "demo.more.ability.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoMoreAbilityTestResponse({}));
+    return $tea.cast<BindDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAaaBbbCccResponse({}));
   }
 
 }
