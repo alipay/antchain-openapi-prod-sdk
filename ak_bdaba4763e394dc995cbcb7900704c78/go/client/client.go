@@ -148,31 +148,38 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type BindDemoCenterAbilityRequest struct {
+type BindDemoAaaBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
 }
 
-func (s BindDemoCenterAbilityRequest) String() string {
+func (s BindDemoAaaBbbCccRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoCenterAbilityRequest) GoString() string {
+func (s BindDemoAaaBbbCccRequest) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoCenterAbilityRequest) SetAuthToken(v string) *BindDemoCenterAbilityRequest {
+func (s *BindDemoAaaBbbCccRequest) SetAuthToken(v string) *BindDemoAaaBbbCccRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *BindDemoCenterAbilityRequest) SetProductInstanceId(v string) *BindDemoCenterAbilityRequest {
+func (s *BindDemoAaaBbbCccRequest) SetProductInstanceId(v string) *BindDemoAaaBbbCccRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-type BindDemoCenterAbilityResponse struct {
+func (s *BindDemoAaaBbbCccRequest) SetData(v string) *BindDemoAaaBbbCccRequest {
+	s.Data = &v
+	return s
+}
+
+type BindDemoAaaBbbCccResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -181,81 +188,25 @@ type BindDemoCenterAbilityResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s BindDemoCenterAbilityResponse) String() string {
+func (s BindDemoAaaBbbCccResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoCenterAbilityResponse) GoString() string {
+func (s BindDemoAaaBbbCccResponse) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoCenterAbilityResponse) SetReqMsgId(v string) *BindDemoCenterAbilityResponse {
+func (s *BindDemoAaaBbbCccResponse) SetReqMsgId(v string) *BindDemoAaaBbbCccResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *BindDemoCenterAbilityResponse) SetResultCode(v string) *BindDemoCenterAbilityResponse {
+func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *BindDemoCenterAbilityResponse) SetResultMsg(v string) *BindDemoCenterAbilityResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type BindDemoMoreAbilityTestRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoMoreAbilityTestRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoMoreAbilityTestRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoMoreAbilityTestRequest) SetAuthToken(v string) *BindDemoMoreAbilityTestRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestRequest) SetProductInstanceId(v string) *BindDemoMoreAbilityTestRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoMoreAbilityTestResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoMoreAbilityTestResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoMoreAbilityTestResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoMoreAbilityTestResponse) SetReqMsgId(v string) *BindDemoMoreAbilityTestResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestResponse) SetResultCode(v string) *BindDemoMoreAbilityTestResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestResponse) SetResultMsg(v string) *BindDemoMoreAbilityTestResponse {
+func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -382,7 +333,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -439,14 +390,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 测试能力中心九期API打标&能力绑定API使用
- * Summary: 能力中心九期测试
+ * Description: 自动化测试创建test
+ * Summary: 自动化测试创建test
  */
-func (client *Client) BindDemoCenterAbility(request *BindDemoCenterAbilityRequest) (_result *BindDemoCenterAbilityResponse, _err error) {
+func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &BindDemoCenterAbilityResponse{}
-	_body, _err := client.BindDemoCenterAbilityEx(request, headers, runtime)
+	_result = &BindDemoAaaBbbCccResponse{}
+	_body, _err := client.BindDemoAaaBbbCccEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -455,50 +406,16 @@ func (client *Client) BindDemoCenterAbility(request *BindDemoCenterAbilityReques
 }
 
 /**
- * Description: 测试能力中心九期API打标&能力绑定API使用
- * Summary: 能力中心九期测试
+ * Description: 自动化测试创建test
+ * Summary: 自动化测试创建test
  */
-func (client *Client) BindDemoCenterAbilityEx(request *BindDemoCenterAbilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoCenterAbilityResponse, _err error) {
+func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &BindDemoCenterAbilityResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.center.ability.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 测试API绑定多个标签时的情况
- * Summary: API绑定多个标签
- */
-func (client *Client) BindDemoMoreAbilityTest(request *BindDemoMoreAbilityTestRequest) (_result *BindDemoMoreAbilityTestResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoMoreAbilityTestResponse{}
-	_body, _err := client.BindDemoMoreAbilityTestEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 测试API绑定多个标签时的情况
- * Summary: API绑定多个标签
- */
-func (client *Client) BindDemoMoreAbilityTestEx(request *BindDemoMoreAbilityTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoMoreAbilityTestResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoMoreAbilityTestResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.more.ability.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &BindDemoAaaBbbCccResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
