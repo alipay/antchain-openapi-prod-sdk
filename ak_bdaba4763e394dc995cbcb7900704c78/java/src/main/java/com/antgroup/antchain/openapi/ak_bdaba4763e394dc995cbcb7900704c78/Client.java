@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,40 +160,21 @@ public class Client {
     }
 
     /**
-     * Description: 测试能力中心九期API打标&能力绑定API使用
-     * Summary: 能力中心九期测试
+     * Description: 自动化测试创建test
+     * Summary: 自动化测试创建test
      */
-    public BindDemoCenterAbilityResponse bindDemoCenterAbility(BindDemoCenterAbilityRequest request) throws Exception {
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoCenterAbilityEx(request, headers, runtime);
+        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
     }
 
     /**
-     * Description: 测试能力中心九期API打标&能力绑定API使用
-     * Summary: 能力中心九期测试
+     * Description: 自动化测试创建test
+     * Summary: 自动化测试创建test
      */
-    public BindDemoCenterAbilityResponse bindDemoCenterAbilityEx(BindDemoCenterAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.center.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoCenterAbilityResponse());
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签
-     */
-    public BindDemoMoreAbilityTestResponse bindDemoMoreAbilityTest(BindDemoMoreAbilityTestRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoMoreAbilityTestEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签
-     */
-    public BindDemoMoreAbilityTestResponse bindDemoMoreAbilityTestEx(BindDemoMoreAbilityTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.more.ability.test.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoMoreAbilityTestResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
     }
 }
