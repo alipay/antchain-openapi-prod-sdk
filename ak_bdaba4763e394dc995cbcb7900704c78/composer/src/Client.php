@@ -11,10 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoCenterAbilityRequest;
-use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoCenterAbilityResponse;
-use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoMoreAbilityTestRequest;
-use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoMoreAbilityTestResponse;
+use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoAaaBbbCccRequest;
+use AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -161,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -208,68 +206,35 @@ class Client
     }
 
     /**
-     * Description: 测试能力中心九期API打标&能力绑定API使用
-     * Summary: 能力中心九期测试.
+     * Description: 自动化测试创建test
+     * Summary: 自动化测试创建test.
      *
-     * @param BindDemoCenterAbilityRequest $request
+     * @param BindDemoAaaBbbCccRequest $request
      *
-     * @return BindDemoCenterAbilityResponse
+     * @return BindDemoAaaBbbCccResponse
      */
-    public function bindDemoCenterAbility($request)
+    public function bindDemoAaaBbbCcc($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->bindDemoCenterAbilityEx($request, $headers, $runtime);
+        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 测试能力中心九期API打标&能力绑定API使用
-     * Summary: 能力中心九期测试.
+     * Description: 自动化测试创建test
+     * Summary: 自动化测试创建test.
      *
-     * @param BindDemoCenterAbilityRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
+     * @param BindDemoAaaBbbCccRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
      *
-     * @return BindDemoCenterAbilityResponse
+     * @return BindDemoAaaBbbCccResponse
      */
-    public function bindDemoCenterAbilityEx($request, $headers, $runtime)
+    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return BindDemoCenterAbilityResponse::fromMap($this->doRequest('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签.
-     *
-     * @param BindDemoMoreAbilityTestRequest $request
-     *
-     * @return BindDemoMoreAbilityTestResponse
-     */
-    public function bindDemoMoreAbilityTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoMoreAbilityTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签.
-     *
-     * @param BindDemoMoreAbilityTestRequest $request
-     * @param string[]                       $headers
-     * @param RuntimeOptions                 $runtime
-     *
-     * @return BindDemoMoreAbilityTestResponse
-     */
-    public function bindDemoMoreAbilityTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoMoreAbilityTestResponse::fromMap($this->doRequest('1.0', 'demo.more.ability.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

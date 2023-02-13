@@ -6,7 +6,7 @@ namespace AntChain\Ak_bdaba4763e394dc995cbcb7900704c78\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindDemoMoreAbilityTestRequest extends Model
+class BindDemoAaaBbbCccRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class BindDemoMoreAbilityTestRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'data'              => 'data',
     ];
 
     public function validate()
     {
+        Model::validateRequired('data', $this->data, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class BindDemoMoreAbilityTestRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class BindDemoMoreAbilityTestRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindDemoMoreAbilityTestRequest
+     * @return BindDemoAaaBbbCccRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class BindDemoMoreAbilityTestRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;
