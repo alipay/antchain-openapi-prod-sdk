@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -269,114 +269,58 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def bind_demo_center_ability(
+    def bind_demo_aaa_bbb_ccc(
         self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityRequest,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse:
+        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 测试能力中心九期API打标&能力绑定API使用
-        Summary: 能力中心九期测试
+        Description: 自动化测试创建test
+        Summary: 自动化测试创建test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_demo_center_ability_ex(request, headers, runtime)
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
 
-    async def bind_demo_center_ability_async(
+    async def bind_demo_aaa_bbb_ccc_async(
         self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityRequest,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse:
+        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 测试能力中心九期API打标&能力绑定API使用
-        Summary: 能力中心九期测试
+        Description: 自动化测试创建test
+        Summary: 自动化测试创建test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.bind_demo_center_ability_ex_async(request, headers, runtime)
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
 
-    def bind_demo_center_ability_ex(
+    def bind_demo_aaa_bbb_ccc_ex(
         self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityRequest,
+        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse:
+    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 测试能力中心九期API打标&能力绑定API使用
-        Summary: 能力中心九期测试
+        Description: 自动化测试创建test
+        Summary: 自动化测试创建test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse(),
-            self.do_request('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def bind_demo_center_ability_ex_async(
+    async def bind_demo_aaa_bbb_ccc_ex_async(
         self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityRequest,
+        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse:
+    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 测试能力中心九期API打标&能力绑定API使用
-        Summary: 能力中心九期测试
+        Description: 自动化测试创建test
+        Summary: 自动化测试创建test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoCenterAbilityResponse(),
-            await self.do_request_async('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_more_ability_test(
-        self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestRequest,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_more_ability_test_ex(request, headers, runtime)
-
-    async def bind_demo_more_ability_test_async(
-        self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestRequest,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_more_ability_test_ex_async(request, headers, runtime)
-
-    def bind_demo_more_ability_test_ex(
-        self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse(),
-            self.do_request('1.0', 'demo.more.ability.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_more_ability_test_ex_async(
-        self,
-        request: ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoMoreAbilityTestResponse(),
-            await self.do_request_async('1.0', 'demo.more.ability.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_bdaba_4763e_394dc_995cbcb_7900704c_78_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
