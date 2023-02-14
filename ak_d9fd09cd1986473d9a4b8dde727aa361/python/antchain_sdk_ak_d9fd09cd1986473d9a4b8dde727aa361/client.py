@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # Demo类1
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_d9fd09cd1986473d9a4b8dde727aa361',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -210,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # Demo类1
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1',
+                    '_prod_code': 'ak_d9fd09cd1986473d9a4b8dde727aa361',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -269,60 +275,94 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def bind_demo_aaa_bbb_ccc(
+    def echo_demo_gateway_check(
         self,
-        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse:
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse:
         """
-        Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+        return self.echo_demo_gateway_check_ex(request, headers, runtime)
 
-    async def bind_demo_aaa_bbb_ccc_async(
+    async def echo_demo_gateway_check_async(
         self,
-        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse:
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse:
         """
-        Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+        return await self.echo_demo_gateway_check_ex_async(request, headers, runtime)
 
-    def bind_demo_aaa_bbb_ccc_ex(
+    def echo_demo_gateway_check_ex(
         self,
-        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccRequest,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse:
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse:
         """
-        Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.gateway.check.echo',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                echo_demo_gateway_check_response = ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return echo_demo_gateway_check_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse(),
+            self.do_request('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def bind_demo_aaa_bbb_ccc_ex_async(
+    async def echo_demo_gateway_check_ex_async(
         self,
-        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccRequest,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse:
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse:
         """
-        Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='demo.gateway.check.echo',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                echo_demo_gateway_check_response = ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return echo_demo_gateway_check_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.EchoDemoGatewayCheckResponse(),
+            await self.do_request_async('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_demo_center_ability(
@@ -379,4 +419,116 @@ class Client:
         return TeaCore.from_map(
             ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoCenterAbilityResponse(),
             await self.do_request_async('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_more_ability_testabc(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse:
+        """
+        Description: 测试API绑定多个标签时的情况
+        Summary: API绑定多个标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_more_ability_testabc_ex(request, headers, runtime)
+
+    async def bind_demo_more_ability_testabc_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse:
+        """
+        Description: 测试API绑定多个标签时的情况
+        Summary: API绑定多个标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_more_ability_testabc_ex_async(request, headers, runtime)
+
+    def bind_demo_more_ability_testabc_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse:
+        """
+        Description: 测试API绑定多个标签时的情况
+        Summary: API绑定多个标签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse(),
+            self.do_request('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_more_ability_testabc_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse:
+        """
+        Description: 测试API绑定多个标签时的情况
+        Summary: API绑定多个标签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse(),
+            await self.do_request_async('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
