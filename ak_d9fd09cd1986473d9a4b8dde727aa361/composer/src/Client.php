@@ -11,10 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoAaaBbbCccRequest;
-use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoCenterAbilityRequest;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoCenterAbilityResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoMoreAbilityTestabcRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoMoreAbilityTestabcResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\EchoDemoGatewayCheckRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\EchoDemoGatewayCheckResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,6 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // Demo类1
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -161,7 +166,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
+                    '_prod_code'       => 'ak_d9fd09cd1986473d9a4b8dde727aa361',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -208,36 +215,54 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test.
+     * Description: Demo接口，返回当输入的值
+     * Summary: 返回输入值
      *
-     * @param BindDemoAaaBbbCccRequest $request
+     * @param EchoDemoGatewayCheckRequest $request
      *
-     * @return BindDemoAaaBbbCccResponse
+     * @return EchoDemoGatewayCheckResponse
      */
-    public function bindDemoAaaBbbCcc($request)
+    public function echoDemoGatewayCheck($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
+        return $this->echoDemoGatewayCheckEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test.
+     * Description: Demo接口，返回当输入的值
+     * Summary: 返回输入值
      *
-     * @param BindDemoAaaBbbCccRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
+     * @param EchoDemoGatewayCheckRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
      *
-     * @return BindDemoAaaBbbCccResponse
+     * @return EchoDemoGatewayCheckResponse
      */
-    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
+    public function echoDemoGatewayCheckEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.gateway.check.echo',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new EchoDemoGatewayCheckResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
         Utils::validateModel($request);
 
-        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return EchoDemoGatewayCheckResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -271,5 +296,71 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoCenterAbilityResponse::fromMap($this->doRequest('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试API绑定多个标签时的情况
+     * Summary: API绑定多个标签.
+     *
+     * @param BindDemoMoreAbilityTestabcRequest $request
+     *
+     * @return BindDemoMoreAbilityTestabcResponse
+     */
+    public function bindDemoMoreAbilityTestabc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoMoreAbilityTestabcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试API绑定多个标签时的情况
+     * Summary: API绑定多个标签.
+     *
+     * @param BindDemoMoreAbilityTestabcRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return BindDemoMoreAbilityTestabcResponse
+     */
+    public function bindDemoMoreAbilityTestabcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoMoreAbilityTestabcResponse::fromMap($this->doRequest('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
