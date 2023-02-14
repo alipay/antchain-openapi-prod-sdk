@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -148,66 +149,228 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type BindDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 123
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+// Demo类1
+type DemoClass struct {
+	// 字符串测试
+	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
+	// 日期测试
+	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// Boolean测试
+	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
+	// 整数测试
+	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true" maximum:"2000" minimum:"1"`
+	// 列表测试
+	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s BindDemoAaaBbbCccRequest) String() string {
+func (s DemoClass) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoAaaBbbCccRequest) GoString() string {
+func (s DemoClass) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetAuthToken(v string) *BindDemoAaaBbbCccRequest {
+func (s *DemoClass) SetSomeString(v string) *DemoClass {
+	s.SomeString = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeDate(v string) *DemoClass {
+	s.SomeDate = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
+	s.SomeBoolean = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
+	s.SomeInt = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
+	s.SomeList = v
+	return s
+}
+
+// TestStruct
+type TestStruct struct {
+	// x
+	X *string `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// y
+	Y *DemoClass `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// z
+	Z []*DemoClass `json:"z,omitempty" xml:"z,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TestStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestStruct) GoString() string {
+	return s.String()
+}
+
+func (s *TestStruct) SetX(v string) *TestStruct {
+	s.X = &v
+	return s
+}
+
+func (s *TestStruct) SetY(v *DemoClass) *TestStruct {
+	s.Y = v
+	return s
+}
+
+func (s *TestStruct) SetZ(v []*DemoClass) *TestStruct {
+	s.Z = v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
+type EchoDemoGatewayCheckRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// input_array
+	InputArray []*TestStruct `json:"input_array,omitempty" xml:"input_array,omitempty" require:"true" type:"Repeated"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 1
+	InputInt *int64 `json:"input_int,omitempty" xml:"input_int,omitempty" require:"true" maximum:"40" minimum:"10"`
+	// 测试一下
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+}
+
+func (s EchoDemoGatewayCheckRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EchoDemoGatewayCheckRequest) GoString() string {
+	return s.String()
+}
+
+func (s *EchoDemoGatewayCheckRequest) SetAuthToken(v string) *EchoDemoGatewayCheckRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetProductInstanceId(v string) *BindDemoAaaBbbCccRequest {
+func (s *EchoDemoGatewayCheckRequest) SetProductInstanceId(v string) *EchoDemoGatewayCheckRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetData(v string) *BindDemoAaaBbbCccRequest {
-	s.Data = &v
+func (s *EchoDemoGatewayCheckRequest) SetInputArray(v []*TestStruct) *EchoDemoGatewayCheckRequest {
+	s.InputArray = v
 	return s
 }
 
-type BindDemoAaaBbbCccResponse struct {
+func (s *EchoDemoGatewayCheckRequest) SetFileObject(v io.Reader) *EchoDemoGatewayCheckRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckRequest) SetFileObjectName(v string) *EchoDemoGatewayCheckRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckRequest) SetFileId(v string) *EchoDemoGatewayCheckRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckRequest) SetInputInt(v int64) *EchoDemoGatewayCheckRequest {
+	s.InputInt = &v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckRequest) SetFileName(v string) *EchoDemoGatewayCheckRequest {
+	s.FileName = &v
+	return s
+}
+
+type EchoDemoGatewayCheckResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// output_demo
+	OutputDemo *DemoClass `json:"output_demo,omitempty" xml:"output_demo,omitempty"`
+	// output_string
+	OutputString *string `json:"output_string,omitempty" xml:"output_string,omitempty"`
+	// file_url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 }
 
-func (s BindDemoAaaBbbCccResponse) String() string {
+func (s EchoDemoGatewayCheckResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoAaaBbbCccResponse) GoString() string {
+func (s EchoDemoGatewayCheckResponse) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetReqMsgId(v string) *BindDemoAaaBbbCccResponse {
+func (s *EchoDemoGatewayCheckResponse) SetReqMsgId(v string) *EchoDemoGatewayCheckResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccResponse {
+func (s *EchoDemoGatewayCheckResponse) SetResultCode(v string) *EchoDemoGatewayCheckResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
+func (s *EchoDemoGatewayCheckResponse) SetResultMsg(v string) *EchoDemoGatewayCheckResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckResponse) SetOutputDemo(v *DemoClass) *EchoDemoGatewayCheckResponse {
+	s.OutputDemo = v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckResponse) SetOutputString(v string) *EchoDemoGatewayCheckResponse {
+	s.OutputString = &v
+	return s
+}
+
+func (s *EchoDemoGatewayCheckResponse) SetFileUrl(v string) *EchoDemoGatewayCheckResponse {
+	s.FileUrl = &v
 	return s
 }
 
@@ -264,6 +427,182 @@ func (s *BindDemoCenterAbilityResponse) SetResultCode(v string) *BindDemoCenterA
 
 func (s *BindDemoCenterAbilityResponse) SetResultMsg(v string) *BindDemoCenterAbilityResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type BindDemoMoreAbilityTestabcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindDemoMoreAbilityTestabcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoMoreAbilityTestabcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoMoreAbilityTestabcRequest) SetAuthToken(v string) *BindDemoMoreAbilityTestabcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcRequest) SetProductInstanceId(v string) *BindDemoMoreAbilityTestabcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoMoreAbilityTestabcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDemoMoreAbilityTestabcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoMoreAbilityTestabcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetReqMsgId(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetResultCode(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetResultMsg(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
 	return s
 }
 
@@ -389,7 +728,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
+				"_prod_code":       tea.String("ak_d9fd09cd1986473d9a4b8dde727aa361"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -446,14 +787,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
  */
-func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
+func (client *Client) EchoDemoGatewayCheck(request *EchoDemoGatewayCheckRequest) (_result *EchoDemoGatewayCheckResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.BindDemoAaaBbbCccEx(request, headers, runtime)
+	_result = &EchoDemoGatewayCheckResponse{}
+	_body, _err := client.EchoDemoGatewayCheckEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -462,16 +803,45 @@ func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_res
 }
 
 /**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
  */
-func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
+func (client *Client) EchoDemoGatewayCheckEx(request *EchoDemoGatewayCheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *EchoDemoGatewayCheckResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("demo.gateway.check.echo"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			echoDemoGatewayCheckResponse := &EchoDemoGatewayCheckResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = echoDemoGatewayCheckResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &EchoDemoGatewayCheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.echo"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -506,6 +876,74 @@ func (client *Client) BindDemoCenterAbilityEx(request *BindDemoCenterAbilityRequ
 	}
 	_result = &BindDemoCenterAbilityResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.center.ability.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试API绑定多个标签时的情况
+ * Summary: API绑定多个标签
+ */
+func (client *Client) BindDemoMoreAbilityTestabc(request *BindDemoMoreAbilityTestabcRequest) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoMoreAbilityTestabcResponse{}
+	_body, _err := client.BindDemoMoreAbilityTestabcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试API绑定多个标签时的情况
+ * Summary: API绑定多个标签
+ */
+func (client *Client) BindDemoMoreAbilityTestabcEx(request *BindDemoMoreAbilityTestabcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoMoreAbilityTestabcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.more.ability.testabc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
