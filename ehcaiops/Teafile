@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "EHCAIOPS",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-ehcaiops:1.0.3",
+    "go": "github.com/antchain-openapi-sdk-go/ehcaiops/client:v1.0.3",
+    "csharp": "AntChain.SDK.EHCAIOPS:1.0.3",
+    "ts": "@antchain/ehcaiops:1.0.3",
+    "php": "antchain/ehcaiops:1.0.3",
+    "python": "antchain_sdk_ehcaiops:1.0.3"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.ehcaiops",
+    "packageInfo": {
+      "description": "Ant Chain EHCAIOPS SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.EHCAIOPS",
+    "packageInfo": {
+      "name": "ehcaiops",
+      "title": "antchain-ehcaiops",
+      "description": "Ant Chain EHCAIOPS SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.EHCAIOPS",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/ehcaiops",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_ehcaiops",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_ehcaiops",
+      "desc": "Ant Chain EHCAIOPS SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
