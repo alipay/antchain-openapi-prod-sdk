@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.16',
+    sdk_version = '1.1.29',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -183,18 +183,6 @@ model InterfaceOutput {
   description?: string(maxLength=100, name='description', example='描述'),
 }
 
-// 商标共有人信息
-model TmCoownerInfo {
-  // 共有人中文名称
-  coownerNameCn?: string(name='coowner_name_cn', example='张三'),
-  // 共有人中文地址
-  coownerAddrCn?: string(name='coowner_addr_cn', example='中文地址信息'),
-  // 共有人英文名称
-  coownerNameEn?: string(name='coowner_name_en', example='Bob'),
-  // 共有人英文地址
-  coownerAddrEn?: string(name='coowner_addr_en', example='英文地址信息'),
-}
-
 // 数据源接口定义
 model DataSourceInterface {
   // 数据源接口访问地址
@@ -207,52 +195,94 @@ model DataSourceInterface {
   interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
 }
 
-// 企业基本信息
-model EnterpriseBaseInfo {
-  // 机构名称
-  orgName: string(name='org_name', example='机构名称'),
-  // 统一社会信用代码
-  creditCode: string(name='credit_code', example='统一社会信用代码'),
-  // 企业公司注册证号
-  regNumber: string(name='reg_number', example='企业公司注册证号'),
-  // 持股比例
-  investRate?: string(name='invest_rate', example='持股比例'),
-  // 查询人与这家企业的关联
-  relationship?: string(name='relationship', example='sh;lp;tm'),
+// 商标共有人信息
+model TmCoownerInfo {
+  // 共有人中文名称
+  coownerNameCn?: string(name='coowner_name_cn', example='张三'),
+  // 共有人中文地址
+  coownerAddrCn?: string(name='coowner_addr_cn', example='中文地址信息'),
+  // 共有人英文名称
+  coownerNameEn?: string(name='coowner_name_en', example='Bob'),
+  // 共有人英文地址
+  coownerAddrEn?: string(name='coowner_addr_en', example='英文地址信息'),
 }
 
-// 企业案件信息
-model EnterpriseCaseInfo {
-  // 立案信息
-  caseInfo?: string(name='case_info', example='立案信息'),
-  // 案件号
-  caseCode?: string(name='case_code', example='案件号'),
-  // 立案时间
-  caseCreateTime?: string(name='case_create_time', example='2021-12-09'),
-  // 案件状态
-  caseStatus?: string(name='case_status', example='案件状态'),
-  // 公示状态
-  publishStatus?: string(name='publish_status', example='公示状态'),
-  // 被执行人姓名
-  execName?: string(name='exec_name', example='被执行人姓名'),
-  // 执行法院
-  execCourtName?: string(name='exec_court_name', example='执行法院'),
-  // 执行标的(元)
-  execMoney?: string(name='exec_money', example='执行标的(元)'),
-  // 关联裁判文书
-  gistId?: string(name='gist_id', example='关联裁判文书'),
-  // 案由
-  caseType?: string(name='case_type', example='案由'),
-  // 创建时间
-  createTime?: string(name='create_time', example='2021-12-09'),
+// 工作经历信息
+model WorkExperiencesInfo {
+  // 工作开始日期
+  workStartTime?: long(maximum=32, name='work_start_time', example='12'),
+  // 工作结束日期
+  workEndTime?: long(maximum=32, name='work_end_time', example='12'),
+  // 公司名称
+  companyName?: string(maxLength=128, name='company_name', example='xxx有限公司'),
+  // 工作描述
+  workDesc?: string(maxLength=1024, name='work_desc', example='工作描述'),
+  // 职业
+  jobName?: string(maxLength=128, name='job_name', example='职业'),
+  // 行业名称
+  professionName?: string(maxLength=128, name='profession_name', example='行业名称'),
 }
 
-// 数据源信息
-model DataSource {
-  // 数据源ID
-  id: string(name='id', example='1'),
-  // 数据源接口地址
-  address: string(name='address', example='https://******'),
+// 车辆基础信息
+model BasicCarInfo {
+  // 号牌号码
+  licenseNo: string(name='license_no', example='京Axxxxx'),
+  // 号牌种类，枚举值
+  licenseType: string(name='license_type', example='01'),
+  // 车架号
+  vin: string(name='vin', example='xxxxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxxx'),
+}
+
+// 行驶证核验信息
+model DrivingPermitCheckResult {
+  // 车牌号
+  platenumber?: string(name='platenumber', example='一致'),
+  // 车牌种类
+  platetype?: string(name='platetype', example='一致'),
+  // 所有人
+  owner?: string(name='owner', example='一致'),
+}
+
+// 简历技能信息
+model ResumeSkillInfo {
+  // 技能标签名字
+  skillName?: string(maxLength=128, name='skill_name', example='技能标签名字'),
+}
+
+// 教育经历信息
+model EducationExperiencesInfo {
+  // 学历
+  degree?: string(maxLength=32, name='degree', example='BACHELOR'),
+  // 受教育地点
+  location?: string(maxLength=128, name='location', example='受教育地点'),
+  // 学校名称
+  schoolName?: string(maxLength=128, name='school_name', example='北京大学'),
+  // 教育状态
+  educationStatus?: string(maxLength=128, name='education_status', example='FINISH_SCHOOL'),
+  // 年
+  year?: long(maximum=6, name='year', example='2022'),
+  // 月
+  month?: long(maximum=5, name='month', example='5'),
+}
+
+// 教育学历信息
+model EducationInfo {
+  // 是否211院校
+  project211: boolean(name='project211', example='true, false'),
+  // 是否985院校
+  project985: boolean(name='project985', example='true, false'),
+  // 是否双一流院校
+  doubleFirstClass: boolean(name='double_first_class', example='true, false'),
+  // 专业
+  major: string(name='major', example='计算机'),
+  // 学历等级代码
+  educationLevel: string(name='education_level', example='01'),
+  // 毕业日期
+  graduationDate: string(name='graduation_date', example='2020/06'),
+  // 学习形式
+  educationType: string(name='education_type', example='全日制'),
 }
 
 // 授权人企业信息
@@ -346,6 +376,161 @@ model DataSourceInfo {
   dataOwnerType: string(name='data_owner_type', example='ENTERPRISE'),
   // 数据源接口信息
   dataSourceInterfaceInfo: DataSourceInterface(name='data_source_interface_info', example=''),
+}
+
+// 企业基本信息
+model EnterpriseBaseInfo {
+  // 机构名称
+  orgName: string(name='org_name', example='机构名称'),
+  // 统一社会信用代码
+  creditCode: string(name='credit_code', example='统一社会信用代码'),
+  // 企业公司注册证号
+  regNumber: string(name='reg_number', example='企业公司注册证号'),
+  // 持股比例
+  investRate?: string(name='invest_rate', example='持股比例'),
+  // 查询人与这家企业的关联
+  relationship?: string(name='relationship', example='sh;lp;tm'),
+}
+
+// 企业案件信息
+model EnterpriseCaseInfo {
+  // 立案信息
+  caseInfo?: string(name='case_info', example='立案信息'),
+  // 案件号
+  caseCode?: string(name='case_code', example='案件号'),
+  // 立案时间
+  caseCreateTime?: string(name='case_create_time', example='2021-12-09'),
+  // 案件状态
+  caseStatus?: string(name='case_status', example='案件状态'),
+  // 公示状态
+  publishStatus?: string(name='publish_status', example='公示状态'),
+  // 被执行人姓名
+  execName?: string(name='exec_name', example='被执行人姓名'),
+  // 执行法院
+  execCourtName?: string(name='exec_court_name', example='执行法院'),
+  // 执行标的(元)
+  execMoney?: string(name='exec_money', example='执行标的(元)'),
+  // 关联裁判文书
+  gistId?: string(name='gist_id', example='关联裁判文书'),
+  // 案由
+  caseType?: string(name='case_type', example='案由'),
+  // 创建时间
+  createTime?: string(name='create_time', example='2021-12-09'),
+}
+
+// 数据源信息
+model DataSource {
+  // 数据源ID
+  id: string(name='id', example='1'),
+  // 数据源接口地址
+  address: string(name='address', example='https://******'),
+}
+
+// 驾驶证信息
+model DriverLicenseInfo {
+  // 性别
+  gender?: string(name='gender', example='男性'),
+  // 驾驶证发证日期
+  driveissuedate?: string(name='driveissuedate', example='暂无返回'),
+  // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
+  validdate?: string(name='validdate', example='A/-A'),
+  // 驾驶证有效起始日期
+  drivevalidstartdate?: string(name='drivevalidstartdate', example='A/-A'),
+  // 驾驶证状态字典
+  drivecardstatus?: string(name='drivecardstatus', example='A'),
+  // 初次领证时间
+  firsissuedate?: string(name='firsissuedate', example='A/-A'),
+  // 准驾车型，字典
+  allowdrivecar?: string(name='allowdrivecar', example='A1'),
+  // 驾驶证种类，字典
+  drivelicensetype?: string(name='drivelicensetype', example='A'),
+}
+
+// 车辆详细信息
+model DetailCarInfo {
+  // 号牌号码
+  licenseNo: string(name='license_no', example='京Axxxxx '),
+  // 号牌种类，枚举值
+  // 
+  licenseType: string(name='license_type', example='01'),
+  // 车架号
+  vin: string(name='vin', example='xxxxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxxx'),
+  // 初登日期
+  registerDate: string(name='register_date', example='2021-12-13'),
+  // 车辆型号
+  modelCode: string(name='model_code', example='xxxxxx'),
+  // 是否营运车辆，枚举值
+  useNatureCode: string(name='use_nature_code', example='100'),
+  // 能源种类，枚举值
+  fuelType: string(name='fuel_type', example='10'),
+  // 排量，数字
+  displacement: string(name='displacement', example='10'),
+}
+
+// 行驶证信息
+model DrivingPermitInfo {
+  // 品牌名称
+  brandname?: string(name='brandname', example='品牌'),
+  // 车身颜色
+  bodycolor?: string(name='bodycolor', example='红色'),
+  // 使用性质
+  properties?: string(name='properties', example='运营车辆'),
+  // 车型
+  type?: string(name='type', example='A1'),
+  // 车辆类型
+  vehicletype?: string(name='vehicletype', example='车辆类型'),
+  // 发动机号
+  enginenumber?: string(name='enginenumber', example='12345'),
+  // 发动机型号
+  enginemodel?: string(name='enginemodel', example='型号'),
+  // 初次登记日期
+  firsissuedate?: string(name='firsissuedate', example='A'),
+  // 检验有效期止
+  validitydayend?: string(name='validitydayend', example='A'),
+  // 车辆状态
+  vehiclestatus?: string(name='vehiclestatus', example='有效'),
+  // 核定载客数
+  passengers?: string(name='passengers', example='1'),
+  // 强制报废期止
+  retirementdate?: string(name='retirementdate', example='A'),
+  // 燃料种类
+  fueltype?: string(name='fueltype', example='燃油'),
+  // 排量
+  cc?: string(name='cc', example='1.5T'),
+  // 出厂日期
+  ppsdate?: string(name='ppsdate', example='A'),
+  // 最大功率
+  maxjourney?: string(name='maxjourney', example='100'),
+  // 轴数
+  shaft?: string(name='shaft', example='轴数'),
+  // 轴距
+  wheelbase?: string(name='wheelbase', example='100'),
+  // 前轮距
+  fronttread?: string(name='fronttread', example='100'),
+  // 后轮距
+  reartread?: string(name='reartread', example='100'),
+  // 总重量
+  crossweight?: string(name='crossweight', example='1T'),
+  // 整备质量
+  curbweight?: string(name='curbweight', example='1T'),
+  // 核定载质量
+  loadweight?: string(name='loadweight', example='1T'),
+  // 车架号
+  vin?: string(name='vin', example='12345'),
+  // 车牌号
+  plate?: string(name='plate', example='12345'),
+  // 车牌种类
+  platetype?: string(name='platetype', example='01'),
+  // 年检日期
+  jianchetime?: string(name='jianchetime', example='A'),
+}
+
+// 简历证书信息
+model CertificatesInfo {
+  // 证书名称
+  certificateName?: string(maxLength=128, name='certificate_name', example='证书名称'),
 }
 
 // 键值对
@@ -678,6 +863,602 @@ async function queryEncryptEnterpriseinfo(request: QueryEncryptEnterpriseinfoReq
 async function queryEncryptEnterpriseinfoEx(request: QueryEncryptEnterpriseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEncryptEnterpriseinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.encrypt.enterpriseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadApplicationAuthfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  // 
+  dataSetId: string(name='data_set_id'),
+  // 文件md5
+  fileMd5: string(name='file_md5'),
+  // 文件id
+  // 
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 协议名称
+  fileName: string(name='file_name'),
+  // 授权协议文件版本号
+  fileVersion: string(name='file_version'),
+}
+
+model UploadApplicationAuthfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权协议索引号
+  fileIndex?: string(name='file_index'),
+}
+
+/**
+ * Description: 上传授权协议文件
+ * Summary: 上传授权协议文件
+ */
+async function uploadApplicationAuthfile(request: UploadApplicationAuthfileRequest): UploadApplicationAuthfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadApplicationAuthfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传授权协议文件
+ * Summary: 上传授权协议文件
+ */
+async function uploadApplicationAuthfileEx(request: UploadApplicationAuthfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadApplicationAuthfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.das.application.authfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadApplicationAuthfileResponse = new UploadApplicationAuthfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadApplicationAuthfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.authfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckApplicationHascarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  // 
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  fileIndex: string(name='file_index'),
+  // 用户名称
+  userName: string(name='user_name'),
+  // 待核验车主身份证号
+  userCertNo: string(name='user_cert_no'),
+}
+
+model CheckApplicationHascarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否有车，true：有车；false：无车
+  hasCar?: boolean(name='has_car'),
+}
+
+/**
+ * Description: 校验用户是否车
+ * Summary: 校验用户是否车
+ */
+async function checkApplicationHascar(request: CheckApplicationHascarRequest): CheckApplicationHascarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkApplicationHascarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验用户是否车
+ * Summary: 校验用户是否车
+ */
+async function checkApplicationHascarEx(request: CheckApplicationHascarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckApplicationHascarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.hascar.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationBasecarinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  // 
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  // 
+  fileIndex: string(name='file_index'),
+  // 待核验车主姓名
+  userName: string(name='user_name'),
+  // 待核验车主身份证号
+  userCertNo: string(name='user_cert_no'),
+}
+
+model QueryApplicationBasecarinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车辆信息
+  data?: [ BasicCarInfo ](name='data'),
+}
+
+/**
+ * Description: 查询车辆基础信息
+ * Summary: 查询车辆基础信息
+ */
+async function queryApplicationBasecarinfo(request: QueryApplicationBasecarinfoRequest): QueryApplicationBasecarinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationBasecarinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询车辆基础信息
+ * Summary: 查询车辆基础信息
+ */
+async function queryApplicationBasecarinfoEx(request: QueryApplicationBasecarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationBasecarinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.basecarinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationDetailcarinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  // 
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  // 
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  // 
+  fileIndex: string(name='file_index'),
+  // 待核验车主姓名
+  // 
+  userName: string(name='user_name'),
+  // 待核验车主身份证号
+  // 
+  userCertNo: string(name='user_cert_no'),
+}
+
+model QueryApplicationDetailcarinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车辆详细信息
+  data?: [ DetailCarInfo ](name='data'),
+}
+
+/**
+ * Description: 查询车辆详细信息
+ * Summary: 查询车辆详细信息
+ */
+async function queryApplicationDetailcarinfo(request: QueryApplicationDetailcarinfoRequest): QueryApplicationDetailcarinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationDetailcarinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询车辆详细信息
+ * Summary: 查询车辆详细信息
+ */
+async function queryApplicationDetailcarinfoEx(request: QueryApplicationDetailcarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDetailcarinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.detailcarinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SignApplicationResumeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源id
+  dataSetId: string(name='data_set_id'),
+  // 用户唯一id
+  userId: string(name='user_id'),
+}
+
+model SignApplicationResumeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户授权支付宝链接
+  authUrl?: string(name='auth_url'),
+}
+
+/**
+ * Description: 授权简历查询服务
+ * Summary: 授权简历查询服务
+ */
+async function signApplicationResume(request: SignApplicationResumeRequest): SignApplicationResumeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return signApplicationResumeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权简历查询服务
+ * Summary: 授权简历查询服务
+ */
+async function signApplicationResumeEx(request: SignApplicationResumeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignApplicationResumeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.resume.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationResumeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 用户唯一id
+  userId: string(name='user_id'),
+}
+
+model QueryApplicationResumeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 姓名
+  userName?: string(name='user_name'),
+  // 性别
+  gender?: string(name='gender'),
+  // 生日
+  birthday?: string(name='birthday'),
+  // 手机号
+  phone?: string(name='phone'),
+  // 头像图片url
+  headPicUrl?: string(name='head_pic_url'),
+  // 简历技能
+  skills?: [ ResumeSkillInfo ](name='skills'),
+  // 证书信息
+  certificates?: [ CertificatesInfo ](name='certificates'),
+  // 工作经历
+  workExperiences?: [ WorkExperiencesInfo ](name='work_experiences'),
+  // 教育经历
+  educationExperiences?: [ EducationExperiencesInfo ](name='education_experiences'),
+}
+
+/**
+ * Description: 查询简历信息
+ * Summary: 查询简历信息
+ */
+async function queryApplicationResume(request: QueryApplicationResumeRequest): QueryApplicationResumeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationResumeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询简历信息
+ * Summary: 查询简历信息
+ */
+async function queryApplicationResumeEx(request: QueryApplicationResumeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationResumeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.resume.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDetailcarinfoPesonandlicRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  // 
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  // 
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  // 
+  fileIndex: string(name='file_index'),
+  // 待核验车主姓名
+  // 
+  userName: string(name='user_name'),
+  // 待核验车主身份证号
+  // 
+  userCertNo: string(name='user_cert_no'),
+  // 号牌号码
+  licenseNo: string(name='license_no'),
+}
+
+model QueryDetailcarinfoPesonandlicResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车辆详细信息
+  data?: DetailCarInfo(name='data'),
+  // 是否是该人名下的车，true表示是，false表示否
+  owner?: boolean(name='owner'),
+}
+
+/**
+ * Description: 人车核验并查询车辆详细信息
+ * Summary: 人车核验并查询车辆详细信息
+ */
+async function queryDetailcarinfoPesonandlic(request: QueryDetailcarinfoPesonandlicRequest): QueryDetailcarinfoPesonandlicResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDetailcarinfoPesonandlicEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人车核验并查询车辆详细信息
+ * Summary: 人车核验并查询车辆详细信息
+ */
+async function queryDetailcarinfoPesonandlicEx(request: QueryDetailcarinfoPesonandlicRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDetailcarinfoPesonandlicResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.detailcarinfo.pesonandlic.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIdnumberEducationtaginfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源id
+  dataSetId: string(name='data_set_id'),
+  // 用户是否已授权
+  userAuthed: boolean(name='user_authed'),
+  // 该接口对应的授权协议索引号
+  fileIndex: string(name='file_index'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 用户身份证号
+  userCertNo: string(name='user_cert_no'),
+}
+
+model QueryIdnumberEducationtaginfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 教育信息
+  data?: [ EducationInfo ](name='data'),
+}
+
+/**
+ * Description: 教育标签(姓名身份证)信息查询
+ * Summary: 教育标签(姓名身份证)信息查询
+ */
+async function queryIdnumberEducationtaginfo(request: QueryIdnumberEducationtaginfoRequest): QueryIdnumberEducationtaginfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIdnumberEducationtaginfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 教育标签(姓名身份证)信息查询
+ * Summary: 教育标签(姓名身份证)信息查询
+ */
+async function queryIdnumberEducationtaginfoEx(request: QueryIdnumberEducationtaginfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIdnumberEducationtaginfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.idnumber.educationtaginfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPhonenumberEducationinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源id
+  dataSetId: string(name='data_set_id'),
+  // 用户是否已授权
+  userAuthed: boolean(name='user_authed'),
+  // 该接口对应的授权协议索引号
+  fileIndex: string(name='file_index'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 用户手机号
+  userTel: string(name='user_tel'),
+}
+
+model QueryPhonenumberEducationinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 教育信息
+  data?: EducationInfo(name='data'),
+}
+
+/**
+ * Description: 教育信息查询（姓名+手机号）
+ * Summary: 教育信息查询（姓名+手机号）
+ */
+async function queryPhonenumberEducationinfo(request: QueryPhonenumberEducationinfoRequest): QueryPhonenumberEducationinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPhonenumberEducationinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 教育信息查询（姓名+手机号）
+ * Summary: 教育信息查询（姓名+手机号）
+ */
+async function queryPhonenumberEducationinfoEx(request: QueryPhonenumberEducationinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPhonenumberEducationinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.phonenumber.educationinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationUnifiedentranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需求id
+  demandId: string(name='demand_id'),
+  // 授权协议索引
+  fileIndex?: string(name='file_index'),
+  // 整个需求的入参，map json
+  params: string(name='params'),
+}
+
+model QueryApplicationUnifiedentranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 具体返回，map json
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据应用统一入口
+ * Summary: 数据应用统一入口
+ */
+async function queryApplicationUnifiedentrance(request: QueryApplicationUnifiedentranceRequest): QueryApplicationUnifiedentranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationUnifiedentranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据应用统一入口
+ * Summary: 数据应用统一入口
+ */
+async function queryApplicationUnifiedentranceEx(request: QueryApplicationUnifiedentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationUnifiedentranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.unifiedentrance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationDriverlicenseinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  fileIndex: string(name='file_index'),
+  // 身份证号AES加密
+  idCard: string(name='id_card'),
+  // 姓名aes加密
+  name: string(name='name'),
+}
+
+model QueryApplicationDriverlicenseinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 驾驶证信息
+  data?: DriverLicenseInfo(name='data'),
+}
+
+/**
+ * Description: 驾驶证信息查询
+ * Summary: 驾驶证信息查询
+ */
+async function queryApplicationDriverlicenseinfo(request: QueryApplicationDriverlicenseinfoRequest): QueryApplicationDriverlicenseinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationDriverlicenseinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 驾驶证信息查询
+ * Summary: 驾驶证信息查询
+ */
+async function queryApplicationDriverlicenseinfoEx(request: QueryApplicationDriverlicenseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDriverlicenseinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationDrivingpermitinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据集id，开发者提供
+  dataSetId: string(name='data_set_id'),
+  // 是否授权
+  userAuthed: boolean(name='user_authed'),
+  // 授权协议索引
+  fileIndex: string(name='file_index'),
+  // 车牌号
+  platNumber: string(name='plat_number'),
+  // 号牌种类，枚举
+  platetype: string(name='platetype'),
+  // 所有人姓名
+  owner: string(name='owner'),
+}
+
+model QueryApplicationDrivingpermitinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 行驶证核验结果
+  checkResult?: DrivingPermitCheckResult(name='check_result'),
+  // 行驶证信息
+  data?: DrivingPermitInfo(name='data'),
+}
+
+/**
+ * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+ * Summary: 核验并查询行驶证信息
+ */
+async function queryApplicationDrivingpermitinfo(request: QueryApplicationDrivingpermitinfoRequest): QueryApplicationDrivingpermitinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationDrivingpermitinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+ * Summary: 核验并查询行驶证信息
+ */
+async function queryApplicationDrivingpermitinfoEx(request: QueryApplicationDrivingpermitinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDrivingpermitinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
