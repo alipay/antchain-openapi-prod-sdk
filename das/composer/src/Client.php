@@ -15,6 +15,8 @@ use AntChain\DAS\Models\AuthDasAuthresultRequest;
 use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
 use AntChain\DAS\Models\AuthDasSmsResponse;
+use AntChain\DAS\Models\CheckApplicationHascarRequest;
+use AntChain\DAS\Models\CheckApplicationHascarResponse;
 use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DAS\Models\CreateDasDatasourceRequest;
@@ -29,22 +31,44 @@ use AntChain\DAS\Models\GetDasLinkRequest;
 use AntChain\DAS\Models\GetDasLinkResponse;
 use AntChain\DAS\Models\GetDomesticTrademarklogoRequest;
 use AntChain\DAS\Models\GetDomesticTrademarklogoResponse;
+use AntChain\DAS\Models\QueryApplicationBasecarinfoRequest;
+use AntChain\DAS\Models\QueryApplicationBasecarinfoResponse;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultRequest;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultResponse;
 use AntChain\DAS\Models\QueryApplicationDataRequest;
 use AntChain\DAS\Models\QueryApplicationDataResponse;
+use AntChain\DAS\Models\QueryApplicationDetailcarinfoRequest;
+use AntChain\DAS\Models\QueryApplicationDetailcarinfoResponse;
+use AntChain\DAS\Models\QueryApplicationDriverlicenseinfoRequest;
+use AntChain\DAS\Models\QueryApplicationDriverlicenseinfoResponse;
+use AntChain\DAS\Models\QueryApplicationDrivingpermitinfoRequest;
+use AntChain\DAS\Models\QueryApplicationDrivingpermitinfoResponse;
 use AntChain\DAS\Models\QueryApplicationIpeRequest;
 use AntChain\DAS\Models\QueryApplicationIpeResponse;
+use AntChain\DAS\Models\QueryApplicationResumeRequest;
+use AntChain\DAS\Models\QueryApplicationResumeResponse;
+use AntChain\DAS\Models\QueryApplicationUnifiedentranceRequest;
+use AntChain\DAS\Models\QueryApplicationUnifiedentranceResponse;
 use AntChain\DAS\Models\QueryDasDatasourceRequest;
 use AntChain\DAS\Models\QueryDasDatasourceResponse;
+use AntChain\DAS\Models\QueryDetailcarinfoPesonandlicRequest;
+use AntChain\DAS\Models\QueryDetailcarinfoPesonandlicResponse;
 use AntChain\DAS\Models\QueryDomesticTrademarkRequest;
 use AntChain\DAS\Models\QueryDomesticTrademarkResponse;
 use AntChain\DAS\Models\QueryEncryptEnterpriseinfoRequest;
 use AntChain\DAS\Models\QueryEncryptEnterpriseinfoResponse;
+use AntChain\DAS\Models\QueryIdnumberEducationtaginfoRequest;
+use AntChain\DAS\Models\QueryIdnumberEducationtaginfoResponse;
+use AntChain\DAS\Models\QueryPhonenumberEducationinfoRequest;
+use AntChain\DAS\Models\QueryPhonenumberEducationinfoResponse;
 use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
+use AntChain\DAS\Models\SignApplicationResumeRequest;
+use AntChain\DAS\Models\SignApplicationResumeResponse;
 use AntChain\DAS\Models\UpdateDasDatasourceRequest;
 use AntChain\DAS\Models\UpdateDasDatasourceResponse;
+use AntChain\DAS\Models\UploadApplicationAuthfileRequest;
+use AntChain\DAS\Models\UploadApplicationAuthfileResponse;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileRequest;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileResponse;
 use AntChain\DAS\Models\VerifyDasAuthresultRequest;
@@ -200,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.16',
+                    'sdk_version'      => '1.1.29',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -495,6 +519,420 @@ class Client
         Utils::validateModel($request);
 
         return QueryEncryptEnterpriseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.encrypt.enterpriseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传授权协议文件
+     * Summary: 上传授权协议文件.
+     *
+     * @param UploadApplicationAuthfileRequest $request
+     *
+     * @return UploadApplicationAuthfileResponse
+     */
+    public function uploadApplicationAuthfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadApplicationAuthfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传授权协议文件
+     * Summary: 上传授权协议文件.
+     *
+     * @param UploadApplicationAuthfileRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadApplicationAuthfileResponse
+     */
+    public function uploadApplicationAuthfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.das.application.authfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadApplicationAuthfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadApplicationAuthfileResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.authfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验用户是否车
+     * Summary: 校验用户是否车.
+     *
+     * @param CheckApplicationHascarRequest $request
+     *
+     * @return CheckApplicationHascarResponse
+     */
+    public function checkApplicationHascar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkApplicationHascarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验用户是否车
+     * Summary: 校验用户是否车.
+     *
+     * @param CheckApplicationHascarRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CheckApplicationHascarResponse
+     */
+    public function checkApplicationHascarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckApplicationHascarResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.hascar.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询车辆基础信息
+     * Summary: 查询车辆基础信息.
+     *
+     * @param QueryApplicationBasecarinfoRequest $request
+     *
+     * @return QueryApplicationBasecarinfoResponse
+     */
+    public function queryApplicationBasecarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationBasecarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询车辆基础信息
+     * Summary: 查询车辆基础信息.
+     *
+     * @param QueryApplicationBasecarinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryApplicationBasecarinfoResponse
+     */
+    public function queryApplicationBasecarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationBasecarinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.basecarinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询车辆详细信息
+     * Summary: 查询车辆详细信息.
+     *
+     * @param QueryApplicationDetailcarinfoRequest $request
+     *
+     * @return QueryApplicationDetailcarinfoResponse
+     */
+    public function queryApplicationDetailcarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationDetailcarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询车辆详细信息
+     * Summary: 查询车辆详细信息.
+     *
+     * @param QueryApplicationDetailcarinfoRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryApplicationDetailcarinfoResponse
+     */
+    public function queryApplicationDetailcarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationDetailcarinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.detailcarinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权简历查询服务
+     * Summary: 授权简历查询服务
+     *
+     * @param SignApplicationResumeRequest $request
+     *
+     * @return SignApplicationResumeResponse
+     */
+    public function signApplicationResume($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signApplicationResumeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权简历查询服务
+     * Summary: 授权简历查询服务
+     *
+     * @param SignApplicationResumeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SignApplicationResumeResponse
+     */
+    public function signApplicationResumeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignApplicationResumeResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.resume.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询简历信息
+     * Summary: 查询简历信息.
+     *
+     * @param QueryApplicationResumeRequest $request
+     *
+     * @return QueryApplicationResumeResponse
+     */
+    public function queryApplicationResume($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationResumeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询简历信息
+     * Summary: 查询简历信息.
+     *
+     * @param QueryApplicationResumeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryApplicationResumeResponse
+     */
+    public function queryApplicationResumeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationResumeResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.resume.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人车核验并查询车辆详细信息
+     * Summary: 人车核验并查询车辆详细信息.
+     *
+     * @param QueryDetailcarinfoPesonandlicRequest $request
+     *
+     * @return QueryDetailcarinfoPesonandlicResponse
+     */
+    public function queryDetailcarinfoPesonandlic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDetailcarinfoPesonandlicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人车核验并查询车辆详细信息
+     * Summary: 人车核验并查询车辆详细信息.
+     *
+     * @param QueryDetailcarinfoPesonandlicRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDetailcarinfoPesonandlicResponse
+     */
+    public function queryDetailcarinfoPesonandlicEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDetailcarinfoPesonandlicResponse::fromMap($this->doRequest('1.0', 'antchain.das.detailcarinfo.pesonandlic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 教育标签(姓名身份证)信息查询
+     * Summary: 教育标签(姓名身份证)信息查询.
+     *
+     * @param QueryIdnumberEducationtaginfoRequest $request
+     *
+     * @return QueryIdnumberEducationtaginfoResponse
+     */
+    public function queryIdnumberEducationtaginfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdnumberEducationtaginfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 教育标签(姓名身份证)信息查询
+     * Summary: 教育标签(姓名身份证)信息查询.
+     *
+     * @param QueryIdnumberEducationtaginfoRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryIdnumberEducationtaginfoResponse
+     */
+    public function queryIdnumberEducationtaginfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdnumberEducationtaginfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.idnumber.educationtaginfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 教育信息查询（姓名+手机号）
+     * Summary: 教育信息查询（姓名+手机号）.
+     *
+     * @param QueryPhonenumberEducationinfoRequest $request
+     *
+     * @return QueryPhonenumberEducationinfoResponse
+     */
+    public function queryPhonenumberEducationinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPhonenumberEducationinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 教育信息查询（姓名+手机号）
+     * Summary: 教育信息查询（姓名+手机号）.
+     *
+     * @param QueryPhonenumberEducationinfoRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryPhonenumberEducationinfoResponse
+     */
+    public function queryPhonenumberEducationinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPhonenumberEducationinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.phonenumber.educationinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据应用统一入口
+     * Summary: 数据应用统一入口.
+     *
+     * @param QueryApplicationUnifiedentranceRequest $request
+     *
+     * @return QueryApplicationUnifiedentranceResponse
+     */
+    public function queryApplicationUnifiedentrance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationUnifiedentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据应用统一入口
+     * Summary: 数据应用统一入口.
+     *
+     * @param QueryApplicationUnifiedentranceRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryApplicationUnifiedentranceResponse
+     */
+    public function queryApplicationUnifiedentranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationUnifiedentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.unifiedentrance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 驾驶证信息查询
+     * Summary: 驾驶证信息查询.
+     *
+     * @param QueryApplicationDriverlicenseinfoRequest $request
+     *
+     * @return QueryApplicationDriverlicenseinfoResponse
+     */
+    public function queryApplicationDriverlicenseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationDriverlicenseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 驾驶证信息查询
+     * Summary: 驾驶证信息查询.
+     *
+     * @param QueryApplicationDriverlicenseinfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryApplicationDriverlicenseinfoResponse
+     */
+    public function queryApplicationDriverlicenseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationDriverlicenseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+     * Summary: 核验并查询行驶证信息.
+     *
+     * @param QueryApplicationDrivingpermitinfoRequest $request
+     *
+     * @return QueryApplicationDrivingpermitinfoResponse
+     */
+    public function queryApplicationDrivingpermitinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationDrivingpermitinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+     * Summary: 核验并查询行驶证信息.
+     *
+     * @param QueryApplicationDrivingpermitinfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryApplicationDrivingpermitinfoResponse
+     */
+    public function queryApplicationDrivingpermitinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationDrivingpermitinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
