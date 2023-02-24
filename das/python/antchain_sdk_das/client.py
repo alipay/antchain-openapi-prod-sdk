@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.16',
+                    'sdk_version': '1.1.29',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.16',
+                    'sdk_version': '1.1.29',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -699,6 +699,712 @@ class Client:
         return TeaCore.from_map(
             das_models.QueryEncryptEnterpriseinfoResponse(),
             await self.do_request_async('1.0', 'antchain.das.encrypt.enterpriseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_application_authfile(
+        self,
+        request: das_models.UploadApplicationAuthfileRequest,
+    ) -> das_models.UploadApplicationAuthfileResponse:
+        """
+        Description: 上传授权协议文件
+        Summary: 上传授权协议文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_application_authfile_ex(request, headers, runtime)
+
+    async def upload_application_authfile_async(
+        self,
+        request: das_models.UploadApplicationAuthfileRequest,
+    ) -> das_models.UploadApplicationAuthfileResponse:
+        """
+        Description: 上传授权协议文件
+        Summary: 上传授权协议文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_application_authfile_ex_async(request, headers, runtime)
+
+    def upload_application_authfile_ex(
+        self,
+        request: das_models.UploadApplicationAuthfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UploadApplicationAuthfileResponse:
+        """
+        Description: 上传授权协议文件
+        Summary: 上传授权协议文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.das.application.authfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_application_authfile_response = das_models.UploadApplicationAuthfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_application_authfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UploadApplicationAuthfileResponse(),
+            self.do_request('1.0', 'antchain.das.application.authfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_application_authfile_ex_async(
+        self,
+        request: das_models.UploadApplicationAuthfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UploadApplicationAuthfileResponse:
+        """
+        Description: 上传授权协议文件
+        Summary: 上传授权协议文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.das.application.authfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_application_authfile_response = das_models.UploadApplicationAuthfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_application_authfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UploadApplicationAuthfileResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.authfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_application_hascar(
+        self,
+        request: das_models.CheckApplicationHascarRequest,
+    ) -> das_models.CheckApplicationHascarResponse:
+        """
+        Description: 校验用户是否车
+        Summary: 校验用户是否车
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_application_hascar_ex(request, headers, runtime)
+
+    async def check_application_hascar_async(
+        self,
+        request: das_models.CheckApplicationHascarRequest,
+    ) -> das_models.CheckApplicationHascarResponse:
+        """
+        Description: 校验用户是否车
+        Summary: 校验用户是否车
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_application_hascar_ex_async(request, headers, runtime)
+
+    def check_application_hascar_ex(
+        self,
+        request: das_models.CheckApplicationHascarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CheckApplicationHascarResponse:
+        """
+        Description: 校验用户是否车
+        Summary: 校验用户是否车
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CheckApplicationHascarResponse(),
+            self.do_request('1.0', 'antchain.das.application.hascar.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_application_hascar_ex_async(
+        self,
+        request: das_models.CheckApplicationHascarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.CheckApplicationHascarResponse:
+        """
+        Description: 校验用户是否车
+        Summary: 校验用户是否车
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.CheckApplicationHascarResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.hascar.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_basecarinfo(
+        self,
+        request: das_models.QueryApplicationBasecarinfoRequest,
+    ) -> das_models.QueryApplicationBasecarinfoResponse:
+        """
+        Description: 查询车辆基础信息
+        Summary: 查询车辆基础信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_basecarinfo_ex(request, headers, runtime)
+
+    async def query_application_basecarinfo_async(
+        self,
+        request: das_models.QueryApplicationBasecarinfoRequest,
+    ) -> das_models.QueryApplicationBasecarinfoResponse:
+        """
+        Description: 查询车辆基础信息
+        Summary: 查询车辆基础信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_basecarinfo_ex_async(request, headers, runtime)
+
+    def query_application_basecarinfo_ex(
+        self,
+        request: das_models.QueryApplicationBasecarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationBasecarinfoResponse:
+        """
+        Description: 查询车辆基础信息
+        Summary: 查询车辆基础信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationBasecarinfoResponse(),
+            self.do_request('1.0', 'antchain.das.application.basecarinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_basecarinfo_ex_async(
+        self,
+        request: das_models.QueryApplicationBasecarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationBasecarinfoResponse:
+        """
+        Description: 查询车辆基础信息
+        Summary: 查询车辆基础信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationBasecarinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.basecarinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_detailcarinfo(
+        self,
+        request: das_models.QueryApplicationDetailcarinfoRequest,
+    ) -> das_models.QueryApplicationDetailcarinfoResponse:
+        """
+        Description: 查询车辆详细信息
+        Summary: 查询车辆详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_detailcarinfo_ex(request, headers, runtime)
+
+    async def query_application_detailcarinfo_async(
+        self,
+        request: das_models.QueryApplicationDetailcarinfoRequest,
+    ) -> das_models.QueryApplicationDetailcarinfoResponse:
+        """
+        Description: 查询车辆详细信息
+        Summary: 查询车辆详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_detailcarinfo_ex_async(request, headers, runtime)
+
+    def query_application_detailcarinfo_ex(
+        self,
+        request: das_models.QueryApplicationDetailcarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDetailcarinfoResponse:
+        """
+        Description: 查询车辆详细信息
+        Summary: 查询车辆详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDetailcarinfoResponse(),
+            self.do_request('1.0', 'antchain.das.application.detailcarinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_detailcarinfo_ex_async(
+        self,
+        request: das_models.QueryApplicationDetailcarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDetailcarinfoResponse:
+        """
+        Description: 查询车辆详细信息
+        Summary: 查询车辆详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDetailcarinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.detailcarinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_application_resume(
+        self,
+        request: das_models.SignApplicationResumeRequest,
+    ) -> das_models.SignApplicationResumeResponse:
+        """
+        Description: 授权简历查询服务
+        Summary: 授权简历查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_application_resume_ex(request, headers, runtime)
+
+    async def sign_application_resume_async(
+        self,
+        request: das_models.SignApplicationResumeRequest,
+    ) -> das_models.SignApplicationResumeResponse:
+        """
+        Description: 授权简历查询服务
+        Summary: 授权简历查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_application_resume_ex_async(request, headers, runtime)
+
+    def sign_application_resume_ex(
+        self,
+        request: das_models.SignApplicationResumeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.SignApplicationResumeResponse:
+        """
+        Description: 授权简历查询服务
+        Summary: 授权简历查询服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.SignApplicationResumeResponse(),
+            self.do_request('1.0', 'antchain.das.application.resume.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_application_resume_ex_async(
+        self,
+        request: das_models.SignApplicationResumeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.SignApplicationResumeResponse:
+        """
+        Description: 授权简历查询服务
+        Summary: 授权简历查询服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.SignApplicationResumeResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.resume.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_resume(
+        self,
+        request: das_models.QueryApplicationResumeRequest,
+    ) -> das_models.QueryApplicationResumeResponse:
+        """
+        Description: 查询简历信息
+        Summary: 查询简历信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_resume_ex(request, headers, runtime)
+
+    async def query_application_resume_async(
+        self,
+        request: das_models.QueryApplicationResumeRequest,
+    ) -> das_models.QueryApplicationResumeResponse:
+        """
+        Description: 查询简历信息
+        Summary: 查询简历信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_resume_ex_async(request, headers, runtime)
+
+    def query_application_resume_ex(
+        self,
+        request: das_models.QueryApplicationResumeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationResumeResponse:
+        """
+        Description: 查询简历信息
+        Summary: 查询简历信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationResumeResponse(),
+            self.do_request('1.0', 'antchain.das.application.resume.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_resume_ex_async(
+        self,
+        request: das_models.QueryApplicationResumeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationResumeResponse:
+        """
+        Description: 查询简历信息
+        Summary: 查询简历信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationResumeResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.resume.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_detailcarinfo_pesonandlic(
+        self,
+        request: das_models.QueryDetailcarinfoPesonandlicRequest,
+    ) -> das_models.QueryDetailcarinfoPesonandlicResponse:
+        """
+        Description: 人车核验并查询车辆详细信息
+        Summary: 人车核验并查询车辆详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_detailcarinfo_pesonandlic_ex(request, headers, runtime)
+
+    async def query_detailcarinfo_pesonandlic_async(
+        self,
+        request: das_models.QueryDetailcarinfoPesonandlicRequest,
+    ) -> das_models.QueryDetailcarinfoPesonandlicResponse:
+        """
+        Description: 人车核验并查询车辆详细信息
+        Summary: 人车核验并查询车辆详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_detailcarinfo_pesonandlic_ex_async(request, headers, runtime)
+
+    def query_detailcarinfo_pesonandlic_ex(
+        self,
+        request: das_models.QueryDetailcarinfoPesonandlicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryDetailcarinfoPesonandlicResponse:
+        """
+        Description: 人车核验并查询车辆详细信息
+        Summary: 人车核验并查询车辆详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryDetailcarinfoPesonandlicResponse(),
+            self.do_request('1.0', 'antchain.das.detailcarinfo.pesonandlic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_detailcarinfo_pesonandlic_ex_async(
+        self,
+        request: das_models.QueryDetailcarinfoPesonandlicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryDetailcarinfoPesonandlicResponse:
+        """
+        Description: 人车核验并查询车辆详细信息
+        Summary: 人车核验并查询车辆详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryDetailcarinfoPesonandlicResponse(),
+            await self.do_request_async('1.0', 'antchain.das.detailcarinfo.pesonandlic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_idnumber_educationtaginfo(
+        self,
+        request: das_models.QueryIdnumberEducationtaginfoRequest,
+    ) -> das_models.QueryIdnumberEducationtaginfoResponse:
+        """
+        Description: 教育标签(姓名身份证)信息查询
+        Summary: 教育标签(姓名身份证)信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_idnumber_educationtaginfo_ex(request, headers, runtime)
+
+    async def query_idnumber_educationtaginfo_async(
+        self,
+        request: das_models.QueryIdnumberEducationtaginfoRequest,
+    ) -> das_models.QueryIdnumberEducationtaginfoResponse:
+        """
+        Description: 教育标签(姓名身份证)信息查询
+        Summary: 教育标签(姓名身份证)信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_idnumber_educationtaginfo_ex_async(request, headers, runtime)
+
+    def query_idnumber_educationtaginfo_ex(
+        self,
+        request: das_models.QueryIdnumberEducationtaginfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryIdnumberEducationtaginfoResponse:
+        """
+        Description: 教育标签(姓名身份证)信息查询
+        Summary: 教育标签(姓名身份证)信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryIdnumberEducationtaginfoResponse(),
+            self.do_request('1.0', 'antchain.das.idnumber.educationtaginfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_idnumber_educationtaginfo_ex_async(
+        self,
+        request: das_models.QueryIdnumberEducationtaginfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryIdnumberEducationtaginfoResponse:
+        """
+        Description: 教育标签(姓名身份证)信息查询
+        Summary: 教育标签(姓名身份证)信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryIdnumberEducationtaginfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.idnumber.educationtaginfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_phonenumber_educationinfo(
+        self,
+        request: das_models.QueryPhonenumberEducationinfoRequest,
+    ) -> das_models.QueryPhonenumberEducationinfoResponse:
+        """
+        Description: 教育信息查询（姓名+手机号）
+        Summary: 教育信息查询（姓名+手机号）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_phonenumber_educationinfo_ex(request, headers, runtime)
+
+    async def query_phonenumber_educationinfo_async(
+        self,
+        request: das_models.QueryPhonenumberEducationinfoRequest,
+    ) -> das_models.QueryPhonenumberEducationinfoResponse:
+        """
+        Description: 教育信息查询（姓名+手机号）
+        Summary: 教育信息查询（姓名+手机号）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_phonenumber_educationinfo_ex_async(request, headers, runtime)
+
+    def query_phonenumber_educationinfo_ex(
+        self,
+        request: das_models.QueryPhonenumberEducationinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryPhonenumberEducationinfoResponse:
+        """
+        Description: 教育信息查询（姓名+手机号）
+        Summary: 教育信息查询（姓名+手机号）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryPhonenumberEducationinfoResponse(),
+            self.do_request('1.0', 'antchain.das.phonenumber.educationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_phonenumber_educationinfo_ex_async(
+        self,
+        request: das_models.QueryPhonenumberEducationinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryPhonenumberEducationinfoResponse:
+        """
+        Description: 教育信息查询（姓名+手机号）
+        Summary: 教育信息查询（姓名+手机号）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryPhonenumberEducationinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.phonenumber.educationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_unifiedentrance(
+        self,
+        request: das_models.QueryApplicationUnifiedentranceRequest,
+    ) -> das_models.QueryApplicationUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口
+        Summary: 数据应用统一入口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_unifiedentrance_ex(request, headers, runtime)
+
+    async def query_application_unifiedentrance_async(
+        self,
+        request: das_models.QueryApplicationUnifiedentranceRequest,
+    ) -> das_models.QueryApplicationUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口
+        Summary: 数据应用统一入口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_unifiedentrance_ex_async(request, headers, runtime)
+
+    def query_application_unifiedentrance_ex(
+        self,
+        request: das_models.QueryApplicationUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口
+        Summary: 数据应用统一入口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationUnifiedentranceResponse(),
+            self.do_request('1.0', 'antchain.das.application.unifiedentrance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_unifiedentrance_ex_async(
+        self,
+        request: das_models.QueryApplicationUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口
+        Summary: 数据应用统一入口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationUnifiedentranceResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.unifiedentrance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_driverlicenseinfo(
+        self,
+        request: das_models.QueryApplicationDriverlicenseinfoRequest,
+    ) -> das_models.QueryApplicationDriverlicenseinfoResponse:
+        """
+        Description: 驾驶证信息查询
+        Summary: 驾驶证信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_driverlicenseinfo_ex(request, headers, runtime)
+
+    async def query_application_driverlicenseinfo_async(
+        self,
+        request: das_models.QueryApplicationDriverlicenseinfoRequest,
+    ) -> das_models.QueryApplicationDriverlicenseinfoResponse:
+        """
+        Description: 驾驶证信息查询
+        Summary: 驾驶证信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_driverlicenseinfo_ex_async(request, headers, runtime)
+
+    def query_application_driverlicenseinfo_ex(
+        self,
+        request: das_models.QueryApplicationDriverlicenseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDriverlicenseinfoResponse:
+        """
+        Description: 驾驶证信息查询
+        Summary: 驾驶证信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDriverlicenseinfoResponse(),
+            self.do_request('1.0', 'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_driverlicenseinfo_ex_async(
+        self,
+        request: das_models.QueryApplicationDriverlicenseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDriverlicenseinfoResponse:
+        """
+        Description: 驾驶证信息查询
+        Summary: 驾驶证信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDriverlicenseinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_application_drivingpermitinfo(
+        self,
+        request: das_models.QueryApplicationDrivingpermitinfoRequest,
+    ) -> das_models.QueryApplicationDrivingpermitinfoResponse:
+        """
+        Description: 根据车牌号所有人等信息，返回行驶证核验结果
+        Summary: 核验并查询行驶证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_application_drivingpermitinfo_ex(request, headers, runtime)
+
+    async def query_application_drivingpermitinfo_async(
+        self,
+        request: das_models.QueryApplicationDrivingpermitinfoRequest,
+    ) -> das_models.QueryApplicationDrivingpermitinfoResponse:
+        """
+        Description: 根据车牌号所有人等信息，返回行驶证核验结果
+        Summary: 核验并查询行驶证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_application_drivingpermitinfo_ex_async(request, headers, runtime)
+
+    def query_application_drivingpermitinfo_ex(
+        self,
+        request: das_models.QueryApplicationDrivingpermitinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDrivingpermitinfoResponse:
+        """
+        Description: 根据车牌号所有人等信息，返回行驶证核验结果
+        Summary: 核验并查询行驶证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDrivingpermitinfoResponse(),
+            self.do_request('1.0', 'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_application_drivingpermitinfo_ex_async(
+        self,
+        request: das_models.QueryApplicationDrivingpermitinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryApplicationDrivingpermitinfoResponse:
+        """
+        Description: 根据车牌号所有人等信息，返回行驶证核验结果
+        Summary: 核验并查询行驶证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryApplicationDrivingpermitinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(
