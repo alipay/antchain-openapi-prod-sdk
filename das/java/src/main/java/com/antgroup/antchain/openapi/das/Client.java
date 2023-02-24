@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.16"),
+                    new TeaPair("sdk_version", "1.1.29"),
                     new TeaPair("_prod_code", "DAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -313,6 +313,255 @@ public class Client {
     public QueryEncryptEnterpriseinfoResponse queryEncryptEnterpriseinfoEx(QueryEncryptEnterpriseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.encrypt.enterpriseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEncryptEnterpriseinfoResponse());
+    }
+
+    /**
+     * Description: 上传授权协议文件
+     * Summary: 上传授权协议文件
+     */
+    public UploadApplicationAuthfileResponse uploadApplicationAuthfile(UploadApplicationAuthfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadApplicationAuthfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上传授权协议文件
+     * Summary: 上传授权协议文件
+     */
+    public UploadApplicationAuthfileResponse uploadApplicationAuthfileEx(UploadApplicationAuthfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.das.application.authfile.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadApplicationAuthfileResponse uploadApplicationAuthfileResponse = UploadApplicationAuthfileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadApplicationAuthfileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.authfile.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadApplicationAuthfileResponse());
+    }
+
+    /**
+     * Description: 校验用户是否车
+     * Summary: 校验用户是否车
+     */
+    public CheckApplicationHascarResponse checkApplicationHascar(CheckApplicationHascarRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkApplicationHascarEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 校验用户是否车
+     * Summary: 校验用户是否车
+     */
+    public CheckApplicationHascarResponse checkApplicationHascarEx(CheckApplicationHascarRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.hascar.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckApplicationHascarResponse());
+    }
+
+    /**
+     * Description: 查询车辆基础信息
+     * Summary: 查询车辆基础信息
+     */
+    public QueryApplicationBasecarinfoResponse queryApplicationBasecarinfo(QueryApplicationBasecarinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationBasecarinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询车辆基础信息
+     * Summary: 查询车辆基础信息
+     */
+    public QueryApplicationBasecarinfoResponse queryApplicationBasecarinfoEx(QueryApplicationBasecarinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.basecarinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationBasecarinfoResponse());
+    }
+
+    /**
+     * Description: 查询车辆详细信息
+     * Summary: 查询车辆详细信息
+     */
+    public QueryApplicationDetailcarinfoResponse queryApplicationDetailcarinfo(QueryApplicationDetailcarinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationDetailcarinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询车辆详细信息
+     * Summary: 查询车辆详细信息
+     */
+    public QueryApplicationDetailcarinfoResponse queryApplicationDetailcarinfoEx(QueryApplicationDetailcarinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.detailcarinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDetailcarinfoResponse());
+    }
+
+    /**
+     * Description: 授权简历查询服务
+     * Summary: 授权简历查询服务
+     */
+    public SignApplicationResumeResponse signApplicationResume(SignApplicationResumeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.signApplicationResumeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权简历查询服务
+     * Summary: 授权简历查询服务
+     */
+    public SignApplicationResumeResponse signApplicationResumeEx(SignApplicationResumeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.resume.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignApplicationResumeResponse());
+    }
+
+    /**
+     * Description: 查询简历信息
+     * Summary: 查询简历信息
+     */
+    public QueryApplicationResumeResponse queryApplicationResume(QueryApplicationResumeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationResumeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询简历信息
+     * Summary: 查询简历信息
+     */
+    public QueryApplicationResumeResponse queryApplicationResumeEx(QueryApplicationResumeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.resume.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationResumeResponse());
+    }
+
+    /**
+     * Description: 人车核验并查询车辆详细信息
+     * Summary: 人车核验并查询车辆详细信息
+     */
+    public QueryDetailcarinfoPesonandlicResponse queryDetailcarinfoPesonandlic(QueryDetailcarinfoPesonandlicRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDetailcarinfoPesonandlicEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人车核验并查询车辆详细信息
+     * Summary: 人车核验并查询车辆详细信息
+     */
+    public QueryDetailcarinfoPesonandlicResponse queryDetailcarinfoPesonandlicEx(QueryDetailcarinfoPesonandlicRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.detailcarinfo.pesonandlic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDetailcarinfoPesonandlicResponse());
+    }
+
+    /**
+     * Description: 教育标签(姓名身份证)信息查询
+     * Summary: 教育标签(姓名身份证)信息查询
+     */
+    public QueryIdnumberEducationtaginfoResponse queryIdnumberEducationtaginfo(QueryIdnumberEducationtaginfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIdnumberEducationtaginfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 教育标签(姓名身份证)信息查询
+     * Summary: 教育标签(姓名身份证)信息查询
+     */
+    public QueryIdnumberEducationtaginfoResponse queryIdnumberEducationtaginfoEx(QueryIdnumberEducationtaginfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.idnumber.educationtaginfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIdnumberEducationtaginfoResponse());
+    }
+
+    /**
+     * Description: 教育信息查询（姓名+手机号）
+     * Summary: 教育信息查询（姓名+手机号）
+     */
+    public QueryPhonenumberEducationinfoResponse queryPhonenumberEducationinfo(QueryPhonenumberEducationinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPhonenumberEducationinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 教育信息查询（姓名+手机号）
+     * Summary: 教育信息查询（姓名+手机号）
+     */
+    public QueryPhonenumberEducationinfoResponse queryPhonenumberEducationinfoEx(QueryPhonenumberEducationinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.phonenumber.educationinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPhonenumberEducationinfoResponse());
+    }
+
+    /**
+     * Description: 数据应用统一入口
+     * Summary: 数据应用统一入口
+     */
+    public QueryApplicationUnifiedentranceResponse queryApplicationUnifiedentrance(QueryApplicationUnifiedentranceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationUnifiedentranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据应用统一入口
+     * Summary: 数据应用统一入口
+     */
+    public QueryApplicationUnifiedentranceResponse queryApplicationUnifiedentranceEx(QueryApplicationUnifiedentranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.unifiedentrance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationUnifiedentranceResponse());
+    }
+
+    /**
+     * Description: 驾驶证信息查询
+     * Summary: 驾驶证信息查询
+     */
+    public QueryApplicationDriverlicenseinfoResponse queryApplicationDriverlicenseinfo(QueryApplicationDriverlicenseinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationDriverlicenseinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 驾驶证信息查询
+     * Summary: 驾驶证信息查询
+     */
+    public QueryApplicationDriverlicenseinfoResponse queryApplicationDriverlicenseinfoEx(QueryApplicationDriverlicenseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.driverlicenseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDriverlicenseinfoResponse());
+    }
+
+    /**
+     * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+     * Summary: 核验并查询行驶证信息
+     */
+    public QueryApplicationDrivingpermitinfoResponse queryApplicationDrivingpermitinfo(QueryApplicationDrivingpermitinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationDrivingpermitinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据车牌号所有人等信息，返回行驶证核验结果
+     * Summary: 核验并查询行驶证信息
+     */
+    public QueryApplicationDrivingpermitinfoResponse queryApplicationDrivingpermitinfoEx(QueryApplicationDrivingpermitinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.drivingpermitinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDrivingpermitinfoResponse());
     }
 
     /**
