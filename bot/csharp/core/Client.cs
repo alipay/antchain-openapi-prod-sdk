@@ -137,7 +137,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.94"},
+                        {"sdk_version", "1.8.3"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.94"},
+                        {"sdk_version", "1.8.3"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +571,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeaseRiskResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化配置推送回告API 
+         * Summary: 私有化配置推送回告API 
+         */
+        public FinishTraceConfigResponse FinishTraceConfig(FinishTraceConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishTraceConfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化配置推送回告API 
+         * Summary: 私有化配置推送回告API 
+         */
+        public async Task<FinishTraceConfigResponse> FinishTraceConfigAsync(FinishTraceConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishTraceConfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 私有化配置推送回告API 
+         * Summary: 私有化配置推送回告API 
+         */
+        public FinishTraceConfigResponse FinishTraceConfigEx(FinishTraceConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishTraceConfigResponse>(DoRequest("1.0", "blockchain.bot.trace.config.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 私有化配置推送回告API 
+         * Summary: 私有化配置推送回告API 
+         */
+        public async Task<FinishTraceConfigResponse> FinishTraceConfigExAsync(FinishTraceConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishTraceConfigResponse>(await DoRequestAsync("1.0", "blockchain.bot.trace.config.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2671,6 +2717,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIotbasicDeviceorderResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.deviceorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-订单数据推送中台
+         * Summary: IoT设备平台-订单数据推送中台
+         */
+        public PushIotbasicMeterdataResponse PushIotbasicMeterdata(PushIotbasicMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushIotbasicMeterdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-订单数据推送中台
+         * Summary: IoT设备平台-订单数据推送中台
+         */
+        public async Task<PushIotbasicMeterdataResponse> PushIotbasicMeterdataAsync(PushIotbasicMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushIotbasicMeterdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-订单数据推送中台
+         * Summary: IoT设备平台-订单数据推送中台
+         */
+        public PushIotbasicMeterdataResponse PushIotbasicMeterdataEx(PushIotbasicMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushIotbasicMeterdataResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-订单数据推送中台
+         * Summary: IoT设备平台-订单数据推送中台
+         */
+        public async Task<PushIotbasicMeterdataResponse> PushIotbasicMeterdataExAsync(PushIotbasicMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushIotbasicMeterdataResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-客户新增
+         * Summary: IoT设备平台-客户新增
+         */
+        public SaveIotbasicCustomerResponse SaveIotbasicCustomer(SaveIotbasicCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveIotbasicCustomerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-客户新增
+         * Summary: IoT设备平台-客户新增
+         */
+        public async Task<SaveIotbasicCustomerResponse> SaveIotbasicCustomerAsync(SaveIotbasicCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveIotbasicCustomerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-客户新增
+         * Summary: IoT设备平台-客户新增
+         */
+        public SaveIotbasicCustomerResponse SaveIotbasicCustomerEx(SaveIotbasicCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveIotbasicCustomerResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-客户新增
+         * Summary: IoT设备平台-客户新增
+         */
+        public async Task<SaveIotbasicCustomerResponse> SaveIotbasicCustomerExAsync(SaveIotbasicCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveIotbasicCustomerResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
