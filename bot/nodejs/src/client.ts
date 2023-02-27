@@ -2057,6 +2057,43 @@ export class PermissionedTenantPageResponse extends $tea.Model {
   }
 }
 
+// 任务信息
+export class TaskInfo extends $tea.Model {
+  // 升级计划Id
+  planId?: number;
+  // 刷库计划步骤id
+  planStepId?: number;
+  // 任务id
+  taskId?: number;
+  // action_id
+  actionId?: number;
+  // 任务类型
+  taskType: string;
+  static names(): { [key: string]: string } {
+    return {
+      planId: 'plan_id',
+      planStepId: 'plan_step_id',
+      taskId: 'task_id',
+      actionId: 'action_id',
+      taskType: 'task_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      planId: 'number',
+      planStepId: 'number',
+      taskId: 'number',
+      actionId: 'number',
+      taskType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定返回结果
 export class BaiGoodsIdentificationRespData extends $tea.Model {
   // 鉴定结果
@@ -4591,6 +4628,73 @@ export class QueryLeaseRiskResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishTraceConfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 私有化端唯一标识
+  uniqueNum: string;
+  // 私有化端配置成功标志
+  success: boolean;
+  // 任务信息，用于消费者回告
+  taskInfo: TaskInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      uniqueNum: 'unique_num',
+      success: 'success',
+      taskInfo: 'task_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      uniqueNum: 'string',
+      success: 'boolean',
+      taskInfo: TaskInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishTraceConfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务结果码
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
     };
   }
 
@@ -8566,6 +8670,128 @@ export class QueryIotbasicDeviceorderResponse extends $tea.Model {
       totalPage: 'number',
       current: 'number',
       pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotbasicMeterdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotbasicMeterdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveIotbasicCustomerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveIotbasicCustomerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 成功标志
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
     };
   }
 
@@ -16506,7 +16732,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.94",
+          sdk_version: "1.8.3",
+          _prod_code: "BOT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -16664,6 +16892,25 @@ export default class Client {
   async queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRiskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeaseRiskResponse>(await this.doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRiskResponse({}));
+  }
+
+  /**
+   * Description: 私有化配置推送回告API 
+   * Summary: 私有化配置推送回告API 
+   */
+  async finishTraceConfig(request: FinishTraceConfigRequest): Promise<FinishTraceConfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.finishTraceConfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 私有化配置推送回告API 
+   * Summary: 私有化配置推送回告API 
+   */
+  async finishTraceConfigEx(request: FinishTraceConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishTraceConfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FinishTraceConfigResponse>(await this.doRequest("1.0", "blockchain.bot.trace.config.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishTraceConfigResponse({}));
   }
 
   /**
@@ -17616,6 +17863,44 @@ export default class Client {
   async queryIotbasicDeviceorderEx(request: QueryIotbasicDeviceorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotbasicDeviceorderResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIotbasicDeviceorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotbasicDeviceorderResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-订单数据推送中台
+   * Summary: IoT设备平台-订单数据推送中台
+   */
+  async pushIotbasicMeterdata(request: PushIotbasicMeterdataRequest): Promise<PushIotbasicMeterdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushIotbasicMeterdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-订单数据推送中台
+   * Summary: IoT设备平台-订单数据推送中台
+   */
+  async pushIotbasicMeterdataEx(request: PushIotbasicMeterdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIotbasicMeterdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushIotbasicMeterdataResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.meterdata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushIotbasicMeterdataResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-客户新增
+   * Summary: IoT设备平台-客户新增
+   */
+  async saveIotbasicCustomer(request: SaveIotbasicCustomerRequest): Promise<SaveIotbasicCustomerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveIotbasicCustomerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-客户新增
+   * Summary: IoT设备平台-客户新增
+   */
+  async saveIotbasicCustomerEx(request: SaveIotbasicCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveIotbasicCustomerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveIotbasicCustomerResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveIotbasicCustomerResponse({}));
   }
 
   /**
