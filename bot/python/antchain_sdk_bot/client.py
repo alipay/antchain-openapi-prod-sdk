@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.94'
+                    'sdk_version': '1.8.3',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.94'
+                    'sdk_version': '1.8.3',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -605,6 +609,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryLeaseRiskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_trace_config(
+        self,
+        request: bot_models.FinishTraceConfigRequest,
+    ) -> bot_models.FinishTraceConfigResponse:
+        """
+        Description: 私有化配置推送回告API
+        Summary: 私有化配置推送回告API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_trace_config_ex(request, headers, runtime)
+
+    async def finish_trace_config_async(
+        self,
+        request: bot_models.FinishTraceConfigRequest,
+    ) -> bot_models.FinishTraceConfigResponse:
+        """
+        Description: 私有化配置推送回告API
+        Summary: 私有化配置推送回告API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_trace_config_ex_async(request, headers, runtime)
+
+    def finish_trace_config_ex(
+        self,
+        request: bot_models.FinishTraceConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FinishTraceConfigResponse:
+        """
+        Description: 私有化配置推送回告API
+        Summary: 私有化配置推送回告API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FinishTraceConfigResponse(),
+            self.do_request('1.0', 'blockchain.bot.trace.config.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_trace_config_ex_async(
+        self,
+        request: bot_models.FinishTraceConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FinishTraceConfigResponse:
+        """
+        Description: 私有化配置推送回告API
+        Summary: 私有化配置推送回告API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FinishTraceConfigResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.trace.config.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_bai_ocr(
@@ -3383,6 +3443,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryIotbasicDeviceorderResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.deviceorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_iotbasic_meterdata(
+        self,
+        request: bot_models.PushIotbasicMeterdataRequest,
+    ) -> bot_models.PushIotbasicMeterdataResponse:
+        """
+        Description: IoT设备平台-订单数据推送中台
+        Summary: IoT设备平台-订单数据推送中台
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_iotbasic_meterdata_ex(request, headers, runtime)
+
+    async def push_iotbasic_meterdata_async(
+        self,
+        request: bot_models.PushIotbasicMeterdataRequest,
+    ) -> bot_models.PushIotbasicMeterdataResponse:
+        """
+        Description: IoT设备平台-订单数据推送中台
+        Summary: IoT设备平台-订单数据推送中台
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_iotbasic_meterdata_ex_async(request, headers, runtime)
+
+    def push_iotbasic_meterdata_ex(
+        self,
+        request: bot_models.PushIotbasicMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotbasicMeterdataResponse:
+        """
+        Description: IoT设备平台-订单数据推送中台
+        Summary: IoT设备平台-订单数据推送中台
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotbasicMeterdataResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_iotbasic_meterdata_ex_async(
+        self,
+        request: bot_models.PushIotbasicMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotbasicMeterdataResponse:
+        """
+        Description: IoT设备平台-订单数据推送中台
+        Summary: IoT设备平台-订单数据推送中台
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotbasicMeterdataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_iotbasic_customer(
+        self,
+        request: bot_models.SaveIotbasicCustomerRequest,
+    ) -> bot_models.SaveIotbasicCustomerResponse:
+        """
+        Description: IoT设备平台-客户新增
+        Summary: IoT设备平台-客户新增
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_iotbasic_customer_ex(request, headers, runtime)
+
+    async def save_iotbasic_customer_async(
+        self,
+        request: bot_models.SaveIotbasicCustomerRequest,
+    ) -> bot_models.SaveIotbasicCustomerResponse:
+        """
+        Description: IoT设备平台-客户新增
+        Summary: IoT设备平台-客户新增
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_iotbasic_customer_ex_async(request, headers, runtime)
+
+    def save_iotbasic_customer_ex(
+        self,
+        request: bot_models.SaveIotbasicCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SaveIotbasicCustomerResponse:
+        """
+        Description: IoT设备平台-客户新增
+        Summary: IoT设备平台-客户新增
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SaveIotbasicCustomerResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_iotbasic_customer_ex_async(
+        self,
+        request: bot_models.SaveIotbasicCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SaveIotbasicCustomerResponse:
+        """
+        Description: IoT设备平台-客户新增
+        Summary: IoT设备平台-客户新增
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SaveIotbasicCustomerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
