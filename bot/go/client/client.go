@@ -2724,6 +2724,53 @@ func (s *PermissionedTenantPageResponse) SetPageData(v []*PermissionedTenantMode
 	return s
 }
 
+// 任务信息
+type TaskInfo struct {
+	// 升级计划Id
+	PlanId *int64 `json:"plan_id,omitempty" xml:"plan_id,omitempty" minimum:"0"`
+	// 刷库计划步骤id
+	PlanStepId *int64 `json:"plan_step_id,omitempty" xml:"plan_step_id,omitempty" minimum:"0"`
+	// 任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" minimum:"0"`
+	// action_id
+	ActionId *int64 `json:"action_id,omitempty" xml:"action_id,omitempty" minimum:"0"`
+	// 任务类型
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty" require:"true"`
+}
+
+func (s TaskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TaskInfo) SetPlanId(v int64) *TaskInfo {
+	s.PlanId = &v
+	return s
+}
+
+func (s *TaskInfo) SetPlanStepId(v int64) *TaskInfo {
+	s.PlanStepId = &v
+	return s
+}
+
+func (s *TaskInfo) SetTaskId(v int64) *TaskInfo {
+	s.TaskId = &v
+	return s
+}
+
+func (s *TaskInfo) SetActionId(v int64) *TaskInfo {
+	s.ActionId = &v
+	return s
+}
+
+func (s *TaskInfo) SetTaskType(v string) *TaskInfo {
+	s.TaskType = &v
+	return s
+}
+
 // 商品鉴定返回结果
 type BaiGoodsIdentificationRespData struct {
 	// 鉴定结果
@@ -5889,6 +5936,90 @@ func (s *QueryLeaseRiskResponse) SetResultMsg(v string) *QueryLeaseRiskResponse 
 
 func (s *QueryLeaseRiskResponse) SetData(v string) *QueryLeaseRiskResponse {
 	s.Data = &v
+	return s
+}
+
+type FinishTraceConfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有化端唯一标识
+	UniqueNum *string `json:"unique_num,omitempty" xml:"unique_num,omitempty" require:"true"`
+	// 私有化端配置成功标志
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 任务信息，用于消费者回告
+	TaskInfo *TaskInfo `json:"task_info,omitempty" xml:"task_info,omitempty" require:"true"`
+}
+
+func (s FinishTraceConfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishTraceConfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishTraceConfigRequest) SetAuthToken(v string) *FinishTraceConfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishTraceConfigRequest) SetProductInstanceId(v string) *FinishTraceConfigRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishTraceConfigRequest) SetUniqueNum(v string) *FinishTraceConfigRequest {
+	s.UniqueNum = &v
+	return s
+}
+
+func (s *FinishTraceConfigRequest) SetSuccess(v bool) *FinishTraceConfigRequest {
+	s.Success = &v
+	return s
+}
+
+func (s *FinishTraceConfigRequest) SetTaskInfo(v *TaskInfo) *FinishTraceConfigRequest {
+	s.TaskInfo = v
+	return s
+}
+
+type FinishTraceConfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务结果码
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s FinishTraceConfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishTraceConfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishTraceConfigResponse) SetReqMsgId(v string) *FinishTraceConfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishTraceConfigResponse) SetResultCode(v string) *FinishTraceConfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishTraceConfigResponse) SetResultMsg(v string) *FinishTraceConfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishTraceConfigResponse) SetResult(v string) *FinishTraceConfigResponse {
+	s.Result = &v
 	return s
 }
 
@@ -11200,6 +11331,153 @@ func (s *QueryIotbasicDeviceorderResponse) SetCurrent(v int64) *QueryIotbasicDev
 
 func (s *QueryIotbasicDeviceorderResponse) SetPageSize(v int64) *QueryIotbasicDeviceorderResponse {
 	s.PageSize = &v
+	return s
+}
+
+type PushIotbasicMeterdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s PushIotbasicMeterdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushIotbasicMeterdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushIotbasicMeterdataRequest) SetAuthToken(v string) *PushIotbasicMeterdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataRequest) SetProductInstanceId(v string) *PushIotbasicMeterdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataRequest) SetTenantId(v string) *PushIotbasicMeterdataRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataRequest) SetOrderId(v string) *PushIotbasicMeterdataRequest {
+	s.OrderId = &v
+	return s
+}
+
+type PushIotbasicMeterdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s PushIotbasicMeterdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushIotbasicMeterdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushIotbasicMeterdataResponse) SetReqMsgId(v string) *PushIotbasicMeterdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataResponse) SetResultCode(v string) *PushIotbasicMeterdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataResponse) SetResultMsg(v string) *PushIotbasicMeterdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushIotbasicMeterdataResponse) SetSuccess(v bool) *PushIotbasicMeterdataResponse {
+	s.Success = &v
+	return s
+}
+
+type SaveIotbasicCustomerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s SaveIotbasicCustomerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveIotbasicCustomerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveIotbasicCustomerRequest) SetAuthToken(v string) *SaveIotbasicCustomerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveIotbasicCustomerRequest) SetProductInstanceId(v string) *SaveIotbasicCustomerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveIotbasicCustomerRequest) SetTenantId(v string) *SaveIotbasicCustomerRequest {
+	s.TenantId = &v
+	return s
+}
+
+type SaveIotbasicCustomerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功标志
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s SaveIotbasicCustomerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveIotbasicCustomerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveIotbasicCustomerResponse) SetReqMsgId(v string) *SaveIotbasicCustomerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveIotbasicCustomerResponse) SetResultCode(v string) *SaveIotbasicCustomerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveIotbasicCustomerResponse) SetResultMsg(v string) *SaveIotbasicCustomerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveIotbasicCustomerResponse) SetSuccess(v bool) *SaveIotbasicCustomerResponse {
+	s.Success = &v
 	return s
 }
 
@@ -21366,7 +21644,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.94"),
+				"sdk_version":      tea.String("1.8.3"),
+				"_prod_code":       tea.String("BOT"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -21619,6 +21899,40 @@ func (client *Client) QueryLeaseRiskEx(request *QueryLeaseRiskRequest, headers m
 	}
 	_result = &QueryLeaseRiskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 私有化配置推送回告API
+ * Summary: 私有化配置推送回告API
+ */
+func (client *Client) FinishTraceConfig(request *FinishTraceConfigRequest) (_result *FinishTraceConfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishTraceConfigResponse{}
+	_body, _err := client.FinishTraceConfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 私有化配置推送回告API
+ * Summary: 私有化配置推送回告API
+ */
+func (client *Client) FinishTraceConfigEx(request *FinishTraceConfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishTraceConfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishTraceConfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.trace.config.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -23314,6 +23628,74 @@ func (client *Client) QueryIotbasicDeviceorderEx(request *QueryIotbasicDeviceord
 	}
 	_result = &QueryIotbasicDeviceorderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.deviceorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-订单数据推送中台
+ * Summary: IoT设备平台-订单数据推送中台
+ */
+func (client *Client) PushIotbasicMeterdata(request *PushIotbasicMeterdataRequest) (_result *PushIotbasicMeterdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushIotbasicMeterdataResponse{}
+	_body, _err := client.PushIotbasicMeterdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-订单数据推送中台
+ * Summary: IoT设备平台-订单数据推送中台
+ */
+func (client *Client) PushIotbasicMeterdataEx(request *PushIotbasicMeterdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushIotbasicMeterdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushIotbasicMeterdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.meterdata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-客户新增
+ * Summary: IoT设备平台-客户新增
+ */
+func (client *Client) SaveIotbasicCustomer(request *SaveIotbasicCustomerRequest) (_result *SaveIotbasicCustomerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveIotbasicCustomerResponse{}
+	_body, _err := client.SaveIotbasicCustomerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-客户新增
+ * Summary: IoT设备平台-客户新增
+ */
+func (client *Client) SaveIotbasicCustomerEx(request *SaveIotbasicCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveIotbasicCustomerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveIotbasicCustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.customer.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
