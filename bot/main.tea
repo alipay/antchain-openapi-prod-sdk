@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.94',
+    sdk_version = '1.8.3',
+    _prod_code = 'BOT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -971,6 +973,20 @@ model PermissionedTenantPageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ PermissionedTenantModel ](name='page_data', example='{...}'),
+}
+
+// 任务信息
+model TaskInfo {
+  // 升级计划Id
+  planId?: long(minimum=0, name='plan_id', example='234'),
+  // 刷库计划步骤id
+  planStepId?: long(minimum=0, name='plan_step_id', example='234'),
+  // 任务id
+  taskId?: long(minimum=0, name='task_id', example='234'),
+  // action_id
+  actionId?: long(minimum=0, name='action_id', example='234'),
+  // 任务类型
+  taskType: string(name='task_type', example='升级，溯源'),
 }
 
 // 商品鉴定返回结果
@@ -2099,6 +2115,48 @@ async function queryLeaseRisk(request: QueryLeaseRiskRequest): QueryLeaseRiskRes
 async function queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRiskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishTraceConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有化端唯一标识
+  uniqueNum: string(name='unique_num'),
+  // 私有化端配置成功标志
+  success: boolean(name='success'),
+  // 任务信息，用于消费者回告
+  taskInfo: TaskInfo(name='task_info'),
+}
+
+model FinishTraceConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务结果码
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 私有化配置推送回告API 
+ * Summary: 私有化配置推送回告API 
+ */
+async function finishTraceConfig(request: FinishTraceConfigRequest): FinishTraceConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishTraceConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 私有化配置推送回告API 
+ * Summary: 私有化配置推送回告API 
+ */
+async function finishTraceConfigEx(request: FinishTraceConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishTraceConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.trace.config.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBaiOcrRequest = {
@@ -4534,6 +4592,84 @@ async function queryIotbasicDeviceorder(request: QueryIotbasicDeviceorderRequest
 async function queryIotbasicDeviceorderEx(request: QueryIotbasicDeviceorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotbasicDeviceorderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushIotbasicMeterdataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 订单id
+  orderId?: string(name='order_id'),
+}
+
+model PushIotbasicMeterdataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-订单数据推送中台
+ * Summary: IoT设备平台-订单数据推送中台
+ */
+async function pushIotbasicMeterdata(request: PushIotbasicMeterdataRequest): PushIotbasicMeterdataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushIotbasicMeterdataEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-订单数据推送中台
+ * Summary: IoT设备平台-订单数据推送中台
+ */
+async function pushIotbasicMeterdataEx(request: PushIotbasicMeterdataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushIotbasicMeterdataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.meterdata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveIotbasicCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model SaveIotbasicCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功标志
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-客户新增
+ * Summary: IoT设备平台-客户新增
+ */
+async function saveIotbasicCustomer(request: SaveIotbasicCustomerRequest): SaveIotbasicCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveIotbasicCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-客户新增
+ * Summary: IoT设备平台-客户新增
+ */
+async function saveIotbasicCustomerEx(request: SaveIotbasicCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveIotbasicCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
