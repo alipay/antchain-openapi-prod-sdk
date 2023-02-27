@@ -87,6 +87,8 @@ use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
 use AntChain\BOT\Models\ExecUnprocessedTaskResponse;
+use AntChain\BOT\Models\FinishTraceConfigRequest;
+use AntChain\BOT\Models\FinishTraceConfigResponse;
 use AntChain\BOT\Models\GetAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\GetAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\GetDeviceBychainidRequest;
@@ -185,6 +187,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\PushIotbasicMeterdataRequest;
+use AntChain\BOT\Models\PushIotbasicMeterdataResponse;
 use AntChain\BOT\Models\PushMeterdataOrderRequest;
 use AntChain\BOT\Models\PushMeterdataOrderResponse;
 use AntChain\BOT\Models\PushRentBillRequest;
@@ -257,6 +261,8 @@ use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidResponse;
 use AntChain\BOT\Models\ResumeAcecContractRequest;
 use AntChain\BOT\Models\ResumeAcecContractResponse;
+use AntChain\BOT\Models\SaveIotbasicCustomerRequest;
+use AntChain\BOT\Models\SaveIotbasicCustomerResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
 use AntChain\BOT\Models\SendAcsCollectorResponse;
 use AntChain\BOT\Models\SendCollectorBychainidmulRequest;
@@ -474,7 +480,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.94',
+                    'sdk_version'      => '1.8.3',
+                    '_prod_code'       => 'BOT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -716,6 +724,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseRiskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有化配置推送回告API
+     * Summary: 私有化配置推送回告API.
+     *
+     * @param FinishTraceConfigRequest $request
+     *
+     * @return FinishTraceConfigResponse
+     */
+    public function finishTraceConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishTraceConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有化配置推送回告API
+     * Summary: 私有化配置推送回告API.
+     *
+     * @param FinishTraceConfigRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return FinishTraceConfigResponse
+     */
+    public function finishTraceConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishTraceConfigResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.trace.config.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2351,6 +2392,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryIotbasicDeviceorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.deviceorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-订单数据推送中台
+     * Summary: IoT设备平台-订单数据推送中台.
+     *
+     * @param PushIotbasicMeterdataRequest $request
+     *
+     * @return PushIotbasicMeterdataResponse
+     */
+    public function pushIotbasicMeterdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushIotbasicMeterdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-订单数据推送中台
+     * Summary: IoT设备平台-订单数据推送中台.
+     *
+     * @param PushIotbasicMeterdataRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PushIotbasicMeterdataResponse
+     */
+    public function pushIotbasicMeterdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushIotbasicMeterdataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.meterdata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-客户新增
+     * Summary: IoT设备平台-客户新增.
+     *
+     * @param SaveIotbasicCustomerRequest $request
+     *
+     * @return SaveIotbasicCustomerResponse
+     */
+    public function saveIotbasicCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveIotbasicCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-客户新增
+     * Summary: IoT设备平台-客户新增.
+     *
+     * @param SaveIotbasicCustomerRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SaveIotbasicCustomerResponse
+     */
+    public function saveIotbasicCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveIotbasicCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
