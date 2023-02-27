@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.94")
+                    new TeaPair("sdk_version", "1.8.3"),
+                    new TeaPair("_prod_code", "BOT"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,6 +273,25 @@ public class Client {
     public QueryLeaseRiskResponse queryLeaseRiskEx(QueryLeaseRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRiskResponse());
+    }
+
+    /**
+     * Description: 私有化配置推送回告API 
+     * Summary: 私有化配置推送回告API 
+     */
+    public FinishTraceConfigResponse finishTraceConfig(FinishTraceConfigRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishTraceConfigEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 私有化配置推送回告API 
+     * Summary: 私有化配置推送回告API 
+     */
+    public FinishTraceConfigResponse finishTraceConfigEx(FinishTraceConfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.trace.config.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishTraceConfigResponse());
     }
 
     /**
@@ -1223,6 +1244,44 @@ public class Client {
     public QueryIotbasicDeviceorderResponse queryIotbasicDeviceorderEx(QueryIotbasicDeviceorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.deviceorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotbasicDeviceorderResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-订单数据推送中台
+     * Summary: IoT设备平台-订单数据推送中台
+     */
+    public PushIotbasicMeterdataResponse pushIotbasicMeterdata(PushIotbasicMeterdataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushIotbasicMeterdataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-订单数据推送中台
+     * Summary: IoT设备平台-订单数据推送中台
+     */
+    public PushIotbasicMeterdataResponse pushIotbasicMeterdataEx(PushIotbasicMeterdataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.meterdata.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushIotbasicMeterdataResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-客户新增
+     * Summary: IoT设备平台-客户新增
+     */
+    public SaveIotbasicCustomerResponse saveIotbasicCustomer(SaveIotbasicCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveIotbasicCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-客户新增
+     * Summary: IoT设备平台-客户新增
+     */
+    public SaveIotbasicCustomerResponse saveIotbasicCustomerEx(SaveIotbasicCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveIotbasicCustomerResponse());
     }
 
     /**
