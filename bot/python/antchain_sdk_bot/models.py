@@ -14394,15 +14394,19 @@ class SaveIotbasicCustomerRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         tenant_id: str = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 租户id
         self.tenant_id = tenant_id
+        # 商品code
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -14416,6 +14420,8 @@ class SaveIotbasicCustomerRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -14426,6 +14432,8 @@ class SaveIotbasicCustomerRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
