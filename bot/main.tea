@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.3',
+    sdk_version = '1.8.4',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -4640,6 +4640,8 @@ model SaveIotbasicCustomerRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 租户id
   tenantId: string(name='tenant_id'),
+  // 商品code
+  productCode: string(name='product_code'),
 }
 
 model SaveIotbasicCustomerResponse = {
