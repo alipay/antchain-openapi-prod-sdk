@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.4',
+    sdk_version = '1.8.7',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -819,9 +819,9 @@ model IotBasicDeviceRegisterFail {
   message: string(name='message', example='message'),
 }
 
-// 设备类型
+// 设备信息
 model Device {
-  // 设备实体唯一Id
+  // 设备ID，一般是设备的出厂编码或业务上的资产ID
   deviceId: string(name='device_id', example='123ABC'),
   // 数据模型Id
   deviceDataModelId: string(name='device_data_model_id', example='112233'),
@@ -879,6 +879,8 @@ model Device {
   factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
   // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
   deviceStatus?: string(name='device_status', example='NORMAL'),
+  // 可信设备ID
+  trustiotDeviceId: long(name='trustiot_device_id', example='7006071575276187649'),
 }
 
 // 新增厂商字典时需要传的产品信息
@@ -2121,10 +2123,12 @@ model FinishTraceConfigRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 私有化端唯一标识
-  uniqueNum: string(name='unique_num'),
   // 私有化端配置成功标志
   success: boolean(name='success'),
+  // 租户
+  privatedTenant: string(name='privated_tenant'),
+  // 私有化端唯一标识
+  uniqueNum: string(name='unique_num'),
   // 任务信息，用于消费者回告
   taskInfo: TaskInfo(name='task_info'),
 }
