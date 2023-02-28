@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class Device extends Model
 {
-    // 设备实体唯一Id
+    // 设备ID，一般是设备的出厂编码或业务上的资产ID
     /**
      * @example 123ABC
      *
@@ -161,6 +161,14 @@ class Device extends Model
      * @var string
      */
     public $deviceStatus;
+
+    // 可信设备ID
+    /**
+     * @example 7006071575276187649
+     *
+     * @var int
+     */
+    public $trustiotDeviceId;
     protected $_name = [
         'deviceId'          => 'device_id',
         'deviceDataModelId' => 'device_data_model_id',
@@ -178,6 +186,7 @@ class Device extends Model
         'releaseTime'       => 'release_time',
         'factoryTime'       => 'factory_time',
         'deviceStatus'      => 'device_status',
+        'trustiotDeviceId'  => 'trustiot_device_id',
     ];
 
     public function validate()
@@ -193,6 +202,7 @@ class Device extends Model
         Model::validateRequired('initialPrice', $this->initialPrice, true);
         Model::validateRequired('releaseTime', $this->releaseTime, true);
         Model::validateRequired('factoryTime', $this->factoryTime, true);
+        Model::validateRequired('trustiotDeviceId', $this->trustiotDeviceId, true);
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -247,6 +257,9 @@ class Device extends Model
         }
         if (null !== $this->deviceStatus) {
             $res['device_status'] = $this->deviceStatus;
+        }
+        if (null !== $this->trustiotDeviceId) {
+            $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
 
         return $res;
@@ -307,6 +320,9 @@ class Device extends Model
         }
         if (isset($map['device_status'])) {
             $model->deviceStatus = $map['device_status'];
+        }
+        if (isset($map['trustiot_device_id'])) {
+            $model->trustiotDeviceId = $map['trustiot_device_id'];
         }
 
         return $model;
