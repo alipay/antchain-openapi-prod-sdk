@@ -24,15 +24,23 @@ class SaveIotbasicCustomerRequest extends Model
      * @var string
      */
     public $tenantId;
+
+    // 商品code
+    /**
+     * @var string
+     */
+    public $productCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
+        'productCode'       => 'product_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class SaveIotbasicCustomerRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class SaveIotbasicCustomerRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
 
         return $model;
