@@ -1717,9 +1717,9 @@ export class IotBasicDeviceRegisterFail extends $tea.Model {
   }
 }
 
-// 设备类型
+// 设备信息
 export class Device extends $tea.Model {
-  // 设备实体唯一Id
+  // 设备ID，一般是设备的出厂编码或业务上的资产ID
   deviceId: string;
   // 数据模型Id
   deviceDataModelId: string;
@@ -1777,6 +1777,8 @@ export class Device extends $tea.Model {
   factoryTime: string;
   // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
   deviceStatus?: string;
+  // 可信设备ID
+  trustiotDeviceId: number;
   static names(): { [key: string]: string } {
     return {
       deviceId: 'device_id',
@@ -1795,6 +1797,7 @@ export class Device extends $tea.Model {
       releaseTime: 'release_time',
       factoryTime: 'factory_time',
       deviceStatus: 'device_status',
+      trustiotDeviceId: 'trustiot_device_id',
     };
   }
 
@@ -1816,6 +1819,7 @@ export class Device extends $tea.Model {
       releaseTime: 'string',
       factoryTime: 'string',
       deviceStatus: 'string',
+      trustiotDeviceId: 'number',
     };
   }
 
@@ -4640,18 +4644,21 @@ export class FinishTraceConfigRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 私有化端唯一标识
-  uniqueNum: string;
   // 私有化端配置成功标志
   success: boolean;
+  // 租户
+  privatedTenant: string;
+  // 私有化端唯一标识
+  uniqueNum: string;
   // 任务信息，用于消费者回告
   taskInfo: TaskInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      uniqueNum: 'unique_num',
       success: 'success',
+      privatedTenant: 'privated_tenant',
+      uniqueNum: 'unique_num',
       taskInfo: 'task_info',
     };
   }
@@ -4660,8 +4667,9 @@ export class FinishTraceConfigRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      uniqueNum: 'string',
       success: 'boolean',
+      privatedTenant: 'string',
+      uniqueNum: 'string',
       taskInfo: TaskInfo,
     };
   }
@@ -16736,7 +16744,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.4",
+          sdk_version: "1.8.7",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
