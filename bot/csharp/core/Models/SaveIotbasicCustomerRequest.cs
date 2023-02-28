@@ -23,6 +23,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
+        // 商品code
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
+
     }
 
 }
