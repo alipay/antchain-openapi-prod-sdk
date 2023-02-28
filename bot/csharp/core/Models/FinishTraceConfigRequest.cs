@@ -18,15 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 私有化端唯一标识
-        [NameInMap("unique_num")]
-        [Validation(Required=true)]
-        public string UniqueNum { get; set; }
-
         // 私有化端配置成功标志
         [NameInMap("success")]
         [Validation(Required=true)]
         public bool? Success { get; set; }
+
+        // 租户
+        [NameInMap("privated_tenant")]
+        [Validation(Required=true)]
+        public string PrivatedTenant { get; set; }
+
+        // 私有化端唯一标识
+        [NameInMap("unique_num")]
+        [Validation(Required=true)]
+        public string UniqueNum { get; set; }
 
         // 任务信息，用于消费者回告
         [NameInMap("task_info")]

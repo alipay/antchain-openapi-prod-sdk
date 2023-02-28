@@ -8,9 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    // 设备类型
+    // 设备信息
     public class Device : TeaModel {
-        // 设备实体唯一Id
+        // 设备ID，一般是设备的出厂编码或业务上的资产ID
         [NameInMap("device_id")]
         [Validation(Required=true)]
         public string DeviceId { get; set; }
@@ -115,6 +115,11 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("device_status")]
         [Validation(Required=false)]
         public string DeviceStatus { get; set; }
+
+        // 可信设备ID
+        [NameInMap("trustiot_device_id")]
+        [Validation(Required=true)]
+        public long? TrustiotDeviceId { get; set; }
 
     }
 
