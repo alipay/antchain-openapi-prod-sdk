@@ -2851,8 +2851,9 @@ class Device(TeaModel):
         release_time: str = None,
         factory_time: str = None,
         device_status: str = None,
+        trustiot_device_id: int = None,
     ):
-        # 设备实体唯一Id
+        # 设备ID，一般是设备的出厂编码或业务上的资产ID
         self.device_id = device_id
         # 数据模型Id
         self.device_data_model_id = device_data_model_id
@@ -2910,6 +2911,8 @@ class Device(TeaModel):
         self.factory_time = factory_time
         # 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
         self.device_status = device_status
+        # 可信设备ID
+        self.trustiot_device_id = trustiot_device_id
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -2927,6 +2930,7 @@ class Device(TeaModel):
         self.validate_required(self.factory_time, 'factory_time')
         if self.factory_time is not None:
             self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.trustiot_device_id, 'trustiot_device_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -2966,6 +2970,8 @@ class Device(TeaModel):
             result['factory_time'] = self.factory_time
         if self.device_status is not None:
             result['device_status'] = self.device_status
+        if self.trustiot_device_id is not None:
+            result['trustiot_device_id'] = self.trustiot_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3002,6 +3008,8 @@ class Device(TeaModel):
             self.factory_time = m.get('factory_time')
         if m.get('device_status') is not None:
             self.device_status = m.get('device_status')
+        if m.get('trustiot_device_id') is not None:
+            self.trustiot_device_id = m.get('trustiot_device_id')
         return self
 
 
@@ -7451,23 +7459,27 @@ class FinishTraceConfigRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        unique_num: str = None,
         success: bool = None,
+        privated_tenant: str = None,
+        unique_num: str = None,
         task_info: TaskInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 私有化端唯一标识
-        self.unique_num = unique_num
         # 私有化端配置成功标志
         self.success = success
+        # 租户
+        self.privated_tenant = privated_tenant
+        # 私有化端唯一标识
+        self.unique_num = unique_num
         # 任务信息，用于消费者回告
         self.task_info = task_info
 
     def validate(self):
-        self.validate_required(self.unique_num, 'unique_num')
         self.validate_required(self.success, 'success')
+        self.validate_required(self.privated_tenant, 'privated_tenant')
+        self.validate_required(self.unique_num, 'unique_num')
         self.validate_required(self.task_info, 'task_info')
         if self.task_info:
             self.task_info.validate()
@@ -7482,10 +7494,12 @@ class FinishTraceConfigRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.unique_num is not None:
-            result['unique_num'] = self.unique_num
         if self.success is not None:
             result['success'] = self.success
+        if self.privated_tenant is not None:
+            result['privated_tenant'] = self.privated_tenant
+        if self.unique_num is not None:
+            result['unique_num'] = self.unique_num
         if self.task_info is not None:
             result['task_info'] = self.task_info.to_map()
         return result
@@ -7496,10 +7510,12 @@ class FinishTraceConfigRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('unique_num') is not None:
-            self.unique_num = m.get('unique_num')
         if m.get('success') is not None:
             self.success = m.get('success')
+        if m.get('privated_tenant') is not None:
+            self.privated_tenant = m.get('privated_tenant')
+        if m.get('unique_num') is not None:
+            self.unique_num = m.get('unique_num')
         if m.get('task_info') is not None:
             temp_model = TaskInfo()
             self.task_info = temp_model.from_map(m['task_info'])
