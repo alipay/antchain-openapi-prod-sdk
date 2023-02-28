@@ -2304,9 +2304,9 @@ func (s *IotBasicDeviceRegisterFail) SetMessage(v string) *IotBasicDeviceRegiste
 	return s
 }
 
-// 设备类型
+// 设备信息
 type Device struct {
-	// 设备实体唯一Id
+	// 设备ID，一般是设备的出厂编码或业务上的资产ID
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// 数据模型Id
 	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty" require:"true"`
@@ -2364,6 +2364,8 @@ type Device struct {
 	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
 	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// 可信设备ID
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty" require:"true"`
 }
 
 func (s Device) String() string {
@@ -2451,6 +2453,11 @@ func (s *Device) SetFactoryTime(v string) *Device {
 
 func (s *Device) SetDeviceStatus(v string) *Device {
 	s.DeviceStatus = &v
+	return s
+}
+
+func (s *Device) SetTrustiotDeviceId(v int64) *Device {
+	s.TrustiotDeviceId = &v
 	return s
 }
 
@@ -5943,10 +5950,12 @@ type FinishTraceConfigRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 私有化端唯一标识
-	UniqueNum *string `json:"unique_num,omitempty" xml:"unique_num,omitempty" require:"true"`
 	// 私有化端配置成功标志
 	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 租户
+	PrivatedTenant *string `json:"privated_tenant,omitempty" xml:"privated_tenant,omitempty" require:"true"`
+	// 私有化端唯一标识
+	UniqueNum *string `json:"unique_num,omitempty" xml:"unique_num,omitempty" require:"true"`
 	// 任务信息，用于消费者回告
 	TaskInfo *TaskInfo `json:"task_info,omitempty" xml:"task_info,omitempty" require:"true"`
 }
@@ -5969,13 +5978,18 @@ func (s *FinishTraceConfigRequest) SetProductInstanceId(v string) *FinishTraceCo
 	return s
 }
 
-func (s *FinishTraceConfigRequest) SetUniqueNum(v string) *FinishTraceConfigRequest {
-	s.UniqueNum = &v
+func (s *FinishTraceConfigRequest) SetSuccess(v bool) *FinishTraceConfigRequest {
+	s.Success = &v
 	return s
 }
 
-func (s *FinishTraceConfigRequest) SetSuccess(v bool) *FinishTraceConfigRequest {
-	s.Success = &v
+func (s *FinishTraceConfigRequest) SetPrivatedTenant(v string) *FinishTraceConfigRequest {
+	s.PrivatedTenant = &v
+	return s
+}
+
+func (s *FinishTraceConfigRequest) SetUniqueNum(v string) *FinishTraceConfigRequest {
+	s.UniqueNum = &v
 	return s
 }
 
@@ -21651,7 +21665,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.4"),
+				"sdk_version":      tea.String("1.8.7"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
