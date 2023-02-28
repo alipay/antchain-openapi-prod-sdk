@@ -8747,11 +8747,14 @@ export class SaveIotbasicCustomerRequest extends $tea.Model {
   productInstanceId?: string;
   // 租户id
   tenantId: string;
+  // 商品code
+  productCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
+      productCode: 'product_code',
     };
   }
 
@@ -8760,6 +8763,7 @@ export class SaveIotbasicCustomerRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       tenantId: 'string',
+      productCode: 'string',
     };
   }
 
@@ -16693,7 +16697,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -16732,7 +16736,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.3",
+          sdk_version: "1.8.4",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
