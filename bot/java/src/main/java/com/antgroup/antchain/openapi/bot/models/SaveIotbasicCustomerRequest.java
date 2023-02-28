@@ -16,6 +16,11 @@ public class SaveIotbasicCustomerRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 商品code
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
     public static SaveIotbasicCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveIotbasicCustomerRequest self = new SaveIotbasicCustomerRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class SaveIotbasicCustomerRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public SaveIotbasicCustomerRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
