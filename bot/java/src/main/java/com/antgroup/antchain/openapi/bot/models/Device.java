@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class Device extends TeaModel {
-    // 设备实体唯一Id
+    // 设备ID，一般是设备的出厂编码或业务上的资产ID
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
@@ -104,6 +104,11 @@ public class Device extends TeaModel {
     // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
     @NameInMap("device_status")
     public String deviceStatus;
+
+    // 可信设备ID
+    @NameInMap("trustiot_device_id")
+    @Validation(required = true)
+    public Long trustiotDeviceId;
 
     public static Device build(java.util.Map<String, ?> map) throws Exception {
         Device self = new Device();
@@ -236,6 +241,14 @@ public class Device extends TeaModel {
     }
     public String getDeviceStatus() {
         return this.deviceStatus;
+    }
+
+    public Device setTrustiotDeviceId(Long trustiotDeviceId) {
+        this.trustiotDeviceId = trustiotDeviceId;
+        return this;
+    }
+    public Long getTrustiotDeviceId() {
+        return this.trustiotDeviceId;
     }
 
 }
