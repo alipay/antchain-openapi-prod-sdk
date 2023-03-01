@@ -36,7 +36,6 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
 
     // 产品编号
     @NameInMap("prod_no")
-    @Validation(required = true)
     public String prodNo;
 
     // 风险数据对象json字符串

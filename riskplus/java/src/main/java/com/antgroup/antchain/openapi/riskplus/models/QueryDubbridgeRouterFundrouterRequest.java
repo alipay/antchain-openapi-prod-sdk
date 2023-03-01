@@ -28,7 +28,6 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
 
     // 合作方产品编号
     @NameInMap("prod_no")
-    @Validation(required = true)
     public String prodNo;
 
     // 渠道类型

@@ -23,7 +23,6 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
 
     // 产品编号
     @NameInMap("prod_no")
-    @Validation(required = true)
     public String prodNo;
 
     // 借款金额
