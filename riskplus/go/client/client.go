@@ -7799,7 +7799,7 @@ type QueryDubbridgeRouterFundrouterRequest struct {
 	// 姓名
 	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
 	// 合作方产品编号
-	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty" require:"true"`
+	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
 	// 渠道类型
 	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
 	// 客户类型
@@ -7964,7 +7964,7 @@ type ApplyDubbridgeCreditRequest struct {
 	// 工作信息
 	BorrowerEmpInfo *JobInfo `json:"borrower_emp_info,omitempty" xml:"borrower_emp_info,omitempty"`
 	// 产品编号
-	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty" require:"true"`
+	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
 	// 风险数据对象json字符串
 	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty" require:"true"`
 	// 借款用途
@@ -10296,7 +10296,7 @@ type CountDubbridgeRepayReftrialRequest struct {
 	// 授信申请订单号
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
 	// 产品编号
-	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty" require:"true"`
+	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
 	// 借款金额
 	ApplyAmount *int64 `json:"apply_amount,omitempty" xml:"apply_amount,omitempty" require:"true"`
 	// 借款期数
@@ -11963,6 +11963,97 @@ func (s *ReceiveMdipParamsFileResponse) SetResultMsg(v string) *ReceiveMdipParam
 
 func (s *ReceiveMdipParamsFileResponse) SetContent(v *RuntimeResult) *ReceiveMdipParamsFileResponse {
 	s.Content = v
+	return s
+}
+
+type ReceiveMdipParamsRbbfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 租户code
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+}
+
+func (s ReceiveMdipParamsRbbfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveMdipParamsRbbfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetAuthToken(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetProductInstanceId(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetFileObject(v io.Reader) *ReceiveMdipParamsRbbfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetFileObjectName(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetFileId(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetFileName(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileRequest) SetTenantCode(v string) *ReceiveMdipParamsRbbfileRequest {
+	s.TenantCode = &v
+	return s
+}
+
+type ReceiveMdipParamsRbbfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReceiveMdipParamsRbbfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveMdipParamsRbbfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveMdipParamsRbbfileResponse) SetReqMsgId(v string) *ReceiveMdipParamsRbbfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileResponse) SetResultCode(v string) *ReceiveMdipParamsRbbfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsRbbfileResponse) SetResultMsg(v string) *ReceiveMdipParamsRbbfileResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -19327,17 +19418,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -19371,7 +19462,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.10"),
+				"sdk_version":      tea.String("1.16.12"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -21620,6 +21713,69 @@ func (client *Client) ReceiveMdipParamsFileEx(request *ReceiveMdipParamsFileRequ
 	}
 	_result = &ReceiveMdipParamsFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.params.file.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 接受op的文件id,支持风险大脑文件上传
+ * Summary: 接受op的文件id,支持风险大脑文件上传
+ */
+func (client *Client) ReceiveMdipParamsRbbfile(request *ReceiveMdipParamsRbbfileRequest) (_result *ReceiveMdipParamsRbbfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveMdipParamsRbbfileResponse{}
+	_body, _err := client.ReceiveMdipParamsRbbfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 接受op的文件id,支持风险大脑文件上传
+ * Summary: 接受op的文件id,支持风险大脑文件上传
+ */
+func (client *Client) ReceiveMdipParamsRbbfileEx(request *ReceiveMdipParamsRbbfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveMdipParamsRbbfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.mdip.params.rbbfile.receive"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			receiveMdipParamsRbbfileResponse := &ReceiveMdipParamsRbbfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = receiveMdipParamsRbbfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveMdipParamsRbbfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.params.rbbfile.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
