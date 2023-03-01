@@ -9712,7 +9712,6 @@ class QueryDubbridgeRouterFundrouterRequest(TeaModel):
         self.validate_required(self.card_no, 'card_no')
         self.validate_required(self.mobile, 'mobile')
         self.validate_required(self.custom_name, 'custom_name')
-        self.validate_required(self.prod_no, 'prod_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -9908,7 +9907,6 @@ class ApplyDubbridgeCreditRequest(TeaModel):
             self.borrower_live_info.validate()
         if self.borrower_emp_info:
             self.borrower_emp_info.validate()
-        self.validate_required(self.prod_no, 'prod_no')
         self.validate_required(self.risk_data, 'risk_data')
         if self.materials:
             for k in self.materials:
@@ -12716,7 +12714,6 @@ class CountDubbridgeRepayReftrialRequest(TeaModel):
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.original_order_no, 'original_order_no')
-        self.validate_required(self.prod_no, 'prod_no')
         self.validate_required(self.apply_amount, 'apply_amount')
         self.validate_required(self.apply_period, 'apply_period')
         self.validate_required(self.repay_type, 'repay_type')
@@ -14769,6 +14766,119 @@ class ReceiveMdipParamsFileResponse(TeaModel):
         if m.get('content') is not None:
             temp_model = RuntimeResult()
             self.content = temp_model.from_map(m['content'])
+        return self
+
+
+class ReceiveMdipParamsRbbfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        file_name: str = None,
+        tenant_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # file_id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 文件名
+        self.file_name = file_name
+        # 租户code
+        self.tenant_code = tenant_code
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.tenant_code, 'tenant_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        return self
+
+
+class ReceiveMdipParamsRbbfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

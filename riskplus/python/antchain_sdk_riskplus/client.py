@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.10'
+                    'sdk_version': '1.16.12',
+                    '_prod_code': 'RISKPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.10'
+                    'sdk_version': '1.16.12',
+                    '_prod_code': 'RISKPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3865,6 +3869,96 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsFileResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_mdip_params_rbbfile(
+        self,
+        request: riskplus_models.ReceiveMdipParamsRbbfileRequest,
+    ) -> riskplus_models.ReceiveMdipParamsRbbfileResponse:
+        """
+        Description: 接受op的文件id,支持风险大脑文件上传
+        Summary: 接受op的文件id,支持风险大脑文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_mdip_params_rbbfile_ex(request, headers, runtime)
+
+    async def receive_mdip_params_rbbfile_async(
+        self,
+        request: riskplus_models.ReceiveMdipParamsRbbfileRequest,
+    ) -> riskplus_models.ReceiveMdipParamsRbbfileResponse:
+        """
+        Description: 接受op的文件id,支持风险大脑文件上传
+        Summary: 接受op的文件id,支持风险大脑文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_mdip_params_rbbfile_ex_async(request, headers, runtime)
+
+    def receive_mdip_params_rbbfile_ex(
+        self,
+        request: riskplus_models.ReceiveMdipParamsRbbfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveMdipParamsRbbfileResponse:
+        """
+        Description: 接受op的文件id,支持风险大脑文件上传
+        Summary: 接受op的文件id,支持风险大脑文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.mdip.params.rbbfile.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_mdip_params_rbbfile_response = riskplus_models.ReceiveMdipParamsRbbfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_mdip_params_rbbfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveMdipParamsRbbfileResponse(),
+            self.do_request('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_mdip_params_rbbfile_ex_async(
+        self,
+        request: riskplus_models.ReceiveMdipParamsRbbfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveMdipParamsRbbfileResponse:
+        """
+        Description: 接受op的文件id,支持风险大脑文件上传
+        Summary: 接受op的文件id,支持风险大脑文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.mdip.params.rbbfile.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_mdip_params_rbbfile_response = riskplus_models.ReceiveMdipParamsRbbfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_mdip_params_rbbfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveMdipParamsRbbfileResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
