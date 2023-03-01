@@ -140,7 +140,6 @@ class ApplyDubbridgeCreditRequest extends Model
         Model::validateRequired('personalInfo', $this->personalInfo, true);
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('prodNo', $this->prodNo, true);
         Model::validateRequired('riskData', $this->riskData, true);
     }
 

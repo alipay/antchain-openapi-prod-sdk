@@ -126,7 +126,6 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         Model::validateRequired('cardNo', $this->cardNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
         Model::validateRequired('customName', $this->customName, true);
-        Model::validateRequired('prodNo', $this->prodNo, true);
     }
 
     public function toMap()

@@ -76,7 +76,6 @@ class CountDubbridgeRepayReftrialRequest extends Model
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
-        Model::validateRequired('prodNo', $this->prodNo, true);
         Model::validateRequired('applyAmount', $this->applyAmount, true);
         Model::validateRequired('applyPeriod', $this->applyPeriod, true);
         Model::validateRequired('repayType', $this->repayType, true);
