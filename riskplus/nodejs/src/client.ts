@@ -5813,7 +5813,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   // 姓名
   customName: string;
   // 合作方产品编号
-  prodNo: string;
+  prodNo?: string;
   // 渠道类型
   channelType?: string;
   // 客户类型
@@ -5928,7 +5928,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   // 工作信息
   borrowerEmpInfo?: JobInfo;
   // 产品编号
-  prodNo: string;
+  prodNo?: string;
   // 风险数据对象json字符串
   riskData: string;
   // 借款用途
@@ -7636,7 +7636,7 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
   // 授信申请订单号
   originalOrderNo: string;
   // 产品编号
-  prodNo: string;
+  prodNo?: string;
   // 借款金额
   applyAmount: number;
   // 借款期数
@@ -8886,6 +8886,75 @@ export class ReceiveMdipParamsFileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       content: RuntimeResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveMdipParamsRbbfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // file_id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 文件名
+  fileName: string;
+  // 租户code
+  tenantCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileName: 'file_name',
+      tenantCode: 'tenant_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileName: 'string',
+      tenantCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveMdipParamsRbbfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -14481,7 +14550,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -14520,7 +14589,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.10",
+          sdk_version: "1.16.12",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -15803,6 +15874,46 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ReceiveMdipParamsFileResponse>(await this.doRequest("1.0", "riskplus.mdip.params.file.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveMdipParamsFileResponse({}));
+  }
+
+  /**
+   * Description: 接受op的文件id,支持风险大脑文件上传
+   * Summary: 接受op的文件id,支持风险大脑文件上传
+   */
+  async receiveMdipParamsRbbfile(request: ReceiveMdipParamsRbbfileRequest): Promise<ReceiveMdipParamsRbbfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveMdipParamsRbbfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 接受op的文件id,支持风险大脑文件上传
+   * Summary: 接受op的文件id,支持风险大脑文件上传
+   */
+  async receiveMdipParamsRbbfileEx(request: ReceiveMdipParamsRbbfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveMdipParamsRbbfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.mdip.params.rbbfile.receive",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let receiveMdipParamsRbbfileResponse = new ReceiveMdipParamsRbbfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return receiveMdipParamsRbbfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ReceiveMdipParamsRbbfileResponse>(await this.doRequest("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveMdipParamsRbbfileResponse({}));
   }
 
   /**
