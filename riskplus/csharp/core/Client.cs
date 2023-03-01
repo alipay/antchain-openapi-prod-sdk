@@ -91,7 +91,7 @@ namespace AntChain.SDK.RISKPLUS
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.10"},
+                        {"sdk_version", "1.16.12"},
+                        {"_prod_code", "RISKPLUS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.RISKPLUS
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.10"},
+                        {"sdk_version", "1.16.12"},
+                        {"_prod_code", "RISKPLUS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3053,6 +3057,94 @@ namespace AntChain.SDK.RISKPLUS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReceiveMdipParamsFileResponse>(await DoRequestAsync("1.0", "riskplus.mdip.params.file.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接受op的文件id,支持风险大脑文件上传
+         * Summary: 接受op的文件id,支持风险大脑文件上传
+         */
+        public ReceiveMdipParamsRbbfileResponse ReceiveMdipParamsRbbfile(ReceiveMdipParamsRbbfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveMdipParamsRbbfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接受op的文件id,支持风险大脑文件上传
+         * Summary: 接受op的文件id,支持风险大脑文件上传
+         */
+        public async Task<ReceiveMdipParamsRbbfileResponse> ReceiveMdipParamsRbbfileAsync(ReceiveMdipParamsRbbfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveMdipParamsRbbfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 接受op的文件id,支持风险大脑文件上传
+         * Summary: 接受op的文件id,支持风险大脑文件上传
+         */
+        public ReceiveMdipParamsRbbfileResponse ReceiveMdipParamsRbbfileEx(ReceiveMdipParamsRbbfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.mdip.params.rbbfile.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveMdipParamsRbbfileResponse receiveMdipParamsRbbfileResponse = new ReceiveMdipParamsRbbfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveMdipParamsRbbfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveMdipParamsRbbfileResponse>(DoRequest("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 接受op的文件id,支持风险大脑文件上传
+         * Summary: 接受op的文件id,支持风险大脑文件上传
+         */
+        public async Task<ReceiveMdipParamsRbbfileResponse> ReceiveMdipParamsRbbfileExAsync(ReceiveMdipParamsRbbfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.mdip.params.rbbfile.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveMdipParamsRbbfileResponse receiveMdipParamsRbbfileResponse = new ReceiveMdipParamsRbbfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveMdipParamsRbbfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveMdipParamsRbbfileResponse>(await DoRequestAsync("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

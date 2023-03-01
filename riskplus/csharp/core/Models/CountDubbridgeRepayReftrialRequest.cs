@@ -30,7 +30,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 产品编号
         [NameInMap("prod_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ProdNo { get; set; }
 
         // 借款金额

@@ -35,7 +35,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 合作方产品编号
         [NameInMap("prod_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ProdNo { get; set; }
 
         // 渠道类型
