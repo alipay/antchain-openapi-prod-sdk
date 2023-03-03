@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'BAASDIGITAL',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'BAASDIGITAL',
                     '_prod_channel': 'undefined'
                 }
@@ -840,8 +840,8 @@ class Client:
         request: baasdigital_models.QueryProjectRequest,
     ) -> baasdigital_models.QueryProjectResponse:
         """
-        Description: 查询项目信息
-        Summary: 查询项目初始信息
+        Description: 查询单个权证项目信息
+        Summary: 查询单个权证项目信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -852,8 +852,8 @@ class Client:
         request: baasdigital_models.QueryProjectRequest,
     ) -> baasdigital_models.QueryProjectResponse:
         """
-        Description: 查询项目信息
-        Summary: 查询项目初始信息
+        Description: 查询单个权证项目信息
+        Summary: 查询单个权证项目信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -866,8 +866,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.QueryProjectResponse:
         """
-        Description: 查询项目信息
-        Summary: 查询项目初始信息
+        Description: 查询单个权证项目信息
+        Summary: 查询单个权证项目信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -882,8 +882,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdigital_models.QueryProjectResponse:
         """
-        Description: 查询项目信息
-        Summary: 查询项目初始信息
+        Description: 查询单个权证项目信息
+        Summary: 查询单个权证项目信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1901,4 +1901,340 @@ class Client:
         return TeaCore.from_map(
             baasdigital_models.ExecContractListissueResponse(),
             await self.do_request_async('1.0', 'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_owner(
+        self,
+        request: baasdigital_models.QueryContractOwnerRequest,
+    ) -> baasdigital_models.QueryContractOwnerResponse:
+        """
+        Description: 查询特定资产权证的所有者
+        Summary: 查询特定资产权证的所有者
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_owner_ex(request, headers, runtime)
+
+    async def query_contract_owner_async(
+        self,
+        request: baasdigital_models.QueryContractOwnerRequest,
+    ) -> baasdigital_models.QueryContractOwnerResponse:
+        """
+        Description: 查询特定资产权证的所有者
+        Summary: 查询特定资产权证的所有者
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_owner_ex_async(request, headers, runtime)
+
+    def query_contract_owner_ex(
+        self,
+        request: baasdigital_models.QueryContractOwnerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryContractOwnerResponse:
+        """
+        Description: 查询特定资产权证的所有者
+        Summary: 查询特定资产权证的所有者
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryContractOwnerResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.contract.owner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_owner_ex_async(
+        self,
+        request: baasdigital_models.QueryContractOwnerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryContractOwnerResponse:
+        """
+        Description: 查询特定资产权证的所有者
+        Summary: 查询特定资产权证的所有者
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryContractOwnerResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.contract.owner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_status(
+        self,
+        request: baasdigital_models.QueryContractStatusRequest,
+    ) -> baasdigital_models.QueryContractStatusResponse:
+        """
+        Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+        Summary: 查询特定资产权证的状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_status_ex(request, headers, runtime)
+
+    async def query_contract_status_async(
+        self,
+        request: baasdigital_models.QueryContractStatusRequest,
+    ) -> baasdigital_models.QueryContractStatusResponse:
+        """
+        Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+        Summary: 查询特定资产权证的状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_status_ex_async(request, headers, runtime)
+
+    def query_contract_status_ex(
+        self,
+        request: baasdigital_models.QueryContractStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryContractStatusResponse:
+        """
+        Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+        Summary: 查询特定资产权证的状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryContractStatusResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.contract.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_status_ex_async(
+        self,
+        request: baasdigital_models.QueryContractStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.QueryContractStatusResponse:
+        """
+        Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+        Summary: 查询特定资产权证的状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.QueryContractStatusResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.contract.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_multi_issue(
+        self,
+        request: baasdigital_models.ExecMultiIssueRequest,
+    ) -> baasdigital_models.ExecMultiIssueResponse:
+        """
+        Description: 数字权证签发(异步)-1155标准专用
+        Summary: 数字权证签发(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_multi_issue_ex(request, headers, runtime)
+
+    async def exec_multi_issue_async(
+        self,
+        request: baasdigital_models.ExecMultiIssueRequest,
+    ) -> baasdigital_models.ExecMultiIssueResponse:
+        """
+        Description: 数字权证签发(异步)-1155标准专用
+        Summary: 数字权证签发(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_multi_issue_ex_async(request, headers, runtime)
+
+    def exec_multi_issue_ex(
+        self,
+        request: baasdigital_models.ExecMultiIssueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiIssueResponse:
+        """
+        Description: 数字权证签发(异步)-1155标准专用
+        Summary: 数字权证签发(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiIssueResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.multi.issue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_multi_issue_ex_async(
+        self,
+        request: baasdigital_models.ExecMultiIssueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiIssueResponse:
+        """
+        Description: 数字权证签发(异步)-1155标准专用
+        Summary: 数字权证签发(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiIssueResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.multi.issue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_multi_transfer(
+        self,
+        request: baasdigital_models.ExecMultiTransferRequest,
+    ) -> baasdigital_models.ExecMultiTransferResponse:
+        """
+        Description: 数字权证转移(异步)-1155标准专用
+        Summary: 数字权证转移(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_multi_transfer_ex(request, headers, runtime)
+
+    async def exec_multi_transfer_async(
+        self,
+        request: baasdigital_models.ExecMultiTransferRequest,
+    ) -> baasdigital_models.ExecMultiTransferResponse:
+        """
+        Description: 数字权证转移(异步)-1155标准专用
+        Summary: 数字权证转移(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_multi_transfer_ex_async(request, headers, runtime)
+
+    def exec_multi_transfer_ex(
+        self,
+        request: baasdigital_models.ExecMultiTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiTransferResponse:
+        """
+        Description: 数字权证转移(异步)-1155标准专用
+        Summary: 数字权证转移(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiTransferResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.multi.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_multi_transfer_ex_async(
+        self,
+        request: baasdigital_models.ExecMultiTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiTransferResponse:
+        """
+        Description: 数字权证转移(异步)-1155标准专用
+        Summary: 数字权证转移(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiTransferResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.multi.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_multi_writeoff(
+        self,
+        request: baasdigital_models.ExecMultiWriteoffRequest,
+    ) -> baasdigital_models.ExecMultiWriteoffResponse:
+        """
+        Description: 数字权证核销(异步)-1155标准专用
+        Summary: 数字权证核销(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_multi_writeoff_ex(request, headers, runtime)
+
+    async def exec_multi_writeoff_async(
+        self,
+        request: baasdigital_models.ExecMultiWriteoffRequest,
+    ) -> baasdigital_models.ExecMultiWriteoffResponse:
+        """
+        Description: 数字权证核销(异步)-1155标准专用
+        Summary: 数字权证核销(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_multi_writeoff_ex_async(request, headers, runtime)
+
+    def exec_multi_writeoff_ex(
+        self,
+        request: baasdigital_models.ExecMultiWriteoffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiWriteoffResponse:
+        """
+        Description: 数字权证核销(异步)-1155标准专用
+        Summary: 数字权证核销(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiWriteoffResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.multi.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_multi_writeoff_ex_async(
+        self,
+        request: baasdigital_models.ExecMultiWriteoffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiWriteoffResponse:
+        """
+        Description: 数字权证核销(异步)-1155标准专用
+        Summary: 数字权证核销(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiWriteoffResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.multi.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_multi_burnoff(
+        self,
+        request: baasdigital_models.ExecMultiBurnoffRequest,
+    ) -> baasdigital_models.ExecMultiBurnoffResponse:
+        """
+        Description: 数字权证销毁(异步)-1155标准专用
+        Summary: 数字权证销毁(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_multi_burnoff_ex(request, headers, runtime)
+
+    async def exec_multi_burnoff_async(
+        self,
+        request: baasdigital_models.ExecMultiBurnoffRequest,
+    ) -> baasdigital_models.ExecMultiBurnoffResponse:
+        """
+        Description: 数字权证销毁(异步)-1155标准专用
+        Summary: 数字权证销毁(异步)-1155标准专用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_multi_burnoff_ex_async(request, headers, runtime)
+
+    def exec_multi_burnoff_ex(
+        self,
+        request: baasdigital_models.ExecMultiBurnoffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiBurnoffResponse:
+        """
+        Description: 数字权证销毁(异步)-1155标准专用
+        Summary: 数字权证销毁(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiBurnoffResponse(),
+            self.do_request('1.0', 'antchain.baasdigital.multi.burnoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_multi_burnoff_ex_async(
+        self,
+        request: baasdigital_models.ExecMultiBurnoffRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdigital_models.ExecMultiBurnoffResponse:
+        """
+        Description: 数字权证销毁(异步)-1155标准专用
+        Summary: 数字权证销毁(异步)-1155标准专用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdigital_models.ExecMultiBurnoffResponse(),
+            await self.do_request_async('1.0', 'antchain.baasdigital.multi.burnoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

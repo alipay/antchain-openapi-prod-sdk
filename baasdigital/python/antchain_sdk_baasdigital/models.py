@@ -1889,14 +1889,15 @@ class CreateProjectRequest(TeaModel):
         self.bizid = bizid
         # 项目名称
         self.name = name
-        # 数字合约symbol
+        # 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
         self.symbol = symbol
         # 数字权证项目描述信息
         self.description = description
         # 模版类型
         # 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+        # 5为1155标准
         self.biz_type = biz_type
-        # 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+        # 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
         self.amount = amount
         # 数字权证链接，共享时必须传入
         self.asset_uri = asset_uri
@@ -1918,7 +1919,6 @@ class CreateProjectRequest(TeaModel):
         self.validate_required(self.name, 'name')
         if self.name is not None:
             self.validate_max_length(self.name, 'name', 100)
-        self.validate_required(self.symbol, 'symbol')
         self.validate_required(self.biz_type, 'biz_type')
         self.validate_required(self.write_offable, 'write_offable')
         self.validate_required(self.burnable, 'burnable')
@@ -2219,7 +2219,7 @@ class ExecContractIssueRequest(TeaModel):
         self.project_id = project_id
         # 业务方请求唯一标识，用于异步查询交易情况
         self.trace_id = trace_id
-        # 权证ID，线下生成，保证唯一
+        # 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
         self.asset_id = asset_id
         # 数字权证标准URI协议文件，权证信息
         self.asset_uri = asset_uri
@@ -3689,7 +3689,7 @@ class CancelContractApproveRequest(TeaModel):
         self.project_id = project_id
         # 业务方请求唯一标识，用于异步查询交易情况
         self.trace_id = trace_id
-        # 取消授权的目标账户
+        # 被取消授权的目标权证ID
         self.asset_id = asset_id
         # 托管账户信息(推荐)，托管和非拖管必选一种
         self.account_info = account_info
@@ -4110,7 +4110,7 @@ class ExecContractBatchissueRequest(TeaModel):
         self.trace_id = trace_id
         # 权证发行的目标账户
         self.to_account = to_account
-        # 批量发行个数，建议多次分批执行
+        # 批量发行个数，单次最多发行20个，建议多次分批执行
         self.amount = amount
         # 托管账户信息(推荐)，托管和非拖管必选一种
         self.account_info = account_info
@@ -4252,7 +4252,7 @@ class ExecContractListissueRequest(TeaModel):
         self.trace_id = trace_id
         # 权证发行的目标账户
         self.to_account = to_account
-        # 批量发行的资产id列表
+        # 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
         self.asset_list = asset_list
         # 托管账户信息(推荐)，托管和非拖管必选一种
         self.account_info = account_info
@@ -4332,6 +4332,905 @@ class ExecContractListissueResponse(TeaModel):
         self.trace_id = trace_id
         # 交易hash，可通过hash查询上链结果
         # 
+        self.hash = hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.hash is not None:
+            result['hash'] = self.hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        return self
+
+
+class QueryContractOwnerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，用于异步查询交易情况
+        self.trace_id = trace_id
+        # 资产ID，如果是1155标准资产，则对应批次id
+        self.asset_id = asset_id
+        # 1155标准下，需要填入批次内具体的资产碎片id
+        self.shard_id = shard_id
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class QueryContractOwnerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        account: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 该资产的拥有者
+        self.account = account
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.account is not None:
+            result['account'] = self.account
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('account') is not None:
+            self.account = m.get('account')
+        return self
+
+
+class QueryContractStatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识
+        self.trace_id = trace_id
+        # 资产ID，如果是1155标准资产，则对应批次id
+        self.asset_id = asset_id
+        # 1155标准下，需要填入批次内具体的资产碎片id
+        self.shard_id = shard_id
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class QueryContractStatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        status: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 资产状态；0：可用；1：已核销；2：已销毁
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class ExecMultiIssueRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        asset_id: str = None,
+        asset_uri: str = None,
+        to_account: str = None,
+        amount: int = None,
+        data: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，可用于异步查询交易情况
+        self.trace_id = trace_id
+        # 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+        self.asset_id = asset_id
+        # 数字权证标准URI协议文件，权证信息。
+        # 首次发行时必填，后续发行(增发)时可不用输入
+        self.asset_uri = asset_uri
+        # 该批次权证发行的目标账户
+        self.to_account = to_account
+        # 该批次中包含的资产个数
+        self.amount = amount
+        # 预留
+        self.data = data
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.to_account, 'to_account')
+        self.validate_required(self.amount, 'amount')
+        if self.amount is not None:
+            self.validate_minimum(self.amount, 'amount', 1)
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.asset_uri is not None:
+            result['asset_uri'] = self.asset_uri
+        if self.to_account is not None:
+            result['to_account'] = self.to_account
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.data is not None:
+            result['data'] = self.data
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('asset_uri') is not None:
+            self.asset_uri = m.get('asset_uri')
+        if m.get('to_account') is not None:
+            self.to_account = m.get('to_account')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class ExecMultiIssueResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 交易hash，可通过hash查询上链结果
+        self.hash = hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.hash is not None:
+            result['hash'] = self.hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        return self
+
+
+class ExecMultiTransferRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        from_: str = None,
+        to: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        data: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，用于异步查询交易情况
+        self.trace_id = trace_id
+        # 权证所有者账户
+        self.from_ = from_
+        # 转移的目标账户
+        self.to = to
+        # 转移的目标权证批次
+        self.asset_id = asset_id
+        # 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+        self.shard_id = shard_id
+        # 预留
+        self.data = data
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.from_, 'from_')
+        self.validate_required(self.to, 'to')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.from_ is not None:
+            result['from'] = self.from_
+        if self.to is not None:
+            result['to'] = self.to
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.data is not None:
+            result['data'] = self.data
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('from') is not None:
+            self.from_ = m.get('from')
+        if m.get('to') is not None:
+            self.to = m.get('to')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class ExecMultiTransferResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        hash: str = None,
+        shard_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 交易hash，可通过hash查询上链结果
+        # 
+        self.hash = hash
+        # 资产id
+        self.shard_id = shard_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.hash is not None:
+            result['hash'] = self.hash
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        return self
+
+
+class ExecMultiWriteoffRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，可用于异步查询交易情况
+        self.trace_id = trace_id
+        # 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+        self.asset_id = asset_id
+        # 批次资产内每个资产的ID
+        self.shard_id = shard_id
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.shard_id, 'shard_id')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class ExecMultiWriteoffResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 交易hash，可通过hash查询上链结果
+        self.hash = hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.hash is not None:
+            result['hash'] = self.hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        return self
+
+
+class ExecMultiBurnoffRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bizid: str = None,
+        project_id: str = None,
+        trace_id: str = None,
+        asset_id: str = None,
+        shard_id: str = None,
+        from_: str = None,
+        account_info: AccountInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.bizid = bizid
+        # 数字权证项目ID
+        self.project_id = project_id
+        # 业务方请求唯一标识，用于异步查询交易情况
+        self.trace_id = trace_id
+        # 被销毁的目标权证批次ID
+        self.asset_id = asset_id
+        # 该批次内具体的资产id
+        self.shard_id = shard_id
+        # 该权证资产的拥有者
+        self.from_ = from_
+        # 托管账户信息(推荐)，托管和非拖管必选一种
+        self.account_info = account_info
+
+    def validate(self):
+        self.validate_required(self.bizid, 'bizid')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.trace_id, 'trace_id')
+        self.validate_required(self.asset_id, 'asset_id')
+        self.validate_required(self.shard_id, 'shard_id')
+        self.validate_required(self.from_, 'from_')
+        self.validate_required(self.account_info, 'account_info')
+        if self.account_info:
+            self.account_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bizid is not None:
+            result['bizid'] = self.bizid
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.asset_id is not None:
+            result['asset_id'] = self.asset_id
+        if self.shard_id is not None:
+            result['shard_id'] = self.shard_id
+        if self.from_ is not None:
+            result['from'] = self.from_
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bizid') is not None:
+            self.bizid = m.get('bizid')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('asset_id') is not None:
+            self.asset_id = m.get('asset_id')
+        if m.get('shard_id') is not None:
+            self.shard_id = m.get('shard_id')
+        if m.get('from') is not None:
+            self.from_ = m.get('from')
+        if m.get('account_info') is not None:
+            temp_model = AccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
+        return self
+
+
+class ExecMultiBurnoffResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 客户端传入的请求唯一标识
+        self.trace_id = trace_id
+        # 交易hash，可通过hash查询上链结果
         self.hash = hash
 
     def validate(self):
