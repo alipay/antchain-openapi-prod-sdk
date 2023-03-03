@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.2.1',
     _prod_code = 'BAASDIGITAL',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -746,8 +746,8 @@ model QueryProjectResponse = {
 }
 
 /**
- * Description: 查询项目信息
- * Summary: 查询项目初始信息
+ * Description: 查询单个权证项目信息
+ * Summary: 查询单个权证项目信息
  */
 async function queryProject(request: QueryProjectRequest): QueryProjectResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -756,8 +756,8 @@ async function queryProject(request: QueryProjectRequest): QueryProjectResponse 
 }
 
 /**
- * Description: 查询项目信息
- * Summary: 查询项目初始信息
+ * Description: 查询单个权证项目信息
+ * Summary: 查询单个权证项目信息
  */
 async function queryProjectEx(request: QueryProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProjectResponse {
   Util.validateModel(request);
@@ -772,14 +772,15 @@ model CreateProjectRequest = {
   bizid: string(name='bizid'),
   // 项目名称
   name: string(maxLength=100, minLength=1, name='name'),
-  // 数字合约symbol
-  symbol: string(name='symbol'),
+  // 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
+  symbol?: string(name='symbol'),
   // 数字权证项目描述信息
   description?: string(name='description'),
   // 模版类型
   // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+  // 5为1155标准
   bizType: long(name='biz_type'),
-  // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+  // 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
   amount?: long(name='amount'),
   // 数字权证链接，共享时必须传入
   assetUri?: string(name='asset_uri'),
@@ -893,7 +894,7 @@ model ExecContractIssueRequest = {
   projectId: string(name='project_id'),
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string(name='trace_id'),
-  // 权证ID，线下生成，保证唯一
+  // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
   assetId: string(name='asset_id'),
   // 数字权证标准URI协议文件，权证信息
   assetUri: string(name='asset_uri'),
@@ -1432,7 +1433,7 @@ model CancelContractApproveRequest = {
   projectId: string(name='project_id'),
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string(name='trace_id'),
-  // 取消授权的目标账户
+  // 被取消授权的目标权证ID
   assetId: string(name='asset_id'),
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo(name='account_info'),
@@ -1590,7 +1591,7 @@ model ExecContractBatchissueRequest = {
   traceId: string(name='trace_id'),
   // 权证发行的目标账户
   toAccount: string(name='to_account'),
-  // 批量发行个数，建议多次分批执行
+  // 批量发行个数，单次最多发行20个，建议多次分批执行
   amount: long(minimum=1, name='amount'),
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo(name='account_info'),
@@ -1640,7 +1641,7 @@ model ExecContractListissueRequest = {
   traceId: string(name='trace_id'),
   // 权证发行的目标账户
   toAccount: string(name='to_account'),
-  // 批量发行的资产id列表
+  // 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
   assetList: [ string ](name='asset_list'),
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo(name='account_info'),
@@ -1677,5 +1678,323 @@ async function execContractListissue(request: ExecContractListissueRequest): Exe
 async function execContractListissueEx(request: ExecContractListissueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractListissueResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractOwnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId?: string(name='trace_id'),
+  // 资产ID，如果是1155标准资产，则对应批次id
+  assetId: string(name='asset_id'),
+  // 1155标准下，需要填入批次内具体的资产碎片id
+  shardId?: string(name='shard_id'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model QueryContractOwnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 该资产的拥有者
+  account?: string(name='account'),
+}
+
+/**
+ * Description: 查询特定资产权证的所有者
+ * Summary: 查询特定资产权证的所有者
+ */
+async function queryContractOwner(request: QueryContractOwnerRequest): QueryContractOwnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractOwnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询特定资产权证的所有者
+ * Summary: 查询特定资产权证的所有者
+ */
+async function queryContractOwnerEx(request: QueryContractOwnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractOwnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.contract.owner.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 资产ID，如果是1155标准资产，则对应批次id
+  assetId: string(name='asset_id'),
+  // 1155标准下，需要填入批次内具体的资产碎片id
+  shardId?: string(name='shard_id'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model QueryContractStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 资产状态；0：可用；1：已核销；2：已销毁
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+ * Summary: 查询特定资产权证的状态
+ */
+async function queryContractStatus(request: QueryContractStatusRequest): QueryContractStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+ * Summary: 查询特定资产权证的状态
+ */
+async function queryContractStatusEx(request: QueryContractStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.contract.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecMultiIssueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，可用于异步查询交易情况
+  traceId: string(name='trace_id'),
+  // 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+  assetId: string(name='asset_id'),
+  // 数字权证标准URI协议文件，权证信息。
+  // 首次发行时必填，后续发行(增发)时可不用输入
+  assetUri?: string(name='asset_uri'),
+  // 该批次权证发行的目标账户
+  toAccount: string(name='to_account'),
+  // 该批次中包含的资产个数
+  amount: long(minimum=1, name='amount'),
+  // 预留
+  data?: string(name='data'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model ExecMultiIssueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 交易hash，可通过hash查询上链结果
+  hash?: string(name='hash'),
+}
+
+/**
+ * Description: 数字权证签发(异步)-1155标准专用
+ * Summary: 数字权证签发(异步)-1155标准专用
+ */
+async function execMultiIssue(request: ExecMultiIssueRequest): ExecMultiIssueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execMultiIssueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字权证签发(异步)-1155标准专用
+ * Summary: 数字权证签发(异步)-1155标准专用
+ */
+async function execMultiIssueEx(request: ExecMultiIssueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecMultiIssueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.multi.issue.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecMultiTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string(name='trace_id'),
+  // 权证所有者账户
+  from: string(name='from'),
+  // 转移的目标账户
+  to: string(name='to'),
+  // 转移的目标权证批次
+  assetId: string(name='asset_id'),
+  // 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+  shardId?: string(name='shard_id'),
+  // 预留
+  data?: string(name='data'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model ExecMultiTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 交易hash，可通过hash查询上链结果
+  // 
+  hash?: string(name='hash'),
+  // 资产id
+  shardId?: string(name='shard_id'),
+}
+
+/**
+ * Description: 数字权证转移(异步)-1155标准专用
+ * Summary: 数字权证转移(异步)-1155标准专用
+ */
+async function execMultiTransfer(request: ExecMultiTransferRequest): ExecMultiTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execMultiTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字权证转移(异步)-1155标准专用
+ * Summary: 数字权证转移(异步)-1155标准专用
+ */
+async function execMultiTransferEx(request: ExecMultiTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecMultiTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.multi.transfer.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecMultiWriteoffRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，可用于异步查询交易情况
+  traceId: string(name='trace_id'),
+  // 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+  assetId: string(name='asset_id'),
+  // 批次资产内每个资产的ID
+  shardId: string(name='shard_id'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model ExecMultiWriteoffResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 交易hash，可通过hash查询上链结果
+  hash?: string(name='hash'),
+}
+
+/**
+ * Description: 数字权证核销(异步)-1155标准专用
+ * Summary: 数字权证核销(异步)-1155标准专用
+ */
+async function execMultiWriteoff(request: ExecMultiWriteoffRequest): ExecMultiWriteoffResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execMultiWriteoffEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字权证核销(异步)-1155标准专用
+ * Summary: 数字权证核销(异步)-1155标准专用
+ */
+async function execMultiWriteoffEx(request: ExecMultiWriteoffRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecMultiWriteoffResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.multi.writeoff.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecMultiBurnoffRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 数字权证项目ID
+  projectId: string(name='project_id'),
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string(name='trace_id'),
+  // 被销毁的目标权证批次ID
+  assetId: string(name='asset_id'),
+  // 该批次内具体的资产id
+  shardId: string(name='shard_id'),
+  // 该权证资产的拥有者
+  from: string(name='from'),
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo(name='account_info'),
+}
+
+model ExecMultiBurnoffResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户端传入的请求唯一标识
+  traceId?: string(name='trace_id'),
+  // 交易hash，可通过hash查询上链结果
+  hash?: string(name='hash'),
+}
+
+/**
+ * Description: 数字权证销毁(异步)-1155标准专用
+ * Summary: 数字权证销毁(异步)-1155标准专用
+ */
+async function execMultiBurnoff(request: ExecMultiBurnoffRequest): ExecMultiBurnoffResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execMultiBurnoffEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字权证销毁(异步)-1155标准专用
+ * Summary: 数字权证销毁(异步)-1155标准专用
+ */
+async function execMultiBurnoffEx(request: ExecMultiBurnoffRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecMultiBurnoffResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdigital.multi.burnoff.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
