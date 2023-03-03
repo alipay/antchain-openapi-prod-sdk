@@ -1156,14 +1156,15 @@ export class CreateProjectRequest extends $tea.Model {
   bizid: string;
   // 项目名称
   name: string;
-  // 数字合约symbol
-  symbol: string;
+  // 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
+  symbol?: string;
   // 数字权证项目描述信息
   description?: string;
   // 模版类型
   // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+  // 5为1155标准
   bizType: number;
-  // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+  // 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
   amount?: number;
   // 数字权证链接，共享时必须传入
   assetUri?: string;
@@ -1357,7 +1358,7 @@ export class ExecContractIssueRequest extends $tea.Model {
   projectId: string;
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string;
-  // 权证ID，线下生成，保证唯一
+  // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
   assetId: string;
   // 数字权证标准URI协议文件，权证信息
   assetUri: string;
@@ -2247,7 +2248,7 @@ export class CancelContractApproveRequest extends $tea.Model {
   projectId: string;
   // 业务方请求唯一标识，用于异步查询交易情况
   traceId: string;
-  // 取消授权的目标账户
+  // 被取消授权的目标权证ID
   assetId: string;
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo;
@@ -2500,7 +2501,7 @@ export class ExecContractBatchissueRequest extends $tea.Model {
   traceId: string;
   // 权证发行的目标账户
   toAccount: string;
-  // 批量发行个数，建议多次分批执行
+  // 批量发行个数，单次最多发行20个，建议多次分批执行
   amount: number;
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo;
@@ -2583,7 +2584,7 @@ export class ExecContractListissueRequest extends $tea.Model {
   traceId: string;
   // 权证发行的目标账户
   toAccount: string;
-  // 批量发行的资产id列表
+  // 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
   assetList: string[];
   // 托管账户信息(推荐)，托管和非拖管必选一种
   accountInfo: AccountInfo;
@@ -2629,6 +2630,538 @@ export class ExecContractListissueResponse extends $tea.Model {
   traceId?: string;
   // 交易hash，可通过hash查询上链结果
   // 
+  hash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      hash: 'hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      hash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractOwnerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId?: string;
+  // 资产ID，如果是1155标准资产，则对应批次id
+  assetId: string;
+  // 1155标准下，需要填入批次内具体的资产碎片id
+  shardId?: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractOwnerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 该资产的拥有者
+  account?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      account: 'account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      account: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识
+  traceId?: string;
+  // 资产ID，如果是1155标准资产，则对应批次id
+  assetId: string;
+  // 1155标准下，需要填入批次内具体的资产碎片id
+  shardId?: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 资产状态；0：可用；1：已核销；2：已销毁
+  status?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      status: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiIssueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，可用于异步查询交易情况
+  traceId: string;
+  // 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+  assetId: string;
+  // 数字权证标准URI协议文件，权证信息。
+  // 首次发行时必填，后续发行(增发)时可不用输入
+  assetUri?: string;
+  // 该批次权证发行的目标账户
+  toAccount: string;
+  // 该批次中包含的资产个数
+  amount: number;
+  // 预留
+  data?: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      assetId: 'asset_id',
+      assetUri: 'asset_uri',
+      toAccount: 'to_account',
+      amount: 'amount',
+      data: 'data',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      assetId: 'string',
+      assetUri: 'string',
+      toAccount: 'string',
+      amount: 'number',
+      data: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiIssueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 交易hash，可通过hash查询上链结果
+  hash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      hash: 'hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      hash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiTransferRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string;
+  // 权证所有者账户
+  from: string;
+  // 转移的目标账户
+  to: string;
+  // 转移的目标权证批次
+  assetId: string;
+  // 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+  shardId?: string;
+  // 预留
+  data?: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      from: 'from',
+      to: 'to',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      data: 'data',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      from: 'string',
+      to: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      data: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiTransferResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 交易hash，可通过hash查询上链结果
+  // 
+  hash?: string;
+  // 资产id
+  shardId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      hash: 'hash',
+      shardId: 'shard_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      hash: 'string',
+      shardId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiWriteoffRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，可用于异步查询交易情况
+  traceId: string;
+  // 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+  assetId: string;
+  // 批次资产内每个资产的ID
+  shardId: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiWriteoffResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 交易hash，可通过hash查询上链结果
+  hash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      hash: 'hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      hash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiBurnoffRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizid: string;
+  // 数字权证项目ID
+  projectId: string;
+  // 业务方请求唯一标识，用于异步查询交易情况
+  traceId: string;
+  // 被销毁的目标权证批次ID
+  assetId: string;
+  // 该批次内具体的资产id
+  shardId: string;
+  // 该权证资产的拥有者
+  from: string;
+  // 托管账户信息(推荐)，托管和非拖管必选一种
+  accountInfo: AccountInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      projectId: 'project_id',
+      traceId: 'trace_id',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      from: 'from',
+      accountInfo: 'account_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      projectId: 'string',
+      traceId: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      from: 'string',
+      accountInfo: AccountInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultiBurnoffResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户端传入的请求唯一标识
+  traceId?: string;
+  // 交易hash，可通过hash查询上链结果
   hash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2729,7 +3262,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -2768,7 +3301,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.2.1",
           _prod_code: "BAASDIGITAL",
           _prod_channel: "undefined",
         };
@@ -3007,8 +3540,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询项目信息
-   * Summary: 查询项目初始信息
+   * Description: 查询单个权证项目信息
+   * Summary: 查询单个权证项目信息
    */
   async queryProject(request: QueryProjectRequest): Promise<QueryProjectResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3017,8 +3550,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询项目信息
-   * Summary: 查询项目初始信息
+   * Description: 查询单个权证项目信息
+   * Summary: 查询单个权证项目信息
    */
   async queryProjectEx(request: QueryProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProjectResponse> {
     Util.validateModel(request);
@@ -3367,6 +3900,120 @@ export default class Client {
   async execContractListissueEx(request: ExecContractListissueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecContractListissueResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecContractListissueResponse>(await this.doRequest("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecContractListissueResponse({}));
+  }
+
+  /**
+   * Description: 查询特定资产权证的所有者
+   * Summary: 查询特定资产权证的所有者
+   */
+  async queryContractOwner(request: QueryContractOwnerRequest): Promise<QueryContractOwnerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractOwnerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询特定资产权证的所有者
+   * Summary: 查询特定资产权证的所有者
+   */
+  async queryContractOwnerEx(request: QueryContractOwnerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractOwnerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractOwnerResponse>(await this.doRequest("1.0", "antchain.baasdigital.contract.owner.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractOwnerResponse({}));
+  }
+
+  /**
+   * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+   * Summary: 查询特定资产权证的状态
+   */
+  async queryContractStatus(request: QueryContractStatusRequest): Promise<QueryContractStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+   * Summary: 查询特定资产权证的状态
+   */
+  async queryContractStatusEx(request: QueryContractStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractStatusResponse>(await this.doRequest("1.0", "antchain.baasdigital.contract.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractStatusResponse({}));
+  }
+
+  /**
+   * Description: 数字权证签发(异步)-1155标准专用
+   * Summary: 数字权证签发(异步)-1155标准专用
+   */
+  async execMultiIssue(request: ExecMultiIssueRequest): Promise<ExecMultiIssueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMultiIssueEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字权证签发(异步)-1155标准专用
+   * Summary: 数字权证签发(异步)-1155标准专用
+   */
+  async execMultiIssueEx(request: ExecMultiIssueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMultiIssueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecMultiIssueResponse>(await this.doRequest("1.0", "antchain.baasdigital.multi.issue.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMultiIssueResponse({}));
+  }
+
+  /**
+   * Description: 数字权证转移(异步)-1155标准专用
+   * Summary: 数字权证转移(异步)-1155标准专用
+   */
+  async execMultiTransfer(request: ExecMultiTransferRequest): Promise<ExecMultiTransferResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMultiTransferEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字权证转移(异步)-1155标准专用
+   * Summary: 数字权证转移(异步)-1155标准专用
+   */
+  async execMultiTransferEx(request: ExecMultiTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMultiTransferResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecMultiTransferResponse>(await this.doRequest("1.0", "antchain.baasdigital.multi.transfer.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMultiTransferResponse({}));
+  }
+
+  /**
+   * Description: 数字权证核销(异步)-1155标准专用
+   * Summary: 数字权证核销(异步)-1155标准专用
+   */
+  async execMultiWriteoff(request: ExecMultiWriteoffRequest): Promise<ExecMultiWriteoffResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMultiWriteoffEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字权证核销(异步)-1155标准专用
+   * Summary: 数字权证核销(异步)-1155标准专用
+   */
+  async execMultiWriteoffEx(request: ExecMultiWriteoffRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMultiWriteoffResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecMultiWriteoffResponse>(await this.doRequest("1.0", "antchain.baasdigital.multi.writeoff.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMultiWriteoffResponse({}));
+  }
+
+  /**
+   * Description: 数字权证销毁(异步)-1155标准专用
+   * Summary: 数字权证销毁(异步)-1155标准专用
+   */
+  async execMultiBurnoff(request: ExecMultiBurnoffRequest): Promise<ExecMultiBurnoffResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMultiBurnoffEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字权证销毁(异步)-1155标准专用
+   * Summary: 数字权证销毁(异步)-1155标准专用
+   */
+  async execMultiBurnoffEx(request: ExecMultiBurnoffRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMultiBurnoffResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecMultiBurnoffResponse>(await this.doRequest("1.0", "antchain.baasdigital.multi.burnoff.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMultiBurnoffResponse({}));
   }
 
 }
