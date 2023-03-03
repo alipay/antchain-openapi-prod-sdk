@@ -21,9 +21,8 @@ public class CreateProjectRequest extends TeaModel {
     @Validation(required = true, maxLength = 100, minLength = 1)
     public String name;
 
-    // 数字合约symbol
+    // 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
     @NameInMap("symbol")
-    @Validation(required = true)
     public String symbol;
 
     // 数字权证项目描述信息
@@ -32,11 +31,12 @@ public class CreateProjectRequest extends TeaModel {
 
     // 模版类型
     // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+    // 5为1155标准
     @NameInMap("biz_type")
     @Validation(required = true)
     public Long bizType;
 
-    // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+    // 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
     @NameInMap("amount")
     public Long amount;
 

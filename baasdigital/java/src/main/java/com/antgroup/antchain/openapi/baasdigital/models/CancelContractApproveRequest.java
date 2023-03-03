@@ -26,7 +26,7 @@ public class CancelContractApproveRequest extends TeaModel {
     @Validation(required = true)
     public String traceId;
 
-    // 取消授权的目标账户
+    // 被取消授权的目标权证ID
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdigital.models;
 
 import com.aliyun.tea.*;
 
-public class ExecContractIssueRequest extends TeaModel {
+public class ExecMultiTransferRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class ExecContractIssueRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 链ID
+    // 链id
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
@@ -26,32 +26,40 @@ public class ExecContractIssueRequest extends TeaModel {
     @Validation(required = true)
     public String traceId;
 
-    // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+    // 权证所有者账户
+    @NameInMap("from")
+    @Validation(required = true)
+    public String from;
+
+    // 转移的目标账户
+    @NameInMap("to")
+    @Validation(required = true)
+    public String to;
+
+    // 转移的目标权证批次
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;
 
-    // 数字权证标准URI协议文件，权证信息
-    @NameInMap("asset_uri")
-    @Validation(required = true)
-    public String assetUri;
+    // 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+    @NameInMap("shard_id")
+    public String shardId;
 
-    // 权证发行的目标账户
-    @NameInMap("to_account")
-    @Validation(required = true)
-    public String toAccount;
+    // 预留
+    @NameInMap("data")
+    public String data;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     @NameInMap("account_info")
     @Validation(required = true)
     public AccountInfo accountInfo;
 
-    public static ExecContractIssueRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecContractIssueRequest self = new ExecContractIssueRequest();
+    public static ExecMultiTransferRequest build(java.util.Map<String, ?> map) throws Exception {
+        ExecMultiTransferRequest self = new ExecMultiTransferRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecContractIssueRequest setAuthToken(String authToken) {
+    public ExecMultiTransferRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -59,7 +67,7 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecContractIssueRequest setProductInstanceId(String productInstanceId) {
+    public ExecMultiTransferRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -67,7 +75,7 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ExecContractIssueRequest setBizid(String bizid) {
+    public ExecMultiTransferRequest setBizid(String bizid) {
         this.bizid = bizid;
         return this;
     }
@@ -75,7 +83,7 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.bizid;
     }
 
-    public ExecContractIssueRequest setProjectId(String projectId) {
+    public ExecMultiTransferRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -83,7 +91,7 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.projectId;
     }
 
-    public ExecContractIssueRequest setTraceId(String traceId) {
+    public ExecMultiTransferRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
@@ -91,7 +99,23 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.traceId;
     }
 
-    public ExecContractIssueRequest setAssetId(String assetId) {
+    public ExecMultiTransferRequest setFrom(String from) {
+        this.from = from;
+        return this;
+    }
+    public String getFrom() {
+        return this.from;
+    }
+
+    public ExecMultiTransferRequest setTo(String to) {
+        this.to = to;
+        return this;
+    }
+    public String getTo() {
+        return this.to;
+    }
+
+    public ExecMultiTransferRequest setAssetId(String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -99,23 +123,23 @@ public class ExecContractIssueRequest extends TeaModel {
         return this.assetId;
     }
 
-    public ExecContractIssueRequest setAssetUri(String assetUri) {
-        this.assetUri = assetUri;
+    public ExecMultiTransferRequest setShardId(String shardId) {
+        this.shardId = shardId;
         return this;
     }
-    public String getAssetUri() {
-        return this.assetUri;
+    public String getShardId() {
+        return this.shardId;
     }
 
-    public ExecContractIssueRequest setToAccount(String toAccount) {
-        this.toAccount = toAccount;
+    public ExecMultiTransferRequest setData(String data) {
+        this.data = data;
         return this;
     }
-    public String getToAccount() {
-        return this.toAccount;
+    public String getData() {
+        return this.data;
     }
 
-    public ExecContractIssueRequest setAccountInfo(AccountInfo accountInfo) {
+    public ExecMultiTransferRequest setAccountInfo(AccountInfo accountInfo) {
         this.accountInfo = accountInfo;
         return this;
     }

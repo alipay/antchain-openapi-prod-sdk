@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdigital.models;
 
 import com.aliyun.tea.*;
 
-public class ExecContractListissueRequest extends TeaModel {
+public class QueryContractOwnerRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class ExecContractListissueRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 链id
+    // 链ID
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
@@ -23,30 +23,28 @@ public class ExecContractListissueRequest extends TeaModel {
 
     // 业务方请求唯一标识，用于异步查询交易情况
     @NameInMap("trace_id")
-    @Validation(required = true)
     public String traceId;
 
-    // 权证发行的目标账户
-    @NameInMap("to_account")
+    // 资产ID，如果是1155标准资产，则对应批次id
+    @NameInMap("asset_id")
     @Validation(required = true)
-    public String toAccount;
+    public String assetId;
 
-    // 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
-    @NameInMap("asset_list")
-    @Validation(required = true)
-    public java.util.List<String> assetList;
+    // 1155标准下，需要填入批次内具体的资产碎片id
+    @NameInMap("shard_id")
+    public String shardId;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     @NameInMap("account_info")
     @Validation(required = true)
     public AccountInfo accountInfo;
 
-    public static ExecContractListissueRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecContractListissueRequest self = new ExecContractListissueRequest();
+    public static QueryContractOwnerRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryContractOwnerRequest self = new QueryContractOwnerRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecContractListissueRequest setAuthToken(String authToken) {
+    public QueryContractOwnerRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -54,7 +52,7 @@ public class ExecContractListissueRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecContractListissueRequest setProductInstanceId(String productInstanceId) {
+    public QueryContractOwnerRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -62,7 +60,7 @@ public class ExecContractListissueRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ExecContractListissueRequest setBizid(String bizid) {
+    public QueryContractOwnerRequest setBizid(String bizid) {
         this.bizid = bizid;
         return this;
     }
@@ -70,7 +68,7 @@ public class ExecContractListissueRequest extends TeaModel {
         return this.bizid;
     }
 
-    public ExecContractListissueRequest setProjectId(String projectId) {
+    public QueryContractOwnerRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -78,7 +76,7 @@ public class ExecContractListissueRequest extends TeaModel {
         return this.projectId;
     }
 
-    public ExecContractListissueRequest setTraceId(String traceId) {
+    public QueryContractOwnerRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
@@ -86,23 +84,23 @@ public class ExecContractListissueRequest extends TeaModel {
         return this.traceId;
     }
 
-    public ExecContractListissueRequest setToAccount(String toAccount) {
-        this.toAccount = toAccount;
+    public QueryContractOwnerRequest setAssetId(String assetId) {
+        this.assetId = assetId;
         return this;
     }
-    public String getToAccount() {
-        return this.toAccount;
+    public String getAssetId() {
+        return this.assetId;
     }
 
-    public ExecContractListissueRequest setAssetList(java.util.List<String> assetList) {
-        this.assetList = assetList;
+    public QueryContractOwnerRequest setShardId(String shardId) {
+        this.shardId = shardId;
         return this;
     }
-    public java.util.List<String> getAssetList() {
-        return this.assetList;
+    public String getShardId() {
+        return this.shardId;
     }
 
-    public ExecContractListissueRequest setAccountInfo(AccountInfo accountInfo) {
+    public QueryContractOwnerRequest setAccountInfo(AccountInfo accountInfo) {
         this.accountInfo = accountInfo;
         return this;
     }

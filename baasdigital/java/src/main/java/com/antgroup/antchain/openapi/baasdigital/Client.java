@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.1"),
+                    new TeaPair("sdk_version", "1.2.1"),
                     new TeaPair("_prod_code", "BAASDIGITAL"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -352,8 +352,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询项目信息
-     * Summary: 查询项目初始信息
+     * Description: 查询单个权证项目信息
+     * Summary: 查询单个权证项目信息
      */
     public QueryProjectResponse queryProject(QueryProjectRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -362,8 +362,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询项目信息
-     * Summary: 查询项目初始信息
+     * Description: 查询单个权证项目信息
+     * Summary: 查询单个权证项目信息
      */
     public QueryProjectResponse queryProjectEx(QueryProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -712,5 +712,119 @@ public class Client {
     public ExecContractListissueResponse execContractListissueEx(ExecContractListissueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecContractListissueResponse());
+    }
+
+    /**
+     * Description: 查询特定资产权证的所有者
+     * Summary: 查询特定资产权证的所有者
+     */
+    public QueryContractOwnerResponse queryContractOwner(QueryContractOwnerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractOwnerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询特定资产权证的所有者
+     * Summary: 查询特定资产权证的所有者
+     */
+    public QueryContractOwnerResponse queryContractOwnerEx(QueryContractOwnerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.contract.owner.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractOwnerResponse());
+    }
+
+    /**
+     * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+     * Summary: 查询特定资产权证的状态
+     */
+    public QueryContractStatusResponse queryContractStatus(QueryContractStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+     * Summary: 查询特定资产权证的状态
+     */
+    public QueryContractStatusResponse queryContractStatusEx(QueryContractStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.contract.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractStatusResponse());
+    }
+
+    /**
+     * Description: 数字权证签发(异步)-1155标准专用
+     * Summary: 数字权证签发(异步)-1155标准专用
+     */
+    public ExecMultiIssueResponse execMultiIssue(ExecMultiIssueRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMultiIssueEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字权证签发(异步)-1155标准专用
+     * Summary: 数字权证签发(异步)-1155标准专用
+     */
+    public ExecMultiIssueResponse execMultiIssueEx(ExecMultiIssueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.multi.issue.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMultiIssueResponse());
+    }
+
+    /**
+     * Description: 数字权证转移(异步)-1155标准专用
+     * Summary: 数字权证转移(异步)-1155标准专用
+     */
+    public ExecMultiTransferResponse execMultiTransfer(ExecMultiTransferRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMultiTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字权证转移(异步)-1155标准专用
+     * Summary: 数字权证转移(异步)-1155标准专用
+     */
+    public ExecMultiTransferResponse execMultiTransferEx(ExecMultiTransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.multi.transfer.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMultiTransferResponse());
+    }
+
+    /**
+     * Description: 数字权证核销(异步)-1155标准专用
+     * Summary: 数字权证核销(异步)-1155标准专用
+     */
+    public ExecMultiWriteoffResponse execMultiWriteoff(ExecMultiWriteoffRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMultiWriteoffEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字权证核销(异步)-1155标准专用
+     * Summary: 数字权证核销(异步)-1155标准专用
+     */
+    public ExecMultiWriteoffResponse execMultiWriteoffEx(ExecMultiWriteoffRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.multi.writeoff.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMultiWriteoffResponse());
+    }
+
+    /**
+     * Description: 数字权证销毁(异步)-1155标准专用
+     * Summary: 数字权证销毁(异步)-1155标准专用
+     */
+    public ExecMultiBurnoffResponse execMultiBurnoff(ExecMultiBurnoffRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMultiBurnoffEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字权证销毁(异步)-1155标准专用
+     * Summary: 数字权证销毁(异步)-1155标准专用
+     */
+    public ExecMultiBurnoffResponse execMultiBurnoffEx(ExecMultiBurnoffRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.baasdigital.multi.burnoff.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMultiBurnoffResponse());
     }
 }
