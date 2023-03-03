@@ -1532,14 +1532,15 @@ type CreateProjectRequest struct {
 	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
 	// 项目名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"100" minLength:"1"`
-	// 数字合约symbol
-	Symbol *string `json:"symbol,omitempty" xml:"symbol,omitempty" require:"true"`
+	// 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
+	Symbol *string `json:"symbol,omitempty" xml:"symbol,omitempty"`
 	// 数字权证项目描述信息
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 模版类型
 	// 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+	// 5为1155标准
 	BizType *int64 `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+	// 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
 	// 数字权证链接，共享时必须传入
 	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty"`
@@ -1812,7 +1813,7 @@ type ExecContractIssueRequest struct {
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 业务方请求唯一标识，用于异步查询交易情况
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
-	// 权证ID，线下生成，保证唯一
+	// 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
 	// 数字权证标准URI协议文件，权证信息
 	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty" require:"true"`
@@ -3003,7 +3004,7 @@ type CancelContractApproveRequest struct {
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 业务方请求唯一标识，用于异步查询交易情况
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
-	// 取消授权的目标账户
+	// 被取消授权的目标权证ID
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
 	// 托管账户信息(推荐)，托管和非拖管必选一种
 	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
@@ -3340,7 +3341,7 @@ type ExecContractBatchissueRequest struct {
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
 	// 权证发行的目标账户
 	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
-	// 批量发行个数，建议多次分批执行
+	// 批量发行个数，单次最多发行20个，建议多次分批执行
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
 	// 托管账户信息(推荐)，托管和非拖管必选一种
 	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
@@ -3452,7 +3453,7 @@ type ExecContractListissueRequest struct {
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
 	// 权证发行的目标账户
 	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
-	// 批量发行的资产id列表
+	// 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
 	AssetList []*string `json:"asset_list,omitempty" xml:"asset_list,omitempty" require:"true" type:"Repeated"`
 	// 托管账户信息(推荐)，托管和非拖管必选一种
 	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
@@ -3553,6 +3554,736 @@ func (s *ExecContractListissueResponse) SetHash(v string) *ExecContractListissue
 	return s
 }
 
+type QueryContractOwnerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 资产ID，如果是1155标准资产，则对应批次id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 1155标准下，需要填入批次内具体的资产碎片id
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s QueryContractOwnerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractOwnerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractOwnerRequest) SetAuthToken(v string) *QueryContractOwnerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetProductInstanceId(v string) *QueryContractOwnerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetBizid(v string) *QueryContractOwnerRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetProjectId(v string) *QueryContractOwnerRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetTraceId(v string) *QueryContractOwnerRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetAssetId(v string) *QueryContractOwnerRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetShardId(v string) *QueryContractOwnerRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *QueryContractOwnerRequest) SetAccountInfo(v *AccountInfo) *QueryContractOwnerRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type QueryContractOwnerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 该资产的拥有者
+	Account *string `json:"account,omitempty" xml:"account,omitempty"`
+}
+
+func (s QueryContractOwnerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractOwnerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractOwnerResponse) SetReqMsgId(v string) *QueryContractOwnerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractOwnerResponse) SetResultCode(v string) *QueryContractOwnerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractOwnerResponse) SetResultMsg(v string) *QueryContractOwnerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractOwnerResponse) SetTraceId(v string) *QueryContractOwnerResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryContractOwnerResponse) SetAccount(v string) *QueryContractOwnerResponse {
+	s.Account = &v
+	return s
+}
+
+type QueryContractStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 资产ID，如果是1155标准资产，则对应批次id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 1155标准下，需要填入批次内具体的资产碎片id
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s QueryContractStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractStatusRequest) SetAuthToken(v string) *QueryContractStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetProductInstanceId(v string) *QueryContractStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetBizid(v string) *QueryContractStatusRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetProjectId(v string) *QueryContractStatusRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetTraceId(v string) *QueryContractStatusRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetAssetId(v string) *QueryContractStatusRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetShardId(v string) *QueryContractStatusRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *QueryContractStatusRequest) SetAccountInfo(v *AccountInfo) *QueryContractStatusRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type QueryContractStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 资产状态；0：可用；1：已核销；2：已销毁
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryContractStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractStatusResponse) SetReqMsgId(v string) *QueryContractStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractStatusResponse) SetResultCode(v string) *QueryContractStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractStatusResponse) SetResultMsg(v string) *QueryContractStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractStatusResponse) SetTraceId(v string) *QueryContractStatusResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryContractStatusResponse) SetStatus(v int64) *QueryContractStatusResponse {
+	s.Status = &v
+	return s
+}
+
+type ExecMultiIssueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，可用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 数字权证标准URI协议文件，权证信息。
+	// 首次发行时必填，后续发行(增发)时可不用输入
+	AssetUri *string `json:"asset_uri,omitempty" xml:"asset_uri,omitempty"`
+	// 该批次权证发行的目标账户
+	ToAccount *string `json:"to_account,omitempty" xml:"to_account,omitempty" require:"true"`
+	// 该批次中包含的资产个数
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
+	// 预留
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s ExecMultiIssueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiIssueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiIssueRequest) SetAuthToken(v string) *ExecMultiIssueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetProductInstanceId(v string) *ExecMultiIssueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetBizid(v string) *ExecMultiIssueRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetProjectId(v string) *ExecMultiIssueRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetTraceId(v string) *ExecMultiIssueRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetAssetId(v string) *ExecMultiIssueRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetAssetUri(v string) *ExecMultiIssueRequest {
+	s.AssetUri = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetToAccount(v string) *ExecMultiIssueRequest {
+	s.ToAccount = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetAmount(v int64) *ExecMultiIssueRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetData(v string) *ExecMultiIssueRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecMultiIssueRequest) SetAccountInfo(v *AccountInfo) *ExecMultiIssueRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type ExecMultiIssueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 交易hash，可通过hash查询上链结果
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+}
+
+func (s ExecMultiIssueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiIssueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiIssueResponse) SetReqMsgId(v string) *ExecMultiIssueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecMultiIssueResponse) SetResultCode(v string) *ExecMultiIssueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecMultiIssueResponse) SetResultMsg(v string) *ExecMultiIssueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecMultiIssueResponse) SetTraceId(v string) *ExecMultiIssueResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiIssueResponse) SetHash(v string) *ExecMultiIssueResponse {
+	s.Hash = &v
+	return s
+}
+
+type ExecMultiTransferRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 权证所有者账户
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 转移的目标账户
+	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
+	// 转移的目标权证批次
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+	// 预留
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s ExecMultiTransferRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiTransferRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiTransferRequest) SetAuthToken(v string) *ExecMultiTransferRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetProductInstanceId(v string) *ExecMultiTransferRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetBizid(v string) *ExecMultiTransferRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetProjectId(v string) *ExecMultiTransferRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetTraceId(v string) *ExecMultiTransferRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetFrom(v string) *ExecMultiTransferRequest {
+	s.From = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetTo(v string) *ExecMultiTransferRequest {
+	s.To = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetAssetId(v string) *ExecMultiTransferRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetShardId(v string) *ExecMultiTransferRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetData(v string) *ExecMultiTransferRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *ExecMultiTransferRequest) SetAccountInfo(v *AccountInfo) *ExecMultiTransferRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type ExecMultiTransferResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 交易hash，可通过hash查询上链结果
+	//
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 资产id
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty"`
+}
+
+func (s ExecMultiTransferResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiTransferResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiTransferResponse) SetReqMsgId(v string) *ExecMultiTransferResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecMultiTransferResponse) SetResultCode(v string) *ExecMultiTransferResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecMultiTransferResponse) SetResultMsg(v string) *ExecMultiTransferResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecMultiTransferResponse) SetTraceId(v string) *ExecMultiTransferResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiTransferResponse) SetHash(v string) *ExecMultiTransferResponse {
+	s.Hash = &v
+	return s
+}
+
+func (s *ExecMultiTransferResponse) SetShardId(v string) *ExecMultiTransferResponse {
+	s.ShardId = &v
+	return s
+}
+
+type ExecMultiWriteoffRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链id
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，可用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 批次资产内每个资产的ID
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty" require:"true"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s ExecMultiWriteoffRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiWriteoffRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiWriteoffRequest) SetAuthToken(v string) *ExecMultiWriteoffRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetProductInstanceId(v string) *ExecMultiWriteoffRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetBizid(v string) *ExecMultiWriteoffRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetProjectId(v string) *ExecMultiWriteoffRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetTraceId(v string) *ExecMultiWriteoffRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetAssetId(v string) *ExecMultiWriteoffRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetShardId(v string) *ExecMultiWriteoffRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffRequest) SetAccountInfo(v *AccountInfo) *ExecMultiWriteoffRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type ExecMultiWriteoffResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 交易hash，可通过hash查询上链结果
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+}
+
+func (s ExecMultiWriteoffResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiWriteoffResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiWriteoffResponse) SetReqMsgId(v string) *ExecMultiWriteoffResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffResponse) SetResultCode(v string) *ExecMultiWriteoffResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffResponse) SetResultMsg(v string) *ExecMultiWriteoffResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffResponse) SetTraceId(v string) *ExecMultiWriteoffResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiWriteoffResponse) SetHash(v string) *ExecMultiWriteoffResponse {
+	s.Hash = &v
+	return s
+}
+
+type ExecMultiBurnoffRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 数字权证项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 业务方请求唯一标识，用于异步查询交易情况
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 被销毁的目标权证批次ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 该批次内具体的资产id
+	ShardId *string `json:"shard_id,omitempty" xml:"shard_id,omitempty" require:"true"`
+	// 该权证资产的拥有者
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 托管账户信息(推荐)，托管和非拖管必选一种
+	AccountInfo *AccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty" require:"true"`
+}
+
+func (s ExecMultiBurnoffRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiBurnoffRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiBurnoffRequest) SetAuthToken(v string) *ExecMultiBurnoffRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetProductInstanceId(v string) *ExecMultiBurnoffRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetBizid(v string) *ExecMultiBurnoffRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetProjectId(v string) *ExecMultiBurnoffRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetTraceId(v string) *ExecMultiBurnoffRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetAssetId(v string) *ExecMultiBurnoffRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetShardId(v string) *ExecMultiBurnoffRequest {
+	s.ShardId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetFrom(v string) *ExecMultiBurnoffRequest {
+	s.From = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffRequest) SetAccountInfo(v *AccountInfo) *ExecMultiBurnoffRequest {
+	s.AccountInfo = v
+	return s
+}
+
+type ExecMultiBurnoffResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户端传入的请求唯一标识
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 交易hash，可通过hash查询上链结果
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+}
+
+func (s ExecMultiBurnoffResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMultiBurnoffResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMultiBurnoffResponse) SetReqMsgId(v string) *ExecMultiBurnoffResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffResponse) SetResultCode(v string) *ExecMultiBurnoffResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffResponse) SetResultMsg(v string) *ExecMultiBurnoffResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffResponse) SetTraceId(v string) *ExecMultiBurnoffResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *ExecMultiBurnoffResponse) SetHash(v string) *ExecMultiBurnoffResponse {
+	s.Hash = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3631,17 +4362,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -3675,7 +4406,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("BAASDIGITAL"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4074,8 +4805,8 @@ func (client *Client) CreateAsseturiEx(request *CreateAsseturiRequest, headers m
 }
 
 /**
- * Description: 查询项目信息
- * Summary: 查询项目初始信息
+ * Description: 查询单个权证项目信息
+ * Summary: 查询单个权证项目信息
  */
 func (client *Client) QueryProject(request *QueryProjectRequest) (_result *QueryProjectResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4090,8 +4821,8 @@ func (client *Client) QueryProject(request *QueryProjectRequest) (_result *Query
 }
 
 /**
- * Description: 查询项目信息
- * Summary: 查询项目初始信息
+ * Description: 查询单个权证项目信息
+ * Summary: 查询单个权证项目信息
  */
 func (client *Client) QueryProjectEx(request *QueryProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProjectResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -4714,6 +5445,210 @@ func (client *Client) ExecContractListissueEx(request *ExecContractListissueRequ
 	}
 	_result = &ExecContractListissueResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.contract.listissue.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询特定资产权证的所有者
+ * Summary: 查询特定资产权证的所有者
+ */
+func (client *Client) QueryContractOwner(request *QueryContractOwnerRequest) (_result *QueryContractOwnerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractOwnerResponse{}
+	_body, _err := client.QueryContractOwnerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询特定资产权证的所有者
+ * Summary: 查询特定资产权证的所有者
+ */
+func (client *Client) QueryContractOwnerEx(request *QueryContractOwnerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractOwnerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractOwnerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.contract.owner.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+ * Summary: 查询特定资产权证的状态
+ */
+func (client *Client) QueryContractStatus(request *QueryContractStatusRequest) (_result *QueryContractStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractStatusResponse{}
+	_body, _err := client.QueryContractStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+ * Summary: 查询特定资产权证的状态
+ */
+func (client *Client) QueryContractStatusEx(request *QueryContractStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.contract.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证签发(异步)-1155标准专用
+ * Summary: 数字权证签发(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiIssue(request *ExecMultiIssueRequest) (_result *ExecMultiIssueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecMultiIssueResponse{}
+	_body, _err := client.ExecMultiIssueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证签发(异步)-1155标准专用
+ * Summary: 数字权证签发(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiIssueEx(request *ExecMultiIssueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecMultiIssueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecMultiIssueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.multi.issue.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证转移(异步)-1155标准专用
+ * Summary: 数字权证转移(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiTransfer(request *ExecMultiTransferRequest) (_result *ExecMultiTransferResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecMultiTransferResponse{}
+	_body, _err := client.ExecMultiTransferEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证转移(异步)-1155标准专用
+ * Summary: 数字权证转移(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiTransferEx(request *ExecMultiTransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecMultiTransferResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecMultiTransferResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.multi.transfer.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证核销(异步)-1155标准专用
+ * Summary: 数字权证核销(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiWriteoff(request *ExecMultiWriteoffRequest) (_result *ExecMultiWriteoffResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecMultiWriteoffResponse{}
+	_body, _err := client.ExecMultiWriteoffEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证核销(异步)-1155标准专用
+ * Summary: 数字权证核销(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiWriteoffEx(request *ExecMultiWriteoffRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecMultiWriteoffResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecMultiWriteoffResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.multi.writeoff.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证销毁(异步)-1155标准专用
+ * Summary: 数字权证销毁(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiBurnoff(request *ExecMultiBurnoffRequest) (_result *ExecMultiBurnoffResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecMultiBurnoffResponse{}
+	_body, _err := client.ExecMultiBurnoffEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字权证销毁(异步)-1155标准专用
+ * Summary: 数字权证销毁(异步)-1155标准专用
+ */
+func (client *Client) ExecMultiBurnoffEx(request *ExecMultiBurnoffRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecMultiBurnoffResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecMultiBurnoffResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.baasdigital.multi.burnoff.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
