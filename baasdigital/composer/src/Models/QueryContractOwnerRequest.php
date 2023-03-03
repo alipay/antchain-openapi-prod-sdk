@@ -6,7 +6,7 @@ namespace AntChain\BAASDIGITAL\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelContractApproveRequest extends Model
+class QueryContractOwnerRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -37,11 +37,17 @@ class CancelContractApproveRequest extends Model
      */
     public $traceId;
 
-    // 被取消授权的目标权证ID
+    // 资产ID，如果是1155标准资产，则对应批次id
     /**
      * @var string
      */
     public $assetId;
+
+    // 1155标准下，需要填入批次内具体的资产碎片id
+    /**
+     * @var string
+     */
+    public $shardId;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     /**
@@ -55,6 +61,7 @@ class CancelContractApproveRequest extends Model
         'projectId'         => 'project_id',
         'traceId'           => 'trace_id',
         'assetId'           => 'asset_id',
+        'shardId'           => 'shard_id',
         'accountInfo'       => 'account_info',
     ];
 
@@ -62,7 +69,6 @@ class CancelContractApproveRequest extends Model
     {
         Model::validateRequired('bizid', $this->bizid, true);
         Model::validateRequired('projectId', $this->projectId, true);
-        Model::validateRequired('traceId', $this->traceId, true);
         Model::validateRequired('assetId', $this->assetId, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
     }
@@ -88,6 +94,9 @@ class CancelContractApproveRequest extends Model
         if (null !== $this->assetId) {
             $res['asset_id'] = $this->assetId;
         }
+        if (null !== $this->shardId) {
+            $res['shard_id'] = $this->shardId;
+        }
         if (null !== $this->accountInfo) {
             $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
         }
@@ -98,7 +107,7 @@ class CancelContractApproveRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelContractApproveRequest
+     * @return QueryContractOwnerRequest
      */
     public static function fromMap($map = [])
     {
@@ -120,6 +129,9 @@ class CancelContractApproveRequest extends Model
         }
         if (isset($map['asset_id'])) {
             $model->assetId = $map['asset_id'];
+        }
+        if (isset($map['shard_id'])) {
+            $model->shardId = $map['shard_id'];
         }
         if (isset($map['account_info'])) {
             $model->accountInfo = AccountInfo::fromMap($map['account_info']);

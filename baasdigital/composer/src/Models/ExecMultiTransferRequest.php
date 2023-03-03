@@ -6,7 +6,7 @@ namespace AntChain\BAASDIGITAL\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelContractApproveRequest extends Model
+class ExecMultiTransferRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class CancelContractApproveRequest extends Model
      */
     public $productInstanceId;
 
-    // 链ID
+    // 链id
     /**
      * @var string
      */
@@ -37,11 +37,35 @@ class CancelContractApproveRequest extends Model
      */
     public $traceId;
 
-    // 被取消授权的目标权证ID
+    // 权证所有者账户
+    /**
+     * @var string
+     */
+    public $from;
+
+    // 转移的目标账户
+    /**
+     * @var string
+     */
+    public $to;
+
+    // 转移的目标权证批次
     /**
      * @var string
      */
     public $assetId;
+
+    // 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+    /**
+     * @var string
+     */
+    public $shardId;
+
+    // 预留
+    /**
+     * @var string
+     */
+    public $data;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     /**
@@ -54,7 +78,11 @@ class CancelContractApproveRequest extends Model
         'bizid'             => 'bizid',
         'projectId'         => 'project_id',
         'traceId'           => 'trace_id',
+        'from'              => 'from',
+        'to'                => 'to',
         'assetId'           => 'asset_id',
+        'shardId'           => 'shard_id',
+        'data'              => 'data',
         'accountInfo'       => 'account_info',
     ];
 
@@ -63,6 +91,8 @@ class CancelContractApproveRequest extends Model
         Model::validateRequired('bizid', $this->bizid, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('from', $this->from, true);
+        Model::validateRequired('to', $this->to, true);
         Model::validateRequired('assetId', $this->assetId, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
     }
@@ -85,8 +115,20 @@ class CancelContractApproveRequest extends Model
         if (null !== $this->traceId) {
             $res['trace_id'] = $this->traceId;
         }
+        if (null !== $this->from) {
+            $res['from'] = $this->from;
+        }
+        if (null !== $this->to) {
+            $res['to'] = $this->to;
+        }
         if (null !== $this->assetId) {
             $res['asset_id'] = $this->assetId;
+        }
+        if (null !== $this->shardId) {
+            $res['shard_id'] = $this->shardId;
+        }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
         if (null !== $this->accountInfo) {
             $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
@@ -98,7 +140,7 @@ class CancelContractApproveRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelContractApproveRequest
+     * @return ExecMultiTransferRequest
      */
     public static function fromMap($map = [])
     {
@@ -118,8 +160,20 @@ class CancelContractApproveRequest extends Model
         if (isset($map['trace_id'])) {
             $model->traceId = $map['trace_id'];
         }
+        if (isset($map['from'])) {
+            $model->from = $map['from'];
+        }
+        if (isset($map['to'])) {
+            $model->to = $map['to'];
+        }
         if (isset($map['asset_id'])) {
             $model->assetId = $map['asset_id'];
+        }
+        if (isset($map['shard_id'])) {
+            $model->shardId = $map['shard_id'];
+        }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
         if (isset($map['account_info'])) {
             $model->accountInfo = AccountInfo::fromMap($map['account_info']);

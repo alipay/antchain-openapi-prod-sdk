@@ -43,7 +43,7 @@ class ExecContractBatchissueRequest extends Model
      */
     public $toAccount;
 
-    // 批量发行个数，建议多次分批执行
+    // 批量发行个数，单次最多发行20个，建议多次分批执行
     /**
      * @var int
      */

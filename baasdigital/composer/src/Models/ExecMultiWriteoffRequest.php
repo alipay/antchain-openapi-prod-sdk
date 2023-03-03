@@ -6,7 +6,7 @@ namespace AntChain\BAASDIGITAL\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelContractApproveRequest extends Model
+class ExecMultiWriteoffRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class CancelContractApproveRequest extends Model
      */
     public $productInstanceId;
 
-    // 链ID
+    // 链id
     /**
      * @var string
      */
@@ -31,17 +31,23 @@ class CancelContractApproveRequest extends Model
      */
     public $projectId;
 
-    // 业务方请求唯一标识，用于异步查询交易情况
+    // 业务方请求唯一标识，可用于异步查询交易情况
     /**
      * @var string
      */
     public $traceId;
 
-    // 被取消授权的目标权证ID
+    // 发行批次ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
     /**
      * @var string
      */
     public $assetId;
+
+    // 批次资产内每个资产的ID
+    /**
+     * @var string
+     */
+    public $shardId;
 
     // 托管账户信息(推荐)，托管和非拖管必选一种
     /**
@@ -55,6 +61,7 @@ class CancelContractApproveRequest extends Model
         'projectId'         => 'project_id',
         'traceId'           => 'trace_id',
         'assetId'           => 'asset_id',
+        'shardId'           => 'shard_id',
         'accountInfo'       => 'account_info',
     ];
 
@@ -64,6 +71,7 @@ class CancelContractApproveRequest extends Model
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('traceId', $this->traceId, true);
         Model::validateRequired('assetId', $this->assetId, true);
+        Model::validateRequired('shardId', $this->shardId, true);
         Model::validateRequired('accountInfo', $this->accountInfo, true);
     }
 
@@ -88,6 +96,9 @@ class CancelContractApproveRequest extends Model
         if (null !== $this->assetId) {
             $res['asset_id'] = $this->assetId;
         }
+        if (null !== $this->shardId) {
+            $res['shard_id'] = $this->shardId;
+        }
         if (null !== $this->accountInfo) {
             $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
         }
@@ -98,7 +109,7 @@ class CancelContractApproveRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelContractApproveRequest
+     * @return ExecMultiWriteoffRequest
      */
     public static function fromMap($map = [])
     {
@@ -120,6 +131,9 @@ class CancelContractApproveRequest extends Model
         }
         if (isset($map['asset_id'])) {
             $model->assetId = $map['asset_id'];
+        }
+        if (isset($map['shard_id'])) {
+            $model->shardId = $map['shard_id'];
         }
         if (isset($map['account_info'])) {
             $model->accountInfo = AccountInfo::fromMap($map['account_info']);

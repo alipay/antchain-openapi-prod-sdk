@@ -31,7 +31,7 @@ class CreateProjectRequest extends Model
      */
     public $name;
 
-    // 数字合约symbol
+    // 数字合约symbol，biz_type为5(1155标准)时，可不输入。其他情况必须输入
     /**
      * @var string
      */
@@ -45,12 +45,13 @@ class CreateProjectRequest extends Model
 
     // 模版类型
     // 1为共享型，2为独享型，3为共享型(高性能)，4为独享型(高性能)
+    // 5为1155标准
     /**
      * @var int
      */
     public $bizType;
 
-    // 项目发行权证数量上限，普通版本续设置发行上限，高性能版本无需设置。
+    // 项目发行权证数量上限，普通版本需设置发行上限，高性能版本无需设置。
     /**
      * @var int
      */
@@ -119,7 +120,6 @@ class CreateProjectRequest extends Model
     {
         Model::validateRequired('bizid', $this->bizid, true);
         Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('symbol', $this->symbol, true);
         Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('writeOffable', $this->writeOffable, true);
         Model::validateRequired('burnable', $this->burnable, true);

@@ -43,7 +43,7 @@ class ExecContractListissueRequest extends Model
      */
     public $toAccount;
 
-    // 批量发行的资产id列表
+    // 批量发行的资产id列表，单次最多发20个，asset_id长度限制为64，只支持英文字符和数字
     /**
      * @var string[]
      */

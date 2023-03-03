@@ -47,6 +47,14 @@ use AntChain\BAASDIGITAL\Models\ExecContractTransferRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractTransferResponse;
 use AntChain\BAASDIGITAL\Models\ExecContractWriteoffRequest;
 use AntChain\BAASDIGITAL\Models\ExecContractWriteoffResponse;
+use AntChain\BAASDIGITAL\Models\ExecMultiBurnoffRequest;
+use AntChain\BAASDIGITAL\Models\ExecMultiBurnoffResponse;
+use AntChain\BAASDIGITAL\Models\ExecMultiIssueRequest;
+use AntChain\BAASDIGITAL\Models\ExecMultiIssueResponse;
+use AntChain\BAASDIGITAL\Models\ExecMultiTransferRequest;
+use AntChain\BAASDIGITAL\Models\ExecMultiTransferResponse;
+use AntChain\BAASDIGITAL\Models\ExecMultiWriteoffRequest;
+use AntChain\BAASDIGITAL\Models\ExecMultiWriteoffResponse;
 use AntChain\BAASDIGITAL\Models\JudgeAliyunServiceRequest;
 use AntChain\BAASDIGITAL\Models\JudgeAliyunServiceResponse;
 use AntChain\BAASDIGITAL\Models\ListProjectRequest;
@@ -59,8 +67,12 @@ use AntChain\BAASDIGITAL\Models\QueryContractAssetRequest;
 use AntChain\BAASDIGITAL\Models\QueryContractAssetResponse;
 use AntChain\BAASDIGITAL\Models\QueryContractAsseturiRequest;
 use AntChain\BAASDIGITAL\Models\QueryContractAsseturiResponse;
+use AntChain\BAASDIGITAL\Models\QueryContractOwnerRequest;
+use AntChain\BAASDIGITAL\Models\QueryContractOwnerResponse;
 use AntChain\BAASDIGITAL\Models\QueryContractReceiptRequest;
 use AntChain\BAASDIGITAL\Models\QueryContractReceiptResponse;
+use AntChain\BAASDIGITAL\Models\QueryContractStatusRequest;
+use AntChain\BAASDIGITAL\Models\QueryContractStatusResponse;
 use AntChain\BAASDIGITAL\Models\QueryContractTransactionRequest;
 use AntChain\BAASDIGITAL\Models\QueryContractTransactionResponse;
 use AntChain\BAASDIGITAL\Models\QueryProjectRequest;
@@ -168,18 +180,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -216,7 +228,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.2.1',
                     '_prod_code'       => 'BAASDIGITAL',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -595,8 +607,8 @@ class Client
     }
 
     /**
-     * Description: 查询项目信息
-     * Summary: 查询项目初始信息.
+     * Description: 查询单个权证项目信息
+     * Summary: 查询单个权证项目信息.
      *
      * @param QueryProjectRequest $request
      *
@@ -611,8 +623,8 @@ class Client
     }
 
     /**
-     * Description: 查询项目信息
-     * Summary: 查询项目初始信息.
+     * Description: 查询单个权证项目信息
+     * Summary: 查询单个权证项目信息.
      *
      * @param QueryProjectRequest $request
      * @param string[]            $headers
@@ -1221,5 +1233,203 @@ class Client
         Utils::validateModel($request);
 
         return ExecContractListissueResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.contract.listissue.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询特定资产权证的所有者
+     * Summary: 查询特定资产权证的所有者.
+     *
+     * @param QueryContractOwnerRequest $request
+     *
+     * @return QueryContractOwnerResponse
+     */
+    public function queryContractOwner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractOwnerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询特定资产权证的所有者
+     * Summary: 查询特定资产权证的所有者.
+     *
+     * @param QueryContractOwnerRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryContractOwnerResponse
+     */
+    public function queryContractOwnerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractOwnerResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.contract.owner.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+     * Summary: 查询特定资产权证的状态
+     *
+     * @param QueryContractStatusRequest $request
+     *
+     * @return QueryContractStatusResponse
+     */
+    public function queryContractStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+     * Summary: 查询特定资产权证的状态
+     *
+     * @param QueryContractStatusRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryContractStatusResponse
+     */
+    public function queryContractStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractStatusResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.contract.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字权证签发(异步)-1155标准专用
+     * Summary: 数字权证签发(异步)-1155标准专用.
+     *
+     * @param ExecMultiIssueRequest $request
+     *
+     * @return ExecMultiIssueResponse
+     */
+    public function execMultiIssue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execMultiIssueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字权证签发(异步)-1155标准专用
+     * Summary: 数字权证签发(异步)-1155标准专用.
+     *
+     * @param ExecMultiIssueRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ExecMultiIssueResponse
+     */
+    public function execMultiIssueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecMultiIssueResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.multi.issue.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字权证转移(异步)-1155标准专用
+     * Summary: 数字权证转移(异步)-1155标准专用.
+     *
+     * @param ExecMultiTransferRequest $request
+     *
+     * @return ExecMultiTransferResponse
+     */
+    public function execMultiTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execMultiTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字权证转移(异步)-1155标准专用
+     * Summary: 数字权证转移(异步)-1155标准专用.
+     *
+     * @param ExecMultiTransferRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ExecMultiTransferResponse
+     */
+    public function execMultiTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecMultiTransferResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.multi.transfer.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字权证核销(异步)-1155标准专用
+     * Summary: 数字权证核销(异步)-1155标准专用.
+     *
+     * @param ExecMultiWriteoffRequest $request
+     *
+     * @return ExecMultiWriteoffResponse
+     */
+    public function execMultiWriteoff($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execMultiWriteoffEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字权证核销(异步)-1155标准专用
+     * Summary: 数字权证核销(异步)-1155标准专用.
+     *
+     * @param ExecMultiWriteoffRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ExecMultiWriteoffResponse
+     */
+    public function execMultiWriteoffEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecMultiWriteoffResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.multi.writeoff.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字权证销毁(异步)-1155标准专用
+     * Summary: 数字权证销毁(异步)-1155标准专用.
+     *
+     * @param ExecMultiBurnoffRequest $request
+     *
+     * @return ExecMultiBurnoffResponse
+     */
+    public function execMultiBurnoff($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execMultiBurnoffEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字权证销毁(异步)-1155标准专用
+     * Summary: 数字权证销毁(异步)-1155标准专用.
+     *
+     * @param ExecMultiBurnoffRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ExecMultiBurnoffResponse
+     */
+    public function execMultiBurnoffEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecMultiBurnoffResponse::fromMap($this->doRequest('1.0', 'antchain.baasdigital.multi.burnoff.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
