@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDIGITAL.Models
 {
-    public class ExecContractIssueRequest : TeaModel {
+    public class QueryContractStatusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,25 +28,20 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string ProjectId { get; set; }
 
-        // 业务方请求唯一标识，用于异步查询交易情况
+        // 业务方请求唯一标识
         [NameInMap("trace_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TraceId { get; set; }
 
-        // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+        // 资产ID，如果是1155标准资产，则对应批次id
         [NameInMap("asset_id")]
         [Validation(Required=true)]
         public string AssetId { get; set; }
 
-        // 数字权证标准URI协议文件，权证信息
-        [NameInMap("asset_uri")]
-        [Validation(Required=true)]
-        public string AssetUri { get; set; }
-
-        // 权证发行的目标账户
-        [NameInMap("to_account")]
-        [Validation(Required=true)]
-        public string ToAccount { get; set; }
+        // 1155标准下，需要填入批次内具体的资产碎片id
+        [NameInMap("shard_id")]
+        [Validation(Required=false)]
+        public string ShardId { get; set; }
 
         // 托管账户信息(推荐)，托管和非拖管必选一种
         [NameInMap("account_info")]

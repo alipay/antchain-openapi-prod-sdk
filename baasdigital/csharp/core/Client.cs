@@ -91,7 +91,7 @@ namespace AntChain.SDK.BAASDIGITAL
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDIGITAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "BAASDIGITAL"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.BAASDIGITAL
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BAASDIGITAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "BAASDIGITAL"},
                         {"_prod_channel", "undefined"},
                     };
@@ -742,8 +742,8 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询项目信息
-         * Summary: 查询项目初始信息
+         * Description: 查询单个权证项目信息
+         * Summary: 查询单个权证项目信息
          */
         public QueryProjectResponse QueryProject(QueryProjectRequest request)
         {
@@ -753,8 +753,8 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询项目信息
-         * Summary: 查询项目初始信息
+         * Description: 查询单个权证项目信息
+         * Summary: 查询单个权证项目信息
          */
         public async Task<QueryProjectResponse> QueryProjectAsync(QueryProjectRequest request)
         {
@@ -764,8 +764,8 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询项目信息
-         * Summary: 查询项目初始信息
+         * Description: 查询单个权证项目信息
+         * Summary: 查询单个权证项目信息
          */
         public QueryProjectResponse QueryProjectEx(QueryProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -774,8 +774,8 @@ namespace AntChain.SDK.BAASDIGITAL
         }
 
         /**
-         * Description: 查询项目信息
-         * Summary: 查询项目初始信息
+         * Description: 查询单个权证项目信息
+         * Summary: 查询单个权证项目信息
          */
         public async Task<QueryProjectResponse> QueryProjectExAsync(QueryProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1541,6 +1541,258 @@ namespace AntChain.SDK.BAASDIGITAL
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecContractListissueResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.contract.listissue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询特定资产权证的所有者
+         * Summary: 查询特定资产权证的所有者
+         */
+        public QueryContractOwnerResponse QueryContractOwner(QueryContractOwnerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractOwnerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询特定资产权证的所有者
+         * Summary: 查询特定资产权证的所有者
+         */
+        public async Task<QueryContractOwnerResponse> QueryContractOwnerAsync(QueryContractOwnerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractOwnerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询特定资产权证的所有者
+         * Summary: 查询特定资产权证的所有者
+         */
+        public QueryContractOwnerResponse QueryContractOwnerEx(QueryContractOwnerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractOwnerResponse>(DoRequest("1.0", "antchain.baasdigital.contract.owner.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询特定资产权证的所有者
+         * Summary: 查询特定资产权证的所有者
+         */
+        public async Task<QueryContractOwnerResponse> QueryContractOwnerExAsync(QueryContractOwnerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractOwnerResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.contract.owner.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+         * Summary: 查询特定资产权证的状态
+         */
+        public QueryContractStatusResponse QueryContractStatus(QueryContractStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+         * Summary: 查询特定资产权证的状态
+         */
+        public async Task<QueryContractStatusResponse> QueryContractStatusAsync(QueryContractStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+         * Summary: 查询特定资产权证的状态
+         */
+        public QueryContractStatusResponse QueryContractStatusEx(QueryContractStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractStatusResponse>(DoRequest("1.0", "antchain.baasdigital.contract.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询特定资产权证的状态。0：可用；1：已核销；2：已销毁
+         * Summary: 查询特定资产权证的状态
+         */
+        public async Task<QueryContractStatusResponse> QueryContractStatusExAsync(QueryContractStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractStatusResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.contract.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证签发(异步)-1155标准专用
+         * Summary: 数字权证签发(异步)-1155标准专用
+         */
+        public ExecMultiIssueResponse ExecMultiIssue(ExecMultiIssueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMultiIssueEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证签发(异步)-1155标准专用
+         * Summary: 数字权证签发(异步)-1155标准专用
+         */
+        public async Task<ExecMultiIssueResponse> ExecMultiIssueAsync(ExecMultiIssueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMultiIssueExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证签发(异步)-1155标准专用
+         * Summary: 数字权证签发(异步)-1155标准专用
+         */
+        public ExecMultiIssueResponse ExecMultiIssueEx(ExecMultiIssueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiIssueResponse>(DoRequest("1.0", "antchain.baasdigital.multi.issue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证签发(异步)-1155标准专用
+         * Summary: 数字权证签发(异步)-1155标准专用
+         */
+        public async Task<ExecMultiIssueResponse> ExecMultiIssueExAsync(ExecMultiIssueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiIssueResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.multi.issue.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证转移(异步)-1155标准专用
+         * Summary: 数字权证转移(异步)-1155标准专用
+         */
+        public ExecMultiTransferResponse ExecMultiTransfer(ExecMultiTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMultiTransferEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证转移(异步)-1155标准专用
+         * Summary: 数字权证转移(异步)-1155标准专用
+         */
+        public async Task<ExecMultiTransferResponse> ExecMultiTransferAsync(ExecMultiTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMultiTransferExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证转移(异步)-1155标准专用
+         * Summary: 数字权证转移(异步)-1155标准专用
+         */
+        public ExecMultiTransferResponse ExecMultiTransferEx(ExecMultiTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiTransferResponse>(DoRequest("1.0", "antchain.baasdigital.multi.transfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证转移(异步)-1155标准专用
+         * Summary: 数字权证转移(异步)-1155标准专用
+         */
+        public async Task<ExecMultiTransferResponse> ExecMultiTransferExAsync(ExecMultiTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiTransferResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.multi.transfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证核销(异步)-1155标准专用
+         * Summary: 数字权证核销(异步)-1155标准专用
+         */
+        public ExecMultiWriteoffResponse ExecMultiWriteoff(ExecMultiWriteoffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMultiWriteoffEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证核销(异步)-1155标准专用
+         * Summary: 数字权证核销(异步)-1155标准专用
+         */
+        public async Task<ExecMultiWriteoffResponse> ExecMultiWriteoffAsync(ExecMultiWriteoffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMultiWriteoffExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证核销(异步)-1155标准专用
+         * Summary: 数字权证核销(异步)-1155标准专用
+         */
+        public ExecMultiWriteoffResponse ExecMultiWriteoffEx(ExecMultiWriteoffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiWriteoffResponse>(DoRequest("1.0", "antchain.baasdigital.multi.writeoff.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证核销(异步)-1155标准专用
+         * Summary: 数字权证核销(异步)-1155标准专用
+         */
+        public async Task<ExecMultiWriteoffResponse> ExecMultiWriteoffExAsync(ExecMultiWriteoffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiWriteoffResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.multi.writeoff.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证销毁(异步)-1155标准专用
+         * Summary: 数字权证销毁(异步)-1155标准专用
+         */
+        public ExecMultiBurnoffResponse ExecMultiBurnoff(ExecMultiBurnoffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMultiBurnoffEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证销毁(异步)-1155标准专用
+         * Summary: 数字权证销毁(异步)-1155标准专用
+         */
+        public async Task<ExecMultiBurnoffResponse> ExecMultiBurnoffAsync(ExecMultiBurnoffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMultiBurnoffExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字权证销毁(异步)-1155标准专用
+         * Summary: 数字权证销毁(异步)-1155标准专用
+         */
+        public ExecMultiBurnoffResponse ExecMultiBurnoffEx(ExecMultiBurnoffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiBurnoffResponse>(DoRequest("1.0", "antchain.baasdigital.multi.burnoff.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字权证销毁(异步)-1155标准专用
+         * Summary: 数字权证销毁(异步)-1155标准专用
+         */
+        public async Task<ExecMultiBurnoffResponse> ExecMultiBurnoffExAsync(ExecMultiBurnoffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultiBurnoffResponse>(await DoRequestAsync("1.0", "antchain.baasdigital.multi.burnoff.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

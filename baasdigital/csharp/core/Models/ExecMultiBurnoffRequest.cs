@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDIGITAL.Models
 {
-    public class ExecContractIssueRequest : TeaModel {
+    public class ExecMultiBurnoffRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -33,20 +33,20 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string TraceId { get; set; }
 
-        // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+        // 被销毁的目标权证批次ID
         [NameInMap("asset_id")]
         [Validation(Required=true)]
         public string AssetId { get; set; }
 
-        // 数字权证标准URI协议文件，权证信息
-        [NameInMap("asset_uri")]
+        // 该批次内具体的资产id
+        [NameInMap("shard_id")]
         [Validation(Required=true)]
-        public string AssetUri { get; set; }
+        public string ShardId { get; set; }
 
-        // 权证发行的目标账户
-        [NameInMap("to_account")]
+        // 该权证资产的拥有者
+        [NameInMap("from")]
         [Validation(Required=true)]
-        public string ToAccount { get; set; }
+        public string From { get; set; }
 
         // 托管账户信息(推荐)，托管和非拖管必选一种
         [NameInMap("account_info")]

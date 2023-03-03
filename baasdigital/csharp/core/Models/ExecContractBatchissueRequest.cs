@@ -38,7 +38,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string ToAccount { get; set; }
 
-        // 批量发行个数，建议多次分批执行
+        // 批量发行个数，单次最多发行20个，建议多次分批执行
         [NameInMap("amount")]
         [Validation(Required=true)]
         public long? Amount { get; set; }

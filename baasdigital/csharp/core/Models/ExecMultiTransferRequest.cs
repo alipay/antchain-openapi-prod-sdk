@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDIGITAL.Models
 {
-    public class ExecContractIssueRequest : TeaModel {
+    public class ExecMultiTransferRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 链ID
+        // 链id
         [NameInMap("bizid")]
         [Validation(Required=true)]
         public string Bizid { get; set; }
@@ -33,20 +33,30 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string TraceId { get; set; }
 
-        // 权证ID，线下生成，保证唯一，asset_id长度限制为64，只支持英文字符和数字
+        // 权证所有者账户
+        [NameInMap("from")]
+        [Validation(Required=true)]
+        public string From { get; set; }
+
+        // 转移的目标账户
+        [NameInMap("to")]
+        [Validation(Required=true)]
+        public string To { get; set; }
+
+        // 转移的目标权证批次
         [NameInMap("asset_id")]
         [Validation(Required=true)]
         public string AssetId { get; set; }
 
-        // 数字权证标准URI协议文件，权证信息
-        [NameInMap("asset_uri")]
-        [Validation(Required=true)]
-        public string AssetUri { get; set; }
+        // 该批次中的资产的唯一编号，客户端不传递则系统采用随机UUID，并从结果返回
+        [NameInMap("shard_id")]
+        [Validation(Required=false)]
+        public string ShardId { get; set; }
 
-        // 权证发行的目标账户
-        [NameInMap("to_account")]
-        [Validation(Required=true)]
-        public string ToAccount { get; set; }
+        // 预留
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public string Data { get; set; }
 
         // 托管账户信息(推荐)，托管和非拖管必选一种
         [NameInMap("account_info")]

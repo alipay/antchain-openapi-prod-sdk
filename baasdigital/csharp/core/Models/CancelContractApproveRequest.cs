@@ -33,7 +33,7 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=true)]
         public string TraceId { get; set; }
 
-        // 取消授权的目标账户
+        // 被取消授权的目标权证ID
         [NameInMap("asset_id")]
         [Validation(Required=true)]
         public string AssetId { get; set; }
