@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.29',
+    sdk_version = '1.8.30',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -6224,6 +6224,8 @@ model QueryContractTradestatusResponse = {
   // TRADE_FINISHED 交易终止（扣款成功）
   // TRADE_CANCEL 代扣取消
   status?: string(name='status'),
+  // 唯一订单号
+  payIndex?: string(name='pay_index'),
 }
 
 /**
@@ -6251,6 +6253,8 @@ model QueryContractRefundRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 退款ID，用户调用退款接口时传入的自定义第三方id
   refundId: string(name='refund_id'),
+  // 合同流程id
+  flowId?: string(name='flow_id'),
 }
 
 model QueryContractRefundResponse = {
