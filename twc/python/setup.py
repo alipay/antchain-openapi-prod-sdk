@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_twc.
 
-Created on 09/02/2023
+Created on 06/03/2023
 
 @author: Ant Chain SDK
 """

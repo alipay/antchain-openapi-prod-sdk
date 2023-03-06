@@ -19332,6 +19332,7 @@ class QueryContractTradestatusResponse(TeaModel):
         pay_date: str = None,
         pay_money: int = None,
         status: str = None,
+        pay_index: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -19359,6 +19360,8 @@ class QueryContractTradestatusResponse(TeaModel):
         # TRADE_FINISHED 交易终止（扣款成功）
         # TRADE_CANCEL 代扣取消
         self.status = status
+        # 唯一订单号
+        self.pay_index = pay_index
 
     def validate(self):
         if self.deduct_time is not None:
@@ -19388,6 +19391,8 @@ class QueryContractTradestatusResponse(TeaModel):
             result['pay_money'] = self.pay_money
         if self.status is not None:
             result['status'] = self.status
+        if self.pay_index is not None:
+            result['pay_index'] = self.pay_index
         return result
 
     def from_map(self, m: dict = None):
@@ -19408,6 +19413,8 @@ class QueryContractTradestatusResponse(TeaModel):
             self.pay_money = m.get('pay_money')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('pay_index') is not None:
+            self.pay_index = m.get('pay_index')
         return self
 
 
@@ -19417,12 +19424,15 @@ class QueryContractRefundRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         refund_id: str = None,
+        flow_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 退款ID，用户调用退款接口时传入的自定义第三方id
         self.refund_id = refund_id
+        # 合同流程id
+        self.flow_id = flow_id
 
     def validate(self):
         self.validate_required(self.refund_id, 'refund_id')
@@ -19439,6 +19449,8 @@ class QueryContractRefundRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.refund_id is not None:
             result['refund_id'] = self.refund_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
         return result
 
     def from_map(self, m: dict = None):
@@ -19449,6 +19461,8 @@ class QueryContractRefundRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('refund_id') is not None:
             self.refund_id = m.get('refund_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
         return self
 
 
