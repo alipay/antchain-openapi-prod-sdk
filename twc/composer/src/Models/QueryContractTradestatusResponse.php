@@ -65,6 +65,12 @@ class QueryContractTradestatusResponse extends Model
      * @var string
      */
     public $status;
+
+    // 唯一订单号
+    /**
+     * @var string
+     */
+    public $payIndex;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -74,6 +80,7 @@ class QueryContractTradestatusResponse extends Model
         'payDate'    => 'pay_date',
         'payMoney'   => 'pay_money',
         'status'     => 'status',
+        'payIndex'   => 'pay_index',
     ];
 
     public function validate()
@@ -108,6 +115,9 @@ class QueryContractTradestatusResponse extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->payIndex) {
+            $res['pay_index'] = $this->payIndex;
         }
 
         return $res;
@@ -144,6 +154,9 @@ class QueryContractTradestatusResponse extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['pay_index'])) {
+            $model->payIndex = $map['pay_index'];
         }
 
         return $model;

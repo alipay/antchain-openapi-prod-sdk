@@ -24,10 +24,17 @@ class QueryContractRefundRequest extends Model
      * @var string
      */
     public $refundId;
+
+    // 合同流程id
+    /**
+     * @var string
+     */
+    public $flowId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'refundId'          => 'refund_id',
+        'flowId'            => 'flow_id',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryContractRefundRequest extends Model
         }
         if (null !== $this->refundId) {
             $res['refund_id'] = $this->refundId;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryContractRefundRequest extends Model
         }
         if (isset($map['refund_id'])) {
             $model->refundId = $map['refund_id'];
+        }
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
 
         return $model;
