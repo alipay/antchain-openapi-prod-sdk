@@ -48,6 +48,10 @@ public class QueryContractTradestatusResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 唯一订单号
+    @NameInMap("pay_index")
+    public String payIndex;
+
     public static QueryContractTradestatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryContractTradestatusResponse self = new QueryContractTradestatusResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryContractTradestatusResponse extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public QueryContractTradestatusResponse setPayIndex(String payIndex) {
+        this.payIndex = payIndex;
+        return this;
+    }
+    public String getPayIndex() {
+        return this.payIndex;
     }
 
 }

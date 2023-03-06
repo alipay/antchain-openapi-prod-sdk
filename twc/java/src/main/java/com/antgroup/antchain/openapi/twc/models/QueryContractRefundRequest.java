@@ -16,6 +16,10 @@ public class QueryContractRefundRequest extends TeaModel {
     @Validation(required = true)
     public String refundId;
 
+    // 合同流程id
+    @NameInMap("flow_id")
+    public String flowId;
+
     public static QueryContractRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryContractRefundRequest self = new QueryContractRefundRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryContractRefundRequest extends TeaModel {
     }
     public String getRefundId() {
         return this.refundId;
+    }
+
+    public QueryContractRefundRequest setFlowId(String flowId) {
+        this.flowId = flowId;
+        return this;
+    }
+    public String getFlowId() {
+        return this.flowId;
     }
 
 }
