@@ -15787,6 +15787,8 @@ type QueryContractTradestatusResponse struct {
 	// TRADE_FINISHED 交易终止（扣款成功）
 	// TRADE_CANCEL 代扣取消
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 唯一订单号
+	PayIndex *string `json:"pay_index,omitempty" xml:"pay_index,omitempty"`
 }
 
 func (s QueryContractTradestatusResponse) String() string {
@@ -15837,12 +15839,19 @@ func (s *QueryContractTradestatusResponse) SetStatus(v string) *QueryContractTra
 	return s
 }
 
+func (s *QueryContractTradestatusResponse) SetPayIndex(v string) *QueryContractTradestatusResponse {
+	s.PayIndex = &v
+	return s
+}
+
 type QueryContractRefundRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 退款ID，用户调用退款接口时传入的自定义第三方id
 	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty" require:"true"`
+	// 合同流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
 }
 
 func (s QueryContractRefundRequest) String() string {
@@ -15865,6 +15874,11 @@ func (s *QueryContractRefundRequest) SetProductInstanceId(v string) *QueryContra
 
 func (s *QueryContractRefundRequest) SetRefundId(v string) *QueryContractRefundRequest {
 	s.RefundId = &v
+	return s
+}
+
+func (s *QueryContractRefundRequest) SetFlowId(v string) *QueryContractRefundRequest {
+	s.FlowId = &v
 	return s
 }
 
@@ -41726,17 +41740,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -41770,7 +41784,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.29"),
+				"sdk_version":      tea.String("1.8.30"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
