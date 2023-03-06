@@ -11800,6 +11800,8 @@ export class QueryContractTradestatusResponse extends $tea.Model {
   // TRADE_FINISHED 交易终止（扣款成功）
   // TRADE_CANCEL 代扣取消
   status?: string;
+  // 唯一订单号
+  payIndex?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11810,6 +11812,7 @@ export class QueryContractTradestatusResponse extends $tea.Model {
       payDate: 'pay_date',
       payMoney: 'pay_money',
       status: 'status',
+      payIndex: 'pay_index',
     };
   }
 
@@ -11823,6 +11826,7 @@ export class QueryContractTradestatusResponse extends $tea.Model {
       payDate: 'string',
       payMoney: 'number',
       status: 'string',
+      payIndex: 'string',
     };
   }
 
@@ -11837,11 +11841,14 @@ export class QueryContractRefundRequest extends $tea.Model {
   productInstanceId?: string;
   // 退款ID，用户调用退款接口时传入的自定义第三方id
   refundId: string;
+  // 合同流程id
+  flowId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       refundId: 'refund_id',
+      flowId: 'flow_id',
     };
   }
 
@@ -11850,6 +11857,7 @@ export class QueryContractRefundRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       refundId: 'string',
+      flowId: 'string',
     };
   }
 
@@ -30963,7 +30971,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -31002,7 +31010,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.29",
+          sdk_version: "1.8.30",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
