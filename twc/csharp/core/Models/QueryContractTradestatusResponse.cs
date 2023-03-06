@@ -59,6 +59,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string Status { get; set; }
 
+        // 唯一订单号
+        [NameInMap("pay_index")]
+        [Validation(Required=false)]
+        public string PayIndex { get; set; }
+
     }
 
 }

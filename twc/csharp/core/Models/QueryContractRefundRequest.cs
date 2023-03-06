@@ -23,6 +23,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string RefundId { get; set; }
 
+        // 合同流程id
+        [NameInMap("flow_id")]
+        [Validation(Required=false)]
+        public string FlowId { get; set; }
+
     }
 
 }
