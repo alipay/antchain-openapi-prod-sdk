@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.77',
+    sdk_version = '1.3.82',
     _prod_code = 'BAASDT',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -15636,6 +15636,142 @@ async function listIpCodeserviceprovider(request: ListIpCodeserviceproviderReque
 async function listIpCodeserviceproviderEx(request: ListIpCodeserviceproviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIpCodeserviceproviderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIpCodebaseinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // phone_number、user_id 必填一个
+  userId?: string(name='user_id'),
+  // phone_number、user_id 必填一个
+  phoneNumber?: string(name='phone_number'),
+  // 用户头像地址，传空则查询shareInfo并更新
+  avatar?: string(name='avatar'),
+  // 用户昵称，传空则查询shareInfo并更新
+  nickName?: string(name='nick_name'),
+}
+
+model UpdateIpCodebaseinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新用户领取的UNI码头像及昵称信息
+ * Summary: 数字商品服务-UNI码-用户信息更新
+ */
+async function updateIpCodebaseinfo(request: UpdateIpCodebaseinfoRequest): UpdateIpCodebaseinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIpCodebaseinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新用户领取的UNI码头像及昵称信息
+ * Summary: 数字商品服务-UNI码-用户信息更新
+ */
+async function updateIpCodebaseinfoEx(request: UpdateIpCodebaseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIpCodebaseinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.codebaseinfo.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpUsershareinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 用户授权code
+  authCode: string(name='auth_code'),
+}
+
+model QueryIpUsershareinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户ID
+  userId?: string(name='user_id'),
+  // 用户头像地址
+  avatar?: string(name='avatar'),
+  // 用户昵称
+  nickName?: string(name='nick_name'),
+  // 市名称
+  city?: string(name='city'),
+  // 省份名称
+  province?: string(name='province'),
+}
+
+/**
+ * Description: 查询支付宝用户授权信息
+ * Summary: 数字商品服务-UNI码-用户授权信息查询
+ */
+async function queryIpUsershareinfo(request: QueryIpUsershareinfoRequest): QueryIpUsershareinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpUsershareinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询支付宝用户授权信息
+ * Summary: 数字商品服务-UNI码-用户授权信息查询
+ */
+async function queryIpUsershareinfoEx(request: QueryIpUsershareinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpUsershareinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.usershareinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 用户ID，logon_id、user_id必填一个
+  userId?: string(name='user_id'),
+  // 支付宝登录ID，logon_id、user_id必填一个
+  logonId?: string(name='logon_id'),
+  // uni码，支持unicode、原始码、加密码
+  code: string(name='code'),
+}
+
+model MatchIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否当前持有人
+  matchResult?: boolean(name='match_result'),
+}
+
+/**
+ * Description: 校验用户是否当前持有人
+ * Summary: 数字商品服务-UNI码-用户持有校验
+ */
+async function matchIpCode(request: MatchIpCodeRequest): MatchIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验用户是否当前持有人
+ * Summary: 数字商品服务-UNI码-用户持有校验
+ */
+async function matchIpCodeEx(request: MatchIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
