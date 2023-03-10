@@ -269,6 +269,8 @@ use AntChain\BAASDT\Models\ListIpCodeserviceproviderRequest;
 use AntChain\BAASDT\Models\ListIpCodeserviceproviderResponse;
 use AntChain\BAASDT\Models\ListIpShopRequest;
 use AntChain\BAASDT\Models\ListIpShopResponse;
+use AntChain\BAASDT\Models\MatchIpCodeRequest;
+use AntChain\BAASDT\Models\MatchIpCodeResponse;
 use AntChain\BAASDT\Models\OfflineConsumecardAccountRequest;
 use AntChain\BAASDT\Models\OfflineConsumecardAccountResponse;
 use AntChain\BAASDT\Models\OfflineEquityRequest;
@@ -433,6 +435,8 @@ use AntChain\BAASDT\Models\QueryIpTwcaccountRequest;
 use AntChain\BAASDT\Models\QueryIpTwcaccountResponse;
 use AntChain\BAASDT\Models\QueryIpTypeRequest;
 use AntChain\BAASDT\Models\QueryIpTypeResponse;
+use AntChain\BAASDT\Models\QueryIpUsershareinfoRequest;
+use AntChain\BAASDT\Models\QueryIpUsershareinfoResponse;
 use AntChain\BAASDT\Models\QueryIpValueaddRequest;
 use AntChain\BAASDT\Models\QueryIpValueaddResponse;
 use AntChain\BAASDT\Models\QueryMerchantExchangeableequitydetailRequest;
@@ -575,6 +579,8 @@ use AntChain\BAASDT\Models\UpdateIpAccountRequest;
 use AntChain\BAASDT\Models\UpdateIpAccountResponse;
 use AntChain\BAASDT\Models\UpdateIpChannelRequest;
 use AntChain\BAASDT\Models\UpdateIpChannelResponse;
+use AntChain\BAASDT\Models\UpdateIpCodebaseinfoRequest;
+use AntChain\BAASDT\Models\UpdateIpCodebaseinfoResponse;
 use AntChain\BAASDT\Models\UpdateIpGoodsgalleryRequest;
 use AntChain\BAASDT\Models\UpdateIpGoodsgalleryResponse;
 use AntChain\BAASDT\Models\UpdateIpGoodsRequest;
@@ -700,18 +706,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -748,7 +754,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.77',
+                    'sdk_version'      => '1.3.82',
                     '_prod_code'       => 'BAASDT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9905,6 +9911,105 @@ class Client
         Utils::validateModel($request);
 
         return ListIpCodeserviceproviderResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新用户领取的UNI码头像及昵称信息
+     * Summary: 数字商品服务-UNI码-用户信息更新.
+     *
+     * @param UpdateIpCodebaseinfoRequest $request
+     *
+     * @return UpdateIpCodebaseinfoResponse
+     */
+    public function updateIpCodebaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateIpCodebaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新用户领取的UNI码头像及昵称信息
+     * Summary: 数字商品服务-UNI码-用户信息更新.
+     *
+     * @param UpdateIpCodebaseinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateIpCodebaseinfoResponse
+     */
+    public function updateIpCodebaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateIpCodebaseinfoResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codebaseinfo.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询支付宝用户授权信息
+     * Summary: 数字商品服务-UNI码-用户授权信息查询.
+     *
+     * @param QueryIpUsershareinfoRequest $request
+     *
+     * @return QueryIpUsershareinfoResponse
+     */
+    public function queryIpUsershareinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpUsershareinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询支付宝用户授权信息
+     * Summary: 数字商品服务-UNI码-用户授权信息查询.
+     *
+     * @param QueryIpUsershareinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryIpUsershareinfoResponse
+     */
+    public function queryIpUsershareinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpUsershareinfoResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.usershareinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验用户是否当前持有人
+     * Summary: 数字商品服务-UNI码-用户持有校验.
+     *
+     * @param MatchIpCodeRequest $request
+     *
+     * @return MatchIpCodeResponse
+     */
+    public function matchIpCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchIpCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验用户是否当前持有人
+     * Summary: 数字商品服务-UNI码-用户持有校验.
+     *
+     * @param MatchIpCodeRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return MatchIpCodeResponse
+     */
+    public function matchIpCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchIpCodeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.code.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
