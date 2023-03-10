@@ -74,6 +74,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CoolingPeriod { get; set; }
 
+        // 资金源编码
+        [NameInMap("loan_inst_code")]
+        [Validation(Required=false)]
+        public string LoanInstCode { get; set; }
+
     }
 
 }
