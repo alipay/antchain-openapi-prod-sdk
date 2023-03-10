@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.77"),
+                    new TeaPair("sdk_version", "1.3.82"),
                     new TeaPair("_prod_code", "BAASDT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -5423,6 +5423,63 @@ public class Client {
     public ListIpCodeserviceproviderResponse listIpCodeserviceproviderEx(ListIpCodeserviceproviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIpCodeserviceproviderResponse());
+    }
+
+    /**
+     * Description: 更新用户领取的UNI码头像及昵称信息
+     * Summary: 数字商品服务-UNI码-用户信息更新
+     */
+    public UpdateIpCodebaseinfoResponse updateIpCodebaseinfo(UpdateIpCodebaseinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateIpCodebaseinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新用户领取的UNI码头像及昵称信息
+     * Summary: 数字商品服务-UNI码-用户信息更新
+     */
+    public UpdateIpCodebaseinfoResponse updateIpCodebaseinfoEx(UpdateIpCodebaseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codebaseinfo.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateIpCodebaseinfoResponse());
+    }
+
+    /**
+     * Description: 查询支付宝用户授权信息
+     * Summary: 数字商品服务-UNI码-用户授权信息查询
+     */
+    public QueryIpUsershareinfoResponse queryIpUsershareinfo(QueryIpUsershareinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpUsershareinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询支付宝用户授权信息
+     * Summary: 数字商品服务-UNI码-用户授权信息查询
+     */
+    public QueryIpUsershareinfoResponse queryIpUsershareinfoEx(QueryIpUsershareinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.usershareinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpUsershareinfoResponse());
+    }
+
+    /**
+     * Description: 校验用户是否当前持有人
+     * Summary: 数字商品服务-UNI码-用户持有校验
+     */
+    public MatchIpCodeResponse matchIpCode(MatchIpCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchIpCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 校验用户是否当前持有人
+     * Summary: 数字商品服务-UNI码-用户持有校验
+     */
+    public MatchIpCodeResponse matchIpCodeEx(MatchIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchIpCodeResponse());
     }
 
     /**
