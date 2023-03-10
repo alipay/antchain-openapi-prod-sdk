@@ -62,6 +62,10 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("risk_data")
     public String riskData;
 
+    // 资金源编码
+    @NameInMap("loan_inst_code")
+    public String loanInstCode;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -169,6 +173,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getRiskData() {
         return this.riskData;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setLoanInstCode(String loanInstCode) {
+        this.loanInstCode = loanInstCode;
+        return this;
+    }
+    public String getLoanInstCode() {
+        return this.loanInstCode;
     }
 
 }

@@ -57,6 +57,10 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String coolingPeriod;
 
+    // 资金源编码
+    @NameInMap("loan_inst_code")
+    public String loanInstCode;
+
     public static QueryDubbridgeCreditStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCreditStatusResponse self = new QueryDubbridgeCreditStatusResponse();
         return TeaModel.build(map, self);
@@ -164,6 +168,14 @@ public class QueryDubbridgeCreditStatusResponse extends TeaModel {
     }
     public String getCoolingPeriod() {
         return this.coolingPeriod;
+    }
+
+    public QueryDubbridgeCreditStatusResponse setLoanInstCode(String loanInstCode) {
+        this.loanInstCode = loanInstCode;
+        return this;
+    }
+    public String getLoanInstCode() {
+        return this.loanInstCode;
     }
 
 }
