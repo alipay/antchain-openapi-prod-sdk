@@ -10673,6 +10673,7 @@ class QueryDubbridgeCreditStatusResponse(TeaModel):
         apply_no: str = None,
         fund_code: str = None,
         cooling_period: str = None,
+        loan_inst_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10700,6 +10701,8 @@ class QueryDubbridgeCreditStatusResponse(TeaModel):
         self.fund_code = fund_code
         # 冷静期结束日期
         self.cooling_period = cooling_period
+        # 资金源编码
+        self.loan_inst_code = loan_inst_code
 
     def validate(self):
         if self.credit_info:
@@ -10739,6 +10742,8 @@ class QueryDubbridgeCreditStatusResponse(TeaModel):
             result['fund_code'] = self.fund_code
         if self.cooling_period is not None:
             result['cooling_period'] = self.cooling_period
+        if self.loan_inst_code is not None:
+            result['loan_inst_code'] = self.loan_inst_code
         return result
 
     def from_map(self, m: dict = None):
@@ -10770,6 +10775,8 @@ class QueryDubbridgeCreditStatusResponse(TeaModel):
             self.fund_code = m.get('fund_code')
         if m.get('cooling_period') is not None:
             self.cooling_period = m.get('cooling_period')
+        if m.get('loan_inst_code') is not None:
+            self.loan_inst_code = m.get('loan_inst_code')
         return self
 
 
@@ -13231,6 +13238,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         channel_type: str = None,
         custom_type: str = None,
         risk_data: str = None,
+        loan_inst_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13257,6 +13265,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.custom_type = custom_type
         # 风险数据对象（json字符串）
         self.risk_data = risk_data
+        # 资金源编码
+        self.loan_inst_code = loan_inst_code
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -13299,6 +13309,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             result['custom_type'] = self.custom_type
         if self.risk_data is not None:
             result['risk_data'] = self.risk_data
+        if self.loan_inst_code is not None:
+            result['loan_inst_code'] = self.loan_inst_code
         return result
 
     def from_map(self, m: dict = None):
@@ -13329,6 +13341,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             self.custom_type = m.get('custom_type')
         if m.get('risk_data') is not None:
             self.risk_data = m.get('risk_data')
+        if m.get('loan_inst_code') is not None:
+            self.loan_inst_code = m.get('loan_inst_code')
         return self
 
 
