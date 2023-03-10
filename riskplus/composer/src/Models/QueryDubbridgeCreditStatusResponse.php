@@ -85,6 +85,12 @@ class QueryDubbridgeCreditStatusResponse extends Model
      * @var string
      */
     public $coolingPeriod;
+
+    // 资金源编码
+    /**
+     * @var string
+     */
+    public $loanInstCode;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -99,6 +105,7 @@ class QueryDubbridgeCreditStatusResponse extends Model
         'applyNo'       => 'apply_no',
         'fundCode'      => 'fund_code',
         'coolingPeriod' => 'cooling_period',
+        'loanInstCode'  => 'loan_inst_code',
     ];
 
     public function validate()
@@ -147,6 +154,9 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (null !== $this->coolingPeriod) {
             $res['cooling_period'] = $this->coolingPeriod;
+        }
+        if (null !== $this->loanInstCode) {
+            $res['loan_inst_code'] = $this->loanInstCode;
         }
 
         return $res;
@@ -198,6 +208,9 @@ class QueryDubbridgeCreditStatusResponse extends Model
         }
         if (isset($map['cooling_period'])) {
             $model->coolingPeriod = $map['cooling_period'];
+        }
+        if (isset($map['loan_inst_code'])) {
+            $model->loanInstCode = $map['loan_inst_code'];
         }
 
         return $model;
