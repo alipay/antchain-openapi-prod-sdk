@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.12',
+    sdk_version = '1.16.13',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -3269,6 +3269,8 @@ model QueryDubbridgeCreditStatusResponse = {
   fundCode?: string(name='fund_code'),
   // 冷静期结束日期
   coolingPeriod?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='cooling_period'),
+  // 资金源编码
+  loanInstCode?: string(name='loan_inst_code'),
 }
 
 /**
@@ -4210,6 +4212,8 @@ model ApplyDubbridgeUsecreditRequest = {
   customType?: string(name='custom_type'),
   // 风险数据对象（json字符串）
   riskData?: string(name='risk_data'),
+  // 资金源编码
+  loanInstCode?: string(name='loan_inst_code'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
