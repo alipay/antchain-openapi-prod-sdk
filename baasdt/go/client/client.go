@@ -36351,6 +36351,293 @@ func (s *ListIpCodeserviceproviderResponse) SetServiceProviderList(v []*ServiceP
 	return s
 }
 
+type UpdateIpCodebaseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// phone_number、user_id 必填一个
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// phone_number、user_id 必填一个
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 用户头像地址，传空则查询shareInfo并更新
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+	// 用户昵称，传空则查询shareInfo并更新
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+}
+
+func (s UpdateIpCodebaseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpCodebaseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetAuthToken(v string) *UpdateIpCodebaseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetProductInstanceId(v string) *UpdateIpCodebaseinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetBaseRequest(v *BaseRequestInfo) *UpdateIpCodebaseinfoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetUserId(v string) *UpdateIpCodebaseinfoRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetPhoneNumber(v string) *UpdateIpCodebaseinfoRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetAvatar(v string) *UpdateIpCodebaseinfoRequest {
+	s.Avatar = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoRequest) SetNickName(v string) *UpdateIpCodebaseinfoRequest {
+	s.NickName = &v
+	return s
+}
+
+type UpdateIpCodebaseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateIpCodebaseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpCodebaseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpCodebaseinfoResponse) SetReqMsgId(v string) *UpdateIpCodebaseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoResponse) SetResultCode(v string) *UpdateIpCodebaseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIpCodebaseinfoResponse) SetResultMsg(v string) *UpdateIpCodebaseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryIpUsershareinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户授权code
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s QueryIpUsershareinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpUsershareinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpUsershareinfoRequest) SetAuthToken(v string) *QueryIpUsershareinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoRequest) SetProductInstanceId(v string) *QueryIpUsershareinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpUsershareinfoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpUsershareinfoRequest) SetAuthCode(v string) *QueryIpUsershareinfoRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type QueryIpUsershareinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+	// 用户昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 市名称
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 省份名称
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+}
+
+func (s QueryIpUsershareinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpUsershareinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpUsershareinfoResponse) SetReqMsgId(v string) *QueryIpUsershareinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetResultCode(v string) *QueryIpUsershareinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetResultMsg(v string) *QueryIpUsershareinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetUserId(v string) *QueryIpUsershareinfoResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetAvatar(v string) *QueryIpUsershareinfoResponse {
+	s.Avatar = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetNickName(v string) *QueryIpUsershareinfoResponse {
+	s.NickName = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetCity(v string) *QueryIpUsershareinfoResponse {
+	s.City = &v
+	return s
+}
+
+func (s *QueryIpUsershareinfoResponse) SetProvince(v string) *QueryIpUsershareinfoResponse {
+	s.Province = &v
+	return s
+}
+
+type MatchIpCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户ID，logon_id、user_id必填一个
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 支付宝登录ID，logon_id、user_id必填一个
+	LogonId *string `json:"logon_id,omitempty" xml:"logon_id,omitempty"`
+	// uni码，支持unicode、原始码、加密码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s MatchIpCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchIpCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchIpCodeRequest) SetAuthToken(v string) *MatchIpCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchIpCodeRequest) SetProductInstanceId(v string) *MatchIpCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchIpCodeRequest) SetBaseRequest(v *BaseRequestInfo) *MatchIpCodeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *MatchIpCodeRequest) SetUserId(v string) *MatchIpCodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *MatchIpCodeRequest) SetLogonId(v string) *MatchIpCodeRequest {
+	s.LogonId = &v
+	return s
+}
+
+func (s *MatchIpCodeRequest) SetCode(v string) *MatchIpCodeRequest {
+	s.Code = &v
+	return s
+}
+
+type MatchIpCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否当前持有人
+	MatchResult *bool `json:"match_result,omitempty" xml:"match_result,omitempty"`
+}
+
+func (s MatchIpCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchIpCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchIpCodeResponse) SetReqMsgId(v string) *MatchIpCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchIpCodeResponse) SetResultCode(v string) *MatchIpCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchIpCodeResponse) SetResultMsg(v string) *MatchIpCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchIpCodeResponse) SetMatchResult(v bool) *MatchIpCodeResponse {
+	s.MatchResult = &v
+	return s
+}
+
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38628,17 +38915,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -38672,7 +38959,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.77"),
+				"sdk_version":      tea.String("1.3.82"),
 				"_prod_code":       tea.String("BAASDT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -48120,6 +48407,108 @@ func (client *Client) ListIpCodeserviceproviderEx(request *ListIpCodeserviceprov
 	}
 	_result = &ListIpCodeserviceproviderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeserviceprovider.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新用户领取的UNI码头像及昵称信息
+ * Summary: 数字商品服务-UNI码-用户信息更新
+ */
+func (client *Client) UpdateIpCodebaseinfo(request *UpdateIpCodebaseinfoRequest) (_result *UpdateIpCodebaseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIpCodebaseinfoResponse{}
+	_body, _err := client.UpdateIpCodebaseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新用户领取的UNI码头像及昵称信息
+ * Summary: 数字商品服务-UNI码-用户信息更新
+ */
+func (client *Client) UpdateIpCodebaseinfoEx(request *UpdateIpCodebaseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIpCodebaseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIpCodebaseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codebaseinfo.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询支付宝用户授权信息
+ * Summary: 数字商品服务-UNI码-用户授权信息查询
+ */
+func (client *Client) QueryIpUsershareinfo(request *QueryIpUsershareinfoRequest) (_result *QueryIpUsershareinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpUsershareinfoResponse{}
+	_body, _err := client.QueryIpUsershareinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询支付宝用户授权信息
+ * Summary: 数字商品服务-UNI码-用户授权信息查询
+ */
+func (client *Client) QueryIpUsershareinfoEx(request *QueryIpUsershareinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpUsershareinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpUsershareinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.usershareinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 校验用户是否当前持有人
+ * Summary: 数字商品服务-UNI码-用户持有校验
+ */
+func (client *Client) MatchIpCode(request *MatchIpCodeRequest) (_result *MatchIpCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchIpCodeResponse{}
+	_body, _err := client.MatchIpCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 校验用户是否当前持有人
+ * Summary: 数字商品服务-UNI码-用户持有校验
+ */
+func (client *Client) MatchIpCodeEx(request *MatchIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchIpCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchIpCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.code.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
