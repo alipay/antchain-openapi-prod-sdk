@@ -8644,6 +8644,8 @@ type QueryDubbridgeCreditStatusResponse struct {
 	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 	// 冷静期结束日期
 	CoolingPeriod *string `json:"cooling_period,omitempty" xml:"cooling_period,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 资金源编码
+	LoanInstCode *string `json:"loan_inst_code,omitempty" xml:"loan_inst_code,omitempty"`
 }
 
 func (s QueryDubbridgeCreditStatusResponse) String() string {
@@ -8716,6 +8718,11 @@ func (s *QueryDubbridgeCreditStatusResponse) SetFundCode(v string) *QueryDubbrid
 
 func (s *QueryDubbridgeCreditStatusResponse) SetCoolingPeriod(v string) *QueryDubbridgeCreditStatusResponse {
 	s.CoolingPeriod = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetLoanInstCode(v string) *QueryDubbridgeCreditStatusResponse {
+	s.LoanInstCode = &v
 	return s
 }
 
@@ -10740,6 +10747,8 @@ type ApplyDubbridgeUsecreditRequest struct {
 	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
 	// 风险数据对象（json字符串）
 	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
+	// 资金源编码
+	LoanInstCode *string `json:"loan_inst_code,omitempty" xml:"loan_inst_code,omitempty"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -10812,6 +10821,11 @@ func (s *ApplyDubbridgeUsecreditRequest) SetCustomType(v string) *ApplyDubbridge
 
 func (s *ApplyDubbridgeUsecreditRequest) SetRiskData(v string) *ApplyDubbridgeUsecreditRequest {
 	s.RiskData = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetLoanInstCode(v string) *ApplyDubbridgeUsecreditRequest {
+	s.LoanInstCode = &v
 	return s
 }
 
@@ -19462,7 +19476,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.12"),
+				"sdk_version":      tea.String("1.16.13"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
