@@ -27155,6 +27155,227 @@ export class ListIpCodeserviceproviderResponse extends $tea.Model {
   }
 }
 
+export class UpdateIpCodebaseinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // phone_number、user_id 必填一个
+  userId?: string;
+  // phone_number、user_id 必填一个
+  phoneNumber?: string;
+  // 用户头像地址，传空则查询shareInfo并更新
+  avatar?: string;
+  // 用户昵称，传空则查询shareInfo并更新
+  nickName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      userId: 'user_id',
+      phoneNumber: 'phone_number',
+      avatar: 'avatar',
+      nickName: 'nick_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      userId: 'string',
+      phoneNumber: 'string',
+      avatar: 'string',
+      nickName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpCodebaseinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpUsershareinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 用户授权code
+  authCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      authCode: 'auth_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      authCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpUsershareinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  userId?: string;
+  // 用户头像地址
+  avatar?: string;
+  // 用户昵称
+  nickName?: string;
+  // 市名称
+  city?: string;
+  // 省份名称
+  province?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      avatar: 'avatar',
+      nickName: 'nick_name',
+      city: 'city',
+      province: 'province',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      avatar: 'string',
+      nickName: 'string',
+      city: 'string',
+      province: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class MatchIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 用户ID，logon_id、user_id必填一个
+  userId?: string;
+  // 支付宝登录ID，logon_id、user_id必填一个
+  logonId?: string;
+  // uni码，支持unicode、原始码、加密码
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      userId: 'user_id',
+      logonId: 'logon_id',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      userId: 'string',
+      logonId: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class MatchIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否当前持有人
+  matchResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      matchResult: 'match_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      matchResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28866,7 +29087,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -28905,7 +29126,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.77",
+          sdk_version: "1.3.82",
           _prod_code: "BAASDT",
           _prod_channel: "undefined",
         };
@@ -34215,6 +34436,63 @@ export default class Client {
   async listIpCodeserviceproviderEx(request: ListIpCodeserviceproviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIpCodeserviceproviderResponse> {
     Util.validateModel(request);
     return $tea.cast<ListIpCodeserviceproviderResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIpCodeserviceproviderResponse({}));
+  }
+
+  /**
+   * Description: 更新用户领取的UNI码头像及昵称信息
+   * Summary: 数字商品服务-UNI码-用户信息更新
+   */
+  async updateIpCodebaseinfo(request: UpdateIpCodebaseinfoRequest): Promise<UpdateIpCodebaseinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateIpCodebaseinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新用户领取的UNI码头像及昵称信息
+   * Summary: 数字商品服务-UNI码-用户信息更新
+   */
+  async updateIpCodebaseinfoEx(request: UpdateIpCodebaseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIpCodebaseinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateIpCodebaseinfoResponse>(await this.doRequest("1.0", "baas.antdao.ip.codebaseinfo.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIpCodebaseinfoResponse({}));
+  }
+
+  /**
+   * Description: 查询支付宝用户授权信息
+   * Summary: 数字商品服务-UNI码-用户授权信息查询
+   */
+  async queryIpUsershareinfo(request: QueryIpUsershareinfoRequest): Promise<QueryIpUsershareinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpUsershareinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询支付宝用户授权信息
+   * Summary: 数字商品服务-UNI码-用户授权信息查询
+   */
+  async queryIpUsershareinfoEx(request: QueryIpUsershareinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpUsershareinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpUsershareinfoResponse>(await this.doRequest("1.0", "baas.antdao.ip.usershareinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpUsershareinfoResponse({}));
+  }
+
+  /**
+   * Description: 校验用户是否当前持有人
+   * Summary: 数字商品服务-UNI码-用户持有校验
+   */
+  async matchIpCode(request: MatchIpCodeRequest): Promise<MatchIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.matchIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 校验用户是否当前持有人
+   * Summary: 数字商品服务-UNI码-用户持有校验
+   */
+  async matchIpCodeEx(request: MatchIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<MatchIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<MatchIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.match", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new MatchIpCodeResponse({}));
   }
 
   /**
