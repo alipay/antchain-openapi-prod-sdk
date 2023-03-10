@@ -91,7 +91,7 @@ namespace AntChain.SDK.BAASDT
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.77"},
+                        {"sdk_version", "1.3.82"},
                         {"_prod_code", "BAASDT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.BAASDT
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.77"},
+                        {"sdk_version", "1.3.82"},
                         {"_prod_code", "BAASDT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -11951,6 +11951,132 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListIpCodeserviceproviderResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codeserviceprovider.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新用户领取的UNI码头像及昵称信息
+         * Summary: 数字商品服务-UNI码-用户信息更新
+         */
+        public UpdateIpCodebaseinfoResponse UpdateIpCodebaseinfo(UpdateIpCodebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateIpCodebaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新用户领取的UNI码头像及昵称信息
+         * Summary: 数字商品服务-UNI码-用户信息更新
+         */
+        public async Task<UpdateIpCodebaseinfoResponse> UpdateIpCodebaseinfoAsync(UpdateIpCodebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateIpCodebaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新用户领取的UNI码头像及昵称信息
+         * Summary: 数字商品服务-UNI码-用户信息更新
+         */
+        public UpdateIpCodebaseinfoResponse UpdateIpCodebaseinfoEx(UpdateIpCodebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateIpCodebaseinfoResponse>(DoRequest("1.0", "baas.antdao.ip.codebaseinfo.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新用户领取的UNI码头像及昵称信息
+         * Summary: 数字商品服务-UNI码-用户信息更新
+         */
+        public async Task<UpdateIpCodebaseinfoResponse> UpdateIpCodebaseinfoExAsync(UpdateIpCodebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateIpCodebaseinfoResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codebaseinfo.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询支付宝用户授权信息
+         * Summary: 数字商品服务-UNI码-用户授权信息查询
+         */
+        public QueryIpUsershareinfoResponse QueryIpUsershareinfo(QueryIpUsershareinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpUsershareinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询支付宝用户授权信息
+         * Summary: 数字商品服务-UNI码-用户授权信息查询
+         */
+        public async Task<QueryIpUsershareinfoResponse> QueryIpUsershareinfoAsync(QueryIpUsershareinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpUsershareinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询支付宝用户授权信息
+         * Summary: 数字商品服务-UNI码-用户授权信息查询
+         */
+        public QueryIpUsershareinfoResponse QueryIpUsershareinfoEx(QueryIpUsershareinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpUsershareinfoResponse>(DoRequest("1.0", "baas.antdao.ip.usershareinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询支付宝用户授权信息
+         * Summary: 数字商品服务-UNI码-用户授权信息查询
+         */
+        public async Task<QueryIpUsershareinfoResponse> QueryIpUsershareinfoExAsync(QueryIpUsershareinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpUsershareinfoResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.usershareinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验用户是否当前持有人
+         * Summary: 数字商品服务-UNI码-用户持有校验
+         */
+        public MatchIpCodeResponse MatchIpCode(MatchIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchIpCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验用户是否当前持有人
+         * Summary: 数字商品服务-UNI码-用户持有校验
+         */
+        public async Task<MatchIpCodeResponse> MatchIpCodeAsync(MatchIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchIpCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验用户是否当前持有人
+         * Summary: 数字商品服务-UNI码-用户持有校验
+         */
+        public MatchIpCodeResponse MatchIpCodeEx(MatchIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchIpCodeResponse>(DoRequest("1.0", "baas.antdao.ip.code.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验用户是否当前持有人
+         * Summary: 数字商品服务-UNI码-用户持有校验
+         */
+        public async Task<MatchIpCodeResponse> MatchIpCodeExAsync(MatchIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchIpCodeResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.code.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
