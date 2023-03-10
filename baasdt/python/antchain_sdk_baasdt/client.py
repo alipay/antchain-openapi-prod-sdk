@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.77',
+                    'sdk_version': '1.3.82',
                     '_prod_code': 'BAASDT',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.77',
+                    'sdk_version': '1.3.82',
                     '_prod_code': 'BAASDT',
                     '_prod_channel': 'undefined'
                 }
@@ -15743,6 +15743,174 @@ class Client:
         return TeaCore.from_map(
             baasdt_models.ListIpCodeserviceproviderResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codeserviceprovider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_ip_codebaseinfo(
+        self,
+        request: baasdt_models.UpdateIpCodebaseinfoRequest,
+    ) -> baasdt_models.UpdateIpCodebaseinfoResponse:
+        """
+        Description: 更新用户领取的UNI码头像及昵称信息
+        Summary: 数字商品服务-UNI码-用户信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_ip_codebaseinfo_ex(request, headers, runtime)
+
+    async def update_ip_codebaseinfo_async(
+        self,
+        request: baasdt_models.UpdateIpCodebaseinfoRequest,
+    ) -> baasdt_models.UpdateIpCodebaseinfoResponse:
+        """
+        Description: 更新用户领取的UNI码头像及昵称信息
+        Summary: 数字商品服务-UNI码-用户信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_ip_codebaseinfo_ex_async(request, headers, runtime)
+
+    def update_ip_codebaseinfo_ex(
+        self,
+        request: baasdt_models.UpdateIpCodebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.UpdateIpCodebaseinfoResponse:
+        """
+        Description: 更新用户领取的UNI码头像及昵称信息
+        Summary: 数字商品服务-UNI码-用户信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpCodebaseinfoResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.codebaseinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_ip_codebaseinfo_ex_async(
+        self,
+        request: baasdt_models.UpdateIpCodebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.UpdateIpCodebaseinfoResponse:
+        """
+        Description: 更新用户领取的UNI码头像及昵称信息
+        Summary: 数字商品服务-UNI码-用户信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpCodebaseinfoResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.codebaseinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_usershareinfo(
+        self,
+        request: baasdt_models.QueryIpUsershareinfoRequest,
+    ) -> baasdt_models.QueryIpUsershareinfoResponse:
+        """
+        Description: 查询支付宝用户授权信息
+        Summary: 数字商品服务-UNI码-用户授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_usershareinfo_ex(request, headers, runtime)
+
+    async def query_ip_usershareinfo_async(
+        self,
+        request: baasdt_models.QueryIpUsershareinfoRequest,
+    ) -> baasdt_models.QueryIpUsershareinfoResponse:
+        """
+        Description: 查询支付宝用户授权信息
+        Summary: 数字商品服务-UNI码-用户授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_usershareinfo_ex_async(request, headers, runtime)
+
+    def query_ip_usershareinfo_ex(
+        self,
+        request: baasdt_models.QueryIpUsershareinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpUsershareinfoResponse:
+        """
+        Description: 查询支付宝用户授权信息
+        Summary: 数字商品服务-UNI码-用户授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.QueryIpUsershareinfoResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.usershareinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_usershareinfo_ex_async(
+        self,
+        request: baasdt_models.QueryIpUsershareinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpUsershareinfoResponse:
+        """
+        Description: 查询支付宝用户授权信息
+        Summary: 数字商品服务-UNI码-用户授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.QueryIpUsershareinfoResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.usershareinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def match_ip_code(
+        self,
+        request: baasdt_models.MatchIpCodeRequest,
+    ) -> baasdt_models.MatchIpCodeResponse:
+        """
+        Description: 校验用户是否当前持有人
+        Summary: 数字商品服务-UNI码-用户持有校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_ip_code_ex(request, headers, runtime)
+
+    async def match_ip_code_async(
+        self,
+        request: baasdt_models.MatchIpCodeRequest,
+    ) -> baasdt_models.MatchIpCodeResponse:
+        """
+        Description: 校验用户是否当前持有人
+        Summary: 数字商品服务-UNI码-用户持有校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_ip_code_ex_async(request, headers, runtime)
+
+    def match_ip_code_ex(
+        self,
+        request: baasdt_models.MatchIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.MatchIpCodeResponse:
+        """
+        Description: 校验用户是否当前持有人
+        Summary: 数字商品服务-UNI码-用户持有校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.MatchIpCodeResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.code.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_ip_code_ex_async(
+        self,
+        request: baasdt_models.MatchIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.MatchIpCodeResponse:
+        """
+        Description: 校验用户是否当前持有人
+        Summary: 数字商品服务-UNI码-用户持有校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.MatchIpCodeResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.code.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
