@@ -6424,6 +6424,8 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
   fundCode?: string;
   // 冷静期结束日期
   coolingPeriod?: string;
+  // 资金源编码
+  loanInstCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6439,6 +6441,7 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       applyNo: 'apply_no',
       fundCode: 'fund_code',
       coolingPeriod: 'cooling_period',
+      loanInstCode: 'loan_inst_code',
     };
   }
 
@@ -6457,6 +6460,7 @@ export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
       applyNo: 'string',
       fundCode: 'string',
       coolingPeriod: 'string',
+      loanInstCode: 'string',
     };
   }
 
@@ -7973,6 +7977,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   customType?: string;
   // 风险数据对象（json字符串）
   riskData?: string;
+  // 资金源编码
+  loanInstCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7988,6 +7994,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       channelType: 'channel_type',
       customType: 'custom_type',
       riskData: 'risk_data',
+      loanInstCode: 'loan_inst_code',
     };
   }
 
@@ -8006,6 +8013,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       channelType: 'string',
       customType: 'string',
       riskData: 'string',
+      loanInstCode: 'string',
     };
   }
 
@@ -14589,7 +14597,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.12",
+          sdk_version: "1.16.13",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
