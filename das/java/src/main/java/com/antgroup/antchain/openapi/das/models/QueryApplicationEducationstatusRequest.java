@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
+public class QueryApplicationEducationstatusRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,41 +11,37 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 数据源id
+    // 需求ID
     @NameInMap("data_set_id")
     @Validation(required = true)
     public String dataSetId;
 
-    // 用户是否已授权
+    // 用户是否已经授权
     @NameInMap("user_authed")
     @Validation(required = true)
     public Boolean userAuthed;
 
-    // 该接口对应的授权协议索引号
+    // 授权文件索引
     @NameInMap("file_index")
     @Validation(required = true)
     public String fileIndex;
 
-    // 用户姓名
+    // 姓名
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;
 
-    // 用户身份证号
+    // 身份证号
     @NameInMap("user_cert_no")
     @Validation(required = true)
     public String userCertNo;
 
-    // 用户手机号
-    @NameInMap("user_tel")
-    public String userTel;
-
-    public static QueryIdnumberEducationtaginfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryIdnumberEducationtaginfoRequest self = new QueryIdnumberEducationtaginfoRequest();
+    public static QueryApplicationEducationstatusRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApplicationEducationstatusRequest self = new QueryApplicationEducationstatusRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryIdnumberEducationtaginfoRequest setAuthToken(String authToken) {
+    public QueryApplicationEducationstatusRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -53,7 +49,7 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setProductInstanceId(String productInstanceId) {
+    public QueryApplicationEducationstatusRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -61,7 +57,7 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setDataSetId(String dataSetId) {
+    public QueryApplicationEducationstatusRequest setDataSetId(String dataSetId) {
         this.dataSetId = dataSetId;
         return this;
     }
@@ -69,7 +65,7 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.dataSetId;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setUserAuthed(Boolean userAuthed) {
+    public QueryApplicationEducationstatusRequest setUserAuthed(Boolean userAuthed) {
         this.userAuthed = userAuthed;
         return this;
     }
@@ -77,7 +73,7 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.userAuthed;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setFileIndex(String fileIndex) {
+    public QueryApplicationEducationstatusRequest setFileIndex(String fileIndex) {
         this.fileIndex = fileIndex;
         return this;
     }
@@ -85,7 +81,7 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.fileIndex;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setUserName(String userName) {
+    public QueryApplicationEducationstatusRequest setUserName(String userName) {
         this.userName = userName;
         return this;
     }
@@ -93,20 +89,12 @@ public class QueryIdnumberEducationtaginfoRequest extends TeaModel {
         return this.userName;
     }
 
-    public QueryIdnumberEducationtaginfoRequest setUserCertNo(String userCertNo) {
+    public QueryApplicationEducationstatusRequest setUserCertNo(String userCertNo) {
         this.userCertNo = userCertNo;
         return this;
     }
     public String getUserCertNo() {
         return this.userCertNo;
-    }
-
-    public QueryIdnumberEducationtaginfoRequest setUserTel(String userTel) {
-        this.userTel = userTel;
-        return this;
-    }
-    public String getUserTel() {
-        return this.userTel;
     }
 
 }

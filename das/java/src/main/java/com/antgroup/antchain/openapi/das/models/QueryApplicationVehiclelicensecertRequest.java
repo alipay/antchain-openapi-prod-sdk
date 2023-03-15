@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
+public class QueryApplicationVehiclelicensecertRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -27,26 +27,26 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
     public String fileIndex;
 
     // 车牌号
-    @NameInMap("plat_number")
+    @NameInMap("plate_number")
     @Validation(required = true)
-    public String platNumber;
+    public String plateNumber;
 
     // 号牌种类，枚举
-    @NameInMap("platetype")
+    @NameInMap("plate_type")
     @Validation(required = true)
-    public String platetype;
+    public String plateType;
 
     // 所有人姓名
     @NameInMap("owner")
     @Validation(required = true)
     public String owner;
 
-    public static QueryApplicationDrivingpermitinfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryApplicationDrivingpermitinfoRequest self = new QueryApplicationDrivingpermitinfoRequest();
+    public static QueryApplicationVehiclelicensecertRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApplicationVehiclelicensecertRequest self = new QueryApplicationVehiclelicensecertRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setAuthToken(String authToken) {
+    public QueryApplicationVehiclelicensecertRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -54,7 +54,7 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setProductInstanceId(String productInstanceId) {
+    public QueryApplicationVehiclelicensecertRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -62,7 +62,7 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setDataSetId(String dataSetId) {
+    public QueryApplicationVehiclelicensecertRequest setDataSetId(String dataSetId) {
         this.dataSetId = dataSetId;
         return this;
     }
@@ -70,7 +70,7 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
         return this.dataSetId;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setUserAuthed(Boolean userAuthed) {
+    public QueryApplicationVehiclelicensecertRequest setUserAuthed(Boolean userAuthed) {
         this.userAuthed = userAuthed;
         return this;
     }
@@ -78,7 +78,7 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
         return this.userAuthed;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setFileIndex(String fileIndex) {
+    public QueryApplicationVehiclelicensecertRequest setFileIndex(String fileIndex) {
         this.fileIndex = fileIndex;
         return this;
     }
@@ -86,23 +86,23 @@ public class QueryApplicationDrivingpermitinfoRequest extends TeaModel {
         return this.fileIndex;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setPlatNumber(String platNumber) {
-        this.platNumber = platNumber;
+    public QueryApplicationVehiclelicensecertRequest setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
         return this;
     }
-    public String getPlatNumber() {
-        return this.platNumber;
+    public String getPlateNumber() {
+        return this.plateNumber;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setPlatetype(String platetype) {
-        this.platetype = platetype;
+    public QueryApplicationVehiclelicensecertRequest setPlateType(String plateType) {
+        this.plateType = plateType;
         return this;
     }
-    public String getPlatetype() {
-        return this.platetype;
+    public String getPlateType() {
+        return this.plateType;
     }
 
-    public QueryApplicationDrivingpermitinfoRequest setOwner(String owner) {
+    public QueryApplicationVehiclelicensecertRequest setOwner(String owner) {
         this.owner = owner;
         return this;
     }

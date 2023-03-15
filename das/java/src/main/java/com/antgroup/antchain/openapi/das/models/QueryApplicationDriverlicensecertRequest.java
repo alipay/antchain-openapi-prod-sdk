@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
+public class QueryApplicationDriverlicensecertRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,22 +26,22 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
     @Validation(required = true)
     public String fileIndex;
 
-    // 身份证号AES加密
-    @NameInMap("id_card")
+    // 身份证号
+    @NameInMap("user_cert_no")
     @Validation(required = true)
-    public String idCard;
+    public String userCertNo;
 
-    // 姓名aes加密
-    @NameInMap("name")
+    // 姓名
+    @NameInMap("user_name")
     @Validation(required = true)
-    public String name;
+    public String userName;
 
-    public static QueryApplicationDriverlicenseinfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryApplicationDriverlicenseinfoRequest self = new QueryApplicationDriverlicenseinfoRequest();
+    public static QueryApplicationDriverlicensecertRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApplicationDriverlicensecertRequest self = new QueryApplicationDriverlicensecertRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setAuthToken(String authToken) {
+    public QueryApplicationDriverlicensecertRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setProductInstanceId(String productInstanceId) {
+    public QueryApplicationDriverlicensecertRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +57,7 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setDataSetId(String dataSetId) {
+    public QueryApplicationDriverlicensecertRequest setDataSetId(String dataSetId) {
         this.dataSetId = dataSetId;
         return this;
     }
@@ -65,7 +65,7 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
         return this.dataSetId;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setUserAuthed(Boolean userAuthed) {
+    public QueryApplicationDriverlicensecertRequest setUserAuthed(Boolean userAuthed) {
         this.userAuthed = userAuthed;
         return this;
     }
@@ -73,7 +73,7 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
         return this.userAuthed;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setFileIndex(String fileIndex) {
+    public QueryApplicationDriverlicensecertRequest setFileIndex(String fileIndex) {
         this.fileIndex = fileIndex;
         return this;
     }
@@ -81,20 +81,20 @@ public class QueryApplicationDriverlicenseinfoRequest extends TeaModel {
         return this.fileIndex;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setIdCard(String idCard) {
-        this.idCard = idCard;
+    public QueryApplicationDriverlicensecertRequest setUserCertNo(String userCertNo) {
+        this.userCertNo = userCertNo;
         return this;
     }
-    public String getIdCard() {
-        return this.idCard;
+    public String getUserCertNo() {
+        return this.userCertNo;
     }
 
-    public QueryApplicationDriverlicenseinfoRequest setName(String name) {
-        this.name = name;
+    public QueryApplicationDriverlicensecertRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getUserName() {
+        return this.userName;
     }
 
 }

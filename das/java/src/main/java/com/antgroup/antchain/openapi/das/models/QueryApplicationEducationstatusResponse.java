@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApplicationDriverlicenseinfoResponse extends TeaModel {
+public class QueryApplicationEducationstatusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryApplicationDriverlicenseinfoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 驾驶证信息
+    // 学籍信息
     @NameInMap("data")
-    public DriverLicenseInfo data;
+    public java.util.List<EducationStatus> data;
 
-    public static QueryApplicationDriverlicenseinfoResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryApplicationDriverlicenseinfoResponse self = new QueryApplicationDriverlicenseinfoResponse();
+    public static QueryApplicationEducationstatusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryApplicationEducationstatusResponse self = new QueryApplicationEducationstatusResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryApplicationDriverlicenseinfoResponse setReqMsgId(String reqMsgId) {
+    public QueryApplicationEducationstatusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryApplicationDriverlicenseinfoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryApplicationDriverlicenseinfoResponse setResultCode(String resultCode) {
+    public QueryApplicationEducationstatusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryApplicationDriverlicenseinfoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryApplicationDriverlicenseinfoResponse setResultMsg(String resultMsg) {
+    public QueryApplicationEducationstatusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryApplicationDriverlicenseinfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryApplicationDriverlicenseinfoResponse setData(DriverLicenseInfo data) {
+    public QueryApplicationEducationstatusResponse setData(java.util.List<EducationStatus> data) {
         this.data = data;
         return this;
     }
-    public DriverLicenseInfo getData() {
+    public java.util.List<EducationStatus> getData() {
         return this.data;
     }
 

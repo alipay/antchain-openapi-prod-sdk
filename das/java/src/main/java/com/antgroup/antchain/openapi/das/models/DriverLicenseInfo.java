@@ -8,33 +8,33 @@ public class DriverLicenseInfo extends TeaModel {
     @NameInMap("gender")
     public String gender;
 
-    // 驾驶证发证日期
-    @NameInMap("driveissuedate")
-    public String driveissuedate;
+    // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+    @NameInMap("issue_date")
+    public String issueDate;
 
-    // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
-    @NameInMap("validdate")
-    public String validdate;
+    // 驾驶证有效终止日期
+    @NameInMap("valid_end_date")
+    public String validEndDate;
 
     // 驾驶证有效起始日期
-    @NameInMap("drivevalidstartdate")
-    public String drivevalidstartdate;
+    @NameInMap("valid_start_date")
+    public String validStartDate;
 
-    // 驾驶证状态字典
-    @NameInMap("drivecardstatus")
-    public String drivecardstatus;
+    // 驾驶证状态，字典
+    @NameInMap("driver_license_status")
+    public String driverLicenseStatus;
 
     // 初次领证时间
-    @NameInMap("firsissuedate")
-    public String firsissuedate;
+    @NameInMap("first_issue_date")
+    public String firstIssueDate;
 
     // 准驾车型，字典
-    @NameInMap("allowdrivecar")
-    public String allowdrivecar;
+    @NameInMap("allow_drive_car")
+    public String allowDriveCar;
 
     // 驾驶证种类，字典
-    @NameInMap("drivelicensetype")
-    public String drivelicensetype;
+    @NameInMap("driver_license_type")
+    public String driverLicenseType;
 
     public static DriverLicenseInfo build(java.util.Map<String, ?> map) throws Exception {
         DriverLicenseInfo self = new DriverLicenseInfo();
@@ -49,60 +49,60 @@ public class DriverLicenseInfo extends TeaModel {
         return this.gender;
     }
 
-    public DriverLicenseInfo setDriveissuedate(String driveissuedate) {
-        this.driveissuedate = driveissuedate;
+    public DriverLicenseInfo setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
         return this;
     }
-    public String getDriveissuedate() {
-        return this.driveissuedate;
+    public String getIssueDate() {
+        return this.issueDate;
     }
 
-    public DriverLicenseInfo setValiddate(String validdate) {
-        this.validdate = validdate;
+    public DriverLicenseInfo setValidEndDate(String validEndDate) {
+        this.validEndDate = validEndDate;
         return this;
     }
-    public String getValiddate() {
-        return this.validdate;
+    public String getValidEndDate() {
+        return this.validEndDate;
     }
 
-    public DriverLicenseInfo setDrivevalidstartdate(String drivevalidstartdate) {
-        this.drivevalidstartdate = drivevalidstartdate;
+    public DriverLicenseInfo setValidStartDate(String validStartDate) {
+        this.validStartDate = validStartDate;
         return this;
     }
-    public String getDrivevalidstartdate() {
-        return this.drivevalidstartdate;
+    public String getValidStartDate() {
+        return this.validStartDate;
     }
 
-    public DriverLicenseInfo setDrivecardstatus(String drivecardstatus) {
-        this.drivecardstatus = drivecardstatus;
+    public DriverLicenseInfo setDriverLicenseStatus(String driverLicenseStatus) {
+        this.driverLicenseStatus = driverLicenseStatus;
         return this;
     }
-    public String getDrivecardstatus() {
-        return this.drivecardstatus;
+    public String getDriverLicenseStatus() {
+        return this.driverLicenseStatus;
     }
 
-    public DriverLicenseInfo setFirsissuedate(String firsissuedate) {
-        this.firsissuedate = firsissuedate;
+    public DriverLicenseInfo setFirstIssueDate(String firstIssueDate) {
+        this.firstIssueDate = firstIssueDate;
         return this;
     }
-    public String getFirsissuedate() {
-        return this.firsissuedate;
+    public String getFirstIssueDate() {
+        return this.firstIssueDate;
     }
 
-    public DriverLicenseInfo setAllowdrivecar(String allowdrivecar) {
-        this.allowdrivecar = allowdrivecar;
+    public DriverLicenseInfo setAllowDriveCar(String allowDriveCar) {
+        this.allowDriveCar = allowDriveCar;
         return this;
     }
-    public String getAllowdrivecar() {
-        return this.allowdrivecar;
+    public String getAllowDriveCar() {
+        return this.allowDriveCar;
     }
 
-    public DriverLicenseInfo setDrivelicensetype(String drivelicensetype) {
-        this.drivelicensetype = drivelicensetype;
+    public DriverLicenseInfo setDriverLicenseType(String driverLicenseType) {
+        this.driverLicenseType = driverLicenseType;
         return this;
     }
-    public String getDrivelicensetype() {
-        return this.drivelicensetype;
+    public String getDriverLicenseType() {
+        return this.driverLicenseType;
     }
 
 }

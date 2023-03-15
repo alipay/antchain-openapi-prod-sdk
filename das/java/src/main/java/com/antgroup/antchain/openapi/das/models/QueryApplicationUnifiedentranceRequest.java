@@ -25,6 +25,10 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     @Validation(required = true)
     public String params;
 
+    // 是否授权
+    @NameInMap("user_authed")
+    public Boolean userAuthed;
+
     public static QueryApplicationUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApplicationUnifiedentranceRequest self = new QueryApplicationUnifiedentranceRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     }
     public String getParams() {
         return this.params;
+    }
+
+    public QueryApplicationUnifiedentranceRequest setUserAuthed(Boolean userAuthed) {
+        this.userAuthed = userAuthed;
+        return this;
+    }
+    public Boolean getUserAuthed() {
+        return this.userAuthed;
     }
 
 }

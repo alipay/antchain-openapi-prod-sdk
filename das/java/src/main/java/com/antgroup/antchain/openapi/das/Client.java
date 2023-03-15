@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.29"),
+                    new TeaPair("sdk_version", "1.1.41"),
                     new TeaPair("_prod_code", "DAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -527,41 +527,60 @@ public class Client {
     }
 
     /**
-     * Description: 驾驶证信息查询
-     * Summary: 驾驶证信息查询
+     * Description: 根据姓名和身份证，返回驾驶证核验信息
+     * Summary: 驾驶证核验信息查询
      */
-    public QueryApplicationDriverlicenseinfoResponse queryApplicationDriverlicenseinfo(QueryApplicationDriverlicenseinfoRequest request) throws Exception {
+    public QueryApplicationDriverlicensecertResponse queryApplicationDriverlicensecert(QueryApplicationDriverlicensecertRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryApplicationDriverlicenseinfoEx(request, headers, runtime);
+        return this.queryApplicationDriverlicensecertEx(request, headers, runtime);
     }
 
     /**
-     * Description: 驾驶证信息查询
-     * Summary: 驾驶证信息查询
+     * Description: 根据姓名和身份证，返回驾驶证核验信息
+     * Summary: 驾驶证核验信息查询
      */
-    public QueryApplicationDriverlicenseinfoResponse queryApplicationDriverlicenseinfoEx(QueryApplicationDriverlicenseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryApplicationDriverlicensecertResponse queryApplicationDriverlicensecertEx(QueryApplicationDriverlicensecertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.driverlicenseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDriverlicenseinfoResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.driverlicensecert.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDriverlicensecertResponse());
     }
 
     /**
      * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-     * Summary: 核验并查询行驶证信息
+     * Summary: 行驶证核验信息查询
      */
-    public QueryApplicationDrivingpermitinfoResponse queryApplicationDrivingpermitinfo(QueryApplicationDrivingpermitinfoRequest request) throws Exception {
+    public QueryApplicationVehiclelicensecertResponse queryApplicationVehiclelicensecert(QueryApplicationVehiclelicensecertRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryApplicationDrivingpermitinfoEx(request, headers, runtime);
+        return this.queryApplicationVehiclelicensecertEx(request, headers, runtime);
     }
 
     /**
      * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-     * Summary: 核验并查询行驶证信息
+     * Summary: 行驶证核验信息查询
      */
-    public QueryApplicationDrivingpermitinfoResponse queryApplicationDrivingpermitinfoEx(QueryApplicationDrivingpermitinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryApplicationVehiclelicensecertResponse queryApplicationVehiclelicensecertEx(QueryApplicationVehiclelicensecertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.drivingpermitinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationDrivingpermitinfoResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.vehiclelicensecert.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationVehiclelicensecertResponse());
+    }
+
+    /**
+     * Description: 根据姓名身份证信息查询学籍信息
+     * Summary: 根据姓名身份证信息查询学籍
+     */
+    public QueryApplicationEducationstatusResponse queryApplicationEducationstatus(QueryApplicationEducationstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApplicationEducationstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据姓名身份证信息查询学籍信息
+     * Summary: 根据姓名身份证信息查询学籍
+     */
+    public QueryApplicationEducationstatusResponse queryApplicationEducationstatusEx(QueryApplicationEducationstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.application.educationstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApplicationEducationstatusResponse());
     }
 
     /**
