@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIdnumberEducationtaginfoRequest extends Model
+class QueryApplicationEducationstatusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,41 +19,35 @@ class QueryIdnumberEducationtaginfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 数据源id
+    // 需求ID
     /**
      * @var string
      */
     public $dataSetId;
 
-    // 用户是否已授权
+    // 用户是否已经授权
     /**
      * @var bool
      */
     public $userAuthed;
 
-    // 该接口对应的授权协议索引号
+    // 授权文件索引
     /**
      * @var string
      */
     public $fileIndex;
 
-    // 用户姓名
+    // 姓名
     /**
      * @var string
      */
     public $userName;
 
-    // 用户身份证号
+    // 身份证号
     /**
      * @var string
      */
     public $userCertNo;
-
-    // 用户手机号
-    /**
-     * @var string
-     */
-    public $userTel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -62,7 +56,6 @@ class QueryIdnumberEducationtaginfoRequest extends Model
         'fileIndex'         => 'file_index',
         'userName'          => 'user_name',
         'userCertNo'        => 'user_cert_no',
-        'userTel'           => 'user_tel',
     ];
 
     public function validate()
@@ -98,9 +91,6 @@ class QueryIdnumberEducationtaginfoRequest extends Model
         if (null !== $this->userCertNo) {
             $res['user_cert_no'] = $this->userCertNo;
         }
-        if (null !== $this->userTel) {
-            $res['user_tel'] = $this->userTel;
-        }
 
         return $res;
     }
@@ -108,7 +98,7 @@ class QueryIdnumberEducationtaginfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIdnumberEducationtaginfoRequest
+     * @return QueryApplicationEducationstatusRequest
      */
     public static function fromMap($map = [])
     {
@@ -133,9 +123,6 @@ class QueryIdnumberEducationtaginfoRequest extends Model
         }
         if (isset($map['user_cert_no'])) {
             $model->userCertNo = $map['user_cert_no'];
-        }
-        if (isset($map['user_tel'])) {
-            $model->userTel = $map['user_tel'];
         }
 
         return $model;

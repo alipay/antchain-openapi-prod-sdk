@@ -36,12 +36,19 @@ class QueryApplicationUnifiedentranceRequest extends Model
      * @var string
      */
     public $params;
+
+    // 是否授权
+    /**
+     * @var bool
+     */
+    public $userAuthed;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'demandId'          => 'demand_id',
         'fileIndex'         => 'file_index',
         'params'            => 'params',
+        'userAuthed'        => 'user_authed',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (null !== $this->params) {
             $res['params'] = $this->params;
+        }
+        if (null !== $this->userAuthed) {
+            $res['user_authed'] = $this->userAuthed;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (isset($map['params'])) {
             $model->params = $map['params'];
+        }
+        if (isset($map['user_authed'])) {
+            $model->userAuthed = $map['user_authed'];
         }
 
         return $model;

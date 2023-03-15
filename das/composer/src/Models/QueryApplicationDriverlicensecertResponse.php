@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationDrivingpermitinfoResponse extends Model
+class QueryApplicationDriverlicensecertResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class QueryApplicationDrivingpermitinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 行驶证核验结果
+    // 驾驶证信息
     /**
-     * @var DrivingPermitCheckResult
+     * @var DriverLicenseInfo
      */
-    public $checkResult;
+    public $driverLicenseInfo;
 
-    // 行驶证信息
+    // 身份证与姓名是否一致
     /**
-     * @var DrivingPermitInfo
+     * @var string
      */
-    public $data;
+    public $certResult;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'checkResult' => 'check_result',
-        'data'        => 'data',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'driverLicenseInfo' => 'driver_license_info',
+        'certResult'        => 'cert_result',
     ];
 
     public function validate()
@@ -61,11 +61,11 @@ class QueryApplicationDrivingpermitinfoResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->checkResult) {
-            $res['check_result'] = null !== $this->checkResult ? $this->checkResult->toMap() : null;
+        if (null !== $this->driverLicenseInfo) {
+            $res['driver_license_info'] = null !== $this->driverLicenseInfo ? $this->driverLicenseInfo->toMap() : null;
         }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        if (null !== $this->certResult) {
+            $res['cert_result'] = $this->certResult;
         }
 
         return $res;
@@ -74,7 +74,7 @@ class QueryApplicationDrivingpermitinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationDrivingpermitinfoResponse
+     * @return QueryApplicationDriverlicensecertResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +88,11 @@ class QueryApplicationDrivingpermitinfoResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['check_result'])) {
-            $model->checkResult = DrivingPermitCheckResult::fromMap($map['check_result']);
+        if (isset($map['driver_license_info'])) {
+            $model->driverLicenseInfo = DriverLicenseInfo::fromMap($map['driver_license_info']);
         }
-        if (isset($map['data'])) {
-            $model->data = DrivingPermitInfo::fromMap($map['data']);
+        if (isset($map['cert_result'])) {
+            $model->certResult = $map['cert_result'];
         }
 
         return $model;

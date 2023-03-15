@@ -39,16 +39,18 @@ use AntChain\DAS\Models\QueryApplicationDataRequest;
 use AntChain\DAS\Models\QueryApplicationDataResponse;
 use AntChain\DAS\Models\QueryApplicationDetailcarinfoRequest;
 use AntChain\DAS\Models\QueryApplicationDetailcarinfoResponse;
-use AntChain\DAS\Models\QueryApplicationDriverlicenseinfoRequest;
-use AntChain\DAS\Models\QueryApplicationDriverlicenseinfoResponse;
-use AntChain\DAS\Models\QueryApplicationDrivingpermitinfoRequest;
-use AntChain\DAS\Models\QueryApplicationDrivingpermitinfoResponse;
+use AntChain\DAS\Models\QueryApplicationDriverlicensecertRequest;
+use AntChain\DAS\Models\QueryApplicationDriverlicensecertResponse;
+use AntChain\DAS\Models\QueryApplicationEducationstatusRequest;
+use AntChain\DAS\Models\QueryApplicationEducationstatusResponse;
 use AntChain\DAS\Models\QueryApplicationIpeRequest;
 use AntChain\DAS\Models\QueryApplicationIpeResponse;
 use AntChain\DAS\Models\QueryApplicationResumeRequest;
 use AntChain\DAS\Models\QueryApplicationResumeResponse;
 use AntChain\DAS\Models\QueryApplicationUnifiedentranceRequest;
 use AntChain\DAS\Models\QueryApplicationUnifiedentranceResponse;
+use AntChain\DAS\Models\QueryApplicationVehiclelicensecertRequest;
+use AntChain\DAS\Models\QueryApplicationVehiclelicensecertResponse;
 use AntChain\DAS\Models\QueryDasDatasourceRequest;
 use AntChain\DAS\Models\QueryDasDatasourceResponse;
 use AntChain\DAS\Models\QueryDetailcarinfoPesonandlicRequest;
@@ -176,18 +178,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -224,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.29',
+                    'sdk_version'      => '1.1.41',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -870,69 +872,102 @@ class Client
     }
 
     /**
-     * Description: 驾驶证信息查询
-     * Summary: 驾驶证信息查询.
+     * Description: 根据姓名和身份证，返回驾驶证核验信息
+     * Summary: 驾驶证核验信息查询.
      *
-     * @param QueryApplicationDriverlicenseinfoRequest $request
+     * @param QueryApplicationDriverlicensecertRequest $request
      *
-     * @return QueryApplicationDriverlicenseinfoResponse
+     * @return QueryApplicationDriverlicensecertResponse
      */
-    public function queryApplicationDriverlicenseinfo($request)
+    public function queryApplicationDriverlicensecert($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryApplicationDriverlicenseinfoEx($request, $headers, $runtime);
+        return $this->queryApplicationDriverlicensecertEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 驾驶证信息查询
-     * Summary: 驾驶证信息查询.
+     * Description: 根据姓名和身份证，返回驾驶证核验信息
+     * Summary: 驾驶证核验信息查询.
      *
-     * @param QueryApplicationDriverlicenseinfoRequest $request
+     * @param QueryApplicationDriverlicensecertRequest $request
      * @param string[]                                 $headers
      * @param RuntimeOptions                           $runtime
      *
-     * @return QueryApplicationDriverlicenseinfoResponse
+     * @return QueryApplicationDriverlicensecertResponse
      */
-    public function queryApplicationDriverlicenseinfoEx($request, $headers, $runtime)
+    public function queryApplicationDriverlicensecertEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryApplicationDriverlicenseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryApplicationDriverlicensecertResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.driverlicensecert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-     * Summary: 核验并查询行驶证信息.
+     * Summary: 行驶证核验信息查询.
      *
-     * @param QueryApplicationDrivingpermitinfoRequest $request
+     * @param QueryApplicationVehiclelicensecertRequest $request
      *
-     * @return QueryApplicationDrivingpermitinfoResponse
+     * @return QueryApplicationVehiclelicensecertResponse
      */
-    public function queryApplicationDrivingpermitinfo($request)
+    public function queryApplicationVehiclelicensecert($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryApplicationDrivingpermitinfoEx($request, $headers, $runtime);
+        return $this->queryApplicationVehiclelicensecertEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-     * Summary: 核验并查询行驶证信息.
+     * Summary: 行驶证核验信息查询.
      *
-     * @param QueryApplicationDrivingpermitinfoRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param QueryApplicationVehiclelicensecertRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
      *
-     * @return QueryApplicationDrivingpermitinfoResponse
+     * @return QueryApplicationVehiclelicensecertResponse
      */
-    public function queryApplicationDrivingpermitinfoEx($request, $headers, $runtime)
+    public function queryApplicationVehiclelicensecertEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryApplicationDrivingpermitinfoResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryApplicationVehiclelicensecertResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.vehiclelicensecert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据姓名身份证信息查询学籍信息
+     * Summary: 根据姓名身份证信息查询学籍.
+     *
+     * @param QueryApplicationEducationstatusRequest $request
+     *
+     * @return QueryApplicationEducationstatusResponse
+     */
+    public function queryApplicationEducationstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApplicationEducationstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据姓名身份证信息查询学籍信息
+     * Summary: 根据姓名身份证信息查询学籍.
+     *
+     * @param QueryApplicationEducationstatusRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryApplicationEducationstatusResponse
+     */
+    public function queryApplicationEducationstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApplicationEducationstatusResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.educationstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

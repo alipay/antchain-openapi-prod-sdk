@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationDriverlicenseinfoResponse extends Model
+class QueryApplicationEducationstatusResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryApplicationDriverlicenseinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 驾驶证信息
+    // 学籍信息
     /**
-     * @var DriverLicenseInfo
+     * @var EducationStatus[]
      */
     public $data;
     protected $_name = [
@@ -55,7 +55,13 @@ class QueryApplicationDriverlicenseinfoResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class QueryApplicationDriverlicenseinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationDriverlicenseinfoResponse
+     * @return QueryApplicationEducationstatusResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +85,13 @@ class QueryApplicationDriverlicenseinfoResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = DriverLicenseInfo::fromMap($map['data']);
+            if (!empty($map['data'])) {
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? EducationStatus::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

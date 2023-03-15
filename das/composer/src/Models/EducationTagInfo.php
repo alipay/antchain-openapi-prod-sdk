@@ -6,8 +6,9 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class EducationInfo extends Model
+class EducationTagInfo extends Model
 {
+    //
     // 是否211院校
     /**
      * @example true, false
@@ -32,9 +33,9 @@ class EducationInfo extends Model
      */
     public $doubleFirstClass;
 
-    // 专业
+    // 专业名称
     /**
-     * @example 计算机
+     * @example 软件工程
      *
      * @var string
      */
@@ -48,6 +49,7 @@ class EducationInfo extends Model
      */
     public $educationLevel;
 
+    //
     // 毕业日期
     /**
      * @example 2020/06
@@ -63,6 +65,14 @@ class EducationInfo extends Model
      * @var string
      */
     public $educationType;
+
+    // 入学时间
+    /**
+     * @example 202109
+     *
+     * @var string
+     */
+    public $admissionDate;
     protected $_name = [
         'project211'       => 'project211',
         'project985'       => 'project985',
@@ -71,6 +81,7 @@ class EducationInfo extends Model
         'educationLevel'   => 'education_level',
         'graduationDate'   => 'graduation_date',
         'educationType'    => 'education_type',
+        'admissionDate'    => 'admission_date',
     ];
 
     public function validate()
@@ -101,6 +112,9 @@ class EducationInfo extends Model
         if (null !== $this->educationType) {
             $res['education_type'] = $this->educationType;
         }
+        if (null !== $this->admissionDate) {
+            $res['admission_date'] = $this->admissionDate;
+        }
 
         return $res;
     }
@@ -108,7 +122,7 @@ class EducationInfo extends Model
     /**
      * @param array $map
      *
-     * @return EducationInfo
+     * @return EducationTagInfo
      */
     public static function fromMap($map = [])
     {
@@ -133,6 +147,9 @@ class EducationInfo extends Model
         }
         if (isset($map['education_type'])) {
             $model->educationType = $map['education_type'];
+        }
+        if (isset($map['admission_date'])) {
+            $model->admissionDate = $map['admission_date'];
         }
 
         return $model;

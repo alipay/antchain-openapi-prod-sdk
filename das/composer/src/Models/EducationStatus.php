@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class EducationInfo extends Model
+class EducationStatus extends Model
 {
     // 是否211院校
     /**
@@ -24,7 +24,7 @@ class EducationInfo extends Model
      */
     public $project985;
 
-    // 是否双一流院校
+    // boolean	是否双一流院校
     /**
      * @example true, false
      *
@@ -32,45 +32,36 @@ class EducationInfo extends Model
      */
     public $doubleFirstClass;
 
-    // 专业
+    // 入学时间
     /**
-     * @example 计算机
+     * @example 202109
      *
      * @var string
      */
-    public $major;
+    public $admissionDate;
 
-    // 学历等级代码
+    // 学制，字典
     /**
-     * @example 01
+     * @example C
      *
      * @var string
      */
-    public $educationLevel;
+    public $educationalSystem;
 
-    // 毕业日期
+    // boolean	是否注册学籍
     /**
-     * @example 2020/06
+     * @example true, false
      *
-     * @var string
+     * @var bool
      */
-    public $graduationDate;
-
-    // 学习形式
-    /**
-     * @example 全日制
-     *
-     * @var string
-     */
-    public $educationType;
+    public $registeredStudentStatus;
     protected $_name = [
-        'project211'       => 'project211',
-        'project985'       => 'project985',
-        'doubleFirstClass' => 'double_first_class',
-        'major'            => 'major',
-        'educationLevel'   => 'education_level',
-        'graduationDate'   => 'graduation_date',
-        'educationType'    => 'education_type',
+        'project211'              => 'project211',
+        'project985'              => 'project985',
+        'doubleFirstClass'        => 'double_first_class',
+        'admissionDate'           => 'admission_date',
+        'educationalSystem'       => 'educational_system',
+        'registeredStudentStatus' => 'registered_student_status',
     ];
 
     public function validate()
@@ -89,17 +80,14 @@ class EducationInfo extends Model
         if (null !== $this->doubleFirstClass) {
             $res['double_first_class'] = $this->doubleFirstClass;
         }
-        if (null !== $this->major) {
-            $res['major'] = $this->major;
+        if (null !== $this->admissionDate) {
+            $res['admission_date'] = $this->admissionDate;
         }
-        if (null !== $this->educationLevel) {
-            $res['education_level'] = $this->educationLevel;
+        if (null !== $this->educationalSystem) {
+            $res['educational_system'] = $this->educationalSystem;
         }
-        if (null !== $this->graduationDate) {
-            $res['graduation_date'] = $this->graduationDate;
-        }
-        if (null !== $this->educationType) {
-            $res['education_type'] = $this->educationType;
+        if (null !== $this->registeredStudentStatus) {
+            $res['registered_student_status'] = $this->registeredStudentStatus;
         }
 
         return $res;
@@ -108,7 +96,7 @@ class EducationInfo extends Model
     /**
      * @param array $map
      *
-     * @return EducationInfo
+     * @return EducationStatus
      */
     public static function fromMap($map = [])
     {
@@ -122,17 +110,14 @@ class EducationInfo extends Model
         if (isset($map['double_first_class'])) {
             $model->doubleFirstClass = $map['double_first_class'];
         }
-        if (isset($map['major'])) {
-            $model->major = $map['major'];
+        if (isset($map['admission_date'])) {
+            $model->admissionDate = $map['admission_date'];
         }
-        if (isset($map['education_level'])) {
-            $model->educationLevel = $map['education_level'];
+        if (isset($map['educational_system'])) {
+            $model->educationalSystem = $map['educational_system'];
         }
-        if (isset($map['graduation_date'])) {
-            $model->graduationDate = $map['graduation_date'];
-        }
-        if (isset($map['education_type'])) {
-            $model->educationType = $map['education_type'];
+        if (isset($map['registered_student_status'])) {
+            $model->registeredStudentStatus = $map['registered_student_status'];
         }
 
         return $model;

@@ -16,21 +16,21 @@ class DriverLicenseInfo extends Model
      */
     public $gender;
 
-    // 驾驶证发证日期
-    /**
-     * @example 暂无返回
-     *
-     * @var string
-     */
-    public $driveissuedate;
-
-    // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
+    // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
     /**
      * @example A/-A
      *
      * @var string
      */
-    public $validdate;
+    public $issueDate;
+
+    // 驾驶证有效终止日期
+    /**
+     * @example A/-A
+     *
+     * @var string
+     */
+    public $validEndDate;
 
     // 驾驶证有效起始日期
     /**
@@ -38,15 +38,15 @@ class DriverLicenseInfo extends Model
      *
      * @var string
      */
-    public $drivevalidstartdate;
+    public $validStartDate;
 
-    // 驾驶证状态字典
+    // 驾驶证状态，字典
     /**
      * @example A
      *
      * @var string
      */
-    public $drivecardstatus;
+    public $driverLicenseStatus;
 
     // 初次领证时间
     /**
@@ -54,7 +54,7 @@ class DriverLicenseInfo extends Model
      *
      * @var string
      */
-    public $firsissuedate;
+    public $firstIssueDate;
 
     // 准驾车型，字典
     /**
@@ -62,7 +62,7 @@ class DriverLicenseInfo extends Model
      *
      * @var string
      */
-    public $allowdrivecar;
+    public $allowDriveCar;
 
     // 驾驶证种类，字典
     /**
@@ -70,16 +70,16 @@ class DriverLicenseInfo extends Model
      *
      * @var string
      */
-    public $drivelicensetype;
+    public $driverLicenseType;
     protected $_name = [
         'gender'              => 'gender',
-        'driveissuedate'      => 'driveissuedate',
-        'validdate'           => 'validdate',
-        'drivevalidstartdate' => 'drivevalidstartdate',
-        'drivecardstatus'     => 'drivecardstatus',
-        'firsissuedate'       => 'firsissuedate',
-        'allowdrivecar'       => 'allowdrivecar',
-        'drivelicensetype'    => 'drivelicensetype',
+        'issueDate'           => 'issue_date',
+        'validEndDate'        => 'valid_end_date',
+        'validStartDate'      => 'valid_start_date',
+        'driverLicenseStatus' => 'driver_license_status',
+        'firstIssueDate'      => 'first_issue_date',
+        'allowDriveCar'       => 'allow_drive_car',
+        'driverLicenseType'   => 'driver_license_type',
     ];
 
     public function validate()
@@ -92,26 +92,26 @@ class DriverLicenseInfo extends Model
         if (null !== $this->gender) {
             $res['gender'] = $this->gender;
         }
-        if (null !== $this->driveissuedate) {
-            $res['driveissuedate'] = $this->driveissuedate;
+        if (null !== $this->issueDate) {
+            $res['issue_date'] = $this->issueDate;
         }
-        if (null !== $this->validdate) {
-            $res['validdate'] = $this->validdate;
+        if (null !== $this->validEndDate) {
+            $res['valid_end_date'] = $this->validEndDate;
         }
-        if (null !== $this->drivevalidstartdate) {
-            $res['drivevalidstartdate'] = $this->drivevalidstartdate;
+        if (null !== $this->validStartDate) {
+            $res['valid_start_date'] = $this->validStartDate;
         }
-        if (null !== $this->drivecardstatus) {
-            $res['drivecardstatus'] = $this->drivecardstatus;
+        if (null !== $this->driverLicenseStatus) {
+            $res['driver_license_status'] = $this->driverLicenseStatus;
         }
-        if (null !== $this->firsissuedate) {
-            $res['firsissuedate'] = $this->firsissuedate;
+        if (null !== $this->firstIssueDate) {
+            $res['first_issue_date'] = $this->firstIssueDate;
         }
-        if (null !== $this->allowdrivecar) {
-            $res['allowdrivecar'] = $this->allowdrivecar;
+        if (null !== $this->allowDriveCar) {
+            $res['allow_drive_car'] = $this->allowDriveCar;
         }
-        if (null !== $this->drivelicensetype) {
-            $res['drivelicensetype'] = $this->drivelicensetype;
+        if (null !== $this->driverLicenseType) {
+            $res['driver_license_type'] = $this->driverLicenseType;
         }
 
         return $res;
@@ -128,26 +128,26 @@ class DriverLicenseInfo extends Model
         if (isset($map['gender'])) {
             $model->gender = $map['gender'];
         }
-        if (isset($map['driveissuedate'])) {
-            $model->driveissuedate = $map['driveissuedate'];
+        if (isset($map['issue_date'])) {
+            $model->issueDate = $map['issue_date'];
         }
-        if (isset($map['validdate'])) {
-            $model->validdate = $map['validdate'];
+        if (isset($map['valid_end_date'])) {
+            $model->validEndDate = $map['valid_end_date'];
         }
-        if (isset($map['drivevalidstartdate'])) {
-            $model->drivevalidstartdate = $map['drivevalidstartdate'];
+        if (isset($map['valid_start_date'])) {
+            $model->validStartDate = $map['valid_start_date'];
         }
-        if (isset($map['drivecardstatus'])) {
-            $model->drivecardstatus = $map['drivecardstatus'];
+        if (isset($map['driver_license_status'])) {
+            $model->driverLicenseStatus = $map['driver_license_status'];
         }
-        if (isset($map['firsissuedate'])) {
-            $model->firsissuedate = $map['firsissuedate'];
+        if (isset($map['first_issue_date'])) {
+            $model->firstIssueDate = $map['first_issue_date'];
         }
-        if (isset($map['allowdrivecar'])) {
-            $model->allowdrivecar = $map['allowdrivecar'];
+        if (isset($map['allow_drive_car'])) {
+            $model->allowDriveCar = $map['allow_drive_car'];
         }
-        if (isset($map['drivelicensetype'])) {
-            $model->drivelicensetype = $map['drivelicensetype'];
+        if (isset($map['driver_license_type'])) {
+            $model->driverLicenseType = $map['driver_license_type'];
         }
 
         return $model;

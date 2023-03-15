@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationDriverlicenseinfoRequest extends Model
+class QueryApplicationVehiclelicensecertRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -37,25 +37,32 @@ class QueryApplicationDriverlicenseinfoRequest extends Model
      */
     public $fileIndex;
 
-    // 身份证号AES加密
+    // 车牌号
     /**
      * @var string
      */
-    public $idCard;
+    public $plateNumber;
 
-    // 姓名aes加密
+    // 号牌种类，枚举
     /**
      * @var string
      */
-    public $name;
+    public $plateType;
+
+    // 所有人姓名
+    /**
+     * @var string
+     */
+    public $owner;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'dataSetId'         => 'data_set_id',
         'userAuthed'        => 'user_authed',
         'fileIndex'         => 'file_index',
-        'idCard'            => 'id_card',
-        'name'              => 'name',
+        'plateNumber'       => 'plate_number',
+        'plateType'         => 'plate_type',
+        'owner'             => 'owner',
     ];
 
     public function validate()
@@ -63,8 +70,9 @@ class QueryApplicationDriverlicenseinfoRequest extends Model
         Model::validateRequired('dataSetId', $this->dataSetId, true);
         Model::validateRequired('userAuthed', $this->userAuthed, true);
         Model::validateRequired('fileIndex', $this->fileIndex, true);
-        Model::validateRequired('idCard', $this->idCard, true);
-        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('plateNumber', $this->plateNumber, true);
+        Model::validateRequired('plateType', $this->plateType, true);
+        Model::validateRequired('owner', $this->owner, true);
     }
 
     public function toMap()
@@ -85,11 +93,14 @@ class QueryApplicationDriverlicenseinfoRequest extends Model
         if (null !== $this->fileIndex) {
             $res['file_index'] = $this->fileIndex;
         }
-        if (null !== $this->idCard) {
-            $res['id_card'] = $this->idCard;
+        if (null !== $this->plateNumber) {
+            $res['plate_number'] = $this->plateNumber;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->plateType) {
+            $res['plate_type'] = $this->plateType;
+        }
+        if (null !== $this->owner) {
+            $res['owner'] = $this->owner;
         }
 
         return $res;
@@ -98,7 +109,7 @@ class QueryApplicationDriverlicenseinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationDriverlicenseinfoRequest
+     * @return QueryApplicationVehiclelicensecertRequest
      */
     public static function fromMap($map = [])
     {
@@ -118,11 +129,14 @@ class QueryApplicationDriverlicenseinfoRequest extends Model
         if (isset($map['file_index'])) {
             $model->fileIndex = $map['file_index'];
         }
-        if (isset($map['id_card'])) {
-            $model->idCard = $map['id_card'];
+        if (isset($map['plate_number'])) {
+            $model->plateNumber = $map['plate_number'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['plate_type'])) {
+            $model->plateType = $map['plate_type'];
+        }
+        if (isset($map['owner'])) {
+            $model->owner = $map['owner'];
         }
 
         return $model;
