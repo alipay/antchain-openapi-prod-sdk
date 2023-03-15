@@ -280,27 +280,123 @@ export class BasicCarInfo extends $tea.Model {
   }
 }
 
-// 行驶证核验信息
-export class DrivingPermitCheckResult extends $tea.Model {
+// 行驶证证信息
+export class VehicleLicenseInfo extends $tea.Model {
+  // 品牌名称
+  brandName?: string;
+  // 车身颜色
+  bodyColor?: string;
+  // 使用性质
+  properties?: string;
+  // 车型
+  type?: string;
+  // 车辆类型
+  vehicleType?: string;
+  // 发动机号
+  engineNumber?: string;
+  // 发动机型号
+  engineModel?: string;
+  // 初次登记日期
+  firstRegistryDate?: string;
+  // 检验失效日期
+  inspectionExpireDate?: string;
+  // 车辆状态
+  vehicleStatus?: string;
+  // 核定载客数
+  passengers?: string;
+  // 强制报废期止
+  retirementDate?: string;
+  // 燃料种类
+  fuelType?: string;
+  // 排量
+  displacement?: string;
+  // 出厂日期
+  ppsDate?: string;
+  // 最大功率
+  maximumPower?: string;
+  // 轴数
+  shaft?: string;
+  // 轴距
+  wheelBase?: string;
+  // 前轮距
+  frontTread?: string;
+  // 后轮距
+  rearTread?: string;
+  // 总重量
+  crossWeight?: string;
+  // 整备质量
+  curbWeight?: string;
+  // 核定载质量
+  loadWeight?: string;
+  // 车架号
+  vin?: string;
   // 车牌号
-  platenumber?: string;
+  plateNumber?: string;
   // 车牌种类
-  platetype?: string;
-  // 所有人
-  owner?: string;
+  plateType?: string;
+  // 检车日期
+  inspectionDate?: string;
   static names(): { [key: string]: string } {
     return {
-      platenumber: 'platenumber',
-      platetype: 'platetype',
-      owner: 'owner',
+      brandName: 'brand_name',
+      bodyColor: 'body_color',
+      properties: 'properties',
+      type: 'type',
+      vehicleType: 'vehicle_type',
+      engineNumber: 'engine_number',
+      engineModel: 'engine_model',
+      firstRegistryDate: 'first_registry_date',
+      inspectionExpireDate: 'inspection_expire_date',
+      vehicleStatus: 'vehicle_status',
+      passengers: 'passengers',
+      retirementDate: 'retirement_date',
+      fuelType: 'fuel_type',
+      displacement: 'displacement',
+      ppsDate: 'pps_date',
+      maximumPower: 'maximum_power',
+      shaft: 'shaft',
+      wheelBase: 'wheel_base',
+      frontTread: 'front_tread',
+      rearTread: 'rear_tread',
+      crossWeight: 'cross_weight',
+      curbWeight: 'curb_weight',
+      loadWeight: 'load_weight',
+      vin: 'vin',
+      plateNumber: 'plate_number',
+      plateType: 'plate_type',
+      inspectionDate: 'inspection_date',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      platenumber: 'string',
-      platetype: 'string',
-      owner: 'string',
+      brandName: 'string',
+      bodyColor: 'string',
+      properties: 'string',
+      type: 'string',
+      vehicleType: 'string',
+      engineNumber: 'string',
+      engineModel: 'string',
+      firstRegistryDate: 'string',
+      inspectionExpireDate: 'string',
+      vehicleStatus: 'string',
+      passengers: 'string',
+      retirementDate: 'string',
+      fuelType: 'string',
+      displacement: 'string',
+      ppsDate: 'string',
+      maximumPower: 'string',
+      shaft: 'string',
+      wheelBase: 'string',
+      frontTread: 'string',
+      rearTread: 'string',
+      crossWeight: 'string',
+      curbWeight: 'string',
+      loadWeight: 'string',
+      vin: 'string',
+      plateNumber: 'string',
+      plateType: 'string',
+      inspectionDate: 'string',
     };
   }
 
@@ -374,19 +470,19 @@ export class EducationExperiencesInfo extends $tea.Model {
 // 教育学历信息
 export class EducationInfo extends $tea.Model {
   // 是否211院校
-  project211: boolean;
+  project211?: boolean;
   // 是否985院校
-  project985: boolean;
+  project985?: boolean;
   // 是否双一流院校
-  doubleFirstClass: boolean;
+  doubleFirstClass?: boolean;
   // 专业
-  major: string;
+  major?: string;
   // 学历等级代码
-  educationLevel: string;
+  educationLevel?: string;
   // 毕业日期
-  graduationDate: string;
+  graduationDate?: string;
   // 学习形式
-  educationType: string;
+  educationType?: string;
   static names(): { [key: string]: string } {
     return {
       project211: 'project211',
@@ -478,6 +574,35 @@ export class BeAuthedPersonInfo extends $tea.Model {
       enterpriseCreditNum: 'string',
       enterpriseLegalPersonName: 'string',
       enterpriseLegalPersonId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行驶证核验结果
+export class VehicleLicenseCertResult extends $tea.Model {
+  // 与车辆的车牌号是否一致
+  plateNumber?: boolean;
+  // 与车辆对应号牌种类是否一致
+  plateType?: boolean;
+  // 与车辆所有人是否一致
+  owner?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      plateNumber: 'plate_number',
+      plateType: 'plate_type',
+      owner: 'owner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      plateNumber: 'boolean',
+      plateType: 'boolean',
+      owner: 'boolean',
     };
   }
 
@@ -773,43 +898,94 @@ export class DataSource extends $tea.Model {
 export class DriverLicenseInfo extends $tea.Model {
   // 性别
   gender?: string;
-  // 驾驶证发证日期
-  driveissuedate?: string;
-  // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
-  validdate?: string;
+  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+  issueDate?: string;
+  // 驾驶证有效终止日期
+  validEndDate?: string;
   // 驾驶证有效起始日期
-  drivevalidstartdate?: string;
-  // 驾驶证状态字典
-  drivecardstatus?: string;
+  validStartDate?: string;
+  // 驾驶证状态，字典
+  driverLicenseStatus?: string;
   // 初次领证时间
-  firsissuedate?: string;
+  firstIssueDate?: string;
   // 准驾车型，字典
-  allowdrivecar?: string;
+  allowDriveCar?: string;
   // 驾驶证种类，字典
-  drivelicensetype?: string;
+  driverLicenseType?: string;
   static names(): { [key: string]: string } {
     return {
       gender: 'gender',
-      driveissuedate: 'driveissuedate',
-      validdate: 'validdate',
-      drivevalidstartdate: 'drivevalidstartdate',
-      drivecardstatus: 'drivecardstatus',
-      firsissuedate: 'firsissuedate',
-      allowdrivecar: 'allowdrivecar',
-      drivelicensetype: 'drivelicensetype',
+      issueDate: 'issue_date',
+      validEndDate: 'valid_end_date',
+      validStartDate: 'valid_start_date',
+      driverLicenseStatus: 'driver_license_status',
+      firstIssueDate: 'first_issue_date',
+      allowDriveCar: 'allow_drive_car',
+      driverLicenseType: 'driver_license_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       gender: 'string',
-      driveissuedate: 'string',
-      validdate: 'string',
-      drivevalidstartdate: 'string',
-      drivecardstatus: 'string',
-      firsissuedate: 'string',
-      allowdrivecar: 'string',
-      drivelicensetype: 'string',
+      issueDate: 'string',
+      validEndDate: 'string',
+      validStartDate: 'string',
+      driverLicenseStatus: 'string',
+      firstIssueDate: 'string',
+      allowDriveCar: 'string',
+      driverLicenseType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 教育标签信息
+export class EducationTagInfo extends $tea.Model {
+  // 	
+  // 是否211院校
+  project211?: boolean;
+  // 是否985院校
+  project985?: boolean;
+  // 是否双一流院校
+  doubleFirstClass?: boolean;
+  // 专业名称
+  major?: string;
+  // 学历等级代码
+  educationLevel?: string;
+  // 	
+  // 毕业日期
+  graduationDate?: string;
+  // 学习形式
+  educationType?: string;
+  // 入学时间
+  admissionDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      project211: 'project211',
+      project985: 'project985',
+      doubleFirstClass: 'double_first_class',
+      major: 'major',
+      educationLevel: 'education_level',
+      graduationDate: 'graduation_date',
+      educationType: 'education_type',
+      admissionDate: 'admission_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      project211: 'boolean',
+      project985: 'boolean',
+      doubleFirstClass: 'boolean',
+      major: 'string',
+      educationLevel: 'string',
+      graduationDate: 'string',
+      educationType: 'string',
+      admissionDate: 'string',
     };
   }
 
@@ -872,123 +1048,39 @@ export class DetailCarInfo extends $tea.Model {
   }
 }
 
-// 行驶证信息
-export class DrivingPermitInfo extends $tea.Model {
-  // 品牌名称
-  brandname?: string;
-  // 车身颜色
-  bodycolor?: string;
-  // 使用性质
-  properties?: string;
-  // 车型
-  type?: string;
-  // 车辆类型
-  vehicletype?: string;
-  // 发动机号
-  enginenumber?: string;
-  // 发动机型号
-  enginemodel?: string;
-  // 初次登记日期
-  firsissuedate?: string;
-  // 检验有效期止
-  validitydayend?: string;
-  // 车辆状态
-  vehiclestatus?: string;
-  // 核定载客数
-  passengers?: string;
-  // 强制报废期止
-  retirementdate?: string;
-  // 燃料种类
-  fueltype?: string;
-  // 排量
-  cc?: string;
-  // 出厂日期
-  ppsdate?: string;
-  // 最大功率
-  maxjourney?: string;
-  // 轴数
-  shaft?: string;
-  // 轴距
-  wheelbase?: string;
-  // 前轮距
-  fronttread?: string;
-  // 后轮距
-  reartread?: string;
-  // 总重量
-  crossweight?: string;
-  // 整备质量
-  curbweight?: string;
-  // 核定载质量
-  loadweight?: string;
-  // 车架号
-  vin?: string;
-  // 车牌号
-  plate?: string;
-  // 车牌种类
-  platetype?: string;
-  // 年检日期
-  jianchetime?: string;
+// 学籍信息
+export class EducationStatus extends $tea.Model {
+  // 是否211院校
+  project211?: boolean;
+  // 是否985院校 
+  project985?: boolean;
+  // boolean	是否双一流院校
+  doubleFirstClass?: boolean;
+  // 入学时间
+  admissionDate?: string;
+  // 学制，字典
+  educationalSystem?: string;
+  // boolean	是否注册学籍
+  registeredStudentStatus?: boolean;
   static names(): { [key: string]: string } {
     return {
-      brandname: 'brandname',
-      bodycolor: 'bodycolor',
-      properties: 'properties',
-      type: 'type',
-      vehicletype: 'vehicletype',
-      enginenumber: 'enginenumber',
-      enginemodel: 'enginemodel',
-      firsissuedate: 'firsissuedate',
-      validitydayend: 'validitydayend',
-      vehiclestatus: 'vehiclestatus',
-      passengers: 'passengers',
-      retirementdate: 'retirementdate',
-      fueltype: 'fueltype',
-      cc: 'cc',
-      ppsdate: 'ppsdate',
-      maxjourney: 'maxjourney',
-      shaft: 'shaft',
-      wheelbase: 'wheelbase',
-      fronttread: 'fronttread',
-      reartread: 'reartread',
-      crossweight: 'crossweight',
-      curbweight: 'curbweight',
-      loadweight: 'loadweight',
-      vin: 'vin',
-      plate: 'plate',
-      platetype: 'platetype',
-      jianchetime: 'jianchetime',
+      project211: 'project211',
+      project985: 'project985',
+      doubleFirstClass: 'double_first_class',
+      admissionDate: 'admission_date',
+      educationalSystem: 'educational_system',
+      registeredStudentStatus: 'registered_student_status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      brandname: 'string',
-      bodycolor: 'string',
-      properties: 'string',
-      type: 'string',
-      vehicletype: 'string',
-      enginenumber: 'string',
-      enginemodel: 'string',
-      firsissuedate: 'string',
-      validitydayend: 'string',
-      vehiclestatus: 'string',
-      passengers: 'string',
-      retirementdate: 'string',
-      fueltype: 'string',
-      cc: 'string',
-      ppsdate: 'string',
-      maxjourney: 'string',
-      shaft: 'string',
-      wheelbase: 'string',
-      fronttread: 'string',
-      reartread: 'string',
-      crossweight: 'string',
-      curbweight: 'string',
-      loadweight: 'string',
-      vin: 'string',
-      plate: 'string',
-      platetype: 'string',
-      jianchetime: 'string',
+      project211: 'boolean',
+      project985: 'boolean',
+      doubleFirstClass: 'boolean',
+      admissionDate: 'string',
+      educationalSystem: 'string',
+      registeredStudentStatus: 'boolean',
     };
   }
 
@@ -2107,6 +2199,8 @@ export class QueryIdnumberEducationtaginfoRequest extends $tea.Model {
   userName: string;
   // 用户身份证号
   userCertNo: string;
+  // 用户手机号
+  userTel?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2116,6 +2210,7 @@ export class QueryIdnumberEducationtaginfoRequest extends $tea.Model {
       fileIndex: 'file_index',
       userName: 'user_name',
       userCertNo: 'user_cert_no',
+      userTel: 'user_tel',
     };
   }
 
@@ -2128,6 +2223,7 @@ export class QueryIdnumberEducationtaginfoRequest extends $tea.Model {
       fileIndex: 'string',
       userName: 'string',
       userCertNo: 'string',
+      userTel: 'string',
     };
   }
 
@@ -2253,6 +2349,8 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
   fileIndex?: string;
   // 整个需求的入参，map json
   params: string;
+  // 是否授权
+  userAuthed?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2260,6 +2358,7 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       demandId: 'demand_id',
       fileIndex: 'file_index',
       params: 'params',
+      userAuthed: 'user_authed',
     };
   }
 
@@ -2270,6 +2369,7 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       demandId: 'string',
       fileIndex: 'string',
       params: 'string',
+      userAuthed: 'boolean',
     };
   }
 
@@ -2310,7 +2410,7 @@ export class QueryApplicationUnifiedentranceResponse extends $tea.Model {
   }
 }
 
-export class QueryApplicationDriverlicenseinfoRequest extends $tea.Model {
+export class QueryApplicationDriverlicensecertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -2320,10 +2420,10 @@ export class QueryApplicationDriverlicenseinfoRequest extends $tea.Model {
   userAuthed: boolean;
   // 授权协议索引
   fileIndex: string;
-  // 身份证号AES加密
-  idCard: string;
-  // 姓名aes加密
-  name: string;
+  // 身份证号
+  userCertNo: string;
+  // 姓名
+  userName: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2331,8 +2431,8 @@ export class QueryApplicationDriverlicenseinfoRequest extends $tea.Model {
       dataSetId: 'data_set_id',
       userAuthed: 'user_authed',
       fileIndex: 'file_index',
-      idCard: 'id_card',
-      name: 'name',
+      userCertNo: 'user_cert_no',
+      userName: 'user_name',
     };
   }
 
@@ -2343,8 +2443,8 @@ export class QueryApplicationDriverlicenseinfoRequest extends $tea.Model {
       dataSetId: 'string',
       userAuthed: 'boolean',
       fileIndex: 'string',
-      idCard: 'string',
-      name: 'string',
+      userCertNo: 'string',
+      userName: 'string',
     };
   }
 
@@ -2353,7 +2453,7 @@ export class QueryApplicationDriverlicenseinfoRequest extends $tea.Model {
   }
 }
 
-export class QueryApplicationDriverlicenseinfoResponse extends $tea.Model {
+export class QueryApplicationDriverlicensecertResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -2361,13 +2461,16 @@ export class QueryApplicationDriverlicenseinfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 驾驶证信息
-  data?: DriverLicenseInfo;
+  driverLicenseInfo?: DriverLicenseInfo;
+  // 身份证与姓名是否一致
+  certResult?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      driverLicenseInfo: 'driver_license_info',
+      certResult: 'cert_result',
     };
   }
 
@@ -2376,7 +2479,8 @@ export class QueryApplicationDriverlicenseinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: DriverLicenseInfo,
+      driverLicenseInfo: DriverLicenseInfo,
+      certResult: 'string',
     };
   }
 
@@ -2385,7 +2489,7 @@ export class QueryApplicationDriverlicenseinfoResponse extends $tea.Model {
   }
 }
 
-export class QueryApplicationDrivingpermitinfoRequest extends $tea.Model {
+export class QueryApplicationVehiclelicensecertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -2396,9 +2500,9 @@ export class QueryApplicationDrivingpermitinfoRequest extends $tea.Model {
   // 授权协议索引
   fileIndex: string;
   // 车牌号
-  platNumber: string;
+  plateNumber: string;
   // 号牌种类，枚举
-  platetype: string;
+  plateType: string;
   // 所有人姓名
   owner: string;
   static names(): { [key: string]: string } {
@@ -2408,8 +2512,8 @@ export class QueryApplicationDrivingpermitinfoRequest extends $tea.Model {
       dataSetId: 'data_set_id',
       userAuthed: 'user_authed',
       fileIndex: 'file_index',
-      platNumber: 'plat_number',
-      platetype: 'platetype',
+      plateNumber: 'plate_number',
+      plateType: 'plate_type',
       owner: 'owner',
     };
   }
@@ -2421,8 +2525,8 @@ export class QueryApplicationDrivingpermitinfoRequest extends $tea.Model {
       dataSetId: 'string',
       userAuthed: 'boolean',
       fileIndex: 'string',
-      platNumber: 'string',
-      platetype: 'string',
+      plateNumber: 'string',
+      plateType: 'string',
       owner: 'string',
     };
   }
@@ -2432,23 +2536,99 @@ export class QueryApplicationDrivingpermitinfoRequest extends $tea.Model {
   }
 }
 
-export class QueryApplicationDrivingpermitinfoResponse extends $tea.Model {
+export class QueryApplicationVehiclelicensecertResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 行驶证核验结果
-  checkResult?: DrivingPermitCheckResult;
   // 行驶证信息
-  data?: DrivingPermitInfo;
+  vehicleLicenseInfo?: VehicleLicenseInfo;
+  // 行驶证核验结果
+  vehicleLicenseCertResult?: VehicleLicenseCertResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      checkResult: 'check_result',
+      vehicleLicenseInfo: 'vehicle_license_info',
+      vehicleLicenseCertResult: 'vehicle_license_cert_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      vehicleLicenseInfo: VehicleLicenseInfo,
+      vehicleLicenseCertResult: VehicleLicenseCertResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApplicationEducationstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 需求ID
+  dataSetId: string;
+  // 用户是否已经授权
+  userAuthed: boolean;
+  // 授权文件索引
+  fileIndex: string;
+  // 姓名
+  userName: string;
+  // 身份证号
+  userCertNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataSetId: 'data_set_id',
+      userAuthed: 'user_authed',
+      fileIndex: 'file_index',
+      userName: 'user_name',
+      userCertNo: 'user_cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataSetId: 'string',
+      userAuthed: 'boolean',
+      fileIndex: 'string',
+      userName: 'string',
+      userCertNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApplicationEducationstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 学籍信息
+  data?: EducationStatus[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
       data: 'data',
     };
   }
@@ -2458,8 +2638,7 @@ export class QueryApplicationDrivingpermitinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      checkResult: DrivingPermitCheckResult,
-      data: DrivingPermitInfo,
+      data: { 'type': 'array', 'itemType': EducationStatus },
     };
   }
 
@@ -3525,7 +3704,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -3564,7 +3743,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.29",
+          sdk_version: "1.1.41",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -3978,41 +4157,60 @@ export default class Client {
   }
 
   /**
-   * Description: 驾驶证信息查询
-   * Summary: 驾驶证信息查询
+   * Description: 根据姓名和身份证，返回驾驶证核验信息
+   * Summary: 驾驶证核验信息查询
    */
-  async queryApplicationDriverlicenseinfo(request: QueryApplicationDriverlicenseinfoRequest): Promise<QueryApplicationDriverlicenseinfoResponse> {
+  async queryApplicationDriverlicensecert(request: QueryApplicationDriverlicensecertRequest): Promise<QueryApplicationDriverlicensecertResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryApplicationDriverlicenseinfoEx(request, headers, runtime);
+    return await this.queryApplicationDriverlicensecertEx(request, headers, runtime);
   }
 
   /**
-   * Description: 驾驶证信息查询
-   * Summary: 驾驶证信息查询
+   * Description: 根据姓名和身份证，返回驾驶证核验信息
+   * Summary: 驾驶证核验信息查询
    */
-  async queryApplicationDriverlicenseinfoEx(request: QueryApplicationDriverlicenseinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationDriverlicenseinfoResponse> {
+  async queryApplicationDriverlicensecertEx(request: QueryApplicationDriverlicensecertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationDriverlicensecertResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryApplicationDriverlicenseinfoResponse>(await this.doRequest("1.0", "antchain.das.application.driverlicenseinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationDriverlicenseinfoResponse({}));
+    return $tea.cast<QueryApplicationDriverlicensecertResponse>(await this.doRequest("1.0", "antchain.das.application.driverlicensecert.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationDriverlicensecertResponse({}));
   }
 
   /**
    * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-   * Summary: 核验并查询行驶证信息
+   * Summary: 行驶证核验信息查询
    */
-  async queryApplicationDrivingpermitinfo(request: QueryApplicationDrivingpermitinfoRequest): Promise<QueryApplicationDrivingpermitinfoResponse> {
+  async queryApplicationVehiclelicensecert(request: QueryApplicationVehiclelicensecertRequest): Promise<QueryApplicationVehiclelicensecertResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryApplicationDrivingpermitinfoEx(request, headers, runtime);
+    return await this.queryApplicationVehiclelicensecertEx(request, headers, runtime);
   }
 
   /**
    * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-   * Summary: 核验并查询行驶证信息
+   * Summary: 行驶证核验信息查询
    */
-  async queryApplicationDrivingpermitinfoEx(request: QueryApplicationDrivingpermitinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationDrivingpermitinfoResponse> {
+  async queryApplicationVehiclelicensecertEx(request: QueryApplicationVehiclelicensecertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationVehiclelicensecertResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryApplicationDrivingpermitinfoResponse>(await this.doRequest("1.0", "antchain.das.application.drivingpermitinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationDrivingpermitinfoResponse({}));
+    return $tea.cast<QueryApplicationVehiclelicensecertResponse>(await this.doRequest("1.0", "antchain.das.application.vehiclelicensecert.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationVehiclelicensecertResponse({}));
+  }
+
+  /**
+   * Description: 根据姓名身份证信息查询学籍信息
+   * Summary: 根据姓名身份证信息查询学籍
+   */
+  async queryApplicationEducationstatus(request: QueryApplicationEducationstatusRequest): Promise<QueryApplicationEducationstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApplicationEducationstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据姓名身份证信息查询学籍信息
+   * Summary: 根据姓名身份证信息查询学籍
+   */
+  async queryApplicationEducationstatusEx(request: QueryApplicationEducationstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationEducationstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApplicationEducationstatusResponse>(await this.doRequest("1.0", "antchain.das.application.educationstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationEducationstatusResponse({}));
   }
 
   /**
