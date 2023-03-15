@@ -396,36 +396,204 @@ func (s *BasicCarInfo) SetEngineNo(v string) *BasicCarInfo {
 	return s
 }
 
-// 行驶证核验信息
-type DrivingPermitCheckResult struct {
+// 行驶证证信息
+type VehicleLicenseInfo struct {
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车身颜色
+	BodyColor *string `json:"body_color,omitempty" xml:"body_color,omitempty"`
+	// 使用性质
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 车型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 车辆类型
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 发动机号
+	EngineNumber *string `json:"engine_number,omitempty" xml:"engine_number,omitempty"`
+	// 发动机型号
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 初次登记日期
+	FirstRegistryDate *string `json:"first_registry_date,omitempty" xml:"first_registry_date,omitempty"`
+	// 检验失效日期
+	InspectionExpireDate *string `json:"inspection_expire_date,omitempty" xml:"inspection_expire_date,omitempty"`
+	// 车辆状态
+	VehicleStatus *string `json:"vehicle_status,omitempty" xml:"vehicle_status,omitempty"`
+	// 核定载客数
+	Passengers *string `json:"passengers,omitempty" xml:"passengers,omitempty"`
+	// 强制报废期止
+	RetirementDate *string `json:"retirement_date,omitempty" xml:"retirement_date,omitempty"`
+	// 燃料种类
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 排量
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 出厂日期
+	PpsDate *string `json:"pps_date,omitempty" xml:"pps_date,omitempty"`
+	// 最大功率
+	MaximumPower *string `json:"maximum_power,omitempty" xml:"maximum_power,omitempty"`
+	// 轴数
+	Shaft *string `json:"shaft,omitempty" xml:"shaft,omitempty"`
+	// 轴距
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 前轮距
+	FrontTread *string `json:"front_tread,omitempty" xml:"front_tread,omitempty"`
+	// 后轮距
+	RearTread *string `json:"rear_tread,omitempty" xml:"rear_tread,omitempty"`
+	// 总重量
+	CrossWeight *string `json:"cross_weight,omitempty" xml:"cross_weight,omitempty"`
+	// 整备质量
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 核定载质量
+	LoadWeight *string `json:"load_weight,omitempty" xml:"load_weight,omitempty"`
+	// 车架号
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty"`
 	// 车牌号
-	Platenumber *string `json:"platenumber,omitempty" xml:"platenumber,omitempty"`
+	PlateNumber *string `json:"plate_number,omitempty" xml:"plate_number,omitempty"`
 	// 车牌种类
-	Platetype *string `json:"platetype,omitempty" xml:"platetype,omitempty"`
-	// 所有人
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	PlateType *string `json:"plate_type,omitempty" xml:"plate_type,omitempty"`
+	// 检车日期
+	InspectionDate *string `json:"inspection_date,omitempty" xml:"inspection_date,omitempty"`
 }
 
-func (s DrivingPermitCheckResult) String() string {
+func (s VehicleLicenseInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DrivingPermitCheckResult) GoString() string {
+func (s VehicleLicenseInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DrivingPermitCheckResult) SetPlatenumber(v string) *DrivingPermitCheckResult {
-	s.Platenumber = &v
+func (s *VehicleLicenseInfo) SetBrandName(v string) *VehicleLicenseInfo {
+	s.BrandName = &v
 	return s
 }
 
-func (s *DrivingPermitCheckResult) SetPlatetype(v string) *DrivingPermitCheckResult {
-	s.Platetype = &v
+func (s *VehicleLicenseInfo) SetBodyColor(v string) *VehicleLicenseInfo {
+	s.BodyColor = &v
 	return s
 }
 
-func (s *DrivingPermitCheckResult) SetOwner(v string) *DrivingPermitCheckResult {
-	s.Owner = &v
+func (s *VehicleLicenseInfo) SetProperties(v string) *VehicleLicenseInfo {
+	s.Properties = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetType(v string) *VehicleLicenseInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetVehicleType(v string) *VehicleLicenseInfo {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetEngineNumber(v string) *VehicleLicenseInfo {
+	s.EngineNumber = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetEngineModel(v string) *VehicleLicenseInfo {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetFirstRegistryDate(v string) *VehicleLicenseInfo {
+	s.FirstRegistryDate = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetInspectionExpireDate(v string) *VehicleLicenseInfo {
+	s.InspectionExpireDate = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetVehicleStatus(v string) *VehicleLicenseInfo {
+	s.VehicleStatus = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetPassengers(v string) *VehicleLicenseInfo {
+	s.Passengers = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetRetirementDate(v string) *VehicleLicenseInfo {
+	s.RetirementDate = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetFuelType(v string) *VehicleLicenseInfo {
+	s.FuelType = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetDisplacement(v string) *VehicleLicenseInfo {
+	s.Displacement = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetPpsDate(v string) *VehicleLicenseInfo {
+	s.PpsDate = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetMaximumPower(v string) *VehicleLicenseInfo {
+	s.MaximumPower = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetShaft(v string) *VehicleLicenseInfo {
+	s.Shaft = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetWheelBase(v string) *VehicleLicenseInfo {
+	s.WheelBase = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetFrontTread(v string) *VehicleLicenseInfo {
+	s.FrontTread = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetRearTread(v string) *VehicleLicenseInfo {
+	s.RearTread = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetCrossWeight(v string) *VehicleLicenseInfo {
+	s.CrossWeight = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetCurbWeight(v string) *VehicleLicenseInfo {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetLoadWeight(v string) *VehicleLicenseInfo {
+	s.LoadWeight = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetVin(v string) *VehicleLicenseInfo {
+	s.Vin = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetPlateNumber(v string) *VehicleLicenseInfo {
+	s.PlateNumber = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetPlateType(v string) *VehicleLicenseInfo {
+	s.PlateType = &v
+	return s
+}
+
+func (s *VehicleLicenseInfo) SetInspectionDate(v string) *VehicleLicenseInfo {
+	s.InspectionDate = &v
 	return s
 }
 
@@ -505,19 +673,19 @@ func (s *EducationExperiencesInfo) SetMonth(v int64) *EducationExperiencesInfo {
 // 教育学历信息
 type EducationInfo struct {
 	// 是否211院校
-	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty" require:"true"`
+	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
 	// 是否985院校
-	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty" require:"true"`
+	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
 	// 是否双一流院校
-	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty" require:"true"`
+	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
 	// 专业
-	Major *string `json:"major,omitempty" xml:"major,omitempty" require:"true"`
+	Major *string `json:"major,omitempty" xml:"major,omitempty"`
 	// 学历等级代码
-	EducationLevel *string `json:"education_level,omitempty" xml:"education_level,omitempty" require:"true"`
+	EducationLevel *string `json:"education_level,omitempty" xml:"education_level,omitempty"`
 	// 毕业日期
-	GraduationDate *string `json:"graduation_date,omitempty" xml:"graduation_date,omitempty" require:"true"`
+	GraduationDate *string `json:"graduation_date,omitempty" xml:"graduation_date,omitempty"`
 	// 学习形式
-	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty" require:"true"`
+	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty"`
 }
 
 func (s EducationInfo) String() string {
@@ -647,6 +815,39 @@ func (s *BeAuthedPersonInfo) SetEnterpriseLegalPersonName(v string) *BeAuthedPer
 
 func (s *BeAuthedPersonInfo) SetEnterpriseLegalPersonId(v string) *BeAuthedPersonInfo {
 	s.EnterpriseLegalPersonId = &v
+	return s
+}
+
+// 行驶证核验结果
+type VehicleLicenseCertResult struct {
+	// 与车辆的车牌号是否一致
+	PlateNumber *bool `json:"plate_number,omitempty" xml:"plate_number,omitempty"`
+	// 与车辆对应号牌种类是否一致
+	PlateType *bool `json:"plate_type,omitempty" xml:"plate_type,omitempty"`
+	// 与车辆所有人是否一致
+	Owner *bool `json:"owner,omitempty" xml:"owner,omitempty"`
+}
+
+func (s VehicleLicenseCertResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VehicleLicenseCertResult) GoString() string {
+	return s.String()
+}
+
+func (s *VehicleLicenseCertResult) SetPlateNumber(v bool) *VehicleLicenseCertResult {
+	s.PlateNumber = &v
+	return s
+}
+
+func (s *VehicleLicenseCertResult) SetPlateType(v bool) *VehicleLicenseCertResult {
+	s.PlateType = &v
+	return s
+}
+
+func (s *VehicleLicenseCertResult) SetOwner(v bool) *VehicleLicenseCertResult {
+	s.Owner = &v
 	return s
 }
 
@@ -1042,20 +1243,20 @@ func (s *DataSource) SetAddress(v string) *DataSource {
 type DriverLicenseInfo struct {
 	// 性别
 	Gender *string `json:"gender,omitempty" xml:"gender,omitempty"`
-	// 驾驶证发证日期
-	Driveissuedate *string `json:"driveissuedate,omitempty" xml:"driveissuedate,omitempty"`
-	// 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
-	Validdate *string `json:"validdate,omitempty" xml:"validdate,omitempty"`
+	// 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
+	// 驾驶证有效终止日期
+	ValidEndDate *string `json:"valid_end_date,omitempty" xml:"valid_end_date,omitempty"`
 	// 驾驶证有效起始日期
-	Drivevalidstartdate *string `json:"drivevalidstartdate,omitempty" xml:"drivevalidstartdate,omitempty"`
-	// 驾驶证状态字典
-	Drivecardstatus *string `json:"drivecardstatus,omitempty" xml:"drivecardstatus,omitempty"`
+	ValidStartDate *string `json:"valid_start_date,omitempty" xml:"valid_start_date,omitempty"`
+	// 驾驶证状态，字典
+	DriverLicenseStatus *string `json:"driver_license_status,omitempty" xml:"driver_license_status,omitempty"`
 	// 初次领证时间
-	Firsissuedate *string `json:"firsissuedate,omitempty" xml:"firsissuedate,omitempty"`
+	FirstIssueDate *string `json:"first_issue_date,omitempty" xml:"first_issue_date,omitempty"`
 	// 准驾车型，字典
-	Allowdrivecar *string `json:"allowdrivecar,omitempty" xml:"allowdrivecar,omitempty"`
+	AllowDriveCar *string `json:"allow_drive_car,omitempty" xml:"allow_drive_car,omitempty"`
 	// 驾驶证种类，字典
-	Drivelicensetype *string `json:"drivelicensetype,omitempty" xml:"drivelicensetype,omitempty"`
+	DriverLicenseType *string `json:"driver_license_type,omitempty" xml:"driver_license_type,omitempty"`
 }
 
 func (s DriverLicenseInfo) String() string {
@@ -1071,38 +1272,108 @@ func (s *DriverLicenseInfo) SetGender(v string) *DriverLicenseInfo {
 	return s
 }
 
-func (s *DriverLicenseInfo) SetDriveissuedate(v string) *DriverLicenseInfo {
-	s.Driveissuedate = &v
+func (s *DriverLicenseInfo) SetIssueDate(v string) *DriverLicenseInfo {
+	s.IssueDate = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetValiddate(v string) *DriverLicenseInfo {
-	s.Validdate = &v
+func (s *DriverLicenseInfo) SetValidEndDate(v string) *DriverLicenseInfo {
+	s.ValidEndDate = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetDrivevalidstartdate(v string) *DriverLicenseInfo {
-	s.Drivevalidstartdate = &v
+func (s *DriverLicenseInfo) SetValidStartDate(v string) *DriverLicenseInfo {
+	s.ValidStartDate = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetDrivecardstatus(v string) *DriverLicenseInfo {
-	s.Drivecardstatus = &v
+func (s *DriverLicenseInfo) SetDriverLicenseStatus(v string) *DriverLicenseInfo {
+	s.DriverLicenseStatus = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetFirsissuedate(v string) *DriverLicenseInfo {
-	s.Firsissuedate = &v
+func (s *DriverLicenseInfo) SetFirstIssueDate(v string) *DriverLicenseInfo {
+	s.FirstIssueDate = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetAllowdrivecar(v string) *DriverLicenseInfo {
-	s.Allowdrivecar = &v
+func (s *DriverLicenseInfo) SetAllowDriveCar(v string) *DriverLicenseInfo {
+	s.AllowDriveCar = &v
 	return s
 }
 
-func (s *DriverLicenseInfo) SetDrivelicensetype(v string) *DriverLicenseInfo {
-	s.Drivelicensetype = &v
+func (s *DriverLicenseInfo) SetDriverLicenseType(v string) *DriverLicenseInfo {
+	s.DriverLicenseType = &v
+	return s
+}
+
+// 教育标签信息
+type EducationTagInfo struct {
+	//
+	// 是否211院校
+	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
+	// 是否985院校
+	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
+	// 是否双一流院校
+	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
+	// 专业名称
+	Major *string `json:"major,omitempty" xml:"major,omitempty"`
+	// 学历等级代码
+	EducationLevel *string `json:"education_level,omitempty" xml:"education_level,omitempty"`
+	//
+	// 毕业日期
+	GraduationDate *string `json:"graduation_date,omitempty" xml:"graduation_date,omitempty"`
+	// 学习形式
+	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty"`
+	// 入学时间
+	AdmissionDate *string `json:"admission_date,omitempty" xml:"admission_date,omitempty"`
+}
+
+func (s EducationTagInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EducationTagInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EducationTagInfo) SetProject211(v bool) *EducationTagInfo {
+	s.Project211 = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetProject985(v bool) *EducationTagInfo {
+	s.Project985 = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetDoubleFirstClass(v bool) *EducationTagInfo {
+	s.DoubleFirstClass = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetMajor(v string) *EducationTagInfo {
+	s.Major = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetEducationLevel(v string) *EducationTagInfo {
+	s.EducationLevel = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetGraduationDate(v string) *EducationTagInfo {
+	s.GraduationDate = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetEducationType(v string) *EducationTagInfo {
+	s.EducationType = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetAdmissionDate(v string) *EducationTagInfo {
+	s.AdmissionDate = &v
 	return s
 }
 
@@ -1182,204 +1453,57 @@ func (s *DetailCarInfo) SetDisplacement(v string) *DetailCarInfo {
 	return s
 }
 
-// 行驶证信息
-type DrivingPermitInfo struct {
-	// 品牌名称
-	Brandname *string `json:"brandname,omitempty" xml:"brandname,omitempty"`
-	// 车身颜色
-	Bodycolor *string `json:"bodycolor,omitempty" xml:"bodycolor,omitempty"`
-	// 使用性质
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 车型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 车辆类型
-	Vehicletype *string `json:"vehicletype,omitempty" xml:"vehicletype,omitempty"`
-	// 发动机号
-	Enginenumber *string `json:"enginenumber,omitempty" xml:"enginenumber,omitempty"`
-	// 发动机型号
-	Enginemodel *string `json:"enginemodel,omitempty" xml:"enginemodel,omitempty"`
-	// 初次登记日期
-	Firsissuedate *string `json:"firsissuedate,omitempty" xml:"firsissuedate,omitempty"`
-	// 检验有效期止
-	Validitydayend *string `json:"validitydayend,omitempty" xml:"validitydayend,omitempty"`
-	// 车辆状态
-	Vehiclestatus *string `json:"vehiclestatus,omitempty" xml:"vehiclestatus,omitempty"`
-	// 核定载客数
-	Passengers *string `json:"passengers,omitempty" xml:"passengers,omitempty"`
-	// 强制报废期止
-	Retirementdate *string `json:"retirementdate,omitempty" xml:"retirementdate,omitempty"`
-	// 燃料种类
-	Fueltype *string `json:"fueltype,omitempty" xml:"fueltype,omitempty"`
-	// 排量
-	Cc *string `json:"cc,omitempty" xml:"cc,omitempty"`
-	// 出厂日期
-	Ppsdate *string `json:"ppsdate,omitempty" xml:"ppsdate,omitempty"`
-	// 最大功率
-	Maxjourney *string `json:"maxjourney,omitempty" xml:"maxjourney,omitempty"`
-	// 轴数
-	Shaft *string `json:"shaft,omitempty" xml:"shaft,omitempty"`
-	// 轴距
-	Wheelbase *string `json:"wheelbase,omitempty" xml:"wheelbase,omitempty"`
-	// 前轮距
-	Fronttread *string `json:"fronttread,omitempty" xml:"fronttread,omitempty"`
-	// 后轮距
-	Reartread *string `json:"reartread,omitempty" xml:"reartread,omitempty"`
-	// 总重量
-	Crossweight *string `json:"crossweight,omitempty" xml:"crossweight,omitempty"`
-	// 整备质量
-	Curbweight *string `json:"curbweight,omitempty" xml:"curbweight,omitempty"`
-	// 核定载质量
-	Loadweight *string `json:"loadweight,omitempty" xml:"loadweight,omitempty"`
-	// 车架号
-	Vin *string `json:"vin,omitempty" xml:"vin,omitempty"`
-	// 车牌号
-	Plate *string `json:"plate,omitempty" xml:"plate,omitempty"`
-	// 车牌种类
-	Platetype *string `json:"platetype,omitempty" xml:"platetype,omitempty"`
-	// 年检日期
-	Jianchetime *string `json:"jianchetime,omitempty" xml:"jianchetime,omitempty"`
+// 学籍信息
+type EducationStatus struct {
+	// 是否211院校
+	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
+	// 是否985院校
+	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
+	// boolean	是否双一流院校
+	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
+	// 入学时间
+	AdmissionDate *string `json:"admission_date,omitempty" xml:"admission_date,omitempty"`
+	// 学制，字典
+	EducationalSystem *string `json:"educational_system,omitempty" xml:"educational_system,omitempty"`
+	// boolean	是否注册学籍
+	RegisteredStudentStatus *bool `json:"registered_student_status,omitempty" xml:"registered_student_status,omitempty"`
 }
 
-func (s DrivingPermitInfo) String() string {
+func (s EducationStatus) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DrivingPermitInfo) GoString() string {
+func (s EducationStatus) GoString() string {
 	return s.String()
 }
 
-func (s *DrivingPermitInfo) SetBrandname(v string) *DrivingPermitInfo {
-	s.Brandname = &v
+func (s *EducationStatus) SetProject211(v bool) *EducationStatus {
+	s.Project211 = &v
 	return s
 }
 
-func (s *DrivingPermitInfo) SetBodycolor(v string) *DrivingPermitInfo {
-	s.Bodycolor = &v
+func (s *EducationStatus) SetProject985(v bool) *EducationStatus {
+	s.Project985 = &v
 	return s
 }
 
-func (s *DrivingPermitInfo) SetProperties(v string) *DrivingPermitInfo {
-	s.Properties = &v
+func (s *EducationStatus) SetDoubleFirstClass(v bool) *EducationStatus {
+	s.DoubleFirstClass = &v
 	return s
 }
 
-func (s *DrivingPermitInfo) SetType(v string) *DrivingPermitInfo {
-	s.Type = &v
+func (s *EducationStatus) SetAdmissionDate(v string) *EducationStatus {
+	s.AdmissionDate = &v
 	return s
 }
 
-func (s *DrivingPermitInfo) SetVehicletype(v string) *DrivingPermitInfo {
-	s.Vehicletype = &v
+func (s *EducationStatus) SetEducationalSystem(v string) *EducationStatus {
+	s.EducationalSystem = &v
 	return s
 }
 
-func (s *DrivingPermitInfo) SetEnginenumber(v string) *DrivingPermitInfo {
-	s.Enginenumber = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetEnginemodel(v string) *DrivingPermitInfo {
-	s.Enginemodel = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetFirsissuedate(v string) *DrivingPermitInfo {
-	s.Firsissuedate = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetValiditydayend(v string) *DrivingPermitInfo {
-	s.Validitydayend = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetVehiclestatus(v string) *DrivingPermitInfo {
-	s.Vehiclestatus = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetPassengers(v string) *DrivingPermitInfo {
-	s.Passengers = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetRetirementdate(v string) *DrivingPermitInfo {
-	s.Retirementdate = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetFueltype(v string) *DrivingPermitInfo {
-	s.Fueltype = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetCc(v string) *DrivingPermitInfo {
-	s.Cc = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetPpsdate(v string) *DrivingPermitInfo {
-	s.Ppsdate = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetMaxjourney(v string) *DrivingPermitInfo {
-	s.Maxjourney = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetShaft(v string) *DrivingPermitInfo {
-	s.Shaft = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetWheelbase(v string) *DrivingPermitInfo {
-	s.Wheelbase = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetFronttread(v string) *DrivingPermitInfo {
-	s.Fronttread = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetReartread(v string) *DrivingPermitInfo {
-	s.Reartread = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetCrossweight(v string) *DrivingPermitInfo {
-	s.Crossweight = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetCurbweight(v string) *DrivingPermitInfo {
-	s.Curbweight = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetLoadweight(v string) *DrivingPermitInfo {
-	s.Loadweight = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetVin(v string) *DrivingPermitInfo {
-	s.Vin = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetPlate(v string) *DrivingPermitInfo {
-	s.Plate = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetPlatetype(v string) *DrivingPermitInfo {
-	s.Platetype = &v
-	return s
-}
-
-func (s *DrivingPermitInfo) SetJianchetime(v string) *DrivingPermitInfo {
-	s.Jianchetime = &v
+func (s *EducationStatus) SetRegisteredStudentStatus(v bool) *EducationStatus {
+	s.RegisteredStudentStatus = &v
 	return s
 }
 
@@ -2806,6 +2930,8 @@ type QueryIdnumberEducationtaginfoRequest struct {
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 用户身份证号
 	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true"`
+	// 用户手机号
+	UserTel *string `json:"user_tel,omitempty" xml:"user_tel,omitempty"`
 }
 
 func (s QueryIdnumberEducationtaginfoRequest) String() string {
@@ -2848,6 +2974,11 @@ func (s *QueryIdnumberEducationtaginfoRequest) SetUserName(v string) *QueryIdnum
 
 func (s *QueryIdnumberEducationtaginfoRequest) SetUserCertNo(v string) *QueryIdnumberEducationtaginfoRequest {
 	s.UserCertNo = &v
+	return s
+}
+
+func (s *QueryIdnumberEducationtaginfoRequest) SetUserTel(v string) *QueryIdnumberEducationtaginfoRequest {
+	s.UserTel = &v
 	return s
 }
 
@@ -2998,6 +3129,8 @@ type QueryApplicationUnifiedentranceRequest struct {
 	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty"`
 	// 整个需求的入参，map json
 	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 是否授权
+	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
 }
 
 func (s QueryApplicationUnifiedentranceRequest) String() string {
@@ -3030,6 +3163,11 @@ func (s *QueryApplicationUnifiedentranceRequest) SetFileIndex(v string) *QueryAp
 
 func (s *QueryApplicationUnifiedentranceRequest) SetParams(v string) *QueryApplicationUnifiedentranceRequest {
 	s.Params = &v
+	return s
+}
+
+func (s *QueryApplicationUnifiedentranceRequest) SetUserAuthed(v bool) *QueryApplicationUnifiedentranceRequest {
+	s.UserAuthed = &v
 	return s
 }
 
@@ -3072,7 +3210,7 @@ func (s *QueryApplicationUnifiedentranceResponse) SetData(v string) *QueryApplic
 	return s
 }
 
-type QueryApplicationDriverlicenseinfoRequest struct {
+type QueryApplicationDriverlicensecertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -3082,56 +3220,56 @@ type QueryApplicationDriverlicenseinfoRequest struct {
 	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty" require:"true"`
 	// 授权协议索引
 	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty" require:"true"`
-	// 身份证号AES加密
-	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
-	// 姓名aes加密
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 身份证号
+	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true"`
+	// 姓名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 }
 
-func (s QueryApplicationDriverlicenseinfoRequest) String() string {
+func (s QueryApplicationDriverlicensecertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryApplicationDriverlicenseinfoRequest) GoString() string {
+func (s QueryApplicationDriverlicensecertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetAuthToken(v string) *QueryApplicationDriverlicenseinfoRequest {
+func (s *QueryApplicationDriverlicensecertRequest) SetAuthToken(v string) *QueryApplicationDriverlicensecertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetProductInstanceId(v string) *QueryApplicationDriverlicenseinfoRequest {
+func (s *QueryApplicationDriverlicensecertRequest) SetProductInstanceId(v string) *QueryApplicationDriverlicensecertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetDataSetId(v string) *QueryApplicationDriverlicenseinfoRequest {
+func (s *QueryApplicationDriverlicensecertRequest) SetDataSetId(v string) *QueryApplicationDriverlicensecertRequest {
 	s.DataSetId = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetUserAuthed(v bool) *QueryApplicationDriverlicenseinfoRequest {
+func (s *QueryApplicationDriverlicensecertRequest) SetUserAuthed(v bool) *QueryApplicationDriverlicensecertRequest {
 	s.UserAuthed = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetFileIndex(v string) *QueryApplicationDriverlicenseinfoRequest {
+func (s *QueryApplicationDriverlicensecertRequest) SetFileIndex(v string) *QueryApplicationDriverlicensecertRequest {
 	s.FileIndex = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetIdCard(v string) *QueryApplicationDriverlicenseinfoRequest {
-	s.IdCard = &v
+func (s *QueryApplicationDriverlicensecertRequest) SetUserCertNo(v string) *QueryApplicationDriverlicensecertRequest {
+	s.UserCertNo = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoRequest) SetName(v string) *QueryApplicationDriverlicenseinfoRequest {
-	s.Name = &v
+func (s *QueryApplicationDriverlicensecertRequest) SetUserName(v string) *QueryApplicationDriverlicensecertRequest {
+	s.UserName = &v
 	return s
 }
 
-type QueryApplicationDriverlicenseinfoResponse struct {
+type QueryApplicationDriverlicensecertResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -3139,38 +3277,45 @@ type QueryApplicationDriverlicenseinfoResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 驾驶证信息
-	Data *DriverLicenseInfo `json:"data,omitempty" xml:"data,omitempty"`
+	DriverLicenseInfo *DriverLicenseInfo `json:"driver_license_info,omitempty" xml:"driver_license_info,omitempty"`
+	// 身份证与姓名是否一致
+	CertResult *string `json:"cert_result,omitempty" xml:"cert_result,omitempty"`
 }
 
-func (s QueryApplicationDriverlicenseinfoResponse) String() string {
+func (s QueryApplicationDriverlicensecertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryApplicationDriverlicenseinfoResponse) GoString() string {
+func (s QueryApplicationDriverlicensecertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryApplicationDriverlicenseinfoResponse) SetReqMsgId(v string) *QueryApplicationDriverlicenseinfoResponse {
+func (s *QueryApplicationDriverlicensecertResponse) SetReqMsgId(v string) *QueryApplicationDriverlicensecertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoResponse) SetResultCode(v string) *QueryApplicationDriverlicenseinfoResponse {
+func (s *QueryApplicationDriverlicensecertResponse) SetResultCode(v string) *QueryApplicationDriverlicensecertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoResponse) SetResultMsg(v string) *QueryApplicationDriverlicenseinfoResponse {
+func (s *QueryApplicationDriverlicensecertResponse) SetResultMsg(v string) *QueryApplicationDriverlicensecertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryApplicationDriverlicenseinfoResponse) SetData(v *DriverLicenseInfo) *QueryApplicationDriverlicenseinfoResponse {
-	s.Data = v
+func (s *QueryApplicationDriverlicensecertResponse) SetDriverLicenseInfo(v *DriverLicenseInfo) *QueryApplicationDriverlicensecertResponse {
+	s.DriverLicenseInfo = v
 	return s
 }
 
-type QueryApplicationDrivingpermitinfoRequest struct {
+func (s *QueryApplicationDriverlicensecertResponse) SetCertResult(v string) *QueryApplicationDriverlicensecertResponse {
+	s.CertResult = &v
+	return s
+}
+
+type QueryApplicationVehiclelicensecertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -3181,103 +3326,201 @@ type QueryApplicationDrivingpermitinfoRequest struct {
 	// 授权协议索引
 	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty" require:"true"`
 	// 车牌号
-	PlatNumber *string `json:"plat_number,omitempty" xml:"plat_number,omitempty" require:"true"`
+	PlateNumber *string `json:"plate_number,omitempty" xml:"plate_number,omitempty" require:"true"`
 	// 号牌种类，枚举
-	Platetype *string `json:"platetype,omitempty" xml:"platetype,omitempty" require:"true"`
+	PlateType *string `json:"plate_type,omitempty" xml:"plate_type,omitempty" require:"true"`
 	// 所有人姓名
 	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
 }
 
-func (s QueryApplicationDrivingpermitinfoRequest) String() string {
+func (s QueryApplicationVehiclelicensecertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryApplicationDrivingpermitinfoRequest) GoString() string {
+func (s QueryApplicationVehiclelicensecertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetAuthToken(v string) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetAuthToken(v string) *QueryApplicationVehiclelicensecertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetProductInstanceId(v string) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetProductInstanceId(v string) *QueryApplicationVehiclelicensecertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetDataSetId(v string) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetDataSetId(v string) *QueryApplicationVehiclelicensecertRequest {
 	s.DataSetId = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetUserAuthed(v bool) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetUserAuthed(v bool) *QueryApplicationVehiclelicensecertRequest {
 	s.UserAuthed = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetFileIndex(v string) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetFileIndex(v string) *QueryApplicationVehiclelicensecertRequest {
 	s.FileIndex = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetPlatNumber(v string) *QueryApplicationDrivingpermitinfoRequest {
-	s.PlatNumber = &v
+func (s *QueryApplicationVehiclelicensecertRequest) SetPlateNumber(v string) *QueryApplicationVehiclelicensecertRequest {
+	s.PlateNumber = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetPlatetype(v string) *QueryApplicationDrivingpermitinfoRequest {
-	s.Platetype = &v
+func (s *QueryApplicationVehiclelicensecertRequest) SetPlateType(v string) *QueryApplicationVehiclelicensecertRequest {
+	s.PlateType = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoRequest) SetOwner(v string) *QueryApplicationDrivingpermitinfoRequest {
+func (s *QueryApplicationVehiclelicensecertRequest) SetOwner(v string) *QueryApplicationVehiclelicensecertRequest {
 	s.Owner = &v
 	return s
 }
 
-type QueryApplicationDrivingpermitinfoResponse struct {
+type QueryApplicationVehiclelicensecertResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 行驶证核验结果
-	CheckResult *DrivingPermitCheckResult `json:"check_result,omitempty" xml:"check_result,omitempty"`
 	// 行驶证信息
-	Data *DrivingPermitInfo `json:"data,omitempty" xml:"data,omitempty"`
+	VehicleLicenseInfo *VehicleLicenseInfo `json:"vehicle_license_info,omitempty" xml:"vehicle_license_info,omitempty"`
+	// 行驶证核验结果
+	VehicleLicenseCertResult *VehicleLicenseCertResult `json:"vehicle_license_cert_result,omitempty" xml:"vehicle_license_cert_result,omitempty"`
 }
 
-func (s QueryApplicationDrivingpermitinfoResponse) String() string {
+func (s QueryApplicationVehiclelicensecertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryApplicationDrivingpermitinfoResponse) GoString() string {
+func (s QueryApplicationVehiclelicensecertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryApplicationDrivingpermitinfoResponse) SetReqMsgId(v string) *QueryApplicationDrivingpermitinfoResponse {
+func (s *QueryApplicationVehiclelicensecertResponse) SetReqMsgId(v string) *QueryApplicationVehiclelicensecertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoResponse) SetResultCode(v string) *QueryApplicationDrivingpermitinfoResponse {
+func (s *QueryApplicationVehiclelicensecertResponse) SetResultCode(v string) *QueryApplicationVehiclelicensecertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoResponse) SetResultMsg(v string) *QueryApplicationDrivingpermitinfoResponse {
+func (s *QueryApplicationVehiclelicensecertResponse) SetResultMsg(v string) *QueryApplicationVehiclelicensecertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoResponse) SetCheckResult(v *DrivingPermitCheckResult) *QueryApplicationDrivingpermitinfoResponse {
-	s.CheckResult = v
+func (s *QueryApplicationVehiclelicensecertResponse) SetVehicleLicenseInfo(v *VehicleLicenseInfo) *QueryApplicationVehiclelicensecertResponse {
+	s.VehicleLicenseInfo = v
 	return s
 }
 
-func (s *QueryApplicationDrivingpermitinfoResponse) SetData(v *DrivingPermitInfo) *QueryApplicationDrivingpermitinfoResponse {
+func (s *QueryApplicationVehiclelicensecertResponse) SetVehicleLicenseCertResult(v *VehicleLicenseCertResult) *QueryApplicationVehiclelicensecertResponse {
+	s.VehicleLicenseCertResult = v
+	return s
+}
+
+type QueryApplicationEducationstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需求ID
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 用户是否已经授权
+	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty" require:"true"`
+	// 授权文件索引
+	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty" require:"true"`
+	// 姓名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 身份证号
+	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true"`
+}
+
+func (s QueryApplicationEducationstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationEducationstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetAuthToken(v string) *QueryApplicationEducationstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetProductInstanceId(v string) *QueryApplicationEducationstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetDataSetId(v string) *QueryApplicationEducationstatusRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetUserAuthed(v bool) *QueryApplicationEducationstatusRequest {
+	s.UserAuthed = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetFileIndex(v string) *QueryApplicationEducationstatusRequest {
+	s.FileIndex = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetUserName(v string) *QueryApplicationEducationstatusRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusRequest) SetUserCertNo(v string) *QueryApplicationEducationstatusRequest {
+	s.UserCertNo = &v
+	return s
+}
+
+type QueryApplicationEducationstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 学籍信息
+	Data []*EducationStatus `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryApplicationEducationstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApplicationEducationstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApplicationEducationstatusResponse) SetReqMsgId(v string) *QueryApplicationEducationstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusResponse) SetResultCode(v string) *QueryApplicationEducationstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusResponse) SetResultMsg(v string) *QueryApplicationEducationstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApplicationEducationstatusResponse) SetData(v []*EducationStatus) *QueryApplicationEducationstatusResponse {
 	s.Data = v
 	return s
 }
@@ -4614,17 +4857,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -4658,7 +4901,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.29"),
+				"sdk_version":      tea.String("1.1.41"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5353,14 +5596,14 @@ func (client *Client) QueryApplicationUnifiedentranceEx(request *QueryApplicatio
 }
 
 /**
- * Description: 驾驶证信息查询
- * Summary: 驾驶证信息查询
+ * Description: 根据姓名和身份证，返回驾驶证核验信息
+ * Summary: 驾驶证核验信息查询
  */
-func (client *Client) QueryApplicationDriverlicenseinfo(request *QueryApplicationDriverlicenseinfoRequest) (_result *QueryApplicationDriverlicenseinfoResponse, _err error) {
+func (client *Client) QueryApplicationDriverlicensecert(request *QueryApplicationDriverlicensecertRequest) (_result *QueryApplicationDriverlicensecertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryApplicationDriverlicenseinfoResponse{}
-	_body, _err := client.QueryApplicationDriverlicenseinfoEx(request, headers, runtime)
+	_result = &QueryApplicationDriverlicensecertResponse{}
+	_body, _err := client.QueryApplicationDriverlicensecertEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5369,16 +5612,16 @@ func (client *Client) QueryApplicationDriverlicenseinfo(request *QueryApplicatio
 }
 
 /**
- * Description: 驾驶证信息查询
- * Summary: 驾驶证信息查询
+ * Description: 根据姓名和身份证，返回驾驶证核验信息
+ * Summary: 驾驶证核验信息查询
  */
-func (client *Client) QueryApplicationDriverlicenseinfoEx(request *QueryApplicationDriverlicenseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationDriverlicenseinfoResponse, _err error) {
+func (client *Client) QueryApplicationDriverlicensecertEx(request *QueryApplicationDriverlicensecertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationDriverlicensecertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryApplicationDriverlicenseinfoResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.driverlicenseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryApplicationDriverlicensecertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.driverlicensecert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5388,13 +5631,13 @@ func (client *Client) QueryApplicationDriverlicenseinfoEx(request *QueryApplicat
 
 /**
  * Description: 根据车牌号所有人等信息，返回行驶证核验结果
- * Summary: 核验并查询行驶证信息
+ * Summary: 行驶证核验信息查询
  */
-func (client *Client) QueryApplicationDrivingpermitinfo(request *QueryApplicationDrivingpermitinfoRequest) (_result *QueryApplicationDrivingpermitinfoResponse, _err error) {
+func (client *Client) QueryApplicationVehiclelicensecert(request *QueryApplicationVehiclelicensecertRequest) (_result *QueryApplicationVehiclelicensecertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryApplicationDrivingpermitinfoResponse{}
-	_body, _err := client.QueryApplicationDrivingpermitinfoEx(request, headers, runtime)
+	_result = &QueryApplicationVehiclelicensecertResponse{}
+	_body, _err := client.QueryApplicationVehiclelicensecertEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5404,15 +5647,49 @@ func (client *Client) QueryApplicationDrivingpermitinfo(request *QueryApplicatio
 
 /**
  * Description: 根据车牌号所有人等信息，返回行驶证核验结果
- * Summary: 核验并查询行驶证信息
+ * Summary: 行驶证核验信息查询
  */
-func (client *Client) QueryApplicationDrivingpermitinfoEx(request *QueryApplicationDrivingpermitinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationDrivingpermitinfoResponse, _err error) {
+func (client *Client) QueryApplicationVehiclelicensecertEx(request *QueryApplicationVehiclelicensecertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationVehiclelicensecertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryApplicationDrivingpermitinfoResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.drivingpermitinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryApplicationVehiclelicensecertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.vehiclelicensecert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据姓名身份证信息查询学籍信息
+ * Summary: 根据姓名身份证信息查询学籍
+ */
+func (client *Client) QueryApplicationEducationstatus(request *QueryApplicationEducationstatusRequest) (_result *QueryApplicationEducationstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApplicationEducationstatusResponse{}
+	_body, _err := client.QueryApplicationEducationstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据姓名身份证信息查询学籍信息
+ * Summary: 根据姓名身份证信息查询学籍
+ */
+func (client *Client) QueryApplicationEducationstatusEx(request *QueryApplicationEducationstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApplicationEducationstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApplicationEducationstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.educationstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
