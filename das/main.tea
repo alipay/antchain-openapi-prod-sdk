@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.29',
+    sdk_version = '1.1.41',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -235,14 +235,62 @@ model BasicCarInfo {
   engineNo: string(name='engine_no', example='xxxxxx'),
 }
 
-// 行驶证核验信息
-model DrivingPermitCheckResult {
+// 行驶证证信息
+model VehicleLicenseInfo {
+  // 品牌名称
+  brandName?: string(name='brand_name', example='品牌'),
+  // 车身颜色
+  bodyColor?: string(name='body_color', example='红'),
+  // 使用性质
+  properties?: string(name='properties', example='运营车辆'),
+  // 车型
+  type?: string(name='type', example='A1'),
+  // 车辆类型
+  vehicleType?: string(name='vehicle_type', example='车辆类型'),
+  // 发动机号
+  engineNumber?: string(name='engine_number', example='R20859'),
+  // 发动机型号
+  engineModel?: string(name='engine_model', example='CSR'),
+  // 初次登记日期
+  firstRegistryDate?: string(name='first_registry_date', example='2016-10-10 00:00:00'),
+  // 检验失效日期
+  inspectionExpireDate?: string(name='inspection_expire_date', example='2099-12-31 00:00:00'),
+  // 车辆状态
+  vehicleStatus?: string(name='vehicle_status', example='有效'),
+  // 核定载客数
+  passengers?: string(name='passengers', example='5'),
+  // 强制报废期止
+  retirementDate?: string(name='retirement_date', example='2099-12-31 00:00:00'),
+  // 燃料种类
+  fuelType?: string(name='fuel_type', example='汽油'),
+  // 排量
+  displacement?: string(name='displacement', example='1600'),
+  // 出厂日期
+  ppsDate?: string(name='pps_date', example='2016-01-01 00:00:00'),
+  // 最大功率
+  maximumPower?: string(name='maximum_power', example='100'),
+  // 轴数
+  shaft?: string(name='shaft', example='轴数'),
+  // 轴距
+  wheelBase?: string(name='wheel_base', example='1000'),
+  // 前轮距
+  frontTread?: string(name='front_tread', example='1000'),
+  // 后轮距
+  rearTread?: string(name='rear_tread', example='1000'),
+  // 总重量
+  crossWeight?: string(name='cross_weight', example='1000'),
+  // 整备质量
+  curbWeight?: string(name='curb_weight', example='1000'),
+  // 核定载质量
+  loadWeight?: string(name='load_weight', example='1000'),
+  // 车架号
+  vin?: string(name='vin', example='12345'),
   // 车牌号
-  platenumber?: string(name='platenumber', example='一致'),
+  plateNumber?: string(name='plate_number', example='12345'),
   // 车牌种类
-  platetype?: string(name='platetype', example='一致'),
-  // 所有人
-  owner?: string(name='owner', example='一致'),
+  plateType?: string(name='plate_type', example='01'),
+  // 检车日期
+  inspectionDate?: string(name='inspection_date', example='2099-12-31 00:00:00'),
 }
 
 // 简历技能信息
@@ -270,19 +318,19 @@ model EducationExperiencesInfo {
 // 教育学历信息
 model EducationInfo {
   // 是否211院校
-  project211: boolean(name='project211', example='true, false'),
+  project211?: boolean(name='project211', example='true, false'),
   // 是否985院校
-  project985: boolean(name='project985', example='true, false'),
+  project985?: boolean(name='project985', example='true, false'),
   // 是否双一流院校
-  doubleFirstClass: boolean(name='double_first_class', example='true, false'),
+  doubleFirstClass?: boolean(name='double_first_class', example='true, false'),
   // 专业
-  major: string(name='major', example='计算机'),
+  major?: string(name='major', example='计算机'),
   // 学历等级代码
-  educationLevel: string(name='education_level', example='01'),
+  educationLevel?: string(name='education_level', example='01'),
   // 毕业日期
-  graduationDate: string(name='graduation_date', example='2020/06'),
+  graduationDate?: string(name='graduation_date', example='2020/06'),
   // 学习形式
-  educationType: string(name='education_type', example='全日制'),
+  educationType?: string(name='education_type', example='全日制'),
 }
 
 // 授权人企业信息
@@ -309,6 +357,16 @@ model BeAuthedPersonInfo {
   enterpriseLegalPersonName: string(name='enterprise_legal_person_name', example='张**'),
   // 企业法人身份证号
   enterpriseLegalPersonId: string(name='enterprise_legal_person_id', example='110*****'),
+}
+
+// 行驶证核验结果
+model VehicleLicenseCertResult {
+  // 与车辆的车牌号是否一致
+  plateNumber?: boolean(name='plate_number', example='true'),
+  // 与车辆对应号牌种类是否一致
+  plateType?: boolean(name='plate_type', example='true'),
+  // 与车辆所有人是否一致
+  owner?: boolean(name='owner', example='true'),
 }
 
 // 授权人个人信息
@@ -430,20 +488,42 @@ model DataSource {
 model DriverLicenseInfo {
   // 性别
   gender?: string(name='gender', example='男性'),
-  // 驾驶证发证日期
-  driveissuedate?: string(name='driveissuedate', example='暂无返回'),
-  // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
-  validdate?: string(name='validdate', example='A/-A'),
+  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+  issueDate?: string(name='issue_date', example='A/-A'),
+  // 驾驶证有效终止日期
+  validEndDate?: string(name='valid_end_date', example='A/-A'),
   // 驾驶证有效起始日期
-  drivevalidstartdate?: string(name='drivevalidstartdate', example='A/-A'),
-  // 驾驶证状态字典
-  drivecardstatus?: string(name='drivecardstatus', example='A'),
+  validStartDate?: string(name='valid_start_date', example='A/-A'),
+  // 驾驶证状态，字典
+  driverLicenseStatus?: string(name='driver_license_status', example='A'),
   // 初次领证时间
-  firsissuedate?: string(name='firsissuedate', example='A/-A'),
+  firstIssueDate?: string(name='first_issue_date', example='A/-A'),
   // 准驾车型，字典
-  allowdrivecar?: string(name='allowdrivecar', example='A1'),
+  allowDriveCar?: string(name='allow_drive_car', example='A1'),
   // 驾驶证种类，字典
-  drivelicensetype?: string(name='drivelicensetype', example='A'),
+  driverLicenseType?: string(name='driver_license_type', example='A'),
+}
+
+// 教育标签信息
+model EducationTagInfo {
+  // 	
+  // 是否211院校
+  project211?: boolean(name='project211', example='true, false'),
+  // 是否985院校
+  project985?: boolean(name='project985', example='true, false'),
+  // 是否双一流院校
+  doubleFirstClass?: boolean(name='double_first_class', example='true, false'),
+  // 专业名称
+  major?: string(name='major', example='软件工程'),
+  // 学历等级代码
+  educationLevel?: string(name='education_level', example='01'),
+  // 	
+  // 毕业日期
+  graduationDate?: string(name='graduation_date', example='2020/06'),
+  // 学习形式
+  educationType?: string(name='education_type', example='全日制'),
+  // 入学时间
+  admissionDate?: string(name='admission_date', example='202109'),
 }
 
 // 车辆详细信息
@@ -469,62 +549,20 @@ model DetailCarInfo {
   displacement: string(name='displacement', example='10'),
 }
 
-// 行驶证信息
-model DrivingPermitInfo {
-  // 品牌名称
-  brandname?: string(name='brandname', example='品牌'),
-  // 车身颜色
-  bodycolor?: string(name='bodycolor', example='红色'),
-  // 使用性质
-  properties?: string(name='properties', example='运营车辆'),
-  // 车型
-  type?: string(name='type', example='A1'),
-  // 车辆类型
-  vehicletype?: string(name='vehicletype', example='车辆类型'),
-  // 发动机号
-  enginenumber?: string(name='enginenumber', example='12345'),
-  // 发动机型号
-  enginemodel?: string(name='enginemodel', example='型号'),
-  // 初次登记日期
-  firsissuedate?: string(name='firsissuedate', example='A'),
-  // 检验有效期止
-  validitydayend?: string(name='validitydayend', example='A'),
-  // 车辆状态
-  vehiclestatus?: string(name='vehiclestatus', example='有效'),
-  // 核定载客数
-  passengers?: string(name='passengers', example='1'),
-  // 强制报废期止
-  retirementdate?: string(name='retirementdate', example='A'),
-  // 燃料种类
-  fueltype?: string(name='fueltype', example='燃油'),
-  // 排量
-  cc?: string(name='cc', example='1.5T'),
-  // 出厂日期
-  ppsdate?: string(name='ppsdate', example='A'),
-  // 最大功率
-  maxjourney?: string(name='maxjourney', example='100'),
-  // 轴数
-  shaft?: string(name='shaft', example='轴数'),
-  // 轴距
-  wheelbase?: string(name='wheelbase', example='100'),
-  // 前轮距
-  fronttread?: string(name='fronttread', example='100'),
-  // 后轮距
-  reartread?: string(name='reartread', example='100'),
-  // 总重量
-  crossweight?: string(name='crossweight', example='1T'),
-  // 整备质量
-  curbweight?: string(name='curbweight', example='1T'),
-  // 核定载质量
-  loadweight?: string(name='loadweight', example='1T'),
-  // 车架号
-  vin?: string(name='vin', example='12345'),
-  // 车牌号
-  plate?: string(name='plate', example='12345'),
-  // 车牌种类
-  platetype?: string(name='platetype', example='01'),
-  // 年检日期
-  jianchetime?: string(name='jianchetime', example='A'),
+// 学籍信息
+model EducationStatus {
+  // 是否211院校
+  project211?: boolean(name='project211', example='true, false'),
+  // 是否985院校 
+  project985?: boolean(name='project985', example='true, false'),
+  // boolean	是否双一流院校
+  doubleFirstClass?: boolean(name='double_first_class', example='true, false'),
+  // 入学时间
+  admissionDate?: string(name='admission_date', example='202109'),
+  // 学制，字典
+  educationalSystem?: string(name='educational_system', example='C'),
+  // boolean	是否注册学籍
+  registeredStudentStatus?: boolean(name='registered_student_status', example='true, false'),
 }
 
 // 简历证书信息
@@ -1245,6 +1283,8 @@ model QueryIdnumberEducationtaginfoRequest = {
   userName: string(name='user_name'),
   // 用户身份证号
   userCertNo: string(name='user_cert_no'),
+  // 用户手机号
+  userTel?: string(name='user_tel'),
 }
 
 model QueryIdnumberEducationtaginfoResponse = {
@@ -1333,6 +1373,8 @@ model QueryApplicationUnifiedentranceRequest = {
   fileIndex?: string(name='file_index'),
   // 整个需求的入参，map json
   params: string(name='params'),
+  // 是否授权
+  userAuthed?: boolean(name='user_authed'),
 }
 
 model QueryApplicationUnifiedentranceResponse = {
@@ -1365,7 +1407,7 @@ async function queryApplicationUnifiedentranceEx(request: QueryApplicationUnifie
   return doRequest('1.0' ,'antchain.das.application.unifiedentrance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryApplicationDriverlicenseinfoRequest = {
+model QueryApplicationDriverlicensecertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -1375,13 +1417,13 @@ model QueryApplicationDriverlicenseinfoRequest = {
   userAuthed: boolean(name='user_authed'),
   // 授权协议索引
   fileIndex: string(name='file_index'),
-  // 身份证号AES加密
-  idCard: string(name='id_card'),
-  // 姓名aes加密
-  name: string(name='name'),
+  // 身份证号
+  userCertNo: string(name='user_cert_no'),
+  // 姓名
+  userName: string(name='user_name'),
 }
 
-model QueryApplicationDriverlicenseinfoResponse = {
+model QueryApplicationDriverlicensecertResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -1389,29 +1431,31 @@ model QueryApplicationDriverlicenseinfoResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 驾驶证信息
-  data?: DriverLicenseInfo(name='data'),
+  driverLicenseInfo?: DriverLicenseInfo(name='driver_license_info'),
+  // 身份证与姓名是否一致
+  certResult?: string(name='cert_result'),
 }
 
 /**
- * Description: 驾驶证信息查询
- * Summary: 驾驶证信息查询
+ * Description: 根据姓名和身份证，返回驾驶证核验信息
+ * Summary: 驾驶证核验信息查询
  */
-async function queryApplicationDriverlicenseinfo(request: QueryApplicationDriverlicenseinfoRequest): QueryApplicationDriverlicenseinfoResponse {
+async function queryApplicationDriverlicensecert(request: QueryApplicationDriverlicensecertRequest): QueryApplicationDriverlicensecertResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryApplicationDriverlicenseinfoEx(request, headers, runtime);
+  return queryApplicationDriverlicensecertEx(request, headers, runtime);
 }
 
 /**
- * Description: 驾驶证信息查询
- * Summary: 驾驶证信息查询
+ * Description: 根据姓名和身份证，返回驾驶证核验信息
+ * Summary: 驾驶证核验信息查询
  */
-async function queryApplicationDriverlicenseinfoEx(request: QueryApplicationDriverlicenseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDriverlicenseinfoResponse {
+async function queryApplicationDriverlicensecertEx(request: QueryApplicationDriverlicensecertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDriverlicensecertResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.das.application.driverlicenseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.das.application.driverlicensecert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryApplicationDrivingpermitinfoRequest = {
+model QueryApplicationVehiclelicensecertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -1422,43 +1466,89 @@ model QueryApplicationDrivingpermitinfoRequest = {
   // 授权协议索引
   fileIndex: string(name='file_index'),
   // 车牌号
-  platNumber: string(name='plat_number'),
+  plateNumber: string(name='plate_number'),
   // 号牌种类，枚举
-  platetype: string(name='platetype'),
+  plateType: string(name='plate_type'),
   // 所有人姓名
   owner: string(name='owner'),
 }
 
-model QueryApplicationDrivingpermitinfoResponse = {
+model QueryApplicationVehiclelicensecertResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 行驶证核验结果
-  checkResult?: DrivingPermitCheckResult(name='check_result'),
   // 行驶证信息
-  data?: DrivingPermitInfo(name='data'),
+  vehicleLicenseInfo?: VehicleLicenseInfo(name='vehicle_license_info'),
+  // 行驶证核验结果
+  vehicleLicenseCertResult?: VehicleLicenseCertResult(name='vehicle_license_cert_result'),
 }
 
 /**
  * Description: 根据车牌号所有人等信息，返回行驶证核验结果
- * Summary: 核验并查询行驶证信息
+ * Summary: 行驶证核验信息查询
  */
-async function queryApplicationDrivingpermitinfo(request: QueryApplicationDrivingpermitinfoRequest): QueryApplicationDrivingpermitinfoResponse {
+async function queryApplicationVehiclelicensecert(request: QueryApplicationVehiclelicensecertRequest): QueryApplicationVehiclelicensecertResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryApplicationDrivingpermitinfoEx(request, headers, runtime);
+  return queryApplicationVehiclelicensecertEx(request, headers, runtime);
 }
 
 /**
  * Description: 根据车牌号所有人等信息，返回行驶证核验结果
- * Summary: 核验并查询行驶证信息
+ * Summary: 行驶证核验信息查询
  */
-async function queryApplicationDrivingpermitinfoEx(request: QueryApplicationDrivingpermitinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationDrivingpermitinfoResponse {
+async function queryApplicationVehiclelicensecertEx(request: QueryApplicationVehiclelicensecertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationVehiclelicensecertResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.das.application.drivingpermitinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.das.application.vehiclelicensecert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApplicationEducationstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需求ID
+  dataSetId: string(name='data_set_id'),
+  // 用户是否已经授权
+  userAuthed: boolean(name='user_authed'),
+  // 授权文件索引
+  fileIndex: string(name='file_index'),
+  // 姓名
+  userName: string(name='user_name'),
+  // 身份证号
+  userCertNo: string(name='user_cert_no'),
+}
+
+model QueryApplicationEducationstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 学籍信息
+  data?: [ EducationStatus ](name='data'),
+}
+
+/**
+ * Description: 根据姓名身份证信息查询学籍信息
+ * Summary: 根据姓名身份证信息查询学籍
+ */
+async function queryApplicationEducationstatus(request: QueryApplicationEducationstatusRequest): QueryApplicationEducationstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApplicationEducationstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据姓名身份证信息查询学籍信息
+ * Summary: 根据姓名身份证信息查询学籍
+ */
+async function queryApplicationEducationstatusEx(request: QueryApplicationEducationstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationEducationstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.educationstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
