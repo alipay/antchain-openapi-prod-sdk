@@ -8,17 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    // 行驶证信息
-    public class DrivingPermitInfo : TeaModel {
+    // 行驶证证信息
+    public class VehicleLicenseInfo : TeaModel {
         // 品牌名称
-        [NameInMap("brandname")]
+        [NameInMap("brand_name")]
         [Validation(Required=false)]
-        public string Brandname { get; set; }
+        public string BrandName { get; set; }
 
         // 车身颜色
-        [NameInMap("bodycolor")]
+        [NameInMap("body_color")]
         [Validation(Required=false)]
-        public string Bodycolor { get; set; }
+        public string BodyColor { get; set; }
 
         // 使用性质
         [NameInMap("properties")]
@@ -31,34 +31,34 @@ namespace AntChain.SDK.DAS.Models
         public string Type { get; set; }
 
         // 车辆类型
-        [NameInMap("vehicletype")]
+        [NameInMap("vehicle_type")]
         [Validation(Required=false)]
-        public string Vehicletype { get; set; }
+        public string VehicleType { get; set; }
 
         // 发动机号
-        [NameInMap("enginenumber")]
+        [NameInMap("engine_number")]
         [Validation(Required=false)]
-        public string Enginenumber { get; set; }
+        public string EngineNumber { get; set; }
 
         // 发动机型号
-        [NameInMap("enginemodel")]
+        [NameInMap("engine_model")]
         [Validation(Required=false)]
-        public string Enginemodel { get; set; }
+        public string EngineModel { get; set; }
 
         // 初次登记日期
-        [NameInMap("firsissuedate")]
+        [NameInMap("first_registry_date")]
         [Validation(Required=false)]
-        public string Firsissuedate { get; set; }
+        public string FirstRegistryDate { get; set; }
 
-        // 检验有效期止
-        [NameInMap("validitydayend")]
+        // 检验失效日期
+        [NameInMap("inspection_expire_date")]
         [Validation(Required=false)]
-        public string Validitydayend { get; set; }
+        public string InspectionExpireDate { get; set; }
 
         // 车辆状态
-        [NameInMap("vehiclestatus")]
+        [NameInMap("vehicle_status")]
         [Validation(Required=false)]
-        public string Vehiclestatus { get; set; }
+        public string VehicleStatus { get; set; }
 
         // 核定载客数
         [NameInMap("passengers")]
@@ -66,29 +66,29 @@ namespace AntChain.SDK.DAS.Models
         public string Passengers { get; set; }
 
         // 强制报废期止
-        [NameInMap("retirementdate")]
+        [NameInMap("retirement_date")]
         [Validation(Required=false)]
-        public string Retirementdate { get; set; }
+        public string RetirementDate { get; set; }
 
         // 燃料种类
-        [NameInMap("fueltype")]
+        [NameInMap("fuel_type")]
         [Validation(Required=false)]
-        public string Fueltype { get; set; }
+        public string FuelType { get; set; }
 
         // 排量
-        [NameInMap("cc")]
+        [NameInMap("displacement")]
         [Validation(Required=false)]
-        public string Cc { get; set; }
+        public string Displacement { get; set; }
 
         // 出厂日期
-        [NameInMap("ppsdate")]
+        [NameInMap("pps_date")]
         [Validation(Required=false)]
-        public string Ppsdate { get; set; }
+        public string PpsDate { get; set; }
 
         // 最大功率
-        [NameInMap("maxjourney")]
+        [NameInMap("maximum_power")]
         [Validation(Required=false)]
-        public string Maxjourney { get; set; }
+        public string MaximumPower { get; set; }
 
         // 轴数
         [NameInMap("shaft")]
@@ -96,34 +96,34 @@ namespace AntChain.SDK.DAS.Models
         public string Shaft { get; set; }
 
         // 轴距
-        [NameInMap("wheelbase")]
+        [NameInMap("wheel_base")]
         [Validation(Required=false)]
-        public string Wheelbase { get; set; }
+        public string WheelBase { get; set; }
 
         // 前轮距
-        [NameInMap("fronttread")]
+        [NameInMap("front_tread")]
         [Validation(Required=false)]
-        public string Fronttread { get; set; }
+        public string FrontTread { get; set; }
 
         // 后轮距
-        [NameInMap("reartread")]
+        [NameInMap("rear_tread")]
         [Validation(Required=false)]
-        public string Reartread { get; set; }
+        public string RearTread { get; set; }
 
         // 总重量
-        [NameInMap("crossweight")]
+        [NameInMap("cross_weight")]
         [Validation(Required=false)]
-        public string Crossweight { get; set; }
+        public string CrossWeight { get; set; }
 
         // 整备质量
-        [NameInMap("curbweight")]
+        [NameInMap("curb_weight")]
         [Validation(Required=false)]
-        public string Curbweight { get; set; }
+        public string CurbWeight { get; set; }
 
         // 核定载质量
-        [NameInMap("loadweight")]
+        [NameInMap("load_weight")]
         [Validation(Required=false)]
-        public string Loadweight { get; set; }
+        public string LoadWeight { get; set; }
 
         // 车架号
         [NameInMap("vin")]
@@ -131,19 +131,19 @@ namespace AntChain.SDK.DAS.Models
         public string Vin { get; set; }
 
         // 车牌号
-        [NameInMap("plate")]
+        [NameInMap("plate_number")]
         [Validation(Required=false)]
-        public string Plate { get; set; }
+        public string PlateNumber { get; set; }
 
         // 车牌种类
-        [NameInMap("platetype")]
+        [NameInMap("plate_type")]
         [Validation(Required=false)]
-        public string Platetype { get; set; }
+        public string PlateType { get; set; }
 
-        // 年检日期
-        [NameInMap("jianchetime")]
+        // 检车日期
+        [NameInMap("inspection_date")]
         [Validation(Required=false)]
-        public string Jianchetime { get; set; }
+        public string InspectionDate { get; set; }
 
     }
 

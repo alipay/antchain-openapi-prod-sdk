@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryApplicationDriverlicenseinfoRequest : TeaModel {
+    public class QueryApplicationDriverlicensecertRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -33,15 +33,15 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string FileIndex { get; set; }
 
-        // 身份证号AES加密
-        [NameInMap("id_card")]
+        // 身份证号
+        [NameInMap("user_cert_no")]
         [Validation(Required=true)]
-        public string IdCard { get; set; }
+        public string UserCertNo { get; set; }
 
-        // 姓名aes加密
-        [NameInMap("name")]
+        // 姓名
+        [NameInMap("user_name")]
         [Validation(Required=true)]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
     }
 

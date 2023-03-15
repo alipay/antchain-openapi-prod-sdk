@@ -33,6 +33,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string Params { get; set; }
 
+        // 是否授权
+        [NameInMap("user_authed")]
+        [Validation(Required=false)]
+        public bool? UserAuthed { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryApplicationDriverlicenseinfoResponse : TeaModel {
+    public class QueryApplicationVehiclelicensecertResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 驾驶证信息
-        [NameInMap("data")]
+        // 行驶证信息
+        [NameInMap("vehicle_license_info")]
         [Validation(Required=false)]
-        public DriverLicenseInfo Data { get; set; }
+        public VehicleLicenseInfo VehicleLicenseInfo { get; set; }
+
+        // 行驶证核验结果
+        [NameInMap("vehicle_license_cert_result")]
+        [Validation(Required=false)]
+        public VehicleLicenseCertResult VehicleLicenseCertResult { get; set; }
 
     }
 

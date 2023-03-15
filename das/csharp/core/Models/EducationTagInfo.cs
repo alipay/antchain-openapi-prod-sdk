@@ -8,8 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    // 教育学历信息
-    public class EducationInfo : TeaModel {
+    // 教育标签信息
+    public class EducationTagInfo : TeaModel {
+        // 	
         // 是否211院校
         [NameInMap("project211")]
         [Validation(Required=false)]
@@ -25,7 +26,7 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public bool? DoubleFirstClass { get; set; }
 
-        // 专业
+        // 专业名称
         [NameInMap("major")]
         [Validation(Required=false)]
         public string Major { get; set; }
@@ -35,6 +36,7 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string EducationLevel { get; set; }
 
+        // 	
         // 毕业日期
         [NameInMap("graduation_date")]
         [Validation(Required=false)]
@@ -44,6 +46,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("education_type")]
         [Validation(Required=false)]
         public string EducationType { get; set; }
+
+        // 入学时间
+        [NameInMap("admission_date")]
+        [Validation(Required=false)]
+        public string AdmissionDate { get; set; }
 
     }
 

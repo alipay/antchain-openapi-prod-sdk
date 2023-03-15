@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryApplicationDrivingpermitinfoRequest : TeaModel {
+    public class QueryApplicationEducationstatusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,30 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据集id，开发者提供
+        // 需求ID
         [NameInMap("data_set_id")]
         [Validation(Required=true)]
         public string DataSetId { get; set; }
 
-        // 是否授权
+        // 用户是否已经授权
         [NameInMap("user_authed")]
         [Validation(Required=true)]
         public bool? UserAuthed { get; set; }
 
-        // 授权协议索引
+        // 授权文件索引
         [NameInMap("file_index")]
         [Validation(Required=true)]
         public string FileIndex { get; set; }
 
-        // 车牌号
-        [NameInMap("plat_number")]
+        // 姓名
+        [NameInMap("user_name")]
         [Validation(Required=true)]
-        public string PlatNumber { get; set; }
+        public string UserName { get; set; }
 
-        // 号牌种类，枚举
-        [NameInMap("platetype")]
+        // 身份证号
+        [NameInMap("user_cert_no")]
         [Validation(Required=true)]
-        public string Platetype { get; set; }
-
-        // 所有人姓名
-        [NameInMap("owner")]
-        [Validation(Required=true)]
-        public string Owner { get; set; }
+        public string UserCertNo { get; set; }
 
     }
 

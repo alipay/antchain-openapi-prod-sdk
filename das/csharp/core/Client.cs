@@ -91,7 +91,7 @@ namespace AntChain.SDK.DAS
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.29"},
+                        {"sdk_version", "1.1.41"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.DAS
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.29"},
+                        {"sdk_version", "1.1.41"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1128,87 +1128,129 @@ namespace AntChain.SDK.DAS
         }
 
         /**
-         * Description: 驾驶证信息查询
-         * Summary: 驾驶证信息查询
+         * Description: 根据姓名和身份证，返回驾驶证核验信息
+         * Summary: 驾驶证核验信息查询
          */
-        public QueryApplicationDriverlicenseinfoResponse QueryApplicationDriverlicenseinfo(QueryApplicationDriverlicenseinfoRequest request)
+        public QueryApplicationDriverlicensecertResponse QueryApplicationDriverlicensecert(QueryApplicationDriverlicensecertRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryApplicationDriverlicenseinfoEx(request, headers, runtime);
+            return QueryApplicationDriverlicensecertEx(request, headers, runtime);
         }
 
         /**
-         * Description: 驾驶证信息查询
-         * Summary: 驾驶证信息查询
+         * Description: 根据姓名和身份证，返回驾驶证核验信息
+         * Summary: 驾驶证核验信息查询
          */
-        public async Task<QueryApplicationDriverlicenseinfoResponse> QueryApplicationDriverlicenseinfoAsync(QueryApplicationDriverlicenseinfoRequest request)
+        public async Task<QueryApplicationDriverlicensecertResponse> QueryApplicationDriverlicensecertAsync(QueryApplicationDriverlicensecertRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryApplicationDriverlicenseinfoExAsync(request, headers, runtime);
+            return await QueryApplicationDriverlicensecertExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 驾驶证信息查询
-         * Summary: 驾驶证信息查询
+         * Description: 根据姓名和身份证，返回驾驶证核验信息
+         * Summary: 驾驶证核验信息查询
          */
-        public QueryApplicationDriverlicenseinfoResponse QueryApplicationDriverlicenseinfoEx(QueryApplicationDriverlicenseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryApplicationDriverlicensecertResponse QueryApplicationDriverlicensecertEx(QueryApplicationDriverlicensecertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryApplicationDriverlicenseinfoResponse>(DoRequest("1.0", "antchain.das.application.driverlicenseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryApplicationDriverlicensecertResponse>(DoRequest("1.0", "antchain.das.application.driverlicensecert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 驾驶证信息查询
-         * Summary: 驾驶证信息查询
+         * Description: 根据姓名和身份证，返回驾驶证核验信息
+         * Summary: 驾驶证核验信息查询
          */
-        public async Task<QueryApplicationDriverlicenseinfoResponse> QueryApplicationDriverlicenseinfoExAsync(QueryApplicationDriverlicenseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryApplicationDriverlicensecertResponse> QueryApplicationDriverlicensecertExAsync(QueryApplicationDriverlicensecertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryApplicationDriverlicenseinfoResponse>(await DoRequestAsync("1.0", "antchain.das.application.driverlicenseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryApplicationDriverlicensecertResponse>(await DoRequestAsync("1.0", "antchain.das.application.driverlicensecert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-         * Summary: 核验并查询行驶证信息
+         * Summary: 行驶证核验信息查询
          */
-        public QueryApplicationDrivingpermitinfoResponse QueryApplicationDrivingpermitinfo(QueryApplicationDrivingpermitinfoRequest request)
+        public QueryApplicationVehiclelicensecertResponse QueryApplicationVehiclelicensecert(QueryApplicationVehiclelicensecertRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryApplicationDrivingpermitinfoEx(request, headers, runtime);
+            return QueryApplicationVehiclelicensecertEx(request, headers, runtime);
         }
 
         /**
          * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-         * Summary: 核验并查询行驶证信息
+         * Summary: 行驶证核验信息查询
          */
-        public async Task<QueryApplicationDrivingpermitinfoResponse> QueryApplicationDrivingpermitinfoAsync(QueryApplicationDrivingpermitinfoRequest request)
+        public async Task<QueryApplicationVehiclelicensecertResponse> QueryApplicationVehiclelicensecertAsync(QueryApplicationVehiclelicensecertRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryApplicationDrivingpermitinfoExAsync(request, headers, runtime);
+            return await QueryApplicationVehiclelicensecertExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-         * Summary: 核验并查询行驶证信息
+         * Summary: 行驶证核验信息查询
          */
-        public QueryApplicationDrivingpermitinfoResponse QueryApplicationDrivingpermitinfoEx(QueryApplicationDrivingpermitinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryApplicationVehiclelicensecertResponse QueryApplicationVehiclelicensecertEx(QueryApplicationVehiclelicensecertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryApplicationDrivingpermitinfoResponse>(DoRequest("1.0", "antchain.das.application.drivingpermitinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryApplicationVehiclelicensecertResponse>(DoRequest("1.0", "antchain.das.application.vehiclelicensecert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 根据车牌号所有人等信息，返回行驶证核验结果
-         * Summary: 核验并查询行驶证信息
+         * Summary: 行驶证核验信息查询
          */
-        public async Task<QueryApplicationDrivingpermitinfoResponse> QueryApplicationDrivingpermitinfoExAsync(QueryApplicationDrivingpermitinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryApplicationVehiclelicensecertResponse> QueryApplicationVehiclelicensecertExAsync(QueryApplicationVehiclelicensecertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryApplicationDrivingpermitinfoResponse>(await DoRequestAsync("1.0", "antchain.das.application.drivingpermitinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryApplicationVehiclelicensecertResponse>(await DoRequestAsync("1.0", "antchain.das.application.vehiclelicensecert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据姓名身份证信息查询学籍信息
+         * Summary: 根据姓名身份证信息查询学籍
+         */
+        public QueryApplicationEducationstatusResponse QueryApplicationEducationstatus(QueryApplicationEducationstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApplicationEducationstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据姓名身份证信息查询学籍信息
+         * Summary: 根据姓名身份证信息查询学籍
+         */
+        public async Task<QueryApplicationEducationstatusResponse> QueryApplicationEducationstatusAsync(QueryApplicationEducationstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApplicationEducationstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据姓名身份证信息查询学籍信息
+         * Summary: 根据姓名身份证信息查询学籍
+         */
+        public QueryApplicationEducationstatusResponse QueryApplicationEducationstatusEx(QueryApplicationEducationstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApplicationEducationstatusResponse>(DoRequest("1.0", "antchain.das.application.educationstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据姓名身份证信息查询学籍信息
+         * Summary: 根据姓名身份证信息查询学籍
+         */
+        public async Task<QueryApplicationEducationstatusResponse> QueryApplicationEducationstatusExAsync(QueryApplicationEducationstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApplicationEducationstatusResponse>(await DoRequestAsync("1.0", "antchain.das.application.educationstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

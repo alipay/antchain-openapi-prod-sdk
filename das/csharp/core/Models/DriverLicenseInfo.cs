@@ -15,40 +15,40 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string Gender { get; set; }
 
-        // 驾驶证发证日期
-        [NameInMap("driveissuedate")]
+        // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+        [NameInMap("issue_date")]
         [Validation(Required=false)]
-        public string Driveissuedate { get; set; }
+        public string IssueDate { get; set; }
 
-        // 驾驶证有效终止日期，当前日期减去实际日期的天数所在区间
-        [NameInMap("validdate")]
+        // 驾驶证有效终止日期
+        [NameInMap("valid_end_date")]
         [Validation(Required=false)]
-        public string Validdate { get; set; }
+        public string ValidEndDate { get; set; }
 
         // 驾驶证有效起始日期
-        [NameInMap("drivevalidstartdate")]
+        [NameInMap("valid_start_date")]
         [Validation(Required=false)]
-        public string Drivevalidstartdate { get; set; }
+        public string ValidStartDate { get; set; }
 
-        // 驾驶证状态字典
-        [NameInMap("drivecardstatus")]
+        // 驾驶证状态，字典
+        [NameInMap("driver_license_status")]
         [Validation(Required=false)]
-        public string Drivecardstatus { get; set; }
+        public string DriverLicenseStatus { get; set; }
 
         // 初次领证时间
-        [NameInMap("firsissuedate")]
+        [NameInMap("first_issue_date")]
         [Validation(Required=false)]
-        public string Firsissuedate { get; set; }
+        public string FirstIssueDate { get; set; }
 
         // 准驾车型，字典
-        [NameInMap("allowdrivecar")]
+        [NameInMap("allow_drive_car")]
         [Validation(Required=false)]
-        public string Allowdrivecar { get; set; }
+        public string AllowDriveCar { get; set; }
 
         // 驾驶证种类，字典
-        [NameInMap("drivelicensetype")]
+        [NameInMap("driver_license_type")]
         [Validation(Required=false)]
-        public string Drivelicensetype { get; set; }
+        public string DriverLicenseType { get; set; }
 
     }
 

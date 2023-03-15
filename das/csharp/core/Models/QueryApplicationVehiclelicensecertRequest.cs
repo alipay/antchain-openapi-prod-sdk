@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryIdnumberEducationtaginfoRequest : TeaModel {
+    public class QueryApplicationVehiclelicensecertRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,35 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据源id
+        // 数据集id，开发者提供
         [NameInMap("data_set_id")]
         [Validation(Required=true)]
         public string DataSetId { get; set; }
 
-        // 用户是否已授权
+        // 是否授权
         [NameInMap("user_authed")]
         [Validation(Required=true)]
         public bool? UserAuthed { get; set; }
 
-        // 该接口对应的授权协议索引号
+        // 授权协议索引
         [NameInMap("file_index")]
         [Validation(Required=true)]
         public string FileIndex { get; set; }
 
-        // 用户姓名
-        [NameInMap("user_name")]
+        // 车牌号
+        [NameInMap("plate_number")]
         [Validation(Required=true)]
-        public string UserName { get; set; }
+        public string PlateNumber { get; set; }
 
-        // 用户身份证号
-        [NameInMap("user_cert_no")]
+        // 号牌种类，枚举
+        [NameInMap("plate_type")]
         [Validation(Required=true)]
-        public string UserCertNo { get; set; }
+        public string PlateType { get; set; }
 
-        // 用户手机号
-        [NameInMap("user_tel")]
-        [Validation(Required=false)]
-        public string UserTel { get; set; }
+        // 所有人姓名
+        [NameInMap("owner")]
+        [Validation(Required=true)]
+        public string Owner { get; set; }
 
     }
 
