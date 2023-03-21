@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.6',
+    sdk_version = '1.6.10',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -7707,7 +7707,9 @@ model ApplyInsuranceYzbRequest = {
   beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string(name='insure_start'),
-  // 套餐编码，PK00053022、PK00053025、PK00053026
+  // 套餐编码，
+  // 平安（PK00053022、PK00053025、PK00053026）
+  // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
   productPackageType: string(maxLength=20, name='product_package_type'),
   // 站点ID，站点的唯一标识
   siteId: string(maxLength=30, name='site_id'),
@@ -7731,7 +7733,7 @@ model ApplyInsuranceYzbRequest = {
   acplBbrName: string(maxLength=100, name='acpl_bbr_name'),
   // 意健险被保人身份证号
   acplBbrIdNo: string(maxLength=30, name='acpl_bbr_id_no'),
-  // 产品市场编码，一般指保司端险种编码
+  // 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
   pdtMktCode?: string(maxLength=16, name='pdt_mkt_code'),
 }
 
@@ -8448,6 +8450,205 @@ async function repayCbrfClaim(request: RepayCbrfClaimRequest): RepayCbrfClaimRes
 async function repayCbrfClaimEx(request: RepayCbrfClaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayCbrfClaimResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsuranceEndorsementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批单申请号
+  endorsementApplyNo: string(name='endorsement_apply_no'),
+  // 申请时间
+  endorsementApplyDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='endorsement_apply_date'),
+  // 保单号
+  insuranceNumber: string(name='insurance_number'),
+  // 保司编码
+  insuranceCode: string(name='insurance_code'),
+  // 批单保额，单位：元，最多两位小数
+  endorsementApplyAmount: string(name='endorsement_apply_amount'),
+  // [{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000003(标的类型:包裹)","objNo":"标的编号","logisticsNo":"物流单号","sellerID":"卖家ID","objName":"货物名称","objType":"货物类型","objAmount":"货物金额(元)","buyerID":"买家ID"}},{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000002(标的类型:入库单)","objNo":"标的编号","pkgInNo":"入库编号","merchantName":"商家","objName":"货物","objType":"货物类型","objCount":"货物数量","objAmount":"货物金额(元)","buyerID":""}}]
+  endorsementApplyContents: [ string ](name='endorsement_apply_contents'),
+}
+
+model ApplyInsuranceEndorsementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批单申请号
+  endorsementApplyNo?: string(name='endorsement_apply_no'),
+  // 批单申请编码
+  endorsementApplyCode?: string(name='endorsement_apply_code'),
+}
+
+/**
+ * Description: 大保单批单
+ * Summary: 大保单批单申请接口
+ */
+async function applyInsuranceEndorsement(request: ApplyInsuranceEndorsementRequest): ApplyInsuranceEndorsementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceEndorsementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大保单批单
+ * Summary: 大保单批单申请接口
+ */
+async function applyInsuranceEndorsementEx(request: ApplyInsuranceEndorsementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceEndorsementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.endorsement.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsuranceEndorsementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批单申请号
+  endorsementApplyNo: string(name='endorsement_apply_no'),
+  // 批单申请编码
+  endorsementApplyCode?: string(name='endorsement_apply_code'),
+}
+
+model QueryInsuranceEndorsementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批单申请号
+  endorsementApplyNo?: string(name='endorsement_apply_no'),
+  // 批单状态
+  endorsementApplyStatus?: string(name='endorsement_apply_status'),
+}
+
+/**
+ * Description: 大保单批单查询接口
+ * Summary: 大保单批单查询接口
+ */
+async function queryInsuranceEndorsement(request: QueryInsuranceEndorsementRequest): QueryInsuranceEndorsementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsuranceEndorsementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大保单批单查询接口
+ * Summary: 大保单批单查询接口
+ */
+async function queryInsuranceEndorsementEx(request: QueryInsuranceEndorsementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceEndorsementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.endorsement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsurancePiprereportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码，CPIC--太保
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码 04--海外邮包险 06--跨境邮包险
+  // 
+  externalProductCode: string(maxLength=2, name='external_product_code'),
+  // 保单号，申请理赔的保单号
+  policyNo: string(maxLength=200, name='policy_no'),
+  // 订单号，申请理赔所关联的订单号
+  relaOrderNo: string(maxLength=200, name='rela_order_no'),
+  // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
+  accidentTime: string(name='accident_time'),
+  // 报案人名称，申请报案人的名称
+  reporterName: string(maxLength=100, name='reporter_name'),
+  // 报案人联系方式，申请报案人的联系方式
+  reporterContact: string(maxLength=20, name='reporter_contact'),
+  // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
+  claimAmount?: string(name='claim_amount'),
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+  collectDate: string(name='collect_date'),
+  // 工单号，平台客服判责的工单号
+  // 
+  jobNo: string(maxLength=100, name='job_no'),
+  // 快递公司名称，实际的派送公司全称
+  // 
+  courierCompany?: string(maxLength=200, name='courier_company'),
+  // 快递单号，实际的派送快递单号
+  courierNumber?: string(maxLength=100, name='courier_number'),
+  // 买家ID，买家的脱敏唯一标识
+  buyId: string(maxLength=100, name='buy_id'),
+  // 卖家ID，卖家的脱敏唯一标识
+  sellId: string(maxLength=100, name='sell_id'),
+  // 站点/仓储ID，站点/仓储的脱敏唯一标识
+  // 
+  siteId: string(maxLength=100, name='site_id'),
+  // 货物名称，实际的货物名称
+  cargoName: string(maxLength=200, name='cargo_name'),
+  // 货物的重量，单位(kg)，最多支持6位小数
+  cargoWeight: string(maxLength=20, name='cargo_weight'),
+  // 出发地地址，货物的出发地地址
+  // 
+  startPlace: string(maxLength=500, name='start_place'),
+  // 目的地地址，货物的目的地地址
+  // 
+  destination: string(maxLength=500, name='destination'),
+  // ISO到达国别，包裹业务实际发生的国家
+  isoCountry: string(maxLength=10, name='iso_country'),
+  // 出险地址，货物发生实际损失的最近的一次地址记录
+  accidentAddress?: string(maxLength=500, name='accident_address'),
+  // 赔付项目类型，01-运费，02-货值，03-货值2
+  // 
+  paymentItem?: string(maxLength=2, name='payment_item'),
+  // 出险类型，赔付的出险类型，届时保司和平台方商定
+  accidentType?: string(maxLength=20, name='accident_type'),
+  // 索赔资料附件，最多10个
+  claimInformations: [ ClaimInformation ](name='claim_informations'),
+  // 客户或物流CP商，针对此票货物的出发仓ID
+  despatchWarehouseId?: string(maxLength=100, name='despatch_warehouse_id'),
+  // 投诉时间，yyyy-MM-dd HH:mm:ss
+  complaintTime: string(name='complaint_time'),
+  // 判责时间，yyyy-MM-dd HH:mm:ss
+  judgmentTime?: string(name='judgment_time'),
+  // 判责完成时间，yyyy-MM-dd HH:mm:ss
+  judgmentFinishTime?: string(name='judgment_finish_time'),
+  // 判责是否成立
+  judgmentIsTenable?: boolean(name='judgment_is_tenable'),
+  // 预报案操作类型, 01.创建预报  02.更新预报案信息 03.撤销预报案信息
+  actionType: string(name='action_type'),
+}
+
+model ApplyInsurancePiprereportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预报案唯一码
+  tradeNo?: string(name='trade_no'),
+  // 预报案编号
+  preReportNo?: string(name='pre_report_no'),
+}
+
+/**
+ * Description: 海外、跨境邮包险预报案
+ * Summary: 海外、跨境邮包险预报案
+ */
+async function applyInsurancePiprereport(request: ApplyInsurancePiprereportRequest): ApplyInsurancePiprereportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsurancePiprereportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 海外、跨境邮包险预报案
+ * Summary: 海外、跨境邮包险预报案
+ */
+async function applyInsurancePiprereportEx(request: ApplyInsurancePiprereportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsurancePiprereportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
