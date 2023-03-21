@@ -107,7 +107,9 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $insureStart;
 
-    // 套餐编码，PK00053022、PK00053025、PK00053026
+    // 套餐编码，
+    // 平安（PK00053022、PK00053025、PK00053026）
+    // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
     /**
      * @var string
      */
@@ -179,7 +181,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $acplBbrIdNo;
 
-    // 产品市场编码，一般指保司端险种编码
+    // 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
     /**
      * @var string
      */

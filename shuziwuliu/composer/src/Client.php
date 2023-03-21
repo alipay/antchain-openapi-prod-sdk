@@ -23,6 +23,8 @@ use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbpiRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbpiResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceEndorsementRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceEndorsementResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceInventoryRequest;
@@ -31,6 +33,8 @@ use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspireportRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspireportResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspiRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspiResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsurancePiprereportRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsurancePiprereportResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianRequest;
@@ -199,6 +203,8 @@ use AntChain\SHUZIWULIU\Models\QueryCreditStatementRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditStatementResponse;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueResponse;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceEndorsementRequest;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceEndorsementResponse;
 use AntChain\SHUZIWULIU\Models\QueryInsuranceEpolicyRequest;
 use AntChain\SHUZIWULIU\Models\QueryInsuranceEpolicyResponse;
 use AntChain\SHUZIWULIU\Models\QueryInsuranceYzbreportRequest;
@@ -436,18 +442,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -484,7 +490,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.6',
+                    'sdk_version'      => '1.6.10',
                     '_prod_code'       => 'SHUZIWULIU',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4098,6 +4104,105 @@ class Client
         Utils::validateModel($request);
 
         return RepayCbrfClaimResponse::fromMap($this->doRequest('1.0', 'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大保单批单
+     * Summary: 大保单批单申请接口.
+     *
+     * @param ApplyInsuranceEndorsementRequest $request
+     *
+     * @return ApplyInsuranceEndorsementResponse
+     */
+    public function applyInsuranceEndorsement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceEndorsementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大保单批单
+     * Summary: 大保单批单申请接口.
+     *
+     * @param ApplyInsuranceEndorsementRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyInsuranceEndorsementResponse
+     */
+    public function applyInsuranceEndorsementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceEndorsementResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.endorsement.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大保单批单查询接口
+     * Summary: 大保单批单查询接口.
+     *
+     * @param QueryInsuranceEndorsementRequest $request
+     *
+     * @return QueryInsuranceEndorsementResponse
+     */
+    public function queryInsuranceEndorsement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsuranceEndorsementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大保单批单查询接口
+     * Summary: 大保单批单查询接口.
+     *
+     * @param QueryInsuranceEndorsementRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryInsuranceEndorsementResponse
+     */
+    public function queryInsuranceEndorsementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsuranceEndorsementResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.endorsement.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海外、跨境邮包险预报案
+     * Summary: 海外、跨境邮包险预报案.
+     *
+     * @param ApplyInsurancePiprereportRequest $request
+     *
+     * @return ApplyInsurancePiprereportResponse
+     */
+    public function applyInsurancePiprereport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsurancePiprereportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海外、跨境邮包险预报案
+     * Summary: 海外、跨境邮包险预报案.
+     *
+     * @param ApplyInsurancePiprereportRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyInsurancePiprereportResponse
+     */
+    public function applyInsurancePiprereportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsurancePiprereportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
