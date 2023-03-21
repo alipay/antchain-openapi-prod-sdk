@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.6',
+                    'sdk_version': '1.6.10',
                     '_prod_code': 'SHUZIWULIU',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.6',
+                    'sdk_version': '1.6.10',
                     '_prod_code': 'SHUZIWULIU',
                     '_prod_channel': 'undefined'
                 }
@@ -6329,6 +6329,174 @@ class Client:
         return TeaCore.from_map(
             shuziwuliu_models.RepayCbrfClaimResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cbrf.claim.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_endorsement(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceEndorsementRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单
+        Summary: 大保单批单申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_endorsement_ex(request, headers, runtime)
+
+    async def apply_insurance_endorsement_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceEndorsementRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单
+        Summary: 大保单批单申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_endorsement_ex_async(request, headers, runtime)
+
+    def apply_insurance_endorsement_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceEndorsementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单
+        Summary: 大保单批单申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceEndorsementResponse(),
+            self.do_request('1.0', 'digital.logistic.insurance.endorsement.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_endorsement_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceEndorsementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单
+        Summary: 大保单批单申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceEndorsementResponse(),
+            await self.do_request_async('1.0', 'digital.logistic.insurance.endorsement.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_insurance_endorsement(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEndorsementRequest,
+    ) -> shuziwuliu_models.QueryInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单查询接口
+        Summary: 大保单批单查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_insurance_endorsement_ex(request, headers, runtime)
+
+    async def query_insurance_endorsement_async(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEndorsementRequest,
+    ) -> shuziwuliu_models.QueryInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单查询接口
+        Summary: 大保单批单查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_insurance_endorsement_ex_async(request, headers, runtime)
+
+    def query_insurance_endorsement_ex(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEndorsementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单查询接口
+        Summary: 大保单批单查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceEndorsementResponse(),
+            self.do_request('1.0', 'digital.logistic.insurance.endorsement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_insurance_endorsement_ex_async(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEndorsementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryInsuranceEndorsementResponse:
+        """
+        Description: 大保单批单查询接口
+        Summary: 大保单批单查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceEndorsementResponse(),
+            await self.do_request_async('1.0', 'digital.logistic.insurance.endorsement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_piprereport(
+        self,
+        request: shuziwuliu_models.ApplyInsurancePiprereportRequest,
+    ) -> shuziwuliu_models.ApplyInsurancePiprereportResponse:
+        """
+        Description: 海外、跨境邮包险预报案
+        Summary: 海外、跨境邮包险预报案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_piprereport_ex(request, headers, runtime)
+
+    async def apply_insurance_piprereport_async(
+        self,
+        request: shuziwuliu_models.ApplyInsurancePiprereportRequest,
+    ) -> shuziwuliu_models.ApplyInsurancePiprereportResponse:
+        """
+        Description: 海外、跨境邮包险预报案
+        Summary: 海外、跨境邮包险预报案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_piprereport_ex_async(request, headers, runtime)
+
+    def apply_insurance_piprereport_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsurancePiprereportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsurancePiprereportResponse:
+        """
+        Description: 海外、跨境邮包险预报案
+        Summary: 海外、跨境邮包险预报案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancePiprereportResponse(),
+            self.do_request('1.0', 'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_piprereport_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsurancePiprereportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsurancePiprereportResponse:
+        """
+        Description: 海外、跨境邮包险预报案
+        Summary: 海外、跨境邮包险预报案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancePiprereportResponse(),
+            await self.do_request_async('1.0', 'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_auth_signinfo(
