@@ -19238,7 +19238,9 @@ type ApplyInsuranceYzbRequest struct {
 	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
 	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
 	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
-	// 套餐编码，PK00053022、PK00053025、PK00053026
+	// 套餐编码，
+	// 平安（PK00053022、PK00053025、PK00053026）
+	// 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
 	ProductPackageType *string `json:"product_package_type,omitempty" xml:"product_package_type,omitempty" require:"true" maxLength:"20"`
 	// 站点ID，站点的唯一标识
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"30"`
@@ -19262,7 +19264,7 @@ type ApplyInsuranceYzbRequest struct {
 	AcplBbrName *string `json:"acpl_bbr_name,omitempty" xml:"acpl_bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人身份证号
 	AcplBbrIdNo *string `json:"acpl_bbr_id_no,omitempty" xml:"acpl_bbr_id_no,omitempty" require:"true" maxLength:"30"`
-	// 产品市场编码，一般指保司端险种编码
+	// 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
 	PdtMktCode *string `json:"pdt_mkt_code,omitempty" xml:"pdt_mkt_code,omitempty" maxLength:"16"`
 }
 
@@ -21241,6 +21243,496 @@ func (s *RepayCbrfClaimResponse) SetPolicyNo(v string) *RepayCbrfClaimResponse {
 
 func (s *RepayCbrfClaimResponse) SetIdemFlag(v bool) *RepayCbrfClaimResponse {
 	s.IdemFlag = &v
+	return s
+}
+
+type ApplyInsuranceEndorsementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批单申请号
+	EndorsementApplyNo *string `json:"endorsement_apply_no,omitempty" xml:"endorsement_apply_no,omitempty" require:"true"`
+	// 申请时间
+	EndorsementApplyDate *string `json:"endorsement_apply_date,omitempty" xml:"endorsement_apply_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 保单号
+	InsuranceNumber *string `json:"insurance_number,omitempty" xml:"insurance_number,omitempty" require:"true"`
+	// 保司编码
+	InsuranceCode *string `json:"insurance_code,omitempty" xml:"insurance_code,omitempty" require:"true"`
+	// 批单保额，单位：元，最多两位小数
+	EndorsementApplyAmount *string `json:"endorsement_apply_amount,omitempty" xml:"endorsement_apply_amount,omitempty" require:"true"`
+	// [{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000003(标的类型:包裹)","objNo":"标的编号","logisticsNo":"物流单号","sellerID":"卖家ID","objName":"货物名称","objType":"货物类型","objAmount":"货物金额(元)","buyerID":"买家ID"}},{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000002(标的类型:入库单)","objNo":"标的编号","pkgInNo":"入库编号","merchantName":"商家","objName":"货物","objType":"货物类型","objCount":"货物数量","objAmount":"货物金额(元)","buyerID":""}}]
+	EndorsementApplyContents []*string `json:"endorsement_apply_contents,omitempty" xml:"endorsement_apply_contents,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyInsuranceEndorsementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceEndorsementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetAuthToken(v string) *ApplyInsuranceEndorsementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetProductInstanceId(v string) *ApplyInsuranceEndorsementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetEndorsementApplyNo(v string) *ApplyInsuranceEndorsementRequest {
+	s.EndorsementApplyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetEndorsementApplyDate(v string) *ApplyInsuranceEndorsementRequest {
+	s.EndorsementApplyDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetInsuranceNumber(v string) *ApplyInsuranceEndorsementRequest {
+	s.InsuranceNumber = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetInsuranceCode(v string) *ApplyInsuranceEndorsementRequest {
+	s.InsuranceCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetEndorsementApplyAmount(v string) *ApplyInsuranceEndorsementRequest {
+	s.EndorsementApplyAmount = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementRequest) SetEndorsementApplyContents(v []*string) *ApplyInsuranceEndorsementRequest {
+	s.EndorsementApplyContents = v
+	return s
+}
+
+type ApplyInsuranceEndorsementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批单申请号
+	EndorsementApplyNo *string `json:"endorsement_apply_no,omitempty" xml:"endorsement_apply_no,omitempty"`
+	// 批单申请编码
+	EndorsementApplyCode *string `json:"endorsement_apply_code,omitempty" xml:"endorsement_apply_code,omitempty"`
+}
+
+func (s ApplyInsuranceEndorsementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceEndorsementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceEndorsementResponse) SetReqMsgId(v string) *ApplyInsuranceEndorsementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementResponse) SetResultCode(v string) *ApplyInsuranceEndorsementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementResponse) SetResultMsg(v string) *ApplyInsuranceEndorsementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementResponse) SetEndorsementApplyNo(v string) *ApplyInsuranceEndorsementResponse {
+	s.EndorsementApplyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceEndorsementResponse) SetEndorsementApplyCode(v string) *ApplyInsuranceEndorsementResponse {
+	s.EndorsementApplyCode = &v
+	return s
+}
+
+type QueryInsuranceEndorsementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批单申请号
+	EndorsementApplyNo *string `json:"endorsement_apply_no,omitempty" xml:"endorsement_apply_no,omitempty" require:"true"`
+	// 批单申请编码
+	EndorsementApplyCode *string `json:"endorsement_apply_code,omitempty" xml:"endorsement_apply_code,omitempty"`
+}
+
+func (s QueryInsuranceEndorsementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceEndorsementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceEndorsementRequest) SetAuthToken(v string) *QueryInsuranceEndorsementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementRequest) SetProductInstanceId(v string) *QueryInsuranceEndorsementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementRequest) SetEndorsementApplyNo(v string) *QueryInsuranceEndorsementRequest {
+	s.EndorsementApplyNo = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementRequest) SetEndorsementApplyCode(v string) *QueryInsuranceEndorsementRequest {
+	s.EndorsementApplyCode = &v
+	return s
+}
+
+type QueryInsuranceEndorsementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批单申请号
+	EndorsementApplyNo *string `json:"endorsement_apply_no,omitempty" xml:"endorsement_apply_no,omitempty"`
+	// 批单状态
+	EndorsementApplyStatus *string `json:"endorsement_apply_status,omitempty" xml:"endorsement_apply_status,omitempty"`
+}
+
+func (s QueryInsuranceEndorsementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceEndorsementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceEndorsementResponse) SetReqMsgId(v string) *QueryInsuranceEndorsementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementResponse) SetResultCode(v string) *QueryInsuranceEndorsementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementResponse) SetResultMsg(v string) *QueryInsuranceEndorsementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementResponse) SetEndorsementApplyNo(v string) *QueryInsuranceEndorsementResponse {
+	s.EndorsementApplyNo = &v
+	return s
+}
+
+func (s *QueryInsuranceEndorsementResponse) SetEndorsementApplyStatus(v string) *QueryInsuranceEndorsementResponse {
+	s.EndorsementApplyStatus = &v
+	return s
+}
+
+type ApplyInsurancePiprereportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 保司编码，CPIC--太保
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
+	// 险种编码 04--海外邮包险 06--跨境邮包险
+	//
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
+	// 保单号，申请理赔的保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
+	// 订单号，申请理赔所关联的订单号
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"200"`
+	// 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
+	AccidentTime *string `json:"accident_time,omitempty" xml:"accident_time,omitempty" require:"true"`
+	// 报案人名称，申请报案人的名称
+	ReporterName *string `json:"reporter_name,omitempty" xml:"reporter_name,omitempty" require:"true" maxLength:"100"`
+	// 报案人联系方式，申请报案人的联系方式
+	ReporterContact *string `json:"reporter_contact,omitempty" xml:"reporter_contact,omitempty" require:"true" maxLength:"20"`
+	// 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
+	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty"`
+	// 物流揽收时间，yyyy-MM-dd HH:mm:ss
+	CollectDate *string `json:"collect_date,omitempty" xml:"collect_date,omitempty" require:"true"`
+	// 工单号，平台客服判责的工单号
+	//
+	JobNo *string `json:"job_no,omitempty" xml:"job_no,omitempty" require:"true" maxLength:"100"`
+	// 快递公司名称，实际的派送公司全称
+	//
+	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" maxLength:"200"`
+	// 快递单号，实际的派送快递单号
+	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" maxLength:"100"`
+	// 买家ID，买家的脱敏唯一标识
+	BuyId *string `json:"buy_id,omitempty" xml:"buy_id,omitempty" require:"true" maxLength:"100"`
+	// 卖家ID，卖家的脱敏唯一标识
+	SellId *string `json:"sell_id,omitempty" xml:"sell_id,omitempty" require:"true" maxLength:"100"`
+	// 站点/仓储ID，站点/仓储的脱敏唯一标识
+	//
+	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"100"`
+	// 货物名称，实际的货物名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"200"`
+	// 货物的重量，单位(kg)，最多支持6位小数
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" require:"true" maxLength:"20"`
+	// 出发地地址，货物的出发地地址
+	//
+	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"500"`
+	// 目的地地址，货物的目的地地址
+	//
+	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"500"`
+	// ISO到达国别，包裹业务实际发生的国家
+	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
+	// 出险地址，货物发生实际损失的最近的一次地址记录
+	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" maxLength:"500"`
+	// 赔付项目类型，01-运费，02-货值，03-货值2
+	//
+	PaymentItem *string `json:"payment_item,omitempty" xml:"payment_item,omitempty" maxLength:"2"`
+	// 出险类型，赔付的出险类型，届时保司和平台方商定
+	AccidentType *string `json:"accident_type,omitempty" xml:"accident_type,omitempty" maxLength:"20"`
+	// 索赔资料附件，最多10个
+	ClaimInformations []*ClaimInformation `json:"claim_informations,omitempty" xml:"claim_informations,omitempty" require:"true" type:"Repeated"`
+	// 客户或物流CP商，针对此票货物的出发仓ID
+	DespatchWarehouseId *string `json:"despatch_warehouse_id,omitempty" xml:"despatch_warehouse_id,omitempty" maxLength:"100"`
+	// 投诉时间，yyyy-MM-dd HH:mm:ss
+	ComplaintTime *string `json:"complaint_time,omitempty" xml:"complaint_time,omitempty" require:"true"`
+	// 判责时间，yyyy-MM-dd HH:mm:ss
+	JudgmentTime *string `json:"judgment_time,omitempty" xml:"judgment_time,omitempty"`
+	// 判责完成时间，yyyy-MM-dd HH:mm:ss
+	JudgmentFinishTime *string `json:"judgment_finish_time,omitempty" xml:"judgment_finish_time,omitempty"`
+	// 判责是否成立
+	JudgmentIsTenable *bool `json:"judgment_is_tenable,omitempty" xml:"judgment_is_tenable,omitempty"`
+	// 预报案操作类型, 01.创建预报  02.更新预报案信息 03.撤销预报案信息
+	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
+}
+
+func (s ApplyInsurancePiprereportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsurancePiprereportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetAuthToken(v string) *ApplyInsurancePiprereportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetProductInstanceId(v string) *ApplyInsurancePiprereportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetTradeNo(v string) *ApplyInsurancePiprereportRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetExternalChannelCode(v string) *ApplyInsurancePiprereportRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetExternalProductCode(v string) *ApplyInsurancePiprereportRequest {
+	s.ExternalProductCode = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetPolicyNo(v string) *ApplyInsurancePiprereportRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetRelaOrderNo(v string) *ApplyInsurancePiprereportRequest {
+	s.RelaOrderNo = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetAccidentTime(v string) *ApplyInsurancePiprereportRequest {
+	s.AccidentTime = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetReporterName(v string) *ApplyInsurancePiprereportRequest {
+	s.ReporterName = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetReporterContact(v string) *ApplyInsurancePiprereportRequest {
+	s.ReporterContact = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetClaimAmount(v string) *ApplyInsurancePiprereportRequest {
+	s.ClaimAmount = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetCollectDate(v string) *ApplyInsurancePiprereportRequest {
+	s.CollectDate = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetJobNo(v string) *ApplyInsurancePiprereportRequest {
+	s.JobNo = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetCourierCompany(v string) *ApplyInsurancePiprereportRequest {
+	s.CourierCompany = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetCourierNumber(v string) *ApplyInsurancePiprereportRequest {
+	s.CourierNumber = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetBuyId(v string) *ApplyInsurancePiprereportRequest {
+	s.BuyId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetSellId(v string) *ApplyInsurancePiprereportRequest {
+	s.SellId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetSiteId(v string) *ApplyInsurancePiprereportRequest {
+	s.SiteId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetCargoName(v string) *ApplyInsurancePiprereportRequest {
+	s.CargoName = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetCargoWeight(v string) *ApplyInsurancePiprereportRequest {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetStartPlace(v string) *ApplyInsurancePiprereportRequest {
+	s.StartPlace = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetDestination(v string) *ApplyInsurancePiprereportRequest {
+	s.Destination = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetIsoCountry(v string) *ApplyInsurancePiprereportRequest {
+	s.IsoCountry = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetAccidentAddress(v string) *ApplyInsurancePiprereportRequest {
+	s.AccidentAddress = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetPaymentItem(v string) *ApplyInsurancePiprereportRequest {
+	s.PaymentItem = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetAccidentType(v string) *ApplyInsurancePiprereportRequest {
+	s.AccidentType = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetClaimInformations(v []*ClaimInformation) *ApplyInsurancePiprereportRequest {
+	s.ClaimInformations = v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetDespatchWarehouseId(v string) *ApplyInsurancePiprereportRequest {
+	s.DespatchWarehouseId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetComplaintTime(v string) *ApplyInsurancePiprereportRequest {
+	s.ComplaintTime = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetJudgmentTime(v string) *ApplyInsurancePiprereportRequest {
+	s.JudgmentTime = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetJudgmentFinishTime(v string) *ApplyInsurancePiprereportRequest {
+	s.JudgmentFinishTime = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetJudgmentIsTenable(v bool) *ApplyInsurancePiprereportRequest {
+	s.JudgmentIsTenable = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportRequest) SetActionType(v string) *ApplyInsurancePiprereportRequest {
+	s.ActionType = &v
+	return s
+}
+
+type ApplyInsurancePiprereportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预报案唯一码
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 预报案编号
+	PreReportNo *string `json:"pre_report_no,omitempty" xml:"pre_report_no,omitempty"`
+}
+
+func (s ApplyInsurancePiprereportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsurancePiprereportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsurancePiprereportResponse) SetReqMsgId(v string) *ApplyInsurancePiprereportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportResponse) SetResultCode(v string) *ApplyInsurancePiprereportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportResponse) SetResultMsg(v string) *ApplyInsurancePiprereportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportResponse) SetTradeNo(v string) *ApplyInsurancePiprereportResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsurancePiprereportResponse) SetPreReportNo(v string) *ApplyInsurancePiprereportResponse {
+	s.PreReportNo = &v
 	return s
 }
 
@@ -29784,17 +30276,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -29828,7 +30320,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.6"),
+				"sdk_version":      tea.String("1.6.10"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33555,6 +34047,108 @@ func (client *Client) RepayCbrfClaimEx(request *RepayCbrfClaimRequest, headers m
 	}
 	_result = &RepayCbrfClaimResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.cbrf.claim.repay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大保单批单
+ * Summary: 大保单批单申请接口
+ */
+func (client *Client) ApplyInsuranceEndorsement(request *ApplyInsuranceEndorsementRequest) (_result *ApplyInsuranceEndorsementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceEndorsementResponse{}
+	_body, _err := client.ApplyInsuranceEndorsementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大保单批单
+ * Summary: 大保单批单申请接口
+ */
+func (client *Client) ApplyInsuranceEndorsementEx(request *ApplyInsuranceEndorsementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceEndorsementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceEndorsementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.endorsement.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大保单批单查询接口
+ * Summary: 大保单批单查询接口
+ */
+func (client *Client) QueryInsuranceEndorsement(request *QueryInsuranceEndorsementRequest) (_result *QueryInsuranceEndorsementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInsuranceEndorsementResponse{}
+	_body, _err := client.QueryInsuranceEndorsementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大保单批单查询接口
+ * Summary: 大保单批单查询接口
+ */
+func (client *Client) QueryInsuranceEndorsementEx(request *QueryInsuranceEndorsementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInsuranceEndorsementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInsuranceEndorsementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.endorsement.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 海外、跨境邮包险预报案
+ * Summary: 海外、跨境邮包险预报案
+ */
+func (client *Client) ApplyInsurancePiprereport(request *ApplyInsurancePiprereportRequest) (_result *ApplyInsurancePiprereportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsurancePiprereportResponse{}
+	_body, _err := client.ApplyInsurancePiprereportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 海外、跨境邮包险预报案
+ * Summary: 海外、跨境邮包险预报案
+ */
+func (client *Client) ApplyInsurancePiprereportEx(request *ApplyInsurancePiprereportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsurancePiprereportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsurancePiprereportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.piprereport.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
