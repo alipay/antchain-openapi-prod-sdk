@@ -85,7 +85,9 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true)
     public String insureStart;
 
-    // 套餐编码，PK00053022、PK00053025、PK00053026
+    // 套餐编码，
+    // 平安（PK00053022、PK00053025、PK00053026）
+    // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
     @NameInMap("product_package_type")
     @Validation(required = true, maxLength = 20)
     public String productPackageType;
@@ -145,7 +147,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true, maxLength = 30)
     public String acplBbrIdNo;
 
-    // 产品市场编码，一般指保司端险种编码
+    // 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
     @NameInMap("pdt_mkt_code")
     @Validation(maxLength = 16)
     public String pdtMktCode;

@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.6"),
+                    new TeaPair("sdk_version", "1.6.10"),
                     new TeaPair("_prod_code", "SHUZIWULIU"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2215,6 +2215,63 @@ public class Client {
     public RepayCbrfClaimResponse repayCbrfClaimEx(RepayCbrfClaimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RepayCbrfClaimResponse());
+    }
+
+    /**
+     * Description: 大保单批单
+     * Summary: 大保单批单申请接口
+     */
+    public ApplyInsuranceEndorsementResponse applyInsuranceEndorsement(ApplyInsuranceEndorsementRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceEndorsementEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大保单批单
+     * Summary: 大保单批单申请接口
+     */
+    public ApplyInsuranceEndorsementResponse applyInsuranceEndorsementEx(ApplyInsuranceEndorsementRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.endorsement.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceEndorsementResponse());
+    }
+
+    /**
+     * Description: 大保单批单查询接口
+     * Summary: 大保单批单查询接口
+     */
+    public QueryInsuranceEndorsementResponse queryInsuranceEndorsement(QueryInsuranceEndorsementRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInsuranceEndorsementEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大保单批单查询接口
+     * Summary: 大保单批单查询接口
+     */
+    public QueryInsuranceEndorsementResponse queryInsuranceEndorsementEx(QueryInsuranceEndorsementRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.endorsement.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsuranceEndorsementResponse());
+    }
+
+    /**
+     * Description: 海外、跨境邮包险预报案
+     * Summary: 海外、跨境邮包险预报案
+     */
+    public ApplyInsurancePiprereportResponse applyInsurancePiprereport(ApplyInsurancePiprereportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsurancePiprereportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 海外、跨境邮包险预报案
+     * Summary: 海外、跨境邮包险预报案
+     */
+    public ApplyInsurancePiprereportResponse applyInsurancePiprereportEx(ApplyInsurancePiprereportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.piprereport.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsurancePiprereportResponse());
     }
 
     /**
