@@ -91,7 +91,7 @@ namespace AntChain.SDK.SHUZIWULIU
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.6"},
+                        {"sdk_version", "1.6.10"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.SHUZIWULIU
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.6"},
+                        {"sdk_version", "1.6.10"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4863,6 +4863,132 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RepayCbrfClaimResponse>(await DoRequestAsync("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大保单批单
+         * Summary: 大保单批单申请接口
+         */
+        public ApplyInsuranceEndorsementResponse ApplyInsuranceEndorsement(ApplyInsuranceEndorsementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceEndorsementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大保单批单
+         * Summary: 大保单批单申请接口
+         */
+        public async Task<ApplyInsuranceEndorsementResponse> ApplyInsuranceEndorsementAsync(ApplyInsuranceEndorsementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceEndorsementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大保单批单
+         * Summary: 大保单批单申请接口
+         */
+        public ApplyInsuranceEndorsementResponse ApplyInsuranceEndorsementEx(ApplyInsuranceEndorsementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceEndorsementResponse>(DoRequest("1.0", "digital.logistic.insurance.endorsement.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大保单批单
+         * Summary: 大保单批单申请接口
+         */
+        public async Task<ApplyInsuranceEndorsementResponse> ApplyInsuranceEndorsementExAsync(ApplyInsuranceEndorsementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceEndorsementResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.endorsement.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大保单批单查询接口
+         * Summary: 大保单批单查询接口
+         */
+        public QueryInsuranceEndorsementResponse QueryInsuranceEndorsement(QueryInsuranceEndorsementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInsuranceEndorsementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大保单批单查询接口
+         * Summary: 大保单批单查询接口
+         */
+        public async Task<QueryInsuranceEndorsementResponse> QueryInsuranceEndorsementAsync(QueryInsuranceEndorsementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInsuranceEndorsementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大保单批单查询接口
+         * Summary: 大保单批单查询接口
+         */
+        public QueryInsuranceEndorsementResponse QueryInsuranceEndorsementEx(QueryInsuranceEndorsementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInsuranceEndorsementResponse>(DoRequest("1.0", "digital.logistic.insurance.endorsement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大保单批单查询接口
+         * Summary: 大保单批单查询接口
+         */
+        public async Task<QueryInsuranceEndorsementResponse> QueryInsuranceEndorsementExAsync(QueryInsuranceEndorsementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInsuranceEndorsementResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.endorsement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外、跨境邮包险预报案
+         * Summary: 海外、跨境邮包险预报案
+         */
+        public ApplyInsurancePiprereportResponse ApplyInsurancePiprereport(ApplyInsurancePiprereportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsurancePiprereportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外、跨境邮包险预报案
+         * Summary: 海外、跨境邮包险预报案
+         */
+        public async Task<ApplyInsurancePiprereportResponse> ApplyInsurancePiprereportAsync(ApplyInsurancePiprereportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsurancePiprereportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外、跨境邮包险预报案
+         * Summary: 海外、跨境邮包险预报案
+         */
+        public ApplyInsurancePiprereportResponse ApplyInsurancePiprereportEx(ApplyInsurancePiprereportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsurancePiprereportResponse>(DoRequest("1.0", "digital.logistic.insurance.piprereport.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外、跨境邮包险预报案
+         * Summary: 海外、跨境邮包险预报案
+         */
+        public async Task<ApplyInsurancePiprereportResponse> ApplyInsurancePiprereportExAsync(ApplyInsurancePiprereportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsurancePiprereportResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.piprereport.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

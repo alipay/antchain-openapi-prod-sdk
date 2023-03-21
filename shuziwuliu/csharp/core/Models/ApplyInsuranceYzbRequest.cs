@@ -92,7 +92,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string InsureStart { get; set; }
 
-        // 套餐编码，PK00053022、PK00053025、PK00053026
+        // 套餐编码，
+        // 平安（PK00053022、PK00053025、PK00053026）
+        // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
         [NameInMap("product_package_type")]
         [Validation(Required=true, MaxLength=20)]
         public string ProductPackageType { get; set; }
@@ -152,7 +154,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=30)]
         public string AcplBbrIdNo { get; set; }
 
-        // 产品市场编码，一般指保司端险种编码
+        // 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
         [NameInMap("pdt_mkt_code")]
         [Validation(Required=false, MaxLength=16)]
         public string PdtMktCode { get; set; }
