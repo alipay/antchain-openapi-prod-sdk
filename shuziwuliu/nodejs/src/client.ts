@@ -13687,7 +13687,9 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   beneficiaryNo: string;
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string;
-  // 套餐编码，PK00053022、PK00053025、PK00053026
+  // 套餐编码，
+  // 平安（PK00053022、PK00053025、PK00053026）
+  // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
   productPackageType: string;
   // 站点ID，站点的唯一标识
   siteId: string;
@@ -13711,7 +13713,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   acplBbrName: string;
   // 意健险被保人身份证号
   acplBbrIdNo: string;
-  // 产品市场编码，一般指保司端险种编码
+  // 产品市场编码，平安---保司端险种编码、太保--与套餐编码保持一致
   pdtMktCode?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15001,6 +15003,346 @@ export class RepayCbrfClaimResponse extends $tea.Model {
       relatedOrderNo: 'string',
       policyNo: 'string',
       idemFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceEndorsementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批单申请号
+  endorsementApplyNo: string;
+  // 申请时间
+  endorsementApplyDate: string;
+  // 保单号
+  insuranceNumber: string;
+  // 保司编码
+  insuranceCode: string;
+  // 批单保额，单位：元，最多两位小数
+  endorsementApplyAmount: string;
+  // [{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000003(标的类型:包裹)","objNo":"标的编号","logisticsNo":"物流单号","sellerID":"卖家ID","objName":"货物名称","objType":"货物类型","objAmount":"货物金额(元)","buyerID":"买家ID"}},{"contentType":"INSURED_OBJECT","operateType":"ADD","content":{"insuranceObjectCode":"md00000002(标的类型:入库单)","objNo":"标的编号","pkgInNo":"入库编号","merchantName":"商家","objName":"货物","objType":"货物类型","objCount":"货物数量","objAmount":"货物金额(元)","buyerID":""}}]
+  endorsementApplyContents: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      endorsementApplyNo: 'endorsement_apply_no',
+      endorsementApplyDate: 'endorsement_apply_date',
+      insuranceNumber: 'insurance_number',
+      insuranceCode: 'insurance_code',
+      endorsementApplyAmount: 'endorsement_apply_amount',
+      endorsementApplyContents: 'endorsement_apply_contents',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      endorsementApplyNo: 'string',
+      endorsementApplyDate: 'string',
+      insuranceNumber: 'string',
+      insuranceCode: 'string',
+      endorsementApplyAmount: 'string',
+      endorsementApplyContents: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceEndorsementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批单申请号
+  endorsementApplyNo?: string;
+  // 批单申请编码
+  endorsementApplyCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      endorsementApplyNo: 'endorsement_apply_no',
+      endorsementApplyCode: 'endorsement_apply_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      endorsementApplyNo: 'string',
+      endorsementApplyCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInsuranceEndorsementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批单申请号
+  endorsementApplyNo: string;
+  // 批单申请编码
+  endorsementApplyCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      endorsementApplyNo: 'endorsement_apply_no',
+      endorsementApplyCode: 'endorsement_apply_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      endorsementApplyNo: 'string',
+      endorsementApplyCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInsuranceEndorsementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批单申请号
+  endorsementApplyNo?: string;
+  // 批单状态
+  endorsementApplyStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      endorsementApplyNo: 'endorsement_apply_no',
+      endorsementApplyStatus: 'endorsement_apply_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      endorsementApplyNo: 'string',
+      endorsementApplyStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsurancePiprereportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 保司编码，CPIC--太保
+  externalChannelCode: string;
+  // 险种编码 04--海外邮包险 06--跨境邮包险
+  // 
+  externalProductCode: string;
+  // 保单号，申请理赔的保单号
+  policyNo: string;
+  // 订单号，申请理赔所关联的订单号
+  relaOrderNo: string;
+  // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
+  accidentTime: string;
+  // 报案人名称，申请报案人的名称
+  reporterName: string;
+  // 报案人联系方式，申请报案人的联系方式
+  reporterContact: string;
+  // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
+  claimAmount?: string;
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+  collectDate: string;
+  // 工单号，平台客服判责的工单号
+  // 
+  jobNo: string;
+  // 快递公司名称，实际的派送公司全称
+  // 
+  courierCompany?: string;
+  // 快递单号，实际的派送快递单号
+  courierNumber?: string;
+  // 买家ID，买家的脱敏唯一标识
+  buyId: string;
+  // 卖家ID，卖家的脱敏唯一标识
+  sellId: string;
+  // 站点/仓储ID，站点/仓储的脱敏唯一标识
+  // 
+  siteId: string;
+  // 货物名称，实际的货物名称
+  cargoName: string;
+  // 货物的重量，单位(kg)，最多支持6位小数
+  cargoWeight: string;
+  // 出发地地址，货物的出发地地址
+  // 
+  startPlace: string;
+  // 目的地地址，货物的目的地地址
+  // 
+  destination: string;
+  // ISO到达国别，包裹业务实际发生的国家
+  isoCountry: string;
+  // 出险地址，货物发生实际损失的最近的一次地址记录
+  accidentAddress?: string;
+  // 赔付项目类型，01-运费，02-货值，03-货值2
+  // 
+  paymentItem?: string;
+  // 出险类型，赔付的出险类型，届时保司和平台方商定
+  accidentType?: string;
+  // 索赔资料附件，最多10个
+  claimInformations: ClaimInformation[];
+  // 客户或物流CP商，针对此票货物的出发仓ID
+  despatchWarehouseId?: string;
+  // 投诉时间，yyyy-MM-dd HH:mm:ss
+  complaintTime: string;
+  // 判责时间，yyyy-MM-dd HH:mm:ss
+  judgmentTime?: string;
+  // 判责完成时间，yyyy-MM-dd HH:mm:ss
+  judgmentFinishTime?: string;
+  // 判责是否成立
+  judgmentIsTenable?: boolean;
+  // 预报案操作类型, 01.创建预报  02.更新预报案信息 03.撤销预报案信息
+  actionType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      policyNo: 'policy_no',
+      relaOrderNo: 'rela_order_no',
+      accidentTime: 'accident_time',
+      reporterName: 'reporter_name',
+      reporterContact: 'reporter_contact',
+      claimAmount: 'claim_amount',
+      collectDate: 'collect_date',
+      jobNo: 'job_no',
+      courierCompany: 'courier_company',
+      courierNumber: 'courier_number',
+      buyId: 'buy_id',
+      sellId: 'sell_id',
+      siteId: 'site_id',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      startPlace: 'start_place',
+      destination: 'destination',
+      isoCountry: 'iso_country',
+      accidentAddress: 'accident_address',
+      paymentItem: 'payment_item',
+      accidentType: 'accident_type',
+      claimInformations: 'claim_informations',
+      despatchWarehouseId: 'despatch_warehouse_id',
+      complaintTime: 'complaint_time',
+      judgmentTime: 'judgment_time',
+      judgmentFinishTime: 'judgment_finish_time',
+      judgmentIsTenable: 'judgment_is_tenable',
+      actionType: 'action_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      policyNo: 'string',
+      relaOrderNo: 'string',
+      accidentTime: 'string',
+      reporterName: 'string',
+      reporterContact: 'string',
+      claimAmount: 'string',
+      collectDate: 'string',
+      jobNo: 'string',
+      courierCompany: 'string',
+      courierNumber: 'string',
+      buyId: 'string',
+      sellId: 'string',
+      siteId: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      startPlace: 'string',
+      destination: 'string',
+      isoCountry: 'string',
+      accidentAddress: 'string',
+      paymentItem: 'string',
+      accidentType: 'string',
+      claimInformations: { 'type': 'array', 'itemType': ClaimInformation },
+      despatchWarehouseId: 'string',
+      complaintTime: 'string',
+      judgmentTime: 'string',
+      judgmentFinishTime: 'string',
+      judgmentIsTenable: 'boolean',
+      actionType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsurancePiprereportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预报案唯一码
+  tradeNo?: string;
+  // 预报案编号
+  preReportNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      preReportNo: 'pre_report_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      preReportNo: 'string',
     };
   }
 
@@ -21041,7 +21383,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -21080,7 +21422,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.6",
+          sdk_version: "1.6.10",
           _prod_code: "SHUZIWULIU",
           _prod_channel: "undefined",
         };
@@ -23182,6 +23524,63 @@ export default class Client {
   async repayCbrfClaimEx(request: RepayCbrfClaimRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayCbrfClaimResponse> {
     Util.validateModel(request);
     return $tea.cast<RepayCbrfClaimResponse>(await this.doRequest("1.0", "digital.logistic.cbrf.claim.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayCbrfClaimResponse({}));
+  }
+
+  /**
+   * Description: 大保单批单
+   * Summary: 大保单批单申请接口
+   */
+  async applyInsuranceEndorsement(request: ApplyInsuranceEndorsementRequest): Promise<ApplyInsuranceEndorsementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceEndorsementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大保单批单
+   * Summary: 大保单批单申请接口
+   */
+  async applyInsuranceEndorsementEx(request: ApplyInsuranceEndorsementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceEndorsementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceEndorsementResponse>(await this.doRequest("1.0", "digital.logistic.insurance.endorsement.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceEndorsementResponse({}));
+  }
+
+  /**
+   * Description: 大保单批单查询接口
+   * Summary: 大保单批单查询接口
+   */
+  async queryInsuranceEndorsement(request: QueryInsuranceEndorsementRequest): Promise<QueryInsuranceEndorsementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInsuranceEndorsementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大保单批单查询接口
+   * Summary: 大保单批单查询接口
+   */
+  async queryInsuranceEndorsementEx(request: QueryInsuranceEndorsementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInsuranceEndorsementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInsuranceEndorsementResponse>(await this.doRequest("1.0", "digital.logistic.insurance.endorsement.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInsuranceEndorsementResponse({}));
+  }
+
+  /**
+   * Description: 海外、跨境邮包险预报案
+   * Summary: 海外、跨境邮包险预报案
+   */
+  async applyInsurancePiprereport(request: ApplyInsurancePiprereportRequest): Promise<ApplyInsurancePiprereportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsurancePiprereportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海外、跨境邮包险预报案
+   * Summary: 海外、跨境邮包险预报案
+   */
+  async applyInsurancePiprereportEx(request: ApplyInsurancePiprereportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsurancePiprereportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsurancePiprereportResponse>(await this.doRequest("1.0", "digital.logistic.insurance.piprereport.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsurancePiprereportResponse({}));
   }
 
   /**
