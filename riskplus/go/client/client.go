@@ -2773,67 +2773,6 @@ func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRis
 	return s
 }
 
-// 营销盾租户触达策略计划信息
-type TenantActionTouchPlanInfo struct {
-	// 场景策略id
-	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
-	// 营销名称
-	SceneStrategyName *string `json:"scene_strategy_name,omitempty" xml:"scene_strategy_name,omitempty" require:"true"`
-	// 营销状态
-	SceneStrategyStatus *string `json:"scene_strategy_status,omitempty" xml:"scene_strategy_status,omitempty" require:"true"`
-	// 渠道id
-	ActionDriverCode *int64 `json:"action_driver_code,omitempty" xml:"action_driver_code,omitempty" require:"true"`
-	// 渠道类型
-	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s TenantActionTouchPlanInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantActionTouchPlanInfo) GoString() string {
-	return s.String()
-}
-
-func (s *TenantActionTouchPlanInfo) SetSceneStrategyId(v int64) *TenantActionTouchPlanInfo {
-	s.SceneStrategyId = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetSceneStrategyName(v string) *TenantActionTouchPlanInfo {
-	s.SceneStrategyName = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetSceneStrategyStatus(v string) *TenantActionTouchPlanInfo {
-	s.SceneStrategyStatus = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetActionDriverCode(v int64) *TenantActionTouchPlanInfo {
-	s.ActionDriverCode = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetChannelCode(v string) *TenantActionTouchPlanInfo {
-	s.ChannelCode = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetGmtCreate(v string) *TenantActionTouchPlanInfo {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *TenantActionTouchPlanInfo) SetGmtModified(v string) *TenantActionTouchPlanInfo {
-	s.GmtModified = &v
-	return s
-}
-
 // 回执统计结果
 type StatisticResult struct {
 	// 有效任务总数量
@@ -5127,6 +5066,67 @@ func (s *CustomStatus) SetStatus(v string) *CustomStatus {
 
 func (s *CustomStatus) SetMsg(v string) *CustomStatus {
 	s.Msg = &v
+	return s
+}
+
+// 营销盾租户触达策略计划信息
+type TenantActionPlanInfo struct {
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 营销名称
+	SceneStrategyName *string `json:"scene_strategy_name,omitempty" xml:"scene_strategy_name,omitempty" require:"true"`
+	// 营销状态
+	SceneStrategyStatus *string `json:"scene_strategy_status,omitempty" xml:"scene_strategy_status,omitempty" require:"true"`
+	// 渠道id
+	ActionDriverCode *int64 `json:"action_driver_code,omitempty" xml:"action_driver_code,omitempty" require:"true"`
+	// 渠道类型
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s TenantActionPlanInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantActionPlanInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TenantActionPlanInfo) SetSceneStrategyId(v int64) *TenantActionPlanInfo {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetSceneStrategyName(v string) *TenantActionPlanInfo {
+	s.SceneStrategyName = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetSceneStrategyStatus(v string) *TenantActionPlanInfo {
+	s.SceneStrategyStatus = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetActionDriverCode(v int64) *TenantActionPlanInfo {
+	s.ActionDriverCode = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetChannelCode(v string) *TenantActionPlanInfo {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetGmtCreate(v string) *TenantActionPlanInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetGmtModified(v string) *TenantActionPlanInfo {
+	s.GmtModified = &v
 	return s
 }
 
@@ -19372,7 +19372,7 @@ func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectRate(v string) *Quer
 	return s
 }
 
-type QueryUmktTenantStrategyinfoRequest struct {
+type QueryUmktTenantActionplaninfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -19384,40 +19384,40 @@ type QueryUmktTenantStrategyinfoRequest struct {
 	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty" require:"true"`
 }
 
-func (s QueryUmktTenantStrategyinfoRequest) String() string {
+func (s QueryUmktTenantActionplaninfoRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryUmktTenantStrategyinfoRequest) GoString() string {
+func (s QueryUmktTenantActionplaninfoRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryUmktTenantStrategyinfoRequest) SetAuthToken(v string) *QueryUmktTenantStrategyinfoRequest {
+func (s *QueryUmktTenantActionplaninfoRequest) SetAuthToken(v string) *QueryUmktTenantActionplaninfoRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoRequest) SetProductInstanceId(v string) *QueryUmktTenantStrategyinfoRequest {
+func (s *QueryUmktTenantActionplaninfoRequest) SetProductInstanceId(v string) *QueryUmktTenantActionplaninfoRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoRequest) SetPageNum(v int64) *QueryUmktTenantStrategyinfoRequest {
+func (s *QueryUmktTenantActionplaninfoRequest) SetPageNum(v int64) *QueryUmktTenantActionplaninfoRequest {
 	s.PageNum = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoRequest) SetPageSize(v int64) *QueryUmktTenantStrategyinfoRequest {
+func (s *QueryUmktTenantActionplaninfoRequest) SetPageSize(v int64) *QueryUmktTenantActionplaninfoRequest {
 	s.PageSize = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoRequest) SetChannelType(v string) *QueryUmktTenantStrategyinfoRequest {
+func (s *QueryUmktTenantActionplaninfoRequest) SetChannelType(v string) *QueryUmktTenantActionplaninfoRequest {
 	s.ChannelType = &v
 	return s
 }
 
-type QueryUmktTenantStrategyinfoResponse struct {
+type QueryUmktTenantActionplaninfoResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -19425,7 +19425,7 @@ type QueryUmktTenantStrategyinfoResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 租户策略信息列表
-	QueryResult []*TenantActionTouchPlanInfo `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
+	QueryResult []*TenantActionPlanInfo `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
 	// 页码
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 页容量
@@ -19434,45 +19434,45 @@ type QueryUmktTenantStrategyinfoResponse struct {
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
-func (s QueryUmktTenantStrategyinfoResponse) String() string {
+func (s QueryUmktTenantActionplaninfoResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryUmktTenantStrategyinfoResponse) GoString() string {
+func (s QueryUmktTenantActionplaninfoResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetReqMsgId(v string) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetReqMsgId(v string) *QueryUmktTenantActionplaninfoResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetResultCode(v string) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetResultCode(v string) *QueryUmktTenantActionplaninfoResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetResultMsg(v string) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetResultMsg(v string) *QueryUmktTenantActionplaninfoResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetQueryResult(v []*TenantActionTouchPlanInfo) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetQueryResult(v []*TenantActionPlanInfo) *QueryUmktTenantActionplaninfoResponse {
 	s.QueryResult = v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetPageNum(v int64) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetPageNum(v int64) *QueryUmktTenantActionplaninfoResponse {
 	s.PageNum = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetPageSize(v int64) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetPageSize(v int64) *QueryUmktTenantActionplaninfoResponse {
 	s.PageSize = &v
 	return s
 }
 
-func (s *QueryUmktTenantStrategyinfoResponse) SetTotalCount(v int64) *QueryUmktTenantStrategyinfoResponse {
+func (s *QueryUmktTenantActionplaninfoResponse) SetTotalCount(v int64) *QueryUmktTenantActionplaninfoResponse {
 	s.TotalCount = &v
 	return s
 }
@@ -19719,7 +19719,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.21"),
+				"sdk_version":      tea.String("1.16.22"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -24518,11 +24518,11 @@ func (client *Client) QueryUmktRobotcallStatisticinfoEx(request *QueryUmktRobotc
  * Description: 营销盾租户场景信息查询
  * Summary: 营销盾租户场景信息查询
  */
-func (client *Client) QueryUmktTenantStrategyinfo(request *QueryUmktTenantStrategyinfoRequest) (_result *QueryUmktTenantStrategyinfoResponse, _err error) {
+func (client *Client) QueryUmktTenantActionplaninfo(request *QueryUmktTenantActionplaninfoRequest) (_result *QueryUmktTenantActionplaninfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryUmktTenantStrategyinfoResponse{}
-	_body, _err := client.QueryUmktTenantStrategyinfoEx(request, headers, runtime)
+	_result = &QueryUmktTenantActionplaninfoResponse{}
+	_body, _err := client.QueryUmktTenantActionplaninfoEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -24534,13 +24534,13 @@ func (client *Client) QueryUmktTenantStrategyinfo(request *QueryUmktTenantStrate
  * Description: 营销盾租户场景信息查询
  * Summary: 营销盾租户场景信息查询
  */
-func (client *Client) QueryUmktTenantStrategyinfoEx(request *QueryUmktTenantStrategyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktTenantStrategyinfoResponse, _err error) {
+func (client *Client) QueryUmktTenantActionplaninfoEx(request *QueryUmktTenantActionplaninfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktTenantActionplaninfoResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryUmktTenantStrategyinfoResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.tenant.strategyinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryUmktTenantActionplaninfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.tenant.actionplaninfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
