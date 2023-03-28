@@ -229,6 +229,8 @@ use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
+use AntChain\RISKPLUS\Models\QueryUmktTenantStrategyinfoRequest;
+use AntChain\RISKPLUS\Models\QueryUmktTenantStrategyinfoResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
@@ -273,6 +275,8 @@ use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoResponse;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileResponse;
+use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
+use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileRequest;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileResponse;
 use AntChain\RISKPLUS\Models\VerifyDubbridgeCustomerBankcardRequest;
@@ -428,7 +432,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.13',
+                    'sdk_version'      => '1.16.21',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3204,6 +3208,57 @@ class Client
     }
 
     /**
+     * Description: 企管盾给高德的文件上传，用于小微店铺分
+     * Summary: 企管盾给高德的文件上传，用于小微店铺分.
+     *
+     * @param UploadRbbFileAmapRequest $request
+     *
+     * @return UploadRbbFileAmapResponse
+     */
+    public function uploadRbbFileAmap($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadRbbFileAmapEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾给高德的文件上传，用于小微店铺分
+     * Summary: 企管盾给高德的文件上传，用于小微店铺分.
+     *
+     * @param UploadRbbFileAmapRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UploadRbbFileAmapResponse
+     */
+    public function uploadRbbFileAmapEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rbb.file.amap.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadRbbFileAmapResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadRbbFileAmapResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 获取签约接口
      * Summary: 获取签约接口.
      *
@@ -4970,6 +5025,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾租户场景信息查询
+     * Summary: 营销盾租户场景信息查询.
+     *
+     * @param QueryUmktTenantStrategyinfoRequest $request
+     *
+     * @return QueryUmktTenantStrategyinfoResponse
+     */
+    public function queryUmktTenantStrategyinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktTenantStrategyinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾租户场景信息查询
+     * Summary: 营销盾租户场景信息查询.
+     *
+     * @param QueryUmktTenantStrategyinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryUmktTenantStrategyinfoResponse
+     */
+    public function queryUmktTenantStrategyinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktTenantStrategyinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
