@@ -3410,6 +3410,86 @@ class RtopCrowdRiskSummaryResp(TeaModel):
         return self
 
 
+class TenantActionTouchPlanInfo(TeaModel):
+    def __init__(
+        self,
+        scene_strategy_id: int = None,
+        scene_strategy_name: str = None,
+        scene_strategy_status: str = None,
+        action_driver_code: int = None,
+        channel_code: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+    ):
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 营销名称
+        self.scene_strategy_name = scene_strategy_name
+        # 营销状态
+        self.scene_strategy_status = scene_strategy_status
+        # 渠道id
+        self.action_driver_code = action_driver_code
+        # 渠道类型
+        self.channel_code = channel_code
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改时间
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
+        self.validate_required(self.scene_strategy_status, 'scene_strategy_status')
+        self.validate_required(self.action_driver_code, 'action_driver_code')
+        self.validate_required(self.channel_code, 'channel_code')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.scene_strategy_name is not None:
+            result['scene_strategy_name'] = self.scene_strategy_name
+        if self.scene_strategy_status is not None:
+            result['scene_strategy_status'] = self.scene_strategy_status
+        if self.action_driver_code is not None:
+            result['action_driver_code'] = self.action_driver_code
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('scene_strategy_name') is not None:
+            self.scene_strategy_name = m.get('scene_strategy_name')
+        if m.get('scene_strategy_status') is not None:
+            self.scene_strategy_status = m.get('scene_strategy_status')
+        if m.get('action_driver_code') is not None:
+            self.action_driver_code = m.get('action_driver_code')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        return self
+
+
 class StatisticResult(TeaModel):
     def __init__(
         self,
@@ -16673,6 +16753,103 @@ class PushRbbCustomerCompanyinfoResponse(TeaModel):
         return self
 
 
+class UploadRbbFileAmapRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class UploadRbbFileAmapResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class QueryRpgwSignUrlRequest(TeaModel):
     def __init__(
         self,
@@ -23979,6 +24156,139 @@ class QueryUmktRobotcallStatisticinfoResponse(TeaModel):
             self.call_rate = m.get('call_rate')
         if m.get('connect_rate') is not None:
             self.connect_rate = m.get('connect_rate')
+        return self
+
+
+class QueryUmktTenantStrategyinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        channel_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 页码
+        self.page_num = page_num
+        # 页容量
+        self.page_size = page_size
+        # 渠道code
+        self.channel_type = channel_type
+
+    def validate(self):
+        self.validate_required(self.channel_type, 'channel_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.channel_type is not None:
+            result['channel_type'] = self.channel_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('channel_type') is not None:
+            self.channel_type = m.get('channel_type')
+        return self
+
+
+class QueryUmktTenantStrategyinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_result: List[TenantActionTouchPlanInfo] = None,
+        page_num: int = None,
+        page_size: int = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租户策略信息列表
+        self.query_result = query_result
+        # 页码
+        self.page_num = page_num
+        # 页容量
+        self.page_size = page_size
+        # 总量
+        self.total_count = total_count
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = TenantActionTouchPlanInfo()
+                self.query_result.append(temp_model.from_map(k))
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 

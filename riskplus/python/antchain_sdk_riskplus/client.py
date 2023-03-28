@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.13',
+                    'sdk_version': '1.16.21',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.13',
+                    'sdk_version': '1.16.21',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4913,6 +4913,96 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def upload_rbb_file_amap(
+        self,
+        request: riskplus_models.UploadRbbFileAmapRequest,
+    ) -> riskplus_models.UploadRbbFileAmapResponse:
+        """
+        Description: 企管盾给高德的文件上传，用于小微店铺分
+        Summary: 企管盾给高德的文件上传，用于小微店铺分
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_rbb_file_amap_ex(request, headers, runtime)
+
+    async def upload_rbb_file_amap_async(
+        self,
+        request: riskplus_models.UploadRbbFileAmapRequest,
+    ) -> riskplus_models.UploadRbbFileAmapResponse:
+        """
+        Description: 企管盾给高德的文件上传，用于小微店铺分
+        Summary: 企管盾给高德的文件上传，用于小微店铺分
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_rbb_file_amap_ex_async(request, headers, runtime)
+
+    def upload_rbb_file_amap_ex(
+        self,
+        request: riskplus_models.UploadRbbFileAmapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadRbbFileAmapResponse:
+        """
+        Description: 企管盾给高德的文件上传，用于小微店铺分
+        Summary: 企管盾给高德的文件上传，用于小微店铺分
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.file.amap.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_rbb_file_amap_response = riskplus_models.UploadRbbFileAmapResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_rbb_file_amap_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadRbbFileAmapResponse(),
+            self.do_request('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_rbb_file_amap_ex_async(
+        self,
+        request: riskplus_models.UploadRbbFileAmapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadRbbFileAmapResponse:
+        """
+        Description: 企管盾给高德的文件上传，用于小微店铺分
+        Summary: 企管盾给高德的文件上传，用于小微店铺分
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.file.amap.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_rbb_file_amap_response = riskplus_models.UploadRbbFileAmapResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_rbb_file_amap_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadRbbFileAmapResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rpgw_sign_url(
         self,
         request: riskplus_models.QueryRpgwSignUrlRequest,
@@ -7917,6 +8007,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktRobotcallStatisticinfoResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_tenant_strategyinfo(
+        self,
+        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        """
+        Description: 营销盾租户场景信息查询
+        Summary: 营销盾租户场景信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_tenant_strategyinfo_ex(request, headers, runtime)
+
+    async def query_umkt_tenant_strategyinfo_async(
+        self,
+        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        """
+        Description: 营销盾租户场景信息查询
+        Summary: 营销盾租户场景信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_tenant_strategyinfo_ex_async(request, headers, runtime)
+
+    def query_umkt_tenant_strategyinfo_ex(
+        self,
+        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        """
+        Description: 营销盾租户场景信息查询
+        Summary: 营销盾租户场景信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktTenantStrategyinfoResponse(),
+            self.do_request('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_tenant_strategyinfo_ex_async(
+        self,
+        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        """
+        Description: 营销盾租户场景信息查询
+        Summary: 营销盾租户场景信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktTenantStrategyinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
