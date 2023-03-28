@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.RISKPLUS.Models
 {
     // 营销盾租户触达策略计划信息
-    public class TenantActionTouchPlanInfo : TeaModel {
+    public class TenantActionPlanInfo : TeaModel {
         // 场景策略id
         [NameInMap("scene_strategy_id")]
         [Validation(Required=true)]

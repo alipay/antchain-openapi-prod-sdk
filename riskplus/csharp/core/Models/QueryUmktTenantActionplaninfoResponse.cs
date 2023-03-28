@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktTenantStrategyinfoResponse : TeaModel {
+    public class QueryUmktTenantActionplaninfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -27,7 +27,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 租户策略信息列表
         [NameInMap("query_result")]
         [Validation(Required=false)]
-        public List<TenantActionTouchPlanInfo> QueryResult { get; set; }
+        public List<TenantActionPlanInfo> QueryResult { get; set; }
 
         // 页码
         [NameInMap("page_num")]
