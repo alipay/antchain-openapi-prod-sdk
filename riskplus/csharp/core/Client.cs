@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.13"},
+                        {"sdk_version", "1.16.21"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.13"},
+                        {"sdk_version", "1.16.21"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3862,6 +3862,94 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 企管盾给高德的文件上传，用于小微店铺分
+         * Summary: 企管盾给高德的文件上传，用于小微店铺分
+         */
+        public UploadRbbFileAmapResponse UploadRbbFileAmap(UploadRbbFileAmapRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadRbbFileAmapEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾给高德的文件上传，用于小微店铺分
+         * Summary: 企管盾给高德的文件上传，用于小微店铺分
+         */
+        public async Task<UploadRbbFileAmapResponse> UploadRbbFileAmapAsync(UploadRbbFileAmapRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadRbbFileAmapExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾给高德的文件上传，用于小微店铺分
+         * Summary: 企管盾给高德的文件上传，用于小微店铺分
+         */
+        public UploadRbbFileAmapResponse UploadRbbFileAmapEx(UploadRbbFileAmapRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.file.amap.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadRbbFileAmapResponse uploadRbbFileAmapResponse = new UploadRbbFileAmapResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadRbbFileAmapResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadRbbFileAmapResponse>(DoRequest("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾给高德的文件上传，用于小微店铺分
+         * Summary: 企管盾给高德的文件上传，用于小微店铺分
+         */
+        public async Task<UploadRbbFileAmapResponse> UploadRbbFileAmapExAsync(UploadRbbFileAmapRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.file.amap.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadRbbFileAmapResponse uploadRbbFileAmapResponse = new UploadRbbFileAmapResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadRbbFileAmapResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadRbbFileAmapResponse>(await DoRequestAsync("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 获取签约接口
          * Summary: 获取签约接口
          */
@@ -6135,6 +6223,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktRobotcallStatisticinfoResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾租户场景信息查询
+         * Summary: 营销盾租户场景信息查询
+         */
+        public QueryUmktTenantStrategyinfoResponse QueryUmktTenantStrategyinfo(QueryUmktTenantStrategyinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktTenantStrategyinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾租户场景信息查询
+         * Summary: 营销盾租户场景信息查询
+         */
+        public async Task<QueryUmktTenantStrategyinfoResponse> QueryUmktTenantStrategyinfoAsync(QueryUmktTenantStrategyinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktTenantStrategyinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾租户场景信息查询
+         * Summary: 营销盾租户场景信息查询
+         */
+        public QueryUmktTenantStrategyinfoResponse QueryUmktTenantStrategyinfoEx(QueryUmktTenantStrategyinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktTenantStrategyinfoResponse>(DoRequest("1.0", "riskplus.umkt.tenant.strategyinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾租户场景信息查询
+         * Summary: 营销盾租户场景信息查询
+         */
+        public async Task<QueryUmktTenantStrategyinfoResponse> QueryUmktTenantStrategyinfoExAsync(QueryUmktTenantStrategyinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktTenantStrategyinfoResponse>(await DoRequestAsync("1.0", "riskplus.umkt.tenant.strategyinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
