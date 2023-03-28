@@ -3410,86 +3410,6 @@ class RtopCrowdRiskSummaryResp(TeaModel):
         return self
 
 
-class TenantActionTouchPlanInfo(TeaModel):
-    def __init__(
-        self,
-        scene_strategy_id: int = None,
-        scene_strategy_name: str = None,
-        scene_strategy_status: str = None,
-        action_driver_code: int = None,
-        channel_code: str = None,
-        gmt_create: str = None,
-        gmt_modified: str = None,
-    ):
-        # 场景策略id
-        self.scene_strategy_id = scene_strategy_id
-        # 营销名称
-        self.scene_strategy_name = scene_strategy_name
-        # 营销状态
-        self.scene_strategy_status = scene_strategy_status
-        # 渠道id
-        self.action_driver_code = action_driver_code
-        # 渠道类型
-        self.channel_code = channel_code
-        # 创建时间
-        self.gmt_create = gmt_create
-        # 修改时间
-        self.gmt_modified = gmt_modified
-
-    def validate(self):
-        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
-        self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
-        self.validate_required(self.scene_strategy_status, 'scene_strategy_status')
-        self.validate_required(self.action_driver_code, 'action_driver_code')
-        self.validate_required(self.channel_code, 'channel_code')
-        self.validate_required(self.gmt_create, 'gmt_create')
-        if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.gmt_modified, 'gmt_modified')
-        if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.scene_strategy_id is not None:
-            result['scene_strategy_id'] = self.scene_strategy_id
-        if self.scene_strategy_name is not None:
-            result['scene_strategy_name'] = self.scene_strategy_name
-        if self.scene_strategy_status is not None:
-            result['scene_strategy_status'] = self.scene_strategy_status
-        if self.action_driver_code is not None:
-            result['action_driver_code'] = self.action_driver_code
-        if self.channel_code is not None:
-            result['channel_code'] = self.channel_code
-        if self.gmt_create is not None:
-            result['gmt_create'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['gmt_modified'] = self.gmt_modified
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('scene_strategy_id') is not None:
-            self.scene_strategy_id = m.get('scene_strategy_id')
-        if m.get('scene_strategy_name') is not None:
-            self.scene_strategy_name = m.get('scene_strategy_name')
-        if m.get('scene_strategy_status') is not None:
-            self.scene_strategy_status = m.get('scene_strategy_status')
-        if m.get('action_driver_code') is not None:
-            self.action_driver_code = m.get('action_driver_code')
-        if m.get('channel_code') is not None:
-            self.channel_code = m.get('channel_code')
-        if m.get('gmt_create') is not None:
-            self.gmt_create = m.get('gmt_create')
-        if m.get('gmt_modified') is not None:
-            self.gmt_modified = m.get('gmt_modified')
-        return self
-
-
 class StatisticResult(TeaModel):
     def __init__(
         self,
@@ -6355,6 +6275,86 @@ class CustomStatus(TeaModel):
             self.status = m.get('status')
         if m.get('msg') is not None:
             self.msg = m.get('msg')
+        return self
+
+
+class TenantActionPlanInfo(TeaModel):
+    def __init__(
+        self,
+        scene_strategy_id: int = None,
+        scene_strategy_name: str = None,
+        scene_strategy_status: str = None,
+        action_driver_code: int = None,
+        channel_code: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+    ):
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 营销名称
+        self.scene_strategy_name = scene_strategy_name
+        # 营销状态
+        self.scene_strategy_status = scene_strategy_status
+        # 渠道id
+        self.action_driver_code = action_driver_code
+        # 渠道类型
+        self.channel_code = channel_code
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改时间
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
+        self.validate_required(self.scene_strategy_status, 'scene_strategy_status')
+        self.validate_required(self.action_driver_code, 'action_driver_code')
+        self.validate_required(self.channel_code, 'channel_code')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.scene_strategy_name is not None:
+            result['scene_strategy_name'] = self.scene_strategy_name
+        if self.scene_strategy_status is not None:
+            result['scene_strategy_status'] = self.scene_strategy_status
+        if self.action_driver_code is not None:
+            result['action_driver_code'] = self.action_driver_code
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('scene_strategy_name') is not None:
+            self.scene_strategy_name = m.get('scene_strategy_name')
+        if m.get('scene_strategy_status') is not None:
+            self.scene_strategy_status = m.get('scene_strategy_status')
+        if m.get('action_driver_code') is not None:
+            self.action_driver_code = m.get('action_driver_code')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
         return self
 
 
@@ -24159,7 +24159,7 @@ class QueryUmktRobotcallStatisticinfoResponse(TeaModel):
         return self
 
 
-class QueryUmktTenantStrategyinfoRequest(TeaModel):
+class QueryUmktTenantActionplaninfoRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -24214,13 +24214,13 @@ class QueryUmktTenantStrategyinfoRequest(TeaModel):
         return self
 
 
-class QueryUmktTenantStrategyinfoResponse(TeaModel):
+class QueryUmktTenantActionplaninfoResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        query_result: List[TenantActionTouchPlanInfo] = None,
+        query_result: List[TenantActionPlanInfo] = None,
         page_num: int = None,
         page_size: int = None,
         total_count: int = None,
@@ -24281,7 +24281,7 @@ class QueryUmktTenantStrategyinfoResponse(TeaModel):
         self.query_result = []
         if m.get('query_result') is not None:
             for k in m.get('query_result'):
-                temp_model = TenantActionTouchPlanInfo()
+                temp_model = TenantActionPlanInfo()
                 self.query_result.append(temp_model.from_map(k))
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')

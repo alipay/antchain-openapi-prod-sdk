@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.21',
+                    'sdk_version': '1.16.22',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.21',
+                    'sdk_version': '1.16.22',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -8009,60 +8009,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.umkt.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_umkt_tenant_strategyinfo(
+    def query_umkt_tenant_actionplaninfo(
         self,
-        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
-    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        request: riskplus_models.QueryUmktTenantActionplaninfoRequest,
+    ) -> riskplus_models.QueryUmktTenantActionplaninfoResponse:
         """
         Description: 营销盾租户场景信息查询
         Summary: 营销盾租户场景信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_umkt_tenant_strategyinfo_ex(request, headers, runtime)
+        return self.query_umkt_tenant_actionplaninfo_ex(request, headers, runtime)
 
-    async def query_umkt_tenant_strategyinfo_async(
+    async def query_umkt_tenant_actionplaninfo_async(
         self,
-        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
-    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+        request: riskplus_models.QueryUmktTenantActionplaninfoRequest,
+    ) -> riskplus_models.QueryUmktTenantActionplaninfoResponse:
         """
         Description: 营销盾租户场景信息查询
         Summary: 营销盾租户场景信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_umkt_tenant_strategyinfo_ex_async(request, headers, runtime)
+        return await self.query_umkt_tenant_actionplaninfo_ex_async(request, headers, runtime)
 
-    def query_umkt_tenant_strategyinfo_ex(
+    def query_umkt_tenant_actionplaninfo_ex(
         self,
-        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+        request: riskplus_models.QueryUmktTenantActionplaninfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+    ) -> riskplus_models.QueryUmktTenantActionplaninfoResponse:
         """
         Description: 营销盾租户场景信息查询
         Summary: 营销盾租户场景信息查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryUmktTenantStrategyinfoResponse(),
-            self.do_request('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryUmktTenantActionplaninfoResponse(),
+            self.do_request('1.0', 'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_umkt_tenant_strategyinfo_ex_async(
+    async def query_umkt_tenant_actionplaninfo_ex_async(
         self,
-        request: riskplus_models.QueryUmktTenantStrategyinfoRequest,
+        request: riskplus_models.QueryUmktTenantActionplaninfoRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryUmktTenantStrategyinfoResponse:
+    ) -> riskplus_models.QueryUmktTenantActionplaninfoResponse:
         """
         Description: 营销盾租户场景信息查询
         Summary: 营销盾租户场景信息查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryUmktTenantStrategyinfoResponse(),
-            await self.do_request_async('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryUmktTenantActionplaninfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
