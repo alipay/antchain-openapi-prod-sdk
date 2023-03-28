@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktTenantStrategyinfoResponse extends Model
+class QueryUmktTenantActionplaninfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -28,7 +28,7 @@ class QueryUmktTenantStrategyinfoResponse extends Model
 
     // 租户策略信息列表
     /**
-     * @var TenantActionTouchPlanInfo[]
+     * @var TenantActionPlanInfo[]
      */
     public $queryResult;
 
@@ -100,7 +100,7 @@ class QueryUmktTenantStrategyinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktTenantStrategyinfoResponse
+     * @return QueryUmktTenantActionplaninfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -119,7 +119,7 @@ class QueryUmktTenantStrategyinfoResponse extends Model
                 $model->queryResult = [];
                 $n                  = 0;
                 foreach ($map['query_result'] as $item) {
-                    $model->queryResult[$n++] = null !== $item ? TenantActionTouchPlanInfo::fromMap($item) : $item;
+                    $model->queryResult[$n++] = null !== $item ? TenantActionPlanInfo::fromMap($item) : $item;
                 }
             }
         }

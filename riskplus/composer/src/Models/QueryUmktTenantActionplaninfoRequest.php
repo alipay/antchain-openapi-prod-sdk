@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktTenantStrategyinfoRequest extends Model
+class QueryUmktTenantActionplaninfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -74,7 +74,7 @@ class QueryUmktTenantStrategyinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktTenantStrategyinfoRequest
+     * @return QueryUmktTenantActionplaninfoRequest
      */
     public static function fromMap($map = [])
     {

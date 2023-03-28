@@ -229,8 +229,8 @@ use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
-use AntChain\RISKPLUS\Models\QueryUmktTenantStrategyinfoRequest;
-use AntChain\RISKPLUS\Models\QueryUmktTenantStrategyinfoResponse;
+use AntChain\RISKPLUS\Models\QueryUmktTenantActionplaninfoRequest;
+use AntChain\RISKPLUS\Models\QueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
@@ -432,7 +432,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.21',
+                    'sdk_version'      => '1.16.22',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5031,33 +5031,33 @@ class Client
      * Description: 营销盾租户场景信息查询
      * Summary: 营销盾租户场景信息查询.
      *
-     * @param QueryUmktTenantStrategyinfoRequest $request
+     * @param QueryUmktTenantActionplaninfoRequest $request
      *
-     * @return QueryUmktTenantStrategyinfoResponse
+     * @return QueryUmktTenantActionplaninfoResponse
      */
-    public function queryUmktTenantStrategyinfo($request)
+    public function queryUmktTenantActionplaninfo($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryUmktTenantStrategyinfoEx($request, $headers, $runtime);
+        return $this->queryUmktTenantActionplaninfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 营销盾租户场景信息查询
      * Summary: 营销盾租户场景信息查询.
      *
-     * @param QueryUmktTenantStrategyinfoRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
+     * @param QueryUmktTenantActionplaninfoRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
      *
-     * @return QueryUmktTenantStrategyinfoResponse
+     * @return QueryUmktTenantActionplaninfoResponse
      */
-    public function queryUmktTenantStrategyinfoEx($request, $headers, $runtime)
+    public function queryUmktTenantActionplaninfoEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryUmktTenantStrategyinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.tenant.strategyinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryUmktTenantActionplaninfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

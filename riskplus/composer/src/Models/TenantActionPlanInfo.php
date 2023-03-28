@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TenantActionTouchPlanInfo extends Model
+class TenantActionPlanInfo extends Model
 {
     // 场景策略id
     /**
@@ -117,7 +117,7 @@ class TenantActionTouchPlanInfo extends Model
     /**
      * @param array $map
      *
-     * @return TenantActionTouchPlanInfo
+     * @return TenantActionPlanInfo
      */
     public static function fromMap($map = [])
     {
