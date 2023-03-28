@@ -2031,6 +2031,51 @@ export class RtopCrowdRiskSummaryResp extends $tea.Model {
   }
 }
 
+// 营销盾租户触达策略计划信息
+export class TenantActionTouchPlanInfo extends $tea.Model {
+  // 场景策略id
+  sceneStrategyId: number;
+  // 营销名称
+  sceneStrategyName: string;
+  // 营销状态
+  sceneStrategyStatus: string;
+  // 渠道id
+  actionDriverCode: number;
+  // 渠道类型
+  channelCode: string;
+  // 创建时间
+  gmtCreate: string;
+  // 修改时间
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneStrategyId: 'scene_strategy_id',
+      sceneStrategyName: 'scene_strategy_name',
+      sceneStrategyStatus: 'scene_strategy_status',
+      actionDriverCode: 'action_driver_code',
+      channelCode: 'channel_code',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneStrategyId: 'number',
+      sceneStrategyName: 'string',
+      sceneStrategyStatus: 'string',
+      actionDriverCode: 'number',
+      channelCode: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 回执统计结果
 export class StatisticResult extends $tea.Model {
   // 有效任务总数量
@@ -10096,6 +10141,67 @@ export class PushRbbCustomerCompanyinfoResponse extends $tea.Model {
   }
 }
 
+export class UploadRbbFileAmapRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadRbbFileAmapResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRpgwSignUrlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14396,6 +14502,85 @@ export class QueryUmktRobotcallStatisticinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktTenantStrategyinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 页码
+  pageNum?: number;
+  // 页容量
+  pageSize?: number;
+  // 渠道code
+  channelType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      channelType: 'channel_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+      channelType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktTenantStrategyinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户策略信息列表
+  queryResult?: TenantActionTouchPlanInfo[];
+  // 页码
+  pageNum?: number;
+  // 页容量
+  pageSize?: number;
+  // 总量
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: { 'type': 'array', 'itemType': TenantActionTouchPlanInfo },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14597,7 +14782,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.13",
+          sdk_version: "1.16.21",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -16248,6 +16433,46 @@ export default class Client {
   }
 
   /**
+   * Description: 企管盾给高德的文件上传，用于小微店铺分
+   * Summary: 企管盾给高德的文件上传，用于小微店铺分
+   */
+  async uploadRbbFileAmap(request: UploadRbbFileAmapRequest): Promise<UploadRbbFileAmapResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadRbbFileAmapEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾给高德的文件上传，用于小微店铺分
+   * Summary: 企管盾给高德的文件上传，用于小微店铺分
+   */
+  async uploadRbbFileAmapEx(request: UploadRbbFileAmapRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadRbbFileAmapResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.rbb.file.amap.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadRbbFileAmapResponse = new UploadRbbFileAmapResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadRbbFileAmapResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadRbbFileAmapResponse>(await this.doRequest("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadRbbFileAmapResponse({}));
+  }
+
+  /**
    * Description: 获取签约接口
    * Summary: 获取签约接口
    */
@@ -17275,6 +17500,25 @@ export default class Client {
   async queryUmktRobotcallStatisticinfoEx(request: QueryUmktRobotcallStatisticinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRobotcallStatisticinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUmktRobotcallStatisticinfoResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.statisticinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRobotcallStatisticinfoResponse({}));
+  }
+
+  /**
+   * Description: 营销盾租户场景信息查询
+   * Summary: 营销盾租户场景信息查询
+   */
+  async queryUmktTenantStrategyinfo(request: QueryUmktTenantStrategyinfoRequest): Promise<QueryUmktTenantStrategyinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktTenantStrategyinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾租户场景信息查询
+   * Summary: 营销盾租户场景信息查询
+   */
+  async queryUmktTenantStrategyinfoEx(request: QueryUmktTenantStrategyinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktTenantStrategyinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktTenantStrategyinfoResponse>(await this.doRequest("1.0", "riskplus.umkt.tenant.strategyinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktTenantStrategyinfoResponse({}));
   }
 
   /**
