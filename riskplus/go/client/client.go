@@ -2773,6 +2773,67 @@ func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRis
 	return s
 }
 
+// 营销盾租户触达策略计划信息
+type TenantActionTouchPlanInfo struct {
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 营销名称
+	SceneStrategyName *string `json:"scene_strategy_name,omitempty" xml:"scene_strategy_name,omitempty" require:"true"`
+	// 营销状态
+	SceneStrategyStatus *string `json:"scene_strategy_status,omitempty" xml:"scene_strategy_status,omitempty" require:"true"`
+	// 渠道id
+	ActionDriverCode *int64 `json:"action_driver_code,omitempty" xml:"action_driver_code,omitempty" require:"true"`
+	// 渠道类型
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s TenantActionTouchPlanInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantActionTouchPlanInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TenantActionTouchPlanInfo) SetSceneStrategyId(v int64) *TenantActionTouchPlanInfo {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetSceneStrategyName(v string) *TenantActionTouchPlanInfo {
+	s.SceneStrategyName = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetSceneStrategyStatus(v string) *TenantActionTouchPlanInfo {
+	s.SceneStrategyStatus = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetActionDriverCode(v int64) *TenantActionTouchPlanInfo {
+	s.ActionDriverCode = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetChannelCode(v string) *TenantActionTouchPlanInfo {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetGmtCreate(v string) *TenantActionTouchPlanInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *TenantActionTouchPlanInfo) SetGmtModified(v string) *TenantActionTouchPlanInfo {
+	s.GmtModified = &v
+	return s
+}
+
 // 回执统计结果
 type StatisticResult struct {
 	// 有效任务总数量
@@ -13473,6 +13534,83 @@ func (s *PushRbbCustomerCompanyinfoResponse) SetResultMsg(v string) *PushRbbCust
 	return s
 }
 
+type UploadRbbFileAmapRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadRbbFileAmapRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadRbbFileAmapRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadRbbFileAmapRequest) SetAuthToken(v string) *UploadRbbFileAmapRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadRbbFileAmapRequest) SetProductInstanceId(v string) *UploadRbbFileAmapRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadRbbFileAmapRequest) SetFileObject(v io.Reader) *UploadRbbFileAmapRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadRbbFileAmapRequest) SetFileObjectName(v string) *UploadRbbFileAmapRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadRbbFileAmapRequest) SetFileId(v string) *UploadRbbFileAmapRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadRbbFileAmapResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadRbbFileAmapResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadRbbFileAmapResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadRbbFileAmapResponse) SetReqMsgId(v string) *UploadRbbFileAmapResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadRbbFileAmapResponse) SetResultCode(v string) *UploadRbbFileAmapResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadRbbFileAmapResponse) SetResultMsg(v string) *UploadRbbFileAmapResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryRpgwSignUrlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19234,6 +19372,111 @@ func (s *QueryUmktRobotcallStatisticinfoResponse) SetConnectRate(v string) *Quer
 	return s
 }
 
+type QueryUmktTenantStrategyinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 页容量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 渠道code
+	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty" require:"true"`
+}
+
+func (s QueryUmktTenantStrategyinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktTenantStrategyinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktTenantStrategyinfoRequest) SetAuthToken(v string) *QueryUmktTenantStrategyinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoRequest) SetProductInstanceId(v string) *QueryUmktTenantStrategyinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoRequest) SetPageNum(v int64) *QueryUmktTenantStrategyinfoRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoRequest) SetPageSize(v int64) *QueryUmktTenantStrategyinfoRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoRequest) SetChannelType(v string) *QueryUmktTenantStrategyinfoRequest {
+	s.ChannelType = &v
+	return s
+}
+
+type QueryUmktTenantStrategyinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户策略信息列表
+	QueryResult []*TenantActionTouchPlanInfo `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 页容量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s QueryUmktTenantStrategyinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktTenantStrategyinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetReqMsgId(v string) *QueryUmktTenantStrategyinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetResultCode(v string) *QueryUmktTenantStrategyinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetResultMsg(v string) *QueryUmktTenantStrategyinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetQueryResult(v []*TenantActionTouchPlanInfo) *QueryUmktTenantStrategyinfoResponse {
+	s.QueryResult = v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetPageNum(v int64) *QueryUmktTenantStrategyinfoResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetPageSize(v int64) *QueryUmktTenantStrategyinfoResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryUmktTenantStrategyinfoResponse) SetTotalCount(v int64) *QueryUmktTenantStrategyinfoResponse {
+	s.TotalCount = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19476,7 +19719,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.13"),
+				"sdk_version":      tea.String("1.16.21"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22376,6 +22619,69 @@ func (client *Client) PushRbbCustomerCompanyinfoEx(request *PushRbbCustomerCompa
 }
 
 /**
+ * Description: 企管盾给高德的文件上传，用于小微店铺分
+ * Summary: 企管盾给高德的文件上传，用于小微店铺分
+ */
+func (client *Client) UploadRbbFileAmap(request *UploadRbbFileAmapRequest) (_result *UploadRbbFileAmapResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadRbbFileAmapResponse{}
+	_body, _err := client.UploadRbbFileAmapEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾给高德的文件上传，用于小微店铺分
+ * Summary: 企管盾给高德的文件上传，用于小微店铺分
+ */
+func (client *Client) UploadRbbFileAmapEx(request *UploadRbbFileAmapRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadRbbFileAmapResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.rbb.file.amap.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadRbbFileAmapResponse := &UploadRbbFileAmapResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadRbbFileAmapResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadRbbFileAmapResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.file.amap.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 获取签约接口
  * Summary: 获取签约接口
  */
@@ -24201,6 +24507,40 @@ func (client *Client) QueryUmktRobotcallStatisticinfoEx(request *QueryUmktRobotc
 	}
 	_result = &QueryUmktRobotcallStatisticinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.statisticinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾租户场景信息查询
+ * Summary: 营销盾租户场景信息查询
+ */
+func (client *Client) QueryUmktTenantStrategyinfo(request *QueryUmktTenantStrategyinfoRequest) (_result *QueryUmktTenantStrategyinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktTenantStrategyinfoResponse{}
+	_body, _err := client.QueryUmktTenantStrategyinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾租户场景信息查询
+ * Summary: 营销盾租户场景信息查询
+ */
+func (client *Client) QueryUmktTenantStrategyinfoEx(request *QueryUmktTenantStrategyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktTenantStrategyinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktTenantStrategyinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.tenant.strategyinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
