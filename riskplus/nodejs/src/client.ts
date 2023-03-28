@@ -2031,51 +2031,6 @@ export class RtopCrowdRiskSummaryResp extends $tea.Model {
   }
 }
 
-// 营销盾租户触达策略计划信息
-export class TenantActionTouchPlanInfo extends $tea.Model {
-  // 场景策略id
-  sceneStrategyId: number;
-  // 营销名称
-  sceneStrategyName: string;
-  // 营销状态
-  sceneStrategyStatus: string;
-  // 渠道id
-  actionDriverCode: number;
-  // 渠道类型
-  channelCode: string;
-  // 创建时间
-  gmtCreate: string;
-  // 修改时间
-  gmtModified: string;
-  static names(): { [key: string]: string } {
-    return {
-      sceneStrategyId: 'scene_strategy_id',
-      sceneStrategyName: 'scene_strategy_name',
-      sceneStrategyStatus: 'scene_strategy_status',
-      actionDriverCode: 'action_driver_code',
-      channelCode: 'channel_code',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneStrategyId: 'number',
-      sceneStrategyName: 'string',
-      sceneStrategyStatus: 'string',
-      actionDriverCode: 'number',
-      channelCode: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 回执统计结果
 export class StatisticResult extends $tea.Model {
   // 有效任务总数量
@@ -3779,6 +3734,51 @@ export class CustomStatus extends $tea.Model {
       applyFlag: 'boolean',
       status: 'string',
       msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾租户触达策略计划信息
+export class TenantActionPlanInfo extends $tea.Model {
+  // 场景策略id
+  sceneStrategyId: number;
+  // 营销名称
+  sceneStrategyName: string;
+  // 营销状态
+  sceneStrategyStatus: string;
+  // 渠道id
+  actionDriverCode: number;
+  // 渠道类型
+  channelCode: string;
+  // 创建时间
+  gmtCreate: string;
+  // 修改时间
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneStrategyId: 'scene_strategy_id',
+      sceneStrategyName: 'scene_strategy_name',
+      sceneStrategyStatus: 'scene_strategy_status',
+      actionDriverCode: 'action_driver_code',
+      channelCode: 'channel_code',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneStrategyId: 'number',
+      sceneStrategyName: 'string',
+      sceneStrategyStatus: 'string',
+      actionDriverCode: 'number',
+      channelCode: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
     };
   }
 
@@ -14502,7 +14502,7 @@ export class QueryUmktRobotcallStatisticinfoResponse extends $tea.Model {
   }
 }
 
-export class QueryUmktTenantStrategyinfoRequest extends $tea.Model {
+export class QueryUmktTenantActionplaninfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -14537,7 +14537,7 @@ export class QueryUmktTenantStrategyinfoRequest extends $tea.Model {
   }
 }
 
-export class QueryUmktTenantStrategyinfoResponse extends $tea.Model {
+export class QueryUmktTenantActionplaninfoResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -14545,7 +14545,7 @@ export class QueryUmktTenantStrategyinfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 租户策略信息列表
-  queryResult?: TenantActionTouchPlanInfo[];
+  queryResult?: TenantActionPlanInfo[];
   // 页码
   pageNum?: number;
   // 页容量
@@ -14569,7 +14569,7 @@ export class QueryUmktTenantStrategyinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      queryResult: { 'type': 'array', 'itemType': TenantActionTouchPlanInfo },
+      queryResult: { 'type': 'array', 'itemType': TenantActionPlanInfo },
       pageNum: 'number',
       pageSize: 'number',
       totalCount: 'number',
@@ -14782,7 +14782,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.21",
+          sdk_version: "1.16.22",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -17506,19 +17506,19 @@ export default class Client {
    * Description: 营销盾租户场景信息查询
    * Summary: 营销盾租户场景信息查询
    */
-  async queryUmktTenantStrategyinfo(request: QueryUmktTenantStrategyinfoRequest): Promise<QueryUmktTenantStrategyinfoResponse> {
+  async queryUmktTenantActionplaninfo(request: QueryUmktTenantActionplaninfoRequest): Promise<QueryUmktTenantActionplaninfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryUmktTenantStrategyinfoEx(request, headers, runtime);
+    return await this.queryUmktTenantActionplaninfoEx(request, headers, runtime);
   }
 
   /**
    * Description: 营销盾租户场景信息查询
    * Summary: 营销盾租户场景信息查询
    */
-  async queryUmktTenantStrategyinfoEx(request: QueryUmktTenantStrategyinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktTenantStrategyinfoResponse> {
+  async queryUmktTenantActionplaninfoEx(request: QueryUmktTenantActionplaninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktTenantActionplaninfoResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryUmktTenantStrategyinfoResponse>(await this.doRequest("1.0", "riskplus.umkt.tenant.strategyinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktTenantStrategyinfoResponse({}));
+    return $tea.cast<QueryUmktTenantActionplaninfoResponse>(await this.doRequest("1.0", "riskplus.umkt.tenant.actionplaninfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktTenantActionplaninfoResponse({}));
   }
 
   /**
