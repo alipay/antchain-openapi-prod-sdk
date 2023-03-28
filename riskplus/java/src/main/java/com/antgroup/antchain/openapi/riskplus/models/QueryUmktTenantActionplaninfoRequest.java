@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
+public class QueryUmktTenantActionplaninfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -24,12 +24,12 @@ public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
     @Validation(required = true)
     public String channelType;
 
-    public static QueryUmktTenantStrategyinfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryUmktTenantStrategyinfoRequest self = new QueryUmktTenantStrategyinfoRequest();
+    public static QueryUmktTenantActionplaninfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryUmktTenantActionplaninfoRequest self = new QueryUmktTenantActionplaninfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryUmktTenantStrategyinfoRequest setAuthToken(String authToken) {
+    public QueryUmktTenantActionplaninfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryUmktTenantStrategyinfoRequest setProductInstanceId(String productInstanceId) {
+    public QueryUmktTenantActionplaninfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryUmktTenantStrategyinfoRequest setPageNum(Long pageNum) {
+    public QueryUmktTenantActionplaninfoRequest setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
         return this.pageNum;
     }
 
-    public QueryUmktTenantStrategyinfoRequest setPageSize(Long pageSize) {
+    public QueryUmktTenantActionplaninfoRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryUmktTenantStrategyinfoRequest extends TeaModel {
         return this.pageSize;
     }
 
-    public QueryUmktTenantStrategyinfoRequest setChannelType(String channelType) {
+    public QueryUmktTenantActionplaninfoRequest setChannelType(String channelType) {
         this.channelType = channelType;
         return this;
     }

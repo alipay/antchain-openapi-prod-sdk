@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.21"),
+                    new TeaPair("sdk_version", "1.16.22"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2837,19 +2837,19 @@ public class Client {
      * Description: 营销盾租户场景信息查询
      * Summary: 营销盾租户场景信息查询
      */
-    public QueryUmktTenantStrategyinfoResponse queryUmktTenantStrategyinfo(QueryUmktTenantStrategyinfoRequest request) throws Exception {
+    public QueryUmktTenantActionplaninfoResponse queryUmktTenantActionplaninfo(QueryUmktTenantActionplaninfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryUmktTenantStrategyinfoEx(request, headers, runtime);
+        return this.queryUmktTenantActionplaninfoEx(request, headers, runtime);
     }
 
     /**
      * Description: 营销盾租户场景信息查询
      * Summary: 营销盾租户场景信息查询
      */
-    public QueryUmktTenantStrategyinfoResponse queryUmktTenantStrategyinfoEx(QueryUmktTenantStrategyinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryUmktTenantActionplaninfoResponse queryUmktTenantActionplaninfoEx(QueryUmktTenantActionplaninfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.tenant.strategyinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktTenantStrategyinfoResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.tenant.actionplaninfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktTenantActionplaninfoResponse());
     }
 
     /**

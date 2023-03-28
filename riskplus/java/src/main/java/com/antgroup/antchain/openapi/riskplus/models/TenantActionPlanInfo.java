@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class TenantActionTouchPlanInfo extends TeaModel {
+public class TenantActionPlanInfo extends TeaModel {
     // 场景策略id
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
@@ -39,12 +39,12 @@ public class TenantActionTouchPlanInfo extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
-    public static TenantActionTouchPlanInfo build(java.util.Map<String, ?> map) throws Exception {
-        TenantActionTouchPlanInfo self = new TenantActionTouchPlanInfo();
+    public static TenantActionPlanInfo build(java.util.Map<String, ?> map) throws Exception {
+        TenantActionPlanInfo self = new TenantActionPlanInfo();
         return TeaModel.build(map, self);
     }
 
-    public TenantActionTouchPlanInfo setSceneStrategyId(Long sceneStrategyId) {
+    public TenantActionPlanInfo setSceneStrategyId(Long sceneStrategyId) {
         this.sceneStrategyId = sceneStrategyId;
         return this;
     }
@@ -52,7 +52,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.sceneStrategyId;
     }
 
-    public TenantActionTouchPlanInfo setSceneStrategyName(String sceneStrategyName) {
+    public TenantActionPlanInfo setSceneStrategyName(String sceneStrategyName) {
         this.sceneStrategyName = sceneStrategyName;
         return this;
     }
@@ -60,7 +60,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.sceneStrategyName;
     }
 
-    public TenantActionTouchPlanInfo setSceneStrategyStatus(String sceneStrategyStatus) {
+    public TenantActionPlanInfo setSceneStrategyStatus(String sceneStrategyStatus) {
         this.sceneStrategyStatus = sceneStrategyStatus;
         return this;
     }
@@ -68,7 +68,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.sceneStrategyStatus;
     }
 
-    public TenantActionTouchPlanInfo setActionDriverCode(Long actionDriverCode) {
+    public TenantActionPlanInfo setActionDriverCode(Long actionDriverCode) {
         this.actionDriverCode = actionDriverCode;
         return this;
     }
@@ -76,7 +76,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.actionDriverCode;
     }
 
-    public TenantActionTouchPlanInfo setChannelCode(String channelCode) {
+    public TenantActionPlanInfo setChannelCode(String channelCode) {
         this.channelCode = channelCode;
         return this;
     }
@@ -84,7 +84,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.channelCode;
     }
 
-    public TenantActionTouchPlanInfo setGmtCreate(String gmtCreate) {
+    public TenantActionPlanInfo setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
         return this;
     }
@@ -92,7 +92,7 @@ public class TenantActionTouchPlanInfo extends TeaModel {
         return this.gmtCreate;
     }
 
-    public TenantActionTouchPlanInfo setGmtModified(String gmtModified) {
+    public TenantActionPlanInfo setGmtModified(String gmtModified) {
         this.gmtModified = gmtModified;
         return this;
     }

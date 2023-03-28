@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
+public class QueryUmktTenantActionplaninfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -18,7 +18,7 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
 
     // 租户策略信息列表
     @NameInMap("query_result")
-    public java.util.List<TenantActionTouchPlanInfo> queryResult;
+    public java.util.List<TenantActionPlanInfo> queryResult;
 
     // 页码
     @NameInMap("page_num")
@@ -32,12 +32,12 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
     @NameInMap("total_count")
     public Long totalCount;
 
-    public static QueryUmktTenantStrategyinfoResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryUmktTenantStrategyinfoResponse self = new QueryUmktTenantStrategyinfoResponse();
+    public static QueryUmktTenantActionplaninfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryUmktTenantActionplaninfoResponse self = new QueryUmktTenantActionplaninfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryUmktTenantStrategyinfoResponse setReqMsgId(String reqMsgId) {
+    public QueryUmktTenantActionplaninfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setResultCode(String resultCode) {
+    public QueryUmktTenantActionplaninfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setResultMsg(String resultMsg) {
+    public QueryUmktTenantActionplaninfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,15 +61,15 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setQueryResult(java.util.List<TenantActionTouchPlanInfo> queryResult) {
+    public QueryUmktTenantActionplaninfoResponse setQueryResult(java.util.List<TenantActionPlanInfo> queryResult) {
         this.queryResult = queryResult;
         return this;
     }
-    public java.util.List<TenantActionTouchPlanInfo> getQueryResult() {
+    public java.util.List<TenantActionPlanInfo> getQueryResult() {
         return this.queryResult;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setPageNum(Long pageNum) {
+    public QueryUmktTenantActionplaninfoResponse setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
     }
@@ -77,7 +77,7 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
         return this.pageNum;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setPageSize(Long pageSize) {
+    public QueryUmktTenantActionplaninfoResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -85,7 +85,7 @@ public class QueryUmktTenantStrategyinfoResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public QueryUmktTenantStrategyinfoResponse setTotalCount(Long totalCount) {
+    public QueryUmktTenantActionplaninfoResponse setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
         return this;
     }
