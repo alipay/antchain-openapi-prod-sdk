@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-ehcaiops</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.6</version>
   <packaging>jar</packaging>
   <name>openapi-ehcaiops</name>
   <description>Ant Chain EHCAIOPS SDK for Java

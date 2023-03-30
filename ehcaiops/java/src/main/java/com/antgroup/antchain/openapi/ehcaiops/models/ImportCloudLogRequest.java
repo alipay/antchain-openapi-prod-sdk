@@ -27,11 +27,11 @@ public class ImportCloudLogRequest extends TeaModel {
     @NameInMap("batch_import")
     public Boolean batchImport;
 
-    // 日志行内元素分隔符，默认|
+    // 日志行内元素分隔符，默认英文竖线
     @NameInMap("element_separator")
     public String elementSeparator;
 
-    // 日志行分隔符，默认$
+    // 日志行分隔符，默认美元符号
     @NameInMap("line_separator")
     public String lineSeparator;
 
