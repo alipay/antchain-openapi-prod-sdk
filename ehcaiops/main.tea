@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.6',
     _prod_code = 'EHCAIOPS',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -161,6 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
 model ImportCloudLogRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -172,9 +180,9 @@ model ImportCloudLogRequest = {
   logMessage: string(name='log_message'),
   // 是否批量上传
   batchImport?: boolean(name='batch_import'),
-  // 日志行内元素分隔符，默认|
+  // 日志行内元素分隔符，默认英文竖线
   elementSeparator?: string(name='element_separator'),
-  // 日志行分隔符，默认$
+  // 日志行分隔符，默认美元符号
   lineSeparator?: string(name='line_separator'),
 }
 
@@ -204,5 +212,120 @@ async function importCloudLog(request: ImportCloudLogRequest): ImportCloudLogRes
 async function importCloudLogEx(request: ImportCloudLogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportCloudLogResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.ehcaiops.cloud.log.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadLogFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文件参数
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 业务码
+  busCode: string(name='bus_code'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 行内日志分隔符
+  elementSeparator: string(name='element_separator'),
+}
+
+model UploadLogFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 日志文件上传接口
+ * Summary: 日志文件上传接口
+ */
+async function uploadLogFile(request: UploadLogFileRequest): UploadLogFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadLogFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 日志文件上传接口
+ * Summary: 日志文件上传接口
+ */
+async function uploadLogFileEx(request: UploadLogFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadLogFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antcloud.ehcaiops.log.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadLogFileResponse = new UploadLogFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadLogFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ehcaiops.log.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
