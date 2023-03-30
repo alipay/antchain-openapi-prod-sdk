@@ -8,11 +8,30 @@ using Tea;
 
 namespace AntChain.SDK.EHCAIOPS.Models
 {
-    public class ImportCloudLogRequest : TeaModel {
+    public class UploadLogFileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
+
+        // 文件参数
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=true)]
+        public string FileId { get; set; }
 
         // 业务码
         [NameInMap("bus_code")]
@@ -24,25 +43,10 @@ namespace AntChain.SDK.EHCAIOPS.Models
         [Validation(Required=true)]
         public string SceneCode { get; set; }
 
-        // 日志报文
-        [NameInMap("log_message")]
-        [Validation(Required=true)]
-        public string LogMessage { get; set; }
-
-        // 是否批量上传
-        [NameInMap("batch_import")]
-        [Validation(Required=false)]
-        public bool? BatchImport { get; set; }
-
-        // 日志行内元素分隔符，默认英文竖线
+        // 行内日志分隔符
         [NameInMap("element_separator")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string ElementSeparator { get; set; }
-
-        // 日志行分隔符，默认美元符号
-        [NameInMap("line_separator")]
-        [Validation(Required=false)]
-        public string LineSeparator { get; set; }
 
     }
 
