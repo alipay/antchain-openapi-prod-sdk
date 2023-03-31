@@ -42,20 +42,13 @@ class CreateDeviceDatamodelRequest extends Model
      * @var string
      */
     public $customerVersion;
-
-    // 是否转化为物模型，默认false
-    /**
-     * @var bool
-     */
-    public $transformThingModel;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'dataModel'           => 'data_model',
-        'dataModelName'       => 'data_model_name',
-        'bizType'             => 'biz_type',
-        'customerVersion'     => 'customer_version',
-        'transformThingModel' => 'transform_thing_model',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'dataModel'         => 'data_model',
+        'dataModelName'     => 'data_model_name',
+        'bizType'           => 'biz_type',
+        'customerVersion'   => 'customer_version',
     ];
 
     public function validate()
@@ -83,9 +76,6 @@ class CreateDeviceDatamodelRequest extends Model
         }
         if (null !== $this->customerVersion) {
             $res['customer_version'] = $this->customerVersion;
-        }
-        if (null !== $this->transformThingModel) {
-            $res['transform_thing_model'] = $this->transformThingModel;
         }
 
         return $res;
@@ -116,9 +106,6 @@ class CreateDeviceDatamodelRequest extends Model
         }
         if (isset($map['customer_version'])) {
             $model->customerVersion = $map['customer_version'];
-        }
-        if (isset($map['transform_thing_model'])) {
-            $model->transformThingModel = $map['transform_thing_model'];
         }
 
         return $model;

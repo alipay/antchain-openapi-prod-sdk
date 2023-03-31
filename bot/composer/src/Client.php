@@ -35,6 +35,8 @@ use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceResponse;
+use AntChain\BOT\Models\BindEntityrelationRequest;
+use AntChain\BOT\Models\BindEntityrelationResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintRequest;
@@ -61,8 +63,12 @@ use AntChain\BOT\Models\CreateDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBychainperipheralidResponse;
+use AntChain\BOT\Models\CreateDistributedeviceBydeviceidmulRequest;
+use AntChain\BOT\Models\CreateDistributedeviceBydeviceidmulResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceidResponse;
+use AntChain\BOT\Models\CreateDistributedeviceBydevicemulRequest;
+use AntChain\BOT\Models\CreateDistributedeviceBydevicemulResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceResponse;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
@@ -303,6 +309,8 @@ use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
 use AntChain\BOT\Models\SyncRentRentpaymentRequest;
 use AntChain\BOT\Models\SyncRentRentpaymentResponse;
+use AntChain\BOT\Models\UnbindEntityrelationRequest;
+use AntChain\BOT\Models\UnbindEntityrelationResponse;
 use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateCustomerEntityRequest;
@@ -480,7 +488,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.7',
+                    'sdk_version'      => '1.8.19',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2429,7 +2437,7 @@ class Client
 
     /**
      * Description: IoT设备平台-客户新增
-     * Summary: IoT设备平台-客户新增.
+     * Summary: IoT设备平台-中台签约客户同步.
      *
      * @param SaveIotbasicCustomerRequest $request
      *
@@ -2445,7 +2453,7 @@ class Client
 
     /**
      * Description: IoT设备平台-客户新增
-     * Summary: IoT设备平台-客户新增.
+     * Summary: IoT设备平台-中台签约客户同步.
      *
      * @param SaveIotbasicCustomerRequest $request
      * @param string[]                    $headers
@@ -5296,6 +5304,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备.
+     *
+     * @param CreateDistributedeviceBydevicemulRequest $request
+     *
+     * @return CreateDistributedeviceBydevicemulResponse
+     */
+    public function createDistributedeviceBydevicemul($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributedeviceBydevicemulEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备.
+     *
+     * @param CreateDistributedeviceBydevicemulRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateDistributedeviceBydevicemulResponse
+     */
+    public function createDistributedeviceBydevicemulEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributedeviceBydevicemulResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.distributedevice.bydevicemul.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备.
+     *
+     * @param CreateDistributedeviceBydeviceidmulRequest $request
+     *
+     * @return CreateDistributedeviceBydeviceidmulResponse
+     */
+    public function createDistributedeviceBydeviceidmul($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributedeviceBydeviceidmulEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备.
+     *
+     * @param CreateDistributedeviceBydeviceidmulRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return CreateDistributedeviceBydeviceidmulResponse
+     */
+    public function createDistributedeviceBydeviceidmulEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributedeviceBydeviceidmulResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.distributedevice.bydeviceidmul.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 绑定实体关系
+     * Summary: 绑定实体关系.
+     *
+     * @param BindEntityrelationRequest $request
+     *
+     * @return BindEntityrelationResponse
+     */
+    public function bindEntityrelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindEntityrelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 绑定实体关系
+     * Summary: 绑定实体关系.
+     *
+     * @param BindEntityrelationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return BindEntityrelationResponse
+     */
+    public function bindEntityrelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindEntityrelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.entityrelation.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量解绑实体关系
+     * Summary: 批量解绑实体关系.
+     *
+     * @param UnbindEntityrelationRequest $request
+     *
+     * @return UnbindEntityrelationResponse
+     */
+    public function unbindEntityrelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindEntityrelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量解绑实体关系
+     * Summary: 批量解绑实体关系.
+     *
+     * @param UnbindEntityrelationRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UnbindEntityrelationResponse
+     */
+    public function unbindEntityrelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindEntityrelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
