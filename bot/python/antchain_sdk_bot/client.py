@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.7',
+                    'sdk_version': '1.8.19',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.7',
+                    'sdk_version': '1.8.19',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -3507,7 +3507,7 @@ class Client:
     ) -> bot_models.SaveIotbasicCustomerResponse:
         """
         Description: IoT设备平台-客户新增
-        Summary: IoT设备平台-客户新增
+        Summary: IoT设备平台-中台签约客户同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3519,7 +3519,7 @@ class Client:
     ) -> bot_models.SaveIotbasicCustomerResponse:
         """
         Description: IoT设备平台-客户新增
-        Summary: IoT设备平台-客户新增
+        Summary: IoT设备平台-中台签约客户同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3533,7 +3533,7 @@ class Client:
     ) -> bot_models.SaveIotbasicCustomerResponse:
         """
         Description: IoT设备平台-客户新增
-        Summary: IoT设备平台-客户新增
+        Summary: IoT设备平台-中台签约客户同步
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3549,7 +3549,7 @@ class Client:
     ) -> bot_models.SaveIotbasicCustomerResponse:
         """
         Description: IoT设备平台-客户新增
-        Summary: IoT设备平台-客户新增
+        Summary: IoT设备平台-中台签约客户同步
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -8371,6 +8371,230 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryThingmodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingmodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_distributedevice_bydevicemul(
+        self,
+        request: bot_models.CreateDistributedeviceBydevicemulRequest,
+    ) -> bot_models.CreateDistributedeviceBydevicemulResponse:
+        """
+        Description: 通过设备异步批量发行设备
+        Summary: 通过设备异步批量发行设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_distributedevice_bydevicemul_ex(request, headers, runtime)
+
+    async def create_distributedevice_bydevicemul_async(
+        self,
+        request: bot_models.CreateDistributedeviceBydevicemulRequest,
+    ) -> bot_models.CreateDistributedeviceBydevicemulResponse:
+        """
+        Description: 通过设备异步批量发行设备
+        Summary: 通过设备异步批量发行设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_distributedevice_bydevicemul_ex_async(request, headers, runtime)
+
+    def create_distributedevice_bydevicemul_ex(
+        self,
+        request: bot_models.CreateDistributedeviceBydevicemulRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDistributedeviceBydevicemulResponse:
+        """
+        Description: 通过设备异步批量发行设备
+        Summary: 通过设备异步批量发行设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydevicemulResponse(),
+            self.do_request('1.0', 'blockchain.bot.distributedevice.bydevicemul.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_distributedevice_bydevicemul_ex_async(
+        self,
+        request: bot_models.CreateDistributedeviceBydevicemulRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDistributedeviceBydevicemulResponse:
+        """
+        Description: 通过设备异步批量发行设备
+        Summary: 通过设备异步批量发行设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydevicemulResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydevicemul.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_distributedevice_bydeviceidmul(
+        self,
+        request: bot_models.CreateDistributedeviceBydeviceidmulRequest,
+    ) -> bot_models.CreateDistributedeviceBydeviceidmulResponse:
+        """
+        Description: 通过设备ID异步批量发行设备
+        Summary: 通过设备ID异步批量发行设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_distributedevice_bydeviceidmul_ex(request, headers, runtime)
+
+    async def create_distributedevice_bydeviceidmul_async(
+        self,
+        request: bot_models.CreateDistributedeviceBydeviceidmulRequest,
+    ) -> bot_models.CreateDistributedeviceBydeviceidmulResponse:
+        """
+        Description: 通过设备ID异步批量发行设备
+        Summary: 通过设备ID异步批量发行设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_distributedevice_bydeviceidmul_ex_async(request, headers, runtime)
+
+    def create_distributedevice_bydeviceidmul_ex(
+        self,
+        request: bot_models.CreateDistributedeviceBydeviceidmulRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDistributedeviceBydeviceidmulResponse:
+        """
+        Description: 通过设备ID异步批量发行设备
+        Summary: 通过设备ID异步批量发行设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceidmulResponse(),
+            self.do_request('1.0', 'blockchain.bot.distributedevice.bydeviceidmul.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_distributedevice_bydeviceidmul_ex_async(
+        self,
+        request: bot_models.CreateDistributedeviceBydeviceidmulRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDistributedeviceBydeviceidmulResponse:
+        """
+        Description: 通过设备ID异步批量发行设备
+        Summary: 通过设备ID异步批量发行设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceidmulResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydeviceidmul.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_entityrelation(
+        self,
+        request: bot_models.BindEntityrelationRequest,
+    ) -> bot_models.BindEntityrelationResponse:
+        """
+        Description: 绑定实体关系
+        Summary: 绑定实体关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_entityrelation_ex(request, headers, runtime)
+
+    async def bind_entityrelation_async(
+        self,
+        request: bot_models.BindEntityrelationRequest,
+    ) -> bot_models.BindEntityrelationResponse:
+        """
+        Description: 绑定实体关系
+        Summary: 绑定实体关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_entityrelation_ex_async(request, headers, runtime)
+
+    def bind_entityrelation_ex(
+        self,
+        request: bot_models.BindEntityrelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BindEntityrelationResponse:
+        """
+        Description: 绑定实体关系
+        Summary: 绑定实体关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BindEntityrelationResponse(),
+            self.do_request('1.0', 'blockchain.bot.entityrelation.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_entityrelation_ex_async(
+        self,
+        request: bot_models.BindEntityrelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BindEntityrelationResponse:
+        """
+        Description: 绑定实体关系
+        Summary: 绑定实体关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BindEntityrelationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.entityrelation.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_entityrelation(
+        self,
+        request: bot_models.UnbindEntityrelationRequest,
+    ) -> bot_models.UnbindEntityrelationResponse:
+        """
+        Description: 批量解绑实体关系
+        Summary: 批量解绑实体关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_entityrelation_ex(request, headers, runtime)
+
+    async def unbind_entityrelation_async(
+        self,
+        request: bot_models.UnbindEntityrelationRequest,
+    ) -> bot_models.UnbindEntityrelationResponse:
+        """
+        Description: 批量解绑实体关系
+        Summary: 批量解绑实体关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_entityrelation_ex_async(request, headers, runtime)
+
+    def unbind_entityrelation_ex(
+        self,
+        request: bot_models.UnbindEntityrelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnbindEntityrelationResponse:
+        """
+        Description: 批量解绑实体关系
+        Summary: 批量解绑实体关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnbindEntityrelationResponse(),
+            self.do_request('1.0', 'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_entityrelation_ex_async(
+        self,
+        request: bot_models.UnbindEntityrelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnbindEntityrelationResponse:
+        """
+        Description: 批量解绑实体关系
+        Summary: 批量解绑实体关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnbindEntityrelationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
