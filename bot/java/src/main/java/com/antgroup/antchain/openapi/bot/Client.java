@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.7"),
+                    new TeaPair("sdk_version", "1.8.19"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1267,7 +1267,7 @@ public class Client {
 
     /**
      * Description: IoT设备平台-客户新增
-     * Summary: IoT设备平台-客户新增
+     * Summary: IoT设备平台-中台签约客户同步
      */
     public SaveIotbasicCustomerResponse saveIotbasicCustomer(SaveIotbasicCustomerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1277,7 +1277,7 @@ public class Client {
 
     /**
      * Description: IoT设备平台-客户新增
-     * Summary: IoT设备平台-客户新增
+     * Summary: IoT设备平台-中台签约客户同步
      */
     public SaveIotbasicCustomerResponse saveIotbasicCustomerEx(SaveIotbasicCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2916,6 +2916,82 @@ public class Client {
     public QueryThingmodelResponse queryThingmodelEx(QueryThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThingmodelResponse());
+    }
+
+    /**
+     * Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备
+     */
+    public CreateDistributedeviceBydevicemulResponse createDistributedeviceBydevicemul(CreateDistributedeviceBydevicemulRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDistributedeviceBydevicemulEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过设备异步批量发行设备
+     * Summary: 通过设备异步批量发行设备
+     */
+    public CreateDistributedeviceBydevicemulResponse createDistributedeviceBydevicemulEx(CreateDistributedeviceBydevicemulRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.distributedevice.bydevicemul.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDistributedeviceBydevicemulResponse());
+    }
+
+    /**
+     * Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备
+     */
+    public CreateDistributedeviceBydeviceidmulResponse createDistributedeviceBydeviceidmul(CreateDistributedeviceBydeviceidmulRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDistributedeviceBydeviceidmulEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过设备ID异步批量发行设备
+     * Summary: 通过设备ID异步批量发行设备
+     */
+    public CreateDistributedeviceBydeviceidmulResponse createDistributedeviceBydeviceidmulEx(CreateDistributedeviceBydeviceidmulRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.distributedevice.bydeviceidmul.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDistributedeviceBydeviceidmulResponse());
+    }
+
+    /**
+     * Description: 绑定实体关系
+     * Summary: 绑定实体关系
+     */
+    public BindEntityrelationResponse bindEntityrelation(BindEntityrelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindEntityrelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绑定实体关系
+     * Summary: 绑定实体关系
+     */
+    public BindEntityrelationResponse bindEntityrelationEx(BindEntityrelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.entityrelation.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindEntityrelationResponse());
+    }
+
+    /**
+     * Description: 批量解绑实体关系
+     * Summary: 批量解绑实体关系
+     */
+    public UnbindEntityrelationResponse unbindEntityrelation(UnbindEntityrelationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindEntityrelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量解绑实体关系
+     * Summary: 批量解绑实体关系
+     */
+    public UnbindEntityrelationResponse unbindEntityrelationEx(UnbindEntityrelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindEntityrelationResponse());
     }
 
     /**

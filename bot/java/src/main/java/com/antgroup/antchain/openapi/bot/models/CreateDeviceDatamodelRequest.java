@@ -28,10 +28,6 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     @NameInMap("customer_version")
     public String customerVersion;
 
-    // 是否转化为物模型，默认false
-    @NameInMap("transform_thing_model")
-    public Boolean transformThingModel;
-
     public static CreateDeviceDatamodelRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDeviceDatamodelRequest self = new CreateDeviceDatamodelRequest();
         return TeaModel.build(map, self);
@@ -83,14 +79,6 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     }
     public String getCustomerVersion() {
         return this.customerVersion;
-    }
-
-    public CreateDeviceDatamodelRequest setTransformThingModel(Boolean transformThingModel) {
-        this.transformThingModel = transformThingModel;
-        return this;
-    }
-    public Boolean getTransformThingModel() {
-        return this.transformThingModel;
     }
 
 }
