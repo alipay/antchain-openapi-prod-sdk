@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.7"},
+                        {"sdk_version", "1.8.19"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.7"},
+                        {"sdk_version", "1.8.19"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2763,7 +2763,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: IoT设备平台-客户新增
-         * Summary: IoT设备平台-客户新增
+         * Summary: IoT设备平台-中台签约客户同步
          */
         public SaveIotbasicCustomerResponse SaveIotbasicCustomer(SaveIotbasicCustomerRequest request)
         {
@@ -2774,7 +2774,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: IoT设备平台-客户新增
-         * Summary: IoT设备平台-客户新增
+         * Summary: IoT设备平台-中台签约客户同步
          */
         public async Task<SaveIotbasicCustomerResponse> SaveIotbasicCustomerAsync(SaveIotbasicCustomerRequest request)
         {
@@ -2785,7 +2785,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: IoT设备平台-客户新增
-         * Summary: IoT设备平台-客户新增
+         * Summary: IoT设备平台-中台签约客户同步
          */
         public SaveIotbasicCustomerResponse SaveIotbasicCustomerEx(SaveIotbasicCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2795,7 +2795,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: IoT设备平台-客户新增
-         * Summary: IoT设备平台-客户新增
+         * Summary: IoT设备平台-中台签约客户同步
          */
         public async Task<SaveIotbasicCustomerResponse> SaveIotbasicCustomerExAsync(SaveIotbasicCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -6413,6 +6413,174 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingmodel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备异步批量发行设备
+         * Summary: 通过设备异步批量发行设备
+         */
+        public CreateDistributedeviceBydevicemulResponse CreateDistributedeviceBydevicemul(CreateDistributedeviceBydevicemulRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDistributedeviceBydevicemulEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备异步批量发行设备
+         * Summary: 通过设备异步批量发行设备
+         */
+        public async Task<CreateDistributedeviceBydevicemulResponse> CreateDistributedeviceBydevicemulAsync(CreateDistributedeviceBydevicemulRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDistributedeviceBydevicemulExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备异步批量发行设备
+         * Summary: 通过设备异步批量发行设备
+         */
+        public CreateDistributedeviceBydevicemulResponse CreateDistributedeviceBydevicemulEx(CreateDistributedeviceBydevicemulRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDistributedeviceBydevicemulResponse>(DoRequest("1.0", "blockchain.bot.distributedevice.bydevicemul.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备异步批量发行设备
+         * Summary: 通过设备异步批量发行设备
+         */
+        public async Task<CreateDistributedeviceBydevicemulResponse> CreateDistributedeviceBydevicemulExAsync(CreateDistributedeviceBydevicemulRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDistributedeviceBydevicemulResponse>(await DoRequestAsync("1.0", "blockchain.bot.distributedevice.bydevicemul.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备ID异步批量发行设备
+         * Summary: 通过设备ID异步批量发行设备
+         */
+        public CreateDistributedeviceBydeviceidmulResponse CreateDistributedeviceBydeviceidmul(CreateDistributedeviceBydeviceidmulRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDistributedeviceBydeviceidmulEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备ID异步批量发行设备
+         * Summary: 通过设备ID异步批量发行设备
+         */
+        public async Task<CreateDistributedeviceBydeviceidmulResponse> CreateDistributedeviceBydeviceidmulAsync(CreateDistributedeviceBydeviceidmulRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDistributedeviceBydeviceidmulExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备ID异步批量发行设备
+         * Summary: 通过设备ID异步批量发行设备
+         */
+        public CreateDistributedeviceBydeviceidmulResponse CreateDistributedeviceBydeviceidmulEx(CreateDistributedeviceBydeviceidmulRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDistributedeviceBydeviceidmulResponse>(DoRequest("1.0", "blockchain.bot.distributedevice.bydeviceidmul.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备ID异步批量发行设备
+         * Summary: 通过设备ID异步批量发行设备
+         */
+        public async Task<CreateDistributedeviceBydeviceidmulResponse> CreateDistributedeviceBydeviceidmulExAsync(CreateDistributedeviceBydeviceidmulRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDistributedeviceBydeviceidmulResponse>(await DoRequestAsync("1.0", "blockchain.bot.distributedevice.bydeviceidmul.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定实体关系
+         * Summary: 绑定实体关系
+         */
+        public BindEntityrelationResponse BindEntityrelation(BindEntityrelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindEntityrelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定实体关系
+         * Summary: 绑定实体关系
+         */
+        public async Task<BindEntityrelationResponse> BindEntityrelationAsync(BindEntityrelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindEntityrelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定实体关系
+         * Summary: 绑定实体关系
+         */
+        public BindEntityrelationResponse BindEntityrelationEx(BindEntityrelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindEntityrelationResponse>(DoRequest("1.0", "blockchain.bot.entityrelation.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定实体关系
+         * Summary: 绑定实体关系
+         */
+        public async Task<BindEntityrelationResponse> BindEntityrelationExAsync(BindEntityrelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindEntityrelationResponse>(await DoRequestAsync("1.0", "blockchain.bot.entityrelation.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量解绑实体关系
+         * Summary: 批量解绑实体关系
+         */
+        public UnbindEntityrelationResponse UnbindEntityrelation(UnbindEntityrelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindEntityrelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量解绑实体关系
+         * Summary: 批量解绑实体关系
+         */
+        public async Task<UnbindEntityrelationResponse> UnbindEntityrelationAsync(UnbindEntityrelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindEntityrelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量解绑实体关系
+         * Summary: 批量解绑实体关系
+         */
+        public UnbindEntityrelationResponse UnbindEntityrelationEx(UnbindEntityrelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindEntityrelationResponse>(DoRequest("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量解绑实体关系
+         * Summary: 批量解绑实体关系
+         */
+        public async Task<UnbindEntityrelationResponse> UnbindEntityrelationExAsync(UnbindEntityrelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindEntityrelationResponse>(await DoRequestAsync("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
