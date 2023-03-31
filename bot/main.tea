@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.7',
+    sdk_version = '1.8.19',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -451,6 +451,39 @@ model RentContractInfo {
   checkoutDate: string(name='checkout_date', example='2018-10-10T10:10:00Z'),
 }
 
+// 通过设备ID注册发行时的设备参数
+model RegByDeviceIdParm {
+  // 一般是业务上唯一的设备ID/资产编码
+  deviceId: string(name='device_id', example='1122'),
+  // 数据模型ID
+  deviceDataModelId: string(name='device_data_model_id', example='7033986596836630528'),
+  // 固定填写RAW_DATA
+  deviceFeature: string(name='device_feature', example='RAW_DATA'),
+  // true : 设备ID已存在时返回存在的设备关联字段;
+  // false : 设备ID已存在时直接抛出异常；
+  withExistDeviceId: boolean(name='with_exist_device_id', example='true, false'),
+  // 设备类型编码，联系蚂蚁侧获取设备类型编码
+  deviceTypeCode: long(name='device_type_code', example=''),
+  // 设备单价 单位：分
+  initialPrice?: long(name='initial_price', example='1000'),
+  // 出厂时间
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 投放时间
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 额外信息，联系蚂蚁侧获取参数格式
+  extraInfo?: string(name='extra_info', example='{...}'),
+  // 资产所有人标识（统一社会信用代码）
+  owner?: string(name='owner', example='91310101MA1FPCXA3G'),
+  // 资产所有人名称
+  ownerName?: string(name='owner_name', example='蚂蚁区块链科技（上海）有限公司'),
+  // 设备IMEI
+  deviceImei?: string(name='device_imei', example='861037055012207'),
+  // 设备名称/设备型号
+  deviceName?: string(name='device_name', example='64.0V30AH'),
+  // 生产厂商名
+  corpName?: string(name='corp_name', example='浙江一厂'),
+}
+
 // Sdk分页查询结果
 model SdkPageResponse {
   // 页数
@@ -538,6 +571,14 @@ model IotBasicDeviceRegisterInfo {
   deviceExt?: string(name='device_ext', example='[{ "txHash" : "2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2" }]'),
   // 设备安全认证ID
   secId?: string(name='sec_id', example='secid'),
+}
+
+// 客户自定义实体
+model CustomEntityInfo {
+  // 客户自定义实体类型，默认为JSSDK_ACCOUNT
+  customerEntityType: string(name='customer_entity_type', example='JSSDK_ACCOUNT'),
+  // 客户自定义实体内容
+  customerEntityContent: string(name='customer_entity_content', example='{...}'),
 }
 
 // 溯源码比对请求体
@@ -1172,6 +1213,44 @@ model DeviceControlFail {
   message: string(name='message', example='参数错误'),
 }
 
+// 通过设备注册发行时的设备参数 （与RegByDeviceIdParam的区别在于设备端有无植入蚂蚁SDK或模组）
+// 
+model RegByDeviceParm {
+  // 一般是业务上唯一的设备ID/资产编码
+  // 
+  deviceId: string(name='device_id', example='1122'),
+  // 数据模型ID
+  deviceDataModelId: string(name='device_data_model_id', example='7033986596836630528'),
+  // 设备端经过蚂蚁SDK或模组初始化得到的注册信息
+  deviceRegContent: string(name='device_reg_content', example='73546f6b656e323031323131313332393235303230303033'),
+  // 蚂蚁侧SDK或模组对device_reg_content的签名
+  deviceRegSignature: string(name='device_reg_signature', example='a573546f6b656e323031323131313332393235303230303033'),
+  // sdk版本号，由蚂蚁侧提供
+  sdkId: string(name='sdk_id', example='ma1-t1-0.1.1-00.04.54'),
+  // 设备类型编码，联系蚂蚁侧获取设备类型编码
+  // 
+  deviceTypeCode: long(name='device_type_code', example='1001'),
+  // 设备单价 单位：分
+  // 
+  initialPrice?: long(name='initial_price', example='1000'),
+  // 出厂时间
+  // 
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 投放时间
+  // 
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 额外信息，联系蚂蚁侧获取参数格式
+  // 
+  extraInfo?: string(name='extra_info', example='{...} '),
+  // 资产所有人标识（统一社会信用代码）
+  // 
+  owner?: string(name='owner', example='91310101MA1FPCXA3G'),
+  // 资产所有人名称
+  ownerName?: string(name='owner_name', example='蚂蚁区块链科技（上海）有限公司 '),
+  // 设备名称/型号
+  deviceName?: string(name='device_name', example='64.0V30AH'),
+}
+
 // 信物链证据基本组成结构体
 model EvidenceBaseModel {
   // 业务数据
@@ -1371,6 +1450,14 @@ model DeviceCollectResult {
   collectId: string(name='collect_id', example='j8o12u38'),
   // 上链id
   antchainId?: string(name='antchain_id', example='auit98'),
+}
+
+// 可信设备ID及其关联的设备ID
+model TrustiotDeviceIdMap {
+  // 可信设备ID
+  trustiotDeviceId: long(name='trustiot_device_id', example='7006413673662394390'),
+  // 设备ID	
+  deviceId: string(name='device_id', example='1122'),
 }
 
 // ProductKey分页查询结果
@@ -4661,7 +4748,7 @@ model SaveIotbasicCustomerResponse = {
 
 /**
  * Description: IoT设备平台-客户新增
- * Summary: IoT设备平台-客户新增
+ * Summary: IoT设备平台-中台签约客户同步
  */
 async function saveIotbasicCustomer(request: SaveIotbasicCustomerRequest): SaveIotbasicCustomerResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4671,7 +4758,7 @@ async function saveIotbasicCustomer(request: SaveIotbasicCustomerRequest): SaveI
 
 /**
  * Description: IoT设备平台-客户新增
- * Summary: IoT设备平台-客户新增
+ * Summary: IoT设备平台-中台签约客户同步
  */
 async function saveIotbasicCustomerEx(request: SaveIotbasicCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveIotbasicCustomerResponse {
   Util.validateModel(request);
@@ -4997,8 +5084,6 @@ model CreateDeviceDatamodelRequest = {
   bizType?: string(name='biz_type'),
   // 用户自定义版本
   customerVersion?: string(name='customer_version'),
-  // 是否转化为物模型，默认false
-  transformThingModel?: boolean(name='transform_thing_model'),
 }
 
 model CreateDeviceDatamodelResponse = {
@@ -8822,6 +8907,195 @@ async function queryThingmodel(request: QueryThingmodelRequest): QueryThingmodel
 async function queryThingmodelEx(request: QueryThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThingmodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.thingmodel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDistributedeviceBydevicemulRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码，由蚂蚁侧定义
+  scene: string(name='scene'),
+  // 设备注册信息集合, 数组长度不超过50
+  deviceParamList: [ RegByDeviceParm ](name='device_param_list'),
+}
+
+model CreateDistributedeviceBydevicemulResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信设备ID集合
+  trustiotDeviceIdList?: [ TrustiotDeviceIdMap ](name='trustiot_device_id_list'),
+}
+
+/**
+ * Description: 通过设备异步批量发行设备
+ * Summary: 通过设备异步批量发行设备
+ */
+async function createDistributedeviceBydevicemul(request: CreateDistributedeviceBydevicemulRequest): CreateDistributedeviceBydevicemulResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDistributedeviceBydevicemulEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过设备异步批量发行设备
+ * Summary: 通过设备异步批量发行设备
+ */
+async function createDistributedeviceBydevicemulEx(request: CreateDistributedeviceBydevicemulRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDistributedeviceBydevicemulResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.distributedevice.bydevicemul.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDistributedeviceBydeviceidmulRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 设备注册信息集合
+  deviceParamList: [ RegByDeviceIdParm ](name='device_param_list'),
+}
+
+model CreateDistributedeviceBydeviceidmulResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信设备ID集合
+  // 
+  trustiotDeviceIdList?: [ TrustiotDeviceIdMap ](name='trustiot_device_id_list'),
+}
+
+/**
+ * Description: 通过设备ID异步批量发行设备
+ * Summary: 通过设备ID异步批量发行设备
+ */
+async function createDistributedeviceBydeviceidmul(request: CreateDistributedeviceBydeviceidmulRequest): CreateDistributedeviceBydeviceidmulResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDistributedeviceBydeviceidmulEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过设备ID异步批量发行设备
+ * Summary: 通过设备ID异步批量发行设备
+ */
+async function createDistributedeviceBydeviceidmulEx(request: CreateDistributedeviceBydeviceidmulRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDistributedeviceBydeviceidmulResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.distributedevice.bydeviceidmul.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindEntityrelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // [主]实体场景码
+  subjectScene: string(name='subject_scene'),
+  // [主]实体ID（当[主]实体平台唯一ID（subject_trustiot_id）为空时，此项不能为空）
+  subjectEntityId?: string(name='subject_entity_id'),
+  // [主]实体平台唯一ID（当[主]实体ID（subject_entity_id）为空时，此项不能为空）
+  subjectTrustiotId?: long(name='subject_trustiot_id'),
+  // 关系谓语, 取值范围：SUB_DEVICE、USER、LOCATION
+  predicate: string(name='predicate'),
+  // [宾]实体类型，取值范围：DEVICE、PERIPHERAL、LABEL、CUSTOMER_ENTITY
+  objectEntityType: string(name='object_entity_type'),
+  // [宾]场景码（当[宾]实体唯一ID为空时，此项必填）
+  objectScene?: string(name='object_scene'),
+  // [宾]实体ID（当[宾]实体唯一ID为空时，此项必填）
+  objectEntityId?: string(name='object_entity_id'),
+  // [宾]平台唯一ID，与[宾]实体场景码+[宾]实体ID（object_scene+object_entity_id）不能同时为空
+  objectTrustiotId?: long(name='object_trustiot_id'),
+  // 绑定请求中，主语或宾语有历史关系，是否删除历史，写入新关系
+  // (只处理1对1关系，即生效的前提是{RelationProperty}的maxObjectCount=1 & maxSubjectCount=1)
+  upsert: boolean(name='upsert'),
+  // 备注
+  remark?: string(name='remark'),
+  // 自定义实体信息（如果object_entity_type=CUSTOMER_ENTITY，则custom_entity_info必填）
+  customEntityInfo?: CustomEntityInfo(name='custom_entity_info'),
+}
+
+model BindEntityrelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定实体关系
+ * Summary: 绑定实体关系
+ */
+async function bindEntityrelation(request: BindEntityrelationRequest): BindEntityrelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindEntityrelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定实体关系
+ * Summary: 绑定实体关系
+ */
+async function bindEntityrelationEx(request: BindEntityrelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindEntityrelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.entityrelation.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindEntityrelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // [主]实体场景码
+  subjectScene: string(name='subject_scene'),
+  // [主]实体ID（当[主]实体平台唯一ID（subject_trustiot_id）为空时，此项不能为空）
+  subjectEntityId?: string(name='subject_entity_id'),
+  // [主]实体平台唯一ID（当[主]实体ID（subject_entity_id）为空时，此项不能为空）
+  subjectTrustiotId?: long(name='subject_trustiot_id'),
+  // 关系谓语, 取值范围：SUB_DEVICE、USER、LOCATION
+  predicate: string(name='predicate'),
+  // [宾]实体类型，取值范围：DEVICE、PERIPHERAL、LABEL、CUSTOMER_ENTITY
+  objectEntityType: string(name='object_entity_type'),
+  // [宾]场景码（当[宾]实体唯一ID列表(object_trustiotiot_id_list)为空时，此项必填）
+  objectScene?: string(name='object_scene'),
+  // [宾]实体ID列表（当[宾]实体唯一ID列表(object_trustiotiot_id_list)为空时，此项必填）
+  // 
+  objectEntityIdList?: [ string ](name='object_entity_id_list'),
+  // [宾]实体唯一ID列表,与[宾]实体场景码+[宾]实体ID列表（object_scene+object_entity_id）不能同时为空
+  objectTrustiotiotIdList?: [ long ](name='object_trustiotiot_id_list'),
+}
+
+model UnbindEntityrelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量解绑实体关系
+ * Summary: 批量解绑实体关系
+ */
+async function unbindEntityrelation(request: UnbindEntityrelationRequest): UnbindEntityrelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindEntityrelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量解绑实体关系
+ * Summary: 批量解绑实体关系
+ */
+async function unbindEntityrelationEx(request: UnbindEntityrelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindEntityrelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
