@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_identitymarriage.
 
-Created on 30/03/2023
+Created on 03/04/2023
 
 @author: Ant Chain SDK
 """

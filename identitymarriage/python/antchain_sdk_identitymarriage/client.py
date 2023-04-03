@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -327,4 +327,60 @@ class Client:
         return TeaCore.from_map(
             identitymarriage_models.CheckMarriageInfoResponse(),
             await self.do_request_async('1.0', 'identity.marriage.marriage.info.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_marriage_info(
+        self,
+        request: identitymarriage_models.NotifyMarriageInfoRequest,
+    ) -> identitymarriage_models.NotifyMarriageInfoResponse:
+        """
+        Description: 婚姻状况通知
+        Summary: 婚姻状况通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_marriage_info_ex(request, headers, runtime)
+
+    async def notify_marriage_info_async(
+        self,
+        request: identitymarriage_models.NotifyMarriageInfoRequest,
+    ) -> identitymarriage_models.NotifyMarriageInfoResponse:
+        """
+        Description: 婚姻状况通知
+        Summary: 婚姻状况通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_marriage_info_ex_async(request, headers, runtime)
+
+    def notify_marriage_info_ex(
+        self,
+        request: identitymarriage_models.NotifyMarriageInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.NotifyMarriageInfoResponse:
+        """
+        Description: 婚姻状况通知
+        Summary: 婚姻状况通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.NotifyMarriageInfoResponse(),
+            self.do_request('1.0', 'identity.marriage.marriage.info.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_marriage_info_ex_async(
+        self,
+        request: identitymarriage_models.NotifyMarriageInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.NotifyMarriageInfoResponse:
+        """
+        Description: 婚姻状况通知
+        Summary: 婚姻状况通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.NotifyMarriageInfoResponse(),
+            await self.do_request_async('1.0', 'identity.marriage.marriage.info.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
