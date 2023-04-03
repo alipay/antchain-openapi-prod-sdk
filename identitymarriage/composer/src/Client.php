@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoRequest;
 use AntChain\IDENTITYMARRIAGE\Models\CheckMarriageInfoResponse;
+use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoRequest;
+use AntChain\IDENTITYMARRIAGE\Models\NotifyMarriageInfoResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'IDENTITYMARRIAGE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -238,5 +240,38 @@ class Client
         Utils::validateModel($request);
 
         return CheckMarriageInfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.info.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 婚姻状况通知
+     * Summary: 婚姻状况通知.
+     *
+     * @param NotifyMarriageInfoRequest $request
+     *
+     * @return NotifyMarriageInfoResponse
+     */
+    public function notifyMarriageInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyMarriageInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 婚姻状况通知
+     * Summary: 婚姻状况通知.
+     *
+     * @param NotifyMarriageInfoRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return NotifyMarriageInfoResponse
+     */
+    public function notifyMarriageInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyMarriageInfoResponse::fromMap($this->doRequest('1.0', 'identity.marriage.marriage.info.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
