@@ -115,6 +115,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
@@ -436,7 +438,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.23',
+                    'sdk_version'      => '1.16.24',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2513,6 +2515,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeLoanUpgradestatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表).
+     *
+     * @param QueryDubbridgeCustomerBankcardlistRequest $request
+     *
+     * @return QueryDubbridgeCustomerBankcardlistResponse
+     */
+    public function queryDubbridgeCustomerBankcardlist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表).
+     *
+     * @param QueryDubbridgeCustomerBankcardlistRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryDubbridgeCustomerBankcardlistResponse
+     */
+    public function queryDubbridgeCustomerBankcardlistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCustomerBankcardlistResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
