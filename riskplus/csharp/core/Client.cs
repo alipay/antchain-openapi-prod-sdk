@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.22"},
+                        {"sdk_version", "1.16.23"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.22"},
+                        {"sdk_version", "1.16.23"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2843,6 +2843,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeCreditPermitResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户状态判断
+         * Summary: 用户状态判断
+         */
+        public QueryDubbridgeUserUpgradestatusResponse QueryDubbridgeUserUpgradestatus(QueryDubbridgeUserUpgradestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeUserUpgradestatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户状态判断
+         * Summary: 用户状态判断
+         */
+        public async Task<QueryDubbridgeUserUpgradestatusResponse> QueryDubbridgeUserUpgradestatusAsync(QueryDubbridgeUserUpgradestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeUserUpgradestatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户状态判断
+         * Summary: 用户状态判断
+         */
+        public QueryDubbridgeUserUpgradestatusResponse QueryDubbridgeUserUpgradestatusEx(QueryDubbridgeUserUpgradestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeUserUpgradestatusResponse>(DoRequest("1.0", "riskplus.dubbridge.user.upgradestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户状态判断
+         * Summary: 用户状态判断
+         */
+        public async Task<QueryDubbridgeUserUpgradestatusResponse> QueryDubbridgeUserUpgradestatusExAsync(QueryDubbridgeUserUpgradestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeUserUpgradestatusResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.user.upgradestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 借据状态判断
+         * Summary: 借据状态判断
+         */
+        public QueryDubbridgeLoanUpgradestatusResponse QueryDubbridgeLoanUpgradestatus(QueryDubbridgeLoanUpgradestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeLoanUpgradestatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 借据状态判断
+         * Summary: 借据状态判断
+         */
+        public async Task<QueryDubbridgeLoanUpgradestatusResponse> QueryDubbridgeLoanUpgradestatusAsync(QueryDubbridgeLoanUpgradestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeLoanUpgradestatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 借据状态判断
+         * Summary: 借据状态判断
+         */
+        public QueryDubbridgeLoanUpgradestatusResponse QueryDubbridgeLoanUpgradestatusEx(QueryDubbridgeLoanUpgradestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeLoanUpgradestatusResponse>(DoRequest("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 借据状态判断
+         * Summary: 借据状态判断
+         */
+        public async Task<QueryDubbridgeLoanUpgradestatusResponse> QueryDubbridgeLoanUpgradestatusExAsync(QueryDubbridgeLoanUpgradestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeLoanUpgradestatusResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
