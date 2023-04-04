@@ -16,8 +16,8 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
     public String orderNo;
 
     // 客户号
-    @NameInMap("custom_no")
-    public String customNo;
+    @NameInMap("customer_no")
+    public String customerNo;
 
     // 绑卡流水
     @NameInMap("bind_serial_no")
@@ -68,12 +68,12 @@ public class VerifyDubbridgeCustomerBankcardRequest extends TeaModel {
         return this.orderNo;
     }
 
-    public VerifyDubbridgeCustomerBankcardRequest setCustomNo(String customNo) {
-        this.customNo = customNo;
+    public VerifyDubbridgeCustomerBankcardRequest setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
         return this;
     }
-    public String getCustomNo() {
-        return this.customNo;
+    public String getCustomerNo() {
+        return this.customerNo;
     }
 
     public VerifyDubbridgeCustomerBankcardRequest setBindSerialNo(String bindSerialNo) {
