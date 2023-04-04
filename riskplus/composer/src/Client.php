@@ -117,6 +117,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusRequest;
@@ -139,6 +141,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUserUpgradestatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUserUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCustomerAgreementsignRequest;
@@ -432,7 +436,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.22',
+                    'sdk_version'      => '1.16.23',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2443,6 +2447,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeCreditPermitResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.permit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户状态判断
+     * Summary: 用户状态判断.
+     *
+     * @param QueryDubbridgeUserUpgradestatusRequest $request
+     *
+     * @return QueryDubbridgeUserUpgradestatusResponse
+     */
+    public function queryDubbridgeUserUpgradestatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeUserUpgradestatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户状态判断
+     * Summary: 用户状态判断.
+     *
+     * @param QueryDubbridgeUserUpgradestatusRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryDubbridgeUserUpgradestatusResponse
+     */
+    public function queryDubbridgeUserUpgradestatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeUserUpgradestatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.user.upgradestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 借据状态判断
+     * Summary: 借据状态判断.
+     *
+     * @param QueryDubbridgeLoanUpgradestatusRequest $request
+     *
+     * @return QueryDubbridgeLoanUpgradestatusResponse
+     */
+    public function queryDubbridgeLoanUpgradestatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeLoanUpgradestatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 借据状态判断
+     * Summary: 借据状态判断.
+     *
+     * @param QueryDubbridgeLoanUpgradestatusRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryDubbridgeLoanUpgradestatusResponse
+     */
+    public function queryDubbridgeLoanUpgradestatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeLoanUpgradestatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

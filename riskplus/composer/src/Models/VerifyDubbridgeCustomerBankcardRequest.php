@@ -29,7 +29,7 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
     /**
      * @var string
      */
-    public $customNo;
+    public $customerNo;
 
     // 绑卡流水
     /**
@@ -58,7 +58,7 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
-        'customNo'          => 'custom_no',
+        'customerNo'        => 'customer_no',
         'bindSerialNo'      => 'bind_serial_no',
         'bindValidCode'     => 'bind_valid_code',
         'bankCardNo'        => 'bank_card_no',
@@ -85,8 +85,8 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
         if (null !== $this->bindSerialNo) {
             $res['bind_serial_no'] = $this->bindSerialNo;
@@ -121,8 +121,8 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
         if (isset($map['bind_serial_no'])) {
             $model->bindSerialNo = $map['bind_serial_no'];
