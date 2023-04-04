@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.22',
+                    'sdk_version': '1.16.23',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.22',
+                    'sdk_version': '1.16.23',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3611,6 +3611,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeCreditPermitResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.credit.permit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_user_upgradestatus(
+        self,
+        request: riskplus_models.QueryDubbridgeUserUpgradestatusRequest,
+    ) -> riskplus_models.QueryDubbridgeUserUpgradestatusResponse:
+        """
+        Description: 用户状态判断
+        Summary: 用户状态判断
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_user_upgradestatus_ex(request, headers, runtime)
+
+    async def query_dubbridge_user_upgradestatus_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUserUpgradestatusRequest,
+    ) -> riskplus_models.QueryDubbridgeUserUpgradestatusResponse:
+        """
+        Description: 用户状态判断
+        Summary: 用户状态判断
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_user_upgradestatus_ex_async(request, headers, runtime)
+
+    def query_dubbridge_user_upgradestatus_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeUserUpgradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUserUpgradestatusResponse:
+        """
+        Description: 用户状态判断
+        Summary: 用户状态判断
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUserUpgradestatusResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.user.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_user_upgradestatus_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUserUpgradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUserUpgradestatusResponse:
+        """
+        Description: 用户状态判断
+        Summary: 用户状态判断
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUserUpgradestatusResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.user.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_loan_upgradestatus(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanUpgradestatusRequest,
+    ) -> riskplus_models.QueryDubbridgeLoanUpgradestatusResponse:
+        """
+        Description: 借据状态判断
+        Summary: 借据状态判断
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_loan_upgradestatus_ex(request, headers, runtime)
+
+    async def query_dubbridge_loan_upgradestatus_async(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanUpgradestatusRequest,
+    ) -> riskplus_models.QueryDubbridgeLoanUpgradestatusResponse:
+        """
+        Description: 借据状态判断
+        Summary: 借据状态判断
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_loan_upgradestatus_ex_async(request, headers, runtime)
+
+    def query_dubbridge_loan_upgradestatus_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanUpgradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeLoanUpgradestatusResponse:
+        """
+        Description: 借据状态判断
+        Summary: 借据状态判断
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeLoanUpgradestatusResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_loan_upgradestatus_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeLoanUpgradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeLoanUpgradestatusResponse:
+        """
+        Description: 借据状态判断
+        Summary: 借据状态判断
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeLoanUpgradestatusResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(

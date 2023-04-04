@@ -10430,7 +10430,7 @@ class VerifyDubbridgeCustomerBankcardRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_no: str = None,
-        custom_no: str = None,
+        customer_no: str = None,
         bind_serial_no: str = None,
         bind_valid_code: str = None,
         bank_card_no: str = None,
@@ -10442,7 +10442,7 @@ class VerifyDubbridgeCustomerBankcardRequest(TeaModel):
         # 订单号
         self.order_no = order_no
         # 客户号
-        self.custom_no = custom_no
+        self.customer_no = customer_no
         # 绑卡流水
         self.bind_serial_no = bind_serial_no
         # 绑卡验证码
@@ -10470,8 +10470,8 @@ class VerifyDubbridgeCustomerBankcardRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
-        if self.custom_no is not None:
-            result['custom_no'] = self.custom_no
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
         if self.bind_serial_no is not None:
             result['bind_serial_no'] = self.bind_serial_no
         if self.bind_valid_code is not None:
@@ -10490,8 +10490,8 @@ class VerifyDubbridgeCustomerBankcardRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
-        if m.get('custom_no') is not None:
-            self.custom_no = m.get('custom_no')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
         if m.get('bind_serial_no') is not None:
             self.bind_serial_no = m.get('bind_serial_no')
         if m.get('bind_valid_code') is not None:
@@ -14456,6 +14456,200 @@ class QueryDubbridgeCreditPermitResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('enable_apply') is not None:
             self.enable_apply = m.get('enable_apply')
+        return self
+
+
+class QueryDubbridgeUserUpgradestatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        open_id: str = None,
+        customer_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资产方用户唯一标识
+        self.open_id = open_id
+        # 天枢客户编号
+        self.customer_no = customer_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.open_id is not None:
+            result['open_id'] = self.open_id
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('open_id') is not None:
+            self.open_id = m.get('open_id')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        return self
+
+
+class QueryDubbridgeUserUpgradestatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户状态：0已升级，1未升级
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryDubbridgeLoanUpgradestatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        original_order_no: str = None,
+        receipt_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用信申请订单号(资产方)
+        self.original_order_no = original_order_no
+        # 借据编号
+        self.receipt_no = receipt_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.original_order_no is not None:
+            result['original_order_no'] = self.original_order_no
+        if self.receipt_no is not None:
+            result['receipt_no'] = self.receipt_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('original_order_no') is not None:
+            self.original_order_no = m.get('original_order_no')
+        if m.get('receipt_no') is not None:
+            self.receipt_no = m.get('receipt_no')
+        return self
+
+
+class QueryDubbridgeLoanUpgradestatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 借据状态：0存量，1增量
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
