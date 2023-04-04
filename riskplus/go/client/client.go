@@ -8430,7 +8430,7 @@ type VerifyDubbridgeCustomerBankcardRequest struct {
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
 	// 客户号
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
 	// 绑卡流水
 	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty" require:"true"`
 	// 绑卡验证码
@@ -8464,8 +8464,8 @@ func (s *VerifyDubbridgeCustomerBankcardRequest) SetOrderNo(v string) *VerifyDub
 	return s
 }
 
-func (s *VerifyDubbridgeCustomerBankcardRequest) SetCustomNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
-	s.CustomNo = &v
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetCustomerNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -11723,6 +11723,160 @@ func (s *QueryDubbridgeCreditPermitResponse) SetResultMsg(v string) *QueryDubbri
 
 func (s *QueryDubbridgeCreditPermitResponse) SetEnableApply(v string) *QueryDubbridgeCreditPermitResponse {
 	s.EnableApply = &v
+	return s
+}
+
+type QueryDubbridgeUserUpgradestatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 天枢客户编号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+}
+
+func (s QueryDubbridgeUserUpgradestatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUserUpgradestatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUserUpgradestatusRequest) SetAuthToken(v string) *QueryDubbridgeUserUpgradestatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusRequest) SetProductInstanceId(v string) *QueryDubbridgeUserUpgradestatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusRequest) SetOpenId(v string) *QueryDubbridgeUserUpgradestatusRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusRequest) SetCustomerNo(v string) *QueryDubbridgeUserUpgradestatusRequest {
+	s.CustomerNo = &v
+	return s
+}
+
+type QueryDubbridgeUserUpgradestatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户状态：0已升级，1未升级
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryDubbridgeUserUpgradestatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUserUpgradestatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUserUpgradestatusResponse) SetReqMsgId(v string) *QueryDubbridgeUserUpgradestatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusResponse) SetResultCode(v string) *QueryDubbridgeUserUpgradestatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusResponse) SetResultMsg(v string) *QueryDubbridgeUserUpgradestatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserUpgradestatusResponse) SetStatus(v string) *QueryDubbridgeUserUpgradestatusResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryDubbridgeLoanUpgradestatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用信申请订单号(资产方)
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty"`
+}
+
+func (s QueryDubbridgeLoanUpgradestatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeLoanUpgradestatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusRequest) SetAuthToken(v string) *QueryDubbridgeLoanUpgradestatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusRequest) SetProductInstanceId(v string) *QueryDubbridgeLoanUpgradestatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusRequest) SetOriginalOrderNo(v string) *QueryDubbridgeLoanUpgradestatusRequest {
+	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusRequest) SetReceiptNo(v string) *QueryDubbridgeLoanUpgradestatusRequest {
+	s.ReceiptNo = &v
+	return s
+}
+
+type QueryDubbridgeLoanUpgradestatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 借据状态：0存量，1增量
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryDubbridgeLoanUpgradestatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeLoanUpgradestatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusResponse) SetReqMsgId(v string) *QueryDubbridgeLoanUpgradestatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusResponse) SetResultCode(v string) *QueryDubbridgeLoanUpgradestatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusResponse) SetResultMsg(v string) *QueryDubbridgeLoanUpgradestatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeLoanUpgradestatusResponse) SetStatus(v string) *QueryDubbridgeLoanUpgradestatusResponse {
+	s.Status = &v
 	return s
 }
 
@@ -19719,7 +19873,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.22"),
+				"sdk_version":      tea.String("1.16.23"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -21805,6 +21959,74 @@ func (client *Client) QueryDubbridgeCreditPermitEx(request *QueryDubbridgeCredit
 	}
 	_result = &QueryDubbridgeCreditPermitResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.permit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户状态判断
+ * Summary: 用户状态判断
+ */
+func (client *Client) QueryDubbridgeUserUpgradestatus(request *QueryDubbridgeUserUpgradestatusRequest) (_result *QueryDubbridgeUserUpgradestatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeUserUpgradestatusResponse{}
+	_body, _err := client.QueryDubbridgeUserUpgradestatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户状态判断
+ * Summary: 用户状态判断
+ */
+func (client *Client) QueryDubbridgeUserUpgradestatusEx(request *QueryDubbridgeUserUpgradestatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeUserUpgradestatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeUserUpgradestatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.user.upgradestatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 借据状态判断
+ * Summary: 借据状态判断
+ */
+func (client *Client) QueryDubbridgeLoanUpgradestatus(request *QueryDubbridgeLoanUpgradestatusRequest) (_result *QueryDubbridgeLoanUpgradestatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeLoanUpgradestatusResponse{}
+	_body, _err := client.QueryDubbridgeLoanUpgradestatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 借据状态判断
+ * Summary: 借据状态判断
+ */
+func (client *Client) QueryDubbridgeLoanUpgradestatusEx(request *QueryDubbridgeLoanUpgradestatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeLoanUpgradestatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeLoanUpgradestatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.loan.upgradestatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
