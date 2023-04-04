@@ -1186,6 +1186,43 @@ export class RtopCompanyRiskFactor extends $tea.Model {
   }
 }
 
+// 用户绑定银行卡列表
+export class CustomerBankCardInfo extends $tea.Model {
+  // 银行名称
+  bankName: string;
+  // 银行编码
+  bankCode: string;
+  // 银行卡号
+  bankCardNo: string;
+  // 是否已签约
+  signed?: string;
+  // 是否为账户代扣银行卡
+  acctBankCard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bankName: 'bank_name',
+      bankCode: 'bank_code',
+      bankCardNo: 'bank_card_no',
+      signed: 'signed',
+      acctBankCard: 'acct_bank_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bankName: 'string',
+      bankCode: 'string',
+      bankCardNo: 'string',
+      signed: 'string',
+      acctBankCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢系统专用Material结构体
 export class Material extends $tea.Model {
   // 资料类型0-风控报告1-合同2-图片3-附件
@@ -8819,6 +8856,69 @@ export class QueryDubbridgeLoanUpgradestatusResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeCustomerBankcardlistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户号
+  customerNo: string;
+  // 资金方编号
+  fundCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerNo: 'customer_no',
+      fundCode: 'fund_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerNo: 'string',
+      fundCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCustomerBankcardlistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户绑定银行卡信息列表
+  customerBankCardInfoList?: CustomerBankCardInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerBankCardInfoList: 'customer_bank_card_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerBankCardInfoList: { 'type': 'array', 'itemType': CustomerBankCardInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14908,7 +15008,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.23",
+          sdk_version: "1.16.24",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -16134,6 +16234,25 @@ export default class Client {
   async queryDubbridgeLoanUpgradestatusEx(request: QueryDubbridgeLoanUpgradestatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeLoanUpgradestatusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeLoanUpgradestatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeLoanUpgradestatusResponse({}));
+  }
+
+  /**
+   * Description: 支付签约查询(用户绑定银行卡列表)
+   * Summary: 支付签约查询(用户绑定银行卡列表)
+   */
+  async queryDubbridgeCustomerBankcardlist(request: QueryDubbridgeCustomerBankcardlistRequest): Promise<QueryDubbridgeCustomerBankcardlistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCustomerBankcardlistEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付签约查询(用户绑定银行卡列表)
+   * Summary: 支付签约查询(用户绑定银行卡列表)
+   */
+  async queryDubbridgeCustomerBankcardlistEx(request: QueryDubbridgeCustomerBankcardlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCustomerBankcardlistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCustomerBankcardlistResponse>(await this.doRequest("1.0", "riskplus.dubbridge.customer.bankcardlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCustomerBankcardlistResponse({}));
   }
 
   /**
