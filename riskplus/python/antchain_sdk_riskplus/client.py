@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.23',
+                    'sdk_version': '1.16.24',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.23',
+                    'sdk_version': '1.16.24',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3723,6 +3723,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeLoanUpgradestatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_customer_bankcardlist(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_customer_bankcardlist_ex(request, headers, runtime)
+
+    async def query_dubbridge_customer_bankcardlist_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_customer_bankcardlist_ex_async(request, headers, runtime)
+
+    def query_dubbridge_customer_bankcardlist_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_customer_bankcardlist_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerBankcardlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerBankcardlistResponse:
+        """
+        Description: 支付签约查询(用户绑定银行卡列表)
+        Summary: 支付签约查询(用户绑定银行卡列表)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerBankcardlistResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(

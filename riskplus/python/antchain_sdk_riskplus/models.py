@@ -2004,6 +2004,64 @@ class RtopCompanyRiskFactor(TeaModel):
         return self
 
 
+class CustomerBankCardInfo(TeaModel):
+    def __init__(
+        self,
+        bank_name: str = None,
+        bank_code: str = None,
+        bank_card_no: str = None,
+        signed: str = None,
+        acct_bank_card: str = None,
+    ):
+        # 银行名称
+        self.bank_name = bank_name
+        # 银行编码
+        self.bank_code = bank_code
+        # 银行卡号
+        self.bank_card_no = bank_card_no
+        # 是否已签约
+        self.signed = signed
+        # 是否为账户代扣银行卡
+        self.acct_bank_card = acct_bank_card
+
+    def validate(self):
+        self.validate_required(self.bank_name, 'bank_name')
+        self.validate_required(self.bank_code, 'bank_code')
+        self.validate_required(self.bank_card_no, 'bank_card_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.signed is not None:
+            result['signed'] = self.signed
+        if self.acct_bank_card is not None:
+            result['acct_bank_card'] = self.acct_bank_card
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('signed') is not None:
+            self.signed = m.get('signed')
+        if m.get('acct_bank_card') is not None:
+            self.acct_bank_card = m.get('acct_bank_card')
+        return self
+
+
 class Material(TeaModel):
     def __init__(
         self,
@@ -14650,6 +14708,112 @@ class QueryDubbridgeLoanUpgradestatusResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class QueryDubbridgeCustomerBankcardlistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_no: str = None,
+        fund_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户号
+        self.customer_no = customer_no
+        # 资金方编号
+        self.fund_code = fund_code
+
+    def validate(self):
+        self.validate_required(self.customer_no, 'customer_no')
+        self.validate_required(self.fund_code, 'fund_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.fund_code is not None:
+            result['fund_code'] = self.fund_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('fund_code') is not None:
+            self.fund_code = m.get('fund_code')
+        return self
+
+
+class QueryDubbridgeCustomerBankcardlistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        customer_bank_card_info_list: List[CustomerBankCardInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户绑定银行卡信息列表
+        self.customer_bank_card_info_list = customer_bank_card_info_list
+
+    def validate(self):
+        if self.customer_bank_card_info_list:
+            for k in self.customer_bank_card_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['customer_bank_card_info_list'] = []
+        if self.customer_bank_card_info_list is not None:
+            for k in self.customer_bank_card_info_list:
+                result['customer_bank_card_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.customer_bank_card_info_list = []
+        if m.get('customer_bank_card_info_list') is not None:
+            for k in m.get('customer_bank_card_info_list'):
+                temp_model = CustomerBankCardInfo()
+                self.customer_bank_card_info_list.append(temp_model.from_map(k))
         return self
 
 
