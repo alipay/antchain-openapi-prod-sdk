@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.23"},
+                        {"sdk_version", "1.16.24"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.23"},
+                        {"sdk_version", "1.16.24"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2927,6 +2927,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeLoanUpgradestatusResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付签约查询(用户绑定银行卡列表)
+         * Summary: 支付签约查询(用户绑定银行卡列表)
+         */
+        public QueryDubbridgeCustomerBankcardlistResponse QueryDubbridgeCustomerBankcardlist(QueryDubbridgeCustomerBankcardlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeCustomerBankcardlistEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付签约查询(用户绑定银行卡列表)
+         * Summary: 支付签约查询(用户绑定银行卡列表)
+         */
+        public async Task<QueryDubbridgeCustomerBankcardlistResponse> QueryDubbridgeCustomerBankcardlistAsync(QueryDubbridgeCustomerBankcardlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeCustomerBankcardlistExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付签约查询(用户绑定银行卡列表)
+         * Summary: 支付签约查询(用户绑定银行卡列表)
+         */
+        public QueryDubbridgeCustomerBankcardlistResponse QueryDubbridgeCustomerBankcardlistEx(QueryDubbridgeCustomerBankcardlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCustomerBankcardlistResponse>(DoRequest("1.0", "riskplus.dubbridge.customer.bankcardlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付签约查询(用户绑定银行卡列表)
+         * Summary: 支付签约查询(用户绑定银行卡列表)
+         */
+        public async Task<QueryDubbridgeCustomerBankcardlistResponse> QueryDubbridgeCustomerBankcardlistExAsync(QueryDubbridgeCustomerBankcardlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCustomerBankcardlistResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.customer.bankcardlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
