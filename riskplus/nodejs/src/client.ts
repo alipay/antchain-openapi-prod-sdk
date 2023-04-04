@@ -6256,7 +6256,7 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
   // 订单号
   orderNo?: string;
   // 客户号
-  customNo?: string;
+  customerNo?: string;
   // 绑卡流水
   bindSerialNo: string;
   // 绑卡验证码
@@ -6270,7 +6270,7 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
-      customNo: 'custom_no',
+      customerNo: 'customer_no',
       bindSerialNo: 'bind_serial_no',
       bindValidCode: 'bind_valid_code',
       bankCardNo: 'bank_card_no',
@@ -6283,7 +6283,7 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
-      customNo: 'string',
+      customerNo: 'string',
       bindSerialNo: 'string',
       bindValidCode: 'string',
       bankCardNo: 'string',
@@ -8685,6 +8685,132 @@ export class QueryDubbridgeCreditPermitResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       enableApply: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUserUpgradestatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产方用户唯一标识
+  openId?: string;
+  // 天枢客户编号
+  customerNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openId: 'open_id',
+      customerNo: 'customer_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openId: 'string',
+      customerNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUserUpgradestatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户状态：0已升级，1未升级
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeLoanUpgradestatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信申请订单号(资产方)
+  originalOrderNo?: string;
+  // 借据编号
+  receiptNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      receiptNo: 'receipt_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      receiptNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeLoanUpgradestatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 借据状态：0存量，1增量
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
     };
   }
 
@@ -14782,7 +14908,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.22",
+          sdk_version: "1.16.23",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -15970,6 +16096,44 @@ export default class Client {
   async queryDubbridgeCreditPermitEx(request: QueryDubbridgeCreditPermitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditPermitResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeCreditPermitResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.permit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditPermitResponse({}));
+  }
+
+  /**
+   * Description: 用户状态判断
+   * Summary: 用户状态判断
+   */
+  async queryDubbridgeUserUpgradestatus(request: QueryDubbridgeUserUpgradestatusRequest): Promise<QueryDubbridgeUserUpgradestatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeUserUpgradestatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户状态判断
+   * Summary: 用户状态判断
+   */
+  async queryDubbridgeUserUpgradestatusEx(request: QueryDubbridgeUserUpgradestatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeUserUpgradestatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeUserUpgradestatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.user.upgradestatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeUserUpgradestatusResponse({}));
+  }
+
+  /**
+   * Description: 借据状态判断
+   * Summary: 借据状态判断
+   */
+  async queryDubbridgeLoanUpgradestatus(request: QueryDubbridgeLoanUpgradestatusRequest): Promise<QueryDubbridgeLoanUpgradestatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeLoanUpgradestatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 借据状态判断
+   * Summary: 借据状态判断
+   */
+  async queryDubbridgeLoanUpgradestatusEx(request: QueryDubbridgeLoanUpgradestatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeLoanUpgradestatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeLoanUpgradestatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeLoanUpgradestatusResponse({}));
   }
 
   /**
