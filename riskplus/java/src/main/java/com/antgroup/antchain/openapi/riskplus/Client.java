@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.23"),
+                    new TeaPair("sdk_version", "1.16.24"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1339,6 +1339,25 @@ public class Client {
     public QueryDubbridgeLoanUpgradestatusResponse queryDubbridgeLoanUpgradestatusEx(QueryDubbridgeLoanUpgradestatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.loan.upgradestatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeLoanUpgradestatusResponse());
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表)
+     */
+    public QueryDubbridgeCustomerBankcardlistResponse queryDubbridgeCustomerBankcardlist(QueryDubbridgeCustomerBankcardlistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCustomerBankcardlistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支付签约查询(用户绑定银行卡列表)
+     * Summary: 支付签约查询(用户绑定银行卡列表)
+     */
+    public QueryDubbridgeCustomerBankcardlistResponse queryDubbridgeCustomerBankcardlistEx(QueryDubbridgeCustomerBankcardlistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.customer.bankcardlist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCustomerBankcardlistResponse());
     }
 
     /**
