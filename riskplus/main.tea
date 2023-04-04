@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.22',
+    sdk_version = '1.16.23',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -3159,7 +3159,7 @@ model VerifyDubbridgeCustomerBankcardRequest = {
   // 订单号
   orderNo?: string(name='order_no'),
   // 客户号
-  customNo?: string(name='custom_no'),
+  customerNo?: string(name='customer_no'),
   // 绑卡流水
   bindSerialNo: string(name='bind_serial_no'),
   // 绑卡验证码
@@ -4625,6 +4625,86 @@ async function queryDubbridgeCreditPermit(request: QueryDubbridgeCreditPermitReq
 async function queryDubbridgeCreditPermitEx(request: QueryDubbridgeCreditPermitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditPermitResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.credit.permit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeUserUpgradestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产方用户唯一标识
+  openId?: string(name='open_id'),
+  // 天枢客户编号
+  customerNo?: string(name='customer_no'),
+}
+
+model QueryDubbridgeUserUpgradestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户状态：0已升级，1未升级
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 用户状态判断
+ * Summary: 用户状态判断
+ */
+async function queryDubbridgeUserUpgradestatus(request: QueryDubbridgeUserUpgradestatusRequest): QueryDubbridgeUserUpgradestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeUserUpgradestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户状态判断
+ * Summary: 用户状态判断
+ */
+async function queryDubbridgeUserUpgradestatusEx(request: QueryDubbridgeUserUpgradestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeUserUpgradestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.user.upgradestatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeLoanUpgradestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号(资产方)
+  originalOrderNo?: string(name='original_order_no'),
+  // 借据编号
+  receiptNo?: string(name='receipt_no'),
+}
+
+model QueryDubbridgeLoanUpgradestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 借据状态：0存量，1增量
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 借据状态判断
+ * Summary: 借据状态判断
+ */
+async function queryDubbridgeLoanUpgradestatus(request: QueryDubbridgeLoanUpgradestatusRequest): QueryDubbridgeLoanUpgradestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeLoanUpgradestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 借据状态判断
+ * Summary: 借据状态判断
+ */
+async function queryDubbridgeLoanUpgradestatusEx(request: QueryDubbridgeLoanUpgradestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeLoanUpgradestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.loan.upgradestatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
