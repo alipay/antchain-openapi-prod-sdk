@@ -1602,6 +1602,53 @@ func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
 	return s
 }
 
+// 用户绑定银行卡列表
+type CustomerBankCardInfo struct {
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 银行卡号
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
+	// 是否已签约
+	Signed *string `json:"signed,omitempty" xml:"signed,omitempty"`
+	// 是否为账户代扣银行卡
+	AcctBankCard *string `json:"acct_bank_card,omitempty" xml:"acct_bank_card,omitempty"`
+}
+
+func (s CustomerBankCardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerBankCardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerBankCardInfo) SetBankName(v string) *CustomerBankCardInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetBankCode(v string) *CustomerBankCardInfo {
+	s.BankCode = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetBankCardNo(v string) *CustomerBankCardInfo {
+	s.BankCardNo = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetSigned(v string) *CustomerBankCardInfo {
+	s.Signed = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
+	s.AcctBankCard = &v
+	return s
+}
+
 // 天枢系统专用Material结构体
 type Material struct {
 	// 资料类型0-风控报告1-合同2-图片3-附件
@@ -11880,6 +11927,83 @@ func (s *QueryDubbridgeLoanUpgradestatusResponse) SetStatus(v string) *QueryDubb
 	return s
 }
 
+type QueryDubbridgeCustomerBankcardlistRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeCustomerBankcardlistRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCustomerBankcardlistRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistRequest) SetAuthToken(v string) *QueryDubbridgeCustomerBankcardlistRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistRequest) SetProductInstanceId(v string) *QueryDubbridgeCustomerBankcardlistRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistRequest) SetCustomerNo(v string) *QueryDubbridgeCustomerBankcardlistRequest {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistRequest) SetFundCode(v string) *QueryDubbridgeCustomerBankcardlistRequest {
+	s.FundCode = &v
+	return s
+}
+
+type QueryDubbridgeCustomerBankcardlistResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户绑定银行卡信息列表
+	CustomerBankCardInfoList []*CustomerBankCardInfo `json:"customer_bank_card_info_list,omitempty" xml:"customer_bank_card_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDubbridgeCustomerBankcardlistResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCustomerBankcardlistResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistResponse) SetReqMsgId(v string) *QueryDubbridgeCustomerBankcardlistResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistResponse) SetResultCode(v string) *QueryDubbridgeCustomerBankcardlistResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistResponse) SetResultMsg(v string) *QueryDubbridgeCustomerBankcardlistResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerBankcardlistResponse) SetCustomerBankCardInfoList(v []*CustomerBankCardInfo) *QueryDubbridgeCustomerBankcardlistResponse {
+	s.CustomerBankCardInfoList = v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19873,7 +19997,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.23"),
+				"sdk_version":      tea.String("1.16.24"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22027,6 +22151,40 @@ func (client *Client) QueryDubbridgeLoanUpgradestatusEx(request *QueryDubbridgeL
 	}
 	_result = &QueryDubbridgeLoanUpgradestatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.loan.upgradestatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付签约查询(用户绑定银行卡列表)
+ * Summary: 支付签约查询(用户绑定银行卡列表)
+ */
+func (client *Client) QueryDubbridgeCustomerBankcardlist(request *QueryDubbridgeCustomerBankcardlistRequest) (_result *QueryDubbridgeCustomerBankcardlistResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCustomerBankcardlistResponse{}
+	_body, _err := client.QueryDubbridgeCustomerBankcardlistEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付签约查询(用户绑定银行卡列表)
+ * Summary: 支付签约查询(用户绑定银行卡列表)
+ */
+func (client *Client) QueryDubbridgeCustomerBankcardlistEx(request *QueryDubbridgeCustomerBankcardlistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCustomerBankcardlistResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCustomerBankcardlistResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.customer.bankcardlist.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
