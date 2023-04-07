@@ -2366,10 +2366,14 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
   openTime?: string;
   // 认证是否通过
   passed?: boolean;
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string;
+  // 核验不一致的原因编码
+  reasonCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2380,6 +2384,7 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       openTime: 'open_time',
       passed: 'passed',
       returnCode: 'return_code',
+      reasonCode: 'reason_code',
     };
   }
 
@@ -2393,6 +2398,7 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       openTime: 'string',
       passed: 'boolean',
       returnCode: 'string',
+      reasonCode: 'string',
     };
   }
 
@@ -2453,10 +2459,14 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
   openTime?: string;
   // 认证是否通过
   passed?: boolean;
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string;
+  // 核验不通过异常编码
+  reasonCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2467,6 +2477,7 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       openTime: 'open_time',
       passed: 'passed',
       returnCode: 'return_code',
+      reasonCode: 'reason_code',
     };
   }
 
@@ -2480,6 +2491,7 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       openTime: 'string',
       passed: 'boolean',
       returnCode: 'string',
+      reasonCode: 'string',
     };
   }
 
@@ -2536,10 +2548,14 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
   // 1:企业信息有误
   // 2:企业非正常营业
   code?: string;
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string;
+  // 核验不通过异常编码
+  reasonCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2550,6 +2566,7 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       passed: 'passed',
       code: 'code',
       returnCode: 'return_code',
+      reasonCode: 'reason_code',
     };
   }
 
@@ -2563,6 +2580,7 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       passed: 'boolean',
       code: 'string',
       returnCode: 'string',
+      reasonCode: 'string',
     };
   }
 
@@ -6278,7 +6296,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -6317,7 +6335,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
           _prod_code: "BAASPLUS",
           _prod_channel: "undefined",
         };
