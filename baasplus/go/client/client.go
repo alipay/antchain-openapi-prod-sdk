@@ -3147,10 +3147,14 @@ type QueryEverifyFourmetaResponse struct {
 	OpenTime *string `json:"open_time,omitempty" xml:"open_time,omitempty"`
 	// 认证是否通过
 	Passed *bool `json:"passed,omitempty" xml:"passed,omitempty"`
-	// return_code=0，核验一致
-	// return_code=1，核验不一致
-	// return_code=2，库无
+	// resultCode=0，核验一致
+	// resultCode=1，核验不一致（人企核验不一致）
+	// resultCode=2，库无（人在库中不存在，无法校验）
+	// resultCode=3，企业二要素核验不通过
+	// resultCode=4，查无企业，无法校验（此场景属于三要素核验）
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
+	// 核验不一致的原因编码
+	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
 }
 
 func (s QueryEverifyFourmetaResponse) String() string {
@@ -3198,6 +3202,11 @@ func (s *QueryEverifyFourmetaResponse) SetPassed(v bool) *QueryEverifyFourmetaRe
 
 func (s *QueryEverifyFourmetaResponse) SetReturnCode(v string) *QueryEverifyFourmetaResponse {
 	s.ReturnCode = &v
+	return s
+}
+
+func (s *QueryEverifyFourmetaResponse) SetReasonCode(v string) *QueryEverifyFourmetaResponse {
+	s.ReasonCode = &v
 	return s
 }
 
@@ -3263,10 +3272,14 @@ type QueryEverifyThreemetaResponse struct {
 	OpenTime *string `json:"open_time,omitempty" xml:"open_time,omitempty"`
 	// 认证是否通过
 	Passed *bool `json:"passed,omitempty" xml:"passed,omitempty"`
-	// return_code=0，核验一致
-	// return_code=1，核验不一致
-	// return_code=2，库无
+	// resultCode=0，核验一致
+	// resultCode=1，核验不一致（人企核验不一致）
+	// resultCode=2，库无（人在库中不存在，无法校验）
+	// resultCode=3，企业二要素核验不通过
+	// resultCode=4，查无企业，无法校验（此场景属于三要素核验）
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
+	// 核验不通过异常编码
+	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
 }
 
 func (s QueryEverifyThreemetaResponse) String() string {
@@ -3314,6 +3327,11 @@ func (s *QueryEverifyThreemetaResponse) SetPassed(v bool) *QueryEverifyThreemeta
 
 func (s *QueryEverifyThreemetaResponse) SetReturnCode(v string) *QueryEverifyThreemetaResponse {
 	s.ReturnCode = &v
+	return s
+}
+
+func (s *QueryEverifyThreemetaResponse) SetReasonCode(v string) *QueryEverifyThreemetaResponse {
+	s.ReasonCode = &v
 	return s
 }
 
@@ -3372,10 +3390,14 @@ type QueryEverifyTwometaResponse struct {
 	// 1:企业信息有误
 	// 2:企业非正常营业
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// return_code=0，核验一致
-	// return_code=1，核验不一致
-	// return_code=2，库无
+	// resultCode=0，核验一致
+	// resultCode=1，核验不一致（人企核验不一致）
+	// resultCode=2，库无（人在库中不存在，无法校验）
+	// resultCode=3，企业二要素核验不通过
+	// resultCode=4，查无企业，无法校验（此场景属于三要素核验）
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
+	// 核验不通过异常编码
+	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
 }
 
 func (s QueryEverifyTwometaResponse) String() string {
@@ -3423,6 +3445,11 @@ func (s *QueryEverifyTwometaResponse) SetCode(v string) *QueryEverifyTwometaResp
 
 func (s *QueryEverifyTwometaResponse) SetReturnCode(v string) *QueryEverifyTwometaResponse {
 	s.ReturnCode = &v
+	return s
+}
+
+func (s *QueryEverifyTwometaResponse) SetReasonCode(v string) *QueryEverifyTwometaResponse {
+	s.ReasonCode = &v
 	return s
 }
 
@@ -8161,17 +8188,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -8205,7 +8232,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.4"),
+				"sdk_version":      tea.String("1.1.5"),
 				"_prod_code":       tea.String("BAASPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
