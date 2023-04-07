@@ -34,11 +34,17 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     @NameInMap("code")
     public String code;
 
-    // return_code=0，核验一致
-    // return_code=1，核验不一致
-    // return_code=2，库无
+    // resultCode=0，核验一致
+    // resultCode=1，核验不一致（人企核验不一致）
+    // resultCode=2，库无（人在库中不存在，无法校验）
+    // resultCode=3，企业二要素核验不通过
+    // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
     @NameInMap("return_code")
     public String returnCode;
+
+    // 核验不通过异常编码
+    @NameInMap("reason_code")
+    public String reasonCode;
 
     public static QueryEverifyTwometaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyTwometaResponse self = new QueryEverifyTwometaResponse();
@@ -107,6 +113,14 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     }
     public String getReturnCode() {
         return this.returnCode;
+    }
+
+    public QueryEverifyTwometaResponse setReasonCode(String reasonCode) {
+        this.reasonCode = reasonCode;
+        return this;
+    }
+    public String getReasonCode() {
+        return this.reasonCode;
     }
 
 }
