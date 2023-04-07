@@ -3834,6 +3834,7 @@ class QueryEverifyFourmetaResponse(TeaModel):
         open_time: str = None,
         passed: bool = None,
         return_code: str = None,
+        reason_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3851,10 +3852,14 @@ class QueryEverifyFourmetaResponse(TeaModel):
         self.open_time = open_time
         # 认证是否通过
         self.passed = passed
-        # return_code=0，核验一致
-        # return_code=1，核验不一致
-        # return_code=2，库无
+        # resultCode=0，核验一致
+        # resultCode=1，核验不一致（人企核验不一致）
+        # resultCode=2，库无（人在库中不存在，无法校验）
+        # resultCode=3，企业二要素核验不通过
+        # resultCode=4，查无企业，无法校验（此场景属于三要素核验）
         self.return_code = return_code
+        # 核验不一致的原因编码
+        self.reason_code = reason_code
 
     def validate(self):
         pass
@@ -3881,6 +3886,8 @@ class QueryEverifyFourmetaResponse(TeaModel):
             result['passed'] = self.passed
         if self.return_code is not None:
             result['return_code'] = self.return_code
+        if self.reason_code is not None:
+            result['reason_code'] = self.reason_code
         return result
 
     def from_map(self, m: dict = None):
@@ -3901,6 +3908,8 @@ class QueryEverifyFourmetaResponse(TeaModel):
             self.passed = m.get('passed')
         if m.get('return_code') is not None:
             self.return_code = m.get('return_code')
+        if m.get('reason_code') is not None:
+            self.reason_code = m.get('reason_code')
         return self
 
 
@@ -3972,6 +3981,7 @@ class QueryEverifyThreemetaResponse(TeaModel):
         open_time: str = None,
         passed: bool = None,
         return_code: str = None,
+        reason_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3989,10 +3999,14 @@ class QueryEverifyThreemetaResponse(TeaModel):
         self.open_time = open_time
         # 认证是否通过
         self.passed = passed
-        # return_code=0，核验一致
-        # return_code=1，核验不一致
-        # return_code=2，库无
+        # resultCode=0，核验一致
+        # resultCode=1，核验不一致（人企核验不一致）
+        # resultCode=2，库无（人在库中不存在，无法校验）
+        # resultCode=3，企业二要素核验不通过
+        # resultCode=4，查无企业，无法校验（此场景属于三要素核验）
         self.return_code = return_code
+        # 核验不通过异常编码
+        self.reason_code = reason_code
 
     def validate(self):
         pass
@@ -4019,6 +4033,8 @@ class QueryEverifyThreemetaResponse(TeaModel):
             result['passed'] = self.passed
         if self.return_code is not None:
             result['return_code'] = self.return_code
+        if self.reason_code is not None:
+            result['reason_code'] = self.reason_code
         return result
 
     def from_map(self, m: dict = None):
@@ -4039,6 +4055,8 @@ class QueryEverifyThreemetaResponse(TeaModel):
             self.passed = m.get('passed')
         if m.get('return_code') is not None:
             self.return_code = m.get('return_code')
+        if m.get('reason_code') is not None:
+            self.reason_code = m.get('reason_code')
         return self
 
 
@@ -4102,6 +4120,7 @@ class QueryEverifyTwometaResponse(TeaModel):
         passed: bool = None,
         code: str = None,
         return_code: str = None,
+        reason_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4119,10 +4138,14 @@ class QueryEverifyTwometaResponse(TeaModel):
         # 1:企业信息有误
         # 2:企业非正常营业
         self.code = code
-        # return_code=0，核验一致
-        # return_code=1，核验不一致
-        # return_code=2，库无
+        # resultCode=0，核验一致
+        # resultCode=1，核验不一致（人企核验不一致）
+        # resultCode=2，库无（人在库中不存在，无法校验）
+        # resultCode=3，企业二要素核验不通过
+        # resultCode=4，查无企业，无法校验（此场景属于三要素核验）
         self.return_code = return_code
+        # 核验不通过异常编码
+        self.reason_code = reason_code
 
     def validate(self):
         pass
@@ -4149,6 +4172,8 @@ class QueryEverifyTwometaResponse(TeaModel):
             result['code'] = self.code
         if self.return_code is not None:
             result['return_code'] = self.return_code
+        if self.reason_code is not None:
+            result['reason_code'] = self.reason_code
         return result
 
     def from_map(self, m: dict = None):
@@ -4169,6 +4194,8 @@ class QueryEverifyTwometaResponse(TeaModel):
             self.code = m.get('code')
         if m.get('return_code') is not None:
             self.return_code = m.get('return_code')
+        if m.get('reason_code') is not None:
+            self.reason_code = m.get('reason_code')
         return self
 
 
