@@ -52,13 +52,21 @@ class QueryEverifyTwometaResponse extends Model
      */
     public $code;
 
-    // return_code=0，核验一致
-    // return_code=1，核验不一致
-    // return_code=2，库无
+    // resultCode=0，核验一致
+    // resultCode=1，核验不一致（人企核验不一致）
+    // resultCode=2，库无（人在库中不存在，无法校验）
+    // resultCode=3，企业二要素核验不通过
+    // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
     /**
      * @var string
      */
     public $returnCode;
+
+    // 核验不通过异常编码
+    /**
+     * @var string
+     */
+    public $reasonCode;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -68,6 +76,7 @@ class QueryEverifyTwometaResponse extends Model
         'passed'           => 'passed',
         'code'             => 'code',
         'returnCode'       => 'return_code',
+        'reasonCode'       => 'reason_code',
     ];
 
     public function validate()
@@ -100,6 +109,9 @@ class QueryEverifyTwometaResponse extends Model
         }
         if (null !== $this->returnCode) {
             $res['return_code'] = $this->returnCode;
+        }
+        if (null !== $this->reasonCode) {
+            $res['reason_code'] = $this->reasonCode;
         }
 
         return $res;
@@ -136,6 +148,9 @@ class QueryEverifyTwometaResponse extends Model
         }
         if (isset($map['return_code'])) {
             $model->returnCode = $map['return_code'];
+        }
+        if (isset($map['reason_code'])) {
+            $model->reasonCode = $map['reason_code'];
         }
 
         return $model;
