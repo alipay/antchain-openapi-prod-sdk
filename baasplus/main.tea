@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.4',
+    sdk_version = '1.1.5',
     _prod_code = 'BAASPLUS',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -1507,10 +1507,14 @@ model QueryEverifyFourmetaResponse = {
   openTime?: string(name='open_time'),
   // 认证是否通过
   passed?: boolean(name='passed'),
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string(name='return_code'),
+  // 核验不一致的原因编码
+  reasonCode?: string(name='reason_code'),
 }
 
 /**
@@ -1561,10 +1565,14 @@ model QueryEverifyThreemetaResponse = {
   openTime?: string(name='open_time'),
   // 认证是否通过
   passed?: boolean(name='passed'),
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string(name='return_code'),
+  // 核验不通过异常编码
+  reasonCode?: string(name='reason_code'),
 }
 
 /**
@@ -1613,10 +1621,14 @@ model QueryEverifyTwometaResponse = {
   // 1:企业信息有误
   // 2:企业非正常营业
   code?: string(name='code'),
-  // return_code=0，核验一致
-  // return_code=1，核验不一致
-  // return_code=2，库无
+  // resultCode=0，核验一致
+  // resultCode=1，核验不一致（人企核验不一致）
+  // resultCode=2，库无（人在库中不存在，无法校验）
+  // resultCode=3，企业二要素核验不通过
+  // resultCode=4，查无企业，无法校验（此场景属于三要素核验）
   returnCode?: string(name='return_code'),
+  // 核验不通过异常编码
+  reasonCode?: string(name='reason_code'),
 }
 
 /**
