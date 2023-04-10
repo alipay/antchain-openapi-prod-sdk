@@ -199,16 +199,13 @@ export class UploadFileDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 文件名
-  fileName: string;
-  // 文件流
-  file: string;
+  // 文件
+  bizContent: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      fileName: 'file_name',
-      file: 'file',
+      bizContent: 'biz_content',
     };
   }
 
@@ -216,8 +213,7 @@ export class UploadFileDataRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      fileName: 'string',
-      file: 'string',
+      bizContent: 'string',
     };
   }
 
@@ -371,7 +367,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "IDENTITYMARRIAGE",
           _prod_channel: "undefined",
         };
