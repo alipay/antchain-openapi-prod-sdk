@@ -1,0 +1,1392 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.3',
+    _prod_code = 'FAIROPENNET',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 静态DSL
+model StaticDsl {
+  //  
+  spaceId: string(name='space_id', example=' '),
+  //  
+  flowId: string(name='flow_id', example=' '),
+  //  
+  consentOn: boolean(name='consent_on', example='true, false'),
+  //  
+  parameters: string(name='parameters', example=' '),
+}
+
+// 动态工作流配置
+model DynamicDsl {
+  //  
+  flowId: string(name='flow_id', example=' '),
+  //  
+  instanceId: string(name='instance_id', example=' '),
+  //  
+  autoStart: boolean(name='auto_start', example='true, false'),
+  //  
+  parameters: string(name='parameters', example=' '),
+}
+
+// GetNetworkStatus接口输入，包含networkId
+model GetNetworkStatusInput {
+  // 网络的networkId
+  networkId: string(name='network_id', example='""'),
+}
+
+// 添加协作参与方到协作空间
+model AddPartyToSpaceInput {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  spaceId: string(name='space_id', example=' '),
+  //  
+  nodeId: string(name='node_id', example=' '),
+  //  
+  partyId: string(name='party_id', example=' '),
+}
+
+//  
+model Cnet {
+  //  
+  id: string(name='id', example=' '),
+  //  
+  blockchainNum: string(name='blockchain_num', example=' '),
+  //  
+  myNormalNodeId: string(name='my_normal_node_id', example=' '),
+  //  
+  governanceContract: string(name='governance_contract', example=' '),
+  //  
+  myRole: string(name='my_role', example=' '),
+  //  
+  partyList: [ string ](name='party_list', example=''),
+}
+
+// 工作流动态配置
+model DynamicFlowConfig {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  spaceId: string(name='space_id', example='  '),
+  //  
+  dsl: DynamicDsl(name='dsl', example=''),
+}
+
+// 工作流静态配置
+model StaticFlowConfig {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  dsl: StaticDsl(name='dsl', example=' '),
+}
+
+// 初始化客户端配置，提供到FAIR节点的连接配置
+model FairComputeClientConfig {
+  // 服务host
+  host: string(name='host', example='""'),
+  // 服务端口
+  port: long(name='port', example=''),
+  // TLS连接配置【暂不支持】
+  sslCertChain?: string(name='ssl_cert_chain', example='""'),
+  // TLS连接配置【暂不支持】
+  sslPrivateKey?: string(name='ssl_private_key', example='""'),
+  // TLS连接配置【暂不支持】
+  sslTrustCertCollection?: string(name='ssl_trust_cert_collection', example='""'),
+  // TLS连接配置【暂不支持】
+  sslAuthority?: string(name='ssl_authority', example='""'),
+}
+
+// 新建协作空间入参
+model CreateSpaceInput {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  spaceId: string(name='space_id', example=' '),
+}
+
+// 普通节点身份信息，作为加入协作网络提供的材料
+model NormalNodeIdentityInfo {
+  //  
+  nodeId: string(name='node_id', example=' '),
+  //  
+  identityInfo: string(name='identity_info', example=' '),
+}
+
+// 参与方信息
+model PartyInfo {
+  //  
+  partyId: string(name='party_id', example=' '),
+  //  
+  desc: string(name='desc', example=' '),
+  //  
+  privateKey: string(name='private_key', example=' '),
+  //  
+  privateKeyPasswd: string(name='private_key_passwd', example=' '),
+  //  
+  recoverKey: string(name='recover_key', example=' '),
+  //  
+  recoveryKeyPasswd: string(name='recovery_key_passwd', example=' '),
+}
+
+// 工作流实例的定位符
+model FlowInstanceLocator {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  spaceId: string(name='space_id', example=' '),
+  //  
+  flowId: string(name='flow_id', example=' '),
+  //  
+  instanceId: string(name='instance_id', example=' '),
+}
+
+// 测试结构体
+model TestStruct {
+  // 测试名称
+  name: string(name='name', example='"t1"'),
+  // 消息体
+  msg: string(name='msg', example='"hello_world"'),
+}
+
+// 工作流执行状态
+model FlowInstanceStatus {
+  //  
+  spaceId: string(name='space_id', example=' '),
+  //  
+  flowId: string(name='flow_id', example=' '),
+  //  
+  instanceId: string(name='instance_id', example=' '),
+  //  
+  consentOn: boolean(name='consent_on', example='true, false'),
+  //   
+  autoStart: boolean(name='auto_start', example=' '),
+  //  
+  staticParameters: string(name='static_parameters', example=' '),
+  //  
+  dynamicParameters: string(name='dynamic_parameters', example=' '),
+  //  
+  totalComponents: long(name='total_components', example=' '),
+  //  
+  completedComponents: long(name='completed_components', example=''),
+  //  
+  errorCode: string(name='error_code', example=' '),
+  //  
+  errorMessage: string(name='error_message', example=' '),
+  //  
+  status: long(name='status', example=''),
+}
+
+// getNetworkStatus接口输出
+model NetworkStatusInfo {
+  // 协作网络状态枚举类型
+  networkStatus: string(name='network_status', example='"UN_INITIALIZED"'),
+}
+
+// 协作网络治理节点批准普通节点加入后返回给普通节点的信息
+model NetworkEntranceInfo {
+  //  
+  networkId: string(name='network_id', example=' '),
+  //  
+  entranceInfo: string(name='entrance_info', example=' '),
+}
+
+// 描述一个cube节点
+model CubeNode {
+  // 无
+  domain: string(name='domain', example='""'),
+  // 无
+  endpoints: [ string ](name='endpoints', example=''),
+  //  
+  nodeId: string(name='node_id', example='""'),
+  //  
+  nodeIdHash: string(name='node_id_hash', example='""'),
+  //  
+  nodePublicKey: string(name='node_public_key', example='""'),
+  //  
+  isConnected: boolean(name='is_connected', example='true, false'),
+  //  
+  type: long(name='type', example=''),
+}
+
+// 如果非治理模式启动，返回错误码
+model GetGovernanceModuleNetworkIdOutput {
+  // networkID
+  networkId: string(name='network_id', example='testnet00'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model StartTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // TestApi入参
+  data: TestStruct(name='data'),
+  // 额外字段
+  extra?: string(name='extra'),
+}
+
+model StartTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function startTest(request: StartTestRequest): StartTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试用
+ */
+async function startTestEx(request: StartTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.test.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitClientConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  config: FairComputeClientConfig(name='config'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model InitClientConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description:  
+ * Summary: 初始化客户端配置
+ */
+async function initClientConfig(request: InitClientConfigRequest): InitClientConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initClientConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description:  
+ * Summary: 初始化客户端配置
+ */
+async function initClientConfigEx(request: InitClientConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitClientConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.client.config.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartClientRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model StartClientResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 启动客户端，测试连接到FAIR节点
+ * Summary: 启动客户端
+ */
+async function startClient(request: StartClientRequest): StartClientResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startClientEx(request, headers, runtime);
+}
+
+/**
+ * Description: 启动客户端，测试连接到FAIR节点
+ * Summary: 启动客户端
+ */
+async function startClientEx(request: StartClientRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartClientResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.client.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGovernancemoduleNetworkidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetGovernancemoduleNetworkidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  networkId?: string(name='network_id'),
+}
+
+/**
+ * Description: 获取治理模块静态配置自启动协作网络的ID
+ * Summary: 获取治理模块静态配置自启动协作网络的ID
+ */
+async function getGovernancemoduleNetworkid(request: GetGovernancemoduleNetworkidRequest): GetGovernancemoduleNetworkidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGovernancemoduleNetworkidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取治理模块静态配置自启动协作网络的ID
+ * Summary: 获取治理模块静态配置自启动协作网络的ID
+ */
+async function getGovernancemoduleNetworkidEx(request: GetGovernancemoduleNetworkidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGovernancemoduleNetworkidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.governancemodule.networkid.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetNetworkStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+}
+
+model GetNetworkStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //   
+  networkStatusInfo?: NetworkStatusInfo(name='network_status_info'),
+}
+
+/**
+ * Description: 获取协作网络状态
+ * Summary: 获取协作网络状态
+ */
+async function getNetworkStatus(request: GetNetworkStatusRequest): GetNetworkStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getNetworkStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取协作网络状态
+ * Summary: 获取协作网络状态
+ */
+async function getNetworkStatusEx(request: GetNetworkStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetNetworkStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.network.status.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMycubenodeInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetMycubenodeInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  cubeNode?: CubeNode(name='cube_node'),
+}
+
+/**
+ * Description: 获取cube节点信息
+ * Summary: 获取cube节点信息
+ */
+async function getMycubenodeInfo(request: GetMycubenodeInfoRequest): GetMycubenodeInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMycubenodeInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取cube节点信息
+ * Summary: 获取cube节点信息
+ */
+async function getMycubenodeInfoEx(request: GetMycubenodeInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMycubenodeInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.mycubenode.info.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddTrustedcubenodeInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  cubeNode: CubeNode(name='cube_node'),
+  //  
+  extra: string(name='extra'),
+}
+
+model AddTrustedcubenodeInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 手动添加cube节点
+ * Summary: 手动添加cube节点
+ */
+async function addTrustedcubenodeInfo(request: AddTrustedcubenodeInfoRequest): AddTrustedcubenodeInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addTrustedcubenodeInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 手动添加cube节点
+ * Summary: 手动添加cube节点
+ */
+async function addTrustedcubenodeInfoEx(request: AddTrustedcubenodeInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddTrustedcubenodeInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.trustedcubenode.info.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterNormalNodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  info: NormalNodeIdentityInfo(name='info'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model RegisterNormalNodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  networkEntranceInfo?: NetworkEntranceInfo(name='network_entrance_info'),
+}
+
+/**
+ * Description: 将普通节点加入协作网络。治理节点预先批准普通节点的身份信息加入到网络，然后返回EntranceInfo给到普通节点，普通节点根据EntranceInfo连入网络。对应sdk enrollNormalNode接口
+ * Summary: 普通节点加入协作网络
+ */
+async function registerNormalNode(request: RegisterNormalNodeRequest): RegisterNormalNodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerNormalNodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 将普通节点加入协作网络。治理节点预先批准普通节点的身份信息加入到网络，然后返回EntranceInfo给到普通节点，普通节点根据EntranceInfo连入网络。对应sdk enrollNormalNode接口
+ * Summary: 普通节点加入协作网络
+ */
+async function registerNormalNodeEx(request: RegisterNormalNodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterNormalNodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.normal.node.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSpaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+  //  
+  spaceId: string(name='space_id'),
+}
+
+model CreateSpaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 后续由各普通节点将其所有的参与方加入到协作网络，然后由治理节点管理哪些参与方可以加入协作空间
+ * Summary: 新建协作空间
+ */
+async function createSpace(request: CreateSpaceRequest): CreateSpaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSpaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 后续由各普通节点将其所有的参与方加入到协作网络，然后由治理节点管理哪些参与方可以加入协作空间
+ * Summary: 新建协作空间
+ */
+async function createSpaceEx(request: CreateSpaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSpaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.space.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddPartySpaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+  //  
+  spaceId: string(name='space_id'),
+  //  
+  nodeId: string(name='node_id'),
+  //  
+  partyId: string(name='party_id'),
+}
+
+model AddPartySpaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加协作参与方到协作空间
+ * Summary: 添加协作参与方到协作空间
+ */
+async function addPartySpace(request: AddPartySpaceRequest): AddPartySpaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addPartySpaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加协作参与方到协作空间
+ * Summary: 添加协作参与方到协作空间
+ */
+async function addPartySpaceEx(request: AddPartySpaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddPartySpaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.party.space.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetNetworkSnapshotRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+}
+
+model GetNetworkSnapshotResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  cnet?: Cnet(name='cnet'),
+}
+
+/**
+ * Description: 获取协作网络快照，包含整个协作网络最新的全部信息
+ * Summary: 获取协作网络快照
+ */
+async function getNetworkSnapshot(request: GetNetworkSnapshotRequest): GetNetworkSnapshotResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getNetworkSnapshotEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取协作网络快照，包含整个协作网络最新的全部信息
+ * Summary: 获取协作网络快照
+ */
+async function getNetworkSnapshotEx(request: GetNetworkSnapshotRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetNetworkSnapshotResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.network.snapshot.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopClientRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model StopClientResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: shutdown client
+ * Summary: shutdown client
+ */
+async function stopClient(request: StopClientRequest): StopClientResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopClientEx(request, headers, runtime);
+}
+
+/**
+ * Description: shutdown client
+ * Summary: shutdown client
+ */
+async function stopClientEx(request: StopClientRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopClientResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.client.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetNormalmoduleNodeidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetNormalmoduleNodeidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  nodeId?: string(name='node_id'),
+}
+
+/**
+ * Description: 获取普通节点自身的节点ID
+ * Summary: 获取普通节点自身的节点ID
+ */
+async function getNormalmoduleNodeid(request: GetNormalmoduleNodeidRequest): GetNormalmoduleNodeidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getNormalmoduleNodeidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取普通节点自身的节点ID
+ * Summary: 获取普通节点自身的节点ID
+ */
+async function getNormalmoduleNodeidEx(request: GetNormalmoduleNodeidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetNormalmoduleNodeidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.normalmodule.nodeid.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddPartyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  info: PartyInfo(name='info'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model AddPartyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加协作参与方信息，协作参与方身份为独立身份，通用于未来加入的不同协作网络
+ * Summary: 添加协作参与方信息
+ */
+async function addParty(request: AddPartyRequest): AddPartyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addPartyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加协作参与方信息，协作参与方身份为独立身份，通用于未来加入的不同协作网络
+ * Summary: 添加协作参与方信息
+ */
+async function addPartyEx(request: AddPartyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddPartyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.party.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetNormalnodeIdentityinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetNormalnodeIdentityinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  normalNodeIdentityInfo?: NormalNodeIdentityInfo(name='normal_node_identity_info'),
+}
+
+/**
+ * Description: 获取普通节点身份信息
+ * Summary: 获取普通节点身份信息
+ */
+async function getNormalnodeIdentityinfo(request: GetNormalnodeIdentityinfoRequest): GetNormalnodeIdentityinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getNormalnodeIdentityinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取普通节点身份信息
+ * Summary: 获取普通节点身份信息
+ */
+async function getNormalnodeIdentityinfoEx(request: GetNormalnodeIdentityinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetNormalnodeIdentityinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.normalnode.identityinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddNetworkNormalnodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  info: NetworkEntranceInfo(name='info'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model AddNetworkNormalnodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 治理节点批准加入网络后，传回网络进入信息，由普通节点加入网络
+ * Summary: 普通节点加入网络
+ */
+async function addNetworkNormalnode(request: AddNetworkNormalnodeRequest): AddNetworkNormalnodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addNetworkNormalnodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 治理节点批准加入网络后，传回网络进入信息，由普通节点加入网络
+ * Summary: 普通节点加入网络
+ */
+async function addNetworkNormalnodeEx(request: AddNetworkNormalnodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddNetworkNormalnodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.network.normalnode.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAllcubenodeInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetAllcubenodeInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  allCubeNodes?: [ CubeNode ](name='all_cube_nodes'),
+}
+
+/**
+ * Description: 获取所有cube节点信息
+ * Summary: 获取所有cube节点信息
+ */
+async function getAllcubenodeInfo(request: GetAllcubenodeInfoRequest): GetAllcubenodeInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAllcubenodeInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取所有cube节点信息
+ * Summary: 获取所有cube节点信息
+ */
+async function getAllcubenodeInfoEx(request: GetAllcubenodeInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAllcubenodeInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.allcubenode.info.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyPartyNetworkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+  //  
+  partyId: string(name='party_id'),
+  //  
+  accountName: string(name='account_name'),
+}
+
+model ApplyPartyNetworkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加协作参与方到一个区块链协作网络
+ * Summary: 添加协作参与方到一个区块链协作网络
+ */
+async function applyPartyNetwork(request: ApplyPartyNetworkRequest): ApplyPartyNetworkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyPartyNetworkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加协作参与方到一个区块链协作网络
+ * Summary: 添加协作参与方到一个区块链协作网络
+ */
+async function applyPartyNetworkEx(request: ApplyPartyNetworkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPartyNetworkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.party.network.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  partyId: string(name='party_id'),
+  //  
+  config: StaticFlowConfig(name='config'),
+}
+
+model CreateFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建一个工作流
+ * Summary: 创建一个工作流
+ */
+async function createFlow(request: CreateFlowRequest): CreateFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建一个工作流
+ * Summary: 创建一个工作流
+ */
+async function createFlowEx(request: CreateFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.flow.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RunFlowInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  partyId: string(name='party_id'),
+  //  
+  config: DynamicFlowConfig(name='config'),
+}
+
+model RunFlowInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 运行工作流实例，提供动态配置
+ * Summary: 运行工作流实例，提供动态配置
+ */
+async function runFlowInstance(request: RunFlowInstanceRequest): RunFlowInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return runFlowInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 运行工作流实例，提供动态配置
+ * Summary: 运行工作流实例，提供动态配置
+ */
+async function runFlowInstanceEx(request: RunFlowInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunFlowInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.flow.instance.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopFlowinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  networkId: string(name='network_id'),
+  //  
+  spaceId: string(name='space_id'),
+  //  
+  partyId: string(name='party_id'),
+  //  
+  flowId: string(name='flow_id'),
+  //  
+  instanceId: string(name='instance_id'),
+}
+
+model StopFlowinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 停止运行中的工作流实例
+ * Summary: 停止运行中的工作流实例
+ */
+async function stopFlowinstance(request: StopFlowinstanceRequest): StopFlowinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopFlowinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 停止运行中的工作流实例
+ * Summary: 停止运行中的工作流实例
+ */
+async function stopFlowinstanceEx(request: StopFlowinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopFlowinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.flowinstance.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFlowinstanceStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  config: FlowInstanceLocator(name='config'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model QueryFlowinstanceStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  status?: FlowInstanceStatus(name='status'),
+}
+
+/**
+ * Description: 查询工作流实例状态
+ * Summary: 查询工作流实例状态
+ */
+async function queryFlowinstanceStatus(request: QueryFlowinstanceStatusRequest): QueryFlowinstanceStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFlowinstanceStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询工作流实例状态
+ * Summary: 查询工作流实例状态
+ */
+async function queryFlowinstanceStatusEx(request: QueryFlowinstanceStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowinstanceStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.flowinstance.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 文件名
+  fileName: string(name='file_name'),
+  // 扩展字段
+  extra?: string(name='extra'),
+}
+
+model UploadFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上传文件
+ * Summary: 上传文件
+ */
+async function uploadFile(request: UploadFileRequest): UploadFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传文件
+ * Summary: 上传文件
+ */
+async function uploadFileEx(request: UploadFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.fairopennet.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadFileResponse = new UploadFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 文件名
+  fileName: string(name='file_name'),
+  //  
+  extra?: string(name='extra'),
+}
+
+model DownloadFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 下载文件
+ * Summary: 下载文件
+ */
+async function downloadFile(request: DownloadFileRequest): DownloadFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 下载文件
+ * Summary: 下载文件
+ */
+async function downloadFileEx(request: DownloadFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.fairopennet.file.download',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var downloadFileResponse = new DownloadFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return downloadFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.file.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
