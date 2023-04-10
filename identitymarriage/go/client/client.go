@@ -288,6 +288,83 @@ func (s *NotifyMarriageInfoResponse) SetData(v string) *NotifyMarriageInfoRespon
 	return s
 }
 
+type UploadFileDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件流
+	File *string `json:"file,omitempty" xml:"file,omitempty" require:"true"`
+}
+
+func (s UploadFileDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileDataRequest) SetAuthToken(v string) *UploadFileDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadFileDataRequest) SetProductInstanceId(v string) *UploadFileDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadFileDataRequest) SetFileName(v string) *UploadFileDataRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *UploadFileDataRequest) SetFile(v string) *UploadFileDataRequest {
+	s.File = &v
+	return s
+}
+
+type UploadFileDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// xxx
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UploadFileDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileDataResponse) SetReqMsgId(v string) *UploadFileDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadFileDataResponse) SetResultCode(v string) *UploadFileDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadFileDataResponse) SetResultMsg(v string) *UploadFileDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadFileDataResponse) SetData(v string) *UploadFileDataResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -410,7 +487,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("IDENTITYMARRIAGE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -529,6 +606,40 @@ func (client *Client) NotifyMarriageInfoEx(request *NotifyMarriageInfoRequest, h
 	}
 	_result = &NotifyMarriageInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.marriage.info.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 核婚授权文件上传
+ * Summary: 核婚授权文件上传
+ */
+func (client *Client) UploadFileData(request *UploadFileDataRequest) (_result *UploadFileDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadFileDataResponse{}
+	_body, _err := client.UploadFileDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 核婚授权文件上传
+ * Summary: 核婚授权文件上传
+ */
+func (client *Client) UploadFileDataEx(request *UploadFileDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadFileDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadFileDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("identity.marriage.file.data.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
