@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'IDENTITYMARRIAGE',
                     '_prod_channel': 'undefined'
                 }
@@ -383,4 +383,60 @@ class Client:
         return TeaCore.from_map(
             identitymarriage_models.NotifyMarriageInfoResponse(),
             await self.do_request_async('1.0', 'identity.marriage.marriage.info.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_file_data(
+        self,
+        request: identitymarriage_models.UploadFileDataRequest,
+    ) -> identitymarriage_models.UploadFileDataResponse:
+        """
+        Description: 核婚授权文件上传
+        Summary: 核婚授权文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_file_data_ex(request, headers, runtime)
+
+    async def upload_file_data_async(
+        self,
+        request: identitymarriage_models.UploadFileDataRequest,
+    ) -> identitymarriage_models.UploadFileDataResponse:
+        """
+        Description: 核婚授权文件上传
+        Summary: 核婚授权文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_file_data_ex_async(request, headers, runtime)
+
+    def upload_file_data_ex(
+        self,
+        request: identitymarriage_models.UploadFileDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.UploadFileDataResponse:
+        """
+        Description: 核婚授权文件上传
+        Summary: 核婚授权文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.UploadFileDataResponse(),
+            self.do_request('1.0', 'identity.marriage.file.data.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_file_data_ex_async(
+        self,
+        request: identitymarriage_models.UploadFileDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> identitymarriage_models.UploadFileDataResponse:
+        """
+        Description: 核婚授权文件上传
+        Summary: 核婚授权文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            identitymarriage_models.UploadFileDataResponse(),
+            await self.do_request_async('1.0', 'identity.marriage.file.data.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
