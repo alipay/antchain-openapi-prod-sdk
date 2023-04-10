@@ -11,15 +11,10 @@ public class UploadFileDataRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 文件名
-    @NameInMap("file_name")
+    // 文件
+    @NameInMap("biz_content")
     @Validation(required = true)
-    public String fileName;
-
-    // 文件流
-    @NameInMap("file")
-    @Validation(required = true)
-    public String file;
+    public String bizContent;
 
     public static UploadFileDataRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadFileDataRequest self = new UploadFileDataRequest();
@@ -42,20 +37,12 @@ public class UploadFileDataRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadFileDataRequest setFileName(String fileName) {
-        this.fileName = fileName;
+    public UploadFileDataRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getFileName() {
-        return this.fileName;
-    }
-
-    public UploadFileDataRequest setFile(String file) {
-        this.file = file;
-        return this;
-    }
-    public String getFile() {
-        return this.file;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
 }
