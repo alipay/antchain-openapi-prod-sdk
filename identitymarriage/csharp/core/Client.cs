@@ -137,7 +137,7 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "IDENTITYMARRIAGE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "IDENTITYMARRIAGE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.IDENTITYMARRIAGE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyMarriageInfoResponse>(await DoRequestAsync("1.0", "identity.marriage.marriage.info.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核婚授权文件上传
+         * Summary: 核婚授权文件上传
+         */
+        public UploadFileDataResponse UploadFileData(UploadFileDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadFileDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核婚授权文件上传
+         * Summary: 核婚授权文件上传
+         */
+        public async Task<UploadFileDataResponse> UploadFileDataAsync(UploadFileDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadFileDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核婚授权文件上传
+         * Summary: 核婚授权文件上传
+         */
+        public UploadFileDataResponse UploadFileDataEx(UploadFileDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadFileDataResponse>(DoRequest("1.0", "identity.marriage.file.data.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核婚授权文件上传
+         * Summary: 核婚授权文件上传
+         */
+        public async Task<UploadFileDataResponse> UploadFileDataExAsync(UploadFileDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadFileDataResponse>(await DoRequestAsync("1.0", "identity.marriage.file.data.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
