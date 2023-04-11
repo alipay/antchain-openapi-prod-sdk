@@ -108,6 +108,10 @@ public class AddRegisterRequest extends TeaModel {
     @NameInMap("proxy_info")
     public ProxyData proxyInfo;
 
+    // 渠道标签
+    @NameInMap("channel_terminal")
+    public String channelTerminal;
+
     public static AddRegisterRequest build(java.util.Map<String, ?> map) throws Exception {
         AddRegisterRequest self = new AddRegisterRequest();
         return TeaModel.build(map, self);
@@ -303,6 +307,14 @@ public class AddRegisterRequest extends TeaModel {
     }
     public ProxyData getProxyInfo() {
         return this.proxyInfo;
+    }
+
+    public AddRegisterRequest setChannelTerminal(String channelTerminal) {
+        this.channelTerminal = channelTerminal;
+        return this;
+    }
+    public String getChannelTerminal() {
+        return this.channelTerminal;
     }
 
 }

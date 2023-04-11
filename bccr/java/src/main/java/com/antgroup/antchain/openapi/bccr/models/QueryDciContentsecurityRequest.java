@@ -11,29 +11,30 @@ public class QueryDciContentsecurityRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 任务ID
-    @NameInMap("task_id")
+    // 任务ID(数登流水号)
+    @NameInMap("flow_number")
     @Validation(required = true)
-    public String taskId;
-
-    // 作品名称
-    @NameInMap("work_name")
-    @Validation(required = true)
-    public String workName;
-
-    // 作品哈希
-    @NameInMap("work_hash")
-    @Validation(required = true)
-    public String workHash;
-
-    // 作品类型
-    @NameInMap("work_category")
-    @Validation(required = true)
-    public String workCategory;
+    public String flowNumber;
 
     // 客户端令牌
     @NameInMap("client_token")
     public String clientToken;
+
+    // 任务Id, 已废弃
+    @NameInMap("task_id")
+    public String taskId;
+
+    // 作品名，已废弃
+    @NameInMap("work_name")
+    public String workName;
+
+    // 作品Hash，已废弃
+    @NameInMap("work_hash")
+    public String workHash;
+
+    // 作品分类，已废弃
+    @NameInMap("work_category")
+    public String workCategory;
 
     public static QueryDciContentsecurityRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDciContentsecurityRequest self = new QueryDciContentsecurityRequest();
@@ -54,6 +55,22 @@ public class QueryDciContentsecurityRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryDciContentsecurityRequest setFlowNumber(String flowNumber) {
+        this.flowNumber = flowNumber;
+        return this;
+    }
+    public String getFlowNumber() {
+        return this.flowNumber;
+    }
+
+    public QueryDciContentsecurityRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
     public QueryDciContentsecurityRequest setTaskId(String taskId) {
@@ -86,14 +103,6 @@ public class QueryDciContentsecurityRequest extends TeaModel {
     }
     public String getWorkCategory() {
         return this.workCategory;
-    }
-
-    public QueryDciContentsecurityRequest setClientToken(String clientToken) {
-        this.clientToken = clientToken;
-        return this;
-    }
-    public String getClientToken() {
-        return this.clientToken;
     }
 
 }

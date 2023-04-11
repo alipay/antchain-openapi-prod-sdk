@@ -95,6 +95,14 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> copyrightOwnerIds;
 
+    // DCI类型
+    @NameInMap("apply_type")
+    public String applyType;
+
+    // 渠道标签
+    @NameInMap("channel_terminal")
+    public String channelTerminal;
+
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -258,6 +266,22 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public java.util.List<String> getCopyrightOwnerIds() {
         return this.copyrightOwnerIds;
+    }
+
+    public CreateDciPreregistrationRequest setApplyType(String applyType) {
+        this.applyType = applyType;
+        return this;
+    }
+    public String getApplyType() {
+        return this.applyType;
+    }
+
+    public CreateDciPreregistrationRequest setChannelTerminal(String channelTerminal) {
+        this.channelTerminal = channelTerminal;
+        return this;
+    }
+    public String getChannelTerminal() {
+        return this.channelTerminal;
     }
 
 }

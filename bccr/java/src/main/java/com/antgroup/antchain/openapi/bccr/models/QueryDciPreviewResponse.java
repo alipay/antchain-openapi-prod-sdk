@@ -53,6 +53,14 @@ public class QueryDciPreviewResponse extends TeaModel {
     @NameInMap("reg_number")
     public String regNumber;
 
+    // 著作权人名称列表
+    @NameInMap("copyright_owner_names")
+    public java.util.List<String> copyrightOwnerNames;
+
+    // 系列图预览地址
+    @NameInMap("series_diagram_preview_list")
+    public java.util.List<String> seriesDiagramPreviewList;
+
     public static QueryDciPreviewResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciPreviewResponse self = new QueryDciPreviewResponse();
         return TeaModel.build(map, self);
@@ -152,6 +160,22 @@ public class QueryDciPreviewResponse extends TeaModel {
     }
     public String getRegNumber() {
         return this.regNumber;
+    }
+
+    public QueryDciPreviewResponse setCopyrightOwnerNames(java.util.List<String> copyrightOwnerNames) {
+        this.copyrightOwnerNames = copyrightOwnerNames;
+        return this;
+    }
+    public java.util.List<String> getCopyrightOwnerNames() {
+        return this.copyrightOwnerNames;
+    }
+
+    public QueryDciPreviewResponse setSeriesDiagramPreviewList(java.util.List<String> seriesDiagramPreviewList) {
+        this.seriesDiagramPreviewList = seriesDiagramPreviewList;
+        return this;
+    }
+    public java.util.List<String> getSeriesDiagramPreviewList() {
+        return this.seriesDiagramPreviewList;
     }
 
 }

@@ -4,24 +4,33 @@ package com.antgroup.antchain.openapi.bccr.models;
 import com.aliyun.tea.*;
 
 public class ReviewData extends TeaModel {
+    // 作品名称安全识别结果
+    @NameInMap("title_risk_data")
+    public java.util.List<ContentRiskData> titleRiskData;
+
     // 内容安全识别结果
     @NameInMap("content_risk_data")
-    @Validation(required = true)
     public java.util.List<ContentRiskData> contentRiskData;
 
     // 作品相似识别结果
     @NameInMap("resemble_risk_data")
-    @Validation(required = true)
     public java.util.List<ResembleRiskData> resembleRiskData;
 
     // 作品标签识别结果
     @NameInMap("label_risk_data")
-    @Validation(required = true)
     public java.util.List<LabelRiskData> labelRiskData;
 
     public static ReviewData build(java.util.Map<String, ?> map) throws Exception {
         ReviewData self = new ReviewData();
         return TeaModel.build(map, self);
+    }
+
+    public ReviewData setTitleRiskData(java.util.List<ContentRiskData> titleRiskData) {
+        this.titleRiskData = titleRiskData;
+        return this;
+    }
+    public java.util.List<ContentRiskData> getTitleRiskData() {
+        return this.titleRiskData;
     }
 
     public ReviewData setContentRiskData(java.util.List<ContentRiskData> contentRiskData) {

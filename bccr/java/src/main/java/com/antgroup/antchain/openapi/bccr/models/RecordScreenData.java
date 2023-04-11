@@ -92,6 +92,10 @@ public class RecordScreenData extends TeaModel {
     @NameInMap("correction_url")
     public String correctionUrl;
 
+    // 录屏取证准备时间
+    @NameInMap("gmt_ready")
+    public Long gmtReady;
+
     public static RecordScreenData build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenData self = new RecordScreenData();
         return TeaModel.build(map, self);
@@ -263,6 +267,14 @@ public class RecordScreenData extends TeaModel {
     }
     public String getCorrectionUrl() {
         return this.correctionUrl;
+    }
+
+    public RecordScreenData setGmtReady(Long gmtReady) {
+        this.gmtReady = gmtReady;
+        return this;
+    }
+    public Long getGmtReady() {
+        return this.gmtReady;
     }
 
 }

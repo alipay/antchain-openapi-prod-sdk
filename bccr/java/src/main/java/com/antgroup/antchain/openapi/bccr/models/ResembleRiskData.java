@@ -4,42 +4,30 @@ package com.antgroup.antchain.openapi.bccr.models;
 import com.aliyun.tea.*;
 
 public class ResembleRiskData extends TeaModel {
-    // 识别结果
-    @NameInMap("code")
-    @Validation(required = true)
-    public Long code;
-
     // 重复作品ID
     @NameInMap("work_id")
     @Validation(required = true)
     public String workId;
 
-    // 相似值百分比
-    @NameInMap("resemble")
-    @Validation(required = true)
-    public String resemble;
+    // 相似作品的名称
+    @NameInMap("work_name")
+    public String workName;
+
+    // 相似值
+    @NameInMap("score")
+    public String score;
 
     // 相似作品下载链接
     @NameInMap("work_download_url")
-    @Validation(required = true)
     public String workDownloadUrl;
 
-    // 风险等级
-    @NameInMap("risk_level")
-    @Validation(required = true)
-    public Long riskLevel;
+    // 相似明细
+    @NameInMap("resemble_details")
+    public java.util.List<ResembleDetail> resembleDetails;
 
     public static ResembleRiskData build(java.util.Map<String, ?> map) throws Exception {
         ResembleRiskData self = new ResembleRiskData();
         return TeaModel.build(map, self);
-    }
-
-    public ResembleRiskData setCode(Long code) {
-        this.code = code;
-        return this;
-    }
-    public Long getCode() {
-        return this.code;
     }
 
     public ResembleRiskData setWorkId(String workId) {
@@ -50,12 +38,20 @@ public class ResembleRiskData extends TeaModel {
         return this.workId;
     }
 
-    public ResembleRiskData setResemble(String resemble) {
-        this.resemble = resemble;
+    public ResembleRiskData setWorkName(String workName) {
+        this.workName = workName;
         return this;
     }
-    public String getResemble() {
-        return this.resemble;
+    public String getWorkName() {
+        return this.workName;
+    }
+
+    public ResembleRiskData setScore(String score) {
+        this.score = score;
+        return this;
+    }
+    public String getScore() {
+        return this.score;
     }
 
     public ResembleRiskData setWorkDownloadUrl(String workDownloadUrl) {
@@ -66,12 +62,12 @@ public class ResembleRiskData extends TeaModel {
         return this.workDownloadUrl;
     }
 
-    public ResembleRiskData setRiskLevel(Long riskLevel) {
-        this.riskLevel = riskLevel;
+    public ResembleRiskData setResembleDetails(java.util.List<ResembleDetail> resembleDetails) {
+        this.resembleDetails = resembleDetails;
         return this;
     }
-    public Long getRiskLevel() {
-        return this.riskLevel;
+    public java.util.List<ResembleDetail> getResembleDetails() {
+        return this.resembleDetails;
     }
 
 }

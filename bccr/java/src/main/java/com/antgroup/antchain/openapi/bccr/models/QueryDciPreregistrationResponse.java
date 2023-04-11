@@ -116,6 +116,14 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     @NameInMap("publication_url")
     public String publicationUrl;
 
+    // DCI类型
+    @NameInMap("apply_type")
+    public String applyType;
+
+    // 系列图错误原因集合
+    @NameInMap("series_diagram_error_reason_list")
+    public java.util.List<SeriesDiagramErrorReason> seriesDiagramErrorReasonList;
+
     public static QueryDciPreregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciPreregistrationResponse self = new QueryDciPreregistrationResponse();
         return TeaModel.build(map, self);
@@ -343,6 +351,22 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     }
     public String getPublicationUrl() {
         return this.publicationUrl;
+    }
+
+    public QueryDciPreregistrationResponse setApplyType(String applyType) {
+        this.applyType = applyType;
+        return this;
+    }
+    public String getApplyType() {
+        return this.applyType;
+    }
+
+    public QueryDciPreregistrationResponse setSeriesDiagramErrorReasonList(java.util.List<SeriesDiagramErrorReason> seriesDiagramErrorReasonList) {
+        this.seriesDiagramErrorReasonList = seriesDiagramErrorReasonList;
+        return this;
+    }
+    public java.util.List<SeriesDiagramErrorReason> getSeriesDiagramErrorReasonList() {
+        return this.seriesDiagramErrorReasonList;
     }
 
 }
