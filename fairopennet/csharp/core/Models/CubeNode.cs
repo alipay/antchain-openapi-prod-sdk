@@ -15,10 +15,10 @@ namespace AntChain.SDK.FAIROPENNET.Models
         [Validation(Required=true)]
         public string Domain { get; set; }
 
-        // 无
+        //  
         [NameInMap("endpoints")]
         [Validation(Required=true)]
-        public List<string> Endpoints { get; set; }
+        public List<NodeEndpoint> Endpoints { get; set; }
 
         //  
         [NameInMap("node_id")]

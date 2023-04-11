@@ -137,7 +137,7 @@ namespace AntChain.SDK.FAIROPENNET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "FAIROPENNET"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.FAIROPENNET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "FAIROPENNET"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1419,6 +1419,132 @@ namespace AntChain.SDK.FAIROPENNET
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DownloadFileResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.file.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询可用的fair节点nodeId
+         * Summary: 查询fair node列表
+         */
+        public GetNodeListResponse GetNodeList(GetNodeListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetNodeListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询可用的fair节点nodeId
+         * Summary: 查询fair node列表
+         */
+        public async Task<GetNodeListResponse> GetNodeListAsync(GetNodeListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetNodeListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询可用的fair节点nodeId
+         * Summary: 查询fair node列表
+         */
+        public GetNodeListResponse GetNodeListEx(GetNodeListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetNodeListResponse>(DoRequest("1.0", "antchain.fairopennet.node.list.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询可用的fair节点nodeId
+         * Summary: 查询fair node列表
+         */
+        public async Task<GetNodeListResponse> GetNodeListExAsync(GetNodeListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetNodeListResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.node.list.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册新用户
+         * Summary: 注册新用户
+         */
+        public RegisterPartyResponse RegisterParty(RegisterPartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterPartyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册新用户
+         * Summary: 注册新用户
+         */
+        public async Task<RegisterPartyResponse> RegisterPartyAsync(RegisterPartyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterPartyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册新用户
+         * Summary: 注册新用户
+         */
+        public RegisterPartyResponse RegisterPartyEx(RegisterPartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterPartyResponse>(DoRequest("1.0", "antchain.fairopennet.party.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册新用户
+         * Summary: 注册新用户
+         */
+        public async Task<RegisterPartyResponse> RegisterPartyExAsync(RegisterPartyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterPartyResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.party.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户是否注册成功
+         * Summary: 查询用户注册进度
+         */
+        public QueryPartyRegisterstatusResponse QueryPartyRegisterstatus(QueryPartyRegisterstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPartyRegisterstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户是否注册成功
+         * Summary: 查询用户注册进度
+         */
+        public async Task<QueryPartyRegisterstatusResponse> QueryPartyRegisterstatusAsync(QueryPartyRegisterstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPartyRegisterstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户是否注册成功
+         * Summary: 查询用户注册进度
+         */
+        public QueryPartyRegisterstatusResponse QueryPartyRegisterstatusEx(QueryPartyRegisterstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPartyRegisterstatusResponse>(DoRequest("1.0", "antchain.fairopennet.party.registerstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户是否注册成功
+         * Summary: 查询用户注册进度
+         */
+        public async Task<QueryPartyRegisterstatusResponse> QueryPartyRegisterstatusExAsync(QueryPartyRegisterstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPartyRegisterstatusResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.party.registerstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
