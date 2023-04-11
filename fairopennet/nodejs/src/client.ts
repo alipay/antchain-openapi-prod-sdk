@@ -144,6 +144,31 @@ export class DynamicDsl extends $tea.Model {
   }
 }
 
+// 描述cube节点
+export class NodeEndpoint extends $tea.Model {
+  //  
+  ip: string;
+  //  
+  port: string;
+  static names(): { [key: string]: string } {
+    return {
+      ip: 'ip',
+      port: 'port',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ip: 'string',
+      port: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // GetNetworkStatus接口输入，包含networkId
 export class GetNetworkStatusInput extends $tea.Model {
   // 网络的networkId
@@ -598,8 +623,8 @@ export class NetworkEntranceInfo extends $tea.Model {
 export class CubeNode extends $tea.Model {
   // 无
   domain: string;
-  // 无
-  endpoints: string[];
+  //  
+  endpoints: NodeEndpoint[];
   //  
   nodeId: string;
   //  
@@ -625,7 +650,7 @@ export class CubeNode extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       domain: 'string',
-      endpoints: { 'type': 'array', 'itemType': 'string' },
+      endpoints: { 'type': 'array', 'itemType': NodeEndpoint },
       nodeId: 'string',
       nodeIdHash: 'string',
       nodePublicKey: 'string',
@@ -2121,6 +2146,183 @@ export class DownloadFileResponse extends $tea.Model {
   }
 }
 
+export class GetNodeListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetNodeListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // nodeId列表
+  nodeList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nodeList: 'node_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nodeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterPartyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 参与方的partyId
+  partyId: string;
+  // 描述party
+  partyDesc: string;
+  // 节点的nodeId
+  nodeId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      partyId: 'party_id',
+      partyDesc: 'party_desc',
+      nodeId: 'node_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      partyId: 'string',
+      partyDesc: 'string',
+      nodeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterPartyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPartyRegisterstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 节点的nodeId
+  nodeId: string;
+  // 用户的partyId
+  partyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      nodeId: 'node_id',
+      partyId: 'party_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      nodeId: 'string',
+      partyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPartyRegisterstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2322,7 +2524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
           _prod_code: "FAIROPENNET",
           _prod_channel: "undefined",
         };
@@ -2866,6 +3068,63 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<DownloadFileResponse>(await this.doRequest("1.0", "antchain.fairopennet.file.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadFileResponse({}));
+  }
+
+  /**
+   * Description: 查询可用的fair节点nodeId
+   * Summary: 查询fair node列表
+   */
+  async getNodeList(request: GetNodeListRequest): Promise<GetNodeListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getNodeListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询可用的fair节点nodeId
+   * Summary: 查询fair node列表
+   */
+  async getNodeListEx(request: GetNodeListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetNodeListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetNodeListResponse>(await this.doRequest("1.0", "antchain.fairopennet.node.list.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetNodeListResponse({}));
+  }
+
+  /**
+   * Description: 注册新用户
+   * Summary: 注册新用户
+   */
+  async registerParty(request: RegisterPartyRequest): Promise<RegisterPartyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerPartyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 注册新用户
+   * Summary: 注册新用户
+   */
+  async registerPartyEx(request: RegisterPartyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterPartyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterPartyResponse>(await this.doRequest("1.0", "antchain.fairopennet.party.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterPartyResponse({}));
+  }
+
+  /**
+   * Description: 查询用户是否注册成功
+   * Summary: 查询用户注册进度
+   */
+  async queryPartyRegisterstatus(request: QueryPartyRegisterstatusRequest): Promise<QueryPartyRegisterstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPartyRegisterstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户是否注册成功
+   * Summary: 查询用户注册进度
+   */
+  async queryPartyRegisterstatusEx(request: QueryPartyRegisterstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPartyRegisterstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPartyRegisterstatusResponse>(await this.doRequest("1.0", "antchain.fairopennet.party.registerstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPartyRegisterstatusResponse({}));
   }
 
   /**
