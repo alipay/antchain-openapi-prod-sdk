@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.4',
     _prod_code = 'FAIROPENNET',
     _prod_channel = 'undefined'
   };
@@ -183,6 +183,14 @@ model DynamicDsl {
   autoStart: boolean(name='auto_start', example='true, false'),
   //  
   parameters: string(name='parameters', example=' '),
+}
+
+// 描述cube节点
+model NodeEndpoint {
+  //  
+  ip: string(name='ip', example=' '),
+  //  
+  port: string(name='port', example=' '),
 }
 
 // GetNetworkStatus接口输入，包含networkId
@@ -351,8 +359,8 @@ model NetworkEntranceInfo {
 model CubeNode {
   // 无
   domain: string(name='domain', example='""'),
-  // 无
-  endpoints: [ string ](name='endpoints', example=''),
+  //  
+  endpoints: [ NodeEndpoint ](name='endpoints', example=''),
   //  
   nodeId: string(name='node_id', example='""'),
   //  
@@ -1335,6 +1343,120 @@ async function downloadFileEx(request: DownloadFileRequest, headers: map[string]
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.fairopennet.file.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetNodeListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetNodeListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // nodeId列表
+  nodeList?: [ string ](name='node_list'),
+}
+
+/**
+ * Description: 查询可用的fair节点nodeId
+ * Summary: 查询fair node列表
+ */
+async function getNodeList(request: GetNodeListRequest): GetNodeListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getNodeListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询可用的fair节点nodeId
+ * Summary: 查询fair node列表
+ */
+async function getNodeListEx(request: GetNodeListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetNodeListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.node.list.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterPartyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参与方的partyId
+  partyId: string(name='party_id'),
+  // 描述party
+  partyDesc: string(name='party_desc'),
+  // 节点的nodeId
+  nodeId: string(name='node_id'),
+}
+
+model RegisterPartyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 注册新用户
+ * Summary: 注册新用户
+ */
+async function registerParty(request: RegisterPartyRequest): RegisterPartyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerPartyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册新用户
+ * Summary: 注册新用户
+ */
+async function registerPartyEx(request: RegisterPartyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterPartyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.party.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPartyRegisterstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 节点的nodeId
+  nodeId: string(name='node_id'),
+  // 用户的partyId
+  partyId: string(name='party_id'),
+}
+
+model QueryPartyRegisterstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询用户是否注册成功
+ * Summary: 查询用户注册进度
+ */
+async function queryPartyRegisterstatus(request: QueryPartyRegisterstatusRequest): QueryPartyRegisterstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPartyRegisterstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户是否注册成功
+ * Summary: 查询用户注册进度
+ */
+async function queryPartyRegisterstatusEx(request: QueryPartyRegisterstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPartyRegisterstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.fairopennet.party.registerstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
