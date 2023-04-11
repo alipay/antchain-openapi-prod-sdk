@@ -148,6 +148,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 相似位置信息
+type ResemblePositionData struct {
+	// 起始位置
+	StartPosition *int64 `json:"start_position,omitempty" xml:"start_position,omitempty" require:"true"`
+	// 结束位置
+	EndPosition *int64 `json:"end_position,omitempty" xml:"end_position,omitempty" require:"true"`
+}
+
+func (s ResemblePositionData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResemblePositionData) GoString() string {
+	return s.String()
+}
+
+func (s *ResemblePositionData) SetStartPosition(v int64) *ResemblePositionData {
+	s.StartPosition = &v
+	return s
+}
+
+func (s *ResemblePositionData) SetEndPosition(v int64) *ResemblePositionData {
+	s.EndPosition = &v
+	return s
+}
+
 // 出证用户（申请人，经办人）
 type NotaryUser struct {
 	// 用户类型
@@ -291,6 +317,53 @@ func (s *Reason) SetIsNeedAttachment(v bool) *Reason {
 	return s
 }
 
+// 相似的明细结果
+type ResembleDetail struct {
+	// 相似分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+	// 长度
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 明细类型，例如SEGMENT表示区间相似
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 查询源文件的位置信息
+	QueryPositionData *ResemblePositionData `json:"query_position_data,omitempty" xml:"query_position_data,omitempty" require:"true"`
+	// 相似文件的位置信息
+	MatchPositionData *ResemblePositionData `json:"match_position_data,omitempty" xml:"match_position_data,omitempty" require:"true"`
+}
+
+func (s ResembleDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResembleDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ResembleDetail) SetScore(v string) *ResembleDetail {
+	s.Score = &v
+	return s
+}
+
+func (s *ResembleDetail) SetLength(v string) *ResembleDetail {
+	s.Length = &v
+	return s
+}
+
+func (s *ResembleDetail) SetType(v string) *ResembleDetail {
+	s.Type = &v
+	return s
+}
+
+func (s *ResembleDetail) SetQueryPositionData(v *ResemblePositionData) *ResembleDetail {
+	s.QueryPositionData = v
+	return s
+}
+
+func (s *ResembleDetail) SetMatchPositionData(v *ResemblePositionData) *ResembleDetail {
+	s.MatchPositionData = v
+	return s
+}
+
 // 收件人信息
 type DeliveryInfo struct {
 	// 收件人姓名
@@ -354,16 +427,16 @@ func (s *DeliveryInfo) SetEmail(v string) *DeliveryInfo {
 
 // 作品相似识别结果
 type ResembleRiskData struct {
-	// 识别结果
-	Code *int64 `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 重复作品ID
 	WorkId *string `json:"work_id,omitempty" xml:"work_id,omitempty" require:"true"`
-	// 相似值百分比
-	Resemble *string `json:"resemble,omitempty" xml:"resemble,omitempty" require:"true"`
+	// 相似作品的名称
+	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty"`
+	// 相似值
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
 	// 相似作品下载链接
-	WorkDownloadUrl *string `json:"work_download_url,omitempty" xml:"work_download_url,omitempty" require:"true"`
-	// 风险等级
-	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	WorkDownloadUrl *string `json:"work_download_url,omitempty" xml:"work_download_url,omitempty"`
+	// 相似明细
+	ResembleDetails []*ResembleDetail `json:"resemble_details,omitempty" xml:"resemble_details,omitempty" type:"Repeated"`
 }
 
 func (s ResembleRiskData) String() string {
@@ -374,18 +447,18 @@ func (s ResembleRiskData) GoString() string {
 	return s.String()
 }
 
-func (s *ResembleRiskData) SetCode(v int64) *ResembleRiskData {
-	s.Code = &v
-	return s
-}
-
 func (s *ResembleRiskData) SetWorkId(v string) *ResembleRiskData {
 	s.WorkId = &v
 	return s
 }
 
-func (s *ResembleRiskData) SetResemble(v string) *ResembleRiskData {
-	s.Resemble = &v
+func (s *ResembleRiskData) SetWorkName(v string) *ResembleRiskData {
+	s.WorkName = &v
+	return s
+}
+
+func (s *ResembleRiskData) SetScore(v string) *ResembleRiskData {
+	s.Score = &v
 	return s
 }
 
@@ -394,23 +467,15 @@ func (s *ResembleRiskData) SetWorkDownloadUrl(v string) *ResembleRiskData {
 	return s
 }
 
-func (s *ResembleRiskData) SetRiskLevel(v int64) *ResembleRiskData {
-	s.RiskLevel = &v
+func (s *ResembleRiskData) SetResembleDetails(v []*ResembleDetail) *ResembleRiskData {
+	s.ResembleDetails = v
 	return s
 }
 
-// 内容安全识别结果
+// 安全识别结果
 type ContentRiskData struct {
-	// 识别结果
-	Code *int64 `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 内容类型
-	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
 	// 风险名称
 	RiskName *string `json:"risk_name,omitempty" xml:"risk_name,omitempty" require:"true"`
-	// 风险等级
-	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
-	// 风险评分
-	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
 }
 
 func (s ContentRiskData) String() string {
@@ -421,43 +486,19 @@ func (s ContentRiskData) GoString() string {
 	return s.String()
 }
 
-func (s *ContentRiskData) SetCode(v int64) *ContentRiskData {
-	s.Code = &v
-	return s
-}
-
-func (s *ContentRiskData) SetContentType(v string) *ContentRiskData {
-	s.ContentType = &v
-	return s
-}
-
 func (s *ContentRiskData) SetRiskName(v string) *ContentRiskData {
 	s.RiskName = &v
 	return s
 }
 
-func (s *ContentRiskData) SetRiskLevel(v int64) *ContentRiskData {
-	s.RiskLevel = &v
-	return s
-}
-
-func (s *ContentRiskData) SetRiskScore(v int64) *ContentRiskData {
-	s.RiskScore = &v
-	return s
-}
-
 // 作品标签识别结果
 type LabelRiskData struct {
-	// 识别结果
-	Code *int64 `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 识别出的标签名称
 	LabelName *string `json:"label_name,omitempty" xml:"label_name,omitempty" require:"true"`
 	// 识别出的标签是否与用户选择的标签匹配
-	IsRisk *bool `json:"is_risk,omitempty" xml:"is_risk,omitempty" require:"true"`
-	// 识别出的标签匹配度百分比
-	SimilarValue *string `json:"similar_value,omitempty" xml:"similar_value,omitempty" require:"true"`
-	// 风险等级
-	RiskLevel *int64 `json:"risk_level,omitempty" xml:"risk_level,omitempty" require:"true"`
+	IsMatch *bool `json:"is_match,omitempty" xml:"is_match,omitempty" require:"true"`
+	// 识别出的标签匹配度
+	MatchValue *string `json:"match_value,omitempty" xml:"match_value,omitempty" require:"true"`
 }
 
 func (s LabelRiskData) String() string {
@@ -468,28 +509,18 @@ func (s LabelRiskData) GoString() string {
 	return s.String()
 }
 
-func (s *LabelRiskData) SetCode(v int64) *LabelRiskData {
-	s.Code = &v
-	return s
-}
-
 func (s *LabelRiskData) SetLabelName(v string) *LabelRiskData {
 	s.LabelName = &v
 	return s
 }
 
-func (s *LabelRiskData) SetIsRisk(v bool) *LabelRiskData {
-	s.IsRisk = &v
+func (s *LabelRiskData) SetIsMatch(v bool) *LabelRiskData {
+	s.IsMatch = &v
 	return s
 }
 
-func (s *LabelRiskData) SetSimilarValue(v string) *LabelRiskData {
-	s.SimilarValue = &v
-	return s
-}
-
-func (s *LabelRiskData) SetRiskLevel(v int64) *LabelRiskData {
-	s.RiskLevel = &v
+func (s *LabelRiskData) SetMatchValue(v string) *LabelRiskData {
+	s.MatchValue = &v
 	return s
 }
 
@@ -950,6 +981,39 @@ func (s *ReceiveInfo) SetOrderType(v string) *ReceiveInfo {
 
 func (s *ReceiveInfo) SetDeliveryInfo(v *DeliveryInfo) *ReceiveInfo {
 	s.DeliveryInfo = v
+	return s
+}
+
+// 系列图错误原因
+type SeriesDiagramErrorReason struct {
+	// 系列图单个图片所属页码
+	ImagePdfPageIndex *int64 `json:"image_pdf_page_index,omitempty" xml:"image_pdf_page_index,omitempty" require:"true"`
+	// 错误原因英文
+	Error *string `json:"error,omitempty" xml:"error,omitempty" require:"true"`
+	// 错误原因中文
+	ErrorCn *string `json:"error_cn,omitempty" xml:"error_cn,omitempty" require:"true"`
+}
+
+func (s SeriesDiagramErrorReason) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SeriesDiagramErrorReason) GoString() string {
+	return s.String()
+}
+
+func (s *SeriesDiagramErrorReason) SetImagePdfPageIndex(v int64) *SeriesDiagramErrorReason {
+	s.ImagePdfPageIndex = &v
+	return s
+}
+
+func (s *SeriesDiagramErrorReason) SetError(v string) *SeriesDiagramErrorReason {
+	s.Error = &v
+	return s
+}
+
+func (s *SeriesDiagramErrorReason) SetErrorCn(v string) *SeriesDiagramErrorReason {
+	s.ErrorCn = &v
 	return s
 }
 
@@ -2265,6 +2329,8 @@ type RecordScreenData struct {
 	EvidenceOrderNum *string `json:"evidence_order_num,omitempty" xml:"evidence_order_num,omitempty"`
 	// 补正说明函下载地址
 	CorrectionUrl *string `json:"correction_url,omitempty" xml:"correction_url,omitempty"`
+	// 录屏取证准备时间
+	GmtReady *int64 `json:"gmt_ready,omitempty" xml:"gmt_ready,omitempty"`
 }
 
 func (s RecordScreenData) String() string {
@@ -2377,6 +2443,11 @@ func (s *RecordScreenData) SetEvidenceOrderNum(v string) *RecordScreenData {
 
 func (s *RecordScreenData) SetCorrectionUrl(v string) *RecordScreenData {
 	s.CorrectionUrl = &v
+	return s
+}
+
+func (s *RecordScreenData) SetGmtReady(v int64) *RecordScreenData {
+	s.GmtReady = &v
 	return s
 }
 
@@ -3023,14 +3094,16 @@ func (s *GoodsInfo) SetPublishTime(v int64) *GoodsInfo {
 	return s
 }
 
-// 审查结果
+// 审查数据
 type ReviewData struct {
+	// 作品名称安全识别结果
+	TitleRiskData []*ContentRiskData `json:"title_risk_data,omitempty" xml:"title_risk_data,omitempty" type:"Repeated"`
 	// 内容安全识别结果
-	ContentRiskData []*ContentRiskData `json:"content_risk_data,omitempty" xml:"content_risk_data,omitempty" require:"true" type:"Repeated"`
+	ContentRiskData []*ContentRiskData `json:"content_risk_data,omitempty" xml:"content_risk_data,omitempty" type:"Repeated"`
 	// 作品相似识别结果
-	ResembleRiskData []*ResembleRiskData `json:"resemble_risk_data,omitempty" xml:"resemble_risk_data,omitempty" require:"true" type:"Repeated"`
+	ResembleRiskData []*ResembleRiskData `json:"resemble_risk_data,omitempty" xml:"resemble_risk_data,omitempty" type:"Repeated"`
 	// 作品标签识别结果
-	LabelRiskData []*LabelRiskData `json:"label_risk_data,omitempty" xml:"label_risk_data,omitempty" require:"true" type:"Repeated"`
+	LabelRiskData []*LabelRiskData `json:"label_risk_data,omitempty" xml:"label_risk_data,omitempty" type:"Repeated"`
 }
 
 func (s ReviewData) String() string {
@@ -3039,6 +3112,11 @@ func (s ReviewData) String() string {
 
 func (s ReviewData) GoString() string {
 	return s.String()
+}
+
+func (s *ReviewData) SetTitleRiskData(v []*ContentRiskData) *ReviewData {
+	s.TitleRiskData = v
+	return s
 }
 
 func (s *ReviewData) SetContentRiskData(v []*ContentRiskData) *ReviewData {
@@ -3566,6 +3644,8 @@ type AddRegisterRequest struct {
 	SyncInfo *AccountData `json:"sync_info,omitempty" xml:"sync_info,omitempty"`
 	// 代理信息
 	ProxyInfo *ProxyData `json:"proxy_info,omitempty" xml:"proxy_info,omitempty"`
+	// 渠道标签
+	ChannelTerminal *string `json:"channel_terminal,omitempty" xml:"channel_terminal,omitempty"`
 }
 
 func (s AddRegisterRequest) String() string {
@@ -3693,6 +3773,11 @@ func (s *AddRegisterRequest) SetSyncInfo(v *AccountData) *AddRegisterRequest {
 
 func (s *AddRegisterRequest) SetProxyInfo(v *ProxyData) *AddRegisterRequest {
 	s.ProxyInfo = v
+	return s
+}
+
+func (s *AddRegisterRequest) SetChannelTerminal(v string) *AddRegisterRequest {
+	s.ChannelTerminal = &v
 	return s
 }
 
@@ -6134,6 +6219,10 @@ type CreateDciPreregistrationRequest struct {
 	CategoryRiskRank *string `json:"category_risk_rank,omitempty" xml:"category_risk_rank,omitempty"`
 	// 著作权人用户id List
 	CopyrightOwnerIds []*string `json:"copyright_owner_ids,omitempty" xml:"copyright_owner_ids,omitempty" require:"true" type:"Repeated"`
+	// DCI类型
+	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty"`
+	// 渠道标签
+	ChannelTerminal *string `json:"channel_terminal,omitempty" xml:"channel_terminal,omitempty"`
 }
 
 func (s CreateDciPreregistrationRequest) String() string {
@@ -6241,6 +6330,16 @@ func (s *CreateDciPreregistrationRequest) SetCategoryRiskRank(v string) *CreateD
 
 func (s *CreateDciPreregistrationRequest) SetCopyrightOwnerIds(v []*string) *CreateDciPreregistrationRequest {
 	s.CopyrightOwnerIds = v
+	return s
+}
+
+func (s *CreateDciPreregistrationRequest) SetApplyType(v string) *CreateDciPreregistrationRequest {
+	s.ApplyType = &v
+	return s
+}
+
+func (s *CreateDciPreregistrationRequest) SetChannelTerminal(v string) *CreateDciPreregistrationRequest {
+	s.ChannelTerminal = &v
 	return s
 }
 
@@ -6378,6 +6477,10 @@ type QueryDciPreregistrationResponse struct {
 	ErrorReasonCn *string `json:"error_reason_cn,omitempty" xml:"error_reason_cn,omitempty"`
 	// 公式地址
 	PublicationUrl *string `json:"publication_url,omitempty" xml:"publication_url,omitempty"`
+	// DCI类型
+	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty"`
+	// 系列图错误原因集合
+	SeriesDiagramErrorReasonList []*SeriesDiagramErrorReason `json:"series_diagram_error_reason_list,omitempty" xml:"series_diagram_error_reason_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryDciPreregistrationResponse) String() string {
@@ -6525,6 +6628,16 @@ func (s *QueryDciPreregistrationResponse) SetErrorReasonCn(v string) *QueryDciPr
 
 func (s *QueryDciPreregistrationResponse) SetPublicationUrl(v string) *QueryDciPreregistrationResponse {
 	s.PublicationUrl = &v
+	return s
+}
+
+func (s *QueryDciPreregistrationResponse) SetApplyType(v string) *QueryDciPreregistrationResponse {
+	s.ApplyType = &v
+	return s
+}
+
+func (s *QueryDciPreregistrationResponse) SetSeriesDiagramErrorReasonList(v []*SeriesDiagramErrorReason) *QueryDciPreregistrationResponse {
+	s.SeriesDiagramErrorReasonList = v
 	return s
 }
 
@@ -7694,16 +7807,18 @@ type QueryDciContentsecurityRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 作品名称
-	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty" require:"true"`
-	// 作品哈希
-	WorkHash *string `json:"work_hash,omitempty" xml:"work_hash,omitempty" require:"true"`
-	// 作品类型
-	WorkCategory *string `json:"work_category,omitempty" xml:"work_category,omitempty" require:"true"`
+	// 任务ID(数登流水号)
+	FlowNumber *string `json:"flow_number,omitempty" xml:"flow_number,omitempty" require:"true"`
 	// 客户端令牌
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 任务Id, 已废弃
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 作品名，已废弃
+	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty"`
+	// 作品Hash，已废弃
+	WorkHash *string `json:"work_hash,omitempty" xml:"work_hash,omitempty"`
+	// 作品分类，已废弃
+	WorkCategory *string `json:"work_category,omitempty" xml:"work_category,omitempty"`
 }
 
 func (s QueryDciContentsecurityRequest) String() string {
@@ -7724,6 +7839,16 @@ func (s *QueryDciContentsecurityRequest) SetProductInstanceId(v string) *QueryDc
 	return s
 }
 
+func (s *QueryDciContentsecurityRequest) SetFlowNumber(v string) *QueryDciContentsecurityRequest {
+	s.FlowNumber = &v
+	return s
+}
+
+func (s *QueryDciContentsecurityRequest) SetClientToken(v string) *QueryDciContentsecurityRequest {
+	s.ClientToken = &v
+	return s
+}
+
 func (s *QueryDciContentsecurityRequest) SetTaskId(v string) *QueryDciContentsecurityRequest {
 	s.TaskId = &v
 	return s
@@ -7741,11 +7866,6 @@ func (s *QueryDciContentsecurityRequest) SetWorkHash(v string) *QueryDciContents
 
 func (s *QueryDciContentsecurityRequest) SetWorkCategory(v string) *QueryDciContentsecurityRequest {
 	s.WorkCategory = &v
-	return s
-}
-
-func (s *QueryDciContentsecurityRequest) SetClientToken(v string) *QueryDciContentsecurityRequest {
-	s.ClientToken = &v
 	return s
 }
 
@@ -9182,6 +9302,10 @@ type QueryDciPreviewResponse struct {
 	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 数登登记号
 	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty"`
+	// 著作权人名称列表
+	CopyrightOwnerNames []*string `json:"copyright_owner_names,omitempty" xml:"copyright_owner_names,omitempty" type:"Repeated"`
+	// 系列图预览地址
+	SeriesDiagramPreviewList []*string `json:"series_diagram_preview_list,omitempty" xml:"series_diagram_preview_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryDciPreviewResponse) String() string {
@@ -9249,6 +9373,16 @@ func (s *QueryDciPreviewResponse) SetQueryTime(v string) *QueryDciPreviewRespons
 
 func (s *QueryDciPreviewResponse) SetRegNumber(v string) *QueryDciPreviewResponse {
 	s.RegNumber = &v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetCopyrightOwnerNames(v []*string) *QueryDciPreviewResponse {
+	s.CopyrightOwnerNames = v
+	return s
+}
+
+func (s *QueryDciPreviewResponse) SetSeriesDiagramPreviewList(v []*string) *QueryDciPreviewResponse {
+	s.SeriesDiagramPreviewList = v
 	return s
 }
 
@@ -9424,6 +9558,139 @@ func (s *CloseDciRegistrationResponse) SetResultCode(v string) *CloseDciRegistra
 
 func (s *CloseDciRegistrationResponse) SetResultMsg(v string) *CloseDciRegistrationResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type AddDciUsernocertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户名称
+	CertificateName *string `json:"certificate_name,omitempty" xml:"certificate_name,omitempty" require:"true"`
+	// 证件类型
+	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty" require:"true"`
+	// 证件号
+	CertificateNumber *string `json:"certificate_number,omitempty" xml:"certificate_number,omitempty" require:"true"`
+	// 企业用户必填
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty"`
+	// 企业用户必填
+	LegalPersonCertType *string `json:"legal_person_cert_type,omitempty" xml:"legal_person_cert_type,omitempty"`
+	// 企业用户必填
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 代理信息
+	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s AddDciUsernocertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDciUsernocertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddDciUsernocertRequest) SetAuthToken(v string) *AddDciUsernocertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetProductInstanceId(v string) *AddDciUsernocertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetCertificateName(v string) *AddDciUsernocertRequest {
+	s.CertificateName = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetCertificateType(v string) *AddDciUsernocertRequest {
+	s.CertificateType = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetCertificateNumber(v string) *AddDciUsernocertRequest {
+	s.CertificateNumber = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetLegalPersonCertName(v string) *AddDciUsernocertRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetLegalPersonCertType(v string) *AddDciUsernocertRequest {
+	s.LegalPersonCertType = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetLegalPersonCertNo(v string) *AddDciUsernocertRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetPhone(v string) *AddDciUsernocertRequest {
+	s.Phone = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetProxyData(v *ProxyData) *AddDciUsernocertRequest {
+	s.ProxyData = v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetClientToken(v string) *AddDciUsernocertRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type AddDciUsernocertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// dci用户id
+	DciUserId *string `json:"dci_user_id,omitempty" xml:"dci_user_id,omitempty"`
+	// dci用户状态
+	DciUserStatus *string `json:"dci_user_status,omitempty" xml:"dci_user_status,omitempty"`
+}
+
+func (s AddDciUsernocertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDciUsernocertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddDciUsernocertResponse) SetReqMsgId(v string) *AddDciUsernocertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddDciUsernocertResponse) SetResultCode(v string) *AddDciUsernocertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddDciUsernocertResponse) SetResultMsg(v string) *AddDciUsernocertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddDciUsernocertResponse) SetDciUserId(v string) *AddDciUsernocertResponse {
+	s.DciUserId = &v
+	return s
+}
+
+func (s *AddDciUsernocertResponse) SetDciUserStatus(v string) *AddDciUsernocertResponse {
+	s.DciUserStatus = &v
 	return s
 }
 
@@ -10261,17 +10528,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -10305,7 +10572,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.38"),
+				"sdk_version":      tea.String("1.17.48"),
+				"_prod_code":       tea.String("BCCR"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -12122,6 +12391,40 @@ func (client *Client) CloseDciRegistrationEx(request *CloseDciRegistrationReques
 	}
 	_result = &CloseDciRegistrationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registration.close"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: dci用户无需证件注册
+ * Summary: dci用户无需证件注册
+ */
+func (client *Client) AddDciUsernocert(request *AddDciUsernocertRequest) (_result *AddDciUsernocertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddDciUsernocertResponse{}
+	_body, _err := client.AddDciUsernocertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: dci用户无需证件注册
+ * Summary: dci用户无需证件注册
+ */
+func (client *Client) AddDciUsernocertEx(request *AddDciUsernocertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddDciUsernocertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddDciUsernocertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.usernocert.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
