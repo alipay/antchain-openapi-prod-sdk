@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.38',
+    sdk_version = '1.17.48',
+    _prod_code = 'BCCR',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -157,6 +159,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 相似位置信息
+model ResemblePositionData {
+  // 起始位置
+  startPosition: long(name='start_position', example='0'),
+  // 结束位置
+  endPosition: long(name='end_position', example='1'),
 }
 
 // 出证用户（申请人，经办人）
@@ -201,6 +211,20 @@ model Reason {
   isNeedAttachment: boolean(name='is_need_attachment', example='true, false'),
 }
 
+// 相似的明细结果
+model ResembleDetail {
+  // 相似分数
+  score: string(name='score', example='0.99'),
+  // 长度
+  length?: string(name='length', example='02:59:59'),
+  // 明细类型，例如SEGMENT表示区间相似
+  type: string(name='type', example='SEGMENT'),
+  // 查询源文件的位置信息
+  queryPositionData: ResemblePositionData(name='query_position_data', example=''),
+  // 相似文件的位置信息
+  matchPositionData: ResemblePositionData(name='match_position_data', example=''),
+}
+
 // 收件人信息
 model DeliveryInfo {
   // 收件人姓名
@@ -221,44 +245,32 @@ model DeliveryInfo {
 
 // 作品相似识别结果
 model ResembleRiskData {
-  // 识别结果
-  code: long(name='code', example='成功：1，失败：0'),
   // 重复作品ID
   workId: string(name='work_id', example='重复作品ID'),
-  // 相似值百分比
-  resemble: string(name='resemble', example='相似值百分比'),
+  // 相似作品的名称
+  workName?: string(name='work_name', example='相似作品的名称'),
+  // 相似值
+  score?: string(name='score', example='相似值'),
   // 相似作品下载链接
-  workDownloadUrl: string(name='work_download_url', example='相似作品下载链接'),
-  // 风险等级
-  riskLevel: long(name='risk_level', example='高3，中2，低1'),
+  workDownloadUrl?: string(name='work_download_url', example='相似作品下载链接'),
+  // 相似明细
+  resembleDetails?: [ ResembleDetail ](name='resemble_details', example=''),
 }
 
-// 内容安全识别结果
+// 安全识别结果
 model ContentRiskData {
-  // 识别结果
-  code: long(name='code', example='成功：1，失败：0'),
-  // 内容类型
-  contentType: string(name='content_type', example='IMAGE'),
   // 风险名称
   riskName: string(name='risk_name', example='风险名称'),
-  // 风险等级
-  riskLevel: long(name='risk_level', example='高3，中2，低1'),
-  // 风险评分
-  riskScore: long(name='risk_score', example='风险评分'),
 }
 
 // 作品标签识别结果
 model LabelRiskData {
-  // 识别结果
-  code: long(name='code', example='成功：1，失败：0'),
   // 识别出的标签名称
   labelName: string(name='label_name', example='识别出的标签名称'),
   // 识别出的标签是否与用户选择的标签匹配
-  isRisk: boolean(name='is_risk', example='true, false'),
-  // 识别出的标签匹配度百分比
-  similarValue: string(name='similar_value', example='识别出的标签匹配度百分比'),
-  // 风险等级
-  riskLevel: long(name='risk_level', example='高3，中2，低1'),
+  isMatch: boolean(name='is_match', example='true, false'),
+  // 识别出的标签匹配度
+  matchValue: string(name='match_value', example='识别出的标签匹配度'),
 }
 
 // 费用分项
@@ -395,6 +407,16 @@ model ReceiveInfo {
   orderType: string(name='order_type', example='PAPER:纸质公证书 E-PAPER:电子公证书 BOTH:纸质+电子公证书'),
   // 收件人信息
   deliveryInfo: DeliveryInfo(name='delivery_info', example=''),
+}
+
+// 系列图错误原因
+model SeriesDiagramErrorReason {
+  // 系列图单个图片所属页码
+  imagePdfPageIndex: long(name='image_pdf_page_index', example='1'),
+  // 错误原因英文
+  error: string(name='error', example='错误原因英文'),
+  // 错误原因中文
+  errorCn: string(name='error_cn', example='错误原因中文'),
 }
 
 // 权利声明核验信息
@@ -857,6 +879,8 @@ model RecordScreenData {
   evidenceOrderNum?: string(name='evidence_order_num', example='xxxx'),
   // 补正说明函下载地址
   correctionUrl?: string(name='correction_url', example='https://xxxx'),
+  // 录屏取证准备时间
+  gmtReady?: long(name='gmt_ready', example='1111'),
 }
 
 // 网页取证数据
@@ -1049,14 +1073,16 @@ model GoodsInfo {
   publishTime?: long(name='publish_time', example=''),
 }
 
-// 审查结果
+// 审查数据
 model ReviewData {
+  // 作品名称安全识别结果
+  titleRiskData?: [ ContentRiskData ](name='title_risk_data', example=''),
   // 内容安全识别结果
-  contentRiskData: [ ContentRiskData ](name='content_risk_data', example=''),
+  contentRiskData?: [ ContentRiskData ](name='content_risk_data', example=''),
   // 作品相似识别结果
-  resembleRiskData: [ ResembleRiskData ](name='resemble_risk_data', example=''),
+  resembleRiskData?: [ ResembleRiskData ](name='resemble_risk_data', example=''),
   // 作品标签识别结果
-  labelRiskData: [ LabelRiskData ](name='label_risk_data', example=''),
+  labelRiskData?: [ LabelRiskData ](name='label_risk_data', example=''),
 }
 
 // 出证的公证书信息
@@ -1278,6 +1304,8 @@ model AddRegisterRequest = {
   syncInfo?: AccountData(name='sync_info'),
   // 代理信息
   proxyInfo?: ProxyData(name='proxy_info'),
+  // 渠道标签
+  channelTerminal?: string(name='channel_terminal'),
 }
 
 model AddRegisterResponse = {
@@ -2404,6 +2432,10 @@ model CreateDciPreregistrationRequest = {
   categoryRiskRank?: string(name='category_risk_rank'),
   // 著作权人用户id List
   copyrightOwnerIds: [ string ](name='copyright_owner_ids'),
+  // DCI类型
+  applyType?: string(name='apply_type'),
+  // 渠道标签
+  channelTerminal?: string(name='channel_terminal'),
 }
 
 model CreateDciPreregistrationResponse = {
@@ -2503,6 +2535,10 @@ model QueryDciPreregistrationResponse = {
   errorReasonCn?: string(name='error_reason_cn'),
   // 公式地址
   publicationUrl?: string(name='publication_url'),
+  // DCI类型
+  applyType?: string(name='apply_type'),
+  // 系列图错误原因集合
+  seriesDiagramErrorReasonList?: [ SeriesDiagramErrorReason ](name='series_diagram_error_reason_list'),
 }
 
 /**
@@ -3022,16 +3058,18 @@ model QueryDciContentsecurityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 任务ID
-  taskId: string(name='task_id'),
-  // 作品名称
-  workName: string(name='work_name'),
-  // 作品哈希
-  workHash: string(name='work_hash'),
-  // 作品类型
-  workCategory: string(name='work_category'),
+  // 任务ID(数登流水号)
+  flowNumber: string(name='flow_number'),
   // 客户端令牌
   clientToken?: string(name='client_token'),
+  // 任务Id, 已废弃
+  taskId?: string(name='task_id'),
+  // 作品名，已废弃
+  workName?: string(name='work_name'),
+  // 作品Hash，已废弃
+  workHash?: string(name='work_hash'),
+  // 作品分类，已废弃
+  workCategory?: string(name='work_category'),
 }
 
 model QueryDciContentsecurityResponse = {
@@ -3732,6 +3770,10 @@ model QueryDciPreviewResponse = {
   queryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='query_time'),
   // 数登登记号
   regNumber?: string(name='reg_number'),
+  // 著作权人名称列表
+  copyrightOwnerNames?: [ string ](name='copyright_owner_names'),
+  // 系列图预览地址
+  seriesDiagramPreviewList?: [ string ](name='series_diagram_preview_list'),
 }
 
 /**
@@ -3837,6 +3879,62 @@ async function closeDciRegistration(request: CloseDciRegistrationRequest): Close
 async function closeDciRegistrationEx(request: CloseDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseDciRegistrationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddDciUsernocertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户名称
+  certificateName: string(name='certificate_name'),
+  // 证件类型
+  certificateType: string(name='certificate_type'),
+  // 证件号
+  certificateNumber: string(name='certificate_number'),
+  // 企业用户必填
+  legalPersonCertName?: string(name='legal_person_cert_name'),
+  // 企业用户必填
+  legalPersonCertType?: string(name='legal_person_cert_type'),
+  // 企业用户必填
+  legalPersonCertNo?: string(name='legal_person_cert_no'),
+  // 手机号
+  phone: string(name='phone'),
+  // 代理信息
+  proxyData?: ProxyData(name='proxy_data'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model AddDciUsernocertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // dci用户id
+  dciUserId?: string(name='dci_user_id'),
+  // dci用户状态
+  dciUserStatus?: string(name='dci_user_status'),
+}
+
+/**
+ * Description: dci用户无需证件注册
+ * Summary: dci用户无需证件注册
+ */
+async function addDciUsernocert(request: AddDciUsernocertRequest): AddDciUsernocertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addDciUsernocertEx(request, headers, runtime);
+}
+
+/**
+ * Description: dci用户无需证件注册
+ * Summary: dci用户无需证件注册
+ */
+async function addDciUsernocertEx(request: AddDciUsernocertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddDciUsernocertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
