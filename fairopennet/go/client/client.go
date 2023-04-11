@@ -229,6 +229,32 @@ func (s *DynamicDsl) SetParameters(v string) *DynamicDsl {
 	return s
 }
 
+// 描述cube节点
+type NodeEndpoint struct {
+	//
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty" require:"true"`
+	//
+	Port *string `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+}
+
+func (s NodeEndpoint) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeEndpoint) GoString() string {
+	return s.String()
+}
+
+func (s *NodeEndpoint) SetIp(v string) *NodeEndpoint {
+	s.Ip = &v
+	return s
+}
+
+func (s *NodeEndpoint) SetPort(v string) *NodeEndpoint {
+	s.Port = &v
+	return s
+}
+
 // GetNetworkStatus接口输入，包含networkId
 type GetNetworkStatusInput struct {
 	// 网络的networkId
@@ -772,8 +798,8 @@ func (s *NetworkEntranceInfo) SetEntranceInfo(v string) *NetworkEntranceInfo {
 type CubeNode struct {
 	// 无
 	Domain *string `json:"domain,omitempty" xml:"domain,omitempty" require:"true"`
-	// 无
-	Endpoints []*string `json:"endpoints,omitempty" xml:"endpoints,omitempty" require:"true" type:"Repeated"`
+	//
+	Endpoints []*NodeEndpoint `json:"endpoints,omitempty" xml:"endpoints,omitempty" require:"true" type:"Repeated"`
 	//
 	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	//
@@ -799,7 +825,7 @@ func (s *CubeNode) SetDomain(v string) *CubeNode {
 	return s
 }
 
-func (s *CubeNode) SetEndpoints(v []*string) *CubeNode {
+func (s *CubeNode) SetEndpoints(v []*NodeEndpoint) *CubeNode {
 	s.Endpoints = v
 	return s
 }
@@ -2596,6 +2622,216 @@ func (s *DownloadFileResponse) SetResultMsg(v string) *DownloadFileResponse {
 	return s
 }
 
+type GetNodeListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s GetNodeListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetNodeListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetNodeListRequest) SetAuthToken(v string) *GetNodeListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetNodeListRequest) SetProductInstanceId(v string) *GetNodeListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type GetNodeListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// nodeId列表
+	NodeList []*string `json:"node_list,omitempty" xml:"node_list,omitempty" type:"Repeated"`
+}
+
+func (s GetNodeListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetNodeListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetNodeListResponse) SetReqMsgId(v string) *GetNodeListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetNodeListResponse) SetResultCode(v string) *GetNodeListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetNodeListResponse) SetResultMsg(v string) *GetNodeListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetNodeListResponse) SetNodeList(v []*string) *GetNodeListResponse {
+	s.NodeList = v
+	return s
+}
+
+type RegisterPartyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 参与方的partyId
+	PartyId *string `json:"party_id,omitempty" xml:"party_id,omitempty" require:"true"`
+	// 描述party
+	PartyDesc *string `json:"party_desc,omitempty" xml:"party_desc,omitempty" require:"true"`
+	// 节点的nodeId
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+}
+
+func (s RegisterPartyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterPartyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterPartyRequest) SetAuthToken(v string) *RegisterPartyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterPartyRequest) SetProductInstanceId(v string) *RegisterPartyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterPartyRequest) SetPartyId(v string) *RegisterPartyRequest {
+	s.PartyId = &v
+	return s
+}
+
+func (s *RegisterPartyRequest) SetPartyDesc(v string) *RegisterPartyRequest {
+	s.PartyDesc = &v
+	return s
+}
+
+func (s *RegisterPartyRequest) SetNodeId(v string) *RegisterPartyRequest {
+	s.NodeId = &v
+	return s
+}
+
+type RegisterPartyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RegisterPartyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterPartyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterPartyResponse) SetReqMsgId(v string) *RegisterPartyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterPartyResponse) SetResultCode(v string) *RegisterPartyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterPartyResponse) SetResultMsg(v string) *RegisterPartyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryPartyRegisterstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 节点的nodeId
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 用户的partyId
+	PartyId *string `json:"party_id,omitempty" xml:"party_id,omitempty" require:"true"`
+}
+
+func (s QueryPartyRegisterstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPartyRegisterstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPartyRegisterstatusRequest) SetAuthToken(v string) *QueryPartyRegisterstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPartyRegisterstatusRequest) SetProductInstanceId(v string) *QueryPartyRegisterstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPartyRegisterstatusRequest) SetNodeId(v string) *QueryPartyRegisterstatusRequest {
+	s.NodeId = &v
+	return s
+}
+
+func (s *QueryPartyRegisterstatusRequest) SetPartyId(v string) *QueryPartyRegisterstatusRequest {
+	s.PartyId = &v
+	return s
+}
+
+type QueryPartyRegisterstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryPartyRegisterstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPartyRegisterstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPartyRegisterstatusResponse) SetReqMsgId(v string) *QueryPartyRegisterstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPartyRegisterstatusResponse) SetResultCode(v string) *QueryPartyRegisterstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPartyRegisterstatusResponse) SetResultMsg(v string) *QueryPartyRegisterstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2838,7 +3074,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("FAIROPENNET"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3763,6 +3999,108 @@ func (client *Client) DownloadFileEx(request *DownloadFileRequest, headers map[s
 	}
 	_result = &DownloadFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.file.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询可用的fair节点nodeId
+ * Summary: 查询fair node列表
+ */
+func (client *Client) GetNodeList(request *GetNodeListRequest) (_result *GetNodeListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetNodeListResponse{}
+	_body, _err := client.GetNodeListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询可用的fair节点nodeId
+ * Summary: 查询fair node列表
+ */
+func (client *Client) GetNodeListEx(request *GetNodeListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetNodeListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetNodeListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.node.list.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 注册新用户
+ * Summary: 注册新用户
+ */
+func (client *Client) RegisterParty(request *RegisterPartyRequest) (_result *RegisterPartyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterPartyResponse{}
+	_body, _err := client.RegisterPartyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 注册新用户
+ * Summary: 注册新用户
+ */
+func (client *Client) RegisterPartyEx(request *RegisterPartyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterPartyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterPartyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.party.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户是否注册成功
+ * Summary: 查询用户注册进度
+ */
+func (client *Client) QueryPartyRegisterstatus(request *QueryPartyRegisterstatusRequest) (_result *QueryPartyRegisterstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPartyRegisterstatusResponse{}
+	_body, _err := client.QueryPartyRegisterstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户是否注册成功
+ * Summary: 查询用户注册进度
+ */
+func (client *Client) QueryPartyRegisterstatusEx(request *QueryPartyRegisterstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPartyRegisterstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPartyRegisterstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.party.registerstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
