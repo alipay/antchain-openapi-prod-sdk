@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'FAIROPENNET',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'FAIROPENNET',
                     '_prod_channel': 'undefined'
                 }
@@ -1685,6 +1685,174 @@ class Client:
         return TeaCore.from_map(
             fairopennet_models.DownloadFileResponse(),
             await self.do_request_async('1.0', 'antchain.fairopennet.file.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_node_list(
+        self,
+        request: fairopennet_models.GetNodeListRequest,
+    ) -> fairopennet_models.GetNodeListResponse:
+        """
+        Description: 查询可用的fair节点nodeId
+        Summary: 查询fair node列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_node_list_ex(request, headers, runtime)
+
+    async def get_node_list_async(
+        self,
+        request: fairopennet_models.GetNodeListRequest,
+    ) -> fairopennet_models.GetNodeListResponse:
+        """
+        Description: 查询可用的fair节点nodeId
+        Summary: 查询fair node列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_node_list_ex_async(request, headers, runtime)
+
+    def get_node_list_ex(
+        self,
+        request: fairopennet_models.GetNodeListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.GetNodeListResponse:
+        """
+        Description: 查询可用的fair节点nodeId
+        Summary: 查询fair node列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.GetNodeListResponse(),
+            self.do_request('1.0', 'antchain.fairopennet.node.list.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_node_list_ex_async(
+        self,
+        request: fairopennet_models.GetNodeListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.GetNodeListResponse:
+        """
+        Description: 查询可用的fair节点nodeId
+        Summary: 查询fair node列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.GetNodeListResponse(),
+            await self.do_request_async('1.0', 'antchain.fairopennet.node.list.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_party(
+        self,
+        request: fairopennet_models.RegisterPartyRequest,
+    ) -> fairopennet_models.RegisterPartyResponse:
+        """
+        Description: 注册新用户
+        Summary: 注册新用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_party_ex(request, headers, runtime)
+
+    async def register_party_async(
+        self,
+        request: fairopennet_models.RegisterPartyRequest,
+    ) -> fairopennet_models.RegisterPartyResponse:
+        """
+        Description: 注册新用户
+        Summary: 注册新用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_party_ex_async(request, headers, runtime)
+
+    def register_party_ex(
+        self,
+        request: fairopennet_models.RegisterPartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.RegisterPartyResponse:
+        """
+        Description: 注册新用户
+        Summary: 注册新用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.RegisterPartyResponse(),
+            self.do_request('1.0', 'antchain.fairopennet.party.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_party_ex_async(
+        self,
+        request: fairopennet_models.RegisterPartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.RegisterPartyResponse:
+        """
+        Description: 注册新用户
+        Summary: 注册新用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.RegisterPartyResponse(),
+            await self.do_request_async('1.0', 'antchain.fairopennet.party.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_party_registerstatus(
+        self,
+        request: fairopennet_models.QueryPartyRegisterstatusRequest,
+    ) -> fairopennet_models.QueryPartyRegisterstatusResponse:
+        """
+        Description: 查询用户是否注册成功
+        Summary: 查询用户注册进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_party_registerstatus_ex(request, headers, runtime)
+
+    async def query_party_registerstatus_async(
+        self,
+        request: fairopennet_models.QueryPartyRegisterstatusRequest,
+    ) -> fairopennet_models.QueryPartyRegisterstatusResponse:
+        """
+        Description: 查询用户是否注册成功
+        Summary: 查询用户注册进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_party_registerstatus_ex_async(request, headers, runtime)
+
+    def query_party_registerstatus_ex(
+        self,
+        request: fairopennet_models.QueryPartyRegisterstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.QueryPartyRegisterstatusResponse:
+        """
+        Description: 查询用户是否注册成功
+        Summary: 查询用户注册进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.QueryPartyRegisterstatusResponse(),
+            self.do_request('1.0', 'antchain.fairopennet.party.registerstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_party_registerstatus_ex_async(
+        self,
+        request: fairopennet_models.QueryPartyRegisterstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> fairopennet_models.QueryPartyRegisterstatusResponse:
+        """
+        Description: 查询用户是否注册成功
+        Summary: 查询用户注册进度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            fairopennet_models.QueryPartyRegisterstatusResponse(),
+            await self.do_request_async('1.0', 'antchain.fairopennet.party.registerstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
