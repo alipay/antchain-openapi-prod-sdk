@@ -39,6 +39,8 @@ use AntChain\FAIROPENNET\Models\GetNetworkSnapshotRequest;
 use AntChain\FAIROPENNET\Models\GetNetworkSnapshotResponse;
 use AntChain\FAIROPENNET\Models\GetNetworkStatusRequest;
 use AntChain\FAIROPENNET\Models\GetNetworkStatusResponse;
+use AntChain\FAIROPENNET\Models\GetNodeListRequest;
+use AntChain\FAIROPENNET\Models\GetNodeListResponse;
 use AntChain\FAIROPENNET\Models\GetNormalmoduleNodeidRequest;
 use AntChain\FAIROPENNET\Models\GetNormalmoduleNodeidResponse;
 use AntChain\FAIROPENNET\Models\GetNormalnodeIdentityinfoRequest;
@@ -47,8 +49,12 @@ use AntChain\FAIROPENNET\Models\InitClientConfigRequest;
 use AntChain\FAIROPENNET\Models\InitClientConfigResponse;
 use AntChain\FAIROPENNET\Models\QueryFlowinstanceStatusRequest;
 use AntChain\FAIROPENNET\Models\QueryFlowinstanceStatusResponse;
+use AntChain\FAIROPENNET\Models\QueryPartyRegisterstatusRequest;
+use AntChain\FAIROPENNET\Models\QueryPartyRegisterstatusResponse;
 use AntChain\FAIROPENNET\Models\RegisterNormalNodeRequest;
 use AntChain\FAIROPENNET\Models\RegisterNormalNodeResponse;
+use AntChain\FAIROPENNET\Models\RegisterPartyRequest;
+use AntChain\FAIROPENNET\Models\RegisterPartyResponse;
 use AntChain\FAIROPENNET\Models\RunFlowInstanceRequest;
 use AntChain\FAIROPENNET\Models\RunFlowInstanceResponse;
 use AntChain\FAIROPENNET\Models\StartClientRequest;
@@ -208,7 +214,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
                     '_prod_code'       => 'FAIROPENNET',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1082,6 +1088,105 @@ class Client
         Utils::validateModel($request);
 
         return DownloadFileResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.file.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询可用的fair节点nodeId
+     * Summary: 查询fair node列表.
+     *
+     * @param GetNodeListRequest $request
+     *
+     * @return GetNodeListResponse
+     */
+    public function getNodeList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNodeListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询可用的fair节点nodeId
+     * Summary: 查询fair node列表.
+     *
+     * @param GetNodeListRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return GetNodeListResponse
+     */
+    public function getNodeListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNodeListResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.node.list.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册新用户
+     * Summary: 注册新用户.
+     *
+     * @param RegisterPartyRequest $request
+     *
+     * @return RegisterPartyResponse
+     */
+    public function registerParty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerPartyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册新用户
+     * Summary: 注册新用户.
+     *
+     * @param RegisterPartyRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return RegisterPartyResponse
+     */
+    public function registerPartyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterPartyResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.party.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户是否注册成功
+     * Summary: 查询用户注册进度.
+     *
+     * @param QueryPartyRegisterstatusRequest $request
+     *
+     * @return QueryPartyRegisterstatusResponse
+     */
+    public function queryPartyRegisterstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPartyRegisterstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户是否注册成功
+     * Summary: 查询用户注册进度.
+     *
+     * @param QueryPartyRegisterstatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryPartyRegisterstatusResponse
+     */
+    public function queryPartyRegisterstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPartyRegisterstatusResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.party.registerstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

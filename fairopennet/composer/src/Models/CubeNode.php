@@ -16,11 +16,10 @@ class CubeNode extends Model
      */
     public $domain;
 
-    // 无
     /**
      * @example
      *
-     * @var string[]
+     * @var NodeEndpoint[]
      */
     public $endpoints;
 
@@ -86,7 +85,13 @@ class CubeNode extends Model
             $res['domain'] = $this->domain;
         }
         if (null !== $this->endpoints) {
-            $res['endpoints'] = $this->endpoints;
+            $res['endpoints'] = [];
+            if (null !== $this->endpoints && \is_array($this->endpoints)) {
+                $n = 0;
+                foreach ($this->endpoints as $item) {
+                    $res['endpoints'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->nodeId) {
             $res['node_id'] = $this->nodeId;
@@ -120,7 +125,11 @@ class CubeNode extends Model
         }
         if (isset($map['endpoints'])) {
             if (!empty($map['endpoints'])) {
-                $model->endpoints = $map['endpoints'];
+                $model->endpoints = [];
+                $n                = 0;
+                foreach ($map['endpoints'] as $item) {
+                    $model->endpoints[$n++] = null !== $item ? NodeEndpoint::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['node_id'])) {
