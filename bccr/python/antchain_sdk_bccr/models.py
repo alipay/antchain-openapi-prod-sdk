@@ -154,6 +154,42 @@ class Config(TeaModel):
         return self
 
 
+class ResemblePositionData(TeaModel):
+    def __init__(
+        self,
+        start_position: int = None,
+        end_position: int = None,
+    ):
+        # 起始位置
+        self.start_position = start_position
+        # 结束位置
+        self.end_position = end_position
+
+    def validate(self):
+        self.validate_required(self.start_position, 'start_position')
+        self.validate_required(self.end_position, 'end_position')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.start_position is not None:
+            result['start_position'] = self.start_position
+        if self.end_position is not None:
+            result['end_position'] = self.end_position
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('start_position') is not None:
+            self.start_position = m.get('start_position')
+        if m.get('end_position') is not None:
+            self.end_position = m.get('end_position')
+        return self
+
+
 class NotaryUser(TeaModel):
     def __init__(
         self,
@@ -322,6 +358,71 @@ class Reason(TeaModel):
         return self
 
 
+class ResembleDetail(TeaModel):
+    def __init__(
+        self,
+        score: str = None,
+        length: str = None,
+        type: str = None,
+        query_position_data: ResemblePositionData = None,
+        match_position_data: ResemblePositionData = None,
+    ):
+        # 相似分数
+        self.score = score
+        # 长度
+        self.length = length
+        # 明细类型，例如SEGMENT表示区间相似
+        self.type = type
+        # 查询源文件的位置信息
+        self.query_position_data = query_position_data
+        # 相似文件的位置信息
+        self.match_position_data = match_position_data
+
+    def validate(self):
+        self.validate_required(self.score, 'score')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.query_position_data, 'query_position_data')
+        if self.query_position_data:
+            self.query_position_data.validate()
+        self.validate_required(self.match_position_data, 'match_position_data')
+        if self.match_position_data:
+            self.match_position_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.score is not None:
+            result['score'] = self.score
+        if self.length is not None:
+            result['length'] = self.length
+        if self.type is not None:
+            result['type'] = self.type
+        if self.query_position_data is not None:
+            result['query_position_data'] = self.query_position_data.to_map()
+        if self.match_position_data is not None:
+            result['match_position_data'] = self.match_position_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('length') is not None:
+            self.length = m.get('length')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('query_position_data') is not None:
+            temp_model = ResemblePositionData()
+            self.query_position_data = temp_model.from_map(m['query_position_data'])
+        if m.get('match_position_data') is not None:
+            temp_model = ResemblePositionData()
+            self.match_position_data = temp_model.from_map(m['match_position_data'])
+        return self
+
+
 class DeliveryInfo(TeaModel):
     def __init__(
         self,
@@ -396,29 +497,29 @@ class DeliveryInfo(TeaModel):
 class ResembleRiskData(TeaModel):
     def __init__(
         self,
-        code: int = None,
         work_id: str = None,
-        resemble: str = None,
+        work_name: str = None,
+        score: str = None,
         work_download_url: str = None,
-        risk_level: int = None,
+        resemble_details: List[ResembleDetail] = None,
     ):
-        # 识别结果
-        self.code = code
         # 重复作品ID
         self.work_id = work_id
-        # 相似值百分比
-        self.resemble = resemble
+        # 相似作品的名称
+        self.work_name = work_name
+        # 相似值
+        self.score = score
         # 相似作品下载链接
         self.work_download_url = work_download_url
-        # 风险等级
-        self.risk_level = risk_level
+        # 相似明细
+        self.resemble_details = resemble_details
 
     def validate(self):
-        self.validate_required(self.code, 'code')
         self.validate_required(self.work_id, 'work_id')
-        self.validate_required(self.resemble, 'resemble')
-        self.validate_required(self.work_download_url, 'work_download_url')
-        self.validate_required(self.risk_level, 'risk_level')
+        if self.resemble_details:
+            for k in self.resemble_details:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -426,59 +527,48 @@ class ResembleRiskData(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['code'] = self.code
         if self.work_id is not None:
             result['work_id'] = self.work_id
-        if self.resemble is not None:
-            result['resemble'] = self.resemble
+        if self.work_name is not None:
+            result['work_name'] = self.work_name
+        if self.score is not None:
+            result['score'] = self.score
         if self.work_download_url is not None:
             result['work_download_url'] = self.work_download_url
-        if self.risk_level is not None:
-            result['risk_level'] = self.risk_level
+        result['resemble_details'] = []
+        if self.resemble_details is not None:
+            for k in self.resemble_details:
+                result['resemble_details'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('code') is not None:
-            self.code = m.get('code')
         if m.get('work_id') is not None:
             self.work_id = m.get('work_id')
-        if m.get('resemble') is not None:
-            self.resemble = m.get('resemble')
+        if m.get('work_name') is not None:
+            self.work_name = m.get('work_name')
+        if m.get('score') is not None:
+            self.score = m.get('score')
         if m.get('work_download_url') is not None:
             self.work_download_url = m.get('work_download_url')
-        if m.get('risk_level') is not None:
-            self.risk_level = m.get('risk_level')
+        self.resemble_details = []
+        if m.get('resemble_details') is not None:
+            for k in m.get('resemble_details'):
+                temp_model = ResembleDetail()
+                self.resemble_details.append(temp_model.from_map(k))
         return self
 
 
 class ContentRiskData(TeaModel):
     def __init__(
         self,
-        code: int = None,
-        content_type: str = None,
         risk_name: str = None,
-        risk_level: int = None,
-        risk_score: int = None,
     ):
-        # 识别结果
-        self.code = code
-        # 内容类型
-        self.content_type = content_type
         # 风险名称
         self.risk_name = risk_name
-        # 风险等级
-        self.risk_level = risk_level
-        # 风险评分
-        self.risk_score = risk_score
 
     def validate(self):
-        self.validate_required(self.code, 'code')
-        self.validate_required(self.content_type, 'content_type')
         self.validate_required(self.risk_name, 'risk_name')
-        self.validate_required(self.risk_level, 'risk_level')
-        self.validate_required(self.risk_score, 'risk_score')
 
     def to_map(self):
         _map = super().to_map()
@@ -486,59 +576,35 @@ class ContentRiskData(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['code'] = self.code
-        if self.content_type is not None:
-            result['content_type'] = self.content_type
         if self.risk_name is not None:
             result['risk_name'] = self.risk_name
-        if self.risk_level is not None:
-            result['risk_level'] = self.risk_level
-        if self.risk_score is not None:
-            result['risk_score'] = self.risk_score
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('content_type') is not None:
-            self.content_type = m.get('content_type')
         if m.get('risk_name') is not None:
             self.risk_name = m.get('risk_name')
-        if m.get('risk_level') is not None:
-            self.risk_level = m.get('risk_level')
-        if m.get('risk_score') is not None:
-            self.risk_score = m.get('risk_score')
         return self
 
 
 class LabelRiskData(TeaModel):
     def __init__(
         self,
-        code: int = None,
         label_name: str = None,
-        is_risk: bool = None,
-        similar_value: str = None,
-        risk_level: int = None,
+        is_match: bool = None,
+        match_value: str = None,
     ):
-        # 识别结果
-        self.code = code
         # 识别出的标签名称
         self.label_name = label_name
         # 识别出的标签是否与用户选择的标签匹配
-        self.is_risk = is_risk
-        # 识别出的标签匹配度百分比
-        self.similar_value = similar_value
-        # 风险等级
-        self.risk_level = risk_level
+        self.is_match = is_match
+        # 识别出的标签匹配度
+        self.match_value = match_value
 
     def validate(self):
-        self.validate_required(self.code, 'code')
         self.validate_required(self.label_name, 'label_name')
-        self.validate_required(self.is_risk, 'is_risk')
-        self.validate_required(self.similar_value, 'similar_value')
-        self.validate_required(self.risk_level, 'risk_level')
+        self.validate_required(self.is_match, 'is_match')
+        self.validate_required(self.match_value, 'match_value')
 
     def to_map(self):
         _map = super().to_map()
@@ -546,30 +612,22 @@ class LabelRiskData(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['code'] = self.code
         if self.label_name is not None:
             result['label_name'] = self.label_name
-        if self.is_risk is not None:
-            result['is_risk'] = self.is_risk
-        if self.similar_value is not None:
-            result['similar_value'] = self.similar_value
-        if self.risk_level is not None:
-            result['risk_level'] = self.risk_level
+        if self.is_match is not None:
+            result['is_match'] = self.is_match
+        if self.match_value is not None:
+            result['match_value'] = self.match_value
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('code') is not None:
-            self.code = m.get('code')
         if m.get('label_name') is not None:
             self.label_name = m.get('label_name')
-        if m.get('is_risk') is not None:
-            self.is_risk = m.get('is_risk')
-        if m.get('similar_value') is not None:
-            self.similar_value = m.get('similar_value')
-        if m.get('risk_level') is not None:
-            self.risk_level = m.get('risk_level')
+        if m.get('is_match') is not None:
+            self.is_match = m.get('is_match')
+        if m.get('match_value') is not None:
+            self.match_value = m.get('match_value')
         return self
 
 
@@ -1135,6 +1193,50 @@ class ReceiveInfo(TeaModel):
         if m.get('delivery_info') is not None:
             temp_model = DeliveryInfo()
             self.delivery_info = temp_model.from_map(m['delivery_info'])
+        return self
+
+
+class SeriesDiagramErrorReason(TeaModel):
+    def __init__(
+        self,
+        image_pdf_page_index: int = None,
+        error: str = None,
+        error_cn: str = None,
+    ):
+        # 系列图单个图片所属页码
+        self.image_pdf_page_index = image_pdf_page_index
+        # 错误原因英文
+        self.error = error
+        # 错误原因中文
+        self.error_cn = error_cn
+
+    def validate(self):
+        self.validate_required(self.image_pdf_page_index, 'image_pdf_page_index')
+        self.validate_required(self.error, 'error')
+        self.validate_required(self.error_cn, 'error_cn')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_pdf_page_index is not None:
+            result['image_pdf_page_index'] = self.image_pdf_page_index
+        if self.error is not None:
+            result['error'] = self.error
+        if self.error_cn is not None:
+            result['error_cn'] = self.error_cn
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('image_pdf_page_index') is not None:
+            self.image_pdf_page_index = m.get('image_pdf_page_index')
+        if m.get('error') is not None:
+            self.error = m.get('error')
+        if m.get('error_cn') is not None:
+            self.error_cn = m.get('error_cn')
         return self
 
 
@@ -2721,6 +2823,7 @@ class RecordScreenData(TeaModel):
         main_evidence_name: str = None,
         evidence_order_num: str = None,
         correction_url: str = None,
+        gmt_ready: int = None,
     ):
         # 错误原因（状态为FAIL才有数据）
         self.error_reason = error_reason
@@ -2764,6 +2867,8 @@ class RecordScreenData(TeaModel):
         self.evidence_order_num = evidence_order_num
         # 补正说明函下载地址
         self.correction_url = correction_url
+        # 录屏取证准备时间
+        self.gmt_ready = gmt_ready
 
     def validate(self):
         self.validate_required(self.gmt_end, 'gmt_end')
@@ -2821,6 +2926,8 @@ class RecordScreenData(TeaModel):
             result['evidence_order_num'] = self.evidence_order_num
         if self.correction_url is not None:
             result['correction_url'] = self.correction_url
+        if self.gmt_ready is not None:
+            result['gmt_ready'] = self.gmt_ready
         return result
 
     def from_map(self, m: dict = None):
@@ -2868,6 +2975,8 @@ class RecordScreenData(TeaModel):
             self.evidence_order_num = m.get('evidence_order_num')
         if m.get('correction_url') is not None:
             self.correction_url = m.get('correction_url')
+        if m.get('gmt_ready') is not None:
+            self.gmt_ready = m.get('gmt_ready')
         return self
 
 
@@ -3673,10 +3782,13 @@ class GoodsInfo(TeaModel):
 class ReviewData(TeaModel):
     def __init__(
         self,
+        title_risk_data: List[ContentRiskData] = None,
         content_risk_data: List[ContentRiskData] = None,
         resemble_risk_data: List[ResembleRiskData] = None,
         label_risk_data: List[LabelRiskData] = None,
     ):
+        # 作品名称安全识别结果
+        self.title_risk_data = title_risk_data
         # 内容安全识别结果
         self.content_risk_data = content_risk_data
         # 作品相似识别结果
@@ -3685,17 +3797,18 @@ class ReviewData(TeaModel):
         self.label_risk_data = label_risk_data
 
     def validate(self):
-        self.validate_required(self.content_risk_data, 'content_risk_data')
+        if self.title_risk_data:
+            for k in self.title_risk_data:
+                if k:
+                    k.validate()
         if self.content_risk_data:
             for k in self.content_risk_data:
                 if k:
                     k.validate()
-        self.validate_required(self.resemble_risk_data, 'resemble_risk_data')
         if self.resemble_risk_data:
             for k in self.resemble_risk_data:
                 if k:
                     k.validate()
-        self.validate_required(self.label_risk_data, 'label_risk_data')
         if self.label_risk_data:
             for k in self.label_risk_data:
                 if k:
@@ -3707,6 +3820,10 @@ class ReviewData(TeaModel):
             return _map
 
         result = dict()
+        result['title_risk_data'] = []
+        if self.title_risk_data is not None:
+            for k in self.title_risk_data:
+                result['title_risk_data'].append(k.to_map() if k else None)
         result['content_risk_data'] = []
         if self.content_risk_data is not None:
             for k in self.content_risk_data:
@@ -3723,6 +3840,11 @@ class ReviewData(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        self.title_risk_data = []
+        if m.get('title_risk_data') is not None:
+            for k in m.get('title_risk_data'):
+                temp_model = ContentRiskData()
+                self.title_risk_data.append(temp_model.from_map(k))
         self.content_risk_data = []
         if m.get('content_risk_data') is not None:
             for k in m.get('content_risk_data'):
@@ -4347,6 +4469,7 @@ class AddRegisterRequest(TeaModel):
         client_token: str = None,
         sync_info: AccountData = None,
         proxy_info: ProxyData = None,
+        channel_terminal: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4395,6 +4518,8 @@ class AddRegisterRequest(TeaModel):
         self.sync_info = sync_info
         # 代理信息
         self.proxy_info = proxy_info
+        # 渠道标签
+        self.channel_terminal = channel_terminal
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
@@ -4476,6 +4601,8 @@ class AddRegisterRequest(TeaModel):
             result['sync_info'] = self.sync_info.to_map()
         if self.proxy_info is not None:
             result['proxy_info'] = self.proxy_info.to_map()
+        if self.channel_terminal is not None:
+            result['channel_terminal'] = self.channel_terminal
         return result
 
     def from_map(self, m: dict = None):
@@ -4533,6 +4660,8 @@ class AddRegisterRequest(TeaModel):
         if m.get('proxy_info') is not None:
             temp_model = ProxyData()
             self.proxy_info = temp_model.from_map(m['proxy_info'])
+        if m.get('channel_terminal') is not None:
+            self.channel_terminal = m.get('channel_terminal')
         return self
 
 
@@ -7513,6 +7642,8 @@ class CreateDciPreregistrationRequest(TeaModel):
         category_similar_ratio: str = None,
         category_risk_rank: str = None,
         copyright_owner_ids: List[str] = None,
+        apply_type: str = None,
+        channel_terminal: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7553,6 +7684,10 @@ class CreateDciPreregistrationRequest(TeaModel):
         self.category_risk_rank = category_risk_rank
         # 著作权人用户id List
         self.copyright_owner_ids = copyright_owner_ids
+        # DCI类型
+        self.apply_type = apply_type
+        # 渠道标签
+        self.channel_terminal = channel_terminal
 
     def validate(self):
         self.validate_required(self.work_name, 'work_name')
@@ -7622,6 +7757,10 @@ class CreateDciPreregistrationRequest(TeaModel):
             result['category_risk_rank'] = self.category_risk_rank
         if self.copyright_owner_ids is not None:
             result['copyright_owner_ids'] = self.copyright_owner_ids
+        if self.apply_type is not None:
+            result['apply_type'] = self.apply_type
+        if self.channel_terminal is not None:
+            result['channel_terminal'] = self.channel_terminal
         return result
 
     def from_map(self, m: dict = None):
@@ -7670,6 +7809,10 @@ class CreateDciPreregistrationRequest(TeaModel):
             self.category_risk_rank = m.get('category_risk_rank')
         if m.get('copyright_owner_ids') is not None:
             self.copyright_owner_ids = m.get('copyright_owner_ids')
+        if m.get('apply_type') is not None:
+            self.apply_type = m.get('apply_type')
+        if m.get('channel_terminal') is not None:
+            self.channel_terminal = m.get('channel_terminal')
         return self
 
 
@@ -7801,6 +7944,8 @@ class QueryDciPreregistrationResponse(TeaModel):
         error_reason: str = None,
         error_reason_cn: str = None,
         publication_url: str = None,
+        apply_type: str = None,
+        series_diagram_error_reason_list: List[SeriesDiagramErrorReason] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7858,9 +8003,16 @@ class QueryDciPreregistrationResponse(TeaModel):
         self.error_reason_cn = error_reason_cn
         # 公式地址
         self.publication_url = publication_url
+        # DCI类型
+        self.apply_type = apply_type
+        # 系列图错误原因集合
+        self.series_diagram_error_reason_list = series_diagram_error_reason_list
 
     def validate(self):
-        pass
+        if self.series_diagram_error_reason_list:
+            for k in self.series_diagram_error_reason_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7924,6 +8076,12 @@ class QueryDciPreregistrationResponse(TeaModel):
             result['error_reason_cn'] = self.error_reason_cn
         if self.publication_url is not None:
             result['publication_url'] = self.publication_url
+        if self.apply_type is not None:
+            result['apply_type'] = self.apply_type
+        result['series_diagram_error_reason_list'] = []
+        if self.series_diagram_error_reason_list is not None:
+            for k in self.series_diagram_error_reason_list:
+                result['series_diagram_error_reason_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -7984,6 +8142,13 @@ class QueryDciPreregistrationResponse(TeaModel):
             self.error_reason_cn = m.get('error_reason_cn')
         if m.get('publication_url') is not None:
             self.publication_url = m.get('publication_url')
+        if m.get('apply_type') is not None:
+            self.apply_type = m.get('apply_type')
+        self.series_diagram_error_reason_list = []
+        if m.get('series_diagram_error_reason_list') is not None:
+            for k in m.get('series_diagram_error_reason_list'):
+                temp_model = SeriesDiagramErrorReason()
+                self.series_diagram_error_reason_list.append(temp_model.from_map(k))
         return self
 
 
@@ -9370,31 +9535,31 @@ class QueryDciContentsecurityRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        flow_number: str = None,
+        client_token: str = None,
         task_id: str = None,
         work_name: str = None,
         work_hash: str = None,
         work_category: str = None,
-        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 任务ID
-        self.task_id = task_id
-        # 作品名称
-        self.work_name = work_name
-        # 作品哈希
-        self.work_hash = work_hash
-        # 作品类型
-        self.work_category = work_category
+        # 任务ID(数登流水号)
+        self.flow_number = flow_number
         # 客户端令牌
         self.client_token = client_token
+        # 任务Id, 已废弃
+        self.task_id = task_id
+        # 作品名，已废弃
+        self.work_name = work_name
+        # 作品Hash，已废弃
+        self.work_hash = work_hash
+        # 作品分类，已废弃
+        self.work_category = work_category
 
     def validate(self):
-        self.validate_required(self.task_id, 'task_id')
-        self.validate_required(self.work_name, 'work_name')
-        self.validate_required(self.work_hash, 'work_hash')
-        self.validate_required(self.work_category, 'work_category')
+        self.validate_required(self.flow_number, 'flow_number')
 
     def to_map(self):
         _map = super().to_map()
@@ -9406,6 +9571,10 @@ class QueryDciContentsecurityRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.flow_number is not None:
+            result['flow_number'] = self.flow_number
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.work_name is not None:
@@ -9414,8 +9583,6 @@ class QueryDciContentsecurityRequest(TeaModel):
             result['work_hash'] = self.work_hash
         if self.work_category is not None:
             result['work_category'] = self.work_category
-        if self.client_token is not None:
-            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -9424,6 +9591,10 @@ class QueryDciContentsecurityRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_number') is not None:
+            self.flow_number = m.get('flow_number')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('work_name') is not None:
@@ -9432,8 +9603,6 @@ class QueryDciContentsecurityRequest(TeaModel):
             self.work_hash = m.get('work_hash')
         if m.get('work_category') is not None:
             self.work_category = m.get('work_category')
-        if m.get('client_token') is not None:
-            self.client_token = m.get('client_token')
         return self
 
 
@@ -11281,6 +11450,8 @@ class QueryDciPreviewResponse(TeaModel):
         file_type: str = None,
         query_time: str = None,
         reg_number: str = None,
+        copyright_owner_names: List[str] = None,
+        series_diagram_preview_list: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11306,6 +11477,10 @@ class QueryDciPreviewResponse(TeaModel):
         self.query_time = query_time
         # 数登登记号
         self.reg_number = reg_number
+        # 著作权人名称列表
+        self.copyright_owner_names = copyright_owner_names
+        # 系列图预览地址
+        self.series_diagram_preview_list = series_diagram_preview_list
 
     def validate(self):
         if self.query_time is not None:
@@ -11341,6 +11516,10 @@ class QueryDciPreviewResponse(TeaModel):
             result['query_time'] = self.query_time
         if self.reg_number is not None:
             result['reg_number'] = self.reg_number
+        if self.copyright_owner_names is not None:
+            result['copyright_owner_names'] = self.copyright_owner_names
+        if self.series_diagram_preview_list is not None:
+            result['series_diagram_preview_list'] = self.series_diagram_preview_list
         return result
 
     def from_map(self, m: dict = None):
@@ -11369,6 +11548,10 @@ class QueryDciPreviewResponse(TeaModel):
             self.query_time = m.get('query_time')
         if m.get('reg_number') is not None:
             self.reg_number = m.get('reg_number')
+        if m.get('copyright_owner_names') is not None:
+            self.copyright_owner_names = m.get('copyright_owner_names')
+        if m.get('series_diagram_preview_list') is not None:
+            self.series_diagram_preview_list = m.get('series_diagram_preview_list')
         return self
 
 
@@ -11595,6 +11778,166 @@ class CloseDciRegistrationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class AddDciUsernocertRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        certificate_name: str = None,
+        certificate_type: str = None,
+        certificate_number: str = None,
+        legal_person_cert_name: str = None,
+        legal_person_cert_type: str = None,
+        legal_person_cert_no: str = None,
+        phone: str = None,
+        proxy_data: ProxyData = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户名称
+        self.certificate_name = certificate_name
+        # 证件类型
+        self.certificate_type = certificate_type
+        # 证件号
+        self.certificate_number = certificate_number
+        # 企业用户必填
+        self.legal_person_cert_name = legal_person_cert_name
+        # 企业用户必填
+        self.legal_person_cert_type = legal_person_cert_type
+        # 企业用户必填
+        self.legal_person_cert_no = legal_person_cert_no
+        # 手机号
+        self.phone = phone
+        # 代理信息
+        self.proxy_data = proxy_data
+        # 幂等字段
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.certificate_name, 'certificate_name')
+        self.validate_required(self.certificate_type, 'certificate_type')
+        self.validate_required(self.certificate_number, 'certificate_number')
+        self.validate_required(self.phone, 'phone')
+        if self.proxy_data:
+            self.proxy_data.validate()
+        self.validate_required(self.client_token, 'client_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.certificate_name is not None:
+            result['certificate_name'] = self.certificate_name
+        if self.certificate_type is not None:
+            result['certificate_type'] = self.certificate_type
+        if self.certificate_number is not None:
+            result['certificate_number'] = self.certificate_number
+        if self.legal_person_cert_name is not None:
+            result['legal_person_cert_name'] = self.legal_person_cert_name
+        if self.legal_person_cert_type is not None:
+            result['legal_person_cert_type'] = self.legal_person_cert_type
+        if self.legal_person_cert_no is not None:
+            result['legal_person_cert_no'] = self.legal_person_cert_no
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.proxy_data is not None:
+            result['proxy_data'] = self.proxy_data.to_map()
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('certificate_name') is not None:
+            self.certificate_name = m.get('certificate_name')
+        if m.get('certificate_type') is not None:
+            self.certificate_type = m.get('certificate_type')
+        if m.get('certificate_number') is not None:
+            self.certificate_number = m.get('certificate_number')
+        if m.get('legal_person_cert_name') is not None:
+            self.legal_person_cert_name = m.get('legal_person_cert_name')
+        if m.get('legal_person_cert_type') is not None:
+            self.legal_person_cert_type = m.get('legal_person_cert_type')
+        if m.get('legal_person_cert_no') is not None:
+            self.legal_person_cert_no = m.get('legal_person_cert_no')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('proxy_data') is not None:
+            temp_model = ProxyData()
+            self.proxy_data = temp_model.from_map(m['proxy_data'])
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class AddDciUsernocertResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        dci_user_id: str = None,
+        dci_user_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # dci用户id
+        self.dci_user_id = dci_user_id
+        # dci用户状态
+        self.dci_user_status = dci_user_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.dci_user_id is not None:
+            result['dci_user_id'] = self.dci_user_id
+        if self.dci_user_status is not None:
+            result['dci_user_status'] = self.dci_user_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('dci_user_id') is not None:
+            self.dci_user_id = m.get('dci_user_id')
+        if m.get('dci_user_status') is not None:
+            self.dci_user_status = m.get('dci_user_status')
         return self
 
 

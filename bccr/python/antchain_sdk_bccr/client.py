@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 出证用户（申请人，经办人）
+            # 相似位置信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.38'
+                    'sdk_version': '1.17.48',
+                    '_prod_code': 'BCCR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 出证用户（申请人，经办人）
+            # 相似位置信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.38'
+                    'sdk_version': '1.17.48',
+                    '_prod_code': 'BCCR',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3181,6 +3185,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.CloseDciRegistrationResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_dci_usernocert(
+        self,
+        request: bccr_models.AddDciUsernocertRequest,
+    ) -> bccr_models.AddDciUsernocertResponse:
+        """
+        Description: dci用户无需证件注册
+        Summary: dci用户无需证件注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_dci_usernocert_ex(request, headers, runtime)
+
+    async def add_dci_usernocert_async(
+        self,
+        request: bccr_models.AddDciUsernocertRequest,
+    ) -> bccr_models.AddDciUsernocertResponse:
+        """
+        Description: dci用户无需证件注册
+        Summary: dci用户无需证件注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_dci_usernocert_ex_async(request, headers, runtime)
+
+    def add_dci_usernocert_ex(
+        self,
+        request: bccr_models.AddDciUsernocertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.AddDciUsernocertResponse:
+        """
+        Description: dci用户无需证件注册
+        Summary: dci用户无需证件注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.AddDciUsernocertResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_dci_usernocert_ex_async(
+        self,
+        request: bccr_models.AddDciUsernocertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.AddDciUsernocertResponse:
+        """
+        Description: dci用户无需证件注册
+        Summary: dci用户无需证件注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.AddDciUsernocertResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
