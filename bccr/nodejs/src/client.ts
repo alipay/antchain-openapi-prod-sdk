@@ -77,6 +77,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// 相似位置信息
+export class ResemblePositionData extends $tea.Model {
+  // 起始位置
+  startPosition: number;
+  // 结束位置
+  endPosition: number;
+  static names(): { [key: string]: string } {
+    return {
+      startPosition: 'start_position',
+      endPosition: 'end_position',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      startPosition: 'number',
+      endPosition: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 出证用户（申请人，经办人）
 export class NotaryUser extends $tea.Model {
   // 用户类型
@@ -179,6 +204,43 @@ export class Reason extends $tea.Model {
   }
 }
 
+// 相似的明细结果
+export class ResembleDetail extends $tea.Model {
+  // 相似分数
+  score: string;
+  // 长度
+  length?: string;
+  // 明细类型，例如SEGMENT表示区间相似
+  type: string;
+  // 查询源文件的位置信息
+  queryPositionData: ResemblePositionData;
+  // 相似文件的位置信息
+  matchPositionData: ResemblePositionData;
+  static names(): { [key: string]: string } {
+    return {
+      score: 'score',
+      length: 'length',
+      type: 'type',
+      queryPositionData: 'query_position_data',
+      matchPositionData: 'match_position_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      score: 'string',
+      length: 'string',
+      type: 'string',
+      queryPositionData: ResemblePositionData,
+      matchPositionData: ResemblePositionData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 收件人信息
 export class DeliveryInfo extends $tea.Model {
   // 收件人姓名
@@ -226,33 +288,33 @@ export class DeliveryInfo extends $tea.Model {
 
 // 作品相似识别结果
 export class ResembleRiskData extends $tea.Model {
-  // 识别结果
-  code: number;
   // 重复作品ID
   workId: string;
-  // 相似值百分比
-  resemble: string;
+  // 相似作品的名称
+  workName?: string;
+  // 相似值
+  score?: string;
   // 相似作品下载链接
-  workDownloadUrl: string;
-  // 风险等级
-  riskLevel: number;
+  workDownloadUrl?: string;
+  // 相似明细
+  resembleDetails?: ResembleDetail[];
   static names(): { [key: string]: string } {
     return {
-      code: 'code',
       workId: 'work_id',
-      resemble: 'resemble',
+      workName: 'work_name',
+      score: 'score',
       workDownloadUrl: 'work_download_url',
-      riskLevel: 'risk_level',
+      resembleDetails: 'resemble_details',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      code: 'number',
       workId: 'string',
-      resemble: 'string',
+      workName: 'string',
+      score: 'string',
       workDownloadUrl: 'string',
-      riskLevel: 'number',
+      resembleDetails: { 'type': 'array', 'itemType': ResembleDetail },
     };
   }
 
@@ -261,35 +323,19 @@ export class ResembleRiskData extends $tea.Model {
   }
 }
 
-// 内容安全识别结果
+// 安全识别结果
 export class ContentRiskData extends $tea.Model {
-  // 识别结果
-  code: number;
-  // 内容类型
-  contentType: string;
   // 风险名称
   riskName: string;
-  // 风险等级
-  riskLevel: number;
-  // 风险评分
-  riskScore: number;
   static names(): { [key: string]: string } {
     return {
-      code: 'code',
-      contentType: 'content_type',
       riskName: 'risk_name',
-      riskLevel: 'risk_level',
-      riskScore: 'risk_score',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      code: 'number',
-      contentType: 'string',
       riskName: 'string',
-      riskLevel: 'number',
-      riskScore: 'number',
     };
   }
 
@@ -300,33 +346,25 @@ export class ContentRiskData extends $tea.Model {
 
 // 作品标签识别结果
 export class LabelRiskData extends $tea.Model {
-  // 识别结果
-  code: number;
   // 识别出的标签名称
   labelName: string;
   // 识别出的标签是否与用户选择的标签匹配
-  isRisk: boolean;
-  // 识别出的标签匹配度百分比
-  similarValue: string;
-  // 风险等级
-  riskLevel: number;
+  isMatch: boolean;
+  // 识别出的标签匹配度
+  matchValue: string;
   static names(): { [key: string]: string } {
     return {
-      code: 'code',
       labelName: 'label_name',
-      isRisk: 'is_risk',
-      similarValue: 'similar_value',
-      riskLevel: 'risk_level',
+      isMatch: 'is_match',
+      matchValue: 'match_value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      code: 'number',
       labelName: 'string',
-      isRisk: 'boolean',
-      similarValue: 'string',
-      riskLevel: 'number',
+      isMatch: 'boolean',
+      matchValue: 'string',
     };
   }
 
@@ -671,6 +709,35 @@ export class ReceiveInfo extends $tea.Model {
       copies: 'number',
       orderType: 'string',
       deliveryInfo: DeliveryInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 系列图错误原因
+export class SeriesDiagramErrorReason extends $tea.Model {
+  // 系列图单个图片所属页码
+  imagePdfPageIndex: number;
+  // 错误原因英文
+  error: string;
+  // 错误原因中文
+  errorCn: string;
+  static names(): { [key: string]: string } {
+    return {
+      imagePdfPageIndex: 'image_pdf_page_index',
+      error: 'error',
+      errorCn: 'error_cn',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      imagePdfPageIndex: 'number',
+      error: 'string',
+      errorCn: 'string',
     };
   }
 
@@ -1715,6 +1782,8 @@ export class RecordScreenData extends $tea.Model {
   evidenceOrderNum?: string;
   // 补正说明函下载地址
   correctionUrl?: string;
+  // 录屏取证准备时间
+  gmtReady?: number;
   static names(): { [key: string]: string } {
     return {
       errorReason: 'error_reason',
@@ -1738,6 +1807,7 @@ export class RecordScreenData extends $tea.Model {
       mainEvidenceName: 'main_evidence_name',
       evidenceOrderNum: 'evidence_order_num',
       correctionUrl: 'correction_url',
+      gmtReady: 'gmt_ready',
     };
   }
 
@@ -1764,6 +1834,7 @@ export class RecordScreenData extends $tea.Model {
       mainEvidenceName: 'string',
       evidenceOrderNum: 'string',
       correctionUrl: 'string',
+      gmtReady: 'number',
     };
   }
 
@@ -2251,16 +2322,19 @@ export class GoodsInfo extends $tea.Model {
   }
 }
 
-// 审查结果
+// 审查数据
 export class ReviewData extends $tea.Model {
+  // 作品名称安全识别结果
+  titleRiskData?: ContentRiskData[];
   // 内容安全识别结果
-  contentRiskData: ContentRiskData[];
+  contentRiskData?: ContentRiskData[];
   // 作品相似识别结果
-  resembleRiskData: ResembleRiskData[];
+  resembleRiskData?: ResembleRiskData[];
   // 作品标签识别结果
-  labelRiskData: LabelRiskData[];
+  labelRiskData?: LabelRiskData[];
   static names(): { [key: string]: string } {
     return {
+      titleRiskData: 'title_risk_data',
       contentRiskData: 'content_risk_data',
       resembleRiskData: 'resemble_risk_data',
       labelRiskData: 'label_risk_data',
@@ -2269,6 +2343,7 @@ export class ReviewData extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      titleRiskData: { 'type': 'array', 'itemType': ContentRiskData },
       contentRiskData: { 'type': 'array', 'itemType': ContentRiskData },
       resembleRiskData: { 'type': 'array', 'itemType': ResembleRiskData },
       labelRiskData: { 'type': 'array', 'itemType': LabelRiskData },
@@ -2671,6 +2746,8 @@ export class AddRegisterRequest extends $tea.Model {
   syncInfo?: AccountData;
   // 代理信息
   proxyInfo?: ProxyData;
+  // 渠道标签
+  channelTerminal?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2697,6 +2774,7 @@ export class AddRegisterRequest extends $tea.Model {
       clientToken: 'client_token',
       syncInfo: 'sync_info',
       proxyInfo: 'proxy_info',
+      channelTerminal: 'channel_terminal',
     };
   }
 
@@ -2726,6 +2804,7 @@ export class AddRegisterRequest extends $tea.Model {
       clientToken: 'string',
       syncInfo: AccountData,
       proxyInfo: ProxyData,
+      channelTerminal: 'string',
     };
   }
 
@@ -4546,6 +4625,10 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   categoryRiskRank?: string;
   // 著作权人用户id List
   copyrightOwnerIds: string[];
+  // DCI类型
+  applyType?: string;
+  // 渠道标签
+  channelTerminal?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4568,6 +4651,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       categorySimilarRatio: 'category_similar_ratio',
       categoryRiskRank: 'category_risk_rank',
       copyrightOwnerIds: 'copyright_owner_ids',
+      applyType: 'apply_type',
+      channelTerminal: 'channel_terminal',
     };
   }
 
@@ -4593,6 +4678,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       categorySimilarRatio: 'string',
       categoryRiskRank: 'string',
       copyrightOwnerIds: { 'type': 'array', 'itemType': 'string' },
+      applyType: 'string',
+      channelTerminal: 'string',
     };
   }
 
@@ -4721,6 +4808,10 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
   errorReasonCn?: string;
   // 公式地址
   publicationUrl?: string;
+  // DCI类型
+  applyType?: string;
+  // 系列图错误原因集合
+  seriesDiagramErrorReasonList?: SeriesDiagramErrorReason[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4751,6 +4842,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       errorReason: 'error_reason',
       errorReasonCn: 'error_reason_cn',
       publicationUrl: 'publication_url',
+      applyType: 'apply_type',
+      seriesDiagramErrorReasonList: 'series_diagram_error_reason_list',
     };
   }
 
@@ -4784,6 +4877,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       errorReason: 'string',
       errorReasonCn: 'string',
       publicationUrl: 'string',
+      applyType: 'string',
+      seriesDiagramErrorReasonList: { 'type': 'array', 'itemType': SeriesDiagramErrorReason },
     };
   }
 
@@ -5631,25 +5726,28 @@ export class QueryDciContentsecurityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 任务ID
-  taskId: string;
-  // 作品名称
-  workName: string;
-  // 作品哈希
-  workHash: string;
-  // 作品类型
-  workCategory: string;
+  // 任务ID(数登流水号)
+  flowNumber: string;
   // 客户端令牌
   clientToken?: string;
+  // 任务Id, 已废弃
+  taskId?: string;
+  // 作品名，已废弃
+  workName?: string;
+  // 作品Hash，已废弃
+  workHash?: string;
+  // 作品分类，已废弃
+  workCategory?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      flowNumber: 'flow_number',
+      clientToken: 'client_token',
       taskId: 'task_id',
       workName: 'work_name',
       workHash: 'work_hash',
       workCategory: 'work_category',
-      clientToken: 'client_token',
     };
   }
 
@@ -5657,11 +5755,12 @@ export class QueryDciContentsecurityRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      flowNumber: 'string',
+      clientToken: 'string',
       taskId: 'string',
       workName: 'string',
       workHash: 'string',
       workCategory: 'string',
-      clientToken: 'string',
     };
   }
 
@@ -6785,6 +6884,10 @@ export class QueryDciPreviewResponse extends $tea.Model {
   queryTime?: string;
   // 数登登记号
   regNumber?: string;
+  // 著作权人名称列表
+  copyrightOwnerNames?: string[];
+  // 系列图预览地址
+  seriesDiagramPreviewList?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6799,6 +6902,8 @@ export class QueryDciPreviewResponse extends $tea.Model {
       fileType: 'file_type',
       queryTime: 'query_time',
       regNumber: 'reg_number',
+      copyrightOwnerNames: 'copyright_owner_names',
+      seriesDiagramPreviewList: 'series_diagram_preview_list',
     };
   }
 
@@ -6816,6 +6921,8 @@ export class QueryDciPreviewResponse extends $tea.Model {
       fileType: 'string',
       queryTime: 'string',
       regNumber: 'string',
+      copyrightOwnerNames: { 'type': 'array', 'itemType': 'string' },
+      seriesDiagramPreviewList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -6954,6 +7061,101 @@ export class CloseDciRegistrationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDciUsernocertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户名称
+  certificateName: string;
+  // 证件类型
+  certificateType: string;
+  // 证件号
+  certificateNumber: string;
+  // 企业用户必填
+  legalPersonCertName?: string;
+  // 企业用户必填
+  legalPersonCertType?: string;
+  // 企业用户必填
+  legalPersonCertNo?: string;
+  // 手机号
+  phone: string;
+  // 代理信息
+  proxyData?: ProxyData;
+  // 幂等字段
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certificateName: 'certificate_name',
+      certificateType: 'certificate_type',
+      certificateNumber: 'certificate_number',
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertType: 'legal_person_cert_type',
+      legalPersonCertNo: 'legal_person_cert_no',
+      phone: 'phone',
+      proxyData: 'proxy_data',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certificateName: 'string',
+      certificateType: 'string',
+      certificateNumber: 'string',
+      legalPersonCertName: 'string',
+      legalPersonCertType: 'string',
+      legalPersonCertNo: 'string',
+      phone: 'string',
+      proxyData: ProxyData,
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDciUsernocertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // dci用户id
+  dciUserId?: string;
+  // dci用户状态
+  dciUserStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dciUserId: 'dci_user_id',
+      dciUserStatus: 'dci_user_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dciUserId: 'string',
+      dciUserStatus: 'string',
     };
   }
 
@@ -7601,7 +7803,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -7640,7 +7842,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.38",
+          sdk_version: "1.17.48",
+          _prod_code: "BCCR",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -8672,6 +8876,25 @@ export default class Client {
   async closeDciRegistrationEx(request: CloseDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CloseDciRegistrationResponse> {
     Util.validateModel(request);
     return $tea.cast<CloseDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.close", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CloseDciRegistrationResponse({}));
+  }
+
+  /**
+   * Description: dci用户无需证件注册
+   * Summary: dci用户无需证件注册
+   */
+  async addDciUsernocert(request: AddDciUsernocertRequest): Promise<AddDciUsernocertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addDciUsernocertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: dci用户无需证件注册
+   * Summary: dci用户无需证件注册
+   */
+  async addDciUsernocertEx(request: AddDciUsernocertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddDciUsernocertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddDciUsernocertResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.usernocert.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddDciUsernocertResponse({}));
   }
 
   /**
