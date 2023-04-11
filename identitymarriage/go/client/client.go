@@ -292,8 +292,10 @@ type UploadFileDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 文件
-	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件流
+	File *string `json:"file,omitempty" xml:"file,omitempty" require:"true"`
 }
 
 func (s UploadFileDataRequest) String() string {
@@ -314,8 +316,13 @@ func (s *UploadFileDataRequest) SetProductInstanceId(v string) *UploadFileDataRe
 	return s
 }
 
-func (s *UploadFileDataRequest) SetBizContent(v string) *UploadFileDataRequest {
-	s.BizContent = &v
+func (s *UploadFileDataRequest) SetFileName(v string) *UploadFileDataRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *UploadFileDataRequest) SetFile(v string) *UploadFileDataRequest {
+	s.File = &v
 	return s
 }
 
@@ -480,7 +487,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("IDENTITYMARRIAGE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
