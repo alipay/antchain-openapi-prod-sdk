@@ -91,7 +91,7 @@ namespace AntChain.SDK.BCCR
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.38"},
+                        {"sdk_version", "1.17.48"},
+                        {"_prod_code", "BCCR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.BCCR
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.38"},
+                        {"sdk_version", "1.17.48"},
+                        {"_prod_code", "BCCR"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2499,6 +2503,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CloseDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.close", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: dci用户无需证件注册
+         * Summary: dci用户无需证件注册
+         */
+        public AddDciUsernocertResponse AddDciUsernocert(AddDciUsernocertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddDciUsernocertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: dci用户无需证件注册
+         * Summary: dci用户无需证件注册
+         */
+        public async Task<AddDciUsernocertResponse> AddDciUsernocertAsync(AddDciUsernocertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddDciUsernocertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: dci用户无需证件注册
+         * Summary: dci用户无需证件注册
+         */
+        public AddDciUsernocertResponse AddDciUsernocertEx(AddDciUsernocertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddDciUsernocertResponse>(DoRequest("1.0", "blockchain.bccr.dci.usernocert.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: dci用户无需证件注册
+         * Summary: dci用户无需证件注册
+         */
+        public async Task<AddDciUsernocertResponse> AddDciUsernocertExAsync(AddDciUsernocertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddDciUsernocertResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.usernocert.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

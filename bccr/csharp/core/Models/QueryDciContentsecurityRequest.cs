@@ -18,30 +18,35 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 任务ID
-        [NameInMap("task_id")]
+        // 任务ID(数登流水号)
+        [NameInMap("flow_number")]
         [Validation(Required=true)]
-        public string TaskId { get; set; }
-
-        // 作品名称
-        [NameInMap("work_name")]
-        [Validation(Required=true)]
-        public string WorkName { get; set; }
-
-        // 作品哈希
-        [NameInMap("work_hash")]
-        [Validation(Required=true)]
-        public string WorkHash { get; set; }
-
-        // 作品类型
-        [NameInMap("work_category")]
-        [Validation(Required=true)]
-        public string WorkCategory { get; set; }
+        public string FlowNumber { get; set; }
 
         // 客户端令牌
         [NameInMap("client_token")]
         [Validation(Required=false)]
         public string ClientToken { get; set; }
+
+        // 任务Id, 已废弃
+        [NameInMap("task_id")]
+        [Validation(Required=false)]
+        public string TaskId { get; set; }
+
+        // 作品名，已废弃
+        [NameInMap("work_name")]
+        [Validation(Required=false)]
+        public string WorkName { get; set; }
+
+        // 作品Hash，已废弃
+        [NameInMap("work_hash")]
+        [Validation(Required=false)]
+        public string WorkHash { get; set; }
+
+        // 作品分类，已废弃
+        [NameInMap("work_category")]
+        [Validation(Required=false)]
+        public string WorkCategory { get; set; }
 
     }
 

@@ -69,6 +69,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string RegNumber { get; set; }
 
+        // 著作权人名称列表
+        [NameInMap("copyright_owner_names")]
+        [Validation(Required=false)]
+        public List<string> CopyrightOwnerNames { get; set; }
+
+        // 系列图预览地址
+        [NameInMap("series_diagram_preview_list")]
+        [Validation(Required=false)]
+        public List<string> SeriesDiagramPreviewList { get; set; }
+
     }
 
 }

@@ -149,6 +149,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string PublicationUrl { get; set; }
 
+        // DCI类型
+        [NameInMap("apply_type")]
+        [Validation(Required=false)]
+        public string ApplyType { get; set; }
+
+        // 系列图错误原因集合
+        [NameInMap("series_diagram_error_reason_list")]
+        [Validation(Required=false)]
+        public List<SeriesDiagramErrorReason> SeriesDiagramErrorReasonList { get; set; }
+
     }
 
 }

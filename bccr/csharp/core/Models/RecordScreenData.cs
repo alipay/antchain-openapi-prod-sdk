@@ -115,6 +115,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CorrectionUrl { get; set; }
 
+        // 录屏取证准备时间
+        [NameInMap("gmt_ready")]
+        [Validation(Required=false)]
+        public long? GmtReady { get; set; }
+
     }
 
 }

@@ -108,6 +108,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public List<string> CopyrightOwnerIds { get; set; }
 
+        // DCI类型
+        [NameInMap("apply_type")]
+        [Validation(Required=false)]
+        public string ApplyType { get; set; }
+
+        // 渠道标签
+        [NameInMap("channel_terminal")]
+        [Validation(Required=false)]
+        public string ChannelTerminal { get; set; }
+
     }
 
 }

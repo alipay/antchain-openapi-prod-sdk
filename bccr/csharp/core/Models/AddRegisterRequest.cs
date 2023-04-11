@@ -128,6 +128,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public ProxyData ProxyInfo { get; set; }
 
+        // 渠道标签
+        [NameInMap("channel_terminal")]
+        [Validation(Required=false)]
+        public string ChannelTerminal { get; set; }
+
     }
 
 }
