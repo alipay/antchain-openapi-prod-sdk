@@ -338,16 +338,20 @@ class UploadFileDataRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        biz_content: str = None,
+        file_name: str = None,
+        file: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 文件
-        self.biz_content = biz_content
+        # 文件名
+        self.file_name = file_name
+        # 文件流
+        self.file = file
 
     def validate(self):
-        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file, 'file')
 
     def to_map(self):
         _map = super().to_map()
@@ -359,8 +363,10 @@ class UploadFileDataRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.biz_content is not None:
-            result['biz_content'] = self.biz_content
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file is not None:
+            result['file'] = self.file
         return result
 
     def from_map(self, m: dict = None):
@@ -369,8 +375,10 @@ class UploadFileDataRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('biz_content') is not None:
-            self.biz_content = m.get('biz_content')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file') is not None:
+            self.file = m.get('file')
         return self
 
 
