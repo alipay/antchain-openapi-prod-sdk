@@ -19,20 +19,28 @@ class UploadFileDataRequest extends Model
      */
     public $productInstanceId;
 
-    // 文件
+    // 文件名
     /**
      * @var string
      */
-    public $bizContent;
+    public $fileName;
+
+    // 文件流
+    /**
+     * @var string
+     */
+    public $file;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
+        'fileName'          => 'file_name',
+        'file'              => 'file',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('fileName', $this->fileName, true);
+        Model::validateRequired('file', $this->file, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class UploadFileDataRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
+        }
+        if (null !== $this->file) {
+            $res['file'] = $this->file;
         }
 
         return $res;
@@ -65,8 +76,11 @@ class UploadFileDataRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['file_name'])) {
+            $model->fileName = $map['file_name'];
+        }
+        if (isset($map['file'])) {
+            $model->file = $map['file'];
         }
 
         return $model;
