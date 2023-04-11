@@ -126,6 +126,18 @@ class CreateDciPreregistrationRequest extends Model
      * @var string[]
      */
     public $copyrightOwnerIds;
+
+    // DCI类型
+    /**
+     * @var string
+     */
+    public $applyType;
+
+    // 渠道标签
+    /**
+     * @var string
+     */
+    public $channelTerminal;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -147,6 +159,8 @@ class CreateDciPreregistrationRequest extends Model
         'categorySimilarRatio'    => 'category_similar_ratio',
         'categoryRiskRank'        => 'category_risk_rank',
         'copyrightOwnerIds'       => 'copyright_owner_ids',
+        'applyType'               => 'apply_type',
+        'channelTerminal'         => 'channel_terminal',
     ];
 
     public function validate()
@@ -228,6 +242,12 @@ class CreateDciPreregistrationRequest extends Model
         if (null !== $this->copyrightOwnerIds) {
             $res['copyright_owner_ids'] = $this->copyrightOwnerIds;
         }
+        if (null !== $this->applyType) {
+            $res['apply_type'] = $this->applyType;
+        }
+        if (null !== $this->channelTerminal) {
+            $res['channel_terminal'] = $this->channelTerminal;
+        }
 
         return $res;
     }
@@ -301,6 +321,12 @@ class CreateDciPreregistrationRequest extends Model
             if (!empty($map['copyright_owner_ids'])) {
                 $model->copyrightOwnerIds = $map['copyright_owner_ids'];
             }
+        }
+        if (isset($map['apply_type'])) {
+            $model->applyType = $map['apply_type'];
+        }
+        if (isset($map['channel_terminal'])) {
+            $model->channelTerminal = $map['channel_terminal'];
         }
 
         return $model;

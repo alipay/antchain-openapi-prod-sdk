@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class LabelRiskData extends Model
 {
-    // 识别结果
-    /**
-     * @example 成功：1，失败：0
-     *
-     * @var int
-     */
-    public $code;
-
     // 识别出的标签名称
     /**
      * @example 识别出的标签名称
@@ -30,57 +22,39 @@ class LabelRiskData extends Model
      *
      * @var bool
      */
-    public $isRisk;
+    public $isMatch;
 
-    // 识别出的标签匹配度百分比
+    // 识别出的标签匹配度
     /**
-     * @example 识别出的标签匹配度百分比
+     * @example 识别出的标签匹配度
      *
      * @var string
      */
-    public $similarValue;
-
-    // 风险等级
-    /**
-     * @example 高3，中2，低1
-     *
-     * @var int
-     */
-    public $riskLevel;
+    public $matchValue;
     protected $_name = [
-        'code'         => 'code',
-        'labelName'    => 'label_name',
-        'isRisk'       => 'is_risk',
-        'similarValue' => 'similar_value',
-        'riskLevel'    => 'risk_level',
+        'labelName'  => 'label_name',
+        'isMatch'    => 'is_match',
+        'matchValue' => 'match_value',
     ];
 
     public function validate()
     {
-        Model::validateRequired('code', $this->code, true);
         Model::validateRequired('labelName', $this->labelName, true);
-        Model::validateRequired('isRisk', $this->isRisk, true);
-        Model::validateRequired('similarValue', $this->similarValue, true);
-        Model::validateRequired('riskLevel', $this->riskLevel, true);
+        Model::validateRequired('isMatch', $this->isMatch, true);
+        Model::validateRequired('matchValue', $this->matchValue, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
         if (null !== $this->labelName) {
             $res['label_name'] = $this->labelName;
         }
-        if (null !== $this->isRisk) {
-            $res['is_risk'] = $this->isRisk;
+        if (null !== $this->isMatch) {
+            $res['is_match'] = $this->isMatch;
         }
-        if (null !== $this->similarValue) {
-            $res['similar_value'] = $this->similarValue;
-        }
-        if (null !== $this->riskLevel) {
-            $res['risk_level'] = $this->riskLevel;
+        if (null !== $this->matchValue) {
+            $res['match_value'] = $this->matchValue;
         }
 
         return $res;
@@ -94,20 +68,14 @@ class LabelRiskData extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
         if (isset($map['label_name'])) {
             $model->labelName = $map['label_name'];
         }
-        if (isset($map['is_risk'])) {
-            $model->isRisk = $map['is_risk'];
+        if (isset($map['is_match'])) {
+            $model->isMatch = $map['is_match'];
         }
-        if (isset($map['similar_value'])) {
-            $model->similarValue = $map['similar_value'];
-        }
-        if (isset($map['risk_level'])) {
-            $model->riskLevel = $map['risk_level'];
+        if (isset($map['match_value'])) {
+            $model->matchValue = $map['match_value'];
         }
 
         return $model;

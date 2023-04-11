@@ -79,19 +79,33 @@ class QueryDciPreviewResponse extends Model
      * @var string
      */
     public $regNumber;
+
+    // 著作权人名称列表
+    /**
+     * @var string[]
+     */
+    public $copyrightOwnerNames;
+
+    // 系列图预览地址
+    /**
+     * @var string[]
+     */
+    public $seriesDiagramPreviewList;
     protected $_name = [
-        'reqMsgId'              => 'req_msg_id',
-        'resultCode'            => 'result_code',
-        'resultMsg'             => 'result_msg',
-        'filePreviewStatus'     => 'file_preview_status',
-        'filePartPreviewStatus' => 'file_part_preview_status',
-        'filePreviewUrl'        => 'file_preview_url',
-        'filePartPreviewUrl'    => 'file_part_preview_url',
-        'workName'              => 'work_name',
-        'dciCode'               => 'dci_code',
-        'fileType'              => 'file_type',
-        'queryTime'             => 'query_time',
-        'regNumber'             => 'reg_number',
+        'reqMsgId'                 => 'req_msg_id',
+        'resultCode'               => 'result_code',
+        'resultMsg'                => 'result_msg',
+        'filePreviewStatus'        => 'file_preview_status',
+        'filePartPreviewStatus'    => 'file_part_preview_status',
+        'filePreviewUrl'           => 'file_preview_url',
+        'filePartPreviewUrl'       => 'file_part_preview_url',
+        'workName'                 => 'work_name',
+        'dciCode'                  => 'dci_code',
+        'fileType'                 => 'file_type',
+        'queryTime'                => 'query_time',
+        'regNumber'                => 'reg_number',
+        'copyrightOwnerNames'      => 'copyright_owner_names',
+        'seriesDiagramPreviewList' => 'series_diagram_preview_list',
     ];
 
     public function validate()
@@ -137,6 +151,12 @@ class QueryDciPreviewResponse extends Model
         }
         if (null !== $this->regNumber) {
             $res['reg_number'] = $this->regNumber;
+        }
+        if (null !== $this->copyrightOwnerNames) {
+            $res['copyright_owner_names'] = $this->copyrightOwnerNames;
+        }
+        if (null !== $this->seriesDiagramPreviewList) {
+            $res['series_diagram_preview_list'] = $this->seriesDiagramPreviewList;
         }
 
         return $res;
@@ -185,6 +205,16 @@ class QueryDciPreviewResponse extends Model
         }
         if (isset($map['reg_number'])) {
             $model->regNumber = $map['reg_number'];
+        }
+        if (isset($map['copyright_owner_names'])) {
+            if (!empty($map['copyright_owner_names'])) {
+                $model->copyrightOwnerNames = $map['copyright_owner_names'];
+            }
+        }
+        if (isset($map['series_diagram_preview_list'])) {
+            if (!empty($map['series_diagram_preview_list'])) {
+                $model->seriesDiagramPreviewList = $map['series_diagram_preview_list'];
+            }
         }
 
         return $model;

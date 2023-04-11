@@ -19,51 +19,55 @@ class QueryDciContentsecurityRequest extends Model
      */
     public $productInstanceId;
 
-    // 任务ID
+    // 任务ID(数登流水号)
     /**
      * @var string
      */
-    public $taskId;
-
-    // 作品名称
-    /**
-     * @var string
-     */
-    public $workName;
-
-    // 作品哈希
-    /**
-     * @var string
-     */
-    public $workHash;
-
-    // 作品类型
-    /**
-     * @var string
-     */
-    public $workCategory;
+    public $flowNumber;
 
     // 客户端令牌
     /**
      * @var string
      */
     public $clientToken;
+
+    // 任务Id, 已废弃
+    /**
+     * @var string
+     */
+    public $taskId;
+
+    // 作品名，已废弃
+    /**
+     * @var string
+     */
+    public $workName;
+
+    // 作品Hash，已废弃
+    /**
+     * @var string
+     */
+    public $workHash;
+
+    // 作品分类，已废弃
+    /**
+     * @var string
+     */
+    public $workCategory;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'flowNumber'        => 'flow_number',
+        'clientToken'       => 'client_token',
         'taskId'            => 'task_id',
         'workName'          => 'work_name',
         'workHash'          => 'work_hash',
         'workCategory'      => 'work_category',
-        'clientToken'       => 'client_token',
     ];
 
     public function validate()
     {
-        Model::validateRequired('taskId', $this->taskId, true);
-        Model::validateRequired('workName', $this->workName, true);
-        Model::validateRequired('workHash', $this->workHash, true);
-        Model::validateRequired('workCategory', $this->workCategory, true);
+        Model::validateRequired('flowNumber', $this->flowNumber, true);
     }
 
     public function toMap()
@@ -74,6 +78,12 @@ class QueryDciContentsecurityRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->flowNumber) {
+            $res['flow_number'] = $this->flowNumber;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
@@ -86,9 +96,6 @@ class QueryDciContentsecurityRequest extends Model
         }
         if (null !== $this->workCategory) {
             $res['work_category'] = $this->workCategory;
-        }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
         }
 
         return $res;
@@ -108,6 +115,12 @@ class QueryDciContentsecurityRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['flow_number'])) {
+            $model->flowNumber = $map['flow_number'];
+        }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
+        }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
         }
@@ -119,9 +132,6 @@ class QueryDciContentsecurityRequest extends Model
         }
         if (isset($map['work_category'])) {
             $model->workCategory = $map['work_category'];
-        }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
         }
 
         return $model;

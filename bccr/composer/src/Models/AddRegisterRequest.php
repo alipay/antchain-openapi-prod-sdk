@@ -150,6 +150,12 @@ class AddRegisterRequest extends Model
      * @var ProxyData
      */
     public $proxyInfo;
+
+    // 渠道标签
+    /**
+     * @var string
+     */
+    public $channelTerminal;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -175,6 +181,7 @@ class AddRegisterRequest extends Model
         'clientToken'        => 'client_token',
         'syncInfo'           => 'sync_info',
         'proxyInfo'          => 'proxy_info',
+        'channelTerminal'    => 'channel_terminal',
     ];
 
     public function validate()
@@ -266,6 +273,9 @@ class AddRegisterRequest extends Model
         if (null !== $this->proxyInfo) {
             $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
         }
+        if (null !== $this->channelTerminal) {
+            $res['channel_terminal'] = $this->channelTerminal;
+        }
 
         return $res;
     }
@@ -351,6 +361,9 @@ class AddRegisterRequest extends Model
         }
         if (isset($map['proxy_info'])) {
             $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
+        }
+        if (isset($map['channel_terminal'])) {
+            $model->channelTerminal = $map['channel_terminal'];
         }
 
         return $model;

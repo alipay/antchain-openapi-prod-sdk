@@ -175,35 +175,49 @@ class QueryDciPreregistrationResponse extends Model
      * @var string
      */
     public $publicationUrl;
+
+    // DCI类型
+    /**
+     * @var string
+     */
+    public $applyType;
+
+    // 系列图错误原因集合
+    /**
+     * @var SeriesDiagramErrorReason[]
+     */
+    public $seriesDiagramErrorReasonList;
     protected $_name = [
-        'reqMsgId'               => 'req_msg_id',
-        'resultCode'             => 'result_code',
-        'resultMsg'              => 'result_msg',
-        'status'                 => 'status',
-        'fileHash'               => 'file_hash',
-        'fileHashTxHash'         => 'file_hash_tx_hash',
-        'fileHashBlockHeight'    => 'file_hash_block_height',
-        'dciCode'                => 'dci_code',
-        'dciCodeTxHash'          => 'dci_code_tx_hash',
-        'dciCodeBlockHeight'     => 'dci_code_block_height',
-        'dciCodeFileTxHash'      => 'dci_code_file_tx_hash',
-        'dciCodeFileBlockHeight' => 'dci_code_file_block_height',
-        'preRegCertTxHash'       => 'pre_reg_cert_tx_hash',
-        'preRegCertBlockHeight'  => 'pre_reg_cert_block_height',
-        'cancelTxHash'           => 'cancel_tx_hash',
-        'cancelBlockHeight'      => 'cancel_block_height',
-        'dciCodeTsr'             => 'dci_code_tsr',
-        'dciCodeFileTsr'         => 'dci_code_file_tsr',
-        'preRegCertTsr'          => 'pre_reg_cert_tsr',
-        'preRegCertFileId'       => 'pre_reg_cert_file_id',
-        'preRegCertFileHash'     => 'pre_reg_cert_file_hash',
-        'preRegCertUrl'          => 'pre_reg_cert_url',
-        'pngFileId'              => 'png_file_id',
-        'applyObtainDate'        => 'apply_obtain_date',
-        'dciCodeObtainDate'      => 'dci_code_obtain_date',
-        'errorReason'            => 'error_reason',
-        'errorReasonCn'          => 'error_reason_cn',
-        'publicationUrl'         => 'publication_url',
+        'reqMsgId'                     => 'req_msg_id',
+        'resultCode'                   => 'result_code',
+        'resultMsg'                    => 'result_msg',
+        'status'                       => 'status',
+        'fileHash'                     => 'file_hash',
+        'fileHashTxHash'               => 'file_hash_tx_hash',
+        'fileHashBlockHeight'          => 'file_hash_block_height',
+        'dciCode'                      => 'dci_code',
+        'dciCodeTxHash'                => 'dci_code_tx_hash',
+        'dciCodeBlockHeight'           => 'dci_code_block_height',
+        'dciCodeFileTxHash'            => 'dci_code_file_tx_hash',
+        'dciCodeFileBlockHeight'       => 'dci_code_file_block_height',
+        'preRegCertTxHash'             => 'pre_reg_cert_tx_hash',
+        'preRegCertBlockHeight'        => 'pre_reg_cert_block_height',
+        'cancelTxHash'                 => 'cancel_tx_hash',
+        'cancelBlockHeight'            => 'cancel_block_height',
+        'dciCodeTsr'                   => 'dci_code_tsr',
+        'dciCodeFileTsr'               => 'dci_code_file_tsr',
+        'preRegCertTsr'                => 'pre_reg_cert_tsr',
+        'preRegCertFileId'             => 'pre_reg_cert_file_id',
+        'preRegCertFileHash'           => 'pre_reg_cert_file_hash',
+        'preRegCertUrl'                => 'pre_reg_cert_url',
+        'pngFileId'                    => 'png_file_id',
+        'applyObtainDate'              => 'apply_obtain_date',
+        'dciCodeObtainDate'            => 'dci_code_obtain_date',
+        'errorReason'                  => 'error_reason',
+        'errorReasonCn'                => 'error_reason_cn',
+        'publicationUrl'               => 'publication_url',
+        'applyType'                    => 'apply_type',
+        'seriesDiagramErrorReasonList' => 'series_diagram_error_reason_list',
     ];
 
     public function validate()
@@ -296,6 +310,18 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (null !== $this->publicationUrl) {
             $res['publication_url'] = $this->publicationUrl;
+        }
+        if (null !== $this->applyType) {
+            $res['apply_type'] = $this->applyType;
+        }
+        if (null !== $this->seriesDiagramErrorReasonList) {
+            $res['series_diagram_error_reason_list'] = [];
+            if (null !== $this->seriesDiagramErrorReasonList && \is_array($this->seriesDiagramErrorReasonList)) {
+                $n = 0;
+                foreach ($this->seriesDiagramErrorReasonList as $item) {
+                    $res['series_diagram_error_reason_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -392,6 +418,18 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (isset($map['publication_url'])) {
             $model->publicationUrl = $map['publication_url'];
+        }
+        if (isset($map['apply_type'])) {
+            $model->applyType = $map['apply_type'];
+        }
+        if (isset($map['series_diagram_error_reason_list'])) {
+            if (!empty($map['series_diagram_error_reason_list'])) {
+                $model->seriesDiagramErrorReasonList = [];
+                $n                                   = 0;
+                foreach ($map['series_diagram_error_reason_list'] as $item) {
+                    $model->seriesDiagramErrorReasonList[$n++] = null !== $item ? SeriesDiagramErrorReason::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

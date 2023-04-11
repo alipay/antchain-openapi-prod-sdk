@@ -175,6 +175,14 @@ class RecordScreenData extends Model
      * @var string
      */
     public $correctionUrl;
+
+    // 录屏取证准备时间
+    /**
+     * @example 1111
+     *
+     * @var int
+     */
+    public $gmtReady;
     protected $_name = [
         'errorReason'          => 'error_reason',
         'fileHash'             => 'file_hash',
@@ -197,6 +205,7 @@ class RecordScreenData extends Model
         'mainEvidenceName'     => 'main_evidence_name',
         'evidenceOrderNum'     => 'evidence_order_num',
         'correctionUrl'        => 'correction_url',
+        'gmtReady'             => 'gmt_ready',
     ];
 
     public function validate()
@@ -273,6 +282,9 @@ class RecordScreenData extends Model
         if (null !== $this->correctionUrl) {
             $res['correction_url'] = $this->correctionUrl;
         }
+        if (null !== $this->gmtReady) {
+            $res['gmt_ready'] = $this->gmtReady;
+        }
 
         return $res;
     }
@@ -347,6 +359,9 @@ class RecordScreenData extends Model
         }
         if (isset($map['correction_url'])) {
             $model->correctionUrl = $map['correction_url'];
+        }
+        if (isset($map['gmt_ready'])) {
+            $model->gmtReady = $map['gmt_ready'];
         }
 
         return $model;

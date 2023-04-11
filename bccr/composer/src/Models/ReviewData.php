@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class ReviewData extends Model
 {
+    // 作品名称安全识别结果
+    /**
+     * @example
+     *
+     * @var ContentRiskData[]
+     */
+    public $titleRiskData;
+
     // 内容安全识别结果
     /**
      * @example
@@ -32,6 +40,7 @@ class ReviewData extends Model
      */
     public $labelRiskData;
     protected $_name = [
+        'titleRiskData'    => 'title_risk_data',
         'contentRiskData'  => 'content_risk_data',
         'resembleRiskData' => 'resemble_risk_data',
         'labelRiskData'    => 'label_risk_data',
@@ -39,14 +48,20 @@ class ReviewData extends Model
 
     public function validate()
     {
-        Model::validateRequired('contentRiskData', $this->contentRiskData, true);
-        Model::validateRequired('resembleRiskData', $this->resembleRiskData, true);
-        Model::validateRequired('labelRiskData', $this->labelRiskData, true);
     }
 
     public function toMap()
     {
         $res = [];
+        if (null !== $this->titleRiskData) {
+            $res['title_risk_data'] = [];
+            if (null !== $this->titleRiskData && \is_array($this->titleRiskData)) {
+                $n = 0;
+                foreach ($this->titleRiskData as $item) {
+                    $res['title_risk_data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
         if (null !== $this->contentRiskData) {
             $res['content_risk_data'] = [];
             if (null !== $this->contentRiskData && \is_array($this->contentRiskData)) {
@@ -86,6 +101,15 @@ class ReviewData extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['title_risk_data'])) {
+            if (!empty($map['title_risk_data'])) {
+                $model->titleRiskData = [];
+                $n                    = 0;
+                foreach ($map['title_risk_data'] as $item) {
+                    $model->titleRiskData[$n++] = null !== $item ? ContentRiskData::fromMap($item) : $item;
+                }
+            }
+        }
         if (isset($map['content_risk_data'])) {
             if (!empty($map['content_risk_data'])) {
                 $model->contentRiskData = [];

@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\BCCR\Models\AddContentRequest;
 use AntChain\BCCR\Models\AddContentResponse;
+use AntChain\BCCR\Models\AddDciUsernocertRequest;
+use AntChain\BCCR\Models\AddDciUsernocertResponse;
 use AntChain\BCCR\Models\AddDciUserRequest;
 use AntChain\BCCR\Models\AddDciUserResponse;
 use AntChain\BCCR\Models\AddHashregisterRequest;
@@ -228,18 +230,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -248,7 +250,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 出证用户（申请人，经办人）
+            // 相似位置信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -276,7 +278,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.38',
+                    'sdk_version'      => '1.17.48',
+                    '_prod_code'       => 'BCCR',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2036,6 +2040,39 @@ class Client
         Utils::validateModel($request);
 
         return CloseDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: dci用户无需证件注册
+     * Summary: dci用户无需证件注册.
+     *
+     * @param AddDciUsernocertRequest $request
+     *
+     * @return AddDciUsernocertResponse
+     */
+    public function addDciUsernocert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDciUsernocertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: dci用户无需证件注册
+     * Summary: dci用户无需证件注册.
+     *
+     * @param AddDciUsernocertRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return AddDciUsernocertResponse
+     */
+    public function addDciUsernocertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDciUsernocertResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
