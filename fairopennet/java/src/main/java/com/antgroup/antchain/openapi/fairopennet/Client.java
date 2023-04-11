@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3"),
+                    new TeaPair("sdk_version", "1.0.4"),
                     new TeaPair("_prod_code", "FAIROPENNET"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -657,6 +657,63 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.file.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadFileResponse());
+    }
+
+    /**
+     * Description: 查询可用的fair节点nodeId
+     * Summary: 查询fair node列表
+     */
+    public GetNodeListResponse getNodeList(GetNodeListRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getNodeListEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询可用的fair节点nodeId
+     * Summary: 查询fair node列表
+     */
+    public GetNodeListResponse getNodeListEx(GetNodeListRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.node.list.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetNodeListResponse());
+    }
+
+    /**
+     * Description: 注册新用户
+     * Summary: 注册新用户
+     */
+    public RegisterPartyResponse registerParty(RegisterPartyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerPartyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注册新用户
+     * Summary: 注册新用户
+     */
+    public RegisterPartyResponse registerPartyEx(RegisterPartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.party.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterPartyResponse());
+    }
+
+    /**
+     * Description: 查询用户是否注册成功
+     * Summary: 查询用户注册进度
+     */
+    public QueryPartyRegisterstatusResponse queryPartyRegisterstatus(QueryPartyRegisterstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPartyRegisterstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户是否注册成功
+     * Summary: 查询用户注册进度
+     */
+    public QueryPartyRegisterstatusResponse queryPartyRegisterstatusEx(QueryPartyRegisterstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.party.registerstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPartyRegisterstatusResponse());
     }
 
     /**

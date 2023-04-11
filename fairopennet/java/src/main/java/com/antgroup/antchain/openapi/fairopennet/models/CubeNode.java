@@ -9,10 +9,10 @@ public class CubeNode extends TeaModel {
     @Validation(required = true)
     public String domain;
 
-    // 无
+    //  
     @NameInMap("endpoints")
     @Validation(required = true)
-    public java.util.List<String> endpoints;
+    public java.util.List<NodeEndpoint> endpoints;
 
     //  
     @NameInMap("node_id")
@@ -52,11 +52,11 @@ public class CubeNode extends TeaModel {
         return this.domain;
     }
 
-    public CubeNode setEndpoints(java.util.List<String> endpoints) {
+    public CubeNode setEndpoints(java.util.List<NodeEndpoint> endpoints) {
         this.endpoints = endpoints;
         return this;
     }
-    public java.util.List<String> getEndpoints() {
+    public java.util.List<NodeEndpoint> getEndpoints() {
         return this.endpoints;
     }
 
