@@ -18,10 +18,15 @@ namespace AntChain.SDK.IDENTITYMARRIAGE.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 文件
-        [NameInMap("biz_content")]
+        // 文件名
+        [NameInMap("file_name")]
         [Validation(Required=true)]
-        public string BizContent { get; set; }
+        public string FileName { get; set; }
+
+        // 文件流
+        [NameInMap("file")]
+        [Validation(Required=true)]
+        public string File { get; set; }
 
     }
 
