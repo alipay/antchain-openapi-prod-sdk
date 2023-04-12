@@ -194,6 +194,13 @@ type FileInfo struct {
 	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty" require:"true"`
 	// 文件名称
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件类型(枚举)
+	// CASE_NOTICE: 立案通知书
+	// CASE_VERDICT: 仲裁裁决书
+	// CASE_EFFECT_PROVE: 裁决书司法生效证明
+	// CASE_SERVED_NOTICE: 电子送达通知
+	// PAYMETN_INFO: 缴费相关文件
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty"`
 }
 
 func (s FileInfo) String() string {
@@ -211,6 +218,11 @@ func (s *FileInfo) SetFileKey(v string) *FileInfo {
 
 func (s *FileInfo) SetFileName(v string) *FileInfo {
 	s.FileName = &v
+	return s
+}
+
+func (s *FileInfo) SetFileType(v string) *FileInfo {
+	s.FileType = &v
 	return s
 }
 
@@ -6009,6 +6021,39 @@ func (s *OneStepSignField) SetWidth(v string) *OneStepSignField {
 
 func (s *OneStepSignField) SetAutoExecute(v bool) *OneStepSignField {
 	s.AutoExecute = &v
+	return s
+}
+
+// 缴费账户信息
+type PaymentInfo struct {
+	// 收款账户-户名 不超过64字符
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 收款账户-开户银行 不超过64字符
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 收款账户-收款账户银行账号 不超过64字符
+	BankNum *string `json:"bank_num,omitempty" xml:"bank_num,omitempty" require:"true"`
+}
+
+func (s PaymentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentInfo) SetAccountName(v string) *PaymentInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *PaymentInfo) SetBankName(v string) *PaymentInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *PaymentInfo) SetBankNum(v string) *PaymentInfo {
+	s.BankNum = &v
 	return s
 }
 
@@ -23724,6 +23769,8 @@ type QueryJusticeCommoncaseinfoResponse struct {
 	BusinessInfo *string `json:"business_info,omitempty" xml:"business_info,omitempty"`
 	// 查询的案件编号
 	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 }
 
 func (s QueryJusticeCommoncaseinfoResponse) String() string {
@@ -23756,6 +23803,11 @@ func (s *QueryJusticeCommoncaseinfoResponse) SetBusinessInfo(v string) *QueryJus
 
 func (s *QueryJusticeCommoncaseinfoResponse) SetCaseNo(v string) *QueryJusticeCommoncaseinfoResponse {
 	s.CaseNo = &v
+	return s
+}
+
+func (s *QueryJusticeCommoncaseinfoResponse) SetBizType(v string) *QueryJusticeCommoncaseinfoResponse {
+	s.BizType = &v
 	return s
 }
 
@@ -23875,6 +23927,291 @@ func (s *CreateJusticeAgentcaseResponse) SetSuccess(v bool) *CreateJusticeAgentc
 
 func (s *CreateJusticeAgentcaseResponse) SetCaseId(v int64) *CreateJusticeAgentcaseResponse {
 	s.CaseId = &v
+	return s
+}
+
+type QueryJusticeRightsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件维权记录编号
+	RecordId *int64 `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+}
+
+func (s QueryJusticeRightsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeRightsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeRightsRequest) SetAuthToken(v string) *QueryJusticeRightsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryJusticeRightsRequest) SetProductInstanceId(v string) *QueryJusticeRightsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryJusticeRightsRequest) SetRecordId(v int64) *QueryJusticeRightsRequest {
+	s.RecordId = &v
+	return s
+}
+
+type QueryJusticeRightsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 案件业务信息(申请人,被申请人,业务要素),示例查看对接文档
+	BusinessInfo *string `json:"business_info,omitempty" xml:"business_info,omitempty"`
+	// 证据信息,示例查看对接文档
+	EvidenceInfo *string `json:"evidence_info,omitempty" xml:"evidence_info,omitempty"`
+}
+
+func (s QueryJusticeRightsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeRightsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeRightsResponse) SetReqMsgId(v string) *QueryJusticeRightsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryJusticeRightsResponse) SetResultCode(v string) *QueryJusticeRightsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryJusticeRightsResponse) SetResultMsg(v string) *QueryJusticeRightsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryJusticeRightsResponse) SetBusinessInfo(v string) *QueryJusticeRightsResponse {
+	s.BusinessInfo = &v
+	return s
+}
+
+func (s *QueryJusticeRightsResponse) SetEvidenceInfo(v string) *QueryJusticeRightsResponse {
+	s.EvidenceInfo = &v
+	return s
+}
+
+type UpdateJusticeRightsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件维权记录编号
+	RecordId *int64 `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+	// 案件状态(枚举)
+	CaseStatus *string `json:"case_status,omitempty" xml:"case_status,omitempty" require:"true"`
+	// 状态扩展信息示例查看对接文档
+	StatusExt *string `json:"status_ext,omitempty" xml:"status_ext,omitempty"`
+	// 文件信息,示例查看对接文档
+	StatusFileInfos []*FileInfo `json:"status_file_infos,omitempty" xml:"status_file_infos,omitempty" type:"Repeated"`
+}
+
+func (s UpdateJusticeRightsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateJusticeRightsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateJusticeRightsRequest) SetAuthToken(v string) *UpdateJusticeRightsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetProductInstanceId(v string) *UpdateJusticeRightsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetRecordId(v int64) *UpdateJusticeRightsRequest {
+	s.RecordId = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetCaseStatus(v string) *UpdateJusticeRightsRequest {
+	s.CaseStatus = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetStatusExt(v string) *UpdateJusticeRightsRequest {
+	s.StatusExt = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetStatusFileInfos(v []*FileInfo) *UpdateJusticeRightsRequest {
+	s.StatusFileInfos = v
+	return s
+}
+
+type UpdateJusticeRightsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否处理成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s UpdateJusticeRightsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateJusticeRightsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateJusticeRightsResponse) SetReqMsgId(v string) *UpdateJusticeRightsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsResponse) SetResultCode(v string) *UpdateJusticeRightsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsResponse) SetResultMsg(v string) *UpdateJusticeRightsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateJusticeRightsResponse) SetSuccess(v bool) *UpdateJusticeRightsResponse {
+	s.Success = &v
+	return s
+}
+
+type NotifyJusticeRightspaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件维权记录编号
+	RecordId *int64 `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+	// 缴费金额(支持两位小数)
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 费用类型(枚举)
+	// ARBITRATION: 仲裁案件受理费
+	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty" require:"true"`
+	// 缴费状态(枚举)
+	// WAIT_FEE: 待缴费
+	// SUCCESS: 成功
+	// FAIL: 失败
+	PaymentStatus *string `json:"payment_status,omitempty" xml:"payment_status,omitempty" require:"true"`
+	// 缴费失败的描述(不是缴费完成时,必填)
+	// 不超过500字符
+	PaymentRemark *string `json:"payment_remark,omitempty" xml:"payment_remark,omitempty"`
+	// 相关的文件信息列表,示例查看对接文档
+	PaymentFileInfos []*FileInfo `json:"payment_file_infos,omitempty" xml:"payment_file_infos,omitempty" type:"Repeated"`
+	// 缴费账户信息(待缴费时必填),示例查看对接文档
+	PaymentInfo *PaymentInfo `json:"payment_info,omitempty" xml:"payment_info,omitempty"`
+}
+
+func (s NotifyJusticeRightspaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyJusticeRightspaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetAuthToken(v string) *NotifyJusticeRightspaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetProductInstanceId(v string) *NotifyJusticeRightspaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetRecordId(v int64) *NotifyJusticeRightspaymentRequest {
+	s.RecordId = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetAmount(v int64) *NotifyJusticeRightspaymentRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentType(v string) *NotifyJusticeRightspaymentRequest {
+	s.PaymentType = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentStatus(v string) *NotifyJusticeRightspaymentRequest {
+	s.PaymentStatus = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentRemark(v string) *NotifyJusticeRightspaymentRequest {
+	s.PaymentRemark = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentFileInfos(v []*FileInfo) *NotifyJusticeRightspaymentRequest {
+	s.PaymentFileInfos = v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentInfo(v *PaymentInfo) *NotifyJusticeRightspaymentRequest {
+	s.PaymentInfo = v
+	return s
+}
+
+type NotifyJusticeRightspaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否处理成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s NotifyJusticeRightspaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyJusticeRightspaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyJusticeRightspaymentResponse) SetReqMsgId(v string) *NotifyJusticeRightspaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentResponse) SetResultCode(v string) *NotifyJusticeRightspaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentResponse) SetResultMsg(v string) *NotifyJusticeRightspaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentResponse) SetSuccess(v bool) *NotifyJusticeRightspaymentResponse {
+	s.Success = &v
 	return s
 }
 
@@ -41662,6 +41999,237 @@ func (s *QueryContractStatusResponse) SetLogBase64(v string) *QueryContractStatu
 	return s
 }
 
+type CreateTrafficTraceidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 用户Id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 渠道说明
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s CreateTrafficTraceidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateTrafficTraceidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateTrafficTraceidRequest) SetAuthToken(v string) *CreateTrafficTraceidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidRequest) SetProductInstanceId(v string) *CreateTrafficTraceidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidRequest) SetSceneCode(v string) *CreateTrafficTraceidRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidRequest) SetUserId(v string) *CreateTrafficTraceidRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidRequest) SetSource(v string) *CreateTrafficTraceidRequest {
+	s.Source = &v
+	return s
+}
+
+type CreateTrafficTraceidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回traceId，全局唯一
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+}
+
+func (s CreateTrafficTraceidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateTrafficTraceidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateTrafficTraceidResponse) SetReqMsgId(v string) *CreateTrafficTraceidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidResponse) SetResultCode(v string) *CreateTrafficTraceidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidResponse) SetResultMsg(v string) *CreateTrafficTraceidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateTrafficTraceidResponse) SetTraceId(v string) *CreateTrafficTraceidResponse {
+	s.TraceId = &v
+	return s
+}
+
+type UploadTrafficOperatelogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 通过trace_id生成接口生成的trace_id
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+	// 事件时间
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 当前页面类型标记
+	PageFlag *string `json:"page_flag,omitempty" xml:"page_flag,omitempty" require:"true"`
+	// 行为标记
+	ActionFlag *string `json:"action_flag,omitempty" xml:"action_flag,omitempty" require:"true"`
+	// 当前页面地址
+	CurUrl *string `json:"cur_url,omitempty" xml:"cur_url,omitempty" require:"true"`
+	// 事件对应位置编码
+	PositionNo *string `json:"position_no,omitempty" xml:"position_no,omitempty" require:"true"`
+	// 商品标识
+	ItemId *string `json:"item_id,omitempty" xml:"item_id,omitempty"`
+	// 店铺标识
+	ShopId *string `json:"shop_id,omitempty" xml:"shop_id,omitempty"`
+	// 上一跳页面地址
+	PreUrl *string `json:"pre_url,omitempty" xml:"pre_url,omitempty"`
+	// 渠道说明
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 当前广告位级别
+	AdSpaceLevel *string `json:"ad_space_level,omitempty" xml:"ad_space_level,omitempty"`
+	// 人群组标签ID
+	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty"`
+}
+
+func (s UploadTrafficOperatelogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadTrafficOperatelogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadTrafficOperatelogRequest) SetAuthToken(v string) *UploadTrafficOperatelogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetProductInstanceId(v string) *UploadTrafficOperatelogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetTraceId(v string) *UploadTrafficOperatelogRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetEventTime(v string) *UploadTrafficOperatelogRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetPageFlag(v string) *UploadTrafficOperatelogRequest {
+	s.PageFlag = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetActionFlag(v string) *UploadTrafficOperatelogRequest {
+	s.ActionFlag = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetCurUrl(v string) *UploadTrafficOperatelogRequest {
+	s.CurUrl = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetPositionNo(v string) *UploadTrafficOperatelogRequest {
+	s.PositionNo = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetItemId(v string) *UploadTrafficOperatelogRequest {
+	s.ItemId = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetShopId(v string) *UploadTrafficOperatelogRequest {
+	s.ShopId = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetPreUrl(v string) *UploadTrafficOperatelogRequest {
+	s.PreUrl = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetSource(v string) *UploadTrafficOperatelogRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetAdSpaceLevel(v string) *UploadTrafficOperatelogRequest {
+	s.AdSpaceLevel = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogRequest) SetGroupId(v string) *UploadTrafficOperatelogRequest {
+	s.GroupId = &v
+	return s
+}
+
+type UploadTrafficOperatelogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传结果
+	UploadResult *bool `json:"upload_result,omitempty" xml:"upload_result,omitempty"`
+}
+
+func (s UploadTrafficOperatelogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadTrafficOperatelogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadTrafficOperatelogResponse) SetReqMsgId(v string) *UploadTrafficOperatelogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogResponse) SetResultCode(v string) *UploadTrafficOperatelogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogResponse) SetResultMsg(v string) *UploadTrafficOperatelogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadTrafficOperatelogResponse) SetUploadResult(v bool) *UploadTrafficOperatelogResponse {
+	s.UploadResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -41784,7 +42352,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.30"),
+				"sdk_version":      tea.String("1.8.36"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -47151,6 +47719,108 @@ func (client *Client) CreateJusticeAgentcaseEx(request *CreateJusticeAgentcaseRe
 }
 
 /**
+ * Description: isv机构-案件要素查询
+ * Summary: isv机构-案件要素查询
+ */
+func (client *Client) QueryJusticeRights(request *QueryJusticeRightsRequest) (_result *QueryJusticeRightsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryJusticeRightsResponse{}
+	_body, _err := client.QueryJusticeRightsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: isv机构-案件要素查询
+ * Summary: isv机构-案件要素查询
+ */
+func (client *Client) QueryJusticeRightsEx(request *QueryJusticeRightsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryJusticeRightsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryJusticeRightsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.rights.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: isv机构-维权状态更新
+ * Summary: isv机构-维权状态更新
+ */
+func (client *Client) UpdateJusticeRights(request *UpdateJusticeRightsRequest) (_result *UpdateJusticeRightsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateJusticeRightsResponse{}
+	_body, _err := client.UpdateJusticeRightsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: isv机构-维权状态更新
+ * Summary: isv机构-维权状态更新
+ */
+func (client *Client) UpdateJusticeRightsEx(request *UpdateJusticeRightsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateJusticeRightsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateJusticeRightsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.rights.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: isv机构-案件缴费通知接口
+ * Summary: isv机构-案件缴费通知接口
+ */
+func (client *Client) NotifyJusticeRightspayment(request *NotifyJusticeRightspaymentRequest) (_result *NotifyJusticeRightspaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyJusticeRightspaymentResponse{}
+	_body, _err := client.NotifyJusticeRightspaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: isv机构-案件缴费通知接口
+ * Summary: isv机构-案件缴费通知接口
+ */
+func (client *Client) NotifyJusticeRightspaymentEx(request *NotifyJusticeRightspaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyJusticeRightspaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyJusticeRightspaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.rightspayment.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 融资服务平台上传商品类别信息
  * Summary: 融资服务平台上传商品类别信息
  */
@@ -52141,6 +52811,74 @@ func (client *Client) QueryContractStatusEx(request *QueryContractStatusRequest,
 	}
 	_result = &QueryContractStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据业务场景码创建raceId
+ * Summary: traceId创建接口
+ */
+func (client *Client) CreateTrafficTraceid(request *CreateTrafficTraceidRequest) (_result *CreateTrafficTraceidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateTrafficTraceidResponse{}
+	_body, _err := client.CreateTrafficTraceidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据业务场景码创建raceId
+ * Summary: traceId创建接口
+ */
+func (client *Client) CreateTrafficTraceidEx(request *CreateTrafficTraceidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateTrafficTraceidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateTrafficTraceidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.traffic.traceid.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 业务方操作行为日志传入
+ * Summary: 操作行为日志传入
+ */
+func (client *Client) UploadTrafficOperatelog(request *UploadTrafficOperatelogRequest) (_result *UploadTrafficOperatelogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadTrafficOperatelogResponse{}
+	_body, _err := client.UploadTrafficOperatelogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 业务方操作行为日志传入
+ * Summary: 操作行为日志传入
+ */
+func (client *Client) UploadTrafficOperatelogEx(request *UploadTrafficOperatelogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadTrafficOperatelogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadTrafficOperatelogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.traffic.operatelog.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
