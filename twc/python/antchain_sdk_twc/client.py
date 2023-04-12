@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.30',
+                    'sdk_version': '1.8.36',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.30',
+                    'sdk_version': '1.8.36',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -9019,6 +9019,174 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.justice.agentcase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_justice_rights(
+        self,
+        request: twc_models.QueryJusticeRightsRequest,
+    ) -> twc_models.QueryJusticeRightsResponse:
+        """
+        Description: isv机构-案件要素查询
+        Summary: isv机构-案件要素查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_justice_rights_ex(request, headers, runtime)
+
+    async def query_justice_rights_async(
+        self,
+        request: twc_models.QueryJusticeRightsRequest,
+    ) -> twc_models.QueryJusticeRightsResponse:
+        """
+        Description: isv机构-案件要素查询
+        Summary: isv机构-案件要素查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_justice_rights_ex_async(request, headers, runtime)
+
+    def query_justice_rights_ex(
+        self,
+        request: twc_models.QueryJusticeRightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeRightsResponse:
+        """
+        Description: isv机构-案件要素查询
+        Summary: isv机构-案件要素查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeRightsResponse(),
+            self.do_request('1.0', 'twc.notary.justice.rights.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_justice_rights_ex_async(
+        self,
+        request: twc_models.QueryJusticeRightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeRightsResponse:
+        """
+        Description: isv机构-案件要素查询
+        Summary: isv机构-案件要素查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeRightsResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.rights.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_justice_rights(
+        self,
+        request: twc_models.UpdateJusticeRightsRequest,
+    ) -> twc_models.UpdateJusticeRightsResponse:
+        """
+        Description: isv机构-维权状态更新
+        Summary: isv机构-维权状态更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_justice_rights_ex(request, headers, runtime)
+
+    async def update_justice_rights_async(
+        self,
+        request: twc_models.UpdateJusticeRightsRequest,
+    ) -> twc_models.UpdateJusticeRightsResponse:
+        """
+        Description: isv机构-维权状态更新
+        Summary: isv机构-维权状态更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_justice_rights_ex_async(request, headers, runtime)
+
+    def update_justice_rights_ex(
+        self,
+        request: twc_models.UpdateJusticeRightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateJusticeRightsResponse:
+        """
+        Description: isv机构-维权状态更新
+        Summary: isv机构-维权状态更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UpdateJusticeRightsResponse(),
+            self.do_request('1.0', 'twc.notary.justice.rights.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_justice_rights_ex_async(
+        self,
+        request: twc_models.UpdateJusticeRightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateJusticeRightsResponse:
+        """
+        Description: isv机构-维权状态更新
+        Summary: isv机构-维权状态更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UpdateJusticeRightsResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.rights.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_justice_rightspayment(
+        self,
+        request: twc_models.NotifyJusticeRightspaymentRequest,
+    ) -> twc_models.NotifyJusticeRightspaymentResponse:
+        """
+        Description: isv机构-案件缴费通知接口
+        Summary: isv机构-案件缴费通知接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_justice_rightspayment_ex(request, headers, runtime)
+
+    async def notify_justice_rightspayment_async(
+        self,
+        request: twc_models.NotifyJusticeRightspaymentRequest,
+    ) -> twc_models.NotifyJusticeRightspaymentResponse:
+        """
+        Description: isv机构-案件缴费通知接口
+        Summary: isv机构-案件缴费通知接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_justice_rightspayment_ex_async(request, headers, runtime)
+
+    def notify_justice_rightspayment_ex(
+        self,
+        request: twc_models.NotifyJusticeRightspaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.NotifyJusticeRightspaymentResponse:
+        """
+        Description: isv机构-案件缴费通知接口
+        Summary: isv机构-案件缴费通知接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.NotifyJusticeRightspaymentResponse(),
+            self.do_request('1.0', 'twc.notary.justice.rightspayment.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_justice_rightspayment_ex_async(
+        self,
+        request: twc_models.NotifyJusticeRightspaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.NotifyJusticeRightspaymentResponse:
+        """
+        Description: isv机构-案件缴费通知接口
+        Summary: isv机构-案件缴费通知接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.NotifyJusticeRightspaymentResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.rightspayment.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_lease_productinfo(
         self,
         request: twc_models.CreateLeaseProductinfoRequest,
@@ -17249,4 +17417,116 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryContractStatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_traffic_traceid(
+        self,
+        request: twc_models.CreateTrafficTraceidRequest,
+    ) -> twc_models.CreateTrafficTraceidResponse:
+        """
+        Description: 根据业务场景码创建raceId
+        Summary: traceId创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_traffic_traceid_ex(request, headers, runtime)
+
+    async def create_traffic_traceid_async(
+        self,
+        request: twc_models.CreateTrafficTraceidRequest,
+    ) -> twc_models.CreateTrafficTraceidResponse:
+        """
+        Description: 根据业务场景码创建raceId
+        Summary: traceId创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_traffic_traceid_ex_async(request, headers, runtime)
+
+    def create_traffic_traceid_ex(
+        self,
+        request: twc_models.CreateTrafficTraceidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateTrafficTraceidResponse:
+        """
+        Description: 根据业务场景码创建raceId
+        Summary: traceId创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateTrafficTraceidResponse(),
+            self.do_request('1.0', 'twc.notary.traffic.traceid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_traffic_traceid_ex_async(
+        self,
+        request: twc_models.CreateTrafficTraceidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateTrafficTraceidResponse:
+        """
+        Description: 根据业务场景码创建raceId
+        Summary: traceId创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateTrafficTraceidResponse(),
+            await self.do_request_async('1.0', 'twc.notary.traffic.traceid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_traffic_operatelog(
+        self,
+        request: twc_models.UploadTrafficOperatelogRequest,
+    ) -> twc_models.UploadTrafficOperatelogResponse:
+        """
+        Description: 业务方操作行为日志传入
+        Summary: 操作行为日志传入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_traffic_operatelog_ex(request, headers, runtime)
+
+    async def upload_traffic_operatelog_async(
+        self,
+        request: twc_models.UploadTrafficOperatelogRequest,
+    ) -> twc_models.UploadTrafficOperatelogResponse:
+        """
+        Description: 业务方操作行为日志传入
+        Summary: 操作行为日志传入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_traffic_operatelog_ex_async(request, headers, runtime)
+
+    def upload_traffic_operatelog_ex(
+        self,
+        request: twc_models.UploadTrafficOperatelogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadTrafficOperatelogResponse:
+        """
+        Description: 业务方操作行为日志传入
+        Summary: 操作行为日志传入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadTrafficOperatelogResponse(),
+            self.do_request('1.0', 'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_traffic_operatelog_ex_async(
+        self,
+        request: twc_models.UploadTrafficOperatelogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadTrafficOperatelogResponse:
+        """
+        Description: 业务方操作行为日志传入
+        Summary: 操作行为日志传入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadTrafficOperatelogResponse(),
+            await self.do_request_async('1.0', 'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
