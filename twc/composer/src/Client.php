@@ -273,6 +273,8 @@ use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoResponse;
 use AntChain\TWC\Models\CreateTextRequest;
 use AntChain\TWC\Models\CreateTextResponse;
+use AntChain\TWC\Models\CreateTrafficTraceidRequest;
+use AntChain\TWC\Models\CreateTrafficTraceidResponse;
 use AntChain\TWC\Models\CreateTransRequest;
 use AntChain\TWC\Models\CreateTransResponse;
 use AntChain\TWC\Models\CreateWithholdAgreementRequest;
@@ -383,6 +385,8 @@ use AntChain\TWC\Models\ListLeaseNotaryRequest;
 use AntChain\TWC\Models\ListLeaseNotaryResponse;
 use AntChain\TWC\Models\NotifyContractSignerRequest;
 use AntChain\TWC\Models\NotifyContractSignerResponse;
+use AntChain\TWC\Models\NotifyJusticeRightspaymentRequest;
+use AntChain\TWC\Models\NotifyJusticeRightspaymentResponse;
 use AntChain\TWC\Models\OpenInternalJudicialRequest;
 use AntChain\TWC\Models\OpenInternalJudicialResponse;
 use AntChain\TWC\Models\OpenInternalTwcRequest;
@@ -463,6 +467,8 @@ use AntChain\TWC\Models\QueryJusticeCommoncaseinfoRequest;
 use AntChain\TWC\Models\QueryJusticeCommoncaseinfoResponse;
 use AntChain\TWC\Models\QueryJusticeMediationRequest;
 use AntChain\TWC\Models\QueryJusticeMediationResponse;
+use AntChain\TWC\Models\QueryJusticeRightsRequest;
+use AntChain\TWC\Models\QueryJusticeRightsResponse;
 use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoRequest;
 use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoResponse;
 use AntChain\TWC\Models\QueryLeaseApplicationRequest;
@@ -587,6 +593,8 @@ use AntChain\TWC\Models\UpdateContractPlatformRequest;
 use AntChain\TWC\Models\UpdateContractPlatformResponse;
 use AntChain\TWC\Models\UpdateContractUserRequest;
 use AntChain\TWC\Models\UpdateContractUserResponse;
+use AntChain\TWC\Models\UpdateJusticeRightsRequest;
+use AntChain\TWC\Models\UpdateJusticeRightsResponse;
 use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
@@ -605,6 +613,8 @@ use AntChain\TWC\Models\UploadContractComplainimageRequest;
 use AntChain\TWC\Models\UploadContractComplainimageResponse;
 use AntChain\TWC\Models\UploadDataflowPubkeyRequest;
 use AntChain\TWC\Models\UploadDataflowPubkeyResponse;
+use AntChain\TWC\Models\UploadTrafficOperatelogRequest;
+use AntChain\TWC\Models\UploadTrafficOperatelogResponse;
 use AntChain\TWC\Models\VerifyContractDocsignRequest;
 use AntChain\TWC\Models\VerifyContractDocsignResponse;
 use AntChain\TWC\Models\VerifyContractTextsignRequest;
@@ -764,7 +774,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.30',
+                    'sdk_version'      => '1.8.36',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5965,6 +5975,105 @@ class Client
     }
 
     /**
+     * Description: isv机构-案件要素查询
+     * Summary: isv机构-案件要素查询.
+     *
+     * @param QueryJusticeRightsRequest $request
+     *
+     * @return QueryJusticeRightsResponse
+     */
+    public function queryJusticeRights($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryJusticeRightsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: isv机构-案件要素查询
+     * Summary: isv机构-案件要素查询.
+     *
+     * @param QueryJusticeRightsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryJusticeRightsResponse
+     */
+    public function queryJusticeRightsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryJusticeRightsResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.rights.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: isv机构-维权状态更新
+     * Summary: isv机构-维权状态更新.
+     *
+     * @param UpdateJusticeRightsRequest $request
+     *
+     * @return UpdateJusticeRightsResponse
+     */
+    public function updateJusticeRights($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateJusticeRightsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: isv机构-维权状态更新
+     * Summary: isv机构-维权状态更新.
+     *
+     * @param UpdateJusticeRightsRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateJusticeRightsResponse
+     */
+    public function updateJusticeRightsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateJusticeRightsResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.rights.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: isv机构-案件缴费通知接口
+     * Summary: isv机构-案件缴费通知接口.
+     *
+     * @param NotifyJusticeRightspaymentRequest $request
+     *
+     * @return NotifyJusticeRightspaymentResponse
+     */
+    public function notifyJusticeRightspayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyJusticeRightspaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: isv机构-案件缴费通知接口
+     * Summary: isv机构-案件缴费通知接口.
+     *
+     * @param NotifyJusticeRightspaymentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return NotifyJusticeRightspaymentResponse
+     */
+    public function notifyJusticeRightspaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyJusticeRightspaymentResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.rightspayment.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息.
      *
@@ -10813,5 +10922,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractStatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据业务场景码创建raceId
+     * Summary: traceId创建接口.
+     *
+     * @param CreateTrafficTraceidRequest $request
+     *
+     * @return CreateTrafficTraceidResponse
+     */
+    public function createTrafficTraceid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createTrafficTraceidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据业务场景码创建raceId
+     * Summary: traceId创建接口.
+     *
+     * @param CreateTrafficTraceidRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateTrafficTraceidResponse
+     */
+    public function createTrafficTraceidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateTrafficTraceidResponse::fromMap($this->doRequest('1.0', 'twc.notary.traffic.traceid.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务方操作行为日志传入
+     * Summary: 操作行为日志传入.
+     *
+     * @param UploadTrafficOperatelogRequest $request
+     *
+     * @return UploadTrafficOperatelogResponse
+     */
+    public function uploadTrafficOperatelog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadTrafficOperatelogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务方操作行为日志传入
+     * Summary: 操作行为日志传入.
+     *
+     * @param UploadTrafficOperatelogRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UploadTrafficOperatelogResponse
+     */
+    public function uploadTrafficOperatelogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadTrafficOperatelogResponse::fromMap($this->doRequest('1.0', 'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

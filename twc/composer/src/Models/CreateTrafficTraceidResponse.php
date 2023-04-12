@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryJusticeCommoncaseinfoResponse extends Model
+class CreateTrafficTraceidResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class QueryJusticeCommoncaseinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 要素信息
+    // 返回traceId，全局唯一
     /**
      * @var string
      */
-    public $businessInfo;
-
-    // 查询的案件编号
-    /**
-     * @var string
-     */
-    public $caseNo;
-
-    // 业务类型
-    /**
-     * @var string
-     */
-    public $bizType;
+    public $traceId;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'businessInfo' => 'business_info',
-        'caseNo'       => 'case_no',
-        'bizType'      => 'biz_type',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'traceId'    => 'trace_id',
     ];
 
     public function validate()
@@ -68,14 +54,8 @@ class QueryJusticeCommoncaseinfoResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->businessInfo) {
-            $res['business_info'] = $this->businessInfo;
-        }
-        if (null !== $this->caseNo) {
-            $res['case_no'] = $this->caseNo;
-        }
-        if (null !== $this->bizType) {
-            $res['biz_type'] = $this->bizType;
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
 
         return $res;
@@ -84,7 +64,7 @@ class QueryJusticeCommoncaseinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryJusticeCommoncaseinfoResponse
+     * @return CreateTrafficTraceidResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +78,8 @@ class QueryJusticeCommoncaseinfoResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['business_info'])) {
-            $model->businessInfo = $map['business_info'];
-        }
-        if (isset($map['case_no'])) {
-            $model->caseNo = $map['case_no'];
-        }
-        if (isset($map['biz_type'])) {
-            $model->bizType = $map['biz_type'];
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
 
         return $model;

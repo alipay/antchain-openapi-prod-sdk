@@ -23,9 +23,23 @@ class FileInfo extends Model
      * @var string
      */
     public $fileName;
+
+    // 文件类型(枚举)
+    // CASE_NOTICE: 立案通知书
+    // CASE_VERDICT: 仲裁裁决书
+    // CASE_EFFECT_PROVE: 裁决书司法生效证明
+    // CASE_SERVED_NOTICE: 电子送达通知
+    // PAYMETN_INFO: 缴费相关文件
+    /**
+     * @example CASE_NOTICE
+     *
+     * @var string
+     */
+    public $fileType;
     protected $_name = [
         'fileKey'  => 'file_key',
         'fileName' => 'file_name',
+        'fileType' => 'file_type',
     ];
 
     public function validate()
@@ -42,6 +56,9 @@ class FileInfo extends Model
         }
         if (null !== $this->fileName) {
             $res['file_name'] = $this->fileName;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
         }
 
         return $res;
@@ -60,6 +77,9 @@ class FileInfo extends Model
         }
         if (isset($map['file_name'])) {
             $model->fileName = $map['file_name'];
+        }
+        if (isset($map['file_type'])) {
+            $model->fileType = $map['file_type'];
         }
 
         return $model;
