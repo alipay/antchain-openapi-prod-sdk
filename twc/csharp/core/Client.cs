@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.30"},
+                        {"sdk_version", "1.8.36"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.30"},
+                        {"sdk_version", "1.8.36"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6882,6 +6882,132 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: isv机构-案件要素查询
+         * Summary: isv机构-案件要素查询
+         */
+        public QueryJusticeRightsResponse QueryJusticeRights(QueryJusticeRightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryJusticeRightsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-案件要素查询
+         * Summary: isv机构-案件要素查询
+         */
+        public async Task<QueryJusticeRightsResponse> QueryJusticeRightsAsync(QueryJusticeRightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryJusticeRightsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-案件要素查询
+         * Summary: isv机构-案件要素查询
+         */
+        public QueryJusticeRightsResponse QueryJusticeRightsEx(QueryJusticeRightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeRightsResponse>(DoRequest("1.0", "twc.notary.justice.rights.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: isv机构-案件要素查询
+         * Summary: isv机构-案件要素查询
+         */
+        public async Task<QueryJusticeRightsResponse> QueryJusticeRightsExAsync(QueryJusticeRightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeRightsResponse>(await DoRequestAsync("1.0", "twc.notary.justice.rights.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: isv机构-维权状态更新
+         * Summary: isv机构-维权状态更新
+         */
+        public UpdateJusticeRightsResponse UpdateJusticeRights(UpdateJusticeRightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateJusticeRightsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-维权状态更新
+         * Summary: isv机构-维权状态更新
+         */
+        public async Task<UpdateJusticeRightsResponse> UpdateJusticeRightsAsync(UpdateJusticeRightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateJusticeRightsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-维权状态更新
+         * Summary: isv机构-维权状态更新
+         */
+        public UpdateJusticeRightsResponse UpdateJusticeRightsEx(UpdateJusticeRightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateJusticeRightsResponse>(DoRequest("1.0", "twc.notary.justice.rights.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: isv机构-维权状态更新
+         * Summary: isv机构-维权状态更新
+         */
+        public async Task<UpdateJusticeRightsResponse> UpdateJusticeRightsExAsync(UpdateJusticeRightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateJusticeRightsResponse>(await DoRequestAsync("1.0", "twc.notary.justice.rights.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: isv机构-案件缴费通知接口
+         * Summary: isv机构-案件缴费通知接口
+         */
+        public NotifyJusticeRightspaymentResponse NotifyJusticeRightspayment(NotifyJusticeRightspaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyJusticeRightspaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-案件缴费通知接口
+         * Summary: isv机构-案件缴费通知接口
+         */
+        public async Task<NotifyJusticeRightspaymentResponse> NotifyJusticeRightspaymentAsync(NotifyJusticeRightspaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyJusticeRightspaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: isv机构-案件缴费通知接口
+         * Summary: isv机构-案件缴费通知接口
+         */
+        public NotifyJusticeRightspaymentResponse NotifyJusticeRightspaymentEx(NotifyJusticeRightspaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyJusticeRightspaymentResponse>(DoRequest("1.0", "twc.notary.justice.rightspayment.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: isv机构-案件缴费通知接口
+         * Summary: isv机构-案件缴费通知接口
+         */
+        public async Task<NotifyJusticeRightspaymentResponse> NotifyJusticeRightspaymentExAsync(NotifyJusticeRightspaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyJusticeRightspaymentResponse>(await DoRequestAsync("1.0", "twc.notary.justice.rightspayment.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 融资服务平台上传商品类别信息
          * Summary: 融资服务平台上传商品类别信息
          */
@@ -13053,6 +13179,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryContractStatusResponse>(await DoRequestAsync("1.0", "twc.notary.contract.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据业务场景码创建raceId
+         * Summary: traceId创建接口
+         */
+        public CreateTrafficTraceidResponse CreateTrafficTraceid(CreateTrafficTraceidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateTrafficTraceidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据业务场景码创建raceId
+         * Summary: traceId创建接口
+         */
+        public async Task<CreateTrafficTraceidResponse> CreateTrafficTraceidAsync(CreateTrafficTraceidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateTrafficTraceidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据业务场景码创建raceId
+         * Summary: traceId创建接口
+         */
+        public CreateTrafficTraceidResponse CreateTrafficTraceidEx(CreateTrafficTraceidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateTrafficTraceidResponse>(DoRequest("1.0", "twc.notary.traffic.traceid.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据业务场景码创建raceId
+         * Summary: traceId创建接口
+         */
+        public async Task<CreateTrafficTraceidResponse> CreateTrafficTraceidExAsync(CreateTrafficTraceidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateTrafficTraceidResponse>(await DoRequestAsync("1.0", "twc.notary.traffic.traceid.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 业务方操作行为日志传入
+         * Summary: 操作行为日志传入
+         */
+        public UploadTrafficOperatelogResponse UploadTrafficOperatelog(UploadTrafficOperatelogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadTrafficOperatelogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 业务方操作行为日志传入
+         * Summary: 操作行为日志传入
+         */
+        public async Task<UploadTrafficOperatelogResponse> UploadTrafficOperatelogAsync(UploadTrafficOperatelogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadTrafficOperatelogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 业务方操作行为日志传入
+         * Summary: 操作行为日志传入
+         */
+        public UploadTrafficOperatelogResponse UploadTrafficOperatelogEx(UploadTrafficOperatelogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadTrafficOperatelogResponse>(DoRequest("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 业务方操作行为日志传入
+         * Summary: 操作行为日志传入
+         */
+        public async Task<UploadTrafficOperatelogResponse> UploadTrafficOperatelogExAsync(UploadTrafficOperatelogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadTrafficOperatelogResponse>(await DoRequestAsync("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

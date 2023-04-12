@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryJusticeCommoncaseinfoResponse : TeaModel {
+    public class UploadTrafficOperatelogResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 要素信息
-        [NameInMap("business_info")]
+        // 上传结果
+        [NameInMap("upload_result")]
         [Validation(Required=false)]
-        public string BusinessInfo { get; set; }
-
-        // 查询的案件编号
-        [NameInMap("case_no")]
-        [Validation(Required=false)]
-        public string CaseNo { get; set; }
-
-        // 业务类型
-        [NameInMap("biz_type")]
-        [Validation(Required=false)]
-        public string BizType { get; set; }
+        public bool? UploadResult { get; set; }
 
     }
 
