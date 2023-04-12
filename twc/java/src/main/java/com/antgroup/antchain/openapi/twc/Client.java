@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.30"),
+                    new TeaPair("sdk_version", "1.8.36"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3130,6 +3130,63 @@ public class Client {
     }
 
     /**
+     * Description: isv机构-案件要素查询
+     * Summary: isv机构-案件要素查询
+     */
+    public QueryJusticeRightsResponse queryJusticeRights(QueryJusticeRightsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryJusticeRightsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: isv机构-案件要素查询
+     * Summary: isv机构-案件要素查询
+     */
+    public QueryJusticeRightsResponse queryJusticeRightsEx(QueryJusticeRightsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.rights.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeRightsResponse());
+    }
+
+    /**
+     * Description: isv机构-维权状态更新
+     * Summary: isv机构-维权状态更新
+     */
+    public UpdateJusticeRightsResponse updateJusticeRights(UpdateJusticeRightsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateJusticeRightsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: isv机构-维权状态更新
+     * Summary: isv机构-维权状态更新
+     */
+    public UpdateJusticeRightsResponse updateJusticeRightsEx(UpdateJusticeRightsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.rights.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateJusticeRightsResponse());
+    }
+
+    /**
+     * Description: isv机构-案件缴费通知接口
+     * Summary: isv机构-案件缴费通知接口
+     */
+    public NotifyJusticeRightspaymentResponse notifyJusticeRightspayment(NotifyJusticeRightspaymentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyJusticeRightspaymentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: isv机构-案件缴费通知接口
+     * Summary: isv机构-案件缴费通知接口
+     */
+    public NotifyJusticeRightspaymentResponse notifyJusticeRightspaymentEx(NotifyJusticeRightspaymentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.rightspayment.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyJusticeRightspaymentResponse());
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息
      */
@@ -5920,5 +5977,43 @@ public class Client {
     public QueryContractStatusResponse queryContractStatusEx(QueryContractStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractStatusResponse());
+    }
+
+    /**
+     * Description: 根据业务场景码创建raceId
+     * Summary: traceId创建接口
+     */
+    public CreateTrafficTraceidResponse createTrafficTraceid(CreateTrafficTraceidRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createTrafficTraceidEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据业务场景码创建raceId
+     * Summary: traceId创建接口
+     */
+    public CreateTrafficTraceidResponse createTrafficTraceidEx(CreateTrafficTraceidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.traffic.traceid.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateTrafficTraceidResponse());
+    }
+
+    /**
+     * Description: 业务方操作行为日志传入
+     * Summary: 操作行为日志传入
+     */
+    public UploadTrafficOperatelogResponse uploadTrafficOperatelog(UploadTrafficOperatelogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadTrafficOperatelogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 业务方操作行为日志传入
+     * Summary: 操作行为日志传入
+     */
+    public UploadTrafficOperatelogResponse uploadTrafficOperatelogEx(UploadTrafficOperatelogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadTrafficOperatelogResponse());
     }
 }
