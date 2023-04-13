@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.fairopennet.models;
 
 import com.aliyun.tea.*;
 
-public class QueryFlowinstanceStatusResponse extends TeaModel {
+public class QueryInstanceStatusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class QueryFlowinstanceStatusResponse extends TeaModel {
     @NameInMap("status")
     public FlowInstanceStatus status;
 
-    public static QueryFlowinstanceStatusResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryFlowinstanceStatusResponse self = new QueryFlowinstanceStatusResponse();
+    public static QueryInstanceStatusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryInstanceStatusResponse self = new QueryInstanceStatusResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryFlowinstanceStatusResponse setReqMsgId(String reqMsgId) {
+    public QueryInstanceStatusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryFlowinstanceStatusResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryFlowinstanceStatusResponse setResultCode(String resultCode) {
+    public QueryInstanceStatusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryFlowinstanceStatusResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryFlowinstanceStatusResponse setResultMsg(String resultMsg) {
+    public QueryInstanceStatusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryFlowinstanceStatusResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryFlowinstanceStatusResponse setStatus(FlowInstanceStatus status) {
+    public QueryInstanceStatusResponse setStatus(FlowInstanceStatus status) {
         this.status = status;
         return this;
     }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.4"),
+                    new TeaPair("sdk_version", "1.0.5"),
                     new TeaPair("_prod_code", "FAIROPENNET"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -504,7 +504,7 @@ public class Client {
     }
 
     /**
-     * Description: 创建一个工作流
+     * Description: 创建一个工作流，传入partyId，和静态flow配置
      * Summary: 创建一个工作流
      */
     public CreateFlowResponse createFlow(CreateFlowRequest request) throws Exception {
@@ -514,7 +514,7 @@ public class Client {
     }
 
     /**
-     * Description: 创建一个工作流
+     * Description: 创建一个工作流，传入partyId，和静态flow配置
      * Summary: 创建一个工作流
      */
     public CreateFlowResponse createFlowEx(CreateFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -564,19 +564,19 @@ public class Client {
      * Description: 查询工作流实例状态
      * Summary: 查询工作流实例状态
      */
-    public QueryFlowinstanceStatusResponse queryFlowinstanceStatus(QueryFlowinstanceStatusRequest request) throws Exception {
+    public QueryInstanceStatusResponse queryInstanceStatus(QueryInstanceStatusRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryFlowinstanceStatusEx(request, headers, runtime);
+        return this.queryInstanceStatusEx(request, headers, runtime);
     }
 
     /**
      * Description: 查询工作流实例状态
      * Summary: 查询工作流实例状态
      */
-    public QueryFlowinstanceStatusResponse queryFlowinstanceStatusEx(QueryFlowinstanceStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryInstanceStatusResponse queryInstanceStatusEx(QueryInstanceStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.flowinstance.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowinstanceStatusResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.fairopennet.instance.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInstanceStatusResponse());
     }
 
     /**

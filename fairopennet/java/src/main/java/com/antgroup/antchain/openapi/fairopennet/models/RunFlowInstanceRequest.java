@@ -11,15 +11,15 @@ public class RunFlowInstanceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    //  
+    //  参与方的partyId
     @NameInMap("party_id")
     @Validation(required = true)
     public String partyId;
 
-    //  
-    @NameInMap("config")
+    // 动态工作流配置字符串
+    @NameInMap("dynamic_flow_config")
     @Validation(required = true)
-    public DynamicFlowConfig config;
+    public String dynamicFlowConfig;
 
     public static RunFlowInstanceRequest build(java.util.Map<String, ?> map) throws Exception {
         RunFlowInstanceRequest self = new RunFlowInstanceRequest();
@@ -50,12 +50,12 @@ public class RunFlowInstanceRequest extends TeaModel {
         return this.partyId;
     }
 
-    public RunFlowInstanceRequest setConfig(DynamicFlowConfig config) {
-        this.config = config;
+    public RunFlowInstanceRequest setDynamicFlowConfig(String dynamicFlowConfig) {
+        this.dynamicFlowConfig = dynamicFlowConfig;
         return this;
     }
-    public DynamicFlowConfig getConfig() {
-        return this.config;
+    public String getDynamicFlowConfig() {
+        return this.dynamicFlowConfig;
     }
 
 }

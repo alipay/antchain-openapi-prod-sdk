@@ -49,20 +49,20 @@ public class FlowInstanceStatus extends TeaModel {
     @Validation(required = true)
     public Long completedComponents;
 
-    //  
+    //  fair错误码
     @NameInMap("error_code")
     @Validation(required = true)
     public String errorCode;
 
-    //  
+    //  Fair错误信息
     @NameInMap("error_message")
     @Validation(required = true)
     public String errorMessage;
 
-    //  
+    //  工作流实力执行的状态码
     @NameInMap("status")
     @Validation(required = true)
-    public Long status;
+    public String status;
 
     public static FlowInstanceStatus build(java.util.Map<String, ?> map) throws Exception {
         FlowInstanceStatus self = new FlowInstanceStatus();
@@ -157,11 +157,11 @@ public class FlowInstanceStatus extends TeaModel {
         return this.errorMessage;
     }
 
-    public FlowInstanceStatus setStatus(Long status) {
+    public FlowInstanceStatus setStatus(String status) {
         this.status = status;
         return this;
     }
-    public Long getStatus() {
+    public String getStatus() {
         return this.status;
     }
 

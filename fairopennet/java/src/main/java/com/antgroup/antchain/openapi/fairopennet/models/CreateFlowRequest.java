@@ -11,15 +11,15 @@ public class CreateFlowRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    //  
+    //  参与方的partyId
     @NameInMap("party_id")
     @Validation(required = true)
     public String partyId;
 
-    //  
-    @NameInMap("config")
+    // 静态工作流配置字符串
+    @NameInMap("static_flow_config")
     @Validation(required = true)
-    public StaticFlowConfig config;
+    public String staticFlowConfig;
 
     public static CreateFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateFlowRequest self = new CreateFlowRequest();
@@ -50,12 +50,12 @@ public class CreateFlowRequest extends TeaModel {
         return this.partyId;
     }
 
-    public CreateFlowRequest setConfig(StaticFlowConfig config) {
-        this.config = config;
+    public CreateFlowRequest setStaticFlowConfig(String staticFlowConfig) {
+        this.staticFlowConfig = staticFlowConfig;
         return this;
     }
-    public StaticFlowConfig getConfig() {
-        return this.config;
+    public String getStaticFlowConfig() {
+        return this.staticFlowConfig;
     }
 
 }
