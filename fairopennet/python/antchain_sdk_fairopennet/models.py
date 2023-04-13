@@ -834,7 +834,7 @@ class FlowInstanceStatus(TeaModel):
         completed_components: int = None,
         error_code: str = None,
         error_message: str = None,
-        status: int = None,
+        status: str = None,
     ):
         # 
         self.space_id = space_id
@@ -854,11 +854,11 @@ class FlowInstanceStatus(TeaModel):
         self.total_components = total_components
         # 
         self.completed_components = completed_components
-        # 
+        # fair错误码
         self.error_code = error_code
-        # 
+        # Fair错误信息
         self.error_message = error_message
-        # 
+        # 工作流实力执行的状态码
         self.status = status
 
     def validate(self):
@@ -2790,21 +2790,19 @@ class CreateFlowRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         party_id: str = None,
-        config: StaticFlowConfig = None,
+        static_flow_config: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 
+        # 参与方的partyId
         self.party_id = party_id
-        # 
-        self.config = config
+        # 静态工作流配置字符串
+        self.static_flow_config = static_flow_config
 
     def validate(self):
         self.validate_required(self.party_id, 'party_id')
-        self.validate_required(self.config, 'config')
-        if self.config:
-            self.config.validate()
+        self.validate_required(self.static_flow_config, 'static_flow_config')
 
     def to_map(self):
         _map = super().to_map()
@@ -2818,8 +2816,8 @@ class CreateFlowRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.party_id is not None:
             result['party_id'] = self.party_id
-        if self.config is not None:
-            result['config'] = self.config.to_map()
+        if self.static_flow_config is not None:
+            result['static_flow_config'] = self.static_flow_config
         return result
 
     def from_map(self, m: dict = None):
@@ -2830,9 +2828,8 @@ class CreateFlowRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('party_id') is not None:
             self.party_id = m.get('party_id')
-        if m.get('config') is not None:
-            temp_model = StaticFlowConfig()
-            self.config = temp_model.from_map(m['config'])
+        if m.get('static_flow_config') is not None:
+            self.static_flow_config = m.get('static_flow_config')
         return self
 
 
@@ -2884,21 +2881,19 @@ class RunFlowInstanceRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         party_id: str = None,
-        config: DynamicFlowConfig = None,
+        dynamic_flow_config: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 
+        # 参与方的partyId
         self.party_id = party_id
-        # 
-        self.config = config
+        # 动态工作流配置字符串
+        self.dynamic_flow_config = dynamic_flow_config
 
     def validate(self):
         self.validate_required(self.party_id, 'party_id')
-        self.validate_required(self.config, 'config')
-        if self.config:
-            self.config.validate()
+        self.validate_required(self.dynamic_flow_config, 'dynamic_flow_config')
 
     def to_map(self):
         _map = super().to_map()
@@ -2912,8 +2907,8 @@ class RunFlowInstanceRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.party_id is not None:
             result['party_id'] = self.party_id
-        if self.config is not None:
-            result['config'] = self.config.to_map()
+        if self.dynamic_flow_config is not None:
+            result['dynamic_flow_config'] = self.dynamic_flow_config
         return result
 
     def from_map(self, m: dict = None):
@@ -2924,9 +2919,8 @@ class RunFlowInstanceRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('party_id') is not None:
             self.party_id = m.get('party_id')
-        if m.get('config') is not None:
-            temp_model = DynamicFlowConfig()
-            self.config = temp_model.from_map(m['config'])
+        if m.get('dynamic_flow_config') is not None:
+            self.dynamic_flow_config = m.get('dynamic_flow_config')
         return self
 
 
@@ -3087,26 +3081,25 @@ class StopFlowinstanceResponse(TeaModel):
         return self
 
 
-class QueryFlowinstanceStatusRequest(TeaModel):
+class QueryInstanceStatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        config: FlowInstanceLocator = None,
-        extra: str = None,
+        flow_id: str = None,
+        instance_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 
-        self.config = config
-        # 
-        self.extra = extra
+        # 工作流的flowId
+        self.flow_id = flow_id
+        # 工作流实例instanceId
+        self.instance_id = instance_id
 
     def validate(self):
-        self.validate_required(self.config, 'config')
-        if self.config:
-            self.config.validate()
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -3118,10 +3111,10 @@ class QueryFlowinstanceStatusRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.config is not None:
-            result['config'] = self.config.to_map()
-        if self.extra is not None:
-            result['extra'] = self.extra
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3130,15 +3123,14 @@ class QueryFlowinstanceStatusRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('config') is not None:
-            temp_model = FlowInstanceLocator()
-            self.config = temp_model.from_map(m['config'])
-        if m.get('extra') is not None:
-            self.extra = m.get('extra')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
         return self
 
 
-class QueryFlowinstanceStatusResponse(TeaModel):
+class QueryInstanceStatusResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

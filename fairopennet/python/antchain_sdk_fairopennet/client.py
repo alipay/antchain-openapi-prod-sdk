@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'FAIROPENNET',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'FAIROPENNET',
                     '_prod_channel': 'undefined'
                 }
@@ -1288,7 +1288,7 @@ class Client:
         request: fairopennet_models.CreateFlowRequest,
     ) -> fairopennet_models.CreateFlowResponse:
         """
-        Description: 创建一个工作流
+        Description: 创建一个工作流，传入partyId，和静态flow配置
         Summary: 创建一个工作流
         """
         runtime = util_models.RuntimeOptions()
@@ -1300,7 +1300,7 @@ class Client:
         request: fairopennet_models.CreateFlowRequest,
     ) -> fairopennet_models.CreateFlowResponse:
         """
-        Description: 创建一个工作流
+        Description: 创建一个工作流，传入partyId，和静态flow配置
         Summary: 创建一个工作流
         """
         runtime = util_models.RuntimeOptions()
@@ -1314,7 +1314,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> fairopennet_models.CreateFlowResponse:
         """
-        Description: 创建一个工作流
+        Description: 创建一个工作流，传入partyId，和静态flow配置
         Summary: 创建一个工作流
         """
         UtilClient.validate_model(request)
@@ -1330,7 +1330,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> fairopennet_models.CreateFlowResponse:
         """
-        Description: 创建一个工作流
+        Description: 创建一个工作流，传入partyId，和静态flow配置
         Summary: 创建一个工作流
         """
         UtilClient.validate_model(request)
@@ -1451,60 +1451,60 @@ class Client:
             await self.do_request_async('1.0', 'antchain.fairopennet.flowinstance.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_flowinstance_status(
+    def query_instance_status(
         self,
-        request: fairopennet_models.QueryFlowinstanceStatusRequest,
-    ) -> fairopennet_models.QueryFlowinstanceStatusResponse:
+        request: fairopennet_models.QueryInstanceStatusRequest,
+    ) -> fairopennet_models.QueryInstanceStatusResponse:
         """
         Description: 查询工作流实例状态
         Summary: 查询工作流实例状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_flowinstance_status_ex(request, headers, runtime)
+        return self.query_instance_status_ex(request, headers, runtime)
 
-    async def query_flowinstance_status_async(
+    async def query_instance_status_async(
         self,
-        request: fairopennet_models.QueryFlowinstanceStatusRequest,
-    ) -> fairopennet_models.QueryFlowinstanceStatusResponse:
+        request: fairopennet_models.QueryInstanceStatusRequest,
+    ) -> fairopennet_models.QueryInstanceStatusResponse:
         """
         Description: 查询工作流实例状态
         Summary: 查询工作流实例状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_flowinstance_status_ex_async(request, headers, runtime)
+        return await self.query_instance_status_ex_async(request, headers, runtime)
 
-    def query_flowinstance_status_ex(
+    def query_instance_status_ex(
         self,
-        request: fairopennet_models.QueryFlowinstanceStatusRequest,
+        request: fairopennet_models.QueryInstanceStatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> fairopennet_models.QueryFlowinstanceStatusResponse:
+    ) -> fairopennet_models.QueryInstanceStatusResponse:
         """
         Description: 查询工作流实例状态
         Summary: 查询工作流实例状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            fairopennet_models.QueryFlowinstanceStatusResponse(),
-            self.do_request('1.0', 'antchain.fairopennet.flowinstance.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            fairopennet_models.QueryInstanceStatusResponse(),
+            self.do_request('1.0', 'antchain.fairopennet.instance.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_flowinstance_status_ex_async(
+    async def query_instance_status_ex_async(
         self,
-        request: fairopennet_models.QueryFlowinstanceStatusRequest,
+        request: fairopennet_models.QueryInstanceStatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> fairopennet_models.QueryFlowinstanceStatusResponse:
+    ) -> fairopennet_models.QueryInstanceStatusResponse:
         """
         Description: 查询工作流实例状态
         Summary: 查询工作流实例状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            fairopennet_models.QueryFlowinstanceStatusResponse(),
-            await self.do_request_async('1.0', 'antchain.fairopennet.flowinstance.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            fairopennet_models.QueryInstanceStatusResponse(),
+            await self.do_request_async('1.0', 'antchain.fairopennet.instance.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_file(
