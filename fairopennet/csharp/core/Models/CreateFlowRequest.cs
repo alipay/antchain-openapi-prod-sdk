@@ -18,15 +18,15 @@ namespace AntChain.SDK.FAIROPENNET.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        //  
+        //  参与方的partyId
         [NameInMap("party_id")]
         [Validation(Required=true)]
         public string PartyId { get; set; }
 
-        //  
-        [NameInMap("config")]
+        // 静态工作流配置字符串
+        [NameInMap("static_flow_config")]
         [Validation(Required=true)]
-        public StaticFlowConfig Config { get; set; }
+        public string StaticFlowConfig { get; set; }
 
     }
 

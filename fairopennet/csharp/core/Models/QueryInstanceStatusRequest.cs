@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.FAIROPENNET.Models
 {
-    public class QueryFlowinstanceStatusRequest : TeaModel {
+    public class QueryInstanceStatusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.FAIROPENNET.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        //  
-        [NameInMap("config")]
+        // 工作流的flowId
+        [NameInMap("flow_id")]
         [Validation(Required=true)]
-        public FlowInstanceLocator Config { get; set; }
+        public string FlowId { get; set; }
 
-        //  
-        [NameInMap("extra")]
-        [Validation(Required=false)]
-        public string Extra { get; set; }
+        // 工作流实例instanceId
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
 
     }
 

@@ -55,20 +55,20 @@ namespace AntChain.SDK.FAIROPENNET.Models
         [Validation(Required=true)]
         public long? CompletedComponents { get; set; }
 
-        //  
+        //  fair错误码
         [NameInMap("error_code")]
         [Validation(Required=true)]
         public string ErrorCode { get; set; }
 
-        //  
+        //  Fair错误信息
         [NameInMap("error_message")]
         [Validation(Required=true)]
         public string ErrorMessage { get; set; }
 
-        //  
+        //  工作流实力执行的状态码
         [NameInMap("status")]
         [Validation(Required=true)]
-        public long? Status { get; set; }
+        public string Status { get; set; }
 
     }
 

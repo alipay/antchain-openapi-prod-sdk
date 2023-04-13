@@ -137,7 +137,7 @@ namespace AntChain.SDK.FAIROPENNET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "FAIROPENNET"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.FAIROPENNET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                         {"_prod_code", "FAIROPENNET"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1078,7 +1078,7 @@ namespace AntChain.SDK.FAIROPENNET
         }
 
         /**
-         * Description: 创建一个工作流
+         * Description: 创建一个工作流，传入partyId，和静态flow配置
          * Summary: 创建一个工作流
          */
         public CreateFlowResponse CreateFlow(CreateFlowRequest request)
@@ -1089,7 +1089,7 @@ namespace AntChain.SDK.FAIROPENNET
         }
 
         /**
-         * Description: 创建一个工作流
+         * Description: 创建一个工作流，传入partyId，和静态flow配置
          * Summary: 创建一个工作流
          */
         public async Task<CreateFlowResponse> CreateFlowAsync(CreateFlowRequest request)
@@ -1100,7 +1100,7 @@ namespace AntChain.SDK.FAIROPENNET
         }
 
         /**
-         * Description: 创建一个工作流
+         * Description: 创建一个工作流，传入partyId，和静态flow配置
          * Summary: 创建一个工作流
          */
         public CreateFlowResponse CreateFlowEx(CreateFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -1110,7 +1110,7 @@ namespace AntChain.SDK.FAIROPENNET
         }
 
         /**
-         * Description: 创建一个工作流
+         * Description: 创建一个工作流，传入partyId，和静态flow配置
          * Summary: 创建一个工作流
          */
         public async Task<CreateFlowResponse> CreateFlowExAsync(CreateFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -1207,42 +1207,42 @@ namespace AntChain.SDK.FAIROPENNET
          * Description: 查询工作流实例状态
          * Summary: 查询工作流实例状态
          */
-        public QueryFlowinstanceStatusResponse QueryFlowinstanceStatus(QueryFlowinstanceStatusRequest request)
+        public QueryInstanceStatusResponse QueryInstanceStatus(QueryInstanceStatusRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryFlowinstanceStatusEx(request, headers, runtime);
+            return QueryInstanceStatusEx(request, headers, runtime);
         }
 
         /**
          * Description: 查询工作流实例状态
          * Summary: 查询工作流实例状态
          */
-        public async Task<QueryFlowinstanceStatusResponse> QueryFlowinstanceStatusAsync(QueryFlowinstanceStatusRequest request)
+        public async Task<QueryInstanceStatusResponse> QueryInstanceStatusAsync(QueryInstanceStatusRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryFlowinstanceStatusExAsync(request, headers, runtime);
+            return await QueryInstanceStatusExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 查询工作流实例状态
          * Summary: 查询工作流实例状态
          */
-        public QueryFlowinstanceStatusResponse QueryFlowinstanceStatusEx(QueryFlowinstanceStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryInstanceStatusResponse QueryInstanceStatusEx(QueryInstanceStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFlowinstanceStatusResponse>(DoRequest("1.0", "antchain.fairopennet.flowinstance.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryInstanceStatusResponse>(DoRequest("1.0", "antchain.fairopennet.instance.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 查询工作流实例状态
          * Summary: 查询工作流实例状态
          */
-        public async Task<QueryFlowinstanceStatusResponse> QueryFlowinstanceStatusExAsync(QueryFlowinstanceStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryInstanceStatusResponse> QueryInstanceStatusExAsync(QueryInstanceStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryFlowinstanceStatusResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.flowinstance.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryInstanceStatusResponse>(await DoRequestAsync("1.0", "antchain.fairopennet.instance.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
