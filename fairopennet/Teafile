@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "FAIROPENNET",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-fairopennet:1.0.4",
-    "go": "github.com/antchain-openapi-sdk-go/fairopennet/client:v1.0.4",
-    "csharp": "AntChain.SDK.FAIROPENNET:1.0.4",
-    "ts": "@antchain/fairopennet:1.0.4",
-    "php": "antchain/fairopennet:1.0.4",
-    "python": "antchain_sdk_fairopennet:1.0.4"
+    "java": "com.antgroup.antchain.openapi:openapi-fairopennet:1.0.5",
+    "go": "github.com/antchain-openapi-sdk-go/fairopennet/client:v1.0.5",
+    "csharp": "AntChain.SDK.FAIROPENNET:1.0.5",
+    "ts": "@antchain/fairopennet:1.0.5",
+    "php": "antchain/fairopennet:1.0.5",
+    "python": "antchain_sdk_fairopennet:1.0.5"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

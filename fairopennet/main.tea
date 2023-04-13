@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'FAIROPENNET',
     _prod_channel = 'undefined'
   };
@@ -333,12 +333,12 @@ model FlowInstanceStatus {
   totalComponents: long(name='total_components', example=' '),
   //  
   completedComponents: long(name='completed_components', example=''),
-  //  
-  errorCode: string(name='error_code', example=' '),
-  //  
-  errorMessage: string(name='error_message', example=' '),
-  //  
-  status: long(name='status', example=''),
+  //  fair错误码
+  errorCode: string(name='error_code', example='"FC0000011000"'),
+  //  Fair错误信息
+  errorMessage: string(name='error_message', example='""'),
+  //  工作流实力执行的状态码
+  status: string(name='status', example='"INSTANCE_COMPLETED"'),
 }
 
 // getNetworkStatus接口输出
@@ -1067,10 +1067,10 @@ model CreateFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  //  
+  //  参与方的partyId
   partyId: string(name='party_id'),
-  //  
-  config: StaticFlowConfig(name='config'),
+  // 静态工作流配置字符串
+  staticFlowConfig: string(name='static_flow_config'),
 }
 
 model CreateFlowResponse = {
@@ -1083,7 +1083,7 @@ model CreateFlowResponse = {
 }
 
 /**
- * Description: 创建一个工作流
+ * Description: 创建一个工作流，传入partyId，和静态flow配置
  * Summary: 创建一个工作流
  */
 async function createFlow(request: CreateFlowRequest): CreateFlowResponse {
@@ -1093,7 +1093,7 @@ async function createFlow(request: CreateFlowRequest): CreateFlowResponse {
 }
 
 /**
- * Description: 创建一个工作流
+ * Description: 创建一个工作流，传入partyId，和静态flow配置
  * Summary: 创建一个工作流
  */
 async function createFlowEx(request: CreateFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFlowResponse {
@@ -1105,10 +1105,10 @@ model RunFlowInstanceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  //  
+  //  参与方的partyId
   partyId: string(name='party_id'),
-  //  
-  config: DynamicFlowConfig(name='config'),
+  // 动态工作流配置字符串
+  dynamicFlowConfig: string(name='dynamic_flow_config'),
 }
 
 model RunFlowInstanceResponse = {
@@ -1183,17 +1183,17 @@ async function stopFlowinstanceEx(request: StopFlowinstanceRequest, headers: map
   return doRequest('1.0' ,'antchain.fairopennet.flowinstance.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryFlowinstanceStatusRequest = {
+model QueryInstanceStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  //  
-  config: FlowInstanceLocator(name='config'),
-  //  
-  extra?: string(name='extra'),
+  // 工作流的flowId
+  flowId: string(name='flow_id'),
+  // 工作流实例instanceId
+  instanceId: string(name='instance_id'),
 }
 
-model QueryFlowinstanceStatusResponse = {
+model QueryInstanceStatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -1208,19 +1208,19 @@ model QueryFlowinstanceStatusResponse = {
  * Description: 查询工作流实例状态
  * Summary: 查询工作流实例状态
  */
-async function queryFlowinstanceStatus(request: QueryFlowinstanceStatusRequest): QueryFlowinstanceStatusResponse {
+async function queryInstanceStatus(request: QueryInstanceStatusRequest): QueryInstanceStatusResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryFlowinstanceStatusEx(request, headers, runtime);
+  return queryInstanceStatusEx(request, headers, runtime);
 }
 
 /**
  * Description: 查询工作流实例状态
  * Summary: 查询工作流实例状态
  */
-async function queryFlowinstanceStatusEx(request: QueryFlowinstanceStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowinstanceStatusResponse {
+async function queryInstanceStatusEx(request: QueryInstanceStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInstanceStatusResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.fairopennet.flowinstance.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.fairopennet.instance.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UploadFileRequest = {
