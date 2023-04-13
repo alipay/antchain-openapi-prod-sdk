@@ -19,26 +19,28 @@ class CreateFlowRequest extends Model
      */
     public $productInstanceId;
 
+    // 参与方的partyId
     /**
      * @var string
      */
     public $partyId;
 
+    // 静态工作流配置字符串
     /**
-     * @var StaticFlowConfig
+     * @var string
      */
-    public $config;
+    public $staticFlowConfig;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'partyId'           => 'party_id',
-        'config'            => 'config',
+        'staticFlowConfig'  => 'static_flow_config',
     ];
 
     public function validate()
     {
         Model::validateRequired('partyId', $this->partyId, true);
-        Model::validateRequired('config', $this->config, true);
+        Model::validateRequired('staticFlowConfig', $this->staticFlowConfig, true);
     }
 
     public function toMap()
@@ -53,8 +55,8 @@ class CreateFlowRequest extends Model
         if (null !== $this->partyId) {
             $res['party_id'] = $this->partyId;
         }
-        if (null !== $this->config) {
-            $res['config'] = null !== $this->config ? $this->config->toMap() : null;
+        if (null !== $this->staticFlowConfig) {
+            $res['static_flow_config'] = $this->staticFlowConfig;
         }
 
         return $res;
@@ -77,8 +79,8 @@ class CreateFlowRequest extends Model
         if (isset($map['party_id'])) {
             $model->partyId = $map['party_id'];
         }
-        if (isset($map['config'])) {
-            $model->config = StaticFlowConfig::fromMap($map['config']);
+        if (isset($map['static_flow_config'])) {
+            $model->staticFlowConfig = $map['static_flow_config'];
         }
 
         return $model;

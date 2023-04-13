@@ -6,7 +6,7 @@ namespace AntChain\FAIROPENNET\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowinstanceStatusResponse extends Model
+class QueryInstanceStatusResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -63,7 +63,7 @@ class QueryFlowinstanceStatusResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowinstanceStatusResponse
+     * @return QueryInstanceStatusResponse
      */
     public static function fromMap($map = [])
     {

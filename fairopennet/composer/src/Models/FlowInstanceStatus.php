@@ -71,24 +71,27 @@ class FlowInstanceStatus extends Model
      */
     public $completedComponents;
 
+    // fair错误码
     /**
-     * @example
+     * @example "FC0000011000"
      *
      * @var string
      */
     public $errorCode;
 
+    // Fair错误信息
     /**
-     * @example
+     * @example ""
      *
      * @var string
      */
     public $errorMessage;
 
+    // 工作流实力执行的状态码
     /**
-     * @example
+     * @example "INSTANCE_COMPLETED"
      *
-     * @var int
+     * @var string
      */
     public $status;
     protected $_name = [

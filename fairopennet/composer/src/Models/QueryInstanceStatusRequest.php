@@ -6,7 +6,7 @@ namespace AntChain\FAIROPENNET\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowinstanceStatusRequest extends Model
+class QueryInstanceStatusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,28 @@ class QueryFlowinstanceStatusRequest extends Model
      */
     public $productInstanceId;
 
-    /**
-     * @var FlowInstanceLocator
-     */
-    public $config;
-
+    // 工作流的flowId
     /**
      * @var string
      */
-    public $extra;
+    public $flowId;
+
+    // 工作流实例instanceId
+    /**
+     * @var string
+     */
+    public $instanceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'config'            => 'config',
-        'extra'             => 'extra',
+        'flowId'            => 'flow_id',
+        'instanceId'        => 'instance_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('config', $this->config, true);
+        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('instanceId', $this->instanceId, true);
     }
 
     public function toMap()
@@ -49,11 +52,11 @@ class QueryFlowinstanceStatusRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->config) {
-            $res['config'] = null !== $this->config ? $this->config->toMap() : null;
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
-        if (null !== $this->extra) {
-            $res['extra'] = $this->extra;
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
         }
 
         return $res;
@@ -62,7 +65,7 @@ class QueryFlowinstanceStatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowinstanceStatusRequest
+     * @return QueryInstanceStatusRequest
      */
     public static function fromMap($map = [])
     {
@@ -73,11 +76,11 @@ class QueryFlowinstanceStatusRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['config'])) {
-            $model->config = FlowInstanceLocator::fromMap($map['config']);
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
-        if (isset($map['extra'])) {
-            $model->extra = $map['extra'];
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
         }
 
         return $model;

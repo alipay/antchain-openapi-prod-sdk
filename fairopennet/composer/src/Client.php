@@ -47,8 +47,8 @@ use AntChain\FAIROPENNET\Models\GetNormalnodeIdentityinfoRequest;
 use AntChain\FAIROPENNET\Models\GetNormalnodeIdentityinfoResponse;
 use AntChain\FAIROPENNET\Models\InitClientConfigRequest;
 use AntChain\FAIROPENNET\Models\InitClientConfigResponse;
-use AntChain\FAIROPENNET\Models\QueryFlowinstanceStatusRequest;
-use AntChain\FAIROPENNET\Models\QueryFlowinstanceStatusResponse;
+use AntChain\FAIROPENNET\Models\QueryInstanceStatusRequest;
+use AntChain\FAIROPENNET\Models\QueryInstanceStatusResponse;
 use AntChain\FAIROPENNET\Models\QueryPartyRegisterstatusRequest;
 use AntChain\FAIROPENNET\Models\QueryPartyRegisterstatusResponse;
 use AntChain\FAIROPENNET\Models\RegisterNormalNodeRequest;
@@ -214,7 +214,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'FAIROPENNET',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -857,7 +857,7 @@ class Client
     }
 
     /**
-     * Description: 创建一个工作流
+     * Description: 创建一个工作流，传入partyId，和静态flow配置
      * Summary: 创建一个工作流
      *
      * @param CreateFlowRequest $request
@@ -873,7 +873,7 @@ class Client
     }
 
     /**
-     * Description: 创建一个工作流
+     * Description: 创建一个工作流，传入partyId，和静态flow配置
      * Summary: 创建一个工作流
      *
      * @param CreateFlowRequest $request
@@ -959,33 +959,33 @@ class Client
      * Description: 查询工作流实例状态
      * Summary: 查询工作流实例状态
      *
-     * @param QueryFlowinstanceStatusRequest $request
+     * @param QueryInstanceStatusRequest $request
      *
-     * @return QueryFlowinstanceStatusResponse
+     * @return QueryInstanceStatusResponse
      */
-    public function queryFlowinstanceStatus($request)
+    public function queryInstanceStatus($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryFlowinstanceStatusEx($request, $headers, $runtime);
+        return $this->queryInstanceStatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询工作流实例状态
      * Summary: 查询工作流实例状态
      *
-     * @param QueryFlowinstanceStatusRequest $request
-     * @param string[]                       $headers
-     * @param RuntimeOptions                 $runtime
+     * @param QueryInstanceStatusRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
      *
-     * @return QueryFlowinstanceStatusResponse
+     * @return QueryInstanceStatusResponse
      */
-    public function queryFlowinstanceStatusEx($request, $headers, $runtime)
+    public function queryInstanceStatusEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryFlowinstanceStatusResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.flowinstance.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryInstanceStatusResponse::fromMap($this->doRequest('1.0', 'antchain.fairopennet.instance.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
