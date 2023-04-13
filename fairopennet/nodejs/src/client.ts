@@ -528,12 +528,12 @@ export class FlowInstanceStatus extends $tea.Model {
   totalComponents: number;
   //  
   completedComponents: number;
-  //  
+  //  fair错误码
   errorCode: string;
-  //  
+  //  Fair错误信息
   errorMessage: string;
-  //  
-  status: number;
+  //  工作流实力执行的状态码
+  status: string;
   static names(): { [key: string]: string } {
     return {
       spaceId: 'space_id',
@@ -564,7 +564,7 @@ export class FlowInstanceStatus extends $tea.Model {
       completedComponents: 'number',
       errorCode: 'string',
       errorMessage: 'string',
-      status: 'number',
+      status: 'string',
     };
   }
 
@@ -1760,16 +1760,16 @@ export class CreateFlowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  //  
+  //  参与方的partyId
   partyId: string;
-  //  
-  config: StaticFlowConfig;
+  // 静态工作流配置字符串
+  staticFlowConfig: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       partyId: 'party_id',
-      config: 'config',
+      staticFlowConfig: 'static_flow_config',
     };
   }
 
@@ -1778,7 +1778,7 @@ export class CreateFlowRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       partyId: 'string',
-      config: StaticFlowConfig,
+      staticFlowConfig: 'string',
     };
   }
 
@@ -1819,16 +1819,16 @@ export class RunFlowInstanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  //  
+  //  参与方的partyId
   partyId: string;
-  //  
-  config: DynamicFlowConfig;
+  // 动态工作流配置字符串
+  dynamicFlowConfig: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       partyId: 'party_id',
-      config: 'config',
+      dynamicFlowConfig: 'dynamic_flow_config',
     };
   }
 
@@ -1837,7 +1837,7 @@ export class RunFlowInstanceRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       partyId: 'string',
-      config: DynamicFlowConfig,
+      dynamicFlowConfig: 'string',
     };
   }
 
@@ -1945,20 +1945,20 @@ export class StopFlowinstanceResponse extends $tea.Model {
   }
 }
 
-export class QueryFlowinstanceStatusRequest extends $tea.Model {
+export class QueryInstanceStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  //  
-  config: FlowInstanceLocator;
-  //  
-  extra?: string;
+  // 工作流的flowId
+  flowId: string;
+  // 工作流实例instanceId
+  instanceId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      config: 'config',
-      extra: 'extra',
+      flowId: 'flow_id',
+      instanceId: 'instance_id',
     };
   }
 
@@ -1966,8 +1966,8 @@ export class QueryFlowinstanceStatusRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      config: FlowInstanceLocator,
-      extra: 'string',
+      flowId: 'string',
+      instanceId: 'string',
     };
   }
 
@@ -1976,7 +1976,7 @@ export class QueryFlowinstanceStatusRequest extends $tea.Model {
   }
 }
 
-export class QueryFlowinstanceStatusResponse extends $tea.Model {
+export class QueryInstanceStatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -2524,7 +2524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "FAIROPENNET",
           _prod_channel: "undefined",
         };
@@ -2915,7 +2915,7 @@ export default class Client {
   }
 
   /**
-   * Description: 创建一个工作流
+   * Description: 创建一个工作流，传入partyId，和静态flow配置
    * Summary: 创建一个工作流
    */
   async createFlow(request: CreateFlowRequest): Promise<CreateFlowResponse> {
@@ -2925,7 +2925,7 @@ export default class Client {
   }
 
   /**
-   * Description: 创建一个工作流
+   * Description: 创建一个工作流，传入partyId，和静态flow配置
    * Summary: 创建一个工作流
    */
   async createFlowEx(request: CreateFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFlowResponse> {
@@ -2975,19 +2975,19 @@ export default class Client {
    * Description: 查询工作流实例状态
    * Summary: 查询工作流实例状态
    */
-  async queryFlowinstanceStatus(request: QueryFlowinstanceStatusRequest): Promise<QueryFlowinstanceStatusResponse> {
+  async queryInstanceStatus(request: QueryInstanceStatusRequest): Promise<QueryInstanceStatusResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryFlowinstanceStatusEx(request, headers, runtime);
+    return await this.queryInstanceStatusEx(request, headers, runtime);
   }
 
   /**
    * Description: 查询工作流实例状态
    * Summary: 查询工作流实例状态
    */
-  async queryFlowinstanceStatusEx(request: QueryFlowinstanceStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFlowinstanceStatusResponse> {
+  async queryInstanceStatusEx(request: QueryInstanceStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInstanceStatusResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryFlowinstanceStatusResponse>(await this.doRequest("1.0", "antchain.fairopennet.flowinstance.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFlowinstanceStatusResponse({}));
+    return $tea.cast<QueryInstanceStatusResponse>(await this.doRequest("1.0", "antchain.fairopennet.instance.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInstanceStatusResponse({}));
   }
 
   /**
