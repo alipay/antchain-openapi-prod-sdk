@@ -673,12 +673,12 @@ type FlowInstanceStatus struct {
 	TotalComponents *int64 `json:"total_components,omitempty" xml:"total_components,omitempty" require:"true"`
 	//
 	CompletedComponents *int64 `json:"completed_components,omitempty" xml:"completed_components,omitempty" require:"true"`
-	//
+	//  fair错误码
 	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
-	//
+	//  Fair错误信息
 	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
-	//
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	//  工作流实力执行的状态码
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s FlowInstanceStatus) String() string {
@@ -744,7 +744,7 @@ func (s *FlowInstanceStatus) SetErrorMessage(v string) *FlowInstanceStatus {
 	return s
 }
 
-func (s *FlowInstanceStatus) SetStatus(v int64) *FlowInstanceStatus {
+func (s *FlowInstanceStatus) SetStatus(v string) *FlowInstanceStatus {
 	s.Status = &v
 	return s
 }
@@ -2136,10 +2136,10 @@ type CreateFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	//
+	//  参与方的partyId
 	PartyId *string `json:"party_id,omitempty" xml:"party_id,omitempty" require:"true"`
-	//
-	Config *StaticFlowConfig `json:"config,omitempty" xml:"config,omitempty" require:"true"`
+	// 静态工作流配置字符串
+	StaticFlowConfig *string `json:"static_flow_config,omitempty" xml:"static_flow_config,omitempty" require:"true"`
 }
 
 func (s CreateFlowRequest) String() string {
@@ -2165,8 +2165,8 @@ func (s *CreateFlowRequest) SetPartyId(v string) *CreateFlowRequest {
 	return s
 }
 
-func (s *CreateFlowRequest) SetConfig(v *StaticFlowConfig) *CreateFlowRequest {
-	s.Config = v
+func (s *CreateFlowRequest) SetStaticFlowConfig(v string) *CreateFlowRequest {
+	s.StaticFlowConfig = &v
 	return s
 }
 
@@ -2206,10 +2206,10 @@ type RunFlowInstanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	//
+	//  参与方的partyId
 	PartyId *string `json:"party_id,omitempty" xml:"party_id,omitempty" require:"true"`
-	//
-	Config *DynamicFlowConfig `json:"config,omitempty" xml:"config,omitempty" require:"true"`
+	// 动态工作流配置字符串
+	DynamicFlowConfig *string `json:"dynamic_flow_config,omitempty" xml:"dynamic_flow_config,omitempty" require:"true"`
 }
 
 func (s RunFlowInstanceRequest) String() string {
@@ -2235,8 +2235,8 @@ func (s *RunFlowInstanceRequest) SetPartyId(v string) *RunFlowInstanceRequest {
 	return s
 }
 
-func (s *RunFlowInstanceRequest) SetConfig(v *DynamicFlowConfig) *RunFlowInstanceRequest {
-	s.Config = v
+func (s *RunFlowInstanceRequest) SetDynamicFlowConfig(v string) *RunFlowInstanceRequest {
+	s.DynamicFlowConfig = &v
 	return s
 }
 
@@ -2363,45 +2363,45 @@ func (s *StopFlowinstanceResponse) SetResultMsg(v string) *StopFlowinstanceRespo
 	return s
 }
 
-type QueryFlowinstanceStatusRequest struct {
+type QueryInstanceStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	//
-	Config *FlowInstanceLocator `json:"config,omitempty" xml:"config,omitempty" require:"true"`
-	//
-	Extra *string `json:"extra,omitempty" xml:"extra,omitempty"`
+	// 工作流的flowId
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 工作流实例instanceId
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
 }
 
-func (s QueryFlowinstanceStatusRequest) String() string {
+func (s QueryInstanceStatusRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryFlowinstanceStatusRequest) GoString() string {
+func (s QueryInstanceStatusRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryFlowinstanceStatusRequest) SetAuthToken(v string) *QueryFlowinstanceStatusRequest {
+func (s *QueryInstanceStatusRequest) SetAuthToken(v string) *QueryInstanceStatusRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusRequest) SetProductInstanceId(v string) *QueryFlowinstanceStatusRequest {
+func (s *QueryInstanceStatusRequest) SetProductInstanceId(v string) *QueryInstanceStatusRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusRequest) SetConfig(v *FlowInstanceLocator) *QueryFlowinstanceStatusRequest {
-	s.Config = v
+func (s *QueryInstanceStatusRequest) SetFlowId(v string) *QueryInstanceStatusRequest {
+	s.FlowId = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusRequest) SetExtra(v string) *QueryFlowinstanceStatusRequest {
-	s.Extra = &v
+func (s *QueryInstanceStatusRequest) SetInstanceId(v string) *QueryInstanceStatusRequest {
+	s.InstanceId = &v
 	return s
 }
 
-type QueryFlowinstanceStatusResponse struct {
+type QueryInstanceStatusResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -2412,30 +2412,30 @@ type QueryFlowinstanceStatusResponse struct {
 	Status *FlowInstanceStatus `json:"status,omitempty" xml:"status,omitempty"`
 }
 
-func (s QueryFlowinstanceStatusResponse) String() string {
+func (s QueryInstanceStatusResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryFlowinstanceStatusResponse) GoString() string {
+func (s QueryInstanceStatusResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryFlowinstanceStatusResponse) SetReqMsgId(v string) *QueryFlowinstanceStatusResponse {
+func (s *QueryInstanceStatusResponse) SetReqMsgId(v string) *QueryInstanceStatusResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusResponse) SetResultCode(v string) *QueryFlowinstanceStatusResponse {
+func (s *QueryInstanceStatusResponse) SetResultCode(v string) *QueryInstanceStatusResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusResponse) SetResultMsg(v string) *QueryFlowinstanceStatusResponse {
+func (s *QueryInstanceStatusResponse) SetResultMsg(v string) *QueryInstanceStatusResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryFlowinstanceStatusResponse) SetStatus(v *FlowInstanceStatus) *QueryFlowinstanceStatusResponse {
+func (s *QueryInstanceStatusResponse) SetStatus(v *FlowInstanceStatus) *QueryInstanceStatusResponse {
 	s.Status = v
 	return s
 }
@@ -3074,7 +3074,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("FAIROPENNET"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3745,7 +3745,7 @@ func (client *Client) ApplyPartyNetworkEx(request *ApplyPartyNetworkRequest, hea
 }
 
 /**
- * Description: 创建一个工作流
+ * Description: 创建一个工作流，传入partyId，和静态flow配置
  * Summary: 创建一个工作流
  */
 func (client *Client) CreateFlow(request *CreateFlowRequest) (_result *CreateFlowResponse, _err error) {
@@ -3761,7 +3761,7 @@ func (client *Client) CreateFlow(request *CreateFlowRequest) (_result *CreateFlo
 }
 
 /**
- * Description: 创建一个工作流
+ * Description: 创建一个工作流，传入partyId，和静态flow配置
  * Summary: 创建一个工作流
  */
 func (client *Client) CreateFlowEx(request *CreateFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFlowResponse, _err error) {
@@ -3850,11 +3850,11 @@ func (client *Client) StopFlowinstanceEx(request *StopFlowinstanceRequest, heade
  * Description: 查询工作流实例状态
  * Summary: 查询工作流实例状态
  */
-func (client *Client) QueryFlowinstanceStatus(request *QueryFlowinstanceStatusRequest) (_result *QueryFlowinstanceStatusResponse, _err error) {
+func (client *Client) QueryInstanceStatus(request *QueryInstanceStatusRequest) (_result *QueryInstanceStatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryFlowinstanceStatusResponse{}
-	_body, _err := client.QueryFlowinstanceStatusEx(request, headers, runtime)
+	_result = &QueryInstanceStatusResponse{}
+	_body, _err := client.QueryInstanceStatusEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3866,13 +3866,13 @@ func (client *Client) QueryFlowinstanceStatus(request *QueryFlowinstanceStatusRe
  * Description: 查询工作流实例状态
  * Summary: 查询工作流实例状态
  */
-func (client *Client) QueryFlowinstanceStatusEx(request *QueryFlowinstanceStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFlowinstanceStatusResponse, _err error) {
+func (client *Client) QueryInstanceStatusEx(request *QueryInstanceStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInstanceStatusResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryFlowinstanceStatusResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.flowinstance.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryInstanceStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.fairopennet.instance.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
