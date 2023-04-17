@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yuqing.models;
 
 import com.aliyun.tea.*;
 
-public class DeleteProjectResponse extends TeaModel {
+public class SubmitMessagesHistoryResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class DeleteProjectResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 新增主键
-    @NameInMap("id")
-    public Long id;
+    // 查询ID
+    @NameInMap("submit_id")
+    public String submitId;
 
-    public static DeleteProjectResponse build(java.util.Map<String, ?> map) throws Exception {
-        DeleteProjectResponse self = new DeleteProjectResponse();
+    public static SubmitMessagesHistoryResponse build(java.util.Map<String, ?> map) throws Exception {
+        SubmitMessagesHistoryResponse self = new SubmitMessagesHistoryResponse();
         return TeaModel.build(map, self);
     }
 
-    public DeleteProjectResponse setReqMsgId(String reqMsgId) {
+    public SubmitMessagesHistoryResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class DeleteProjectResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public DeleteProjectResponse setResultCode(String resultCode) {
+    public SubmitMessagesHistoryResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class DeleteProjectResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public DeleteProjectResponse setResultMsg(String resultMsg) {
+    public SubmitMessagesHistoryResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class DeleteProjectResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public DeleteProjectResponse setId(Long id) {
-        this.id = id;
+    public SubmitMessagesHistoryResponse setSubmitId(String submitId) {
+        this.submitId = submitId;
         return this;
     }
-    public Long getId() {
-        return this.id;
+    public String getSubmitId() {
+        return this.submitId;
     }
 
 }

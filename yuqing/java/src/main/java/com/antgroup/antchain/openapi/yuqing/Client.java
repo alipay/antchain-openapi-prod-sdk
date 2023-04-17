@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.17")
+                    new TeaPair("sdk_version", "1.2.3"),
+                    new TeaPair("_prod_code", "YUQING"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -423,5 +425,62 @@ public class Client {
     public QueryAlarmResponse queryAlarmEx(QueryAlarmRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlarmResponse());
+    }
+
+    /**
+     * Description: 根据接口获取热搜数据
+     * Summary: 與情热搜接口
+     */
+    public QueryHotspotMessageResponse queryHotspotMessage(QueryHotspotMessageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHotspotMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据接口获取热搜数据
+     * Summary: 與情热搜接口
+     */
+    public QueryHotspotMessageResponse queryHotspotMessageEx(QueryHotspotMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.message.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHotspotMessageResponse());
+    }
+
+    /**
+     * Description: 與情历史数据异步查询接口
+     * Summary: 與情历史数据异步查询接口
+     */
+    public SubmitMessagesHistoryResponse submitMessagesHistory(SubmitMessagesHistoryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitMessagesHistoryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 與情历史数据异步查询接口
+     * Summary: 與情历史数据异步查询接口
+     */
+    public SubmitMessagesHistoryResponse submitMessagesHistoryEx(SubmitMessagesHistoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.history.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitMessagesHistoryResponse());
+    }
+
+    /**
+     * Description: 获取历史與情消息
+     * Summary: 获取历史與情消息
+     */
+    public GetMessagesHistoryResponse getMessagesHistory(GetMessagesHistoryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMessagesHistoryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取历史與情消息
+     * Summary: 获取历史與情消息
+     */
+    public GetMessagesHistoryResponse getMessagesHistoryEx(GetMessagesHistoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMessagesHistoryResponse());
     }
 }
