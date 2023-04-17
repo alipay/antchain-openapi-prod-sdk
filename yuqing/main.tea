@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.17',
+    sdk_version = '1.2.3',
+    _prod_code = 'YUQING',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -305,6 +307,86 @@ model DingTalkContent {
   feedCard?: FeedCard(name='feed_card', example='feedCard'),
   // at
   at?: At(name='at', example='at'),
+}
+
+// 热搜结构体
+model HotspotMessage {
+  // 热搜/热榜/话题 对应用户id (可能为空)
+  userId: string(name='user_id', example='1'),
+  // 在榜总时间
+  totalExistTimestamp: long(name='total_exist_timestamp', example='1'),
+  // 下榜时间
+  lastExistDateFormat: string(name='last_exist_date_format', example='XXX'),
+  // 爬虫爬取的时间
+  crawlerTimeFmt: string(name='crawler_time_fmt', example='XXX'),
+  // 第一次上榜的格式化时间
+  firstExistDateFormat: string(name='first_exist_date_format', example='XXX'),
+  // 最高排名的总时长
+  maxRankTotalTimestamp: long(name='max_rank_total_timestamp', example='1'),
+  // 跟随量
+  followersCount: long(name='followers_count', example='1'),
+  // 在榜单中的最高排名
+  maxRank: long(name='max_rank', example='在榜单中的最高排名'),
+  // 阅读量
+  readsCount: long(name='reads_count', example='1'),
+  // 评论数
+  commentsCount: long(name='comments_count', example='1'),
+  // 标题，例如话题的标题就是话题本身
+  docTitle: string(name='doc_title', example='XXX'),
+  // 首次上榜排名
+  firstRank: long(name='first_rank', example='1'),
+  // 原创人数
+  originalCount: long(name='original_count', example='1'),
+  // 主持人
+  presenterName: string(name='presenter_name', example='XXX'),
+  // 热搜在热搜榜的位置
+  rank: long(name='rank', example='1'),
+  // 热点媒体类型
+  mediaType: string(name='media_type', example='XXX'),
+  // 文档id
+  docId: string(name='doc_id', example='XXX'),
+  // 类型
+  type: string(name='type', example='XXX'),
+  // 热度值
+  hotValue: long(name='hot_value', example='1'),
+  // 内容，热榜数据中存在着文章，热文就是有内容的
+  docContent: string(name='doc_content', example='XXX'),
+  // 热搜/热榜/话题 对应用户名称 (可能为空)
+  screenName: string(name='screen_name', example='XXX'),
+  // 热点媒体子类型
+  mediaSubType: string(name='media_sub_type', example='XXX'),
+  // 讨论量
+  discussesCount: long(name='discusses_count', example='1'),
+  // 分类
+  category: string(name='category', example='XXX'),
+  // 视频量
+  videoCount: long(name='video_count', example='1'),
+  // 最高排名的格式化总时长
+  maxRankTotalTimeFormat: string(name='max_rank_total_time_format', example='XXX'),
+  // 省
+  province: string(name='province', example='XXX'),
+  // 在榜格式化的总时间
+  totalExistTimeFormat: string(name='total_exist_time_format', example='XXX'),
+  // 第一次上最高排名的时间
+  firstTopExistTimestamp: long(name='first_top_exist_timestamp', example='1'),
+  // 链接地址
+  docUrl?: string(name='doc_url', example='XXX'),
+  // 最大的热度值
+  maxHotValue: long(name='max_hot_value', example='1'),
+  // 市
+  city: string(name='city', example='北京'),
+  // 最后一次上榜的时间
+  lastExistTimestamp: long(name='last_exist_timestamp', example='1'),
+  // 第一次上最高排名的时间
+  firstTopExistDateFormat: string(name='first_top_exist_date_format', example='XXX'),
+  // 下榜排名
+  lastRank: long(name='last_rank', example='1'),
+  // 首次上榜热度
+  firstHotValue: long(name='first_hot_value', example='1'),
+  // 热搜类型
+  hotspotType: string(name='hotspot_type', example='XXX'),
+  // 第一次上榜的时间
+  firstXxistTimestamp: long(name='first_xxist_timestamp', example='1'),
 }
 
 // 预警消息体
@@ -1084,6 +1166,8 @@ model DeleteProjectResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 新增主键
+  id?: long(name='id'),
 }
 
 /**
@@ -1175,5 +1259,165 @@ async function queryAlarm(request: QueryAlarmRequest): QueryAlarmResponse {
 async function queryAlarmEx(request: QueryAlarmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAlarmResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryHotspotMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标题包含XX
+  titleIncludingWordsIdx?: string(name='title_including_words_idx'),
+  // 正向关键词（短语匹配）
+  posKeywords?: string(name='pos_keywords'),
+  // 标题完全相等的检索条件，与attributes.display_title字段对应
+  wholeKeywords?: string(name='whole_keywords'),
+  // 排序方式： 正序(+)、倒序(-)
+  sortByDirection?: string(name='sort_by_direction'),
+  // 省份
+  provinces?: string(name='provinces'),
+  // 爬取时间的最小值（含）
+  crawlerTimeStartFilter?: long(name='crawler_time_start_filter'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // [媒体子类型
+  mediaSubType?: [ string ](name='media_sub_type'),
+  // 是否不指定关键词进行查询：\n 默认false，表示需要指定关键词来查询
+  queryWithoutKeyword?: boolean(name='query_without_keyword'),
+  // 指定的id列表
+  docIds?: [ string ](name='doc_ids'),
+  // 城市
+  cities?: [ string ](name='cities'),
+  // 爬取时间的最大值（不含）
+  crawlerTimeEndFilter?: long(name='crawler_time_end_filter'),
+  // 是否要进行关键词高亮显示
+  enableKeywordHighlight?: boolean(name='enable_keyword_highlight'),
+  // d当前页
+  pageNow: long(name='page_now'),
+  // 是否当前在榜 true表示在榜，false或null表示不限
+  fileId?: boolean(name='file_id'),
+  // 排序字段
+  sortBy?: string(name='sort_by'),
+  // 是否当前在榜
+  active?: boolean(name='active'),
+}
+
+model QueryHotspotMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 热搜数据
+  pages?: [ HotspotMessage ](name='pages'),
+  // 总条数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 根据接口获取热搜数据
+ * Summary: 與情热搜接口
+ */
+async function queryHotspotMessage(request: QueryHotspotMessageRequest): QueryHotspotMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryHotspotMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据接口获取热搜数据
+ * Summary: 與情热搜接口
+ */
+async function queryHotspotMessageEx(request: QueryHotspotMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHotspotMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.hotspot.message.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitMessagesHistoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询条件
+  searchCondition: SearchCondition(name='search_condition'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+  // team_hash_id
+  teamHashId?: string(name='team_hash_id'),
+}
+
+model SubmitMessagesHistoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询ID
+  submitId?: string(name='submit_id'),
+}
+
+/**
+ * Description: 與情历史数据异步查询接口
+ * Summary: 與情历史数据异步查询接口
+ */
+async function submitMessagesHistory(request: SubmitMessagesHistoryRequest): SubmitMessagesHistoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitMessagesHistoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 與情历史数据异步查询接口
+ * Summary: 與情历史数据异步查询接口
+ */
+async function submitMessagesHistoryEx(request: SubmitMessagesHistoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitMessagesHistoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.messages.history.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMessagesHistoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 历史数据提交的产物
+  submitId: string(name='submit_id'),
+  // request_id
+  requestId?: string(name='request_id'),
+  // page_now
+  pageNow: long(name='page_now'),
+  // page_size
+  pageSize: long(name='page_size'),
+}
+
+model GetMessagesHistoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // yuqing_messages
+  yuqingMessages?: [ YuqingMessage ](name='yuqing_messages'),
+}
+
+/**
+ * Description: 获取历史與情消息
+ * Summary: 获取历史與情消息
+ */
+async function getMessagesHistory(request: GetMessagesHistoryRequest): GetMessagesHistoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMessagesHistoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取历史與情消息
+ * Summary: 获取历史與情消息
+ */
+async function getMessagesHistoryEx(request: GetMessagesHistoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMessagesHistoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
