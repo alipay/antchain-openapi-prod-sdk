@@ -646,6 +646,284 @@ func (s *DingTalkContent) SetAt(v *At) *DingTalkContent {
 	return s
 }
 
+// 热搜结构体
+type HotspotMessage struct {
+	// 热搜/热榜/话题 对应用户id (可能为空)
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 在榜总时间
+	TotalExistTimestamp *int64 `json:"total_exist_timestamp,omitempty" xml:"total_exist_timestamp,omitempty" require:"true"`
+	// 下榜时间
+	LastExistDateFormat *string `json:"last_exist_date_format,omitempty" xml:"last_exist_date_format,omitempty" require:"true"`
+	// 爬虫爬取的时间
+	CrawlerTimeFmt *string `json:"crawler_time_fmt,omitempty" xml:"crawler_time_fmt,omitempty" require:"true"`
+	// 第一次上榜的格式化时间
+	FirstExistDateFormat *string `json:"first_exist_date_format,omitempty" xml:"first_exist_date_format,omitempty" require:"true"`
+	// 最高排名的总时长
+	MaxRankTotalTimestamp *int64 `json:"max_rank_total_timestamp,omitempty" xml:"max_rank_total_timestamp,omitempty" require:"true"`
+	// 跟随量
+	FollowersCount *int64 `json:"followers_count,omitempty" xml:"followers_count,omitempty" require:"true"`
+	// 在榜单中的最高排名
+	MaxRank *int64 `json:"max_rank,omitempty" xml:"max_rank,omitempty" require:"true"`
+	// 阅读量
+	ReadsCount *int64 `json:"reads_count,omitempty" xml:"reads_count,omitempty" require:"true"`
+	// 评论数
+	CommentsCount *int64 `json:"comments_count,omitempty" xml:"comments_count,omitempty" require:"true"`
+	// 标题，例如话题的标题就是话题本身
+	DocTitle *string `json:"doc_title,omitempty" xml:"doc_title,omitempty" require:"true"`
+	// 首次上榜排名
+	FirstRank *int64 `json:"first_rank,omitempty" xml:"first_rank,omitempty" require:"true"`
+	// 原创人数
+	OriginalCount *int64 `json:"original_count,omitempty" xml:"original_count,omitempty" require:"true"`
+	// 主持人
+	PresenterName *string `json:"presenter_name,omitempty" xml:"presenter_name,omitempty" require:"true"`
+	// 热搜在热搜榜的位置
+	Rank *int64 `json:"rank,omitempty" xml:"rank,omitempty" require:"true"`
+	// 热点媒体类型
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
+	// 文档id
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty" require:"true"`
+	// 类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 热度值
+	HotValue *int64 `json:"hot_value,omitempty" xml:"hot_value,omitempty" require:"true"`
+	// 内容，热榜数据中存在着文章，热文就是有内容的
+	DocContent *string `json:"doc_content,omitempty" xml:"doc_content,omitempty" require:"true"`
+	// 热搜/热榜/话题 对应用户名称 (可能为空)
+	ScreenName *string `json:"screen_name,omitempty" xml:"screen_name,omitempty" require:"true"`
+	// 热点媒体子类型
+	MediaSubType *string `json:"media_sub_type,omitempty" xml:"media_sub_type,omitempty" require:"true"`
+	// 讨论量
+	DiscussesCount *int64 `json:"discusses_count,omitempty" xml:"discusses_count,omitempty" require:"true"`
+	// 分类
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 视频量
+	VideoCount *int64 `json:"video_count,omitempty" xml:"video_count,omitempty" require:"true"`
+	// 最高排名的格式化总时长
+	MaxRankTotalTimeFormat *string `json:"max_rank_total_time_format,omitempty" xml:"max_rank_total_time_format,omitempty" require:"true"`
+	// 省
+	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	// 在榜格式化的总时间
+	TotalExistTimeFormat *string `json:"total_exist_time_format,omitempty" xml:"total_exist_time_format,omitempty" require:"true"`
+	// 第一次上最高排名的时间
+	FirstTopExistTimestamp *int64 `json:"first_top_exist_timestamp,omitempty" xml:"first_top_exist_timestamp,omitempty" require:"true"`
+	// 链接地址
+	DocUrl *string `json:"doc_url,omitempty" xml:"doc_url,omitempty"`
+	// 最大的热度值
+	MaxHotValue *int64 `json:"max_hot_value,omitempty" xml:"max_hot_value,omitempty" require:"true"`
+	// 市
+	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+	// 最后一次上榜的时间
+	LastExistTimestamp *int64 `json:"last_exist_timestamp,omitempty" xml:"last_exist_timestamp,omitempty" require:"true"`
+	// 第一次上最高排名的时间
+	FirstTopExistDateFormat *string `json:"first_top_exist_date_format,omitempty" xml:"first_top_exist_date_format,omitempty" require:"true"`
+	// 下榜排名
+	LastRank *int64 `json:"last_rank,omitempty" xml:"last_rank,omitempty" require:"true"`
+	// 首次上榜热度
+	FirstHotValue *int64 `json:"first_hot_value,omitempty" xml:"first_hot_value,omitempty" require:"true"`
+	// 热搜类型
+	HotspotType *string `json:"hotspot_type,omitempty" xml:"hotspot_type,omitempty" require:"true"`
+	// 第一次上榜的时间
+	FirstXxistTimestamp *int64 `json:"first_xxist_timestamp,omitempty" xml:"first_xxist_timestamp,omitempty" require:"true"`
+}
+
+func (s HotspotMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HotspotMessage) GoString() string {
+	return s.String()
+}
+
+func (s *HotspotMessage) SetUserId(v string) *HotspotMessage {
+	s.UserId = &v
+	return s
+}
+
+func (s *HotspotMessage) SetTotalExistTimestamp(v int64) *HotspotMessage {
+	s.TotalExistTimestamp = &v
+	return s
+}
+
+func (s *HotspotMessage) SetLastExistDateFormat(v string) *HotspotMessage {
+	s.LastExistDateFormat = &v
+	return s
+}
+
+func (s *HotspotMessage) SetCrawlerTimeFmt(v string) *HotspotMessage {
+	s.CrawlerTimeFmt = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstExistDateFormat(v string) *HotspotMessage {
+	s.FirstExistDateFormat = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMaxRankTotalTimestamp(v int64) *HotspotMessage {
+	s.MaxRankTotalTimestamp = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFollowersCount(v int64) *HotspotMessage {
+	s.FollowersCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMaxRank(v int64) *HotspotMessage {
+	s.MaxRank = &v
+	return s
+}
+
+func (s *HotspotMessage) SetReadsCount(v int64) *HotspotMessage {
+	s.ReadsCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetCommentsCount(v int64) *HotspotMessage {
+	s.CommentsCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetDocTitle(v string) *HotspotMessage {
+	s.DocTitle = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstRank(v int64) *HotspotMessage {
+	s.FirstRank = &v
+	return s
+}
+
+func (s *HotspotMessage) SetOriginalCount(v int64) *HotspotMessage {
+	s.OriginalCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetPresenterName(v string) *HotspotMessage {
+	s.PresenterName = &v
+	return s
+}
+
+func (s *HotspotMessage) SetRank(v int64) *HotspotMessage {
+	s.Rank = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMediaType(v string) *HotspotMessage {
+	s.MediaType = &v
+	return s
+}
+
+func (s *HotspotMessage) SetDocId(v string) *HotspotMessage {
+	s.DocId = &v
+	return s
+}
+
+func (s *HotspotMessage) SetType(v string) *HotspotMessage {
+	s.Type = &v
+	return s
+}
+
+func (s *HotspotMessage) SetHotValue(v int64) *HotspotMessage {
+	s.HotValue = &v
+	return s
+}
+
+func (s *HotspotMessage) SetDocContent(v string) *HotspotMessage {
+	s.DocContent = &v
+	return s
+}
+
+func (s *HotspotMessage) SetScreenName(v string) *HotspotMessage {
+	s.ScreenName = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMediaSubType(v string) *HotspotMessage {
+	s.MediaSubType = &v
+	return s
+}
+
+func (s *HotspotMessage) SetDiscussesCount(v int64) *HotspotMessage {
+	s.DiscussesCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetCategory(v string) *HotspotMessage {
+	s.Category = &v
+	return s
+}
+
+func (s *HotspotMessage) SetVideoCount(v int64) *HotspotMessage {
+	s.VideoCount = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMaxRankTotalTimeFormat(v string) *HotspotMessage {
+	s.MaxRankTotalTimeFormat = &v
+	return s
+}
+
+func (s *HotspotMessage) SetProvince(v string) *HotspotMessage {
+	s.Province = &v
+	return s
+}
+
+func (s *HotspotMessage) SetTotalExistTimeFormat(v string) *HotspotMessage {
+	s.TotalExistTimeFormat = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstTopExistTimestamp(v int64) *HotspotMessage {
+	s.FirstTopExistTimestamp = &v
+	return s
+}
+
+func (s *HotspotMessage) SetDocUrl(v string) *HotspotMessage {
+	s.DocUrl = &v
+	return s
+}
+
+func (s *HotspotMessage) SetMaxHotValue(v int64) *HotspotMessage {
+	s.MaxHotValue = &v
+	return s
+}
+
+func (s *HotspotMessage) SetCity(v string) *HotspotMessage {
+	s.City = &v
+	return s
+}
+
+func (s *HotspotMessage) SetLastExistTimestamp(v int64) *HotspotMessage {
+	s.LastExistTimestamp = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstTopExistDateFormat(v string) *HotspotMessage {
+	s.FirstTopExistDateFormat = &v
+	return s
+}
+
+func (s *HotspotMessage) SetLastRank(v int64) *HotspotMessage {
+	s.LastRank = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstHotValue(v int64) *HotspotMessage {
+	s.FirstHotValue = &v
+	return s
+}
+
+func (s *HotspotMessage) SetHotspotType(v string) *HotspotMessage {
+	s.HotspotType = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstXxistTimestamp(v int64) *HotspotMessage {
+	s.FirstXxistTimestamp = &v
+	return s
+}
+
 // 预警消息体
 type Alarm struct {
 	// 人工打的标签
@@ -2581,6 +2859,8 @@ type DeleteProjectResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 新增主键
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
 }
 
 func (s DeleteProjectResponse) String() string {
@@ -2603,6 +2883,11 @@ func (s *DeleteProjectResponse) SetResultCode(v string) *DeleteProjectResponse {
 
 func (s *DeleteProjectResponse) SetResultMsg(v string) *DeleteProjectResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteProjectResponse) SetId(v int64) *DeleteProjectResponse {
+	s.Id = &v
 	return s
 }
 
@@ -2795,6 +3080,377 @@ func (s *QueryAlarmResponse) SetTotalCount(v int64) *QueryAlarmResponse {
 	return s
 }
 
+type QueryHotspotMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 标题包含XX
+	TitleIncludingWordsIdx *string `json:"title_including_words_idx,omitempty" xml:"title_including_words_idx,omitempty"`
+	// 正向关键词（短语匹配）
+	PosKeywords *string `json:"pos_keywords,omitempty" xml:"pos_keywords,omitempty"`
+	// 标题完全相等的检索条件，与attributes.display_title字段对应
+	WholeKeywords *string `json:"whole_keywords,omitempty" xml:"whole_keywords,omitempty"`
+	// 排序方式： 正序(+)、倒序(-)
+	SortByDirection *string `json:"sort_by_direction,omitempty" xml:"sort_by_direction,omitempty"`
+	// 省份
+	Provinces *string `json:"provinces,omitempty" xml:"provinces,omitempty"`
+	// 爬取时间的最小值（含）
+	CrawlerTimeStartFilter *int64 `json:"crawler_time_start_filter,omitempty" xml:"crawler_time_start_filter,omitempty"`
+	// 页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// [媒体子类型
+	MediaSubType []*string `json:"media_sub_type,omitempty" xml:"media_sub_type,omitempty" type:"Repeated"`
+	// 是否不指定关键词进行查询：\n 默认false，表示需要指定关键词来查询
+	QueryWithoutKeyword *bool `json:"query_without_keyword,omitempty" xml:"query_without_keyword,omitempty"`
+	// 指定的id列表
+	DocIds []*string `json:"doc_ids,omitempty" xml:"doc_ids,omitempty" type:"Repeated"`
+	// 城市
+	Cities []*string `json:"cities,omitempty" xml:"cities,omitempty" type:"Repeated"`
+	// 爬取时间的最大值（不含）
+	CrawlerTimeEndFilter *int64 `json:"crawler_time_end_filter,omitempty" xml:"crawler_time_end_filter,omitempty"`
+	// 是否要进行关键词高亮显示
+	EnableKeywordHighlight *bool `json:"enable_keyword_highlight,omitempty" xml:"enable_keyword_highlight,omitempty"`
+	// d当前页
+	PageNow *int64 `json:"page_now,omitempty" xml:"page_now,omitempty" require:"true"`
+	// 是否当前在榜 true表示在榜，false或null表示不限
+	FileId *bool `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 排序字段
+	SortBy *string `json:"sort_by,omitempty" xml:"sort_by,omitempty"`
+	// 是否当前在榜
+	Active *bool `json:"active,omitempty" xml:"active,omitempty"`
+}
+
+func (s QueryHotspotMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHotspotMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHotspotMessageRequest) SetAuthToken(v string) *QueryHotspotMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetProductInstanceId(v string) *QueryHotspotMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetTitleIncludingWordsIdx(v string) *QueryHotspotMessageRequest {
+	s.TitleIncludingWordsIdx = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetPosKeywords(v string) *QueryHotspotMessageRequest {
+	s.PosKeywords = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetWholeKeywords(v string) *QueryHotspotMessageRequest {
+	s.WholeKeywords = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetSortByDirection(v string) *QueryHotspotMessageRequest {
+	s.SortByDirection = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetProvinces(v string) *QueryHotspotMessageRequest {
+	s.Provinces = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetCrawlerTimeStartFilter(v int64) *QueryHotspotMessageRequest {
+	s.CrawlerTimeStartFilter = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetPageSize(v int64) *QueryHotspotMessageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetMediaSubType(v []*string) *QueryHotspotMessageRequest {
+	s.MediaSubType = v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetQueryWithoutKeyword(v bool) *QueryHotspotMessageRequest {
+	s.QueryWithoutKeyword = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetDocIds(v []*string) *QueryHotspotMessageRequest {
+	s.DocIds = v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetCities(v []*string) *QueryHotspotMessageRequest {
+	s.Cities = v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetCrawlerTimeEndFilter(v int64) *QueryHotspotMessageRequest {
+	s.CrawlerTimeEndFilter = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetEnableKeywordHighlight(v bool) *QueryHotspotMessageRequest {
+	s.EnableKeywordHighlight = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetPageNow(v int64) *QueryHotspotMessageRequest {
+	s.PageNow = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetFileId(v bool) *QueryHotspotMessageRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetSortBy(v string) *QueryHotspotMessageRequest {
+	s.SortBy = &v
+	return s
+}
+
+func (s *QueryHotspotMessageRequest) SetActive(v bool) *QueryHotspotMessageRequest {
+	s.Active = &v
+	return s
+}
+
+type QueryHotspotMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 热搜数据
+	Pages []*HotspotMessage `json:"pages,omitempty" xml:"pages,omitempty" type:"Repeated"`
+	// 总条数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s QueryHotspotMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHotspotMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHotspotMessageResponse) SetReqMsgId(v string) *QueryHotspotMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHotspotMessageResponse) SetResultCode(v string) *QueryHotspotMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHotspotMessageResponse) SetResultMsg(v string) *QueryHotspotMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHotspotMessageResponse) SetPages(v []*HotspotMessage) *QueryHotspotMessageResponse {
+	s.Pages = v
+	return s
+}
+
+func (s *QueryHotspotMessageResponse) SetTotalCount(v int64) *QueryHotspotMessageResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type SubmitMessagesHistoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询条件
+	SearchCondition *SearchCondition `json:"search_condition,omitempty" xml:"search_condition,omitempty" require:"true"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// team_hash_id
+	TeamHashId *string `json:"team_hash_id,omitempty" xml:"team_hash_id,omitempty"`
+}
+
+func (s SubmitMessagesHistoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMessagesHistoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMessagesHistoryRequest) SetAuthToken(v string) *SubmitMessagesHistoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryRequest) SetProductInstanceId(v string) *SubmitMessagesHistoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryRequest) SetSearchCondition(v *SearchCondition) *SubmitMessagesHistoryRequest {
+	s.SearchCondition = v
+	return s
+}
+
+func (s *SubmitMessagesHistoryRequest) SetRequestId(v string) *SubmitMessagesHistoryRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryRequest) SetTeamHashId(v string) *SubmitMessagesHistoryRequest {
+	s.TeamHashId = &v
+	return s
+}
+
+type SubmitMessagesHistoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询ID
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
+}
+
+func (s SubmitMessagesHistoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitMessagesHistoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitMessagesHistoryResponse) SetReqMsgId(v string) *SubmitMessagesHistoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryResponse) SetResultCode(v string) *SubmitMessagesHistoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryResponse) SetResultMsg(v string) *SubmitMessagesHistoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitMessagesHistoryResponse) SetSubmitId(v string) *SubmitMessagesHistoryResponse {
+	s.SubmitId = &v
+	return s
+}
+
+type GetMessagesHistoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 历史数据提交的产物
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty" require:"true"`
+	// request_id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// page_now
+	PageNow *int64 `json:"page_now,omitempty" xml:"page_now,omitempty" require:"true"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s GetMessagesHistoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMessagesHistoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetMessagesHistoryRequest) SetAuthToken(v string) *GetMessagesHistoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMessagesHistoryRequest) SetProductInstanceId(v string) *GetMessagesHistoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetMessagesHistoryRequest) SetSubmitId(v string) *GetMessagesHistoryRequest {
+	s.SubmitId = &v
+	return s
+}
+
+func (s *GetMessagesHistoryRequest) SetRequestId(v string) *GetMessagesHistoryRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetMessagesHistoryRequest) SetPageNow(v int64) *GetMessagesHistoryRequest {
+	s.PageNow = &v
+	return s
+}
+
+func (s *GetMessagesHistoryRequest) SetPageSize(v int64) *GetMessagesHistoryRequest {
+	s.PageSize = &v
+	return s
+}
+
+type GetMessagesHistoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// yuqing_messages
+	YuqingMessages []*YuqingMessage `json:"yuqing_messages,omitempty" xml:"yuqing_messages,omitempty" type:"Repeated"`
+}
+
+func (s GetMessagesHistoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMessagesHistoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetMessagesHistoryResponse) SetReqMsgId(v string) *GetMessagesHistoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetMessagesHistoryResponse) SetResultCode(v string) *GetMessagesHistoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetMessagesHistoryResponse) SetResultMsg(v string) *GetMessagesHistoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetMessagesHistoryResponse) SetTotalCount(v int64) *GetMessagesHistoryResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *GetMessagesHistoryResponse) SetYuqingMessages(v []*YuqingMessage) *GetMessagesHistoryResponse {
+	s.YuqingMessages = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2873,17 +3529,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -2917,7 +3573,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.17"),
+				"sdk_version":      tea.String("1.2.3"),
+				"_prod_code":       tea.String("YUQING"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3442,6 +4100,108 @@ func (client *Client) QueryAlarmEx(request *QueryAlarmRequest, headers map[strin
 	}
 	_result = &QueryAlarmResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.alarm.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据接口获取热搜数据
+ * Summary: 與情热搜接口
+ */
+func (client *Client) QueryHotspotMessage(request *QueryHotspotMessageRequest) (_result *QueryHotspotMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHotspotMessageResponse{}
+	_body, _err := client.QueryHotspotMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据接口获取热搜数据
+ * Summary: 與情热搜接口
+ */
+func (client *Client) QueryHotspotMessageEx(request *QueryHotspotMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHotspotMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHotspotMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.hotspot.message.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 與情历史数据异步查询接口
+ * Summary: 與情历史数据异步查询接口
+ */
+func (client *Client) SubmitMessagesHistory(request *SubmitMessagesHistoryRequest) (_result *SubmitMessagesHistoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitMessagesHistoryResponse{}
+	_body, _err := client.SubmitMessagesHistoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 與情历史数据异步查询接口
+ * Summary: 與情历史数据异步查询接口
+ */
+func (client *Client) SubmitMessagesHistoryEx(request *SubmitMessagesHistoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitMessagesHistoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitMessagesHistoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.messages.history.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取历史與情消息
+ * Summary: 获取历史與情消息
+ */
+func (client *Client) GetMessagesHistory(request *GetMessagesHistoryRequest) (_result *GetMessagesHistoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetMessagesHistoryResponse{}
+	_body, _err := client.GetMessagesHistoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取历史與情消息
+ * Summary: 获取历史與情消息
+ */
+func (client *Client) GetMessagesHistoryEx(request *GetMessagesHistoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMessagesHistoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetMessagesHistoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.messages.history.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
