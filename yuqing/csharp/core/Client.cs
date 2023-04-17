@@ -91,7 +91,7 @@ namespace AntChain.SDK.YUQING
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.17"},
+                        {"sdk_version", "1.2.3"},
+                        {"_prod_code", "YUQING"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.YUQING
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.17"},
+                        {"sdk_version", "1.2.3"},
+                        {"_prod_code", "YUQING"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -903,6 +907,132 @@ namespace AntChain.SDK.YUQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAlarmResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据接口获取热搜数据
+         * Summary: 與情热搜接口
+         */
+        public QueryHotspotMessageResponse QueryHotspotMessage(QueryHotspotMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHotspotMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据接口获取热搜数据
+         * Summary: 與情热搜接口
+         */
+        public async Task<QueryHotspotMessageResponse> QueryHotspotMessageAsync(QueryHotspotMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHotspotMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据接口获取热搜数据
+         * Summary: 與情热搜接口
+         */
+        public QueryHotspotMessageResponse QueryHotspotMessageEx(QueryHotspotMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHotspotMessageResponse>(DoRequest("1.0", "universalsaas.yuqing.hotspot.message.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据接口获取热搜数据
+         * Summary: 與情热搜接口
+         */
+        public async Task<QueryHotspotMessageResponse> QueryHotspotMessageExAsync(QueryHotspotMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHotspotMessageResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.hotspot.message.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 與情历史数据异步查询接口
+         * Summary: 與情历史数据异步查询接口
+         */
+        public SubmitMessagesHistoryResponse SubmitMessagesHistory(SubmitMessagesHistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitMessagesHistoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 與情历史数据异步查询接口
+         * Summary: 與情历史数据异步查询接口
+         */
+        public async Task<SubmitMessagesHistoryResponse> SubmitMessagesHistoryAsync(SubmitMessagesHistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitMessagesHistoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 與情历史数据异步查询接口
+         * Summary: 與情历史数据异步查询接口
+         */
+        public SubmitMessagesHistoryResponse SubmitMessagesHistoryEx(SubmitMessagesHistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitMessagesHistoryResponse>(DoRequest("1.0", "universalsaas.yuqing.messages.history.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 與情历史数据异步查询接口
+         * Summary: 與情历史数据异步查询接口
+         */
+        public async Task<SubmitMessagesHistoryResponse> SubmitMessagesHistoryExAsync(SubmitMessagesHistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitMessagesHistoryResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.messages.history.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取历史與情消息
+         * Summary: 获取历史與情消息
+         */
+        public GetMessagesHistoryResponse GetMessagesHistory(GetMessagesHistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetMessagesHistoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取历史與情消息
+         * Summary: 获取历史與情消息
+         */
+        public async Task<GetMessagesHistoryResponse> GetMessagesHistoryAsync(GetMessagesHistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetMessagesHistoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取历史與情消息
+         * Summary: 获取历史與情消息
+         */
+        public GetMessagesHistoryResponse GetMessagesHistoryEx(GetMessagesHistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMessagesHistoryResponse>(DoRequest("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取历史與情消息
+         * Summary: 获取历史與情消息
+         */
+        public async Task<GetMessagesHistoryResponse> GetMessagesHistoryExAsync(GetMessagesHistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMessagesHistoryResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
