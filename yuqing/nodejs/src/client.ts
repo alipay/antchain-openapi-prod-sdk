@@ -463,6 +463,175 @@ export class DingTalkContent extends $tea.Model {
   }
 }
 
+// 热搜结构体
+export class HotspotMessage extends $tea.Model {
+  // 热搜/热榜/话题 对应用户id (可能为空)
+  userId: string;
+  // 在榜总时间
+  totalExistTimestamp: number;
+  // 下榜时间
+  lastExistDateFormat: string;
+  // 爬虫爬取的时间
+  crawlerTimeFmt: string;
+  // 第一次上榜的格式化时间
+  firstExistDateFormat: string;
+  // 最高排名的总时长
+  maxRankTotalTimestamp: number;
+  // 跟随量
+  followersCount: number;
+  // 在榜单中的最高排名
+  maxRank: number;
+  // 阅读量
+  readsCount: number;
+  // 评论数
+  commentsCount: number;
+  // 标题，例如话题的标题就是话题本身
+  docTitle: string;
+  // 首次上榜排名
+  firstRank: number;
+  // 原创人数
+  originalCount: number;
+  // 主持人
+  presenterName: string;
+  // 热搜在热搜榜的位置
+  rank: number;
+  // 热点媒体类型
+  mediaType: string;
+  // 文档id
+  docId: string;
+  // 类型
+  type: string;
+  // 热度值
+  hotValue: number;
+  // 内容，热榜数据中存在着文章，热文就是有内容的
+  docContent: string;
+  // 热搜/热榜/话题 对应用户名称 (可能为空)
+  screenName: string;
+  // 热点媒体子类型
+  mediaSubType: string;
+  // 讨论量
+  discussesCount: number;
+  // 分类
+  category: string;
+  // 视频量
+  videoCount: number;
+  // 最高排名的格式化总时长
+  maxRankTotalTimeFormat: string;
+  // 省
+  province: string;
+  // 在榜格式化的总时间
+  totalExistTimeFormat: string;
+  // 第一次上最高排名的时间
+  firstTopExistTimestamp: number;
+  // 链接地址
+  docUrl?: string;
+  // 最大的热度值
+  maxHotValue: number;
+  // 市
+  city: string;
+  // 最后一次上榜的时间
+  lastExistTimestamp: number;
+  // 第一次上最高排名的时间
+  firstTopExistDateFormat: string;
+  // 下榜排名
+  lastRank: number;
+  // 首次上榜热度
+  firstHotValue: number;
+  // 热搜类型
+  hotspotType: string;
+  // 第一次上榜的时间
+  firstXxistTimestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      totalExistTimestamp: 'total_exist_timestamp',
+      lastExistDateFormat: 'last_exist_date_format',
+      crawlerTimeFmt: 'crawler_time_fmt',
+      firstExistDateFormat: 'first_exist_date_format',
+      maxRankTotalTimestamp: 'max_rank_total_timestamp',
+      followersCount: 'followers_count',
+      maxRank: 'max_rank',
+      readsCount: 'reads_count',
+      commentsCount: 'comments_count',
+      docTitle: 'doc_title',
+      firstRank: 'first_rank',
+      originalCount: 'original_count',
+      presenterName: 'presenter_name',
+      rank: 'rank',
+      mediaType: 'media_type',
+      docId: 'doc_id',
+      type: 'type',
+      hotValue: 'hot_value',
+      docContent: 'doc_content',
+      screenName: 'screen_name',
+      mediaSubType: 'media_sub_type',
+      discussesCount: 'discusses_count',
+      category: 'category',
+      videoCount: 'video_count',
+      maxRankTotalTimeFormat: 'max_rank_total_time_format',
+      province: 'province',
+      totalExistTimeFormat: 'total_exist_time_format',
+      firstTopExistTimestamp: 'first_top_exist_timestamp',
+      docUrl: 'doc_url',
+      maxHotValue: 'max_hot_value',
+      city: 'city',
+      lastExistTimestamp: 'last_exist_timestamp',
+      firstTopExistDateFormat: 'first_top_exist_date_format',
+      lastRank: 'last_rank',
+      firstHotValue: 'first_hot_value',
+      hotspotType: 'hotspot_type',
+      firstXxistTimestamp: 'first_xxist_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      totalExistTimestamp: 'number',
+      lastExistDateFormat: 'string',
+      crawlerTimeFmt: 'string',
+      firstExistDateFormat: 'string',
+      maxRankTotalTimestamp: 'number',
+      followersCount: 'number',
+      maxRank: 'number',
+      readsCount: 'number',
+      commentsCount: 'number',
+      docTitle: 'string',
+      firstRank: 'number',
+      originalCount: 'number',
+      presenterName: 'string',
+      rank: 'number',
+      mediaType: 'string',
+      docId: 'string',
+      type: 'string',
+      hotValue: 'number',
+      docContent: 'string',
+      screenName: 'string',
+      mediaSubType: 'string',
+      discussesCount: 'number',
+      category: 'string',
+      videoCount: 'number',
+      maxRankTotalTimeFormat: 'string',
+      province: 'string',
+      totalExistTimeFormat: 'string',
+      firstTopExistTimestamp: 'number',
+      docUrl: 'string',
+      maxHotValue: 'number',
+      city: 'string',
+      lastExistTimestamp: 'number',
+      firstTopExistDateFormat: 'string',
+      lastRank: 'number',
+      firstHotValue: 'number',
+      hotspotType: 'string',
+      firstXxistTimestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 预警消息体
 export class Alarm extends $tea.Model {
   // 人工打的标签
@@ -1880,11 +2049,14 @@ export class DeleteProjectResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 新增主键
+  id?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      id: 'id',
     };
   }
 
@@ -1893,6 +2065,7 @@ export class DeleteProjectResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      id: 'number',
     };
   }
 
@@ -2028,6 +2201,275 @@ export class QueryAlarmResponse extends $tea.Model {
   }
 }
 
+export class QueryHotspotMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 标题包含XX
+  titleIncludingWordsIdx?: string;
+  // 正向关键词（短语匹配）
+  posKeywords?: string;
+  // 标题完全相等的检索条件，与attributes.display_title字段对应
+  wholeKeywords?: string;
+  // 排序方式： 正序(+)、倒序(-)
+  sortByDirection?: string;
+  // 省份
+  provinces?: string;
+  // 爬取时间的最小值（含）
+  crawlerTimeStartFilter?: number;
+  // 页大小
+  pageSize: number;
+  // [媒体子类型
+  mediaSubType?: string[];
+  // 是否不指定关键词进行查询：\n 默认false，表示需要指定关键词来查询
+  queryWithoutKeyword?: boolean;
+  // 指定的id列表
+  docIds?: string[];
+  // 城市
+  cities?: string[];
+  // 爬取时间的最大值（不含）
+  crawlerTimeEndFilter?: number;
+  // 是否要进行关键词高亮显示
+  enableKeywordHighlight?: boolean;
+  // d当前页
+  pageNow: number;
+  // 是否当前在榜 true表示在榜，false或null表示不限
+  fileId?: boolean;
+  // 排序字段
+  sortBy?: string;
+  // 是否当前在榜
+  active?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      titleIncludingWordsIdx: 'title_including_words_idx',
+      posKeywords: 'pos_keywords',
+      wholeKeywords: 'whole_keywords',
+      sortByDirection: 'sort_by_direction',
+      provinces: 'provinces',
+      crawlerTimeStartFilter: 'crawler_time_start_filter',
+      pageSize: 'page_size',
+      mediaSubType: 'media_sub_type',
+      queryWithoutKeyword: 'query_without_keyword',
+      docIds: 'doc_ids',
+      cities: 'cities',
+      crawlerTimeEndFilter: 'crawler_time_end_filter',
+      enableKeywordHighlight: 'enable_keyword_highlight',
+      pageNow: 'page_now',
+      fileId: 'file_id',
+      sortBy: 'sort_by',
+      active: 'active',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      titleIncludingWordsIdx: 'string',
+      posKeywords: 'string',
+      wholeKeywords: 'string',
+      sortByDirection: 'string',
+      provinces: 'string',
+      crawlerTimeStartFilter: 'number',
+      pageSize: 'number',
+      mediaSubType: { 'type': 'array', 'itemType': 'string' },
+      queryWithoutKeyword: 'boolean',
+      docIds: { 'type': 'array', 'itemType': 'string' },
+      cities: { 'type': 'array', 'itemType': 'string' },
+      crawlerTimeEndFilter: 'number',
+      enableKeywordHighlight: 'boolean',
+      pageNow: 'number',
+      fileId: 'boolean',
+      sortBy: 'string',
+      active: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHotspotMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 热搜数据
+  pages?: HotspotMessage[];
+  // 总条数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pages: 'pages',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pages: { 'type': 'array', 'itemType': HotspotMessage },
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMessagesHistoryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询条件
+  searchCondition: SearchCondition;
+  // 请求ID
+  requestId?: string;
+  // team_hash_id
+  teamHashId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      searchCondition: 'search_condition',
+      requestId: 'request_id',
+      teamHashId: 'team_hash_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      searchCondition: SearchCondition,
+      requestId: 'string',
+      teamHashId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitMessagesHistoryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询ID
+  submitId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      submitId: 'submit_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      submitId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMessagesHistoryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 历史数据提交的产物
+  submitId: string;
+  // request_id
+  requestId?: string;
+  // page_now
+  pageNow: number;
+  // page_size
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      submitId: 'submit_id',
+      requestId: 'request_id',
+      pageNow: 'page_now',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      submitId: 'string',
+      requestId: 'string',
+      pageNow: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMessagesHistoryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数
+  totalCount?: number;
+  // yuqing_messages
+  yuqingMessages?: YuqingMessage[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      yuqingMessages: 'yuqing_messages',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      yuqingMessages: { 'type': 'array', 'itemType': YuqingMessage },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2102,7 +2544,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -2141,7 +2583,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.17",
+          sdk_version: "1.2.3",
+          _prod_code: "YUQING",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2451,6 +2895,63 @@ export default class Client {
   async queryAlarmEx(request: QueryAlarmRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAlarmResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAlarmResponse>(await this.doRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAlarmResponse({}));
+  }
+
+  /**
+   * Description: 根据接口获取热搜数据
+   * Summary: 與情热搜接口
+   */
+  async queryHotspotMessage(request: QueryHotspotMessageRequest): Promise<QueryHotspotMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHotspotMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据接口获取热搜数据
+   * Summary: 與情热搜接口
+   */
+  async queryHotspotMessageEx(request: QueryHotspotMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHotspotMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHotspotMessageResponse>(await this.doRequest("1.0", "universalsaas.yuqing.hotspot.message.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHotspotMessageResponse({}));
+  }
+
+  /**
+   * Description: 與情历史数据异步查询接口
+   * Summary: 與情历史数据异步查询接口
+   */
+  async submitMessagesHistory(request: SubmitMessagesHistoryRequest): Promise<SubmitMessagesHistoryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitMessagesHistoryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 與情历史数据异步查询接口
+   * Summary: 與情历史数据异步查询接口
+   */
+  async submitMessagesHistoryEx(request: SubmitMessagesHistoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitMessagesHistoryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitMessagesHistoryResponse>(await this.doRequest("1.0", "universalsaas.yuqing.messages.history.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitMessagesHistoryResponse({}));
+  }
+
+  /**
+   * Description: 获取历史與情消息
+   * Summary: 获取历史與情消息
+   */
+  async getMessagesHistory(request: GetMessagesHistoryRequest): Promise<GetMessagesHistoryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMessagesHistoryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取历史與情消息
+   * Summary: 获取历史與情消息
+   */
+  async getMessagesHistoryEx(request: GetMessagesHistoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMessagesHistoryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMessagesHistoryResponse>(await this.doRequest("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMessagesHistoryResponse({}));
   }
 
 }
