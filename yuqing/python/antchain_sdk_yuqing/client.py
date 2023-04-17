@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.17'
+                    'sdk_version': '1.2.3',
+                    '_prod_code': 'YUQING',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.17'
+                    'sdk_version': '1.2.3',
+                    '_prod_code': 'YUQING',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1053,4 +1057,172 @@ class Client:
         return TeaCore.from_map(
             yuqing_models.QueryAlarmResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_hotspot_message(
+        self,
+        request: yuqing_models.QueryHotspotMessageRequest,
+    ) -> yuqing_models.QueryHotspotMessageResponse:
+        """
+        Description: 根据接口获取热搜数据
+        Summary: 與情热搜接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_hotspot_message_ex(request, headers, runtime)
+
+    async def query_hotspot_message_async(
+        self,
+        request: yuqing_models.QueryHotspotMessageRequest,
+    ) -> yuqing_models.QueryHotspotMessageResponse:
+        """
+        Description: 根据接口获取热搜数据
+        Summary: 與情热搜接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_hotspot_message_ex_async(request, headers, runtime)
+
+    def query_hotspot_message_ex(
+        self,
+        request: yuqing_models.QueryHotspotMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryHotspotMessageResponse:
+        """
+        Description: 根据接口获取热搜数据
+        Summary: 與情热搜接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryHotspotMessageResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.hotspot.message.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_hotspot_message_ex_async(
+        self,
+        request: yuqing_models.QueryHotspotMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryHotspotMessageResponse:
+        """
+        Description: 根据接口获取热搜数据
+        Summary: 與情热搜接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryHotspotMessageResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.hotspot.message.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_messages_history(
+        self,
+        request: yuqing_models.SubmitMessagesHistoryRequest,
+    ) -> yuqing_models.SubmitMessagesHistoryResponse:
+        """
+        Description: 與情历史数据异步查询接口
+        Summary: 與情历史数据异步查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_messages_history_ex(request, headers, runtime)
+
+    async def submit_messages_history_async(
+        self,
+        request: yuqing_models.SubmitMessagesHistoryRequest,
+    ) -> yuqing_models.SubmitMessagesHistoryResponse:
+        """
+        Description: 與情历史数据异步查询接口
+        Summary: 與情历史数据异步查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_messages_history_ex_async(request, headers, runtime)
+
+    def submit_messages_history_ex(
+        self,
+        request: yuqing_models.SubmitMessagesHistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SubmitMessagesHistoryResponse:
+        """
+        Description: 與情历史数据异步查询接口
+        Summary: 與情历史数据异步查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SubmitMessagesHistoryResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.messages.history.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_messages_history_ex_async(
+        self,
+        request: yuqing_models.SubmitMessagesHistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SubmitMessagesHistoryResponse:
+        """
+        Description: 與情历史数据异步查询接口
+        Summary: 與情历史数据异步查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SubmitMessagesHistoryResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.messages.history.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_messages_history(
+        self,
+        request: yuqing_models.GetMessagesHistoryRequest,
+    ) -> yuqing_models.GetMessagesHistoryResponse:
+        """
+        Description: 获取历史與情消息
+        Summary: 获取历史與情消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_messages_history_ex(request, headers, runtime)
+
+    async def get_messages_history_async(
+        self,
+        request: yuqing_models.GetMessagesHistoryRequest,
+    ) -> yuqing_models.GetMessagesHistoryResponse:
+        """
+        Description: 获取历史與情消息
+        Summary: 获取历史與情消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_messages_history_ex_async(request, headers, runtime)
+
+    def get_messages_history_ex(
+        self,
+        request: yuqing_models.GetMessagesHistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetMessagesHistoryResponse:
+        """
+        Description: 获取历史與情消息
+        Summary: 获取历史與情消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetMessagesHistoryResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_messages_history_ex_async(
+        self,
+        request: yuqing_models.GetMessagesHistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.GetMessagesHistoryResponse:
+        """
+        Description: 获取历史與情消息
+        Summary: 获取历史與情消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.GetMessagesHistoryResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -776,6 +776,329 @@ class DingTalkContent(TeaModel):
         return self
 
 
+class HotspotMessage(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        total_exist_timestamp: int = None,
+        last_exist_date_format: str = None,
+        crawler_time_fmt: str = None,
+        first_exist_date_format: str = None,
+        max_rank_total_timestamp: int = None,
+        followers_count: int = None,
+        max_rank: int = None,
+        reads_count: int = None,
+        comments_count: int = None,
+        doc_title: str = None,
+        first_rank: int = None,
+        original_count: int = None,
+        presenter_name: str = None,
+        rank: int = None,
+        media_type: str = None,
+        doc_id: str = None,
+        type: str = None,
+        hot_value: int = None,
+        doc_content: str = None,
+        screen_name: str = None,
+        media_sub_type: str = None,
+        discusses_count: int = None,
+        category: str = None,
+        video_count: int = None,
+        max_rank_total_time_format: str = None,
+        province: str = None,
+        total_exist_time_format: str = None,
+        first_top_exist_timestamp: int = None,
+        doc_url: str = None,
+        max_hot_value: int = None,
+        city: str = None,
+        last_exist_timestamp: int = None,
+        first_top_exist_date_format: str = None,
+        last_rank: int = None,
+        first_hot_value: int = None,
+        hotspot_type: str = None,
+        first_xxist_timestamp: int = None,
+    ):
+        # 热搜/热榜/话题 对应用户id (可能为空)
+        self.user_id = user_id
+        # 在榜总时间
+        self.total_exist_timestamp = total_exist_timestamp
+        # 下榜时间
+        self.last_exist_date_format = last_exist_date_format
+        # 爬虫爬取的时间
+        self.crawler_time_fmt = crawler_time_fmt
+        # 第一次上榜的格式化时间
+        self.first_exist_date_format = first_exist_date_format
+        # 最高排名的总时长
+        self.max_rank_total_timestamp = max_rank_total_timestamp
+        # 跟随量
+        self.followers_count = followers_count
+        # 在榜单中的最高排名
+        self.max_rank = max_rank
+        # 阅读量
+        self.reads_count = reads_count
+        # 评论数
+        self.comments_count = comments_count
+        # 标题，例如话题的标题就是话题本身
+        self.doc_title = doc_title
+        # 首次上榜排名
+        self.first_rank = first_rank
+        # 原创人数
+        self.original_count = original_count
+        # 主持人
+        self.presenter_name = presenter_name
+        # 热搜在热搜榜的位置
+        self.rank = rank
+        # 热点媒体类型
+        self.media_type = media_type
+        # 文档id
+        self.doc_id = doc_id
+        # 类型
+        self.type = type
+        # 热度值
+        self.hot_value = hot_value
+        # 内容，热榜数据中存在着文章，热文就是有内容的
+        self.doc_content = doc_content
+        # 热搜/热榜/话题 对应用户名称 (可能为空)
+        self.screen_name = screen_name
+        # 热点媒体子类型
+        self.media_sub_type = media_sub_type
+        # 讨论量
+        self.discusses_count = discusses_count
+        # 分类
+        self.category = category
+        # 视频量
+        self.video_count = video_count
+        # 最高排名的格式化总时长
+        self.max_rank_total_time_format = max_rank_total_time_format
+        # 省
+        self.province = province
+        # 在榜格式化的总时间
+        self.total_exist_time_format = total_exist_time_format
+        # 第一次上最高排名的时间
+        self.first_top_exist_timestamp = first_top_exist_timestamp
+        # 链接地址
+        self.doc_url = doc_url
+        # 最大的热度值
+        self.max_hot_value = max_hot_value
+        # 市
+        self.city = city
+        # 最后一次上榜的时间
+        self.last_exist_timestamp = last_exist_timestamp
+        # 第一次上最高排名的时间
+        self.first_top_exist_date_format = first_top_exist_date_format
+        # 下榜排名
+        self.last_rank = last_rank
+        # 首次上榜热度
+        self.first_hot_value = first_hot_value
+        # 热搜类型
+        self.hotspot_type = hotspot_type
+        # 第一次上榜的时间
+        self.first_xxist_timestamp = first_xxist_timestamp
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.total_exist_timestamp, 'total_exist_timestamp')
+        self.validate_required(self.last_exist_date_format, 'last_exist_date_format')
+        self.validate_required(self.crawler_time_fmt, 'crawler_time_fmt')
+        self.validate_required(self.first_exist_date_format, 'first_exist_date_format')
+        self.validate_required(self.max_rank_total_timestamp, 'max_rank_total_timestamp')
+        self.validate_required(self.followers_count, 'followers_count')
+        self.validate_required(self.max_rank, 'max_rank')
+        self.validate_required(self.reads_count, 'reads_count')
+        self.validate_required(self.comments_count, 'comments_count')
+        self.validate_required(self.doc_title, 'doc_title')
+        self.validate_required(self.first_rank, 'first_rank')
+        self.validate_required(self.original_count, 'original_count')
+        self.validate_required(self.presenter_name, 'presenter_name')
+        self.validate_required(self.rank, 'rank')
+        self.validate_required(self.media_type, 'media_type')
+        self.validate_required(self.doc_id, 'doc_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.hot_value, 'hot_value')
+        self.validate_required(self.doc_content, 'doc_content')
+        self.validate_required(self.screen_name, 'screen_name')
+        self.validate_required(self.media_sub_type, 'media_sub_type')
+        self.validate_required(self.discusses_count, 'discusses_count')
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.video_count, 'video_count')
+        self.validate_required(self.max_rank_total_time_format, 'max_rank_total_time_format')
+        self.validate_required(self.province, 'province')
+        self.validate_required(self.total_exist_time_format, 'total_exist_time_format')
+        self.validate_required(self.first_top_exist_timestamp, 'first_top_exist_timestamp')
+        self.validate_required(self.max_hot_value, 'max_hot_value')
+        self.validate_required(self.city, 'city')
+        self.validate_required(self.last_exist_timestamp, 'last_exist_timestamp')
+        self.validate_required(self.first_top_exist_date_format, 'first_top_exist_date_format')
+        self.validate_required(self.last_rank, 'last_rank')
+        self.validate_required(self.first_hot_value, 'first_hot_value')
+        self.validate_required(self.hotspot_type, 'hotspot_type')
+        self.validate_required(self.first_xxist_timestamp, 'first_xxist_timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.total_exist_timestamp is not None:
+            result['total_exist_timestamp'] = self.total_exist_timestamp
+        if self.last_exist_date_format is not None:
+            result['last_exist_date_format'] = self.last_exist_date_format
+        if self.crawler_time_fmt is not None:
+            result['crawler_time_fmt'] = self.crawler_time_fmt
+        if self.first_exist_date_format is not None:
+            result['first_exist_date_format'] = self.first_exist_date_format
+        if self.max_rank_total_timestamp is not None:
+            result['max_rank_total_timestamp'] = self.max_rank_total_timestamp
+        if self.followers_count is not None:
+            result['followers_count'] = self.followers_count
+        if self.max_rank is not None:
+            result['max_rank'] = self.max_rank
+        if self.reads_count is not None:
+            result['reads_count'] = self.reads_count
+        if self.comments_count is not None:
+            result['comments_count'] = self.comments_count
+        if self.doc_title is not None:
+            result['doc_title'] = self.doc_title
+        if self.first_rank is not None:
+            result['first_rank'] = self.first_rank
+        if self.original_count is not None:
+            result['original_count'] = self.original_count
+        if self.presenter_name is not None:
+            result['presenter_name'] = self.presenter_name
+        if self.rank is not None:
+            result['rank'] = self.rank
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.doc_id is not None:
+            result['doc_id'] = self.doc_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.hot_value is not None:
+            result['hot_value'] = self.hot_value
+        if self.doc_content is not None:
+            result['doc_content'] = self.doc_content
+        if self.screen_name is not None:
+            result['screen_name'] = self.screen_name
+        if self.media_sub_type is not None:
+            result['media_sub_type'] = self.media_sub_type
+        if self.discusses_count is not None:
+            result['discusses_count'] = self.discusses_count
+        if self.category is not None:
+            result['category'] = self.category
+        if self.video_count is not None:
+            result['video_count'] = self.video_count
+        if self.max_rank_total_time_format is not None:
+            result['max_rank_total_time_format'] = self.max_rank_total_time_format
+        if self.province is not None:
+            result['province'] = self.province
+        if self.total_exist_time_format is not None:
+            result['total_exist_time_format'] = self.total_exist_time_format
+        if self.first_top_exist_timestamp is not None:
+            result['first_top_exist_timestamp'] = self.first_top_exist_timestamp
+        if self.doc_url is not None:
+            result['doc_url'] = self.doc_url
+        if self.max_hot_value is not None:
+            result['max_hot_value'] = self.max_hot_value
+        if self.city is not None:
+            result['city'] = self.city
+        if self.last_exist_timestamp is not None:
+            result['last_exist_timestamp'] = self.last_exist_timestamp
+        if self.first_top_exist_date_format is not None:
+            result['first_top_exist_date_format'] = self.first_top_exist_date_format
+        if self.last_rank is not None:
+            result['last_rank'] = self.last_rank
+        if self.first_hot_value is not None:
+            result['first_hot_value'] = self.first_hot_value
+        if self.hotspot_type is not None:
+            result['hotspot_type'] = self.hotspot_type
+        if self.first_xxist_timestamp is not None:
+            result['first_xxist_timestamp'] = self.first_xxist_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('total_exist_timestamp') is not None:
+            self.total_exist_timestamp = m.get('total_exist_timestamp')
+        if m.get('last_exist_date_format') is not None:
+            self.last_exist_date_format = m.get('last_exist_date_format')
+        if m.get('crawler_time_fmt') is not None:
+            self.crawler_time_fmt = m.get('crawler_time_fmt')
+        if m.get('first_exist_date_format') is not None:
+            self.first_exist_date_format = m.get('first_exist_date_format')
+        if m.get('max_rank_total_timestamp') is not None:
+            self.max_rank_total_timestamp = m.get('max_rank_total_timestamp')
+        if m.get('followers_count') is not None:
+            self.followers_count = m.get('followers_count')
+        if m.get('max_rank') is not None:
+            self.max_rank = m.get('max_rank')
+        if m.get('reads_count') is not None:
+            self.reads_count = m.get('reads_count')
+        if m.get('comments_count') is not None:
+            self.comments_count = m.get('comments_count')
+        if m.get('doc_title') is not None:
+            self.doc_title = m.get('doc_title')
+        if m.get('first_rank') is not None:
+            self.first_rank = m.get('first_rank')
+        if m.get('original_count') is not None:
+            self.original_count = m.get('original_count')
+        if m.get('presenter_name') is not None:
+            self.presenter_name = m.get('presenter_name')
+        if m.get('rank') is not None:
+            self.rank = m.get('rank')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('doc_id') is not None:
+            self.doc_id = m.get('doc_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('hot_value') is not None:
+            self.hot_value = m.get('hot_value')
+        if m.get('doc_content') is not None:
+            self.doc_content = m.get('doc_content')
+        if m.get('screen_name') is not None:
+            self.screen_name = m.get('screen_name')
+        if m.get('media_sub_type') is not None:
+            self.media_sub_type = m.get('media_sub_type')
+        if m.get('discusses_count') is not None:
+            self.discusses_count = m.get('discusses_count')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('video_count') is not None:
+            self.video_count = m.get('video_count')
+        if m.get('max_rank_total_time_format') is not None:
+            self.max_rank_total_time_format = m.get('max_rank_total_time_format')
+        if m.get('province') is not None:
+            self.province = m.get('province')
+        if m.get('total_exist_time_format') is not None:
+            self.total_exist_time_format = m.get('total_exist_time_format')
+        if m.get('first_top_exist_timestamp') is not None:
+            self.first_top_exist_timestamp = m.get('first_top_exist_timestamp')
+        if m.get('doc_url') is not None:
+            self.doc_url = m.get('doc_url')
+        if m.get('max_hot_value') is not None:
+            self.max_hot_value = m.get('max_hot_value')
+        if m.get('city') is not None:
+            self.city = m.get('city')
+        if m.get('last_exist_timestamp') is not None:
+            self.last_exist_timestamp = m.get('last_exist_timestamp')
+        if m.get('first_top_exist_date_format') is not None:
+            self.first_top_exist_date_format = m.get('first_top_exist_date_format')
+        if m.get('last_rank') is not None:
+            self.last_rank = m.get('last_rank')
+        if m.get('first_hot_value') is not None:
+            self.first_hot_value = m.get('first_hot_value')
+        if m.get('hotspot_type') is not None:
+            self.hotspot_type = m.get('hotspot_type')
+        if m.get('first_xxist_timestamp') is not None:
+            self.first_xxist_timestamp = m.get('first_xxist_timestamp')
+        return self
+
+
 class Alarm(TeaModel):
     def __init__(
         self,
@@ -3098,6 +3421,7 @@ class DeleteProjectResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3105,6 +3429,8 @@ class DeleteProjectResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 新增主键
+        self.id = id
 
     def validate(self):
         pass
@@ -3121,6 +3447,8 @@ class DeleteProjectResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.id is not None:
+            result['id'] = self.id
         return result
 
     def from_map(self, m: dict = None):
@@ -3131,6 +3459,8 @@ class DeleteProjectResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         return self
 
 
@@ -3348,6 +3678,459 @@ class QueryAlarmResponse(TeaModel):
                 self.pages.append(temp_model.from_map(k))
         if m.get('total_count') is not None:
             self.total_count = m.get('total_count')
+        return self
+
+
+class QueryHotspotMessageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        title_including_words_idx: str = None,
+        pos_keywords: str = None,
+        whole_keywords: str = None,
+        sort_by_direction: str = None,
+        provinces: str = None,
+        crawler_time_start_filter: int = None,
+        page_size: int = None,
+        media_sub_type: List[str] = None,
+        query_without_keyword: bool = None,
+        doc_ids: List[str] = None,
+        cities: List[str] = None,
+        crawler_time_end_filter: int = None,
+        enable_keyword_highlight: bool = None,
+        page_now: int = None,
+        file_id: bool = None,
+        sort_by: str = None,
+        active: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 标题包含XX
+        self.title_including_words_idx = title_including_words_idx
+        # 正向关键词（短语匹配）
+        self.pos_keywords = pos_keywords
+        # 标题完全相等的检索条件，与attributes.display_title字段对应
+        self.whole_keywords = whole_keywords
+        # 排序方式： 正序(+)、倒序(-)
+        self.sort_by_direction = sort_by_direction
+        # 省份
+        self.provinces = provinces
+        # 爬取时间的最小值（含）
+        self.crawler_time_start_filter = crawler_time_start_filter
+        # 页大小
+        self.page_size = page_size
+        # [媒体子类型
+        self.media_sub_type = media_sub_type
+        # 是否不指定关键词进行查询：\n 默认false，表示需要指定关键词来查询
+        self.query_without_keyword = query_without_keyword
+        # 指定的id列表
+        self.doc_ids = doc_ids
+        # 城市
+        self.cities = cities
+        # 爬取时间的最大值（不含）
+        self.crawler_time_end_filter = crawler_time_end_filter
+        # 是否要进行关键词高亮显示
+        self.enable_keyword_highlight = enable_keyword_highlight
+        # d当前页
+        self.page_now = page_now
+        # 是否当前在榜 true表示在榜，false或null表示不限
+        self.file_id = file_id
+        # 排序字段
+        self.sort_by = sort_by
+        # 是否当前在榜
+        self.active = active
+
+    def validate(self):
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.page_now, 'page_now')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.title_including_words_idx is not None:
+            result['title_including_words_idx'] = self.title_including_words_idx
+        if self.pos_keywords is not None:
+            result['pos_keywords'] = self.pos_keywords
+        if self.whole_keywords is not None:
+            result['whole_keywords'] = self.whole_keywords
+        if self.sort_by_direction is not None:
+            result['sort_by_direction'] = self.sort_by_direction
+        if self.provinces is not None:
+            result['provinces'] = self.provinces
+        if self.crawler_time_start_filter is not None:
+            result['crawler_time_start_filter'] = self.crawler_time_start_filter
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.media_sub_type is not None:
+            result['media_sub_type'] = self.media_sub_type
+        if self.query_without_keyword is not None:
+            result['query_without_keyword'] = self.query_without_keyword
+        if self.doc_ids is not None:
+            result['doc_ids'] = self.doc_ids
+        if self.cities is not None:
+            result['cities'] = self.cities
+        if self.crawler_time_end_filter is not None:
+            result['crawler_time_end_filter'] = self.crawler_time_end_filter
+        if self.enable_keyword_highlight is not None:
+            result['enable_keyword_highlight'] = self.enable_keyword_highlight
+        if self.page_now is not None:
+            result['page_now'] = self.page_now
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.sort_by is not None:
+            result['sort_by'] = self.sort_by
+        if self.active is not None:
+            result['active'] = self.active
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('title_including_words_idx') is not None:
+            self.title_including_words_idx = m.get('title_including_words_idx')
+        if m.get('pos_keywords') is not None:
+            self.pos_keywords = m.get('pos_keywords')
+        if m.get('whole_keywords') is not None:
+            self.whole_keywords = m.get('whole_keywords')
+        if m.get('sort_by_direction') is not None:
+            self.sort_by_direction = m.get('sort_by_direction')
+        if m.get('provinces') is not None:
+            self.provinces = m.get('provinces')
+        if m.get('crawler_time_start_filter') is not None:
+            self.crawler_time_start_filter = m.get('crawler_time_start_filter')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('media_sub_type') is not None:
+            self.media_sub_type = m.get('media_sub_type')
+        if m.get('query_without_keyword') is not None:
+            self.query_without_keyword = m.get('query_without_keyword')
+        if m.get('doc_ids') is not None:
+            self.doc_ids = m.get('doc_ids')
+        if m.get('cities') is not None:
+            self.cities = m.get('cities')
+        if m.get('crawler_time_end_filter') is not None:
+            self.crawler_time_end_filter = m.get('crawler_time_end_filter')
+        if m.get('enable_keyword_highlight') is not None:
+            self.enable_keyword_highlight = m.get('enable_keyword_highlight')
+        if m.get('page_now') is not None:
+            self.page_now = m.get('page_now')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('sort_by') is not None:
+            self.sort_by = m.get('sort_by')
+        if m.get('active') is not None:
+            self.active = m.get('active')
+        return self
+
+
+class QueryHotspotMessageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pages: List[HotspotMessage] = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 热搜数据
+        self.pages = pages
+        # 总条数
+        self.total_count = total_count
+
+    def validate(self):
+        if self.pages:
+            for k in self.pages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['pages'] = []
+        if self.pages is not None:
+            for k in self.pages:
+                result['pages'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.pages = []
+        if m.get('pages') is not None:
+            for k in m.get('pages'):
+                temp_model = HotspotMessage()
+                self.pages.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class SubmitMessagesHistoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        search_condition: SearchCondition = None,
+        request_id: str = None,
+        team_hash_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询条件
+        self.search_condition = search_condition
+        # 请求ID
+        self.request_id = request_id
+        # team_hash_id
+        self.team_hash_id = team_hash_id
+
+    def validate(self):
+        self.validate_required(self.search_condition, 'search_condition')
+        if self.search_condition:
+            self.search_condition.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.search_condition is not None:
+            result['search_condition'] = self.search_condition.to_map()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.team_hash_id is not None:
+            result['team_hash_id'] = self.team_hash_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('search_condition') is not None:
+            temp_model = SearchCondition()
+            self.search_condition = temp_model.from_map(m['search_condition'])
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('team_hash_id') is not None:
+            self.team_hash_id = m.get('team_hash_id')
+        return self
+
+
+class SubmitMessagesHistoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        submit_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询ID
+        self.submit_id = submit_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.submit_id is not None:
+            result['submit_id'] = self.submit_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('submit_id') is not None:
+            self.submit_id = m.get('submit_id')
+        return self
+
+
+class GetMessagesHistoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        submit_id: str = None,
+        request_id: str = None,
+        page_now: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 历史数据提交的产物
+        self.submit_id = submit_id
+        # request_id
+        self.request_id = request_id
+        # page_now
+        self.page_now = page_now
+        # page_size
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.submit_id, 'submit_id')
+        self.validate_required(self.page_now, 'page_now')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.submit_id is not None:
+            result['submit_id'] = self.submit_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.page_now is not None:
+            result['page_now'] = self.page_now
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('submit_id') is not None:
+            self.submit_id = m.get('submit_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('page_now') is not None:
+            self.page_now = m.get('page_now')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class GetMessagesHistoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_count: int = None,
+        yuqing_messages: List[YuqingMessage] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总数
+        self.total_count = total_count
+        # yuqing_messages
+        self.yuqing_messages = yuqing_messages
+
+    def validate(self):
+        if self.yuqing_messages:
+            for k in self.yuqing_messages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        result['yuqing_messages'] = []
+        if self.yuqing_messages is not None:
+            for k in self.yuqing_messages:
+                result['yuqing_messages'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        self.yuqing_messages = []
+        if m.get('yuqing_messages') is not None:
+            for k in m.get('yuqing_messages'):
+                temp_model = YuqingMessage()
+                self.yuqing_messages.append(temp_model.from_map(k))
         return self
 
 
