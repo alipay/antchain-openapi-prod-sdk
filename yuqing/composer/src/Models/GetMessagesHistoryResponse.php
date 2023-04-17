@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteProjectResponse extends Model
+class GetMessagesHistoryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class DeleteProjectResponse extends Model
      */
     public $resultMsg;
 
-    // 新增主键
+    // 总数
     /**
      * @var int
      */
-    public $id;
+    public $totalCount;
+
+    // yuqing_messages
+    /**
+     * @var YuqingMessage[]
+     */
+    public $yuqingMessages;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'id'         => 'id',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'totalCount'     => 'total_count',
+        'yuqingMessages' => 'yuqing_messages',
     ];
 
     public function validate()
@@ -54,8 +61,17 @@ class DeleteProjectResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
+        }
+        if (null !== $this->yuqingMessages) {
+            $res['yuqing_messages'] = [];
+            if (null !== $this->yuqingMessages && \is_array($this->yuqingMessages)) {
+                $n = 0;
+                foreach ($this->yuqingMessages as $item) {
+                    $res['yuqing_messages'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +80,7 @@ class DeleteProjectResponse extends Model
     /**
      * @param array $map
      *
-     * @return DeleteProjectResponse
+     * @return GetMessagesHistoryResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +94,17 @@ class DeleteProjectResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
+        }
+        if (isset($map['yuqing_messages'])) {
+            if (!empty($map['yuqing_messages'])) {
+                $model->yuqingMessages = [];
+                $n                     = 0;
+                foreach ($map['yuqing_messages'] as $item) {
+                    $model->yuqingMessages[$n++] = null !== $item ? YuqingMessage::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteProjectResponse extends Model
+class QueryHotspotMessageResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class DeleteProjectResponse extends Model
      */
     public $resultMsg;
 
-    // 新增主键
+    // 热搜数据
+    /**
+     * @var HotspotMessage[]
+     */
+    public $pages;
+
+    // 总条数
     /**
      * @var int
      */
-    public $id;
+    public $totalCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'id'         => 'id',
+        'pages'      => 'pages',
+        'totalCount' => 'total_count',
     ];
 
     public function validate()
@@ -54,8 +61,17 @@ class DeleteProjectResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->pages) {
+            $res['pages'] = [];
+            if (null !== $this->pages && \is_array($this->pages)) {
+                $n = 0;
+                foreach ($this->pages as $item) {
+                    $res['pages'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
 
         return $res;
@@ -64,7 +80,7 @@ class DeleteProjectResponse extends Model
     /**
      * @param array $map
      *
-     * @return DeleteProjectResponse
+     * @return QueryHotspotMessageResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +94,17 @@ class DeleteProjectResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['pages'])) {
+            if (!empty($map['pages'])) {
+                $model->pages = [];
+                $n            = 0;
+                foreach ($map['pages'] as $item) {
+                    $model->pages[$n++] = null !== $item ? HotspotMessage::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
 
         return $model;

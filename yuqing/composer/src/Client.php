@@ -18,12 +18,16 @@ use AntChain\YUQING\Models\DeleteProjectRequest;
 use AntChain\YUQING\Models\DeleteProjectResponse;
 use AntChain\YUQING\Models\GetMessageRequest;
 use AntChain\YUQING\Models\GetMessageResponse;
+use AntChain\YUQING\Models\GetMessagesHistoryRequest;
+use AntChain\YUQING\Models\GetMessagesHistoryResponse;
 use AntChain\YUQING\Models\QueryAlarmRequest;
 use AntChain\YUQING\Models\QueryAlarmResponse;
 use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
 use AntChain\YUQING\Models\QueryAnalysisQueryResponse;
 use AntChain\YUQING\Models\QueryDeepanalysisQueryRequest;
 use AntChain\YUQING\Models\QueryDeepanalysisQueryResponse;
+use AntChain\YUQING\Models\QueryHotspotMessageRequest;
+use AntChain\YUQING\Models\QueryHotspotMessageResponse;
 use AntChain\YUQING\Models\QueryMessagesRequest;
 use AntChain\YUQING\Models\QueryMessagesResponse;
 use AntChain\YUQING\Models\QueryProjectRequest;
@@ -40,6 +44,8 @@ use AntChain\YUQING\Models\SendProductNoticeRequest;
 use AntChain\YUQING\Models\SendProductNoticeResponse;
 use AntChain\YUQING\Models\SetProductOperateRequest;
 use AntChain\YUQING\Models\SetProductOperateResponse;
+use AntChain\YUQING\Models\SubmitMessagesHistoryRequest;
+use AntChain\YUQING\Models\SubmitMessagesHistoryResponse;
 use Exception;
 
 class Client
@@ -138,18 +144,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -186,7 +192,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.17',
+                    'sdk_version'      => '1.2.3',
+                    '_prod_code'       => 'YUQING',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -692,5 +700,104 @@ class Client
         Utils::validateModel($request);
 
         return QueryAlarmResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.alarm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据接口获取热搜数据
+     * Summary: 與情热搜接口.
+     *
+     * @param QueryHotspotMessageRequest $request
+     *
+     * @return QueryHotspotMessageResponse
+     */
+    public function queryHotspotMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryHotspotMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据接口获取热搜数据
+     * Summary: 與情热搜接口.
+     *
+     * @param QueryHotspotMessageRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryHotspotMessageResponse
+     */
+    public function queryHotspotMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryHotspotMessageResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.hotspot.message.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 與情历史数据异步查询接口
+     * Summary: 與情历史数据异步查询接口.
+     *
+     * @param SubmitMessagesHistoryRequest $request
+     *
+     * @return SubmitMessagesHistoryResponse
+     */
+    public function submitMessagesHistory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitMessagesHistoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 與情历史数据异步查询接口
+     * Summary: 與情历史数据异步查询接口.
+     *
+     * @param SubmitMessagesHistoryRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitMessagesHistoryResponse
+     */
+    public function submitMessagesHistoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitMessagesHistoryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.messages.history.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取历史與情消息
+     * Summary: 获取历史與情消息.
+     *
+     * @param GetMessagesHistoryRequest $request
+     *
+     * @return GetMessagesHistoryResponse
+     */
+    public function getMessagesHistory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMessagesHistoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取历史與情消息
+     * Summary: 获取历史與情消息.
+     *
+     * @param GetMessagesHistoryRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return GetMessagesHistoryResponse
+     */
+    public function getMessagesHistoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMessagesHistoryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.messages.history.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

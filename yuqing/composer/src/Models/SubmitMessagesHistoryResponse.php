@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteProjectResponse extends Model
+class SubmitMessagesHistoryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class DeleteProjectResponse extends Model
      */
     public $resultMsg;
 
-    // 新增主键
+    // 查询ID
     /**
-     * @var int
+     * @var string
      */
-    public $id;
+    public $submitId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'id'         => 'id',
+        'submitId'   => 'submit_id',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class DeleteProjectResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->submitId) {
+            $res['submit_id'] = $this->submitId;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class DeleteProjectResponse extends Model
     /**
      * @param array $map
      *
-     * @return DeleteProjectResponse
+     * @return SubmitMessagesHistoryResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class DeleteProjectResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['submit_id'])) {
+            $model->submitId = $map['submit_id'];
         }
 
         return $model;
