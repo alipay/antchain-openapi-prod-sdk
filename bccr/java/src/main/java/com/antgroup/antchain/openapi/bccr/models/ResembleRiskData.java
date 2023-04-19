@@ -13,6 +13,10 @@ public class ResembleRiskData extends TeaModel {
     @NameInMap("work_name")
     public String workName;
 
+    // 相似作品的类型
+    @NameInMap("work_type")
+    public String workType;
+
     // 相似值
     @NameInMap("score")
     public String score;
@@ -44,6 +48,14 @@ public class ResembleRiskData extends TeaModel {
     }
     public String getWorkName() {
         return this.workName;
+    }
+
+    public ResembleRiskData setWorkType(String workType) {
+        this.workType = workType;
+        return this;
+    }
+    public String getWorkType() {
+        return this.workType;
     }
 
     public ResembleRiskData setScore(String score) {
