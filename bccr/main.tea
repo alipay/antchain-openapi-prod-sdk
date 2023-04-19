@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.48',
+    sdk_version = '1.17.49',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -217,8 +217,8 @@ model ResembleDetail {
   score: string(name='score', example='0.99'),
   // 长度
   length?: string(name='length', example='02:59:59'),
-  // 明细类型，例如SEGMENT表示区间相似
-  type: string(name='type', example='SEGMENT'),
+  // 明细类型，例如VIDEO_SEGMENT表示视频区间相似
+  type: string(name='type', example='VIDEO_SEGMENT'),
   // 查询源文件的位置信息
   queryPositionData: ResemblePositionData(name='query_position_data', example=''),
   // 相似文件的位置信息
@@ -249,6 +249,8 @@ model ResembleRiskData {
   workId: string(name='work_id', example='重复作品ID'),
   // 相似作品的名称
   workName?: string(name='work_name', example='相似作品的名称'),
+  // 相似作品的类型
+  workType?: string(name='work_type', example='VIDEO'),
   // 相似值
   score?: string(name='score', example='相似值'),
   // 相似作品下载链接
