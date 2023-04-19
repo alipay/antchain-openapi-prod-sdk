@@ -323,7 +323,7 @@ type ResembleDetail struct {
 	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
 	// 长度
 	Length *string `json:"length,omitempty" xml:"length,omitempty"`
-	// 明细类型，例如SEGMENT表示区间相似
+	// 明细类型，例如VIDEO_SEGMENT表示视频区间相似
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 查询源文件的位置信息
 	QueryPositionData *ResemblePositionData `json:"query_position_data,omitempty" xml:"query_position_data,omitempty" require:"true"`
@@ -431,6 +431,8 @@ type ResembleRiskData struct {
 	WorkId *string `json:"work_id,omitempty" xml:"work_id,omitempty" require:"true"`
 	// 相似作品的名称
 	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty"`
+	// 相似作品的类型
+	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty"`
 	// 相似值
 	Score *string `json:"score,omitempty" xml:"score,omitempty"`
 	// 相似作品下载链接
@@ -454,6 +456,11 @@ func (s *ResembleRiskData) SetWorkId(v string) *ResembleRiskData {
 
 func (s *ResembleRiskData) SetWorkName(v string) *ResembleRiskData {
 	s.WorkName = &v
+	return s
+}
+
+func (s *ResembleRiskData) SetWorkType(v string) *ResembleRiskData {
+	s.WorkType = &v
 	return s
 }
 
@@ -10572,7 +10579,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.48"),
+				"sdk_version":      tea.String("1.17.49"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
