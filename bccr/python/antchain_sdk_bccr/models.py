@@ -371,7 +371,7 @@ class ResembleDetail(TeaModel):
         self.score = score
         # 长度
         self.length = length
-        # 明细类型，例如SEGMENT表示区间相似
+        # 明细类型，例如VIDEO_SEGMENT表示视频区间相似
         self.type = type
         # 查询源文件的位置信息
         self.query_position_data = query_position_data
@@ -499,6 +499,7 @@ class ResembleRiskData(TeaModel):
         self,
         work_id: str = None,
         work_name: str = None,
+        work_type: str = None,
         score: str = None,
         work_download_url: str = None,
         resemble_details: List[ResembleDetail] = None,
@@ -507,6 +508,8 @@ class ResembleRiskData(TeaModel):
         self.work_id = work_id
         # 相似作品的名称
         self.work_name = work_name
+        # 相似作品的类型
+        self.work_type = work_type
         # 相似值
         self.score = score
         # 相似作品下载链接
@@ -531,6 +534,8 @@ class ResembleRiskData(TeaModel):
             result['work_id'] = self.work_id
         if self.work_name is not None:
             result['work_name'] = self.work_name
+        if self.work_type is not None:
+            result['work_type'] = self.work_type
         if self.score is not None:
             result['score'] = self.score
         if self.work_download_url is not None:
@@ -547,6 +552,8 @@ class ResembleRiskData(TeaModel):
             self.work_id = m.get('work_id')
         if m.get('work_name') is not None:
             self.work_name = m.get('work_name')
+        if m.get('work_type') is not None:
+            self.work_type = m.get('work_type')
         if m.get('score') is not None:
             self.score = m.get('score')
         if m.get('work_download_url') is not None:
