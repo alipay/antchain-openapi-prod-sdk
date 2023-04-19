@@ -24,6 +24,14 @@ class ResembleRiskData extends Model
      */
     public $workName;
 
+    // 相似作品的类型
+    /**
+     * @example VIDEO
+     *
+     * @var string
+     */
+    public $workType;
+
     // 相似值
     /**
      * @example 相似值
@@ -50,6 +58,7 @@ class ResembleRiskData extends Model
     protected $_name = [
         'workId'          => 'work_id',
         'workName'        => 'work_name',
+        'workType'        => 'work_type',
         'score'           => 'score',
         'workDownloadUrl' => 'work_download_url',
         'resembleDetails' => 'resemble_details',
@@ -68,6 +77,9 @@ class ResembleRiskData extends Model
         }
         if (null !== $this->workName) {
             $res['work_name'] = $this->workName;
+        }
+        if (null !== $this->workType) {
+            $res['work_type'] = $this->workType;
         }
         if (null !== $this->score) {
             $res['score'] = $this->score;
@@ -101,6 +113,9 @@ class ResembleRiskData extends Model
         }
         if (isset($map['work_name'])) {
             $model->workName = $map['work_name'];
+        }
+        if (isset($map['work_type'])) {
+            $model->workType = $map['work_type'];
         }
         if (isset($map['score'])) {
             $model->score = $map['score'];

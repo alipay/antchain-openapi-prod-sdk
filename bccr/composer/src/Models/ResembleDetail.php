@@ -24,9 +24,9 @@ class ResembleDetail extends Model
      */
     public $length;
 
-    // 明细类型，例如SEGMENT表示区间相似
+    // 明细类型，例如VIDEO_SEGMENT表示视频区间相似
     /**
-     * @example SEGMENT
+     * @example VIDEO_SEGMENT
      *
      * @var string
      */
