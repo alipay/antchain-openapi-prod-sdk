@@ -20,6 +20,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string WorkName { get; set; }
 
+        // 相似作品的类型
+        [NameInMap("work_type")]
+        [Validation(Required=false)]
+        public string WorkType { get; set; }
+
         // 相似值
         [NameInMap("score")]
         [Validation(Required=false)]

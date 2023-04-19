@@ -20,7 +20,7 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string Length { get; set; }
 
-        // 明细类型，例如SEGMENT表示区间相似
+        // 明细类型，例如VIDEO_SEGMENT表示视频区间相似
         [NameInMap("type")]
         [Validation(Required=true)]
         public string Type { get; set; }
