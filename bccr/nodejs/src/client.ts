@@ -210,7 +210,7 @@ export class ResembleDetail extends $tea.Model {
   score: string;
   // 长度
   length?: string;
-  // 明细类型，例如SEGMENT表示区间相似
+  // 明细类型，例如VIDEO_SEGMENT表示视频区间相似
   type: string;
   // 查询源文件的位置信息
   queryPositionData: ResemblePositionData;
@@ -292,6 +292,8 @@ export class ResembleRiskData extends $tea.Model {
   workId: string;
   // 相似作品的名称
   workName?: string;
+  // 相似作品的类型
+  workType?: string;
   // 相似值
   score?: string;
   // 相似作品下载链接
@@ -302,6 +304,7 @@ export class ResembleRiskData extends $tea.Model {
     return {
       workId: 'work_id',
       workName: 'work_name',
+      workType: 'work_type',
       score: 'score',
       workDownloadUrl: 'work_download_url',
       resembleDetails: 'resemble_details',
@@ -312,6 +315,7 @@ export class ResembleRiskData extends $tea.Model {
     return {
       workId: 'string',
       workName: 'string',
+      workType: 'string',
       score: 'string',
       workDownloadUrl: 'string',
       resembleDetails: { 'type': 'array', 'itemType': ResembleDetail },
@@ -7842,7 +7846,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.48",
+          sdk_version: "1.17.49",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
