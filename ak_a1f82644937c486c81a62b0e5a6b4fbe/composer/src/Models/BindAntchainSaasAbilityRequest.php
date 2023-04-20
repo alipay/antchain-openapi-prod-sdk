@@ -1,0 +1,104 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class BindAntchainSaasAbilityRequest extends Model
+{
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // api名称
+    /**
+     * @var string
+     */
+    public $apiName;
+
+    // 能力id列表
+    /**
+     * @var string[]
+     */
+    public $abilityIds;
+
+    // 操作人的域账号
+    /**
+     * @var string
+     */
+    public $operatorId;
+    protected $_name = [
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'apiName'           => 'api_name',
+        'abilityIds'        => 'ability_ids',
+        'operatorId'        => 'operator_id',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('apiName', $this->apiName, true);
+        Model::validateRequired('abilityIds', $this->abilityIds, true);
+        Model::validateRequired('operatorId', $this->operatorId, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->apiName) {
+            $res['api_name'] = $this->apiName;
+        }
+        if (null !== $this->abilityIds) {
+            $res['ability_ids'] = $this->abilityIds;
+        }
+        if (null !== $this->operatorId) {
+            $res['operator_id'] = $this->operatorId;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return BindAntchainSaasAbilityRequest
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['auth_token'])) {
+            $model->authToken = $map['auth_token'];
+        }
+        if (isset($map['product_instance_id'])) {
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['api_name'])) {
+            $model->apiName = $map['api_name'];
+        }
+        if (isset($map['ability_ids'])) {
+            if (!empty($map['ability_ids'])) {
+                $model->abilityIds = $map['ability_ids'];
+            }
+        }
+        if (isset($map['operator_id'])) {
+            $model->operatorId = $map['operator_id'];
+        }
+
+        return $model;
+    }
+}
