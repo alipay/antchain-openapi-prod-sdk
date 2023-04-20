@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.36',
+    sdk_version = '1.8.39',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -10101,7 +10101,7 @@ model NotifyJusticeRightspaymentRequest = {
   // 案件维权记录编号
   recordId: long(name='record_id'),
   // 缴费金额(支持两位小数)
-  amount: long(name='amount'),
+  amount: string(name='amount'),
   // 费用类型(枚举)
   // ARBITRATION: 仲裁案件受理费
   paymentType: string(name='payment_type'),
@@ -11691,6 +11691,8 @@ model CancelLeaseInsuranceResponse = {
   code?: string(name='code'),
   // 结果描述
   message?: string(name='message'),
+  // 是否为实收保单退保
+  repayFlag?: string(name='repay_flag'),
 }
 
 /**
