@@ -16,6 +16,10 @@ public class QueryDciContentsecurityResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 作品类型
+    @NameInMap("work_type")
+    public String workType;
+
     // 审查结果
     @NameInMap("review_data")
     public ReviewData reviewData;
@@ -47,6 +51,14 @@ public class QueryDciContentsecurityResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryDciContentsecurityResponse setWorkType(String workType) {
+        this.workType = workType;
+        return this;
+    }
+    public String getWorkType() {
+        return this.workType;
     }
 
     public QueryDciContentsecurityResponse setReviewData(ReviewData reviewData) {
