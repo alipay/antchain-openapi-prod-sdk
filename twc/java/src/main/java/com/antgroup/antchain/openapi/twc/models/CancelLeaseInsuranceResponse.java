@@ -36,6 +36,10 @@ public class CancelLeaseInsuranceResponse extends TeaModel {
     @NameInMap("message")
     public String message;
 
+    // 是否为实收保单退保
+    @NameInMap("repay_flag")
+    public String repayFlag;
+
     public static CancelLeaseInsuranceResponse build(java.util.Map<String, ?> map) throws Exception {
         CancelLeaseInsuranceResponse self = new CancelLeaseInsuranceResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class CancelLeaseInsuranceResponse extends TeaModel {
     }
     public String getMessage() {
         return this.message;
+    }
+
+    public CancelLeaseInsuranceResponse setRepayFlag(String repayFlag) {
+        this.repayFlag = repayFlag;
+        return this;
+    }
+    public String getRepayFlag() {
+        return this.repayFlag;
     }
 
 }

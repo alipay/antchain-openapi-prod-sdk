@@ -19,7 +19,7 @@ public class NotifyJusticeRightspaymentRequest extends TeaModel {
     // 缴费金额(支持两位小数)
     @NameInMap("amount")
     @Validation(required = true)
-    public Long amount;
+    public String amount;
 
     // 费用类型(枚举)
     // ARBITRATION: 仲裁案件受理费
@@ -77,11 +77,11 @@ public class NotifyJusticeRightspaymentRequest extends TeaModel {
         return this.recordId;
     }
 
-    public NotifyJusticeRightspaymentRequest setAmount(Long amount) {
+    public NotifyJusticeRightspaymentRequest setAmount(String amount) {
         this.amount = amount;
         return this;
     }
-    public Long getAmount() {
+    public String getAmount() {
         return this.amount;
     }
 
