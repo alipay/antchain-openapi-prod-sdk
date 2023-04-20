@@ -24105,7 +24105,7 @@ type NotifyJusticeRightspaymentRequest struct {
 	// 案件维权记录编号
 	RecordId *int64 `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
 	// 缴费金额(支持两位小数)
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 费用类型(枚举)
 	// ARBITRATION: 仲裁案件受理费
 	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty" require:"true"`
@@ -24146,7 +24146,7 @@ func (s *NotifyJusticeRightspaymentRequest) SetRecordId(v int64) *NotifyJusticeR
 	return s
 }
 
-func (s *NotifyJusticeRightspaymentRequest) SetAmount(v int64) *NotifyJusticeRightspaymentRequest {
+func (s *NotifyJusticeRightspaymentRequest) SetAmount(v string) *NotifyJusticeRightspaymentRequest {
 	s.Amount = &v
 	return s
 }
@@ -27675,6 +27675,8 @@ type CancelLeaseInsuranceResponse struct {
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 	// 结果描述
 	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 是否为实收保单退保
+	RepayFlag *string `json:"repay_flag,omitempty" xml:"repay_flag,omitempty"`
 }
 
 func (s CancelLeaseInsuranceResponse) String() string {
@@ -27722,6 +27724,11 @@ func (s *CancelLeaseInsuranceResponse) SetCode(v string) *CancelLeaseInsuranceRe
 
 func (s *CancelLeaseInsuranceResponse) SetMessage(v string) *CancelLeaseInsuranceResponse {
 	s.Message = &v
+	return s
+}
+
+func (s *CancelLeaseInsuranceResponse) SetRepayFlag(v string) *CancelLeaseInsuranceResponse {
+	s.RepayFlag = &v
 	return s
 }
 
@@ -42352,7 +42359,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.36"),
+				"sdk_version":      tea.String("1.8.39"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
