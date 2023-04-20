@@ -24,6 +24,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 作品类型
+        [NameInMap("work_type")]
+        [Validation(Required=false)]
+        public string WorkType { get; set; }
+
         // 审查结果
         [NameInMap("review_data")]
         [Validation(Required=false)]
