@@ -7883,6 +7883,8 @@ type QueryDciContentsecurityResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 作品类型
+	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty"`
 	// 审查结果
 	ReviewData *ReviewData `json:"review_data,omitempty" xml:"review_data,omitempty"`
 }
@@ -7907,6 +7909,11 @@ func (s *QueryDciContentsecurityResponse) SetResultCode(v string) *QueryDciConte
 
 func (s *QueryDciContentsecurityResponse) SetResultMsg(v string) *QueryDciContentsecurityResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciContentsecurityResponse) SetWorkType(v string) *QueryDciContentsecurityResponse {
+	s.WorkType = &v
 	return s
 }
 
@@ -10579,7 +10586,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.49"),
+				"sdk_version":      tea.String("1.17.51"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
