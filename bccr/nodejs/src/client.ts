@@ -5780,6 +5780,8 @@ export class QueryDciContentsecurityResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 作品类型
+  workType?: string;
   // 审查结果
   reviewData?: ReviewData;
   static names(): { [key: string]: string } {
@@ -5787,6 +5789,7 @@ export class QueryDciContentsecurityResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      workType: 'work_type',
       reviewData: 'review_data',
     };
   }
@@ -5796,6 +5799,7 @@ export class QueryDciContentsecurityResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      workType: 'string',
       reviewData: ReviewData,
     };
   }
@@ -7846,7 +7850,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.49",
+          sdk_version: "1.17.51",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
