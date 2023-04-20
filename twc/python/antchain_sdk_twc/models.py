@@ -29558,7 +29558,7 @@ class NotifyJusticeRightspaymentRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         record_id: int = None,
-        amount: int = None,
+        amount: str = None,
         payment_type: str = None,
         payment_status: str = None,
         payment_remark: str = None,
@@ -33964,6 +33964,7 @@ class CancelLeaseInsuranceResponse(TeaModel):
         srd_premium: str = None,
         code: str = None,
         message: str = None,
+        repay_flag: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -33981,6 +33982,8 @@ class CancelLeaseInsuranceResponse(TeaModel):
         self.code = code
         # 结果描述
         self.message = message
+        # 是否为实收保单退保
+        self.repay_flag = repay_flag
 
     def validate(self):
         pass
@@ -34007,6 +34010,8 @@ class CancelLeaseInsuranceResponse(TeaModel):
             result['code'] = self.code
         if self.message is not None:
             result['message'] = self.message
+        if self.repay_flag is not None:
+            result['repay_flag'] = self.repay_flag
         return result
 
     def from_map(self, m: dict = None):
@@ -34027,6 +34032,8 @@ class CancelLeaseInsuranceResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        if m.get('repay_flag') is not None:
+            self.repay_flag = m.get('repay_flag')
         return self
 
 
