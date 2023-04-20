@@ -26,7 +26,7 @@ namespace AntChain.SDK.TWC.Models
         // 缴费金额(支持两位小数)
         [NameInMap("amount")]
         [Validation(Required=true)]
-        public long? Amount { get; set; }
+        public string Amount { get; set; }
 
         // 费用类型(枚举)
         // ARBITRATION: 仲裁案件受理费

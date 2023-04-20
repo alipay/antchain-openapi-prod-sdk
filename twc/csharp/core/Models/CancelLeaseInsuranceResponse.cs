@@ -49,6 +49,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string Message { get; set; }
 
+        // 是否为实收保单退保
+        [NameInMap("repay_flag")]
+        [Validation(Required=false)]
+        public string RepayFlag { get; set; }
+
     }
 
 }
