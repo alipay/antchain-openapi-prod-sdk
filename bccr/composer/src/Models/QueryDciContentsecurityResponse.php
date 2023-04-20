@@ -26,6 +26,12 @@ class QueryDciContentsecurityResponse extends Model
      */
     public $resultMsg;
 
+    // 作品类型
+    /**
+     * @var string
+     */
+    public $workType;
+
     // 审查结果
     /**
      * @var ReviewData
@@ -35,6 +41,7 @@ class QueryDciContentsecurityResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'workType'   => 'work_type',
         'reviewData' => 'review_data',
     ];
 
@@ -53,6 +60,9 @@ class QueryDciContentsecurityResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->workType) {
+            $res['work_type'] = $this->workType;
         }
         if (null !== $this->reviewData) {
             $res['review_data'] = null !== $this->reviewData ? $this->reviewData->toMap() : null;
@@ -77,6 +87,9 @@ class QueryDciContentsecurityResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['work_type'])) {
+            $model->workType = $map['work_type'];
         }
         if (isset($map['review_data'])) {
             $model->reviewData = ReviewData::fromMap($map['review_data']);
