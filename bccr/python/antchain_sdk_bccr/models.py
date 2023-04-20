@@ -9619,6 +9619,7 @@ class QueryDciContentsecurityResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        work_type: str = None,
         review_data: ReviewData = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -9627,6 +9628,8 @@ class QueryDciContentsecurityResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 作品类型
+        self.work_type = work_type
         # 审查结果
         self.review_data = review_data
 
@@ -9646,6 +9649,8 @@ class QueryDciContentsecurityResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.work_type is not None:
+            result['work_type'] = self.work_type
         if self.review_data is not None:
             result['review_data'] = self.review_data.to_map()
         return result
@@ -9658,6 +9663,8 @@ class QueryDciContentsecurityResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('work_type') is not None:
+            self.work_type = m.get('work_type')
         if m.get('review_data') is not None:
             temp_model = ReviewData()
             self.review_data = temp_model.from_map(m['review_data'])
