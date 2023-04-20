@@ -27,7 +27,7 @@ class NotifyJusticeRightspaymentRequest extends Model
 
     // 缴费金额(支持两位小数)
     /**
-     * @var int
+     * @var string
      */
     public $amount;
 

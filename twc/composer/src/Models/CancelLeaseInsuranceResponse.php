@@ -55,6 +55,12 @@ class CancelLeaseInsuranceResponse extends Model
      * @var string
      */
     public $message;
+
+    // 是否为实收保单退保
+    /**
+     * @var string
+     */
+    public $repayFlag;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -64,6 +70,7 @@ class CancelLeaseInsuranceResponse extends Model
         'srdPremium' => 'srd_premium',
         'code'       => 'code',
         'message'    => 'message',
+        'repayFlag'  => 'repay_flag',
     ];
 
     public function validate()
@@ -96,6 +103,9 @@ class CancelLeaseInsuranceResponse extends Model
         }
         if (null !== $this->message) {
             $res['message'] = $this->message;
+        }
+        if (null !== $this->repayFlag) {
+            $res['repay_flag'] = $this->repayFlag;
         }
 
         return $res;
@@ -132,6 +142,9 @@ class CancelLeaseInsuranceResponse extends Model
         }
         if (isset($map['message'])) {
             $model->message = $map['message'];
+        }
+        if (isset($map['repay_flag'])) {
+            $model->repayFlag = $map['repay_flag'];
         }
 
         return $model;
