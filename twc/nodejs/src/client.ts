@@ -18093,7 +18093,7 @@ export class NotifyJusticeRightspaymentRequest extends $tea.Model {
   // 案件维权记录编号
   recordId: number;
   // 缴费金额(支持两位小数)
-  amount: number;
+  amount: string;
   // 费用类型(枚举)
   // ARBITRATION: 仲裁案件受理费
   paymentType: string;
@@ -18128,7 +18128,7 @@ export class NotifyJusticeRightspaymentRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       recordId: 'number',
-      amount: 'number',
+      amount: 'string',
       paymentType: 'string',
       paymentStatus: 'string',
       paymentRemark: 'string',
@@ -20739,6 +20739,8 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
   code?: string;
   // 结果描述
   message?: string;
+  // 是否为实收保单退保
+  repayFlag?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -20749,6 +20751,7 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
       srdPremium: 'srd_premium',
       code: 'code',
       message: 'message',
+      repayFlag: 'repay_flag',
     };
   }
 
@@ -20762,6 +20765,7 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
       srdPremium: 'string',
       code: 'string',
       message: 'string',
+      repayFlag: 'string',
     };
   }
 
@@ -31444,7 +31448,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.36",
+          sdk_version: "1.8.39",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
