@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -327,172 +327,4 @@ class Client:
         return TeaCore.from_map(
             ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityResponse(),
             await self.do_request_async('1.0', 'antchain.saas.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_aaa_bbb_ccc(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def bind_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def bind_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建
-        Summary: 自动化测试创建
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_demo_aaa_bbb_ccc(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建111
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def query_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建111
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def query_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建111
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建111
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_demo_ad_asd_asd(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd1
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_ad_asd_asd_ex(request, headers, runtime)
-
-    async def query_demo_ad_asd_asd_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd1
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_ad_asd_asd_ex_async(request, headers, runtime)
-
-    def query_demo_ad_asd_asd_ex(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd1
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse(),
-            self.do_request('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_ad_asd_asd_ex_async(
-        self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd1
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAdAsdAsdResponse(),
-            await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
