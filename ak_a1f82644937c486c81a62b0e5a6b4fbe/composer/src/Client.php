@@ -13,12 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAaaBbbCccRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAaaBbbCccResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAdAsdAsdRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -165,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -244,104 +238,5 @@ class Client
         Utils::validateModel($request);
 
         return BindAntchainSaasAbilityResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建
-     * Summary: 自动化测试创建.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建
-     * Summary: 自动化测试创建.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd1.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd1.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
