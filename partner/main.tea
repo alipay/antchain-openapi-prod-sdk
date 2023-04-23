@@ -1,0 +1,1089 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.19',
+    _prod_code = 'PARTNER',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 支出配置单商品价格条件属性
+model ExpenditureQuotationOfferPriceConditionAttr {
+  // 属性code
+  attrCode: string(name='attr_code', example='N0040'),
+  // 属性值code
+  attrValueCode: string(name='attr_value_code', example='ROYALTY_00036317'),
+  // 属性值名称
+  attrValueName: string(name='attr_value_name', example='支付宝'),
+  // 运算符
+  operator: string(name='operator', example='EQU'),
+}
+
+// 合作方签约文件
+model PartnerSignFile {
+  // 文件类型
+  type: string(name='type', example='文件类型'),
+  // 文件名称
+  name: string(name='name', example='文件名称'),
+  // 可预览地址
+  ossUrl: string(name='oss_url', example='http://oss-xxxx'),
+}
+
+// 支出配置单商品价格
+model ExpenditureQuotationOfferPrice {
+  // 定价条件
+  conditionAttrs?: [ ExpenditureQuotationOfferPriceConditionAttr ](name='condition_attrs', example=''),
+  // 阶梯起始值
+  ladderStart: string(name='ladder_start', example='0'),
+  // 阶梯结束值
+  ladderEnd: string(name='ladder_end', example='infinity'),
+  // 价格
+  price: string(name='price', example='1'),
+  // 币种
+  currency: string(name='currency', example='CNY'),
+}
+
+// 签约记录
+model SignRecord {
+  // 合同类型：标准、自定义
+  contractType: string(name='contract_type', example='Standard（标准）、Custom（自定义）'),
+  // 签约模式：ENTITY_SEAL（实体章）、ELECTRONIC_SEAL（电子章）
+  sealMode: string(name='seal_mode', example='ENTITY_SEAL'),
+  // 签约状态
+  signStatus: string(name='sign_status', example='INIT'),
+  // 签约记录关联的文件信息
+  files: [ PartnerSignFile ](name='files', example=''),
+}
+
+// 支出结算规则
+model ExpenditureSettlementRule {
+  // 支付方式
+  //     Alipay("01","Alipay","ALIPAYACCOUNT", "企业支付宝账号"),
+  //     BankCard("02","BankCard", "BANKCARD", "银行卡账号")
+  payType: string(name='pay_type', example='Alipay'),
+  // 银行卡账号
+  bankNo?: string(name='bank_no', example='银行卡账号'),
+  // 银行用户名称
+  bankAccountName?: string(name='bank_account_name', example='银行用户名称'),
+  // 开户行支行名称
+  bankBranchName?: string(name='bank_branch_name', example='开户行支行名称'),
+  // 支付宝账号
+  alipayAccount?: string(name='alipay_account', example='支付宝账号'),
+}
+
+// 支出配置单商品
+model ExpenditureQuotationOffer {
+  // 支出配置单商品主键id
+  id?: long(name='id', example='1'),
+  // 一客一价
+  personalPrice?: [ ExpenditureQuotationOfferPrice ](name='personal_price', example=''),
+  // 外部业务单据号
+  outBusinessNo?: string(name='out_business_no', example='123456'),
+  // 支出订购id
+  arrangementNo?: string(name='arrangement_no', example='20220719EC00061535'),
+}
+
+// 支出配置单
+model ExpenditureQuotation {
+  // 支出配置单商品
+  quotationOffers?: [ ExpenditureQuotationOffer ](name='quotation_offers', example=''),
+}
+
+// 合作方（伙伴、商家）基本信息
+model PartnerBasicInformation {
+  // 行业类型，值列表详见文档：https://yuque.antfin-inc.com/docs/share/684c97a8-bd5f-40e0-aab6-a1a69bc3d881?#
+  industry: string(name='industry', example='EDUCATION'),
+  // 企业法人
+  enterpriseLegalPerson: string(name='enterprise_legal_person', example='张三'),
+  // 注册资本
+  registeredCapital: string(name='registered_capital', example='1000'),
+  // 人员规模
+  employeeCount: string(name='employee_count', example='100'),
+  // 企业注册省份
+  enterpriseRegisterProvince: string(name='enterprise_register_province', example='浙江'),
+  // 企业注册城市
+  enterpriseRegisterCity: string(name='enterprise_register_city', example='杭州'),
+  // 公司官网地址
+  companyUrl: string(name='company_url', example='https://www.alipay.com'),
+  // 是否上市公司
+  listed: boolean(name='listed', example='true/false'),
+  // 企业简介
+  briefIntroduction: string(name='brief_introduction', example='企业简介'),
+  // 二级行业，值列表详见文档：https://yuque.antfin-inc.com/docs/share/684c97a8-bd5f-40e0-aab6-a1a69bc3d881?# 《合作方企业基本信息说明》
+  subIndustry?: string(name='sub_industry', example='GOVERNMENT.SMART_GOVERNMENT'),
+}
+
+// 支出合同
+model ExpenditureContract {
+  // 支出合同id
+  contractId: string(name='contract_id', example='支出合同id'),
+  // 支出合同名称
+  contractName: string(name='contract_name', example='支出合同名称'),
+  // 合同状态：
+  //     INIT("INIT","草稿", ""),
+  //     VALID("VALID","正式", ""),
+  //     INVALID("INVALID","作废", ""),
+  //     AUDIT_ING("AUDIT_ING", "审核中","STARTED"),
+  //     AUDIT_SUCCESS("AUDIT_SUCCESS", "审核成功","AGREED"),
+  //     AUDIT_FAIL("AUDIT_FAIL", "审核不通过", "DISAGREE"),
+  status: string(name='status', example='VALID'),
+  // 有效期开始时间
+  gmtStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_start', example='2018-10-10T10:10:00Z'),
+  // 有效期结束时间
+  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end', example='2018-10-10T10:10:00Z'),
+  // 签约记录
+  signingRecord?: SignRecord(name='signing_record', example=''),
+  // 支出结算规则
+  settlementRule?: ExpenditureSettlementRule(name='settlement_rule', example=''),
+  // 扩展信息
+  extendInfo?: string(name='extend_info', example='{"key1": "value1", "key2": "value2"}'),
+}
+
+// 合作方（伙伴、商家）联系信息
+model PartnerContactInformation {
+  // 企业联系人姓名
+  name: string(name='name', example='张三'),
+  // 企业联系人手机
+  phone: string(name='phone', example='15688888888'),
+  // 企业联系邮箱
+  email: string(name='email', example='abcd@xyz.com'),
+  // 通信邮编
+  postCode: string(name='post_code', example='242332'),
+  // 通信地址
+  address: string(name='address', example='万塘路18号'),
+}
+
+// 支出配置单对象
+model ExpenditureQuotationItem {
+  // 外部唯一id，sku-id
+  outUniqueId: string(name='out_unique_id', example='123456'),
+  // 配置单商品名称
+  name: string(name='name', example='越王宝剑'),
+  // 支出配置单对象描述
+  description: string(name='description', example='支出配置单对象描述'),
+  // 预估交易金额（分）
+  predictTransactionAmount: long(name='predict_transaction_amount', example=''),
+}
+
+// 结算请求
+model SettlementRequest {
+  // 结算方式：
+  // 企业支付宝账号 Alipay
+  // 银行卡账号 BankCard
+  payType: string(name='pay_type', example='Alipay'),
+  // 银行卡账号
+  bankNo?: string(name='bank_no', example='银行卡账号'),
+  // 银行卡用户名称
+  bankAccountName?: string(name='bank_account_name', example='银行卡用户名称'),
+  // 银行支行名称
+  bankBranchName?: string(name='bank_branch_name', example='银行支行名称'),
+  // 支付宝账号
+  alipayAccount?: string(name='alipay_account', example='支付宝账号'),
+}
+
+// 银行支行信息
+model PbcInfo {
+  // 支行名称
+  branchName: string(name='branch_name', example='中国建设银行股份有限公司潜江江汉支行'),
+  // 联行号数据
+  bankCode: string(name='bank_code', example='1111'),
+}
+
+// 商品及归属政策相关信息
+model CommodityPolicyRelation {
+  // 商品code
+  commodityCode: string(name='commodity_code', example='bbdc_pre'),
+  // 政策ID
+  policyId: string(name='policy_id', example='12321321433284'),
+}
+
+// 参与人
+model Participant {
+  // 参与人角色
+  role: string(name='role', example='BD'),
+  // 参与人工号
+  workNo: string(name='work_no', example='001'),
+}
+
+// 合作方标准合同查询扩展选项
+model PartnerStandardContractQueryOption {
+  // 是否渲染
+  renderContract: boolean(name='render_contract', example='true, false'),
+  // 合同渲染上下文，jsonString格式，key值需要提前约定好	
+  // 
+  renderContext: string(name='render_context', example='{"key1": "value1", "key2": "value2"}'),
+}
+
+// 支出配置单请求
+model ExpenditureQuotationRequest {
+  // 定价模式：
+  //     Standard("Standard", "标准价"),
+  //     Customer("Customer", "自定义价格"),
+  priceMode: string(name='price_mode', example='Standard'),
+  // 支出配置单对象列表
+  quotationItems: [ ExpenditureQuotationItem ](name='quotation_items', example=''),
+}
+
+// 省份信息
+model Province {
+  // 省份名称
+  provinceName: string(name='province_name', example='浙江省'),
+}
+
+// 支出项目
+model ExpenditureProject {
+  // 项目阶段：   
+  //     REQUIREMENT_CONFIRM("REQUIREMENT_CONFIRM", "需求确认", "SOLUTION"),
+  //     SOLUTION("SOLUTION", "方案沟通", "TALKS"),
+  //     TALKS("TALKS", "商务谈判", "SIGNED"),
+  //     SIGNED("SIGNED", "签约完成", "SIGNED"),
+  //     ABORT("ABORT", "项目终止", "ABORT"),
+  // 
+  stage: string(name='stage', example='REQUIREMENT_CONFIRM'),
+  // 项目状态：
+  //     DOING("DOING","进行中"),
+  //     ABORTED("ABORTED","已终止"),
+  //     FINISHED("FINISHED","已完成"),
+  status: string(name='status', example='DOING'),
+  // 支出合同信息
+  contract?: ExpenditureContract(name='contract', example=''),
+  // 支出配置单信息
+  quotation?: ExpenditureQuotation(name='quotation', example=''),
+  // 合作计划id
+  collaborationPlanId?: long(name='collaboration_plan_id', example='20'),
+}
+
+// 银行顶级机构信息
+model Institution {
+  // 机构id
+  instId: string(name='inst_id', example='ICBC'),
+  // 机构名称
+  instName: string(name='inst_name', example='中国工商银行'),
+  // 机构code
+  instCode: string(name='inst_code', example='102'),
+}
+
+// 城市信息
+model City {
+  // 城市名称
+  cityName: string(name='city_name', example='杭州市'),
+}
+
+// 合作方（伙伴、商家）信息
+model PartnerInformation {
+  // 合作方（商家、伙伴）用户id
+  tenantId: string(name='tenant_id', example='2088xxxxxx'),
+  // 合作方（商家、伙伴）基本信息
+  basicInformation: PartnerBasicInformation(name='basic_information', example='合作方（商家、伙伴）基本信息'),
+  // 联系信息
+  contactInformation: PartnerContactInformation(name='contact_information', example='联系信息'),
+  // 除约定属性外的，其余商家主要信息
+  extendInfo?: string(name='extend_info', example='{"key1": "value1", "key2": "value2"}'),
+}
+
+// 合作方标准合同版本信息
+model PartnerStandardContractVersion {
+  // 协议名称
+  name: string(name='name', example='协议名称'),
+  // 协议可预览地址
+  previewUrl: string(name='preview_url', example='http://oss-xxxx'),
+  // 协议版本
+  version: string(name='version', example='1.0'),
+}
+
+// 签约请求
+model SignRequest {
+  // 合同类型
+  contractType: string(name='contract_type', example='Standard（标准）、Custom（自定义）'),
+  // 签约模式
+  sealMode: string(name='seal_mode', example='ENTITY_SEAL（实体章）、ELECTRONIC_SEAL（电子章）'),
+}
+
+model QueryEcoCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户name
+  tenantName: string(name='tenant_name'),
+  // 商品信息列表
+  offerCodes: [ string ](name='offer_codes'),
+}
+
+model QueryEcoCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品及其归属政策信息
+  commodityPolicyInfo?: [ CommodityPolicyRelation ](name='commodity_policy_info'),
+}
+
+/**
+ * Description: 获取合作伙伴销售商品对应的政策ID
+ * Summary: 获取合作伙伴销售商品对应的政策ID
+ */
+async function queryEcoCommodity(request: QueryEcoCommodityRequest): QueryEcoCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEcoCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取合作伙伴销售商品对应的政策ID
+ * Summary: 获取合作伙伴销售商品对应的政策ID
+ */
+async function queryEcoCommodityEx(request: QueryEcoCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEcoCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.eco.commodity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyPartnerSettleinRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户隔离
+  source: string(name='source'),
+  // 入驻的一级伙伴类型
+  l1PartnerType: string(name='l1_partner_type'),
+  // 入驻的二级合作类型
+  l2PartnerType: string(name='l2_partner_type'),
+  // 入驻申请业务单据号-幂等使用
+  businessNo: string(name='business_no'),
+  // 合作方信息
+  partnerInformation: PartnerInformation(name='partner_information'),
+  // 参与人列表
+  participants: [ Participant ](name='participants'),
+  // 签约请求
+  signRequest: SignRequest(name='sign_request'),
+  // 入驻申请扩展信息
+  extendInfo?: string(name='extend_info'),
+  // 入驻申请时间
+  applyTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='apply_time'),
+  // 入驻申请类型：新签、改签、续签
+  applyOperateType: string(name='apply_operate_type'),
+}
+
+model ApplyPartnerSettleinResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果编码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 入驻申请记录id
+  applyId?: long(name='apply_id'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻申请
+ * Summary: 合作方（伙伴、商家等）入驻申请
+ */
+async function applyPartnerSettlein(request: ApplyPartnerSettleinRequest): ApplyPartnerSettleinResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyPartnerSettleinEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻申请
+ * Summary: 合作方（伙伴、商家等）入驻申请
+ */
+async function applyPartnerSettleinEx(request: ApplyPartnerSettleinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPartnerSettleinResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.partner.settlein.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelPartnerSettleinRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户隔离
+  source: string(name='source'),
+  // 入驻申请id
+  applyId: long(name='apply_id'),
+}
+
+model CancelPartnerSettleinResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻撤销
+ * Summary: 合作方（伙伴、商家等）入驻撤销
+ */
+async function cancelPartnerSettlein(request: CancelPartnerSettleinRequest): CancelPartnerSettleinResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelPartnerSettleinEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻撤销
+ * Summary: 合作方（伙伴、商家等）入驻撤销
+ */
+async function cancelPartnerSettleinEx(request: CancelPartnerSettleinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelPartnerSettleinResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.partner.settlein.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPartnerSettleinRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户隔离
+  source: string(name='source'),
+  // 入驻申请时，返回的申请id
+  applyId: long(name='apply_id'),
+}
+
+model QueryPartnerSettleinResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 签约状态
+  status?: string(name='status'),
+  // 开始时间
+  gmtStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_start'),
+  // 结束时间
+  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end'),
+  // 签约信息
+  signRecord?: SignRecord(name='sign_record'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻申请结果查询
+ * Summary: 合作方（伙伴、商家等）入驻申请结果查询
+ */
+async function queryPartnerSettlein(request: QueryPartnerSettleinRequest): QueryPartnerSettleinResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPartnerSettleinEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻申请结果查询
+ * Summary: 合作方（伙伴、商家等）入驻申请结果查询
+ */
+async function queryPartnerSettleinEx(request: QueryPartnerSettleinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPartnerSettleinResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.partner.settlein.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySettleinContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用户租户间功能和数据隔离
+  source: string(name='source'),
+  // 一级合作类型
+  l1PartnerType: string(name='l1_partner_type'),
+  // 二级合作类型
+  l2PartnerType: string(name='l2_partner_type'),
+  // 伙伴标准合同查询扩展选项
+  option?: PartnerStandardContractQueryOption(name='option'),
+  // 合同渲染上下文，jsonString格式，key值需要提前约定好
+  renderContext?: string(name='render_context'),
+}
+
+model QuerySettleinContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 生效的标准合同版本
+  validVersion?: PartnerStandardContractVersion(name='valid_version'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻标准合同查询
+ * Summary: 合作方（伙伴、商家等）入驻标准合同查询
+ */
+async function querySettleinContract(request: QuerySettleinContractRequest): QuerySettleinContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySettleinContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻标准合同查询
+ * Summary: 合作方（伙伴、商家等）入驻标准合同查询
+ */
+async function querySettleinContractEx(request: QuerySettleinContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySettleinContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.settlein.contract.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateExpenditureProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户间功能和数据隔离
+  source: string(name='source'),
+  // 合作计划id
+  cooperationPlanId: long(name='cooperation_plan_id'),
+  // 业务单据号-用于幂等
+  businessNo: string(name='business_no'),
+  // 合作方-用户id
+  tenantId: string(name='tenant_id'),
+  // 参与人列表
+  participants: [ Participant ](name='participants'),
+  // 支出配置单请求信息
+  expenditureQuotationRequest: ExpenditureQuotationRequest(name='expenditure_quotation_request'),
+  // 签约请求
+  signRequest: SignRequest(name='sign_request'),
+  // 结算请求
+  settlementRequest: SettlementRequest(name='settlement_request'),
+  // 生效时间
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+  // 失效时间
+  invalidTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+  // 扩展信息
+  extendInfo: string(name='extend_info'),
+}
+
+model CreateExpenditureProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 项目id，用于后续交互使用
+  projectId?: long(name='project_id'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目创建接口
+ * Summary: 合作方（伙伴、商家等）支出项目创建接口
+ */
+async function createExpenditureProject(request: CreateExpenditureProjectRequest): CreateExpenditureProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createExpenditureProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目创建接口
+ * Summary: 合作方（伙伴、商家等）支出项目创建接口
+ */
+async function createExpenditureProjectEx(request: CreateExpenditureProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateExpenditureProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.expenditure.project.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryExpenditureProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
+  // 项目id
+  projectId: long(name='project_id'),
+}
+
+model QueryExpenditureProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 支出项目信息
+  detail?: ExpenditureProject(name='detail'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目查询接口
+ * Summary: 合作方（伙伴、商家等）支出项目查询接口
+ */
+async function queryExpenditureProject(request: QueryExpenditureProjectRequest): QueryExpenditureProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryExpenditureProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目查询接口
+ * Summary: 合作方（伙伴、商家等）支出项目查询接口
+ */
+async function queryExpenditureProjectEx(request: QueryExpenditureProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryExpenditureProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.expenditure.project.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelExpenditureProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
+  // 项目id
+  projectId: long(name='project_id'),
+}
+
+model CancelExpenditureProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目撤销接口
+ * Summary: 合作方（伙伴、商家等）支出项目撤销接口
+ */
+async function cancelExpenditureProject(request: CancelExpenditureProjectRequest): CancelExpenditureProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelExpenditureProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）支出项目撤销接口
+ * Summary: 合作方（伙伴、商家等）支出项目撤销接口
+ */
+async function cancelExpenditureProjectEx(request: CancelExpenditureProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelExpenditureProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.expenditure.project.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmExpenditureProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户
+  source: string(name='source'),
+  // 项目id
+  projectId: long(name='project_id'),
+  // 客户确认时间
+  confirmTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='confirm_time'),
+}
+
+model ConfirmExpenditureProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 支出项目合同确认接口
+ * Summary: 支出项目合同确认接口
+ */
+async function confirmExpenditureProject(request: ConfirmExpenditureProjectRequest): ConfirmExpenditureProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmExpenditureProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支出项目合同确认接口
+ * Summary: 支出项目合同确认接口
+ */
+async function confirmExpenditureProjectEx(request: ConfirmExpenditureProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmExpenditureProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.expenditure.project.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStandardAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户来源-用户租户间功能和数据隔离
+  source: string(name='source'),
+  // 一级合作类型
+  // 
+  l1PartnerType: string(name='l1_partner_type'),
+  // 二级合作类型
+  l2PartnerType: string(name='l2_partner_type'),
+  // 标准额合同场景
+  scene: string(name='scene'),
+  // 伙伴标准合同查询扩展选项
+  // 
+  option?: PartnerStandardContractQueryOption(name='option'),
+  // 合同渲染上下文，jsonString格式，key值需要提前约定好
+  renderContext?: string(name='render_context'),
+}
+
+model QueryStandardAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 生效的标准合同版本
+  validVersion?: PartnerStandardContractVersion(name='valid_version'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）标准额合同查询接口
+ * Summary: 合作方（伙伴、商家等）标准额合同查询接口
+ */
+async function queryStandardAgreement(request: QueryStandardAgreementRequest): QueryStandardAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStandardAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）标准额合同查询接口
+ * Summary: 合作方（伙伴、商家等）标准额合同查询接口
+ */
+async function queryStandardAgreementEx(request: QueryStandardAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStandardAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.standard.agreement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAreaProvinceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 省份, 空:全部省份, 不为空筛选关键字省份
+  province?: string(name='province'),
+}
+
+model QueryAreaProvinceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 省份信息列表
+  provinces?: [ Province ](name='provinces'),
+}
+
+/**
+ * Description: 生态伙伴区域省份查询接口
+ * Summary: 生态伙伴区域省份查询接口
+ */
+async function queryAreaProvince(request: QueryAreaProvinceRequest): QueryAreaProvinceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAreaProvinceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生态伙伴区域省份查询接口
+ * Summary: 生态伙伴区域省份查询接口
+ */
+async function queryAreaProvinceEx(request: QueryAreaProvinceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAreaProvinceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.area.province.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAreaCityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 省份名称
+  province: string(name='province'),
+  // 城市
+  city?: string(name='city'),
+}
+
+model QueryAreaCityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 城市列表
+  cities?: [ City ](name='cities'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）区域信息查询-指定身份关联的城市信息
+ * Summary: 合作方（伙伴、商家等）区域信息查询
+ */
+async function queryAreaCity(request: QueryAreaCityRequest): QueryAreaCityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAreaCityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）区域信息查询-指定身份关联的城市信息
+ * Summary: 合作方（伙伴、商家等）区域信息查询
+ */
+async function queryAreaCityEx(request: QueryAreaCityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAreaCityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.area.city.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPbcInstitutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 机构名称关键字
+  instName: string(name='inst_name'),
+}
+
+model QueryPbcInstitutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 银行机构信息列表
+  institutions?: [ Institution ](name='institutions'),
+}
+
+/**
+ * Description: 联行号关联银行机构信息查询
+ * Summary: 联行号关联银行机构信息查询
+ */
+async function queryPbcInstitution(request: QueryPbcInstitutionRequest): QueryPbcInstitutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPbcInstitutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联行号关联银行机构信息查询
+ * Summary: 联行号关联银行机构信息查询
+ */
+async function queryPbcInstitutionEx(request: QueryPbcInstitutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPbcInstitutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.pbc.institution.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPbcNameRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 省份名称
+  province: string(name='province'),
+  // 城市名称
+  city: string(name='city'),
+  // 银行机构id
+  instId: string(name='inst_id'),
+  // 支行名称关键字
+  branchName: string(name='branch_name'),
+}
+
+model QueryPbcNameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的支行信息列表
+  pbcInfos?: [ PbcInfo ](name='pbc_infos'),
+}
+
+/**
+ * Description: 输入联行号相关的省市以及机构名称，通过支行名称进行模糊查询联行号相关信息
+ * Summary: 合作方（伙伴、商家等）支行信息查询
+ */
+async function queryPbcName(request: QueryPbcNameRequest): QueryPbcNameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPbcNameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 输入联行号相关的省市以及机构名称，通过支行名称进行模糊查询联行号相关信息
+ * Summary: 合作方（伙伴、商家等）支行信息查询
+ */
+async function queryPbcNameEx(request: QueryPbcNameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPbcNameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.partner.pbc.name.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
