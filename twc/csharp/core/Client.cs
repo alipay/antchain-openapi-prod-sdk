@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.39"},
+                        {"sdk_version", "1.8.40"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.39"},
+                        {"sdk_version", "1.8.40"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4905,6 +4905,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadContractComplainimageResponse>(await DoRequestAsync("1.0", "twc.notary.contract.complainimage.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据起止日期查询体验宝投诉工单
+         * Summary: 根据起止日期查询体验宝投诉工单
+         */
+        public QueryContractComplaineventidsResponse QueryContractComplaineventids(QueryContractComplaineventidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractComplaineventidsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据起止日期查询体验宝投诉工单
+         * Summary: 根据起止日期查询体验宝投诉工单
+         */
+        public async Task<QueryContractComplaineventidsResponse> QueryContractComplaineventidsAsync(QueryContractComplaineventidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractComplaineventidsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据起止日期查询体验宝投诉工单
+         * Summary: 根据起止日期查询体验宝投诉工单
+         */
+        public QueryContractComplaineventidsResponse QueryContractComplaineventidsEx(QueryContractComplaineventidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractComplaineventidsResponse>(DoRequest("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据起止日期查询体验宝投诉工单
+         * Summary: 根据起止日期查询体验宝投诉工单
+         */
+        public async Task<QueryContractComplaineventidsResponse> QueryContractComplaineventidsExAsync(QueryContractComplaineventidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractComplaineventidsResponse>(await DoRequestAsync("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
