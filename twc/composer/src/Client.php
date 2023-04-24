@@ -403,6 +403,8 @@ use AntChain\TWC\Models\QueryContractAccountRequest;
 use AntChain\TWC\Models\QueryContractAccountResponse;
 use AntChain\TWC\Models\QueryContractAccountsealsRequest;
 use AntChain\TWC\Models\QueryContractAccountsealsResponse;
+use AntChain\TWC\Models\QueryContractComplaineventidsRequest;
+use AntChain\TWC\Models\QueryContractComplaineventidsResponse;
 use AntChain\TWC\Models\QueryContractComplainRequest;
 use AntChain\TWC\Models\QueryContractComplainResponse;
 use AntChain\TWC\Models\QueryContractFlowRequest;
@@ -774,7 +776,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.39',
+                    'sdk_version'      => '1.8.40',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4421,6 +4423,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadContractComplainimageResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据起止日期查询体验宝投诉工单
+     * Summary: 根据起止日期查询体验宝投诉工单.
+     *
+     * @param QueryContractComplaineventidsRequest $request
+     *
+     * @return QueryContractComplaineventidsResponse
+     */
+    public function queryContractComplaineventids($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractComplaineventidsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据起止日期查询体验宝投诉工单
+     * Summary: 根据起止日期查询体验宝投诉工单.
+     *
+     * @param QueryContractComplaineventidsRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryContractComplaineventidsResponse
+     */
+    public function queryContractComplaineventidsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractComplaineventidsResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
