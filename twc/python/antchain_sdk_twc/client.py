@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.39',
+                    'sdk_version': '1.8.40',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.39',
+                    'sdk_version': '1.8.40',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -6385,6 +6385,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.UploadContractComplainimageResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.complainimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_complaineventids(
+        self,
+        request: twc_models.QueryContractComplaineventidsRequest,
+    ) -> twc_models.QueryContractComplaineventidsResponse:
+        """
+        Description: 根据起止日期查询体验宝投诉工单
+        Summary: 根据起止日期查询体验宝投诉工单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_complaineventids_ex(request, headers, runtime)
+
+    async def query_contract_complaineventids_async(
+        self,
+        request: twc_models.QueryContractComplaineventidsRequest,
+    ) -> twc_models.QueryContractComplaineventidsResponse:
+        """
+        Description: 根据起止日期查询体验宝投诉工单
+        Summary: 根据起止日期查询体验宝投诉工单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_complaineventids_ex_async(request, headers, runtime)
+
+    def query_contract_complaineventids_ex(
+        self,
+        request: twc_models.QueryContractComplaineventidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractComplaineventidsResponse:
+        """
+        Description: 根据起止日期查询体验宝投诉工单
+        Summary: 根据起止日期查询体验宝投诉工单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractComplaineventidsResponse(),
+            self.do_request('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_complaineventids_ex_async(
+        self,
+        request: twc_models.QueryContractComplaineventidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractComplaineventidsResponse:
+        """
+        Description: 根据起止日期查询体验宝投诉工单
+        Summary: 根据起止日期查询体验宝投诉工单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractComplaineventidsResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
