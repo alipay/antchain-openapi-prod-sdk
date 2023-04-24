@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.12")
+                    new TeaPair("sdk_version", "1.3.15"),
+                    new TeaPair("_prod_code", "APPEX"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -347,6 +349,44 @@ public class Client {
     public QueryMypocketUserauthinfoResponse queryMypocketUserauthinfoEx(QueryMypocketUserauthinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMypocketUserauthinfoResponse());
+    }
+
+    /**
+     * Description: 创建小程序码来请求账户列表
+     * Summary: 创建小程序码请求账户列表
+     */
+    public CreateMypocketQrcoderequestaccountsResponse createMypocketQrcoderequestaccounts(CreateMypocketQrcoderequestaccountsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createMypocketQrcoderequestaccountsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建小程序码来请求账户列表
+     * Summary: 创建小程序码请求账户列表
+     */
+    public CreateMypocketQrcoderequestaccountsResponse createMypocketQrcoderequestaccountsEx(CreateMypocketQrcoderequestaccountsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateMypocketQrcoderequestaccountsResponse());
+    }
+
+    /**
+     * Description: 请求用户账户列表的小程序码查询结果
+     * Summary: 请求用户账户列表的小程序码查询结果
+     */
+    public CheckMypocketQrcoderequestaccountsResponse checkMypocketQrcoderequestaccounts(CheckMypocketQrcoderequestaccountsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkMypocketQrcoderequestaccountsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 请求用户账户列表的小程序码查询结果
+     * Summary: 请求用户账户列表的小程序码查询结果
+     */
+    public CheckMypocketQrcoderequestaccountsResponse checkMypocketQrcoderequestaccountsEx(CheckMypocketQrcoderequestaccountsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckMypocketQrcoderequestaccountsResponse());
     }
 
     /**
