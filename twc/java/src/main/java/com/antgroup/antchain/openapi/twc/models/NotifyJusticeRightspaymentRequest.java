@@ -48,6 +48,10 @@ public class NotifyJusticeRightspaymentRequest extends TeaModel {
     @NameInMap("payment_info")
     public PaymentInfo paymentInfo;
 
+    // 缴费状态(SUCCESS)实际对应时间
+    @NameInMap("payment_status_success_date")
+    public String paymentStatusSuccessDate;
+
     public static NotifyJusticeRightspaymentRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyJusticeRightspaymentRequest self = new NotifyJusticeRightspaymentRequest();
         return TeaModel.build(map, self);
@@ -123,6 +127,14 @@ public class NotifyJusticeRightspaymentRequest extends TeaModel {
     }
     public PaymentInfo getPaymentInfo() {
         return this.paymentInfo;
+    }
+
+    public NotifyJusticeRightspaymentRequest setPaymentStatusSuccessDate(String paymentStatusSuccessDate) {
+        this.paymentStatusSuccessDate = paymentStatusSuccessDate;
+        return this;
+    }
+    public String getPaymentStatusSuccessDate() {
+        return this.paymentStatusSuccessDate;
     }
 
 }

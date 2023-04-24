@@ -29,6 +29,11 @@ public class UpdateJusticeRightsRequest extends TeaModel {
     @NameInMap("status_file_infos")
     public java.util.List<FileInfo> statusFileInfos;
 
+    // 案件状态对应的实际时间 
+    @NameInMap("case_status_date")
+    @Validation(required = true)
+    public String caseStatusDate;
+
     public static UpdateJusticeRightsRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateJusticeRightsRequest self = new UpdateJusticeRightsRequest();
         return TeaModel.build(map, self);
@@ -80,6 +85,14 @@ public class UpdateJusticeRightsRequest extends TeaModel {
     }
     public java.util.List<FileInfo> getStatusFileInfos() {
         return this.statusFileInfos;
+    }
+
+    public UpdateJusticeRightsRequest setCaseStatusDate(String caseStatusDate) {
+        this.caseStatusDate = caseStatusDate;
+        return this;
+    }
+    public String getCaseStatusDate() {
+        return this.caseStatusDate;
     }
 
 }
