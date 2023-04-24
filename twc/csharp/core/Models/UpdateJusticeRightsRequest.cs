@@ -38,6 +38,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<FileInfo> StatusFileInfos { get; set; }
 
+        // 案件状态对应的实际时间 
+        [NameInMap("case_status_date")]
+        [Validation(Required=true)]
+        public string CaseStatusDate { get; set; }
+
     }
 
 }

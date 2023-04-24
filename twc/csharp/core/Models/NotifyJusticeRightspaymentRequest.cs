@@ -58,6 +58,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public PaymentInfo PaymentInfo { get; set; }
 
+        // 缴费状态(SUCCESS)实际对应时间
+        [NameInMap("payment_status_success_date")]
+        [Validation(Required=false)]
+        public string PaymentStatusSuccessDate { get; set; }
+
     }
 
 }
