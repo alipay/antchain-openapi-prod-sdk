@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.12'
+                    'sdk_version': '1.3.15',
+                    '_prod_code': 'APPEX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.12'
+                    'sdk_version': '1.3.15',
+                    '_prod_code': 'APPEX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -829,6 +833,118 @@ class Client:
         return TeaCore.from_map(
             appex_models.QueryMypocketUserauthinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_mypocket_qrcoderequestaccounts(
+        self,
+        request: appex_models.CreateMypocketQrcoderequestaccountsRequest,
+    ) -> appex_models.CreateMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 创建小程序码来请求账户列表
+        Summary: 创建小程序码请求账户列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_mypocket_qrcoderequestaccounts_ex(request, headers, runtime)
+
+    async def create_mypocket_qrcoderequestaccounts_async(
+        self,
+        request: appex_models.CreateMypocketQrcoderequestaccountsRequest,
+    ) -> appex_models.CreateMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 创建小程序码来请求账户列表
+        Summary: 创建小程序码请求账户列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_mypocket_qrcoderequestaccounts_ex_async(request, headers, runtime)
+
+    def create_mypocket_qrcoderequestaccounts_ex(
+        self,
+        request: appex_models.CreateMypocketQrcoderequestaccountsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 创建小程序码来请求账户列表
+        Summary: 创建小程序码请求账户列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketQrcoderequestaccountsResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_mypocket_qrcoderequestaccounts_ex_async(
+        self,
+        request: appex_models.CreateMypocketQrcoderequestaccountsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 创建小程序码来请求账户列表
+        Summary: 创建小程序码请求账户列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketQrcoderequestaccountsResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_mypocket_qrcoderequestaccounts(
+        self,
+        request: appex_models.CheckMypocketQrcoderequestaccountsRequest,
+    ) -> appex_models.CheckMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 请求用户账户列表的小程序码查询结果
+        Summary: 请求用户账户列表的小程序码查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_mypocket_qrcoderequestaccounts_ex(request, headers, runtime)
+
+    async def check_mypocket_qrcoderequestaccounts_async(
+        self,
+        request: appex_models.CheckMypocketQrcoderequestaccountsRequest,
+    ) -> appex_models.CheckMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 请求用户账户列表的小程序码查询结果
+        Summary: 请求用户账户列表的小程序码查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_mypocket_qrcoderequestaccounts_ex_async(request, headers, runtime)
+
+    def check_mypocket_qrcoderequestaccounts_ex(
+        self,
+        request: appex_models.CheckMypocketQrcoderequestaccountsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CheckMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 请求用户账户列表的小程序码查询结果
+        Summary: 请求用户账户列表的小程序码查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CheckMypocketQrcoderequestaccountsResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_mypocket_qrcoderequestaccounts_ex_async(
+        self,
+        request: appex_models.CheckMypocketQrcoderequestaccountsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CheckMypocketQrcoderequestaccountsResponse:
+        """
+        Description: 请求用户账户列表的小程序码查询结果
+        Summary: 请求用户账户列表的小程序码查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CheckMypocketQrcoderequestaccountsResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_user_did(

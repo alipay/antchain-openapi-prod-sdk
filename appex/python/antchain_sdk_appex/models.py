@@ -190,6 +190,206 @@ class NameValuePair(TeaModel):
         return self
 
 
+class AccessFilterDTO(TeaModel):
+    def __init__(
+        self,
+        filter_name: str = None,
+        path: str = None,
+        target: List[str] = None,
+    ):
+        # 过滤器名称
+        self.filter_name = filter_name
+        # 要过滤的字段路径
+        self.path = path
+        # 路径字段的取值范围
+        self.target = target
+
+    def validate(self):
+        self.validate_required(self.filter_name, 'filter_name')
+        self.validate_required(self.path, 'path')
+        self.validate_required(self.target, 'target')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_name is not None:
+            result['filter_name'] = self.filter_name
+        if self.path is not None:
+            result['path'] = self.path
+        if self.target is not None:
+            result['target'] = self.target
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('filter_name') is not None:
+            self.filter_name = m.get('filter_name')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('target') is not None:
+            self.target = m.get('target')
+        return self
+
+
+class StatusDrive(TeaModel):
+    def __init__(
+        self,
+        from_status: str = None,
+        to_status: str = None,
+        drive_hash: str = None,
+        timestamp: int = None,
+    ):
+        # 起始状态
+        self.from_status = from_status
+        # 下一状态
+        self.to_status = to_status
+        # 驱动上链记录哈希
+        self.drive_hash = drive_hash
+        # 链上时间戳
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.from_status, 'from_status')
+        self.validate_required(self.to_status, 'to_status')
+        self.validate_required(self.drive_hash, 'drive_hash')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.from_status is not None:
+            result['from_status'] = self.from_status
+        if self.to_status is not None:
+            result['to_status'] = self.to_status
+        if self.drive_hash is not None:
+            result['drive_hash'] = self.drive_hash
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('from_status') is not None:
+            self.from_status = m.get('from_status')
+        if m.get('to_status') is not None:
+            self.to_status = m.get('to_status')
+        if m.get('drive_hash') is not None:
+            self.drive_hash = m.get('drive_hash')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class FormIndexDTO(TeaModel):
+    def __init__(
+        self,
+        form_id: str = None,
+        form_type: str = None,
+        block_height: int = None,
+        tx_hash: str = None,
+        tx_timestamp: str = None,
+    ):
+        # 业务表单ID
+        self.form_id = form_id
+        # 业务表单类型
+        self.form_type = form_type
+        # 块高
+        self.block_height = block_height
+        # 交易hash
+        self.tx_hash = tx_hash
+        # 交易时间戳
+        self.tx_timestamp = tx_timestamp
+
+    def validate(self):
+        self.validate_required(self.form_id, 'form_id')
+        self.validate_required(self.form_type, 'form_type')
+        self.validate_required(self.block_height, 'block_height')
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.tx_timestamp, 'tx_timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.form_id is not None:
+            result['form_id'] = self.form_id
+        if self.form_type is not None:
+            result['form_type'] = self.form_type
+        if self.block_height is not None:
+            result['block_height'] = self.block_height
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.tx_timestamp is not None:
+            result['tx_timestamp'] = self.tx_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('form_id') is not None:
+            self.form_id = m.get('form_id')
+        if m.get('form_type') is not None:
+            self.form_type = m.get('form_type')
+        if m.get('block_height') is not None:
+            self.block_height = m.get('block_height')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('tx_timestamp') is not None:
+            self.tx_timestamp = m.get('tx_timestamp')
+        return self
+
+
+class Authorization(TeaModel):
+    def __init__(
+        self,
+        auth_type: str = None,
+        fields: List[str] = None,
+        timestamp: int = None,
+    ):
+        # 授权内容的类型
+        self.auth_type = auth_type
+        # 要获取的授权字段
+        self.fields = fields
+        # 签名时间戳
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.fields, 'fields')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.fields is not None:
+            result['fields'] = self.fields
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('fields') is not None:
+            self.fields = m.get('fields')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
 class UserChannelDTO(TeaModel):
     def __init__(
         self,
@@ -280,50 +480,6 @@ class AccountEntry(TeaModel):
         return self
 
 
-class AccessFilterDTO(TeaModel):
-    def __init__(
-        self,
-        filter_name: str = None,
-        path: str = None,
-        target: List[str] = None,
-    ):
-        # 过滤器名称
-        self.filter_name = filter_name
-        # 要过滤的字段路径
-        self.path = path
-        # 路径字段的取值范围
-        self.target = target
-
-    def validate(self):
-        self.validate_required(self.filter_name, 'filter_name')
-        self.validate_required(self.path, 'path')
-        self.validate_required(self.target, 'target')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.filter_name is not None:
-            result['filter_name'] = self.filter_name
-        if self.path is not None:
-            result['path'] = self.path
-        if self.target is not None:
-            result['target'] = self.target
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('filter_name') is not None:
-            self.filter_name = m.get('filter_name')
-        if m.get('path') is not None:
-            self.path = m.get('path')
-        if m.get('target') is not None:
-            self.target = m.get('target')
-        return self
-
-
 class ResultFilterDTO(TeaModel):
     def __init__(
         self,
@@ -401,58 +557,6 @@ class ChannelDTO(TeaModel):
             self.public_acl = m.get('public_acl')
         if m.get('user_did') is not None:
             self.user_did = m.get('user_did')
-        return self
-
-
-class StatusDrive(TeaModel):
-    def __init__(
-        self,
-        from_status: str = None,
-        to_status: str = None,
-        drive_hash: str = None,
-        timestamp: int = None,
-    ):
-        # 起始状态
-        self.from_status = from_status
-        # 下一状态
-        self.to_status = to_status
-        # 驱动上链记录哈希
-        self.drive_hash = drive_hash
-        # 链上时间戳
-        self.timestamp = timestamp
-
-    def validate(self):
-        self.validate_required(self.from_status, 'from_status')
-        self.validate_required(self.to_status, 'to_status')
-        self.validate_required(self.drive_hash, 'drive_hash')
-        self.validate_required(self.timestamp, 'timestamp')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.from_status is not None:
-            result['from_status'] = self.from_status
-        if self.to_status is not None:
-            result['to_status'] = self.to_status
-        if self.drive_hash is not None:
-            result['drive_hash'] = self.drive_hash
-        if self.timestamp is not None:
-            result['timestamp'] = self.timestamp
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('from_status') is not None:
-            self.from_status = m.get('from_status')
-        if m.get('to_status') is not None:
-            self.to_status = m.get('to_status')
-        if m.get('drive_hash') is not None:
-            self.drive_hash = m.get('drive_hash')
-        if m.get('timestamp') is not None:
-            self.timestamp = m.get('timestamp')
         return self
 
 
@@ -614,32 +718,27 @@ class FlowTemplate(TeaModel):
         return self
 
 
-class FormIndexDTO(TeaModel):
+class ChainAccountEX(TeaModel):
     def __init__(
         self,
-        form_id: str = None,
-        form_type: str = None,
-        block_height: int = None,
-        tx_hash: str = None,
-        tx_timestamp: str = None,
+        account_name: str = None,
+        account_address: str = None,
+        account_type: str = None,
+        chain_id: str = None,
     ):
-        # 业务表单ID
-        self.form_id = form_id
-        # 业务表单类型
-        self.form_type = form_type
-        # 块高
-        self.block_height = block_height
-        # 交易hash
-        self.tx_hash = tx_hash
-        # 交易时间戳
-        self.tx_timestamp = tx_timestamp
+        # 账户名称
+        self.account_name = account_name
+        # 账户地址
+        self.account_address = account_address
+        # 账户类型，枚举，MYCHAIN|ETH
+        self.account_type = account_type
+        # 链ID
+        self.chain_id = chain_id
 
     def validate(self):
-        self.validate_required(self.form_id, 'form_id')
-        self.validate_required(self.form_type, 'form_type')
-        self.validate_required(self.block_height, 'block_height')
-        self.validate_required(self.tx_hash, 'tx_hash')
-        self.validate_required(self.tx_timestamp, 'tx_timestamp')
+        self.validate_required(self.account_address, 'account_address')
+        self.validate_required(self.account_type, 'account_type')
+        self.validate_required(self.chain_id, 'chain_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -647,74 +746,26 @@ class FormIndexDTO(TeaModel):
             return _map
 
         result = dict()
-        if self.form_id is not None:
-            result['form_id'] = self.form_id
-        if self.form_type is not None:
-            result['form_type'] = self.form_type
-        if self.block_height is not None:
-            result['block_height'] = self.block_height
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
-        if self.tx_timestamp is not None:
-            result['tx_timestamp'] = self.tx_timestamp
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.account_address is not None:
+            result['account_address'] = self.account_address
+        if self.account_type is not None:
+            result['account_type'] = self.account_type
+        if self.chain_id is not None:
+            result['chain_id'] = self.chain_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('form_id') is not None:
-            self.form_id = m.get('form_id')
-        if m.get('form_type') is not None:
-            self.form_type = m.get('form_type')
-        if m.get('block_height') is not None:
-            self.block_height = m.get('block_height')
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
-        if m.get('tx_timestamp') is not None:
-            self.tx_timestamp = m.get('tx_timestamp')
-        return self
-
-
-class Authorization(TeaModel):
-    def __init__(
-        self,
-        auth_type: str = None,
-        fields: List[str] = None,
-        timestamp: int = None,
-    ):
-        # 授权内容的类型
-        self.auth_type = auth_type
-        # 要获取的授权字段
-        self.fields = fields
-        # 签名时间戳
-        self.timestamp = timestamp
-
-    def validate(self):
-        self.validate_required(self.auth_type, 'auth_type')
-        self.validate_required(self.fields, 'fields')
-        self.validate_required(self.timestamp, 'timestamp')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_type is not None:
-            result['auth_type'] = self.auth_type
-        if self.fields is not None:
-            result['fields'] = self.fields
-        if self.timestamp is not None:
-            result['timestamp'] = self.timestamp
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_type') is not None:
-            self.auth_type = m.get('auth_type')
-        if m.get('fields') is not None:
-            self.fields = m.get('fields')
-        if m.get('timestamp') is not None:
-            self.timestamp = m.get('timestamp')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('account_address') is not None:
+            self.account_address = m.get('account_address')
+        if m.get('account_type') is not None:
+            self.account_type = m.get('account_type')
+        if m.get('chain_id') is not None:
+            self.chain_id = m.get('chain_id')
         return self
 
 
@@ -1760,6 +1811,276 @@ class QueryMypocketUserauthinfoResponse(TeaModel):
             for k in m.get('authorization_info'):
                 temp_model = NameValuePair()
                 self.authorization_info.append(temp_model.from_map(k))
+        return self
+
+
+class CreateMypocketQrcoderequestaccountsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_biz_no: str = None,
+        app_id: str = None,
+        chain_id: str = None,
+        account_type: str = None,
+        color: str = None,
+        size: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部业务号
+        self.out_biz_no = out_biz_no
+        # 应用唯一标识
+        self.app_id = app_id
+        # 链ID
+        self.chain_id = chain_id
+        # 账户类型，枚举值，  MYCHAIN|ETH
+        self.account_type = account_type
+        # 小程序码颜色，枚举，  ALIPAY_BLUE|BLACK|WHITE
+        self.color = color
+        # 小程序码大小，枚举，SMALL|MEDIUM|LARGE
+        self.size = size
+
+    def validate(self):
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        if self.out_biz_no is not None:
+            self.validate_max_length(self.out_biz_no, 'out_biz_no', 64)
+        self.validate_required(self.app_id, 'app_id')
+        if self.chain_id is not None:
+            self.validate_max_length(self.chain_id, 'chain_id', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.chain_id is not None:
+            result['chain_id'] = self.chain_id
+        if self.account_type is not None:
+            result['account_type'] = self.account_type
+        if self.color is not None:
+            result['color'] = self.color
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('chain_id') is not None:
+            self.chain_id = m.get('chain_id')
+        if m.get('account_type') is not None:
+            self.account_type = m.get('account_type')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class CreateMypocketQrcoderequestaccountsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_no: str = None,
+        out_biz_no: str = None,
+        qr_code_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务号，小程序码唯一标识
+        self.biz_no = biz_no
+        # 外部业务号，透传返回
+        self.out_biz_no = out_biz_no
+        # 小程序码地址
+        self.qr_code_url = qr_code_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.qr_code_url is not None:
+            result['qr_code_url'] = self.qr_code_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('qr_code_url') is not None:
+            self.qr_code_url = m.get('qr_code_url')
+        return self
+
+
+class CheckMypocketQrcoderequestaccountsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+        out_biz_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 小程序码唯一标识
+        self.biz_no = biz_no
+        # 外部业务号，仅透传，不校验
+        self.out_biz_no = out_biz_no
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        return self
+
+
+class CheckMypocketQrcoderequestaccountsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_no: str = None,
+        out_biz_no: str = None,
+        status: str = None,
+        accounts: List[ChainAccountEX] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 小程序码唯一标识
+        self.biz_no = biz_no
+        # 外部业务号
+        self.out_biz_no = out_biz_no
+        # 小程序码状态，枚举，IDLE|SCANNED|CONFIRMED|CANCELLED|UNKNOWN
+        self.status = status
+        # 账户列表
+        self.accounts = accounts
+
+    def validate(self):
+        if self.accounts:
+            for k in self.accounts:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.status is not None:
+            result['status'] = self.status
+        result['accounts'] = []
+        if self.accounts is not None:
+            for k in self.accounts:
+                result['accounts'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        self.accounts = []
+        if m.get('accounts') is not None:
+            for k in m.get('accounts'):
+                temp_model = ChainAccountEX()
+                self.accounts.append(temp_model.from_map(k))
         return self
 
 
