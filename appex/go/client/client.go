@@ -174,6 +174,159 @@ func (s *NameValuePair) SetValue(v string) *NameValuePair {
 	return s
 }
 
+// 访问权限过滤器
+type AccessFilterDTO struct {
+	// 过滤器名称
+	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
+	// 要过滤的字段路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 路径字段的取值范围
+	Target []*string `json:"target,omitempty" xml:"target,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AccessFilterDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccessFilterDTO) GoString() string {
+	return s.String()
+}
+
+func (s *AccessFilterDTO) SetFilterName(v string) *AccessFilterDTO {
+	s.FilterName = &v
+	return s
+}
+
+func (s *AccessFilterDTO) SetPath(v string) *AccessFilterDTO {
+	s.Path = &v
+	return s
+}
+
+func (s *AccessFilterDTO) SetTarget(v []*string) *AccessFilterDTO {
+	s.Target = v
+	return s
+}
+
+// 数据状态驱动
+type StatusDrive struct {
+	// 起始状态
+	FromStatus *string `json:"from_status,omitempty" xml:"from_status,omitempty" require:"true"`
+	// 下一状态
+	ToStatus *string `json:"to_status,omitempty" xml:"to_status,omitempty" require:"true"`
+	// 驱动上链记录哈希
+	DriveHash *string `json:"drive_hash,omitempty" xml:"drive_hash,omitempty" require:"true"`
+	// 链上时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s StatusDrive) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatusDrive) GoString() string {
+	return s.String()
+}
+
+func (s *StatusDrive) SetFromStatus(v string) *StatusDrive {
+	s.FromStatus = &v
+	return s
+}
+
+func (s *StatusDrive) SetToStatus(v string) *StatusDrive {
+	s.ToStatus = &v
+	return s
+}
+
+func (s *StatusDrive) SetDriveHash(v string) *StatusDrive {
+	s.DriveHash = &v
+	return s
+}
+
+func (s *StatusDrive) SetTimestamp(v int64) *StatusDrive {
+	s.Timestamp = &v
+	return s
+}
+
+// 表单链下链上锚定索引
+type FormIndexDTO struct {
+	// 业务表单ID
+	FormId *string `json:"form_id,omitempty" xml:"form_id,omitempty" require:"true"`
+	// 业务表单类型
+	FormType *string `json:"form_type,omitempty" xml:"form_type,omitempty" require:"true"`
+	// 块高
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty" require:"true"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 交易时间戳
+	TxTimestamp *string `json:"tx_timestamp,omitempty" xml:"tx_timestamp,omitempty" require:"true"`
+}
+
+func (s FormIndexDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FormIndexDTO) GoString() string {
+	return s.String()
+}
+
+func (s *FormIndexDTO) SetFormId(v string) *FormIndexDTO {
+	s.FormId = &v
+	return s
+}
+
+func (s *FormIndexDTO) SetFormType(v string) *FormIndexDTO {
+	s.FormType = &v
+	return s
+}
+
+func (s *FormIndexDTO) SetBlockHeight(v int64) *FormIndexDTO {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *FormIndexDTO) SetTxHash(v string) *FormIndexDTO {
+	s.TxHash = &v
+	return s
+}
+
+func (s *FormIndexDTO) SetTxTimestamp(v string) *FormIndexDTO {
+	s.TxTimestamp = &v
+	return s
+}
+
+// 授权信息
+type Authorization struct {
+	// 授权内容的类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 要获取的授权字段
+	Fields []*string `json:"fields,omitempty" xml:"fields,omitempty" require:"true" type:"Repeated"`
+	// 签名时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s Authorization) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Authorization) GoString() string {
+	return s.String()
+}
+
+func (s *Authorization) SetAuthType(v string) *Authorization {
+	s.AuthType = &v
+	return s
+}
+
+func (s *Authorization) SetFields(v []*string) *Authorization {
+	s.Fields = v
+	return s
+}
+
+func (s *Authorization) SetTimestamp(v int64) *Authorization {
+	s.Timestamp = &v
+	return s
+}
+
 // 用户可访问Channel信息
 type UserChannelDTO struct {
 	// 通道名称
@@ -240,39 +393,6 @@ func (s *AccountEntry) SetAccountId(v string) *AccountEntry {
 	return s
 }
 
-// 访问权限过滤器
-type AccessFilterDTO struct {
-	// 过滤器名称
-	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
-	// 要过滤的字段路径
-	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
-	// 路径字段的取值范围
-	Target []*string `json:"target,omitempty" xml:"target,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AccessFilterDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccessFilterDTO) GoString() string {
-	return s.String()
-}
-
-func (s *AccessFilterDTO) SetFilterName(v string) *AccessFilterDTO {
-	s.FilterName = &v
-	return s
-}
-
-func (s *AccessFilterDTO) SetPath(v string) *AccessFilterDTO {
-	s.Path = &v
-	return s
-}
-
-func (s *AccessFilterDTO) SetTarget(v []*string) *AccessFilterDTO {
-	s.Target = v
-	return s
-}
-
 // 结果返回过滤
 type ResultFilterDTO struct {
 	// 过滤器名称
@@ -329,46 +449,6 @@ func (s *ChannelDTO) SetPublicAcl(v bool) *ChannelDTO {
 
 func (s *ChannelDTO) SetUserDid(v string) *ChannelDTO {
 	s.UserDid = &v
-	return s
-}
-
-// 数据状态驱动
-type StatusDrive struct {
-	// 起始状态
-	FromStatus *string `json:"from_status,omitempty" xml:"from_status,omitempty" require:"true"`
-	// 下一状态
-	ToStatus *string `json:"to_status,omitempty" xml:"to_status,omitempty" require:"true"`
-	// 驱动上链记录哈希
-	DriveHash *string `json:"drive_hash,omitempty" xml:"drive_hash,omitempty" require:"true"`
-	// 链上时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-}
-
-func (s StatusDrive) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StatusDrive) GoString() string {
-	return s.String()
-}
-
-func (s *StatusDrive) SetFromStatus(v string) *StatusDrive {
-	s.FromStatus = &v
-	return s
-}
-
-func (s *StatusDrive) SetToStatus(v string) *StatusDrive {
-	s.ToStatus = &v
-	return s
-}
-
-func (s *StatusDrive) SetDriveHash(v string) *StatusDrive {
-	s.DriveHash = &v
-	return s
-}
-
-func (s *StatusDrive) SetTimestamp(v int64) *StatusDrive {
-	s.Timestamp = &v
 	return s
 }
 
@@ -486,83 +566,43 @@ func (s *FlowTemplate) SetStartNode(v bool) *FlowTemplate {
 	return s
 }
 
-// 表单链下链上锚定索引
-type FormIndexDTO struct {
-	// 业务表单ID
-	FormId *string `json:"form_id,omitempty" xml:"form_id,omitempty" require:"true"`
-	// 业务表单类型
-	FormType *string `json:"form_type,omitempty" xml:"form_type,omitempty" require:"true"`
-	// 块高
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty" require:"true"`
-	// 交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 交易时间戳
-	TxTimestamp *string `json:"tx_timestamp,omitempty" xml:"tx_timestamp,omitempty" require:"true"`
+// 链账户
+type ChainAccountEX struct {
+	// 账户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 账户地址
+	AccountAddress *string `json:"account_address,omitempty" xml:"account_address,omitempty" require:"true"`
+	// 账户类型，枚举，MYCHAIN|ETH
+	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty" require:"true"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
 }
 
-func (s FormIndexDTO) String() string {
+func (s ChainAccountEX) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FormIndexDTO) GoString() string {
+func (s ChainAccountEX) GoString() string {
 	return s.String()
 }
 
-func (s *FormIndexDTO) SetFormId(v string) *FormIndexDTO {
-	s.FormId = &v
+func (s *ChainAccountEX) SetAccountName(v string) *ChainAccountEX {
+	s.AccountName = &v
 	return s
 }
 
-func (s *FormIndexDTO) SetFormType(v string) *FormIndexDTO {
-	s.FormType = &v
+func (s *ChainAccountEX) SetAccountAddress(v string) *ChainAccountEX {
+	s.AccountAddress = &v
 	return s
 }
 
-func (s *FormIndexDTO) SetBlockHeight(v int64) *FormIndexDTO {
-	s.BlockHeight = &v
+func (s *ChainAccountEX) SetAccountType(v string) *ChainAccountEX {
+	s.AccountType = &v
 	return s
 }
 
-func (s *FormIndexDTO) SetTxHash(v string) *FormIndexDTO {
-	s.TxHash = &v
-	return s
-}
-
-func (s *FormIndexDTO) SetTxTimestamp(v string) *FormIndexDTO {
-	s.TxTimestamp = &v
-	return s
-}
-
-// 授权信息
-type Authorization struct {
-	// 授权内容的类型
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 要获取的授权字段
-	Fields []*string `json:"fields,omitempty" xml:"fields,omitempty" require:"true" type:"Repeated"`
-	// 签名时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-}
-
-func (s Authorization) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Authorization) GoString() string {
-	return s.String()
-}
-
-func (s *Authorization) SetAuthType(v string) *Authorization {
-	s.AuthType = &v
-	return s
-}
-
-func (s *Authorization) SetFields(v []*string) *Authorization {
-	s.Fields = v
-	return s
-}
-
-func (s *Authorization) SetTimestamp(v int64) *Authorization {
-	s.Timestamp = &v
+func (s *ChainAccountEX) SetChainId(v string) *ChainAccountEX {
+	s.ChainId = &v
 	return s
 }
 
@@ -1369,6 +1409,223 @@ func (s *QueryMypocketUserauthinfoResponse) SetResultMsg(v string) *QueryMypocke
 
 func (s *QueryMypocketUserauthinfoResponse) SetAuthorizationInfo(v []*NameValuePair) *QueryMypocketUserauthinfoResponse {
 	s.AuthorizationInfo = v
+	return s
+}
+
+type CreateMypocketQrcoderequestaccountsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true" maxLength:"64"`
+	// 应用唯一标识
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" maxLength:"64"`
+	// 账户类型，枚举值，  MYCHAIN|ETH
+	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty"`
+	// 小程序码颜色，枚举，  ALIPAY_BLUE|BLACK|WHITE
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 小程序码大小，枚举，SMALL|MEDIUM|LARGE
+	Size *string `json:"size,omitempty" xml:"size,omitempty"`
+}
+
+func (s CreateMypocketQrcoderequestaccountsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketQrcoderequestaccountsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetAuthToken(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetProductInstanceId(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetOutBizNo(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetAppId(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetChainId(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetAccountType(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.AccountType = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetColor(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.Color = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsRequest) SetSize(v string) *CreateMypocketQrcoderequestaccountsRequest {
+	s.Size = &v
+	return s
+}
+
+type CreateMypocketQrcoderequestaccountsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务号，小程序码唯一标识
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 外部业务号，透传返回
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty"`
+	// 小程序码地址
+	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty"`
+}
+
+func (s CreateMypocketQrcoderequestaccountsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketQrcoderequestaccountsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetReqMsgId(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetResultCode(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetResultMsg(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetBizNo(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.BizNo = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetOutBizNo(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *CreateMypocketQrcoderequestaccountsResponse) SetQrCodeUrl(v string) *CreateMypocketQrcoderequestaccountsResponse {
+	s.QrCodeUrl = &v
+	return s
+}
+
+type CheckMypocketQrcoderequestaccountsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序码唯一标识
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+	// 外部业务号，仅透传，不校验
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty"`
+}
+
+func (s CheckMypocketQrcoderequestaccountsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckMypocketQrcoderequestaccountsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckMypocketQrcoderequestaccountsRequest) SetAuthToken(v string) *CheckMypocketQrcoderequestaccountsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsRequest) SetProductInstanceId(v string) *CheckMypocketQrcoderequestaccountsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsRequest) SetBizNo(v string) *CheckMypocketQrcoderequestaccountsRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsRequest) SetOutBizNo(v string) *CheckMypocketQrcoderequestaccountsRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+type CheckMypocketQrcoderequestaccountsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 小程序码唯一标识
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 外部业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty"`
+	// 小程序码状态，枚举，IDLE|SCANNED|CONFIRMED|CANCELLED|UNKNOWN
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 账户列表
+	Accounts []*ChainAccountEX `json:"accounts,omitempty" xml:"accounts,omitempty" type:"Repeated"`
+}
+
+func (s CheckMypocketQrcoderequestaccountsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckMypocketQrcoderequestaccountsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetReqMsgId(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetResultCode(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetResultMsg(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetBizNo(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.BizNo = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetOutBizNo(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetStatus(v string) *CheckMypocketQrcoderequestaccountsResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CheckMypocketQrcoderequestaccountsResponse) SetAccounts(v []*ChainAccountEX) *CheckMypocketQrcoderequestaccountsResponse {
+	s.Accounts = v
 	return s
 }
 
@@ -4647,17 +4904,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -4691,7 +4948,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.12"),
+				"sdk_version":      tea.String("1.3.15"),
+				"_prod_code":       tea.String("APPEX"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -5080,6 +5339,74 @@ func (client *Client) QueryMypocketUserauthinfoEx(request *QueryMypocketUserauth
 	}
 	_result = &QueryMypocketUserauthinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userauthinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建小程序码来请求账户列表
+ * Summary: 创建小程序码请求账户列表
+ */
+func (client *Client) CreateMypocketQrcoderequestaccounts(request *CreateMypocketQrcoderequestaccountsRequest) (_result *CreateMypocketQrcoderequestaccountsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMypocketQrcoderequestaccountsResponse{}
+	_body, _err := client.CreateMypocketQrcoderequestaccountsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建小程序码来请求账户列表
+ * Summary: 创建小程序码请求账户列表
+ */
+func (client *Client) CreateMypocketQrcoderequestaccountsEx(request *CreateMypocketQrcoderequestaccountsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMypocketQrcoderequestaccountsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMypocketQrcoderequestaccountsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.qrcoderequestaccounts.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 请求用户账户列表的小程序码查询结果
+ * Summary: 请求用户账户列表的小程序码查询结果
+ */
+func (client *Client) CheckMypocketQrcoderequestaccounts(request *CheckMypocketQrcoderequestaccountsRequest) (_result *CheckMypocketQrcoderequestaccountsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckMypocketQrcoderequestaccountsResponse{}
+	_body, _err := client.CheckMypocketQrcoderequestaccountsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 请求用户账户列表的小程序码查询结果
+ * Summary: 请求用户账户列表的小程序码查询结果
+ */
+func (client *Client) CheckMypocketQrcoderequestaccountsEx(request *CheckMypocketQrcoderequestaccountsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckMypocketQrcoderequestaccountsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckMypocketQrcoderequestaccountsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.qrcoderequestaccounts.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
