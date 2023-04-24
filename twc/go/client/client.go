@@ -24096,6 +24096,8 @@ type UpdateJusticeRightsRequest struct {
 	StatusExt *string `json:"status_ext,omitempty" xml:"status_ext,omitempty"`
 	// 文件信息,示例查看对接文档
 	StatusFileInfos []*FileInfo `json:"status_file_infos,omitempty" xml:"status_file_infos,omitempty" type:"Repeated"`
+	// 案件状态对应的实际时间
+	CaseStatusDate *string `json:"case_status_date,omitempty" xml:"case_status_date,omitempty" require:"true"`
 }
 
 func (s UpdateJusticeRightsRequest) String() string {
@@ -24133,6 +24135,11 @@ func (s *UpdateJusticeRightsRequest) SetStatusExt(v string) *UpdateJusticeRights
 
 func (s *UpdateJusticeRightsRequest) SetStatusFileInfos(v []*FileInfo) *UpdateJusticeRightsRequest {
 	s.StatusFileInfos = v
+	return s
+}
+
+func (s *UpdateJusticeRightsRequest) SetCaseStatusDate(v string) *UpdateJusticeRightsRequest {
+	s.CaseStatusDate = &v
 	return s
 }
 
@@ -24198,6 +24205,8 @@ type NotifyJusticeRightspaymentRequest struct {
 	PaymentFileInfos []*FileInfo `json:"payment_file_infos,omitempty" xml:"payment_file_infos,omitempty" type:"Repeated"`
 	// 缴费账户信息(待缴费时必填),示例查看对接文档
 	PaymentInfo *PaymentInfo `json:"payment_info,omitempty" xml:"payment_info,omitempty"`
+	// 缴费状态(SUCCESS)实际对应时间
+	PaymentStatusSuccessDate *string `json:"payment_status_success_date,omitempty" xml:"payment_status_success_date,omitempty"`
 }
 
 func (s NotifyJusticeRightspaymentRequest) String() string {
@@ -24250,6 +24259,11 @@ func (s *NotifyJusticeRightspaymentRequest) SetPaymentFileInfos(v []*FileInfo) *
 
 func (s *NotifyJusticeRightspaymentRequest) SetPaymentInfo(v *PaymentInfo) *NotifyJusticeRightspaymentRequest {
 	s.PaymentInfo = v
+	return s
+}
+
+func (s *NotifyJusticeRightspaymentRequest) SetPaymentStatusSuccessDate(v string) *NotifyJusticeRightspaymentRequest {
+	s.PaymentStatusSuccessDate = &v
 	return s
 }
 
@@ -42436,7 +42450,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.40"),
+				"sdk_version":      tea.String("1.8.41"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
