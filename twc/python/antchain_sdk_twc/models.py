@@ -29538,6 +29538,7 @@ class UpdateJusticeRightsRequest(TeaModel):
         case_status: str = None,
         status_ext: str = None,
         status_file_infos: List[FileInfo] = None,
+        case_status_date: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -29550,6 +29551,8 @@ class UpdateJusticeRightsRequest(TeaModel):
         self.status_ext = status_ext
         # 文件信息,示例查看对接文档
         self.status_file_infos = status_file_infos
+        # 案件状态对应的实际时间
+        self.case_status_date = case_status_date
 
     def validate(self):
         self.validate_required(self.record_id, 'record_id')
@@ -29558,6 +29561,7 @@ class UpdateJusticeRightsRequest(TeaModel):
             for k in self.status_file_infos:
                 if k:
                     k.validate()
+        self.validate_required(self.case_status_date, 'case_status_date')
 
     def to_map(self):
         _map = super().to_map()
@@ -29579,6 +29583,8 @@ class UpdateJusticeRightsRequest(TeaModel):
         if self.status_file_infos is not None:
             for k in self.status_file_infos:
                 result['status_file_infos'].append(k.to_map() if k else None)
+        if self.case_status_date is not None:
+            result['case_status_date'] = self.case_status_date
         return result
 
     def from_map(self, m: dict = None):
@@ -29598,6 +29604,8 @@ class UpdateJusticeRightsRequest(TeaModel):
             for k in m.get('status_file_infos'):
                 temp_model = FileInfo()
                 self.status_file_infos.append(temp_model.from_map(k))
+        if m.get('case_status_date') is not None:
+            self.case_status_date = m.get('case_status_date')
         return self
 
 
@@ -29662,6 +29670,7 @@ class NotifyJusticeRightspaymentRequest(TeaModel):
         payment_remark: str = None,
         payment_file_infos: List[FileInfo] = None,
         payment_info: PaymentInfo = None,
+        payment_status_success_date: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -29685,6 +29694,8 @@ class NotifyJusticeRightspaymentRequest(TeaModel):
         self.payment_file_infos = payment_file_infos
         # 缴费账户信息(待缴费时必填),示例查看对接文档
         self.payment_info = payment_info
+        # 缴费状态(SUCCESS)实际对应时间
+        self.payment_status_success_date = payment_status_success_date
 
     def validate(self):
         self.validate_required(self.record_id, 'record_id')
@@ -29724,6 +29735,8 @@ class NotifyJusticeRightspaymentRequest(TeaModel):
                 result['payment_file_infos'].append(k.to_map() if k else None)
         if self.payment_info is not None:
             result['payment_info'] = self.payment_info.to_map()
+        if self.payment_status_success_date is not None:
+            result['payment_status_success_date'] = self.payment_status_success_date
         return result
 
     def from_map(self, m: dict = None):
@@ -29750,6 +29763,8 @@ class NotifyJusticeRightspaymentRequest(TeaModel):
         if m.get('payment_info') is not None:
             temp_model = PaymentInfo()
             self.payment_info = temp_model.from_map(m['payment_info'])
+        if m.get('payment_status_success_date') is not None:
+            self.payment_status_success_date = m.get('payment_status_success_date')
         return self
 
 
