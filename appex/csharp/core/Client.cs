@@ -91,7 +91,7 @@ namespace AntChain.SDK.APPEX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.12"},
+                        {"sdk_version", "1.3.15"},
+                        {"_prod_code", "APPEX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.APPEX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.12"},
+                        {"sdk_version", "1.3.15"},
+                        {"_prod_code", "APPEX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -735,6 +739,90 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMypocketUserauthinfoResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建小程序码来请求账户列表
+         * Summary: 创建小程序码请求账户列表
+         */
+        public CreateMypocketQrcoderequestaccountsResponse CreateMypocketQrcoderequestaccounts(CreateMypocketQrcoderequestaccountsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMypocketQrcoderequestaccountsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建小程序码来请求账户列表
+         * Summary: 创建小程序码请求账户列表
+         */
+        public async Task<CreateMypocketQrcoderequestaccountsResponse> CreateMypocketQrcoderequestaccountsAsync(CreateMypocketQrcoderequestaccountsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMypocketQrcoderequestaccountsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建小程序码来请求账户列表
+         * Summary: 创建小程序码请求账户列表
+         */
+        public CreateMypocketQrcoderequestaccountsResponse CreateMypocketQrcoderequestaccountsEx(CreateMypocketQrcoderequestaccountsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketQrcoderequestaccountsResponse>(DoRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建小程序码来请求账户列表
+         * Summary: 创建小程序码请求账户列表
+         */
+        public async Task<CreateMypocketQrcoderequestaccountsResponse> CreateMypocketQrcoderequestaccountsExAsync(CreateMypocketQrcoderequestaccountsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketQrcoderequestaccountsResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 请求用户账户列表的小程序码查询结果
+         * Summary: 请求用户账户列表的小程序码查询结果
+         */
+        public CheckMypocketQrcoderequestaccountsResponse CheckMypocketQrcoderequestaccounts(CheckMypocketQrcoderequestaccountsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckMypocketQrcoderequestaccountsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 请求用户账户列表的小程序码查询结果
+         * Summary: 请求用户账户列表的小程序码查询结果
+         */
+        public async Task<CheckMypocketQrcoderequestaccountsResponse> CheckMypocketQrcoderequestaccountsAsync(CheckMypocketQrcoderequestaccountsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckMypocketQrcoderequestaccountsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 请求用户账户列表的小程序码查询结果
+         * Summary: 请求用户账户列表的小程序码查询结果
+         */
+        public CheckMypocketQrcoderequestaccountsResponse CheckMypocketQrcoderequestaccountsEx(CheckMypocketQrcoderequestaccountsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckMypocketQrcoderequestaccountsResponse>(DoRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 请求用户账户列表的小程序码查询结果
+         * Summary: 请求用户账户列表的小程序码查询结果
+         */
+        public async Task<CheckMypocketQrcoderequestaccountsResponse> CheckMypocketQrcoderequestaccountsExAsync(CheckMypocketQrcoderequestaccountsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckMypocketQrcoderequestaccountsResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
