@@ -15,6 +15,8 @@ use AntChain\APPEX\Models\AuthChannelUserRequest;
 use AntChain\APPEX\Models\AuthChannelUserResponse;
 use AntChain\APPEX\Models\CancelChannelUserRequest;
 use AntChain\APPEX\Models\CancelChannelUserResponse;
+use AntChain\APPEX\Models\CheckMypocketQrcoderequestaccountsRequest;
+use AntChain\APPEX\Models\CheckMypocketQrcoderequestaccountsResponse;
 use AntChain\APPEX\Models\ConfirmUnionApplyRequest;
 use AntChain\APPEX\Models\ConfirmUnionApplyResponse;
 use AntChain\APPEX\Models\CreateAsynformFormRequest;
@@ -25,6 +27,8 @@ use AntChain\APPEX\Models\CreateMypocketDidaccountbyalipayRequest;
 use AntChain\APPEX\Models\CreateMypocketDidaccountbyalipayResponse;
 use AntChain\APPEX\Models\CreateMypocketEscrowchainaccountRequest;
 use AntChain\APPEX\Models\CreateMypocketEscrowchainaccountResponse;
+use AntChain\APPEX\Models\CreateMypocketQrcoderequestaccountsRequest;
+use AntChain\APPEX\Models\CreateMypocketQrcoderequestaccountsResponse;
 use AntChain\APPEX\Models\CreateObjectRequest;
 use AntChain\APPEX\Models\CreateObjectResponse;
 use AntChain\APPEX\Models\CreateObjectTransferRequest;
@@ -194,18 +198,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -242,7 +246,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.12',
+                    'sdk_version'      => '1.3.15',
+                    '_prod_code'       => 'APPEX',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -616,6 +622,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryMypocketUserauthinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建小程序码来请求账户列表
+     * Summary: 创建小程序码请求账户列表.
+     *
+     * @param CreateMypocketQrcoderequestaccountsRequest $request
+     *
+     * @return CreateMypocketQrcoderequestaccountsResponse
+     */
+    public function createMypocketQrcoderequestaccounts($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMypocketQrcoderequestaccountsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建小程序码来请求账户列表
+     * Summary: 创建小程序码请求账户列表.
+     *
+     * @param CreateMypocketQrcoderequestaccountsRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return CreateMypocketQrcoderequestaccountsResponse
+     */
+    public function createMypocketQrcoderequestaccountsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMypocketQrcoderequestaccountsResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 请求用户账户列表的小程序码查询结果
+     * Summary: 请求用户账户列表的小程序码查询结果.
+     *
+     * @param CheckMypocketQrcoderequestaccountsRequest $request
+     *
+     * @return CheckMypocketQrcoderequestaccountsResponse
+     */
+    public function checkMypocketQrcoderequestaccounts($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkMypocketQrcoderequestaccountsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 请求用户账户列表的小程序码查询结果
+     * Summary: 请求用户账户列表的小程序码查询结果.
+     *
+     * @param CheckMypocketQrcoderequestaccountsRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CheckMypocketQrcoderequestaccountsResponse
+     */
+    public function checkMypocketQrcoderequestaccountsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckMypocketQrcoderequestaccountsResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.qrcoderequestaccounts.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
