@@ -14031,6 +14031,69 @@ export class UploadContractComplainimageResponse extends $tea.Model {
   }
 }
 
+export class QueryContractComplaineventidsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客诉单创建开始日期
+  complainStartDate: string;
+  // 客诉单创建开始日期
+  complainEndDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      complainStartDate: 'complain_start_date',
+      complainEndDate: 'complain_end_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      complainStartDate: 'string',
+      complainEndDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractComplaineventidsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投诉单id列表
+  complainEventIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      complainEventIds: 'complain_event_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      complainEventIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncInnerTransRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -31448,7 +31511,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.39",
+          sdk_version: "1.8.40",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -33569,6 +33632,25 @@ export default class Client {
   async uploadContractComplainimageEx(request: UploadContractComplainimageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadContractComplainimageResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadContractComplainimageResponse>(await this.doRequest("1.0", "twc.notary.contract.complainimage.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadContractComplainimageResponse({}));
+  }
+
+  /**
+   * Description: 根据起止日期查询体验宝投诉工单
+   * Summary: 根据起止日期查询体验宝投诉工单
+   */
+  async queryContractComplaineventids(request: QueryContractComplaineventidsRequest): Promise<QueryContractComplaineventidsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractComplaineventidsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据起止日期查询体验宝投诉工单
+   * Summary: 根据起止日期查询体验宝投诉工单
+   */
+  async queryContractComplaineventidsEx(request: QueryContractComplaineventidsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractComplaineventidsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractComplaineventidsResponse>(await this.doRequest("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractComplaineventidsResponse({}));
   }
 
   /**
