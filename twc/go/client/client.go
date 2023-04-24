@@ -18712,6 +18712,83 @@ func (s *UploadContractComplainimageResponse) SetImageId(v string) *UploadContra
 	return s
 }
 
+type QueryContractComplaineventidsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客诉单创建开始日期
+	ComplainStartDate *string `json:"complain_start_date,omitempty" xml:"complain_start_date,omitempty" require:"true"`
+	// 客诉单创建开始日期
+	ComplainEndDate *string `json:"complain_end_date,omitempty" xml:"complain_end_date,omitempty" require:"true"`
+}
+
+func (s QueryContractComplaineventidsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractComplaineventidsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractComplaineventidsRequest) SetAuthToken(v string) *QueryContractComplaineventidsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsRequest) SetProductInstanceId(v string) *QueryContractComplaineventidsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsRequest) SetComplainStartDate(v string) *QueryContractComplaineventidsRequest {
+	s.ComplainStartDate = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsRequest) SetComplainEndDate(v string) *QueryContractComplaineventidsRequest {
+	s.ComplainEndDate = &v
+	return s
+}
+
+type QueryContractComplaineventidsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投诉单id列表
+	ComplainEventIds []*string `json:"complain_event_ids,omitempty" xml:"complain_event_ids,omitempty" type:"Repeated"`
+}
+
+func (s QueryContractComplaineventidsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractComplaineventidsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractComplaineventidsResponse) SetReqMsgId(v string) *QueryContractComplaineventidsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsResponse) SetResultCode(v string) *QueryContractComplaineventidsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsResponse) SetResultMsg(v string) *QueryContractComplaineventidsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractComplaineventidsResponse) SetComplainEventIds(v []*string) *QueryContractComplaineventidsResponse {
+	s.ComplainEventIds = v
+	return s
+}
+
 type SyncInnerTransRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -42359,7 +42436,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.39"),
+				"sdk_version":      tea.String("1.8.40"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -46120,6 +46197,40 @@ func (client *Client) UploadContractComplainimageEx(request *UploadContractCompl
 	}
 	_result = &UploadContractComplainimageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complainimage.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据起止日期查询体验宝投诉工单
+ * Summary: 根据起止日期查询体验宝投诉工单
+ */
+func (client *Client) QueryContractComplaineventids(request *QueryContractComplaineventidsRequest) (_result *QueryContractComplaineventidsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractComplaineventidsResponse{}
+	_body, _err := client.QueryContractComplaineventidsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据起止日期查询体验宝投诉工单
+ * Summary: 根据起止日期查询体验宝投诉工单
+ */
+func (client *Client) QueryContractComplaineventidsEx(request *QueryContractComplaineventidsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractComplaineventidsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractComplaineventidsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complaineventids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
