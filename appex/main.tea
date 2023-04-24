@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.12',
+    sdk_version = '1.3.15',
+    _prod_code = 'APPEX',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -165,6 +167,52 @@ model NameValuePair {
   name: string(name='name', example='key'),
   // 字段值
   value: string(name='value', example='value'),
+}
+
+// 访问权限过滤器
+model AccessFilterDTO {
+  // 过滤器名称
+  filterName: string(name='filter_name', example='typeFilter'),
+  // 要过滤的字段路径
+  path: string(name='path', example='/body/type'),
+  // 路径字段的取值范围
+  target: [ string ](name='target', example='["Type1", "Type2"]'),
+}
+
+// 数据状态驱动
+model StatusDrive {
+  // 起始状态
+  fromStatus: string(name='from_status', example=' START'),
+  // 下一状态
+  toStatus: string(name='to_status', example=' NEXT'),
+  // 驱动上链记录哈希
+  driveHash: string(name='drive_hash', example=' cbf34bb98ad466a4640f725ce6c53233b83477feb9ef46537a80287b3c244cfd'),
+  // 链上时间戳
+  timestamp: long(name='timestamp', example=''),
+}
+
+// 表单链下链上锚定索引
+model FormIndexDTO {
+  // 业务表单ID
+  formId: string(name='form_id', example='2020213303'),
+  // 业务表单类型
+  formType: string(name='form_type', example='TransferTicket.Apply'),
+  // 块高
+  blockHeight: long(name='block_height', example='1000'),
+  // 交易hash
+  txHash: string(name='tx_hash', example='063a580c6f208a71e4cf57672049e9f59df76412e4d810e4c26950c9147c3ced'),
+  // 交易时间戳
+  txTimestamp: string(name='tx_timestamp', example='1597130279858'),
+}
+
+// 授权信息
+model Authorization {
+  // 授权内容的类型
+  authType: string(name='auth_type', example='profile'),
+  // 要获取的授权字段
+  fields: [ string ](name='fields', example='phone'),
+  // 签名时间戳
+  timestamp: long(name='timestamp', example='10000000'),
 }
 
 // 用户可访问Channel信息
@@ -187,16 +235,6 @@ model AccountEntry {
   accountId: string(name='account_id', example='无'),
 }
 
-// 访问权限过滤器
-model AccessFilterDTO {
-  // 过滤器名称
-  filterName: string(name='filter_name', example='typeFilter'),
-  // 要过滤的字段路径
-  path: string(name='path', example='/body/type'),
-  // 路径字段的取值范围
-  target: [ string ](name='target', example='["Type1", "Type2"]'),
-}
-
 // 结果返回过滤
 model ResultFilterDTO {
   // 过滤器名称
@@ -213,18 +251,6 @@ model ChannelDTO {
   publicAcl: boolean(name='public_acl', example='true, false'),
   // 通道创建账户
   userDid: string(name='user_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
-}
-
-// 数据状态驱动
-model StatusDrive {
-  // 起始状态
-  fromStatus: string(name='from_status', example=' START'),
-  // 下一状态
-  toStatus: string(name='to_status', example=' NEXT'),
-  // 驱动上链记录哈希
-  driveHash: string(name='drive_hash', example=' cbf34bb98ad466a4640f725ce6c53233b83477feb9ef46537a80287b3c244cfd'),
-  // 链上时间戳
-  timestamp: long(name='timestamp', example=''),
 }
 
 // 数据归属权
@@ -262,28 +288,16 @@ model FlowTemplate {
   startNode: boolean(name='start_node', example=' '),
 }
 
-// 表单链下链上锚定索引
-model FormIndexDTO {
-  // 业务表单ID
-  formId: string(name='form_id', example='2020213303'),
-  // 业务表单类型
-  formType: string(name='form_type', example='TransferTicket.Apply'),
-  // 块高
-  blockHeight: long(name='block_height', example='1000'),
-  // 交易hash
-  txHash: string(name='tx_hash', example='063a580c6f208a71e4cf57672049e9f59df76412e4d810e4c26950c9147c3ced'),
-  // 交易时间戳
-  txTimestamp: string(name='tx_timestamp', example='1597130279858'),
-}
-
-// 授权信息
-model Authorization {
-  // 授权内容的类型
-  authType: string(name='auth_type', example='profile'),
-  // 要获取的授权字段
-  fields: [ string ](name='fields', example='phone'),
-  // 签名时间戳
-  timestamp: long(name='timestamp', example='10000000'),
+// 链账户
+model ChainAccountEX {
+  // 账户名称
+  accountName?: string(name='account_name', example='无'),
+  // 账户地址
+  accountAddress: string(name='account_address', example='无'),
+  // 账户类型，枚举，MYCHAIN|ETH
+  accountType: string(name='account_type', example='无'),
+  // 链ID
+  chainId: string(name='chain_id', example='无'),
 }
 
 model CreateMypocketChainaccountRequest = {
@@ -695,6 +709,104 @@ async function queryMypocketUserauthinfo(request: QueryMypocketUserauthinfoReque
 async function queryMypocketUserauthinfoEx(request: QueryMypocketUserauthinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketUserauthinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.appex.mypocket.userauthinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMypocketQrcoderequestaccountsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部业务号
+  outBizNo: string(maxLength=64, name='out_biz_no'),
+  // 应用唯一标识
+  appId: string(name='app_id'),
+  // 链ID
+  chainId?: string(maxLength=64, name='chain_id'),
+  // 账户类型，枚举值，  MYCHAIN|ETH
+  accountType?: string(name='account_type'),
+  // 小程序码颜色，枚举，  ALIPAY_BLUE|BLACK|WHITE
+  color?: string(name='color'),
+  // 小程序码大小，枚举，SMALL|MEDIUM|LARGE
+  size?: string(name='size'),
+}
+
+model CreateMypocketQrcoderequestaccountsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务号，小程序码唯一标识
+  bizNo?: string(name='biz_no'),
+  // 外部业务号，透传返回
+  outBizNo?: string(name='out_biz_no'),
+  // 小程序码地址
+  qrCodeUrl?: string(name='qr_code_url'),
+}
+
+/**
+ * Description: 创建小程序码来请求账户列表
+ * Summary: 创建小程序码请求账户列表
+ */
+async function createMypocketQrcoderequestaccounts(request: CreateMypocketQrcoderequestaccountsRequest): CreateMypocketQrcoderequestaccountsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMypocketQrcoderequestaccountsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建小程序码来请求账户列表
+ * Summary: 创建小程序码请求账户列表
+ */
+async function createMypocketQrcoderequestaccountsEx(request: CreateMypocketQrcoderequestaccountsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMypocketQrcoderequestaccountsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.qrcoderequestaccounts.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckMypocketQrcoderequestaccountsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 小程序码唯一标识
+  bizNo: string(name='biz_no'),
+  // 外部业务号，仅透传，不校验
+  outBizNo?: string(name='out_biz_no'),
+}
+
+model CheckMypocketQrcoderequestaccountsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 小程序码唯一标识
+  bizNo?: string(name='biz_no'),
+  // 外部业务号
+  outBizNo?: string(name='out_biz_no'),
+  // 小程序码状态，枚举，IDLE|SCANNED|CONFIRMED|CANCELLED|UNKNOWN
+  status?: string(name='status'),
+  // 账户列表
+  accounts?: [ ChainAccountEX ](name='accounts'),
+}
+
+/**
+ * Description: 请求用户账户列表的小程序码查询结果
+ * Summary: 请求用户账户列表的小程序码查询结果
+ */
+async function checkMypocketQrcoderequestaccounts(request: CheckMypocketQrcoderequestaccountsRequest): CheckMypocketQrcoderequestaccountsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkMypocketQrcoderequestaccountsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求用户账户列表的小程序码查询结果
+ * Summary: 请求用户账户列表的小程序码查询结果
+ */
+async function checkMypocketQrcoderequestaccountsEx(request: CheckMypocketQrcoderequestaccountsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckMypocketQrcoderequestaccountsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.qrcoderequestaccounts.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateUserDidRequest = {
