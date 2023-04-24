@@ -102,6 +102,134 @@ export class NameValuePair extends $tea.Model {
   }
 }
 
+// 访问权限过滤器
+export class AccessFilterDTO extends $tea.Model {
+  // 过滤器名称
+  filterName: string;
+  // 要过滤的字段路径
+  path: string;
+  // 路径字段的取值范围
+  target: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterName: 'filter_name',
+      path: 'path',
+      target: 'target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterName: 'string',
+      path: 'string',
+      target: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据状态驱动
+export class StatusDrive extends $tea.Model {
+  // 起始状态
+  fromStatus: string;
+  // 下一状态
+  toStatus: string;
+  // 驱动上链记录哈希
+  driveHash: string;
+  // 链上时间戳
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      fromStatus: 'from_status',
+      toStatus: 'to_status',
+      driveHash: 'drive_hash',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fromStatus: 'string',
+      toStatus: 'string',
+      driveHash: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 表单链下链上锚定索引
+export class FormIndexDTO extends $tea.Model {
+  // 业务表单ID
+  formId: string;
+  // 业务表单类型
+  formType: string;
+  // 块高
+  blockHeight: number;
+  // 交易hash
+  txHash: string;
+  // 交易时间戳
+  txTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      formId: 'form_id',
+      formType: 'form_type',
+      blockHeight: 'block_height',
+      txHash: 'tx_hash',
+      txTimestamp: 'tx_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      formId: 'string',
+      formType: 'string',
+      blockHeight: 'number',
+      txHash: 'string',
+      txTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权信息
+export class Authorization extends $tea.Model {
+  // 授权内容的类型
+  authType: string;
+  // 要获取的授权字段
+  fields: string[];
+  // 签名时间戳
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authType: 'auth_type',
+      fields: 'fields',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authType: 'string',
+      fields: { 'type': 'array', 'itemType': 'string' },
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户可访问Channel信息
 export class UserChannelDTO extends $tea.Model {
   // 通道名称
@@ -160,35 +288,6 @@ export class AccountEntry extends $tea.Model {
   }
 }
 
-// 访问权限过滤器
-export class AccessFilterDTO extends $tea.Model {
-  // 过滤器名称
-  filterName: string;
-  // 要过滤的字段路径
-  path: string;
-  // 路径字段的取值范围
-  target: string[];
-  static names(): { [key: string]: string } {
-    return {
-      filterName: 'filter_name',
-      path: 'path',
-      target: 'target',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      filterName: 'string',
-      path: 'string',
-      target: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 结果返回过滤
 export class ResultFilterDTO extends $tea.Model {
   // 过滤器名称
@@ -235,39 +334,6 @@ export class ChannelDTO extends $tea.Model {
       channelName: 'string',
       publicAcl: 'boolean',
       userDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据状态驱动
-export class StatusDrive extends $tea.Model {
-  // 起始状态
-  fromStatus: string;
-  // 下一状态
-  toStatus: string;
-  // 驱动上链记录哈希
-  driveHash: string;
-  // 链上时间戳
-  timestamp: number;
-  static names(): { [key: string]: string } {
-    return {
-      fromStatus: 'from_status',
-      toStatus: 'to_status',
-      driveHash: 'drive_hash',
-      timestamp: 'timestamp',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fromStatus: 'string',
-      toStatus: 'string',
-      driveHash: 'string',
-      timestamp: 'number',
     };
   }
 
@@ -372,64 +438,31 @@ export class FlowTemplate extends $tea.Model {
   }
 }
 
-// 表单链下链上锚定索引
-export class FormIndexDTO extends $tea.Model {
-  // 业务表单ID
-  formId: string;
-  // 业务表单类型
-  formType: string;
-  // 块高
-  blockHeight: number;
-  // 交易hash
-  txHash: string;
-  // 交易时间戳
-  txTimestamp: string;
+// 链账户
+export class ChainAccountEX extends $tea.Model {
+  // 账户名称
+  accountName?: string;
+  // 账户地址
+  accountAddress: string;
+  // 账户类型，枚举，MYCHAIN|ETH
+  accountType: string;
+  // 链ID
+  chainId: string;
   static names(): { [key: string]: string } {
     return {
-      formId: 'form_id',
-      formType: 'form_type',
-      blockHeight: 'block_height',
-      txHash: 'tx_hash',
-      txTimestamp: 'tx_timestamp',
+      accountName: 'account_name',
+      accountAddress: 'account_address',
+      accountType: 'account_type',
+      chainId: 'chain_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      formId: 'string',
-      formType: 'string',
-      blockHeight: 'number',
-      txHash: 'string',
-      txTimestamp: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权信息
-export class Authorization extends $tea.Model {
-  // 授权内容的类型
-  authType: string;
-  // 要获取的授权字段
-  fields: string[];
-  // 签名时间戳
-  timestamp: number;
-  static names(): { [key: string]: string } {
-    return {
-      authType: 'auth_type',
-      fields: 'fields',
-      timestamp: 'timestamp',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authType: 'string',
-      fields: { 'type': 'array', 'itemType': 'string' },
-      timestamp: 'number',
+      accountName: 'string',
+      accountAddress: 'string',
+      accountType: 'string',
+      chainId: 'string',
     };
   }
 
@@ -1081,6 +1114,168 @@ export class QueryMypocketUserauthinfoResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       authorizationInfo: { 'type': 'array', 'itemType': NameValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketQrcoderequestaccountsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部业务号
+  outBizNo: string;
+  // 应用唯一标识
+  appId: string;
+  // 链ID
+  chainId?: string;
+  // 账户类型，枚举值，  MYCHAIN|ETH
+  accountType?: string;
+  // 小程序码颜色，枚举，  ALIPAY_BLUE|BLACK|WHITE
+  color?: string;
+  // 小程序码大小，枚举，SMALL|MEDIUM|LARGE
+  size?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outBizNo: 'out_biz_no',
+      appId: 'app_id',
+      chainId: 'chain_id',
+      accountType: 'account_type',
+      color: 'color',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outBizNo: 'string',
+      appId: 'string',
+      chainId: 'string',
+      accountType: 'string',
+      color: 'string',
+      size: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketQrcoderequestaccountsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务号，小程序码唯一标识
+  bizNo?: string;
+  // 外部业务号，透传返回
+  outBizNo?: string;
+  // 小程序码地址
+  qrCodeUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizNo: 'biz_no',
+      outBizNo: 'out_biz_no',
+      qrCodeUrl: 'qr_code_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizNo: 'string',
+      outBizNo: 'string',
+      qrCodeUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckMypocketQrcoderequestaccountsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序码唯一标识
+  bizNo: string;
+  // 外部业务号，仅透传，不校验
+  outBizNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizNo: 'biz_no',
+      outBizNo: 'out_biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizNo: 'string',
+      outBizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckMypocketQrcoderequestaccountsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 小程序码唯一标识
+  bizNo?: string;
+  // 外部业务号
+  outBizNo?: string;
+  // 小程序码状态，枚举，IDLE|SCANNED|CONFIRMED|CANCELLED|UNKNOWN
+  status?: string;
+  // 账户列表
+  accounts?: ChainAccountEX[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizNo: 'biz_no',
+      outBizNo: 'out_biz_no',
+      status: 'status',
+      accounts: 'accounts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizNo: 'string',
+      outBizNo: 'string',
+      status: 'string',
+      accounts: { 'type': 'array', 'itemType': ChainAccountEX },
     };
   }
 
@@ -3621,7 +3816,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -3660,7 +3855,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.12",
+          sdk_version: "1.3.15",
+          _prod_code: "APPEX",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3894,6 +4091,44 @@ export default class Client {
   async queryMypocketUserauthinfoEx(request: QueryMypocketUserauthinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketUserauthinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMypocketUserauthinfoResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userauthinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketUserauthinfoResponse({}));
+  }
+
+  /**
+   * Description: 创建小程序码来请求账户列表
+   * Summary: 创建小程序码请求账户列表
+   */
+  async createMypocketQrcoderequestaccounts(request: CreateMypocketQrcoderequestaccountsRequest): Promise<CreateMypocketQrcoderequestaccountsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createMypocketQrcoderequestaccountsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建小程序码来请求账户列表
+   * Summary: 创建小程序码请求账户列表
+   */
+  async createMypocketQrcoderequestaccountsEx(request: CreateMypocketQrcoderequestaccountsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateMypocketQrcoderequestaccountsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateMypocketQrcoderequestaccountsResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateMypocketQrcoderequestaccountsResponse({}));
+  }
+
+  /**
+   * Description: 请求用户账户列表的小程序码查询结果
+   * Summary: 请求用户账户列表的小程序码查询结果
+   */
+  async checkMypocketQrcoderequestaccounts(request: CheckMypocketQrcoderequestaccountsRequest): Promise<CheckMypocketQrcoderequestaccountsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkMypocketQrcoderequestaccountsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 请求用户账户列表的小程序码查询结果
+   * Summary: 请求用户账户列表的小程序码查询结果
+   */
+  async checkMypocketQrcoderequestaccountsEx(request: CheckMypocketQrcoderequestaccountsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckMypocketQrcoderequestaccountsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckMypocketQrcoderequestaccountsResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.qrcoderequestaccounts.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckMypocketQrcoderequestaccountsResponse({}));
   }
 
   /**
