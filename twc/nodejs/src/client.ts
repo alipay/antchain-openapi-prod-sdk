@@ -18090,6 +18090,8 @@ export class UpdateJusticeRightsRequest extends $tea.Model {
   statusExt?: string;
   // 文件信息,示例查看对接文档
   statusFileInfos?: FileInfo[];
+  // 案件状态对应的实际时间 
+  caseStatusDate: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18098,6 +18100,7 @@ export class UpdateJusticeRightsRequest extends $tea.Model {
       caseStatus: 'case_status',
       statusExt: 'status_ext',
       statusFileInfos: 'status_file_infos',
+      caseStatusDate: 'case_status_date',
     };
   }
 
@@ -18109,6 +18112,7 @@ export class UpdateJusticeRightsRequest extends $tea.Model {
       caseStatus: 'string',
       statusExt: 'string',
       statusFileInfos: { 'type': 'array', 'itemType': FileInfo },
+      caseStatusDate: 'string',
     };
   }
 
@@ -18172,6 +18176,8 @@ export class NotifyJusticeRightspaymentRequest extends $tea.Model {
   paymentFileInfos?: FileInfo[];
   // 缴费账户信息(待缴费时必填),示例查看对接文档
   paymentInfo?: PaymentInfo;
+  // 缴费状态(SUCCESS)实际对应时间
+  paymentStatusSuccessDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18183,6 +18189,7 @@ export class NotifyJusticeRightspaymentRequest extends $tea.Model {
       paymentRemark: 'payment_remark',
       paymentFileInfos: 'payment_file_infos',
       paymentInfo: 'payment_info',
+      paymentStatusSuccessDate: 'payment_status_success_date',
     };
   }
 
@@ -18197,6 +18204,7 @@ export class NotifyJusticeRightspaymentRequest extends $tea.Model {
       paymentRemark: 'string',
       paymentFileInfos: { 'type': 'array', 'itemType': FileInfo },
       paymentInfo: PaymentInfo,
+      paymentStatusSuccessDate: 'string',
     };
   }
 
@@ -31511,7 +31519,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.40",
+          sdk_version: "1.8.41",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
