@@ -42,6 +42,12 @@ class UpdateJusticeRightsRequest extends Model
      * @var FileInfo[]
      */
     public $statusFileInfos;
+
+    // 案件状态对应的实际时间
+    /**
+     * @var string
+     */
+    public $caseStatusDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,12 +55,14 @@ class UpdateJusticeRightsRequest extends Model
         'caseStatus'        => 'case_status',
         'statusExt'         => 'status_ext',
         'statusFileInfos'   => 'status_file_infos',
+        'caseStatusDate'    => 'case_status_date',
     ];
 
     public function validate()
     {
         Model::validateRequired('recordId', $this->recordId, true);
         Model::validateRequired('caseStatus', $this->caseStatus, true);
+        Model::validateRequired('caseStatusDate', $this->caseStatusDate, true);
     }
 
     public function toMap()
@@ -83,6 +91,9 @@ class UpdateJusticeRightsRequest extends Model
                     $res['status_file_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->caseStatusDate) {
+            $res['case_status_date'] = $this->caseStatusDate;
         }
 
         return $res;
@@ -119,6 +130,9 @@ class UpdateJusticeRightsRequest extends Model
                     $model->statusFileInfos[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['case_status_date'])) {
+            $model->caseStatusDate = $map['case_status_date'];
         }
 
         return $model;

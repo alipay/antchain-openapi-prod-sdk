@@ -65,16 +65,23 @@ class NotifyJusticeRightspaymentRequest extends Model
      * @var PaymentInfo
      */
     public $paymentInfo;
+
+    // 缴费状态(SUCCESS)实际对应时间
+    /**
+     * @var string
+     */
+    public $paymentStatusSuccessDate;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'recordId'          => 'record_id',
-        'amount'            => 'amount',
-        'paymentType'       => 'payment_type',
-        'paymentStatus'     => 'payment_status',
-        'paymentRemark'     => 'payment_remark',
-        'paymentFileInfos'  => 'payment_file_infos',
-        'paymentInfo'       => 'payment_info',
+        'authToken'                => 'auth_token',
+        'productInstanceId'        => 'product_instance_id',
+        'recordId'                 => 'record_id',
+        'amount'                   => 'amount',
+        'paymentType'              => 'payment_type',
+        'paymentStatus'            => 'payment_status',
+        'paymentRemark'            => 'payment_remark',
+        'paymentFileInfos'         => 'payment_file_infos',
+        'paymentInfo'              => 'payment_info',
+        'paymentStatusSuccessDate' => 'payment_status_success_date',
     ];
 
     public function validate()
@@ -121,6 +128,9 @@ class NotifyJusticeRightspaymentRequest extends Model
         if (null !== $this->paymentInfo) {
             $res['payment_info'] = null !== $this->paymentInfo ? $this->paymentInfo->toMap() : null;
         }
+        if (null !== $this->paymentStatusSuccessDate) {
+            $res['payment_status_success_date'] = $this->paymentStatusSuccessDate;
+        }
 
         return $res;
     }
@@ -165,6 +175,9 @@ class NotifyJusticeRightspaymentRequest extends Model
         }
         if (isset($map['payment_info'])) {
             $model->paymentInfo = PaymentInfo::fromMap($map['payment_info']);
+        }
+        if (isset($map['payment_status_success_date'])) {
+            $model->paymentStatusSuccessDate = $map['payment_status_success_date'];
         }
 
         return $model;
