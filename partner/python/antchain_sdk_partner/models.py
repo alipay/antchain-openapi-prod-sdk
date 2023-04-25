@@ -2746,6 +2746,8 @@ class QueryAreaProvinceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         provinces: List[Province] = None,
+        error_message: str = None,
+        code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2755,6 +2757,10 @@ class QueryAreaProvinceResponse(TeaModel):
         self.result_msg = result_msg
         # 省份信息列表
         self.provinces = provinces
+        # 错误描述
+        self.error_message = error_message
+        # 结果码
+        self.code = code
 
     def validate(self):
         if self.provinces:
@@ -2778,6 +2784,10 @@ class QueryAreaProvinceResponse(TeaModel):
         if self.provinces is not None:
             for k in self.provinces:
                 result['provinces'].append(k.to_map() if k else None)
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.code is not None:
+            result['code'] = self.code
         return result
 
     def from_map(self, m: dict = None):
@@ -2793,6 +2803,10 @@ class QueryAreaProvinceResponse(TeaModel):
             for k in m.get('provinces'):
                 temp_model = Province()
                 self.provinces.append(temp_model.from_map(k))
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('code') is not None:
+            self.code = m.get('code')
         return self
 
 
@@ -2845,6 +2859,8 @@ class QueryAreaCityResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         cities: List[City] = None,
+        code: str = None,
+        error_message: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2854,6 +2870,10 @@ class QueryAreaCityResponse(TeaModel):
         self.result_msg = result_msg
         # 城市列表
         self.cities = cities
+        # 结果码
+        self.code = code
+        # 错误描述
+        self.error_message = error_message
 
     def validate(self):
         if self.cities:
@@ -2877,6 +2897,10 @@ class QueryAreaCityResponse(TeaModel):
         if self.cities is not None:
             for k in self.cities:
                 result['cities'].append(k.to_map() if k else None)
+        if self.code is not None:
+            result['code'] = self.code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
         return result
 
     def from_map(self, m: dict = None):
@@ -2892,6 +2916,10 @@ class QueryAreaCityResponse(TeaModel):
             for k in m.get('cities'):
                 temp_model = City()
                 self.cities.append(temp_model.from_map(k))
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
         return self
 
 
@@ -2937,6 +2965,8 @@ class QueryPbcInstitutionResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         institutions: List[Institution] = None,
+        code: str = None,
+        error_message: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2946,6 +2976,10 @@ class QueryPbcInstitutionResponse(TeaModel):
         self.result_msg = result_msg
         # 银行机构信息列表
         self.institutions = institutions
+        # 结果码
+        self.code = code
+        # 错误描述
+        self.error_message = error_message
 
     def validate(self):
         if self.institutions:
@@ -2969,6 +3003,10 @@ class QueryPbcInstitutionResponse(TeaModel):
         if self.institutions is not None:
             for k in self.institutions:
                 result['institutions'].append(k.to_map() if k else None)
+        if self.code is not None:
+            result['code'] = self.code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
         return result
 
     def from_map(self, m: dict = None):
@@ -2984,6 +3022,10 @@ class QueryPbcInstitutionResponse(TeaModel):
             for k in m.get('institutions'):
                 temp_model = Institution()
                 self.institutions.append(temp_model.from_map(k))
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
         return self
 
 
@@ -3053,6 +3095,8 @@ class QueryPbcNameResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         pbc_infos: List[PbcInfo] = None,
+        error_message: str = None,
+        code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3062,6 +3106,10 @@ class QueryPbcNameResponse(TeaModel):
         self.result_msg = result_msg
         # 查询到的支行信息列表
         self.pbc_infos = pbc_infos
+        # 错误描述
+        self.error_message = error_message
+        # 结果码
+        self.code = code
 
     def validate(self):
         if self.pbc_infos:
@@ -3085,6 +3133,10 @@ class QueryPbcNameResponse(TeaModel):
         if self.pbc_infos is not None:
             for k in self.pbc_infos:
                 result['pbc_infos'].append(k.to_map() if k else None)
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.code is not None:
+            result['code'] = self.code
         return result
 
     def from_map(self, m: dict = None):
@@ -3100,6 +3152,10 @@ class QueryPbcNameResponse(TeaModel):
             for k in m.get('pbc_infos'):
                 temp_model = PbcInfo()
                 self.pbc_infos.append(temp_model.from_map(k))
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('code') is not None:
+            self.code = m.get('code')
         return self
 
 
