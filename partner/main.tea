@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.19',
+    sdk_version = '1.0.21',
     _prod_code = 'PARTNER',
     _prod_channel = 'undefined'
   };
@@ -936,6 +936,8 @@ model QueryAreaProvinceRequest = {
   authToken?: string(name='auth_token'),
   // 省份, 空:全部省份, 不为空筛选关键字省份
   province?: string(name='province'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
 }
 
 model QueryAreaProvinceResponse = {
@@ -947,6 +949,10 @@ model QueryAreaProvinceResponse = {
   resultMsg?: string(name='result_msg'),
   // 省份信息列表
   provinces?: [ Province ](name='provinces'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 结果码
+  code?: string(name='code'),
 }
 
 /**
@@ -975,6 +981,8 @@ model QueryAreaCityRequest = {
   province: string(name='province'),
   // 城市
   city?: string(name='city'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
 }
 
 model QueryAreaCityResponse = {
@@ -986,6 +994,10 @@ model QueryAreaCityResponse = {
   resultMsg?: string(name='result_msg'),
   // 城市列表
   cities?: [ City ](name='cities'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
 }
 
 /**
@@ -1012,6 +1024,8 @@ model QueryPbcInstitutionRequest = {
   authToken?: string(name='auth_token'),
   // 机构名称关键字
   instName: string(name='inst_name'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
 }
 
 model QueryPbcInstitutionResponse = {
@@ -1023,6 +1037,10 @@ model QueryPbcInstitutionResponse = {
   resultMsg?: string(name='result_msg'),
   // 银行机构信息列表
   institutions?: [ Institution ](name='institutions'),
+  // 结果码
+  code?: string(name='code'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
 }
 
 /**
@@ -1055,6 +1073,8 @@ model QueryPbcNameRequest = {
   instId: string(name='inst_id'),
   // 支行名称关键字
   branchName: string(name='branch_name'),
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string(name='source'),
 }
 
 model QueryPbcNameResponse = {
@@ -1066,6 +1086,10 @@ model QueryPbcNameResponse = {
   resultMsg?: string(name='result_msg'),
   // 查询到的支行信息列表
   pbcInfos?: [ PbcInfo ](name='pbc_infos'),
+  // 错误描述
+  errorMessage?: string(name='error_message'),
+  // 结果码
+  code?: string(name='code'),
 }
 
 /**

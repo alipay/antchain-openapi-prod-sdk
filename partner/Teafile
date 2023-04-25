@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "PARTNER",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-partner:1.0.19",
-    "go": "github.com/antchain-openapi-sdk-go/partner/client:v1.0.19",
-    "csharp": "AntChain.SDK.PARTNER:1.0.19",
-    "ts": "@antchain/partner:1.0.19",
-    "php": "antchain/partner:^0.1.0",
-    "python": "antchain_sdk_partner:1.0.19"
+    "java": "com.antgroup.antchain.openapi:openapi-partner:1.0.21",
+    "go": "github.com/antchain-openapi-sdk-go/partner/client:v1.0.21",
+    "csharp": "AntChain.SDK.PARTNER:1.0.21",
+    "ts": "@antchain/partner:1.0.21",
+    "php": "antchain/partner:1.0.21",
+    "python": "antchain_sdk_partner:1.0.21"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
