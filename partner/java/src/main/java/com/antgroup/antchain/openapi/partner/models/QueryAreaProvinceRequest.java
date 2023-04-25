@@ -12,6 +12,11 @@ public class QueryAreaProvinceRequest extends TeaModel {
     @NameInMap("province")
     public String province;
 
+    // 租户来源-用于租户间功能和数据的隔离
+    @NameInMap("source")
+    @Validation(required = true)
+    public String source;
+
     public static QueryAreaProvinceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAreaProvinceRequest self = new QueryAreaProvinceRequest();
         return TeaModel.build(map, self);
@@ -31,6 +36,14 @@ public class QueryAreaProvinceRequest extends TeaModel {
     }
     public String getProvince() {
         return this.province;
+    }
+
+    public QueryAreaProvinceRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

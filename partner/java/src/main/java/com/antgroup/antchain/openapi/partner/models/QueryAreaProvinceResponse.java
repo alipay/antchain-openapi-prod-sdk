@@ -20,6 +20,14 @@ public class QueryAreaProvinceResponse extends TeaModel {
     @NameInMap("provinces")
     public java.util.List<Province> provinces;
 
+    // 错误描述
+    @NameInMap("error_message")
+    public String errorMessage;
+
+    // 结果码
+    @NameInMap("code")
+    public String code;
+
     public static QueryAreaProvinceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAreaProvinceResponse self = new QueryAreaProvinceResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class QueryAreaProvinceResponse extends TeaModel {
     }
     public java.util.List<Province> getProvinces() {
         return this.provinces;
+    }
+
+    public QueryAreaProvinceResponse setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
+
+    public QueryAreaProvinceResponse setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
     }
 
 }

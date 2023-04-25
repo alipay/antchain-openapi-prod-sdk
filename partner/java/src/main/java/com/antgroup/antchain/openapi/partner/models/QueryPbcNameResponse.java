@@ -20,6 +20,14 @@ public class QueryPbcNameResponse extends TeaModel {
     @NameInMap("pbc_infos")
     public java.util.List<PbcInfo> pbcInfos;
 
+    // 错误描述
+    @NameInMap("error_message")
+    public String errorMessage;
+
+    // 结果码
+    @NameInMap("code")
+    public String code;
+
     public static QueryPbcNameResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPbcNameResponse self = new QueryPbcNameResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class QueryPbcNameResponse extends TeaModel {
     }
     public java.util.List<PbcInfo> getPbcInfos() {
         return this.pbcInfos;
+    }
+
+    public QueryPbcNameResponse setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
+
+    public QueryPbcNameResponse setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
     }
 
 }

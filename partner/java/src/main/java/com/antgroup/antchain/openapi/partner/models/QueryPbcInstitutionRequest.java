@@ -13,6 +13,11 @@ public class QueryPbcInstitutionRequest extends TeaModel {
     @Validation(required = true)
     public String instName;
 
+    // 租户来源-用于租户间功能和数据的隔离
+    @NameInMap("source")
+    @Validation(required = true)
+    public String source;
+
     public static QueryPbcInstitutionRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPbcInstitutionRequest self = new QueryPbcInstitutionRequest();
         return TeaModel.build(map, self);
@@ -32,6 +37,14 @@ public class QueryPbcInstitutionRequest extends TeaModel {
     }
     public String getInstName() {
         return this.instName;
+    }
+
+    public QueryPbcInstitutionRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

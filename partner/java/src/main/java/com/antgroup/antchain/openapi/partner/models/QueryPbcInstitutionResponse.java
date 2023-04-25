@@ -20,6 +20,14 @@ public class QueryPbcInstitutionResponse extends TeaModel {
     @NameInMap("institutions")
     public java.util.List<Institution> institutions;
 
+    // 结果码
+    @NameInMap("code")
+    public String code;
+
+    // 错误描述
+    @NameInMap("error_message")
+    public String errorMessage;
+
     public static QueryPbcInstitutionResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPbcInstitutionResponse self = new QueryPbcInstitutionResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class QueryPbcInstitutionResponse extends TeaModel {
     }
     public java.util.List<Institution> getInstitutions() {
         return this.institutions;
+    }
+
+    public QueryPbcInstitutionResponse setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
+    }
+
+    public QueryPbcInstitutionResponse setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
     }
 
 }

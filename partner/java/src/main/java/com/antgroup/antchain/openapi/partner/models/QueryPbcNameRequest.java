@@ -28,6 +28,11 @@ public class QueryPbcNameRequest extends TeaModel {
     @Validation(required = true)
     public String branchName;
 
+    // 租户来源-用于租户间功能和数据的隔离
+    @NameInMap("source")
+    @Validation(required = true)
+    public String source;
+
     public static QueryPbcNameRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPbcNameRequest self = new QueryPbcNameRequest();
         return TeaModel.build(map, self);
@@ -71,6 +76,14 @@ public class QueryPbcNameRequest extends TeaModel {
     }
     public String getBranchName() {
         return this.branchName;
+    }
+
+    public QueryPbcNameRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
     }
 
 }

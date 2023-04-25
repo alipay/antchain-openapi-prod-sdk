@@ -20,6 +20,14 @@ public class QueryAreaCityResponse extends TeaModel {
     @NameInMap("cities")
     public java.util.List<City> cities;
 
+    // 结果码
+    @NameInMap("code")
+    public String code;
+
+    // 错误描述
+    @NameInMap("error_message")
+    public String errorMessage;
+
     public static QueryAreaCityResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAreaCityResponse self = new QueryAreaCityResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class QueryAreaCityResponse extends TeaModel {
     }
     public java.util.List<City> getCities() {
         return this.cities;
+    }
+
+    public QueryAreaCityResponse setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
+    }
+
+    public QueryAreaCityResponse setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
     }
 
 }
