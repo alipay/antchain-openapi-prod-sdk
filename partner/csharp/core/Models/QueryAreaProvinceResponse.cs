@@ -29,6 +29,16 @@ namespace AntChain.SDK.PARTNER.Models
         [Validation(Required=false)]
         public List<Province> Provinces { get; set; }
 
+        // 错误描述
+        [NameInMap("error_message")]
+        [Validation(Required=false)]
+        public string ErrorMessage { get; set; }
+
+        // 结果码
+        [NameInMap("code")]
+        [Validation(Required=false)]
+        public string Code { get; set; }
+
     }
 
 }
