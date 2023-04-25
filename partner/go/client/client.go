@@ -2114,6 +2114,10 @@ type QueryAreaProvinceResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 省份信息列表
 	Provinces []*Province `json:"provinces,omitempty" xml:"provinces,omitempty" type:"Repeated"`
+	// 错误描述
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 }
 
 func (s QueryAreaProvinceResponse) String() string {
@@ -2141,6 +2145,16 @@ func (s *QueryAreaProvinceResponse) SetResultMsg(v string) *QueryAreaProvinceRes
 
 func (s *QueryAreaProvinceResponse) SetProvinces(v []*Province) *QueryAreaProvinceResponse {
 	s.Provinces = v
+	return s
+}
+
+func (s *QueryAreaProvinceResponse) SetErrorMessage(v string) *QueryAreaProvinceResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryAreaProvinceResponse) SetCode(v string) *QueryAreaProvinceResponse {
+	s.Code = &v
 	return s
 }
 
@@ -2185,6 +2199,10 @@ type QueryAreaCityResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 城市列表
 	Cities []*City `json:"cities,omitempty" xml:"cities,omitempty" type:"Repeated"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误描述
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
 }
 
 func (s QueryAreaCityResponse) String() string {
@@ -2212,6 +2230,16 @@ func (s *QueryAreaCityResponse) SetResultMsg(v string) *QueryAreaCityResponse {
 
 func (s *QueryAreaCityResponse) SetCities(v []*City) *QueryAreaCityResponse {
 	s.Cities = v
+	return s
+}
+
+func (s *QueryAreaCityResponse) SetCode(v string) *QueryAreaCityResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryAreaCityResponse) SetErrorMessage(v string) *QueryAreaCityResponse {
+	s.ErrorMessage = &v
 	return s
 }
 
@@ -2249,6 +2277,10 @@ type QueryPbcInstitutionResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 银行机构信息列表
 	Institutions []*Institution `json:"institutions,omitempty" xml:"institutions,omitempty" type:"Repeated"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误描述
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
 }
 
 func (s QueryPbcInstitutionResponse) String() string {
@@ -2276,6 +2308,16 @@ func (s *QueryPbcInstitutionResponse) SetResultMsg(v string) *QueryPbcInstitutio
 
 func (s *QueryPbcInstitutionResponse) SetInstitutions(v []*Institution) *QueryPbcInstitutionResponse {
 	s.Institutions = v
+	return s
+}
+
+func (s *QueryPbcInstitutionResponse) SetCode(v string) *QueryPbcInstitutionResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryPbcInstitutionResponse) SetErrorMessage(v string) *QueryPbcInstitutionResponse {
+	s.ErrorMessage = &v
 	return s
 }
 
@@ -2334,6 +2376,10 @@ type QueryPbcNameResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 查询到的支行信息列表
 	PbcInfos []*PbcInfo `json:"pbc_infos,omitempty" xml:"pbc_infos,omitempty" type:"Repeated"`
+	// 错误描述
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
 }
 
 func (s QueryPbcNameResponse) String() string {
@@ -2361,6 +2407,16 @@ func (s *QueryPbcNameResponse) SetResultMsg(v string) *QueryPbcNameResponse {
 
 func (s *QueryPbcNameResponse) SetPbcInfos(v []*PbcInfo) *QueryPbcNameResponse {
 	s.PbcInfos = v
+	return s
+}
+
+func (s *QueryPbcNameResponse) SetErrorMessage(v string) *QueryPbcNameResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryPbcNameResponse) SetCode(v string) *QueryPbcNameResponse {
+	s.Code = &v
 	return s
 }
 
@@ -2486,7 +2542,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.0.20"),
 				"_prod_code":       tea.String("PARTNER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
