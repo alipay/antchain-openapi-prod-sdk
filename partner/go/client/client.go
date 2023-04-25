@@ -2085,6 +2085,8 @@ type QueryAreaProvinceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 省份, 空:全部省份, 不为空筛选关键字省份
 	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 租户来源-用于租户间功能和数据的隔离
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 }
 
 func (s QueryAreaProvinceRequest) String() string {
@@ -2102,6 +2104,11 @@ func (s *QueryAreaProvinceRequest) SetAuthToken(v string) *QueryAreaProvinceRequ
 
 func (s *QueryAreaProvinceRequest) SetProvince(v string) *QueryAreaProvinceRequest {
 	s.Province = &v
+	return s
+}
+
+func (s *QueryAreaProvinceRequest) SetSource(v string) *QueryAreaProvinceRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2165,6 +2172,8 @@ type QueryAreaCityRequest struct {
 	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
 	// 城市
 	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 租户来源-用于租户间功能和数据的隔离
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 }
 
 func (s QueryAreaCityRequest) String() string {
@@ -2187,6 +2196,11 @@ func (s *QueryAreaCityRequest) SetProvince(v string) *QueryAreaCityRequest {
 
 func (s *QueryAreaCityRequest) SetCity(v string) *QueryAreaCityRequest {
 	s.City = &v
+	return s
+}
+
+func (s *QueryAreaCityRequest) SetSource(v string) *QueryAreaCityRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2248,6 +2262,8 @@ type QueryPbcInstitutionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 机构名称关键字
 	InstName *string `json:"inst_name,omitempty" xml:"inst_name,omitempty" require:"true"`
+	// 租户来源-用于租户间功能和数据的隔离
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 }
 
 func (s QueryPbcInstitutionRequest) String() string {
@@ -2265,6 +2281,11 @@ func (s *QueryPbcInstitutionRequest) SetAuthToken(v string) *QueryPbcInstitution
 
 func (s *QueryPbcInstitutionRequest) SetInstName(v string) *QueryPbcInstitutionRequest {
 	s.InstName = &v
+	return s
+}
+
+func (s *QueryPbcInstitutionRequest) SetSource(v string) *QueryPbcInstitutionRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2332,6 +2353,8 @@ type QueryPbcNameRequest struct {
 	InstId *string `json:"inst_id,omitempty" xml:"inst_id,omitempty" require:"true"`
 	// 支行名称关键字
 	BranchName *string `json:"branch_name,omitempty" xml:"branch_name,omitempty" require:"true"`
+	// 租户来源-用于租户间功能和数据的隔离
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 }
 
 func (s QueryPbcNameRequest) String() string {
@@ -2364,6 +2387,11 @@ func (s *QueryPbcNameRequest) SetInstId(v string) *QueryPbcNameRequest {
 
 func (s *QueryPbcNameRequest) SetBranchName(v string) *QueryPbcNameRequest {
 	s.BranchName = &v
+	return s
+}
+
+func (s *QueryPbcNameRequest) SetSource(v string) *QueryPbcNameRequest {
+	s.Source = &v
 	return s
 }
 
@@ -2542,7 +2570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.20"),
+				"sdk_version":      tea.String("1.0.21"),
 				"_prod_code":       tea.String("PARTNER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
