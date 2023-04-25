@@ -31,11 +31,25 @@ class QueryAreaProvinceResponse extends Model
      * @var Province[]
      */
     public $provinces;
+
+    // 错误描述
+    /**
+     * @var string
+     */
+    public $errorMessage;
+
+    // 结果码
+    /**
+     * @var string
+     */
+    public $code;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'provinces'  => 'provinces',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'provinces'    => 'provinces',
+        'errorMessage' => 'error_message',
+        'code'         => 'code',
     ];
 
     public function validate()
@@ -62,6 +76,12 @@ class QueryAreaProvinceResponse extends Model
                     $res['provinces'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->errorMessage) {
+            $res['error_message'] = $this->errorMessage;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
 
         return $res;
@@ -92,6 +112,12 @@ class QueryAreaProvinceResponse extends Model
                     $model->provinces[$n++] = null !== $item ? Province::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['error_message'])) {
+            $model->errorMessage = $map['error_message'];
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
 
         return $model;

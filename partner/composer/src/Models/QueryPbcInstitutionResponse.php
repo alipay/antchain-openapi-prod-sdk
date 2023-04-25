@@ -31,11 +31,25 @@ class QueryPbcInstitutionResponse extends Model
      * @var Institution[]
      */
     public $institutions;
+
+    // 结果码
+    /**
+     * @var string
+     */
+    public $code;
+
+    // 错误描述
+    /**
+     * @var string
+     */
+    public $errorMessage;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'institutions' => 'institutions',
+        'code'         => 'code',
+        'errorMessage' => 'error_message',
     ];
 
     public function validate()
@@ -62,6 +76,12 @@ class QueryPbcInstitutionResponse extends Model
                     $res['institutions'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->errorMessage) {
+            $res['error_message'] = $this->errorMessage;
         }
 
         return $res;
@@ -92,6 +112,12 @@ class QueryPbcInstitutionResponse extends Model
                     $model->institutions[$n++] = null !== $item ? Institution::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['error_message'])) {
+            $model->errorMessage = $map['error_message'];
         }
 
         return $model;

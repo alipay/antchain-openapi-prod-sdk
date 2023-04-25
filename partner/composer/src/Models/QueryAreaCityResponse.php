@@ -31,11 +31,25 @@ class QueryAreaCityResponse extends Model
      * @var City[]
      */
     public $cities;
+
+    // 结果码
+    /**
+     * @var string
+     */
+    public $code;
+
+    // 错误描述
+    /**
+     * @var string
+     */
+    public $errorMessage;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'cities'     => 'cities',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'cities'       => 'cities',
+        'code'         => 'code',
+        'errorMessage' => 'error_message',
     ];
 
     public function validate()
@@ -62,6 +76,12 @@ class QueryAreaCityResponse extends Model
                     $res['cities'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->errorMessage) {
+            $res['error_message'] = $this->errorMessage;
         }
 
         return $res;
@@ -92,6 +112,12 @@ class QueryAreaCityResponse extends Model
                     $model->cities[$n++] = null !== $item ? City::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['error_message'])) {
+            $model->errorMessage = $map['error_message'];
         }
 
         return $model;
