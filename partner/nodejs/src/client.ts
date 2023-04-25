@@ -1634,10 +1634,13 @@ export class QueryAreaProvinceRequest extends $tea.Model {
   authToken?: string;
   // 省份, 空:全部省份, 不为空筛选关键字省份
   province?: string;
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       province: 'province',
+      source: 'source',
     };
   }
 
@@ -1645,6 +1648,7 @@ export class QueryAreaProvinceRequest extends $tea.Model {
     return {
       authToken: 'string',
       province: 'string',
+      source: 'string',
     };
   }
 
@@ -1700,11 +1704,14 @@ export class QueryAreaCityRequest extends $tea.Model {
   province: string;
   // 城市
   city?: string;
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       province: 'province',
       city: 'city',
+      source: 'source',
     };
   }
 
@@ -1713,6 +1720,7 @@ export class QueryAreaCityRequest extends $tea.Model {
       authToken: 'string',
       province: 'string',
       city: 'string',
+      source: 'string',
     };
   }
 
@@ -1766,10 +1774,13 @@ export class QueryPbcInstitutionRequest extends $tea.Model {
   authToken?: string;
   // 机构名称关键字
   instName: string;
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       instName: 'inst_name',
+      source: 'source',
     };
   }
 
@@ -1777,6 +1788,7 @@ export class QueryPbcInstitutionRequest extends $tea.Model {
     return {
       authToken: 'string',
       instName: 'string',
+      source: 'string',
     };
   }
 
@@ -1836,6 +1848,8 @@ export class QueryPbcNameRequest extends $tea.Model {
   instId: string;
   // 支行名称关键字
   branchName: string;
+  // 租户来源-用于租户间功能和数据的隔离
+  source: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1843,6 +1857,7 @@ export class QueryPbcNameRequest extends $tea.Model {
       city: 'city',
       instId: 'inst_id',
       branchName: 'branch_name',
+      source: 'source',
     };
   }
 
@@ -1853,6 +1868,7 @@ export class QueryPbcNameRequest extends $tea.Model {
       city: 'string',
       instId: 'string',
       branchName: 'string',
+      source: 'string',
     };
   }
 
@@ -2014,7 +2030,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.20",
+          sdk_version: "1.0.21",
           _prod_code: "PARTNER",
           _prod_channel: "undefined",
         };
