@@ -24,6 +24,11 @@ namespace AntChain.SDK.PARTNER.Models
         [Validation(Required=false)]
         public string City { get; set; }
 
+        // 租户来源-用于租户间功能和数据的隔离
+        [NameInMap("source")]
+        [Validation(Required=true)]
+        public string Source { get; set; }
+
     }
 
 }
