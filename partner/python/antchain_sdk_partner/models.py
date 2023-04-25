@@ -2709,14 +2709,17 @@ class QueryAreaProvinceRequest(TeaModel):
         self,
         auth_token: str = None,
         province: str = None,
+        source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 省份, 空:全部省份, 不为空筛选关键字省份
         self.province = province
+        # 租户来源-用于租户间功能和数据的隔离
+        self.source = source
 
     def validate(self):
-        pass
+        self.validate_required(self.source, 'source')
 
     def to_map(self):
         _map = super().to_map()
@@ -2728,6 +2731,8 @@ class QueryAreaProvinceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.province is not None:
             result['province'] = self.province
+        if self.source is not None:
+            result['source'] = self.source
         return result
 
     def from_map(self, m: dict = None):
@@ -2736,6 +2741,8 @@ class QueryAreaProvinceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('province') is not None:
             self.province = m.get('province')
+        if m.get('source') is not None:
+            self.source = m.get('source')
         return self
 
 
@@ -2816,6 +2823,7 @@ class QueryAreaCityRequest(TeaModel):
         auth_token: str = None,
         province: str = None,
         city: str = None,
+        source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2823,9 +2831,12 @@ class QueryAreaCityRequest(TeaModel):
         self.province = province
         # 城市
         self.city = city
+        # 租户来源-用于租户间功能和数据的隔离
+        self.source = source
 
     def validate(self):
         self.validate_required(self.province, 'province')
+        self.validate_required(self.source, 'source')
 
     def to_map(self):
         _map = super().to_map()
@@ -2839,6 +2850,8 @@ class QueryAreaCityRequest(TeaModel):
             result['province'] = self.province
         if self.city is not None:
             result['city'] = self.city
+        if self.source is not None:
+            result['source'] = self.source
         return result
 
     def from_map(self, m: dict = None):
@@ -2849,6 +2862,8 @@ class QueryAreaCityRequest(TeaModel):
             self.province = m.get('province')
         if m.get('city') is not None:
             self.city = m.get('city')
+        if m.get('source') is not None:
+            self.source = m.get('source')
         return self
 
 
@@ -2928,14 +2943,18 @@ class QueryPbcInstitutionRequest(TeaModel):
         self,
         auth_token: str = None,
         inst_name: str = None,
+        source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 机构名称关键字
         self.inst_name = inst_name
+        # 租户来源-用于租户间功能和数据的隔离
+        self.source = source
 
     def validate(self):
         self.validate_required(self.inst_name, 'inst_name')
+        self.validate_required(self.source, 'source')
 
     def to_map(self):
         _map = super().to_map()
@@ -2947,6 +2966,8 @@ class QueryPbcInstitutionRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.inst_name is not None:
             result['inst_name'] = self.inst_name
+        if self.source is not None:
+            result['source'] = self.source
         return result
 
     def from_map(self, m: dict = None):
@@ -2955,6 +2976,8 @@ class QueryPbcInstitutionRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('inst_name') is not None:
             self.inst_name = m.get('inst_name')
+        if m.get('source') is not None:
+            self.source = m.get('source')
         return self
 
 
@@ -3037,6 +3060,7 @@ class QueryPbcNameRequest(TeaModel):
         city: str = None,
         inst_id: str = None,
         branch_name: str = None,
+        source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3048,12 +3072,15 @@ class QueryPbcNameRequest(TeaModel):
         self.inst_id = inst_id
         # 支行名称关键字
         self.branch_name = branch_name
+        # 租户来源-用于租户间功能和数据的隔离
+        self.source = source
 
     def validate(self):
         self.validate_required(self.province, 'province')
         self.validate_required(self.city, 'city')
         self.validate_required(self.inst_id, 'inst_id')
         self.validate_required(self.branch_name, 'branch_name')
+        self.validate_required(self.source, 'source')
 
     def to_map(self):
         _map = super().to_map()
@@ -3071,6 +3098,8 @@ class QueryPbcNameRequest(TeaModel):
             result['inst_id'] = self.inst_id
         if self.branch_name is not None:
             result['branch_name'] = self.branch_name
+        if self.source is not None:
+            result['source'] = self.source
         return result
 
     def from_map(self, m: dict = None):
@@ -3085,6 +3114,8 @@ class QueryPbcNameRequest(TeaModel):
             self.inst_id = m.get('inst_id')
         if m.get('branch_name') is not None:
             self.branch_name = m.get('branch_name')
+        if m.get('source') is not None:
+            self.source = m.get('source')
         return self
 
 
