@@ -1662,12 +1662,18 @@ export class QueryAreaProvinceResponse extends $tea.Model {
   resultMsg?: string;
   // 省份信息列表
   provinces?: Province[];
+  // 错误描述
+  errorMessage?: string;
+  // 结果码
+  code?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       provinces: 'provinces',
+      errorMessage: 'error_message',
+      code: 'code',
     };
   }
 
@@ -1677,6 +1683,8 @@ export class QueryAreaProvinceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       provinces: { 'type': 'array', 'itemType': Province },
+      errorMessage: 'string',
+      code: 'string',
     };
   }
 
@@ -1722,12 +1730,18 @@ export class QueryAreaCityResponse extends $tea.Model {
   resultMsg?: string;
   // 城市列表
   cities?: City[];
+  // 结果码
+  code?: string;
+  // 错误描述
+  errorMessage?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       cities: 'cities',
+      code: 'code',
+      errorMessage: 'error_message',
     };
   }
 
@@ -1737,6 +1751,8 @@ export class QueryAreaCityResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       cities: { 'type': 'array', 'itemType': City },
+      code: 'string',
+      errorMessage: 'string',
     };
   }
 
@@ -1778,12 +1794,18 @@ export class QueryPbcInstitutionResponse extends $tea.Model {
   resultMsg?: string;
   // 银行机构信息列表
   institutions?: Institution[];
+  // 结果码
+  code?: string;
+  // 错误描述
+  errorMessage?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       institutions: 'institutions',
+      code: 'code',
+      errorMessage: 'error_message',
     };
   }
 
@@ -1793,6 +1815,8 @@ export class QueryPbcInstitutionResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       institutions: { 'type': 'array', 'itemType': Institution },
+      code: 'string',
+      errorMessage: 'string',
     };
   }
 
@@ -1846,12 +1870,18 @@ export class QueryPbcNameResponse extends $tea.Model {
   resultMsg?: string;
   // 查询到的支行信息列表
   pbcInfos?: PbcInfo[];
+  // 错误描述
+  errorMessage?: string;
+  // 结果码
+  code?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       pbcInfos: 'pbc_infos',
+      errorMessage: 'error_message',
+      code: 'code',
     };
   }
 
@@ -1861,6 +1891,8 @@ export class QueryPbcNameResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       pbcInfos: { 'type': 'array', 'itemType': PbcInfo },
+      errorMessage: 'string',
+      code: 'string',
     };
   }
 
@@ -1982,7 +2014,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.0.20",
           _prod_code: "PARTNER",
           _prod_channel: "undefined",
         };
