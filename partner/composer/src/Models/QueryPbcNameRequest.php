@@ -37,12 +37,19 @@ class QueryPbcNameRequest extends Model
      * @var string
      */
     public $branchName;
+
+    // 租户来源-用于租户间功能和数据的隔离
+    /**
+     * @var string
+     */
+    public $source;
     protected $_name = [
         'authToken'  => 'auth_token',
         'province'   => 'province',
         'city'       => 'city',
         'instId'     => 'inst_id',
         'branchName' => 'branch_name',
+        'source'     => 'source',
     ];
 
     public function validate()
@@ -51,6 +58,7 @@ class QueryPbcNameRequest extends Model
         Model::validateRequired('city', $this->city, true);
         Model::validateRequired('instId', $this->instId, true);
         Model::validateRequired('branchName', $this->branchName, true);
+        Model::validateRequired('source', $this->source, true);
     }
 
     public function toMap()
@@ -70,6 +78,9 @@ class QueryPbcNameRequest extends Model
         }
         if (null !== $this->branchName) {
             $res['branch_name'] = $this->branchName;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
         }
 
         return $res;
@@ -97,6 +108,9 @@ class QueryPbcNameRequest extends Model
         }
         if (isset($map['branch_name'])) {
             $model->branchName = $map['branch_name'];
+        }
+        if (isset($map['source'])) {
+            $model->source = $map['source'];
         }
 
         return $model;

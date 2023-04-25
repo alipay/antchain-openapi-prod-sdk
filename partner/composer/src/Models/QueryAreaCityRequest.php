@@ -25,15 +25,23 @@ class QueryAreaCityRequest extends Model
      * @var string
      */
     public $city;
+
+    // 租户来源-用于租户间功能和数据的隔离
+    /**
+     * @var string
+     */
+    public $source;
     protected $_name = [
         'authToken' => 'auth_token',
         'province'  => 'province',
         'city'      => 'city',
+        'source'    => 'source',
     ];
 
     public function validate()
     {
         Model::validateRequired('province', $this->province, true);
+        Model::validateRequired('source', $this->source, true);
     }
 
     public function toMap()
@@ -47,6 +55,9 @@ class QueryAreaCityRequest extends Model
         }
         if (null !== $this->city) {
             $res['city'] = $this->city;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
         }
 
         return $res;
@@ -68,6 +79,9 @@ class QueryAreaCityRequest extends Model
         }
         if (isset($map['city'])) {
             $model->city = $map['city'];
+        }
+        if (isset($map['source'])) {
+            $model->source = $map['source'];
         }
 
         return $model;

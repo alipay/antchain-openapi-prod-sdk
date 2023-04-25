@@ -19,14 +19,22 @@ class QueryPbcInstitutionRequest extends Model
      * @var string
      */
     public $instName;
+
+    // 租户来源-用于租户间功能和数据的隔离
+    /**
+     * @var string
+     */
+    public $source;
     protected $_name = [
         'authToken' => 'auth_token',
         'instName'  => 'inst_name',
+        'source'    => 'source',
     ];
 
     public function validate()
     {
         Model::validateRequired('instName', $this->instName, true);
+        Model::validateRequired('source', $this->source, true);
     }
 
     public function toMap()
@@ -37,6 +45,9 @@ class QueryPbcInstitutionRequest extends Model
         }
         if (null !== $this->instName) {
             $res['inst_name'] = $this->instName;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
         }
 
         return $res;
@@ -55,6 +66,9 @@ class QueryPbcInstitutionRequest extends Model
         }
         if (isset($map['inst_name'])) {
             $model->instName = $map['inst_name'];
+        }
+        if (isset($map['source'])) {
+            $model->source = $map['source'];
         }
 
         return $model;
