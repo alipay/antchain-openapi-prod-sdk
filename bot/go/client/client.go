@@ -1275,6 +1275,32 @@ func (s *SdkPageResponse) SetPageData(v []*SdkModel) *SdkPageResponse {
 	return s
 }
 
+// code,name
+type CodeListView struct {
+	// 数据code
+	DataCode *string `json:"data_code,omitempty" xml:"data_code,omitempty" require:"true"`
+	// 数据名称
+	DataName *string `json:"data_name,omitempty" xml:"data_name,omitempty" require:"true"`
+}
+
+func (s CodeListView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CodeListView) GoString() string {
+	return s.String()
+}
+
+func (s *CodeListView) SetDataCode(v string) *CodeListView {
+	s.DataCode = &v
+	return s
+}
+
+func (s *CodeListView) SetDataName(v string) *CodeListView {
+	s.DataName = &v
+	return s
+}
+
 // 查询设备列表结构体
 type IotBasicDeviceQueryResponse struct {
 	// 设备名称
@@ -1581,6 +1607,46 @@ func (s *BaiQrcodeComparisonReqData) SetDowngrade(v bool) *BaiQrcodeComparisonRe
 	return s
 }
 
+// 创建xr用户通行证结果信息
+type XrUserTicketResultInfo struct {
+	// xr通行证资源池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 购买数量，失败列表有值
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 失败原因，失败列表有值
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 通行证编号，成功列表有值
+	XrTicketCode *string `json:"xr_ticket_code,omitempty" xml:"xr_ticket_code,omitempty"`
+}
+
+func (s XrUserTicketResultInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrUserTicketResultInfo) GoString() string {
+	return s.String()
+}
+
+func (s *XrUserTicketResultInfo) SetXrTicketPoolName(v string) *XrUserTicketResultInfo {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrUserTicketResultInfo) SetCount(v int64) *XrUserTicketResultInfo {
+	s.Count = &v
+	return s
+}
+
+func (s *XrUserTicketResultInfo) SetErrorMsg(v string) *XrUserTicketResultInfo {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *XrUserTicketResultInfo) SetXrTicketCode(v string) *XrUserTicketResultInfo {
+	s.XrTicketCode = &v
+	return s
+}
+
 // 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
 type WarehouseReqModel struct {
 	// 详细地址
@@ -1741,6 +1807,32 @@ func (s *PurchaseOrderInfoDetail) SetLeaseId(v string) *PurchaseOrderInfoDetail 
 
 func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *PurchaseOrderInfoDetail {
 	s.GoodsIdAndCount = v
+	return s
+}
+
+// 实例信息列表
+type InstanceInfo struct {
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 实例名称
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
+}
+
+func (s InstanceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstanceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InstanceInfo) SetInstanceId(v string) *InstanceInfo {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *InstanceInfo) SetInstanceName(v string) *InstanceInfo {
+	s.InstanceName = &v
 	return s
 }
 
@@ -2365,6 +2457,74 @@ func (s *ChargeDetail) SetDetailServiceMoney(v string) *ChargeDetail {
 	return s
 }
 
+// xr通行证批量创建成功列表
+type XrTicketPoolSuccessList struct {
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 体验时长
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// vr设备集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池最大数
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	// 券池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolSuccessList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolSuccessList) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolSuccessList) SetTenantId(v string) *XrTicketPoolSuccessList {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetResourceId(v string) *XrTicketPoolSuccessList {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetValidTime(v string) *XrTicketPoolSuccessList {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetTestTime(v int64) *XrTicketPoolSuccessList {
+	s.TestTime = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetXrApps(v string) *XrTicketPoolSuccessList {
+	s.XrApps = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetMaxPoolCount(v int64) *XrTicketPoolSuccessList {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetXrTicketPoolName(v string) *XrTicketPoolSuccessList {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolSuccessList) SetXrVerificationType(v string) *XrTicketPoolSuccessList {
+	s.XrVerificationType = &v
+	return s
+}
+
 // 更新设备和空间关联请求结构体
 type UpdateDeviceSpaceReq struct {
 	// API要更新的设备DID
@@ -2739,6 +2899,137 @@ func (s *ScfLeaseEqpInfoQueryRequest) SetOperationDate(v string) *ScfLeaseEqpInf
 	return s
 }
 
+// 用户通行证详情
+type XrUserTicketDetail struct {
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 所属客户
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 用户通行证编码
+	XrTicketCode *string `json:"xr_ticket_code,omitempty" xml:"xr_ticket_code,omitempty" require:"true"`
+	// xr通行证资源池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 资源名称
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+	// 用户通行证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 核销时间
+	XrVerificationTime *string `json:"xr_verification_time,omitempty" xml:"xr_verification_time,omitempty"`
+	// 体验开始时间
+	SampleStartTime *string `json:"sample_start_time,omitempty" xml:"sample_start_time,omitempty"`
+	// 体验结束时间
+	SampleEndTime *string `json:"sample_end_time,omitempty" xml:"sample_end_time,omitempty"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+	// 实例名称
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	// 体验时长，分
+	TestTime *string `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// vr应用集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+}
+
+func (s XrUserTicketDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrUserTicketDetail) GoString() string {
+	return s.String()
+}
+
+func (s *XrUserTicketDetail) SetBizScene(v string) *XrUserTicketDetail {
+	s.BizScene = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetTenantId(v string) *XrUserTicketDetail {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetXrTicketCode(v string) *XrUserTicketDetail {
+	s.XrTicketCode = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetXrTicketPoolName(v string) *XrUserTicketDetail {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetUserId(v string) *XrUserTicketDetail {
+	s.UserId = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetResourceId(v string) *XrUserTicketDetail {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetResourceName(v string) *XrUserTicketDetail {
+	s.ResourceName = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetStatus(v string) *XrUserTicketDetail {
+	s.Status = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetValidTime(v string) *XrUserTicketDetail {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetInstanceId(v string) *XrUserTicketDetail {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetXrVerificationTime(v string) *XrUserTicketDetail {
+	s.XrVerificationTime = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetSampleStartTime(v string) *XrUserTicketDetail {
+	s.SampleStartTime = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetSampleEndTime(v string) *XrUserTicketDetail {
+	s.SampleEndTime = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetXrVerificationType(v string) *XrUserTicketDetail {
+	s.XrVerificationType = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetInstanceName(v string) *XrUserTicketDetail {
+	s.InstanceName = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetTestTime(v string) *XrUserTicketDetail {
+	s.TestTime = &v
+	return s
+}
+
+func (s *XrUserTicketDetail) SetXrApps(v string) *XrUserTicketDetail {
+	s.XrApps = &v
+	return s
+}
+
 // 信物链查询实体身份请求结构体
 type DidBaseQueryReq struct {
 	// * "thingId"       原始ID
@@ -3048,6 +3339,60 @@ func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 	return s
 }
 
+// 通行证批量创建失败列表
+type XrTicketPoolFailList struct {
+	// 券名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolFailList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolFailList) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolFailList) SetXrTicketPoolName(v string) *XrTicketPoolFailList {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetResourceId(v string) *XrTicketPoolFailList {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetErrorCode(v string) *XrTicketPoolFailList {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetTenantId(v string) *XrTicketPoolFailList {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetErrorMsg(v string) *XrTicketPoolFailList {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetXrVerificationType(v string) *XrTicketPoolFailList {
+	s.XrVerificationType = &v
+	return s
+}
+
 // BAI提供的OCR接口返回值
 type BaiOcrResponse struct {
 	// 返回的结果体
@@ -3083,6 +3428,67 @@ func (s BaiQrcodeVerifyReqData) GoString() string {
 
 func (s *BaiQrcodeVerifyReqData) SetQueryImageUrl(v string) *BaiQrcodeVerifyReqData {
 	s.QueryImageUrl = &v
+	return s
+}
+
+// 线下场设备元素
+type XrVerificationModelVo struct {
+	// 核销资源生成的实例，xr设备对应设备did
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 生成的实例名称，xr设备就的对应的具体设备sn
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
+	// 线下场有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 服务状态：INIT初始化、SERVICING服务中、PAUSED已暂停、EXPIRED停用
+	SeviceStatus *string `json:"sevice_status,omitempty" xml:"sevice_status,omitempty" require:"true"`
+	// 设备状态：INIT 初始化、ONLINE 在线、OFFLINE 离线、FAULT 故障、ACTIVATED 激活
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
+	// 唯一ID，对应线下场code
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 对应线下场名称
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+}
+
+func (s XrVerificationModelVo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrVerificationModelVo) GoString() string {
+	return s.String()
+}
+
+func (s *XrVerificationModelVo) SetInstanceId(v string) *XrVerificationModelVo {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetInstanceName(v string) *XrVerificationModelVo {
+	s.InstanceName = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetValidTime(v string) *XrVerificationModelVo {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetSeviceStatus(v string) *XrVerificationModelVo {
+	s.SeviceStatus = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetDeviceStatus(v string) *XrVerificationModelVo {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetResourceId(v string) *XrVerificationModelVo {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetResourceName(v string) *XrVerificationModelVo {
+	s.ResourceName = &v
 	return s
 }
 
@@ -3412,6 +3818,67 @@ func (s *TsmCommonCmd) SetP2(v int64) *TsmCommonCmd {
 	return s
 }
 
+// xr通行证批量创建请求
+type XrTicketPoolBatchReq struct {
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 通行证有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 体验时长
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// vr设备集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池最大出票数
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	// 通行证名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolBatchReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolBatchReq) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolBatchReq) SetResourceId(v string) *XrTicketPoolBatchReq {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetValidTime(v string) *XrTicketPoolBatchReq {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetTestTime(v int64) *XrTicketPoolBatchReq {
+	s.TestTime = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrApps(v string) *XrTicketPoolBatchReq {
+	s.XrApps = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetMaxPoolCount(v int64) *XrTicketPoolBatchReq {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrTicketPoolName(v string) *XrTicketPoolBatchReq {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrVerificationType(v string) *XrTicketPoolBatchReq {
+	s.XrVerificationType = &v
+	return s
+}
+
 // 设备管控 失败对象
 type DeviceControlFail struct {
 	// 设备did
@@ -3553,6 +4020,116 @@ func (s *RegByDeviceParm) SetOwnerName(v string) *RegByDeviceParm {
 
 func (s *RegByDeviceParm) SetDeviceName(v string) *RegByDeviceParm {
 	s.DeviceName = &v
+	return s
+}
+
+// xr通行证券池分页返回
+type XrTicketPoolItem struct {
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 通行证名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 资源id
+	ResourceId *int64 `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 体验时长
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
+	UseStatus *string `json:"use_status,omitempty" xml:"use_status,omitempty" require:"true"`
+	// 资源名称
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+	// 设备集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池最大票数
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+	// 剩余可用券数量
+	SurplusCount *int64 `json:"surplus_count,omitempty" xml:"surplus_count,omitempty" require:"true"`
+	// 已发放数量 （总数-剩余数量）
+	IssuedCount *int64 `json:"issued_count,omitempty" xml:"issued_count,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolItem) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolItem) SetBizScene(v string) *XrTicketPoolItem {
+	s.BizScene = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetXrTicketPoolName(v string) *XrTicketPoolItem {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetResourceId(v int64) *XrTicketPoolItem {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetValidTime(v string) *XrTicketPoolItem {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetTestTime(v int64) *XrTicketPoolItem {
+	s.TestTime = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetStatus(v string) *XrTicketPoolItem {
+	s.Status = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetUseStatus(v string) *XrTicketPoolItem {
+	s.UseStatus = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetResourceName(v string) *XrTicketPoolItem {
+	s.ResourceName = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetXrApps(v string) *XrTicketPoolItem {
+	s.XrApps = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetMaxPoolCount(v int64) *XrTicketPoolItem {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetTenantId(v string) *XrTicketPoolItem {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetXrVerificationType(v string) *XrTicketPoolItem {
+	s.XrVerificationType = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetSurplusCount(v int64) *XrTicketPoolItem {
+	s.SurplusCount = &v
+	return s
+}
+
+func (s *XrTicketPoolItem) SetIssuedCount(v int64) *XrTicketPoolItem {
+	s.IssuedCount = &v
 	return s
 }
 
@@ -4420,6 +4997,81 @@ func (s *SpaceRegisterReqModel) SetType(v string) *SpaceRegisterReqModel {
 	return s
 }
 
+// xr用户通行证分页结果信息
+type XrUserTicketPageInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户通行证编码
+	XrTicketCode *string `json:"xr_ticket_code,omitempty" xml:"xr_ticket_code,omitempty" require:"true"`
+	// xr通行证资源池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 资源名称
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+	// 用户通行证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrUserTicketPageInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrUserTicketPageInfo) GoString() string {
+	return s.String()
+}
+
+func (s *XrUserTicketPageInfo) SetUserId(v string) *XrUserTicketPageInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetXrTicketCode(v string) *XrUserTicketPageInfo {
+	s.XrTicketCode = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetXrTicketPoolName(v string) *XrUserTicketPageInfo {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetResourceName(v string) *XrUserTicketPageInfo {
+	s.ResourceName = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetStatus(v string) *XrUserTicketPageInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetValidTime(v string) *XrUserTicketPageInfo {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetBizScene(v string) *XrUserTicketPageInfo {
+	s.BizScene = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetTenantId(v string) *XrUserTicketPageInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrUserTicketPageInfo) SetXrVerificationType(v string) *XrUserTicketPageInfo {
+	s.XrVerificationType = &v
+	return s
+}
+
 // 标签流转历史
 type LabelTrace struct {
 	// 操作内容
@@ -4892,6 +5544,88 @@ func (s *ScenePageResponse) SetPageData(v []*SceneModel) *ScenePageResponse {
 	return s
 }
 
+// 客户对应设备
+type CustomerDeviceItem struct {
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	//  设备品类-型号-规格
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 服务有效期
+	ValideTime *string `json:"valide_time,omitempty" xml:"valide_time,omitempty" require:"true"`
+	// 设备状态
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
+	// 服务状态
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
+	// 屏幕状态 开屏、锁屏
+	ScreenStatus *string `json:"screen_status,omitempty" xml:"screen_status,omitempty"`
+}
+
+func (s CustomerDeviceItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerDeviceItem) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerDeviceItem) SetId(v int64) *CustomerDeviceItem {
+	s.Id = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetTenantId(v string) *CustomerDeviceItem {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetAccountId(v string) *CustomerDeviceItem {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceType(v string) *CustomerDeviceItem {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceSn(v string) *CustomerDeviceItem {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceDid(v string) *CustomerDeviceItem {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetValideTime(v string) *CustomerDeviceItem {
+	s.ValideTime = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceStatus(v string) *CustomerDeviceItem {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetServiceStatus(v string) *CustomerDeviceItem {
+	s.ServiceStatus = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetScreenStatus(v string) *CustomerDeviceItem {
+	s.ScreenStatus = &v
+	return s
+}
+
 // 信物链实体查询返回的数据结构，对应数据表字段
 type DidBaseQueryResp struct {
 	// 授权水平，0-默认关联授权
@@ -5036,6 +5770,39 @@ func (s *DidBaseQueryResp) SetUserDidList(v []*string) *DidBaseQueryResp {
 
 func (s *DidBaseQueryResp) SetDid(v string) *DidBaseQueryResp {
 	s.Did = &v
+	return s
+}
+
+// 用户通行证创建详情
+type XrUserTicketInfo struct {
+	// xr通行证资源池id
+	XrTicketPoolId *int64 `json:"xr_ticket_pool_id,omitempty" xml:"xr_ticket_pool_id,omitempty" require:"true"`
+	// xr通行证资源池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 购买数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s XrUserTicketInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrUserTicketInfo) GoString() string {
+	return s.String()
+}
+
+func (s *XrUserTicketInfo) SetXrTicketPoolId(v int64) *XrUserTicketInfo {
+	s.XrTicketPoolId = &v
+	return s
+}
+
+func (s *XrUserTicketInfo) SetXrTicketPoolName(v string) *XrUserTicketInfo {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrUserTicketInfo) SetCount(v int64) *XrUserTicketInfo {
+	s.Count = &v
 	return s
 }
 
@@ -5632,6 +6399,32 @@ func (s *CollectInfo) SetCollectId(v string) *CollectInfo {
 	return s
 }
 
+// id,name
+type IdListView struct {
+	// 数据id
+	DataId *int64 `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 数据名称
+	DataName *string `json:"data_name,omitempty" xml:"data_name,omitempty" require:"true"`
+}
+
+func (s IdListView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdListView) GoString() string {
+	return s.String()
+}
+
+func (s *IdListView) SetDataId(v int64) *IdListView {
+	s.DataId = &v
+	return s
+}
+
+func (s *IdListView) SetDataName(v string) *IdListView {
+	s.DataName = &v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -6217,6 +7010,1617 @@ func (s *QueryLeaseRiskResponse) SetResultMsg(v string) *QueryLeaseRiskResponse 
 
 func (s *QueryLeaseRiskResponse) SetData(v string) *QueryLeaseRiskResponse {
 	s.Data = &v
+	return s
+}
+
+type CreateXrUserticketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 购买的通行证列表详情
+	XrUserTicketList []*XrUserTicketInfo `json:"xr_user_ticket_list,omitempty" xml:"xr_user_ticket_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateXrUserticketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateXrUserticketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateXrUserticketRequest) SetAuthToken(v string) *CreateXrUserticketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateXrUserticketRequest) SetProductInstanceId(v string) *CreateXrUserticketRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateXrUserticketRequest) SetBizScene(v string) *CreateXrUserticketRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *CreateXrUserticketRequest) SetUserId(v string) *CreateXrUserticketRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateXrUserticketRequest) SetXrUserTicketList(v []*XrUserTicketInfo) *CreateXrUserticketRequest {
+	s.XrUserTicketList = v
+	return s
+}
+
+type CreateXrUserticketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 成功列表
+	SuccessList []*XrUserTicketResultInfo `json:"success_list,omitempty" xml:"success_list,omitempty" type:"Repeated"`
+	// 失败列表
+	FailList []*XrUserTicketResultInfo `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
+}
+
+func (s CreateXrUserticketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateXrUserticketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateXrUserticketResponse) SetReqMsgId(v string) *CreateXrUserticketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateXrUserticketResponse) SetResultCode(v string) *CreateXrUserticketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateXrUserticketResponse) SetResultMsg(v string) *CreateXrUserticketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateXrUserticketResponse) SetSuccess(v bool) *CreateXrUserticketResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *CreateXrUserticketResponse) SetSuccessList(v []*XrUserTicketResultInfo) *CreateXrUserticketResponse {
+	s.SuccessList = v
+	return s
+}
+
+func (s *CreateXrUserticketResponse) SetFailList(v []*XrUserTicketResultInfo) *CreateXrUserticketResponse {
+	s.FailList = v
+	return s
+}
+
+type ListXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s ListXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrXrticketpoolRequest) SetAuthToken(v string) *ListXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolRequest) SetProductInstanceId(v string) *ListXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolRequest) SetBizScene(v string) *ListXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+type ListXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 资源池列表
+	XrTicketPoolList []*IdListView `json:"xr_ticket_pool_list,omitempty" xml:"xr_ticket_pool_list,omitempty" type:"Repeated"`
+}
+
+func (s ListXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrXrticketpoolResponse) SetReqMsgId(v string) *ListXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolResponse) SetResultCode(v string) *ListXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolResponse) SetResultMsg(v string) *ListXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolResponse) SetSuccess(v bool) *ListXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ListXrXrticketpoolResponse) SetXrTicketPoolList(v []*IdListView) *ListXrXrticketpoolResponse {
+	s.XrTicketPoolList = v
+	return s
+}
+
+type PagequeryXrUserticketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户通行证状态，
+	// VALID：待核销
+	// WRITE_OFF：已核销
+	// EXPIRED：已过期
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryXrUserticketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrUserticketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrUserticketRequest) SetAuthToken(v string) *PagequeryXrUserticketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetProductInstanceId(v string) *PagequeryXrUserticketRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetBizScene(v string) *PagequeryXrUserticketRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetResourceId(v string) *PagequeryXrUserticketRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetUserId(v string) *PagequeryXrUserticketRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetStatus(v string) *PagequeryXrUserticketRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetCurrent(v int64) *PagequeryXrUserticketRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketRequest) SetPageSize(v int64) *PagequeryXrUserticketRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryXrUserticketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 用户通行证列表
+	XrUserTicketList []*XrUserTicketPageInfo `json:"xr_user_ticket_list,omitempty" xml:"xr_user_ticket_list,omitempty" type:"Repeated"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s PagequeryXrUserticketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrUserticketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrUserticketResponse) SetReqMsgId(v string) *PagequeryXrUserticketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetResultCode(v string) *PagequeryXrUserticketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetResultMsg(v string) *PagequeryXrUserticketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetSuccess(v bool) *PagequeryXrUserticketResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetXrUserTicketList(v []*XrUserTicketPageInfo) *PagequeryXrUserticketResponse {
+	s.XrUserTicketList = v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetCurrent(v int64) *PagequeryXrUserticketResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetPageSize(v int64) *PagequeryXrUserticketResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrUserticketResponse) SetTotal(v int64) *PagequeryXrUserticketResponse {
+	s.Total = &v
+	return s
+}
+
+type GetXrUserticketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 用户通行证编码
+	XrTicketCode *string `json:"xr_ticket_code,omitempty" xml:"xr_ticket_code,omitempty" require:"true"`
+}
+
+func (s GetXrUserticketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetXrUserticketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetXrUserticketRequest) SetAuthToken(v string) *GetXrUserticketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetXrUserticketRequest) SetProductInstanceId(v string) *GetXrUserticketRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetXrUserticketRequest) SetBizScene(v string) *GetXrUserticketRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *GetXrUserticketRequest) SetXrTicketCode(v string) *GetXrUserticketRequest {
+	s.XrTicketCode = &v
+	return s
+}
+
+type GetXrUserticketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 用户通行证详情
+	XrUserTicket *XrUserTicketDetail `json:"xr_user_ticket,omitempty" xml:"xr_user_ticket,omitempty"`
+}
+
+func (s GetXrUserticketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetXrUserticketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetXrUserticketResponse) SetReqMsgId(v string) *GetXrUserticketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetXrUserticketResponse) SetResultCode(v string) *GetXrUserticketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetXrUserticketResponse) SetResultMsg(v string) *GetXrUserticketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetXrUserticketResponse) SetSuccess(v bool) *GetXrUserticketResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *GetXrUserticketResponse) SetXrUserTicket(v *XrUserTicketDetail) *GetXrUserticketResponse {
+	s.XrUserTicket = v
+	return s
+}
+
+type OperateXrUserticketRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 用户通行证编码
+	XrTicketCode *string `json:"xr_ticket_code,omitempty" xml:"xr_ticket_code,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 核销动作
+	// open_screen（设备开屏）
+	XrVerificationOperate *string `json:"xr_verification_operate,omitempty" xml:"xr_verification_operate,omitempty"`
+}
+
+func (s OperateXrUserticketRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateXrUserticketRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateXrUserticketRequest) SetAuthToken(v string) *OperateXrUserticketRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetProductInstanceId(v string) *OperateXrUserticketRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetBizScene(v string) *OperateXrUserticketRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetXrTicketCode(v string) *OperateXrUserticketRequest {
+	s.XrTicketCode = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetUserId(v string) *OperateXrUserticketRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetInstanceId(v string) *OperateXrUserticketRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *OperateXrUserticketRequest) SetXrVerificationOperate(v string) *OperateXrUserticketRequest {
+	s.XrVerificationOperate = &v
+	return s
+}
+
+type OperateXrUserticketResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateXrUserticketResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateXrUserticketResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateXrUserticketResponse) SetReqMsgId(v string) *OperateXrUserticketResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateXrUserticketResponse) SetResultCode(v string) *OperateXrUserticketResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateXrUserticketResponse) SetResultMsg(v string) *OperateXrUserticketResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateXrUserticketResponse) SetSuccess(v bool) *OperateXrUserticketResponse {
+	s.Success = &v
+	return s
+}
+
+type ListXrResourceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 核销资源类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s ListXrResourceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrResourceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrResourceRequest) SetAuthToken(v string) *ListXrResourceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListXrResourceRequest) SetProductInstanceId(v string) *ListXrResourceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListXrResourceRequest) SetBizScene(v string) *ListXrResourceRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *ListXrResourceRequest) SetXrVerificationType(v string) *ListXrResourceRequest {
+	s.XrVerificationType = &v
+	return s
+}
+
+type ListXrResourceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 资源列表
+	ResourceList []*CodeListView `json:"resource_list,omitempty" xml:"resource_list,omitempty" type:"Repeated"`
+}
+
+func (s ListXrResourceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrResourceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrResourceResponse) SetReqMsgId(v string) *ListXrResourceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListXrResourceResponse) SetResultCode(v string) *ListXrResourceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListXrResourceResponse) SetResultMsg(v string) *ListXrResourceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListXrResourceResponse) SetSuccess(v bool) *ListXrResourceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ListXrResourceResponse) SetResourceList(v []*CodeListView) *ListXrResourceResponse {
+	s.ResourceList = v
+	return s
+}
+
+type PagequeryXrXrverificationmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一ID，对应线下场code
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 唯一ID，对应线下场名称
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty"`
+	// 设备sn
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	// 设备did
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s PagequeryXrXrverificationmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrXrverificationmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetAuthToken(v string) *PagequeryXrXrverificationmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetProductInstanceId(v string) *PagequeryXrXrverificationmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetResourceId(v string) *PagequeryXrXrverificationmodelRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetResourceName(v string) *PagequeryXrXrverificationmodelRequest {
+	s.ResourceName = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetInstanceName(v string) *PagequeryXrXrverificationmodelRequest {
+	s.InstanceName = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetInstanceId(v string) *PagequeryXrXrverificationmodelRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetCurrent(v int64) *PagequeryXrXrverificationmodelRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetPageSize(v int64) *PagequeryXrXrverificationmodelRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetBizScene(v string) *PagequeryXrXrverificationmodelRequest {
+	s.BizScene = &v
+	return s
+}
+
+type PagequeryXrXrverificationmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 核销实例列表
+	XrVerificationModelList []*XrVerificationModelVo `json:"xr_verification_model_list,omitempty" xml:"xr_verification_model_list,omitempty" type:"Repeated"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页数据量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+}
+
+func (s PagequeryXrXrverificationmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrXrverificationmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetReqMsgId(v string) *PagequeryXrXrverificationmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetResultCode(v string) *PagequeryXrXrverificationmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetResultMsg(v string) *PagequeryXrXrverificationmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetSuccess(v bool) *PagequeryXrXrverificationmodelResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetXrVerificationModelList(v []*XrVerificationModelVo) *PagequeryXrXrverificationmodelResponse {
+	s.XrVerificationModelList = v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetCurrent(v int64) *PagequeryXrXrverificationmodelResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetPageSize(v int64) *PagequeryXrXrverificationmodelResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetTotal(v int64) *PagequeryXrXrverificationmodelResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelResponse) SetTotalPage(v int64) *PagequeryXrXrverificationmodelResponse {
+	s.TotalPage = &v
+	return s
+}
+
+type PagequeryXrCustomerdeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// 服务状态
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty"`
+	// 设备状态
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	//  设备品类-型号-规格
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页数据
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryXrCustomerdeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrCustomerdeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetAuthToken(v string) *PagequeryXrCustomerdeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetProductInstanceId(v string) *PagequeryXrCustomerdeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetDeviceSn(v string) *PagequeryXrCustomerdeviceRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetServiceStatus(v string) *PagequeryXrCustomerdeviceRequest {
+	s.ServiceStatus = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetDeviceStatus(v string) *PagequeryXrCustomerdeviceRequest {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetDeviceType(v string) *PagequeryXrCustomerdeviceRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetCurrent(v int64) *PagequeryXrCustomerdeviceRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetPageSize(v int64) *PagequeryXrCustomerdeviceRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryXrCustomerdeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 客户对应设备列表
+	CustomerDeviceList []*CustomerDeviceItem `json:"customer_device_list,omitempty" xml:"customer_device_list,omitempty" type:"Repeated"`
+	// 每页数据
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+}
+
+func (s PagequeryXrCustomerdeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrCustomerdeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetReqMsgId(v string) *PagequeryXrCustomerdeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetResultCode(v string) *PagequeryXrCustomerdeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetResultMsg(v string) *PagequeryXrCustomerdeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetSuccess(v bool) *PagequeryXrCustomerdeviceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetCurrent(v int64) *PagequeryXrCustomerdeviceResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetCustomerDeviceList(v []*CustomerDeviceItem) *PagequeryXrCustomerdeviceResponse {
+	s.CustomerDeviceList = v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetPageSize(v int64) *PagequeryXrCustomerdeviceResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetTotal(v int64) *PagequeryXrCustomerdeviceResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceResponse) SetTotalPage(v int64) *PagequeryXrCustomerdeviceResponse {
+	s.TotalPage = &v
+	return s
+}
+
+type CreateXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 体验时长
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// vr设备集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池数量，能发多少张券
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	// 券池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s CreateXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateXrXrticketpoolRequest) SetAuthToken(v string) *CreateXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetProductInstanceId(v string) *CreateXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetBizScene(v string) *CreateXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetResourceId(v string) *CreateXrXrticketpoolRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetValidTime(v string) *CreateXrXrticketpoolRequest {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetTestTime(v int64) *CreateXrXrticketpoolRequest {
+	s.TestTime = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetXrApps(v string) *CreateXrXrticketpoolRequest {
+	s.XrApps = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetMaxPoolCount(v int64) *CreateXrXrticketpoolRequest {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetXrTicketPoolName(v string) *CreateXrXrticketpoolRequest {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolRequest) SetXrVerificationType(v string) *CreateXrXrticketpoolRequest {
+	s.XrVerificationType = &v
+	return s
+}
+
+type CreateXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CreateXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateXrXrticketpoolResponse) SetReqMsgId(v string) *CreateXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolResponse) SetResultCode(v string) *CreateXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolResponse) SetResultMsg(v string) *CreateXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateXrXrticketpoolResponse) SetSuccess(v bool) *CreateXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+type UpdateXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 券池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 通行证有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty"`
+	// 体验时长
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty"`
+	// vr设备集合
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池数量，能发多少张券
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty"`
+	// 核销类型，资源id改变时必须有值
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s UpdateXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetAuthToken(v string) *UpdateXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetProductInstanceId(v string) *UpdateXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetXrTicketPoolName(v string) *UpdateXrXrticketpoolRequest {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetResourceId(v string) *UpdateXrXrticketpoolRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetValidTime(v string) *UpdateXrXrticketpoolRequest {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetTestTime(v int64) *UpdateXrXrticketpoolRequest {
+	s.TestTime = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetXrApps(v string) *UpdateXrXrticketpoolRequest {
+	s.XrApps = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetMaxPoolCount(v int64) *UpdateXrXrticketpoolRequest {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetXrVerificationType(v string) *UpdateXrXrticketpoolRequest {
+	s.XrVerificationType = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolRequest) SetBizScene(v string) *UpdateXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+type UpdateXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s UpdateXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateXrXrticketpoolResponse) SetReqMsgId(v string) *UpdateXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolResponse) SetResultCode(v string) *UpdateXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolResponse) SetResultMsg(v string) *UpdateXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateXrXrticketpoolResponse) SetSuccess(v bool) *UpdateXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+type PagequeryXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 券池名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty"`
+	// 通行证状态，
+	// EXPIRED：已过期
+	// VALID：有效
+	// SALED：已出售
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 当前页
+	//
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetAuthToken(v string) *PagequeryXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetProductInstanceId(v string) *PagequeryXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetBizScene(v string) *PagequeryXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetResourceId(v string) *PagequeryXrXrticketpoolRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetXrTicketPoolName(v string) *PagequeryXrXrticketpoolRequest {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetStatus(v string) *PagequeryXrXrticketpoolRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetCurrent(v int64) *PagequeryXrXrticketpoolRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolRequest) SetPageSize(v int64) *PagequeryXrXrticketpoolRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 通行证列表
+	XrTicketPoolList []*XrTicketPoolItem `json:"xr_ticket_pool_list,omitempty" xml:"xr_ticket_pool_list,omitempty" type:"Repeated"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页数据条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+}
+
+func (s PagequeryXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetReqMsgId(v string) *PagequeryXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetResultCode(v string) *PagequeryXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetResultMsg(v string) *PagequeryXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetXrTicketPoolList(v []*XrTicketPoolItem) *PagequeryXrXrticketpoolResponse {
+	s.XrTicketPoolList = v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetSuccess(v bool) *PagequeryXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetCurrent(v int64) *PagequeryXrXrticketpoolResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetPageSize(v int64) *PagequeryXrXrticketpoolResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetTotal(v int64) *PagequeryXrXrticketpoolResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryXrXrticketpoolResponse) SetTotalPage(v int64) *PagequeryXrXrticketpoolResponse {
+	s.TotalPage = &v
+	return s
+}
+
+type SyncDeviceScreenstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备屏幕状态
+	DeviceScreenStatus *string `json:"device_screen_status,omitempty" xml:"device_screen_status,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 状态改变时间
+	StatusChangeTime *string `json:"status_change_time,omitempty" xml:"status_change_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s SyncDeviceScreenstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncDeviceScreenstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetAuthToken(v string) *SyncDeviceScreenstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetProductInstanceId(v string) *SyncDeviceScreenstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetBizScene(v string) *SyncDeviceScreenstatusRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetDeviceDid(v string) *SyncDeviceScreenstatusRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetDeviceScreenStatus(v string) *SyncDeviceScreenstatusRequest {
+	s.DeviceScreenStatus = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetTenantId(v string) *SyncDeviceScreenstatusRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusRequest) SetStatusChangeTime(v string) *SyncDeviceScreenstatusRequest {
+	s.StatusChangeTime = &v
+	return s
+}
+
+type SyncDeviceScreenstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s SyncDeviceScreenstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncDeviceScreenstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncDeviceScreenstatusResponse) SetReqMsgId(v string) *SyncDeviceScreenstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusResponse) SetResultCode(v string) *SyncDeviceScreenstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusResponse) SetResultMsg(v string) *SyncDeviceScreenstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncDeviceScreenstatusResponse) SetSuccess(v bool) *SyncDeviceScreenstatusResponse {
+	s.Success = &v
+	return s
+}
+
+type BatchcreateXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// xr通行证批量创建请求列表
+	XrTicketPoolReqs []*XrTicketPoolBatchReq `json:"xr_ticket_pool_reqs,omitempty" xml:"xr_ticket_pool_reqs,omitempty" require:"true" type:"Repeated"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s BatchcreateXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateXrXrticketpoolRequest) SetAuthToken(v string) *BatchcreateXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolRequest) SetProductInstanceId(v string) *BatchcreateXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolRequest) SetXrTicketPoolReqs(v []*XrTicketPoolBatchReq) *BatchcreateXrXrticketpoolRequest {
+	s.XrTicketPoolReqs = v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolRequest) SetBizScene(v string) *BatchcreateXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+type BatchcreateXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// xr通行证创建成功列表
+	SuccessList []*XrTicketPoolSuccessList `json:"success_list,omitempty" xml:"success_list,omitempty" type:"Repeated"`
+	// xr通行证创建失败列表
+	FailList []*XrTicketPoolFailList `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
+}
+
+func (s BatchcreateXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetReqMsgId(v string) *BatchcreateXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetResultCode(v string) *BatchcreateXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetResultMsg(v string) *BatchcreateXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetSuccess(v bool) *BatchcreateXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetSuccessList(v []*XrTicketPoolSuccessList) *BatchcreateXrXrticketpoolResponse {
+	s.SuccessList = v
+	return s
+}
+
+func (s *BatchcreateXrXrticketpoolResponse) SetFailList(v []*XrTicketPoolFailList) *BatchcreateXrXrticketpoolResponse {
+	s.FailList = v
+	return s
+}
+
+type ListXrXrverificationmodelinstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 核销类型
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s ListXrXrverificationmodelinstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrXrverificationmodelinstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrXrverificationmodelinstanceRequest) SetAuthToken(v string) *ListXrXrverificationmodelinstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceRequest) SetProductInstanceId(v string) *ListXrXrverificationmodelinstanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceRequest) SetBizScene(v string) *ListXrXrverificationmodelinstanceRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceRequest) SetResourceId(v string) *ListXrXrverificationmodelinstanceRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceRequest) SetXrVerificationType(v string) *ListXrXrverificationmodelinstanceRequest {
+	s.XrVerificationType = &v
+	return s
+}
+
+type ListXrXrverificationmodelinstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 实例信息列表
+	InstanceInfoList []*InstanceInfo `json:"instance_info_list,omitempty" xml:"instance_info_list,omitempty" type:"Repeated"`
+}
+
+func (s ListXrXrverificationmodelinstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListXrXrverificationmodelinstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListXrXrverificationmodelinstanceResponse) SetReqMsgId(v string) *ListXrXrverificationmodelinstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceResponse) SetResultCode(v string) *ListXrXrverificationmodelinstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceResponse) SetResultMsg(v string) *ListXrXrverificationmodelinstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceResponse) SetSuccess(v bool) *ListXrXrverificationmodelinstanceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ListXrXrverificationmodelinstanceResponse) SetInstanceInfoList(v []*InstanceInfo) *ListXrXrverificationmodelinstanceResponse {
+	s.InstanceInfoList = v
+	return s
+}
+
+type DetailXrXrticketpoolRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 券名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+}
+
+func (s DetailXrXrticketpoolRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailXrXrticketpoolRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailXrXrticketpoolRequest) SetAuthToken(v string) *DetailXrXrticketpoolRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolRequest) SetProductInstanceId(v string) *DetailXrXrticketpoolRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolRequest) SetBizScene(v string) *DetailXrXrticketpoolRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolRequest) SetXrTicketPoolName(v string) *DetailXrXrticketpoolRequest {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+type DetailXrXrticketpoolResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 通行证对象
+	XrTicketPoolDetail *XrTicketPoolItem `json:"xr_ticket_pool_detail,omitempty" xml:"xr_ticket_pool_detail,omitempty"`
+}
+
+func (s DetailXrXrticketpoolResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailXrXrticketpoolResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailXrXrticketpoolResponse) SetReqMsgId(v string) *DetailXrXrticketpoolResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolResponse) SetResultCode(v string) *DetailXrXrticketpoolResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolResponse) SetResultMsg(v string) *DetailXrXrticketpoolResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolResponse) SetSuccess(v bool) *DetailXrXrticketpoolResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *DetailXrXrticketpoolResponse) SetXrTicketPoolDetail(v *XrTicketPoolItem) *DetailXrXrticketpoolResponse {
+	s.XrTicketPoolDetail = v
 	return s
 }
 
@@ -10891,7 +13295,7 @@ type OperateIotbasicDevicecontrolRequest struct {
 	// 设备操作类型
 	DeviceOperation *string `json:"device_operation,omitempty" xml:"device_operation,omitempty" require:"true"`
 	// 所属账号名称
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
 
 func (s OperateIotbasicDevicecontrolRequest) String() string {
@@ -15135,6 +17539,8 @@ type CreateDistributedeviceBydeviceRequest struct {
 	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 	// 资产所有人名称
 	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceRequest) String() string {
@@ -15217,6 +17623,11 @@ func (s *CreateDistributedeviceBydeviceRequest) SetOwner(v string) *CreateDistri
 
 func (s *CreateDistributedeviceBydeviceRequest) SetOwnerName(v string) *CreateDistributedeviceBydeviceRequest {
 	s.OwnerName = &v
+	return s
+}
+
+func (s *CreateDistributedeviceBydeviceRequest) SetExtraInfo(v string) *CreateDistributedeviceBydeviceRequest {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -20564,6 +22975,111 @@ func (s *UnbindEntityrelationResponse) SetResultMsg(v string) *UnbindEntityrelat
 	return s
 }
 
+type DetailThingmodelDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备ID（当device_imei号为空时，会根据scene+device_id查询设备记录，获取device_imei）
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 设备imei号
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
+}
+
+func (s DetailThingmodelDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailThingmodelDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailThingmodelDeviceRequest) SetAuthToken(v string) *DetailThingmodelDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceRequest) SetProductInstanceId(v string) *DetailThingmodelDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceRequest) SetScene(v string) *DetailThingmodelDeviceRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceRequest) SetDeviceId(v string) *DetailThingmodelDeviceRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceRequest) SetDeviceImei(v string) *DetailThingmodelDeviceRequest {
+	s.DeviceImei = &v
+	return s
+}
+
+type DetailThingmodelDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 设备状态是否可用
+	StatusAvailable *bool `json:"status_available,omitempty" xml:"status_available,omitempty"`
+	// SDK版本号
+	SdkVersion *string `json:"sdk_version,omitempty" xml:"sdk_version,omitempty"`
+	// SDK版本号是否可用
+	SdkVersionAvailable *bool `json:"sdk_version_available,omitempty" xml:"sdk_version_available,omitempty"`
+}
+
+func (s DetailThingmodelDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailThingmodelDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailThingmodelDeviceResponse) SetReqMsgId(v string) *DetailThingmodelDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetResultCode(v string) *DetailThingmodelDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetResultMsg(v string) *DetailThingmodelDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetStatus(v string) *DetailThingmodelDeviceResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetStatusAvailable(v bool) *DetailThingmodelDeviceResponse {
+	s.StatusAvailable = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetSdkVersion(v string) *DetailThingmodelDeviceResponse {
+	s.SdkVersion = &v
+	return s
+}
+
+func (s *DetailThingmodelDeviceResponse) SetSdkVersionAvailable(v bool) *DetailThingmodelDeviceResponse {
+	s.SdkVersionAvailable = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -22334,7 +24850,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.19"),
+				"sdk_version":      tea.String("1.8.56"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22589,6 +25105,516 @@ func (client *Client) QueryLeaseRiskEx(request *QueryLeaseRiskRequest, headers m
 	}
 	_result = &QueryLeaseRiskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-创建用户通行证
+ * Summary: aiot-创建用户通行证
+ */
+func (client *Client) CreateXrUserticket(request *CreateXrUserticketRequest) (_result *CreateXrUserticketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateXrUserticketResponse{}
+	_body, _err := client.CreateXrUserticketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-创建用户通行证
+ * Summary: aiot-创建用户通行证
+ */
+func (client *Client) CreateXrUserticketEx(request *CreateXrUserticketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateXrUserticketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateXrUserticketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.userticket.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取通行证资源池列表
+ * Summary: aiot-获取通行证资源池列表
+ */
+func (client *Client) ListXrXrticketpool(request *ListXrXrticketpoolRequest) (_result *ListXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListXrXrticketpoolResponse{}
+	_body, _err := client.ListXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取通行证资源池列表
+ * Summary: aiot-获取通行证资源池列表
+ */
+func (client *Client) ListXrXrticketpoolEx(request *ListXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-分页查询用户通行证
+ * Summary: aiot-分页查询用户通行证
+ */
+func (client *Client) PagequeryXrUserticket(request *PagequeryXrUserticketRequest) (_result *PagequeryXrUserticketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryXrUserticketResponse{}
+	_body, _err := client.PagequeryXrUserticketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-分页查询用户通行证
+ * Summary: aiot-分页查询用户通行证
+ */
+func (client *Client) PagequeryXrUserticketEx(request *PagequeryXrUserticketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryXrUserticketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryXrUserticketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.userticket.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-查询用户通行证
+ * Summary: aiot-查询用户通行证
+ */
+func (client *Client) GetXrUserticket(request *GetXrUserticketRequest) (_result *GetXrUserticketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetXrUserticketResponse{}
+	_body, _err := client.GetXrUserticketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-查询用户通行证
+ * Summary: aiot-查询用户通行证
+ */
+func (client *Client) GetXrUserticketEx(request *GetXrUserticketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetXrUserticketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetXrUserticketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.userticket.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-核销用户通行证
+ * Summary: aiot-核销用户通行证
+ */
+func (client *Client) OperateXrUserticket(request *OperateXrUserticketRequest) (_result *OperateXrUserticketResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateXrUserticketResponse{}
+	_body, _err := client.OperateXrUserticketEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-核销用户通行证
+ * Summary: aiot-核销用户通行证
+ */
+func (client *Client) OperateXrUserticketEx(request *OperateXrUserticketRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateXrUserticketResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateXrUserticketResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.userticket.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取资源列表
+ * Summary: aiot-获取资源列表
+ */
+func (client *Client) ListXrResource(request *ListXrResourceRequest) (_result *ListXrResourceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListXrResourceResponse{}
+	_body, _err := client.ListXrResourceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取资源列表
+ * Summary: aiot-获取资源列表
+ */
+func (client *Client) ListXrResourceEx(request *ListXrResourceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListXrResourceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListXrResourceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.resource.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-核销实例分页查询
+ * Summary: aiot-核销实例分页查询
+ */
+func (client *Client) PagequeryXrXrverificationmodel(request *PagequeryXrXrverificationmodelRequest) (_result *PagequeryXrXrverificationmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryXrXrverificationmodelResponse{}
+	_body, _err := client.PagequeryXrXrverificationmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-核销实例分页查询
+ * Summary: aiot-核销实例分页查询
+ */
+func (client *Client) PagequeryXrXrverificationmodelEx(request *PagequeryXrXrverificationmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryXrXrverificationmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryXrXrverificationmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrverificationmodel.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-客户对应设备分页查询
+ * Summary: aiot-客户对应设备分页查询
+ */
+func (client *Client) PagequeryXrCustomerdevice(request *PagequeryXrCustomerdeviceRequest) (_result *PagequeryXrCustomerdeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryXrCustomerdeviceResponse{}
+	_body, _err := client.PagequeryXrCustomerdeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-客户对应设备分页查询
+ * Summary: aiot-客户对应设备分页查询
+ */
+func (client *Client) PagequeryXrCustomerdeviceEx(request *PagequeryXrCustomerdeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryXrCustomerdeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryXrCustomerdeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.customerdevice.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证创建
+ * Summary: aiot-xr通行证创建
+ */
+func (client *Client) CreateXrXrticketpool(request *CreateXrXrticketpoolRequest) (_result *CreateXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateXrXrticketpoolResponse{}
+	_body, _err := client.CreateXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证创建
+ * Summary: aiot-xr通行证创建
+ */
+func (client *Client) CreateXrXrticketpoolEx(request *CreateXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证修改
+ * Summary: aiot-xr通行证修改
+ */
+func (client *Client) UpdateXrXrticketpool(request *UpdateXrXrticketpoolRequest) (_result *UpdateXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateXrXrticketpoolResponse{}
+	_body, _err := client.UpdateXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证修改
+ * Summary: aiot-xr通行证修改
+ */
+func (client *Client) UpdateXrXrticketpoolEx(request *UpdateXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证分页查询
+ * Summary: aiot-xr通行证分页查询
+ */
+func (client *Client) PagequeryXrXrticketpool(request *PagequeryXrXrticketpoolRequest) (_result *PagequeryXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryXrXrticketpoolResponse{}
+	_body, _err := client.PagequeryXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证分页查询
+ * Summary: aiot-xr通行证分页查询
+ */
+func (client *Client) PagequeryXrXrticketpoolEx(request *PagequeryXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-同步设备屏幕状态
+ * Summary: aiot-同步设备屏幕状态
+ */
+func (client *Client) SyncDeviceScreenstatus(request *SyncDeviceScreenstatusRequest) (_result *SyncDeviceScreenstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncDeviceScreenstatusResponse{}
+	_body, _err := client.SyncDeviceScreenstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-同步设备屏幕状态
+ * Summary: aiot-同步设备屏幕状态
+ */
+func (client *Client) SyncDeviceScreenstatusEx(request *SyncDeviceScreenstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncDeviceScreenstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncDeviceScreenstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.screenstatus.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: xr通行证批量创建
+ * Summary: xr通行证批量创建
+ */
+func (client *Client) BatchcreateXrXrticketpool(request *BatchcreateXrXrticketpoolRequest) (_result *BatchcreateXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateXrXrticketpoolResponse{}
+	_body, _err := client.BatchcreateXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: xr通行证批量创建
+ * Summary: xr通行证批量创建
+ */
+func (client *Client) BatchcreateXrXrticketpoolEx(request *BatchcreateXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取资源实例列表
+ * Summary: aiot-获取资源实例列表
+ */
+func (client *Client) ListXrXrverificationmodelinstance(request *ListXrXrverificationmodelinstanceRequest) (_result *ListXrXrverificationmodelinstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListXrXrverificationmodelinstanceResponse{}
+	_body, _err := client.ListXrXrverificationmodelinstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-获取资源实例列表
+ * Summary: aiot-获取资源实例列表
+ */
+func (client *Client) ListXrXrverificationmodelinstanceEx(request *ListXrXrverificationmodelinstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListXrXrverificationmodelinstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListXrXrverificationmodelinstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrverificationmodelinstance.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证详情查询
+ * Summary: aiot-xr通行证详情查询
+ */
+func (client *Client) DetailXrXrticketpool(request *DetailXrXrticketpoolRequest) (_result *DetailXrXrticketpoolResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailXrXrticketpoolResponse{}
+	_body, _err := client.DetailXrXrticketpoolEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiot-xr通行证详情查询
+ * Summary: aiot-xr通行证详情查询
+ */
+func (client *Client) DetailXrXrticketpoolEx(request *DetailXrXrticketpoolRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailXrXrticketpoolResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailXrXrticketpoolResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -27446,6 +30472,40 @@ func (client *Client) UnbindEntityrelationEx(request *UnbindEntityrelationReques
 	}
 	_result = &UnbindEntityrelationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.entityrelation.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询物模型设备详情
+ * Summary: 查询物模型设备详情
+ */
+func (client *Client) DetailThingmodelDevice(request *DetailThingmodelDeviceRequest) (_result *DetailThingmodelDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailThingmodelDeviceResponse{}
+	_body, _err := client.DetailThingmodelDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询物模型设备详情
+ * Summary: 查询物模型设备详情
+ */
+func (client *Client) DetailThingmodelDeviceEx(request *DetailThingmodelDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailThingmodelDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailThingmodelDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodel.device.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
