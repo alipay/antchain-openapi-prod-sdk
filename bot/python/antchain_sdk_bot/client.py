@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.19',
+                    'sdk_version': '1.8.56',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.19',
+                    'sdk_version': '1.8.56',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -609,6 +609,846 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryLeaseRiskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_xr_userticket(
+        self,
+        request: bot_models.CreateXrUserticketRequest,
+    ) -> bot_models.CreateXrUserticketResponse:
+        """
+        Description: aiot-创建用户通行证
+        Summary: aiot-创建用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_xr_userticket_ex(request, headers, runtime)
+
+    async def create_xr_userticket_async(
+        self,
+        request: bot_models.CreateXrUserticketRequest,
+    ) -> bot_models.CreateXrUserticketResponse:
+        """
+        Description: aiot-创建用户通行证
+        Summary: aiot-创建用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_xr_userticket_ex_async(request, headers, runtime)
+
+    def create_xr_userticket_ex(
+        self,
+        request: bot_models.CreateXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateXrUserticketResponse:
+        """
+        Description: aiot-创建用户通行证
+        Summary: aiot-创建用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateXrUserticketResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.userticket.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_xr_userticket_ex_async(
+        self,
+        request: bot_models.CreateXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateXrUserticketResponse:
+        """
+        Description: aiot-创建用户通行证
+        Summary: aiot-创建用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateXrUserticketResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.userticket.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_xr_xrticketpool(
+        self,
+        request: bot_models.ListXrXrticketpoolRequest,
+    ) -> bot_models.ListXrXrticketpoolResponse:
+        """
+        Description: aiot-获取通行证资源池列表
+        Summary: aiot-获取通行证资源池列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def list_xr_xrticketpool_async(
+        self,
+        request: bot_models.ListXrXrticketpoolRequest,
+    ) -> bot_models.ListXrXrticketpoolResponse:
+        """
+        Description: aiot-获取通行证资源池列表
+        Summary: aiot-获取通行证资源池列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def list_xr_xrticketpool_ex(
+        self,
+        request: bot_models.ListXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrXrticketpoolResponse:
+        """
+        Description: aiot-获取通行证资源池列表
+        Summary: aiot-获取通行证资源池列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.ListXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrXrticketpoolResponse:
+        """
+        Description: aiot-获取通行证资源池列表
+        Summary: aiot-获取通行证资源池列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_xr_userticket(
+        self,
+        request: bot_models.PagequeryXrUserticketRequest,
+    ) -> bot_models.PagequeryXrUserticketResponse:
+        """
+        Description: aiot-分页查询用户通行证
+        Summary: aiot-分页查询用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_xr_userticket_ex(request, headers, runtime)
+
+    async def pagequery_xr_userticket_async(
+        self,
+        request: bot_models.PagequeryXrUserticketRequest,
+    ) -> bot_models.PagequeryXrUserticketResponse:
+        """
+        Description: aiot-分页查询用户通行证
+        Summary: aiot-分页查询用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_xr_userticket_ex_async(request, headers, runtime)
+
+    def pagequery_xr_userticket_ex(
+        self,
+        request: bot_models.PagequeryXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrUserticketResponse:
+        """
+        Description: aiot-分页查询用户通行证
+        Summary: aiot-分页查询用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrUserticketResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.userticket.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_xr_userticket_ex_async(
+        self,
+        request: bot_models.PagequeryXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrUserticketResponse:
+        """
+        Description: aiot-分页查询用户通行证
+        Summary: aiot-分页查询用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrUserticketResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.userticket.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_xr_userticket(
+        self,
+        request: bot_models.GetXrUserticketRequest,
+    ) -> bot_models.GetXrUserticketResponse:
+        """
+        Description: aiot-查询用户通行证
+        Summary: aiot-查询用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_xr_userticket_ex(request, headers, runtime)
+
+    async def get_xr_userticket_async(
+        self,
+        request: bot_models.GetXrUserticketRequest,
+    ) -> bot_models.GetXrUserticketResponse:
+        """
+        Description: aiot-查询用户通行证
+        Summary: aiot-查询用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_xr_userticket_ex_async(request, headers, runtime)
+
+    def get_xr_userticket_ex(
+        self,
+        request: bot_models.GetXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetXrUserticketResponse:
+        """
+        Description: aiot-查询用户通行证
+        Summary: aiot-查询用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetXrUserticketResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.userticket.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_xr_userticket_ex_async(
+        self,
+        request: bot_models.GetXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetXrUserticketResponse:
+        """
+        Description: aiot-查询用户通行证
+        Summary: aiot-查询用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetXrUserticketResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.userticket.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_xr_userticket(
+        self,
+        request: bot_models.OperateXrUserticketRequest,
+    ) -> bot_models.OperateXrUserticketResponse:
+        """
+        Description: aiot-核销用户通行证
+        Summary: aiot-核销用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_xr_userticket_ex(request, headers, runtime)
+
+    async def operate_xr_userticket_async(
+        self,
+        request: bot_models.OperateXrUserticketRequest,
+    ) -> bot_models.OperateXrUserticketResponse:
+        """
+        Description: aiot-核销用户通行证
+        Summary: aiot-核销用户通行证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_xr_userticket_ex_async(request, headers, runtime)
+
+    def operate_xr_userticket_ex(
+        self,
+        request: bot_models.OperateXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateXrUserticketResponse:
+        """
+        Description: aiot-核销用户通行证
+        Summary: aiot-核销用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateXrUserticketResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.userticket.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_xr_userticket_ex_async(
+        self,
+        request: bot_models.OperateXrUserticketRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateXrUserticketResponse:
+        """
+        Description: aiot-核销用户通行证
+        Summary: aiot-核销用户通行证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateXrUserticketResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.userticket.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_xr_resource(
+        self,
+        request: bot_models.ListXrResourceRequest,
+    ) -> bot_models.ListXrResourceResponse:
+        """
+        Description: aiot-获取资源列表
+        Summary: aiot-获取资源列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_xr_resource_ex(request, headers, runtime)
+
+    async def list_xr_resource_async(
+        self,
+        request: bot_models.ListXrResourceRequest,
+    ) -> bot_models.ListXrResourceResponse:
+        """
+        Description: aiot-获取资源列表
+        Summary: aiot-获取资源列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_xr_resource_ex_async(request, headers, runtime)
+
+    def list_xr_resource_ex(
+        self,
+        request: bot_models.ListXrResourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrResourceResponse:
+        """
+        Description: aiot-获取资源列表
+        Summary: aiot-获取资源列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrResourceResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.resource.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_xr_resource_ex_async(
+        self,
+        request: bot_models.ListXrResourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrResourceResponse:
+        """
+        Description: aiot-获取资源列表
+        Summary: aiot-获取资源列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrResourceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.resource.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_xr_xrverificationmodel(
+        self,
+        request: bot_models.PagequeryXrXrverificationmodelRequest,
+    ) -> bot_models.PagequeryXrXrverificationmodelResponse:
+        """
+        Description: aiot-核销实例分页查询
+        Summary: aiot-核销实例分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_xr_xrverificationmodel_ex(request, headers, runtime)
+
+    async def pagequery_xr_xrverificationmodel_async(
+        self,
+        request: bot_models.PagequeryXrXrverificationmodelRequest,
+    ) -> bot_models.PagequeryXrXrverificationmodelResponse:
+        """
+        Description: aiot-核销实例分页查询
+        Summary: aiot-核销实例分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_xr_xrverificationmodel_ex_async(request, headers, runtime)
+
+    def pagequery_xr_xrverificationmodel_ex(
+        self,
+        request: bot_models.PagequeryXrXrverificationmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrXrverificationmodelResponse:
+        """
+        Description: aiot-核销实例分页查询
+        Summary: aiot-核销实例分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrXrverificationmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrverificationmodel.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_xr_xrverificationmodel_ex_async(
+        self,
+        request: bot_models.PagequeryXrXrverificationmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrXrverificationmodelResponse:
+        """
+        Description: aiot-核销实例分页查询
+        Summary: aiot-核销实例分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrXrverificationmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrverificationmodel.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_xr_customerdevice(
+        self,
+        request: bot_models.PagequeryXrCustomerdeviceRequest,
+    ) -> bot_models.PagequeryXrCustomerdeviceResponse:
+        """
+        Description: aiot-客户对应设备分页查询
+        Summary: aiot-客户对应设备分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_xr_customerdevice_ex(request, headers, runtime)
+
+    async def pagequery_xr_customerdevice_async(
+        self,
+        request: bot_models.PagequeryXrCustomerdeviceRequest,
+    ) -> bot_models.PagequeryXrCustomerdeviceResponse:
+        """
+        Description: aiot-客户对应设备分页查询
+        Summary: aiot-客户对应设备分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_xr_customerdevice_ex_async(request, headers, runtime)
+
+    def pagequery_xr_customerdevice_ex(
+        self,
+        request: bot_models.PagequeryXrCustomerdeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrCustomerdeviceResponse:
+        """
+        Description: aiot-客户对应设备分页查询
+        Summary: aiot-客户对应设备分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrCustomerdeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.customerdevice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_xr_customerdevice_ex_async(
+        self,
+        request: bot_models.PagequeryXrCustomerdeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrCustomerdeviceResponse:
+        """
+        Description: aiot-客户对应设备分页查询
+        Summary: aiot-客户对应设备分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrCustomerdeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.customerdevice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_xr_xrticketpool(
+        self,
+        request: bot_models.CreateXrXrticketpoolRequest,
+    ) -> bot_models.CreateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证创建
+        Summary: aiot-xr通行证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def create_xr_xrticketpool_async(
+        self,
+        request: bot_models.CreateXrXrticketpoolRequest,
+    ) -> bot_models.CreateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证创建
+        Summary: aiot-xr通行证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def create_xr_xrticketpool_ex(
+        self,
+        request: bot_models.CreateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证创建
+        Summary: aiot-xr通行证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.CreateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证创建
+        Summary: aiot-xr通行证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_xr_xrticketpool(
+        self,
+        request: bot_models.UpdateXrXrticketpoolRequest,
+    ) -> bot_models.UpdateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证修改
+        Summary: aiot-xr通行证修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def update_xr_xrticketpool_async(
+        self,
+        request: bot_models.UpdateXrXrticketpoolRequest,
+    ) -> bot_models.UpdateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证修改
+        Summary: aiot-xr通行证修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def update_xr_xrticketpool_ex(
+        self,
+        request: bot_models.UpdateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证修改
+        Summary: aiot-xr通行证修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.UpdateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证修改
+        Summary: aiot-xr通行证修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_xr_xrticketpool(
+        self,
+        request: bot_models.PagequeryXrXrticketpoolRequest,
+    ) -> bot_models.PagequeryXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证分页查询
+        Summary: aiot-xr通行证分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def pagequery_xr_xrticketpool_async(
+        self,
+        request: bot_models.PagequeryXrXrticketpoolRequest,
+    ) -> bot_models.PagequeryXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证分页查询
+        Summary: aiot-xr通行证分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def pagequery_xr_xrticketpool_ex(
+        self,
+        request: bot_models.PagequeryXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证分页查询
+        Summary: aiot-xr通行证分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.PagequeryXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证分页查询
+        Summary: aiot-xr通行证分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_device_screenstatus(
+        self,
+        request: bot_models.SyncDeviceScreenstatusRequest,
+    ) -> bot_models.SyncDeviceScreenstatusResponse:
+        """
+        Description: aiot-同步设备屏幕状态
+        Summary: aiot-同步设备屏幕状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_device_screenstatus_ex(request, headers, runtime)
+
+    async def sync_device_screenstatus_async(
+        self,
+        request: bot_models.SyncDeviceScreenstatusRequest,
+    ) -> bot_models.SyncDeviceScreenstatusResponse:
+        """
+        Description: aiot-同步设备屏幕状态
+        Summary: aiot-同步设备屏幕状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_device_screenstatus_ex_async(request, headers, runtime)
+
+    def sync_device_screenstatus_ex(
+        self,
+        request: bot_models.SyncDeviceScreenstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncDeviceScreenstatusResponse:
+        """
+        Description: aiot-同步设备屏幕状态
+        Summary: aiot-同步设备屏幕状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncDeviceScreenstatusResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.screenstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_device_screenstatus_ex_async(
+        self,
+        request: bot_models.SyncDeviceScreenstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncDeviceScreenstatusResponse:
+        """
+        Description: aiot-同步设备屏幕状态
+        Summary: aiot-同步设备屏幕状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncDeviceScreenstatusResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.screenstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_xr_xrticketpool(
+        self,
+        request: bot_models.BatchcreateXrXrticketpoolRequest,
+    ) -> bot_models.BatchcreateXrXrticketpoolResponse:
+        """
+        Description: xr通行证批量创建
+        Summary: xr通行证批量创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def batchcreate_xr_xrticketpool_async(
+        self,
+        request: bot_models.BatchcreateXrXrticketpoolRequest,
+    ) -> bot_models.BatchcreateXrXrticketpoolResponse:
+        """
+        Description: xr通行证批量创建
+        Summary: xr通行证批量创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def batchcreate_xr_xrticketpool_ex(
+        self,
+        request: bot_models.BatchcreateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateXrXrticketpoolResponse:
+        """
+        Description: xr通行证批量创建
+        Summary: xr通行证批量创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.BatchcreateXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateXrXrticketpoolResponse:
+        """
+        Description: xr通行证批量创建
+        Summary: xr通行证批量创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_xr_xrverificationmodelinstance(
+        self,
+        request: bot_models.ListXrXrverificationmodelinstanceRequest,
+    ) -> bot_models.ListXrXrverificationmodelinstanceResponse:
+        """
+        Description: aiot-获取资源实例列表
+        Summary: aiot-获取资源实例列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_xr_xrverificationmodelinstance_ex(request, headers, runtime)
+
+    async def list_xr_xrverificationmodelinstance_async(
+        self,
+        request: bot_models.ListXrXrverificationmodelinstanceRequest,
+    ) -> bot_models.ListXrXrverificationmodelinstanceResponse:
+        """
+        Description: aiot-获取资源实例列表
+        Summary: aiot-获取资源实例列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_xr_xrverificationmodelinstance_ex_async(request, headers, runtime)
+
+    def list_xr_xrverificationmodelinstance_ex(
+        self,
+        request: bot_models.ListXrXrverificationmodelinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrXrverificationmodelinstanceResponse:
+        """
+        Description: aiot-获取资源实例列表
+        Summary: aiot-获取资源实例列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrXrverificationmodelinstanceResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrverificationmodelinstance.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_xr_xrverificationmodelinstance_ex_async(
+        self,
+        request: bot_models.ListXrXrverificationmodelinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListXrXrverificationmodelinstanceResponse:
+        """
+        Description: aiot-获取资源实例列表
+        Summary: aiot-获取资源实例列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListXrXrverificationmodelinstanceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrverificationmodelinstance.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_xr_xrticketpool(
+        self,
+        request: bot_models.DetailXrXrticketpoolRequest,
+    ) -> bot_models.DetailXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证详情查询
+        Summary: aiot-xr通行证详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_xr_xrticketpool_ex(request, headers, runtime)
+
+    async def detail_xr_xrticketpool_async(
+        self,
+        request: bot_models.DetailXrXrticketpoolRequest,
+    ) -> bot_models.DetailXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证详情查询
+        Summary: aiot-xr通行证详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_xr_xrticketpool_ex_async(request, headers, runtime)
+
+    def detail_xr_xrticketpool_ex(
+        self,
+        request: bot_models.DetailXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证详情查询
+        Summary: aiot-xr通行证详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailXrXrticketpoolResponse(),
+            self.do_request('1.0', 'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_xr_xrticketpool_ex_async(
+        self,
+        request: bot_models.DetailXrXrticketpoolRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailXrXrticketpoolResponse:
+        """
+        Description: aiot-xr通行证详情查询
+        Summary: aiot-xr通行证详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailXrXrticketpoolResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def finish_trace_config(
@@ -8595,6 +9435,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.UnbindEntityrelationResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_thingmodel_device(
+        self,
+        request: bot_models.DetailThingmodelDeviceRequest,
+    ) -> bot_models.DetailThingmodelDeviceResponse:
+        """
+        Description: 查询物模型设备详情
+        Summary: 查询物模型设备详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_thingmodel_device_ex(request, headers, runtime)
+
+    async def detail_thingmodel_device_async(
+        self,
+        request: bot_models.DetailThingmodelDeviceRequest,
+    ) -> bot_models.DetailThingmodelDeviceResponse:
+        """
+        Description: 查询物模型设备详情
+        Summary: 查询物模型设备详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_thingmodel_device_ex_async(request, headers, runtime)
+
+    def detail_thingmodel_device_ex(
+        self,
+        request: bot_models.DetailThingmodelDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailThingmodelDeviceResponse:
+        """
+        Description: 查询物模型设备详情
+        Summary: 查询物模型设备详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailThingmodelDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_thingmodel_device_ex_async(
+        self,
+        request: bot_models.DetailThingmodelDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailThingmodelDeviceResponse:
+        """
+        Description: 查询物模型设备详情
+        Summary: 查询物模型设备详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailThingmodelDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
