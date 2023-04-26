@@ -35,6 +35,8 @@ use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceResponse;
+use AntChain\BOT\Models\BatchcreateXrXrticketpoolRequest;
+use AntChain\BOT\Models\BatchcreateXrXrticketpoolResponse;
 use AntChain\BOT\Models\BindEntityrelationRequest;
 use AntChain\BOT\Models\BindEntityrelationResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
@@ -83,12 +85,20 @@ use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
 use AntChain\BOT\Models\CreateThingmodelRequest;
 use AntChain\BOT\Models\CreateThingmodelResponse;
+use AntChain\BOT\Models\CreateXrUserticketRequest;
+use AntChain\BOT\Models\CreateXrUserticketResponse;
+use AntChain\BOT\Models\CreateXrXrticketpoolRequest;
+use AntChain\BOT\Models\CreateXrXrticketpoolResponse;
 use AntChain\BOT\Models\DeleteDeviceRelationRequest;
 use AntChain\BOT\Models\DeleteDeviceRelationResponse;
 use AntChain\BOT\Models\DeleteIotbasicDeviceRequest;
 use AntChain\BOT\Models\DeleteIotbasicDeviceResponse;
 use AntChain\BOT\Models\DeploySceneRequest;
 use AntChain\BOT\Models\DeploySceneResponse;
+use AntChain\BOT\Models\DetailThingmodelDeviceRequest;
+use AntChain\BOT\Models\DetailThingmodelDeviceResponse;
+use AntChain\BOT\Models\DetailXrXrticketpoolRequest;
+use AntChain\BOT\Models\DetailXrXrticketpoolResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
@@ -115,6 +125,8 @@ use AntChain\BOT\Models\GetPeripheralBychainperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralBychainperipheralidResponse;
 use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralByperipheralidResponse;
+use AntChain\BOT\Models\GetXrUserticketRequest;
+use AntChain\BOT\Models\GetXrUserticketResponse;
 use AntChain\BOT\Models\ImportDeviceRequest;
 use AntChain\BOT\Models\ImportDeviceResponse;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderbatchRequest;
@@ -135,6 +147,12 @@ use AntChain\BOT\Models\ListDistributedeviceBysceneRequest;
 use AntChain\BOT\Models\ListDistributedeviceBysceneResponse;
 use AntChain\BOT\Models\ListPeripheralBysceneRequest;
 use AntChain\BOT\Models\ListPeripheralBysceneResponse;
+use AntChain\BOT\Models\ListXrResourceRequest;
+use AntChain\BOT\Models\ListXrResourceResponse;
+use AntChain\BOT\Models\ListXrXrticketpoolRequest;
+use AntChain\BOT\Models\ListXrXrticketpoolResponse;
+use AntChain\BOT\Models\ListXrXrverificationmodelinstanceRequest;
+use AntChain\BOT\Models\ListXrXrverificationmodelinstanceResponse;
 use AntChain\BOT\Models\LoadTsmCertificatetsmRequest;
 use AntChain\BOT\Models\LoadTsmCertificatetsmResponse;
 use AntChain\BOT\Models\LoadTsmResourcefileRequest;
@@ -177,6 +195,8 @@ use AntChain\BOT\Models\OperateIotbasicRelrationRequest;
 use AntChain\BOT\Models\OperateIotbasicRelrationResponse;
 use AntChain\BOT\Models\OperateIotbasicUserRequest;
 use AntChain\BOT\Models\OperateIotbasicUserResponse;
+use AntChain\BOT\Models\OperateXrUserticketRequest;
+use AntChain\BOT\Models\OperateXrUserticketResponse;
 use AntChain\BOT\Models\PagequeryAlertStrategyRequest;
 use AntChain\BOT\Models\PagequeryAlertStrategyResponse;
 use AntChain\BOT\Models\PagequeryDataverifyFailureRequest;
@@ -189,6 +209,14 @@ use AntChain\BOT\Models\PagequerySdkRequest;
 use AntChain\BOT\Models\PagequerySdkResponse;
 use AntChain\BOT\Models\PagequeryTenantRequest;
 use AntChain\BOT\Models\PagequeryTenantResponse;
+use AntChain\BOT\Models\PagequeryXrCustomerdeviceRequest;
+use AntChain\BOT\Models\PagequeryXrCustomerdeviceResponse;
+use AntChain\BOT\Models\PagequeryXrUserticketRequest;
+use AntChain\BOT\Models\PagequeryXrUserticketResponse;
+use AntChain\BOT\Models\PagequeryXrXrticketpoolRequest;
+use AntChain\BOT\Models\PagequeryXrXrticketpoolResponse;
+use AntChain\BOT\Models\PagequeryXrXrverificationmodelRequest;
+use AntChain\BOT\Models\PagequeryXrXrverificationmodelResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
@@ -299,6 +327,8 @@ use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
 use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
 use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
+use AntChain\BOT\Models\SyncDeviceScreenstatusRequest;
+use AntChain\BOT\Models\SyncDeviceScreenstatusResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicegenerateRequest;
 use AntChain\BOT\Models\SyncIotbasicDevicegenerateResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicestatusRequest;
@@ -337,6 +367,8 @@ use AntChain\BOT\Models\UpdateThingsdidStatusRequest;
 use AntChain\BOT\Models\UpdateThingsdidStatusResponse;
 use AntChain\BOT\Models\UpdateThingsdidTenantRequest;
 use AntChain\BOT\Models\UpdateThingsdidTenantResponse;
+use AntChain\BOT\Models\UpdateXrXrticketpoolRequest;
+use AntChain\BOT\Models\UpdateXrXrticketpoolResponse;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\VerifyIotbasicIdentifyRequest;
@@ -488,7 +520,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.19',
+                    'sdk_version'      => '1.8.56',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -732,6 +764,501 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseRiskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-创建用户通行证
+     * Summary: aiot-创建用户通行证
+     *
+     * @param CreateXrUserticketRequest $request
+     *
+     * @return CreateXrUserticketResponse
+     */
+    public function createXrUserticket($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createXrUserticketEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-创建用户通行证
+     * Summary: aiot-创建用户通行证
+     *
+     * @param CreateXrUserticketRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateXrUserticketResponse
+     */
+    public function createXrUserticketEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateXrUserticketResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.userticket.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-获取通行证资源池列表
+     * Summary: aiot-获取通行证资源池列表.
+     *
+     * @param ListXrXrticketpoolRequest $request
+     *
+     * @return ListXrXrticketpoolResponse
+     */
+    public function listXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-获取通行证资源池列表
+     * Summary: aiot-获取通行证资源池列表.
+     *
+     * @param ListXrXrticketpoolRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListXrXrticketpoolResponse
+     */
+    public function listXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-分页查询用户通行证
+     * Summary: aiot-分页查询用户通行证
+     *
+     * @param PagequeryXrUserticketRequest $request
+     *
+     * @return PagequeryXrUserticketResponse
+     */
+    public function pagequeryXrUserticket($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryXrUserticketEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-分页查询用户通行证
+     * Summary: aiot-分页查询用户通行证
+     *
+     * @param PagequeryXrUserticketRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PagequeryXrUserticketResponse
+     */
+    public function pagequeryXrUserticketEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryXrUserticketResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.userticket.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-查询用户通行证
+     * Summary: aiot-查询用户通行证
+     *
+     * @param GetXrUserticketRequest $request
+     *
+     * @return GetXrUserticketResponse
+     */
+    public function getXrUserticket($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getXrUserticketEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-查询用户通行证
+     * Summary: aiot-查询用户通行证
+     *
+     * @param GetXrUserticketRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetXrUserticketResponse
+     */
+    public function getXrUserticketEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetXrUserticketResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.userticket.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-核销用户通行证
+     * Summary: aiot-核销用户通行证
+     *
+     * @param OperateXrUserticketRequest $request
+     *
+     * @return OperateXrUserticketResponse
+     */
+    public function operateXrUserticket($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateXrUserticketEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-核销用户通行证
+     * Summary: aiot-核销用户通行证
+     *
+     * @param OperateXrUserticketRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return OperateXrUserticketResponse
+     */
+    public function operateXrUserticketEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateXrUserticketResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.userticket.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-获取资源列表
+     * Summary: aiot-获取资源列表.
+     *
+     * @param ListXrResourceRequest $request
+     *
+     * @return ListXrResourceResponse
+     */
+    public function listXrResource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listXrResourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-获取资源列表
+     * Summary: aiot-获取资源列表.
+     *
+     * @param ListXrResourceRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ListXrResourceResponse
+     */
+    public function listXrResourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListXrResourceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.resource.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-核销实例分页查询
+     * Summary: aiot-核销实例分页查询.
+     *
+     * @param PagequeryXrXrverificationmodelRequest $request
+     *
+     * @return PagequeryXrXrverificationmodelResponse
+     */
+    public function pagequeryXrXrverificationmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryXrXrverificationmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-核销实例分页查询
+     * Summary: aiot-核销实例分页查询.
+     *
+     * @param PagequeryXrXrverificationmodelRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return PagequeryXrXrverificationmodelResponse
+     */
+    public function pagequeryXrXrverificationmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryXrXrverificationmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrverificationmodel.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-客户对应设备分页查询
+     * Summary: aiot-客户对应设备分页查询.
+     *
+     * @param PagequeryXrCustomerdeviceRequest $request
+     *
+     * @return PagequeryXrCustomerdeviceResponse
+     */
+    public function pagequeryXrCustomerdevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryXrCustomerdeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-客户对应设备分页查询
+     * Summary: aiot-客户对应设备分页查询.
+     *
+     * @param PagequeryXrCustomerdeviceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PagequeryXrCustomerdeviceResponse
+     */
+    public function pagequeryXrCustomerdeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryXrCustomerdeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.customerdevice.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-xr通行证创建
+     * Summary: aiot-xr通行证创建.
+     *
+     * @param CreateXrXrticketpoolRequest $request
+     *
+     * @return CreateXrXrticketpoolResponse
+     */
+    public function createXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证创建
+     * Summary: aiot-xr通行证创建.
+     *
+     * @param CreateXrXrticketpoolRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateXrXrticketpoolResponse
+     */
+    public function createXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-xr通行证修改
+     * Summary: aiot-xr通行证修改.
+     *
+     * @param UpdateXrXrticketpoolRequest $request
+     *
+     * @return UpdateXrXrticketpoolResponse
+     */
+    public function updateXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证修改
+     * Summary: aiot-xr通行证修改.
+     *
+     * @param UpdateXrXrticketpoolRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateXrXrticketpoolResponse
+     */
+    public function updateXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-xr通行证分页查询
+     * Summary: aiot-xr通行证分页查询.
+     *
+     * @param PagequeryXrXrticketpoolRequest $request
+     *
+     * @return PagequeryXrXrticketpoolResponse
+     */
+    public function pagequeryXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证分页查询
+     * Summary: aiot-xr通行证分页查询.
+     *
+     * @param PagequeryXrXrticketpoolRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return PagequeryXrXrticketpoolResponse
+     */
+    public function pagequeryXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-同步设备屏幕状态
+     * Summary: aiot-同步设备屏幕状态
+     *
+     * @param SyncDeviceScreenstatusRequest $request
+     *
+     * @return SyncDeviceScreenstatusResponse
+     */
+    public function syncDeviceScreenstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncDeviceScreenstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-同步设备屏幕状态
+     * Summary: aiot-同步设备屏幕状态
+     *
+     * @param SyncDeviceScreenstatusRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SyncDeviceScreenstatusResponse
+     */
+    public function syncDeviceScreenstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncDeviceScreenstatusResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.screenstatus.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: xr通行证批量创建
+     * Summary: xr通行证批量创建.
+     *
+     * @param BatchcreateXrXrticketpoolRequest $request
+     *
+     * @return BatchcreateXrXrticketpoolResponse
+     */
+    public function batchcreateXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: xr通行证批量创建
+     * Summary: xr通行证批量创建.
+     *
+     * @param BatchcreateXrXrticketpoolRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return BatchcreateXrXrticketpoolResponse
+     */
+    public function batchcreateXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-获取资源实例列表
+     * Summary: aiot-获取资源实例列表.
+     *
+     * @param ListXrXrverificationmodelinstanceRequest $request
+     *
+     * @return ListXrXrverificationmodelinstanceResponse
+     */
+    public function listXrXrverificationmodelinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listXrXrverificationmodelinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-获取资源实例列表
+     * Summary: aiot-获取资源实例列表.
+     *
+     * @param ListXrXrverificationmodelinstanceRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return ListXrXrverificationmodelinstanceResponse
+     */
+    public function listXrXrverificationmodelinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListXrXrverificationmodelinstanceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrverificationmodelinstance.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiot-xr通行证详情查询
+     * Summary: aiot-xr通行证详情查询.
+     *
+     * @param DetailXrXrticketpoolRequest $request
+     *
+     * @return DetailXrXrticketpoolResponse
+     */
+    public function detailXrXrticketpool($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailXrXrticketpoolEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证详情查询
+     * Summary: aiot-xr通行证详情查询.
+     *
+     * @param DetailXrXrticketpoolRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DetailXrXrticketpoolResponse
+     */
+    public function detailXrXrticketpoolEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5436,6 +5963,39 @@ class Client
         Utils::validateModel($request);
 
         return UnbindEntityrelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询物模型设备详情
+     * Summary: 查询物模型设备详情.
+     *
+     * @param DetailThingmodelDeviceRequest $request
+     *
+     * @return DetailThingmodelDeviceResponse
+     */
+    public function detailThingmodelDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailThingmodelDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询物模型设备详情
+     * Summary: 查询物模型设备详情.
+     *
+     * @param DetailThingmodelDeviceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DetailThingmodelDeviceResponse
+     */
+    public function detailThingmodelDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailThingmodelDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

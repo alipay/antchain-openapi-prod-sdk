@@ -54,7 +54,6 @@ class OperateIotbasicDevicecontrolRequest extends Model
     public function validate()
     {
         Model::validateRequired('deviceOperation', $this->deviceOperation, true);
-        Model::validateRequired('userId', $this->userId, true);
     }
 
     public function toMap()

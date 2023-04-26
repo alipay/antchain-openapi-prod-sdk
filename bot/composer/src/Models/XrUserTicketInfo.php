@@ -1,0 +1,83 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\BOT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class XrUserTicketInfo extends Model
+{
+    // xr通行证资源池id
+    /**
+     * @example 10
+     *
+     * @var int
+     */
+    public $xrTicketPoolId;
+
+    // xr通行证资源池名称
+    /**
+     * @example 资源池001
+     *
+     * @var string
+     */
+    public $xrTicketPoolName;
+
+    // 购买数量
+    /**
+     * @example 10
+     *
+     * @var int
+     */
+    public $count;
+    protected $_name = [
+        'xrTicketPoolId'   => 'xr_ticket_pool_id',
+        'xrTicketPoolName' => 'xr_ticket_pool_name',
+        'count'            => 'count',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('xrTicketPoolId', $this->xrTicketPoolId, true);
+        Model::validateRequired('xrTicketPoolName', $this->xrTicketPoolName, true);
+        Model::validateRequired('count', $this->count, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->xrTicketPoolId) {
+            $res['xr_ticket_pool_id'] = $this->xrTicketPoolId;
+        }
+        if (null !== $this->xrTicketPoolName) {
+            $res['xr_ticket_pool_name'] = $this->xrTicketPoolName;
+        }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return XrUserTicketInfo
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['xr_ticket_pool_id'])) {
+            $model->xrTicketPoolId = $map['xr_ticket_pool_id'];
+        }
+        if (isset($map['xr_ticket_pool_name'])) {
+            $model->xrTicketPoolName = $map['xr_ticket_pool_name'];
+        }
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
+        }
+
+        return $model;
+    }
+}
