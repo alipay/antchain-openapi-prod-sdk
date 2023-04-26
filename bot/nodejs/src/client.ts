@@ -929,6 +929,31 @@ export class SdkPageResponse extends $tea.Model {
   }
 }
 
+// code,name
+export class CodeListView extends $tea.Model {
+  // 数据code
+  dataCode: string;
+  // 数据名称
+  dataName: string;
+  static names(): { [key: string]: string } {
+    return {
+      dataCode: 'data_code',
+      dataName: 'data_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataCode: 'string',
+      dataName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询设备列表结构体
 export class IotBasicDeviceQueryResponse extends $tea.Model {
   // 设备名称	
@@ -1155,6 +1180,39 @@ export class BaiQrcodeComparisonReqData extends $tea.Model {
   }
 }
 
+// 创建xr用户通行证结果信息
+export class XrUserTicketResultInfo extends $tea.Model {
+  // xr通行证资源池名称
+  xrTicketPoolName: string;
+  // 购买数量，失败列表有值
+  count?: number;
+  // 失败原因，失败列表有值
+  errorMsg?: string;
+  // 通行证编号，成功列表有值
+  xrTicketCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      count: 'count',
+      errorMsg: 'error_msg',
+      xrTicketCode: 'xr_ticket_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      xrTicketPoolName: 'string',
+      count: 'number',
+      errorMsg: 'string',
+      xrTicketCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
 export class WarehouseReqModel extends $tea.Model {
   // 详细地址
@@ -1263,6 +1321,31 @@ export class PurchaseOrderInfoDetail extends $tea.Model {
       supplierId: 'string',
       leaseId: 'string',
       goodsIdAndCount: { 'type': 'array', 'itemType': GoodsIdAndCount },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实例信息列表
+export class InstanceInfo extends $tea.Model {
+  // 实例id
+  instanceId: string;
+  // 实例名称
+  instanceName: string;
+  static names(): { [key: string]: string } {
+    return {
+      instanceId: 'instance_id',
+      instanceName: 'instance_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      instanceId: 'string',
+      instanceName: 'string',
     };
   }
 
@@ -1751,6 +1834,55 @@ export class ChargeDetail extends $tea.Model {
   }
 }
 
+// xr通行证批量创建成功列表
+export class XrTicketPoolSuccessList extends $tea.Model {
+  // 租户id
+  tenantId: string;
+  // 资源id
+  resourceId: string;
+  // 有效期
+  validTime: string;
+  // 体验时长
+  testTime: number;
+  // vr设备集合
+  xrApps?: string;
+  // 券池最大数
+  maxPoolCount: number;
+  // 券池名称
+  xrTicketPoolName: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      resourceId: 'resource_id',
+      validTime: 'valid_time',
+      testTime: 'test_time',
+      xrApps: 'xr_apps',
+      maxPoolCount: 'max_pool_count',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      resourceId: 'string',
+      validTime: 'string',
+      testTime: 'number',
+      xrApps: 'string',
+      maxPoolCount: 'number',
+      xrTicketPoolName: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 更新设备和空间关联请求结构体
 export class UpdateDeviceSpaceReq extends $tea.Model {
   // API要更新的设备DID
@@ -2049,6 +2181,91 @@ export class ScfLeaseEqpInfoQueryRequest extends $tea.Model {
   }
 }
 
+// 用户通行证详情
+export class XrUserTicketDetail extends $tea.Model {
+  // 业务类型
+  bizScene: string;
+  // 所属客户
+  tenantId: string;
+  // 用户通行证编码
+  xrTicketCode: string;
+  // xr通行证资源池名称
+  xrTicketPoolName: string;
+  // 用户id
+  userId: string;
+  // 资源id
+  resourceId: string;
+  // 资源名称
+  resourceName: string;
+  // 用户通行证状态
+  status: string;
+  // 有效期
+  validTime: string;
+  // 实例id
+  instanceId?: string;
+  // 核销时间
+  xrVerificationTime?: string;
+  // 体验开始时间
+  sampleStartTime?: string;
+  // 体验结束时间
+  sampleEndTime?: string;
+  // 核销类型
+  xrVerificationType: string;
+  // 实例名称
+  instanceName?: string;
+  // 体验时长，分
+  testTime: string;
+  // vr应用集合
+  xrApps?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+      xrTicketCode: 'xr_ticket_code',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      userId: 'user_id',
+      resourceId: 'resource_id',
+      resourceName: 'resource_name',
+      status: 'status',
+      validTime: 'valid_time',
+      instanceId: 'instance_id',
+      xrVerificationTime: 'xr_verification_time',
+      sampleStartTime: 'sample_start_time',
+      sampleEndTime: 'sample_end_time',
+      xrVerificationType: 'xr_verification_type',
+      instanceName: 'instance_name',
+      testTime: 'test_time',
+      xrApps: 'xr_apps',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizScene: 'string',
+      tenantId: 'string',
+      xrTicketCode: 'string',
+      xrTicketPoolName: 'string',
+      userId: 'string',
+      resourceId: 'string',
+      resourceName: 'string',
+      status: 'string',
+      validTime: 'string',
+      instanceId: 'string',
+      xrVerificationTime: 'string',
+      sampleStartTime: 'string',
+      sampleEndTime: 'string',
+      xrVerificationType: 'string',
+      instanceName: 'string',
+      testTime: 'string',
+      xrApps: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 信物链查询实体身份请求结构体
 export class DidBaseQueryReq extends $tea.Model {
   // * "thingId"       原始ID
@@ -2306,6 +2523,47 @@ export class DistributeDataPackage extends $tea.Model {
   }
 }
 
+// 通行证批量创建失败列表
+export class XrTicketPoolFailList extends $tea.Model {
+  // 券名称
+  xrTicketPoolName: string;
+  // 资源id
+  resourceId: string;
+  // 错误码
+  errorCode: string;
+  // 租户id
+  tenantId: string;
+  // 错误信息
+  errorMsg: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      resourceId: 'resource_id',
+      errorCode: 'error_code',
+      tenantId: 'tenant_id',
+      errorMsg: 'error_msg',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      xrTicketPoolName: 'string',
+      resourceId: 'string',
+      errorCode: 'string',
+      tenantId: 'string',
+      errorMsg: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // BAI提供的OCR接口返回值
 export class BaiOcrResponse extends $tea.Model {
   // 返回的结果体
@@ -2340,6 +2598,51 @@ export class BaiQrcodeVerifyReqData extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       queryImageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 线下场设备元素
+export class XrVerificationModelVo extends $tea.Model {
+  // 核销资源生成的实例，xr设备对应设备did
+  instanceId: string;
+  // 生成的实例名称，xr设备就的对应的具体设备sn
+  instanceName: string;
+  // 线下场有效期
+  validTime: string;
+  // 服务状态：INIT初始化、SERVICING服务中、PAUSED已暂停、EXPIRED停用
+  seviceStatus: string;
+  // 设备状态：INIT 初始化、ONLINE 在线、OFFLINE 离线、FAULT 故障、ACTIVATED 激活
+  deviceStatus: string;
+  // 唯一ID，对应线下场code
+  resourceId: string;
+  // 对应线下场名称
+  resourceName: string;
+  static names(): { [key: string]: string } {
+    return {
+      instanceId: 'instance_id',
+      instanceName: 'instance_name',
+      validTime: 'valid_time',
+      seviceStatus: 'sevice_status',
+      deviceStatus: 'device_status',
+      resourceId: 'resource_id',
+      resourceName: 'resource_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      instanceId: 'string',
+      instanceName: 'string',
+      validTime: 'string',
+      seviceStatus: 'string',
+      deviceStatus: 'string',
+      resourceId: 'string',
+      resourceName: 'string',
     };
   }
 
@@ -2616,6 +2919,51 @@ export class TsmCommonCmd extends $tea.Model {
   }
 }
 
+// xr通行证批量创建请求
+export class XrTicketPoolBatchReq extends $tea.Model {
+  // 资源id
+  resourceId: string;
+  // 通行证有效期
+  validTime: string;
+  // 体验时长
+  testTime: number;
+  // vr设备集合
+  xrApps?: string;
+  // 券池最大出票数
+  maxPoolCount: number;
+  // 通行证名称
+  xrTicketPoolName: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      resourceId: 'resource_id',
+      validTime: 'valid_time',
+      testTime: 'test_time',
+      xrApps: 'xr_apps',
+      maxPoolCount: 'max_pool_count',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      resourceId: 'string',
+      validTime: 'string',
+      testTime: 'number',
+      xrApps: 'string',
+      maxPoolCount: 'number',
+      xrTicketPoolName: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备管控 失败对象
 export class DeviceControlFail extends $tea.Model {
   // 设备did
@@ -2714,6 +3062,79 @@ export class RegByDeviceParm extends $tea.Model {
       owner: 'string',
       ownerName: 'string',
       deviceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// xr通行证券池分页返回
+export class XrTicketPoolItem extends $tea.Model {
+  // 业务类型
+  bizScene: string;
+  // 通行证名称
+  xrTicketPoolName: string;
+  // 资源id
+  resourceId: number;
+  // 有效期
+  validTime: string;
+  // 体验时长
+  testTime: number;
+  // 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
+  status: string;
+  // 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
+  useStatus: string;
+  // 资源名称
+  resourceName: string;
+  // 设备集合
+  xrApps?: string;
+  // 券池最大票数
+  maxPoolCount: number;
+  // 租户id
+  tenantId: string;
+  // 核销类型
+  xrVerificationType: string;
+  // 剩余可用券数量
+  surplusCount: number;
+  // 已发放数量 （总数-剩余数量）
+  issuedCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizScene: 'biz_scene',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      resourceId: 'resource_id',
+      validTime: 'valid_time',
+      testTime: 'test_time',
+      status: 'status',
+      useStatus: 'use_status',
+      resourceName: 'resource_name',
+      xrApps: 'xr_apps',
+      maxPoolCount: 'max_pool_count',
+      tenantId: 'tenant_id',
+      xrVerificationType: 'xr_verification_type',
+      surplusCount: 'surplus_count',
+      issuedCount: 'issued_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizScene: 'string',
+      xrTicketPoolName: 'string',
+      resourceId: 'number',
+      validTime: 'string',
+      testTime: 'number',
+      status: 'string',
+      useStatus: 'string',
+      resourceName: 'string',
+      xrApps: 'string',
+      maxPoolCount: 'number',
+      tenantId: 'string',
+      xrVerificationType: 'string',
+      surplusCount: 'number',
+      issuedCount: 'number',
     };
   }
 
@@ -3436,6 +3857,59 @@ export class SpaceRegisterReqModel extends $tea.Model {
   }
 }
 
+// xr用户通行证分页结果信息
+export class XrUserTicketPageInfo extends $tea.Model {
+  // 用户id
+  userId: string;
+  // 用户通行证编码
+  xrTicketCode: string;
+  // xr通行证资源池名称
+  xrTicketPoolName: string;
+  // 资源名称
+  resourceName: string;
+  // 用户通行证状态
+  status: string;
+  // 有效期
+  validTime: string;
+  // 所属业务
+  bizScene: string;
+  // 租户id
+  tenantId: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      xrTicketCode: 'xr_ticket_code',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      resourceName: 'resource_name',
+      status: 'status',
+      validTime: 'valid_time',
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      xrTicketCode: 'string',
+      xrTicketPoolName: 'string',
+      resourceName: 'string',
+      status: 'string',
+      validTime: 'string',
+      bizScene: 'string',
+      tenantId: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 标签流转历史
 export class LabelTrace extends $tea.Model {
   // 操作内容
@@ -3807,6 +4281,63 @@ export class ScenePageResponse extends $tea.Model {
   }
 }
 
+// 客户对应设备
+export class CustomerDeviceItem extends $tea.Model {
+  // id
+  id: number;
+  // 租户id
+  tenantId: string;
+  // 账号id
+  accountId: string;
+  //  设备品类-型号-规格  
+  deviceType: string;
+  // 设备sn
+  deviceSn: string;
+  // 设备did
+  deviceDid: string;
+  // 服务有效期
+  valideTime: string;
+  // 设备状态
+  deviceStatus: string;
+  // 服务状态
+  serviceStatus: string;
+  // 屏幕状态 开屏、锁屏
+  screenStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      tenantId: 'tenant_id',
+      accountId: 'account_id',
+      deviceType: 'device_type',
+      deviceSn: 'device_sn',
+      deviceDid: 'device_did',
+      valideTime: 'valide_time',
+      deviceStatus: 'device_status',
+      serviceStatus: 'service_status',
+      screenStatus: 'screen_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      tenantId: 'string',
+      accountId: 'string',
+      deviceType: 'string',
+      deviceSn: 'string',
+      deviceDid: 'string',
+      valideTime: 'string',
+      deviceStatus: 'string',
+      serviceStatus: 'string',
+      screenStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 信物链实体查询返回的数据结构，对应数据表字段
 export class DidBaseQueryResp extends $tea.Model {
   // 授权水平，0-默认关联授权
@@ -3897,6 +4428,35 @@ export class DidBaseQueryResp extends $tea.Model {
       thingVersion: 'string',
       userDidList: { 'type': 'array', 'itemType': 'string' },
       did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户通行证创建详情
+export class XrUserTicketInfo extends $tea.Model {
+  // xr通行证资源池id
+  xrTicketPoolId: number;
+  // xr通行证资源池名称
+  xrTicketPoolName: string;
+  // 购买数量
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      xrTicketPoolId: 'xr_ticket_pool_id',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      xrTicketPoolId: 'number',
+      xrTicketPoolName: 'string',
+      count: 'number',
     };
   }
 
@@ -4380,6 +4940,31 @@ export class CollectInfo extends $tea.Model {
   }
 }
 
+// id,name
+export class IdListView extends $tea.Model {
+  // 数据id
+  dataId: number;
+  // 数据名称
+  dataName: string;
+  static names(): { [key: string]: string } {
+    return {
+      dataId: 'data_id',
+      dataName: 'data_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataId: 'number',
+      dataName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -4833,6 +5418,1215 @@ export class QueryLeaseRiskResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateXrUserticketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 用户id
+  userId: string;
+  // 购买的通行证列表详情
+  xrUserTicketList: XrUserTicketInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      userId: 'user_id',
+      xrUserTicketList: 'xr_user_ticket_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      userId: 'string',
+      xrUserTicketList: { 'type': 'array', 'itemType': XrUserTicketInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateXrUserticketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 成功列表
+  successList?: XrUserTicketResultInfo[];
+  // 失败列表
+  failList?: XrUserTicketResultInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      successList: 'success_list',
+      failList: 'fail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      successList: { 'type': 'array', 'itemType': XrUserTicketResultInfo },
+      failList: { 'type': 'array', 'itemType': XrUserTicketResultInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 资源池列表
+  xrTicketPoolList?: IdListView[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      xrTicketPoolList: 'xr_ticket_pool_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      xrTicketPoolList: { 'type': 'array', 'itemType': IdListView },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrUserticketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 资源id
+  resourceId?: string;
+  // 用户id
+  userId?: string;
+  // 用户通行证状态，
+  // VALID：待核销
+  // WRITE_OFF：已核销
+  // EXPIRED：已过期
+  status?: string;
+  // 当前页
+  current: number;
+  // 每页数量
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      resourceId: 'resource_id',
+      userId: 'user_id',
+      status: 'status',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      resourceId: 'string',
+      userId: 'string',
+      status: 'string',
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrUserticketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 用户通行证列表
+  xrUserTicketList?: XrUserTicketPageInfo[];
+  // 当前页码
+  current?: number;
+  // 每页条数
+  pageSize?: number;
+  // 总数量
+  total?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      xrUserTicketList: 'xr_user_ticket_list',
+      current: 'current',
+      pageSize: 'page_size',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      xrUserTicketList: { 'type': 'array', 'itemType': XrUserTicketPageInfo },
+      current: 'number',
+      pageSize: 'number',
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetXrUserticketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 用户通行证编码
+  xrTicketCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      xrTicketCode: 'xr_ticket_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      xrTicketCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetXrUserticketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 用户通行证详情
+  xrUserTicket?: XrUserTicketDetail;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      xrUserTicket: 'xr_user_ticket',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      xrUserTicket: XrUserTicketDetail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateXrUserticketRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 用户通行证编码
+  xrTicketCode: string;
+  // 用户id
+  userId: string;
+  // 实例id
+  instanceId: string;
+  // 核销动作
+  // open_screen（设备开屏）
+  xrVerificationOperate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      xrTicketCode: 'xr_ticket_code',
+      userId: 'user_id',
+      instanceId: 'instance_id',
+      xrVerificationOperate: 'xr_verification_operate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      xrTicketCode: 'string',
+      userId: 'string',
+      instanceId: 'string',
+      xrVerificationOperate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateXrUserticketResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrResourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 核销资源类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrResourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 资源列表
+  resourceList?: CodeListView[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      resourceList: 'resource_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      resourceList: { 'type': 'array', 'itemType': CodeListView },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrXrverificationmodelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一ID，对应线下场code
+  resourceId?: string;
+  // 唯一ID，对应线下场名称
+  resourceName?: string;
+  // 设备sn
+  instanceName?: string;
+  // 设备did
+  instanceId: string;
+  // 当前页
+  current: number;
+  // 每页大小
+  pageSize: number;
+  // 业务类型
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      resourceId: 'resource_id',
+      resourceName: 'resource_name',
+      instanceName: 'instance_name',
+      instanceId: 'instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      resourceId: 'string',
+      resourceName: 'string',
+      instanceName: 'string',
+      instanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrXrverificationmodelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 核销实例列表
+  xrVerificationModelList?: XrVerificationModelVo[];
+  // 当前页
+  current?: number;
+  // 每页数据量
+  pageSize?: number;
+  // 数据总条数
+  total?: number;
+  // 总页数
+  totalPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      xrVerificationModelList: 'xr_verification_model_list',
+      current: 'current',
+      pageSize: 'page_size',
+      total: 'total',
+      totalPage: 'total_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      xrVerificationModelList: { 'type': 'array', 'itemType': XrVerificationModelVo },
+      current: 'number',
+      pageSize: 'number',
+      total: 'number',
+      totalPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrCustomerdeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备sn
+  deviceSn?: string;
+  // 服务状态
+  serviceStatus?: string;
+  // 设备状态
+  deviceStatus?: string;
+  //  设备品类-型号-规格  
+  deviceType?: string;
+  // 当前页
+  current: number;
+  // 每页数据
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceSn: 'device_sn',
+      serviceStatus: 'service_status',
+      deviceStatus: 'device_status',
+      deviceType: 'device_type',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceSn: 'string',
+      serviceStatus: 'string',
+      deviceStatus: 'string',
+      deviceType: 'string',
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrCustomerdeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 当前页
+  current?: number;
+  // 客户对应设备列表
+  customerDeviceList?: CustomerDeviceItem[];
+  // 每页数据
+  pageSize?: number;
+  // 数据总条数
+  total?: number;
+  // 总页数
+  totalPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      current: 'current',
+      customerDeviceList: 'customer_device_list',
+      pageSize: 'page_size',
+      total: 'total',
+      totalPage: 'total_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      current: 'number',
+      customerDeviceList: { 'type': 'array', 'itemType': CustomerDeviceItem },
+      pageSize: 'number',
+      total: 'number',
+      totalPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizScene: string;
+  // 资源id
+  resourceId: string;
+  // 有效期
+  validTime: string;
+  // 体验时长
+  testTime: number;
+  // vr设备集合
+  xrApps?: string;
+  // 券池数量，能发多少张券
+  maxPoolCount: number;
+  // 券池名称
+  xrTicketPoolName: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      resourceId: 'resource_id',
+      validTime: 'valid_time',
+      testTime: 'test_time',
+      xrApps: 'xr_apps',
+      maxPoolCount: 'max_pool_count',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      resourceId: 'string',
+      validTime: 'string',
+      testTime: 'number',
+      xrApps: 'string',
+      maxPoolCount: 'number',
+      xrTicketPoolName: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 券池名称
+  xrTicketPoolName: string;
+  // 资源id
+  resourceId?: string;
+  // 通行证有效期
+  validTime?: string;
+  // 体验时长
+  testTime?: number;
+  // vr设备集合
+  xrApps?: string;
+  // 券池数量，能发多少张券
+  maxPoolCount?: number;
+  // 核销类型，资源id改变时必须有值
+  xrVerificationType?: string;
+  // 业务类型
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      resourceId: 'resource_id',
+      validTime: 'valid_time',
+      testTime: 'test_time',
+      xrApps: 'xr_apps',
+      maxPoolCount: 'max_pool_count',
+      xrVerificationType: 'xr_verification_type',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      xrTicketPoolName: 'string',
+      resourceId: 'string',
+      validTime: 'string',
+      testTime: 'number',
+      xrApps: 'string',
+      maxPoolCount: 'number',
+      xrVerificationType: 'string',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizScene: string;
+  // 资源id
+  resourceId?: string;
+  // 券池名称
+  xrTicketPoolName?: string;
+  // 通行证状态，
+  // EXPIRED：已过期
+  // VALID：有效
+  // SALED：已出售
+  status?: string;
+  // 当前页
+  // 
+  current: number;
+  // 每页大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      resourceId: 'resource_id',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+      status: 'status',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      resourceId: 'string',
+      xrTicketPoolName: 'string',
+      status: 'string',
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 通行证列表
+  xrTicketPoolList?: XrTicketPoolItem[];
+  // 是否成功
+  success?: boolean;
+  // 当前页
+  current?: number;
+  // 每页数据条数
+  pageSize?: number;
+  // 总数量
+  total?: number;
+  // 总页数
+  totalPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      xrTicketPoolList: 'xr_ticket_pool_list',
+      success: 'success',
+      current: 'current',
+      pageSize: 'page_size',
+      total: 'total',
+      totalPage: 'total_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      xrTicketPoolList: { 'type': 'array', 'itemType': XrTicketPoolItem },
+      success: 'boolean',
+      current: 'number',
+      pageSize: 'number',
+      total: 'number',
+      totalPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncDeviceScreenstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 所属业务
+  bizScene: string;
+  // 设备did
+  deviceDid: string;
+  // 设备屏幕状态
+  deviceScreenStatus: string;
+  // 租户id
+  tenantId: string;
+  // 状态改变时间
+  statusChangeTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      deviceDid: 'device_did',
+      deviceScreenStatus: 'device_screen_status',
+      tenantId: 'tenant_id',
+      statusChangeTime: 'status_change_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      deviceDid: 'string',
+      deviceScreenStatus: 'string',
+      tenantId: 'string',
+      statusChangeTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncDeviceScreenstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // xr通行证批量创建请求列表
+  xrTicketPoolReqs: XrTicketPoolBatchReq[];
+  // 业务类型
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      xrTicketPoolReqs: 'xr_ticket_pool_reqs',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      xrTicketPoolReqs: { 'type': 'array', 'itemType': XrTicketPoolBatchReq },
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // xr通行证创建成功列表
+  successList?: XrTicketPoolSuccessList[];
+  // xr通行证创建失败列表
+  failList?: XrTicketPoolFailList[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      successList: 'success_list',
+      failList: 'fail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      successList: { 'type': 'array', 'itemType': XrTicketPoolSuccessList },
+      failList: { 'type': 'array', 'itemType': XrTicketPoolFailList },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrXrverificationmodelinstanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizScene: string;
+  // 资源id
+  resourceId: string;
+  // 核销类型
+  xrVerificationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      resourceId: 'resource_id',
+      xrVerificationType: 'xr_verification_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      resourceId: 'string',
+      xrVerificationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListXrXrverificationmodelinstanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 实例信息列表
+  instanceInfoList?: InstanceInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      instanceInfoList: 'instance_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      instanceInfoList: { 'type': 'array', 'itemType': InstanceInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailXrXrticketpoolRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizScene: string;
+  // 券名称
+  xrTicketPoolName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizScene: 'biz_scene',
+      xrTicketPoolName: 'xr_ticket_pool_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizScene: 'string',
+      xrTicketPoolName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailXrXrticketpoolResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 通行证对象
+  xrTicketPoolDetail?: XrTicketPoolItem;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      xrTicketPoolDetail: 'xr_ticket_pool_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      xrTicketPoolDetail: XrTicketPoolItem,
     };
   }
 
@@ -8360,7 +10154,7 @@ export class OperateIotbasicDevicecontrolRequest extends $tea.Model {
   // 设备操作类型
   deviceOperation: string;
   // 所属账号名称
-  userId: string;
+  userId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11659,6 +13453,8 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
   owner?: string;
   // 资产所有人名称
   ownerName?: string;
+  // 额外信息
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11676,6 +13472,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       deviceName: 'device_name',
       owner: 'owner',
       ownerName: 'owner_name',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -11696,6 +13493,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       deviceName: 'string',
       owner: 'string',
       ownerName: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -15866,6 +17664,85 @@ export class UnbindEntityrelationResponse extends $tea.Model {
   }
 }
 
+export class DetailThingmodelDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 设备ID（当device_imei号为空时，会根据scene+device_id查询设备记录，获取device_imei）
+  deviceId: string;
+  // 设备imei号
+  deviceImei?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      deviceId: 'device_id',
+      deviceImei: 'device_imei',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      deviceId: 'string',
+      deviceImei: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailThingmodelDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备状态
+  status?: string;
+  // 设备状态是否可用
+  statusAvailable?: boolean;
+  // SDK版本号
+  sdkVersion?: string;
+  // SDK版本号是否可用
+  sdkVersionAvailable?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      statusAvailable: 'status_available',
+      sdkVersion: 'sdk_version',
+      sdkVersionAvailable: 'sdk_version_available',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      statusAvailable: 'boolean',
+      sdkVersion: 'string',
+      sdkVersionAvailable: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -17248,7 +19125,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.19",
+          sdk_version: "1.8.56",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -17408,6 +19285,291 @@ export default class Client {
   async queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRiskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeaseRiskResponse>(await this.doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRiskResponse({}));
+  }
+
+  /**
+   * Description: aiot-创建用户通行证
+   * Summary: aiot-创建用户通行证
+   */
+  async createXrUserticket(request: CreateXrUserticketRequest): Promise<CreateXrUserticketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createXrUserticketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-创建用户通行证
+   * Summary: aiot-创建用户通行证
+   */
+  async createXrUserticketEx(request: CreateXrUserticketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateXrUserticketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateXrUserticketResponse>(await this.doRequest("1.0", "blockchain.bot.xr.userticket.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateXrUserticketResponse({}));
+  }
+
+  /**
+   * Description: aiot-获取通行证资源池列表
+   * Summary: aiot-获取通行证资源池列表
+   */
+  async listXrXrticketpool(request: ListXrXrticketpoolRequest): Promise<ListXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-获取通行证资源池列表
+   * Summary: aiot-获取通行证资源池列表
+   */
+  async listXrXrticketpoolEx(request: ListXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListXrXrticketpoolResponse({}));
+  }
+
+  /**
+   * Description: aiot-分页查询用户通行证
+   * Summary: aiot-分页查询用户通行证
+   */
+  async pagequeryXrUserticket(request: PagequeryXrUserticketRequest): Promise<PagequeryXrUserticketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryXrUserticketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-分页查询用户通行证
+   * Summary: aiot-分页查询用户通行证
+   */
+  async pagequeryXrUserticketEx(request: PagequeryXrUserticketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryXrUserticketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryXrUserticketResponse>(await this.doRequest("1.0", "blockchain.bot.xr.userticket.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryXrUserticketResponse({}));
+  }
+
+  /**
+   * Description: aiot-查询用户通行证
+   * Summary: aiot-查询用户通行证
+   */
+  async getXrUserticket(request: GetXrUserticketRequest): Promise<GetXrUserticketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getXrUserticketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-查询用户通行证
+   * Summary: aiot-查询用户通行证
+   */
+  async getXrUserticketEx(request: GetXrUserticketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetXrUserticketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetXrUserticketResponse>(await this.doRequest("1.0", "blockchain.bot.xr.userticket.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetXrUserticketResponse({}));
+  }
+
+  /**
+   * Description: aiot-核销用户通行证
+   * Summary: aiot-核销用户通行证
+   */
+  async operateXrUserticket(request: OperateXrUserticketRequest): Promise<OperateXrUserticketResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateXrUserticketEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-核销用户通行证
+   * Summary: aiot-核销用户通行证
+   */
+  async operateXrUserticketEx(request: OperateXrUserticketRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateXrUserticketResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateXrUserticketResponse>(await this.doRequest("1.0", "blockchain.bot.xr.userticket.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateXrUserticketResponse({}));
+  }
+
+  /**
+   * Description: aiot-获取资源列表
+   * Summary: aiot-获取资源列表
+   */
+  async listXrResource(request: ListXrResourceRequest): Promise<ListXrResourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listXrResourceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-获取资源列表
+   * Summary: aiot-获取资源列表
+   */
+  async listXrResourceEx(request: ListXrResourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListXrResourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListXrResourceResponse>(await this.doRequest("1.0", "blockchain.bot.xr.resource.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListXrResourceResponse({}));
+  }
+
+  /**
+   * Description: aiot-核销实例分页查询
+   * Summary: aiot-核销实例分页查询
+   */
+  async pagequeryXrXrverificationmodel(request: PagequeryXrXrverificationmodelRequest): Promise<PagequeryXrXrverificationmodelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryXrXrverificationmodelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-核销实例分页查询
+   * Summary: aiot-核销实例分页查询
+   */
+  async pagequeryXrXrverificationmodelEx(request: PagequeryXrXrverificationmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryXrXrverificationmodelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryXrXrverificationmodelResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrverificationmodel.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryXrXrverificationmodelResponse({}));
+  }
+
+  /**
+   * Description: aiot-客户对应设备分页查询
+   * Summary: aiot-客户对应设备分页查询
+   */
+  async pagequeryXrCustomerdevice(request: PagequeryXrCustomerdeviceRequest): Promise<PagequeryXrCustomerdeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryXrCustomerdeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-客户对应设备分页查询
+   * Summary: aiot-客户对应设备分页查询
+   */
+  async pagequeryXrCustomerdeviceEx(request: PagequeryXrCustomerdeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryXrCustomerdeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryXrCustomerdeviceResponse>(await this.doRequest("1.0", "blockchain.bot.xr.customerdevice.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryXrCustomerdeviceResponse({}));
+  }
+
+  /**
+   * Description: aiot-xr通行证创建
+   * Summary: aiot-xr通行证创建
+   */
+  async createXrXrticketpool(request: CreateXrXrticketpoolRequest): Promise<CreateXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-xr通行证创建
+   * Summary: aiot-xr通行证创建
+   */
+  async createXrXrticketpoolEx(request: CreateXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateXrXrticketpoolResponse({}));
+  }
+
+  /**
+   * Description: aiot-xr通行证修改
+   * Summary: aiot-xr通行证修改
+   */
+  async updateXrXrticketpool(request: UpdateXrXrticketpoolRequest): Promise<UpdateXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-xr通行证修改
+   * Summary: aiot-xr通行证修改
+   */
+  async updateXrXrticketpoolEx(request: UpdateXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateXrXrticketpoolResponse({}));
+  }
+
+  /**
+   * Description: aiot-xr通行证分页查询
+   * Summary: aiot-xr通行证分页查询
+   */
+  async pagequeryXrXrticketpool(request: PagequeryXrXrticketpoolRequest): Promise<PagequeryXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-xr通行证分页查询
+   * Summary: aiot-xr通行证分页查询
+   */
+  async pagequeryXrXrticketpoolEx(request: PagequeryXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryXrXrticketpoolResponse({}));
+  }
+
+  /**
+   * Description: aiot-同步设备屏幕状态
+   * Summary: aiot-同步设备屏幕状态
+   */
+  async syncDeviceScreenstatus(request: SyncDeviceScreenstatusRequest): Promise<SyncDeviceScreenstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncDeviceScreenstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-同步设备屏幕状态
+   * Summary: aiot-同步设备屏幕状态
+   */
+  async syncDeviceScreenstatusEx(request: SyncDeviceScreenstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncDeviceScreenstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncDeviceScreenstatusResponse>(await this.doRequest("1.0", "blockchain.bot.device.screenstatus.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncDeviceScreenstatusResponse({}));
+  }
+
+  /**
+   * Description: xr通行证批量创建
+   * Summary: xr通行证批量创建
+   */
+  async batchcreateXrXrticketpool(request: BatchcreateXrXrticketpoolRequest): Promise<BatchcreateXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcreateXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: xr通行证批量创建
+   * Summary: xr通行证批量创建
+   */
+  async batchcreateXrXrticketpoolEx(request: BatchcreateXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcreateXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateXrXrticketpoolResponse({}));
+  }
+
+  /**
+   * Description: aiot-获取资源实例列表
+   * Summary: aiot-获取资源实例列表
+   */
+  async listXrXrverificationmodelinstance(request: ListXrXrverificationmodelinstanceRequest): Promise<ListXrXrverificationmodelinstanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listXrXrverificationmodelinstanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-获取资源实例列表
+   * Summary: aiot-获取资源实例列表
+   */
+  async listXrXrverificationmodelinstanceEx(request: ListXrXrverificationmodelinstanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListXrXrverificationmodelinstanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListXrXrverificationmodelinstanceResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrverificationmodelinstance.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListXrXrverificationmodelinstanceResponse({}));
+  }
+
+  /**
+   * Description: aiot-xr通行证详情查询
+   * Summary: aiot-xr通行证详情查询
+   */
+  async detailXrXrticketpool(request: DetailXrXrticketpoolRequest): Promise<DetailXrXrticketpoolResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailXrXrticketpoolEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiot-xr通行证详情查询
+   * Summary: aiot-xr通行证详情查询
+   */
+  async detailXrXrticketpoolEx(request: DetailXrXrticketpoolRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailXrXrticketpoolResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailXrXrticketpoolResponse>(await this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailXrXrticketpoolResponse({}));
   }
 
   /**
@@ -20127,6 +22289,25 @@ export default class Client {
   async unbindEntityrelationEx(request: UnbindEntityrelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindEntityrelationResponse> {
     Util.validateModel(request);
     return $tea.cast<UnbindEntityrelationResponse>(await this.doRequest("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindEntityrelationResponse({}));
+  }
+
+  /**
+   * Description: 查询物模型设备详情
+   * Summary: 查询物模型设备详情
+   */
+  async detailThingmodelDevice(request: DetailThingmodelDeviceRequest): Promise<DetailThingmodelDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailThingmodelDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询物模型设备详情
+   * Summary: 查询物模型设备详情
+   */
+  async detailThingmodelDeviceEx(request: DetailThingmodelDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailThingmodelDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailThingmodelDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailThingmodelDeviceResponse({}));
   }
 
   /**
