@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.19',
+    sdk_version = '1.8.56',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -502,6 +502,14 @@ model SdkPageResponse {
   pageData: [ SdkModel ](name='page_data', example='{...}'),
 }
 
+// code,name
+model CodeListView {
+  // 数据code
+  dataCode: string(name='data_code', example='ahog'),
+  // 数据名称
+  dataName: string(name='data_name', example='name'),
+}
+
 // 查询设备列表结构体
 model IotBasicDeviceQueryResponse {
   // 设备名称	
@@ -593,6 +601,18 @@ model BaiQrcodeComparisonReqData {
   downgrade: boolean(name='downgrade', example='true, false'),
 }
 
+// 创建xr用户通行证结果信息
+model XrUserTicketResultInfo {
+  // xr通行证资源池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='资源池001'),
+  // 购买数量，失败列表有值
+  count?: long(name='count', example='10'),
+  // 失败原因，失败列表有值
+  errorMsg?: string(name='error_msg', example='参数错误'),
+  // 通行证编号，成功列表有值
+  xrTicketCode?: string(name='xr_ticket_code', example='123123'),
+}
+
 // 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
 model WarehouseReqModel {
   // 详细地址
@@ -643,6 +663,14 @@ model PurchaseOrderInfoDetail {
   leaseId: string(name='lease_id', example='fafsafaf'),
   // 商品信息列表
   goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
+}
+
+// 实例信息列表
+model InstanceInfo {
+  // 实例id
+  instanceId: string(name='instance_id', example='设备001'),
+  // 实例名称
+  instanceName: string(name='instance_name', example='12313'),
 }
 
 // 设备不可操作标识类
@@ -835,6 +863,26 @@ model ChargeDetail {
   detailServiceMoney?: string(name='detail_service_money', example='10.10'),
 }
 
+// xr通行证批量创建成功列表
+model XrTicketPoolSuccessList {
+  // 租户id
+  tenantId: string(name='tenant_id', example='租户id'),
+  // 资源id
+  resourceId: string(name='resource_id', example='资源id'),
+  // 有效期
+  validTime: string(name='valid_time', example='2022-10-02'),
+  // 体验时长
+  testTime: long(name='test_time', example='60(单位分)'),
+  // vr设备集合
+  xrApps?: string(name='xr_apps', example='json或数组'),
+  // 券池最大数
+  maxPoolCount: long(name='max_pool_count', example='200'),
+  // 券池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='券池名称'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+}
+
 // 更新设备和空间关联请求结构体
 model UpdateDeviceSpaceReq {
   // API要更新的设备DID
@@ -968,6 +1016,44 @@ model ScfLeaseEqpInfoQueryRequest {
   operationDate: string(name='operation_date', example='2021-07-20 11:34:00'),
 }
 
+// 用户通行证详情
+model XrUserTicketDetail {
+  // 业务类型
+  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  // 所属客户
+  tenantId: string(name='tenant_id', example='QWERTYUI'),
+  // 用户通行证编码
+  xrTicketCode: string(name='xr_ticket_code', example='8613356'),
+  // xr通行证资源池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='资源池001'),
+  // 用户id
+  userId: string(name='user_id', example='2088**'),
+  // 资源id
+  resourceId: string(name='resource_id', example='xsadds'),
+  // 资源名称
+  resourceName: string(name='resource_name', example='资源001'),
+  // 用户通行证状态
+  status: string(name='status', example='待核销'),
+  // 有效期
+  validTime: string(name='valid_time', example='2023-03-28'),
+  // 实例id
+  instanceId?: string(name='instance_id', example='86871'),
+  // 核销时间
+  xrVerificationTime?: string(name='xr_verification_time', example='2018-10-10 10:10:00'),
+  // 体验开始时间
+  sampleStartTime?: string(name='sample_start_time', example='2018-10-10 10:10:00'),
+  // 体验结束时间
+  sampleEndTime?: string(name='sample_end_time', example='2018-10-10 10:10:00'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+  // 实例名称
+  instanceName?: string(name='instance_name', example='实例001'),
+  // 体验时长，分
+  testTime: string(name='test_time', example='60'),
+  // vr应用集合
+  xrApps?: string(name='xr_apps', example='vr应用集合'),
+}
+
 // 信物链查询实体身份请求结构体
 model DidBaseQueryReq {
   // * "thingId"       原始ID
@@ -1076,6 +1162,22 @@ model DistributeDataPackage {
   packageTime: long(name='package_time', example=''),
 }
 
+// 通行证批量创建失败列表
+model XrTicketPoolFailList {
+  // 券名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='券名称'),
+  // 资源id
+  resourceId: string(name='resource_id', example='资源id'),
+  // 错误码
+  errorCode: string(name='error_code', example='ok'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='租户id'),
+  // 错误信息
+  errorMsg: string(name='error_msg', example='错误信息'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+}
+
 // BAI提供的OCR接口返回值
 model BaiOcrResponse {
   // 返回的结果体
@@ -1086,6 +1188,24 @@ model BaiOcrResponse {
 model BaiQrcodeVerifyReqData {
   // 二维码图片url
   queryImageUrl: string(name='query_image_url', example='http://xxxxxx'),
+}
+
+// 线下场设备元素
+model XrVerificationModelVo {
+  // 核销资源生成的实例，xr设备对应设备did
+  instanceId: string(name='instance_id', example='qsdfskjes'),
+  // 生成的实例名称，xr设备就的对应的具体设备sn
+  instanceName: string(name='instance_name', example='设备sn'),
+  // 线下场有效期
+  validTime: string(name='valid_time', example='2022-10-02 09:10:09'),
+  // 服务状态：INIT初始化、SERVICING服务中、PAUSED已暂停、EXPIRED停用
+  seviceStatus: string(name='sevice_status', example='INIT'),
+  // 设备状态：INIT 初始化、ONLINE 在线、OFFLINE 离线、FAULT 故障、ACTIVATED 激活
+  deviceStatus: string(name='device_status', example='ONLINE'),
+  // 唯一ID，对应线下场code
+  resourceId: string(name='resource_id', example='唯一ID，对应线下场code'),
+  // 对应线下场名称
+  resourceName: string(name='resource_name', example='对应线下场名称'),
 }
 
 // 实体身份注册请求结构体
@@ -1203,6 +1323,24 @@ model TsmCommonCmd {
   p2: long(name='p2', example='00'),
 }
 
+// xr通行证批量创建请求
+model XrTicketPoolBatchReq {
+  // 资源id
+  resourceId: string(name='resource_id', example='资源id'),
+  // 通行证有效期
+  validTime: string(name='valid_time', example='通行证有效期'),
+  // 体验时长
+  testTime: long(name='test_time', example='60(单位分)'),
+  // vr设备集合
+  xrApps?: string(name='xr_apps', example='json或数组'),
+  // 券池最大出票数
+  maxPoolCount: long(name='max_pool_count', example='100'),
+  // 通行证名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='通行证名称'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+}
+
 // 设备管控 失败对象
 model DeviceControlFail {
   // 设备did
@@ -1249,6 +1387,38 @@ model RegByDeviceParm {
   ownerName?: string(name='owner_name', example='蚂蚁区块链科技（上海）有限公司 '),
   // 设备名称/型号
   deviceName?: string(name='device_name', example='64.0V30AH'),
+}
+
+// xr通行证券池分页返回
+model XrTicketPoolItem {
+  // 业务类型
+  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  // 通行证名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='通行证名称'),
+  // 资源id
+  resourceId: long(name='resource_id', example='1'),
+  // 有效期
+  validTime: string(name='valid_time', example='2022-10-02'),
+  // 体验时长
+  testTime: long(name='test_time', example='15(单位分钟)'),
+  // 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
+  status: string(name='status', example='通行证状态'),
+  // 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
+  useStatus: string(name='use_status', example='USED'),
+  // 资源名称
+  resourceName: string(name='resource_name', example='资源名称'),
+  // 设备集合
+  xrApps?: string(name='xr_apps', example='json 或数组'),
+  // 券池最大票数
+  maxPoolCount: long(name='max_pool_count', example='133'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='ADSAERDS'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+  // 剩余可用券数量
+  surplusCount: long(name='surplus_count', example='100'),
+  // 已发放数量 （总数-剩余数量）
+  issuedCount: long(name='issued_count', example='12'),
 }
 
 // 信物链证据基本组成结构体
@@ -1522,6 +1692,28 @@ model SpaceRegisterReqModel {
   type?: string(name='type', example='“平面“'),
 }
 
+// xr用户通行证分页结果信息
+model XrUserTicketPageInfo {
+  // 用户id
+  userId: string(name='user_id', example='2088**'),
+  // 用户通行证编码
+  xrTicketCode: string(name='xr_ticket_code', example='2739875205'),
+  // xr通行证资源池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='资源池001'),
+  // 资源名称
+  resourceName: string(name='resource_name', example='资源001'),
+  // 用户通行证状态
+  status: string(name='status', example='VALID'),
+  // 有效期
+  validTime: string(name='valid_time', example='2023-04-06'),
+  // 所属业务
+  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='QWERTYUI'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+}
+
 // 标签流转历史
 model LabelTrace {
   // 操作内容
@@ -1695,6 +1887,30 @@ model ScenePageResponse {
   pageData: [ SceneModel ](name='page_data', example='{...}'),
 }
 
+// 客户对应设备
+model CustomerDeviceItem {
+  // id
+  id: long(name='id', example='1'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='tenant_id'),
+  // 账号id
+  accountId: string(name='account_id', example='账号id'),
+  //  设备品类-型号-规格  
+  deviceType: string(name='device_type', example=' 设备品类-型号-规格  '),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='SN'),
+  // 设备did
+  deviceDid: string(name='device_did', example='dasdf'),
+  // 服务有效期
+  valideTime: string(name='valide_time', example='服务有效期'),
+  // 设备状态
+  deviceStatus: string(name='device_status', example='INIT'),
+  // 服务状态
+  serviceStatus: string(name='service_status', example='INIT'),
+  // 屏幕状态 开屏、锁屏
+  screenStatus?: string(name='screen_status', example='屏幕状态'),
+}
+
 // 信物链实体查询返回的数据结构，对应数据表字段
 model DidBaseQueryResp {
   // 授权水平，0-默认关联授权
@@ -1742,6 +1958,16 @@ model DidBaseQueryResp {
   userDidList?: [ string ](name='user_did_list', example='["did:iot:xxxxx","did:iot:yyyyy"]'),
   // 查询的did
   did?: string(name='did', example='"did:iot:xxxx"'),
+}
+
+// 用户通行证创建详情
+model XrUserTicketInfo {
+  // xr通行证资源池id
+  xrTicketPoolId: long(name='xr_ticket_pool_id', example='10'),
+  // xr通行证资源池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name', example='资源池001'),
+  // 购买数量
+  count: long(name='count', example='10'),
 }
 
 // 用户操作集合
@@ -1926,6 +2152,14 @@ model CollectInfo {
   assetData: string(name='asset_data', example='{"a":xx,"b":xx}'),
   // 上链数据采集id
   collectId: string(name='collect_id', example='289hj98u'),
+}
+
+// id,name
+model IdListView {
+  // 数据id
+  dataId: long(name='data_id', example='10'),
+  // 数据名称
+  dataName: string(name='data_name', example='name'),
 }
 
 // 键值对
@@ -2204,6 +2438,742 @@ async function queryLeaseRisk(request: QueryLeaseRiskRequest): QueryLeaseRiskRes
 async function queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRiskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateXrUserticketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 购买的通行证列表详情
+  xrUserTicketList: [ XrUserTicketInfo ](name='xr_user_ticket_list'),
+}
+
+model CreateXrUserticketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 成功列表
+  successList?: [ XrUserTicketResultInfo ](name='success_list'),
+  // 失败列表
+  failList?: [ XrUserTicketResultInfo ](name='fail_list'),
+}
+
+/**
+ * Description: aiot-创建用户通行证
+ * Summary: aiot-创建用户通行证
+ */
+async function createXrUserticket(request: CreateXrUserticketRequest): CreateXrUserticketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createXrUserticketEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-创建用户通行证
+ * Summary: aiot-创建用户通行证
+ */
+async function createXrUserticketEx(request: CreateXrUserticketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateXrUserticketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.userticket.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+}
+
+model ListXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 资源池列表
+  xrTicketPoolList?: [ IdListView ](name='xr_ticket_pool_list'),
+}
+
+/**
+ * Description: aiot-获取通行证资源池列表
+ * Summary: aiot-获取通行证资源池列表
+ */
+async function listXrXrticketpool(request: ListXrXrticketpoolRequest): ListXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-获取通行证资源池列表
+ * Summary: aiot-获取通行证资源池列表
+ */
+async function listXrXrticketpoolEx(request: ListXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryXrUserticketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 资源id
+  resourceId?: string(name='resource_id'),
+  // 用户id
+  userId?: string(name='user_id'),
+  // 用户通行证状态，
+  // VALID：待核销
+  // WRITE_OFF：已核销
+  // EXPIRED：已过期
+  status?: string(name='status'),
+  // 当前页
+  current: long(name='current'),
+  // 每页数量
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryXrUserticketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 用户通行证列表
+  xrUserTicketList?: [ XrUserTicketPageInfo ](name='xr_user_ticket_list'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+  // 总数量
+  total?: long(name='total'),
+}
+
+/**
+ * Description: aiot-分页查询用户通行证
+ * Summary: aiot-分页查询用户通行证
+ */
+async function pagequeryXrUserticket(request: PagequeryXrUserticketRequest): PagequeryXrUserticketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryXrUserticketEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-分页查询用户通行证
+ * Summary: aiot-分页查询用户通行证
+ */
+async function pagequeryXrUserticketEx(request: PagequeryXrUserticketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryXrUserticketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.userticket.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetXrUserticketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 用户通行证编码
+  xrTicketCode: string(name='xr_ticket_code'),
+}
+
+model GetXrUserticketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 用户通行证详情
+  xrUserTicket?: XrUserTicketDetail(name='xr_user_ticket'),
+}
+
+/**
+ * Description: aiot-查询用户通行证
+ * Summary: aiot-查询用户通行证
+ */
+async function getXrUserticket(request: GetXrUserticketRequest): GetXrUserticketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getXrUserticketEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-查询用户通行证
+ * Summary: aiot-查询用户通行证
+ */
+async function getXrUserticketEx(request: GetXrUserticketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetXrUserticketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.userticket.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateXrUserticketRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 用户通行证编码
+  xrTicketCode: string(name='xr_ticket_code'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 实例id
+  instanceId: string(name='instance_id'),
+  // 核销动作
+  // open_screen（设备开屏）
+  xrVerificationOperate?: string(name='xr_verification_operate'),
+}
+
+model OperateXrUserticketResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: aiot-核销用户通行证
+ * Summary: aiot-核销用户通行证
+ */
+async function operateXrUserticket(request: OperateXrUserticketRequest): OperateXrUserticketResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateXrUserticketEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-核销用户通行证
+ * Summary: aiot-核销用户通行证
+ */
+async function operateXrUserticketEx(request: OperateXrUserticketRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateXrUserticketResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.userticket.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListXrResourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 核销资源类型
+  xrVerificationType: string(name='xr_verification_type'),
+}
+
+model ListXrResourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 资源列表
+  resourceList?: [ CodeListView ](name='resource_list'),
+}
+
+/**
+ * Description: aiot-获取资源列表
+ * Summary: aiot-获取资源列表
+ */
+async function listXrResource(request: ListXrResourceRequest): ListXrResourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listXrResourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-获取资源列表
+ * Summary: aiot-获取资源列表
+ */
+async function listXrResourceEx(request: ListXrResourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListXrResourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.resource.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryXrXrverificationmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一ID，对应线下场code
+  resourceId?: string(name='resource_id'),
+  // 唯一ID，对应线下场名称
+  resourceName?: string(name='resource_name'),
+  // 设备sn
+  instanceName?: string(name='instance_name'),
+  // 设备did
+  instanceId: string(name='instance_id'),
+  // 当前页
+  current: long(name='current'),
+  // 每页大小
+  pageSize: long(name='page_size'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+}
+
+model PagequeryXrXrverificationmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 核销实例列表
+  xrVerificationModelList?: [ XrVerificationModelVo ](name='xr_verification_model_list'),
+  // 当前页
+  current?: long(name='current'),
+  // 每页数据量
+  pageSize?: long(name='page_size'),
+  // 数据总条数
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: aiot-核销实例分页查询
+ * Summary: aiot-核销实例分页查询
+ */
+async function pagequeryXrXrverificationmodel(request: PagequeryXrXrverificationmodelRequest): PagequeryXrXrverificationmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryXrXrverificationmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-核销实例分页查询
+ * Summary: aiot-核销实例分页查询
+ */
+async function pagequeryXrXrverificationmodelEx(request: PagequeryXrXrverificationmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryXrXrverificationmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrverificationmodel.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryXrCustomerdeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备sn
+  deviceSn?: string(name='device_sn'),
+  // 服务状态
+  serviceStatus?: string(name='service_status'),
+  // 设备状态
+  deviceStatus?: string(name='device_status'),
+  //  设备品类-型号-规格  
+  deviceType?: string(name='device_type'),
+  // 当前页
+  current: long(name='current'),
+  // 每页数据
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryXrCustomerdeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 当前页
+  current?: long(name='current'),
+  // 客户对应设备列表
+  customerDeviceList?: [ CustomerDeviceItem ](name='customer_device_list'),
+  // 每页数据
+  pageSize?: long(name='page_size'),
+  // 数据总条数
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: aiot-客户对应设备分页查询
+ * Summary: aiot-客户对应设备分页查询
+ */
+async function pagequeryXrCustomerdevice(request: PagequeryXrCustomerdeviceRequest): PagequeryXrCustomerdeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryXrCustomerdeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-客户对应设备分页查询
+ * Summary: aiot-客户对应设备分页查询
+ */
+async function pagequeryXrCustomerdeviceEx(request: PagequeryXrCustomerdeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryXrCustomerdeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.customerdevice.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+  // 资源id
+  resourceId: string(name='resource_id'),
+  // 有效期
+  validTime: string(name='valid_time'),
+  // 体验时长
+  testTime: long(name='test_time'),
+  // vr设备集合
+  xrApps?: string(name='xr_apps'),
+  // 券池数量，能发多少张券
+  maxPoolCount: long(name='max_pool_count'),
+  // 券池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type'),
+}
+
+model CreateXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: aiot-xr通行证创建
+ * Summary: aiot-xr通行证创建
+ */
+async function createXrXrticketpool(request: CreateXrXrticketpoolRequest): CreateXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-xr通行证创建
+ * Summary: aiot-xr通行证创建
+ */
+async function createXrXrticketpoolEx(request: CreateXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 券池名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name'),
+  // 资源id
+  resourceId?: string(name='resource_id'),
+  // 通行证有效期
+  validTime?: string(name='valid_time'),
+  // 体验时长
+  testTime?: long(name='test_time'),
+  // vr设备集合
+  xrApps?: string(name='xr_apps'),
+  // 券池数量，能发多少张券
+  maxPoolCount?: long(name='max_pool_count'),
+  // 核销类型，资源id改变时必须有值
+  xrVerificationType?: string(name='xr_verification_type'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+}
+
+model UpdateXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: aiot-xr通行证修改
+ * Summary: aiot-xr通行证修改
+ */
+async function updateXrXrticketpool(request: UpdateXrXrticketpoolRequest): UpdateXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-xr通行证修改
+ * Summary: aiot-xr通行证修改
+ */
+async function updateXrXrticketpoolEx(request: UpdateXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+  // 资源id
+  resourceId?: string(name='resource_id'),
+  // 券池名称
+  xrTicketPoolName?: string(name='xr_ticket_pool_name'),
+  // 通行证状态，
+  // EXPIRED：已过期
+  // VALID：有效
+  // SALED：已出售
+  status?: string(name='status'),
+  // 当前页
+  // 
+  current: long(name='current'),
+  // 每页大小
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 通行证列表
+  xrTicketPoolList?: [ XrTicketPoolItem ](name='xr_ticket_pool_list'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 当前页
+  current?: long(name='current'),
+  // 每页数据条数
+  pageSize?: long(name='page_size'),
+  // 总数量
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: aiot-xr通行证分页查询
+ * Summary: aiot-xr通行证分页查询
+ */
+async function pagequeryXrXrticketpool(request: PagequeryXrXrticketpoolRequest): PagequeryXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-xr通行证分页查询
+ * Summary: aiot-xr通行证分页查询
+ */
+async function pagequeryXrXrticketpoolEx(request: PagequeryXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncDeviceScreenstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备屏幕状态
+  deviceScreenStatus: string(name='device_screen_status'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 状态改变时间
+  statusChangeTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='status_change_time'),
+}
+
+model SyncDeviceScreenstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: aiot-同步设备屏幕状态
+ * Summary: aiot-同步设备屏幕状态
+ */
+async function syncDeviceScreenstatus(request: SyncDeviceScreenstatusRequest): SyncDeviceScreenstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncDeviceScreenstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-同步设备屏幕状态
+ * Summary: aiot-同步设备屏幕状态
+ */
+async function syncDeviceScreenstatusEx(request: SyncDeviceScreenstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncDeviceScreenstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.screenstatus.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // xr通行证批量创建请求列表
+  xrTicketPoolReqs: [ XrTicketPoolBatchReq ](name='xr_ticket_pool_reqs'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+}
+
+model BatchcreateXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // xr通行证创建成功列表
+  successList?: [ XrTicketPoolSuccessList ](name='success_list'),
+  // xr通行证创建失败列表
+  failList?: [ XrTicketPoolFailList ](name='fail_list'),
+}
+
+/**
+ * Description: xr通行证批量创建
+ * Summary: xr通行证批量创建
+ */
+async function batchcreateXrXrticketpool(request: BatchcreateXrXrticketpoolRequest): BatchcreateXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: xr通行证批量创建
+ * Summary: xr通行证批量创建
+ */
+async function batchcreateXrXrticketpoolEx(request: BatchcreateXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListXrXrverificationmodelinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+  // 资源id
+  resourceId: string(name='resource_id'),
+  // 核销类型
+  xrVerificationType: string(name='xr_verification_type'),
+}
+
+model ListXrXrverificationmodelinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 实例信息列表
+  instanceInfoList?: [ InstanceInfo ](name='instance_info_list'),
+}
+
+/**
+ * Description: aiot-获取资源实例列表
+ * Summary: aiot-获取资源实例列表
+ */
+async function listXrXrverificationmodelinstance(request: ListXrXrverificationmodelinstanceRequest): ListXrXrverificationmodelinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listXrXrverificationmodelinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-获取资源实例列表
+ * Summary: aiot-获取资源实例列表
+ */
+async function listXrXrverificationmodelinstanceEx(request: ListXrXrverificationmodelinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListXrXrverificationmodelinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrverificationmodelinstance.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailXrXrticketpoolRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
+  // 券名称
+  xrTicketPoolName: string(name='xr_ticket_pool_name'),
+}
+
+model DetailXrXrticketpoolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 通行证对象
+  xrTicketPoolDetail?: XrTicketPoolItem(name='xr_ticket_pool_detail'),
+}
+
+/**
+ * Description: aiot-xr通行证详情查询
+ * Summary: aiot-xr通行证详情查询
+ */
+async function detailXrXrticketpool(request: DetailXrXrticketpoolRequest): DetailXrXrticketpoolResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailXrXrticketpoolEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiot-xr通行证详情查询
+ * Summary: aiot-xr通行证详情查询
+ */
+async function detailXrXrticketpoolEx(request: DetailXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailXrXrticketpoolResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model FinishTraceConfigRequest = {
@@ -4376,7 +5346,7 @@ model OperateIotbasicDevicecontrolRequest = {
   // 设备操作类型
   deviceOperation: string(name='device_operation'),
   // 所属账号名称
-  userId: string(name='user_id'),
+  userId?: string(name='user_id'),
 }
 
 model OperateIotbasicDevicecontrolResponse = {
@@ -6471,6 +7441,8 @@ model CreateDistributedeviceBydeviceRequest = {
   owner?: string(name='owner'),
   // 资产所有人名称
   ownerName?: string(name='owner_name'),
+  // 额外信息
+  extraInfo?: string(name='extra_info'),
 }
 
 model CreateDistributedeviceBydeviceResponse = {
@@ -9096,6 +10068,54 @@ async function unbindEntityrelation(request: UnbindEntityrelationRequest): Unbin
 async function unbindEntityrelationEx(request: UnbindEntityrelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindEntityrelationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.entityrelation.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailThingmodelDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 设备ID（当device_imei号为空时，会根据scene+device_id查询设备记录，获取device_imei）
+  deviceId: string(name='device_id'),
+  // 设备imei号
+  deviceImei?: string(name='device_imei'),
+}
+
+model DetailThingmodelDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备状态
+  status?: string(name='status'),
+  // 设备状态是否可用
+  statusAvailable?: boolean(name='status_available'),
+  // SDK版本号
+  sdkVersion?: string(name='sdk_version'),
+  // SDK版本号是否可用
+  sdkVersionAvailable?: boolean(name='sdk_version_available'),
+}
+
+/**
+ * Description: 查询物模型设备详情
+ * Summary: 查询物模型设备详情
+ */
+async function detailThingmodelDevice(request: DetailThingmodelDeviceRequest): DetailThingmodelDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailThingmodelDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询物模型设备详情
+ * Summary: 查询物模型设备详情
+ */
+async function detailThingmodelDeviceEx(request: DetailThingmodelDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailThingmodelDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
