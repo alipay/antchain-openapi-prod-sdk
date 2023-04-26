@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.19"),
+                    new TeaPair("sdk_version", "1.8.56"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -273,6 +273,291 @@ public class Client {
     public QueryLeaseRiskResponse queryLeaseRiskEx(QueryLeaseRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRiskResponse());
+    }
+
+    /**
+     * Description: aiot-创建用户通行证
+     * Summary: aiot-创建用户通行证
+     */
+    public CreateXrUserticketResponse createXrUserticket(CreateXrUserticketRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createXrUserticketEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-创建用户通行证
+     * Summary: aiot-创建用户通行证
+     */
+    public CreateXrUserticketResponse createXrUserticketEx(CreateXrUserticketRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.userticket.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateXrUserticketResponse());
+    }
+
+    /**
+     * Description: aiot-获取通行证资源池列表
+     * Summary: aiot-获取通行证资源池列表
+     */
+    public ListXrXrticketpoolResponse listXrXrticketpool(ListXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-获取通行证资源池列表
+     * Summary: aiot-获取通行证资源池列表
+     */
+    public ListXrXrticketpoolResponse listXrXrticketpoolEx(ListXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiot-分页查询用户通行证
+     * Summary: aiot-分页查询用户通行证
+     */
+    public PagequeryXrUserticketResponse pagequeryXrUserticket(PagequeryXrUserticketRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryXrUserticketEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-分页查询用户通行证
+     * Summary: aiot-分页查询用户通行证
+     */
+    public PagequeryXrUserticketResponse pagequeryXrUserticketEx(PagequeryXrUserticketRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.userticket.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryXrUserticketResponse());
+    }
+
+    /**
+     * Description: aiot-查询用户通行证
+     * Summary: aiot-查询用户通行证
+     */
+    public GetXrUserticketResponse getXrUserticket(GetXrUserticketRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getXrUserticketEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-查询用户通行证
+     * Summary: aiot-查询用户通行证
+     */
+    public GetXrUserticketResponse getXrUserticketEx(GetXrUserticketRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.userticket.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetXrUserticketResponse());
+    }
+
+    /**
+     * Description: aiot-核销用户通行证
+     * Summary: aiot-核销用户通行证
+     */
+    public OperateXrUserticketResponse operateXrUserticket(OperateXrUserticketRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateXrUserticketEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-核销用户通行证
+     * Summary: aiot-核销用户通行证
+     */
+    public OperateXrUserticketResponse operateXrUserticketEx(OperateXrUserticketRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.userticket.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateXrUserticketResponse());
+    }
+
+    /**
+     * Description: aiot-获取资源列表
+     * Summary: aiot-获取资源列表
+     */
+    public ListXrResourceResponse listXrResource(ListXrResourceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listXrResourceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-获取资源列表
+     * Summary: aiot-获取资源列表
+     */
+    public ListXrResourceResponse listXrResourceEx(ListXrResourceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.resource.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListXrResourceResponse());
+    }
+
+    /**
+     * Description: aiot-核销实例分页查询
+     * Summary: aiot-核销实例分页查询
+     */
+    public PagequeryXrXrverificationmodelResponse pagequeryXrXrverificationmodel(PagequeryXrXrverificationmodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryXrXrverificationmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-核销实例分页查询
+     * Summary: aiot-核销实例分页查询
+     */
+    public PagequeryXrXrverificationmodelResponse pagequeryXrXrverificationmodelEx(PagequeryXrXrverificationmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrverificationmodel.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryXrXrverificationmodelResponse());
+    }
+
+    /**
+     * Description: aiot-客户对应设备分页查询
+     * Summary: aiot-客户对应设备分页查询
+     */
+    public PagequeryXrCustomerdeviceResponse pagequeryXrCustomerdevice(PagequeryXrCustomerdeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryXrCustomerdeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-客户对应设备分页查询
+     * Summary: aiot-客户对应设备分页查询
+     */
+    public PagequeryXrCustomerdeviceResponse pagequeryXrCustomerdeviceEx(PagequeryXrCustomerdeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.customerdevice.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryXrCustomerdeviceResponse());
+    }
+
+    /**
+     * Description: aiot-xr通行证创建
+     * Summary: aiot-xr通行证创建
+     */
+    public CreateXrXrticketpoolResponse createXrXrticketpool(CreateXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证创建
+     * Summary: aiot-xr通行证创建
+     */
+    public CreateXrXrticketpoolResponse createXrXrticketpoolEx(CreateXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiot-xr通行证修改
+     * Summary: aiot-xr通行证修改
+     */
+    public UpdateXrXrticketpoolResponse updateXrXrticketpool(UpdateXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证修改
+     * Summary: aiot-xr通行证修改
+     */
+    public UpdateXrXrticketpoolResponse updateXrXrticketpoolEx(UpdateXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiot-xr通行证分页查询
+     * Summary: aiot-xr通行证分页查询
+     */
+    public PagequeryXrXrticketpoolResponse pagequeryXrXrticketpool(PagequeryXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证分页查询
+     * Summary: aiot-xr通行证分页查询
+     */
+    public PagequeryXrXrticketpoolResponse pagequeryXrXrticketpoolEx(PagequeryXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiot-同步设备屏幕状态
+     * Summary: aiot-同步设备屏幕状态
+     */
+    public SyncDeviceScreenstatusResponse syncDeviceScreenstatus(SyncDeviceScreenstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncDeviceScreenstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-同步设备屏幕状态
+     * Summary: aiot-同步设备屏幕状态
+     */
+    public SyncDeviceScreenstatusResponse syncDeviceScreenstatusEx(SyncDeviceScreenstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.screenstatus.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncDeviceScreenstatusResponse());
+    }
+
+    /**
+     * Description: xr通行证批量创建
+     * Summary: xr通行证批量创建
+     */
+    public BatchcreateXrXrticketpoolResponse batchcreateXrXrticketpool(BatchcreateXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: xr通行证批量创建
+     * Summary: xr通行证批量创建
+     */
+    public BatchcreateXrXrticketpoolResponse batchcreateXrXrticketpoolEx(BatchcreateXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiot-获取资源实例列表
+     * Summary: aiot-获取资源实例列表
+     */
+    public ListXrXrverificationmodelinstanceResponse listXrXrverificationmodelinstance(ListXrXrverificationmodelinstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listXrXrverificationmodelinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-获取资源实例列表
+     * Summary: aiot-获取资源实例列表
+     */
+    public ListXrXrverificationmodelinstanceResponse listXrXrverificationmodelinstanceEx(ListXrXrverificationmodelinstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrverificationmodelinstance.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListXrXrverificationmodelinstanceResponse());
+    }
+
+    /**
+     * Description: aiot-xr通行证详情查询
+     * Summary: aiot-xr通行证详情查询
+     */
+    public DetailXrXrticketpoolResponse detailXrXrticketpool(DetailXrXrticketpoolRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailXrXrticketpoolEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiot-xr通行证详情查询
+     * Summary: aiot-xr通行证详情查询
+     */
+    public DetailXrXrticketpoolResponse detailXrXrticketpoolEx(DetailXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailXrXrticketpoolResponse());
     }
 
     /**
@@ -2992,6 +3277,25 @@ public class Client {
     public UnbindEntityrelationResponse unbindEntityrelationEx(UnbindEntityrelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindEntityrelationResponse());
+    }
+
+    /**
+     * Description: 查询物模型设备详情
+     * Summary: 查询物模型设备详情
+     */
+    public DetailThingmodelDeviceResponse detailThingmodelDevice(DetailThingmodelDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailThingmodelDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询物模型设备详情
+     * Summary: 查询物模型设备详情
+     */
+    public DetailThingmodelDeviceResponse detailThingmodelDeviceEx(DetailThingmodelDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailThingmodelDeviceResponse());
     }
 
     /**

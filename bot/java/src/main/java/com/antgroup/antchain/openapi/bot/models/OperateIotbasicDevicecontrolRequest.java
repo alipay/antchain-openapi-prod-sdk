@@ -26,7 +26,6 @@ public class OperateIotbasicDevicecontrolRequest extends TeaModel {
 
     // 所属账号名称
     @NameInMap("user_id")
-    @Validation(required = true)
     public String userId;
 
     public static OperateIotbasicDevicecontrolRequest build(java.util.Map<String, ?> map) throws Exception {
