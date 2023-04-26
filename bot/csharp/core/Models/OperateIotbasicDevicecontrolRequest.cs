@@ -35,7 +35,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 所属账号名称
         [NameInMap("user_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserId { get; set; }
 
     }

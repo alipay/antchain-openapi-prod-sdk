@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.19"},
+                        {"sdk_version", "1.8.56"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.19"},
+                        {"sdk_version", "1.8.56"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -571,6 +571,636 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeaseRiskResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-创建用户通行证
+         * Summary: aiot-创建用户通行证
+         */
+        public CreateXrUserticketResponse CreateXrUserticket(CreateXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateXrUserticketEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-创建用户通行证
+         * Summary: aiot-创建用户通行证
+         */
+        public async Task<CreateXrUserticketResponse> CreateXrUserticketAsync(CreateXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateXrUserticketExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-创建用户通行证
+         * Summary: aiot-创建用户通行证
+         */
+        public CreateXrUserticketResponse CreateXrUserticketEx(CreateXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateXrUserticketResponse>(DoRequest("1.0", "blockchain.bot.xr.userticket.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-创建用户通行证
+         * Summary: aiot-创建用户通行证
+         */
+        public async Task<CreateXrUserticketResponse> CreateXrUserticketExAsync(CreateXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateXrUserticketResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.userticket.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取通行证资源池列表
+         * Summary: aiot-获取通行证资源池列表
+         */
+        public ListXrXrticketpoolResponse ListXrXrticketpool(ListXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取通行证资源池列表
+         * Summary: aiot-获取通行证资源池列表
+         */
+        public async Task<ListXrXrticketpoolResponse> ListXrXrticketpoolAsync(ListXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取通行证资源池列表
+         * Summary: aiot-获取通行证资源池列表
+         */
+        public ListXrXrticketpoolResponse ListXrXrticketpoolEx(ListXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取通行证资源池列表
+         * Summary: aiot-获取通行证资源池列表
+         */
+        public async Task<ListXrXrticketpoolResponse> ListXrXrticketpoolExAsync(ListXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-分页查询用户通行证
+         * Summary: aiot-分页查询用户通行证
+         */
+        public PagequeryXrUserticketResponse PagequeryXrUserticket(PagequeryXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryXrUserticketEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-分页查询用户通行证
+         * Summary: aiot-分页查询用户通行证
+         */
+        public async Task<PagequeryXrUserticketResponse> PagequeryXrUserticketAsync(PagequeryXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryXrUserticketExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-分页查询用户通行证
+         * Summary: aiot-分页查询用户通行证
+         */
+        public PagequeryXrUserticketResponse PagequeryXrUserticketEx(PagequeryXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrUserticketResponse>(DoRequest("1.0", "blockchain.bot.xr.userticket.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-分页查询用户通行证
+         * Summary: aiot-分页查询用户通行证
+         */
+        public async Task<PagequeryXrUserticketResponse> PagequeryXrUserticketExAsync(PagequeryXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrUserticketResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.userticket.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-查询用户通行证
+         * Summary: aiot-查询用户通行证
+         */
+        public GetXrUserticketResponse GetXrUserticket(GetXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetXrUserticketEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-查询用户通行证
+         * Summary: aiot-查询用户通行证
+         */
+        public async Task<GetXrUserticketResponse> GetXrUserticketAsync(GetXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetXrUserticketExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-查询用户通行证
+         * Summary: aiot-查询用户通行证
+         */
+        public GetXrUserticketResponse GetXrUserticketEx(GetXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetXrUserticketResponse>(DoRequest("1.0", "blockchain.bot.xr.userticket.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-查询用户通行证
+         * Summary: aiot-查询用户通行证
+         */
+        public async Task<GetXrUserticketResponse> GetXrUserticketExAsync(GetXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetXrUserticketResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.userticket.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-核销用户通行证
+         * Summary: aiot-核销用户通行证
+         */
+        public OperateXrUserticketResponse OperateXrUserticket(OperateXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateXrUserticketEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-核销用户通行证
+         * Summary: aiot-核销用户通行证
+         */
+        public async Task<OperateXrUserticketResponse> OperateXrUserticketAsync(OperateXrUserticketRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateXrUserticketExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-核销用户通行证
+         * Summary: aiot-核销用户通行证
+         */
+        public OperateXrUserticketResponse OperateXrUserticketEx(OperateXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateXrUserticketResponse>(DoRequest("1.0", "blockchain.bot.xr.userticket.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-核销用户通行证
+         * Summary: aiot-核销用户通行证
+         */
+        public async Task<OperateXrUserticketResponse> OperateXrUserticketExAsync(OperateXrUserticketRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateXrUserticketResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.userticket.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取资源列表
+         * Summary: aiot-获取资源列表
+         */
+        public ListXrResourceResponse ListXrResource(ListXrResourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListXrResourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取资源列表
+         * Summary: aiot-获取资源列表
+         */
+        public async Task<ListXrResourceResponse> ListXrResourceAsync(ListXrResourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListXrResourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取资源列表
+         * Summary: aiot-获取资源列表
+         */
+        public ListXrResourceResponse ListXrResourceEx(ListXrResourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrResourceResponse>(DoRequest("1.0", "blockchain.bot.xr.resource.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取资源列表
+         * Summary: aiot-获取资源列表
+         */
+        public async Task<ListXrResourceResponse> ListXrResourceExAsync(ListXrResourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrResourceResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.resource.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-核销实例分页查询
+         * Summary: aiot-核销实例分页查询
+         */
+        public PagequeryXrXrverificationmodelResponse PagequeryXrXrverificationmodel(PagequeryXrXrverificationmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryXrXrverificationmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-核销实例分页查询
+         * Summary: aiot-核销实例分页查询
+         */
+        public async Task<PagequeryXrXrverificationmodelResponse> PagequeryXrXrverificationmodelAsync(PagequeryXrXrverificationmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryXrXrverificationmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-核销实例分页查询
+         * Summary: aiot-核销实例分页查询
+         */
+        public PagequeryXrXrverificationmodelResponse PagequeryXrXrverificationmodelEx(PagequeryXrXrverificationmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrXrverificationmodelResponse>(DoRequest("1.0", "blockchain.bot.xr.xrverificationmodel.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-核销实例分页查询
+         * Summary: aiot-核销实例分页查询
+         */
+        public async Task<PagequeryXrXrverificationmodelResponse> PagequeryXrXrverificationmodelExAsync(PagequeryXrXrverificationmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrXrverificationmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrverificationmodel.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-客户对应设备分页查询
+         * Summary: aiot-客户对应设备分页查询
+         */
+        public PagequeryXrCustomerdeviceResponse PagequeryXrCustomerdevice(PagequeryXrCustomerdeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryXrCustomerdeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-客户对应设备分页查询
+         * Summary: aiot-客户对应设备分页查询
+         */
+        public async Task<PagequeryXrCustomerdeviceResponse> PagequeryXrCustomerdeviceAsync(PagequeryXrCustomerdeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryXrCustomerdeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-客户对应设备分页查询
+         * Summary: aiot-客户对应设备分页查询
+         */
+        public PagequeryXrCustomerdeviceResponse PagequeryXrCustomerdeviceEx(PagequeryXrCustomerdeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrCustomerdeviceResponse>(DoRequest("1.0", "blockchain.bot.xr.customerdevice.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-客户对应设备分页查询
+         * Summary: aiot-客户对应设备分页查询
+         */
+        public async Task<PagequeryXrCustomerdeviceResponse> PagequeryXrCustomerdeviceExAsync(PagequeryXrCustomerdeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrCustomerdeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.customerdevice.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证创建
+         * Summary: aiot-xr通行证创建
+         */
+        public CreateXrXrticketpoolResponse CreateXrXrticketpool(CreateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证创建
+         * Summary: aiot-xr通行证创建
+         */
+        public async Task<CreateXrXrticketpoolResponse> CreateXrXrticketpoolAsync(CreateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证创建
+         * Summary: aiot-xr通行证创建
+         */
+        public CreateXrXrticketpoolResponse CreateXrXrticketpoolEx(CreateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证创建
+         * Summary: aiot-xr通行证创建
+         */
+        public async Task<CreateXrXrticketpoolResponse> CreateXrXrticketpoolExAsync(CreateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证修改
+         * Summary: aiot-xr通行证修改
+         */
+        public UpdateXrXrticketpoolResponse UpdateXrXrticketpool(UpdateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证修改
+         * Summary: aiot-xr通行证修改
+         */
+        public async Task<UpdateXrXrticketpoolResponse> UpdateXrXrticketpoolAsync(UpdateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证修改
+         * Summary: aiot-xr通行证修改
+         */
+        public UpdateXrXrticketpoolResponse UpdateXrXrticketpoolEx(UpdateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证修改
+         * Summary: aiot-xr通行证修改
+         */
+        public async Task<UpdateXrXrticketpoolResponse> UpdateXrXrticketpoolExAsync(UpdateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证分页查询
+         * Summary: aiot-xr通行证分页查询
+         */
+        public PagequeryXrXrticketpoolResponse PagequeryXrXrticketpool(PagequeryXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证分页查询
+         * Summary: aiot-xr通行证分页查询
+         */
+        public async Task<PagequeryXrXrticketpoolResponse> PagequeryXrXrticketpoolAsync(PagequeryXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证分页查询
+         * Summary: aiot-xr通行证分页查询
+         */
+        public PagequeryXrXrticketpoolResponse PagequeryXrXrticketpoolEx(PagequeryXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证分页查询
+         * Summary: aiot-xr通行证分页查询
+         */
+        public async Task<PagequeryXrXrticketpoolResponse> PagequeryXrXrticketpoolExAsync(PagequeryXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-同步设备屏幕状态
+         * Summary: aiot-同步设备屏幕状态
+         */
+        public SyncDeviceScreenstatusResponse SyncDeviceScreenstatus(SyncDeviceScreenstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncDeviceScreenstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-同步设备屏幕状态
+         * Summary: aiot-同步设备屏幕状态
+         */
+        public async Task<SyncDeviceScreenstatusResponse> SyncDeviceScreenstatusAsync(SyncDeviceScreenstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncDeviceScreenstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-同步设备屏幕状态
+         * Summary: aiot-同步设备屏幕状态
+         */
+        public SyncDeviceScreenstatusResponse SyncDeviceScreenstatusEx(SyncDeviceScreenstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncDeviceScreenstatusResponse>(DoRequest("1.0", "blockchain.bot.device.screenstatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-同步设备屏幕状态
+         * Summary: aiot-同步设备屏幕状态
+         */
+        public async Task<SyncDeviceScreenstatusResponse> SyncDeviceScreenstatusExAsync(SyncDeviceScreenstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncDeviceScreenstatusResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.screenstatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: xr通行证批量创建
+         * Summary: xr通行证批量创建
+         */
+        public BatchcreateXrXrticketpoolResponse BatchcreateXrXrticketpool(BatchcreateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: xr通行证批量创建
+         * Summary: xr通行证批量创建
+         */
+        public async Task<BatchcreateXrXrticketpoolResponse> BatchcreateXrXrticketpoolAsync(BatchcreateXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: xr通行证批量创建
+         * Summary: xr通行证批量创建
+         */
+        public BatchcreateXrXrticketpoolResponse BatchcreateXrXrticketpoolEx(BatchcreateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: xr通行证批量创建
+         * Summary: xr通行证批量创建
+         */
+        public async Task<BatchcreateXrXrticketpoolResponse> BatchcreateXrXrticketpoolExAsync(BatchcreateXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取资源实例列表
+         * Summary: aiot-获取资源实例列表
+         */
+        public ListXrXrverificationmodelinstanceResponse ListXrXrverificationmodelinstance(ListXrXrverificationmodelinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListXrXrverificationmodelinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取资源实例列表
+         * Summary: aiot-获取资源实例列表
+         */
+        public async Task<ListXrXrverificationmodelinstanceResponse> ListXrXrverificationmodelinstanceAsync(ListXrXrverificationmodelinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListXrXrverificationmodelinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-获取资源实例列表
+         * Summary: aiot-获取资源实例列表
+         */
+        public ListXrXrverificationmodelinstanceResponse ListXrXrverificationmodelinstanceEx(ListXrXrverificationmodelinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrXrverificationmodelinstanceResponse>(DoRequest("1.0", "blockchain.bot.xr.xrverificationmodelinstance.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-获取资源实例列表
+         * Summary: aiot-获取资源实例列表
+         */
+        public async Task<ListXrXrverificationmodelinstanceResponse> ListXrXrverificationmodelinstanceExAsync(ListXrXrverificationmodelinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListXrXrverificationmodelinstanceResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrverificationmodelinstance.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证详情查询
+         * Summary: aiot-xr通行证详情查询
+         */
+        public DetailXrXrticketpoolResponse DetailXrXrticketpool(DetailXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailXrXrticketpoolEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证详情查询
+         * Summary: aiot-xr通行证详情查询
+         */
+        public async Task<DetailXrXrticketpoolResponse> DetailXrXrticketpoolAsync(DetailXrXrticketpoolRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailXrXrticketpoolExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiot-xr通行证详情查询
+         * Summary: aiot-xr通行证详情查询
+         */
+        public DetailXrXrticketpoolResponse DetailXrXrticketpoolEx(DetailXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailXrXrticketpoolResponse>(DoRequest("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiot-xr通行证详情查询
+         * Summary: aiot-xr通行证详情查询
+         */
+        public async Task<DetailXrXrticketpoolResponse> DetailXrXrticketpoolExAsync(DetailXrXrticketpoolRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -6581,6 +7211,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UnbindEntityrelationResponse>(await DoRequestAsync("1.0", "blockchain.bot.entityrelation.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询物模型设备详情
+         * Summary: 查询物模型设备详情
+         */
+        public DetailThingmodelDeviceResponse DetailThingmodelDevice(DetailThingmodelDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailThingmodelDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询物模型设备详情
+         * Summary: 查询物模型设备详情
+         */
+        public async Task<DetailThingmodelDeviceResponse> DetailThingmodelDeviceAsync(DetailThingmodelDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailThingmodelDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询物模型设备详情
+         * Summary: 查询物模型设备详情
+         */
+        public DetailThingmodelDeviceResponse DetailThingmodelDeviceEx(DetailThingmodelDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailThingmodelDeviceResponse>(DoRequest("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询物模型设备详情
+         * Summary: 查询物模型设备详情
+         */
+        public async Task<DetailThingmodelDeviceResponse> DetailThingmodelDeviceExAsync(DetailThingmodelDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailThingmodelDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
