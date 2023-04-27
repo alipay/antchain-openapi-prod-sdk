@@ -595,7 +595,7 @@ export class LeaseOrderInfo extends $tea.Model {
 // 司法纠纷平台自然人通用结构体
 export class JudicialPersonInfo extends $tea.Model {
   // 姓名
-  name: string;
+  name?: string;
   // 身份证号码
   certNumber?: string;
   // 联系电话
@@ -17010,6 +17010,11 @@ export class SaveJusticePartyRequest extends $tea.Model {
   coordinatorPersonInfo?: JudicialPersonInfo;
   // 案件协同人银行账户信息
   coordinatorBankInfo?: JudicialBankInfo;
+  // adsada
+  subTenantId?: string;
+  // 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+  // false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+  agentCreateParty?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17019,6 +17024,8 @@ export class SaveJusticePartyRequest extends $tea.Model {
       partyOrganizationInfo: 'party_organization_info',
       coordinatorPersonInfo: 'coordinator_person_info',
       coordinatorBankInfo: 'coordinator_bank_info',
+      subTenantId: 'sub_tenant_id',
+      agentCreateParty: 'agent_create_party',
     };
   }
 
@@ -17031,6 +17038,8 @@ export class SaveJusticePartyRequest extends $tea.Model {
       partyOrganizationInfo: JudicialOrgInfo,
       coordinatorPersonInfo: JudicialPersonInfo,
       coordinatorBankInfo: JudicialBankInfo,
+      subTenantId: 'string',
+      agentCreateParty: 'boolean',
     };
   }
 
@@ -31519,7 +31528,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.41",
+          sdk_version: "1.8.42",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
