@@ -90,6 +90,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $loanInstCode;
+
+    // 银行卡号
+    /**
+     * @var string
+     */
+    public $bankCardNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -105,6 +111,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'customType'        => 'custom_type',
         'riskData'          => 'risk_data',
         'loanInstCode'      => 'loan_inst_code',
+        'bankCardNo'        => 'bank_card_no',
     ];
 
     public function validate()
@@ -163,6 +170,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         if (null !== $this->loanInstCode) {
             $res['loan_inst_code'] = $this->loanInstCode;
         }
+        if (null !== $this->bankCardNo) {
+            $res['bank_card_no'] = $this->bankCardNo;
+        }
 
         return $res;
     }
@@ -216,6 +226,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['loan_inst_code'])) {
             $model->loanInstCode = $map['loan_inst_code'];
+        }
+        if (isset($map['bank_card_no'])) {
+            $model->bankCardNo = $map['bank_card_no'];
         }
 
         return $model;

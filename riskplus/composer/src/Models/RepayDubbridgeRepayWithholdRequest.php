@@ -42,6 +42,12 @@ class RepayDubbridgeRepayWithholdRequest extends Model
      * @var string
      */
     public $validRepayAmount;
+
+    // 银行卡号
+    /**
+     * @var string
+     */
+    public $bankCardNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         'repayType'         => 'repay_type',
         'orderNo'           => 'order_no',
         'validRepayAmount'  => 'valid_repay_amount',
+        'bankCardNo'        => 'bank_card_no',
     ];
 
     public function validate()
@@ -79,6 +86,9 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         if (null !== $this->validRepayAmount) {
             $res['valid_repay_amount'] = $this->validRepayAmount;
         }
+        if (null !== $this->bankCardNo) {
+            $res['bank_card_no'] = $this->bankCardNo;
+        }
 
         return $res;
     }
@@ -108,6 +118,9 @@ class RepayDubbridgeRepayWithholdRequest extends Model
         }
         if (isset($map['valid_repay_amount'])) {
             $model->validRepayAmount = $map['valid_repay_amount'];
+        }
+        if (isset($map['bank_card_no'])) {
+            $model->bankCardNo = $map['bank_card_no'];
         }
 
         return $model;

@@ -94,20 +94,48 @@ class QueryDubbridgeRepayResultResponse extends Model
      * @var string
      */
     public $repayDate;
+
+    // 实还总额
+    /**
+     * @var int
+     */
+    public $repayAmount;
+
+    // 实还总本金
+    /**
+     * @var int
+     */
+    public $repayPrincipal;
+
+    // 实还总利息
+    /**
+     * @var int
+     */
+    public $repayInterest;
+
+    // 实收总罚息
+    /**
+     * @var int
+     */
+    public $repayPunish;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'repayNo'      => 'repay_no',
-        'receiptNo'    => 'receipt_no',
-        'customNo'     => 'custom_no',
-        'repayType'    => 'repay_type',
-        'repaySign'    => 'repay_sign',
-        'repayAccount' => 'repay_account',
-        'repayStatus'  => 'repay_status',
-        'failReason'   => 'fail_reason',
-        'repayInfos'   => 'repay_infos',
-        'repayDate'    => 'repay_date',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'repayNo'        => 'repay_no',
+        'receiptNo'      => 'receipt_no',
+        'customNo'       => 'custom_no',
+        'repayType'      => 'repay_type',
+        'repaySign'      => 'repay_sign',
+        'repayAccount'   => 'repay_account',
+        'repayStatus'    => 'repay_status',
+        'failReason'     => 'fail_reason',
+        'repayInfos'     => 'repay_infos',
+        'repayDate'      => 'repay_date',
+        'repayAmount'    => 'repay_amount',
+        'repayPrincipal' => 'repay_principal',
+        'repayInterest'  => 'repay_interest',
+        'repayPunish'    => 'repay_punish',
     ];
 
     public function validate()
@@ -161,6 +189,18 @@ class QueryDubbridgeRepayResultResponse extends Model
         }
         if (null !== $this->repayDate) {
             $res['repay_date'] = $this->repayDate;
+        }
+        if (null !== $this->repayAmount) {
+            $res['repay_amount'] = $this->repayAmount;
+        }
+        if (null !== $this->repayPrincipal) {
+            $res['repay_principal'] = $this->repayPrincipal;
+        }
+        if (null !== $this->repayInterest) {
+            $res['repay_interest'] = $this->repayInterest;
+        }
+        if (null !== $this->repayPunish) {
+            $res['repay_punish'] = $this->repayPunish;
         }
 
         return $res;
@@ -218,6 +258,18 @@ class QueryDubbridgeRepayResultResponse extends Model
         }
         if (isset($map['repay_date'])) {
             $model->repayDate = $map['repay_date'];
+        }
+        if (isset($map['repay_amount'])) {
+            $model->repayAmount = $map['repay_amount'];
+        }
+        if (isset($map['repay_principal'])) {
+            $model->repayPrincipal = $map['repay_principal'];
+        }
+        if (isset($map['repay_interest'])) {
+            $model->repayInterest = $map['repay_interest'];
+        }
+        if (isset($map['repay_punish'])) {
+            $model->repayPunish = $map['repay_punish'];
         }
 
         return $model;
