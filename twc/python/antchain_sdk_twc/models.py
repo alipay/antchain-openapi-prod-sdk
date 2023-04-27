@@ -1037,7 +1037,6 @@ class JudicialPersonInfo(TeaModel):
         self.email = email
 
     def validate(self):
-        self.validate_required(self.name, 'name')
         if self.identity_certification:
             self.identity_certification.validate()
         if self.job_certification:
@@ -27767,6 +27766,8 @@ class SaveJusticePartyRequest(TeaModel):
         party_organization_info: JudicialOrgInfo = None,
         coordinator_person_info: JudicialPersonInfo = None,
         coordinator_bank_info: JudicialBankInfo = None,
+        sub_tenant_id: str = None,
+        agent_create_party: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -27784,6 +27785,11 @@ class SaveJusticePartyRequest(TeaModel):
         self.coordinator_person_info = coordinator_person_info
         # 案件协同人银行账户信息
         self.coordinator_bank_info = coordinator_bank_info
+        # adsada
+        self.sub_tenant_id = sub_tenant_id
+        # 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+        # false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+        self.agent_create_party = agent_create_party
 
     def validate(self):
         self.validate_required(self.party_type, 'party_type')
@@ -27814,6 +27820,10 @@ class SaveJusticePartyRequest(TeaModel):
             result['coordinator_person_info'] = self.coordinator_person_info.to_map()
         if self.coordinator_bank_info is not None:
             result['coordinator_bank_info'] = self.coordinator_bank_info.to_map()
+        if self.sub_tenant_id is not None:
+            result['sub_tenant_id'] = self.sub_tenant_id
+        if self.agent_create_party is not None:
+            result['agent_create_party'] = self.agent_create_party
         return result
 
     def from_map(self, m: dict = None):
@@ -27835,6 +27845,10 @@ class SaveJusticePartyRequest(TeaModel):
         if m.get('coordinator_bank_info') is not None:
             temp_model = JudicialBankInfo()
             self.coordinator_bank_info = temp_model.from_map(m['coordinator_bank_info'])
+        if m.get('sub_tenant_id') is not None:
+            self.sub_tenant_id = m.get('sub_tenant_id')
+        if m.get('agent_create_party') is not None:
+            self.agent_create_party = m.get('agent_create_party')
         return self
 
 
