@@ -46,6 +46,17 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public JudicialBankInfo CoordinatorBankInfo { get; set; }
 
+        // adsada
+        [NameInMap("sub_tenant_id")]
+        [Validation(Required=false)]
+        public string SubTenantId { get; set; }
+
+        // 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+        // false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+        [NameInMap("agent_create_party")]
+        [Validation(Required=false)]
+        public bool? AgentCreateParty { get; set; }
+
     }
 
 }

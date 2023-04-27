@@ -12,7 +12,7 @@ namespace AntChain.SDK.TWC.Models
     public class JudicialPersonInfo : TeaModel {
         // 姓名
         [NameInMap("name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Name { get; set; }
 
         // 身份证号码
