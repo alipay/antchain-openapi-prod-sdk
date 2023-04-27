@@ -831,7 +831,7 @@ func (s *LeaseOrderInfo) SetBuyOutPrice(v string) *LeaseOrderInfo {
 // 司法纠纷平台自然人通用结构体
 type JudicialPersonInfo struct {
 	// 姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 身份证号码
 	CertNumber *string `json:"cert_number,omitempty" xml:"cert_number,omitempty"`
 	// 联系电话
@@ -22660,6 +22660,11 @@ type SaveJusticePartyRequest struct {
 	CoordinatorPersonInfo *JudicialPersonInfo `json:"coordinator_person_info,omitempty" xml:"coordinator_person_info,omitempty"`
 	// 案件协同人银行账户信息
 	CoordinatorBankInfo *JudicialBankInfo `json:"coordinator_bank_info,omitempty" xml:"coordinator_bank_info,omitempty"`
+	// adsada
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
+	// 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+	// false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+	AgentCreateParty *bool `json:"agent_create_party,omitempty" xml:"agent_create_party,omitempty"`
 }
 
 func (s SaveJusticePartyRequest) String() string {
@@ -22702,6 +22707,16 @@ func (s *SaveJusticePartyRequest) SetCoordinatorPersonInfo(v *JudicialPersonInfo
 
 func (s *SaveJusticePartyRequest) SetCoordinatorBankInfo(v *JudicialBankInfo) *SaveJusticePartyRequest {
 	s.CoordinatorBankInfo = v
+	return s
+}
+
+func (s *SaveJusticePartyRequest) SetSubTenantId(v string) *SaveJusticePartyRequest {
+	s.SubTenantId = &v
+	return s
+}
+
+func (s *SaveJusticePartyRequest) SetAgentCreateParty(v bool) *SaveJusticePartyRequest {
+	s.AgentCreateParty = &v
 	return s
 }
 
@@ -42450,7 +42465,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.41"),
+				"sdk_version":      tea.String("1.8.42"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
