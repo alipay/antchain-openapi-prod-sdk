@@ -6,7 +6,6 @@ import com.aliyun.tea.*;
 public class JudicialPersonInfo extends TeaModel {
     // 姓名
     @NameInMap("name")
-    @Validation(required = true)
     public String name;
 
     // 身份证号码

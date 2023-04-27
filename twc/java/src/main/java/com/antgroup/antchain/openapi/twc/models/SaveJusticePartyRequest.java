@@ -35,6 +35,15 @@ public class SaveJusticePartyRequest extends TeaModel {
     @NameInMap("coordinator_bank_info")
     public JudicialBankInfo coordinatorBankInfo;
 
+    // adsada
+    @NameInMap("sub_tenant_id")
+    public String subTenantId;
+
+    // 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+    // false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+    @NameInMap("agent_create_party")
+    public Boolean agentCreateParty;
+
     public static SaveJusticePartyRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveJusticePartyRequest self = new SaveJusticePartyRequest();
         return TeaModel.build(map, self);
@@ -94,6 +103,22 @@ public class SaveJusticePartyRequest extends TeaModel {
     }
     public JudicialBankInfo getCoordinatorBankInfo() {
         return this.coordinatorBankInfo;
+    }
+
+    public SaveJusticePartyRequest setSubTenantId(String subTenantId) {
+        this.subTenantId = subTenantId;
+        return this;
+    }
+    public String getSubTenantId() {
+        return this.subTenantId;
+    }
+
+    public SaveJusticePartyRequest setAgentCreateParty(Boolean agentCreateParty) {
+        this.agentCreateParty = agentCreateParty;
+        return this;
+    }
+    public Boolean getAgentCreateParty() {
+        return this.agentCreateParty;
     }
 
 }
