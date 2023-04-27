@@ -18,7 +18,7 @@ public class QueryIdnumberEducationtaginfoResponse extends TeaModel {
 
     // 教育信息
     @NameInMap("data")
-    public java.util.List<EducationInfo> data;
+    public EducationTagInfo data;
 
     public static QueryIdnumberEducationtaginfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIdnumberEducationtaginfoResponse self = new QueryIdnumberEducationtaginfoResponse();
@@ -49,11 +49,11 @@ public class QueryIdnumberEducationtaginfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryIdnumberEducationtaginfoResponse setData(java.util.List<EducationInfo> data) {
+    public QueryIdnumberEducationtaginfoResponse setData(EducationTagInfo data) {
         this.data = data;
         return this;
     }
-    public java.util.List<EducationInfo> getData() {
+    public EducationTagInfo getData() {
         return this.data;
     }
 

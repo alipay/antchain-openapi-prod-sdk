@@ -20,9 +20,17 @@ public class EducationInfo extends TeaModel {
     @NameInMap("education_type")
     public String educationType;
 
-    // 学校层级
-    @NameInMap("school_type")
-    public String schoolType;
+    // 是否211
+    @NameInMap("project211")
+    public Boolean project211;
+
+    // 是否985
+    @NameInMap("project985")
+    public Boolean project985;
+
+    // 是否双一流
+    @NameInMap("double_first_class")
+    public Boolean doubleFirstClass;
 
     public static EducationInfo build(java.util.Map<String, ?> map) throws Exception {
         EducationInfo self = new EducationInfo();
@@ -61,12 +69,28 @@ public class EducationInfo extends TeaModel {
         return this.educationType;
     }
 
-    public EducationInfo setSchoolType(String schoolType) {
-        this.schoolType = schoolType;
+    public EducationInfo setProject211(Boolean project211) {
+        this.project211 = project211;
         return this;
     }
-    public String getSchoolType() {
-        return this.schoolType;
+    public Boolean getProject211() {
+        return this.project211;
+    }
+
+    public EducationInfo setProject985(Boolean project985) {
+        this.project985 = project985;
+        return this;
+    }
+    public Boolean getProject985() {
+        return this.project985;
+    }
+
+    public EducationInfo setDoubleFirstClass(Boolean doubleFirstClass) {
+        this.doubleFirstClass = doubleFirstClass;
+        return this;
+    }
+    public Boolean getDoubleFirstClass() {
+        return this.doubleFirstClass;
     }
 
 }
