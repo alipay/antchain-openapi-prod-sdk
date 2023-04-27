@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.24',
+    sdk_version = '1.16.25',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -4146,6 +4146,8 @@ model RepayDubbridgeRepayWithholdRequest = {
   orderNo: string(name='order_no'),
   // 校验还款金额
   validRepayAmount?: string(name='valid_repay_amount'),
+  // 银行卡号
+  bankCardNo?: string(name='bank_card_no'),
 }
 
 model RepayDubbridgeRepayWithholdResponse = {
@@ -4246,6 +4248,8 @@ model ApplyDubbridgeUsecreditRequest = {
   riskData?: string(name='risk_data'),
   // 资金源编码
   loanInstCode?: string(name='loan_inst_code'),
+  // 银行卡号
+  bankCardNo?: string(name='bank_card_no'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
@@ -4559,6 +4563,14 @@ model QueryDubbridgeRepayResultResponse = {
   repayInfos?: [ RepayInfos ](name='repay_infos'),
   // 还款日期
   repayDate?: string(name='repay_date'),
+  // 实还总额
+  repayAmount?: long(name='repay_amount'),
+  // 实还总本金
+  repayPrincipal?: long(name='repay_principal'),
+  // 实还总利息
+  repayInterest?: long(name='repay_interest'),
+  // 实收总罚息
+  repayPunish?: long(name='repay_punish'),
 }
 
 /**
