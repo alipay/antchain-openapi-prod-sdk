@@ -78,6 +78,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string LoanInstCode { get; set; }
 
+        // 银行卡号
+        [NameInMap("bank_card_no")]
+        [Validation(Required=false)]
+        public string BankCardNo { get; set; }
+
     }
 
 }
