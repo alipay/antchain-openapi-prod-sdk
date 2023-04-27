@@ -672,12 +672,6 @@ func (s *EducationExperiencesInfo) SetMonth(v int64) *EducationExperiencesInfo {
 
 // 教育学历信息
 type EducationInfo struct {
-	// 是否211院校
-	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
-	// 是否985院校
-	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
-	// 是否双一流院校
-	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
 	// 专业
 	Major *string `json:"major,omitempty" xml:"major,omitempty"`
 	// 学历等级代码
@@ -686,6 +680,8 @@ type EducationInfo struct {
 	GraduationDate *string `json:"graduation_date,omitempty" xml:"graduation_date,omitempty"`
 	// 学习形式
 	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty"`
+	// 学校层级
+	SchoolType *string `json:"school_type,omitempty" xml:"school_type,omitempty"`
 }
 
 func (s EducationInfo) String() string {
@@ -694,21 +690,6 @@ func (s EducationInfo) String() string {
 
 func (s EducationInfo) GoString() string {
 	return s.String()
-}
-
-func (s *EducationInfo) SetProject211(v bool) *EducationInfo {
-	s.Project211 = &v
-	return s
-}
-
-func (s *EducationInfo) SetProject985(v bool) *EducationInfo {
-	s.Project985 = &v
-	return s
-}
-
-func (s *EducationInfo) SetDoubleFirstClass(v bool) *EducationInfo {
-	s.DoubleFirstClass = &v
-	return s
 }
 
 func (s *EducationInfo) SetMajor(v string) *EducationInfo {
@@ -728,6 +709,11 @@ func (s *EducationInfo) SetGraduationDate(v string) *EducationInfo {
 
 func (s *EducationInfo) SetEducationType(v string) *EducationInfo {
 	s.EducationType = &v
+	return s
+}
+
+func (s *EducationInfo) SetSchoolType(v string) *EducationInfo {
+	s.SchoolType = &v
 	return s
 }
 
@@ -4901,7 +4887,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.41"),
+				"sdk_version":      tea.String("1.1.42"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
