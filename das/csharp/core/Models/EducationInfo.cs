@@ -30,10 +30,20 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string EducationType { get; set; }
 
-        // 学校层级
-        [NameInMap("school_type")]
+        // 是否211
+        [NameInMap("project211")]
         [Validation(Required=false)]
-        public string SchoolType { get; set; }
+        public bool? Project211 { get; set; }
+
+        // 是否985
+        [NameInMap("project985")]
+        [Validation(Required=false)]
+        public bool? Project985 { get; set; }
+
+        // 是否双一流
+        [NameInMap("double_first_class")]
+        [Validation(Required=false)]
+        public bool? DoubleFirstClass { get; set; }
 
     }
 

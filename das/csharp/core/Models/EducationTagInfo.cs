@@ -10,22 +10,6 @@ namespace AntChain.SDK.DAS.Models
 {
     // 教育标签信息
     public class EducationTagInfo : TeaModel {
-        // 	
-        // 是否211院校
-        [NameInMap("project211")]
-        [Validation(Required=false)]
-        public bool? Project211 { get; set; }
-
-        // 是否985院校
-        [NameInMap("project985")]
-        [Validation(Required=false)]
-        public bool? Project985 { get; set; }
-
-        // 是否双一流院校
-        [NameInMap("double_first_class")]
-        [Validation(Required=false)]
-        public bool? DoubleFirstClass { get; set; }
-
         // 专业名称
         [NameInMap("major")]
         [Validation(Required=false)]
@@ -51,6 +35,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("admission_date")]
         [Validation(Required=false)]
         public string AdmissionDate { get; set; }
+
+        // 学校类型
+        [NameInMap("school_type")]
+        [Validation(Required=false)]
+        public string SchoolType { get; set; }
 
     }
 
