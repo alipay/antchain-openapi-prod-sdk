@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.42',
+    sdk_version = '1.1.44',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -322,11 +322,15 @@ model EducationInfo {
   // 学历等级代码
   educationLevel?: string(name='education_level', example='01'),
   // 毕业日期
-  graduationDate?: string(name='graduation_date', example='2020/06'),
+  graduationDate?: string(name='graduation_date', example='202006'),
   // 学习形式
   educationType?: string(name='education_type', example='全日制'),
-  // 学校层级
-  schoolType?: string(name='school_type', example='985学校'),
+  // 是否211
+  project211?: boolean(name='project211', example='true, false'),
+  // 是否985
+  project985?: boolean(name='project985', example='true, false'),
+  // 是否双一流
+  doubleFirstClass?: boolean(name='double_first_class', example='true'),
 }
 
 // 授权人企业信息
@@ -502,13 +506,6 @@ model DriverLicenseInfo {
 
 // 教育标签信息
 model EducationTagInfo {
-  // 	
-  // 是否211院校
-  project211?: boolean(name='project211', example='true, false'),
-  // 是否985院校
-  project985?: boolean(name='project985', example='true, false'),
-  // 是否双一流院校
-  doubleFirstClass?: boolean(name='double_first_class', example='true, false'),
   // 专业名称
   major?: string(name='major', example='软件工程'),
   // 学历等级代码
@@ -520,6 +517,8 @@ model EducationTagInfo {
   educationType?: string(name='education_type', example='全日制'),
   // 入学时间
   admissionDate?: string(name='admission_date', example='202109'),
+  // 学校类型
+  schoolType?: string(name='school_type', example='985学校'),
 }
 
 // 车辆详细信息
@@ -1291,7 +1290,7 @@ model QueryIdnumberEducationtaginfoResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 教育信息
-  data?: [ EducationInfo ](name='data'),
+  data?: EducationTagInfo(name='data'),
 }
 
 /**
