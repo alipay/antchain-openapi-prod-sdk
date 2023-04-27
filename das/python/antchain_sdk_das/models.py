@@ -818,20 +818,12 @@ class EducationExperiencesInfo(TeaModel):
 class EducationInfo(TeaModel):
     def __init__(
         self,
-        project_211: bool = None,
-        project_985: bool = None,
-        double_first_class: bool = None,
         major: str = None,
         education_level: str = None,
         graduation_date: str = None,
         education_type: str = None,
+        school_type: str = None,
     ):
-        # 是否211院校
-        self.project_211 = project_211
-        # 是否985院校
-        self.project_985 = project_985
-        # 是否双一流院校
-        self.double_first_class = double_first_class
         # 专业
         self.major = major
         # 学历等级代码
@@ -840,6 +832,8 @@ class EducationInfo(TeaModel):
         self.graduation_date = graduation_date
         # 学习形式
         self.education_type = education_type
+        # 学校层级
+        self.school_type = school_type
 
     def validate(self):
         pass
@@ -850,12 +844,6 @@ class EducationInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.project_211 is not None:
-            result['project211'] = self.project_211
-        if self.project_985 is not None:
-            result['project985'] = self.project_985
-        if self.double_first_class is not None:
-            result['double_first_class'] = self.double_first_class
         if self.major is not None:
             result['major'] = self.major
         if self.education_level is not None:
@@ -864,16 +852,12 @@ class EducationInfo(TeaModel):
             result['graduation_date'] = self.graduation_date
         if self.education_type is not None:
             result['education_type'] = self.education_type
+        if self.school_type is not None:
+            result['school_type'] = self.school_type
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('project211') is not None:
-            self.project_211 = m.get('project211')
-        if m.get('project985') is not None:
-            self.project_985 = m.get('project985')
-        if m.get('double_first_class') is not None:
-            self.double_first_class = m.get('double_first_class')
         if m.get('major') is not None:
             self.major = m.get('major')
         if m.get('education_level') is not None:
@@ -882,6 +866,8 @@ class EducationInfo(TeaModel):
             self.graduation_date = m.get('graduation_date')
         if m.get('education_type') is not None:
             self.education_type = m.get('education_type')
+        if m.get('school_type') is not None:
+            self.school_type = m.get('school_type')
         return self
 
 
