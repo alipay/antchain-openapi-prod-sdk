@@ -4,18 +4,6 @@ package com.antgroup.antchain.openapi.das.models;
 import com.aliyun.tea.*;
 
 public class EducationInfo extends TeaModel {
-    // 是否211院校
-    @NameInMap("project211")
-    public Boolean project211;
-
-    // 是否985院校
-    @NameInMap("project985")
-    public Boolean project985;
-
-    // 是否双一流院校
-    @NameInMap("double_first_class")
-    public Boolean doubleFirstClass;
-
     // 专业
     @NameInMap("major")
     public String major;
@@ -32,33 +20,13 @@ public class EducationInfo extends TeaModel {
     @NameInMap("education_type")
     public String educationType;
 
+    // 学校层级
+    @NameInMap("school_type")
+    public String schoolType;
+
     public static EducationInfo build(java.util.Map<String, ?> map) throws Exception {
         EducationInfo self = new EducationInfo();
         return TeaModel.build(map, self);
-    }
-
-    public EducationInfo setProject211(Boolean project211) {
-        this.project211 = project211;
-        return this;
-    }
-    public Boolean getProject211() {
-        return this.project211;
-    }
-
-    public EducationInfo setProject985(Boolean project985) {
-        this.project985 = project985;
-        return this;
-    }
-    public Boolean getProject985() {
-        return this.project985;
-    }
-
-    public EducationInfo setDoubleFirstClass(Boolean doubleFirstClass) {
-        this.doubleFirstClass = doubleFirstClass;
-        return this;
-    }
-    public Boolean getDoubleFirstClass() {
-        return this.doubleFirstClass;
     }
 
     public EducationInfo setMajor(String major) {
@@ -91,6 +59,14 @@ public class EducationInfo extends TeaModel {
     }
     public String getEducationType() {
         return this.educationType;
+    }
+
+    public EducationInfo setSchoolType(String schoolType) {
+        this.schoolType = schoolType;
+        return this;
+    }
+    public String getSchoolType() {
+        return this.schoolType;
     }
 
 }
