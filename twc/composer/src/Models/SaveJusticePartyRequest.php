@@ -51,6 +51,19 @@ class SaveJusticePartyRequest extends Model
      * @var JudicialBankInfo
      */
     public $coordinatorBankInfo;
+
+    // adsada
+    /**
+     * @var string
+     */
+    public $subTenantId;
+
+    // 默认为空,true表示为二级商户创建或者修改申请人,sub_tenant_id不能为空,
+    // false表示为当前商户创建或者修改申请人,sub_tenant_id为空
+    /**
+     * @var bool
+     */
+    public $agentCreateParty;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -59,6 +72,8 @@ class SaveJusticePartyRequest extends Model
         'partyOrganizationInfo' => 'party_organization_info',
         'coordinatorPersonInfo' => 'coordinator_person_info',
         'coordinatorBankInfo'   => 'coordinator_bank_info',
+        'subTenantId'           => 'sub_tenant_id',
+        'agentCreateParty'      => 'agent_create_party',
     ];
 
     public function validate()
@@ -89,6 +104,12 @@ class SaveJusticePartyRequest extends Model
         }
         if (null !== $this->coordinatorBankInfo) {
             $res['coordinator_bank_info'] = null !== $this->coordinatorBankInfo ? $this->coordinatorBankInfo->toMap() : null;
+        }
+        if (null !== $this->subTenantId) {
+            $res['sub_tenant_id'] = $this->subTenantId;
+        }
+        if (null !== $this->agentCreateParty) {
+            $res['agent_create_party'] = $this->agentCreateParty;
         }
 
         return $res;
@@ -122,6 +143,12 @@ class SaveJusticePartyRequest extends Model
         }
         if (isset($map['coordinator_bank_info'])) {
             $model->coordinatorBankInfo = JudicialBankInfo::fromMap($map['coordinator_bank_info']);
+        }
+        if (isset($map['sub_tenant_id'])) {
+            $model->subTenantId = $map['sub_tenant_id'];
+        }
+        if (isset($map['agent_create_party'])) {
+            $model->agentCreateParty = $map['agent_create_party'];
         }
 
         return $model;
