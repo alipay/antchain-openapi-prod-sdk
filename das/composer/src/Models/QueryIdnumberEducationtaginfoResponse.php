@@ -28,7 +28,7 @@ class QueryIdnumberEducationtaginfoResponse extends Model
 
     // 教育信息
     /**
-     * @var EducationInfo[]
+     * @var EducationTagInfo
      */
     public $data;
     protected $_name = [
@@ -55,13 +55,7 @@ class QueryIdnumberEducationtaginfoResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = [];
-            if (null !== $this->data && \is_array($this->data)) {
-                $n = 0;
-                foreach ($this->data as $item) {
-                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -85,13 +79,7 @@ class QueryIdnumberEducationtaginfoResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = [];
-                $n           = 0;
-                foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? EducationInfo::fromMap($item) : $item;
-                }
-            }
+            $model->data = EducationTagInfo::fromMap($map['data']);
         }
 
         return $model;
