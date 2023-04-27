@@ -13150,6 +13150,7 @@ class RepayDubbridgeRepayWithholdRequest(TeaModel):
         repay_type: str = None,
         order_no: str = None,
         valid_repay_amount: str = None,
+        bank_card_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13162,6 +13163,8 @@ class RepayDubbridgeRepayWithholdRequest(TeaModel):
         self.order_no = order_no
         # 校验还款金额
         self.valid_repay_amount = valid_repay_amount
+        # 银行卡号
+        self.bank_card_no = bank_card_no
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -13186,6 +13189,8 @@ class RepayDubbridgeRepayWithholdRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.valid_repay_amount is not None:
             result['valid_repay_amount'] = self.valid_repay_amount
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
         return result
 
     def from_map(self, m: dict = None):
@@ -13202,6 +13207,8 @@ class RepayDubbridgeRepayWithholdRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('valid_repay_amount') is not None:
             self.valid_repay_amount = m.get('valid_repay_amount')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
         return self
 
 
@@ -13377,6 +13384,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         custom_type: str = None,
         risk_data: str = None,
         loan_inst_code: str = None,
+        bank_card_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13405,6 +13413,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.risk_data = risk_data
         # 资金源编码
         self.loan_inst_code = loan_inst_code
+        # 银行卡号
+        self.bank_card_no = bank_card_no
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -13449,6 +13459,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             result['risk_data'] = self.risk_data
         if self.loan_inst_code is not None:
             result['loan_inst_code'] = self.loan_inst_code
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
         return result
 
     def from_map(self, m: dict = None):
@@ -13481,6 +13493,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             self.risk_data = m.get('risk_data')
         if m.get('loan_inst_code') is not None:
             self.loan_inst_code = m.get('loan_inst_code')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
         return self
 
 
@@ -14241,6 +14255,10 @@ class QueryDubbridgeRepayResultResponse(TeaModel):
         fail_reason: str = None,
         repay_infos: List[RepayInfos] = None,
         repay_date: str = None,
+        repay_amount: int = None,
+        repay_principal: int = None,
+        repay_interest: int = None,
+        repay_punish: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14277,6 +14295,14 @@ class QueryDubbridgeRepayResultResponse(TeaModel):
         self.repay_infos = repay_infos
         # 还款日期
         self.repay_date = repay_date
+        # 实还总额
+        self.repay_amount = repay_amount
+        # 实还总本金
+        self.repay_principal = repay_principal
+        # 实还总利息
+        self.repay_interest = repay_interest
+        # 实收总罚息
+        self.repay_punish = repay_punish
 
     def validate(self):
         if self.repay_infos:
@@ -14318,6 +14344,14 @@ class QueryDubbridgeRepayResultResponse(TeaModel):
                 result['repay_infos'].append(k.to_map() if k else None)
         if self.repay_date is not None:
             result['repay_date'] = self.repay_date
+        if self.repay_amount is not None:
+            result['repay_amount'] = self.repay_amount
+        if self.repay_principal is not None:
+            result['repay_principal'] = self.repay_principal
+        if self.repay_interest is not None:
+            result['repay_interest'] = self.repay_interest
+        if self.repay_punish is not None:
+            result['repay_punish'] = self.repay_punish
         return result
 
     def from_map(self, m: dict = None):
@@ -14351,6 +14385,14 @@ class QueryDubbridgeRepayResultResponse(TeaModel):
                 self.repay_infos.append(temp_model.from_map(k))
         if m.get('repay_date') is not None:
             self.repay_date = m.get('repay_date')
+        if m.get('repay_amount') is not None:
+            self.repay_amount = m.get('repay_amount')
+        if m.get('repay_principal') is not None:
+            self.repay_principal = m.get('repay_principal')
+        if m.get('repay_interest') is not None:
+            self.repay_interest = m.get('repay_interest')
+        if m.get('repay_punish') is not None:
+            self.repay_punish = m.get('repay_punish')
         return self
 
 
