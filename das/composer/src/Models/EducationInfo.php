@@ -8,30 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class EducationInfo extends Model
 {
-    // 是否211院校
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $project211;
-
-    // 是否985院校
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $project985;
-
-    // 是否双一流院校
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $doubleFirstClass;
-
     // 专业
     /**
      * @example 计算机
@@ -63,14 +39,20 @@ class EducationInfo extends Model
      * @var string
      */
     public $educationType;
+
+    // 学校层级
+    /**
+     * @example 985学校
+     *
+     * @var string
+     */
+    public $schoolType;
     protected $_name = [
-        'project211'       => 'project211',
-        'project985'       => 'project985',
-        'doubleFirstClass' => 'double_first_class',
-        'major'            => 'major',
-        'educationLevel'   => 'education_level',
-        'graduationDate'   => 'graduation_date',
-        'educationType'    => 'education_type',
+        'major'          => 'major',
+        'educationLevel' => 'education_level',
+        'graduationDate' => 'graduation_date',
+        'educationType'  => 'education_type',
+        'schoolType'     => 'school_type',
     ];
 
     public function validate()
@@ -80,15 +62,6 @@ class EducationInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->project211) {
-            $res['project211'] = $this->project211;
-        }
-        if (null !== $this->project985) {
-            $res['project985'] = $this->project985;
-        }
-        if (null !== $this->doubleFirstClass) {
-            $res['double_first_class'] = $this->doubleFirstClass;
-        }
         if (null !== $this->major) {
             $res['major'] = $this->major;
         }
@@ -100,6 +73,9 @@ class EducationInfo extends Model
         }
         if (null !== $this->educationType) {
             $res['education_type'] = $this->educationType;
+        }
+        if (null !== $this->schoolType) {
+            $res['school_type'] = $this->schoolType;
         }
 
         return $res;
@@ -113,15 +89,6 @@ class EducationInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['project211'])) {
-            $model->project211 = $map['project211'];
-        }
-        if (isset($map['project985'])) {
-            $model->project985 = $map['project985'];
-        }
-        if (isset($map['double_first_class'])) {
-            $model->doubleFirstClass = $map['double_first_class'];
-        }
         if (isset($map['major'])) {
             $model->major = $map['major'];
         }
@@ -133,6 +100,9 @@ class EducationInfo extends Model
         }
         if (isset($map['education_type'])) {
             $model->educationType = $map['education_type'];
+        }
+        if (isset($map['school_type'])) {
+            $model->schoolType = $map['school_type'];
         }
 
         return $model;
