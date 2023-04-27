@@ -7911,6 +7911,8 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
   orderNo: string;
   // 校验还款金额
   validRepayAmount?: string;
+  // 银行卡号
+  bankCardNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7919,6 +7921,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       repayType: 'repay_type',
       orderNo: 'order_no',
       validRepayAmount: 'valid_repay_amount',
+      bankCardNo: 'bank_card_no',
     };
   }
 
@@ -7930,6 +7933,7 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
       repayType: 'string',
       orderNo: 'string',
       validRepayAmount: 'string',
+      bankCardNo: 'string',
     };
   }
 
@@ -8061,6 +8065,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   riskData?: string;
   // 资金源编码
   loanInstCode?: string;
+  // 银行卡号
+  bankCardNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8077,6 +8083,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       customType: 'custom_type',
       riskData: 'risk_data',
       loanInstCode: 'loan_inst_code',
+      bankCardNo: 'bank_card_no',
     };
   }
 
@@ -8096,6 +8103,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       customType: 'string',
       riskData: 'string',
       loanInstCode: 'string',
+      bankCardNo: 'string',
     };
   }
 
@@ -8587,6 +8595,14 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
   repayInfos?: RepayInfos[];
   // 还款日期
   repayDate?: string;
+  // 实还总额
+  repayAmount?: number;
+  // 实还总本金
+  repayPrincipal?: number;
+  // 实还总利息
+  repayInterest?: number;
+  // 实收总罚息
+  repayPunish?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8602,6 +8618,10 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
       failReason: 'fail_reason',
       repayInfos: 'repay_infos',
       repayDate: 'repay_date',
+      repayAmount: 'repay_amount',
+      repayPrincipal: 'repay_principal',
+      repayInterest: 'repay_interest',
+      repayPunish: 'repay_punish',
     };
   }
 
@@ -8620,6 +8640,10 @@ export class QueryDubbridgeRepayResultResponse extends $tea.Model {
       failReason: 'string',
       repayInfos: { 'type': 'array', 'itemType': RepayInfos },
       repayDate: 'string',
+      repayAmount: 'number',
+      repayPrincipal: 'number',
+      repayInterest: 'number',
+      repayPunish: 'number',
     };
   }
 
@@ -15008,7 +15032,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.24",
+          sdk_version: "1.16.25",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
