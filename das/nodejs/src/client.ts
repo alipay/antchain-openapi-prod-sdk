@@ -469,12 +469,6 @@ export class EducationExperiencesInfo extends $tea.Model {
 
 // 教育学历信息
 export class EducationInfo extends $tea.Model {
-  // 是否211院校
-  project211?: boolean;
-  // 是否985院校
-  project985?: boolean;
-  // 是否双一流院校
-  doubleFirstClass?: boolean;
   // 专业
   major?: string;
   // 学历等级代码
@@ -483,27 +477,25 @@ export class EducationInfo extends $tea.Model {
   graduationDate?: string;
   // 学习形式
   educationType?: string;
+  // 学校层级
+  schoolType?: string;
   static names(): { [key: string]: string } {
     return {
-      project211: 'project211',
-      project985: 'project985',
-      doubleFirstClass: 'double_first_class',
       major: 'major',
       educationLevel: 'education_level',
       graduationDate: 'graduation_date',
       educationType: 'education_type',
+      schoolType: 'school_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      project211: 'boolean',
-      project985: 'boolean',
-      doubleFirstClass: 'boolean',
       major: 'string',
       educationLevel: 'string',
       graduationDate: 'string',
       educationType: 'string',
+      schoolType: 'string',
     };
   }
 
@@ -3743,7 +3735,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.41",
+          sdk_version: "1.1.42",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
