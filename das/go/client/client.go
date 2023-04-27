@@ -680,8 +680,12 @@ type EducationInfo struct {
 	GraduationDate *string `json:"graduation_date,omitempty" xml:"graduation_date,omitempty"`
 	// 学习形式
 	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty"`
-	// 学校层级
-	SchoolType *string `json:"school_type,omitempty" xml:"school_type,omitempty"`
+	// 是否211
+	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
+	// 是否985
+	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
+	// 是否双一流
+	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
 }
 
 func (s EducationInfo) String() string {
@@ -712,8 +716,18 @@ func (s *EducationInfo) SetEducationType(v string) *EducationInfo {
 	return s
 }
 
-func (s *EducationInfo) SetSchoolType(v string) *EducationInfo {
-	s.SchoolType = &v
+func (s *EducationInfo) SetProject211(v bool) *EducationInfo {
+	s.Project211 = &v
+	return s
+}
+
+func (s *EducationInfo) SetProject985(v bool) *EducationInfo {
+	s.Project985 = &v
+	return s
+}
+
+func (s *EducationInfo) SetDoubleFirstClass(v bool) *EducationInfo {
+	s.DoubleFirstClass = &v
 	return s
 }
 
@@ -1295,13 +1309,6 @@ func (s *DriverLicenseInfo) SetDriverLicenseType(v string) *DriverLicenseInfo {
 
 // 教育标签信息
 type EducationTagInfo struct {
-	//
-	// 是否211院校
-	Project211 *bool `json:"project211,omitempty" xml:"project211,omitempty"`
-	// 是否985院校
-	Project985 *bool `json:"project985,omitempty" xml:"project985,omitempty"`
-	// 是否双一流院校
-	DoubleFirstClass *bool `json:"double_first_class,omitempty" xml:"double_first_class,omitempty"`
 	// 专业名称
 	Major *string `json:"major,omitempty" xml:"major,omitempty"`
 	// 学历等级代码
@@ -1313,6 +1320,8 @@ type EducationTagInfo struct {
 	EducationType *string `json:"education_type,omitempty" xml:"education_type,omitempty"`
 	// 入学时间
 	AdmissionDate *string `json:"admission_date,omitempty" xml:"admission_date,omitempty"`
+	// 学校类型
+	SchoolType *string `json:"school_type,omitempty" xml:"school_type,omitempty"`
 }
 
 func (s EducationTagInfo) String() string {
@@ -1321,21 +1330,6 @@ func (s EducationTagInfo) String() string {
 
 func (s EducationTagInfo) GoString() string {
 	return s.String()
-}
-
-func (s *EducationTagInfo) SetProject211(v bool) *EducationTagInfo {
-	s.Project211 = &v
-	return s
-}
-
-func (s *EducationTagInfo) SetProject985(v bool) *EducationTagInfo {
-	s.Project985 = &v
-	return s
-}
-
-func (s *EducationTagInfo) SetDoubleFirstClass(v bool) *EducationTagInfo {
-	s.DoubleFirstClass = &v
-	return s
 }
 
 func (s *EducationTagInfo) SetMajor(v string) *EducationTagInfo {
@@ -1360,6 +1354,11 @@ func (s *EducationTagInfo) SetEducationType(v string) *EducationTagInfo {
 
 func (s *EducationTagInfo) SetAdmissionDate(v string) *EducationTagInfo {
 	s.AdmissionDate = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetSchoolType(v string) *EducationTagInfo {
+	s.SchoolType = &v
 	return s
 }
 
@@ -2976,7 +2975,7 @@ type QueryIdnumberEducationtaginfoResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 教育信息
-	Data []*EducationInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Data *EducationTagInfo `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryIdnumberEducationtaginfoResponse) String() string {
@@ -3002,7 +3001,7 @@ func (s *QueryIdnumberEducationtaginfoResponse) SetResultMsg(v string) *QueryIdn
 	return s
 }
 
-func (s *QueryIdnumberEducationtaginfoResponse) SetData(v []*EducationInfo) *QueryIdnumberEducationtaginfoResponse {
+func (s *QueryIdnumberEducationtaginfoResponse) SetData(v *EducationTagInfo) *QueryIdnumberEducationtaginfoResponse {
 	s.Data = v
 	return s
 }
@@ -4887,7 +4886,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.42"),
+				"sdk_version":      tea.String("1.1.44"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
