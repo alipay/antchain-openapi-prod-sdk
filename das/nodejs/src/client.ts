@@ -477,15 +477,21 @@ export class EducationInfo extends $tea.Model {
   graduationDate?: string;
   // 学习形式
   educationType?: string;
-  // 学校层级
-  schoolType?: string;
+  // 是否211
+  project211?: boolean;
+  // 是否985
+  project985?: boolean;
+  // 是否双一流
+  doubleFirstClass?: boolean;
   static names(): { [key: string]: string } {
     return {
       major: 'major',
       educationLevel: 'education_level',
       graduationDate: 'graduation_date',
       educationType: 'education_type',
-      schoolType: 'school_type',
+      project211: 'project211',
+      project985: 'project985',
+      doubleFirstClass: 'double_first_class',
     };
   }
 
@@ -495,7 +501,9 @@ export class EducationInfo extends $tea.Model {
       educationLevel: 'string',
       graduationDate: 'string',
       educationType: 'string',
-      schoolType: 'string',
+      project211: 'boolean',
+      project985: 'boolean',
+      doubleFirstClass: 'boolean',
     };
   }
 
@@ -937,13 +945,6 @@ export class DriverLicenseInfo extends $tea.Model {
 
 // 教育标签信息
 export class EducationTagInfo extends $tea.Model {
-  // 	
-  // 是否211院校
-  project211?: boolean;
-  // 是否985院校
-  project985?: boolean;
-  // 是否双一流院校
-  doubleFirstClass?: boolean;
   // 专业名称
   major?: string;
   // 学历等级代码
@@ -955,29 +956,27 @@ export class EducationTagInfo extends $tea.Model {
   educationType?: string;
   // 入学时间
   admissionDate?: string;
+  // 学校类型
+  schoolType?: string;
   static names(): { [key: string]: string } {
     return {
-      project211: 'project211',
-      project985: 'project985',
-      doubleFirstClass: 'double_first_class',
       major: 'major',
       educationLevel: 'education_level',
       graduationDate: 'graduation_date',
       educationType: 'education_type',
       admissionDate: 'admission_date',
+      schoolType: 'school_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      project211: 'boolean',
-      project985: 'boolean',
-      doubleFirstClass: 'boolean',
       major: 'string',
       educationLevel: 'string',
       graduationDate: 'string',
       educationType: 'string',
       admissionDate: 'string',
+      schoolType: 'string',
     };
   }
 
@@ -2232,7 +2231,7 @@ export class QueryIdnumberEducationtaginfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 教育信息
-  data?: EducationInfo[];
+  data?: EducationTagInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2247,7 +2246,7 @@ export class QueryIdnumberEducationtaginfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: { 'type': 'array', 'itemType': EducationInfo },
+      data: EducationTagInfo,
     };
   }
 
@@ -3735,7 +3734,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.42",
+          sdk_version: "1.1.44",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
