@@ -10673,6 +10673,8 @@ type RepayDubbridgeRepayWithholdRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 校验还款金额
 	ValidRepayAmount *string `json:"valid_repay_amount,omitempty" xml:"valid_repay_amount,omitempty"`
+	// 银行卡号
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty"`
 }
 
 func (s RepayDubbridgeRepayWithholdRequest) String() string {
@@ -10710,6 +10712,11 @@ func (s *RepayDubbridgeRepayWithholdRequest) SetOrderNo(v string) *RepayDubbridg
 
 func (s *RepayDubbridgeRepayWithholdRequest) SetValidRepayAmount(v string) *RepayDubbridgeRepayWithholdRequest {
 	s.ValidRepayAmount = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetBankCardNo(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.BankCardNo = &v
 	return s
 }
 
@@ -10857,6 +10864,8 @@ type ApplyDubbridgeUsecreditRequest struct {
 	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
 	// 资金源编码
 	LoanInstCode *string `json:"loan_inst_code,omitempty" xml:"loan_inst_code,omitempty"`
+	// 银行卡号
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -10934,6 +10943,11 @@ func (s *ApplyDubbridgeUsecreditRequest) SetRiskData(v string) *ApplyDubbridgeUs
 
 func (s *ApplyDubbridgeUsecreditRequest) SetLoanInstCode(v string) *ApplyDubbridgeUsecreditRequest {
 	s.LoanInstCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetBankCardNo(v string) *ApplyDubbridgeUsecreditRequest {
+	s.BankCardNo = &v
 	return s
 }
 
@@ -11555,6 +11569,14 @@ type QueryDubbridgeRepayResultResponse struct {
 	RepayInfos []*RepayInfos `json:"repay_infos,omitempty" xml:"repay_infos,omitempty" type:"Repeated"`
 	// 还款日期
 	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty"`
+	// 实还总额
+	RepayAmount *int64 `json:"repay_amount,omitempty" xml:"repay_amount,omitempty"`
+	// 实还总本金
+	RepayPrincipal *int64 `json:"repay_principal,omitempty" xml:"repay_principal,omitempty"`
+	// 实还总利息
+	RepayInterest *int64 `json:"repay_interest,omitempty" xml:"repay_interest,omitempty"`
+	// 实收总罚息
+	RepayPunish *int64 `json:"repay_punish,omitempty" xml:"repay_punish,omitempty"`
 }
 
 func (s QueryDubbridgeRepayResultResponse) String() string {
@@ -11627,6 +11649,26 @@ func (s *QueryDubbridgeRepayResultResponse) SetRepayInfos(v []*RepayInfos) *Quer
 
 func (s *QueryDubbridgeRepayResultResponse) SetRepayDate(v string) *QueryDubbridgeRepayResultResponse {
 	s.RepayDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayResultResponse) SetRepayAmount(v int64) *QueryDubbridgeRepayResultResponse {
+	s.RepayAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayResultResponse) SetRepayPrincipal(v int64) *QueryDubbridgeRepayResultResponse {
+	s.RepayPrincipal = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayResultResponse) SetRepayInterest(v int64) *QueryDubbridgeRepayResultResponse {
+	s.RepayInterest = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayResultResponse) SetRepayPunish(v int64) *QueryDubbridgeRepayResultResponse {
+	s.RepayPunish = &v
 	return s
 }
 
@@ -19997,7 +20039,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.24"),
+				"sdk_version":      tea.String("1.16.25"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
