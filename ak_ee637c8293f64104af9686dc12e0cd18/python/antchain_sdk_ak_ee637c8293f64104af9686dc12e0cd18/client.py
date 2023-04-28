@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_ee637c8293f64104af9686dc12e0cd18',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_ee637c8293f64104af9686dc12e0cd18',
                     '_prod_channel': 'saas'
                 }
@@ -553,6 +553,62 @@ class Client:
         return TeaCore.from_map(
             ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.RegisterDemoTestBizeventMessageResponse(),
             await self.do_request_async('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_cjtest_cj_res(
+        self,
+        request: ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResRequest,
+    ) -> ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse:
+        """
+        Description: cj test
+        Summary: cj test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_cjtest_cj_res_ex(request, headers, runtime)
+
+    async def query_demo_cjtest_cj_res_async(
+        self,
+        request: ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResRequest,
+    ) -> ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse:
+        """
+        Description: cj test
+        Summary: cj test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_cjtest_cj_res_ex_async(request, headers, runtime)
+
+    def query_demo_cjtest_cj_res_ex(
+        self,
+        request: ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse:
+        """
+        Description: cj test
+        Summary: cj test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse(),
+            self.do_request('1.0', 'demo.cjtest.cj.res.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_cjtest_cj_res_ex_async(
+        self,
+        request: ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse:
+        """
+        Description: cj test
+        Summary: cj test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ee_637c_8293f_64104af_9686dc_12e_0cd_18_models.QueryDemoCjtestCjResResponse(),
+            await self.do_request_async('1.0', 'demo.cjtest.cj.res.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_demo_saas_test_testc(
