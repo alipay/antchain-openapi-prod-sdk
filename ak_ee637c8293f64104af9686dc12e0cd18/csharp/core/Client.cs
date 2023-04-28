@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ee637c8293f64104af9686dc12e0cd18
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_ee637c8293f64104af9686dc12e0cd18"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ee637c8293f64104af9686dc12e0cd18
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_ee637c8293f64104af9686dc12e0cd18"},
                         {"_prod_channel", "saas"},
                     };
@@ -529,6 +529,48 @@ namespace AntChain.SDK.Ak_ee637c8293f64104af9686dc12e0cd18
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RegisterDemoTestBizeventMessageResponse>(await DoRequestAsync("1.0", "demo.test.bizevent.message.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: cj test
+         * Summary: cj test
+         */
+        public QueryDemoCjtestCjResResponse QueryDemoCjtestCjRes(QueryDemoCjtestCjResRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoCjtestCjResEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: cj test
+         * Summary: cj test
+         */
+        public async Task<QueryDemoCjtestCjResResponse> QueryDemoCjtestCjResAsync(QueryDemoCjtestCjResRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoCjtestCjResExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: cj test
+         * Summary: cj test
+         */
+        public QueryDemoCjtestCjResResponse QueryDemoCjtestCjResEx(QueryDemoCjtestCjResRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoCjtestCjResResponse>(DoRequest("1.0", "demo.cjtest.cj.res.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: cj test
+         * Summary: cj test
+         */
+        public async Task<QueryDemoCjtestCjResResponse> QueryDemoCjtestCjResExAsync(QueryDemoCjtestCjResRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoCjtestCjResResponse>(await DoRequestAsync("1.0", "demo.cjtest.cj.res.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
