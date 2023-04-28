@@ -489,6 +489,62 @@ func (s *RegisterDemoTestBizeventMessageResponse) SetResultMsg(v string) *Regist
 	return s
 }
 
+type QueryDemoCjtestCjResRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoCjtestCjResRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoCjtestCjResRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoCjtestCjResRequest) SetAuthToken(v string) *QueryDemoCjtestCjResRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoCjtestCjResRequest) SetProductInstanceId(v string) *QueryDemoCjtestCjResRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoCjtestCjResResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoCjtestCjResResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoCjtestCjResResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoCjtestCjResResponse) SetReqMsgId(v string) *QueryDemoCjtestCjResResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoCjtestCjResResponse) SetResultCode(v string) *QueryDemoCjtestCjResResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoCjtestCjResResponse) SetResultMsg(v string) *QueryDemoCjtestCjResResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type PublishDemoSaasTestTestcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1213,7 +1269,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_ee637c8293f64104af9686dc12e0cd18"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1434,6 +1490,40 @@ func (client *Client) RegisterDemoTestBizeventMessageEx(request *RegisterDemoTes
 	}
 	_result = &RegisterDemoTestBizeventMessageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.bizevent.message.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: cj test
+ * Summary: cj test
+ */
+func (client *Client) QueryDemoCjtestCjRes(request *QueryDemoCjtestCjResRequest) (_result *QueryDemoCjtestCjResResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoCjtestCjResResponse{}
+	_body, _err := client.QueryDemoCjtestCjResEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: cj test
+ * Summary: cj test
+ */
+func (client *Client) QueryDemoCjtestCjResEx(request *QueryDemoCjtestCjResRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoCjtestCjResResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoCjtestCjResResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.cjtest.cj.res.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
