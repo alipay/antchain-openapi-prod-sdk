@@ -23,6 +23,8 @@ use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\CreateDemoSaasTestTestiR
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\CreateDemoSaasTestTestiResponse;
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\PublishDemoSaasTestTestcRequest;
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\PublishDemoSaasTestTestcResponse;
+use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\QueryDemoCjtestCjResRequest;
+use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\QueryDemoCjtestCjResResponse;
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\QueryDemoTestTestobjectBbbRequest;
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\QueryDemoTestTestobjectBbbResponse;
 use AntChain\Ak_ee637c8293f64104af9686dc12e0cd18\Models\QueryDemoTestyyQRequest;
@@ -186,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_ee637c8293f64104af9686dc12e0cd18',
                     '_prod_channel'    => 'saas',
                 ];
@@ -397,6 +399,39 @@ class Client
         Utils::validateModel($request);
 
         return RegisterDemoTestBizeventMessageResponse::fromMap($this->doRequest('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cj test
+     * Summary: cj test.
+     *
+     * @param QueryDemoCjtestCjResRequest $request
+     *
+     * @return QueryDemoCjtestCjResResponse
+     */
+    public function queryDemoCjtestCjRes($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoCjtestCjResEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cj test
+     * Summary: cj test.
+     *
+     * @param QueryDemoCjtestCjResRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDemoCjtestCjResResponse
+     */
+    public function queryDemoCjtestCjResEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoCjtestCjResResponse::fromMap($this->doRequest('1.0', 'demo.cjtest.cj.res.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
