@@ -344,62 +344,6 @@ func (s *BindDemoCenterAbilityResponse) SetResultMsg(v string) *BindDemoCenterAb
 	return s
 }
 
-type BindDemoMoreAbilityTestabcRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoMoreAbilityTestabcRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoMoreAbilityTestabcRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoMoreAbilityTestabcRequest) SetAuthToken(v string) *BindDemoMoreAbilityTestabcRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestabcRequest) SetProductInstanceId(v string) *BindDemoMoreAbilityTestabcRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoMoreAbilityTestabcResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoMoreAbilityTestabcResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoMoreAbilityTestabcResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoMoreAbilityTestabcResponse) SetReqMsgId(v string) *BindDemoMoreAbilityTestabcResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestabcResponse) SetResultCode(v string) *BindDemoMoreAbilityTestabcResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoMoreAbilityTestabcResponse) SetResultMsg(v string) *BindDemoMoreAbilityTestabcResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -478,17 +422,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -522,7 +466,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.0"),
+				"_prod_code":       tea.String("ak_68b3ee3230284cddaa19740dcaf251d8"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -580,7 +526,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 
 /**
  * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
+ * Summary: 自动化测试创建test1
  */
 func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -596,7 +542,7 @@ func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_res
 
 /**
  * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
+ * Summary: 自动化测试创建test1
  */
 func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -673,40 +619,6 @@ func (client *Client) BindDemoCenterAbilityEx(request *BindDemoCenterAbilityRequ
 	}
 	_result = &BindDemoCenterAbilityResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.center.ability.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 测试API绑定多个标签时的情况
- * Summary: API绑定多个标签
- */
-func (client *Client) BindDemoMoreAbilityTestabc(request *BindDemoMoreAbilityTestabcRequest) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoMoreAbilityTestabcResponse{}
-	_body, _err := client.BindDemoMoreAbilityTestabcEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 测试API绑定多个标签时的情况
- * Summary: API绑定多个标签
- */
-func (client *Client) BindDemoMoreAbilityTestabcEx(request *BindDemoMoreAbilityTestabcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoMoreAbilityTestabcResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.more.ability.testabc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
