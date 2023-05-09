@@ -91,7 +91,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_68b3ee3230284cddaa19740dcaf251d8"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_68b3ee3230284cddaa19740dcaf251d8"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -319,7 +323,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
 
         /**
          * Description: 自动化测试创建test
-         * Summary: 自动化测试创建test
+         * Summary: 自动化测试创建test1
          */
         public BindDemoAaaBbbCccResponse BindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request)
         {
@@ -330,7 +334,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
 
         /**
          * Description: 自动化测试创建test
-         * Summary: 自动化测试创建test
+         * Summary: 自动化测试创建test1
          */
         public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccAsync(BindDemoAaaBbbCccRequest request)
         {
@@ -341,7 +345,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
 
         /**
          * Description: 自动化测试创建test
-         * Summary: 自动化测试创建test
+         * Summary: 自动化测试创建test1
          */
         public BindDemoAaaBbbCccResponse BindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -351,7 +355,7 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
 
         /**
          * Description: 自动化测试创建test
-         * Summary: 自动化测试创建test
+         * Summary: 自动化测试创建test1
          */
         public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccExAsync(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -441,48 +445,6 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindDemoCenterAbilityResponse>(await DoRequestAsync("1.0", "demo.center.ability.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 测试API绑定多个标签时的情况
-         * Summary: API绑定多个标签
-         */
-        public BindDemoMoreAbilityTestabcResponse BindDemoMoreAbilityTestabc(BindDemoMoreAbilityTestabcRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindDemoMoreAbilityTestabcEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 测试API绑定多个标签时的情况
-         * Summary: API绑定多个标签
-         */
-        public async Task<BindDemoMoreAbilityTestabcResponse> BindDemoMoreAbilityTestabcAsync(BindDemoMoreAbilityTestabcRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindDemoMoreAbilityTestabcExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 测试API绑定多个标签时的情况
-         * Summary: API绑定多个标签
-         */
-        public BindDemoMoreAbilityTestabcResponse BindDemoMoreAbilityTestabcEx(BindDemoMoreAbilityTestabcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoMoreAbilityTestabcResponse>(DoRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 测试API绑定多个标签时的情况
-         * Summary: API绑定多个标签
-         */
-        public async Task<BindDemoMoreAbilityTestabcResponse> BindDemoMoreAbilityTestabcExAsync(BindDemoMoreAbilityTestabcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoMoreAbilityTestabcResponse>(await DoRequestAsync("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
