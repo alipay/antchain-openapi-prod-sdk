@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -134,7 +134,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.0',
+                    '_prod_code': 'ak_68b3ee3230284cddaa19740dcaf251d8',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -199,7 +201,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -235,7 +237,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.0',
+                    '_prod_code': 'ak_68b3ee3230284cddaa19740dcaf251d8',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -275,7 +279,7 @@ class Client:
     ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -287,7 +291,7 @@ class Client:
     ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -301,7 +305,7 @@ class Client:
     ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -317,7 +321,7 @@ class Client:
     ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test
-        Summary: 自动化测试创建test
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -435,60 +439,4 @@ class Client:
         return TeaCore.from_map(
             ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoCenterAbilityResponse(),
             await self.do_request_async('1.0', 'demo.center.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_more_ability_testabc(
-        self,
-        request: ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcRequest,
-    ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_more_ability_testabc_ex(request, headers, runtime)
-
-    async def bind_demo_more_ability_testabc_async(
-        self,
-        request: ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcRequest,
-    ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_more_ability_testabc_ex_async(request, headers, runtime)
-
-    def bind_demo_more_ability_testabc_ex(
-        self,
-        request: ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse(),
-            self.do_request('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_more_ability_testabc_ex_async(
-        self,
-        request: ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse:
-        """
-        Description: 测试API绑定多个标签时的情况
-        Summary: API绑定多个标签
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__68b_3ee_3230284cddaa_19740dcaf_251d_8_models.BindDemoMoreAbilityTestabcResponse(),
-            await self.do_request_async('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
