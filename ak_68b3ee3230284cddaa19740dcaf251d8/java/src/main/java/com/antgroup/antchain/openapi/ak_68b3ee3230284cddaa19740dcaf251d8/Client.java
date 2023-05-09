@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1")
+                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("_prod_code", "ak_68b3ee3230284cddaa19740dcaf251d8"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -161,7 +163,7 @@ public class Client {
 
     /**
      * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test
+     * Summary: 自动化测试创建test1
      */
     public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -171,7 +173,7 @@ public class Client {
 
     /**
      * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test
+     * Summary: 自动化测试创建test1
      */
     public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -214,24 +216,5 @@ public class Client {
     public BindDemoCenterAbilityResponse bindDemoCenterAbilityEx(BindDemoCenterAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.center.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoCenterAbilityResponse());
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签
-     */
-    public BindDemoMoreAbilityTestabcResponse bindDemoMoreAbilityTestabc(BindDemoMoreAbilityTestabcRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoMoreAbilityTestabcEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试API绑定多个标签时的情况
-     * Summary: API绑定多个标签
-     */
-    public BindDemoMoreAbilityTestabcResponse bindDemoMoreAbilityTestabcEx(BindDemoMoreAbilityTestabcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoMoreAbilityTestabcResponse());
     }
 }
