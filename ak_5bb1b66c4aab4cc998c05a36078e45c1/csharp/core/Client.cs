@@ -91,7 +91,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.8"},
+                        {"sdk_version", "1.0.0"},
                         {"_prod_code", "ak_5bb1b66c4aab4cc998c05a36078e45c1"},
                         {"_prod_channel", "saas"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.8"},
+                        {"sdk_version", "1.0.0"},
                         {"_prod_code", "ak_5bb1b66c4aab4cc998c05a36078e45c1"},
                         {"_prod_channel", "saas"},
                     };
@@ -574,48 +574,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
         }
 
         /**
-         * Description: 自动化测试创建，用于测试新建&修改功能
-         * Summary: 自动化测试创建，用于测试新建&修改功能
-         */
-        public BindDemoAaaBbbCccResponse BindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindDemoAaaBbbCccEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建，用于测试新建&修改功能
-         * Summary: 自动化测试创建，用于测试新建&修改功能
-         */
-        public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccAsync(BindDemoAaaBbbCccRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindDemoAaaBbbCccExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建，用于测试新建&修改功能
-         * Summary: 自动化测试创建，用于测试新建&修改功能
-         */
-        public BindDemoAaaBbbCccResponse BindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(DoRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化测试创建，用于测试新建&修改功能
-         * Summary: 自动化测试创建，用于测试新建&修改功能
-         */
-        public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccExAsync(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(await DoRequestAsync("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 大安全接口
          * Summary: 大安全接口
          */
@@ -743,7 +701,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
 
         /**
          * Description: 123
-         * Summary: 大安全接口
+         * Summary: 大安全内容风控接口
          */
         public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse QuerySaasSecurityInfosecHoloxcontentcheckqueryservice(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request)
         {
@@ -754,7 +712,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
 
         /**
          * Description: 123
-         * Summary: 大安全接口
+         * Summary: 大安全内容风控接口
          */
         public async Task<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceAsync(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request)
         {
@@ -765,7 +723,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
 
         /**
          * Description: 123
-         * Summary: 大安全接口
+         * Summary: 大安全内容风控接口
          */
         public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -775,7 +733,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
 
         /**
          * Description: 123
-         * Summary: 大安全接口
+         * Summary: 大安全内容风控接口
          */
         public async Task<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceExAsync(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
