@@ -1209,61 +1209,6 @@ export class VerifyAntchainBbpMetaResponse extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 123
-  data: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      data: 'data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      data: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindDemoAaaBbbCccResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1779,7 +1724,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -1818,7 +1763,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.0",
           _prod_code: "ak_5bb1b66c4aab4cc998c05a36078e45c1",
           _prod_channel: "saas",
         };
@@ -1981,25 +1926,6 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建，用于测试新建&修改功能
-   * Summary: 自动化测试创建，用于测试新建&修改功能
-   */
-  async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.bindDemoAaaBbbCccEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 自动化测试创建，用于测试新建&修改功能
-   * Summary: 自动化测试创建，用于测试新建&修改功能
-   */
-  async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
-    Util.validateModel(request);
-    return $tea.cast<BindDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAaaBbbCccResponse({}));
-  }
-
-  /**
    * Description: 大安全接口
    * Summary: 大安全接口
    */
@@ -2058,7 +1984,7 @@ export default class Client {
 
   /**
    * Description: 123
-   * Summary: 大安全接口
+   * Summary: 大安全内容风控接口
    */
   async querySaasSecurityInfosecHoloxcontentcheckqueryservice(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest): Promise<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2068,7 +1994,7 @@ export default class Client {
 
   /**
    * Description: 123
-   * Summary: 大安全接口
+   * Summary: 大安全内容风控接口
    */
   async querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> {
     Util.validateModel(request);
