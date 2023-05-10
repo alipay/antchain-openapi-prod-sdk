@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.25',
+    sdk_version = '1.16.28',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1189,6 +1189,48 @@ model CompanyInfo {
   updateDate: string(name='update_date', example='20190923'),
   // 平台json  
   platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
+}
+
+// ai外呼回调详情
+model AICallbackMessage {
+  // 批次号
+  batchId?: string(name='batch_id', example='5de2ccbf87914544afb57a77e39ec023'),
+  // 用户标签
+  tag: string(name='tag', example='阿松大'),
+  // 外呼id
+  callId: string(name='call_id', example='CALLID'),
+  // 外呼的话术模板Id
+  templateId?: long(name='template_id', example='7'),
+  // 外呼状态编码
+  statusCode: long(name='status_code', example='1'),
+  // 外呼状态描述
+  statusDescription: string(name='status_description', example='已接听'),
+  // 导入时间
+  importTime: string(name='import_time', example='2019-11-23 14:47:06'),
+  // 开始通话时间
+  callBeginTime: string(name='call_begin_time', example='2019-11-23 14:47:06'),
+  // 振铃时长, 单位毫秒
+  ringTime: long(name='ring_time', example='2000'),
+  // 接通时间
+  answerTime: string(name='answer_time', example='2019-01-09 14:14:19'),
+  // AI通话时长,单位s
+  speakingDuration: long(name='speaking_duration', example='20'),
+  // 挂断时间
+  hangupTime: string(name='hangup_time', example='2019-01-09 14:14:19'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns', example='5'),
+  // 意向标签
+  intentTag: string(name='intent_tag', example='C'),
+  // 意向说明
+  intentDescription: string(name='intent_description', example='确认本人,未承诺还款'),
+  // 个性标签
+  individualTag: string(name='individual_tag', example='a'),
+  // 回复关键词
+  keywords: string(name='keywords', example='利息'),
+  // 对话录音
+  chatRecord?: string(name='chat_record', example='录音url'),
+  // 参数值
+  properties: string(name='properties', example='{"电话号码":"13100000000"}'),
 }
 
 // 营销盾事件信息同步详情
@@ -2956,6 +2998,8 @@ model QueryDubbridgeRouterFundrouterResponse = {
   resultMsg?: string(name='result_msg'),
   // 资金方代码
   fundCode?: string(name='fund_code'),
+  // 资金方简称
+  abbreFundName?: string(name='abbre_fund_name'),
 }
 
 /**
@@ -8448,6 +8492,54 @@ async function queryUmktTenantActionplaninfo(request: QueryUmktTenantActionplani
 async function queryUmktTenantActionplaninfoEx(request: QueryUmktTenantActionplaninfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktTenantActionplaninfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  bizId: string(name='biz_id'),
+  // 手机号
+  phoneNumber: string(name='phone_number'),
+  // 手机号类型
+  templateType: string(name='template_type'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+}
+
+model QueryUmktRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求时的透传字段
+  outInfo?: string(name='out_info'),
+  // 请求时每个手机号的透传字段
+  customerOutInfo?: string(name='customer_out_info'),
+  // 外呼记录列表
+  callInfo?: [ AICallbackMessage ](name='call_info'),
+}
+
+/**
+ * Description: 查询ai外呼任务详情
+ * Summary: 查询ai外呼任务详情
+ */
+async function queryUmktRobotcall(request: QueryUmktRobotcallRequest): QueryUmktRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询ai外呼任务详情
+ * Summary: 查询ai外呼任务详情
+ */
+async function queryUmktRobotcallEx(request: QueryUmktRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.robotcall.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
