@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_d9fd09cd1986473d9a4b8dde727aa361',
                     '_prod_channel': 'saas'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_d9fd09cd1986473d9a4b8dde727aa361',
                     '_prod_channel': 'saas'
                 }
@@ -475,6 +475,230 @@ class Client:
         return TeaCore.from_map(
             ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.BindDemoMoreAbilityTestabcResponse(),
             await self.do_request_async('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def match_international_demo_zoloz_facecompare(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse:
+        """
+        Description: test zoloz 方法 update again
+        Summary: test zoloz 方法
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_international_demo_zoloz_facecompare_ex(request, headers, runtime)
+
+    async def match_international_demo_zoloz_facecompare_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse:
+        """
+        Description: test zoloz 方法 update again
+        Summary: test zoloz 方法
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_international_demo_zoloz_facecompare_ex_async(request, headers, runtime)
+
+    def match_international_demo_zoloz_facecompare_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse:
+        """
+        Description: test zoloz 方法 update again
+        Summary: test zoloz 方法
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse(),
+            self.do_request('1.0', 'international.demo.zoloz.facecompare.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_international_demo_zoloz_facecompare_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse:
+        """
+        Description: test zoloz 方法 update again
+        Summary: test zoloz 方法
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.MatchInternationalDemoZolozFacecompareResponse(),
+            await self.do_request_async('1.0', 'international.demo.zoloz.facecompare.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_international_demo_aaa_bbb(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse:
+        """
+        Description: cj test 111
+        Summary: cj test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_international_demo_aaa_bbb_ex(request, headers, runtime)
+
+    async def query_international_demo_aaa_bbb_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse:
+        """
+        Description: cj test 111
+        Summary: cj test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_international_demo_aaa_bbb_ex_async(request, headers, runtime)
+
+    def query_international_demo_aaa_bbb_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse:
+        """
+        Description: cj test 111
+        Summary: cj test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse(),
+            self.do_request('1.0', 'international.demo.aaa.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_international_demo_aaa_bbb_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse:
+        """
+        Description: cj test 111
+        Summary: cj test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.QueryInternationalDemoAaaBbbResponse(),
+            await self.do_request_async('1.0', 'international.demo.aaa.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_international_demo_zoloz_health(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse:
+        """
+        Description: 测试大安全接口
+        Summary: 测试大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_international_demo_zoloz_health_ex(request, headers, runtime)
+
+    async def check_international_demo_zoloz_health_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse:
+        """
+        Description: 测试大安全接口
+        Summary: 测试大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_international_demo_zoloz_health_ex_async(request, headers, runtime)
+
+    def check_international_demo_zoloz_health_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse:
+        """
+        Description: 测试大安全接口
+        Summary: 测试大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse(),
+            self.do_request('1.0', 'international.demo.zoloz.health.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_international_demo_zoloz_health_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse:
+        """
+        Description: 测试大安全接口
+        Summary: 测试大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.CheckInternationalDemoZolozHealthResponse(),
+            await self.do_request_async('1.0', 'international.demo.zoloz.health.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_international_demo_aaa_bbb(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse:
+        """
+        Description: demo get fr inter desc
+        Summary: demo get fr inter
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_international_demo_aaa_bbb_ex(request, headers, runtime)
+
+    async def get_international_demo_aaa_bbb_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbRequest,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse:
+        """
+        Description: demo get fr inter desc
+        Summary: demo get fr inter
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_international_demo_aaa_bbb_ex_async(request, headers, runtime)
+
+    def get_international_demo_aaa_bbb_ex(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse:
+        """
+        Description: demo get fr inter desc
+        Summary: demo get fr inter
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse(),
+            self.do_request('1.0', 'international.demo.aaa.bbb.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_international_demo_aaa_bbb_ex_async(
+        self,
+        request: ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse:
+        """
+        Description: demo get fr inter desc
+        Summary: demo get fr inter
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_9fd_09cd_1986473d_9a_4b_8dde_727aa_361_models.GetInternationalDemoAaaBbbResponse(),
+            await self.do_request_async('1.0', 'international.demo.aaa.bbb.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
