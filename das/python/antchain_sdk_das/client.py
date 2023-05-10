@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.44',
+                    'sdk_version': '1.1.46',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.44',
+                    'sdk_version': '1.1.46',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1188,8 +1188,8 @@ class Client:
         request: das_models.QueryPhonenumberEducationinfoRequest,
     ) -> das_models.QueryPhonenumberEducationinfoResponse:
         """
-        Description: 教育信息查询（姓名+手机号）
-        Summary: 教育信息查询（姓名+手机号）
+        Description: 教育信息查询（姓名手机号/姓名身份证）
+        Summary: 教育信息查询（姓名手机号/姓名身份证）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1200,8 +1200,8 @@ class Client:
         request: das_models.QueryPhonenumberEducationinfoRequest,
     ) -> das_models.QueryPhonenumberEducationinfoResponse:
         """
-        Description: 教育信息查询（姓名+手机号）
-        Summary: 教育信息查询（姓名+手机号）
+        Description: 教育信息查询（姓名手机号/姓名身份证）
+        Summary: 教育信息查询（姓名手机号/姓名身份证）
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1214,8 +1214,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> das_models.QueryPhonenumberEducationinfoResponse:
         """
-        Description: 教育信息查询（姓名+手机号）
-        Summary: 教育信息查询（姓名+手机号）
+        Description: 教育信息查询（姓名手机号/姓名身份证）
+        Summary: 教育信息查询（姓名手机号/姓名身份证）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1230,8 +1230,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> das_models.QueryPhonenumberEducationinfoResponse:
         """
-        Description: 教育信息查询（姓名+手机号）
-        Summary: 教育信息查询（姓名+手机号）
+        Description: 教育信息查询（姓名手机号/姓名身份证）
+        Summary: 教育信息查询（姓名手机号/姓名身份证）
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(

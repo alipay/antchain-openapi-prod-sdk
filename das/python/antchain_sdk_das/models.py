@@ -3746,6 +3746,8 @@ class QueryPhonenumberEducationinfoRequest(TeaModel):
         file_index: str = None,
         user_name: str = None,
         user_tel: str = None,
+        user_cert_no: str = None,
+        type_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3760,13 +3762,17 @@ class QueryPhonenumberEducationinfoRequest(TeaModel):
         self.user_name = user_name
         # 用户手机号
         self.user_tel = user_tel
+        # 身份证号
+        self.user_cert_no = user_cert_no
+        # 类型指示码
+        self.type_code = type_code
 
     def validate(self):
         self.validate_required(self.data_set_id, 'data_set_id')
         self.validate_required(self.user_authed, 'user_authed')
         self.validate_required(self.file_index, 'file_index')
         self.validate_required(self.user_name, 'user_name')
-        self.validate_required(self.user_tel, 'user_tel')
+        self.validate_required(self.type_code, 'type_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -3788,6 +3794,10 @@ class QueryPhonenumberEducationinfoRequest(TeaModel):
             result['user_name'] = self.user_name
         if self.user_tel is not None:
             result['user_tel'] = self.user_tel
+        if self.user_cert_no is not None:
+            result['user_cert_no'] = self.user_cert_no
+        if self.type_code is not None:
+            result['type_code'] = self.type_code
         return result
 
     def from_map(self, m: dict = None):
@@ -3806,6 +3816,10 @@ class QueryPhonenumberEducationinfoRequest(TeaModel):
             self.user_name = m.get('user_name')
         if m.get('user_tel') is not None:
             self.user_tel = m.get('user_tel')
+        if m.get('user_cert_no') is not None:
+            self.user_cert_no = m.get('user_cert_no')
+        if m.get('type_code') is not None:
+            self.type_code = m.get('type_code')
         return self
 
 
@@ -3815,7 +3829,7 @@ class QueryPhonenumberEducationinfoResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: EducationInfo = None,
+        data: EducationTagInfo = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3855,7 +3869,7 @@ class QueryPhonenumberEducationinfoResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
-            temp_model = EducationInfo()
+            temp_model = EducationTagInfo()
             self.data = temp_model.from_map(m['data'])
         return self
 
