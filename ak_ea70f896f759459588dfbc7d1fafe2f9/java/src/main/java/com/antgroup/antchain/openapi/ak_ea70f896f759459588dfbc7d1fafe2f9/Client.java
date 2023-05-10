@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_ea70f896f759459588dfbc7d1fafe2f9"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -178,5 +178,62 @@ public class Client {
     public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建111
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建111
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse());
     }
 }
