@@ -33,8 +33,16 @@ public class QueryPhonenumberEducationinfoRequest extends TeaModel {
 
     // 用户手机号
     @NameInMap("user_tel")
-    @Validation(required = true)
     public String userTel;
+
+    // 身份证号
+    @NameInMap("user_cert_no")
+    public String userCertNo;
+
+    // 类型指示码
+    @NameInMap("type_code")
+    @Validation(required = true)
+    public String typeCode;
 
     public static QueryPhonenumberEducationinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPhonenumberEducationinfoRequest self = new QueryPhonenumberEducationinfoRequest();
@@ -95,6 +103,22 @@ public class QueryPhonenumberEducationinfoRequest extends TeaModel {
     }
     public String getUserTel() {
         return this.userTel;
+    }
+
+    public QueryPhonenumberEducationinfoRequest setUserCertNo(String userCertNo) {
+        this.userCertNo = userCertNo;
+        return this;
+    }
+    public String getUserCertNo() {
+        return this.userCertNo;
+    }
+
+    public QueryPhonenumberEducationinfoRequest setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+        return this;
+    }
+    public String getTypeCode() {
+        return this.typeCode;
     }
 
 }

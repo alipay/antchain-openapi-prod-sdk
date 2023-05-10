@@ -18,7 +18,7 @@ public class QueryPhonenumberEducationinfoResponse extends TeaModel {
 
     // 教育信息
     @NameInMap("data")
-    public EducationInfo data;
+    public EducationTagInfo data;
 
     public static QueryPhonenumberEducationinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPhonenumberEducationinfoResponse self = new QueryPhonenumberEducationinfoResponse();
@@ -49,11 +49,11 @@ public class QueryPhonenumberEducationinfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryPhonenumberEducationinfoResponse setData(EducationInfo data) {
+    public QueryPhonenumberEducationinfoResponse setData(EducationTagInfo data) {
         this.data = data;
         return this;
     }
-    public EducationInfo getData() {
+    public EducationTagInfo getData() {
         return this.data;
     }
 

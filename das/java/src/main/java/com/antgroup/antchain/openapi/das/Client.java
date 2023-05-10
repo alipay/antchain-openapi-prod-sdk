@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.44"),
+                    new TeaPair("sdk_version", "1.1.46"),
                     new TeaPair("_prod_code", "DAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -489,8 +489,8 @@ public class Client {
     }
 
     /**
-     * Description: 教育信息查询（姓名+手机号）
-     * Summary: 教育信息查询（姓名+手机号）
+     * Description: 教育信息查询（姓名手机号/姓名身份证）
+     * Summary: 教育信息查询（姓名手机号/姓名身份证）
      */
     public QueryPhonenumberEducationinfoResponse queryPhonenumberEducationinfo(QueryPhonenumberEducationinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -499,8 +499,8 @@ public class Client {
     }
 
     /**
-     * Description: 教育信息查询（姓名+手机号）
-     * Summary: 教育信息查询（姓名+手机号）
+     * Description: 教育信息查询（姓名手机号/姓名身份证）
+     * Summary: 教育信息查询（姓名手机号/姓名身份证）
      */
     public QueryPhonenumberEducationinfoResponse queryPhonenumberEducationinfoEx(QueryPhonenumberEducationinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
