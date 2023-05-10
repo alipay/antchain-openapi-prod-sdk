@@ -2597,6 +2597,99 @@ export class CompanyInfo extends $tea.Model {
   }
 }
 
+// ai外呼回调详情
+export class AICallbackMessage extends $tea.Model {
+  // 批次号
+  batchId?: string;
+  // 用户标签
+  tag: string;
+  // 外呼id
+  callId: string;
+  // 外呼的话术模板Id
+  templateId?: number;
+  // 外呼状态编码
+  statusCode: number;
+  // 外呼状态描述
+  statusDescription: string;
+  // 导入时间
+  importTime: string;
+  // 开始通话时间
+  callBeginTime: string;
+  // 振铃时长, 单位毫秒
+  ringTime: number;
+  // 接通时间
+  answerTime: string;
+  // AI通话时长,单位s
+  speakingDuration: number;
+  // 挂断时间
+  hangupTime: string;
+  // 对话轮次
+  speakingTurns: number;
+  // 意向标签
+  intentTag: string;
+  // 意向说明
+  intentDescription: string;
+  // 个性标签
+  individualTag: string;
+  // 回复关键词
+  keywords: string;
+  // 对话录音
+  chatRecord?: string;
+  // 参数值
+  properties: string;
+  static names(): { [key: string]: string } {
+    return {
+      batchId: 'batch_id',
+      tag: 'tag',
+      callId: 'call_id',
+      templateId: 'template_id',
+      statusCode: 'status_code',
+      statusDescription: 'status_description',
+      importTime: 'import_time',
+      callBeginTime: 'call_begin_time',
+      ringTime: 'ring_time',
+      answerTime: 'answer_time',
+      speakingDuration: 'speaking_duration',
+      hangupTime: 'hangup_time',
+      speakingTurns: 'speaking_turns',
+      intentTag: 'intent_tag',
+      intentDescription: 'intent_description',
+      individualTag: 'individual_tag',
+      keywords: 'keywords',
+      chatRecord: 'chat_record',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      batchId: 'string',
+      tag: 'string',
+      callId: 'string',
+      templateId: 'number',
+      statusCode: 'number',
+      statusDescription: 'string',
+      importTime: 'string',
+      callBeginTime: 'string',
+      ringTime: 'number',
+      answerTime: 'string',
+      speakingDuration: 'number',
+      hangupTime: 'string',
+      speakingTurns: 'number',
+      intentTag: 'string',
+      intentDescription: 'string',
+      individualTag: 'string',
+      keywords: 'string',
+      chatRecord: 'string',
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销盾事件信息同步详情
 export class EventResultSyncDetail extends $tea.Model {
   // 事件唯一id（单个租户全局唯一）
@@ -5972,12 +6065,15 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
   resultMsg?: string;
   // 资金方代码
   fundCode?: string;
+  // 资金方简称
+  abbreFundName?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       fundCode: 'fund_code',
+      abbreFundName: 'abbre_fund_name',
     };
   }
 
@@ -5987,6 +6083,7 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       fundCode: 'string',
+      abbreFundName: 'string',
     };
   }
 
@@ -14831,6 +14928,85 @@ export class QueryUmktTenantActionplaninfoResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次号
+  bizId: string;
+  // 手机号
+  phoneNumber: string;
+  // 手机号类型
+  templateType: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      phoneNumber: 'phone_number',
+      templateType: 'template_type',
+      sceneStrategyId: 'scene_strategy_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      phoneNumber: 'string',
+      templateType: 'string',
+      sceneStrategyId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求时的透传字段
+  outInfo?: string;
+  // 请求时每个手机号的透传字段
+  customerOutInfo?: string;
+  // 外呼记录列表
+  callInfo?: AICallbackMessage[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outInfo: 'out_info',
+      customerOutInfo: 'customer_out_info',
+      callInfo: 'call_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outInfo: 'string',
+      customerOutInfo: 'string',
+      callInfo: { 'type': 'array', 'itemType': AICallbackMessage },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15032,7 +15208,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.25",
+          sdk_version: "1.16.28",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -17826,6 +18002,25 @@ export default class Client {
   async queryUmktTenantActionplaninfoEx(request: QueryUmktTenantActionplaninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktTenantActionplaninfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUmktTenantActionplaninfoResponse>(await this.doRequest("1.0", "riskplus.umkt.tenant.actionplaninfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktTenantActionplaninfoResponse({}));
+  }
+
+  /**
+   * Description: 查询ai外呼任务详情
+   * Summary: 查询ai外呼任务详情
+   */
+  async queryUmktRobotcall(request: QueryUmktRobotcallRequest): Promise<QueryUmktRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询ai外呼任务详情
+   * Summary: 查询ai外呼任务详情
+   */
+  async queryUmktRobotcallEx(request: QueryUmktRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktRobotcallResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRobotcallResponse({}));
   }
 
   /**
