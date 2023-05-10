@@ -2268,7 +2268,11 @@ export class QueryPhonenumberEducationinfoRequest extends $tea.Model {
   // 用户姓名
   userName: string;
   // 用户手机号
-  userTel: string;
+  userTel?: string;
+  // 身份证号
+  userCertNo?: string;
+  // 类型指示码
+  typeCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2278,6 +2282,8 @@ export class QueryPhonenumberEducationinfoRequest extends $tea.Model {
       fileIndex: 'file_index',
       userName: 'user_name',
       userTel: 'user_tel',
+      userCertNo: 'user_cert_no',
+      typeCode: 'type_code',
     };
   }
 
@@ -2290,6 +2296,8 @@ export class QueryPhonenumberEducationinfoRequest extends $tea.Model {
       fileIndex: 'string',
       userName: 'string',
       userTel: 'string',
+      userCertNo: 'string',
+      typeCode: 'string',
     };
   }
 
@@ -2306,7 +2314,7 @@ export class QueryPhonenumberEducationinfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 教育信息
-  data?: EducationInfo;
+  data?: EducationTagInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2321,7 +2329,7 @@ export class QueryPhonenumberEducationinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: EducationInfo,
+      data: EducationTagInfo,
     };
   }
 
@@ -3734,7 +3742,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.44",
+          sdk_version: "1.1.46",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -4110,8 +4118,8 @@ export default class Client {
   }
 
   /**
-   * Description: 教育信息查询（姓名+手机号）
-   * Summary: 教育信息查询（姓名+手机号）
+   * Description: 教育信息查询（姓名手机号/姓名身份证）
+   * Summary: 教育信息查询（姓名手机号/姓名身份证）
    */
   async queryPhonenumberEducationinfo(request: QueryPhonenumberEducationinfoRequest): Promise<QueryPhonenumberEducationinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4120,8 +4128,8 @@ export default class Client {
   }
 
   /**
-   * Description: 教育信息查询（姓名+手机号）
-   * Summary: 教育信息查询（姓名+手机号）
+   * Description: 教育信息查询（姓名手机号/姓名身份证）
+   * Summary: 教育信息查询（姓名手机号/姓名身份证）
    */
   async queryPhonenumberEducationinfoEx(request: QueryPhonenumberEducationinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPhonenumberEducationinfoResponse> {
     Util.validateModel(request);
