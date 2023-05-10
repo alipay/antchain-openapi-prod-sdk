@@ -4426,6 +4426,175 @@ class CompanyInfo(TeaModel):
         return self
 
 
+class AICallbackMessage(TeaModel):
+    def __init__(
+        self,
+        batch_id: str = None,
+        tag: str = None,
+        call_id: str = None,
+        template_id: int = None,
+        status_code: int = None,
+        status_description: str = None,
+        import_time: str = None,
+        call_begin_time: str = None,
+        ring_time: int = None,
+        answer_time: str = None,
+        speaking_duration: int = None,
+        hangup_time: str = None,
+        speaking_turns: int = None,
+        intent_tag: str = None,
+        intent_description: str = None,
+        individual_tag: str = None,
+        keywords: str = None,
+        chat_record: str = None,
+        properties: str = None,
+    ):
+        # 批次号
+        self.batch_id = batch_id
+        # 用户标签
+        self.tag = tag
+        # 外呼id
+        self.call_id = call_id
+        # 外呼的话术模板Id
+        self.template_id = template_id
+        # 外呼状态编码
+        self.status_code = status_code
+        # 外呼状态描述
+        self.status_description = status_description
+        # 导入时间
+        self.import_time = import_time
+        # 开始通话时间
+        self.call_begin_time = call_begin_time
+        # 振铃时长, 单位毫秒
+        self.ring_time = ring_time
+        # 接通时间
+        self.answer_time = answer_time
+        # AI通话时长,单位s
+        self.speaking_duration = speaking_duration
+        # 挂断时间
+        self.hangup_time = hangup_time
+        # 对话轮次
+        self.speaking_turns = speaking_turns
+        # 意向标签
+        self.intent_tag = intent_tag
+        # 意向说明
+        self.intent_description = intent_description
+        # 个性标签
+        self.individual_tag = individual_tag
+        # 回复关键词
+        self.keywords = keywords
+        # 对话录音
+        self.chat_record = chat_record
+        # 参数值
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.tag, 'tag')
+        self.validate_required(self.call_id, 'call_id')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.status_description, 'status_description')
+        self.validate_required(self.import_time, 'import_time')
+        self.validate_required(self.call_begin_time, 'call_begin_time')
+        self.validate_required(self.ring_time, 'ring_time')
+        self.validate_required(self.answer_time, 'answer_time')
+        self.validate_required(self.speaking_duration, 'speaking_duration')
+        self.validate_required(self.hangup_time, 'hangup_time')
+        self.validate_required(self.speaking_turns, 'speaking_turns')
+        self.validate_required(self.intent_tag, 'intent_tag')
+        self.validate_required(self.intent_description, 'intent_description')
+        self.validate_required(self.individual_tag, 'individual_tag')
+        self.validate_required(self.keywords, 'keywords')
+        self.validate_required(self.properties, 'properties')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.tag is not None:
+            result['tag'] = self.tag
+        if self.call_id is not None:
+            result['call_id'] = self.call_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.status_description is not None:
+            result['status_description'] = self.status_description
+        if self.import_time is not None:
+            result['import_time'] = self.import_time
+        if self.call_begin_time is not None:
+            result['call_begin_time'] = self.call_begin_time
+        if self.ring_time is not None:
+            result['ring_time'] = self.ring_time
+        if self.answer_time is not None:
+            result['answer_time'] = self.answer_time
+        if self.speaking_duration is not None:
+            result['speaking_duration'] = self.speaking_duration
+        if self.hangup_time is not None:
+            result['hangup_time'] = self.hangup_time
+        if self.speaking_turns is not None:
+            result['speaking_turns'] = self.speaking_turns
+        if self.intent_tag is not None:
+            result['intent_tag'] = self.intent_tag
+        if self.intent_description is not None:
+            result['intent_description'] = self.intent_description
+        if self.individual_tag is not None:
+            result['individual_tag'] = self.individual_tag
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.chat_record is not None:
+            result['chat_record'] = self.chat_record
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
+        if m.get('call_id') is not None:
+            self.call_id = m.get('call_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('status_description') is not None:
+            self.status_description = m.get('status_description')
+        if m.get('import_time') is not None:
+            self.import_time = m.get('import_time')
+        if m.get('call_begin_time') is not None:
+            self.call_begin_time = m.get('call_begin_time')
+        if m.get('ring_time') is not None:
+            self.ring_time = m.get('ring_time')
+        if m.get('answer_time') is not None:
+            self.answer_time = m.get('answer_time')
+        if m.get('speaking_duration') is not None:
+            self.speaking_duration = m.get('speaking_duration')
+        if m.get('hangup_time') is not None:
+            self.hangup_time = m.get('hangup_time')
+        if m.get('speaking_turns') is not None:
+            self.speaking_turns = m.get('speaking_turns')
+        if m.get('intent_tag') is not None:
+            self.intent_tag = m.get('intent_tag')
+        if m.get('intent_description') is not None:
+            self.intent_description = m.get('intent_description')
+        if m.get('individual_tag') is not None:
+            self.individual_tag = m.get('individual_tag')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('chat_record') is not None:
+            self.chat_record = m.get('chat_record')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
 class EventResultSyncDetail(TeaModel):
     def __init__(
         self,
@@ -9935,6 +10104,7 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         fund_code: str = None,
+        abbre_fund_name: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9944,6 +10114,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
         self.result_msg = result_msg
         # 资金方代码
         self.fund_code = fund_code
+        # 资金方简称
+        self.abbre_fund_name = abbre_fund_name
 
     def validate(self):
         pass
@@ -9962,6 +10134,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.fund_code is not None:
             result['fund_code'] = self.fund_code
+        if self.abbre_fund_name is not None:
+            result['abbre_fund_name'] = self.abbre_fund_name
         return result
 
     def from_map(self, m: dict = None):
@@ -9974,6 +10148,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('fund_code') is not None:
             self.fund_code = m.get('fund_code')
+        if m.get('abbre_fund_name') is not None:
+            self.abbre_fund_name = m.get('abbre_fund_name')
         return self
 
 
@@ -24689,6 +24865,142 @@ class QueryUmktTenantActionplaninfoResponse(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('total_count') is not None:
             self.total_count = m.get('total_count')
+        return self
+
+
+class QueryUmktRobotcallRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        phone_number: str = None,
+        template_type: str = None,
+        scene_strategy_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 批次号
+        self.biz_id = biz_id
+        # 手机号
+        self.phone_number = phone_number
+        # 手机号类型
+        self.template_type = template_type
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.template_type, 'template_type')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.template_type is not None:
+            result['template_type'] = self.template_type
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('template_type') is not None:
+            self.template_type = m.get('template_type')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        return self
+
+
+class QueryUmktRobotcallResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_info: str = None,
+        customer_out_info: str = None,
+        call_info: List[AICallbackMessage] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求时的透传字段
+        self.out_info = out_info
+        # 请求时每个手机号的透传字段
+        self.customer_out_info = customer_out_info
+        # 外呼记录列表
+        self.call_info = call_info
+
+    def validate(self):
+        if self.call_info:
+            for k in self.call_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_info is not None:
+            result['out_info'] = self.out_info
+        if self.customer_out_info is not None:
+            result['customer_out_info'] = self.customer_out_info
+        result['call_info'] = []
+        if self.call_info is not None:
+            for k in self.call_info:
+                result['call_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_info') is not None:
+            self.out_info = m.get('out_info')
+        if m.get('customer_out_info') is not None:
+            self.customer_out_info = m.get('customer_out_info')
+        self.call_info = []
+        if m.get('call_info') is not None:
+            for k in m.get('call_info'):
+                temp_model = AICallbackMessage()
+                self.call_info.append(temp_model.from_map(k))
         return self
 
 
