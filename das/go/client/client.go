@@ -3019,7 +3019,11 @@ type QueryPhonenumberEducationinfoRequest struct {
 	// 用户姓名
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 用户手机号
-	UserTel *string `json:"user_tel,omitempty" xml:"user_tel,omitempty" require:"true"`
+	UserTel *string `json:"user_tel,omitempty" xml:"user_tel,omitempty"`
+	// 身份证号
+	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty"`
+	// 类型指示码
+	TypeCode *string `json:"type_code,omitempty" xml:"type_code,omitempty" require:"true"`
 }
 
 func (s QueryPhonenumberEducationinfoRequest) String() string {
@@ -3065,6 +3069,16 @@ func (s *QueryPhonenumberEducationinfoRequest) SetUserTel(v string) *QueryPhonen
 	return s
 }
 
+func (s *QueryPhonenumberEducationinfoRequest) SetUserCertNo(v string) *QueryPhonenumberEducationinfoRequest {
+	s.UserCertNo = &v
+	return s
+}
+
+func (s *QueryPhonenumberEducationinfoRequest) SetTypeCode(v string) *QueryPhonenumberEducationinfoRequest {
+	s.TypeCode = &v
+	return s
+}
+
 type QueryPhonenumberEducationinfoResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -3073,7 +3087,7 @@ type QueryPhonenumberEducationinfoResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 教育信息
-	Data *EducationInfo `json:"data,omitempty" xml:"data,omitempty"`
+	Data *EducationTagInfo `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryPhonenumberEducationinfoResponse) String() string {
@@ -3099,7 +3113,7 @@ func (s *QueryPhonenumberEducationinfoResponse) SetResultMsg(v string) *QueryPho
 	return s
 }
 
-func (s *QueryPhonenumberEducationinfoResponse) SetData(v *EducationInfo) *QueryPhonenumberEducationinfoResponse {
+func (s *QueryPhonenumberEducationinfoResponse) SetData(v *EducationTagInfo) *QueryPhonenumberEducationinfoResponse {
 	s.Data = v
 	return s
 }
@@ -4886,7 +4900,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.44"),
+				"sdk_version":      tea.String("1.1.46"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5513,8 +5527,8 @@ func (client *Client) QueryIdnumberEducationtaginfoEx(request *QueryIdnumberEduc
 }
 
 /**
- * Description: 教育信息查询（姓名+手机号）
- * Summary: 教育信息查询（姓名+手机号）
+ * Description: 教育信息查询（姓名手机号/姓名身份证）
+ * Summary: 教育信息查询（姓名手机号/姓名身份证）
  */
 func (client *Client) QueryPhonenumberEducationinfo(request *QueryPhonenumberEducationinfoRequest) (_result *QueryPhonenumberEducationinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -5529,8 +5543,8 @@ func (client *Client) QueryPhonenumberEducationinfo(request *QueryPhonenumberEdu
 }
 
 /**
- * Description: 教育信息查询（姓名+手机号）
- * Summary: 教育信息查询（姓名+手机号）
+ * Description: 教育信息查询（姓名手机号/姓名身份证）
+ * Summary: 教育信息查询（姓名手机号/姓名身份证）
  */
 func (client *Client) QueryPhonenumberEducationinfoEx(request *QueryPhonenumberEducationinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPhonenumberEducationinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
