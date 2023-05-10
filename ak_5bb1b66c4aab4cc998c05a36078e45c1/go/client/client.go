@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -1627,69 +1627,6 @@ func (s *VerifyAntchainBbpMetaResponse) SetResult(v *CustomerAuthResult) *Verify
 	return s
 }
 
-type BindDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 123
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-}
-
-func (s BindDemoAaaBbbCccRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAaaBbbCccRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAaaBbbCccRequest) SetAuthToken(v string) *BindDemoAaaBbbCccRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccRequest) SetProductInstanceId(v string) *BindDemoAaaBbbCccRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccRequest) SetData(v string) *BindDemoAaaBbbCccRequest {
-	s.Data = &v
-	return s
-}
-
-type BindDemoAaaBbbCccResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoAaaBbbCccResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAaaBbbCccResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetReqMsgId(v string) *BindDemoAaaBbbCccResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2307,17 +2244,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -2351,7 +2288,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.0"),
 				"_prod_code":       tea.String("ak_5bb1b66c4aab4cc998c05a36078e45c1"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2379,8 +2316,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -2606,40 +2551,6 @@ func (client *Client) VerifyAntchainBbpMetaEx(request *VerifyAntchainBbpMetaRequ
 }
 
 /**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.BindDemoAaaBbbCccEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 大安全接口
  * Summary: 大安全接口
  */
@@ -2743,7 +2654,7 @@ func (client *Client) CheckSaasSecurityRdsRdsserviceEx(request *CheckSaasSecurit
 
 /**
  * Description: 123
- * Summary: 大安全接口
+ * Summary: 大安全内容风控接口
  */
 func (client *Client) QuerySaasSecurityInfosecHoloxcontentcheckqueryservice(request *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) (_result *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -2759,7 +2670,7 @@ func (client *Client) QuerySaasSecurityInfosecHoloxcontentcheckqueryservice(requ
 
 /**
  * Description: 123
- * Summary: 大安全接口
+ * Summary: 大安全内容风控接口
  */
 func (client *Client) QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse, _err error) {
 	_err = util.ValidateModel(request)
