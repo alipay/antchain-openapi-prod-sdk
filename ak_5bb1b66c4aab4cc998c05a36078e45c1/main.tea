@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.0.0',
     _prod_code = 'ak_5bb1b66c4aab4cc998c05a36078e45c1',
     _prod_channel = 'saas'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -702,42 +702,6 @@ async function verifyAntchainBbpMetaEx(request: VerifyAntchainBbpMetaRequest, he
   return doRequest('1.0' ,'antchain.bbp.meta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model BindDemoAaaBbbCccRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 123
-  data: string(name='data'),
-}
-
-model BindDemoAaaBbbCccResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-async function bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): BindDemoAaaBbbCccResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return bindDemoAaaBbbCccEx(request, headers, runtime);
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-async function bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCccResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -881,7 +845,7 @@ model QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse = {
 
 /**
  * Description: 123
- * Summary: 大安全接口
+ * Summary: 大安全内容风控接口
  */
 async function querySaasSecurityInfosecHoloxcontentcheckqueryservice(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest): QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -891,7 +855,7 @@ async function querySaasSecurityInfosecHoloxcontentcheckqueryservice(request: Qu
 
 /**
  * Description: 123
- * Summary: 大安全接口
+ * Summary: 大安全内容风控接口
  */
 async function querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
   Util.validateModel(request);
