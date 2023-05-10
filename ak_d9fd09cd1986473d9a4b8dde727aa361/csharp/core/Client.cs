@@ -91,7 +91,7 @@ namespace AntChain.SDK.Ak_d9fd09cd1986473d9a4b8dde727aa361
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_d9fd09cd1986473d9a4b8dde727aa361
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_d9fd09cd1986473d9a4b8dde727aa361"},
                         {"_prod_channel", "saas"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.Ak_d9fd09cd1986473d9a4b8dde727aa361
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_d9fd09cd1986473d9a4b8dde727aa361
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_d9fd09cd1986473d9a4b8dde727aa361"},
                         {"_prod_channel", "saas"},
                     };
@@ -491,6 +491,174 @@ namespace AntChain.SDK.Ak_d9fd09cd1986473d9a4b8dde727aa361
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindDemoMoreAbilityTestabcResponse>(await DoRequestAsync("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test zoloz 方法 update again 
+         * Summary: test zoloz 方法
+         */
+        public MatchInternationalDemoZolozFacecompareResponse MatchInternationalDemoZolozFacecompare(MatchInternationalDemoZolozFacecompareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchInternationalDemoZolozFacecompareEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: test zoloz 方法 update again 
+         * Summary: test zoloz 方法
+         */
+        public async Task<MatchInternationalDemoZolozFacecompareResponse> MatchInternationalDemoZolozFacecompareAsync(MatchInternationalDemoZolozFacecompareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchInternationalDemoZolozFacecompareExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: test zoloz 方法 update again 
+         * Summary: test zoloz 方法
+         */
+        public MatchInternationalDemoZolozFacecompareResponse MatchInternationalDemoZolozFacecompareEx(MatchInternationalDemoZolozFacecompareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchInternationalDemoZolozFacecompareResponse>(DoRequest("1.0", "international.demo.zoloz.facecompare.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test zoloz 方法 update again 
+         * Summary: test zoloz 方法
+         */
+        public async Task<MatchInternationalDemoZolozFacecompareResponse> MatchInternationalDemoZolozFacecompareExAsync(MatchInternationalDemoZolozFacecompareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchInternationalDemoZolozFacecompareResponse>(await DoRequestAsync("1.0", "international.demo.zoloz.facecompare.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: cj test 111
+         * Summary: cj test
+         */
+        public QueryInternationalDemoAaaBbbResponse QueryInternationalDemoAaaBbb(QueryInternationalDemoAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInternationalDemoAaaBbbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: cj test 111
+         * Summary: cj test
+         */
+        public async Task<QueryInternationalDemoAaaBbbResponse> QueryInternationalDemoAaaBbbAsync(QueryInternationalDemoAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInternationalDemoAaaBbbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: cj test 111
+         * Summary: cj test
+         */
+        public QueryInternationalDemoAaaBbbResponse QueryInternationalDemoAaaBbbEx(QueryInternationalDemoAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInternationalDemoAaaBbbResponse>(DoRequest("1.0", "international.demo.aaa.bbb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: cj test 111
+         * Summary: cj test
+         */
+        public async Task<QueryInternationalDemoAaaBbbResponse> QueryInternationalDemoAaaBbbExAsync(QueryInternationalDemoAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInternationalDemoAaaBbbResponse>(await DoRequestAsync("1.0", "international.demo.aaa.bbb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试大安全接口
+         * Summary: 测试大安全接口
+         */
+        public CheckInternationalDemoZolozHealthResponse CheckInternationalDemoZolozHealth(CheckInternationalDemoZolozHealthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckInternationalDemoZolozHealthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试大安全接口
+         * Summary: 测试大安全接口
+         */
+        public async Task<CheckInternationalDemoZolozHealthResponse> CheckInternationalDemoZolozHealthAsync(CheckInternationalDemoZolozHealthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckInternationalDemoZolozHealthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试大安全接口
+         * Summary: 测试大安全接口
+         */
+        public CheckInternationalDemoZolozHealthResponse CheckInternationalDemoZolozHealthEx(CheckInternationalDemoZolozHealthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckInternationalDemoZolozHealthResponse>(DoRequest("1.0", "international.demo.zoloz.health.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试大安全接口
+         * Summary: 测试大安全接口
+         */
+        public async Task<CheckInternationalDemoZolozHealthResponse> CheckInternationalDemoZolozHealthExAsync(CheckInternationalDemoZolozHealthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckInternationalDemoZolozHealthResponse>(await DoRequestAsync("1.0", "international.demo.zoloz.health.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: demo get fr inter desc
+         * Summary: demo get fr inter
+         */
+        public GetInternationalDemoAaaBbbResponse GetInternationalDemoAaaBbb(GetInternationalDemoAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInternationalDemoAaaBbbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: demo get fr inter desc
+         * Summary: demo get fr inter
+         */
+        public async Task<GetInternationalDemoAaaBbbResponse> GetInternationalDemoAaaBbbAsync(GetInternationalDemoAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInternationalDemoAaaBbbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: demo get fr inter desc
+         * Summary: demo get fr inter
+         */
+        public GetInternationalDemoAaaBbbResponse GetInternationalDemoAaaBbbEx(GetInternationalDemoAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternationalDemoAaaBbbResponse>(DoRequest("1.0", "international.demo.aaa.bbb.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: demo get fr inter desc
+         * Summary: demo get fr inter
+         */
+        public async Task<GetInternationalDemoAaaBbbResponse> GetInternationalDemoAaaBbbExAsync(GetInternationalDemoAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternationalDemoAaaBbbResponse>(await DoRequestAsync("1.0", "international.demo.aaa.bbb.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
