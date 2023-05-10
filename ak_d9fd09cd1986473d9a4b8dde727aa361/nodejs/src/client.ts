@@ -115,6 +115,31 @@ export class DemoClass extends $tea.Model {
   }
 }
 
+// 123
+export class FaceImage extends $tea.Model {
+  // 123
+  content?: string;
+  // 123
+  rect?: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      rect: 'rect',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      rect: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // TestStruct
 export class TestStruct extends $tea.Model {
   // x
@@ -356,6 +381,238 @@ export class BindDemoMoreAbilityTestabcResponse extends $tea.Model {
   }
 }
 
+export class MatchInternationalDemoZolozFacecompareRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  bizId: string;
+  // 123
+  face1?: FaceImage;
+  // 123
+  face2?: FaceImage;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      face1: 'face1',
+      face2: 'face2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      face1: FaceImage,
+      face2: FaceImage,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class MatchInternationalDemoZolozFacecompareResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 123
+  transactionId?: string;
+  // 123
+  samePerson?: boolean;
+  // 100
+  score?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transactionId: 'transaction_id',
+      samePerson: 'same_person',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transactionId: 'string',
+      samePerson: 'boolean',
+      score: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInternationalDemoAaaBbbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInternationalDemoAaaBbbResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckInternationalDemoZolozHealthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1123
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckInternationalDemoZolozHealthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInternationalDemoAaaBbbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInternationalDemoAaaBbbResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -518,7 +775,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -557,7 +814,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ak_d9fd09cd1986473d9a4b8dde727aa361",
           _prod_channel: "saas",
         };
@@ -681,6 +938,82 @@ export default class Client {
   async bindDemoMoreAbilityTestabcEx(request: BindDemoMoreAbilityTestabcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoMoreAbilityTestabcResponse> {
     Util.validateModel(request);
     return $tea.cast<BindDemoMoreAbilityTestabcResponse>(await this.doRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoMoreAbilityTestabcResponse({}));
+  }
+
+  /**
+   * Description: test zoloz 方法 update again 
+   * Summary: test zoloz 方法
+   */
+  async matchInternationalDemoZolozFacecompare(request: MatchInternationalDemoZolozFacecompareRequest): Promise<MatchInternationalDemoZolozFacecompareResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.matchInternationalDemoZolozFacecompareEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: test zoloz 方法 update again 
+   * Summary: test zoloz 方法
+   */
+  async matchInternationalDemoZolozFacecompareEx(request: MatchInternationalDemoZolozFacecompareRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<MatchInternationalDemoZolozFacecompareResponse> {
+    Util.validateModel(request);
+    return $tea.cast<MatchInternationalDemoZolozFacecompareResponse>(await this.doRequest("1.0", "international.demo.zoloz.facecompare.match", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new MatchInternationalDemoZolozFacecompareResponse({}));
+  }
+
+  /**
+   * Description: cj test 111
+   * Summary: cj test
+   */
+  async queryInternationalDemoAaaBbb(request: QueryInternationalDemoAaaBbbRequest): Promise<QueryInternationalDemoAaaBbbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInternationalDemoAaaBbbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: cj test 111
+   * Summary: cj test
+   */
+  async queryInternationalDemoAaaBbbEx(request: QueryInternationalDemoAaaBbbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInternationalDemoAaaBbbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInternationalDemoAaaBbbResponse>(await this.doRequest("1.0", "international.demo.aaa.bbb.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInternationalDemoAaaBbbResponse({}));
+  }
+
+  /**
+   * Description: 测试大安全接口
+   * Summary: 测试大安全接口
+   */
+  async checkInternationalDemoZolozHealth(request: CheckInternationalDemoZolozHealthRequest): Promise<CheckInternationalDemoZolozHealthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkInternationalDemoZolozHealthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试大安全接口
+   * Summary: 测试大安全接口
+   */
+  async checkInternationalDemoZolozHealthEx(request: CheckInternationalDemoZolozHealthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckInternationalDemoZolozHealthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckInternationalDemoZolozHealthResponse>(await this.doRequest("1.0", "international.demo.zoloz.health.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckInternationalDemoZolozHealthResponse({}));
+  }
+
+  /**
+   * Description: demo get fr inter desc
+   * Summary: demo get fr inter
+   */
+  async getInternationalDemoAaaBbb(request: GetInternationalDemoAaaBbbRequest): Promise<GetInternationalDemoAaaBbbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInternationalDemoAaaBbbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: demo get fr inter desc
+   * Summary: demo get fr inter
+   */
+  async getInternationalDemoAaaBbbEx(request: GetInternationalDemoAaaBbbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInternationalDemoAaaBbbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInternationalDemoAaaBbbResponse>(await this.doRequest("1.0", "international.demo.aaa.bbb.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInternationalDemoAaaBbbResponse({}));
   }
 
   /**
