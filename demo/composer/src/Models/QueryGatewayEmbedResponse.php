@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecGatewayRoadResponse extends Model
+class QueryGatewayEmbedResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class ExecGatewayRoadResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 计算后返回结果
-    /**
-     * @var int
-     */
-    public $execNumEcho;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'execNumEcho' => 'exec_num_echo',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class ExecGatewayRoadResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->execNumEcho) {
-            $res['exec_num_echo'] = $this->execNumEcho;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class ExecGatewayRoadResponse extends Model
     /**
      * @param array $map
      *
-     * @return ExecGatewayRoadResponse
+     * @return QueryGatewayEmbedResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class ExecGatewayRoadResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['exec_num_echo'])) {
-            $model->execNumEcho = $map['exec_num_echo'];
         }
 
         return $model;

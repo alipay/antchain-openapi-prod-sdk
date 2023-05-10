@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecGatewayRoadResponse extends Model
+class QueryZolozFacecompareResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,30 @@ class ExecGatewayRoadResponse extends Model
      */
     public $resultMsg;
 
-    // 计算后返回结果
+    // 123
     /**
-     * @var int
+     * @var string
      */
-    public $execNumEcho;
+    public $transactionId;
+
+    // 123
+    /**
+     * @var bool
+     */
+    public $samePerson;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $score;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'execNumEcho' => 'exec_num_echo',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'transactionId' => 'transaction_id',
+        'samePerson'    => 'same_person',
+        'score'         => 'score',
     ];
 
     public function validate()
@@ -54,8 +68,14 @@ class ExecGatewayRoadResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->execNumEcho) {
-            $res['exec_num_echo'] = $this->execNumEcho;
+        if (null !== $this->transactionId) {
+            $res['transaction_id'] = $this->transactionId;
+        }
+        if (null !== $this->samePerson) {
+            $res['same_person'] = $this->samePerson;
+        }
+        if (null !== $this->score) {
+            $res['score'] = $this->score;
         }
 
         return $res;
@@ -64,7 +84,7 @@ class ExecGatewayRoadResponse extends Model
     /**
      * @param array $map
      *
-     * @return ExecGatewayRoadResponse
+     * @return QueryZolozFacecompareResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +98,14 @@ class ExecGatewayRoadResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['exec_num_echo'])) {
-            $model->execNumEcho = $map['exec_num_echo'];
+        if (isset($map['transaction_id'])) {
+            $model->transactionId = $map['transaction_id'];
+        }
+        if (isset($map['same_person'])) {
+            $model->samePerson = $map['same_person'];
+        }
+        if (isset($map['score'])) {
+            $model->score = $map['score'];
         }
 
         return $model;

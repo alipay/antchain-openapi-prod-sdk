@@ -26,7 +26,7 @@ class UpdateGatewayRoadResponse extends Model
      */
     public $resultMsg;
 
-    // 更新后信息
+    // 更新后返回info
     /**
      * @var string
      */

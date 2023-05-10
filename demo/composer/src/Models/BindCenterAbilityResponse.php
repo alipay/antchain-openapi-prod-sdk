@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAsdAsdResponse extends Model
+class BindCenterAbilityResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class BindAsdAsdResponse extends Model
     /**
      * @param array $map
      *
-     * @return BindAsdAsdResponse
+     * @return BindCenterAbilityResponse
      */
     public static function fromMap($map = [])
     {

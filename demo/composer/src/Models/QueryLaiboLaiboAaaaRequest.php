@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecGatewayRoadRequest extends Model
+class QueryLaiboLaiboAaaaRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,21 +18,13 @@ class ExecGatewayRoadRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 初始值
-    /**
-     * @var int
-     */
-    public $execNum;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'execNum'           => 'exec_num',
     ];
 
     public function validate()
     {
-        Model::validateRequired('execNum', $this->execNum, true);
     }
 
     public function toMap()
@@ -44,9 +36,6 @@ class ExecGatewayRoadRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->execNum) {
-            $res['exec_num'] = $this->execNum;
-        }
 
         return $res;
     }
@@ -54,7 +43,7 @@ class ExecGatewayRoadRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecGatewayRoadRequest
+     * @return QueryLaiboLaiboAaaaRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,9 +53,6 @@ class ExecGatewayRoadRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['exec_num'])) {
-            $model->execNum = $map['exec_num'];
         }
 
         return $model;

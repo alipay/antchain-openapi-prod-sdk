@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OperateSaasTestTesteRequest extends Model
+class QueryTestTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,21 +18,13 @@ class OperateSaasTestTesteRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // test
-    /**
-     * @var string
-     */
-    public $age;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'age'               => 'age',
     ];
 
     public function validate()
     {
-        Model::validateRequired('age', $this->age, true);
     }
 
     public function toMap()
@@ -44,9 +36,6 @@ class OperateSaasTestTesteRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
-        }
 
         return $res;
     }
@@ -54,7 +43,7 @@ class OperateSaasTestTesteRequest extends Model
     /**
      * @param array $map
      *
-     * @return OperateSaasTestTesteRequest
+     * @return QueryTestTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,9 +53,6 @@ class OperateSaasTestTesteRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
         }
 
         return $model;

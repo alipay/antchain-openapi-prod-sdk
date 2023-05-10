@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OpenSaasTestTestgRequest extends Model
+class QueryApprovalTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class OpenSaasTestTestgRequest extends Model
      */
     public $productInstanceId;
 
-    // test
+    // 字符串
     /**
      * @var string
      */
-    public $name;
+    public $input;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'name'              => 'name',
+        'input'             => 'input',
     ];
 
     public function validate()
     {
-        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('input', $this->input, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class OpenSaasTestTestgRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->input) {
+            $res['input'] = $this->input;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class OpenSaasTestTestgRequest extends Model
     /**
      * @param array $map
      *
-     * @return OpenSaasTestTestgRequest
+     * @return QueryApprovalTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class OpenSaasTestTestgRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['input'])) {
+            $model->input = $map['input'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMasterstationMasterdataStatusRequest extends Model
+class QueryTestzzzQRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,21 +18,13 @@ class QueryMasterstationMasterdataStatusRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // 工号
-    /**
-     * @var string
-     */
-    public $workNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'workNo'            => 'work_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('workNo', $this->workNo, true);
     }
 
     public function toMap()
@@ -44,9 +36,6 @@ class QueryMasterstationMasterdataStatusRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->workNo) {
-            $res['work_no'] = $this->workNo;
-        }
 
         return $res;
     }
@@ -54,7 +43,7 @@ class QueryMasterstationMasterdataStatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMasterstationMasterdataStatusRequest
+     * @return QueryTestzzzQRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,9 +53,6 @@ class QueryMasterstationMasterdataStatusRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['work_no'])) {
-            $model->workNo = $map['work_no'];
         }
 
         return $model;

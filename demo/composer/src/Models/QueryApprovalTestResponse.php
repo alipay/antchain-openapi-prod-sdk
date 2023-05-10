@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchcreateSaasTestTestfResponse extends Model
+class QueryApprovalTestResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class BatchcreateSaasTestTestfResponse extends Model
      */
     public $resultMsg;
 
-    // test
+    // 回参
     /**
      * @var string
      */
-    public $age;
+    public $msg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'age'        => 'age',
+        'msg'        => 'msg',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class BatchcreateSaasTestTestfResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
+        if (null !== $this->msg) {
+            $res['msg'] = $this->msg;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class BatchcreateSaasTestTestfResponse extends Model
     /**
      * @param array $map
      *
-     * @return BatchcreateSaasTestTestfResponse
+     * @return QueryApprovalTestResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class BatchcreateSaasTestTestfResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
+        if (isset($map['msg'])) {
+            $model->msg = $map['msg'];
         }
 
         return $model;

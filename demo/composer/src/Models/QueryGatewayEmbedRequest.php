@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SendSaasTestTestkRequest extends Model
+class QueryGatewayEmbedRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,19 @@ class SendSaasTestTestkRequest extends Model
      */
     public $productInstanceId;
 
-    // test
+    // 实例参数
     /**
      * @var string
      */
-    public $age;
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'age'               => 'age',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
-        Model::validateRequired('age', $this->age, true);
     }
 
     public function toMap()
@@ -44,8 +43,8 @@ class SendSaasTestTestkRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
         }
 
         return $res;
@@ -54,7 +53,7 @@ class SendSaasTestTestkRequest extends Model
     /**
      * @param array $map
      *
-     * @return SendSaasTestTestkRequest
+     * @return QueryGatewayEmbedRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +64,8 @@ class SendSaasTestTestkRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;

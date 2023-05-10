@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OperateSaasTestTesteResponse extends Model
+class QueryTestyyQResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class OperateSaasTestTesteResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // test
-    /**
-     * @var string
-     */
-    public $age;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'age'        => 'age',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class OperateSaasTestTesteResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class OperateSaasTestTesteResponse extends Model
     /**
      * @param array $map
      *
-     * @return OperateSaasTestTesteResponse
+     * @return QueryTestyyQResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class OperateSaasTestTesteResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UnstabilizeTestTestTestRequest extends Model
+class QueryXyzDemoXxxRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class UnstabilizeTestTestTestRequest extends Model
     /**
      * @param array $map
      *
-     * @return UnstabilizeTestTestTestRequest
+     * @return QueryXyzDemoXxxRequest
      */
     public static function fromMap($map = [])
     {
