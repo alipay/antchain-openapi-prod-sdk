@@ -196,6 +196,32 @@ func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
 	return s
 }
 
+// 123
+type FaceImage struct {
+	// 123
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 123
+	Rect *string `json:"rect,omitempty" xml:"rect,omitempty"`
+}
+
+func (s FaceImage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FaceImage) GoString() string {
+	return s.String()
+}
+
+func (s *FaceImage) SetContent(v string) *FaceImage {
+	s.Content = &v
+	return s
+}
+
+func (s *FaceImage) SetRect(v string) *FaceImage {
+	s.Rect = &v
+	return s
+}
+
 // TestStruct
 type TestStruct struct {
 	// x
@@ -486,6 +512,279 @@ func (s *BindDemoMoreAbilityTestabcResponse) SetResultMsg(v string) *BindDemoMor
 	return s
 }
 
+type MatchInternationalDemoZolozFacecompareRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 123
+	Face1 *FaceImage `json:"face1,omitempty" xml:"face1,omitempty"`
+	// 123
+	Face2 *FaceImage `json:"face2,omitempty" xml:"face2,omitempty"`
+}
+
+func (s MatchInternationalDemoZolozFacecompareRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchInternationalDemoZolozFacecompareRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchInternationalDemoZolozFacecompareRequest) SetAuthToken(v string) *MatchInternationalDemoZolozFacecompareRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareRequest) SetProductInstanceId(v string) *MatchInternationalDemoZolozFacecompareRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareRequest) SetBizId(v string) *MatchInternationalDemoZolozFacecompareRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareRequest) SetFace1(v *FaceImage) *MatchInternationalDemoZolozFacecompareRequest {
+	s.Face1 = v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareRequest) SetFace2(v *FaceImage) *MatchInternationalDemoZolozFacecompareRequest {
+	s.Face2 = v
+	return s
+}
+
+type MatchInternationalDemoZolozFacecompareResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 123
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+	// 123
+	SamePerson *bool `json:"same_person,omitempty" xml:"same_person,omitempty"`
+	// 100
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s MatchInternationalDemoZolozFacecompareResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchInternationalDemoZolozFacecompareResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetReqMsgId(v string) *MatchInternationalDemoZolozFacecompareResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetResultCode(v string) *MatchInternationalDemoZolozFacecompareResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetResultMsg(v string) *MatchInternationalDemoZolozFacecompareResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetTransactionId(v string) *MatchInternationalDemoZolozFacecompareResponse {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetSamePerson(v bool) *MatchInternationalDemoZolozFacecompareResponse {
+	s.SamePerson = &v
+	return s
+}
+
+func (s *MatchInternationalDemoZolozFacecompareResponse) SetScore(v string) *MatchInternationalDemoZolozFacecompareResponse {
+	s.Score = &v
+	return s
+}
+
+type QueryInternationalDemoAaaBbbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryInternationalDemoAaaBbbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInternationalDemoAaaBbbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInternationalDemoAaaBbbRequest) SetAuthToken(v string) *QueryInternationalDemoAaaBbbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInternationalDemoAaaBbbRequest) SetProductInstanceId(v string) *QueryInternationalDemoAaaBbbRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryInternationalDemoAaaBbbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryInternationalDemoAaaBbbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInternationalDemoAaaBbbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInternationalDemoAaaBbbResponse) SetReqMsgId(v string) *QueryInternationalDemoAaaBbbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInternationalDemoAaaBbbResponse) SetResultCode(v string) *QueryInternationalDemoAaaBbbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInternationalDemoAaaBbbResponse) SetResultMsg(v string) *QueryInternationalDemoAaaBbbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CheckInternationalDemoZolozHealthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1123
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s CheckInternationalDemoZolozHealthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckInternationalDemoZolozHealthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckInternationalDemoZolozHealthRequest) SetAuthToken(v string) *CheckInternationalDemoZolozHealthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckInternationalDemoZolozHealthRequest) SetProductInstanceId(v string) *CheckInternationalDemoZolozHealthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckInternationalDemoZolozHealthRequest) SetData(v string) *CheckInternationalDemoZolozHealthRequest {
+	s.Data = &v
+	return s
+}
+
+type CheckInternationalDemoZolozHealthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CheckInternationalDemoZolozHealthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckInternationalDemoZolozHealthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckInternationalDemoZolozHealthResponse) SetReqMsgId(v string) *CheckInternationalDemoZolozHealthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckInternationalDemoZolozHealthResponse) SetResultCode(v string) *CheckInternationalDemoZolozHealthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckInternationalDemoZolozHealthResponse) SetResultMsg(v string) *CheckInternationalDemoZolozHealthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type GetInternationalDemoAaaBbbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s GetInternationalDemoAaaBbbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternationalDemoAaaBbbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternationalDemoAaaBbbRequest) SetAuthToken(v string) *GetInternationalDemoAaaBbbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInternationalDemoAaaBbbRequest) SetProductInstanceId(v string) *GetInternationalDemoAaaBbbRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type GetInternationalDemoAaaBbbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s GetInternationalDemoAaaBbbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternationalDemoAaaBbbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternationalDemoAaaBbbResponse) SetReqMsgId(v string) *GetInternationalDemoAaaBbbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInternationalDemoAaaBbbResponse) SetResultCode(v string) *GetInternationalDemoAaaBbbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInternationalDemoAaaBbbResponse) SetResultMsg(v string) *GetInternationalDemoAaaBbbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -684,17 +983,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -728,7 +1027,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_d9fd09cd1986473d9a4b8dde727aa361"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -910,6 +1209,142 @@ func (client *Client) BindDemoMoreAbilityTestabcEx(request *BindDemoMoreAbilityT
 	}
 	_result = &BindDemoMoreAbilityTestabcResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.more.ability.testabc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: test zoloz 方法 update again
+ * Summary: test zoloz 方法
+ */
+func (client *Client) MatchInternationalDemoZolozFacecompare(request *MatchInternationalDemoZolozFacecompareRequest) (_result *MatchInternationalDemoZolozFacecompareResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchInternationalDemoZolozFacecompareResponse{}
+	_body, _err := client.MatchInternationalDemoZolozFacecompareEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: test zoloz 方法 update again
+ * Summary: test zoloz 方法
+ */
+func (client *Client) MatchInternationalDemoZolozFacecompareEx(request *MatchInternationalDemoZolozFacecompareRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchInternationalDemoZolozFacecompareResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchInternationalDemoZolozFacecompareResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("international.demo.zoloz.facecompare.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: cj test 111
+ * Summary: cj test
+ */
+func (client *Client) QueryInternationalDemoAaaBbb(request *QueryInternationalDemoAaaBbbRequest) (_result *QueryInternationalDemoAaaBbbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInternationalDemoAaaBbbResponse{}
+	_body, _err := client.QueryInternationalDemoAaaBbbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: cj test 111
+ * Summary: cj test
+ */
+func (client *Client) QueryInternationalDemoAaaBbbEx(request *QueryInternationalDemoAaaBbbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInternationalDemoAaaBbbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInternationalDemoAaaBbbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("international.demo.aaa.bbb.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+func (client *Client) CheckInternationalDemoZolozHealth(request *CheckInternationalDemoZolozHealthRequest) (_result *CheckInternationalDemoZolozHealthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckInternationalDemoZolozHealthResponse{}
+	_body, _err := client.CheckInternationalDemoZolozHealthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+func (client *Client) CheckInternationalDemoZolozHealthEx(request *CheckInternationalDemoZolozHealthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckInternationalDemoZolozHealthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckInternationalDemoZolozHealthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("international.demo.zoloz.health.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: demo get fr inter desc
+ * Summary: demo get fr inter
+ */
+func (client *Client) GetInternationalDemoAaaBbb(request *GetInternationalDemoAaaBbbRequest) (_result *GetInternationalDemoAaaBbbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInternationalDemoAaaBbbResponse{}
+	_body, _err := client.GetInternationalDemoAaaBbbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: demo get fr inter desc
+ * Summary: demo get fr inter
+ */
+func (client *Client) GetInternationalDemoAaaBbbEx(request *GetInternationalDemoAaaBbbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInternationalDemoAaaBbbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInternationalDemoAaaBbbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("international.demo.aaa.bbb.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
