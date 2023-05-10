@@ -2288,7 +2288,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.9"),
 				"_prod_code":       tea.String("ak_5bb1b66c4aab4cc998c05a36078e45c1"),
 				"_prod_channel":    tea.String("saas"),
 			}
