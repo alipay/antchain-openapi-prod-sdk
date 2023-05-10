@@ -11,8 +11,6 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\BindDemoAaaBbbCccRequest;
-use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest;
@@ -138,18 +136,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -186,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.8',
+                    'sdk_version'      => '1.0.0',
                     '_prod_code'       => 'ak_5bb1b66c4aab4cc998c05a36078e45c1',
                     '_prod_channel'    => 'saas',
                 ];
@@ -433,39 +431,6 @@ class Client
     }
 
     /**
-     * Description: 自动化测试创建，用于测试新建&修改功能
-     * Summary: 自动化测试创建，用于测试新建&修改功能.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建，用于测试新建&修改功能
-     * Summary: 自动化测试创建，用于测试新建&修改功能.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 大安全接口
      * Summary: 大安全接口.
      *
@@ -566,7 +531,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 大安全接口.
+     * Summary: 大安全内容风控接口.
      *
      * @param QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest $request
      *
@@ -582,7 +547,7 @@ class Client
 
     /**
      * Description: 123
-     * Summary: 大安全接口.
+     * Summary: 大安全内容风控接口.
      *
      * @param QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest $request
      * @param string[]                                                     $headers
