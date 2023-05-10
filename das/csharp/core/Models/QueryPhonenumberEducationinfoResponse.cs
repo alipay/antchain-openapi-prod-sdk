@@ -27,7 +27,7 @@ namespace AntChain.SDK.DAS.Models
         // 教育信息
         [NameInMap("data")]
         [Validation(Required=false)]
-        public EducationInfo Data { get; set; }
+        public EducationTagInfo Data { get; set; }
 
     }
 

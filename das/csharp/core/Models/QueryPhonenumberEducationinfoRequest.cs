@@ -40,8 +40,18 @@ namespace AntChain.SDK.DAS.Models
 
         // 用户手机号
         [NameInMap("user_tel")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserTel { get; set; }
+
+        // 身份证号
+        [NameInMap("user_cert_no")]
+        [Validation(Required=false)]
+        public string UserCertNo { get; set; }
+
+        // 类型指示码
+        [NameInMap("type_code")]
+        [Validation(Required=true)]
+        public string TypeCode { get; set; }
 
     }
 
