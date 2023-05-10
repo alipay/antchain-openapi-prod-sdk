@@ -3603,6 +3603,151 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 	return s
 }
 
+// ai外呼回调详情
+type AICallbackMessage struct {
+	// 批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 用户标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty" require:"true"`
+	// 外呼id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
+	// 外呼的话术模板Id
+	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 外呼状态编码
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 外呼状态描述
+	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
+	// 导入时间
+	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
+	// 开始通话时间
+	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
+	// 振铃时长, 单位毫秒
+	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
+	// 接通时间
+	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty" require:"true"`
+	// AI通话时长,单位s
+	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
+	// 挂断时间
+	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
+	// 对话轮次
+	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
+	// 意向标签
+	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
+	// 意向说明
+	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
+	// 个性标签
+	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty" require:"true"`
+	// 回复关键词
+	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty" require:"true"`
+	// 对话录音
+	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
+	// 参数值
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true"`
+}
+
+func (s AICallbackMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AICallbackMessage) GoString() string {
+	return s.String()
+}
+
+func (s *AICallbackMessage) SetBatchId(v string) *AICallbackMessage {
+	s.BatchId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetTag(v string) *AICallbackMessage {
+	s.Tag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetCallId(v string) *AICallbackMessage {
+	s.CallId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetTemplateId(v int64) *AICallbackMessage {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetStatusCode(v int64) *AICallbackMessage {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetStatusDescription(v string) *AICallbackMessage {
+	s.StatusDescription = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetImportTime(v string) *AICallbackMessage {
+	s.ImportTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetCallBeginTime(v string) *AICallbackMessage {
+	s.CallBeginTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetRingTime(v int64) *AICallbackMessage {
+	s.RingTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetAnswerTime(v string) *AICallbackMessage {
+	s.AnswerTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetSpeakingDuration(v int64) *AICallbackMessage {
+	s.SpeakingDuration = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetHangupTime(v string) *AICallbackMessage {
+	s.HangupTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetSpeakingTurns(v int64) *AICallbackMessage {
+	s.SpeakingTurns = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIntentTag(v string) *AICallbackMessage {
+	s.IntentTag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIntentDescription(v string) *AICallbackMessage {
+	s.IntentDescription = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIndividualTag(v string) *AICallbackMessage {
+	s.IndividualTag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetKeywords(v string) *AICallbackMessage {
+	s.Keywords = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetChatRecord(v string) *AICallbackMessage {
+	s.ChatRecord = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetProperties(v string) *AICallbackMessage {
+	s.Properties = &v
+	return s
+}
+
 // 营销盾事件信息同步详情
 type EventResultSyncDetail struct {
 	// 事件唯一id（单个租户全局唯一）
@@ -8027,6 +8172,8 @@ type QueryDubbridgeRouterFundrouterResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 资金方代码
 	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
+	// 资金方简称
+	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
 }
 
 func (s QueryDubbridgeRouterFundrouterResponse) String() string {
@@ -8054,6 +8201,11 @@ func (s *QueryDubbridgeRouterFundrouterResponse) SetResultMsg(v string) *QueryDu
 
 func (s *QueryDubbridgeRouterFundrouterResponse) SetFundCode(v string) *QueryDubbridgeRouterFundrouterResponse {
 	s.FundCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterResponse) SetAbbreFundName(v string) *QueryDubbridgeRouterFundrouterResponse {
+	s.AbbreFundName = &v
 	return s
 }
 
@@ -19797,6 +19949,111 @@ func (s *QueryUmktTenantActionplaninfoResponse) SetTotalCount(v int64) *QueryUmk
 	return s
 }
 
+type QueryUmktRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 手机号类型
+	TemplateType *string `json:"template_type,omitempty" xml:"template_type,omitempty" require:"true"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+}
+
+func (s QueryUmktRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRobotcallRequest) SetAuthToken(v string) *QueryUmktRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallRequest) SetProductInstanceId(v string) *QueryUmktRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallRequest) SetBizId(v string) *QueryUmktRobotcallRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallRequest) SetPhoneNumber(v string) *QueryUmktRobotcallRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallRequest) SetTemplateType(v string) *QueryUmktRobotcallRequest {
+	s.TemplateType = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallRequest) SetSceneStrategyId(v int64) *QueryUmktRobotcallRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+type QueryUmktRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求时的透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 请求时每个手机号的透传字段
+	CustomerOutInfo *string `json:"customer_out_info,omitempty" xml:"customer_out_info,omitempty"`
+	// 外呼记录列表
+	CallInfo []*AICallbackMessage `json:"call_info,omitempty" xml:"call_info,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRobotcallResponse) SetReqMsgId(v string) *QueryUmktRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallResponse) SetResultCode(v string) *QueryUmktRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallResponse) SetResultMsg(v string) *QueryUmktRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallResponse) SetOutInfo(v string) *QueryUmktRobotcallResponse {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallResponse) SetCustomerOutInfo(v string) *QueryUmktRobotcallResponse {
+	s.CustomerOutInfo = &v
+	return s
+}
+
+func (s *QueryUmktRobotcallResponse) SetCallInfo(v []*AICallbackMessage) *QueryUmktRobotcallResponse {
+	s.CallInfo = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20039,7 +20296,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.25"),
+				"sdk_version":      tea.String("1.16.28"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -24963,6 +25220,40 @@ func (client *Client) QueryUmktTenantActionplaninfoEx(request *QueryUmktTenantAc
 	}
 	_result = &QueryUmktTenantActionplaninfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.tenant.actionplaninfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询ai外呼任务详情
+ * Summary: 查询ai外呼任务详情
+ */
+func (client *Client) QueryUmktRobotcall(request *QueryUmktRobotcallRequest) (_result *QueryUmktRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktRobotcallResponse{}
+	_body, _err := client.QueryUmktRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询ai外呼任务详情
+ * Summary: 查询ai外呼任务详情
+ */
+func (client *Client) QueryUmktRobotcallEx(request *QueryUmktRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
