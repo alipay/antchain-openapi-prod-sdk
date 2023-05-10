@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.44',
+    sdk_version = '1.1.46',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -1325,7 +1325,11 @@ model QueryPhonenumberEducationinfoRequest = {
   // 用户姓名
   userName: string(name='user_name'),
   // 用户手机号
-  userTel: string(name='user_tel'),
+  userTel?: string(name='user_tel'),
+  // 身份证号
+  userCertNo?: string(name='user_cert_no'),
+  // 类型指示码
+  typeCode: string(name='type_code'),
 }
 
 model QueryPhonenumberEducationinfoResponse = {
@@ -1336,12 +1340,12 @@ model QueryPhonenumberEducationinfoResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 教育信息
-  data?: EducationInfo(name='data'),
+  data?: EducationTagInfo(name='data'),
 }
 
 /**
- * Description: 教育信息查询（姓名+手机号）
- * Summary: 教育信息查询（姓名+手机号）
+ * Description: 教育信息查询（姓名手机号/姓名身份证）
+ * Summary: 教育信息查询（姓名手机号/姓名身份证）
  */
 async function queryPhonenumberEducationinfo(request: QueryPhonenumberEducationinfoRequest): QueryPhonenumberEducationinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1350,8 +1354,8 @@ async function queryPhonenumberEducationinfo(request: QueryPhonenumberEducationi
 }
 
 /**
- * Description: 教育信息查询（姓名+手机号）
- * Summary: 教育信息查询（姓名+手机号）
+ * Description: 教育信息查询（姓名手机号/姓名身份证）
+ * Summary: 教育信息查询（姓名手机号/姓名身份证）
  */
 async function queryPhonenumberEducationinfoEx(request: QueryPhonenumberEducationinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPhonenumberEducationinfoResponse {
   Util.validateModel(request);
