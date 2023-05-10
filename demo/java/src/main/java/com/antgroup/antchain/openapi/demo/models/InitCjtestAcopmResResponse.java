@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class OpenSaasTestTestgResponse extends TeaModel {
+public class InitCjtestAcopmResResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class OpenSaasTestTestgResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("sex")
-    public String sex;
-
-    public static OpenSaasTestTestgResponse build(java.util.Map<String, ?> map) throws Exception {
-        OpenSaasTestTestgResponse self = new OpenSaasTestTestgResponse();
+    public static InitCjtestAcopmResResponse build(java.util.Map<String, ?> map) throws Exception {
+        InitCjtestAcopmResResponse self = new InitCjtestAcopmResResponse();
         return TeaModel.build(map, self);
     }
 
-    public OpenSaasTestTestgResponse setReqMsgId(String reqMsgId) {
+    public InitCjtestAcopmResResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class OpenSaasTestTestgResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public OpenSaasTestTestgResponse setResultCode(String resultCode) {
+    public InitCjtestAcopmResResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class OpenSaasTestTestgResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public OpenSaasTestTestgResponse setResultMsg(String resultMsg) {
+    public InitCjtestAcopmResResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public OpenSaasTestTestgResponse setSex(String sex) {
-        this.sex = sex;
-        return this;
-    }
-    public String getSex() {
-        return this.sex;
     }
 
 }

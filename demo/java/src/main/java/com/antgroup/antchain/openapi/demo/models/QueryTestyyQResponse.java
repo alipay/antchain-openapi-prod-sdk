@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ResetCjtestApiAuthorizeResponse extends TeaModel {
+public class QueryTestyyQResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class ResetCjtestApiAuthorizeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static ResetCjtestApiAuthorizeResponse build(java.util.Map<String, ?> map) throws Exception {
-        ResetCjtestApiAuthorizeResponse self = new ResetCjtestApiAuthorizeResponse();
+    public static QueryTestyyQResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTestyyQResponse self = new QueryTestyyQResponse();
         return TeaModel.build(map, self);
     }
 
-    public ResetCjtestApiAuthorizeResponse setReqMsgId(String reqMsgId) {
+    public QueryTestyyQResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class ResetCjtestApiAuthorizeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ResetCjtestApiAuthorizeResponse setResultCode(String resultCode) {
+    public QueryTestyyQResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class ResetCjtestApiAuthorizeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ResetCjtestApiAuthorizeResponse setResultMsg(String resultMsg) {
+    public QueryTestyyQResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

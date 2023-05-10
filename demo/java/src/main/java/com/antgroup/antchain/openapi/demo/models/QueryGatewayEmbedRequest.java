@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class BatchcreateSaasTestTestfRequest extends TeaModel {
+public class QueryGatewayEmbedRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,16 @@ public class BatchcreateSaasTestTestfRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // test
-    @NameInMap("name")
-    @Validation(required = true)
-    public String name;
+    // 实例参数
+    @NameInMap("timeout")
+    public String timeout;
 
-    public static BatchcreateSaasTestTestfRequest build(java.util.Map<String, ?> map) throws Exception {
-        BatchcreateSaasTestTestfRequest self = new BatchcreateSaasTestTestfRequest();
+    public static QueryGatewayEmbedRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryGatewayEmbedRequest self = new QueryGatewayEmbedRequest();
         return TeaModel.build(map, self);
     }
 
-    public BatchcreateSaasTestTestfRequest setAuthToken(String authToken) {
+    public QueryGatewayEmbedRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +28,7 @@ public class BatchcreateSaasTestTestfRequest extends TeaModel {
         return this.authToken;
     }
 
-    public BatchcreateSaasTestTestfRequest setProductInstanceId(String productInstanceId) {
+    public QueryGatewayEmbedRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +36,12 @@ public class BatchcreateSaasTestTestfRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public BatchcreateSaasTestTestfRequest setName(String name) {
-        this.name = name;
+    public QueryGatewayEmbedRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }

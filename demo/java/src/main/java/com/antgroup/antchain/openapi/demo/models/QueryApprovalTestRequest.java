@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMasterstationMasterdataStatusRequest extends TeaModel {
+public class QueryApprovalTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryMasterstationMasterdataStatusRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 工号
-    @NameInMap("work_no")
+    // 字符串
+    @NameInMap("input")
     @Validation(required = true)
-    public String workNo;
+    public String input;
 
-    public static QueryMasterstationMasterdataStatusRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryMasterstationMasterdataStatusRequest self = new QueryMasterstationMasterdataStatusRequest();
+    public static QueryApprovalTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApprovalTestRequest self = new QueryApprovalTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryMasterstationMasterdataStatusRequest setAuthToken(String authToken) {
+    public QueryApprovalTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryMasterstationMasterdataStatusRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryMasterstationMasterdataStatusRequest setProductInstanceId(String productInstanceId) {
+    public QueryApprovalTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryMasterstationMasterdataStatusRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryMasterstationMasterdataStatusRequest setWorkNo(String workNo) {
-        this.workNo = workNo;
+    public QueryApprovalTestRequest setInput(String input) {
+        this.input = input;
         return this;
     }
-    public String getWorkNo() {
-        return this.workNo;
+    public String getInput() {
+        return this.input;
     }
 
 }

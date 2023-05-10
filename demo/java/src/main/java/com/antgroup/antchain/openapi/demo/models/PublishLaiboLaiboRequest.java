@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ResetSaasTestTestdRequest extends TeaModel {
+public class PublishLaiboLaiboRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,12 @@ public class ResetSaasTestTestdRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // test
-    @NameInMap("name")
-    @Validation(required = true)
-    public String name;
-
-    public static ResetSaasTestTestdRequest build(java.util.Map<String, ?> map) throws Exception {
-        ResetSaasTestTestdRequest self = new ResetSaasTestTestdRequest();
+    public static PublishLaiboLaiboRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishLaiboLaiboRequest self = new PublishLaiboLaiboRequest();
         return TeaModel.build(map, self);
     }
 
-    public ResetSaasTestTestdRequest setAuthToken(String authToken) {
+    public PublishLaiboLaiboRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,20 +24,12 @@ public class ResetSaasTestTestdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ResetSaasTestTestdRequest setProductInstanceId(String productInstanceId) {
+    public PublishLaiboLaiboRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public ResetSaasTestTestdRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
-    public String getName() {
-        return this.name;
     }
 
 }

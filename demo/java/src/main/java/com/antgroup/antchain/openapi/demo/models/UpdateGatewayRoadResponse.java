@@ -16,7 +16,7 @@ public class UpdateGatewayRoadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 更新后信息
+    // 更新后返回info
     @NameInMap("upd_info")
     public String updInfo;
 

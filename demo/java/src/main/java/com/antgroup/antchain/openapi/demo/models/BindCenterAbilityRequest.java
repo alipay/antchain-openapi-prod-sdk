@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ResetCjtestApiAuthorizeRequest extends TeaModel {
+public class BindCenterAbilityRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,12 +11,12 @@ public class ResetCjtestApiAuthorizeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    public static ResetCjtestApiAuthorizeRequest build(java.util.Map<String, ?> map) throws Exception {
-        ResetCjtestApiAuthorizeRequest self = new ResetCjtestApiAuthorizeRequest();
+    public static BindCenterAbilityRequest build(java.util.Map<String, ?> map) throws Exception {
+        BindCenterAbilityRequest self = new BindCenterAbilityRequest();
         return TeaModel.build(map, self);
     }
 
-    public ResetCjtestApiAuthorizeRequest setAuthToken(String authToken) {
+    public BindCenterAbilityRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -24,7 +24,7 @@ public class ResetCjtestApiAuthorizeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ResetCjtestApiAuthorizeRequest setProductInstanceId(String productInstanceId) {
+    public BindCenterAbilityRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class OperateSaasTestTesteResponse extends TeaModel {
+public class BindMoreAbilityTestabcResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class OperateSaasTestTesteResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // test
-    @NameInMap("age")
-    public String age;
-
-    public static OperateSaasTestTesteResponse build(java.util.Map<String, ?> map) throws Exception {
-        OperateSaasTestTesteResponse self = new OperateSaasTestTesteResponse();
+    public static BindMoreAbilityTestabcResponse build(java.util.Map<String, ?> map) throws Exception {
+        BindMoreAbilityTestabcResponse self = new BindMoreAbilityTestabcResponse();
         return TeaModel.build(map, self);
     }
 
-    public OperateSaasTestTesteResponse setReqMsgId(String reqMsgId) {
+    public BindMoreAbilityTestabcResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class OperateSaasTestTesteResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public OperateSaasTestTesteResponse setResultCode(String resultCode) {
+    public BindMoreAbilityTestabcResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class OperateSaasTestTesteResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public OperateSaasTestTesteResponse setResultMsg(String resultMsg) {
+    public BindMoreAbilityTestabcResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public OperateSaasTestTesteResponse setAge(String age) {
-        this.age = age;
-        return this;
-    }
-    public String getAge() {
-        return this.age;
     }
 
 }
