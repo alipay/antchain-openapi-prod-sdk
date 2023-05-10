@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ak_d9fd09cd1986473d9a4b8dde727aa361',
     _prod_channel = 'saas'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -173,6 +173,14 @@ model DemoClass {
   someInt: long(maximum=2000, minimum=1, name='some_int', example='3'),
   // 列表测试
   someList: [ string ](name='some_list', example=''),
+}
+
+// 123
+model FaceImage {
+  // 123
+  content?: string(name='content', example='123'),
+  // 123
+  rect?: string(name='rect', example='123'),
 }
 
 // TestStruct
@@ -328,6 +336,156 @@ async function bindDemoMoreAbilityTestabc(request: BindDemoMoreAbilityTestabcReq
 async function bindDemoMoreAbilityTestabcEx(request: BindDemoMoreAbilityTestabcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoMoreAbilityTestabcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.more.ability.testabc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchInternationalDemoZolozFacecompareRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  bizId: string(name='biz_id'),
+  // 123
+  face1?: FaceImage(name='face1'),
+  // 123
+  face2?: FaceImage(name='face2'),
+}
+
+model MatchInternationalDemoZolozFacecompareResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 123
+  transactionId?: string(name='transaction_id'),
+  // 123
+  samePerson?: boolean(name='same_person'),
+  // 100
+  score?: string(name='score'),
+}
+
+/**
+ * Description: test zoloz 方法 update again 
+ * Summary: test zoloz 方法
+ */
+async function matchInternationalDemoZolozFacecompare(request: MatchInternationalDemoZolozFacecompareRequest): MatchInternationalDemoZolozFacecompareResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchInternationalDemoZolozFacecompareEx(request, headers, runtime);
+}
+
+/**
+ * Description: test zoloz 方法 update again 
+ * Summary: test zoloz 方法
+ */
+async function matchInternationalDemoZolozFacecompareEx(request: MatchInternationalDemoZolozFacecompareRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchInternationalDemoZolozFacecompareResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'international.demo.zoloz.facecompare.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInternationalDemoAaaBbbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryInternationalDemoAaaBbbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: cj test 111
+ * Summary: cj test
+ */
+async function queryInternationalDemoAaaBbb(request: QueryInternationalDemoAaaBbbRequest): QueryInternationalDemoAaaBbbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInternationalDemoAaaBbbEx(request, headers, runtime);
+}
+
+/**
+ * Description: cj test 111
+ * Summary: cj test
+ */
+async function queryInternationalDemoAaaBbbEx(request: QueryInternationalDemoAaaBbbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInternationalDemoAaaBbbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'international.demo.aaa.bbb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckInternationalDemoZolozHealthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1123
+  data: string(name='data'),
+}
+
+model CheckInternationalDemoZolozHealthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+async function checkInternationalDemoZolozHealth(request: CheckInternationalDemoZolozHealthRequest): CheckInternationalDemoZolozHealthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkInternationalDemoZolozHealthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+async function checkInternationalDemoZolozHealthEx(request: CheckInternationalDemoZolozHealthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckInternationalDemoZolozHealthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'international.demo.zoloz.health.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetInternationalDemoAaaBbbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetInternationalDemoAaaBbbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: demo get fr inter desc
+ * Summary: demo get fr inter
+ */
+async function getInternationalDemoAaaBbb(request: GetInternationalDemoAaaBbbRequest): GetInternationalDemoAaaBbbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInternationalDemoAaaBbbEx(request, headers, runtime);
+}
+
+/**
+ * Description: demo get fr inter desc
+ * Summary: demo get fr inter
+ */
+async function getInternationalDemoAaaBbbEx(request: GetInternationalDemoAaaBbbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInternationalDemoAaaBbbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'international.demo.aaa.bbb.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
