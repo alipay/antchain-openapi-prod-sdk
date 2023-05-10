@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.25"),
+                    new TeaPair("sdk_version", "1.16.28"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2907,6 +2907,25 @@ public class Client {
     public QueryUmktTenantActionplaninfoResponse queryUmktTenantActionplaninfoEx(QueryUmktTenantActionplaninfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.tenant.actionplaninfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktTenantActionplaninfoResponse());
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary: 查询ai外呼任务详情
+     */
+    public QueryUmktRobotcallResponse queryUmktRobotcall(QueryUmktRobotcallRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary: 查询ai外呼任务详情
+     */
+    public QueryUmktRobotcallResponse queryUmktRobotcallEx(QueryUmktRobotcallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktRobotcallResponse());
     }
 
     /**
