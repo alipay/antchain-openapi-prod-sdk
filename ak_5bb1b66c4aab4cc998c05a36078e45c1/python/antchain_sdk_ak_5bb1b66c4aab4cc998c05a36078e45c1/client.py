@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.0.0',
                     '_prod_code': 'ak_5bb1b66c4aab4cc998c05a36078e45c1',
                     '_prod_channel': 'saas'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.0.0',
                     '_prod_code': 'ak_5bb1b66c4aab4cc998c05a36078e45c1',
                     '_prod_channel': 'saas'
                 }
@@ -611,62 +611,6 @@ class Client:
             await self.do_request_async('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def bind_demo_aaa_bbb_ccc(
-        self,
-        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccRequest,
-    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def bind_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccRequest,
-    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def bind_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def check_saas_security_infosec_holoxcontentcheckservice(
         self,
         request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest,
@@ -841,7 +785,7 @@ class Client:
     ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
         """
         Description: 123
-        Summary: 大安全接口
+        Summary: 大安全内容风控接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -853,7 +797,7 @@ class Client:
     ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
         """
         Description: 123
-        Summary: 大安全接口
+        Summary: 大安全内容风控接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -867,7 +811,7 @@ class Client:
     ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
         """
         Description: 123
-        Summary: 大安全接口
+        Summary: 大安全内容风控接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -883,7 +827,7 @@ class Client:
     ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
         """
         Description: 123
-        Summary: 大安全接口
+        Summary: 大安全内容风控接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
