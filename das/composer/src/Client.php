@@ -226,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.44',
+                    'sdk_version'      => '1.1.46',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -806,8 +806,8 @@ class Client
     }
 
     /**
-     * Description: 教育信息查询（姓名+手机号）
-     * Summary: 教育信息查询（姓名+手机号）.
+     * Description: 教育信息查询（姓名手机号/姓名身份证）
+     * Summary: 教育信息查询（姓名手机号/姓名身份证）.
      *
      * @param QueryPhonenumberEducationinfoRequest $request
      *
@@ -822,8 +822,8 @@ class Client
     }
 
     /**
-     * Description: 教育信息查询（姓名+手机号）
-     * Summary: 教育信息查询（姓名+手机号）.
+     * Description: 教育信息查询（姓名手机号/姓名身份证）
+     * Summary: 教育信息查询（姓名手机号/姓名身份证）.
      *
      * @param QueryPhonenumberEducationinfoRequest $request
      * @param string[]                             $headers

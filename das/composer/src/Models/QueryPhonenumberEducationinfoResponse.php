@@ -28,7 +28,7 @@ class QueryPhonenumberEducationinfoResponse extends Model
 
     // 教育信息
     /**
-     * @var EducationInfo
+     * @var EducationTagInfo
      */
     public $data;
     protected $_name = [
@@ -79,7 +79,7 @@ class QueryPhonenumberEducationinfoResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = EducationInfo::fromMap($map['data']);
+            $model->data = EducationTagInfo::fromMap($map['data']);
         }
 
         return $model;

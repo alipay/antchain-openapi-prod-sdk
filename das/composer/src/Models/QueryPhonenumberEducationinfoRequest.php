@@ -48,6 +48,18 @@ class QueryPhonenumberEducationinfoRequest extends Model
      * @var string
      */
     public $userTel;
+
+    // 身份证号
+    /**
+     * @var string
+     */
+    public $userCertNo;
+
+    // 类型指示码
+    /**
+     * @var string
+     */
+    public $typeCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +68,8 @@ class QueryPhonenumberEducationinfoRequest extends Model
         'fileIndex'         => 'file_index',
         'userName'          => 'user_name',
         'userTel'           => 'user_tel',
+        'userCertNo'        => 'user_cert_no',
+        'typeCode'          => 'type_code',
     ];
 
     public function validate()
@@ -64,7 +78,7 @@ class QueryPhonenumberEducationinfoRequest extends Model
         Model::validateRequired('userAuthed', $this->userAuthed, true);
         Model::validateRequired('fileIndex', $this->fileIndex, true);
         Model::validateRequired('userName', $this->userName, true);
-        Model::validateRequired('userTel', $this->userTel, true);
+        Model::validateRequired('typeCode', $this->typeCode, true);
     }
 
     public function toMap()
@@ -90,6 +104,12 @@ class QueryPhonenumberEducationinfoRequest extends Model
         }
         if (null !== $this->userTel) {
             $res['user_tel'] = $this->userTel;
+        }
+        if (null !== $this->userCertNo) {
+            $res['user_cert_no'] = $this->userCertNo;
+        }
+        if (null !== $this->typeCode) {
+            $res['type_code'] = $this->typeCode;
         }
 
         return $res;
@@ -123,6 +143,12 @@ class QueryPhonenumberEducationinfoRequest extends Model
         }
         if (isset($map['user_tel'])) {
             $model->userTel = $map['user_tel'];
+        }
+        if (isset($map['user_cert_no'])) {
+            $model->userCertNo = $map['user_cert_no'];
+        }
+        if (isset($map['type_code'])) {
+            $model->typeCode = $map['type_code'];
         }
 
         return $model;
