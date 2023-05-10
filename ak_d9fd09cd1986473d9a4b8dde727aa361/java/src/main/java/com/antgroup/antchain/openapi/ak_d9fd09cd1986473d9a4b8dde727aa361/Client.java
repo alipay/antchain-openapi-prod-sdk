@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_d9fd09cd1986473d9a4b8dde727aa361"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -237,6 +237,82 @@ public class Client {
     public BindDemoMoreAbilityTestabcResponse bindDemoMoreAbilityTestabcEx(BindDemoMoreAbilityTestabcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoMoreAbilityTestabcResponse());
+    }
+
+    /**
+     * Description: test zoloz 方法 update again 
+     * Summary: test zoloz 方法
+     */
+    public MatchInternationalDemoZolozFacecompareResponse matchInternationalDemoZolozFacecompare(MatchInternationalDemoZolozFacecompareRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchInternationalDemoZolozFacecompareEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: test zoloz 方法 update again 
+     * Summary: test zoloz 方法
+     */
+    public MatchInternationalDemoZolozFacecompareResponse matchInternationalDemoZolozFacecompareEx(MatchInternationalDemoZolozFacecompareRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "international.demo.zoloz.facecompare.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchInternationalDemoZolozFacecompareResponse());
+    }
+
+    /**
+     * Description: cj test 111
+     * Summary: cj test
+     */
+    public QueryInternationalDemoAaaBbbResponse queryInternationalDemoAaaBbb(QueryInternationalDemoAaaBbbRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInternationalDemoAaaBbbEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: cj test 111
+     * Summary: cj test
+     */
+    public QueryInternationalDemoAaaBbbResponse queryInternationalDemoAaaBbbEx(QueryInternationalDemoAaaBbbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "international.demo.aaa.bbb.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInternationalDemoAaaBbbResponse());
+    }
+
+    /**
+     * Description: 测试大安全接口
+     * Summary: 测试大安全接口
+     */
+    public CheckInternationalDemoZolozHealthResponse checkInternationalDemoZolozHealth(CheckInternationalDemoZolozHealthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkInternationalDemoZolozHealthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试大安全接口
+     * Summary: 测试大安全接口
+     */
+    public CheckInternationalDemoZolozHealthResponse checkInternationalDemoZolozHealthEx(CheckInternationalDemoZolozHealthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "international.demo.zoloz.health.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckInternationalDemoZolozHealthResponse());
+    }
+
+    /**
+     * Description: demo get fr inter desc
+     * Summary: demo get fr inter
+     */
+    public GetInternationalDemoAaaBbbResponse getInternationalDemoAaaBbb(GetInternationalDemoAaaBbbRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInternationalDemoAaaBbbEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: demo get fr inter desc
+     * Summary: demo get fr inter
+     */
+    public GetInternationalDemoAaaBbbResponse getInternationalDemoAaaBbbEx(GetInternationalDemoAaaBbbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "international.demo.aaa.bbb.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInternationalDemoAaaBbbResponse());
     }
 
     /**
