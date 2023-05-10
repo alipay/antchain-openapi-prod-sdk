@@ -15,10 +15,18 @@ use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoCenterAbilityReq
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoCenterAbilityResponse;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoMoreAbilityTestabcRequest;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\BindDemoMoreAbilityTestabcResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CheckInternationalDemoZolozHealthRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CheckInternationalDemoZolozHealthResponse;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\EchoDemoGatewayCheckRequest;
 use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\EchoDemoGatewayCheckResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\GetInternationalDemoAaaBbbRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\GetInternationalDemoAaaBbbResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\MatchInternationalDemoZolozFacecompareRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\MatchInternationalDemoZolozFacecompareResponse;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\QueryInternationalDemoAaaBbbRequest;
+use AntChain\Ak_d9fd09cd1986473d9a4b8dde727aa361\Models\QueryInternationalDemoAaaBbbResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -118,18 +126,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -166,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_d9fd09cd1986473d9a4b8dde727aa361',
                     '_prod_channel'    => 'saas',
                 ];
@@ -329,6 +337,138 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoMoreAbilityTestabcResponse::fromMap($this->doRequest('1.0', 'demo.more.ability.testabc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test zoloz 方法 update again
+     * Summary: test zoloz 方法.
+     *
+     * @param MatchInternationalDemoZolozFacecompareRequest $request
+     *
+     * @return MatchInternationalDemoZolozFacecompareResponse
+     */
+    public function matchInternationalDemoZolozFacecompare($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchInternationalDemoZolozFacecompareEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test zoloz 方法 update again
+     * Summary: test zoloz 方法.
+     *
+     * @param MatchInternationalDemoZolozFacecompareRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return MatchInternationalDemoZolozFacecompareResponse
+     */
+    public function matchInternationalDemoZolozFacecompareEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchInternationalDemoZolozFacecompareResponse::fromMap($this->doRequest('1.0', 'international.demo.zoloz.facecompare.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cj test 111
+     * Summary: cj test.
+     *
+     * @param QueryInternationalDemoAaaBbbRequest $request
+     *
+     * @return QueryInternationalDemoAaaBbbResponse
+     */
+    public function queryInternationalDemoAaaBbb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInternationalDemoAaaBbbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cj test 111
+     * Summary: cj test.
+     *
+     * @param QueryInternationalDemoAaaBbbRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryInternationalDemoAaaBbbResponse
+     */
+    public function queryInternationalDemoAaaBbbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInternationalDemoAaaBbbResponse::fromMap($this->doRequest('1.0', 'international.demo.aaa.bbb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试大安全接口
+     * Summary: 测试大安全接口.
+     *
+     * @param CheckInternationalDemoZolozHealthRequest $request
+     *
+     * @return CheckInternationalDemoZolozHealthResponse
+     */
+    public function checkInternationalDemoZolozHealth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkInternationalDemoZolozHealthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试大安全接口
+     * Summary: 测试大安全接口.
+     *
+     * @param CheckInternationalDemoZolozHealthRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CheckInternationalDemoZolozHealthResponse
+     */
+    public function checkInternationalDemoZolozHealthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckInternationalDemoZolozHealthResponse::fromMap($this->doRequest('1.0', 'international.demo.zoloz.health.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: demo get fr inter desc
+     * Summary: demo get fr inter.
+     *
+     * @param GetInternationalDemoAaaBbbRequest $request
+     *
+     * @return GetInternationalDemoAaaBbbResponse
+     */
+    public function getInternationalDemoAaaBbb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInternationalDemoAaaBbbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: demo get fr inter desc
+     * Summary: demo get fr inter.
+     *
+     * @param GetInternationalDemoAaaBbbRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return GetInternationalDemoAaaBbbResponse
+     */
+    public function getInternationalDemoAaaBbbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInternationalDemoAaaBbbResponse::fromMap($this->doRequest('1.0', 'international.demo.aaa.bbb.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
