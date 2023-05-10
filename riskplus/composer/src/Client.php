@@ -229,6 +229,8 @@ use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallRequest;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
@@ -438,7 +440,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.25',
+                    'sdk_version'      => '1.16.28',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5163,6 +5165,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktTenantActionplaninfoResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary: 查询ai外呼任务详情.
+     *
+     * @param QueryUmktRobotcallRequest $request
+     *
+     * @return QueryUmktRobotcallResponse
+     */
+    public function queryUmktRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询ai外呼任务详情
+     * Summary: 查询ai外呼任务详情.
+     *
+     * @param QueryUmktRobotcallRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryUmktRobotcallResponse
+     */
+    public function queryUmktRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

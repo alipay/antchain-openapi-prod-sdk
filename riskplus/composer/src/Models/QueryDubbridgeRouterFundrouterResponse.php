@@ -31,11 +31,18 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
      * @var string
      */
     public $fundCode;
+
+    // 资金方简称
+    /**
+     * @var string
+     */
+    public $abbreFundName;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'fundCode'   => 'fund_code',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'fundCode'      => 'fund_code',
+        'abbreFundName' => 'abbre_fund_name',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (null !== $this->fundCode) {
             $res['fund_code'] = $this->fundCode;
+        }
+        if (null !== $this->abbreFundName) {
+            $res['abbre_fund_name'] = $this->abbreFundName;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (isset($map['fund_code'])) {
             $model->fundCode = $map['fund_code'];
+        }
+        if (isset($map['abbre_fund_name'])) {
+            $model->abbreFundName = $map['abbre_fund_name'];
         }
 
         return $model;
