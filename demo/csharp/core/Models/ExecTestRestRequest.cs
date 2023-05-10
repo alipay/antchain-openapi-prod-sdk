@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class ExecGatewayRoadRequest : TeaModel {
+    public class ExecTestRestRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 初始值
-        [NameInMap("exec_num")]
+        // 111
+        [NameInMap("param1")]
         [Validation(Required=true)]
-        public long? ExecNum { get; set; }
+        public string Param1 { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class OpenSaasTestTestgRequest : TeaModel {
+    public class PublishLaiboLaiboRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,11 +17,6 @@ namespace AntChain.SDK.DEMO.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
-
-        // test
-        [NameInMap("name")]
-        [Validation(Required=true)]
-        public string Name { get; set; }
 
     }
 

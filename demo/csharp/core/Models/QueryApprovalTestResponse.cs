@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class UpdateGatewayRoadResponse : TeaModel {
+    public class QueryApprovalTestResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 更新后返回info
-        [NameInMap("upd_info")]
+        // 回参
+        [NameInMap("msg")]
         [Validation(Required=false)]
-        public string UpdInfo { get; set; }
-
-        // 组合返回请求结果
-        [NameInMap("upd_pack")]
-        [Validation(Required=false)]
-        public InitPack UpdPack { get; set; }
+        public string Msg { get; set; }
 
     }
 

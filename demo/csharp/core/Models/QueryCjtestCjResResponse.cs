@@ -24,11 +24,6 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 字符串
-        [NameInMap("res")]
-        [Validation(Required=false)]
-        public string Res { get; set; }
-
     }
 
 }

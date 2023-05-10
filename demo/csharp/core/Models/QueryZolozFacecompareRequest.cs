@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class ExecGatewayRoadRequest : TeaModel {
+    public class QueryZolozFacecompareRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,20 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 初始值
-        [NameInMap("exec_num")]
+        // 123
+        [NameInMap("biz_id")]
         [Validation(Required=true)]
-        public long? ExecNum { get; set; }
+        public string BizId { get; set; }
+
+        // 123
+        [NameInMap("face1")]
+        [Validation(Required=false)]
+        public FaceImage Face1 { get; set; }
+
+        // 123
+        [NameInMap("face2")]
+        [Validation(Required=false)]
+        public FaceImage Face2 { get; set; }
 
     }
 

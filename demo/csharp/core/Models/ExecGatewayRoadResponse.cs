@@ -24,7 +24,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回用户请求编号+1
+        // 计算后返回结果
         [NameInMap("exec_num_echo")]
         [Validation(Required=false)]
         public long? ExecNumEcho { get; set; }
