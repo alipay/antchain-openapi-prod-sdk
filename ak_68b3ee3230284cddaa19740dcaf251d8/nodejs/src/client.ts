@@ -77,25 +77,39 @@ export class Config extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 123
-  data: string;
+// api信息结构体
+export class ApiInfoModel extends $tea.Model {
+  // api名称
+  apiName: string;
+  // 产品码
+  prodCode: string;
+  // 是否是内部接口 0对外 1对内
+  internal: number;
+  // api版本号
+  apiVersion: string;
+  // api描述
+  apiDesc: string;
+  // api所属网关产品id
+  providerId: string;
   static names(): { [key: string]: string } {
     return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      data: 'data',
+      apiName: 'api_name',
+      prodCode: 'prod_code',
+      internal: 'internal',
+      apiVersion: 'api_version',
+      apiDesc: 'api_desc',
+      providerId: 'provider_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      data: 'string',
+      apiName: 'string',
+      prodCode: 'string',
+      internal: 'number',
+      apiVersion: 'string',
+      apiDesc: 'string',
+      providerId: 'string',
     };
   }
 
@@ -104,26 +118,101 @@ export class BindDemoAaaBbbCccRequest extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
+// 能力信息
+export class AbilityInfo extends $tea.Model {
+  // 能力编号
+  abilityId: string;
+  // 能力名称
+  abilityName: string;
+  // 研发负责人
+  devOwner: string;
+  // 创建时间
+  gmtCreate: string;
+  // 描述信息
+  description: string;
+  // 研发负责人邮箱前缀
+  devOwnerPrefixEmail: string;
+  // 产品负责人
+  productOwner: string;
+  // 能力对应商业中台L5Code
+  businessCode?: string;
+  // apiInfoModels列表
+  apiInfoModels: ApiInfoModel[];
   static names(): { [key: string]: string } {
     return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
+      abilityId: 'ability_id',
+      abilityName: 'ability_name',
+      devOwner: 'dev_owner',
+      gmtCreate: 'gmt_create',
+      description: 'description',
+      devOwnerPrefixEmail: 'dev_owner_prefix_email',
+      productOwner: 'product_owner',
+      businessCode: 'business_code',
+      apiInfoModels: 'api_info_models',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
+      abilityId: 'string',
+      abilityName: 'string',
+      devOwner: 'string',
+      gmtCreate: 'string',
+      description: 'string',
+      devOwnerPrefixEmail: 'string',
+      productOwner: 'string',
+      businessCode: 'string',
+      apiInfoModels: { 'type': 'array', 'itemType': ApiInfoModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 能力与API关联信息
+export class AbilityApiRelation extends $tea.Model {
+  // api名称
+  apiName: string;
+  // 能力列表
+  abilityInfoList: AbilityInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      apiName: 'api_name',
+      abilityInfoList: 'ability_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiName: 'string',
+      abilityInfoList: { 'type': 'array', 'itemType': AbilityInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// api 信息
+export class ApiInfo extends $tea.Model {
+  // 查询不动产接口
+  apiCode: string;
+  // api pb文件定义
+  apiProtobufDefinition: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiCode: 'api_code',
+      apiProtobufDefinition: 'api_protobuf_definition',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiCode: 'string',
+      apiProtobufDefinition: 'string',
     };
   }
 
@@ -195,6 +284,132 @@ export class PublishDemoSaasTestTestcResponse extends $tea.Model {
   }
 }
 
+export class BindAntchainSaasAbilityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // api名称
+  apiName: string;
+  // 能力id列表
+  abilityIds: string[];
+  // 操作人的域账号
+  operatorId: string;
+  // api信息
+  apiInfoModel: ApiInfoModel;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apiName: 'api_name',
+      abilityIds: 'ability_ids',
+      operatorId: 'operator_id',
+      apiInfoModel: 'api_info_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apiName: 'string',
+      abilityIds: { 'type': 'array', 'itemType': 'string' },
+      operatorId: 'string',
+      apiInfoModel: ApiInfoModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAntchainSaasAbilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasAbilityWithapinameRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // api名称列表
+  apiNameList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apiNameList: 'api_name_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apiNameList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasAbilityWithapinameResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // api与能力信息关联列表
+  abilityApiRelationList?: AbilityApiRelation[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      abilityApiRelationList: 'ability_api_relation_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      abilityApiRelationList: { 'type': 'array', 'itemType': AbilityApiRelation },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindDemoCenterAbilityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -219,6 +434,230 @@ export class BindDemoCenterAbilityRequest extends $tea.Model {
 }
 
 export class BindDemoCenterAbilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoMoreAbilityTestabcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoMoreAbilityTestabcResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAntchainSaasAbilityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // api名称集合
+  apiNames: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apiNames: 'api_names',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apiNames: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAntchainSaasAbilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasFoundationProtobufRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产品码
+  productCode: string;
+  // api code列表信息
+  apiCodeList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productCode: 'product_code',
+      apiCodeList: 'api_code_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productCode: 'string',
+      apiCodeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasFoundationProtobufResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // api probuf信息
+  apiInfoList?: ApiInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      apiInfoList: 'api_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      apiInfoList: { 'type': 'array', 'itemType': ApiInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasAbilityResultcodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1-INTERNAL_ERROR，2-TOO_MANY_REQUESTS，3-UNKNOW_ERROR，4-ACCESS_DENIED，5-OK，6-CUSTOM_RESULT_CODE_ONE，7-CUSTOM_RESULT_CODE_TWO
+  index: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      index: 'index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      index: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasAbilityResultcodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -359,7 +798,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.2",
           _prod_code: "ak_68b3ee3230284cddaa19740dcaf251d8",
           _prod_channel: "saas",
         };
@@ -408,25 +847,6 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建test
-   * Summary: 自动化测试创建test1
-   */
-  async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.bindDemoAaaBbbCccEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 自动化测试创建test
-   * Summary: 自动化测试创建test1
-   */
-  async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
-    Util.validateModel(request);
-    return $tea.cast<BindDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAaaBbbCccResponse({}));
-  }
-
-  /**
    * Description: testc
    * Summary: 测试用api
    */
@@ -446,6 +866,44 @@ export default class Client {
   }
 
   /**
+   * Description: 绑定API
+   * Summary: 绑定能力与API关系
+   */
+  async bindAntchainSaasAbility(request: BindAntchainSaasAbilityRequest): Promise<BindAntchainSaasAbilityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindAntchainSaasAbilityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定API
+   * Summary: 绑定能力与API关系
+   */
+  async bindAntchainSaasAbilityEx(request: BindAntchainSaasAbilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAntchainSaasAbilityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindAntchainSaasAbilityResponse>(await this.doRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAntchainSaasAbilityResponse({}));
+  }
+
+  /**
+   * Description: 根据api名称列表查询能力标签列表
+   * Summary: 根据api名称列表查询能力标签列表
+   */
+  async queryAntchainSaasAbilityWithapiname(request: QueryAntchainSaasAbilityWithapinameRequest): Promise<QueryAntchainSaasAbilityWithapinameResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainSaasAbilityWithapinameEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据api名称列表查询能力标签列表
+   * Summary: 根据api名称列表查询能力标签列表
+   */
+  async queryAntchainSaasAbilityWithapinameEx(request: QueryAntchainSaasAbilityWithapinameRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainSaasAbilityWithapinameResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainSaasAbilityWithapinameResponse>(await this.doRequest("1.0", "antchain.saas.ability.withapiname.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainSaasAbilityWithapinameResponse({}));
+  }
+
+  /**
    * Description: 测试能力中心九期API打标&能力绑定API使用
    * Summary: 能力中心九期测试
    */
@@ -462,6 +920,82 @@ export default class Client {
   async bindDemoCenterAbilityEx(request: BindDemoCenterAbilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoCenterAbilityResponse> {
     Util.validateModel(request);
     return $tea.cast<BindDemoCenterAbilityResponse>(await this.doRequest("1.0", "demo.center.ability.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoCenterAbilityResponse({}));
+  }
+
+  /**
+   * Description: 测试API绑定多个标签时的情况
+   * Summary: API绑定多个标签
+   */
+  async bindDemoMoreAbilityTestabc(request: BindDemoMoreAbilityTestabcRequest): Promise<BindDemoMoreAbilityTestabcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindDemoMoreAbilityTestabcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试API绑定多个标签时的情况
+   * Summary: API绑定多个标签
+   */
+  async bindDemoMoreAbilityTestabcEx(request: BindDemoMoreAbilityTestabcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoMoreAbilityTestabcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindDemoMoreAbilityTestabcResponse>(await this.doRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoMoreAbilityTestabcResponse({}));
+  }
+
+  /**
+   * Description: api上线回调接口
+   * Summary: api上线回调接口
+   */
+  async callbackAntchainSaasAbility(request: CallbackAntchainSaasAbilityRequest): Promise<CallbackAntchainSaasAbilityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackAntchainSaasAbilityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: api上线回调接口
+   * Summary: api上线回调接口
+   */
+  async callbackAntchainSaasAbilityEx(request: CallbackAntchainSaasAbilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAntchainSaasAbilityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackAntchainSaasAbilityResponse>(await this.doRequest("1.0", "antchain.saas.ability.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAntchainSaasAbilityResponse({}));
+  }
+
+  /**
+   * Description: 根据产品码+api code查询api protobuf信息
+   * Summary: 查询api protobuf信息（勿删）
+   */
+  async queryAntchainSaasFoundationProtobuf(request: QueryAntchainSaasFoundationProtobufRequest): Promise<QueryAntchainSaasFoundationProtobufResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainSaasFoundationProtobufEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据产品码+api code查询api protobuf信息
+   * Summary: 查询api protobuf信息（勿删）
+   */
+  async queryAntchainSaasFoundationProtobufEx(request: QueryAntchainSaasFoundationProtobufRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainSaasFoundationProtobufResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainSaasFoundationProtobufResponse>(await this.doRequest("1.0", "antchain.saas.foundation.protobuf.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainSaasFoundationProtobufResponse({}));
+  }
+
+  /**
+   * Description: 测试网关结果码和计量接口
+   * Summary: 网关结果码测试接口
+   */
+  async queryAntchainSaasAbilityResultcode(request: QueryAntchainSaasAbilityResultcodeRequest): Promise<QueryAntchainSaasAbilityResultcodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainSaasAbilityResultcodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试网关结果码和计量接口
+   * Summary: 网关结果码测试接口
+   */
+  async queryAntchainSaasAbilityResultcodeEx(request: QueryAntchainSaasAbilityResultcodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainSaasAbilityResultcodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainSaasAbilityResultcodeResponse>(await this.doRequest("1.0", "antchain.saas.ability.resultcode.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainSaasAbilityResultcodeResponse({}));
   }
 
 }
