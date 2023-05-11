@@ -40,13 +40,13 @@ class ResembleRiskData extends Model
      */
     public $score;
 
-    // 相似作品下载链接
+    // 相似作品下载凭证
     /**
-     * @example 相似作品下载链接
+     * @example 相似作品下载凭证
      *
      * @var string
      */
-    public $workDownloadUrl;
+    public $workFileId;
 
     // 相似明细
     /**
@@ -60,7 +60,7 @@ class ResembleRiskData extends Model
         'workName'        => 'work_name',
         'workType'        => 'work_type',
         'score'           => 'score',
-        'workDownloadUrl' => 'work_download_url',
+        'workFileId'      => 'work_file_id',
         'resembleDetails' => 'resemble_details',
     ];
 
@@ -84,8 +84,8 @@ class ResembleRiskData extends Model
         if (null !== $this->score) {
             $res['score'] = $this->score;
         }
-        if (null !== $this->workDownloadUrl) {
-            $res['work_download_url'] = $this->workDownloadUrl;
+        if (null !== $this->workFileId) {
+            $res['work_file_id'] = $this->workFileId;
         }
         if (null !== $this->resembleDetails) {
             $res['resemble_details'] = [];
@@ -120,8 +120,8 @@ class ResembleRiskData extends Model
         if (isset($map['score'])) {
             $model->score = $map['score'];
         }
-        if (isset($map['work_download_url'])) {
-            $model->workDownloadUrl = $map['work_download_url'];
+        if (isset($map['work_file_id'])) {
+            $model->workFileId = $map['work_file_id'];
         }
         if (isset($map['resemble_details'])) {
             if (!empty($map['resemble_details'])) {

@@ -138,6 +138,12 @@ class CreateDciPreregistrationRequest extends Model
      * @var string
      */
     public $channelTerminal;
+
+    // 推荐分类明细信息
+    /**
+     * @var RecommendCategoryDetail[]
+     */
+    public $recommendCategoryList;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -161,6 +167,7 @@ class CreateDciPreregistrationRequest extends Model
         'copyrightOwnerIds'       => 'copyright_owner_ids',
         'applyType'               => 'apply_type',
         'channelTerminal'         => 'channel_terminal',
+        'recommendCategoryList'   => 'recommend_category_list',
     ];
 
     public function validate()
@@ -248,6 +255,15 @@ class CreateDciPreregistrationRequest extends Model
         if (null !== $this->channelTerminal) {
             $res['channel_terminal'] = $this->channelTerminal;
         }
+        if (null !== $this->recommendCategoryList) {
+            $res['recommend_category_list'] = [];
+            if (null !== $this->recommendCategoryList && \is_array($this->recommendCategoryList)) {
+                $n = 0;
+                foreach ($this->recommendCategoryList as $item) {
+                    $res['recommend_category_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -327,6 +343,15 @@ class CreateDciPreregistrationRequest extends Model
         }
         if (isset($map['channel_terminal'])) {
             $model->channelTerminal = $map['channel_terminal'];
+        }
+        if (isset($map['recommend_category_list'])) {
+            if (!empty($map['recommend_category_list'])) {
+                $model->recommendCategoryList = [];
+                $n                            = 0;
+                foreach ($map['recommend_category_list'] as $item) {
+                    $model->recommendCategoryList[$n++] = null !== $item ? RecommendCategoryDetail::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

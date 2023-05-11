@@ -61,6 +61,8 @@ use AntChain\BCCR\Models\OperateNotaryOrderRequest;
 use AntChain\BCCR\Models\OperateNotaryOrderResponse;
 use AntChain\BCCR\Models\PublishGoodRequest;
 use AntChain\BCCR\Models\PublishGoodResponse;
+use AntChain\BCCR\Models\QueryContentBatchstatisticsRequest;
+use AntChain\BCCR\Models\QueryContentBatchstatisticsResponse;
 use AntChain\BCCR\Models\QueryContentStatisticsRequest;
 use AntChain\BCCR\Models\QueryContentStatisticsResponse;
 use AntChain\BCCR\Models\QueryContentStatusRequest;
@@ -81,6 +83,8 @@ use AntChain\BCCR\Models\QueryDciRegistrationRequest;
 use AntChain\BCCR\Models\QueryDciRegistrationResponse;
 use AntChain\BCCR\Models\QueryDciRegistrationsubmitRequest;
 use AntChain\BCCR\Models\QueryDciRegistrationsubmitResponse;
+use AntChain\BCCR\Models\QueryDciSimilarfileRequest;
+use AntChain\BCCR\Models\QueryDciSimilarfileResponse;
 use AntChain\BCCR\Models\QueryDciUserRequest;
 use AntChain\BCCR\Models\QueryDciUserResponse;
 use AntChain\BCCR\Models\QueryDirectmonitorResultRequest;
@@ -278,7 +282,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.51',
+                    'sdk_version'      => '1.17.56',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2076,6 +2080,39 @@ class Client
     }
 
     /**
+     * Description: 查询相似作品下载链接
+     * Summary: 查询相似作品下载链接.
+     *
+     * @param QueryDciSimilarfileRequest $request
+     *
+     * @return QueryDciSimilarfileResponse
+     */
+    public function queryDciSimilarfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciSimilarfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询相似作品下载链接
+     * Summary: 查询相似作品下载链接.
+     *
+     * @param QueryDciSimilarfileRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryDciSimilarfileResponse
+     */
+    public function queryDciSimilarfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciSimilarfileResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 添加发布视频内容
      * Summary: 发布视频内容.
      *
@@ -2172,6 +2209,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryContentStatisticsResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.content.statistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量查询视频内容统计数据
+     * Summary: 批量查询视频统计信息.
+     *
+     * @param QueryContentBatchstatisticsRequest $request
+     *
+     * @return QueryContentBatchstatisticsResponse
+     */
+    public function queryContentBatchstatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContentBatchstatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量查询视频内容统计数据
+     * Summary: 批量查询视频统计信息.
+     *
+     * @param QueryContentBatchstatisticsRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryContentBatchstatisticsResponse
+     */
+    public function queryContentBatchstatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContentBatchstatisticsResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.content.batchstatistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContentStatisticsRequest extends Model
+class QueryContentBatchstatisticsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -21,9 +21,9 @@ class QueryContentStatisticsRequest extends Model
 
     // 内容id列表
     /**
-     * @var string
+     * @var string[]
      */
-    public $contentId;
+    public $contentIdList;
 
     // 起始日期时间戳
     /**
@@ -39,14 +39,14 @@ class QueryContentStatisticsRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'contentId'         => 'content_id',
+        'contentIdList'     => 'content_id_list',
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
     ];
 
     public function validate()
     {
-        Model::validateRequired('contentId', $this->contentId, true);
+        Model::validateRequired('contentIdList', $this->contentIdList, true);
         Model::validateRequired('startTime', $this->startTime, true);
         Model::validateRequired('endTime', $this->endTime, true);
     }
@@ -60,8 +60,8 @@ class QueryContentStatisticsRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->contentId) {
-            $res['content_id'] = $this->contentId;
+        if (null !== $this->contentIdList) {
+            $res['content_id_list'] = $this->contentIdList;
         }
         if (null !== $this->startTime) {
             $res['start_time'] = $this->startTime;
@@ -76,7 +76,7 @@ class QueryContentStatisticsRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryContentStatisticsRequest
+     * @return QueryContentBatchstatisticsRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,8 +87,10 @@ class QueryContentStatisticsRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['content_id'])) {
-            $model->contentId = $map['content_id'];
+        if (isset($map['content_id_list'])) {
+            if (!empty($map['content_id_list'])) {
+                $model->contentIdList = $map['content_id_list'];
+            }
         }
         if (isset($map['start_time'])) {
             $model->startTime = $map['start_time'];
