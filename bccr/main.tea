@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.51',
+    sdk_version = '1.17.56',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -253,8 +253,8 @@ model ResembleRiskData {
   workType?: string(name='work_type', example='VIDEO'),
   // 相似值
   score?: string(name='score', example='相似值'),
-  // 相似作品下载链接
-  workDownloadUrl?: string(name='work_download_url', example='相似作品下载链接'),
+  // 相似作品下载凭证
+  workFileId?: string(name='work_file_id', example='相似作品下载凭证'),
   // 相似明细
   resembleDetails?: [ ResembleDetail ](name='resemble_details', example=''),
 }
@@ -263,6 +263,8 @@ model ResembleRiskData {
 model ContentRiskData {
   // 风险名称
   riskName: string(name='risk_name', example='风险名称'),
+  // 风险是否通过审查
+  riskResult: boolean(name='risk_result', example='true, false'),
 }
 
 // 作品标签识别结果
@@ -411,6 +413,20 @@ model ReceiveInfo {
   deliveryInfo: DeliveryInfo(name='delivery_info', example=''),
 }
 
+// 日统计数据模型
+model DayStatisticsInfo {
+  // 日期时间戳
+  date: long(name='date', example='1661788800000'),
+  // 日观看次数
+  dayViews: string(name='day_views', example='100'),
+  // 日观看时长
+  dayViewDuration: string(name='day_view_duration', example='10'),
+  // 日平均观看时长
+  dayAverageViewDuration: string(name='day_average_view_duration', example='100'),
+  // 日预计收入
+  revenue: string(name='revenue', example='100'),
+}
+
 // 系列图错误原因
 model SeriesDiagramErrorReason {
   // 系列图单个图片所属页码
@@ -545,6 +561,22 @@ model EvidenceUrlInfo {
   url: string(name='url', example='www.baidu.com'),
   // 音视频取证时间
   autoSurfingMinute?: long(name='auto_surfing_minute', example='10'),
+}
+
+// 出海视频统计数据
+model OverseaContentStatistics {
+  // 发布视频id
+  contentId: string(name='content_id', example='84343147225530369'),
+  // 总观看次数
+  totalViews: string(name='total_views', example='100'),
+  // 总观看时长
+  totalViewDuration: string(name='total_view_duration', example='10'),
+  // 总平均观看时长
+  totalAverageViewDuration: string(name='total_average_view_duration', example='20'),
+  // 总预计收入
+  totalRevenue: string(name='total_revenue', example='40'),
+  // 每日详细统计列表
+  dayStatisticsList: [ DayStatisticsInfo ](name='day_statistics_list', example=''),
 }
 
 // 定向监测结果
@@ -885,6 +917,16 @@ model RecordScreenData {
   gmtReady?: long(name='gmt_ready', example='1111'),
 }
 
+// 推荐分类信息
+model RecommendCategoryDetail {
+  // 推荐分类类型
+  recommendWorkCategory: string(name='recommend_work_category', example='ART'),
+  // 作品类型相似度，保留2位小数
+  categorySimilarRatio: string(name='category_similar_ratio', example='0.95'),
+  // 作品类型风险等级
+  categoryRiskRank?: string(name='category_risk_rank', example='LOW'),
+}
+
 // 网页取证数据
 model ScreenshotData {
   // 取证地址
@@ -1115,20 +1157,6 @@ model MonitorType {
   fileType: string(name='file_type', example='jpg'),
   // 提交类型
   submitType: string(name='submit_type', example='FILE'),
-}
-
-// 日统计数据模型
-model DayStatisticsInfo {
-  // 日期时间戳
-  date: long(name='date', example='1661788800000'),
-  // 日观看次数
-  dayViews: string(name='day_views', example='100'),
-  // 日观看时长
-  dayViewDuration: string(name='day_view_duration', example='10'),
-  // 日平均观看时长
-  dayAverageViewDuration: string(name='day_average_view_duration', example='100'),
-  // 日预计收入
-  revenue: string(name='revenue', example='100'),
 }
 
 model GetUploadurlRequest = {
@@ -2438,6 +2466,8 @@ model CreateDciPreregistrationRequest = {
   applyType?: string(name='apply_type'),
   // 渠道标签
   channelTerminal?: string(name='channel_terminal'),
+  // 推荐分类明细信息
+  recommendCategoryList?: [ RecommendCategoryDetail ](name='recommend_category_list'),
 }
 
 model CreateDciPreregistrationResponse = {
@@ -3941,6 +3971,44 @@ async function addDciUsernocertEx(request: AddDciUsernocertRequest, headers: map
   return doRequest('1.0' ,'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryDciSimilarfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件下载凭证
+  workFileId: string(name='work_file_id'),
+}
+
+model QueryDciSimilarfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件下载链接
+  workDownloadUrl?: string(name='work_download_url'),
+}
+
+/**
+ * Description: 查询相似作品下载链接
+ * Summary: 查询相似作品下载链接
+ */
+async function queryDciSimilarfile(request: QueryDciSimilarfileRequest): QueryDciSimilarfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciSimilarfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询相似作品下载链接
+ * Summary: 查询相似作品下载链接
+ */
+async function queryDciSimilarfileEx(request: QueryDciSimilarfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciSimilarfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model AddContentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -4053,7 +4121,7 @@ model QueryContentStatisticsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 内容id
+  // 内容id列表
   contentId: string(name='content_id'),
   // 起始日期时间戳
   startTime: long(name='start_time'),
@@ -4074,7 +4142,7 @@ model QueryContentStatisticsResponse = {
   totalViewDuration?: string(name='total_view_duration'),
   // 总平均观看时长
   totalAverageViewDuration?: string(name='total_average_view_duration'),
-  //  总预计收入
+  // 总预计收入
   totalRevenue?: string(name='total_revenue'),
   // 每日详细统计列表
   dayStatisticsList?: [ DayStatisticsInfo ](name='day_statistics_list'),
@@ -4097,6 +4165,48 @@ async function queryContentStatistics(request: QueryContentStatisticsRequest): Q
 async function queryContentStatisticsEx(request: QueryContentStatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentStatisticsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.content.statistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContentBatchstatisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 内容id列表
+  contentIdList: [ string ](name='content_id_list'),
+  // 起始日期时间戳
+  startTime: long(name='start_time'),
+  // 截止日期时间戳
+  endTime: long(name='end_time'),
+}
+
+model QueryContentBatchstatisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 出海视频统计数据列表
+  overseaContentStatisticsList?: [ OverseaContentStatistics ](name='oversea_content_statistics_list'),
+}
+
+/**
+ * Description: 批量查询视频内容统计数据
+ * Summary: 批量查询视频统计信息
+ */
+async function queryContentBatchstatistics(request: QueryContentBatchstatisticsRequest): QueryContentBatchstatisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContentBatchstatisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量查询视频内容统计数据
+ * Summary: 批量查询视频统计信息
+ */
+async function queryContentBatchstatisticsEx(request: QueryContentBatchstatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentBatchstatisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.content.batchstatistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishGoodRequest = {
