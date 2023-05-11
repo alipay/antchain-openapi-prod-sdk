@@ -435,8 +435,8 @@ type ResembleRiskData struct {
 	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty"`
 	// 相似值
 	Score *string `json:"score,omitempty" xml:"score,omitempty"`
-	// 相似作品下载链接
-	WorkDownloadUrl *string `json:"work_download_url,omitempty" xml:"work_download_url,omitempty"`
+	// 相似作品下载凭证
+	WorkFileId *string `json:"work_file_id,omitempty" xml:"work_file_id,omitempty"`
 	// 相似明细
 	ResembleDetails []*ResembleDetail `json:"resemble_details,omitempty" xml:"resemble_details,omitempty" type:"Repeated"`
 }
@@ -469,8 +469,8 @@ func (s *ResembleRiskData) SetScore(v string) *ResembleRiskData {
 	return s
 }
 
-func (s *ResembleRiskData) SetWorkDownloadUrl(v string) *ResembleRiskData {
-	s.WorkDownloadUrl = &v
+func (s *ResembleRiskData) SetWorkFileId(v string) *ResembleRiskData {
+	s.WorkFileId = &v
 	return s
 }
 
@@ -483,6 +483,8 @@ func (s *ResembleRiskData) SetResembleDetails(v []*ResembleDetail) *ResembleRisk
 type ContentRiskData struct {
 	// 风险名称
 	RiskName *string `json:"risk_name,omitempty" xml:"risk_name,omitempty" require:"true"`
+	// 风险是否通过审查
+	RiskResult *bool `json:"risk_result,omitempty" xml:"risk_result,omitempty" require:"true"`
 }
 
 func (s ContentRiskData) String() string {
@@ -495,6 +497,11 @@ func (s ContentRiskData) GoString() string {
 
 func (s *ContentRiskData) SetRiskName(v string) *ContentRiskData {
 	s.RiskName = &v
+	return s
+}
+
+func (s *ContentRiskData) SetRiskResult(v bool) *ContentRiskData {
+	s.RiskResult = &v
 	return s
 }
 
@@ -991,6 +998,53 @@ func (s *ReceiveInfo) SetDeliveryInfo(v *DeliveryInfo) *ReceiveInfo {
 	return s
 }
 
+// 日统计数据模型
+type DayStatisticsInfo struct {
+	// 日期时间戳
+	Date *int64 `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 日观看次数
+	DayViews *string `json:"day_views,omitempty" xml:"day_views,omitempty" require:"true"`
+	// 日观看时长
+	DayViewDuration *string `json:"day_view_duration,omitempty" xml:"day_view_duration,omitempty" require:"true"`
+	// 日平均观看时长
+	DayAverageViewDuration *string `json:"day_average_view_duration,omitempty" xml:"day_average_view_duration,omitempty" require:"true"`
+	// 日预计收入
+	Revenue *string `json:"revenue,omitempty" xml:"revenue,omitempty" require:"true"`
+}
+
+func (s DayStatisticsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DayStatisticsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DayStatisticsInfo) SetDate(v int64) *DayStatisticsInfo {
+	s.Date = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayViews(v string) *DayStatisticsInfo {
+	s.DayViews = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayViewDuration(v string) *DayStatisticsInfo {
+	s.DayViewDuration = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayAverageViewDuration(v string) *DayStatisticsInfo {
+	s.DayAverageViewDuration = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetRevenue(v string) *DayStatisticsInfo {
+	s.Revenue = &v
+	return s
+}
+
 // 系列图错误原因
 type SeriesDiagramErrorReason struct {
 	// 系列图单个图片所属页码
@@ -1440,6 +1494,60 @@ func (s *EvidenceUrlInfo) SetUrl(v string) *EvidenceUrlInfo {
 
 func (s *EvidenceUrlInfo) SetAutoSurfingMinute(v int64) *EvidenceUrlInfo {
 	s.AutoSurfingMinute = &v
+	return s
+}
+
+// 出海视频统计数据
+type OverseaContentStatistics struct {
+	// 发布视频id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
+	// 总观看次数
+	TotalViews *string `json:"total_views,omitempty" xml:"total_views,omitempty" require:"true"`
+	// 总观看时长
+	TotalViewDuration *string `json:"total_view_duration,omitempty" xml:"total_view_duration,omitempty" require:"true"`
+	// 总平均观看时长
+	TotalAverageViewDuration *string `json:"total_average_view_duration,omitempty" xml:"total_average_view_duration,omitempty" require:"true"`
+	// 总预计收入
+	TotalRevenue *string `json:"total_revenue,omitempty" xml:"total_revenue,omitempty" require:"true"`
+	// 每日详细统计列表
+	DayStatisticsList []*DayStatisticsInfo `json:"day_statistics_list,omitempty" xml:"day_statistics_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OverseaContentStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OverseaContentStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *OverseaContentStatistics) SetContentId(v string) *OverseaContentStatistics {
+	s.ContentId = &v
+	return s
+}
+
+func (s *OverseaContentStatistics) SetTotalViews(v string) *OverseaContentStatistics {
+	s.TotalViews = &v
+	return s
+}
+
+func (s *OverseaContentStatistics) SetTotalViewDuration(v string) *OverseaContentStatistics {
+	s.TotalViewDuration = &v
+	return s
+}
+
+func (s *OverseaContentStatistics) SetTotalAverageViewDuration(v string) *OverseaContentStatistics {
+	s.TotalAverageViewDuration = &v
+	return s
+}
+
+func (s *OverseaContentStatistics) SetTotalRevenue(v string) *OverseaContentStatistics {
+	s.TotalRevenue = &v
+	return s
+}
+
+func (s *OverseaContentStatistics) SetDayStatisticsList(v []*DayStatisticsInfo) *OverseaContentStatistics {
+	s.DayStatisticsList = v
 	return s
 }
 
@@ -2458,6 +2566,39 @@ func (s *RecordScreenData) SetGmtReady(v int64) *RecordScreenData {
 	return s
 }
 
+// 推荐分类信息
+type RecommendCategoryDetail struct {
+	// 推荐分类类型
+	RecommendWorkCategory *string `json:"recommend_work_category,omitempty" xml:"recommend_work_category,omitempty" require:"true"`
+	// 作品类型相似度，保留2位小数
+	CategorySimilarRatio *string `json:"category_similar_ratio,omitempty" xml:"category_similar_ratio,omitempty" require:"true"`
+	// 作品类型风险等级
+	CategoryRiskRank *string `json:"category_risk_rank,omitempty" xml:"category_risk_rank,omitempty"`
+}
+
+func (s RecommendCategoryDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecommendCategoryDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RecommendCategoryDetail) SetRecommendWorkCategory(v string) *RecommendCategoryDetail {
+	s.RecommendWorkCategory = &v
+	return s
+}
+
+func (s *RecommendCategoryDetail) SetCategorySimilarRatio(v string) *RecommendCategoryDetail {
+	s.CategorySimilarRatio = &v
+	return s
+}
+
+func (s *RecommendCategoryDetail) SetCategoryRiskRank(v string) *RecommendCategoryDetail {
+	s.CategoryRiskRank = &v
+	return s
+}
+
 // 网页取证数据
 type ScreenshotData struct {
 	// 取证地址
@@ -3237,53 +3378,6 @@ func (s *MonitorType) SetFileType(v string) *MonitorType {
 
 func (s *MonitorType) SetSubmitType(v string) *MonitorType {
 	s.SubmitType = &v
-	return s
-}
-
-// 日统计数据模型
-type DayStatisticsInfo struct {
-	// 日期时间戳
-	Date *int64 `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 日观看次数
-	DayViews *string `json:"day_views,omitempty" xml:"day_views,omitempty" require:"true"`
-	// 日观看时长
-	DayViewDuration *string `json:"day_view_duration,omitempty" xml:"day_view_duration,omitempty" require:"true"`
-	// 日平均观看时长
-	DayAverageViewDuration *string `json:"day_average_view_duration,omitempty" xml:"day_average_view_duration,omitempty" require:"true"`
-	// 日预计收入
-	Revenue *string `json:"revenue,omitempty" xml:"revenue,omitempty" require:"true"`
-}
-
-func (s DayStatisticsInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DayStatisticsInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DayStatisticsInfo) SetDate(v int64) *DayStatisticsInfo {
-	s.Date = &v
-	return s
-}
-
-func (s *DayStatisticsInfo) SetDayViews(v string) *DayStatisticsInfo {
-	s.DayViews = &v
-	return s
-}
-
-func (s *DayStatisticsInfo) SetDayViewDuration(v string) *DayStatisticsInfo {
-	s.DayViewDuration = &v
-	return s
-}
-
-func (s *DayStatisticsInfo) SetDayAverageViewDuration(v string) *DayStatisticsInfo {
-	s.DayAverageViewDuration = &v
-	return s
-}
-
-func (s *DayStatisticsInfo) SetRevenue(v string) *DayStatisticsInfo {
-	s.Revenue = &v
 	return s
 }
 
@@ -6230,6 +6324,8 @@ type CreateDciPreregistrationRequest struct {
 	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty"`
 	// 渠道标签
 	ChannelTerminal *string `json:"channel_terminal,omitempty" xml:"channel_terminal,omitempty"`
+	// 推荐分类明细信息
+	RecommendCategoryList []*RecommendCategoryDetail `json:"recommend_category_list,omitempty" xml:"recommend_category_list,omitempty" type:"Repeated"`
 }
 
 func (s CreateDciPreregistrationRequest) String() string {
@@ -6347,6 +6443,11 @@ func (s *CreateDciPreregistrationRequest) SetApplyType(v string) *CreateDciPrere
 
 func (s *CreateDciPreregistrationRequest) SetChannelTerminal(v string) *CreateDciPreregistrationRequest {
 	s.ChannelTerminal = &v
+	return s
+}
+
+func (s *CreateDciPreregistrationRequest) SetRecommendCategoryList(v []*RecommendCategoryDetail) *CreateDciPreregistrationRequest {
+	s.RecommendCategoryList = v
 	return s
 }
 
@@ -9708,6 +9809,76 @@ func (s *AddDciUsernocertResponse) SetDciUserStatus(v string) *AddDciUsernocertR
 	return s
 }
 
+type QueryDciSimilarfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件下载凭证
+	WorkFileId *string `json:"work_file_id,omitempty" xml:"work_file_id,omitempty" require:"true"`
+}
+
+func (s QueryDciSimilarfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciSimilarfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciSimilarfileRequest) SetAuthToken(v string) *QueryDciSimilarfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDciSimilarfileRequest) SetProductInstanceId(v string) *QueryDciSimilarfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDciSimilarfileRequest) SetWorkFileId(v string) *QueryDciSimilarfileRequest {
+	s.WorkFileId = &v
+	return s
+}
+
+type QueryDciSimilarfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件下载链接
+	WorkDownloadUrl *string `json:"work_download_url,omitempty" xml:"work_download_url,omitempty"`
+}
+
+func (s QueryDciSimilarfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciSimilarfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciSimilarfileResponse) SetReqMsgId(v string) *QueryDciSimilarfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDciSimilarfileResponse) SetResultCode(v string) *QueryDciSimilarfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDciSimilarfileResponse) SetResultMsg(v string) *QueryDciSimilarfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciSimilarfileResponse) SetWorkDownloadUrl(v string) *QueryDciSimilarfileResponse {
+	s.WorkDownloadUrl = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9964,7 +10135,7 @@ type QueryContentStatisticsRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 内容id
+	// 内容id列表
 	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
 	// 起始日期时间戳
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
@@ -10018,7 +10189,7 @@ type QueryContentStatisticsResponse struct {
 	TotalViewDuration *string `json:"total_view_duration,omitempty" xml:"total_view_duration,omitempty"`
 	// 总平均观看时长
 	TotalAverageViewDuration *string `json:"total_average_view_duration,omitempty" xml:"total_average_view_duration,omitempty"`
-	//  总预计收入
+	// 总预计收入
 	TotalRevenue *string `json:"total_revenue,omitempty" xml:"total_revenue,omitempty"`
 	// 每日详细统计列表
 	DayStatisticsList []*DayStatisticsInfo `json:"day_statistics_list,omitempty" xml:"day_statistics_list,omitempty" type:"Repeated"`
@@ -10069,6 +10240,90 @@ func (s *QueryContentStatisticsResponse) SetTotalRevenue(v string) *QueryContent
 
 func (s *QueryContentStatisticsResponse) SetDayStatisticsList(v []*DayStatisticsInfo) *QueryContentStatisticsResponse {
 	s.DayStatisticsList = v
+	return s
+}
+
+type QueryContentBatchstatisticsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 内容id列表
+	ContentIdList []*string `json:"content_id_list,omitempty" xml:"content_id_list,omitempty" require:"true" type:"Repeated"`
+	// 起始日期时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 截止日期时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+}
+
+func (s QueryContentBatchstatisticsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContentBatchstatisticsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContentBatchstatisticsRequest) SetAuthToken(v string) *QueryContentBatchstatisticsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsRequest) SetProductInstanceId(v string) *QueryContentBatchstatisticsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsRequest) SetContentIdList(v []*string) *QueryContentBatchstatisticsRequest {
+	s.ContentIdList = v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsRequest) SetStartTime(v int64) *QueryContentBatchstatisticsRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsRequest) SetEndTime(v int64) *QueryContentBatchstatisticsRequest {
+	s.EndTime = &v
+	return s
+}
+
+type QueryContentBatchstatisticsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 出海视频统计数据列表
+	OverseaContentStatisticsList []*OverseaContentStatistics `json:"oversea_content_statistics_list,omitempty" xml:"oversea_content_statistics_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryContentBatchstatisticsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContentBatchstatisticsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContentBatchstatisticsResponse) SetReqMsgId(v string) *QueryContentBatchstatisticsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsResponse) SetResultCode(v string) *QueryContentBatchstatisticsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsResponse) SetResultMsg(v string) *QueryContentBatchstatisticsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContentBatchstatisticsResponse) SetOverseaContentStatisticsList(v []*OverseaContentStatistics) *QueryContentBatchstatisticsResponse {
+	s.OverseaContentStatisticsList = v
 	return s
 }
 
@@ -10586,7 +10841,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.51"),
+				"sdk_version":      tea.String("1.17.56"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12447,6 +12702,40 @@ func (client *Client) AddDciUsernocertEx(request *AddDciUsernocertRequest, heade
 }
 
 /**
+ * Description: 查询相似作品下载链接
+ * Summary: 查询相似作品下载链接
+ */
+func (client *Client) QueryDciSimilarfile(request *QueryDciSimilarfileRequest) (_result *QueryDciSimilarfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDciSimilarfileResponse{}
+	_body, _err := client.QueryDciSimilarfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询相似作品下载链接
+ * Summary: 查询相似作品下载链接
+ */
+func (client *Client) QueryDciSimilarfileEx(request *QueryDciSimilarfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciSimilarfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDciSimilarfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.similarfile.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 添加发布视频内容
  * Summary: 发布视频内容
  */
@@ -12541,6 +12830,40 @@ func (client *Client) QueryContentStatisticsEx(request *QueryContentStatisticsRe
 	}
 	_result = &QueryContentStatisticsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.content.statistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询视频内容统计数据
+ * Summary: 批量查询视频统计信息
+ */
+func (client *Client) QueryContentBatchstatistics(request *QueryContentBatchstatisticsRequest) (_result *QueryContentBatchstatisticsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContentBatchstatisticsResponse{}
+	_body, _err := client.QueryContentBatchstatisticsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询视频内容统计数据
+ * Summary: 批量查询视频统计信息
+ */
+func (client *Client) QueryContentBatchstatisticsEx(request *QueryContentBatchstatisticsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContentBatchstatisticsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContentBatchstatisticsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.content.batchstatistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
