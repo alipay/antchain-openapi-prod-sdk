@@ -501,7 +501,7 @@ class ResembleRiskData(TeaModel):
         work_name: str = None,
         work_type: str = None,
         score: str = None,
-        work_download_url: str = None,
+        work_file_id: str = None,
         resemble_details: List[ResembleDetail] = None,
     ):
         # 重复作品ID
@@ -512,8 +512,8 @@ class ResembleRiskData(TeaModel):
         self.work_type = work_type
         # 相似值
         self.score = score
-        # 相似作品下载链接
-        self.work_download_url = work_download_url
+        # 相似作品下载凭证
+        self.work_file_id = work_file_id
         # 相似明细
         self.resemble_details = resemble_details
 
@@ -538,8 +538,8 @@ class ResembleRiskData(TeaModel):
             result['work_type'] = self.work_type
         if self.score is not None:
             result['score'] = self.score
-        if self.work_download_url is not None:
-            result['work_download_url'] = self.work_download_url
+        if self.work_file_id is not None:
+            result['work_file_id'] = self.work_file_id
         result['resemble_details'] = []
         if self.resemble_details is not None:
             for k in self.resemble_details:
@@ -556,8 +556,8 @@ class ResembleRiskData(TeaModel):
             self.work_type = m.get('work_type')
         if m.get('score') is not None:
             self.score = m.get('score')
-        if m.get('work_download_url') is not None:
-            self.work_download_url = m.get('work_download_url')
+        if m.get('work_file_id') is not None:
+            self.work_file_id = m.get('work_file_id')
         self.resemble_details = []
         if m.get('resemble_details') is not None:
             for k in m.get('resemble_details'):
@@ -570,12 +570,16 @@ class ContentRiskData(TeaModel):
     def __init__(
         self,
         risk_name: str = None,
+        risk_result: bool = None,
     ):
         # 风险名称
         self.risk_name = risk_name
+        # 风险是否通过审查
+        self.risk_result = risk_result
 
     def validate(self):
         self.validate_required(self.risk_name, 'risk_name')
+        self.validate_required(self.risk_result, 'risk_result')
 
     def to_map(self):
         _map = super().to_map()
@@ -585,12 +589,16 @@ class ContentRiskData(TeaModel):
         result = dict()
         if self.risk_name is not None:
             result['risk_name'] = self.risk_name
+        if self.risk_result is not None:
+            result['risk_result'] = self.risk_result
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('risk_name') is not None:
             self.risk_name = m.get('risk_name')
+        if m.get('risk_result') is not None:
+            self.risk_result = m.get('risk_result')
         return self
 
 
@@ -1203,6 +1211,66 @@ class ReceiveInfo(TeaModel):
         return self
 
 
+class DayStatisticsInfo(TeaModel):
+    def __init__(
+        self,
+        date: int = None,
+        day_views: str = None,
+        day_view_duration: str = None,
+        day_average_view_duration: str = None,
+        revenue: str = None,
+    ):
+        # 日期时间戳
+        self.date = date
+        # 日观看次数
+        self.day_views = day_views
+        # 日观看时长
+        self.day_view_duration = day_view_duration
+        # 日平均观看时长
+        self.day_average_view_duration = day_average_view_duration
+        # 日预计收入
+        self.revenue = revenue
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.day_views, 'day_views')
+        self.validate_required(self.day_view_duration, 'day_view_duration')
+        self.validate_required(self.day_average_view_duration, 'day_average_view_duration')
+        self.validate_required(self.revenue, 'revenue')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.date is not None:
+            result['date'] = self.date
+        if self.day_views is not None:
+            result['day_views'] = self.day_views
+        if self.day_view_duration is not None:
+            result['day_view_duration'] = self.day_view_duration
+        if self.day_average_view_duration is not None:
+            result['day_average_view_duration'] = self.day_average_view_duration
+        if self.revenue is not None:
+            result['revenue'] = self.revenue
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('day_views') is not None:
+            self.day_views = m.get('day_views')
+        if m.get('day_view_duration') is not None:
+            self.day_view_duration = m.get('day_view_duration')
+        if m.get('day_average_view_duration') is not None:
+            self.day_average_view_duration = m.get('day_average_view_duration')
+        if m.get('revenue') is not None:
+            self.revenue = m.get('revenue')
+        return self
+
+
 class SeriesDiagramErrorReason(TeaModel):
     def __init__(
         self,
@@ -1798,6 +1866,83 @@ class EvidenceUrlInfo(TeaModel):
             self.url = m.get('url')
         if m.get('auto_surfing_minute') is not None:
             self.auto_surfing_minute = m.get('auto_surfing_minute')
+        return self
+
+
+class OverseaContentStatistics(TeaModel):
+    def __init__(
+        self,
+        content_id: str = None,
+        total_views: str = None,
+        total_view_duration: str = None,
+        total_average_view_duration: str = None,
+        total_revenue: str = None,
+        day_statistics_list: List[DayStatisticsInfo] = None,
+    ):
+        # 发布视频id
+        self.content_id = content_id
+        # 总观看次数
+        self.total_views = total_views
+        # 总观看时长
+        self.total_view_duration = total_view_duration
+        # 总平均观看时长
+        self.total_average_view_duration = total_average_view_duration
+        # 总预计收入
+        self.total_revenue = total_revenue
+        # 每日详细统计列表
+        self.day_statistics_list = day_statistics_list
+
+    def validate(self):
+        self.validate_required(self.content_id, 'content_id')
+        self.validate_required(self.total_views, 'total_views')
+        self.validate_required(self.total_view_duration, 'total_view_duration')
+        self.validate_required(self.total_average_view_duration, 'total_average_view_duration')
+        self.validate_required(self.total_revenue, 'total_revenue')
+        self.validate_required(self.day_statistics_list, 'day_statistics_list')
+        if self.day_statistics_list:
+            for k in self.day_statistics_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_id is not None:
+            result['content_id'] = self.content_id
+        if self.total_views is not None:
+            result['total_views'] = self.total_views
+        if self.total_view_duration is not None:
+            result['total_view_duration'] = self.total_view_duration
+        if self.total_average_view_duration is not None:
+            result['total_average_view_duration'] = self.total_average_view_duration
+        if self.total_revenue is not None:
+            result['total_revenue'] = self.total_revenue
+        result['day_statistics_list'] = []
+        if self.day_statistics_list is not None:
+            for k in self.day_statistics_list:
+                result['day_statistics_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content_id') is not None:
+            self.content_id = m.get('content_id')
+        if m.get('total_views') is not None:
+            self.total_views = m.get('total_views')
+        if m.get('total_view_duration') is not None:
+            self.total_view_duration = m.get('total_view_duration')
+        if m.get('total_average_view_duration') is not None:
+            self.total_average_view_duration = m.get('total_average_view_duration')
+        if m.get('total_revenue') is not None:
+            self.total_revenue = m.get('total_revenue')
+        self.day_statistics_list = []
+        if m.get('day_statistics_list') is not None:
+            for k in m.get('day_statistics_list'):
+                temp_model = DayStatisticsInfo()
+                self.day_statistics_list.append(temp_model.from_map(k))
         return self
 
 
@@ -2987,6 +3132,49 @@ class RecordScreenData(TeaModel):
         return self
 
 
+class RecommendCategoryDetail(TeaModel):
+    def __init__(
+        self,
+        recommend_work_category: str = None,
+        category_similar_ratio: str = None,
+        category_risk_rank: str = None,
+    ):
+        # 推荐分类类型
+        self.recommend_work_category = recommend_work_category
+        # 作品类型相似度，保留2位小数
+        self.category_similar_ratio = category_similar_ratio
+        # 作品类型风险等级
+        self.category_risk_rank = category_risk_rank
+
+    def validate(self):
+        self.validate_required(self.recommend_work_category, 'recommend_work_category')
+        self.validate_required(self.category_similar_ratio, 'category_similar_ratio')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.recommend_work_category is not None:
+            result['recommend_work_category'] = self.recommend_work_category
+        if self.category_similar_ratio is not None:
+            result['category_similar_ratio'] = self.category_similar_ratio
+        if self.category_risk_rank is not None:
+            result['category_risk_rank'] = self.category_risk_rank
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('recommend_work_category') is not None:
+            self.recommend_work_category = m.get('recommend_work_category')
+        if m.get('category_similar_ratio') is not None:
+            self.category_similar_ratio = m.get('category_similar_ratio')
+        if m.get('category_risk_rank') is not None:
+            self.category_risk_rank = m.get('category_risk_rank')
+        return self
+
+
 class ScreenshotData(TeaModel):
     def __init__(
         self,
@@ -3999,66 +4187,6 @@ class MonitorType(TeaModel):
             self.file_type = m.get('file_type')
         if m.get('submit_type') is not None:
             self.submit_type = m.get('submit_type')
-        return self
-
-
-class DayStatisticsInfo(TeaModel):
-    def __init__(
-        self,
-        date: int = None,
-        day_views: str = None,
-        day_view_duration: str = None,
-        day_average_view_duration: str = None,
-        revenue: str = None,
-    ):
-        # 日期时间戳
-        self.date = date
-        # 日观看次数
-        self.day_views = day_views
-        # 日观看时长
-        self.day_view_duration = day_view_duration
-        # 日平均观看时长
-        self.day_average_view_duration = day_average_view_duration
-        # 日预计收入
-        self.revenue = revenue
-
-    def validate(self):
-        self.validate_required(self.date, 'date')
-        self.validate_required(self.day_views, 'day_views')
-        self.validate_required(self.day_view_duration, 'day_view_duration')
-        self.validate_required(self.day_average_view_duration, 'day_average_view_duration')
-        self.validate_required(self.revenue, 'revenue')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.date is not None:
-            result['date'] = self.date
-        if self.day_views is not None:
-            result['day_views'] = self.day_views
-        if self.day_view_duration is not None:
-            result['day_view_duration'] = self.day_view_duration
-        if self.day_average_view_duration is not None:
-            result['day_average_view_duration'] = self.day_average_view_duration
-        if self.revenue is not None:
-            result['revenue'] = self.revenue
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('date') is not None:
-            self.date = m.get('date')
-        if m.get('day_views') is not None:
-            self.day_views = m.get('day_views')
-        if m.get('day_view_duration') is not None:
-            self.day_view_duration = m.get('day_view_duration')
-        if m.get('day_average_view_duration') is not None:
-            self.day_average_view_duration = m.get('day_average_view_duration')
-        if m.get('revenue') is not None:
-            self.revenue = m.get('revenue')
         return self
 
 
@@ -7651,6 +7779,7 @@ class CreateDciPreregistrationRequest(TeaModel):
         copyright_owner_ids: List[str] = None,
         apply_type: str = None,
         channel_terminal: str = None,
+        recommend_category_list: List[RecommendCategoryDetail] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7695,6 +7824,8 @@ class CreateDciPreregistrationRequest(TeaModel):
         self.apply_type = apply_type
         # 渠道标签
         self.channel_terminal = channel_terminal
+        # 推荐分类明细信息
+        self.recommend_category_list = recommend_category_list
 
     def validate(self):
         self.validate_required(self.work_name, 'work_name')
@@ -7717,6 +7848,10 @@ class CreateDciPreregistrationRequest(TeaModel):
             self.proxy_data.validate()
         self.validate_required(self.client_token, 'client_token')
         self.validate_required(self.copyright_owner_ids, 'copyright_owner_ids')
+        if self.recommend_category_list:
+            for k in self.recommend_category_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7768,6 +7903,10 @@ class CreateDciPreregistrationRequest(TeaModel):
             result['apply_type'] = self.apply_type
         if self.channel_terminal is not None:
             result['channel_terminal'] = self.channel_terminal
+        result['recommend_category_list'] = []
+        if self.recommend_category_list is not None:
+            for k in self.recommend_category_list:
+                result['recommend_category_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -7820,6 +7959,11 @@ class CreateDciPreregistrationRequest(TeaModel):
             self.apply_type = m.get('apply_type')
         if m.get('channel_terminal') is not None:
             self.channel_terminal = m.get('channel_terminal')
+        self.recommend_category_list = []
+        if m.get('recommend_category_list') is not None:
+            for k in m.get('recommend_category_list'):
+                temp_model = RecommendCategoryDetail()
+                self.recommend_category_list.append(temp_model.from_map(k))
         return self
 
 
@@ -11955,6 +12099,96 @@ class AddDciUsernocertResponse(TeaModel):
         return self
 
 
+class QueryDciSimilarfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        work_file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件下载凭证
+        self.work_file_id = work_file_id
+
+    def validate(self):
+        self.validate_required(self.work_file_id, 'work_file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.work_file_id is not None:
+            result['work_file_id'] = self.work_file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('work_file_id') is not None:
+            self.work_file_id = m.get('work_file_id')
+        return self
+
+
+class QueryDciSimilarfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        work_download_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件下载链接
+        self.work_download_url = work_download_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.work_download_url is not None:
+            result['work_download_url'] = self.work_download_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('work_download_url') is not None:
+            self.work_download_url = m.get('work_download_url')
+        return self
+
+
 class AddContentRequest(TeaModel):
     def __init__(
         self,
@@ -12265,7 +12499,7 @@ class QueryContentStatisticsRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 内容id
+        # 内容id列表
         self.content_id = content_id
         # 起始日期时间戳
         self.start_time = start_time
@@ -12392,6 +12626,120 @@ class QueryContentStatisticsResponse(TeaModel):
             for k in m.get('day_statistics_list'):
                 temp_model = DayStatisticsInfo()
                 self.day_statistics_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryContentBatchstatisticsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        content_id_list: List[str] = None,
+        start_time: int = None,
+        end_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 内容id列表
+        self.content_id_list = content_id_list
+        # 起始日期时间戳
+        self.start_time = start_time
+        # 截止日期时间戳
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.content_id_list, 'content_id_list')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.content_id_list is not None:
+            result['content_id_list'] = self.content_id_list
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('content_id_list') is not None:
+            self.content_id_list = m.get('content_id_list')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class QueryContentBatchstatisticsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        oversea_content_statistics_list: List[OverseaContentStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 出海视频统计数据列表
+        self.oversea_content_statistics_list = oversea_content_statistics_list
+
+    def validate(self):
+        if self.oversea_content_statistics_list:
+            for k in self.oversea_content_statistics_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['oversea_content_statistics_list'] = []
+        if self.oversea_content_statistics_list is not None:
+            for k in self.oversea_content_statistics_list:
+                result['oversea_content_statistics_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.oversea_content_statistics_list = []
+        if m.get('oversea_content_statistics_list') is not None:
+            for k in m.get('oversea_content_statistics_list'):
+                temp_model = OverseaContentStatistics()
+                self.oversea_content_statistics_list.append(temp_model.from_map(k))
         return self
 
 

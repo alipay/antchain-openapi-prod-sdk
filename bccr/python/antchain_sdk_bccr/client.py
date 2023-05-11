@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.51',
+                    'sdk_version': '1.17.56',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.51',
+                    'sdk_version': '1.17.56',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -3243,6 +3243,62 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bccr.dci.usernocert.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dci_similarfile(
+        self,
+        request: bccr_models.QueryDciSimilarfileRequest,
+    ) -> bccr_models.QueryDciSimilarfileResponse:
+        """
+        Description: 查询相似作品下载链接
+        Summary: 查询相似作品下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_similarfile_ex(request, headers, runtime)
+
+    async def query_dci_similarfile_async(
+        self,
+        request: bccr_models.QueryDciSimilarfileRequest,
+    ) -> bccr_models.QueryDciSimilarfileResponse:
+        """
+        Description: 查询相似作品下载链接
+        Summary: 查询相似作品下载链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_similarfile_ex_async(request, headers, runtime)
+
+    def query_dci_similarfile_ex(
+        self,
+        request: bccr_models.QueryDciSimilarfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciSimilarfileResponse:
+        """
+        Description: 查询相似作品下载链接
+        Summary: 查询相似作品下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciSimilarfileResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_similarfile_ex_async(
+        self,
+        request: bccr_models.QueryDciSimilarfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciSimilarfileResponse:
+        """
+        Description: 查询相似作品下载链接
+        Summary: 查询相似作品下载链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciSimilarfileResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def add_content(
         self,
         request: bccr_models.AddContentRequest,
@@ -3409,6 +3465,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.QueryContentStatisticsResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.content.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_content_batchstatistics(
+        self,
+        request: bccr_models.QueryContentBatchstatisticsRequest,
+    ) -> bccr_models.QueryContentBatchstatisticsResponse:
+        """
+        Description: 批量查询视频内容统计数据
+        Summary: 批量查询视频统计信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_content_batchstatistics_ex(request, headers, runtime)
+
+    async def query_content_batchstatistics_async(
+        self,
+        request: bccr_models.QueryContentBatchstatisticsRequest,
+    ) -> bccr_models.QueryContentBatchstatisticsResponse:
+        """
+        Description: 批量查询视频内容统计数据
+        Summary: 批量查询视频统计信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_content_batchstatistics_ex_async(request, headers, runtime)
+
+    def query_content_batchstatistics_ex(
+        self,
+        request: bccr_models.QueryContentBatchstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryContentBatchstatisticsResponse:
+        """
+        Description: 批量查询视频内容统计数据
+        Summary: 批量查询视频统计信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryContentBatchstatisticsResponse(),
+            self.do_request('1.0', 'blockchain.bccr.content.batchstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_content_batchstatistics_ex_async(
+        self,
+        request: bccr_models.QueryContentBatchstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryContentBatchstatisticsResponse:
+        """
+        Description: 批量查询视频内容统计数据
+        Summary: 批量查询视频统计信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryContentBatchstatisticsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.content.batchstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_good(
