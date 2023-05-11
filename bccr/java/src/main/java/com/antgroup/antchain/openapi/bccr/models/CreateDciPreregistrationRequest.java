@@ -103,6 +103,10 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @NameInMap("channel_terminal")
     public String channelTerminal;
 
+    // 推荐分类明细信息
+    @NameInMap("recommend_category_list")
+    public java.util.List<RecommendCategoryDetail> recommendCategoryList;
+
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -282,6 +286,14 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public String getChannelTerminal() {
         return this.channelTerminal;
+    }
+
+    public CreateDciPreregistrationRequest setRecommendCategoryList(java.util.List<RecommendCategoryDetail> recommendCategoryList) {
+        this.recommendCategoryList = recommendCategoryList;
+        return this;
+    }
+    public java.util.List<RecommendCategoryDetail> getRecommendCategoryList() {
+        return this.recommendCategoryList;
     }
 
 }

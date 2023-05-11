@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class QueryContentStatisticsRequest extends TeaModel {
+public class QueryContentBatchstatisticsRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -12,9 +12,9 @@ public class QueryContentStatisticsRequest extends TeaModel {
     public String productInstanceId;
 
     // 内容id列表
-    @NameInMap("content_id")
+    @NameInMap("content_id_list")
     @Validation(required = true)
-    public String contentId;
+    public java.util.List<String> contentIdList;
 
     // 起始日期时间戳
     @NameInMap("start_time")
@@ -26,12 +26,12 @@ public class QueryContentStatisticsRequest extends TeaModel {
     @Validation(required = true)
     public Long endTime;
 
-    public static QueryContentStatisticsRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryContentStatisticsRequest self = new QueryContentStatisticsRequest();
+    public static QueryContentBatchstatisticsRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryContentBatchstatisticsRequest self = new QueryContentBatchstatisticsRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryContentStatisticsRequest setAuthToken(String authToken) {
+    public QueryContentBatchstatisticsRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class QueryContentStatisticsRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryContentStatisticsRequest setProductInstanceId(String productInstanceId) {
+    public QueryContentBatchstatisticsRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,15 +47,15 @@ public class QueryContentStatisticsRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryContentStatisticsRequest setContentId(String contentId) {
-        this.contentId = contentId;
+    public QueryContentBatchstatisticsRequest setContentIdList(java.util.List<String> contentIdList) {
+        this.contentIdList = contentIdList;
         return this;
     }
-    public String getContentId() {
-        return this.contentId;
+    public java.util.List<String> getContentIdList() {
+        return this.contentIdList;
     }
 
-    public QueryContentStatisticsRequest setStartTime(Long startTime) {
+    public QueryContentBatchstatisticsRequest setStartTime(Long startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -63,7 +63,7 @@ public class QueryContentStatisticsRequest extends TeaModel {
         return this.startTime;
     }
 
-    public QueryContentStatisticsRequest setEndTime(Long endTime) {
+    public QueryContentBatchstatisticsRequest setEndTime(Long endTime) {
         this.endTime = endTime;
         return this;
     }

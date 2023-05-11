@@ -21,9 +21,9 @@ public class ResembleRiskData extends TeaModel {
     @NameInMap("score")
     public String score;
 
-    // 相似作品下载链接
-    @NameInMap("work_download_url")
-    public String workDownloadUrl;
+    // 相似作品下载凭证
+    @NameInMap("work_file_id")
+    public String workFileId;
 
     // 相似明细
     @NameInMap("resemble_details")
@@ -66,12 +66,12 @@ public class ResembleRiskData extends TeaModel {
         return this.score;
     }
 
-    public ResembleRiskData setWorkDownloadUrl(String workDownloadUrl) {
-        this.workDownloadUrl = workDownloadUrl;
+    public ResembleRiskData setWorkFileId(String workFileId) {
+        this.workFileId = workFileId;
         return this;
     }
-    public String getWorkDownloadUrl() {
-        return this.workDownloadUrl;
+    public String getWorkFileId() {
+        return this.workFileId;
     }
 
     public ResembleRiskData setResembleDetails(java.util.List<ResembleDetail> resembleDetails) {

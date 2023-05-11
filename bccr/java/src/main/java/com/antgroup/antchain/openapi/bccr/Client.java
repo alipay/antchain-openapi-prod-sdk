@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.51"),
+                    new TeaPair("sdk_version", "1.17.56"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1169,6 +1169,25 @@ public class Client {
     }
 
     /**
+     * Description: 查询相似作品下载链接
+     * Summary: 查询相似作品下载链接
+     */
+    public QueryDciSimilarfileResponse queryDciSimilarfile(QueryDciSimilarfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciSimilarfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询相似作品下载链接
+     * Summary: 查询相似作品下载链接
+     */
+    public QueryDciSimilarfileResponse queryDciSimilarfileEx(QueryDciSimilarfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciSimilarfileResponse());
+    }
+
+    /**
      * Description: 添加发布视频内容
      * Summary: 发布视频内容
      */
@@ -1223,6 +1242,25 @@ public class Client {
     public QueryContentStatisticsResponse queryContentStatisticsEx(QueryContentStatisticsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.content.statistics.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContentStatisticsResponse());
+    }
+
+    /**
+     * Description: 批量查询视频内容统计数据
+     * Summary: 批量查询视频统计信息
+     */
+    public QueryContentBatchstatisticsResponse queryContentBatchstatistics(QueryContentBatchstatisticsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContentBatchstatisticsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量查询视频内容统计数据
+     * Summary: 批量查询视频统计信息
+     */
+    public QueryContentBatchstatisticsResponse queryContentBatchstatisticsEx(QueryContentBatchstatisticsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.content.batchstatistics.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContentBatchstatisticsResponse());
     }
 
     /**

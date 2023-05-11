@@ -28,7 +28,7 @@ public class QueryContentStatisticsResponse extends TeaModel {
     @NameInMap("total_average_view_duration")
     public String totalAverageViewDuration;
 
-    //  总预计收入
+    // 总预计收入
     @NameInMap("total_revenue")
     public String totalRevenue;
 
