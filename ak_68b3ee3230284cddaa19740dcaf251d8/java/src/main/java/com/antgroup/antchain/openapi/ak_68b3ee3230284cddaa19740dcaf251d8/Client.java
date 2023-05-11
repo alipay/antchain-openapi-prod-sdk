@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_68b3ee3230284cddaa19740dcaf251d8"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,25 +162,6 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test1
-     */
-    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test1
-     */
-    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
-    }
-
-    /**
      * Description: testc
      * Summary: 测试用api
      */
@@ -200,6 +181,44 @@ public class Client {
     }
 
     /**
+     * Description: 绑定API
+     * Summary: 绑定能力与API关系
+     */
+    public BindAntchainSaasAbilityResponse bindAntchainSaasAbility(BindAntchainSaasAbilityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAntchainSaasAbilityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绑定API
+     * Summary: 绑定能力与API关系
+     */
+    public BindAntchainSaasAbilityResponse bindAntchainSaasAbilityEx(BindAntchainSaasAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainSaasAbilityResponse());
+    }
+
+    /**
+     * Description: 根据api名称列表查询能力标签列表
+     * Summary: 根据api名称列表查询能力标签列表
+     */
+    public QueryAntchainSaasAbilityWithapinameResponse queryAntchainSaasAbilityWithapiname(QueryAntchainSaasAbilityWithapinameRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSaasAbilityWithapinameEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据api名称列表查询能力标签列表
+     * Summary: 根据api名称列表查询能力标签列表
+     */
+    public QueryAntchainSaasAbilityWithapinameResponse queryAntchainSaasAbilityWithapinameEx(QueryAntchainSaasAbilityWithapinameRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.withapiname.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasAbilityWithapinameResponse());
+    }
+
+    /**
      * Description: 测试能力中心九期API打标&能力绑定API使用
      * Summary: 能力中心九期测试
      */
@@ -216,5 +235,81 @@ public class Client {
     public BindDemoCenterAbilityResponse bindDemoCenterAbilityEx(BindDemoCenterAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.center.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoCenterAbilityResponse());
+    }
+
+    /**
+     * Description: 测试API绑定多个标签时的情况
+     * Summary: API绑定多个标签
+     */
+    public BindDemoMoreAbilityTestabcResponse bindDemoMoreAbilityTestabc(BindDemoMoreAbilityTestabcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoMoreAbilityTestabcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试API绑定多个标签时的情况
+     * Summary: API绑定多个标签
+     */
+    public BindDemoMoreAbilityTestabcResponse bindDemoMoreAbilityTestabcEx(BindDemoMoreAbilityTestabcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.more.ability.testabc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoMoreAbilityTestabcResponse());
+    }
+
+    /**
+     * Description: api上线回调接口
+     * Summary: api上线回调接口
+     */
+    public CallbackAntchainSaasAbilityResponse callbackAntchainSaasAbility(CallbackAntchainSaasAbilityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackAntchainSaasAbilityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: api上线回调接口
+     * Summary: api上线回调接口
+     */
+    public CallbackAntchainSaasAbilityResponse callbackAntchainSaasAbilityEx(CallbackAntchainSaasAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAntchainSaasAbilityResponse());
+    }
+
+    /**
+     * Description: 根据产品码+api code查询api protobuf信息
+     * Summary: 查询api protobuf信息（勿删）
+     */
+    public QueryAntchainSaasFoundationProtobufResponse queryAntchainSaasFoundationProtobuf(QueryAntchainSaasFoundationProtobufRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSaasFoundationProtobufEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据产品码+api code查询api protobuf信息
+     * Summary: 查询api protobuf信息（勿删）
+     */
+    public QueryAntchainSaasFoundationProtobufResponse queryAntchainSaasFoundationProtobufEx(QueryAntchainSaasFoundationProtobufRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.foundation.protobuf.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasFoundationProtobufResponse());
+    }
+
+    /**
+     * Description: 测试网关结果码和计量接口
+     * Summary: 网关结果码测试接口
+     */
+    public QueryAntchainSaasAbilityResultcodeResponse queryAntchainSaasAbilityResultcode(QueryAntchainSaasAbilityResultcodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSaasAbilityResultcodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试网关结果码和计量接口
+     * Summary: 网关结果码测试接口
+     */
+    public QueryAntchainSaasAbilityResultcodeResponse queryAntchainSaasAbilityResultcodeEx(QueryAntchainSaasAbilityResultcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.resultcode.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasAbilityResultcodeResponse());
     }
 }
