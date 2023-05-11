@@ -148,66 +148,184 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type BindDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 123
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+// api信息结构体
+type ApiInfoModel struct {
+	// api名称
+	ApiName *string `json:"api_name,omitempty" xml:"api_name,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 是否是内部接口 0对外 1对内
+	Internal *int64 `json:"internal,omitempty" xml:"internal,omitempty" require:"true"`
+	// api版本号
+	ApiVersion *string `json:"api_version,omitempty" xml:"api_version,omitempty" require:"true"`
+	// api描述
+	ApiDesc *string `json:"api_desc,omitempty" xml:"api_desc,omitempty" require:"true"`
+	// api所属网关产品id
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
 }
 
-func (s BindDemoAaaBbbCccRequest) String() string {
+func (s ApiInfoModel) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoAaaBbbCccRequest) GoString() string {
+func (s ApiInfoModel) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetAuthToken(v string) *BindDemoAaaBbbCccRequest {
-	s.AuthToken = &v
+func (s *ApiInfoModel) SetApiName(v string) *ApiInfoModel {
+	s.ApiName = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetProductInstanceId(v string) *BindDemoAaaBbbCccRequest {
-	s.ProductInstanceId = &v
+func (s *ApiInfoModel) SetProdCode(v string) *ApiInfoModel {
+	s.ProdCode = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetData(v string) *BindDemoAaaBbbCccRequest {
-	s.Data = &v
+func (s *ApiInfoModel) SetInternal(v int64) *ApiInfoModel {
+	s.Internal = &v
 	return s
 }
 
-type BindDemoAaaBbbCccResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+func (s *ApiInfoModel) SetApiVersion(v string) *ApiInfoModel {
+	s.ApiVersion = &v
+	return s
 }
 
-func (s BindDemoAaaBbbCccResponse) String() string {
+func (s *ApiInfoModel) SetApiDesc(v string) *ApiInfoModel {
+	s.ApiDesc = &v
+	return s
+}
+
+func (s *ApiInfoModel) SetProviderId(v string) *ApiInfoModel {
+	s.ProviderId = &v
+	return s
+}
+
+// 能力信息
+type AbilityInfo struct {
+	// 能力编号
+	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
+	// 能力名称
+	AbilityName *string `json:"ability_name,omitempty" xml:"ability_name,omitempty" require:"true"`
+	// 研发负责人
+	DevOwner *string `json:"dev_owner,omitempty" xml:"dev_owner,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 研发负责人邮箱前缀
+	DevOwnerPrefixEmail *string `json:"dev_owner_prefix_email,omitempty" xml:"dev_owner_prefix_email,omitempty" require:"true"`
+	// 产品负责人
+	ProductOwner *string `json:"product_owner,omitempty" xml:"product_owner,omitempty" require:"true"`
+	// 能力对应商业中台L5Code
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty"`
+	// apiInfoModels列表
+	ApiInfoModels []*ApiInfoModel `json:"api_info_models,omitempty" xml:"api_info_models,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AbilityInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoAaaBbbCccResponse) GoString() string {
+func (s AbilityInfo) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetReqMsgId(v string) *BindDemoAaaBbbCccResponse {
-	s.ReqMsgId = &v
+func (s *AbilityInfo) SetAbilityId(v string) *AbilityInfo {
+	s.AbilityId = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultCode = &v
+func (s *AbilityInfo) SetAbilityName(v string) *AbilityInfo {
+	s.AbilityName = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultMsg = &v
+func (s *AbilityInfo) SetDevOwner(v string) *AbilityInfo {
+	s.DevOwner = &v
+	return s
+}
+
+func (s *AbilityInfo) SetGmtCreate(v string) *AbilityInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *AbilityInfo) SetDescription(v string) *AbilityInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *AbilityInfo) SetDevOwnerPrefixEmail(v string) *AbilityInfo {
+	s.DevOwnerPrefixEmail = &v
+	return s
+}
+
+func (s *AbilityInfo) SetProductOwner(v string) *AbilityInfo {
+	s.ProductOwner = &v
+	return s
+}
+
+func (s *AbilityInfo) SetBusinessCode(v string) *AbilityInfo {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *AbilityInfo) SetApiInfoModels(v []*ApiInfoModel) *AbilityInfo {
+	s.ApiInfoModels = v
+	return s
+}
+
+// 能力与API关联信息
+type AbilityApiRelation struct {
+	// api名称
+	ApiName *string `json:"api_name,omitempty" xml:"api_name,omitempty" require:"true"`
+	// 能力列表
+	AbilityInfoList []*AbilityInfo `json:"ability_info_list,omitempty" xml:"ability_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AbilityApiRelation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AbilityApiRelation) GoString() string {
+	return s.String()
+}
+
+func (s *AbilityApiRelation) SetApiName(v string) *AbilityApiRelation {
+	s.ApiName = &v
+	return s
+}
+
+func (s *AbilityApiRelation) SetAbilityInfoList(v []*AbilityInfo) *AbilityApiRelation {
+	s.AbilityInfoList = v
+	return s
+}
+
+// api 信息
+type ApiInfo struct {
+	// 查询不动产接口
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// api pb文件定义
+	ApiProtobufDefinition *string `json:"api_protobuf_definition,omitempty" xml:"api_protobuf_definition,omitempty" require:"true"`
+}
+
+func (s ApiInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ApiInfo) SetApiCode(v string) *ApiInfo {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *ApiInfo) SetApiProtobufDefinition(v string) *ApiInfo {
+	s.ApiProtobufDefinition = &v
 	return s
 }
 
@@ -288,6 +406,160 @@ func (s *PublishDemoSaasTestTestcResponse) SetSex(v string) *PublishDemoSaasTest
 	return s
 }
 
+type BindAntchainSaasAbilityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// api名称
+	ApiName *string `json:"api_name,omitempty" xml:"api_name,omitempty" require:"true"`
+	// 能力id列表
+	AbilityIds []*string `json:"ability_ids,omitempty" xml:"ability_ids,omitempty" require:"true" type:"Repeated"`
+	// 操作人的域账号
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// api信息
+	ApiInfoModel *ApiInfoModel `json:"api_info_model,omitempty" xml:"api_info_model,omitempty" require:"true"`
+}
+
+func (s BindAntchainSaasAbilityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainSaasAbilityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetAuthToken(v string) *BindAntchainSaasAbilityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetProductInstanceId(v string) *BindAntchainSaasAbilityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetApiName(v string) *BindAntchainSaasAbilityRequest {
+	s.ApiName = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetAbilityIds(v []*string) *BindAntchainSaasAbilityRequest {
+	s.AbilityIds = v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetOperatorId(v string) *BindAntchainSaasAbilityRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityRequest) SetApiInfoModel(v *ApiInfoModel) *BindAntchainSaasAbilityRequest {
+	s.ApiInfoModel = v
+	return s
+}
+
+type BindAntchainSaasAbilityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindAntchainSaasAbilityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainSaasAbilityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainSaasAbilityResponse) SetReqMsgId(v string) *BindAntchainSaasAbilityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityResponse) SetResultCode(v string) *BindAntchainSaasAbilityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindAntchainSaasAbilityResponse) SetResultMsg(v string) *BindAntchainSaasAbilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAntchainSaasAbilityWithapinameRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// api名称列表
+	ApiNameList []*string `json:"api_name_list,omitempty" xml:"api_name_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasAbilityWithapinameRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasAbilityWithapinameRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameRequest) SetAuthToken(v string) *QueryAntchainSaasAbilityWithapinameRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameRequest) SetProductInstanceId(v string) *QueryAntchainSaasAbilityWithapinameRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameRequest) SetApiNameList(v []*string) *QueryAntchainSaasAbilityWithapinameRequest {
+	s.ApiNameList = v
+	return s
+}
+
+type QueryAntchainSaasAbilityWithapinameResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// api与能力信息关联列表
+	AbilityApiRelationList []*AbilityApiRelation `json:"ability_api_relation_list,omitempty" xml:"ability_api_relation_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasAbilityWithapinameResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasAbilityWithapinameResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameResponse) SetReqMsgId(v string) *QueryAntchainSaasAbilityWithapinameResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameResponse) SetResultCode(v string) *QueryAntchainSaasAbilityWithapinameResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameResponse) SetResultMsg(v string) *QueryAntchainSaasAbilityWithapinameResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityWithapinameResponse) SetAbilityApiRelationList(v []*AbilityApiRelation) *QueryAntchainSaasAbilityWithapinameResponse {
+	s.AbilityApiRelationList = v
+	return s
+}
+
 type BindDemoCenterAbilityRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -340,6 +612,265 @@ func (s *BindDemoCenterAbilityResponse) SetResultCode(v string) *BindDemoCenterA
 }
 
 func (s *BindDemoCenterAbilityResponse) SetResultMsg(v string) *BindDemoCenterAbilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BindDemoMoreAbilityTestabcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindDemoMoreAbilityTestabcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoMoreAbilityTestabcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoMoreAbilityTestabcRequest) SetAuthToken(v string) *BindDemoMoreAbilityTestabcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcRequest) SetProductInstanceId(v string) *BindDemoMoreAbilityTestabcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoMoreAbilityTestabcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDemoMoreAbilityTestabcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoMoreAbilityTestabcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetReqMsgId(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetResultCode(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoMoreAbilityTestabcResponse) SetResultMsg(v string) *BindDemoMoreAbilityTestabcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackAntchainSaasAbilityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// api名称集合
+	ApiNames []*string `json:"api_names,omitempty" xml:"api_names,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CallbackAntchainSaasAbilityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAntchainSaasAbilityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAntchainSaasAbilityRequest) SetAuthToken(v string) *CallbackAntchainSaasAbilityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackAntchainSaasAbilityRequest) SetProductInstanceId(v string) *CallbackAntchainSaasAbilityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackAntchainSaasAbilityRequest) SetApiNames(v []*string) *CallbackAntchainSaasAbilityRequest {
+	s.ApiNames = v
+	return s
+}
+
+type CallbackAntchainSaasAbilityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackAntchainSaasAbilityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAntchainSaasAbilityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAntchainSaasAbilityResponse) SetReqMsgId(v string) *CallbackAntchainSaasAbilityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackAntchainSaasAbilityResponse) SetResultCode(v string) *CallbackAntchainSaasAbilityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackAntchainSaasAbilityResponse) SetResultMsg(v string) *CallbackAntchainSaasAbilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAntchainSaasFoundationProtobufRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// api code列表信息
+	ApiCodeList []*string `json:"api_code_list,omitempty" xml:"api_code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasFoundationProtobufRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasFoundationProtobufRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasFoundationProtobufRequest) SetAuthToken(v string) *QueryAntchainSaasFoundationProtobufRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufRequest) SetProductInstanceId(v string) *QueryAntchainSaasFoundationProtobufRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufRequest) SetProductCode(v string) *QueryAntchainSaasFoundationProtobufRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufRequest) SetApiCodeList(v []*string) *QueryAntchainSaasFoundationProtobufRequest {
+	s.ApiCodeList = v
+	return s
+}
+
+type QueryAntchainSaasFoundationProtobufResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// api probuf信息
+	ApiInfoList []*ApiInfo `json:"api_info_list,omitempty" xml:"api_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasFoundationProtobufResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasFoundationProtobufResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasFoundationProtobufResponse) SetReqMsgId(v string) *QueryAntchainSaasFoundationProtobufResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufResponse) SetResultCode(v string) *QueryAntchainSaasFoundationProtobufResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufResponse) SetResultMsg(v string) *QueryAntchainSaasFoundationProtobufResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainSaasFoundationProtobufResponse) SetApiInfoList(v []*ApiInfo) *QueryAntchainSaasFoundationProtobufResponse {
+	s.ApiInfoList = v
+	return s
+}
+
+type QueryAntchainSaasAbilityResultcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1-INTERNAL_ERROR，2-TOO_MANY_REQUESTS，3-UNKNOW_ERROR，4-ACCESS_DENIED，5-OK，6-CUSTOM_RESULT_CODE_ONE，7-CUSTOM_RESULT_CODE_TWO
+	Index *int64 `json:"index,omitempty" xml:"index,omitempty" require:"true"`
+}
+
+func (s QueryAntchainSaasAbilityResultcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasAbilityResultcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeRequest) SetAuthToken(v string) *QueryAntchainSaasAbilityResultcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeRequest) SetProductInstanceId(v string) *QueryAntchainSaasAbilityResultcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeRequest) SetIndex(v int64) *QueryAntchainSaasAbilityResultcodeRequest {
+	s.Index = &v
+	return s
+}
+
+type QueryAntchainSaasAbilityResultcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAntchainSaasAbilityResultcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasAbilityResultcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeResponse) SetReqMsgId(v string) *QueryAntchainSaasAbilityResultcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeResponse) SetResultCode(v string) *QueryAntchainSaasAbilityResultcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasAbilityResultcodeResponse) SetResultMsg(v string) *QueryAntchainSaasAbilityResultcodeResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -466,7 +997,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_68b3ee3230284cddaa19740dcaf251d8"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -525,40 +1056,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test1
- */
-func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.BindDemoAaaBbbCccEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test1
- */
-func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: testc
  * Summary: 测试用api
  */
@@ -593,6 +1090,74 @@ func (client *Client) PublishDemoSaasTestTestcEx(request *PublishDemoSaasTestTes
 }
 
 /**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+func (client *Client) BindAntchainSaasAbility(request *BindAntchainSaasAbilityRequest) (_result *BindAntchainSaasAbilityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindAntchainSaasAbilityResponse{}
+	_body, _err := client.BindAntchainSaasAbilityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+func (client *Client) BindAntchainSaasAbilityEx(request *BindAntchainSaasAbilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntchainSaasAbilityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindAntchainSaasAbilityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.ability.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+func (client *Client) QueryAntchainSaasAbilityWithapiname(request *QueryAntchainSaasAbilityWithapinameRequest) (_result *QueryAntchainSaasAbilityWithapinameResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainSaasAbilityWithapinameResponse{}
+	_body, _err := client.QueryAntchainSaasAbilityWithapinameEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+func (client *Client) QueryAntchainSaasAbilityWithapinameEx(request *QueryAntchainSaasAbilityWithapinameRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainSaasAbilityWithapinameResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainSaasAbilityWithapinameResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.ability.withapiname.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 测试能力中心九期API打标&能力绑定API使用
  * Summary: 能力中心九期测试
  */
@@ -619,6 +1184,142 @@ func (client *Client) BindDemoCenterAbilityEx(request *BindDemoCenterAbilityRequ
 	}
 	_result = &BindDemoCenterAbilityResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.center.ability.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试API绑定多个标签时的情况
+ * Summary: API绑定多个标签
+ */
+func (client *Client) BindDemoMoreAbilityTestabc(request *BindDemoMoreAbilityTestabcRequest) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoMoreAbilityTestabcResponse{}
+	_body, _err := client.BindDemoMoreAbilityTestabcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试API绑定多个标签时的情况
+ * Summary: API绑定多个标签
+ */
+func (client *Client) BindDemoMoreAbilityTestabcEx(request *BindDemoMoreAbilityTestabcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoMoreAbilityTestabcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoMoreAbilityTestabcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.more.ability.testabc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+func (client *Client) CallbackAntchainSaasAbility(request *CallbackAntchainSaasAbilityRequest) (_result *CallbackAntchainSaasAbilityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackAntchainSaasAbilityResponse{}
+	_body, _err := client.CallbackAntchainSaasAbilityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+func (client *Client) CallbackAntchainSaasAbilityEx(request *CallbackAntchainSaasAbilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAntchainSaasAbilityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackAntchainSaasAbilityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.ability.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+func (client *Client) QueryAntchainSaasFoundationProtobuf(request *QueryAntchainSaasFoundationProtobufRequest) (_result *QueryAntchainSaasFoundationProtobufResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainSaasFoundationProtobufResponse{}
+	_body, _err := client.QueryAntchainSaasFoundationProtobufEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+func (client *Client) QueryAntchainSaasFoundationProtobufEx(request *QueryAntchainSaasFoundationProtobufRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainSaasFoundationProtobufResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainSaasFoundationProtobufResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.foundation.protobuf.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+func (client *Client) QueryAntchainSaasAbilityResultcode(request *QueryAntchainSaasAbilityResultcodeRequest) (_result *QueryAntchainSaasAbilityResultcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainSaasAbilityResultcodeResponse{}
+	_body, _err := client.QueryAntchainSaasAbilityResultcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+func (client *Client) QueryAntchainSaasAbilityResultcodeEx(request *QueryAntchainSaasAbilityResultcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainSaasAbilityResultcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainSaasAbilityResultcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.ability.resultcode.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
