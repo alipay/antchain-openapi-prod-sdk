@@ -30,10 +30,10 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string Score { get; set; }
 
-        // 相似作品下载链接
-        [NameInMap("work_download_url")]
+        // 相似作品下载凭证
+        [NameInMap("work_file_id")]
         [Validation(Required=false)]
-        public string WorkDownloadUrl { get; set; }
+        public string WorkFileId { get; set; }
 
         // 相似明细
         [NameInMap("resemble_details")]

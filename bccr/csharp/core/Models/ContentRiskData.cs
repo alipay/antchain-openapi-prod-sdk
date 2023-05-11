@@ -15,6 +15,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string RiskName { get; set; }
 
+        // 风险是否通过审查
+        [NameInMap("risk_result")]
+        [Validation(Required=true)]
+        public bool? RiskResult { get; set; }
+
     }
 
 }

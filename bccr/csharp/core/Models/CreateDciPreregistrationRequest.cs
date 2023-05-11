@@ -118,6 +118,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ChannelTerminal { get; set; }
 
+        // 推荐分类明细信息
+        [NameInMap("recommend_category_list")]
+        [Validation(Required=false)]
+        public List<RecommendCategoryDetail> RecommendCategoryList { get; set; }
+
     }
 
 }

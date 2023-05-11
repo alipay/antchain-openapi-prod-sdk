@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class QueryContentStatisticsRequest : TeaModel {
+    public class QueryContentBatchstatisticsRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -19,9 +19,9 @@ namespace AntChain.SDK.BCCR.Models
         public string ProductInstanceId { get; set; }
 
         // 内容id列表
-        [NameInMap("content_id")]
+        [NameInMap("content_id_list")]
         [Validation(Required=true)]
-        public string ContentId { get; set; }
+        public List<string> ContentIdList { get; set; }
 
         // 起始日期时间戳
         [NameInMap("start_time")]

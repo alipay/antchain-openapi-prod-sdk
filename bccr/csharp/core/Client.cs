@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.51"},
+                        {"sdk_version", "1.17.56"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.51"},
+                        {"sdk_version", "1.17.56"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2548,6 +2548,48 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
+         * Description: 查询相似作品下载链接
+         * Summary: 查询相似作品下载链接
+         */
+        public QueryDciSimilarfileResponse QueryDciSimilarfile(QueryDciSimilarfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDciSimilarfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询相似作品下载链接
+         * Summary: 查询相似作品下载链接
+         */
+        public async Task<QueryDciSimilarfileResponse> QueryDciSimilarfileAsync(QueryDciSimilarfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDciSimilarfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询相似作品下载链接
+         * Summary: 查询相似作品下载链接
+         */
+        public QueryDciSimilarfileResponse QueryDciSimilarfileEx(QueryDciSimilarfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciSimilarfileResponse>(DoRequest("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询相似作品下载链接
+         * Summary: 查询相似作品下载链接
+         */
+        public async Task<QueryDciSimilarfileResponse> QueryDciSimilarfileExAsync(QueryDciSimilarfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciSimilarfileResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 添加发布视频内容
          * Summary: 发布视频内容
          */
@@ -2671,6 +2713,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryContentStatisticsResponse>(await DoRequestAsync("1.0", "blockchain.bccr.content.statistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量查询视频内容统计数据
+         * Summary: 批量查询视频统计信息
+         */
+        public QueryContentBatchstatisticsResponse QueryContentBatchstatistics(QueryContentBatchstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContentBatchstatisticsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量查询视频内容统计数据
+         * Summary: 批量查询视频统计信息
+         */
+        public async Task<QueryContentBatchstatisticsResponse> QueryContentBatchstatisticsAsync(QueryContentBatchstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContentBatchstatisticsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量查询视频内容统计数据
+         * Summary: 批量查询视频统计信息
+         */
+        public QueryContentBatchstatisticsResponse QueryContentBatchstatisticsEx(QueryContentBatchstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContentBatchstatisticsResponse>(DoRequest("1.0", "blockchain.bccr.content.batchstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量查询视频内容统计数据
+         * Summary: 批量查询视频统计信息
+         */
+        public async Task<QueryContentBatchstatisticsResponse> QueryContentBatchstatisticsExAsync(QueryContentBatchstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContentBatchstatisticsResponse>(await DoRequestAsync("1.0", "blockchain.bccr.content.batchstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
