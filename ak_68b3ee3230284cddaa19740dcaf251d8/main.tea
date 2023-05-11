@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
+    _prod_code = 'ak_68b3ee3230284cddaa19740dcaf251d8',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -159,40 +161,58 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model BindDemoAaaBbbCccRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 123
-  data: string(name='data'),
+// api信息结构体
+model ApiInfoModel {
+  // api名称
+  apiName: string(name='api_name', example='test'),
+  // 产品码
+  prodCode: string(name='prod_code', example='test'),
+  // 是否是内部接口 0对外 1对内
+  internal: long(name='internal', example='test'),
+  // api版本号
+  apiVersion: string(name='api_version', example='test'),
+  // api描述
+  apiDesc: string(name='api_desc', example='test'),
+  // api所属网关产品id
+  providerId: string(name='provider_id', example='test'),
 }
 
-model BindDemoAaaBbbCccResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
+// 能力信息
+model AbilityInfo {
+  // 能力编号
+  abilityId: string(name='ability_id', example='ak_3821c8f0145440dab91b9b23edb1dc73'),
+  // 能力名称
+  abilityName: string(name='ability_name', example='B2B支付网关'),
+  // 研发负责人
+  devOwner: string(name='dev_owner', example='张三'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2021-12-30 00:00:00'),
+  // 描述信息
+  description: string(name='description', example='适用场景：企业资金支付场景   适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业   归属行业线：B类基础产品   产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付需求自动发送给企业网银做财务支出的确认和复核。'),
+  // 研发负责人邮箱前缀
+  devOwnerPrefixEmail: string(name='dev_owner_prefix_email', example='qiujianglong.qjl'),
+  // 产品负责人
+  productOwner: string(name='product_owner', example='江来'),
+  // 能力对应商业中台L5Code
+  businessCode?: string(name='business_code', example='DMZNFM00883001'),
+  // apiInfoModels列表
+  apiInfoModels: [ ApiInfoModel ](name='api_info_models', example='test'),
 }
 
-/**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
- */
-async function bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): BindDemoAaaBbbCccResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return bindDemoAaaBbbCccEx(request, headers, runtime);
+// 能力与API关联信息
+model AbilityApiRelation {
+  // api名称
+  apiName: string(name='api_name', example='antchain.saas.ability.withproduct.query'),
+  // 能力列表
+  abilityInfoList: [ AbilityInfo ](name='ability_info_list', example='[{"abilityId":"ak_3821c8f0145440dab91b9b23edb1dc73","abilityName":"B2B支付网关","devOwner":"张三","gmtCreate":"2023-01-02 12:00:00","description":"适用场景：企业资金支付场景 适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业 归属行业线：B类基础产品 产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付"}] '),
 }
 
-/**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test
- */
-async function bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCccResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+// api 信息
+model ApiInfo {
+  // 查询不动产接口
+  apiCode: string(name='api_code', example='queryA'),
+  // api pb文件定义
+  apiProtobufDefinition: string(name='api_protobuf_definition', example='api'),
 }
 
 model PublishDemoSaasTestTestcRequest = {
@@ -233,6 +253,86 @@ async function publishDemoSaasTestTestc(request: PublishDemoSaasTestTestcRequest
 async function publishDemoSaasTestTestcEx(request: PublishDemoSaasTestTestcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishDemoSaasTestTestcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.saas.test.testc.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindAntchainSaasAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 能力id列表
+  abilityIds: [ string ](name='ability_ids'),
+  // 操作人的域账号
+  operatorId: string(name='operator_id'),
+  // api信息
+  apiInfoModel: ApiInfoModel(name='api_info_model'),
+}
+
+model BindAntchainSaasAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAntchainSaasAbility(request: BindAntchainSaasAbilityRequest): BindAntchainSaasAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAntchainSaasAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAntchainSaasAbilityEx(request: BindAntchainSaasAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAntchainSaasAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSaasAbilityWithapinameRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称列表
+  apiNameList: [ string ](name='api_name_list'),
+}
+
+model QueryAntchainSaasAbilityWithapinameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api与能力信息关联列表
+  abilityApiRelationList?: [ AbilityApiRelation ](name='ability_api_relation_list'),
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+async function queryAntchainSaasAbilityWithapiname(request: QueryAntchainSaasAbilityWithapinameRequest): QueryAntchainSaasAbilityWithapinameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSaasAbilityWithapinameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据api名称列表查询能力标签列表
+ * Summary: 根据api名称列表查询能力标签列表
+ */
+async function queryAntchainSaasAbilityWithapinameEx(request: QueryAntchainSaasAbilityWithapinameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasAbilityWithapinameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.withapiname.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BindDemoCenterAbilityRequest = {
@@ -301,5 +401,117 @@ async function bindDemoMoreAbilityTestabc(request: BindDemoMoreAbilityTestabcReq
 async function bindDemoMoreAbilityTestabcEx(request: BindDemoMoreAbilityTestabcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoMoreAbilityTestabcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.more.ability.testabc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackAntchainSaasAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称集合
+  apiNames: [ string ](name='api_names'),
+}
+
+model CallbackAntchainSaasAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+async function callbackAntchainSaasAbility(request: CallbackAntchainSaasAbilityRequest): CallbackAntchainSaasAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAntchainSaasAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: api上线回调接口
+ * Summary: api上线回调接口
+ */
+async function callbackAntchainSaasAbilityEx(request: CallbackAntchainSaasAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAntchainSaasAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSaasFoundationProtobufRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品码
+  productCode: string(name='product_code'),
+  // api code列表信息
+  apiCodeList: [ string ](name='api_code_list'),
+}
+
+model QueryAntchainSaasFoundationProtobufResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api probuf信息
+  apiInfoList?: [ ApiInfo ](name='api_info_list'),
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+async function queryAntchainSaasFoundationProtobuf(request: QueryAntchainSaasFoundationProtobufRequest): QueryAntchainSaasFoundationProtobufResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSaasFoundationProtobufEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据产品码+api code查询api protobuf信息
+ * Summary: 查询api protobuf信息（勿删）
+ */
+async function queryAntchainSaasFoundationProtobufEx(request: QueryAntchainSaasFoundationProtobufRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasFoundationProtobufResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSaasAbilityResultcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1-INTERNAL_ERROR，2-TOO_MANY_REQUESTS，3-UNKNOW_ERROR，4-ACCESS_DENIED，5-OK，6-CUSTOM_RESULT_CODE_ONE，7-CUSTOM_RESULT_CODE_TWO
+  index: long(name='index'),
+}
+
+model QueryAntchainSaasAbilityResultcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+async function queryAntchainSaasAbilityResultcode(request: QueryAntchainSaasAbilityResultcodeRequest): QueryAntchainSaasAbilityResultcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSaasAbilityResultcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试网关结果码和计量接口
+ * Summary: 网关结果码测试接口
+ */
+async function queryAntchainSaasAbilityResultcodeEx(request: QueryAntchainSaasAbilityResultcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasAbilityResultcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.resultcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
