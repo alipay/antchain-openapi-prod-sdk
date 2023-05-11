@@ -296,8 +296,8 @@ export class ResembleRiskData extends $tea.Model {
   workType?: string;
   // 相似值
   score?: string;
-  // 相似作品下载链接
-  workDownloadUrl?: string;
+  // 相似作品下载凭证
+  workFileId?: string;
   // 相似明细
   resembleDetails?: ResembleDetail[];
   static names(): { [key: string]: string } {
@@ -306,7 +306,7 @@ export class ResembleRiskData extends $tea.Model {
       workName: 'work_name',
       workType: 'work_type',
       score: 'score',
-      workDownloadUrl: 'work_download_url',
+      workFileId: 'work_file_id',
       resembleDetails: 'resemble_details',
     };
   }
@@ -317,7 +317,7 @@ export class ResembleRiskData extends $tea.Model {
       workName: 'string',
       workType: 'string',
       score: 'string',
-      workDownloadUrl: 'string',
+      workFileId: 'string',
       resembleDetails: { 'type': 'array', 'itemType': ResembleDetail },
     };
   }
@@ -331,15 +331,19 @@ export class ResembleRiskData extends $tea.Model {
 export class ContentRiskData extends $tea.Model {
   // 风险名称
   riskName: string;
+  // 风险是否通过审查
+  riskResult: boolean;
   static names(): { [key: string]: string } {
     return {
       riskName: 'risk_name',
+      riskResult: 'risk_result',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       riskName: 'string',
+      riskResult: 'boolean',
     };
   }
 
@@ -721,6 +725,43 @@ export class ReceiveInfo extends $tea.Model {
   }
 }
 
+// 日统计数据模型
+export class DayStatisticsInfo extends $tea.Model {
+  // 日期时间戳
+  date: number;
+  // 日观看次数
+  dayViews: string;
+  // 日观看时长
+  dayViewDuration: string;
+  // 日平均观看时长
+  dayAverageViewDuration: string;
+  // 日预计收入
+  revenue: string;
+  static names(): { [key: string]: string } {
+    return {
+      date: 'date',
+      dayViews: 'day_views',
+      dayViewDuration: 'day_view_duration',
+      dayAverageViewDuration: 'day_average_view_duration',
+      revenue: 'revenue',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      date: 'number',
+      dayViews: 'string',
+      dayViewDuration: 'string',
+      dayAverageViewDuration: 'string',
+      revenue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 系列图错误原因
 export class SeriesDiagramErrorReason extends $tea.Model {
   // 系列图单个图片所属页码
@@ -1093,6 +1134,47 @@ export class EvidenceUrlInfo extends $tea.Model {
     return {
       url: 'string',
       autoSurfingMinute: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 出海视频统计数据
+export class OverseaContentStatistics extends $tea.Model {
+  // 发布视频id
+  contentId: string;
+  // 总观看次数
+  totalViews: string;
+  // 总观看时长
+  totalViewDuration: string;
+  // 总平均观看时长
+  totalAverageViewDuration: string;
+  // 总预计收入
+  totalRevenue: string;
+  // 每日详细统计列表
+  dayStatisticsList: DayStatisticsInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      contentId: 'content_id',
+      totalViews: 'total_views',
+      totalViewDuration: 'total_view_duration',
+      totalAverageViewDuration: 'total_average_view_duration',
+      totalRevenue: 'total_revenue',
+      dayStatisticsList: 'day_statistics_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentId: 'string',
+      totalViews: 'string',
+      totalViewDuration: 'string',
+      totalAverageViewDuration: 'string',
+      totalRevenue: 'string',
+      dayStatisticsList: { 'type': 'array', 'itemType': DayStatisticsInfo },
     };
   }
 
@@ -1847,6 +1929,35 @@ export class RecordScreenData extends $tea.Model {
   }
 }
 
+// 推荐分类信息
+export class RecommendCategoryDetail extends $tea.Model {
+  // 推荐分类类型
+  recommendWorkCategory: string;
+  // 作品类型相似度，保留2位小数
+  categorySimilarRatio: string;
+  // 作品类型风险等级
+  categoryRiskRank?: string;
+  static names(): { [key: string]: string } {
+    return {
+      recommendWorkCategory: 'recommend_work_category',
+      categorySimilarRatio: 'category_similar_ratio',
+      categoryRiskRank: 'category_risk_rank',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      recommendWorkCategory: 'string',
+      categorySimilarRatio: 'string',
+      categoryRiskRank: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 网页取证数据
 export class ScreenshotData extends $tea.Model {
   // 取证地址
@@ -2438,43 +2549,6 @@ export class MonitorType extends $tea.Model {
     return {
       fileType: 'string',
       submitType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 日统计数据模型
-export class DayStatisticsInfo extends $tea.Model {
-  // 日期时间戳
-  date: number;
-  // 日观看次数
-  dayViews: string;
-  // 日观看时长
-  dayViewDuration: string;
-  // 日平均观看时长
-  dayAverageViewDuration: string;
-  // 日预计收入
-  revenue: string;
-  static names(): { [key: string]: string } {
-    return {
-      date: 'date',
-      dayViews: 'day_views',
-      dayViewDuration: 'day_view_duration',
-      dayAverageViewDuration: 'day_average_view_duration',
-      revenue: 'revenue',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      date: 'number',
-      dayViews: 'string',
-      dayViewDuration: 'string',
-      dayAverageViewDuration: 'string',
-      revenue: 'string',
     };
   }
 
@@ -4633,6 +4707,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   applyType?: string;
   // 渠道标签
   channelTerminal?: string;
+  // 推荐分类明细信息
+  recommendCategoryList?: RecommendCategoryDetail[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4657,6 +4733,7 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       copyrightOwnerIds: 'copyright_owner_ids',
       applyType: 'apply_type',
       channelTerminal: 'channel_terminal',
+      recommendCategoryList: 'recommend_category_list',
     };
   }
 
@@ -4684,6 +4761,7 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       copyrightOwnerIds: { 'type': 'array', 'itemType': 'string' },
       applyType: 'string',
       channelTerminal: 'string',
+      recommendCategoryList: { 'type': 'array', 'itemType': RecommendCategoryDetail },
     };
   }
 
@@ -7172,6 +7250,65 @@ export class AddDciUsernocertResponse extends $tea.Model {
   }
 }
 
+export class QueryDciSimilarfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件下载凭证
+  workFileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      workFileId: 'work_file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      workFileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciSimilarfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件下载链接
+  workDownloadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      workDownloadUrl: 'work_download_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      workDownloadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7358,7 +7495,7 @@ export class QueryContentStatisticsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 内容id
+  // 内容id列表
   contentId: string;
   // 起始日期时间戳
   startTime: number;
@@ -7402,7 +7539,7 @@ export class QueryContentStatisticsResponse extends $tea.Model {
   totalViewDuration?: string;
   // 总平均观看时长
   totalAverageViewDuration?: string;
-  //  总预计收入
+  // 总预计收入
   totalRevenue?: string;
   // 每日详细统计列表
   dayStatisticsList?: DayStatisticsInfo[];
@@ -7429,6 +7566,73 @@ export class QueryContentStatisticsResponse extends $tea.Model {
       totalAverageViewDuration: 'string',
       totalRevenue: 'string',
       dayStatisticsList: { 'type': 'array', 'itemType': DayStatisticsInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentBatchstatisticsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 内容id列表
+  contentIdList: string[];
+  // 起始日期时间戳
+  startTime: number;
+  // 截止日期时间戳
+  endTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contentIdList: 'content_id_list',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contentIdList: { 'type': 'array', 'itemType': 'string' },
+      startTime: 'number',
+      endTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentBatchstatisticsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 出海视频统计数据列表
+  overseaContentStatisticsList?: OverseaContentStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      overseaContentStatisticsList: 'oversea_content_statistics_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      overseaContentStatisticsList: { 'type': 'array', 'itemType': OverseaContentStatistics },
     };
   }
 
@@ -7850,7 +8054,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.51",
+          sdk_version: "1.17.56",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -8906,6 +9110,25 @@ export default class Client {
   }
 
   /**
+   * Description: 查询相似作品下载链接
+   * Summary: 查询相似作品下载链接
+   */
+  async queryDciSimilarfile(request: QueryDciSimilarfileRequest): Promise<QueryDciSimilarfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciSimilarfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询相似作品下载链接
+   * Summary: 查询相似作品下载链接
+   */
+  async queryDciSimilarfileEx(request: QueryDciSimilarfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciSimilarfileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciSimilarfileResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciSimilarfileResponse({}));
+  }
+
+  /**
    * Description: 添加发布视频内容
    * Summary: 发布视频内容
    */
@@ -8960,6 +9183,25 @@ export default class Client {
   async queryContentStatisticsEx(request: QueryContentStatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentStatisticsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContentStatisticsResponse>(await this.doRequest("1.0", "blockchain.bccr.content.statistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentStatisticsResponse({}));
+  }
+
+  /**
+   * Description: 批量查询视频内容统计数据
+   * Summary: 批量查询视频统计信息
+   */
+  async queryContentBatchstatistics(request: QueryContentBatchstatisticsRequest): Promise<QueryContentBatchstatisticsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContentBatchstatisticsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量查询视频内容统计数据
+   * Summary: 批量查询视频统计信息
+   */
+  async queryContentBatchstatisticsEx(request: QueryContentBatchstatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentBatchstatisticsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContentBatchstatisticsResponse>(await this.doRequest("1.0", "blockchain.bccr.content.batchstatistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentBatchstatisticsResponse({}));
   }
 
   /**
