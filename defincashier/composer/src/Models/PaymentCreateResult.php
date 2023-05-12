@@ -80,6 +80,14 @@ class PaymentCreateResult extends Model
      * @var string
      */
     public $subMsg;
+
+    // 蚂蚁交易单ID
+    /**
+     * @example 20200801000000001
+     *
+     * @var string
+     */
+    public $tradeId;
     protected $_name = [
         'platformMemberId' => 'platform_member_id',
         'outPayerId'       => 'out_payer_id',
@@ -90,6 +98,7 @@ class PaymentCreateResult extends Model
         'payeeAccount'     => 'payee_account',
         'subCode'          => 'sub_code',
         'subMsg'           => 'sub_msg',
+        'tradeId'          => 'trade_id',
     ];
 
     public function validate()
@@ -97,6 +106,7 @@ class PaymentCreateResult extends Model
         Model::validateRequired('platformMemberId', $this->platformMemberId, true);
         Model::validateRequired('outPayerId', $this->outPayerId, true);
         Model::validateRequired('outOrderId', $this->outOrderId, true);
+        Model::validateRequired('tradeId', $this->tradeId, true);
     }
 
     public function toMap()
@@ -128,6 +138,9 @@ class PaymentCreateResult extends Model
         }
         if (null !== $this->subMsg) {
             $res['sub_msg'] = $this->subMsg;
+        }
+        if (null !== $this->tradeId) {
+            $res['trade_id'] = $this->tradeId;
         }
 
         return $res;
@@ -167,6 +180,9 @@ class PaymentCreateResult extends Model
         }
         if (isset($map['sub_msg'])) {
             $model->subMsg = $map['sub_msg'];
+        }
+        if (isset($map['trade_id'])) {
+            $model->tradeId = $map['trade_id'];
         }
 
         return $model;

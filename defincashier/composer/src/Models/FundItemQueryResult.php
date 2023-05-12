@@ -33,7 +33,7 @@ class FundItemQueryResult extends Model
      */
     public $outRequestId;
 
-    // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
+    // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
     /**
      * @example CAPTURE
      *

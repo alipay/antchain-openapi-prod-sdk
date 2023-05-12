@@ -73,13 +73,29 @@ class AccountVO extends Model
      */
     public $payMethod;
 
-    // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+    // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
     /**
      * @example MAIN
      *
      * @var string
      */
     public $type;
+
+    // 主体：I-个人；E-企业
+    /**
+     * @example I
+     *
+     * @var string
+     */
+    public $principal;
+
+    // 金额明细
+    /**
+     * @example
+     *
+     * @var AmountItem
+     */
+    public $amountItem;
     protected $_name = [
         'accountNo'     => 'account_no',
         'accountName'   => 'account_name',
@@ -90,6 +106,8 @@ class AccountVO extends Model
         'lastPayFail'   => 'last_pay_fail',
         'payMethod'     => 'pay_method',
         'type'          => 'type',
+        'principal'     => 'principal',
+        'amountItem'    => 'amount_item',
     ];
 
     public function validate()
@@ -130,6 +148,12 @@ class AccountVO extends Model
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
+        }
+        if (null !== $this->principal) {
+            $res['principal'] = $this->principal;
+        }
+        if (null !== $this->amountItem) {
+            $res['amount_item'] = null !== $this->amountItem ? $this->amountItem->toMap() : null;
         }
 
         return $res;
@@ -173,6 +197,12 @@ class AccountVO extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
+        }
+        if (isset($map['principal'])) {
+            $model->principal = $map['principal'];
+        }
+        if (isset($map['amount_item'])) {
+            $model->amountItem = AmountItem::fromMap($map['amount_item']);
         }
 
         return $model;
