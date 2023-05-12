@@ -154,45 +154,20 @@ class Config(TeaModel):
         return self
 
 
-class AccountVO(TeaModel):
+class AmountItem(TeaModel):
     def __init__(
         self,
-        account_no: str = None,
-        account_name: str = None,
-        offical_name: str = None,
-        offical_number: str = None,
-        status: str = None,
-        category: List[str] = None,
-        last_pay_fail: bool = None,
-        pay_method: List[str] = None,
-        type: str = None,
+        balance_amount: str = None,
+        currency: str = None,
     ):
-        # 账号
-        self.account_no = account_no
-        # 户名
-        self.account_name = account_name
-        # 开户网点
-        self.offical_name = offical_name
-        # 联行号
-        self.offical_number = offical_number
-        # 账号状态
-        # 
-        self.status = status
-        # 分类 BUYER付款账户； SELLER收款账户
-        self.category = category
-        # 上次支付是否失败
-        self.last_pay_fail = last_pay_fail
-        # 支付方式 BALANCE余额账户；BILL票据账户
-        self.pay_method = pay_method
-        # 账户类型 MAIN 对公账户；ECOLLECTION e收宝
-        self.type = type
+        # 余额，单位元
+        self.balance_amount = balance_amount
+        # 币种，CNY-人民币
+        self.currency = currency
 
     def validate(self):
-        self.validate_required(self.account_no, 'account_no')
-        self.validate_required(self.account_name, 'account_name')
-        self.validate_required(self.offical_name, 'offical_name')
-        self.validate_required(self.offical_number, 'offical_number')
-        self.validate_required(self.status, 'status')
+        self.validate_required(self.balance_amount, 'balance_amount')
+        self.validate_required(self.currency, 'currency')
 
     def to_map(self):
         _map = super().to_map()
@@ -200,46 +175,18 @@ class AccountVO(TeaModel):
             return _map
 
         result = dict()
-        if self.account_no is not None:
-            result['account_no'] = self.account_no
-        if self.account_name is not None:
-            result['account_name'] = self.account_name
-        if self.offical_name is not None:
-            result['offical_name'] = self.offical_name
-        if self.offical_number is not None:
-            result['offical_number'] = self.offical_number
-        if self.status is not None:
-            result['status'] = self.status
-        if self.category is not None:
-            result['category'] = self.category
-        if self.last_pay_fail is not None:
-            result['last_pay_fail'] = self.last_pay_fail
-        if self.pay_method is not None:
-            result['pay_method'] = self.pay_method
-        if self.type is not None:
-            result['type'] = self.type
+        if self.balance_amount is not None:
+            result['balance_amount'] = self.balance_amount
+        if self.currency is not None:
+            result['currency'] = self.currency
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('account_no') is not None:
-            self.account_no = m.get('account_no')
-        if m.get('account_name') is not None:
-            self.account_name = m.get('account_name')
-        if m.get('offical_name') is not None:
-            self.offical_name = m.get('offical_name')
-        if m.get('offical_number') is not None:
-            self.offical_number = m.get('offical_number')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('category') is not None:
-            self.category = m.get('category')
-        if m.get('last_pay_fail') is not None:
-            self.last_pay_fail = m.get('last_pay_fail')
-        if m.get('pay_method') is not None:
-            self.pay_method = m.get('pay_method')
-        if m.get('type') is not None:
-            self.type = m.get('type')
+        if m.get('balance_amount') is not None:
+            self.balance_amount = m.get('balance_amount')
+        if m.get('currency') is not None:
+            self.currency = m.get('currency')
         return self
 
 
@@ -290,6 +237,112 @@ class AccountDTO(TeaModel):
             self.offical_name = m.get('offical_name')
         if m.get('offical_number') is not None:
             self.offical_number = m.get('offical_number')
+        return self
+
+
+class AccountVO(TeaModel):
+    def __init__(
+        self,
+        account_no: str = None,
+        account_name: str = None,
+        offical_name: str = None,
+        offical_number: str = None,
+        status: str = None,
+        category: List[str] = None,
+        last_pay_fail: bool = None,
+        pay_method: List[str] = None,
+        type: str = None,
+        principal: str = None,
+        amount_item: AmountItem = None,
+    ):
+        # 账号
+        self.account_no = account_no
+        # 户名
+        self.account_name = account_name
+        # 开户网点
+        self.offical_name = offical_name
+        # 联行号
+        self.offical_number = offical_number
+        # 账号状态
+        # 
+        self.status = status
+        # 分类 BUYER付款账户； SELLER收款账户
+        self.category = category
+        # 上次支付是否失败
+        self.last_pay_fail = last_pay_fail
+        # 支付方式 BALANCE余额账户；BILL票据账户
+        self.pay_method = pay_method
+        # 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+        self.type = type
+        # 主体：I-个人；E-企业
+        self.principal = principal
+        # 金额明细
+        self.amount_item = amount_item
+
+    def validate(self):
+        self.validate_required(self.account_no, 'account_no')
+        self.validate_required(self.account_name, 'account_name')
+        self.validate_required(self.offical_name, 'offical_name')
+        self.validate_required(self.offical_number, 'offical_number')
+        self.validate_required(self.status, 'status')
+        if self.amount_item:
+            self.amount_item.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_no is not None:
+            result['account_no'] = self.account_no
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.offical_name is not None:
+            result['offical_name'] = self.offical_name
+        if self.offical_number is not None:
+            result['offical_number'] = self.offical_number
+        if self.status is not None:
+            result['status'] = self.status
+        if self.category is not None:
+            result['category'] = self.category
+        if self.last_pay_fail is not None:
+            result['last_pay_fail'] = self.last_pay_fail
+        if self.pay_method is not None:
+            result['pay_method'] = self.pay_method
+        if self.type is not None:
+            result['type'] = self.type
+        if self.principal is not None:
+            result['principal'] = self.principal
+        if self.amount_item is not None:
+            result['amount_item'] = self.amount_item.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_no') is not None:
+            self.account_no = m.get('account_no')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('offical_name') is not None:
+            self.offical_name = m.get('offical_name')
+        if m.get('offical_number') is not None:
+            self.offical_number = m.get('offical_number')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('last_pay_fail') is not None:
+            self.last_pay_fail = m.get('last_pay_fail')
+        if m.get('pay_method') is not None:
+            self.pay_method = m.get('pay_method')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('principal') is not None:
+            self.principal = m.get('principal')
+        if m.get('amount_item') is not None:
+            temp_model = AmountItem()
+            self.amount_item = temp_model.from_map(m['amount_item'])
         return self
 
 
@@ -437,6 +490,135 @@ class PaymentCaptureResult(TeaModel):
         return self
 
 
+class FundItemQueryResult(TeaModel):
+    def __init__(
+        self,
+        platform_member_id: str = None,
+        out_order_id: str = None,
+        out_request_id: str = None,
+        fund_type: str = None,
+        state: str = None,
+        request_amount: int = None,
+        request_currency: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+    ):
+        # 会员所属业务平台在智能科技的会员ID
+        self.platform_member_id = platform_member_id
+        # 外部业务平台原始交易号
+        self.out_order_id = out_order_id
+        # 外部请求ID
+        # 
+        self.out_request_id = out_request_id
+        # 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
+        self.fund_type = fund_type
+        # 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+        self.state = state
+        # 本次请求金额，单位为元。
+        self.request_amount = request_amount
+        # 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+        self.request_currency = request_currency
+        # 业务错误码(为空表示成功，否则为业务错误码)
+        self.sub_code = sub_code
+        # 业务错误描述
+        self.sub_msg = sub_msg
+
+    def validate(self):
+        self.validate_required(self.platform_member_id, 'platform_member_id')
+        self.validate_required(self.out_order_id, 'out_order_id')
+        self.validate_required(self.fund_type, 'fund_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.platform_member_id is not None:
+            result['platform_member_id'] = self.platform_member_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_request_id is not None:
+            result['out_request_id'] = self.out_request_id
+        if self.fund_type is not None:
+            result['fund_type'] = self.fund_type
+        if self.state is not None:
+            result['state'] = self.state
+        if self.request_amount is not None:
+            result['request_amount'] = self.request_amount
+        if self.request_currency is not None:
+            result['request_currency'] = self.request_currency
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('platform_member_id') is not None:
+            self.platform_member_id = m.get('platform_member_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_request_id') is not None:
+            self.out_request_id = m.get('out_request_id')
+        if m.get('fund_type') is not None:
+            self.fund_type = m.get('fund_type')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('request_amount') is not None:
+            self.request_amount = m.get('request_amount')
+        if m.get('request_currency') is not None:
+            self.request_currency = m.get('request_currency')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        return self
+
+
+class PaymentCreateCheckResult(TeaModel):
+    def __init__(
+        self,
+        result: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+    ):
+        # 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
+        self.result = result
+        # 业务错误码(为空表示成功，否则为业务错误码)
+        self.sub_code = sub_code
+        # 业务错误描述
+        self.sub_msg = sub_msg
+
+    def validate(self):
+        self.validate_required(self.result, 'result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.result is not None:
+            result['result'] = self.result
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        return self
+
+
 class InstCodeResult(TeaModel):
     def __init__(
         self,
@@ -500,6 +682,7 @@ class PaymentCreateResult(TeaModel):
         payee_account: AccountDTO = None,
         sub_code: str = None,
         sub_msg: str = None,
+        trade_id: str = None,
     ):
         # 
         # 会员所属业务平台在智能科技的会员ID
@@ -520,6 +703,8 @@ class PaymentCreateResult(TeaModel):
         self.sub_code = sub_code
         # 业务错误描述
         self.sub_msg = sub_msg
+        # 蚂蚁交易单ID
+        self.trade_id = trade_id
 
     def validate(self):
         self.validate_required(self.platform_member_id, 'platform_member_id')
@@ -527,6 +712,7 @@ class PaymentCreateResult(TeaModel):
         self.validate_required(self.out_order_id, 'out_order_id')
         if self.payee_account:
             self.payee_account.validate()
+        self.validate_required(self.trade_id, 'trade_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -552,6 +738,8 @@ class PaymentCreateResult(TeaModel):
             result['sub_code'] = self.sub_code
         if self.sub_msg is not None:
             result['sub_msg'] = self.sub_msg
+        if self.trade_id is not None:
+            result['trade_id'] = self.trade_id
         return result
 
     def from_map(self, m: dict = None):
@@ -575,6 +763,8 @@ class PaymentCreateResult(TeaModel):
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
             self.sub_msg = m.get('sub_msg')
+        if m.get('trade_id') is not None:
+            self.trade_id = m.get('trade_id')
         return self
 
 
@@ -668,6 +858,51 @@ class PaymentQueryResult(TeaModel):
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
             self.sub_msg = m.get('sub_msg')
+        return self
+
+
+class PaymentShareAcceptanceResult(TeaModel):
+    def __init__(
+        self,
+        out_order_id: str = None,
+        out_request_id: str = None,
+        state: str = None,
+    ):
+        # 外部业务平台原始交易号
+        self.out_order_id = out_order_id
+        # 外部请求ID，幂等字段
+        # 
+        self.out_request_id = out_request_id
+        # 分账单状态
+        self.state = state
+
+    def validate(self):
+        self.validate_required(self.out_order_id, 'out_order_id')
+        self.validate_required(self.out_request_id, 'out_request_id')
+        self.validate_required(self.state, 'state')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_request_id is not None:
+            result['out_request_id'] = self.out_request_id
+        if self.state is not None:
+            result['state'] = self.state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_request_id') is not None:
+            self.out_request_id = m.get('out_request_id')
+        if m.get('state') is not None:
+            self.state = m.get('state')
         return self
 
 
@@ -766,93 +1001,6 @@ class AgreementQueryResult(TeaModel):
         return self
 
 
-class FundItemQueryResult(TeaModel):
-    def __init__(
-        self,
-        platform_member_id: str = None,
-        out_order_id: str = None,
-        out_request_id: str = None,
-        fund_type: str = None,
-        state: str = None,
-        request_amount: int = None,
-        request_currency: str = None,
-        sub_code: str = None,
-        sub_msg: str = None,
-    ):
-        # 会员所属业务平台在智能科技的会员ID
-        self.platform_member_id = platform_member_id
-        # 外部业务平台原始交易号
-        self.out_order_id = out_order_id
-        # 外部请求ID
-        # 
-        self.out_request_id = out_request_id
-        # 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
-        self.fund_type = fund_type
-        # 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
-        self.state = state
-        # 本次请求金额，单位为元。
-        self.request_amount = request_amount
-        # 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
-        self.request_currency = request_currency
-        # 业务错误码(为空表示成功，否则为业务错误码)
-        self.sub_code = sub_code
-        # 业务错误描述
-        self.sub_msg = sub_msg
-
-    def validate(self):
-        self.validate_required(self.platform_member_id, 'platform_member_id')
-        self.validate_required(self.out_order_id, 'out_order_id')
-        self.validate_required(self.fund_type, 'fund_type')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.platform_member_id is not None:
-            result['platform_member_id'] = self.platform_member_id
-        if self.out_order_id is not None:
-            result['out_order_id'] = self.out_order_id
-        if self.out_request_id is not None:
-            result['out_request_id'] = self.out_request_id
-        if self.fund_type is not None:
-            result['fund_type'] = self.fund_type
-        if self.state is not None:
-            result['state'] = self.state
-        if self.request_amount is not None:
-            result['request_amount'] = self.request_amount
-        if self.request_currency is not None:
-            result['request_currency'] = self.request_currency
-        if self.sub_code is not None:
-            result['sub_code'] = self.sub_code
-        if self.sub_msg is not None:
-            result['sub_msg'] = self.sub_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('platform_member_id') is not None:
-            self.platform_member_id = m.get('platform_member_id')
-        if m.get('out_order_id') is not None:
-            self.out_order_id = m.get('out_order_id')
-        if m.get('out_request_id') is not None:
-            self.out_request_id = m.get('out_request_id')
-        if m.get('fund_type') is not None:
-            self.fund_type = m.get('fund_type')
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('request_amount') is not None:
-            self.request_amount = m.get('request_amount')
-        if m.get('request_currency') is not None:
-            self.request_currency = m.get('request_currency')
-        if m.get('sub_code') is not None:
-            self.sub_code = m.get('sub_code')
-        if m.get('sub_msg') is not None:
-            self.sub_msg = m.get('sub_msg')
-        return self
-
-
 class PaymentCancelResult(TeaModel):
     def __init__(
         self,
@@ -932,48 +1080,6 @@ class PaymentCancelResult(TeaModel):
             self.state = m.get('state')
         if m.get('out_request_id') is not None:
             self.out_request_id = m.get('out_request_id')
-        if m.get('sub_code') is not None:
-            self.sub_code = m.get('sub_code')
-        if m.get('sub_msg') is not None:
-            self.sub_msg = m.get('sub_msg')
-        return self
-
-
-class PaymentCreateCheckResult(TeaModel):
-    def __init__(
-        self,
-        result: str = None,
-        sub_code: str = None,
-        sub_msg: str = None,
-    ):
-        # 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
-        self.result = result
-        # 业务错误码(为空表示成功，否则为业务错误码)
-        self.sub_code = sub_code
-        # 业务错误描述
-        self.sub_msg = sub_msg
-
-    def validate(self):
-        self.validate_required(self.result, 'result')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.result is not None:
-            result['result'] = self.result
-        if self.sub_code is not None:
-            result['sub_code'] = self.sub_code
-        if self.sub_msg is not None:
-            result['sub_msg'] = self.sub_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('result') is not None:
-            self.result = m.get('result')
         if m.get('sub_code') is not None:
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
@@ -1880,6 +1986,106 @@ class QuerySaasInstResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             temp_model = InstCodeResult()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class ApplySaasShareRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_content: str = None,
+        service_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # JSON请求参数
+        self.biz_content = biz_content
+        # 版本号
+        self.service_version = service_version
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.service_version, 'service_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.service_version is not None:
+            result['service_version'] = self.service_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('service_version') is not None:
+            self.service_version = m.get('service_version')
+        return self
+
+
+class ApplySaasShareResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: PaymentShareAcceptanceResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分账受理结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = PaymentShareAcceptanceResult()
             self.data = temp_model.from_map(m['data'])
         return self
 

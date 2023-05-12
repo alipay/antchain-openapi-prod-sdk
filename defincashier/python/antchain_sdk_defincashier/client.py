@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 账号
+            # 金额
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 账号
+            # 金额
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'DEFINCASHIER',
                     '_prod_channel': 'undefined'
                 }
@@ -777,4 +777,60 @@ class Client:
         return TeaCore.from_map(
             defincashier_models.QuerySaasInstResponse(),
             await self.do_request_async('1.0', 'antchain.defincashier.saas.inst.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_saas_share(
+        self,
+        request: defincashier_models.ApplySaasShareRequest,
+    ) -> defincashier_models.ApplySaasShareResponse:
+        """
+        Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+        Summary: B2B资金服务交易分账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_saas_share_ex(request, headers, runtime)
+
+    async def apply_saas_share_async(
+        self,
+        request: defincashier_models.ApplySaasShareRequest,
+    ) -> defincashier_models.ApplySaasShareResponse:
+        """
+        Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+        Summary: B2B资金服务交易分账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_saas_share_ex_async(request, headers, runtime)
+
+    def apply_saas_share_ex(
+        self,
+        request: defincashier_models.ApplySaasShareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.ApplySaasShareResponse:
+        """
+        Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+        Summary: B2B资金服务交易分账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.ApplySaasShareResponse(),
+            self.do_request('1.0', 'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_saas_share_ex_async(
+        self,
+        request: defincashier_models.ApplySaasShareRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> defincashier_models.ApplySaasShareResponse:
+        """
+        Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+        Summary: B2B资金服务交易分账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            defincashier_models.ApplySaasShareResponse(),
+            await self.do_request_async('1.0', 'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
