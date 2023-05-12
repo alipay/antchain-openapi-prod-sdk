@@ -77,108 +77,6 @@ export class Config extends $tea.Model {
   }
 }
 
-export class QueryDemoAdAsdAsdRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoAdAsdAsdResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindDemoAsdAsdAsdRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindDemoAsdAsdAsdResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryDemoAaaBbbCccRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -394,7 +292,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.176",
+          sdk_version: "1.0.177",
           _prod_code: "ak_ea70f896f759459588dfbc7d1fafe2f9",
           _prod_channel: "saas",
         };
@@ -440,44 +338,6 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd1
-   */
-  async queryDemoAdAsdAsd(request: QueryDemoAdAsdAsdRequest): Promise<QueryDemoAdAsdAsdResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAdAsdAsdEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd1
-   */
-  async queryDemoAdAsdAsdEx(request: QueryDemoAdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAdAsdAsdResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDemoAdAsdAsdResponse>(await this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse({}));
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd
-   */
-  async bindDemoAsdAsdAsd(request: BindDemoAsdAsdAsdRequest): Promise<BindDemoAsdAsdAsdResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.bindDemoAsdAsdAsdEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd
-   */
-  async bindDemoAsdAsdAsdEx(request: BindDemoAsdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAsdAsdAsdResponse> {
-    Util.validateModel(request);
-    return $tea.cast<BindDemoAsdAsdAsdResponse>(await this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse({}));
   }
 
   /**
