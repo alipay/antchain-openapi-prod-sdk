@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.1.0',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -159,6 +159,26 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 金额
+model AmountItem {
+  // 余额，单位元
+  balanceAmount: string(name='balance_amount', example='0.01'),
+  // 币种，CNY-人民币
+  currency: string(name='currency', example='CNY'),
+}
+
+// 账号模型
+model AccountDTO {
+  // 账号
+  accountNo: string(name='account_no', example='755936042810703'),
+  // 户名
+  accountName: string(name='account_name', example='测试账户'),
+  // 开户网点
+  officalName?: string(name='offical_name', example='中国工商银行股份有限公司北京德外支行'),
+  // 联行号
+  officalNumber?: string(name='offical_number', example='102100000136'),
 }
 
 // 账号
@@ -180,20 +200,12 @@ model AccountVO {
   lastPayFail?: boolean(name='last_pay_fail', example='true, false'),
   // 支付方式 BALANCE余额账户；BILL票据账户
   payMethod?: [ string ](name='pay_method', example='[“BALANCE”,"BILL"]'),
-  // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
   type?: string(name='type', example='MAIN'),
-}
-
-// 账号模型
-model AccountDTO {
-  // 账号
-  accountNo: string(name='account_no', example='755936042810703'),
-  // 户名
-  accountName: string(name='account_name', example='测试账户'),
-  // 开户网点
-  officalName?: string(name='offical_name', example='中国工商银行股份有限公司北京德外支行'),
-  // 联行号
-  officalNumber?: string(name='offical_number', example='102100000136'),
+  // 主体：I-个人；E-企业
+  principal?: string(name='principal', example='I'),
+  // 金额明细
+  amountItem?: AmountItem(name='amount_item', example=''),
 }
 
 // 账户查询结果
@@ -226,6 +238,39 @@ model PaymentCaptureResult {
   // 外部请求ID，需要支持部分请款/退款的平台必填
   // 
   outRequestId?: string(name='out_request_id', example='20120000000'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 资金操作明细查询结果
+model FundItemQueryResult {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 外部请求ID
+  // 
+  outRequestId?: string(name='out_request_id', example='20120000000'),
+  // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
+  fundType: string(name='fund_type', example='CAPTURE'),
+  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+  state?: string(name='state', example='PROCESSING'),
+  // 本次请求金额，单位为元。
+  requestAmount?: long(name='request_amount', example='100.00'),
+  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+  requestCurrency?: string(name='request_currency', example='CNY'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 创建交易前检查结果
+model PaymentCreateCheckResult {
+  // 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
+  result: string(name='result', example='PASS'),
   // 业务错误码(为空表示成功，否则为业务错误码)
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
@@ -267,6 +312,8 @@ model PaymentCreateResult {
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
   subMsg?: string(name='sub_msg', example='参数不全'),
+  // 蚂蚁交易单ID
+  tradeId: string(name='trade_id', example='20200801000000001'),
 }
 
 // 交易查询结果
@@ -291,6 +338,17 @@ model PaymentQueryResult {
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
   subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 交易分账受理结果
+model PaymentShareAcceptanceResult {
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 外部请求ID，幂等字段
+  // 
+  outRequestId: string(name='out_request_id', example='20120000000'),
+  // 分账单状态
+  state: string(name='state', example='PROCESSING'),
 }
 
 // 客户产品签约结果
@@ -320,29 +378,6 @@ model AgreementQueryResult {
   subMsg?: string(name='sub_msg', example='参数不全'),
 }
 
-// 资金操作明细查询结果
-model FundItemQueryResult {
-  // 会员所属业务平台在智能科技的会员ID
-  platformMemberId: string(name='platform_member_id', example='268800000000001'),
-  // 外部业务平台原始交易号
-  outOrderId: string(name='out_order_id', example='20200801000000001'),
-  // 外部请求ID
-  // 
-  outRequestId?: string(name='out_request_id', example='20120000000'),
-  // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
-  fundType: string(name='fund_type', example='CAPTURE'),
-  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
-  state?: string(name='state', example='PROCESSING'),
-  // 本次请求金额，单位为元。
-  requestAmount?: long(name='request_amount', example='100.00'),
-  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
-  requestCurrency?: string(name='request_currency', example='CNY'),
-  // 业务错误码(为空表示成功，否则为业务错误码)
-  subCode?: string(name='sub_code', example='PARAM_MISSING'),
-  // 业务错误描述
-  subMsg?: string(name='sub_msg', example='参数不全'),
-}
-
 // 交易撤销结果
 model PaymentCancelResult {
   // 外部业务平台原始交易号
@@ -361,16 +396,6 @@ model PaymentCancelResult {
   // 外部请求ID，需要支持部分请款/退款的平台必填
   // 
   outRequestId?: string(name='out_request_id', example='20102000000'),
-  // 业务错误码(为空表示成功，否则为业务错误码)
-  subCode?: string(name='sub_code', example='PARAM_MISSING'),
-  // 业务错误描述
-  subMsg?: string(name='sub_msg', example='参数不全'),
-}
-
-// 创建交易前检查结果
-model PaymentCreateCheckResult {
-  // 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
-  result: string(name='result', example='PASS'),
   // 业务错误码(为空表示成功，否则为业务错误码)
   subCode?: string(name='sub_code', example='PARAM_MISSING'),
   // 业务错误描述
@@ -738,5 +763,45 @@ async function querySaasInst(request: QuerySaasInstRequest): QuerySaasInstRespon
 async function querySaasInstEx(request: QuerySaasInstRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasInstResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.defincashier.saas.inst.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplySaasShareRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // JSON请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model ApplySaasShareResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账受理结果
+  data?: PaymentShareAcceptanceResult(name='data'),
+}
+
+/**
+ * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+ * Summary: B2B资金服务交易分账
+ */
+async function applySaasShare(request: ApplySaasShareRequest): ApplySaasShareResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applySaasShareEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+ * Summary: B2B资金服务交易分账
+ */
+async function applySaasShareEx(request: ApplySaasShareRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplySaasShareResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.share.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
