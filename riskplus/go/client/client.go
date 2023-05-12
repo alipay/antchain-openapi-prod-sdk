@@ -19949,7 +19949,7 @@ func (s *QueryUmktTenantActionplaninfoResponse) SetTotalCount(v int64) *QueryUmk
 	return s
 }
 
-type QueryUmktRobotcallRequest struct {
+type QueryUmktRobotcallDetailRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -19963,45 +19963,45 @@ type QueryUmktRobotcallRequest struct {
 	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
 }
 
-func (s QueryUmktRobotcallRequest) String() string {
+func (s QueryUmktRobotcallDetailRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryUmktRobotcallRequest) GoString() string {
+func (s QueryUmktRobotcallDetailRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryUmktRobotcallRequest) SetAuthToken(v string) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetAuthToken(v string) *QueryUmktRobotcallDetailRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallRequest) SetProductInstanceId(v string) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetProductInstanceId(v string) *QueryUmktRobotcallDetailRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallRequest) SetBizId(v string) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetBizId(v string) *QueryUmktRobotcallDetailRequest {
 	s.BizId = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallRequest) SetPhoneNumber(v string) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetPhoneNumber(v string) *QueryUmktRobotcallDetailRequest {
 	s.PhoneNumber = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallRequest) SetTemplateType(v string) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetTemplateType(v string) *QueryUmktRobotcallDetailRequest {
 	s.TemplateType = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallRequest) SetSceneStrategyId(v int64) *QueryUmktRobotcallRequest {
+func (s *QueryUmktRobotcallDetailRequest) SetSceneStrategyId(v int64) *QueryUmktRobotcallDetailRequest {
 	s.SceneStrategyId = &v
 	return s
 }
 
-type QueryUmktRobotcallResponse struct {
+type QueryUmktRobotcallDetailResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -20016,40 +20016,40 @@ type QueryUmktRobotcallResponse struct {
 	CallInfo []*AICallbackMessage `json:"call_info,omitempty" xml:"call_info,omitempty" type:"Repeated"`
 }
 
-func (s QueryUmktRobotcallResponse) String() string {
+func (s QueryUmktRobotcallDetailResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryUmktRobotcallResponse) GoString() string {
+func (s QueryUmktRobotcallDetailResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryUmktRobotcallResponse) SetReqMsgId(v string) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetReqMsgId(v string) *QueryUmktRobotcallDetailResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallResponse) SetResultCode(v string) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetResultCode(v string) *QueryUmktRobotcallDetailResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallResponse) SetResultMsg(v string) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetResultMsg(v string) *QueryUmktRobotcallDetailResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallResponse) SetOutInfo(v string) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetOutInfo(v string) *QueryUmktRobotcallDetailResponse {
 	s.OutInfo = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallResponse) SetCustomerOutInfo(v string) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetCustomerOutInfo(v string) *QueryUmktRobotcallDetailResponse {
 	s.CustomerOutInfo = &v
 	return s
 }
 
-func (s *QueryUmktRobotcallResponse) SetCallInfo(v []*AICallbackMessage) *QueryUmktRobotcallResponse {
+func (s *QueryUmktRobotcallDetailResponse) SetCallInfo(v []*AICallbackMessage) *QueryUmktRobotcallDetailResponse {
 	s.CallInfo = v
 	return s
 }
@@ -20296,7 +20296,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.28"),
+				"sdk_version":      tea.String("1.16.29"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25231,11 +25231,11 @@ func (client *Client) QueryUmktTenantActionplaninfoEx(request *QueryUmktTenantAc
  * Description: 查询ai外呼任务详情
  * Summary: 查询ai外呼任务详情
  */
-func (client *Client) QueryUmktRobotcall(request *QueryUmktRobotcallRequest) (_result *QueryUmktRobotcallResponse, _err error) {
+func (client *Client) QueryUmktRobotcallDetail(request *QueryUmktRobotcallDetailRequest) (_result *QueryUmktRobotcallDetailResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryUmktRobotcallResponse{}
-	_body, _err := client.QueryUmktRobotcallEx(request, headers, runtime)
+	_result = &QueryUmktRobotcallDetailResponse{}
+	_body, _err := client.QueryUmktRobotcallDetailEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -25247,13 +25247,13 @@ func (client *Client) QueryUmktRobotcall(request *QueryUmktRobotcallRequest) (_r
  * Description: 查询ai外呼任务详情
  * Summary: 查询ai外呼任务详情
  */
-func (client *Client) QueryUmktRobotcallEx(request *QueryUmktRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktRobotcallResponse, _err error) {
+func (client *Client) QueryUmktRobotcallDetailEx(request *QueryUmktRobotcallDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktRobotcallDetailResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryUmktRobotcallResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryUmktRobotcallDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
