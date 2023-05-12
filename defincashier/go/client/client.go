@@ -148,6 +148,72 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 金额
+type AmountItem struct {
+	// 余额，单位元
+	BalanceAmount *string `json:"balance_amount,omitempty" xml:"balance_amount,omitempty" require:"true"`
+	// 币种，CNY-人民币
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+}
+
+func (s AmountItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AmountItem) GoString() string {
+	return s.String()
+}
+
+func (s *AmountItem) SetBalanceAmount(v string) *AmountItem {
+	s.BalanceAmount = &v
+	return s
+}
+
+func (s *AmountItem) SetCurrency(v string) *AmountItem {
+	s.Currency = &v
+	return s
+}
+
+// 账号模型
+type AccountDTO struct {
+	// 账号
+	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
+	// 户名
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 开户网点
+	OfficalName *string `json:"offical_name,omitempty" xml:"offical_name,omitempty"`
+	// 联行号
+	OfficalNumber *string `json:"offical_number,omitempty" xml:"offical_number,omitempty"`
+}
+
+func (s AccountDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountDTO) GoString() string {
+	return s.String()
+}
+
+func (s *AccountDTO) SetAccountNo(v string) *AccountDTO {
+	s.AccountNo = &v
+	return s
+}
+
+func (s *AccountDTO) SetAccountName(v string) *AccountDTO {
+	s.AccountName = &v
+	return s
+}
+
+func (s *AccountDTO) SetOfficalName(v string) *AccountDTO {
+	s.OfficalName = &v
+	return s
+}
+
+func (s *AccountDTO) SetOfficalNumber(v string) *AccountDTO {
+	s.OfficalNumber = &v
+	return s
+}
+
 // 账号
 type AccountVO struct {
 	// 账号
@@ -167,8 +233,12 @@ type AccountVO struct {
 	LastPayFail *bool `json:"last_pay_fail,omitempty" xml:"last_pay_fail,omitempty"`
 	// 支付方式 BALANCE余额账户；BILL票据账户
 	PayMethod []*string `json:"pay_method,omitempty" xml:"pay_method,omitempty" type:"Repeated"`
-	// 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+	// 账户类型 MAIN 银行账户；ECOLLECTION e收宝
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 主体：I-个人；E-企业
+	Principal *string `json:"principal,omitempty" xml:"principal,omitempty"`
+	// 金额明细
+	AmountItem *AmountItem `json:"amount_item,omitempty" xml:"amount_item,omitempty"`
 }
 
 func (s AccountVO) String() string {
@@ -224,43 +294,13 @@ func (s *AccountVO) SetType(v string) *AccountVO {
 	return s
 }
 
-// 账号模型
-type AccountDTO struct {
-	// 账号
-	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
-	// 户名
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
-	// 开户网点
-	OfficalName *string `json:"offical_name,omitempty" xml:"offical_name,omitempty"`
-	// 联行号
-	OfficalNumber *string `json:"offical_number,omitempty" xml:"offical_number,omitempty"`
-}
-
-func (s AccountDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountDTO) GoString() string {
-	return s.String()
-}
-
-func (s *AccountDTO) SetAccountNo(v string) *AccountDTO {
-	s.AccountNo = &v
+func (s *AccountVO) SetPrincipal(v string) *AccountVO {
+	s.Principal = &v
 	return s
 }
 
-func (s *AccountDTO) SetAccountName(v string) *AccountDTO {
-	s.AccountName = &v
-	return s
-}
-
-func (s *AccountDTO) SetOfficalName(v string) *AccountDTO {
-	s.OfficalName = &v
-	return s
-}
-
-func (s *AccountDTO) SetOfficalNumber(v string) *AccountDTO {
-	s.OfficalNumber = &v
+func (s *AccountVO) SetAmountItem(v *AmountItem) *AccountVO {
+	s.AmountItem = v
 	return s
 }
 
@@ -381,6 +421,115 @@ func (s *PaymentCaptureResult) SetSubMsg(v string) *PaymentCaptureResult {
 	return s
 }
 
+// 资金操作明细查询结果
+type FundItemQueryResult struct {
+	// 会员所属业务平台在智能科技的会员ID
+	PlatformMemberId *string `json:"platform_member_id,omitempty" xml:"platform_member_id,omitempty" require:"true"`
+	// 外部业务平台原始交易号
+	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
+	// 外部请求ID
+	//
+	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty"`
+	// 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
+	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty" require:"true"`
+	// 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 本次请求金额，单位为元。
+	RequestAmount *int64 `json:"request_amount,omitempty" xml:"request_amount,omitempty"`
+	// 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+	RequestCurrency *string `json:"request_currency,omitempty" xml:"request_currency,omitempty"`
+	// 业务错误码(为空表示成功，否则为业务错误码)
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 业务错误描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+}
+
+func (s FundItemQueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FundItemQueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *FundItemQueryResult) SetPlatformMemberId(v string) *FundItemQueryResult {
+	s.PlatformMemberId = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetOutOrderId(v string) *FundItemQueryResult {
+	s.OutOrderId = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetOutRequestId(v string) *FundItemQueryResult {
+	s.OutRequestId = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetFundType(v string) *FundItemQueryResult {
+	s.FundType = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetState(v string) *FundItemQueryResult {
+	s.State = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetRequestAmount(v int64) *FundItemQueryResult {
+	s.RequestAmount = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetRequestCurrency(v string) *FundItemQueryResult {
+	s.RequestCurrency = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetSubCode(v string) *FundItemQueryResult {
+	s.SubCode = &v
+	return s
+}
+
+func (s *FundItemQueryResult) SetSubMsg(v string) *FundItemQueryResult {
+	s.SubMsg = &v
+	return s
+}
+
+// 创建交易前检查结果
+type PaymentCreateCheckResult struct {
+	// 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 业务错误码(为空表示成功，否则为业务错误码)
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 业务错误描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+}
+
+func (s PaymentCreateCheckResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentCreateCheckResult) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentCreateCheckResult) SetResult(v string) *PaymentCreateCheckResult {
+	s.Result = &v
+	return s
+}
+
+func (s *PaymentCreateCheckResult) SetSubCode(v string) *PaymentCreateCheckResult {
+	s.SubCode = &v
+	return s
+}
+
+func (s *PaymentCreateCheckResult) SetSubMsg(v string) *PaymentCreateCheckResult {
+	s.SubMsg = &v
+	return s
+}
+
 // 机构代码查询结果
 type InstCodeResult struct {
 	// 机构编码
@@ -444,6 +593,8 @@ type PaymentCreateResult struct {
 	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
 	// 业务错误描述
 	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 蚂蚁交易单ID
+	TradeId *string `json:"trade_id,omitempty" xml:"trade_id,omitempty" require:"true"`
 }
 
 func (s PaymentCreateResult) String() string {
@@ -496,6 +647,11 @@ func (s *PaymentCreateResult) SetSubCode(v string) *PaymentCreateResult {
 
 func (s *PaymentCreateResult) SetSubMsg(v string) *PaymentCreateResult {
 	s.SubMsg = &v
+	return s
+}
+
+func (s *PaymentCreateResult) SetTradeId(v string) *PaymentCreateResult {
+	s.TradeId = &v
 	return s
 }
 
@@ -578,6 +734,40 @@ func (s *PaymentQueryResult) SetSubCode(v string) *PaymentQueryResult {
 
 func (s *PaymentQueryResult) SetSubMsg(v string) *PaymentQueryResult {
 	s.SubMsg = &v
+	return s
+}
+
+// 交易分账受理结果
+type PaymentShareAcceptanceResult struct {
+	// 外部业务平台原始交易号
+	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
+	// 外部请求ID，幂等字段
+	//
+	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty" require:"true"`
+	// 分账单状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+}
+
+func (s PaymentShareAcceptanceResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentShareAcceptanceResult) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentShareAcceptanceResult) SetOutOrderId(v string) *PaymentShareAcceptanceResult {
+	s.OutOrderId = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetOutRequestId(v string) *PaymentShareAcceptanceResult {
+	s.OutRequestId = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetState(v string) *PaymentShareAcceptanceResult {
+	s.State = &v
 	return s
 }
 
@@ -666,82 +856,6 @@ func (s *AgreementQueryResult) SetSubMsg(v string) *AgreementQueryResult {
 	return s
 }
 
-// 资金操作明细查询结果
-type FundItemQueryResult struct {
-	// 会员所属业务平台在智能科技的会员ID
-	PlatformMemberId *string `json:"platform_member_id,omitempty" xml:"platform_member_id,omitempty" require:"true"`
-	// 外部业务平台原始交易号
-	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
-	// 外部请求ID
-	//
-	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty"`
-	// 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
-	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty" require:"true"`
-	// 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
-	// 本次请求金额，单位为元。
-	RequestAmount *int64 `json:"request_amount,omitempty" xml:"request_amount,omitempty"`
-	// 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
-	RequestCurrency *string `json:"request_currency,omitempty" xml:"request_currency,omitempty"`
-	// 业务错误码(为空表示成功，否则为业务错误码)
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	// 业务错误描述
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-}
-
-func (s FundItemQueryResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FundItemQueryResult) GoString() string {
-	return s.String()
-}
-
-func (s *FundItemQueryResult) SetPlatformMemberId(v string) *FundItemQueryResult {
-	s.PlatformMemberId = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetOutOrderId(v string) *FundItemQueryResult {
-	s.OutOrderId = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetOutRequestId(v string) *FundItemQueryResult {
-	s.OutRequestId = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetFundType(v string) *FundItemQueryResult {
-	s.FundType = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetState(v string) *FundItemQueryResult {
-	s.State = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetRequestAmount(v int64) *FundItemQueryResult {
-	s.RequestAmount = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetRequestCurrency(v string) *FundItemQueryResult {
-	s.RequestCurrency = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetSubCode(v string) *FundItemQueryResult {
-	s.SubCode = &v
-	return s
-}
-
-func (s *FundItemQueryResult) SetSubMsg(v string) *FundItemQueryResult {
-	s.SubMsg = &v
-	return s
-}
-
 // 交易撤销结果
 type PaymentCancelResult struct {
 	// 外部业务平台原始交易号
@@ -815,39 +929,6 @@ func (s *PaymentCancelResult) SetSubCode(v string) *PaymentCancelResult {
 }
 
 func (s *PaymentCancelResult) SetSubMsg(v string) *PaymentCancelResult {
-	s.SubMsg = &v
-	return s
-}
-
-// 创建交易前检查结果
-type PaymentCreateCheckResult struct {
-	// 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
-	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
-	// 业务错误码(为空表示成功，否则为业务错误码)
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	// 业务错误描述
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-}
-
-func (s PaymentCreateCheckResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PaymentCreateCheckResult) GoString() string {
-	return s.String()
-}
-
-func (s *PaymentCreateCheckResult) SetResult(v string) *PaymentCreateCheckResult {
-	s.Result = &v
-	return s
-}
-
-func (s *PaymentCreateCheckResult) SetSubCode(v string) *PaymentCreateCheckResult {
-	s.SubCode = &v
-	return s
-}
-
-func (s *PaymentCreateCheckResult) SetSubMsg(v string) *PaymentCreateCheckResult {
 	s.SubMsg = &v
 	return s
 }
@@ -1548,6 +1629,83 @@ func (s *QuerySaasInstResponse) SetData(v *InstCodeResult) *QuerySaasInstRespons
 	return s
 }
 
+type ApplySaasShareRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// JSON请求参数
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 版本号
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+}
+
+func (s ApplySaasShareRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplySaasShareRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplySaasShareRequest) SetAuthToken(v string) *ApplySaasShareRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplySaasShareRequest) SetProductInstanceId(v string) *ApplySaasShareRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplySaasShareRequest) SetBizContent(v string) *ApplySaasShareRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ApplySaasShareRequest) SetServiceVersion(v string) *ApplySaasShareRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+type ApplySaasShareResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分账受理结果
+	Data *PaymentShareAcceptanceResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ApplySaasShareResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplySaasShareResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplySaasShareResponse) SetReqMsgId(v string) *ApplySaasShareResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplySaasShareResponse) SetResultCode(v string) *ApplySaasShareResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplySaasShareResponse) SetResultMsg(v string) *ApplySaasShareResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplySaasShareResponse) SetData(v *PaymentShareAcceptanceResult) *ApplySaasShareResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1626,17 +1784,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -1670,7 +1828,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2027,6 +2185,40 @@ func (client *Client) QuerySaasInstEx(request *QuerySaasInstRequest, headers map
 	}
 	_result = &QuerySaasInstResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.inst.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+ * Summary: B2B资金服务交易分账
+ */
+func (client *Client) ApplySaasShare(request *ApplySaasShareRequest) (_result *ApplySaasShareResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplySaasShareResponse{}
+	_body, _err := client.ApplySaasShareEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+ * Summary: B2B资金服务交易分账
+ */
+func (client *Client) ApplySaasShareEx(request *ApplySaasShareRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplySaasShareResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplySaasShareResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.defincashier.saas.share.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
