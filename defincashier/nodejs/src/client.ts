@@ -77,52 +77,23 @@ export class Config extends $tea.Model {
   }
 }
 
-// 账号
-export class AccountVO extends $tea.Model {
-  // 账号
-  accountNo: string;
-  // 户名
-  accountName: string;
-  // 开户网点
-  officalName: string;
-  // 联行号
-  officalNumber: string;
-  // 账号状态
-  // 
-  status: string;
-  // 分类 BUYER付款账户； SELLER收款账户
-  category?: string[];
-  // 上次支付是否失败
-  lastPayFail?: boolean;
-  // 支付方式 BALANCE余额账户；BILL票据账户
-  payMethod?: string[];
-  // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
-  type?: string;
+// 金额
+export class AmountItem extends $tea.Model {
+  // 余额，单位元
+  balanceAmount: string;
+  // 币种，CNY-人民币
+  currency: string;
   static names(): { [key: string]: string } {
     return {
-      accountNo: 'account_no',
-      accountName: 'account_name',
-      officalName: 'offical_name',
-      officalNumber: 'offical_number',
-      status: 'status',
-      category: 'category',
-      lastPayFail: 'last_pay_fail',
-      payMethod: 'pay_method',
-      type: 'type',
+      balanceAmount: 'balance_amount',
+      currency: 'currency',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      accountNo: 'string',
-      accountName: 'string',
-      officalName: 'string',
-      officalNumber: 'string',
-      status: 'string',
-      category: { 'type': 'array', 'itemType': 'string' },
-      lastPayFail: 'boolean',
-      payMethod: { 'type': 'array', 'itemType': 'string' },
-      type: 'string',
+      balanceAmount: 'string',
+      currency: 'string',
     };
   }
 
@@ -156,6 +127,68 @@ export class AccountDTO extends $tea.Model {
       accountName: 'string',
       officalName: 'string',
       officalNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账号
+export class AccountVO extends $tea.Model {
+  // 账号
+  accountNo: string;
+  // 户名
+  accountName: string;
+  // 开户网点
+  officalName: string;
+  // 联行号
+  officalNumber: string;
+  // 账号状态
+  // 
+  status: string;
+  // 分类 BUYER付款账户； SELLER收款账户
+  category?: string[];
+  // 上次支付是否失败
+  lastPayFail?: boolean;
+  // 支付方式 BALANCE余额账户；BILL票据账户
+  payMethod?: string[];
+  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+  type?: string;
+  // 主体：I-个人；E-企业
+  principal?: string;
+  // 金额明细
+  amountItem?: AmountItem;
+  static names(): { [key: string]: string } {
+    return {
+      accountNo: 'account_no',
+      accountName: 'account_name',
+      officalName: 'offical_name',
+      officalNumber: 'offical_number',
+      status: 'status',
+      category: 'category',
+      lastPayFail: 'last_pay_fail',
+      payMethod: 'pay_method',
+      type: 'type',
+      principal: 'principal',
+      amountItem: 'amount_item',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountNo: 'string',
+      accountName: 'string',
+      officalName: 'string',
+      officalNumber: 'string',
+      status: 'string',
+      category: { 'type': 'array', 'itemType': 'string' },
+      lastPayFail: 'boolean',
+      payMethod: { 'type': 'array', 'itemType': 'string' },
+      type: 'string',
+      principal: 'string',
+      amountItem: AmountItem,
     };
   }
 
@@ -252,6 +285,89 @@ export class PaymentCaptureResult extends $tea.Model {
   }
 }
 
+// 资金操作明细查询结果
+export class FundItemQueryResult extends $tea.Model {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string;
+  // 外部业务平台原始交易号
+  outOrderId: string;
+  // 外部请求ID
+  // 
+  outRequestId?: string;
+  // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
+  fundType: string;
+  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+  state?: string;
+  // 本次请求金额，单位为元。
+  requestAmount?: number;
+  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+  requestCurrency?: string;
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string;
+  // 业务错误描述
+  subMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      platformMemberId: 'platform_member_id',
+      outOrderId: 'out_order_id',
+      outRequestId: 'out_request_id',
+      fundType: 'fund_type',
+      state: 'state',
+      requestAmount: 'request_amount',
+      requestCurrency: 'request_currency',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      platformMemberId: 'string',
+      outOrderId: 'string',
+      outRequestId: 'string',
+      fundType: 'string',
+      state: 'string',
+      requestAmount: 'number',
+      requestCurrency: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 创建交易前检查结果
+export class PaymentCreateCheckResult extends $tea.Model {
+  // 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
+  result: string;
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string;
+  // 业务错误描述
+  subMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      result: 'result',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      result: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 机构代码查询结果
 export class InstCodeResult extends $tea.Model {
   // 机构编码
@@ -308,6 +424,8 @@ export class PaymentCreateResult extends $tea.Model {
   subCode?: string;
   // 业务错误描述
   subMsg?: string;
+  // 蚂蚁交易单ID
+  tradeId: string;
   static names(): { [key: string]: string } {
     return {
       platformMemberId: 'platform_member_id',
@@ -319,6 +437,7 @@ export class PaymentCreateResult extends $tea.Model {
       payeeAccount: 'payee_account',
       subCode: 'sub_code',
       subMsg: 'sub_msg',
+      tradeId: 'trade_id',
     };
   }
 
@@ -333,6 +452,7 @@ export class PaymentCreateResult extends $tea.Model {
       payeeAccount: AccountDTO,
       subCode: 'string',
       subMsg: 'string',
+      tradeId: 'string',
     };
   }
 
@@ -390,6 +510,36 @@ export class PaymentQueryResult extends $tea.Model {
       paymentResultMessage: 'string',
       subCode: 'string',
       subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 交易分账受理结果
+export class PaymentShareAcceptanceResult extends $tea.Model {
+  // 外部业务平台原始交易号
+  outOrderId: string;
+  // 外部请求ID，幂等字段
+  // 
+  outRequestId: string;
+  // 分账单状态
+  state: string;
+  static names(): { [key: string]: string } {
+    return {
+      outOrderId: 'out_order_id',
+      outRequestId: 'out_request_id',
+      state: 'state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      outOrderId: 'string',
+      outRequestId: 'string',
+      state: 'string',
     };
   }
 
@@ -458,60 +608,6 @@ export class AgreementQueryResult extends $tea.Model {
   }
 }
 
-// 资金操作明细查询结果
-export class FundItemQueryResult extends $tea.Model {
-  // 会员所属业务平台在智能科技的会员ID
-  platformMemberId: string;
-  // 外部业务平台原始交易号
-  outOrderId: string;
-  // 外部请求ID
-  // 
-  outRequestId?: string;
-  // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
-  fundType: string;
-  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
-  state?: string;
-  // 本次请求金额，单位为元。
-  requestAmount?: number;
-  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
-  requestCurrency?: string;
-  // 业务错误码(为空表示成功，否则为业务错误码)
-  subCode?: string;
-  // 业务错误描述
-  subMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      platformMemberId: 'platform_member_id',
-      outOrderId: 'out_order_id',
-      outRequestId: 'out_request_id',
-      fundType: 'fund_type',
-      state: 'state',
-      requestAmount: 'request_amount',
-      requestCurrency: 'request_currency',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      platformMemberId: 'string',
-      outOrderId: 'string',
-      outRequestId: 'string',
-      fundType: 'string',
-      state: 'string',
-      requestAmount: 'number',
-      requestCurrency: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 交易撤销结果
 export class PaymentCancelResult extends $tea.Model {
   // 外部业务平台原始交易号
@@ -557,35 +653,6 @@ export class PaymentCancelResult extends $tea.Model {
       availableCurrency: 'string',
       state: 'string',
       outRequestId: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 创建交易前检查结果
-export class PaymentCreateCheckResult extends $tea.Model {
-  // 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
-  result: string;
-  // 业务错误码(为空表示成功，否则为业务错误码)
-  subCode?: string;
-  // 业务错误描述
-  subMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      result: 'result',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      result: 'string',
       subCode: 'string',
       subMsg: 'string',
     };
@@ -1166,6 +1233,69 @@ export class QuerySaasInstResponse extends $tea.Model {
   }
 }
 
+export class ApplySaasShareRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // JSON请求参数
+  bizContent: string;
+  // 版本号
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplySaasShareResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分账受理结果
+  data?: PaymentShareAcceptanceResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: PaymentShareAcceptanceResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1240,7 +1370,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -1279,7 +1409,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.1.0",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
@@ -1496,6 +1626,25 @@ export default class Client {
   async querySaasInstEx(request: QuerySaasInstRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasInstResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySaasInstResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.inst.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySaasInstResponse({}));
+  }
+
+  /**
+   * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+   * Summary: B2B资金服务交易分账
+   */
+  async applySaasShare(request: ApplySaasShareRequest): Promise<ApplySaasShareResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applySaasShareEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+   * Summary: B2B资金服务交易分账
+   */
+  async applySaasShareEx(request: ApplySaasShareRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplySaasShareResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplySaasShareResponse>(await this.doRequest("1.0", "antchain.defincashier.saas.share.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplySaasShareResponse({}));
   }
 
 }
