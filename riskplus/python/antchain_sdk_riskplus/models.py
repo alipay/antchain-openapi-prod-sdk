@@ -24868,7 +24868,7 @@ class QueryUmktTenantActionplaninfoResponse(TeaModel):
         return self
 
 
-class QueryUmktRobotcallRequest(TeaModel):
+class QueryUmktRobotcallDetailRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -24933,7 +24933,7 @@ class QueryUmktRobotcallRequest(TeaModel):
         return self
 
 
-class QueryUmktRobotcallResponse(TeaModel):
+class QueryUmktRobotcallDetailResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
