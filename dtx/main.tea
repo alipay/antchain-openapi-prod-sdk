@@ -1,0 +1,4179 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.166',
+    _prod_code = 'DTX',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 进行中事务数统计
+model Ongoing {
+  // 进行中分支事务数
+  actionNum: long(name='action_num', example='2'),
+  // 进行中事务数
+  activityNum: long(name='activity_num', example='100'),
+}
+
+// 当天事务数统计
+model Today {
+  // 当天分支事务数
+  actionNum: long(name='action_num', example='13'),
+  // 当天事务数
+  activityNum: long(name='activity_num', example='200'),
+}
+
+// 异常事务数
+model ExceptionStats {
+  // 异常事务数
+  total: long(name='total', example='4'),
+}
+
+// 页面展示的发起方数据源信息
+model ActivityDsVO {
+  // 9
+  actionTableIndexEnd: long(name='action_table_index_end', example='9'),
+  // 0
+  actionTableIndexStart: long(name='action_table_index_start', example='0'),
+  // .
+  actionTableNameFormat: string(name='action_table_name_format', example='business_action'),
+  // activity_table_index_end
+  activityTableIndexEnd: long(name='activity_table_index_end', example='9'),
+  // a
+  activityTableIndexStart: long(name='activity_table_index_start', example='0'),
+  // 主事务表
+  activityTableNameFormat: string(name='activity_table_name_format', example='business_activity'),
+  // DB最小连接数
+  dbConnectMin: long(name='db_connect_min', example='2'),
+  // DB最大连接数
+  dbConnMax: long(name='db_conn_max', example='10'),
+  // 数据库类型
+  dbType: long(name='db_type', example='1'),
+  // 统一数据源索引结束值
+  dsIndexEnd: long(name='ds_index_end', example='9'),
+  // 统一数据源索引起始值
+  dsIndexStart: long(name='ds_index_start', example='0'),
+  // 统一数据源
+  dsNameFormat: string(name='ds_name_format', example='dtx_ldc_{1}_WjmfKwy'),
+  // 唯一id
+  id: long(name='id', example='1'),
+  // 部署模式
+  // true：rzone部署，false：gzone部署
+  isLdc: boolean(name='is_ldc', example='true, false'),
+  // true：数据源配置在dtap数据库，false：数据源配置在dds/zdc里。
+  isLocalDs: boolean(name='is_local_ds', example='true, false'),
+  // gzone部署，国际IPAY站点使用
+  zone: string(name='zone', example='ipaycore00_ipaycore_failover_idgzhost=IDGZ;ipaycore01_ipaycore_failover_idgzhost=IDGZ; '),
+  // .
+  taskNameFormat: string(name='task_name_format', example='ds_{2}'),
+  // .
+  taskIndexStart?: long(name='task_index_start', example='0'),
+  // .
+  taskIndexEnd?: long(name='task_index_end', example='9'),
+}
+
+// TransactionNode
+model TransactionNode {
+  // id
+  id: long(name='id', example='1'),
+  // start_time
+  startTime: string(name='start_time', example='start_time'),
+  // end_time
+  endTime: string(name='end_time', example='end_time'),
+  // role
+  role: string(name='role', example='role'),
+  // name
+  name: string(name='name', example='name'),
+  // label
+  label: string(name='label', example='label'),
+  // is_end
+  isEnd: boolean(name='is_end', example='true, false'),
+}
+
+// 事务统计信息
+model Stats {
+  // 异常事务数
+  exception: ExceptionStats(name='exception', example=''),
+  // 进行中事务数统计
+  ongoing: Ongoing(name='ongoing', example=''),
+  // 当天事务数统计
+  today: Today(name='today', example=''),
+}
+
+// 应用列表，发起方 view object
+model AppRecoveryVO {
+  // app
+  appName: string(name='app_name', example='app'),
+  // 客户端模式
+  clientVersion: string(name='client_version', example='v4'),
+  // 数据源数组
+  dsArray: [ ActivityDsVO ](name='ds_array', example=''),
+  // 唯一id
+  id: long(name='id', example='1'),
+  // 是否异步化
+  isAsyn: boolean(name='is_asyn', example='true'),
+  // 数据源配置是否在dds中
+  isDds: boolean(name='is_dds', example='true, false'),
+  // 压测
+  isLoadTest: boolean(name='is_load_test', example='true'),
+  // 是否混合模式 
+  isMix: boolean(name='is_mix', example='true'),
+  // 单条恢复数
+  recoveryLimit: long(name='recovery_limit', example='10'),
+  // 恢复任务线程数
+  recoveryThreadNum: long(name='recovery_thread_num', example='10'),
+  // 是否被使用
+  used: boolean(name='used', example='true, false'),
+}
+
+// 联调记录中的发起方信息
+model DebugInitiator {
+  // 应用名
+  appName: string(name='app_name', example='paycore'),
+  // 数据源名
+  dsName: string(name='ds_name', example='obtrade001'),
+  // 主事务记录表
+  activityTableName: string(name='activity_table_name', example='activity_001'),
+}
+
+// 应用信息
+model AppInfo {
+  // 应用名
+  appName: string(name='app_name', example='paycore'),
+  // 创建人
+  creator: string(name='creator', example='张三'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2019-11-01 11:11:00'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10 10:10:00'),
+  // 应用owner
+  owner: string(name='owner', example='张三,李四'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id', example='prod;alipay'),
+}
+
+// 主事务趋势图
+model ActivityTrend {
+  // 时间点
+  time: long(name='time', example='1572930308946'),
+  // 总数
+  total: long(name='total', example='10'),
+  // 成功数
+  success: long(name='success', example='8'),
+  // 回滚数
+  rollback: long(name='rollback', example='2'),
+}
+
+// 参与者信息
+model Participator {
+  // 参与者名称
+  actionName?: string(name='action_name', example='ADD_MONEY'),
+  // 应用名
+  appName?: string(name='app_name', example='paycore'),
+  // 类全名，包括完整包名
+  className?: string(name='class_name', example='com.alipay.Payment'),
+  // 提交方法名称
+  commitMethodName?: string(name='commit_method_name', example='commit'),
+  // 提交方法参数
+  commitMethodParamsType?: long(name='commit_method_params_type', example='3'),
+  // 弹性key
+  elasticKey?: string(name='elastic_key', example='无'),
+  // 弹性路由规则（Groovy脚本）
+  elasticRouteRule?: string(name='elastic_route_rule', example='无'),
+  // 记录id，更新必传
+  id?: long(name='id', example='1111'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // rpc是否ldc调用
+  isZoneRoute?: boolean(name='is_zone_route', example='true, false'),
+  // 回滚方法名称
+  rollbackMethodName?: string(name='rollback_method_name', example='rollback'),
+  // 回滚方法的参数类型
+  rollbackMethodParamsType?: long(name='rollback_method_params_type', example='3'),
+  // rpc接口测试地址
+  testUrl?: string(name='test_url', example='http://local.alipay.net:12200'),
+  // rpc uniqueId
+  uniqueId?: string(name='unique_id', example='无'),
+  // 是否被使用
+  used?: boolean(name='used', example='true, false'),
+  // rpc协议，ws或tr
+  wsTr?: string(name='ws_tr', example='tr'),
+}
+
+// 发起方数据源
+model InitiatorDatasource {
+  // 分支事务表索引结束点
+  actionTableIndexEnd?: long(name='action_table_index_end', example='99'),
+  // 分支事务表索引起始点
+  actionTableIndexStart?: long(name='action_table_index_start', example='0'),
+  // 分支事务表模板
+  actionTableNameFormat?: string(name='action_table_name_format', example='business_action'),
+  // 主事务表索引结束点
+  activityTableIndexEnd?: long(name='activity_table_index_end', example='99'),
+  // 主事务表索引起始点
+  activityTableIndexStart?: long(name='activity_table_index_start', example='0'),
+  // 主事务表模板
+  activityTableNameFormat?: string(name='activity_table_name_format', example='business_activity'),
+  // DB最小连接数
+  dbConnectMin: long(name='db_connect_min', example='2'),
+  // DB最大连接数
+  dbConnMax: long(name='db_conn_max', example='30'),
+  // 数据库类型
+  dbType: long(name='db_type', example='10'),
+  // 数据源索引结束点
+  dsIndexEnd?: long(name='ds_index_end', example='99'),
+  // 数据源索引起始点
+  dsIndexStart?: long(name='ds_index_start', example='0'),
+  // 数据源名字
+  dsNameFormat?: string(name='ds_name_format', example='ob_ds{2}_host'),
+  // 唯一键，更新时需要
+  id?: long(name='id', example=''),
+  // 环境唯一标识
+  instanceId: string(name='instance_id', example='prod;alipay'),
+  // true：rzone部署，false：gzone部署
+  isLdc: boolean(name='is_ldc', example='true, false'),
+  // true：数据源配置在dtap数据库，false：数据源配置在dds/zdc里。
+  isLocalDs: boolean(name='is_local_ds', example='true, false'),
+  // gzone部署，国际IPAY站点使用
+  zone: string(name='zone', example='ipaycore00_ipaycore_failover_idgzhost=IDGZ;ipaycore01_ipaycore_failover_idgzhost=IDGZ;'),
+}
+
+// 分库分表规则
+model SplitRule {
+  // db_split_rule
+  dbSplitRule: long(name='db_split_rule', example='1:哈希取模'),
+  // db_split_template
+  dbSplitTemplate?: string(name='db_split_template', example='哈希方式'),
+  // table_split_rule
+  tableSplitRule: long(name='table_split_rule', example='1：哈希取模'),
+  // table_split_template
+  tableSplitTemplate?: string(name='table_split_template', example='哈希散列'),
+}
+
+// 事务详情
+model TransactionInfo {
+  // Saga模式返回3, tcc-local 返回 1， tcc-remote 返回2
+  actionMode?: long(name='action_mode', example='3'),
+  // 业务码
+  bizType: string(name='biz_type', example='01040P'),
+  // 业务id
+  businessId: string(name='business_id', example='aaa11113333'),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2019-11-05 16:50:27'),
+  // 发起方ip
+  initiatorIp: string(name='initiator_ip', example='10.253.175.18'),
+  // 发起方名称
+  initiatorName: string(name='initiator_name', example='ant-cloud-quality-dtxtest'),
+  // 最近修改时间
+  modifyTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modify_time', example='2018-10-10T10:10:00Z'),
+  // 参与者id列表
+  participatorIds: [ string ](name='participator_ids', example='[100, 101]'),
+  // 开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2019-11-05 16:49:00'),
+  // 事务状态
+  status: string(name='status', example='Success'),
+  // 事务id
+  txId: string(name='tx_id', example='b3f0f17e45d54d56967a5bd6dd1a28c501-0000000000'),
+}
+
+// 联调记录中的参与者信息
+model DebugParticipator {
+  // 主事务id
+  txId: string(name='tx_id', example='b3f0f17e45d54d56967a5bd6dd1a28c501-0000000000'),
+  // 分支事务id
+  actionId: string(name='action_id', example='-3953949181472325518'),
+  // 参与者名称
+  actionName: string(name='action_name', example='IINNERTRANS_TRANS_INNER_ACCOUNT_TALLY'),
+  // 1：提交，2：回滚
+  actionType: long(name='action_type', example='1'),
+  // 主事务上下文
+  activityContext: string(name='activity_context', example='a=b;'),
+  // 分支事务上下文
+  actionContext: string(name='action_context', example='c=d;'),
+}
+
+// 分支事务数趋势图
+model ActionTrend {
+  // 时间点
+  time: long(name='time', example='1572930308946'),
+  // 总数
+  total: long(name='total', example='20'),
+  // 成功数
+  success: long(name='success', example='15'),
+  // 回滚数
+  rollback: long(name='rollback', example='5'),
+}
+
+// 异常事务数趋势图
+model ExceptionTrend {
+  // 时间点
+  time: long(name='time', example='1572930308946'),
+  // 异常事务数
+  total: long(name='total', example='10'),
+}
+
+// 事务详情 参与者信息
+model TransactionsParticipator {
+  // app_name
+  appName: string(name='app_name', example='app_name'),
+  // id
+  id: string(name='id', example='1'),
+  // method_name
+  methodName: string(name='method_name', example=';'),
+  // method_type
+  methodType: string(name='method_type', example='method_type'),
+  // rsDesc
+  rsDesc: string(name='rs_desc', example='rsDesc'),
+  // rs_type
+  rsType: string(name='rs_type', example='1'),
+}
+
+// TransactionEdge
+model TransactionEdge {
+  // id
+  id: long(name='id', example='1'),
+  // source
+  source: long(name='source', example='1'),
+  // target
+  target: long(name='target', example='1'),
+  // type
+  type: string(name='type', example='type'),
+  // content
+  content: string(name='content', example='content'),
+  // isError
+  isError: boolean(name='is_error', example='true'),
+  // error_message
+  errorMessage: string(name='error_message', example='error_message'),
+}
+
+// 环境信息
+model EnvInfo {
+  // 环境
+  env: string(name='env', example='stable/sit/prod'),
+  // 是否公有云环境
+  isPublicCloud: boolean(name='is_public_cloud', example='true, false'),
+  // 租户
+  tenant: string(name='tenant', example='alipay'),
+  // server / client
+  recoveryMode: string(name='recovery_mode', example='client'),
+}
+
+// 发起方数据源存储实体
+model RecoveryDsDTO {
+  // 分支事务表索引结束点
+  actionTableIndexEnd?: long(name='action_table_index_end', example='99'),
+  // 分支事务表索引起始点
+  // 
+  actionTableIndexStart?: long(name='action_table_index_start', example='0'),
+  // 分支事务表模板
+  // 
+  actionTableNameFormat?: string(name='action_table_name_format', example='business_action'),
+  // 主事务表索引结束点
+  activityTableIndexEnd?: long(name='activity_table_index_end', example='99'),
+  // 主事务表索引起始点
+  // 
+  activityTableIndexStart?: long(name='activity_table_index_start', example='0'),
+  // 主事务表模板
+  activityTableNameFormat?: string(name='activity_table_name_format', example='business_activity'),
+  // DB最小连接数
+  // 
+  dbConnectMin?: long(name='db_connect_min', example='2'),
+  // DB最大连接数
+  dbConnMax?: long(name='db_conn_max', example='30'),
+  // 数据库类型
+  // 
+  dbType?: long(name='db_type', example='10'),
+  // 数据源索引结束点
+  // 
+  dsIndexEnd?: long(name='ds_index_end', example='99'),
+  // 数据源索引起始点
+  // 
+  dsIndexStart?: long(name='ds_index_start', example='0'),
+  // 数据源名字
+  dsNameFormat?: string(name='ds_name_format', example='ob_ds{2}_host '),
+  // 发起方组groupid
+  groupId?: string(name='group_id', example='1'),
+  // 主键id 更新时传一下
+  id?: long(name='id', example='1'),
+  // true：rzone部署，false：gzone部署
+  isLdc?: boolean(name='is_ldc', example='true, false'),
+  // true：数据源配置在dtap数据库，false：数据源配置在dds/zdc里。
+  isLocalDs?: boolean(name='is_local_ds', example='true, false'),
+  // gzone部署，国际IPAY站点使用
+  zone?: string(name='zone', example='ipaycore00_ipaycore_failover_idgzhost=IDGZ;ipaycore01_ipaycore_failover_idgzhost=IDGZ; '),
+  // 恢复任务名称模板
+  taskNameFormat?: string(name='task_name_format', example='ds_{2}'),
+  // 恢复任务起始索引
+  taskIndexStart?: long(name='task_index_start', example='0'),
+  // 恢复任务结束索引
+  taskIndexEnd?: long(name='task_index_end', example='99'),
+}
+
+// Instance信息
+model InstanceDTO {
+  // instance id
+  instanceId: string(name='instance_id', example='xxx'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='alipay'),
+  // 工作空间
+  workspaceId: string(name='workspace_id', example='zzz'),
+}
+
+// 切换动作
+model SwitchoverAction {
+  // 目标单元
+  destCell?: string(name='dest_cell', example='GZ00B'),
+  // 来源单元
+  sourceCell?: string(name='source_cell', example='GZ00A'),
+}
+
+// 事务趋势图
+model Trend {
+  // 分支事务数趋势图
+  actionTrend: [ ActionTrend ](name='action_trend', example=''),
+  // 主事务数趋势图
+  activityTrend: [ ActivityTrend ](name='activity_trend', example=''),
+  // 事务失败数趋势图
+  exceptionTrend: [ ExceptionTrend ](name='exception_trend', example=''),
+}
+
+// 应用列表 应用信息
+model AppInfoVO {
+  // 参与者数组
+  actionArray: [ Participator ](name='action_array', example=''),
+  // 10
+  actionCount: long(name='action_count', example='10'),
+  // 10
+  activityCount: long(name='activity_count', example='10'),
+  // 1 同库 2 异库
+  activityMode: long(name='activity_mode', example='1'),
+  // app
+  appName: string(name='app_name', example='app'),
+  // 分库规则
+  dbRuleName: string(name='db_rule_name', example='hash'),
+  // 分库规则
+  dbRuleTemplate: string(name='db_rule_template', example='temp'),
+  // 一句话描述
+  desc: string(name='desc', example='一句话描述'),
+  // 唯一id
+  id: long(name='id', example='1'),
+  // 1
+  recoveryArray: [ AppRecoveryVO ](name='recovery_array', example=''),
+  // 分表类型
+  tableRuleName: string(name='table_rule_name', example='hash'),
+  // 分表规则
+  tableRuleTemplate: string(name='table_rule_template', example='temp'),
+  // 是否被使用
+  used: boolean(name='used', example='true, false'),
+  // 1 单库单表 2 分库分表
+  spliteMode: long(name='splite_mode', example='1'),
+}
+
+// DsName & DsNameFormat
+model DsNameInfo {
+  // ds_name
+  dsName: string(name='ds_name', example='ds_name'),
+  // ds_name_format
+  dsNameFormat: string(name='ds_name_format', example='ds_name_format'),
+}
+
+// 批量添加发起方 DO
+model RecoveryDTO {
+  // 客户端版本
+  // 
+  clientVersion?: string(name='client_version', example='v4'),
+  // 发起方组编号
+  groupId?: string(name='group_id', example='1'),
+  // 主键id，更新时需要
+  id?: long(name='id', example='1'),
+  // 是否异步化
+  isAsyn?: boolean(name='is_asyn', example='true, false'),
+  // 是否压测任务
+  isLoadTest?: boolean(name='is_load_test', example='true, false'),
+  // 是否混合模式
+  isMix?: boolean(name='is_mix', example='true, false'),
+  // 恢复条数/分/表
+  recoveryLimit?: long(name='recovery_limit', example='100'),
+  // 恢复线程数
+  recoveryThreadNum?: long(name='recovery_thread_num', example='20'),
+}
+
+// k:v
+model Pair {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// app and action view object
+model AppActionVO {
+  // 应用名
+  appName: string(name='app_name', example='app'),
+  // 参与者名称数组
+  actionArray: [ string ](name='action_array', example=''),
+}
+
+// 发起方信息
+model Initiator {
+  // 应用名
+  appName: string(name='app_name', example='paycore'),
+  // 客户端版本
+  clientVersion: string(name='client_version', example='v4'),
+  // 记录id
+  id: long(name='id', example='1'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id', example='prod;alipay'),
+  // 是否异步化
+  isAsyn: boolean(name='is_asyn', example='true, false'),
+  // 是否压测任务
+  isLoadTest: boolean(name='is_load_test', example='true, false'),
+  // 是否混合模式
+  isMix: boolean(name='is_mix', example='true, false'),
+  // 发起方数据源
+  recoveryDatasources: [ InitiatorDatasource ](name='recovery_datasources', example=''),
+  // 恢复条数/分/表
+  recoveryLimit?: long(name='recovery_limit', example='1000'),
+  // 恢复线程数
+  recoveryThreadNum?: long(name='recovery_thread_num', example='20'),
+}
+
+// 发起方appinfo
+model TrasactionAppInfo {
+  // 应用名
+  appName: string(name='app_name', example='aaaa'),
+  // recovery_id
+  recoveryId: long(name='recovery_id', example='1'),
+}
+
+// app信息及统计信息
+model AppStats {
+  // app name
+  appName?: string(name='app_name', example='app1'),
+  // 异常数
+  exceptionTotal?: long(name='exception_total', example=''),
+  // 时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 发起方
+  initiator?: [ string ](name='initiator', example='["110001"]'),
+  // 参与者
+  participator?: [ string ](name='participator', example='["action1", "action2"]'),
+  // 今日事务总数
+  todayTotal?: long(name='today_total', example=''),
+  // Saga模式返回3，其它模式不返回
+  actionMode?: long(name='action_mode', example='3'),
+  // 字段ID
+  id?: long(name='id', example='0'),
+}
+
+// 悬挂事务恢复详情
+model Correction {
+  // 分支事务上下文
+  actionContext: string(name='action_context', example='c=d;'),
+  // 参与者名称
+  actionName: string(name='action_name', example='PCREDITBILL_TRANS_TRANSFER_FOR_TRADE'),
+  // 1：提交，2：回滚
+  actionType: long(name='action_type', example='1'),
+  // 主事务上下文
+  activityContext: string(name='activity_context', example='a=b;'),
+  // 应用名
+  appName: string(name='app_name', example='paycore'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10 10:10:00'),
+  // 记录id
+  id: long(name='id', example='201'),
+  // 操作人
+  operator: string(name='operator', example='张三'),
+  // 0 已提交  4 已执行
+  state: string(name='state', example='0'),
+  // 是否同步主账务；0、不同步，1、同步
+  syncAcctrans: long(name='sync_acctrans', example='0'),
+  // 是否同步统一支付；0、不同步，1同步
+  syncPaycore: long(name='sync_paycore', example='0'),
+  // tracer上下文
+  tracerContext?: string(name='tracer_context', example='aa=1;'),
+  // 事务id
+  txId: string(name='tx_id', example='b3f0f17e45d54d56967a5bd6dd1a28c501-0000000000'),
+}
+
+// 异库模式应用事务信息
+model AsynDbTxInfo {
+  // action_mode
+  actionMode?: long(name='action_mode', example=''),
+  // activity_mode
+  activityMode: long(name='activity_mode', example=''),
+  // app_name
+  appName: string(name='app_name', example='app_name'),
+  // biz_type
+  bizType: string(name='biz_type', example='biz_type'),
+  // desc
+  desc?: string(name='desc', example='desc'),
+  // instance_id
+  instanceId: string(name='instance_id', example='instance_id'),
+  // role
+  role: long(name='role', example=''),
+  // split_rule
+  splitRule?: SplitRule(name='split_rule', example=''),
+}
+
+// 参与者信息
+model ActionInfo {
+  // action_mode
+  actionMode?: string(name='action_mode', example='TCC'),
+  // action_name
+  actionName: string(name='action_name', example='action_name'),
+  // app_name
+  appName: string(name='app_name', example='app_name'),
+  // commit
+  commit: string(name='commit', example='commit'),
+  // rollback
+  rollback: string(name='rollback', example='rollback'),
+  // ws_tr
+  wsTr: string(name='ws_tr', example='ws_tr'),
+}
+
+// 排序
+model OrderByParams {
+  // 排序字段
+  orderName: string(name='order_name', example='gmt_create'),
+  // asc 正序  desc 倒序
+  orderType: string(name='order_type', example='asc'),
+}
+
+// 联调记录，包括发起方联调和参与者联调
+model DebugRecord {
+  // 应用名
+  appName: string(name='app_name', example='paycore'),
+  // 1：发起方联调，2：参与者联调
+  debugType: long(name='debug_type', example='1'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2017-01-05 22:59:27'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='2017-01-05 22:59:27'),
+  // 记录id
+  id: long(name='id', example='111'),
+  // 发起方信息
+  initiator: DebugInitiator(name='initiator', example=''),
+  // 环境唯一标识
+  instanceId: string(name='instance_id', example='dev;alipay'),
+  // 执行人
+  operator: string(name='operator', example='张三'),
+  // 参与者信息
+  participator: DebugParticipator(name='participator', example=''),
+  // 状态
+  state: string(name='state', example='0'),
+  // 联调结果信息
+  msg: string(name='msg', example='发起方联调成功'),
+}
+
+// 分表规则
+model TableSplitRule {
+  // 分表规则名
+  ruleName: string(name='rule_name', example='Hash 取模'),
+  // 格式模板
+  ruleTemplate: string(name='rule_template', example='xxx_{}_xxx'),
+}
+
+// 白名单信息
+model WhiteListInfo {
+  // app_ame
+  appName: string(name='app_name', example='app_ame'),
+  // 2018-10-10T10:10:00Z
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // id
+  id: long(name='id', example='id'),
+  // instance_id
+  instanceId: string(name='instance_id', example='instance_id'),
+  // 机房选择：0非弹机房，1弹性机房；
+  isElastic: long(name='is_elastic', example='0，1'),
+  // 0正常流量，1影子流量；
+  isLoadTest: long(name='is_load_test', example='0,1'),
+  // 数据源名称
+  logicalDsName: string(name='logical_ds_name', example='ds_1'),
+  // business_type
+  businessType?: string(name='business_type', example='10000P'),
+}
+
+// 全局统计数据
+model GlobalStats {
+  // 异常事务数
+  exception: long(name='exception', example=''),
+  // 进行中事务数
+  activity: long(name='activity', example=''),
+  // 当天事务数
+  today: long(name='today', example=''),
+  // connection
+  connection?: long(name='connection', example='1'),
+}
+
+// 组合对象，事务详情和参与者详情
+model TransactionParticipators {
+  // 参与者详情列表
+  participators: [ TransactionsParticipator ](name='participators', example=''),
+  // 事务详情
+  transactionInfo: TransactionInfo(name='transaction_info', example=''),
+}
+
+// app简要信息
+model AppTxInfo {
+  // appInfo
+  appInfo: AppInfo(name='app_info', example=''),
+  // Stats
+  stats: Stats(name='stats', example=''),
+}
+
+// TransactionChartInfo
+model TransactionChartInfo {
+  // a
+  bizId: string(name='biz_id', example='a'),
+  // biz_type
+  bizType: string(name='biz_type', example='biz_type'),
+  // cost
+  cost: long(name='cost', example='111'),
+  // edges
+  edges: [ TransactionEdge ](name='edges', example='edges'),
+  // end_time
+  endTime?: string(name='end_time', example='end_time'),
+  // last_handle_time
+  lastHandleTime?: string(name='last_handle_time', example='last_handle_time'),
+  // lowerLineCount
+  lowerLineCount: long(name='lower_line_count', example='lowerLineCount'),
+  // nodes
+  nodes: [ TransactionNode ](name='nodes', example='nodes'),
+  // participatorNum
+  participatorNum: long(name='participator_num', example='1'),
+  // starter_ip
+  starterIp: string(name='starter_ip', example='starter_ip'),
+  // starterName
+  starterName: string(name='starter_name', example='app'),
+  // start_time
+  startTime: string(name='start_time', example='start_time'),
+  // state
+  state: string(name='state', example='EC'),
+  // txid
+  txId: string(name='tx_id', example='txid'),
+  // upper_line_count
+  upperLineCount: long(name='upper_line_count', example='upper_line_count'),
+  // action_mode
+  actionMode?: long(name='action_mode', example='3'),
+}
+
+model CreateAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1：同库模式，事务记录表在业务侧；
+  // 2：异库模式。
+  activityMode: long(name='activity_mode'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 应用描述
+  desc: string(name='desc'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 分库分表规则
+  splitRule?: SplitRule(name='split_rule'),
+}
+
+model CreateAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 创建应用
+ * Summary: 创建应用
+ */
+async function createApps(request: CreateAppsRequest): CreateAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建应用
+ * Summary: 创建应用
+ */
+async function createAppsEx(request: CreateAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRecoveryInitiatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // action_mode
+  actionMode?: long(name='action_mode'),
+  // activity_mode
+  activityMode: long(name='activity_mode'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 业务码
+  bizType: string(name='biz_type'),
+  // Client 版本
+  clientVersion: string(name='client_version'),
+  // 应用描述
+  // 
+  desc?: string(name='desc'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 是否异步化
+  isAsyn: boolean(name='is_asyn'),
+  // 是否压测任务
+  isLoadTest: boolean(name='is_load_test'),
+  // 是否混合模式
+  isMix: boolean(name='is_mix'),
+  // 发起方数据源
+  recoveryDatasources: [ InitiatorDatasource ](name='recovery_datasources'),
+  // 恢复条数/分/表
+  recoveryLimit: long(name='recovery_limit'),
+  // 恢复线程数
+  recoveryThreadNum: long(name='recovery_thread_num'),
+  // SINGLE：单库单表 SPLIT：分库分表
+  // 
+  splitMode?: string(name='split_mode'),
+  // 分库分表规则
+  // 
+  splitRule?: SplitRule(name='split_rule'),
+}
+
+model CreateRecoveryInitiatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的结果文本
+  msg?: string(name='msg'),
+  // 返回结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发起方接入，新增发起方配置
+ * Summary: 发起方接入
+ */
+async function createRecoveryInitiators(request: CreateRecoveryInitiatorsRequest): CreateRecoveryInitiatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRecoveryInitiatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起方接入，新增发起方配置
+ * Summary: 发起方接入
+ */
+async function createRecoveryInitiatorsEx(request: CreateRecoveryInitiatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRecoveryInitiatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.initiators.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountAppsStatsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  bizType: string(name='biz_type'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+}
+
+model CountAppsStatsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用统计信息
+  data?: AppTxInfo(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 根据app获取事务概览统计
+ * Summary: 获取bizType事务概览统计
+ */
+async function countAppsStats(request: CountAppsStatsRequest): CountAppsStatsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countAppsStatsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据app获取事务概览统计
+ * Summary: 获取bizType事务概览统计
+ */
+async function countAppsStatsEx(request: CountAppsStatsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountAppsStatsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.stats.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppsBiztypesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model ListAppsBiztypesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // bizType列表
+  data?: [ string ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 获取bizType列表
+ * Summary: 获取bizType列表
+ */
+async function listAppsBiztypes(request: ListAppsBiztypesRequest): ListAppsBiztypesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppsBiztypesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取bizType列表
+ * Summary: 获取bizType列表
+ */
+async function listAppsBiztypesEx(request: ListAppsBiztypesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppsBiztypesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.biztypes.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportAppsConfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 类型（发起方/参与者）
+  type: string(name='type'),
+}
+
+model ExportAppsConfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 接口返回文件URL
+  url?: string(name='url'),
+  // 导出配置信息，json
+  context?: string(name='context'),
+}
+
+/**
+ * Description: app+发起方/参与者 导出配置
+ * Summary: 导出配置
+ */
+async function exportAppsConfigs(request: ExportAppsConfigsRequest): ExportAppsConfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportAppsConfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: app+发起方/参与者 导出配置
+ * Summary: 导出配置
+ */
+async function exportAppsConfigsEx(request: ExportAppsConfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportAppsConfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.configs.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllAppsAppnamesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model AllAppsAppnamesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // appname列表
+  data?: [ string ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 获取应用名（app_name）列表
+ * Summary: 获取应用名（app_name）列表
+ */
+async function allAppsAppnames(request: AllAppsAppnamesRequest): AllAppsAppnamesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allAppsAppnamesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取应用名（app_name）列表
+ * Summary: 获取应用名（app_name）列表
+ */
+async function allAppsAppnamesEx(request: AllAppsAppnamesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllAppsAppnamesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.appnames.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName?: string(name='app_name'),
+  // bizType查询条件
+  bizType?: string(name='biz_type'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 单页大小
+  pageSize: long(name='page_size'),
+  // initiator|participator  app_name作为发起者还是参与者
+  type?: string(name='type'),
+}
+
+model ListAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 应用列表
+  data?: [ AppStats ](name='data'),
+  // 单页大小
+  pageSize?: long(name='page_size'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 应用事务列表，分页
+ * Summary: 应用事务列表
+ */
+async function listApps(request: ListAppsRequest): ListAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用事务列表，分页
+ * Summary: 应用事务列表
+ */
+async function listAppsEx(request: ListAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRecoveryParticipatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // id
+  id: long(name='id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model GetRecoveryParticipatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // action_name
+  actionName?: string(name='action_name'),
+  // app_name
+  appName?: string(name='app_name'),
+  // biz_type
+  bizType?: string(name='biz_type'),
+  // 关联关系表的id，用于更新
+  bizTypeId?: long(name='biz_type_id'),
+  // class_name
+  className?: string(name='class_name'),
+  // commit_method_name
+  commitMethodName?: string(name='commit_method_name'),
+  // commit_method_params_type
+  commitMethodParamsType?: long(name='commit_method_params_type'),
+  // elastic_key
+  elasticKey?: string(name='elastic_key'),
+  // elastic_route_rule
+  elasticRouteRule?: string(name='elastic_route_rule'),
+  // id
+  id?: long(name='id'),
+  // instance_id
+  instanceId?: string(name='instance_id'),
+  // is_zone_route
+  isZoneRoute?: boolean(name='is_zone_route'),
+  // rollback_method_name
+  rollbackMethodName?: string(name='rollback_method_name'),
+  // rollback_method_params_type
+  rollbackMethodParamsType?: long(name='rollback_method_params_type'),
+  // test_url
+  testUrl?: string(name='test_url'),
+  // unique_id
+  uniqueId?: string(name='unique_id'),
+  // ws_tr
+  wsTr?: string(name='ws_tr'),
+}
+
+/**
+ * Description: 单个参与者详情
+ * Summary: 单个参与者详情
+ */
+async function getRecoveryParticipators(request: GetRecoveryParticipatorsRequest): GetRecoveryParticipatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRecoveryParticipatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个参与者详情
+ * Summary: 单个参与者详情
+ */
+async function getRecoveryParticipatorsEx(request: GetRecoveryParticipatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRecoveryParticipatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.participators.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAppsConfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName?: string(name='app_name'),
+  // 上传文件名
+  fileName?: string(name='file_name'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // initiator|participator
+  type?: string(name='type'),
+  // 导入的内容，严格的json
+  context?: string(name='context'),
+}
+
+model ImportAppsConfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // msg
+  msg?: string(name='msg'),
+  // 上传成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 导出配置中需要有app、类型信息（发起方/参与者）
+ * Summary: 导入配置
+ */
+async function importAppsConfigs(request: ImportAppsConfigsRequest): ImportAppsConfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAppsConfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导出配置中需要有app、类型信息（发起方/参与者）
+ * Summary: 导入配置
+ */
+async function importAppsConfigsEx(request: ImportAppsConfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAppsConfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.configs.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetUploadUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+  // 文件名
+  fileName: string(name='file_name'),
+  // 文件类型，对应folder
+  type: string(name='type'),
+}
+
+model GetUploadUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件URL
+  url?: string(name='url'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 获取上传文件URL
+ * Summary: 获取上传文件URL
+ */
+async function getUploadUrl(request: GetUploadUrlRequest): GetUploadUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getUploadUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取上传文件URL
+ * Summary: 获取上传文件URL
+ */
+async function getUploadUrlEx(request: GetUploadUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetUploadUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.upload.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppsBiztypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // saga状态机定义id
+  statemachineId?: string(name='statemachine_id'),
+}
+
+model QueryAppsBiztypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异库模式更新信息
+  asynInfo?: AsynDbTxInfo(name='asyn_info'),
+  // Saga状态机的json定义
+  content?: string(name='content'),
+  // initiator
+  initiator?: Initiator(name='initiator'),
+  // participators
+  participators?: [ Participator ](name='participators'),
+}
+
+/**
+ * Description: 查询bizType的调用关系：发起者（appName）和参与者，Saga则是状态机json定义
+ * Summary: 查询bizType的调用关系
+ */
+async function queryAppsBiztype(request: QueryAppsBiztypeRequest): QueryAppsBiztypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppsBiztypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询bizType的调用关系：发起者（appName）和参与者，Saga则是状态机json定义
+ * Summary: 查询bizType的调用关系
+ */
+async function queryAppsBiztypeEx(request: QueryAppsBiztypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppsBiztypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.biztype.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppsRecoverydsnameRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model ListAppsRecoverydsnameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据源列表
+  data?: [ string ](name='data'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 创建发起者获取数据源
+ * Summary: 创建发起者获取数据源
+ */
+async function listAppsRecoverydsname(request: ListAppsRecoverydsnameRequest): ListAppsRecoverydsnameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppsRecoverydsnameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建发起者获取数据源
+ * Summary: 创建发起者获取数据源
+ */
+async function listAppsRecoverydsnameEx(request: ListAppsRecoverydsnameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppsRecoverydsnameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.recoverydsname.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAppsBiztypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名称
+  appName: string(name='app_name'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+  // 000001
+  instanceId: string(name='instance_id'),
+  // saga状态机定义id
+  statemachineId?: string(name='statemachine_id'),
+}
+
+model GetAppsBiztypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 参与者信息
+  data?: [ ActionInfo ](name='data'),
+  // Saga状态机的json定义
+  statemachineJson?: string(name='statemachine_json'),
+}
+
+/**
+ * Description: 单个biztype的关联关系，Saga则是状态机json定义
+ * Summary: 单个biztype的关联关系
+ */
+async function getAppsBiztype(request: GetAppsBiztypeRequest): GetAppsBiztypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAppsBiztypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个biztype的关联关系，Saga则是状态机json定义
+ * Summary: 单个biztype的关联关系
+ */
+async function getAppsBiztypeEx(request: GetAppsBiztypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppsBiztypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.biztype.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAppsBiztypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // client_version
+  clientVersion: string(name='client_version'),
+  // id
+  id: long(name='id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // is_asyn
+  isAsyn: boolean(name='is_asyn'),
+  // is_load_test
+  isLoadTest: boolean(name='is_load_test'),
+  // is_mix
+  isMix: boolean(name='is_mix'),
+  // participators
+  participators: [ Participator ](name='participators'),
+  // recovery_datasources
+  recoveryDatasources: [ InitiatorDatasource ](name='recovery_datasources'),
+  // recovery_limit
+  recoveryLimit: long(name='recovery_limit'),
+  // recovery_thread_num
+  recoveryThreadNum: long(name='recovery_thread_num'),
+}
+
+model UpdateAppsBiztypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 事务更新
+ * Summary: 事务更新
+ */
+async function updateAppsBiztype(request: UpdateAppsBiztypeRequest): UpdateAppsBiztypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAppsBiztypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事务更新
+ * Summary: 事务更新
+ */
+async function updateAppsBiztypeEx(request: UpdateAppsBiztypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAppsBiztypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.biztype.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAppsConfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发起方配置
+  initiator?: Initiator(name='initiator'),
+  // 参与者列表
+  participators?: [ Participator ](name='participators'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 应用的描述
+  desc?: string(name='desc'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 1：同库模式，事务记录表在业务侧； 2：异库模式。
+  activityMode: long(name='activity_mode'),
+  // 分表分表规则
+  shardingRule?: SplitRule(name='sharding_rule'),
+}
+
+model CreateAppsConfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  success?: boolean(name='success'),
+  // 返回的结果文本
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 新增应用配置（包括发起方和参与者）
+ * Summary: 新增应用配置（包括发起方和参与者）
+ */
+async function createAppsConfigs(request: CreateAppsConfigsRequest): CreateAppsConfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAppsConfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增应用配置（包括发起方和参与者）
+ * Summary: 新增应用配置（包括发起方和参与者）
+ */
+async function createAppsConfigsEx(request: CreateAppsConfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAppsConfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.configs.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAppsNewconfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // 导入的内容，严格的json
+  context?: string(name='context'),
+}
+
+model ImportAppsNewconfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // msg
+  msg?: string(name='msg'),
+  // 上传成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 事务配置-导入配置
+ * Summary: 应用配置-导入配置
+ */
+async function importAppsNewconfigs(request: ImportAppsNewconfigsRequest): ImportAppsNewconfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAppsNewconfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事务配置-导入配置
+ * Summary: 应用配置-导入配置
+ */
+async function importAppsNewconfigsEx(request: ImportAppsNewconfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAppsNewconfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.newconfigs.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportAppsNewconfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model ExportAppsNewconfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 导出配置信息，json
+  context?: string(name='context'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 接口返回文件URL
+  url?: string(name='url'),
+}
+
+/**
+ * Description: app+发起方/参与者 导出配置
+ * Summary: 应用配置-导出配置
+ */
+async function exportAppsNewconfigs(request: ExportAppsNewconfigsRequest): ExportAppsNewconfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportAppsNewconfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: app+发起方/参与者 导出配置
+ * Summary: 应用配置-导出配置
+ */
+async function exportAppsNewconfigsEx(request: ExportAppsNewconfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportAppsNewconfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.newconfigs.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportTxConfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 导入的内容，严格的json
+  context: string(name='context'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model ImportTxConfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // msg
+  msg?: string(name='msg'),
+  // 上传成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 导出配置中需要有事务信息
+ * Summary: 事务配置-导入配置
+ */
+async function importTxConfigs(request: ImportTxConfigsRequest): ImportTxConfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importTxConfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导出配置中需要有事务信息
+ * Summary: 事务配置-导入配置
+ */
+async function importTxConfigsEx(request: ImportTxConfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportTxConfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.tx.configs.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportTxConfigsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // id 列表
+  bizType?: string(name='biz_type'),
+}
+
+model ExportTxConfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 导出配置信息，json
+  context?: string(name='context'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 接口返回文件URL
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 事务导出配置
+ * Summary: 事务配置-导出配置
+ */
+async function exportTxConfigs(request: ExportTxConfigsRequest): ExportTxConfigsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportTxConfigsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事务导出配置
+ * Summary: 事务配置-导出配置
+ */
+async function exportTxConfigsEx(request: ExportTxConfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportTxConfigsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.tx.configs.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListNewAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支持模糊查询
+  appName?: string(name='app_name'),
+  // 1
+  currentPage: long(name='current_page'),
+  // 000001
+  instanceId: string(name='instance_id'),
+  // 10
+  pageSize: long(name='page_size'),
+}
+
+model ListNewAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // .
+  currentPage?: long(name='current_page'),
+  // app
+  data?: [ AppInfoVO ](name='data'),
+  // 10
+  pageSize?: long(name='page_size'),
+  // 10
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 管控台1.1 应用配置列表
+ * Summary: 应用配置列表
+ */
+async function listNewApps(request: ListNewAppsRequest): ListNewAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listNewAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 管控台1.1 应用配置列表
+ * Summary: 应用配置列表
+ */
+async function listNewAppsEx(request: ListNewAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListNewAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.new.apps.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppsDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用id
+  appId: long(name='app_id'),
+  // instance
+  instanceId: string(name='instance_id'),
+}
+
+model QueryAppsDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用信息
+  data?: AppInfoVO(name='data'),
+}
+
+/**
+ * Description: 新应用详情界面
+ * Summary: 应用详情
+ */
+async function queryAppsDetail(request: QueryAppsDetailRequest): QueryAppsDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppsDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新应用详情界面
+ * Summary: 应用详情
+ */
+async function queryAppsDetailEx(request: QueryAppsDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppsDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  appId: long(name='app_id'),
+  // 000001
+  instanceId: string(name='instance_id'),
+}
+
+model DeleteAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 。
+ * Summary: 应用删除
+ */
+async function deleteApps(request: DeleteAppsRequest): DeleteAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 。
+ * Summary: 应用删除
+ */
+async function deleteAppsEx(request: DeleteAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAppsRecoveryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 000001
+  instanceId: string(name='instance_id'),
+  // 发起方id
+  recoveryId: long(name='recovery_id'),
+}
+
+model DeleteAppsRecoveryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发起方删除
+ * Summary: 发起方删除
+ */
+async function deleteAppsRecovery(request: DeleteAppsRecoveryRequest): DeleteAppsRecoveryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAppsRecoveryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起方删除
+ * Summary: 发起方删除
+ */
+async function deleteAppsRecoveryEx(request: DeleteAppsRecoveryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAppsRecoveryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.recovery.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAppsActionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参与者id
+  actionId: long(name='action_id'),
+  // 00001
+  instanceId: string(name='instance_id'),
+}
+
+model DeleteAppsActionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 参与者删除
+ * Summary: 参与者删除
+ */
+async function deleteAppsAction(request: DeleteAppsActionRequest): DeleteAppsActionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAppsActionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 参与者删除
+ * Summary: 参与者删除
+ */
+async function deleteAppsActionEx(request: DeleteAppsActionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAppsActionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.action.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参与者数组
+  actionArray?: [ Participator ](name='action_array'),
+  // 1 同库； 2 异库
+  activityMode?: long(name='activity_mode'),
+  // app
+  appName?: string(name='app_name'),
+  // Hash
+  dbRuleName?: string(name='db_rule_name'),
+  // xxx
+  dbRuleTemplete?: string(name='db_rule_templete'),
+  // 描述
+  desc?: string(name='desc'),
+  // 编辑时传
+  id?: long(name='id'),
+  // 实例id
+  instanceId: string(name='instance_id'),
+  // 发起方信息
+  recoveryArray?: [ RecoveryDTO ](name='recovery_array'),
+  // 数据源数组
+  recoveryDsArray?: [ RecoveryDsDTO ](name='recovery_ds_array'),
+  // hash
+  tableRuleName?: string(name='table_rule_name'),
+  // xxx
+  tableRuleTemplete?: string(name='table_rule_templete'),
+}
+
+model BatchcreateAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 编辑后的应用信息
+  data?: AppInfoVO(name='data'),
+}
+
+/**
+ * Description: 批量新增 app下的发起方、参与者
+ * Summary: 批量新增 app下的发起方、参与者
+ */
+async function batchcreateApps(request: BatchcreateAppsRequest): BatchcreateAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量新增 app下的发起方、参与者
+ * Summary: 批量新增 app下的发起方、参与者
+ */
+async function batchcreateAppsEx(request: BatchcreateAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAppsRecoveryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 000001
+  instanceId: string(name='instance_id'),
+  // 发起方信息
+  recovery: RecoveryDTO(name='recovery'),
+  // 数据源信息
+  recoveryDsArray: [ RecoveryDsDTO ](name='recovery_ds_array'),
+}
+
+model CreateAppsRecoveryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 单个发起方新增/编辑
+ * Summary: 单个发起方新增/编辑
+ */
+async function createAppsRecovery(request: CreateAppsRecoveryRequest): CreateAppsRecoveryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAppsRecoveryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个发起方新增/编辑
+ * Summary: 单个发起方新增/编辑
+ */
+async function createAppsRecoveryEx(request: CreateAppsRecoveryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAppsRecoveryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.recovery.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAppsActionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参与者名称
+  // 
+  actionName: string(name='action_name'),
+  // app_name
+  appName: string(name='app_name'),
+  // 类全名，包括完整包名
+  // 
+  className: string(name='class_name'),
+  // 提交方法名称
+  // 
+  commitMethodName: string(name='commit_method_name'),
+  // 提交方法参数
+  // 
+  commitMethodParamsType: long(name='commit_method_params_type'),
+  // 弹性key
+  // 
+  elasticKey?: string(name='elastic_key'),
+  // 弹性路由规则（Groovy脚本）
+  // 
+  elasticRouteRule?: string(name='elastic_route_rule'),
+  // 更新时需要
+  id?: long(name='id'),
+  // 00001
+  instanceId: string(name='instance_id'),
+  // rpc是否ldc调用
+  // 
+  isZoneRoute: boolean(name='is_zone_route'),
+  // 回滚方法名称
+  // 
+  rollbackMethodName: string(name='rollback_method_name'),
+  // 回滚方法的参数类型
+  // 
+  rollbackMethodParamsType: long(name='rollback_method_params_type'),
+  // rpc接口测试地址
+  // 
+  testUrl?: string(name='test_url'),
+  // rpc uniqueId
+  // 
+  uniqueId?: string(name='unique_id'),
+  // rpc协议，ws或tr
+  // 
+  wsTr: string(name='ws_tr'),
+}
+
+model CreateAppsActionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 参与者新增/编辑
+ * Summary: 参与者新增/编辑
+ */
+async function createAppsAction(request: CreateAppsActionRequest): CreateAppsActionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAppsActionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 参与者新增/编辑
+ * Summary: 参与者新增/编辑
+ */
+async function createAppsActionEx(request: CreateAppsActionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAppsActionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.action.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBiztypeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 参与者名称数组
+  actionArray: [ string ](name='action_array'),
+  // app
+  appName: string(name='app_name'),
+  // biztype
+  bizType: string(name='biz_type'),
+  // 一句话描述
+  desc: string(name='desc'),
+  // 00001
+  instanceId: string(name='instance_id'),
+  // add  /  modify
+  state: string(name='state'),
+}
+
+model CreateBiztypeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新建/编辑事务关联关系
+ * Summary: 新建/编辑事务关联关系
+ */
+async function createBiztypeRelation(request: CreateBiztypeRelationRequest): CreateBiztypeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBiztypeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新建/编辑事务关联关系
+ * Summary: 新建/编辑事务关联关系
+ */
+async function createBiztypeRelationEx(request: CreateBiztypeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBiztypeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.biztype.relation.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAppsBiztypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instanceid
+  instanceId: string(name='instance_id'),
+  // biz_type
+  bizType: string(name='biz_type'),
+}
+
+model DeleteAppsBiztypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除biztype关联关系
+ * Summary: 删除biztype关联关系
+ */
+async function deleteAppsBiztype(request: DeleteAppsBiztypeRequest): DeleteAppsBiztypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAppsBiztypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除biztype关联关系
+ * Summary: 删除biztype关联关系
+ */
+async function deleteAppsBiztypeEx(request: DeleteAppsBiztypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAppsBiztypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.apps.biztype.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBiztypeRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+  // 实例id
+  instanceId: string(name='instance_id'),
+}
+
+model QueryBiztypeRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 参与者信息
+  appAction?: [ AppActionVO ](name='app_action'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 业务类型
+  bizType?: string(name='biz_type'),
+  // 描述
+  desc?: string(name='desc'),
+}
+
+/**
+ * Description: 查询biztype与发起方，参与者的关联关系
+ * Summary: 查询biztype关联关系
+ */
+async function queryBiztypeRelation(request: QueryBiztypeRelationRequest): QueryBiztypeRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBiztypeRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询biztype与发起方，参与者的关联关系
+ * Summary: 查询biztype关联关系
+ */
+async function queryBiztypeRelationEx(request: QueryBiztypeRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBiztypeRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.biztype.relation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteTransactionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实例id
+  instanceId: string(name='instance_id'),
+  // 事务id
+  txId: string(name='tx_id'),
+}
+
+model DeleteTransactionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 根据txid，删除进行中的事务
+ * Summary: 删除进行中的事务
+ */
+async function deleteTransactions(request: DeleteTransactionsRequest): DeleteTransactionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteTransactionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据txid，删除进行中的事务
+ * Summary: 删除进行中的事务
+ */
+async function deleteTransactionsEx(request: DeleteTransactionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteTransactionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRecoveryConfigurationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // actionMode取值：1代表TCC模式，2是FMT模式
+  actionMode?: long(name='action_mode'),
+  // activityMode取值：1是同库模式，2是异库模式，3是Saga模式
+  activityMode: long(name='activity_mode'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 业务码
+  bizType: string(name='biz_type'),
+  // 应用描述
+  desc?: string(name='desc'),
+  // 环境的唯一标识
+  instanceId: string(name='instance_id'),
+  // 如果修改biztype，要穿老的bizType
+  oldBiztype?: string(name='old_biztype'),
+  // role取值：1是发起方，2是参与者
+  role: long(name='role'),
+  // split_rule
+  splitRule?: SplitRule(name='split_rule'),
+  // Saga状态机的json定义
+  content?: string(name='content'),
+}
+
+model CreateRecoveryConfigurationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口结果信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 异库模式下， 发起方和参与者的配置信息。
+role取值：1是发起方，2是参与者；
+activityMode取值：1是同库模式，2是异库模式；
+actionMode取值：1代表TCC模式，2是FMT模式，3是Saga模式。
+ * Summary: 异库接入（包括发起方和参与者）
+ */
+async function createRecoveryConfiguration(request: CreateRecoveryConfigurationRequest): CreateRecoveryConfigurationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRecoveryConfigurationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 异库模式下， 发起方和参与者的配置信息。
+role取值：1是发起方，2是参与者；
+activityMode取值：1是同库模式，2是异库模式；
+actionMode取值：1代表TCC模式，2是FMT模式，3是Saga模式。
+ * Summary: 异库接入（包括发起方和参与者）
+ */
+async function createRecoveryConfigurationEx(request: CreateRecoveryConfigurationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRecoveryConfigurationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.configuration.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGlobalEnvRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model GetGlobalEnvResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 环境信息
+  data?: EnvInfo(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 获取当前环境信息，例如租户和环境
+ * Summary: 获取当前环境
+ */
+async function getGlobalEnv(request: GetGlobalEnvRequest): GetGlobalEnvResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGlobalEnvEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取当前环境信息，例如租户和环境
+ * Summary: 获取当前环境
+ */
+async function getGlobalEnvEx(request: GetGlobalEnvRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGlobalEnvResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.global.env.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMiddlewareInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户
+  tenantId: string(name='tenant_id'),
+  // 工作空间
+  workspaceId: string(name='workspace_id'),
+}
+
+model GetMiddlewareInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // instance id
+  data?: string(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 获取instanceId
+ * Summary: 获取instanceId
+ */
+async function getMiddlewareInstance(request: GetMiddlewareInstanceRequest): GetMiddlewareInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMiddlewareInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取instanceId
+ * Summary: 获取instanceId
+ */
+async function getMiddlewareInstanceEx(request: GetMiddlewareInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMiddlewareInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.middleware.instance.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllZoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // env
+  env: string(name='env'),
+  // tenant
+  tenantName: string(name='tenant_name'),
+}
+
+model AllZoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // zones
+  zones?: [ string ](name='zones'),
+}
+
+/**
+ * Description: 获取zone信息
+ * Summary: 获取zone信息
+ */
+async function allZone(request: AllZoneRequest): AllZoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allZoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取zone信息
+ * Summary: 获取zone信息
+ */
+async function allZoneEx(request: AllZoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllZoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.zone.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRecoveryInitiatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // action_mode
+  actionMode: long(name='action_mode'),
+  // 1同库，2异库
+  activityMode: long(name='activity_mode'),
+  // 应用名
+  appName: string(name='app_name'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // 关联关系表的id，用于更新
+  bizTypeId: long(name='biz_type_id'),
+  // Client 版本
+  clientVersion: string(name='client_version'),
+  // 记录id
+  id: long(name='id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 是否异步化
+  isAsyn: boolean(name='is_asyn'),
+  // 是否压测任务
+  isLoadTest: boolean(name='is_load_test'),
+  // 是否混合模式
+  isMix: boolean(name='is_mix'),
+  // 发起方数据源
+  recoveryDatasources: [ InitiatorDatasource ](name='recovery_datasources'),
+  // 恢复条数/分/表
+  recoveryLimit: long(name='recovery_limit'),
+  // 恢复线程数
+  recoveryThreadNum: long(name='recovery_thread_num'),
+}
+
+model UpdateRecoveryInitiatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发起方接入配置的修改
+ * Summary: 发起方编辑
+ */
+async function updateRecoveryInitiators(request: UpdateRecoveryInitiatorsRequest): UpdateRecoveryInitiatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRecoveryInitiatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起方接入配置的修改
+ * Summary: 发起方编辑
+ */
+async function updateRecoveryInitiatorsEx(request: UpdateRecoveryInitiatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRecoveryInitiatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.initiators.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBiztypesInitiatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model ListBiztypesInitiatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发起方列表
+  data?: [ Initiator ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 应用作为参与者查询所有发起者
+ * Summary: 应用作为参与者查询所有发起者
+ */
+async function listBiztypesInitiators(request: ListBiztypesInitiatorsRequest): ListBiztypesInitiatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBiztypesInitiatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用作为参与者查询所有发起者
+ * Summary: 应用作为参与者查询所有发起者
+ */
+async function listBiztypesInitiatorsEx(request: ListBiztypesInitiatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBiztypesInitiatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.biztypes.initiators.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllInitiatorsDatasourcesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model AllInitiatorsDatasourcesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据源名列表
+  data?: [ DsNameInfo ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 根据app获取数据源列表
+ * Summary: 根据app获取数据源列表
+ */
+async function allInitiatorsDatasources(request: AllInitiatorsDatasourcesRequest): AllInitiatorsDatasourcesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allInitiatorsDatasourcesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据app获取数据源列表
+ * Summary: 根据app获取数据源列表
+ */
+async function allInitiatorsDatasourcesEx(request: AllInitiatorsDatasourcesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllInitiatorsDatasourcesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.initiators.datasources.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllInitiatorsTablesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 数据源名
+  dsName: string(name='ds_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model AllInitiatorsTablesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 表名列表
+  data?: [ string ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 根据app+dsName获取所有表
+ * Summary: 根据app+dsName获取所有表
+ */
+async function allInitiatorsTables(request: AllInitiatorsTablesRequest): AllInitiatorsTablesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allInitiatorsTablesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据app+dsName获取所有表
+ * Summary: 根据app+dsName获取所有表
+ */
+async function allInitiatorsTablesEx(request: AllInitiatorsTablesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllInitiatorsTablesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.initiators.tables.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DebugInitiatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主事务记录表
+  activityTableName: string(name='activity_table_name'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 数据源名称
+  dsName: string(name='ds_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 记录id
+  recoveryId: long(name='recovery_id'),
+}
+
+model DebugInitiatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发起方联调
+ * Summary: 发起方联调
+ */
+async function debugInitiators(request: DebugInitiatorsRequest): DebugInitiatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return debugInitiatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起方联调
+ * Summary: 发起方联调
+ */
+async function debugInitiatorsEx(request: DebugInitiatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DebugInitiatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.initiators.debug', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRecoveryInitiatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model GetRecoveryInitiatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // app_name
+  appName?: string(name='app_name'),
+  // biz_type
+  bizType?: string(name='biz_type'),
+  // 关联关系表的id，用于更新
+  bizTypeId?: long(name='biz_type_id'),
+  // client_version
+  clientVersion?: string(name='client_version'),
+  // id
+  id?: long(name='id'),
+  // instance_id
+  instanceId?: string(name='instance_id'),
+  // is_asyn
+  isAsyn?: boolean(name='is_asyn'),
+  // is_load_test
+  isLoadTest?: boolean(name='is_load_test'),
+  // is_mix
+  isMix?: boolean(name='is_mix'),
+  // recovery_datasources
+  recoveryDatasources?: [ InitiatorDatasource ](name='recovery_datasources'),
+  // recovery_limit
+  recoveryLimit?: long(name='recovery_limit'),
+  // thread_num
+  threadNum?: long(name='thread_num'),
+}
+
+/**
+ * Description: 单个发起方详情
+ * Summary: 单个发起方详情
+ */
+async function getRecoveryInitiators(request: GetRecoveryInitiatorsRequest): GetRecoveryInitiatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRecoveryInitiatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个发起方详情
+ * Summary: 单个发起方详情
+ */
+async function getRecoveryInitiatorsEx(request: GetRecoveryInitiatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRecoveryInitiatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.initiators.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRecoveryParticipatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批量新增action
+  actions: [ Participator ](name='actions'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // 默认TCC
+  actionMode: long(name='action_mode'),
+}
+
+model CreateRecoveryParticipatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回消息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 参与者接入，录入参与者信息
+ * Summary: 参与者接入
+ */
+async function createRecoveryParticipators(request: CreateRecoveryParticipatorsRequest): CreateRecoveryParticipatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRecoveryParticipatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 参与者接入，录入参与者信息
+ * Summary: 参与者接入
+ */
+async function createRecoveryParticipatorsEx(request: CreateRecoveryParticipatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRecoveryParticipatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.participators.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRecoveryParticipatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // actions
+  actions: [ Participator ](name='actions'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // 默认1：TCC
+  actionMode: long(name='action_mode'),
+}
+
+model UpdateRecoveryParticipatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新参与者配置信息
+ * Summary: 参与者编辑
+ */
+async function updateRecoveryParticipators(request: UpdateRecoveryParticipatorsRequest): UpdateRecoveryParticipatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRecoveryParticipatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新参与者配置信息
+ * Summary: 参与者编辑
+ */
+async function updateRecoveryParticipatorsEx(request: UpdateRecoveryParticipatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRecoveryParticipatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.recovery.participators.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBiztypesParticipatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model ListBiztypesParticipatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 参与者列表
+  data?: [ Participator ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description:  应用作为发起者查询所有参与者
+ * Summary:  应用作为发起者查询所有参与者
+ */
+async function listBiztypesParticipators(request: ListBiztypesParticipatorsRequest): ListBiztypesParticipatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBiztypesParticipatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description:  应用作为发起者查询所有参与者
+ * Summary:  应用作为发起者查询所有参与者
+ */
+async function listBiztypesParticipatorsEx(request: ListBiztypesParticipatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBiztypesParticipatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.biztypes.participators.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllParticipatorsActionamesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model AllParticipatorsActionamesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 参与者名称列表
+  data?: [ string ](name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 根据app获取所有的参与者名称
+ * Summary: 根据app获取所有的参与者名称
+ */
+async function allParticipatorsActionames(request: AllParticipatorsActionamesRequest): AllParticipatorsActionamesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allParticipatorsActionamesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据app获取所有的参与者名称
+ * Summary: 根据app获取所有的参与者名称
+ */
+async function allParticipatorsActionamesEx(request: AllParticipatorsActionamesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllParticipatorsActionamesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.participators.actionames.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DebugParticipatorsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分支事务上下文
+  actionContext: string(name='action_context'),
+  // 分支事务id
+  actionId: string(name='action_id'),
+  // 参与者名称
+  actionName: string(name='action_name'),
+  // 操作类型，提交或回滚
+  actionType: long(name='action_type'),
+  // 主事务上下文
+  activityContext: string(name='activity_context'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 主事务id
+  txId: string(name='tx_id'),
+}
+
+model DebugParticipatorsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 参与者联调
+ * Summary: 参与者联调
+ */
+async function debugParticipators(request: DebugParticipatorsRequest): DebugParticipatorsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return debugParticipatorsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 参与者联调
+ * Summary: 参与者联调
+ */
+async function debugParticipatorsEx(request: DebugParticipatorsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DebugParticipatorsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.participators.debug', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryActionParamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // env
+  env: string(name='env'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // tenant
+  tenantName: string(name='tenant_name'),
+}
+
+model QueryActionParamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 参数列表
+  params?: [ Pair ](name='params'),
+}
+
+/**
+ * Description: 提交回滚方法参数
+ * Summary: 获取action的调用参数
+ */
+async function queryActionParam(request: QueryActionParamRequest): QueryActionParamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryActionParamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交回滚方法参数
+ * Summary: 获取action的调用参数
+ */
+async function queryActionParamEx(request: QueryActionParamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryActionParamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.action.param.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecuteSwitchoverRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  destCell: string(name='dest_cell'),
+  instanceId: string(name='instance_id'),
+  sourceCell: string(name='source_cell'),
+}
+
+model ExecuteSwitchoverResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否达到预期切换状态
+  success: boolean(name='success'),
+}
+
+/**
+ * Description: 分布式事务-执行单元切换
+ * Summary: 分布式事务执行单元切换
+ */
+async function executeSwitchover(request: ExecuteSwitchoverRequest): ExecuteSwitchoverResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return executeSwitchoverEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分布式事务-执行单元切换
+ * Summary: 分布式事务执行单元切换
+ */
+async function executeSwitchoverEx(request: ExecuteSwitchoverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecuteSwitchoverResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.switchover.execute', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelSwitchoverRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  destCell: string(name='dest_cell'),
+  instanceId: string(name='instance_id'),
+  sourceCell: string(name='source_cell'),
+}
+
+model CancelSwitchoverResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求执行是否成功
+  success: boolean(name='success'),
+}
+
+/**
+ * Description: 分布式事务-取消单元切换
+ * Summary: 分布式事务取消单元切换
+ */
+async function cancelSwitchover(request: CancelSwitchoverRequest): CancelSwitchoverResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelSwitchoverEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分布式事务-取消单元切换
+ * Summary: 分布式事务取消单元切换
+ */
+async function cancelSwitchoverEx(request: CancelSwitchoverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelSwitchoverResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.switchover.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySwitchoverRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  instanceId: string(name='instance_id'),
+}
+
+model QuerySwitchoverResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 单元切换状态列表
+  actions: [ SwitchoverAction ](name='actions'),
+}
+
+/**
+ * Description: 分布式事务-查询单元切换状态
+ * Summary: 查询分布式事务单元切换状态
+ */
+async function querySwitchover(request: QuerySwitchoverRequest): QuerySwitchoverResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySwitchoverEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分布式事务-查询单元切换状态
+ * Summary: 查询分布式事务单元切换状态
+ */
+async function querySwitchoverEx(request: QuerySwitchoverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySwitchoverResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.switchover.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountBiztypesTrendsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // biz_type
+  bizType: string(name='biz_type'),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+}
+
+model CountBiztypesTrendsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 趋势图
+  data?: Trend(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 趋势图，包括异常数曲线，主事务数曲线，分支事务数曲线
+ * Summary: 事务趋势图
+ */
+async function countBiztypesTrends(request: CountBiztypesTrendsRequest): CountBiztypesTrendsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countBiztypesTrendsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 趋势图，包括异常数曲线，主事务数曲线，分支事务数曲线
+ * Summary: 事务趋势图
+ */
+async function countBiztypesTrendsEx(request: CountBiztypesTrendsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountBiztypesTrendsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.biztypes.trends.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGlobalStatsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 站内：租户+环境；站外：instanceId
+  instanceId: string(name='instance_id'),
+}
+
+model GetGlobalStatsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 全局统计数
+  data?: GlobalStats(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 全局统计数据，包括异常事务数、进行中事务数、当天事务数
+ * Summary: 事务概览统计接口
+ */
+async function getGlobalStats(request: GetGlobalStatsRequest): GetGlobalStatsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGlobalStatsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全局统计数据，包括异常事务数、进行中事务数、当天事务数
+ * Summary: 事务概览统计接口
+ */
+async function getGlobalStatsEx(request: GetGlobalStatsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGlobalStatsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.global.stats.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListTransactionDebugsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前分页
+  currentPage: long(name='current_page'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // id  desc
+  orderBy?: [ OrderByParams ](name='order_by'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+  // appname
+  appName?: string(name='app_name'),
+  // 1.进行中 4.成功
+  state?: string(name='state'),
+  // 1.发起方 2.参与者
+  debugType?: string(name='debug_type'),
+}
+
+model ListTransactionDebugsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 联调记录分页数据
+  data?: [ DebugRecord ](name='data'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 联调历史列表
+ * Summary: 联调历史列表
+ */
+async function listTransactionDebugs(request: ListTransactionDebugsRequest): ListTransactionDebugsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listTransactionDebugsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联调历史列表
+ * Summary: 联调历史列表
+ */
+async function listTransactionDebugsEx(request: ListTransactionDebugsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListTransactionDebugsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transaction.debugs.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTransactionsDebugsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 记录id
+  debugId: long(name='debug_id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model GetTransactionsDebugsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 单个联调记录详情
+  data?: DebugRecord(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 单个联调记录详情
+ * Summary: 单个联调记录详情
+ */
+async function getTransactionsDebugs(request: GetTransactionsDebugsRequest): GetTransactionsDebugsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTransactionsDebugsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个联调记录详情
+ * Summary: 单个联调记录详情
+ */
+async function getTransactionsDebugsEx(request: GetTransactionsDebugsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTransactionsDebugsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.debugs.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTransactionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 业务id
+  bizId?: string(name='biz_id'),
+  // 业务码
+  businessType?: string(name='business_type'),
+  // 当前分页
+  currentPage: long(name='current_page'),
+  // 结束时间
+  endTime: long(name='end_time'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+  // 开始时间
+  startTime: long(name='start_time'),
+  // 事务状态  默认传 all， 其他可选状态 Activity 、 Exception 、 Finish
+  state: string(name='state'),
+  // 事务id
+  txId?: string(name='tx_id'),
+}
+
+model QueryTransactionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 事务列表
+  data?: [ TransactionInfo ](name='data'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 事务高级查询
+ * Summary: 事务高级查询
+ */
+async function queryTransactions(request: QueryTransactionsRequest): QueryTransactionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTransactionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事务高级查询
+ * Summary: 事务高级查询
+ */
+async function queryTransactionsEx(request: QueryTransactionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTransactionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTransactionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 事务id
+  txId: string(name='tx_id'),
+}
+
+model GetTransactionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口返回对象
+  data?: TransactionParticipators(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 单个事务详情
+ * Summary: 单个事务详情
+ */
+async function getTransactions(request: GetTransactionsRequest): GetTransactionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTransactionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个事务详情
+ * Summary: 单个事务详情
+ */
+async function getTransactionsEx(request: GetTransactionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTransactionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTransactionsCorrectionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分支事务上下文
+  actionContext: string(name='action_context'),
+  // PCREDITBILL_TRANS_TRANSFER_FOR_TRADE
+  actionName: string(name='action_name'),
+  // 操作类型；1、提交，2、回滚
+  actionType: long(name='action_type'),
+  // 主事务上下文
+  activityContext: string(name='activity_context'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 1：提交，2：回滚
+  isCommit: long(name='is_commit'),
+  // 是否同步主账务；0、不同步，1、同步
+  syncAcctrans: long(name='sync_acctrans'),
+  // 是否同步统一支付；0、不同步，1同步
+  syncPaycore: long(name='sync_paycore'),
+  // 事务id
+  txId: string(name='tx_id'),
+  // tracer上下文
+  tracerContext?: string(name='tracer_context'),
+}
+
+model CreateTransactionsCorrectionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口结果信息
+  msg?: string(name='msg'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 悬挂事务恢复
+ * Summary: 创建事务恢复
+ */
+async function createTransactionsCorrections(request: CreateTransactionsCorrectionsRequest): CreateTransactionsCorrectionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTransactionsCorrectionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 悬挂事务恢复
+ * Summary: 创建事务恢复
+ */
+async function createTransactionsCorrectionsEx(request: CreateTransactionsCorrectionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTransactionsCorrectionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.corrections.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTransactionsCorrectionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 记录id
+  correctionId: long(name='correction_id'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+}
+
+model GetTransactionsCorrectionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 事务悬挂恢复详情
+  data?: Correction(name='data'),
+  // 接口返回码
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 单个事务恢复详情
+ * Summary: 单个事务恢复详情
+ */
+async function getTransactionsCorrections(request: GetTransactionsCorrectionsRequest): GetTransactionsCorrectionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTransactionsCorrectionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单个事务恢复详情
+ * Summary: 单个事务恢复详情
+ */
+async function getTransactionsCorrectionsEx(request: GetTransactionsCorrectionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTransactionsCorrectionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.corrections.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecTransactionsCorrectionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 执行事务订正 id
+  id: long(name='id'),
+  // instanceId
+  instanceId: string(name='instance_id'),
+}
+
+model ExecTransactionsCorrectionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // msg
+  msg?: string(name='msg'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 执行事务订正
+ * Summary: 执行事务订正
+ */
+async function execTransactionsCorrections(request: ExecTransactionsCorrectionsRequest): ExecTransactionsCorrectionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execTransactionsCorrectionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 执行事务订正
+ * Summary: 执行事务订正
+ */
+async function execTransactionsCorrectionsEx(request: ExecTransactionsCorrectionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecTransactionsCorrectionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transactions.corrections.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListTransactionCorrectionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaa
+  actionType?: string(name='action_type'),
+  // current_page
+  currentPage: long(name='current_page'),
+  // instanceId
+  instanceId: string(name='instance_id'),
+  // id desc
+  orderBy?: [ OrderByParams ](name='order_by'),
+  // page_size
+  pageSize: long(name='page_size'),
+  // 0 已提交 4 成功
+  state?: string(name='state'),
+  // app_name
+  appName?: string(name='app_name'),
+}
+
+model ListTransactionCorrectionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1
+  currentPage?: long(name='current_page'),
+  // a
+  data?: [ Correction ](name='data'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // true
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 事务订正列表
+ * Summary: 事务订正列表
+ */
+async function listTransactionCorrections(request: ListTransactionCorrectionsRequest): ListTransactionCorrectionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listTransactionCorrectionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事务订正列表
+ * Summary: 事务订正列表
+ */
+async function listTransactionCorrectionsEx(request: ListTransactionCorrectionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListTransactionCorrectionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transaction.corrections.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListTransactionAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model ListTransactionAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // apps
+  apps?: [ TrasactionAppInfo ](name='apps'),
+  // true
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发起方app列表
+ * Summary: 发起方app列表
+ */
+async function listTransactionApps(request: ListTransactionAppsRequest): ListTransactionAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listTransactionAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起方app列表
+ * Summary: 发起方app列表
+ */
+async function listTransactionAppsEx(request: ListTransactionAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListTransactionAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transaction.apps.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTransactionChartRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaaa
+  instanceId: string(name='instance_id'),
+  // aaa
+  txId: string(name='tx_id'),
+}
+
+model GetTransactionChartResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // a
+  success?: boolean(name='success'),
+  // a
+  data?: TransactionChartInfo(name='data'),
+}
+
+/**
+ * Description: 针对特定图，组装的特定数据结构 接口
+ * Summary: 事务详情
+ */
+async function getTransactionChart(request: GetTransactionChartRequest): GetTransactionChartResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTransactionChartEx(request, headers, runtime);
+}
+
+/**
+ * Description: 针对特定图，组装的特定数据结构 接口
+ * Summary: 事务详情
+ */
+async function getTransactionChartEx(request: GetTransactionChartRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTransactionChartResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transaction.chart.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTransactionSagaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // 主事务id
+  txId: string(name='tx_id'),
+}
+
+model GetTransactionSagaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态机执行记录json
+  statemachineInstJson?: string(name='statemachine_inst_json'),
+}
+
+/**
+ * Description: 获取Saga状态机事务执行记录，返回状态图json
+ * Summary: 获取Saga状态机事务执行记录json
+ */
+async function getTransactionSaga(request: GetTransactionSagaRequest): GetTransactionSagaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTransactionSagaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取Saga状态机事务执行记录，返回状态图json
+ * Summary: 获取Saga状态机事务执行记录json
+ */
+async function getTransactionSagaEx(request: GetTransactionSagaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTransactionSagaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.transaction.saga.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListWhitelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名筛选
+  appName?: string(name='app_name'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 环境唯一标识
+  instanceId: string(name='instance_id'),
+  // 每页大小
+  pageSize: long(name='page_size'),
+  // 排序数组
+  orderBy?: [ OrderByParams ](name='order_by'),
+}
+
+model ListWhitelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // data
+  data?: [ WhiteListInfo ](name='data'),
+  // 每页大小
+  pageSize?: long(name='page_size'),
+  // 接口返回码
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 白名单列表
+ * Summary: 白名单列表
+ */
+async function listWhitelist(request: ListWhitelistRequest): ListWhitelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listWhitelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 白名单列表
+ * Summary: 白名单列表
+ */
+async function listWhitelistEx(request: ListWhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListWhitelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateWhitelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName: string(name='app_name'),
+  // id
+  id: long(name='id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // 0非弹机房，1弹性机房；
+  isElastic: long(name='is_elastic'),
+  // 0正常流量，1影子流量；
+  isLoadTest: long(name='is_load_test'),
+  // 数据源名称
+  logicalDsName: string(name='logical_ds_name'),
+  // business_type
+  businessType: string(name='business_type'),
+}
+
+model UpdateWhitelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回描述
+  msg?: string(name='msg'),
+  // 状态
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 白名单更新
+ * Summary: 白名单更新
+ */
+async function updateWhitelist(request: UpdateWhitelistRequest): UpdateWhitelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateWhitelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 白名单更新
+ * Summary: 白名单更新
+ */
+async function updateWhitelistEx(request: UpdateWhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateWhitelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddWhitelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // app_name
+  appName: string(name='app_name'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // 0非弹机房，1弹性机房；
+  isElastic: long(name='is_elastic'),
+  // 数据源名称
+  logicalDsName: string(name='logical_ds_name'),
+  // 业务类型
+  businessType?: string(name='business_type'),
+}
+
+model AddWhitelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 新增白名单成功
+  msg?: string(name='msg'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 白名单添加
+ * Summary: 白名单添加
+ */
+async function addWhitelist(request: AddWhitelistRequest): AddWhitelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addWhitelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 白名单添加
+ * Summary: 白名单添加
+ */
+async function addWhitelistEx(request: AddWhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddWhitelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushWhitelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+  // ref _id
+  refId: long(name='ref_id'),
+  // 1按照服务器推送 2按照集群推送
+  type: long(name='type'),
+  // 如果按照服务器推送 传多个ip的数组，逗号分割。如果是按照集群推送，传zone数组，一个不传就默认全部
+  pushTarget: [ string ](name='push_target'),
+}
+
+model PushWhitelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 容灾推送到{Master|Failover}成功
+  msg?: string(name='msg'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: xts failover容灾推送
+ * Summary: 容灾推送
+ */
+async function pushWhitelist(request: PushWhitelistRequest): PushWhitelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushWhitelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: xts failover容灾推送
+ * Summary: 容灾推送
+ */
+async function pushWhitelistEx(request: PushWhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushWhitelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteWhitelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: long(name='id'),
+  // instance_id
+  instanceId: string(name='instance_id'),
+}
+
+model DeleteWhitelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 删除成功
+  msg?: string(name='msg'),
+  // true
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 删除白名单
+ * Summary: 删除白名单
+ */
+async function deleteWhitelist(request: DeleteWhitelistRequest): DeleteWhitelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteWhitelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除白名单
+ * Summary: 删除白名单
+ */
+async function deleteWhitelistEx(request: DeleteWhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteWhitelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListWhitelistZonesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaaaa
+  instanceId: string(name='instance_id'),
+  // app
+  appName: string(name='app_name'),
+  // ds
+  dsName: string(name='ds_name'),
+}
+
+model ListWhitelistZonesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ string ](name='data'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 弹性位配置列表
+ * Summary: 弹性位配置列表
+ */
+async function listWhitelistZones(request: ListWhitelistZonesRequest): ListWhitelistZonesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listWhitelistZonesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 弹性位配置列表
+ * Summary: 弹性位配置列表
+ */
+async function listWhitelistZonesEx(request: ListWhitelistZonesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListWhitelistZonesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.dtx.whitelist.zones.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
