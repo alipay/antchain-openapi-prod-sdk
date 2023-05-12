@@ -44,6 +44,11 @@ public class PaymentCreateResult extends TeaModel {
     @NameInMap("sub_msg")
     public String subMsg;
 
+    // 蚂蚁交易单ID
+    @NameInMap("trade_id")
+    @Validation(required = true)
+    public String tradeId;
+
     public static PaymentCreateResult build(java.util.Map<String, ?> map) throws Exception {
         PaymentCreateResult self = new PaymentCreateResult();
         return TeaModel.build(map, self);
@@ -119,6 +124,14 @@ public class PaymentCreateResult extends TeaModel {
     }
     public String getSubMsg() {
         return this.subMsg;
+    }
+
+    public PaymentCreateResult setTradeId(String tradeId) {
+        this.tradeId = tradeId;
+        return this;
+    }
+    public String getTradeId() {
+        return this.tradeId;
     }
 
 }

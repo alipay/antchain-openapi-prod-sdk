@@ -19,7 +19,7 @@ public class FundItemQueryResult extends TeaModel {
     @NameInMap("out_request_id")
     public String outRequestId;
 
-    // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
+    // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
     @NameInMap("fund_type")
     @Validation(required = true)
     public String fundType;

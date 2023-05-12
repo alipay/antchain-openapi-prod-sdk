@@ -42,9 +42,17 @@ public class AccountVO extends TeaModel {
     @NameInMap("pay_method")
     public java.util.List<String> payMethod;
 
-    // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+    // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
     @NameInMap("type")
     public String type;
+
+    // 主体：I-个人；E-企业
+    @NameInMap("principal")
+    public String principal;
+
+    // 金额明细
+    @NameInMap("amount_item")
+    public AmountItem amountItem;
 
     public static AccountVO build(java.util.Map<String, ?> map) throws Exception {
         AccountVO self = new AccountVO();
@@ -121,6 +129,22 @@ public class AccountVO extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public AccountVO setPrincipal(String principal) {
+        this.principal = principal;
+        return this;
+    }
+    public String getPrincipal() {
+        return this.principal;
+    }
+
+    public AccountVO setAmountItem(AmountItem amountItem) {
+        this.amountItem = amountItem;
+        return this;
+    }
+    public AmountItem getAmountItem() {
+        return this.amountItem;
     }
 
 }
