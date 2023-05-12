@@ -91,7 +91,7 @@ namespace AntChain.SDK.DEFINCASHIER
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.DEFINCASHIER
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEFINCASHIER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "DEFINCASHIER"},
                         {"_prod_channel", "undefined"},
                     };
@@ -697,6 +697,48 @@ namespace AntChain.SDK.DEFINCASHIER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySaasInstResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.inst.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+         * Summary: B2B资金服务交易分账
+         */
+        public ApplySaasShareResponse ApplySaasShare(ApplySaasShareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplySaasShareEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+         * Summary: B2B资金服务交易分账
+         */
+        public async Task<ApplySaasShareResponse> ApplySaasShareAsync(ApplySaasShareRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplySaasShareExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+         * Summary: B2B资金服务交易分账
+         */
+        public ApplySaasShareResponse ApplySaasShareEx(ApplySaasShareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplySaasShareResponse>(DoRequest("1.0", "antchain.defincashier.saas.share.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于已完成支付或收款的交易单，进行一付多收的分账申请。每次分账请求金额需小于等于原交易单金额，单次最多支持10个分账接收方，一个交易单支持多次分账。
+         * Summary: B2B资金服务交易分账
+         */
+        public async Task<ApplySaasShareResponse> ApplySaasShareExAsync(ApplySaasShareRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplySaasShareResponse>(await DoRequestAsync("1.0", "antchain.defincashier.saas.share.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

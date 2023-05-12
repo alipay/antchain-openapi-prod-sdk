@@ -26,7 +26,7 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=false)]
         public string OutRequestId { get; set; }
 
-        // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
+        // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);WITHDRAW(提现);
         [NameInMap("fund_type")]
         [Validation(Required=true)]
         public string FundType { get; set; }

@@ -51,10 +51,20 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=false)]
         public List<string> PayMethod { get; set; }
 
-        // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+        // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
         [NameInMap("type")]
         [Validation(Required=false)]
         public string Type { get; set; }
+
+        // 主体：I-个人；E-企业
+        [NameInMap("principal")]
+        [Validation(Required=false)]
+        public string Principal { get; set; }
+
+        // 金额明细
+        [NameInMap("amount_item")]
+        [Validation(Required=false)]
+        public AmountItem AmountItem { get; set; }
 
     }
 

@@ -56,6 +56,11 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=false)]
         public string SubMsg { get; set; }
 
+        // 蚂蚁交易单ID
+        [NameInMap("trade_id")]
+        [Validation(Required=true)]
+        public string TradeId { get; set; }
+
     }
 
 }
