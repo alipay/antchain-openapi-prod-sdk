@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktRobotcallRequest : TeaModel {
+    public class QueryUmktRobotcallDetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
