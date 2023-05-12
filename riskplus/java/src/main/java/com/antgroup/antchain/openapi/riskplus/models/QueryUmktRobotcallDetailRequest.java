@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryUmktRobotcallRequest extends TeaModel {
+public class QueryUmktRobotcallDetailRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -31,12 +31,12 @@ public class QueryUmktRobotcallRequest extends TeaModel {
     @Validation(required = true)
     public Long sceneStrategyId;
 
-    public static QueryUmktRobotcallRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryUmktRobotcallRequest self = new QueryUmktRobotcallRequest();
+    public static QueryUmktRobotcallDetailRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryUmktRobotcallDetailRequest self = new QueryUmktRobotcallDetailRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryUmktRobotcallRequest setAuthToken(String authToken) {
+    public QueryUmktRobotcallDetailRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +44,7 @@ public class QueryUmktRobotcallRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryUmktRobotcallRequest setProductInstanceId(String productInstanceId) {
+    public QueryUmktRobotcallDetailRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +52,7 @@ public class QueryUmktRobotcallRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryUmktRobotcallRequest setBizId(String bizId) {
+    public QueryUmktRobotcallDetailRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -60,7 +60,7 @@ public class QueryUmktRobotcallRequest extends TeaModel {
         return this.bizId;
     }
 
-    public QueryUmktRobotcallRequest setPhoneNumber(String phoneNumber) {
+    public QueryUmktRobotcallDetailRequest setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -68,7 +68,7 @@ public class QueryUmktRobotcallRequest extends TeaModel {
         return this.phoneNumber;
     }
 
-    public QueryUmktRobotcallRequest setTemplateType(String templateType) {
+    public QueryUmktRobotcallDetailRequest setTemplateType(String templateType) {
         this.templateType = templateType;
         return this;
     }
@@ -76,7 +76,7 @@ public class QueryUmktRobotcallRequest extends TeaModel {
         return this.templateType;
     }
 
-    public QueryUmktRobotcallRequest setSceneStrategyId(Long sceneStrategyId) {
+    public QueryUmktRobotcallDetailRequest setSceneStrategyId(Long sceneStrategyId) {
         this.sceneStrategyId = sceneStrategyId;
         return this;
     }

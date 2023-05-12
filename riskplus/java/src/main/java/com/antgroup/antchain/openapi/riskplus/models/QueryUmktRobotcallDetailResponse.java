@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryUmktRobotcallResponse extends TeaModel {
+public class QueryUmktRobotcallDetailResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -28,12 +28,12 @@ public class QueryUmktRobotcallResponse extends TeaModel {
     @NameInMap("call_info")
     public java.util.List<AICallbackMessage> callInfo;
 
-    public static QueryUmktRobotcallResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryUmktRobotcallResponse self = new QueryUmktRobotcallResponse();
+    public static QueryUmktRobotcallDetailResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryUmktRobotcallDetailResponse self = new QueryUmktRobotcallDetailResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryUmktRobotcallResponse setReqMsgId(String reqMsgId) {
+    public QueryUmktRobotcallDetailResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryUmktRobotcallResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryUmktRobotcallResponse setResultCode(String resultCode) {
+    public QueryUmktRobotcallDetailResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryUmktRobotcallResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryUmktRobotcallResponse setResultMsg(String resultMsg) {
+    public QueryUmktRobotcallDetailResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class QueryUmktRobotcallResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryUmktRobotcallResponse setOutInfo(String outInfo) {
+    public QueryUmktRobotcallDetailResponse setOutInfo(String outInfo) {
         this.outInfo = outInfo;
         return this;
     }
@@ -65,7 +65,7 @@ public class QueryUmktRobotcallResponse extends TeaModel {
         return this.outInfo;
     }
 
-    public QueryUmktRobotcallResponse setCustomerOutInfo(String customerOutInfo) {
+    public QueryUmktRobotcallDetailResponse setCustomerOutInfo(String customerOutInfo) {
         this.customerOutInfo = customerOutInfo;
         return this;
     }
@@ -73,7 +73,7 @@ public class QueryUmktRobotcallResponse extends TeaModel {
         return this.customerOutInfo;
     }
 
-    public QueryUmktRobotcallResponse setCallInfo(java.util.List<AICallbackMessage> callInfo) {
+    public QueryUmktRobotcallDetailResponse setCallInfo(java.util.List<AICallbackMessage> callInfo) {
         this.callInfo = callInfo;
         return this;
     }
