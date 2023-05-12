@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.28',
+    sdk_version = '1.16.29',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -8494,7 +8494,7 @@ async function queryUmktTenantActionplaninfoEx(request: QueryUmktTenantActionpla
   return doRequest('1.0' ,'riskplus.umkt.tenant.actionplaninfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryUmktRobotcallRequest = {
+model QueryUmktRobotcallDetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8508,7 +8508,7 @@ model QueryUmktRobotcallRequest = {
   sceneStrategyId: long(name='scene_strategy_id'),
 }
 
-model QueryUmktRobotcallResponse = {
+model QueryUmktRobotcallDetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8527,19 +8527,19 @@ model QueryUmktRobotcallResponse = {
  * Description: 查询ai外呼任务详情
  * Summary: 查询ai外呼任务详情
  */
-async function queryUmktRobotcall(request: QueryUmktRobotcallRequest): QueryUmktRobotcallResponse {
+async function queryUmktRobotcallDetail(request: QueryUmktRobotcallDetailRequest): QueryUmktRobotcallDetailResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryUmktRobotcallEx(request, headers, runtime);
+  return queryUmktRobotcallDetailEx(request, headers, runtime);
 }
 
 /**
  * Description: 查询ai外呼任务详情
  * Summary: 查询ai外呼任务详情
  */
-async function queryUmktRobotcallEx(request: QueryUmktRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktRobotcallResponse {
+async function queryUmktRobotcallDetailEx(request: QueryUmktRobotcallDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktRobotcallDetailResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.umkt.robotcall.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'riskplus.umkt.robotcall.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
