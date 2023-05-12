@@ -11,14 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\BindDemoAsdAsdAsdRequest;
-use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\BindDemoAsdAsdAsdResponse;
 use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAaaBbbCccResponse;
 use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAbcAbcAbcRequest;
 use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAbcAbcAbcResponse;
-use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAdAsdAsdRequest;
-use AntChain\Ak_ea70f896f759459588dfbc7d1fafe2f9\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -165,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.176',
+                    'sdk_version'      => '1.0.177',
                     '_prod_code'       => 'ak_ea70f896f759459588dfbc7d1fafe2f9',
                     '_prod_channel'    => 'saas',
                 ];
@@ -211,72 +207,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd1.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd1.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param BindDemoAsdAsdAsdRequest $request
-     *
-     * @return BindDemoAsdAsdAsdResponse
-     */
-    public function bindDemoAsdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAsdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param BindDemoAsdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return BindDemoAsdAsdAsdResponse
-     */
-    public function bindDemoAsdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
