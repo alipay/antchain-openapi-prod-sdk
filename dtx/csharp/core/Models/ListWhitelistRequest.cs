@@ -1,0 +1,48 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.DTX.Models
+{
+    public class ListWhitelistRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 应用名筛选
+        [NameInMap("app_name")]
+        [Validation(Required=false)]
+        public string AppName { get; set; }
+
+        // 当前页
+        [NameInMap("current_page")]
+        [Validation(Required=true)]
+        public long? CurrentPage { get; set; }
+
+        // 环境唯一标识
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
+
+        // 每页大小
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
+
+        // 排序数组
+        [NameInMap("order_by")]
+        [Validation(Required=false)]
+        public List<OrderByParams> OrderBy { get; set; }
+
+    }
+
+}
