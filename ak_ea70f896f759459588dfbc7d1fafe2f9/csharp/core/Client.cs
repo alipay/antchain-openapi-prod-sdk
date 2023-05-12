@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ea70f896f759459588dfbc7d1fafe2f9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.176"},
+                        {"sdk_version", "1.0.177"},
                         {"_prod_code", "ak_ea70f896f759459588dfbc7d1fafe2f9"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ea70f896f759459588dfbc7d1fafe2f9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.176"},
+                        {"sdk_version", "1.0.177"},
                         {"_prod_code", "ak_ea70f896f759459588dfbc7d1fafe2f9"},
                         {"_prod_channel", "saas"},
                     };
@@ -319,90 +319,6 @@ namespace AntChain.SDK.Ak_ea70f896f759459588dfbc7d1fafe2f9
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd1
-         */
-        public QueryDemoAdAsdAsdResponse QueryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDemoAdAsdAsdEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd1
-         */
-        public async Task<QueryDemoAdAsdAsdResponse> QueryDemoAdAsdAsdAsync(QueryDemoAdAsdAsdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDemoAdAsdAsdExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd1
-         */
-        public QueryDemoAdAsdAsdResponse QueryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAdAsdAsdResponse>(DoRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd1
-         */
-        public async Task<QueryDemoAdAsdAsdResponse> QueryDemoAdAsdAsdExAsync(QueryDemoAdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAdAsdAsdResponse>(await DoRequestAsync("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd
-         */
-        public BindDemoAsdAsdAsdResponse BindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindDemoAsdAsdAsdEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd
-         */
-        public async Task<BindDemoAsdAsdAsdResponse> BindDemoAsdAsdAsdAsync(BindDemoAsdAsdAsdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindDemoAsdAsdAsdExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd
-         */
-        public BindDemoAsdAsdAsdResponse BindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoAsdAsdAsdResponse>(DoRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: asd
-         * Summary: asd
-         */
-        public async Task<BindDemoAsdAsdAsdResponse> BindDemoAsdAsdAsdExAsync(BindDemoAsdAsdAsdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindDemoAsdAsdAsdResponse>(await DoRequestAsync("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
