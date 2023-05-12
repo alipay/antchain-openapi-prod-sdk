@@ -14928,7 +14928,7 @@ export class QueryUmktTenantActionplaninfoResponse extends $tea.Model {
   }
 }
 
-export class QueryUmktRobotcallRequest extends $tea.Model {
+export class QueryUmktRobotcallDetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -14967,7 +14967,7 @@ export class QueryUmktRobotcallRequest extends $tea.Model {
   }
 }
 
-export class QueryUmktRobotcallResponse extends $tea.Model {
+export class QueryUmktRobotcallDetailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15208,7 +15208,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.28",
+          sdk_version: "1.16.29",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -18008,19 +18008,19 @@ export default class Client {
    * Description: 查询ai外呼任务详情
    * Summary: 查询ai外呼任务详情
    */
-  async queryUmktRobotcall(request: QueryUmktRobotcallRequest): Promise<QueryUmktRobotcallResponse> {
+  async queryUmktRobotcallDetail(request: QueryUmktRobotcallDetailRequest): Promise<QueryUmktRobotcallDetailResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryUmktRobotcallEx(request, headers, runtime);
+    return await this.queryUmktRobotcallDetailEx(request, headers, runtime);
   }
 
   /**
    * Description: 查询ai外呼任务详情
    * Summary: 查询ai外呼任务详情
    */
-  async queryUmktRobotcallEx(request: QueryUmktRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRobotcallResponse> {
+  async queryUmktRobotcallDetailEx(request: QueryUmktRobotcallDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRobotcallDetailResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryUmktRobotcallResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRobotcallResponse({}));
+    return $tea.cast<QueryUmktRobotcallDetailResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRobotcallDetailResponse({}));
   }
 
   /**
