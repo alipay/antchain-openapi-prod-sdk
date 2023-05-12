@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktRobotcallResponse extends Model
+class QueryUmktRobotcallDetailResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -90,7 +90,7 @@ class QueryUmktRobotcallResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktRobotcallResponse
+     * @return QueryUmktRobotcallDetailResponse
      */
     public static function fromMap($map = [])
     {

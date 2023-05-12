@@ -229,8 +229,8 @@ use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
-use AntChain\RISKPLUS\Models\QueryUmktRobotcallRequest;
-use AntChain\RISKPLUS\Models\QueryUmktRobotcallResponse;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallDetailRequest;
+use AntChain\RISKPLUS\Models\QueryUmktRobotcallDetailResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
@@ -440,7 +440,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.28',
+                    'sdk_version'      => '1.16.29',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5171,33 +5171,33 @@ class Client
      * Description: 查询ai外呼任务详情
      * Summary: 查询ai外呼任务详情.
      *
-     * @param QueryUmktRobotcallRequest $request
+     * @param QueryUmktRobotcallDetailRequest $request
      *
-     * @return QueryUmktRobotcallResponse
+     * @return QueryUmktRobotcallDetailResponse
      */
-    public function queryUmktRobotcall($request)
+    public function queryUmktRobotcallDetail($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryUmktRobotcallEx($request, $headers, $runtime);
+        return $this->queryUmktRobotcallDetailEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询ai外呼任务详情
      * Summary: 查询ai外呼任务详情.
      *
-     * @param QueryUmktRobotcallRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
+     * @param QueryUmktRobotcallDetailRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return QueryUmktRobotcallResponse
+     * @return QueryUmktRobotcallDetailResponse
      */
-    public function queryUmktRobotcallEx($request, $headers, $runtime)
+    public function queryUmktRobotcallDetailEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryUmktRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryUmktRobotcallDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
