@@ -2346,9 +2346,9 @@ type QueryPbcNameRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 省份名称
-	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
 	// 城市名称
-	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
 	// 银行机构id
 	InstId *string `json:"inst_id,omitempty" xml:"inst_id,omitempty" require:"true"`
 	// 支行名称关键字
@@ -2570,7 +2570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.22"),
 				"_prod_code":       tea.String("PARTNER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
