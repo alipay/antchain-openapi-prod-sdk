@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.22',
     _prod_code = 'PARTNER',
     _prod_channel = 'undefined'
   };
@@ -1066,9 +1066,9 @@ model QueryPbcNameRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 省份名称
-  province: string(name='province'),
+  province?: string(name='province'),
   // 城市名称
-  city: string(name='city'),
+  city?: string(name='city'),
   // 银行机构id
   instId: string(name='inst_id'),
   // 支行名称关键字
