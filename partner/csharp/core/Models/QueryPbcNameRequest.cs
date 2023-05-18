@@ -16,12 +16,12 @@ namespace AntChain.SDK.PARTNER.Models
 
         // 省份名称
         [NameInMap("province")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Province { get; set; }
 
         // 城市名称
         [NameInMap("city")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string City { get; set; }
 
         // 银行机构id
