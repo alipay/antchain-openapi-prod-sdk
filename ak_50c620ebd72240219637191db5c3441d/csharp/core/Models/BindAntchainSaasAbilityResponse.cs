@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_50c620ebd72240219637191db5c3441d.Models
 {
-    public class QueryDemoAaaBbbCccResponse : TeaModel {
+    public class BindAntchainSaasAbilityResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]

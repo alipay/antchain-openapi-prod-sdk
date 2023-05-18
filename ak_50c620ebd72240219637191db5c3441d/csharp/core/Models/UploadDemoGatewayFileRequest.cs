@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_50c620ebd72240219637191db5c3441d.Models
 {
-    public class BindDemoAaaBbbCccRequest : TeaModel {
+    public class UploadDemoGatewayFileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,25 @@ namespace AntChain.SDK.Ak_50c620ebd72240219637191db5c3441d.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 123
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=true)]
+        public string FileId { get; set; }
 
         // 123
         [NameInMap("data")]
