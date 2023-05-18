@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.179',
+                    'sdk_version': '1.0.180',
                     '_prod_code': 'ak_ee637c8293f64104af9686dc12e0cd18',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.179',
+                    'sdk_version': '1.0.180',
                     '_prod_code': 'ak_ee637c8293f64104af9686dc12e0cd18',
                     '_prod_channel': 'saas'
                 }
