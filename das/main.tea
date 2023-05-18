@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.46',
+    sdk_version = '1.1.50',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -486,8 +486,8 @@ model DataSource {
 
 // 驾驶证信息
 model DriverLicenseInfo {
-  // 性别
-  gender?: string(name='gender', example='男性'),
+  // 性别，字典
+  gender?: string(name='gender', example='1'),
   // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
   issueDate?: string(name='issue_date', example='A/-A'),
   // 驾驶证有效终止日期
@@ -1431,7 +1431,7 @@ model QueryApplicationDriverlicensecertResponse = {
   resultMsg?: string(name='result_msg'),
   // 驾驶证信息
   driverLicenseInfo?: DriverLicenseInfo(name='driver_license_info'),
-  // 身份证与姓名是否一致
+  // 身份证与姓名是否一致，字典
   certResult?: string(name='cert_result'),
 }
 
