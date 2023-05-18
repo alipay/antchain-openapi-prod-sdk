@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.4"),
+                    new TeaPair("sdk_version", "1.0.5"),
                     new TeaPair("_prod_code", "ak_50c620ebd72240219637191db5c3441d"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,40 +162,118 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test1
+     * Description: 绑定API
+     * Summary: 绑定能力与API关系
      */
-    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
+    public BindAntchainSaasAbilityResponse bindAntchainSaasAbility(BindAntchainSaasAbilityRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
+        return this.bindAntchainSaasAbilityEx(request, headers, runtime);
     }
 
     /**
-     * Description: 自动化测试创建test
-     * Summary: 自动化测试创建test1
+     * Description: 绑定API
+     * Summary: 绑定能力与API关系
      */
-    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public BindAntchainSaasAbilityResponse bindAntchainSaasAbilityEx(BindAntchainSaasAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainSaasAbilityResponse());
     }
 
     /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）
+     * Description: 近端网关测试接口
+     * Summary: 近端网关测试接口（勿删）
      */
-    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request) throws Exception {
+    public QueryDemoGatewayEmbedResponse queryDemoGatewayEmbed(QueryDemoGatewayEmbedRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoAaaBbbCccEx(request, headers, runtime);
+        return this.queryDemoGatewayEmbedEx(request, headers, runtime);
     }
 
     /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）
+     * Description: 近端网关测试接口
+     * Summary: 近端网关测试接口（勿删）
      */
-    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDemoGatewayEmbedResponse queryDemoGatewayEmbedEx(QueryDemoGatewayEmbedRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.embed.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoGatewayEmbedResponse());
+    }
+
+    /**
+     * Description: 文件api测试接口
+     * Summary: 文件api测试接口
+     */
+    public UploadDemoGatewayFileResponse uploadDemoGatewayFile(UploadDemoGatewayFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadDemoGatewayFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件api测试接口
+     * Summary: 文件api测试接口
+     */
+    public UploadDemoGatewayFileResponse uploadDemoGatewayFileEx(UploadDemoGatewayFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "demo.gateway.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadDemoGatewayFileResponse uploadDemoGatewayFileResponse = UploadDemoGatewayFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadDemoGatewayFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadDemoGatewayFileResponse());
+    }
+
+    /**
+     * Description: 绑定能力的api信息
+     * Summary: 绑定能力的api信息
+     */
+    public BindAntchainSaasAbilityApiResponse bindAntchainSaasAbilityApi(BindAntchainSaasAbilityApiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAntchainSaasAbilityApiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绑定能力的api信息
+     * Summary: 绑定能力的api信息
+     */
+    public BindAntchainSaasAbilityApiResponse bindAntchainSaasAbilityApiEx(BindAntchainSaasAbilityApiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.api.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainSaasAbilityApiResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
