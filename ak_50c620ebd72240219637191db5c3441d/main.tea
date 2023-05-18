@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_50c620ebd72240219637191db5c3441d',
     _prod_channel = 'saas'
   };
@@ -161,15 +161,121 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model BindDemoAaaBbbCccRequest = {
+// api信息结构体
+model ApiInfoModel {
+  // api名称
+  apiName: string(name='api_name', example='test'),
+  // 产品码
+  prodCode: string(name='prod_code', example='test'),
+  // 是否是内部接口 0对外 1对内
+  internal: long(name='internal', example='test'),
+  // api版本号
+  apiVersion: string(name='api_version', example='test'),
+  // api描述
+  apiDesc: string(name='api_desc', example='test'),
+  // api所属网关产品id
+  providerId: string(name='provider_id', example='test'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model BindAntchainSaasAbilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 能力id列表
+  abilityIds: [ string ](name='ability_ids'),
+  // 操作人的域账号
+  operatorId: string(name='operator_id'),
+  // api信息
+  apiInfoModel: ApiInfoModel(name='api_info_model'),
+}
+
+model BindAntchainSaasAbilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAntchainSaasAbility(request: BindAntchainSaasAbilityRequest): BindAntchainSaasAbilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAntchainSaasAbilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定API
+ * Summary: 绑定能力与API关系
+ */
+async function bindAntchainSaasAbilityEx(request: BindAntchainSaasAbilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAntchainSaasAbilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.ability.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoGatewayEmbedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实例参数
+  timeout?: string(name='timeout'),
+}
+
+model QueryDemoGatewayEmbedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 近端网关测试接口
+ * Summary: 近端网关测试接口（勿删）
+ */
+async function queryDemoGatewayEmbed(request: QueryDemoGatewayEmbedRequest): QueryDemoGatewayEmbedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoGatewayEmbedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 近端网关测试接口
+ * Summary: 近端网关测试接口（勿删）
+ */
+async function queryDemoGatewayEmbedEx(request: QueryDemoGatewayEmbedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayEmbedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.embed.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadDemoGatewayFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 123
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 123
   data: string(name='data'),
 }
 
-model BindDemoAaaBbbCccResponse = {
+model UploadDemoGatewayFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -179,31 +285,56 @@ model BindDemoAaaBbbCccResponse = {
 }
 
 /**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test1
+ * Description: 文件api测试接口
+ * Summary: 文件api测试接口
  */
-async function bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): BindDemoAaaBbbCccResponse {
+async function uploadDemoGatewayFile(request: UploadDemoGatewayFileRequest): UploadDemoGatewayFileResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return bindDemoAaaBbbCccEx(request, headers, runtime);
+  return uploadDemoGatewayFileEx(request, headers, runtime);
 }
 
 /**
- * Description: 自动化测试创建test
- * Summary: 自动化测试创建test1
+ * Description: 文件api测试接口
+ * Summary: 文件api测试接口
  */
-async function bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCccResponse {
+async function uploadDemoGatewayFileEx(request: UploadDemoGatewayFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadDemoGatewayFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.gateway.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadDemoGatewayFileResponse = new UploadDemoGatewayFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadDemoGatewayFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'demo.gateway.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryDemoAaaBbbCccRequest = {
+model BindAntchainSaasAbilityApiRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 共享能力id
+  abilityId: string(name='ability_id'),
+  // qiujianglong.qjl
+  operatorId: string(name='operator_id'),
+  // api模型集合
+  apiInfoModels: [ ApiInfoModel ](name='api_info_models'),
 }
 
-model QueryDemoAaaBbbCccResponse = {
+model BindAntchainSaasAbilityApiResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -213,21 +344,74 @@ model QueryDemoAaaBbbCccResponse = {
 }
 
 /**
- * Description: 自动化测试创建111
- * Summary: 自动化测试创建（勿动）
+ * Description: 绑定能力的api信息
+ * Summary: 绑定能力的api信息
  */
-async function queryDemoAaaBbbCcc(request: QueryDemoAaaBbbCccRequest): QueryDemoAaaBbbCccResponse {
+async function bindAntchainSaasAbilityApi(request: BindAntchainSaasAbilityApiRequest): BindAntchainSaasAbilityApiResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryDemoAaaBbbCccEx(request, headers, runtime);
+  return bindAntchainSaasAbilityApiEx(request, headers, runtime);
 }
 
 /**
- * Description: 自动化测试创建111
- * Summary: 自动化测试创建（勿动）
+ * Description: 绑定能力的api信息
+ * Summary: 绑定能力的api信息
  */
-async function queryDemoAaaBbbCccEx(request: QueryDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAaaBbbCccResponse {
+async function bindAntchainSaasAbilityApiEx(request: BindAntchainSaasAbilityApiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAntchainSaasAbilityApiResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.saas.ability.api.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
