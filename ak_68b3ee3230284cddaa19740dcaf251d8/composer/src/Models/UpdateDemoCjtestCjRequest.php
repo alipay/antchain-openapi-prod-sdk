@@ -6,7 +6,7 @@ namespace AntChain\Ak_68b3ee3230284cddaa19740dcaf251d8\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PublishDemoSaasTestTestcRequest extends Model
+class UpdateDemoCjtestCjRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,35 @@ class PublishDemoSaasTestTestcRequest extends Model
      */
     public $productInstanceId;
 
-    // 张三
+    // 测试参数
     /**
      * @var string
      */
-    public $name;
+    public $var1;
 
-    // 14
+    // 测试参数2
     /**
-     * @var int
+     * @var string
      */
-    public $age;
+    public $var2;
+
+    // 被授权机构did
+    /**
+     * @var string
+     */
+    public $subject;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'name'              => 'name',
-        'age'               => 'age',
+        'var1'              => 'var1',
+        'var2'              => 'var2',
+        'subject'           => 'subject',
     ];
 
     public function validate()
     {
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('age', $this->age, true);
+        Model::validateRequired('var1', $this->var1, true);
+        Model::validateRequired('var2', $this->var2, true);
     }
 
     public function toMap()
@@ -52,11 +59,14 @@ class PublishDemoSaasTestTestcRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->var1) {
+            $res['var1'] = $this->var1;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
+        if (null !== $this->var2) {
+            $res['var2'] = $this->var2;
+        }
+        if (null !== $this->subject) {
+            $res['subject'] = $this->subject;
         }
 
         return $res;
@@ -65,7 +75,7 @@ class PublishDemoSaasTestTestcRequest extends Model
     /**
      * @param array $map
      *
-     * @return PublishDemoSaasTestTestcRequest
+     * @return UpdateDemoCjtestCjRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +86,14 @@ class PublishDemoSaasTestTestcRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['var1'])) {
+            $model->var1 = $map['var1'];
         }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
+        if (isset($map['var2'])) {
+            $model->var2 = $map['var2'];
+        }
+        if (isset($map['subject'])) {
+            $model->subject = $map['subject'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\Ak_68b3ee3230284cddaa19740dcaf251d8\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindDemoMoreAbilityTestabcResponse extends Model
+class QueryAntchainSaasAbilityBusinesscodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class BindDemoMoreAbilityTestabcResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 能力信息
+    /**
+     * @var AbilityInfo
+     */
+    public $abilityInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'abilityInfo' => 'ability_info',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class BindDemoMoreAbilityTestabcResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->abilityInfo) {
+            $res['ability_info'] = null !== $this->abilityInfo ? $this->abilityInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class BindDemoMoreAbilityTestabcResponse extends Model
     /**
      * @param array $map
      *
-     * @return BindDemoMoreAbilityTestabcResponse
+     * @return QueryAntchainSaasAbilityBusinesscodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class BindDemoMoreAbilityTestabcResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['ability_info'])) {
+            $model->abilityInfo = AbilityInfo::fromMap($map['ability_info']);
         }
 
         return $model;

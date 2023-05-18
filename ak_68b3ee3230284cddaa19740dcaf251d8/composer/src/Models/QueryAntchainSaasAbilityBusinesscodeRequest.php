@@ -6,7 +6,7 @@ namespace AntChain\Ak_68b3ee3230284cddaa19740dcaf251d8\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindDemoCenterAbilityRequest extends Model
+class QueryAntchainSaasAbilityBusinesscodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class BindDemoCenterAbilityRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 能力id
+    /**
+     * @var string
+     */
+    public $abilityId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'abilityId'         => 'ability_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('abilityId', $this->abilityId, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class BindDemoCenterAbilityRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->abilityId) {
+            $res['ability_id'] = $this->abilityId;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class BindDemoCenterAbilityRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindDemoCenterAbilityRequest
+     * @return QueryAntchainSaasAbilityBusinesscodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class BindDemoCenterAbilityRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['ability_id'])) {
+            $model->abilityId = $map['ability_id'];
         }
 
         return $model;

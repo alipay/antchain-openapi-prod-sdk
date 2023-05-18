@@ -6,7 +6,7 @@ namespace AntChain\Ak_68b3ee3230284cddaa19740dcaf251d8\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasAbilityWithapinameResponse extends Model
+class BindAntchainSaasAbilityApiResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // api与能力信息关联列表
-    /**
-     * @var AbilityApiRelation[]
-     */
-    public $abilityApiRelationList;
     protected $_name = [
-        'reqMsgId'               => 'req_msg_id',
-        'resultCode'             => 'result_code',
-        'resultMsg'              => 'result_msg',
-        'abilityApiRelationList' => 'ability_api_relation_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->abilityApiRelationList) {
-            $res['ability_api_relation_list'] = [];
-            if (null !== $this->abilityApiRelationList && \is_array($this->abilityApiRelationList)) {
-                $n = 0;
-                foreach ($this->abilityApiRelationList as $item) {
-                    $res['ability_api_relation_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasAbilityWithapinameResponse
+     * @return BindAntchainSaasAbilityApiResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['ability_api_relation_list'])) {
-            if (!empty($map['ability_api_relation_list'])) {
-                $model->abilityApiRelationList = [];
-                $n                             = 0;
-                foreach ($map['ability_api_relation_list'] as $item) {
-                    $model->abilityApiRelationList[$n++] = null !== $item ? AbilityApiRelation::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;
