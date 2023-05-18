@@ -3076,8 +3076,6 @@ class QueryPbcNameRequest(TeaModel):
         self.source = source
 
     def validate(self):
-        self.validate_required(self.province, 'province')
-        self.validate_required(self.city, 'city')
         self.validate_required(self.inst_id, 'inst_id')
         self.validate_required(self.branch_name, 'branch_name')
         self.validate_required(self.source, 'source')
