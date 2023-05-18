@@ -29,7 +29,7 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public DriverLicenseInfo DriverLicenseInfo { get; set; }
 
-        // 身份证与姓名是否一致
+        // 身份证与姓名是否一致，字典
         [NameInMap("cert_result")]
         [Validation(Required=false)]
         public string CertResult { get; set; }

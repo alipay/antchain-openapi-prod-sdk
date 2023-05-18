@@ -10,7 +10,7 @@ namespace AntChain.SDK.DAS.Models
 {
     // 驾驶证信息
     public class DriverLicenseInfo : TeaModel {
-        // 性别
+        // 性别，字典
         [NameInMap("gender")]
         [Validation(Required=false)]
         public string Gender { get; set; }
