@@ -32,7 +32,7 @@ class QueryApplicationDriverlicensecertResponse extends Model
      */
     public $driverLicenseInfo;
 
-    // 身份证与姓名是否一致
+    // 身份证与姓名是否一致，字典
     /**
      * @var string
      */

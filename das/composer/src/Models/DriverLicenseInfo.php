@@ -8,9 +8,9 @@ use AlibabaCloud\Tea\Model;
 
 class DriverLicenseInfo extends Model
 {
-    // 性别
+    // 性别，字典
     /**
-     * @example 男性
+     * @example 1
      *
      * @var string
      */
