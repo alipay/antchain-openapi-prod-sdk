@@ -10,12 +10,10 @@ public class QueryPbcNameRequest extends TeaModel {
 
     // 省份名称
     @NameInMap("province")
-    @Validation(required = true)
     public String province;
 
     // 城市名称
     @NameInMap("city")
-    @Validation(required = true)
     public String city;
 
     // 银行机构id
