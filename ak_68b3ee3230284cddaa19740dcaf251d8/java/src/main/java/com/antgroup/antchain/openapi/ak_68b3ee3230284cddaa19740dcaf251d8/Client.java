@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.11"),
+                    new TeaPair("sdk_version", "1.0.12"),
                     new TeaPair("_prod_code", "ak_68b3ee3230284cddaa19740dcaf251d8"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,25 +162,6 @@ public class Client {
     }
 
     /**
-     * Description: 测试网关评审能力
-     * Summary: 评审测试
-     */
-    public UpdateDemoCjtestCjResponse updateDemoCjtestCj(UpdateDemoCjtestCjRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.updateDemoCjtestCjEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 测试网关评审能力
-     * Summary: 评审测试
-     */
-    public UpdateDemoCjtestCjResponse updateDemoCjtestCjEx(UpdateDemoCjtestCjRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.cjtest.cj.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDemoCjtestCjResponse());
-    }
-
-    /**
      * Description: 分页查询能力数据
      * Summary: 分页查询能力数据
      */
@@ -197,25 +178,6 @@ public class Client {
     public PagequeryAntchainSaasAbilityResponse pagequeryAntchainSaasAbilityEx(PagequeryAntchainSaasAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryAntchainSaasAbilityResponse());
-    }
-
-    /**
-     * Description: 绑定API
-     * Summary: 绑定能力与API关系
-     */
-    public BindAntchainSaasAbilityResponse bindAntchainSaasAbility(BindAntchainSaasAbilityRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindAntchainSaasAbilityEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 绑定API
-     * Summary: 绑定能力与API关系
-     */
-    public BindAntchainSaasAbilityResponse bindAntchainSaasAbilityEx(BindAntchainSaasAbilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainSaasAbilityResponse());
     }
 
     /**
@@ -254,25 +216,6 @@ public class Client {
     public QueryAntchainSaasAbilityResultcodeResponse queryAntchainSaasAbilityResultcodeEx(QueryAntchainSaasAbilityResultcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.resultcode.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasAbilityResultcodeResponse());
-    }
-
-    /**
-     * Description: 绑定能力的api信息
-     * Summary: 绑定能力的api信息
-     */
-    public BindAntchainSaasAbilityApiResponse bindAntchainSaasAbilityApi(BindAntchainSaasAbilityApiRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindAntchainSaasAbilityApiEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 绑定能力的api信息
-     * Summary: 绑定能力的api信息
-     */
-    public BindAntchainSaasAbilityApiResponse bindAntchainSaasAbilityApiEx(BindAntchainSaasAbilityApiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.ability.api.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainSaasAbilityApiResponse());
     }
 
     /**
