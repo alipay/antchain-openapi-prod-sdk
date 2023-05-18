@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_68b3ee3230284cddaa19740dcaf251d8.models
 
 import com.aliyun.tea.*;
 
-public class BindDemoCenterAbilityResponse extends TeaModel {
+public class UpdateDemoCjtestCjResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class BindDemoCenterAbilityResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static BindDemoCenterAbilityResponse build(java.util.Map<String, ?> map) throws Exception {
-        BindDemoCenterAbilityResponse self = new BindDemoCenterAbilityResponse();
+    // 测试返回参数1
+    @NameInMap("return1")
+    public String return1;
+
+    public static UpdateDemoCjtestCjResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateDemoCjtestCjResponse self = new UpdateDemoCjtestCjResponse();
         return TeaModel.build(map, self);
     }
 
-    public BindDemoCenterAbilityResponse setReqMsgId(String reqMsgId) {
+    public UpdateDemoCjtestCjResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class BindDemoCenterAbilityResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public BindDemoCenterAbilityResponse setResultCode(String resultCode) {
+    public UpdateDemoCjtestCjResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class BindDemoCenterAbilityResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public BindDemoCenterAbilityResponse setResultMsg(String resultMsg) {
+    public UpdateDemoCjtestCjResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public UpdateDemoCjtestCjResponse setReturn1(String return1) {
+        this.return1 = return1;
+        return this;
+    }
+    public String getReturn1() {
+        return this.return1;
     }
 
 }

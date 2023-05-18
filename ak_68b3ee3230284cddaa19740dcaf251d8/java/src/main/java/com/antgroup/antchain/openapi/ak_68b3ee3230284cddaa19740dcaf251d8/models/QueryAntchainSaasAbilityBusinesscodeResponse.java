@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_68b3ee3230284cddaa19740dcaf251d8.models
 
 import com.aliyun.tea.*;
 
-public class PublishDemoSaasTestTestcResponse extends TeaModel {
+public class QueryAntchainSaasAbilityBusinesscodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class PublishDemoSaasTestTestcResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 男
-    @NameInMap("sex")
-    public String sex;
+    // 能力信息
+    @NameInMap("ability_info")
+    public AbilityInfo abilityInfo;
 
-    public static PublishDemoSaasTestTestcResponse build(java.util.Map<String, ?> map) throws Exception {
-        PublishDemoSaasTestTestcResponse self = new PublishDemoSaasTestTestcResponse();
+    public static QueryAntchainSaasAbilityBusinesscodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainSaasAbilityBusinesscodeResponse self = new QueryAntchainSaasAbilityBusinesscodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public PublishDemoSaasTestTestcResponse setReqMsgId(String reqMsgId) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class PublishDemoSaasTestTestcResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PublishDemoSaasTestTestcResponse setResultCode(String resultCode) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class PublishDemoSaasTestTestcResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PublishDemoSaasTestTestcResponse setResultMsg(String resultMsg) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class PublishDemoSaasTestTestcResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PublishDemoSaasTestTestcResponse setSex(String sex) {
-        this.sex = sex;
+    public QueryAntchainSaasAbilityBusinesscodeResponse setAbilityInfo(AbilityInfo abilityInfo) {
+        this.abilityInfo = abilityInfo;
         return this;
     }
-    public String getSex() {
-        return this.sex;
+    public AbilityInfo getAbilityInfo() {
+        return this.abilityInfo;
     }
 
 }
