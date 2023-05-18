@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -77,16 +78,211 @@ export class Config extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccRequest extends $tea.Model {
+// api信息结构体
+export class ApiInfoModel extends $tea.Model {
+  // api名称
+  apiName: string;
+  // 产品码
+  prodCode: string;
+  // 是否是内部接口 0对外 1对内
+  internal: number;
+  // api版本号
+  apiVersion: string;
+  // api描述
+  apiDesc: string;
+  // api所属网关产品id
+  providerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiName: 'api_name',
+      prodCode: 'prod_code',
+      internal: 'internal',
+      apiVersion: 'api_version',
+      apiDesc: 'api_desc',
+      providerId: 'provider_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiName: 'string',
+      prodCode: 'string',
+      internal: 'number',
+      apiVersion: 'string',
+      apiDesc: 'string',
+      providerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAntchainSaasAbilityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // api名称
+  apiName: string;
+  // 能力id列表
+  abilityIds: string[];
+  // 操作人的域账号
+  operatorId: string;
+  // api信息
+  apiInfoModel: ApiInfoModel;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      apiName: 'api_name',
+      abilityIds: 'ability_ids',
+      operatorId: 'operator_id',
+      apiInfoModel: 'api_info_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      apiName: 'string',
+      abilityIds: { 'type': 'array', 'itemType': 'string' },
+      operatorId: 'string',
+      apiInfoModel: ApiInfoModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAntchainSaasAbilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoGatewayEmbedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实例参数
+  timeout?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoGatewayEmbedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDemoGatewayFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
   // 123
   data: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
       data: 'data',
     };
   }
@@ -95,6 +291,9 @@ export class BindDemoAaaBbbCccRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
       data: 'string',
     };
   }
@@ -104,7 +303,7 @@ export class BindDemoAaaBbbCccRequest extends $tea.Model {
   }
 }
 
-export class BindDemoAaaBbbCccResponse extends $tea.Model {
+export class UploadDemoGatewayFileResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -132,14 +331,23 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
   }
 }
 
-export class QueryDemoAaaBbbCccRequest extends $tea.Model {
+export class BindAntchainSaasAbilityApiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 共享能力id
+  abilityId: string;
+  // qiujianglong.qjl
+  operatorId: string;
+  // api模型集合
+  apiInfoModels: ApiInfoModel[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      abilityId: 'ability_id',
+      operatorId: 'operator_id',
+      apiInfoModels: 'api_info_models',
     };
   }
 
@@ -147,6 +355,9 @@ export class QueryDemoAaaBbbCccRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      abilityId: 'string',
+      operatorId: 'string',
+      apiInfoModels: { 'type': 'array', 'itemType': ApiInfoModel },
     };
   }
 
@@ -155,7 +366,7 @@ export class QueryDemoAaaBbbCccRequest extends $tea.Model {
   }
 }
 
-export class QueryDemoAaaBbbCccResponse extends $tea.Model {
+export class BindAntchainSaasAbilityApiResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -175,6 +386,94 @@ export class QueryDemoAaaBbbCccResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
     };
   }
 
@@ -296,7 +595,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "ak_50c620ebd72240219637191db5c3441d",
           _prod_channel: "saas",
         };
@@ -345,41 +644,119 @@ export default class Client {
   }
 
   /**
-   * Description: 自动化测试创建test
-   * Summary: 自动化测试创建test1
+   * Description: 绑定API
+   * Summary: 绑定能力与API关系
    */
-  async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
+  async bindAntchainSaasAbility(request: BindAntchainSaasAbilityRequest): Promise<BindAntchainSaasAbilityResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.bindDemoAaaBbbCccEx(request, headers, runtime);
+    return await this.bindAntchainSaasAbilityEx(request, headers, runtime);
   }
 
   /**
-   * Description: 自动化测试创建test
-   * Summary: 自动化测试创建test1
+   * Description: 绑定API
+   * Summary: 绑定能力与API关系
    */
-  async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
+  async bindAntchainSaasAbilityEx(request: BindAntchainSaasAbilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAntchainSaasAbilityResponse> {
     Util.validateModel(request);
-    return $tea.cast<BindDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAaaBbbCccResponse({}));
+    return $tea.cast<BindAntchainSaasAbilityResponse>(await this.doRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAntchainSaasAbilityResponse({}));
   }
 
   /**
-   * Description: 自动化测试创建111
-   * Summary: 自动化测试创建（勿动）
+   * Description: 近端网关测试接口
+   * Summary: 近端网关测试接口（勿删）
    */
-  async queryDemoAaaBbbCcc(request: QueryDemoAaaBbbCccRequest): Promise<QueryDemoAaaBbbCccResponse> {
+  async queryDemoGatewayEmbed(request: QueryDemoGatewayEmbedRequest): Promise<QueryDemoGatewayEmbedResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAaaBbbCccEx(request, headers, runtime);
+    return await this.queryDemoGatewayEmbedEx(request, headers, runtime);
   }
 
   /**
-   * Description: 自动化测试创建111
-   * Summary: 自动化测试创建（勿动）
+   * Description: 近端网关测试接口
+   * Summary: 近端网关测试接口（勿删）
    */
-  async queryDemoAaaBbbCccEx(request: QueryDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAaaBbbCccResponse> {
+  async queryDemoGatewayEmbedEx(request: QueryDemoGatewayEmbedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoGatewayEmbedResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse({}));
+    return $tea.cast<QueryDemoGatewayEmbedResponse>(await this.doRequest("1.0", "demo.gateway.embed.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoGatewayEmbedResponse({}));
+  }
+
+  /**
+   * Description: 文件api测试接口
+   * Summary: 文件api测试接口
+   */
+  async uploadDemoGatewayFile(request: UploadDemoGatewayFileRequest): Promise<UploadDemoGatewayFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadDemoGatewayFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件api测试接口
+   * Summary: 文件api测试接口
+   */
+  async uploadDemoGatewayFileEx(request: UploadDemoGatewayFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadDemoGatewayFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "demo.gateway.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadDemoGatewayFileResponse = new UploadDemoGatewayFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadDemoGatewayFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadDemoGatewayFileResponse>(await this.doRequest("1.0", "demo.gateway.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadDemoGatewayFileResponse({}));
+  }
+
+  /**
+   * Description: 绑定能力的api信息
+   * Summary: 绑定能力的api信息
+   */
+  async bindAntchainSaasAbilityApi(request: BindAntchainSaasAbilityApiRequest): Promise<BindAntchainSaasAbilityApiResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindAntchainSaasAbilityApiEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定能力的api信息
+   * Summary: 绑定能力的api信息
+   */
+  async bindAntchainSaasAbilityApiEx(request: BindAntchainSaasAbilityApiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAntchainSaasAbilityApiResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindAntchainSaasAbilityApiResponse>(await this.doRequest("1.0", "antchain.saas.ability.api.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAntchainSaasAbilityApiResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
