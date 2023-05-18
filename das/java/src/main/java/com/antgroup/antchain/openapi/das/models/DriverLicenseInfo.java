@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.das.models;
 import com.aliyun.tea.*;
 
 public class DriverLicenseInfo extends TeaModel {
-    // 性别
+    // 性别，字典
     @NameInMap("gender")
     public String gender;
 

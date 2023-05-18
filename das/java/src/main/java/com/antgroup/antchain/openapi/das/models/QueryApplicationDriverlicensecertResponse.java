@@ -20,7 +20,7 @@ public class QueryApplicationDriverlicensecertResponse extends TeaModel {
     @NameInMap("driver_license_info")
     public DriverLicenseInfo driverLicenseInfo;
 
-    // 身份证与姓名是否一致
+    // 身份证与姓名是否一致，字典
     @NameInMap("cert_result")
     public String certResult;
 
