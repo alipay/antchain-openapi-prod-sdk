@@ -1517,7 +1517,7 @@ class DriverLicenseInfo(TeaModel):
         allow_drive_car: str = None,
         driver_license_type: str = None,
     ):
-        # 性别
+        # 性别，字典
         self.gender = gender
         # 驾驶证发证日期,当前日期减去实际日期的天数所在区间
         self.issue_date = issue_date
@@ -4076,7 +4076,7 @@ class QueryApplicationDriverlicensecertResponse(TeaModel):
         self.result_msg = result_msg
         # 驾驶证信息
         self.driver_license_info = driver_license_info
-        # 身份证与姓名是否一致
+        # 身份证与姓名是否一致，字典
         self.cert_result = cert_result
 
     def validate(self):
