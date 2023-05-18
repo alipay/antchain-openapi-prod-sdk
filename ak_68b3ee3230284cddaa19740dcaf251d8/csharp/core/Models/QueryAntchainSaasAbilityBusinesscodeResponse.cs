@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
 {
-    public class QueryAntchainSaasAbilityWithapinameResponse : TeaModel {
+    public class QueryAntchainSaasAbilityBusinesscodeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // api与能力信息关联列表
-        [NameInMap("ability_api_relation_list")]
+        // 能力信息
+        [NameInMap("ability_info")]
         [Validation(Required=false)]
-        public List<AbilityApiRelation> AbilityApiRelationList { get; set; }
+        public AbilityInfo AbilityInfo { get; set; }
 
     }
 

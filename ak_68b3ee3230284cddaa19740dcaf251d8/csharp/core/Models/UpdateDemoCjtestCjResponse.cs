@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
 {
-    public class QueryAntchainSaasFoundationProtobufResponse : TeaModel {
+    public class UpdateDemoCjtestCjResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // api probuf信息
-        [NameInMap("api_info_list")]
+        // 测试返回参数1
+        [NameInMap("return1")]
         [Validation(Required=false)]
-        public List<ApiInfo> ApiInfoList { get; set; }
+        public string Return1 { get; set; }
 
     }
 

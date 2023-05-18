@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
 {
-    public class QueryAntchainSaasAbilityWithapinameRequest : TeaModel {
+    public class BindAntchainSaasAbilityApiRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,20 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // api名称列表
-        [NameInMap("api_name_list")]
+        // 共享能力id
+        [NameInMap("ability_id")]
         [Validation(Required=true)]
-        public List<string> ApiNameList { get; set; }
+        public string AbilityId { get; set; }
+
+        // qiujianglong.qjl
+        [NameInMap("operator_id")]
+        [Validation(Required=true)]
+        public string OperatorId { get; set; }
+
+        // api模型集合
+        [NameInMap("api_info_models")]
+        [Validation(Required=true)]
+        public List<ApiInfoModel> ApiInfoModels { get; set; }
 
     }
 

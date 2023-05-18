@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
 {
-    public class BindDemoCenterAbilityResponse : TeaModel {
+    public class PagequeryAntchainSaasAbilityResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,26 @@ namespace AntChain.SDK.Ak_68b3ee3230284cddaa19740dcaf251d8.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // 当前页码
+        [NameInMap("current")]
+        [Validation(Required=false)]
+        public long? Current { get; set; }
+
+        // 当前页大小
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 总数
+        [NameInMap("total")]
+        [Validation(Required=false)]
+        public long? Total { get; set; }
+
+        // 能力信息列表
+        [NameInMap("ability_info_list")]
+        [Validation(Required=false)]
+        public List<AbilityInfo> AbilityInfoList { get; set; }
 
     }
 
