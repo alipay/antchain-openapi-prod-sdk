@@ -896,7 +896,7 @@ export class DataSource extends $tea.Model {
 
 // 驾驶证信息
 export class DriverLicenseInfo extends $tea.Model {
-  // 性别
+  // 性别，字典
   gender?: string;
   // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
   issueDate?: string;
@@ -2461,7 +2461,7 @@ export class QueryApplicationDriverlicensecertResponse extends $tea.Model {
   resultMsg?: string;
   // 驾驶证信息
   driverLicenseInfo?: DriverLicenseInfo;
-  // 身份证与姓名是否一致
+  // 身份证与姓名是否一致，字典
   certResult?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3742,7 +3742,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.46",
+          sdk_version: "1.1.50",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
