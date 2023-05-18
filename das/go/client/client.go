@@ -1241,7 +1241,7 @@ func (s *DataSource) SetAddress(v string) *DataSource {
 
 // 驾驶证信息
 type DriverLicenseInfo struct {
-	// 性别
+	// 性别，字典
 	Gender *string `json:"gender,omitempty" xml:"gender,omitempty"`
 	// 驾驶证发证日期,当前日期减去实际日期的天数所在区间
 	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
@@ -3277,7 +3277,7 @@ type QueryApplicationDriverlicensecertResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 驾驶证信息
 	DriverLicenseInfo *DriverLicenseInfo `json:"driver_license_info,omitempty" xml:"driver_license_info,omitempty"`
-	// 身份证与姓名是否一致
+	// 身份证与姓名是否一致，字典
 	CertResult *string `json:"cert_result,omitempty" xml:"cert_result,omitempty"`
 }
 
@@ -4900,7 +4900,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.46"),
+				"sdk_version":      tea.String("1.1.50"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
