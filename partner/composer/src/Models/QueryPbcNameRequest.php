@@ -54,8 +54,6 @@ class QueryPbcNameRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('province', $this->province, true);
-        Model::validateRequired('city', $this->city, true);
         Model::validateRequired('instId', $this->instId, true);
         Model::validateRequired('branchName', $this->branchName, true);
         Model::validateRequired('source', $this->source, true);
