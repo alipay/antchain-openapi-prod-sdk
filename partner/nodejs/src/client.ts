@@ -1841,9 +1841,9 @@ export class QueryPbcNameRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 省份名称
-  province: string;
+  province?: string;
   // 城市名称
-  city: string;
+  city?: string;
   // 银行机构id
   instId: string;
   // 支行名称关键字
@@ -2030,7 +2030,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.22",
           _prod_code: "PARTNER",
           _prod_channel: "undefined",
         };
