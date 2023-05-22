@@ -573,6 +573,88 @@ export class RecognizeAntiQrcodeacResponse extends $tea.Model {
   }
 }
 
+export class CheckCodeFakeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备型号
+  deviceType?: string;
+  // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  // Base64格式的图片数据	
+  // 
+  imageStr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceType: 'device_type',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      imageStr: 'image_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceType: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      imageStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckCodeFakeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 验真是否成功
+  detectSuccess?: boolean;
+  // 返回编码
+  detectCode?: string;
+  // 调用返回信息
+  detectMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detectSuccess: 'detect_success',
+      detectCode: 'detect_code',
+      detectMessage: 'detect_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detectSuccess: 'boolean',
+      detectCode: 'string',
+      detectMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitAntiImagesyncRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -959,7 +1041,7 @@ export class DeleteCodeRegistrationRequest extends $tea.Model {
   // 业务类型，客户自定义标签，做code数据隔离使用
   bizType: string;
   // 溯源码，代表该账户的唯一资源标识
-  code?: string;
+  code: string;
   // 注册记录唯一标识
   uniqueId: string;
   static names(): { [key: string]: string } {
@@ -2404,7 +2486,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -2443,7 +2525,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.9",
+          sdk_version: "1.3.2",
+          _prod_code: "MYTC",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2527,6 +2611,46 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<RecognizeAntiQrcodeacResponse>(await this.doRequest("1.0", "antchain.mytc.anti.qrcodeac.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeAntiQrcodeacResponse({}));
+  }
+
+  /**
+   * Description: 二维码防伪图片验证
+   * Summary: 二维码防伪图片验证
+   */
+  async checkCodeFake(request: CheckCodeFakeRequest): Promise<CheckCodeFakeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkCodeFakeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二维码防伪图片验证
+   * Summary: 二维码防伪图片验证
+   */
+  async checkCodeFakeEx(request: CheckCodeFakeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckCodeFakeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.mytc.code.fake.check",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let checkCodeFakeResponse = new CheckCodeFakeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return checkCodeFakeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<CheckCodeFakeResponse>(await this.doRequest("1.0", "antchain.mytc.code.fake.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCodeFakeResponse({}));
   }
 
   /**
