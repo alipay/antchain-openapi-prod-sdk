@@ -782,6 +782,119 @@ func (s *RecognizeAntiQrcodeacResponse) SetEncryptData(v string) *RecognizeAntiQ
 	return s
 }
 
+type CheckCodeFakeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备型号
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 图片文件id，通过小程序拍照，上传的二维码图片信息。
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// Base64格式的图片数据
+	//
+	ImageStr *string `json:"image_str,omitempty" xml:"image_str,omitempty"`
+}
+
+func (s CheckCodeFakeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCodeFakeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCodeFakeRequest) SetAuthToken(v string) *CheckCodeFakeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetProductInstanceId(v string) *CheckCodeFakeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetDeviceType(v string) *CheckCodeFakeRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetFileObject(v io.Reader) *CheckCodeFakeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetFileObjectName(v string) *CheckCodeFakeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetFileId(v string) *CheckCodeFakeRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CheckCodeFakeRequest) SetImageStr(v string) *CheckCodeFakeRequest {
+	s.ImageStr = &v
+	return s
+}
+
+type CheckCodeFakeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验真是否成功
+	DetectSuccess *bool `json:"detect_success,omitempty" xml:"detect_success,omitempty"`
+	// 返回编码
+	DetectCode *string `json:"detect_code,omitempty" xml:"detect_code,omitempty"`
+	// 调用返回信息
+	DetectMessage *string `json:"detect_message,omitempty" xml:"detect_message,omitempty"`
+}
+
+func (s CheckCodeFakeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCodeFakeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCodeFakeResponse) SetReqMsgId(v string) *CheckCodeFakeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCodeFakeResponse) SetResultCode(v string) *CheckCodeFakeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCodeFakeResponse) SetResultMsg(v string) *CheckCodeFakeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCodeFakeResponse) SetDetectSuccess(v bool) *CheckCodeFakeResponse {
+	s.DetectSuccess = &v
+	return s
+}
+
+func (s *CheckCodeFakeResponse) SetDetectCode(v string) *CheckCodeFakeResponse {
+	s.DetectCode = &v
+	return s
+}
+
+func (s *CheckCodeFakeResponse) SetDetectMessage(v string) *CheckCodeFakeResponse {
+	s.DetectMessage = &v
+	return s
+}
+
 type InitAntiImagesyncRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1285,7 +1398,7 @@ type DeleteCodeRegistrationRequest struct {
 	// 业务类型，客户自定义标签，做code数据隔离使用
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true" maxLength:"32" minLength:"1"`
 	// 溯源码，代表该账户的唯一资源标识
-	Code *string `json:"code,omitempty" xml:"code,omitempty" maxLength:"160" minLength:"1"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true" maxLength:"160" minLength:"1"`
 	// 注册记录唯一标识
 	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 }
@@ -3179,17 +3292,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -3223,7 +3336,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.9"),
+				"sdk_version":      tea.String("1.3.2"),
+				"_prod_code":       tea.String("MYTC"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3335,6 +3450,69 @@ func (client *Client) RecognizeAntiQrcodeacEx(request *RecognizeAntiQrcodeacRequ
 	}
 	_result = &RecognizeAntiQrcodeacResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.qrcodeac.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪图片验证
+ * Summary: 二维码防伪图片验证
+ */
+func (client *Client) CheckCodeFake(request *CheckCodeFakeRequest) (_result *CheckCodeFakeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCodeFakeResponse{}
+	_body, _err := client.CheckCodeFakeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪图片验证
+ * Summary: 二维码防伪图片验证
+ */
+func (client *Client) CheckCodeFakeEx(request *CheckCodeFakeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCodeFakeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.mytc.code.fake.check"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			checkCodeFakeResponse := &CheckCodeFakeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = checkCodeFakeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCodeFakeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fake.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
