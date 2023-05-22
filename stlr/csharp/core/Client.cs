@@ -91,7 +91,7 @@ namespace AntChain.SDK.STLR
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.3"},
+                        {"sdk_version", "2.2.1"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.STLR
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.3"},
+                        {"sdk_version", "2.2.1"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1583,6 +1583,216 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PreviewEcarAvitivedataResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.avitivedata.preview", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+         * Summary: 机构会员注册
+         */
+        public RegisterEcarEnterprisememberResponse RegisterEcarEnterprisemember(RegisterEcarEnterprisememberRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterEcarEnterprisememberEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+         * Summary: 机构会员注册
+         */
+        public async Task<RegisterEcarEnterprisememberResponse> RegisterEcarEnterprisememberAsync(RegisterEcarEnterprisememberRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterEcarEnterprisememberExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+         * Summary: 机构会员注册
+         */
+        public RegisterEcarEnterprisememberResponse RegisterEcarEnterprisememberEx(RegisterEcarEnterprisememberRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterEcarEnterprisememberResponse>(DoRequest("1.0", "antchain.carbon.ecar.enterprisemember.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+         * Summary: 机构会员注册
+         */
+        public async Task<RegisterEcarEnterprisememberResponse> RegisterEcarEnterprisememberExAsync(RegisterEcarEnterprisememberRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterEcarEnterprisememberResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.enterprisemember.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+         * Summary: 碳补偿数据采集
+         */
+        public AddEcarOffsetacquisitionResponse AddEcarOffsetacquisition(AddEcarOffsetacquisitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddEcarOffsetacquisitionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+         * Summary: 碳补偿数据采集
+         */
+        public async Task<AddEcarOffsetacquisitionResponse> AddEcarOffsetacquisitionAsync(AddEcarOffsetacquisitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddEcarOffsetacquisitionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+         * Summary: 碳补偿数据采集
+         */
+        public AddEcarOffsetacquisitionResponse AddEcarOffsetacquisitionEx(AddEcarOffsetacquisitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddEcarOffsetacquisitionResponse>(DoRequest("1.0", "antchain.carbon.ecar.offsetacquisition.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+         * Summary: 碳补偿数据采集
+         */
+        public async Task<AddEcarOffsetacquisitionResponse> AddEcarOffsetacquisitionExAsync(AddEcarOffsetacquisitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddEcarOffsetacquisitionResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.offsetacquisition.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+         * Summary: 碳普惠减碳量转移
+         */
+        public AddEcarOffsettranslateResponse AddEcarOffsettranslate(AddEcarOffsettranslateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddEcarOffsettranslateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+         * Summary: 碳普惠减碳量转移
+         */
+        public async Task<AddEcarOffsettranslateResponse> AddEcarOffsettranslateAsync(AddEcarOffsettranslateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddEcarOffsettranslateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+         * Summary: 碳普惠减碳量转移
+         */
+        public AddEcarOffsettranslateResponse AddEcarOffsettranslateEx(AddEcarOffsettranslateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddEcarOffsettranslateResponse>(DoRequest("1.0", "antchain.carbon.ecar.offsettranslate.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+         * Summary: 碳普惠减碳量转移
+         */
+        public async Task<AddEcarOffsettranslateResponse> AddEcarOffsettranslateExAsync(AddEcarOffsettranslateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddEcarOffsettranslateResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.offsettranslate.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+         * Summary: 碳普惠数据授权
+         */
+        public AuthEcarOffsetdatumResponse AuthEcarOffsetdatum(AuthEcarOffsetdatumRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthEcarOffsetdatumEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+         * Summary: 碳普惠数据授权
+         */
+        public async Task<AuthEcarOffsetdatumResponse> AuthEcarOffsetdatumAsync(AuthEcarOffsetdatumRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthEcarOffsetdatumExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+         * Summary: 碳普惠数据授权
+         */
+        public AuthEcarOffsetdatumResponse AuthEcarOffsetdatumEx(AuthEcarOffsetdatumRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthEcarOffsetdatumResponse>(DoRequest("1.0", "antchain.carbon.ecar.offsetdatum.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+         * Summary: 碳普惠数据授权
+         */
+        public async Task<AuthEcarOffsetdatumResponse> AuthEcarOffsetdatumExAsync(AuthEcarOffsetdatumRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthEcarOffsetdatumResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.offsetdatum.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+         * Summary: 碳普惠数据列表查询
+         */
+        public ListEcarOffsetdatumResponse ListEcarOffsetdatum(ListEcarOffsetdatumRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListEcarOffsetdatumEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+         * Summary: 碳普惠数据列表查询
+         */
+        public async Task<ListEcarOffsetdatumResponse> ListEcarOffsetdatumAsync(ListEcarOffsetdatumRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListEcarOffsetdatumExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+         * Summary: 碳普惠数据列表查询
+         */
+        public ListEcarOffsetdatumResponse ListEcarOffsetdatumEx(ListEcarOffsetdatumRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListEcarOffsetdatumResponse>(DoRequest("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+         * Summary: 碳普惠数据列表查询
+         */
+        public async Task<ListEcarOffsetdatumResponse> ListEcarOffsetdatumExAsync(ListEcarOffsetdatumRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListEcarOffsetdatumResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
