@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 证书授权产品信息
+            # 数据值条目
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.3',
+                    'sdk_version': '2.2.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -202,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 证书授权产品信息
+            # 数据值条目
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.3',
+                    'sdk_version': '2.2.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -1931,6 +1931,286 @@ class Client:
         return TeaCore.from_map(
             stlr_models.PreviewEcarAvitivedataResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_ecar_enterprisemember(
+        self,
+        request: stlr_models.RegisterEcarEnterprisememberRequest,
+    ) -> stlr_models.RegisterEcarEnterprisememberResponse:
+        """
+        Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+        Summary: 机构会员注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_ecar_enterprisemember_ex(request, headers, runtime)
+
+    async def register_ecar_enterprisemember_async(
+        self,
+        request: stlr_models.RegisterEcarEnterprisememberRequest,
+    ) -> stlr_models.RegisterEcarEnterprisememberResponse:
+        """
+        Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+        Summary: 机构会员注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_ecar_enterprisemember_ex_async(request, headers, runtime)
+
+    def register_ecar_enterprisemember_ex(
+        self,
+        request: stlr_models.RegisterEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterEcarEnterprisememberResponse:
+        """
+        Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+        Summary: 机构会员注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterEcarEnterprisememberResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.enterprisemember.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_ecar_enterprisemember_ex_async(
+        self,
+        request: stlr_models.RegisterEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterEcarEnterprisememberResponse:
+        """
+        Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+        Summary: 机构会员注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterEcarEnterprisememberResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.enterprisemember.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_ecar_offsetacquisition(
+        self,
+        request: stlr_models.AddEcarOffsetacquisitionRequest,
+    ) -> stlr_models.AddEcarOffsetacquisitionResponse:
+        """
+        Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+        Summary: 碳补偿数据采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_ecar_offsetacquisition_ex(request, headers, runtime)
+
+    async def add_ecar_offsetacquisition_async(
+        self,
+        request: stlr_models.AddEcarOffsetacquisitionRequest,
+    ) -> stlr_models.AddEcarOffsetacquisitionResponse:
+        """
+        Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+        Summary: 碳补偿数据采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_ecar_offsetacquisition_ex_async(request, headers, runtime)
+
+    def add_ecar_offsetacquisition_ex(
+        self,
+        request: stlr_models.AddEcarOffsetacquisitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarOffsetacquisitionResponse:
+        """
+        Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+        Summary: 碳补偿数据采集
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarOffsetacquisitionResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetacquisition.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_ecar_offsetacquisition_ex_async(
+        self,
+        request: stlr_models.AddEcarOffsetacquisitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarOffsetacquisitionResponse:
+        """
+        Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+        Summary: 碳补偿数据采集
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarOffsetacquisitionResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetacquisition.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_ecar_offsettranslate(
+        self,
+        request: stlr_models.AddEcarOffsettranslateRequest,
+    ) -> stlr_models.AddEcarOffsettranslateResponse:
+        """
+        Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+        Summary: 碳普惠减碳量转移
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_ecar_offsettranslate_ex(request, headers, runtime)
+
+    async def add_ecar_offsettranslate_async(
+        self,
+        request: stlr_models.AddEcarOffsettranslateRequest,
+    ) -> stlr_models.AddEcarOffsettranslateResponse:
+        """
+        Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+        Summary: 碳普惠减碳量转移
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_ecar_offsettranslate_ex_async(request, headers, runtime)
+
+    def add_ecar_offsettranslate_ex(
+        self,
+        request: stlr_models.AddEcarOffsettranslateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarOffsettranslateResponse:
+        """
+        Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+        Summary: 碳普惠减碳量转移
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarOffsettranslateResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsettranslate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_ecar_offsettranslate_ex_async(
+        self,
+        request: stlr_models.AddEcarOffsettranslateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddEcarOffsettranslateResponse:
+        """
+        Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+        Summary: 碳普惠减碳量转移
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddEcarOffsettranslateResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsettranslate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_ecar_offsetdatum(
+        self,
+        request: stlr_models.AuthEcarOffsetdatumRequest,
+    ) -> stlr_models.AuthEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+        Summary: 碳普惠数据授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_ecar_offsetdatum_ex(request, headers, runtime)
+
+    async def auth_ecar_offsetdatum_async(
+        self,
+        request: stlr_models.AuthEcarOffsetdatumRequest,
+    ) -> stlr_models.AuthEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+        Summary: 碳普惠数据授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_ecar_offsetdatum_ex_async(request, headers, runtime)
+
+    def auth_ecar_offsetdatum_ex(
+        self,
+        request: stlr_models.AuthEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AuthEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+        Summary: 碳普惠数据授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AuthEcarOffsetdatumResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetdatum.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_ecar_offsetdatum_ex_async(
+        self,
+        request: stlr_models.AuthEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AuthEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+        Summary: 碳普惠数据授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AuthEcarOffsetdatumResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_ecar_offsetdatum(
+        self,
+        request: stlr_models.ListEcarOffsetdatumRequest,
+    ) -> stlr_models.ListEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+        Summary: 碳普惠数据列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ecar_offsetdatum_ex(request, headers, runtime)
+
+    async def list_ecar_offsetdatum_async(
+        self,
+        request: stlr_models.ListEcarOffsetdatumRequest,
+    ) -> stlr_models.ListEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+        Summary: 碳普惠数据列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_ecar_offsetdatum_ex_async(request, headers, runtime)
+
+    def list_ecar_offsetdatum_ex(
+        self,
+        request: stlr_models.ListEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+        Summary: 碳普惠数据列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarOffsetdatumResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_ecar_offsetdatum_ex_async(
+        self,
+        request: stlr_models.ListEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+        Summary: 碳普惠数据列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarOffsetdatumResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
