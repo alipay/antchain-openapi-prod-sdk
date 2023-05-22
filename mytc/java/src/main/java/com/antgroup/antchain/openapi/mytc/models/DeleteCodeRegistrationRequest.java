@@ -18,7 +18,7 @@ public class DeleteCodeRegistrationRequest extends TeaModel {
 
     // 溯源码，代表该账户的唯一资源标识
     @NameInMap("code")
-    @Validation(maxLength = 160, minLength = 1)
+    @Validation(required = true, maxLength = 160, minLength = 1)
     public String code;
 
     // 注册记录唯一标识
