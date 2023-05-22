@@ -47,6 +47,7 @@ class DeleteCodeRegistrationRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizType', $this->bizType, true);
+        Model::validateRequired('code', $this->code, true);
         Model::validateRequired('uniqueId', $this->uniqueId, true);
         Model::validateMaxLength('bizType', $this->bizType, 32);
         Model::validateMaxLength('code', $this->code, 160);
