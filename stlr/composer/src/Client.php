@@ -15,8 +15,14 @@ use AntChain\STLR\Models\AddEcarAvitivedataRequest;
 use AntChain\STLR\Models\AddEcarAvitivedataResponse;
 use AntChain\STLR\Models\AddEcarGreenoperationRequest;
 use AntChain\STLR\Models\AddEcarGreenoperationResponse;
+use AntChain\STLR\Models\AddEcarOffsetacquisitionRequest;
+use AntChain\STLR\Models\AddEcarOffsetacquisitionResponse;
+use AntChain\STLR\Models\AddEcarOffsettranslateRequest;
+use AntChain\STLR\Models\AddEcarOffsettranslateResponse;
 use AntChain\STLR\Models\AddPdcpAuthRequest;
 use AntChain\STLR\Models\AddPdcpAuthResponse;
+use AntChain\STLR\Models\AuthEcarOffsetdatumRequest;
+use AntChain\STLR\Models\AuthEcarOffsetdatumResponse;
 use AntChain\STLR\Models\CountEcarActivedataRequest;
 use AntChain\STLR\Models\CountEcarActivedataResponse;
 use AntChain\STLR\Models\CountEcarGreenoperationRequest;
@@ -39,6 +45,8 @@ use AntChain\STLR\Models\GetPdcpBlockchainRequest;
 use AntChain\STLR\Models\GetPdcpBlockchainResponse;
 use AntChain\STLR\Models\ListEcarGreenoperationRequest;
 use AntChain\STLR\Models\ListEcarGreenoperationResponse;
+use AntChain\STLR\Models\ListEcarOffsetdatumRequest;
+use AntChain\STLR\Models\ListEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PreviewEcarAvitivedataRequest;
 use AntChain\STLR\Models\PreviewEcarAvitivedataResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
@@ -65,6 +73,8 @@ use AntChain\STLR\Models\QueryPdcpDataRequest;
 use AntChain\STLR\Models\QueryPdcpDataResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
+use AntChain\STLR\Models\RegisterEcarEnterprisememberRequest;
+use AntChain\STLR\Models\RegisterEcarEnterprisememberResponse;
 use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
 use AntChain\STLR\Models\UpdatePdcpAuthRequest;
@@ -172,18 +182,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -192,7 +202,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 证书授权产品信息
+            // 数据值条目
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -220,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.1.3',
+                    'sdk_version'      => '2.2.1',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1241,6 +1251,171 @@ class Client
         Utils::validateModel($request);
 
         return PreviewEcarAvitivedataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册.
+     *
+     * @param RegisterEcarEnterprisememberRequest $request
+     *
+     * @return RegisterEcarEnterprisememberResponse
+     */
+    public function registerEcarEnterprisemember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerEcarEnterprisememberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册.
+     *
+     * @param RegisterEcarEnterprisememberRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RegisterEcarEnterprisememberResponse
+     */
+    public function registerEcarEnterprisememberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterEcarEnterprisememberResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.enterprisemember.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集.
+     *
+     * @param AddEcarOffsetacquisitionRequest $request
+     *
+     * @return AddEcarOffsetacquisitionResponse
+     */
+    public function addEcarOffsetacquisition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addEcarOffsetacquisitionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集.
+     *
+     * @param AddEcarOffsetacquisitionRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return AddEcarOffsetacquisitionResponse
+     */
+    public function addEcarOffsetacquisitionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddEcarOffsetacquisitionResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetacquisition.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移.
+     *
+     * @param AddEcarOffsettranslateRequest $request
+     *
+     * @return AddEcarOffsettranslateResponse
+     */
+    public function addEcarOffsettranslate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addEcarOffsettranslateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移.
+     *
+     * @param AddEcarOffsettranslateRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return AddEcarOffsettranslateResponse
+     */
+    public function addEcarOffsettranslateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddEcarOffsettranslateResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsettranslate.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权.
+     *
+     * @param AuthEcarOffsetdatumRequest $request
+     *
+     * @return AuthEcarOffsetdatumResponse
+     */
+    public function authEcarOffsetdatum($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authEcarOffsetdatumEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权.
+     *
+     * @param AuthEcarOffsetdatumRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return AuthEcarOffsetdatumResponse
+     */
+    public function authEcarOffsetdatumEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询.
+     *
+     * @param ListEcarOffsetdatumRequest $request
+     *
+     * @return ListEcarOffsetdatumResponse
+     */
+    public function listEcarOffsetdatum($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listEcarOffsetdatumEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询.
+     *
+     * @param ListEcarOffsetdatumRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ListEcarOffsetdatumResponse
+     */
+    public function listEcarOffsetdatumEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
