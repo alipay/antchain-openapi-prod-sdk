@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.1.3"),
+                    new TeaPair("sdk_version", "2.2.1"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -731,6 +731,101 @@ public class Client {
     public PreviewEcarAvitivedataResponse previewEcarAvitivedataEx(PreviewEcarAvitivedataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.avitivedata.preview", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PreviewEcarAvitivedataResponse());
+    }
+
+    /**
+     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册
+     */
+    public RegisterEcarEnterprisememberResponse registerEcarEnterprisemember(RegisterEcarEnterprisememberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerEcarEnterprisememberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+     * Summary: 机构会员注册
+     */
+    public RegisterEcarEnterprisememberResponse registerEcarEnterprisememberEx(RegisterEcarEnterprisememberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterEcarEnterprisememberResponse());
+    }
+
+    /**
+     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集
+     */
+    public AddEcarOffsetacquisitionResponse addEcarOffsetacquisition(AddEcarOffsetacquisitionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addEcarOffsetacquisitionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+     * Summary: 碳补偿数据采集
+     */
+    public AddEcarOffsetacquisitionResponse addEcarOffsetacquisitionEx(AddEcarOffsetacquisitionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetacquisition.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddEcarOffsetacquisitionResponse());
+    }
+
+    /**
+     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移
+     */
+    public AddEcarOffsettranslateResponse addEcarOffsettranslate(AddEcarOffsettranslateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addEcarOffsettranslateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+     * Summary: 碳普惠减碳量转移
+     */
+    public AddEcarOffsettranslateResponse addEcarOffsettranslateEx(AddEcarOffsettranslateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsettranslate.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddEcarOffsettranslateResponse());
+    }
+
+    /**
+     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权
+     */
+    public AuthEcarOffsetdatumResponse authEcarOffsetdatum(AuthEcarOffsetdatumRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authEcarOffsetdatumEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+     * Summary: 碳普惠数据授权
+     */
+    public AuthEcarOffsetdatumResponse authEcarOffsetdatumEx(AuthEcarOffsetdatumRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthEcarOffsetdatumResponse());
+    }
+
+    /**
+     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询
+     */
+    public ListEcarOffsetdatumResponse listEcarOffsetdatum(ListEcarOffsetdatumRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listEcarOffsetdatumEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+     * Summary: 碳普惠数据列表查询
+     */
+    public ListEcarOffsetdatumResponse listEcarOffsetdatumEx(ListEcarOffsetdatumRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListEcarOffsetdatumResponse());
     }
 
     /**
