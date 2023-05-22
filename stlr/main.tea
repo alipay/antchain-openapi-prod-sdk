@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.1.3',
+    sdk_version = '2.2.1',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -159,6 +159,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 数据值条目
+model AnyAmountItem {
+  // 数据项编码
+  itemCode: string(name='item_code', example='AD1'),
+  // 数据值，按字符串输出，最多保留6位小数
+  itemAmount: string(name='item_amount', example='221.11'),
 }
 
 // 证书授权产品信息
@@ -313,6 +321,30 @@ model BlockchainDTO {
   blockNumber: long(name='block_number', example='12917'),
 }
 
+// 碳普惠补偿采集数据条目
+model CarbonOffsetAcquisitionItem {
+  // 采集数据单号
+  acquisitionItemNo: string(name='acquisition_item_no', example='123456789abcdefghi'),
+  // 碳补偿项目编号
+  projectNo: string(name='project_no', example='13222'),
+  // 参与账户DID
+  accountDid: string(name='account_did', example='123456789abcdefghi'),
+  // 发生时间
+  occurrentTime: string(name='occurrent_time', example='2023-05-23 12:11:32:33'),
+  // 发生场景编码
+  scenarioCode: string(name='scenario_code', example='xingzou'),
+  // 发生场景名称
+  scenarioName: string(name='scenario_name', example='出行'),
+  // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+  platformNo: string(name='platform_no', example='Antforest'),
+  // 活动数据原始值，多个活动数据列表
+  activeDatum?: [ AnyAmountItem ](name='active_datum', example=''),
+  // 减碳量
+  offsetVolume?: string(name='offset_volume', example='122.22'),
+  // 碳能量值
+  carbonEnergy?: long(name='carbon_energy', example='229'),
+}
+
 // 碳排放分城市统计总量
 model EmissionsCityStatistics {
   // 城市编码
@@ -353,14 +385,6 @@ model AuthenticationInfoVO {
   authenticationDeetail: string(name='authentication_deetail', example='{}'),
   // 授权状态
   status: string(name='status', example='Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权'),
-}
-
-// 数据值条目
-model AnyAmountItem {
-  // 数据项编码
-  itemCode: string(name='item_code', example='AD1'),
-  // 数据值，按字符串输出，最多保留6位小数
-  itemAmount: string(name='item_amount', example='221.11'),
 }
 
 // 排放范围排放数据统计
@@ -1806,6 +1830,246 @@ async function previewEcarAvitivedata(request: PreviewEcarAvitivedataRequest): P
 async function previewEcarAvitivedataEx(request: PreviewEcarAvitivedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewEcarAvitivedataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.avitivedata.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterEcarEnterprisememberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 注册会员在蚂蚁DIS服务的DID账号
+  accountDid?: string(name='account_did'),
+  // 注册会员姓名
+  name?: string(name='name'),
+  // 注册会员身份证号码
+  identityCardCode?: string(name='identity_card_code'),
+}
+
+model RegisterEcarEnterprisememberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 蚂蚁DIS服务的DID账号
+  accountDid?: string(name='account_did'),
+}
+
+/**
+ * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+ * Summary: 机构会员注册
+ */
+async function registerEcarEnterprisemember(request: RegisterEcarEnterprisememberRequest): RegisterEcarEnterprisememberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerEcarEnterprisememberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+ * Summary: 机构会员注册
+ */
+async function registerEcarEnterprisememberEx(request: RegisterEcarEnterprisememberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterEcarEnterprisememberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.enterprisemember.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddEcarOffsetacquisitionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活动数据采集单号
+  acquisitionItemNo: string(name='acquisition_item_no'),
+  // 碳普惠减碳项目编号
+  projectNo: string(name='project_no'),
+  // 参与的碳账户DID
+  accountDid: string(name='account_did'),
+  // 发生时间，格式为yyyy-MM-DD HH:MM:SS（到秒）或 yyyy-MM-DD（按日录入）
+  occurrentTime: string(name='occurrent_time'),
+  // 发生场景，需要按照约定的场景编码提交
+  scenarioCode: string(name='scenario_code'),
+  // 活动数据列表
+  activeDataList: [ AnyAmountItem ](name='active_data_list'),
+}
+
+model AddEcarOffsetacquisitionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 活动数据采集单号
+  acquisitionItemNo?: string(name='acquisition_item_no'),
+  // 减碳量，最多4位小数
+  carbonEmissionAmount?: string(name='carbon_emission_amount'),
+}
+
+/**
+ * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+ * Summary: 碳补偿数据采集
+ */
+async function addEcarOffsetacquisition(request: AddEcarOffsetacquisitionRequest): AddEcarOffsetacquisitionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addEcarOffsetacquisitionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+ * Summary: 碳补偿数据采集
+ */
+async function addEcarOffsetacquisitionEx(request: AddEcarOffsetacquisitionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddEcarOffsetacquisitionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsetacquisition.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddEcarOffsettranslateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 转移业务流水单号
+  translationItemNo: string(name='translation_item_no'),
+  // 碳补偿项目编号
+  projectNo: string(name='project_no'),
+  // 出账账户DID
+  drawingAccountDid: string(name='drawing_account_did'),
+  // 转移入账账户DID
+  receiptAccountDid: string(name='receipt_account_did'),
+  // 转移减碳量额度，最多六位小数
+  translationAmmount: string(name='translation_ammount'),
+  // 业务类型包括，默认不需要传入，默认值为Translation
+  translationType?: string(name='translation_type'),
+  // 发生时间，格式为yyyy-MM-DD HH:MM:SS
+  occurrentTime: string(name='occurrent_time'),
+}
+
+model AddEcarOffsettranslateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+ * Summary: 碳普惠减碳量转移
+ */
+async function addEcarOffsettranslate(request: AddEcarOffsettranslateRequest): AddEcarOffsettranslateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addEcarOffsettranslateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+ * Summary: 碳普惠减碳量转移
+ */
+async function addEcarOffsettranslateEx(request: AddEcarOffsettranslateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddEcarOffsettranslateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsettranslate.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthEcarOffsetdatumRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 会员在蚂蚁DIS服务的账户DID
+  accountDid: string(name='account_did'),
+  // 碳普惠平台编码，如蚂蚁森林编码为Antforest
+  carbonOffsetPlatformNo: string(name='carbon_offset_platform_no'),
+  // 平台方会员账户ID
+  platformAccountId: string(name='platform_account_id'),
+  // 授权关键数据列表，KV结构列表
+  authKeywordList: [ AnyKeywordItem ](name='auth_keyword_list'),
+}
+
+model AuthEcarOffsetdatumResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+ * Summary: 碳普惠数据授权
+ */
+async function authEcarOffsetdatum(request: AuthEcarOffsetdatumRequest): AuthEcarOffsetdatumResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authEcarOffsetdatumEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+ * Summary: 碳普惠数据授权
+ */
+async function authEcarOffsetdatumEx(request: AuthEcarOffsetdatumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthEcarOffsetdatumResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsetdatum.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListEcarOffsetdatumRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 碳补偿项目编码
+  projectNo?: string(name='project_no'),
+  // 账户DID
+  accountDid?: string(name='account_did'),
+  // 发生开始时间
+  occurrentStartTime?: string(name='occurrent_start_time'),
+  // 数据发生截止时间
+  occurrentEndTime?: string(name='occurrent_end_time'),
+  // 碳普惠平台编码
+  carbonOffsetPlatformNo?: string(name='carbon_offset_platform_no'),
+  // 发生场景编码，需指定相关碳普惠平台的场景编码，可以指定多个场景
+  scenarioCode?: [ string ](name='scenario_code'),
+  // 分页查询数据时的页码，从1开始，不传入时默认值为1
+  current?: long(name='current'),
+  // 每页数据量，默认值为20，取值范围为[10,100]
+  pageSize?: long(name='page_size'),
+}
+
+model ListEcarOffsetdatumResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前查询的页码
+  current?: long(name='current'),
+  // 每页记录条数
+  pageSize?: long(name='page_size'),
+  // 记录总条数
+  total?: long(name='total'),
+  // 碳普惠减碳数据明细
+  list?: [ CarbonOffsetAcquisitionItem ](name='list'),
+}
+
+/**
+ * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+ * Summary: 碳普惠数据列表查询
+ */
+async function listEcarOffsetdatum(request: ListEcarOffsetdatumRequest): ListEcarOffsetdatumResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listEcarOffsetdatumEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+ * Summary: 碳普惠数据列表查询
+ */
+async function listEcarOffsetdatumEx(request: ListEcarOffsetdatumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListEcarOffsetdatumResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
