@@ -25,7 +25,7 @@ namespace AntChain.SDK.MYTC.Models
 
         // 溯源码，代表该账户的唯一资源标识
         [NameInMap("code")]
-        [Validation(Required=false, MaxLength=160)]
+        [Validation(Required=true, MaxLength=160)]
         public string Code { get; set; }
 
         // 注册记录唯一标识
