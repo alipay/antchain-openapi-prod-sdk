@@ -78,6 +78,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// 数据值条目
+export class AnyAmountItem extends $tea.Model {
+  // 数据项编码
+  itemCode: string;
+  // 数据值，按字符串输出，最多保留6位小数
+  itemAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      itemAmount: 'item_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      itemAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 证书授权产品信息
 export class CertProductAuthDO extends $tea.Model {
   // 三方平台产品ID
@@ -499,6 +524,63 @@ export class BlockchainDTO extends $tea.Model {
   }
 }
 
+// 碳普惠补偿采集数据条目
+export class CarbonOffsetAcquisitionItem extends $tea.Model {
+  // 采集数据单号
+  acquisitionItemNo: string;
+  // 碳补偿项目编号
+  projectNo: string;
+  // 参与账户DID
+  accountDid: string;
+  // 发生时间
+  occurrentTime: string;
+  // 发生场景编码
+  scenarioCode: string;
+  // 发生场景名称
+  scenarioName: string;
+  // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+  platformNo: string;
+  // 活动数据原始值，多个活动数据列表
+  activeDatum?: AnyAmountItem[];
+  // 减碳量
+  offsetVolume?: string;
+  // 碳能量值
+  carbonEnergy?: number;
+  static names(): { [key: string]: string } {
+    return {
+      acquisitionItemNo: 'acquisition_item_no',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+      occurrentTime: 'occurrent_time',
+      scenarioCode: 'scenario_code',
+      scenarioName: 'scenario_name',
+      platformNo: 'platform_no',
+      activeDatum: 'active_datum',
+      offsetVolume: 'offset_volume',
+      carbonEnergy: 'carbon_energy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      acquisitionItemNo: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+      occurrentTime: 'string',
+      scenarioCode: 'string',
+      scenarioName: 'string',
+      platformNo: 'string',
+      activeDatum: { 'type': 'array', 'itemType': AnyAmountItem },
+      offsetVolume: 'string',
+      carbonEnergy: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 碳排放分城市统计总量
 export class EmissionsCityStatistics extends $tea.Model {
   // 城市编码
@@ -593,31 +675,6 @@ export class AuthenticationInfoVO extends $tea.Model {
       dataTransferType: 'string',
       authenticationDeetail: 'string',
       status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据值条目
-export class AnyAmountItem extends $tea.Model {
-  // 数据项编码
-  itemCode: string;
-  // 数据值，按字符串输出，最多保留6位小数
-  itemAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      itemCode: 'item_code',
-      itemAmount: 'item_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      itemCode: 'string',
-      itemAmount: 'string',
     };
   }
 
@@ -3015,6 +3072,401 @@ export class PreviewEcarAvitivedataResponse extends $tea.Model {
   }
 }
 
+export class RegisterEcarEnterprisememberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 注册会员在蚂蚁DIS服务的DID账号
+  accountDid?: string;
+  // 注册会员姓名
+  name?: string;
+  // 注册会员身份证号码
+  identityCardCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accountDid: 'account_did',
+      name: 'name',
+      identityCardCode: 'identity_card_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accountDid: 'string',
+      name: 'string',
+      identityCardCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterEcarEnterprisememberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 蚂蚁DIS服务的DID账号
+  accountDid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountDid: 'account_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarOffsetacquisitionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活动数据采集单号
+  acquisitionItemNo: string;
+  // 碳普惠减碳项目编号
+  projectNo: string;
+  // 参与的碳账户DID
+  accountDid: string;
+  // 发生时间，格式为yyyy-MM-DD HH:MM:SS（到秒）或 yyyy-MM-DD（按日录入）
+  occurrentTime: string;
+  // 发生场景，需要按照约定的场景编码提交
+  scenarioCode: string;
+  // 活动数据列表
+  activeDataList: AnyAmountItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      acquisitionItemNo: 'acquisition_item_no',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+      occurrentTime: 'occurrent_time',
+      scenarioCode: 'scenario_code',
+      activeDataList: 'active_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      acquisitionItemNo: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+      occurrentTime: 'string',
+      scenarioCode: 'string',
+      activeDataList: { 'type': 'array', 'itemType': AnyAmountItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarOffsetacquisitionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 活动数据采集单号
+  acquisitionItemNo?: string;
+  // 减碳量，最多4位小数
+  carbonEmissionAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      acquisitionItemNo: 'acquisition_item_no',
+      carbonEmissionAmount: 'carbon_emission_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      acquisitionItemNo: 'string',
+      carbonEmissionAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarOffsettranslateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 转移业务流水单号
+  translationItemNo: string;
+  // 碳补偿项目编号
+  projectNo: string;
+  // 出账账户DID
+  drawingAccountDid: string;
+  // 转移入账账户DID
+  receiptAccountDid: string;
+  // 转移减碳量额度，最多六位小数
+  translationAmmount: string;
+  // 业务类型包括，默认不需要传入，默认值为Translation
+  translationType?: string;
+  // 发生时间，格式为yyyy-MM-DD HH:MM:SS
+  occurrentTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      translationItemNo: 'translation_item_no',
+      projectNo: 'project_no',
+      drawingAccountDid: 'drawing_account_did',
+      receiptAccountDid: 'receipt_account_did',
+      translationAmmount: 'translation_ammount',
+      translationType: 'translation_type',
+      occurrentTime: 'occurrent_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      translationItemNo: 'string',
+      projectNo: 'string',
+      drawingAccountDid: 'string',
+      receiptAccountDid: 'string',
+      translationAmmount: 'string',
+      translationType: 'string',
+      occurrentTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddEcarOffsettranslateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthEcarOffsetdatumRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 会员在蚂蚁DIS服务的账户DID
+  accountDid: string;
+  // 碳普惠平台编码，如蚂蚁森林编码为Antforest
+  carbonOffsetPlatformNo: string;
+  // 平台方会员账户ID
+  platformAccountId: string;
+  // 授权关键数据列表，KV结构列表
+  authKeywordList: AnyKeywordItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accountDid: 'account_did',
+      carbonOffsetPlatformNo: 'carbon_offset_platform_no',
+      platformAccountId: 'platform_account_id',
+      authKeywordList: 'auth_keyword_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accountDid: 'string',
+      carbonOffsetPlatformNo: 'string',
+      platformAccountId: 'string',
+      authKeywordList: { 'type': 'array', 'itemType': AnyKeywordItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthEcarOffsetdatumResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarOffsetdatumRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 碳补偿项目编码
+  projectNo?: string;
+  // 账户DID
+  accountDid?: string;
+  // 发生开始时间
+  occurrentStartTime?: string;
+  // 数据发生截止时间
+  occurrentEndTime?: string;
+  // 碳普惠平台编码
+  carbonOffsetPlatformNo?: string;
+  // 发生场景编码，需指定相关碳普惠平台的场景编码，可以指定多个场景
+  scenarioCode?: string[];
+  // 分页查询数据时的页码，从1开始，不传入时默认值为1
+  current?: number;
+  // 每页数据量，默认值为20，取值范围为[10,100]
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+      occurrentStartTime: 'occurrent_start_time',
+      occurrentEndTime: 'occurrent_end_time',
+      carbonOffsetPlatformNo: 'carbon_offset_platform_no',
+      scenarioCode: 'scenario_code',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+      occurrentStartTime: 'string',
+      occurrentEndTime: 'string',
+      carbonOffsetPlatformNo: 'string',
+      scenarioCode: { 'type': 'array', 'itemType': 'string' },
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarOffsetdatumResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前查询的页码
+  current?: number;
+  // 每页记录条数
+  pageSize?: number;
+  // 记录总条数
+  total?: number;
+  // 碳普惠减碳数据明细
+  list?: CarbonOffsetAcquisitionItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      current: 'current',
+      pageSize: 'page_size',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      current: 'number',
+      pageSize: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': CarbonOffsetAcquisitionItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3258,7 +3710,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -3297,7 +3749,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.1.3",
+          sdk_version: "2.2.1",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -3915,6 +4367,101 @@ export default class Client {
   async previewEcarAvitivedataEx(request: PreviewEcarAvitivedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PreviewEcarAvitivedataResponse> {
     Util.validateModel(request);
     return $tea.cast<PreviewEcarAvitivedataResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.avitivedata.preview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PreviewEcarAvitivedataResponse({}));
+  }
+
+  /**
+   * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+   * Summary: 机构会员注册
+   */
+  async registerEcarEnterprisemember(request: RegisterEcarEnterprisememberRequest): Promise<RegisterEcarEnterprisememberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerEcarEnterprisememberEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 机构会员注册接口，支持根据蚂蚁DID或者姓名+密码注意企业的终端会员
+   * Summary: 机构会员注册
+   */
+  async registerEcarEnterprisememberEx(request: RegisterEcarEnterprisememberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterEcarEnterprisememberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterEcarEnterprisememberResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterEcarEnterprisememberResponse({}));
+  }
+
+  /**
+   * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+   * Summary: 碳补偿数据采集
+   */
+  async addEcarOffsetacquisition(request: AddEcarOffsetacquisitionRequest): Promise<AddEcarOffsetacquisitionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addEcarOffsetacquisitionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳补偿数据采集，提供给碳普惠业务相关接口，外围系统提交碳普惠数据
+   * Summary: 碳补偿数据采集
+   */
+  async addEcarOffsetacquisitionEx(request: AddEcarOffsetacquisitionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddEcarOffsetacquisitionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddEcarOffsetacquisitionResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetacquisition.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddEcarOffsetacquisitionResponse({}));
+  }
+
+  /**
+   * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+   * Summary: 碳普惠减碳量转移
+   */
+  async addEcarOffsettranslate(request: AddEcarOffsettranslateRequest): Promise<AddEcarOffsettranslateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addEcarOffsettranslateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳普惠减碳量转移，减碳量在业务端兑换成权益的场景时可使用此接口
+   * Summary: 碳普惠减碳量转移
+   */
+  async addEcarOffsettranslateEx(request: AddEcarOffsettranslateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddEcarOffsettranslateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddEcarOffsettranslateResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsettranslate.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddEcarOffsettranslateResponse({}));
+  }
+
+  /**
+   * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+   * Summary: 碳普惠数据授权
+   */
+  async authEcarOffsetdatum(request: AuthEcarOffsetdatumRequest): Promise<AuthEcarOffsetdatumResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authEcarOffsetdatumEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳普惠数据授权，授权三方平台租户可访问相关平台方会员的碳普惠数据
+   * Summary: 碳普惠数据授权
+   */
+  async authEcarOffsetdatumEx(request: AuthEcarOffsetdatumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthEcarOffsetdatumResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthEcarOffsetdatumResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthEcarOffsetdatumResponse({}));
+  }
+
+  /**
+   * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+   * Summary: 碳普惠数据列表查询
+   */
+  async listEcarOffsetdatum(request: ListEcarOffsetdatumRequest): Promise<ListEcarOffsetdatumResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listEcarOffsetdatumEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳普惠数据列表查询，根据账户DID和日期查询碳补偿数据
+   * Summary: 碳普惠数据列表查询
+   */
+  async listEcarOffsetdatumEx(request: ListEcarOffsetdatumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListEcarOffsetdatumResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListEcarOffsetdatumResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListEcarOffsetdatumResponse({}));
   }
 
   /**
