@@ -36,12 +36,19 @@ class BindAntchainSaasAbilityRequest extends Model
      * @var string
      */
     public $operatorId;
+
+    // api信息
+    /**
+     * @var ApiInfoModel
+     */
+    public $apiInfoModel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'apiName'           => 'api_name',
         'abilityIds'        => 'ability_ids',
         'operatorId'        => 'operator_id',
+        'apiInfoModel'      => 'api_info_model',
     ];
 
     public function validate()
@@ -49,6 +56,7 @@ class BindAntchainSaasAbilityRequest extends Model
         Model::validateRequired('apiName', $this->apiName, true);
         Model::validateRequired('abilityIds', $this->abilityIds, true);
         Model::validateRequired('operatorId', $this->operatorId, true);
+        Model::validateRequired('apiInfoModel', $this->apiInfoModel, true);
     }
 
     public function toMap()
@@ -68,6 +76,9 @@ class BindAntchainSaasAbilityRequest extends Model
         }
         if (null !== $this->operatorId) {
             $res['operator_id'] = $this->operatorId;
+        }
+        if (null !== $this->apiInfoModel) {
+            $res['api_info_model'] = null !== $this->apiInfoModel ? $this->apiInfoModel->toMap() : null;
         }
 
         return $res;
@@ -97,6 +108,9 @@ class BindAntchainSaasAbilityRequest extends Model
         }
         if (isset($map['operator_id'])) {
             $model->operatorId = $map['operator_id'];
+        }
+        if (isset($map['api_info_model'])) {
+            $model->apiInfoModel = ApiInfoModel::fromMap($map['api_info_model']);
         }
 
         return $model;
