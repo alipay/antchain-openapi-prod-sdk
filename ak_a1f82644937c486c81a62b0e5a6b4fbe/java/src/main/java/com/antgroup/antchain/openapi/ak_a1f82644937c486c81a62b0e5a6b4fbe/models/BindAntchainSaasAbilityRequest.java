@@ -26,6 +26,11 @@ public class BindAntchainSaasAbilityRequest extends TeaModel {
     @Validation(required = true)
     public String operatorId;
 
+    // api信息
+    @NameInMap("api_info_model")
+    @Validation(required = true)
+    public ApiInfoModel apiInfoModel;
+
     public static BindAntchainSaasAbilityRequest build(java.util.Map<String, ?> map) throws Exception {
         BindAntchainSaasAbilityRequest self = new BindAntchainSaasAbilityRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class BindAntchainSaasAbilityRequest extends TeaModel {
     }
     public String getOperatorId() {
         return this.operatorId;
+    }
+
+    public BindAntchainSaasAbilityRequest setApiInfoModel(ApiInfoModel apiInfoModel) {
+        this.apiInfoModel = apiInfoModel;
+        return this;
+    }
+    public ApiInfoModel getApiInfoModel() {
+        return this.apiInfoModel;
     }
 
 }
