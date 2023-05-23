@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
 {
-    public class BindAntchainSaasAbilityRequest : TeaModel {
+    public class PagequeryAntchainSaasAbilityRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // api名称
-        [NameInMap("api_name")]
+        // 当前页码
+        [NameInMap("current")]
         [Validation(Required=true)]
-        public string ApiName { get; set; }
+        public long? Current { get; set; }
 
-        // 能力id列表
-        [NameInMap("ability_ids")]
+        // 每页大小
+        [NameInMap("page_size")]
         [Validation(Required=true)]
-        public List<string> AbilityIds { get; set; }
+        public long? PageSize { get; set; }
 
-        // 操作人的域账号
-        [NameInMap("operator_id")]
-        [Validation(Required=true)]
-        public string OperatorId { get; set; }
+        // 用于能力的搜索标签
+        [NameInMap("keyword")]
+        [Validation(Required=false)]
+        public string Keyword { get; set; }
 
-        // api信息
-        [NameInMap("api_info_model")]
-        [Validation(Required=true)]
-        public ApiInfoModel ApiInfoModel { get; set; }
+        // 网关产品码
+        [NameInMap("prod_code")]
+        [Validation(Required=false)]
+        public string ProdCode { get; set; }
 
     }
 
