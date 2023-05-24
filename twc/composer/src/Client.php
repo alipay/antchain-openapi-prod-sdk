@@ -25,6 +25,8 @@ use AntChain\TWC\Models\ApplyContractMerchantRequest;
 use AntChain\TWC\Models\ApplyContractMerchantResponse;
 use AntChain\TWC\Models\ApplyContractReportRequest;
 use AntChain\TWC\Models\ApplyContractReportResponse;
+use AntChain\TWC\Models\ApplyDigitalcontentOrderRequest;
+use AntChain\TWC\Models\ApplyDigitalcontentOrderResponse;
 use AntChain\TWC\Models\ApplyFlowAuthRequest;
 use AntChain\TWC\Models\ApplyFlowAuthResponse;
 use AntChain\TWC\Models\ApplyFlowCertificateRequest;
@@ -393,6 +395,8 @@ use AntChain\TWC\Models\OpenInternalTwcRequest;
 use AntChain\TWC\Models\OpenInternalTwcResponse;
 use AntChain\TWC\Models\OperateJusticeEventRequest;
 use AntChain\TWC\Models\OperateJusticeEventResponse;
+use AntChain\TWC\Models\PushDigitalcontentUsageRequest;
+use AntChain\TWC\Models\PushDigitalcontentUsageResponse;
 use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
 use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
 use AntChain\TWC\Models\PushRefinanceInvalidorderRequest;
@@ -573,6 +577,8 @@ use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
 use AntChain\TWC\Models\StartJusticeCaseRequest;
 use AntChain\TWC\Models\StartJusticeCaseResponse;
+use AntChain\TWC\Models\SubmitDigitalcontentOrderRequest;
+use AntChain\TWC\Models\SubmitDigitalcontentOrderResponse;
 use AntChain\TWC\Models\SyncInnerNotaryRequest;
 use AntChain\TWC\Models\SyncInnerNotaryResponse;
 use AntChain\TWC\Models\SyncInnerProvisionRequest;
@@ -776,7 +782,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.42',
+                    'sdk_version'      => '1.9.0',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4456,6 +4462,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractComplaineventidsResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+     * Summary: 集成方通过该接口进行使用mp4上报.
+     *
+     * @param PushDigitalcontentUsageRequest $request
+     *
+     * @return PushDigitalcontentUsageResponse
+     */
+    public function pushDigitalcontentUsage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDigitalcontentUsageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+     * Summary: 集成方通过该接口进行使用mp4上报.
+     *
+     * @param PushDigitalcontentUsageRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return PushDigitalcontentUsageResponse
+     */
+    public function pushDigitalcontentUsageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDigitalcontentUsageResponse::fromMap($this->doRequest('1.0', 'twc.notary.digitalcontent.usage.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+     * Summary: 集成方通过该接口申请apk订单id.
+     *
+     * @param ApplyDigitalcontentOrderRequest $request
+     *
+     * @return ApplyDigitalcontentOrderResponse
+     */
+    public function applyDigitalcontentOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDigitalcontentOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+     * Summary: 集成方通过该接口申请apk订单id.
+     *
+     * @param ApplyDigitalcontentOrderRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyDigitalcontentOrderResponse
+     */
+    public function applyDigitalcontentOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDigitalcontentOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.digitalcontent.order.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+     * Summary: 集成方反馈apk订单支付结果.
+     *
+     * @param SubmitDigitalcontentOrderRequest $request
+     *
+     * @return SubmitDigitalcontentOrderResponse
+     */
+    public function submitDigitalcontentOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitDigitalcontentOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+     * Summary: 集成方反馈apk订单支付结果.
+     *
+     * @param SubmitDigitalcontentOrderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SubmitDigitalcontentOrderResponse
+     */
+    public function submitDigitalcontentOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitDigitalcontentOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.digitalcontent.order.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
