@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.42',
+    sdk_version = '1.9.0',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -7634,6 +7634,140 @@ async function queryContractComplaineventids(request: QueryContractComplainevent
 async function queryContractComplaineventidsEx(request: QueryContractComplaineventidsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractComplaineventidsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushDigitalcontentUsageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 内容id
+  contentId: string(name='content_id'),
+  // 设备id
+  deviceId: string(name='device_id'),
+  // 使用量，按次使用需要为数字
+  usage: string(name='usage'),
+  // 客户端幂等token
+  clientToken: string(name='client_token'),
+}
+
+model PushDigitalcontentUsageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上报成功返回的订单id
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+ * Summary: 集成方通过该接口进行使用mp4上报
+ */
+async function pushDigitalcontentUsage(request: PushDigitalcontentUsageRequest): PushDigitalcontentUsageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushDigitalcontentUsageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+ * Summary: 集成方通过该接口进行使用mp4上报
+ */
+async function pushDigitalcontentUsageEx(request: PushDigitalcontentUsageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDigitalcontentUsageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.digitalcontent.usage.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDigitalcontentOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 内容id
+  contentId: string(name='content_id'),
+  // 设备id
+  deviceId: string(name='device_id'),
+}
+
+model ApplyDigitalcontentOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的订单id
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+ * Summary: 集成方通过该接口申请apk订单id
+ */
+async function applyDigitalcontentOrder(request: ApplyDigitalcontentOrderRequest): ApplyDigitalcontentOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDigitalcontentOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+ * Summary: 集成方通过该接口申请apk订单id
+ */
+async function applyDigitalcontentOrderEx(request: ApplyDigitalcontentOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDigitalcontentOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.digitalcontent.order.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitDigitalcontentOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 支付id
+  paymentId: string(name='payment_id'),
+  // 付款方式
+  // ●AliPay，支付宝
+  // ● WeChatPay，微信支付
+  // ● Bank，银行卡支付
+  // ● Other，其他
+  paymentType: string(name='payment_type'),
+  // 按次使用时需要为整数
+  usage: string(name='usage'),
+  // 用作幂等，防重调用
+  clientToken: string(name='client_token'),
+}
+
+model SubmitDigitalcontentOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 传递给apk使用的token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+ * Summary: 集成方反馈apk订单支付结果
+ */
+async function submitDigitalcontentOrder(request: SubmitDigitalcontentOrderRequest): SubmitDigitalcontentOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitDigitalcontentOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+ * Summary: 集成方反馈apk订单支付结果
+ */
+async function submitDigitalcontentOrderEx(request: SubmitDigitalcontentOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDigitalcontentOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.digitalcontent.order.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncInnerTransRequest = {
