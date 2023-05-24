@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.42"),
+                    new TeaPair("sdk_version", "1.9.0"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2253,6 +2253,63 @@ public class Client {
     public QueryContractComplaineventidsResponse queryContractComplaineventidsEx(QueryContractComplaineventidsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractComplaineventidsResponse());
+    }
+
+    /**
+     * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+     * Summary: 集成方通过该接口进行使用mp4上报
+     */
+    public PushDigitalcontentUsageResponse pushDigitalcontentUsage(PushDigitalcontentUsageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushDigitalcontentUsageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+     * Summary: 集成方通过该接口进行使用mp4上报
+     */
+    public PushDigitalcontentUsageResponse pushDigitalcontentUsageEx(PushDigitalcontentUsageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.digitalcontent.usage.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushDigitalcontentUsageResponse());
+    }
+
+    /**
+     * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+     * Summary: 集成方通过该接口申请apk订单id
+     */
+    public ApplyDigitalcontentOrderResponse applyDigitalcontentOrder(ApplyDigitalcontentOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDigitalcontentOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+     * Summary: 集成方通过该接口申请apk订单id
+     */
+    public ApplyDigitalcontentOrderResponse applyDigitalcontentOrderEx(ApplyDigitalcontentOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.digitalcontent.order.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDigitalcontentOrderResponse());
+    }
+
+    /**
+     * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+     * Summary: 集成方反馈apk订单支付结果
+     */
+    public SubmitDigitalcontentOrderResponse submitDigitalcontentOrder(SubmitDigitalcontentOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitDigitalcontentOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+     * Summary: 集成方反馈apk订单支付结果
+     */
+    public SubmitDigitalcontentOrderResponse submitDigitalcontentOrderEx(SubmitDigitalcontentOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.digitalcontent.order.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitDigitalcontentOrderResponse());
     }
 
     /**
