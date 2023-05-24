@@ -14094,6 +14094,219 @@ export class QueryContractComplaineventidsResponse extends $tea.Model {
   }
 }
 
+export class PushDigitalcontentUsageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 内容id
+  contentId: string;
+  // 设备id
+  deviceId: string;
+  // 使用量，按次使用需要为数字
+  usage: string;
+  // 客户端幂等token
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contentId: 'content_id',
+      deviceId: 'device_id',
+      usage: 'usage',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contentId: 'string',
+      deviceId: 'string',
+      usage: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushDigitalcontentUsageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上报成功返回的订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDigitalcontentOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 内容id
+  contentId: string;
+  // 设备id
+  deviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contentId: 'content_id',
+      deviceId: 'device_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contentId: 'string',
+      deviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDigitalcontentOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生成的订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDigitalcontentOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 支付id
+  paymentId: string;
+  // 付款方式
+  // ●AliPay，支付宝
+  // ● WeChatPay，微信支付
+  // ● Bank，银行卡支付
+  // ● Other，其他
+  paymentType: string;
+  // 按次使用时需要为整数
+  usage: string;
+  // 用作幂等，防重调用
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      paymentId: 'payment_id',
+      paymentType: 'payment_type',
+      usage: 'usage',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      paymentId: 'string',
+      paymentType: 'string',
+      usage: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitDigitalcontentOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 传递给apk使用的token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncInnerTransRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -31528,7 +31741,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.42",
+          sdk_version: "1.9.0",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -33668,6 +33881,63 @@ export default class Client {
   async queryContractComplaineventidsEx(request: QueryContractComplaineventidsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractComplaineventidsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContractComplaineventidsResponse>(await this.doRequest("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractComplaineventidsResponse({}));
+  }
+
+  /**
+   * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+   * Summary: 集成方通过该接口进行使用mp4上报
+   */
+  async pushDigitalcontentUsage(request: PushDigitalcontentUsageRequest): Promise<PushDigitalcontentUsageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushDigitalcontentUsageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+   * Summary: 集成方通过该接口进行使用mp4上报
+   */
+  async pushDigitalcontentUsageEx(request: PushDigitalcontentUsageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDigitalcontentUsageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushDigitalcontentUsageResponse>(await this.doRequest("1.0", "twc.notary.digitalcontent.usage.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushDigitalcontentUsageResponse({}));
+  }
+
+  /**
+   * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+   * Summary: 集成方通过该接口申请apk订单id
+   */
+  async applyDigitalcontentOrder(request: ApplyDigitalcontentOrderRequest): Promise<ApplyDigitalcontentOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDigitalcontentOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+   * Summary: 集成方通过该接口申请apk订单id
+   */
+  async applyDigitalcontentOrderEx(request: ApplyDigitalcontentOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDigitalcontentOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDigitalcontentOrderResponse>(await this.doRequest("1.0", "twc.notary.digitalcontent.order.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDigitalcontentOrderResponse({}));
+  }
+
+  /**
+   * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+   * Summary: 集成方反馈apk订单支付结果
+   */
+  async submitDigitalcontentOrder(request: SubmitDigitalcontentOrderRequest): Promise<SubmitDigitalcontentOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitDigitalcontentOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+   * Summary: 集成方反馈apk订单支付结果
+   */
+  async submitDigitalcontentOrderEx(request: SubmitDigitalcontentOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitDigitalcontentOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitDigitalcontentOrderResponse>(await this.doRequest("1.0", "twc.notary.digitalcontent.order.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitDigitalcontentOrderResponse({}));
   }
 
   /**
