@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.1.4',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -147,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -159,6 +159,42 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 人脸盾结果
+model FaceShieldResult {
+  // 设备token
+  apdidToken: string(name='apdid_token', example='uYxLZlL5YGpLvdwO5+4pyCkjgf3/FF4XxOqzrmG/XY+jyFilhgEAAA=='),
+  // 风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  riskLevel: long(name='risk_level', example='3'),
+  // 风险描述，对风险等级的补充
+  riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0'),
+  // 处理的建议，如PAAS
+  sugAction: string(name='sug_action', example='建议直接拦截'),
+}
+
+// 保单信息
+model InsureInfo {
+  // 保单时间
+  modifyTime: string(name='modify_time', example='2023-04-23 12:00:01'),
+  // 蚂蚁L5产品code
+  productCode: string(name='product_code', example='base'),
+  // 保险产品code
+  insureProduct: string(name='insure_product', example='A'),
+  // 保险产品价格
+  insurePrice: string(name='insure_price', example='54'),
+  // 保险品种
+  insureType: string(name='insure_type', example='基础险'),
+  // 付款方式
+  payType: string(name='pay_type', example='年付'),
+  // 保险期数
+  insurePeriod: string(name='insure_period', example='12'),
+  // 保单状态
+  policyStatus: string(name='policy_status', example='生效中'),
+  // 操作类型
+  operateType: string(name='operate_type', example='投保'),
+  // 保司信用代码
+  insureCompCreditNo: string(name='insure_comp_credit_no', example='91440300892305861T'),
 }
 
 model RunGeneralRequest = {
@@ -201,5 +237,301 @@ async function runGeneral(request: RunGeneralRequest): RunGeneralResponse {
 async function runGeneralEx(request: RunGeneralRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunGeneralResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.general.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecEkytInsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保险信息，包含保单的所有信息
+  insureInfo: string(name='insure_info'),
+  // 投保人信息
+  applicantInfo: string(name='applicant_info'),
+  // 被保人信息
+  assuredInfo: string(name='assured_info'),
+  // 数据签名
+  signature: string(name='signature'),
+}
+
+model ExecEkytInsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: string(name='success'),
+  // 返回结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 租赁住房保险产品，开放接口
+调用方：上海远点网络科技有限公司
+ * Summary: 租赁住房保险产品，接口开放给租房平台
+ */
+async function execEkytInsure(request: ExecEkytInsureRequest): ExecEkytInsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execEkytInsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁住房保险产品，开放接口
+调用方：上海远点网络科技有限公司
+ * Summary: 租赁住房保险产品，接口开放给租房平台
+ */
+async function execEkytInsureEx(request: ExecEkytInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecEkytInsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBssecpicRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 客户名
+  clientName: string(name='client_name'),
+  // 操作系统
+  osType: string(name='os_type'),
+  // 包名
+  packageName: string(name='package_name'),
+  // 签名信息
+  certSign?: string(name='cert_sign'),
+  // 签名秘钥内容
+  appKeyData?: string(name='app_key_data'),
+  // 加密秘钥内容
+  securityData?: string(name='security_data'),
+  // 自定义秘钥内容
+  extraData?: string(name='extra_data'),
+  // 白盒秘钥内容
+  whiteBoxData?: string(name='white_box_data'),
+}
+
+model CreateBssecpicResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 返回文件名
+  fileName?: string(name='file_name'),
+  // 返回文件的内容base64
+  bodyBase64?: string(name='body_base64'),
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+async function createBssecpic(request: CreateBssecpicRequest): CreateBssecpicResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBssecpicEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+async function createBssecpicEx(request: CreateBssecpicRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBssecpicResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBlueshieldSecuritypictureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 客户名
+  clientName: string(name='client_name'),
+  // 操作系统
+  osType: string(name='os_type'),
+  // 包名
+  packageName: string(name='package_name'),
+  // 签名信息
+  certSign?: string(name='cert_sign'),
+  // 签名秘钥内容
+  appKeyData?: string(name='app_key_data'),
+  // 加密秘钥内容
+  securityData?: string(name='security_data'),
+  // 自定义秘钥内容
+  extraData?: string(name='extra_data'),
+  // 白盒秘钥内容
+  whiteBoxData?: string(name='white_box_data'),
+  // raas产品码列表
+  raasProducts: string(name='raas_products'),
+  // 直接透传的二级租户，可选
+  raasSecondTenant?: string(name='raas_second_tenant'),
+}
+
+model CreateBlueshieldSecuritypictureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 执行是否成功
+  success?: boolean(name='success'),
+  // 生成的图片文件名
+  fileName?: string(name='file_name'),
+  // body base 64
+  bodyBase64?: string(name='body_base64'),
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+async function createBlueshieldSecuritypicture(request: CreateBlueshieldSecuritypictureRequest): CreateBlueshieldSecuritypictureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBlueshieldSecuritypictureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蓝盾安全图片生成
+ * Summary: 蓝盾安全图片生成
+ */
+async function createBlueshieldSecuritypictureEx(request: CreateBlueshieldSecuritypictureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlueshieldSecuritypictureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceshieldNativeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id，标识客户来源
+  clientId: string(name='client_id'),
+  // 设备token
+  apdidToken?: string(name='apdid_token'),
+  // 切面数据（JSON，详见下方）
+  // {
+  // 	"sessionId": "zimId"	//人脸的bizID
+  //   "rId": "rId"	//在获取活体方法人脸下发的bisToken
+  //   "keyInfoHash": "keyInfoHash"	//关键信息hash
+  //   "pictureHash": "人脸图片的hash"	//解密出来的人脸图片做hash
+  //   "rData": "xxx"	//客户端在zimInit和zimValidate带上去的业务风险数据
+  // }
+  aopData?: string(name='aop_data'),
+  // 否（和切面二选一即可）
+  signature?: string(name='signature'),
+  // 签名因子（和切面二选一即可）
+  signFactor?: string(name='sign_factor'),
+  // RaaS租户
+  raasProducts: string(name='raas_products'),
+  // raas二级租户
+  raasSecondTenant?: string(name='raas_second_tenant'),
+}
+
+model QueryFaceshieldNativeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true成功，false失败
+  success?: boolean(name='success'),
+  // 请求码，200成功，其他失败，具体见错误码
+  code?: long(name='code'),
+  // 错误时的返回信息
+  message?: string(name='message'),
+  // 请求时传入的，若没有传，则系统自动生成
+  requestId?: string(name='request_id'),
+  // apdidToken	String	设备token
+  // riskLevel	String	风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  // riskDesc	String	风险描述，对风险等级的补充
+  // sugAction	String	处理的建议，如PAAS
+  data?: FaceShieldResult(name='data'),
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+async function queryFaceshieldNative(request: QueryFaceshieldNativeRequest): QueryFaceshieldNativeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceshieldNativeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全人脸盾Native查询
+ * Summary: 人脸盾Native查询
+ */
+async function queryFaceshieldNativeEx(request: QueryFaceshieldNativeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceshieldNativeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceshieldWebRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户id，标识客户来源
+  clientId: string(name='client_id'),
+  // 设备token
+  apdidToken?: string(name='apdid_token'),
+  // 切面数据（JSON，详见下方）
+  aopData?: string(name='aop_data'),
+  // RaaS租户
+  // 
+  raasProducts: string(name='raas_products'),
+  // raas二级租户
+  // 
+  raasSecondTenant?: string(name='raas_second_tenant'),
+}
+
+model QueryFaceshieldWebResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true成功，false失败	
+  // 
+  success?: boolean(name='success'),
+  // 请求码，200成功，其他失败，具体见错误码
+  // 
+  code?: long(name='code'),
+  // 错误时的返回信息
+  // 
+  message?: string(name='message'),
+  // 请求时传入的，若没有传，则系统自动生成
+  // 
+  requestId?: string(name='request_id'),
+  // apdidToken String 设备token riskLevel String 风险等级，-1参数异常，0无风险，1-3表示低、中、高 riskDesc String 风险描述，对风险等级的补充 sugAction String 处理的建议，如PAAS
+  data?: FaceShieldResult(name='data'),
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+async function queryFaceshieldWeb(request: QueryFaceshieldWebRequest): QueryFaceshieldWebResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceshieldWebEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终端安全人脸盾Web查询
+ * Summary: 人脸盾Web查询
+ */
+async function queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceshieldWebResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
