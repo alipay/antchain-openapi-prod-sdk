@@ -18789,6 +18789,276 @@ func (s *QueryContractComplaineventidsResponse) SetComplainEventIds(v []*string)
 	return s
 }
 
+type PushDigitalcontentUsageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 使用量，按次使用需要为数字
+	Usage *string `json:"usage,omitempty" xml:"usage,omitempty" require:"true"`
+	// 客户端幂等token
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s PushDigitalcontentUsageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDigitalcontentUsageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushDigitalcontentUsageRequest) SetAuthToken(v string) *PushDigitalcontentUsageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageRequest) SetProductInstanceId(v string) *PushDigitalcontentUsageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageRequest) SetContentId(v string) *PushDigitalcontentUsageRequest {
+	s.ContentId = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageRequest) SetDeviceId(v string) *PushDigitalcontentUsageRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageRequest) SetUsage(v string) *PushDigitalcontentUsageRequest {
+	s.Usage = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageRequest) SetClientToken(v string) *PushDigitalcontentUsageRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type PushDigitalcontentUsageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上报成功返回的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s PushDigitalcontentUsageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDigitalcontentUsageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushDigitalcontentUsageResponse) SetReqMsgId(v string) *PushDigitalcontentUsageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageResponse) SetResultCode(v string) *PushDigitalcontentUsageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageResponse) SetResultMsg(v string) *PushDigitalcontentUsageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushDigitalcontentUsageResponse) SetOrderId(v string) *PushDigitalcontentUsageResponse {
+	s.OrderId = &v
+	return s
+}
+
+type ApplyDigitalcontentOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+}
+
+func (s ApplyDigitalcontentOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDigitalcontentOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDigitalcontentOrderRequest) SetAuthToken(v string) *ApplyDigitalcontentOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderRequest) SetProductInstanceId(v string) *ApplyDigitalcontentOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderRequest) SetContentId(v string) *ApplyDigitalcontentOrderRequest {
+	s.ContentId = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderRequest) SetDeviceId(v string) *ApplyDigitalcontentOrderRequest {
+	s.DeviceId = &v
+	return s
+}
+
+type ApplyDigitalcontentOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s ApplyDigitalcontentOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDigitalcontentOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDigitalcontentOrderResponse) SetReqMsgId(v string) *ApplyDigitalcontentOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderResponse) SetResultCode(v string) *ApplyDigitalcontentOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderResponse) SetResultMsg(v string) *ApplyDigitalcontentOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDigitalcontentOrderResponse) SetOrderId(v string) *ApplyDigitalcontentOrderResponse {
+	s.OrderId = &v
+	return s
+}
+
+type SubmitDigitalcontentOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 支付id
+	PaymentId *string `json:"payment_id,omitempty" xml:"payment_id,omitempty" require:"true"`
+	// 付款方式
+	// ●AliPay，支付宝
+	// ● WeChatPay，微信支付
+	// ● Bank，银行卡支付
+	// ● Other，其他
+	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty" require:"true"`
+	// 按次使用时需要为整数
+	Usage *string `json:"usage,omitempty" xml:"usage,omitempty" require:"true"`
+	// 用作幂等，防重调用
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s SubmitDigitalcontentOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigitalcontentOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetAuthToken(v string) *SubmitDigitalcontentOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetProductInstanceId(v string) *SubmitDigitalcontentOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetOrderId(v string) *SubmitDigitalcontentOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetPaymentId(v string) *SubmitDigitalcontentOrderRequest {
+	s.PaymentId = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetPaymentType(v string) *SubmitDigitalcontentOrderRequest {
+	s.PaymentType = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetUsage(v string) *SubmitDigitalcontentOrderRequest {
+	s.Usage = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderRequest) SetClientToken(v string) *SubmitDigitalcontentOrderRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type SubmitDigitalcontentOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 传递给apk使用的token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s SubmitDigitalcontentOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitDigitalcontentOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitDigitalcontentOrderResponse) SetReqMsgId(v string) *SubmitDigitalcontentOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderResponse) SetResultCode(v string) *SubmitDigitalcontentOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderResponse) SetResultMsg(v string) *SubmitDigitalcontentOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitDigitalcontentOrderResponse) SetToken(v string) *SubmitDigitalcontentOrderResponse {
+	s.Token = &v
+	return s
+}
+
 type SyncInnerTransRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -42465,7 +42735,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.42"),
+				"sdk_version":      tea.String("1.9.0"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -46260,6 +46530,108 @@ func (client *Client) QueryContractComplaineventidsEx(request *QueryContractComp
 	}
 	_result = &QueryContractComplaineventidsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.complaineventids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+ * Summary: 集成方通过该接口进行使用mp4上报
+ */
+func (client *Client) PushDigitalcontentUsage(request *PushDigitalcontentUsageRequest) (_result *PushDigitalcontentUsageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushDigitalcontentUsageResponse{}
+	_body, _err := client.PushDigitalcontentUsageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+ * Summary: 集成方通过该接口进行使用mp4上报
+ */
+func (client *Client) PushDigitalcontentUsageEx(request *PushDigitalcontentUsageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushDigitalcontentUsageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushDigitalcontentUsageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.digitalcontent.usage.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+ * Summary: 集成方通过该接口申请apk订单id
+ */
+func (client *Client) ApplyDigitalcontentOrder(request *ApplyDigitalcontentOrderRequest) (_result *ApplyDigitalcontentOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDigitalcontentOrderResponse{}
+	_body, _err := client.ApplyDigitalcontentOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+ * Summary: 集成方通过该接口申请apk订单id
+ */
+func (client *Client) ApplyDigitalcontentOrderEx(request *ApplyDigitalcontentOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDigitalcontentOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDigitalcontentOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.digitalcontent.order.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+ * Summary: 集成方反馈apk订单支付结果
+ */
+func (client *Client) SubmitDigitalcontentOrder(request *SubmitDigitalcontentOrderRequest) (_result *SubmitDigitalcontentOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitDigitalcontentOrderResponse{}
+	_body, _err := client.SubmitDigitalcontentOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+ * Summary: 集成方反馈apk订单支付结果
+ */
+func (client *Client) SubmitDigitalcontentOrderEx(request *SubmitDigitalcontentOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitDigitalcontentOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitDigitalcontentOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.digitalcontent.order.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
