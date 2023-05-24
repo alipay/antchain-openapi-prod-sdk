@@ -11,6 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
+use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
+use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
+use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
+use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
+use AntChain\SECURITYTECH\Models\ExecEkytInsureResponse;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldWebResponse;
 use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
 use AntChain\Util\UtilClient;
@@ -112,18 +122,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -132,6 +142,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 人脸盾结果
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.1.4',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -238,5 +249,172 @@ class Client
         Utils::validateModel($request);
 
         return RunGeneralResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.general.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台.
+     *
+     * @param ExecEkytInsureRequest $request
+     *
+     * @return ExecEkytInsureResponse
+     */
+    public function execEkytInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execEkytInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台.
+     *
+     * @param ExecEkytInsureRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ExecEkytInsureResponse
+     */
+    public function execEkytInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecEkytInsureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成.
+     *
+     * @param CreateBssecpicRequest $request
+     *
+     * @return CreateBssecpicResponse
+     */
+    public function createBssecpic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBssecpicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成.
+     *
+     * @param CreateBssecpicRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateBssecpicResponse
+     */
+    public function createBssecpicEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBssecpicResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.bssecpic.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成.
+     *
+     * @param CreateBlueshieldSecuritypictureRequest $request
+     *
+     * @return CreateBlueshieldSecuritypictureResponse
+     */
+    public function createBlueshieldSecuritypicture($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBlueshieldSecuritypictureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成.
+     *
+     * @param CreateBlueshieldSecuritypictureRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateBlueshieldSecuritypictureResponse
+     */
+    public function createBlueshieldSecuritypictureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBlueshieldSecuritypictureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.blueshield.securitypicture.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询.
+     *
+     * @param QueryFaceshieldNativeRequest $request
+     *
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNative($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceshieldNativeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询.
+     *
+     * @param QueryFaceshieldNativeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNativeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceshieldNativeResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.faceshield.native.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询.
+     *
+     * @param QueryFaceshieldWebRequest $request
+     *
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWeb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceshieldWebEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询.
+     *
+     * @param QueryFaceshieldWebRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWebEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceshieldWebResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
