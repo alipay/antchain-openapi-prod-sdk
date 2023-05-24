@@ -77,6 +77,96 @@ export class Config extends $tea.Model {
   }
 }
 
+// 人脸盾结果
+export class FaceShieldResult extends $tea.Model {
+  // 设备token
+  apdidToken: string;
+  // 风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  riskLevel: number;
+  // 风险描述，对风险等级的补充
+  riskDesc: string;
+  // 处理的建议，如PAAS
+  sugAction: string;
+  static names(): { [key: string]: string } {
+    return {
+      apdidToken: 'apdid_token',
+      riskLevel: 'risk_level',
+      riskDesc: 'risk_desc',
+      sugAction: 'sug_action',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apdidToken: 'string',
+      riskLevel: 'number',
+      riskDesc: 'string',
+      sugAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 保单信息
+export class InsureInfo extends $tea.Model {
+  // 保单时间
+  modifyTime: string;
+  // 蚂蚁L5产品code
+  productCode: string;
+  // 保险产品code
+  insureProduct: string;
+  // 保险产品价格
+  insurePrice: string;
+  // 保险品种
+  insureType: string;
+  // 付款方式
+  payType: string;
+  // 保险期数
+  insurePeriod: string;
+  // 保单状态
+  policyStatus: string;
+  // 操作类型
+  operateType: string;
+  // 保司信用代码
+  insureCompCreditNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      modifyTime: 'modify_time',
+      productCode: 'product_code',
+      insureProduct: 'insure_product',
+      insurePrice: 'insure_price',
+      insureType: 'insure_type',
+      payType: 'pay_type',
+      insurePeriod: 'insure_period',
+      policyStatus: 'policy_status',
+      operateType: 'operate_type',
+      insureCompCreditNo: 'insure_comp_credit_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modifyTime: 'string',
+      productCode: 'string',
+      insureProduct: 'string',
+      insurePrice: 'string',
+      insureType: 'string',
+      payType: 'string',
+      insurePeriod: 'string',
+      policyStatus: 'string',
+      operateType: 'string',
+      insureCompCreditNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RunGeneralRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -136,6 +226,493 @@ export class RunGeneralResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       response: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecEkytInsureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保险信息，包含保单的所有信息
+  insureInfo: string;
+  // 投保人信息
+  applicantInfo: string;
+  // 被保人信息
+  assuredInfo: string;
+  // 数据签名
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      insureInfo: 'insure_info',
+      applicantInfo: 'applicant_info',
+      assuredInfo: 'assured_info',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      insureInfo: 'string',
+      applicantInfo: 'string',
+      assuredInfo: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecEkytInsureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: string;
+  // 返回结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBssecpicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用名
+  appName?: string;
+  // 客户名
+  clientName: string;
+  // 操作系统
+  osType: string;
+  // 包名
+  packageName: string;
+  // 签名信息
+  certSign?: string;
+  // 签名秘钥内容
+  appKeyData?: string;
+  // 加密秘钥内容
+  securityData?: string;
+  // 自定义秘钥内容
+  extraData?: string;
+  // 白盒秘钥内容
+  whiteBoxData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appName: 'app_name',
+      clientName: 'client_name',
+      osType: 'os_type',
+      packageName: 'package_name',
+      certSign: 'cert_sign',
+      appKeyData: 'app_key_data',
+      securityData: 'security_data',
+      extraData: 'extra_data',
+      whiteBoxData: 'white_box_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appName: 'string',
+      clientName: 'string',
+      osType: 'string',
+      packageName: 'string',
+      certSign: 'string',
+      appKeyData: 'string',
+      securityData: 'string',
+      extraData: 'string',
+      whiteBoxData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBssecpicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 返回文件名
+  fileName?: string;
+  // 返回文件的内容base64
+  bodyBase64?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      fileName: 'file_name',
+      bodyBase64: 'body_base64',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      fileName: 'string',
+      bodyBase64: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBlueshieldSecuritypictureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用名
+  appName?: string;
+  // 客户名
+  clientName: string;
+  // 操作系统
+  osType: string;
+  // 包名
+  packageName: string;
+  // 签名信息
+  certSign?: string;
+  // 签名秘钥内容
+  appKeyData?: string;
+  // 加密秘钥内容
+  securityData?: string;
+  // 自定义秘钥内容
+  extraData?: string;
+  // 白盒秘钥内容
+  whiteBoxData?: string;
+  // raas产品码列表
+  raasProducts: string;
+  // 直接透传的二级租户，可选
+  raasSecondTenant?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appName: 'app_name',
+      clientName: 'client_name',
+      osType: 'os_type',
+      packageName: 'package_name',
+      certSign: 'cert_sign',
+      appKeyData: 'app_key_data',
+      securityData: 'security_data',
+      extraData: 'extra_data',
+      whiteBoxData: 'white_box_data',
+      raasProducts: 'raas_products',
+      raasSecondTenant: 'raas_second_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appName: 'string',
+      clientName: 'string',
+      osType: 'string',
+      packageName: 'string',
+      certSign: 'string',
+      appKeyData: 'string',
+      securityData: 'string',
+      extraData: 'string',
+      whiteBoxData: 'string',
+      raasProducts: 'string',
+      raasSecondTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBlueshieldSecuritypictureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 执行是否成功
+  success?: boolean;
+  // 生成的图片文件名
+  fileName?: string;
+  // body base 64
+  bodyBase64?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      fileName: 'file_name',
+      bodyBase64: 'body_base64',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      fileName: 'string',
+      bodyBase64: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceshieldNativeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户id，标识客户来源
+  clientId: string;
+  // 设备token
+  apdidToken?: string;
+  // 切面数据（JSON，详见下方）
+  // {
+  // 	"sessionId": "zimId"	//人脸的bizID
+  //   "rId": "rId"	//在获取活体方法人脸下发的bisToken
+  //   "keyInfoHash": "keyInfoHash"	//关键信息hash
+  //   "pictureHash": "人脸图片的hash"	//解密出来的人脸图片做hash
+  //   "rData": "xxx"	//客户端在zimInit和zimValidate带上去的业务风险数据
+  // }
+  aopData?: string;
+  // 否（和切面二选一即可）
+  signature?: string;
+  // 签名因子（和切面二选一即可）
+  signFactor?: string;
+  // RaaS租户
+  raasProducts: string;
+  // raas二级租户
+  raasSecondTenant?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      clientId: 'client_id',
+      apdidToken: 'apdid_token',
+      aopData: 'aop_data',
+      signature: 'signature',
+      signFactor: 'sign_factor',
+      raasProducts: 'raas_products',
+      raasSecondTenant: 'raas_second_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      clientId: 'string',
+      apdidToken: 'string',
+      aopData: 'string',
+      signature: 'string',
+      signFactor: 'string',
+      raasProducts: 'string',
+      raasSecondTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceshieldNativeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true成功，false失败
+  success?: boolean;
+  // 请求码，200成功，其他失败，具体见错误码
+  code?: number;
+  // 错误时的返回信息
+  message?: string;
+  // 请求时传入的，若没有传，则系统自动生成
+  requestId?: string;
+  // apdidToken	String	设备token
+  // riskLevel	String	风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  // riskDesc	String	风险描述，对风险等级的补充
+  // sugAction	String	处理的建议，如PAAS
+  data?: FaceShieldResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      data: FaceShieldResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceshieldWebRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户id，标识客户来源
+  clientId: string;
+  // 设备token
+  apdidToken?: string;
+  // 切面数据（JSON，详见下方）
+  aopData?: string;
+  // RaaS租户
+  // 
+  raasProducts: string;
+  // raas二级租户
+  // 
+  raasSecondTenant?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      clientId: 'client_id',
+      apdidToken: 'apdid_token',
+      aopData: 'aop_data',
+      raasProducts: 'raas_products',
+      raasSecondTenant: 'raas_second_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      clientId: 'string',
+      apdidToken: 'string',
+      aopData: 'string',
+      raasProducts: 'string',
+      raasSecondTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceshieldWebResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true成功，false失败	
+  // 
+  success?: boolean;
+  // 请求码，200成功，其他失败，具体见错误码
+  // 
+  code?: number;
+  // 错误时的返回信息
+  // 
+  message?: string;
+  // 请求时传入的，若没有传，则系统自动生成
+  // 
+  requestId?: string;
+  // apdidToken String 设备token riskLevel String 风险等级，-1参数异常，0无风险，1-3表示低、中、高 riskDesc String 风险描述，对风险等级的补充 sugAction String 处理的建议，如PAAS
+  data?: FaceShieldResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'number',
+      message: 'string',
+      requestId: 'string',
+      data: FaceShieldResult,
     };
   }
 
@@ -218,7 +795,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -257,7 +834,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.1.4",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -322,6 +899,103 @@ export default class Client {
   async runGeneralEx(request: RunGeneralRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunGeneralResponse> {
     Util.validateModel(request);
     return $tea.cast<RunGeneralResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.general.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunGeneralResponse({}));
+  }
+
+  /**
+   * Description: 租赁住房保险产品，开放接口
+  调用方：上海远点网络科技有限公司
+   * Summary: 租赁住房保险产品，接口开放给租房平台
+   */
+  async execEkytInsure(request: ExecEkytInsureRequest): Promise<ExecEkytInsureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execEkytInsureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁住房保险产品，开放接口
+  调用方：上海远点网络科技有限公司
+   * Summary: 租赁住房保险产品，接口开放给租房平台
+   */
+  async execEkytInsureEx(request: ExecEkytInsureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecEkytInsureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecEkytInsureResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecEkytInsureResponse({}));
+  }
+
+  /**
+   * Description: 蓝盾安全图片生成
+   * Summary: 蓝盾安全图片生成
+   */
+  async createBssecpic(request: CreateBssecpicRequest): Promise<CreateBssecpicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBssecpicEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蓝盾安全图片生成
+   * Summary: 蓝盾安全图片生成
+   */
+  async createBssecpicEx(request: CreateBssecpicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBssecpicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBssecpicResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBssecpicResponse({}));
+  }
+
+  /**
+   * Description: 蓝盾安全图片生成
+   * Summary: 蓝盾安全图片生成
+   */
+  async createBlueshieldSecuritypicture(request: CreateBlueshieldSecuritypictureRequest): Promise<CreateBlueshieldSecuritypictureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBlueshieldSecuritypictureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蓝盾安全图片生成
+   * Summary: 蓝盾安全图片生成
+   */
+  async createBlueshieldSecuritypictureEx(request: CreateBlueshieldSecuritypictureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBlueshieldSecuritypictureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBlueshieldSecuritypictureResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBlueshieldSecuritypictureResponse({}));
+  }
+
+  /**
+   * Description: 终端安全人脸盾Native查询
+   * Summary: 人脸盾Native查询
+   */
+  async queryFaceshieldNative(request: QueryFaceshieldNativeRequest): Promise<QueryFaceshieldNativeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFaceshieldNativeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全人脸盾Native查询
+   * Summary: 人脸盾Native查询
+   */
+  async queryFaceshieldNativeEx(request: QueryFaceshieldNativeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceshieldNativeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFaceshieldNativeResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceshieldNativeResponse({}));
+  }
+
+  /**
+   * Description: 终端安全人脸盾Web查询
+   * Summary: 人脸盾Web查询
+   */
+  async queryFaceshieldWeb(request: QueryFaceshieldWebRequest): Promise<QueryFaceshieldWebResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFaceshieldWebEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终端安全人脸盾Web查询
+   * Summary: 人脸盾Web查询
+   */
+  async queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceshieldWebResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFaceshieldWebResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceshieldWebResponse({}));
   }
 
 }
