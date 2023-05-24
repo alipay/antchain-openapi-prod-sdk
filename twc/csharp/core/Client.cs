@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.42"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.42"},
+                        {"sdk_version", "1.9.0"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4947,6 +4947,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryContractComplaineventidsResponse>(await DoRequestAsync("1.0", "twc.notary.contract.complaineventids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+         * Summary: 集成方通过该接口进行使用mp4上报
+         */
+        public PushDigitalcontentUsageResponse PushDigitalcontentUsage(PushDigitalcontentUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushDigitalcontentUsageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+         * Summary: 集成方通过该接口进行使用mp4上报
+         */
+        public async Task<PushDigitalcontentUsageResponse> PushDigitalcontentUsageAsync(PushDigitalcontentUsageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushDigitalcontentUsageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+         * Summary: 集成方通过该接口进行使用mp4上报
+         */
+        public PushDigitalcontentUsageResponse PushDigitalcontentUsageEx(PushDigitalcontentUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDigitalcontentUsageResponse>(DoRequest("1.0", "twc.notary.digitalcontent.usage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+         * Summary: 集成方通过该接口进行使用mp4上报
+         */
+        public async Task<PushDigitalcontentUsageResponse> PushDigitalcontentUsageExAsync(PushDigitalcontentUsageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDigitalcontentUsageResponse>(await DoRequestAsync("1.0", "twc.notary.digitalcontent.usage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+         * Summary: 集成方通过该接口申请apk订单id
+         */
+        public ApplyDigitalcontentOrderResponse ApplyDigitalcontentOrder(ApplyDigitalcontentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyDigitalcontentOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+         * Summary: 集成方通过该接口申请apk订单id
+         */
+        public async Task<ApplyDigitalcontentOrderResponse> ApplyDigitalcontentOrderAsync(ApplyDigitalcontentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyDigitalcontentOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+         * Summary: 集成方通过该接口申请apk订单id
+         */
+        public ApplyDigitalcontentOrderResponse ApplyDigitalcontentOrderEx(ApplyDigitalcontentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDigitalcontentOrderResponse>(DoRequest("1.0", "twc.notary.digitalcontent.order.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+         * Summary: 集成方通过该接口申请apk订单id
+         */
+        public async Task<ApplyDigitalcontentOrderResponse> ApplyDigitalcontentOrderExAsync(ApplyDigitalcontentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDigitalcontentOrderResponse>(await DoRequestAsync("1.0", "twc.notary.digitalcontent.order.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+         * Summary: 集成方反馈apk订单支付结果
+         */
+        public SubmitDigitalcontentOrderResponse SubmitDigitalcontentOrder(SubmitDigitalcontentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitDigitalcontentOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+         * Summary: 集成方反馈apk订单支付结果
+         */
+        public async Task<SubmitDigitalcontentOrderResponse> SubmitDigitalcontentOrderAsync(SubmitDigitalcontentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitDigitalcontentOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+         * Summary: 集成方反馈apk订单支付结果
+         */
+        public SubmitDigitalcontentOrderResponse SubmitDigitalcontentOrderEx(SubmitDigitalcontentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigitalcontentOrderResponse>(DoRequest("1.0", "twc.notary.digitalcontent.order.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+         * Summary: 集成方反馈apk订单支付结果
+         */
+        public async Task<SubmitDigitalcontentOrderResponse> SubmitDigitalcontentOrderExAsync(SubmitDigitalcontentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitDigitalcontentOrderResponse>(await DoRequestAsync("1.0", "twc.notary.digitalcontent.order.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
