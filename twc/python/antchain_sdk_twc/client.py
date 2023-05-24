@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.42',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.42',
+                    'sdk_version': '1.9.0',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -6441,6 +6441,174 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryContractComplaineventidsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_digitalcontent_usage(
+        self,
+        request: twc_models.PushDigitalcontentUsageRequest,
+    ) -> twc_models.PushDigitalcontentUsageResponse:
+        """
+        Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+        Summary: 集成方通过该接口进行使用mp4上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_digitalcontent_usage_ex(request, headers, runtime)
+
+    async def push_digitalcontent_usage_async(
+        self,
+        request: twc_models.PushDigitalcontentUsageRequest,
+    ) -> twc_models.PushDigitalcontentUsageResponse:
+        """
+        Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+        Summary: 集成方通过该接口进行使用mp4上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_digitalcontent_usage_ex_async(request, headers, runtime)
+
+    def push_digitalcontent_usage_ex(
+        self,
+        request: twc_models.PushDigitalcontentUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.PushDigitalcontentUsageResponse:
+        """
+        Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+        Summary: 集成方通过该接口进行使用mp4上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.PushDigitalcontentUsageResponse(),
+            self.do_request('1.0', 'twc.notary.digitalcontent.usage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_digitalcontent_usage_ex_async(
+        self,
+        request: twc_models.PushDigitalcontentUsageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.PushDigitalcontentUsageResponse:
+        """
+        Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
+        Summary: 集成方通过该接口进行使用mp4上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.PushDigitalcontentUsageResponse(),
+            await self.do_request_async('1.0', 'twc.notary.digitalcontent.usage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_digitalcontent_order(
+        self,
+        request: twc_models.ApplyDigitalcontentOrderRequest,
+    ) -> twc_models.ApplyDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+        Summary: 集成方通过该接口申请apk订单id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_digitalcontent_order_ex(request, headers, runtime)
+
+    async def apply_digitalcontent_order_async(
+        self,
+        request: twc_models.ApplyDigitalcontentOrderRequest,
+    ) -> twc_models.ApplyDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+        Summary: 集成方通过该接口申请apk订单id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_digitalcontent_order_ex_async(request, headers, runtime)
+
+    def apply_digitalcontent_order_ex(
+        self,
+        request: twc_models.ApplyDigitalcontentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+        Summary: 集成方通过该接口申请apk订单id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyDigitalcontentOrderResponse(),
+            self.do_request('1.0', 'twc.notary.digitalcontent.order.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_digitalcontent_order_ex_async(
+        self,
+        request: twc_models.ApplyDigitalcontentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
+        Summary: 集成方通过该接口申请apk订单id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyDigitalcontentOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.digitalcontent.order.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_digitalcontent_order(
+        self,
+        request: twc_models.SubmitDigitalcontentOrderRequest,
+    ) -> twc_models.SubmitDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+        Summary: 集成方反馈apk订单支付结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_digitalcontent_order_ex(request, headers, runtime)
+
+    async def submit_digitalcontent_order_async(
+        self,
+        request: twc_models.SubmitDigitalcontentOrderRequest,
+    ) -> twc_models.SubmitDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+        Summary: 集成方反馈apk订单支付结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_digitalcontent_order_ex_async(request, headers, runtime)
+
+    def submit_digitalcontent_order_ex(
+        self,
+        request: twc_models.SubmitDigitalcontentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+        Summary: 集成方反馈apk订单支付结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitDigitalcontentOrderResponse(),
+            self.do_request('1.0', 'twc.notary.digitalcontent.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_digitalcontent_order_ex_async(
+        self,
+        request: twc_models.SubmitDigitalcontentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitDigitalcontentOrderResponse:
+        """
+        Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
+        Summary: 集成方反馈apk订单支付结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitDigitalcontentOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.digitalcontent.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
