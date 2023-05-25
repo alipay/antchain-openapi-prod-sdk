@@ -1,0 +1,2881 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.80',
+    _prod_code = 'CATRONUS',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// fixpath
+model FixPath {
+  // 路径
+  path?: string(name='path', example='path'),
+  // 值
+  value?: string(name='value', example='value'),
+}
+
+// 路径
+model Path {
+  // fixpath
+  fixPath?: FixPath(name='fix_path', example=''),
+  // shibai lujing
+  failedPath?: string(name='failed_path', example='failedpath'),
+}
+
+// rule
+model Rule {
+  // 名称
+  name: string(name='name', example='name'),
+  // 状态
+  status?: string(name='status', example='failed'),
+  // path
+  paths?: [ Path ](name='paths', example=''),
+}
+
+// 基线扫描框架
+model Framework {
+  // 策略id
+  id?: string(name='id', example='myid'),
+  // 框架名称
+  name?: string(name='name', example='myname'),
+  // 是否启用
+  enable?: boolean(name='enable', example='true, false'),
+  // 描述
+  describe?: string(name='describe', example='mydescribe'),
+}
+
+// cronjob
+model Cronjob {
+  // crontab格式表述的cronjob
+  crontab?: string(name='crontab', example='* * * *'),
+}
+
+// 基线策略
+model BaselineStrategy {
+  // 框架列表
+  frameworks?: [ Framework ](name='frameworks', example=''),
+  // cronjob
+  cronjob?: Cronjob(name='cronjob', example=''),
+  // 额外配置
+  extended?: string(name='extended', example='"{}"'),
+}
+
+// 运行时相关策略
+model RuntimeStrategy {
+  // 安全webshell配置
+  webshell?: boolean(name='webshell', example='true, false'),
+  // 提权保护配置
+  privilege?: boolean(name='privilege', example='true, false'),
+  // 是否打开
+  enable?: boolean(name='enable', example='true, false'),
+}
+
+// 安全组件简报
+model ClusterSecurityComponentBrief {
+  // 风险项数量
+  cnt?: long(name='cnt', example=''),
+  // 组件名称
+  component?: string(name='component', example='prod'),
+  // 描述
+  content?: string(name='content', example='prod'),
+  // 日期
+  date?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date', example='2018-10-10T10:10:00Z'),
+}
+
+// control
+model Control {
+  // id
+  id: string(name='id', example='id'),
+  // rule
+  rules?: [ Rule ](name='rules', example='rule'),
+  // 名称
+  name?: string(name='name', example='name'),
+}
+
+// 镜像相关策略
+model ImageStrategy {
+  // 准入
+  access?: boolean(name='access', example='true, false'),
+  // 巡检
+  cronjob?: Cronjob(name='cronjob', example=''),
+}
+
+// 蚂蚁扫描镜像
+model AntScanImage {
+  // 镜像名称
+  image: string(name='image', example='reg.docker.alibaba-inc.com/imagesecurity/test:v2'),
+  // app名称
+  appName: string(name='app_name', example='test'),
+}
+
+// 策略
+model Strategy {
+  // 策略id
+  strategyId: string(name='strategy_id', example='mystrategy'),
+  // 策略名
+  strategyName?: string(name='strategy_name', example='mystrategy'),
+  // 镜像相关策略内容
+  image?: ImageStrategy(name='image', example=''),
+  // 基线相关策略
+  baseline?: BaselineStrategy(name='baseline', example=''),
+  // 运行时策略
+  runtime?: RuntimeStrategy(name='runtime', example=''),
+}
+
+// 仓库
+model Repository {
+  // 仓库ID
+  id: string(name='id', example='1000000000001'),
+  // 仓库名称
+  name: string(name='name', example='nginx'),
+  // 项目ID
+  projectId: string(name='project_id', example='1000000000001'),
+  // 仓库Tag数
+  tagsCount: string(name='tags_count', example='18'),
+}
+
+// 仓库项目
+model RepoProject {
+  // project id
+  id: string(name='id', example='1000000000001'),
+  // 项目名称
+  name: string(name='name', example='library'),
+}
+
+// 风险操作审计
+model RiskTaskAudit {
+  // 操作人
+  operator: string(name='operator', example='张三'),
+  // 操作类型
+  operationType: string(name='operation_type', example='COMMIT'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id', example='1000000000001'),
+  // 评论
+  comment: string(name='comment', example='this is a comment'),
+}
+
+// 集群
+model Cluster {
+  // id
+  id: string(name='id', example='cluster-id-000001'),
+  // 集群名称
+  clusterName: string(name='cluster_name', example='cluster_name_myname'),
+  // 环境
+  env: string(name='env', example='prod'),
+  // 纳管状态（imported已纳管/unimported未纳管）
+  status: string(name='status', example='imported'),
+  // 导入方式
+  source: string(name='source', example='manual'),
+  // 白名单
+  namespaceWhitelist: [ string ](name='namespace_whitelist', example='["default", "kube-system", "mynamespace"]'),
+}
+
+// 扫描结果
+model ScanResult {
+  // 安全组件名
+  component: string(name='component', example='mycomponent'),
+  // 结果
+  result: string(name='result', example='myresult'),
+}
+
+// 蚂蚁扫描镜像列表
+model AntScanImageList {
+  // 镜像镜像扫描
+  list: [ AntScanImage ](name='list', example=''),
+}
+
+// 风险解决方案
+model RiskSolution {
+  // 风险解决方案ID
+  id: string(name='id', example='1000000000001'),
+  // 名称
+  name: string(name='name', example='cve-20220921解决方案'),
+  // 风险名称
+  riskName: string(name='risk_name', example='1000000000001'),
+  // 来源
+  source: string(name='source', example='manual'),
+  // 修复类型
+  fixType: string(name='fix_type', example='config'),
+  // 风险描述
+  riskDescription: string(name='risk_description', example='这是一段风险漏洞的描述'),
+  // 风险解决方案
+  solutionPlan: string(name='solution_plan', example='这是一段风险解决方案'),
+  // 应急解决方案
+  emergencyPlan: string(name='emergency_plan', example='这是一段风险应急解决方案'),
+  // 负责人
+  owner: string(name='owner', example='zhangsan'),
+}
+
+// 基线扫描结果
+model BaselineScanResult {
+  // 类型
+  kind: string(name='kind', example='Pod'),
+  // 资源名称
+  name: string(name='name', example='catronus'),
+  // 命名空间
+  namespace?: string(name='namespace', example='prod'),
+  // 资源id
+  resourceId: string(name='resource_id', example='resourceid'),
+  // 紧急control
+  criticals?: [ Control ](name='criticals', example=''),
+  // 高危control
+  highs?: [ Control ](name='highs', example=''),
+  // 中危controls
+  mids?: [ Control ](name='mids', example=''),
+  // 低危controls
+  lows?: [ Control ](name='lows', example=''),
+  // 资源内容
+  object?: string(name='object', example='myobject'),
+}
+
+// 镜像仓库
+model ImageRepo {
+  // repo ID
+  id: string(name='id', example='1000000000001'),
+  // 镜像仓库名称
+  name: string(name='name', example='hub'),
+  // 镜像仓库域名
+  domain: string(name='domain', example='hub.jbhb.net'),
+  // 用户名
+  userName: string(name='user_name', example='admin'),
+  // 密码
+  password: string(name='password', example='your_password'),
+  // 状态
+  status: boolean(name='status', example='SUCCESS'),
+  // 创建时间
+  createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // 上次连接时间
+  lastConnectTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_connect_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 仓库扫描策略
+model RepoScanStrategy {
+  // 策略ID
+  id: string(name='id', example='1000000000001'),
+  // 仓库ID
+  repoId: string(name='repo_id', example='1000000000001'),
+  // 仓库列表
+  projects: [ string ](name='projects', example=''),
+  // 仓库列表
+  repositories: [ string ](name='repositories', example=''),
+  // 扫描开始时间
+  imageBeginTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='image_begin_time', example='2018-10-10T10:10:00Z'),
+  // 定时扫描任务
+  crontab: string(name='crontab', example='0/3 * * * * ?'),
+  // 下个日期
+  nextDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='next_date', example='2018-10-10T10:10:00Z'),
+  // 策略状态
+  state: string(name='state', example='running'),
+}
+
+// 集群安全简报
+model ClusterSecurityBrief {
+  // 集群id
+  clusterId: string(name='cluster_id', example='cluster-id-000001'),
+  // 集群名
+  clusterName: string(name='cluster_name', example='cluster_name_myname'),
+  // 防护状态
+  status: string(name='status', example='prot'),
+  // 最后一次安全扫描时间
+  lastScan: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_scan', example='2018-10-10T10:10:00Z'),
+  // 风险数量
+  riskCnt: long(name='risk_cnt', example=''),
+  // 风险简报
+  brief: [ ClusterSecurityComponentBrief ](name='brief', example='"{}"'),
+  // 扫描id
+  scanId?: string(name='scan_id', example='scanid'),
+}
+
+// 镜像
+model Image {
+  // 镜像Ref
+  imageRef: string(name='image_ref', example='hub.alipay.net/namespace/repo'),
+  // 镜像标签
+  imageTag: string(name='image_tag', example='latest'),
+  // 应用名称
+  appName: string(name='app_name', example='myapp'),
+  // 扫描状态
+  scanStatus: string(name='scan_status', example='SUCCEDED,RUNNING,FAILED'),
+  // 镜像漏洞
+  imageVul: long(name='image_vul', example=''),
+  // 镜像风险漏洞
+  imageRiskVul: long(name='image_risk_vul', example=''),
+  // 开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 风险详情
+model Risk {
+  // 风险ID
+  id: string(name='id', example='1000000000001'),
+  // 风险名称
+  name: string(name='name', example='cve-2022-1108'),
+  // 类型
+  source: string(name='source', example='IMAGE'),
+  // 等级
+  priority: string(name='priority', example='low'),
+  // 风险唯一标识
+  identity: string(name='identity', example='11'),
+}
+
+// 标签
+model Label {
+  // 标签key
+  key: string(name='key', example='key'),
+  // 标签value
+  value: string(name='value', example='value'),
+}
+
+// 风险任务/工单
+model RiskTask {
+  // ID
+  id: string(name='id', example='1000000000001'),
+  // 风险名称
+  displayName: string(name='display_name', example='aks的cve-xxx代码漏洞'),
+  // 优先级
+  priority: string(name='priority', example='low'),
+  // 当前状态
+  state: string(name='state', example='FIXED'),
+  // 风险类型
+  riskType: string(name='risk_type', example='IMAGE'),
+  // 负责人
+  owner: string(name='owner', example='张三'),
+  // 到期时间
+  deadlineTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='deadline_time', example='2018-10-10T10:10:00Z'),
+  // 创建时间
+  createdTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // 响应阶段
+  respondPhase: string(name='respond_phase', example='daily'),
+  // 风险关注者
+  followers: [ string ](name='followers', example=''),
+  // 安全工程师
+  secOwner: string(name='sec_owner', example='李四'),
+  // 到期天数
+  daysLeft: long(name='days_left', example='3'),
+  // 风险ID
+  riskId: string(name='risk_id', example='1000000000001'),
+}
+
+model CreateRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险任务名称
+  name: string(name='name'),
+  // 风险来源，image/benchmark/runtime
+  source: string(name='source'),
+  // 风险唯一标识
+  identity: string(name='identity'),
+  // 风险等级
+  priority?: string(name='priority'),
+  // 风险任务显示名称
+  displayName: string(name='display_name'),
+  // 响应阶段，默认是日常阶段
+  respondPhase?: string(name='respond_phase'),
+  // 风险责任人
+  owner: string(name='owner'),
+  // 安全责任人
+  secOwner: string(name='sec_owner'),
+  // 风险关注者
+  followers: [ string ](name='followers'),
+  // 到期时间
+  deadlineTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='deadline_time'),
+  // 环境标识ID
+  envId: string(name='env_id'),
+}
+
+model CreateRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险任务ID
+  riskTaskId?: string(name='risk_task_id'),
+}
+
+/**
+ * Description: 创建风险工单/任务
+ * Summary: 创建风险工单/任务
+ */
+async function createRiskTask(request: CreateRiskTaskRequest): CreateRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建风险工单/任务
+ * Summary: 创建风险工单/任务
+ */
+async function createRiskTaskEx(request: CreateRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRiskTasksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 当前页数
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 风险ID
+  riskTaskId?: string(name='risk_task_id'),
+  // 风险名称
+  displayName?: string(name='display_name'),
+  // 风险等级
+  priority?: string(name='priority'),
+  // 风险类型
+  riskType?: string(name='risk_type'),
+  // 风险状态
+  riskTaskState?: string(name='risk_task_state'),
+  // FROM时间点， 按照时间范围搜索的开始时间点
+  creationTimeFrom?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time_from'),
+  // to时间点， 按照时间范围搜索的结束时间点	
+  // 
+  creationTimeTo?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time_to'),
+}
+
+model QueryRiskTasksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险任务列表
+  riskTasks?: [ RiskTask ](name='risk_tasks'),
+  // 总条目数
+  totalSize?: long(name='total_size'),
+}
+
+/**
+ * Description: 查询风险任务列表
+ * Summary: 查询风险任务列表
+ */
+async function queryRiskTasks(request: QueryRiskTasksRequest): QueryRiskTasksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRiskTasksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询风险任务列表
+ * Summary: 查询风险任务列表
+ */
+async function queryRiskTasksEx(request: QueryRiskTasksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRiskTasksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.tasks.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+}
+
+model GetRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险共担详情
+  riskTask?: RiskTask(name='risk_task'),
+}
+
+/**
+ * Description: 获取风险更单详情
+ * Summary: 获取风险更单详情
+ */
+async function getRiskTask(request: GetRiskTaskRequest): GetRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取风险更单详情
+ * Summary: 获取风险更单详情
+ */
+async function getRiskTaskEx(request: GetRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险共担ID
+  riskTaskId: string(name='risk_task_id'),
+  // 风险工单状态
+  state: string(name='state'),
+  // 风险责任人
+  owner?: string(name='owner'),
+  // 安全责任人
+  secOwner?: string(name='sec_owner'),
+  // 风险关注人员列表
+  followers?: [ string ](name='followers'),
+  // 风险解决方案ID
+  riskSolutionId?: string(name='risk_solution_id'),
+}
+
+model UpdateRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险工单ID
+  riskTaskId?: string(name='risk_task_id'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新风险工单，包括驳回工单，转派工单，撤销工单，确认接收工单，确认修复工单等操作，及添加关注人等
+ * Summary: 更新风险工单
+ */
+async function updateRiskTask(request: UpdateRiskTaskRequest): UpdateRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新风险工单，包括驳回工单，转派工单，撤销工单，确认接收工单，确认修复工单等操作，及添加关注人等
+ * Summary: 更新风险工单
+ */
+async function updateRiskTaskEx(request: UpdateRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 评论
+  comment?: string(name='comment'),
+}
+
+model ConfirmRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是够成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 确认风险工单
+ * Summary: 确认风险工单
+ */
+async function confirmRiskTask(request: ConfirmRiskTaskRequest): ConfirmRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 确认风险工单
+ * Summary: 确认风险工单
+ */
+async function confirmRiskTaskEx(request: ConfirmRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 评论，理由
+  comment?: string(name='comment'),
+}
+
+model CancelRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 撤销风险工单
+ * Summary: 撤销风险工单
+ */
+async function cancelRiskTask(request: CancelRiskTaskRequest): CancelRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 撤销风险工单
+ * Summary: 撤销风险工单
+ */
+async function cancelRiskTaskEx(request: CancelRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefuseRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 评论
+  comment?: string(name='comment'),
+}
+
+model RefuseRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 驳回风险工单
+ * Summary: 驳回风险工单
+ */
+async function refuseRiskTask(request: RefuseRiskTaskRequest): RefuseRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 驳回风险工单
+ * Summary: 驳回风险工单
+ */
+async function refuseRiskTaskEx(request: RefuseRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 评论
+  comment?: string(name='comment'),
+}
+
+model VerifyRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功与否
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 确认风险工单修复
+ * Summary: 确认风险工单修复
+ */
+async function verifyRiskTask(request: VerifyRiskTaskRequest): VerifyRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 确认风险工单修复
+ * Summary: 确认风险工单修复
+ */
+async function verifyRiskTaskEx(request: VerifyRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 责任人
+  owner: string(name='owner'),
+  // 评论
+  comment?: string(name='comment'),
+}
+
+model SendRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 转派工单负责人
+ * Summary: 转派工单负责人
+ */
+async function sendRiskTask(request: SendRiskTaskRequest): SendRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转派工单负责人
+ * Summary: 转派工单负责人
+ */
+async function sendRiskTaskEx(request: SendRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+  // 描述，评论
+  comment?: string(name='comment'),
+}
+
+model CloseRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 确认风险工单修复，待安全Owner确认
+ * Summary: 确认风险工单修复
+ */
+async function closeRiskTask(request: CloseRiskTaskRequest): CloseRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 确认风险工单修复，待安全Owner确认
+ * Summary: 确认风险工单修复
+ */
+async function closeRiskTaskEx(request: CloseRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRiskStatisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model GetRiskStatisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险总数
+  totalRiskTasksCount?: long(name='total_risk_tasks_count'),
+  // 未修复风险数
+  unfixedRiskTasksCount?: long(name='unfixed_risk_tasks_count'),
+  // 未响应风险数
+  unconfirmedRisksTasksCount?: long(name='unconfirmed_risks_tasks_count'),
+  // 镜像漏洞风险数
+  imageRiskTasksCount?: long(name='image_risk_tasks_count'),
+  // 基线风险数
+  benchmarkRiskTasksCount?: long(name='benchmark_risk_tasks_count'),
+  // 运行时风险数
+  runtimeRiskTasksCount?: long(name='runtime_risk_tasks_count'),
+}
+
+/**
+ * Description: 获取个人风险项统计
+ * Summary: 获取个人风险项统计
+ */
+async function getRiskStatistics(request: GetRiskStatisticsRequest): GetRiskStatisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRiskStatisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取个人风险项统计
+ * Summary: 获取个人风险项统计
+ */
+async function getRiskStatisticsEx(request: GetRiskStatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRiskStatisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.statistics.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRiskAuditsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险工单ID
+  riskTaskId: string(name='risk_task_id'),
+}
+
+model QueryRiskAuditsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险任务审计
+  riskTaskAudits?: [ RiskTaskAudit ](name='risk_task_audits'),
+}
+
+/**
+ * Description: 查询风险日志审计
+ * Summary: 查询风险日志审计
+ */
+async function queryRiskAudits(request: QueryRiskAuditsRequest): QueryRiskAuditsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRiskAuditsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询风险日志审计
+ * Summary: 查询风险日志审计
+ */
+async function queryRiskAuditsEx(request: QueryRiskAuditsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRiskAuditsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.audits.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRiskSolutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 名称
+  name: string(name='name'),
+  // 关联风险ID
+  riskId: string(name='risk_id'),
+  // 解决方案来源
+  source: string(name='source'),
+  // 修复类型
+  fixType: string(name='fix_type'),
+  // 风险描述
+  riskDescription: string(name='risk_description'),
+  // 风险解决方案
+  solutionPlan: string(name='solution_plan'),
+  // 应急解决方案
+  emergencyPlan: string(name='emergency_plan'),
+}
+
+model CreateRiskSolutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险解决方案ID
+  riskSolutionId?: string(name='risk_solution_id'),
+}
+
+/**
+ * Description: 创建风险解决方案
+ * Summary: 创建风险解决方案
+ */
+async function createRiskSolution(request: CreateRiskSolutionRequest): CreateRiskSolutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRiskSolutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建风险解决方案
+ * Summary: 创建风险解决方案
+ */
+async function createRiskSolutionEx(request: CreateRiskSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRiskSolutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.solution.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRiskSolutionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险解决方案名称
+  name?: string(name='name'),
+  // 风险ID
+  riskId?: string(name='risk_id'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryRiskSolutionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险解决方案列表
+  riskSolutions?: [ RiskSolution ](name='risk_solutions'),
+  // 总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询风险解决方案列表
+ * Summary: 查询风险解决方案
+ */
+async function queryRiskSolutions(request: QueryRiskSolutionsRequest): QueryRiskSolutionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRiskSolutionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询风险解决方案列表
+ * Summary: 查询风险解决方案
+ */
+async function queryRiskSolutionsEx(request: QueryRiskSolutionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRiskSolutionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.solutions.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRiskSolutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险解决方案ID, risk_id和risk_solution_id至少有一个非空
+  riskSolutionId?: string(name='risk_solution_id'),
+  // 风险ID，risk_id和risk_solution_id至少有一个非空
+  riskId?: string(name='risk_id'),
+}
+
+model GetRiskSolutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险解决方案
+  riskSolution?: RiskSolution(name='risk_solution'),
+}
+
+/**
+ * Description: 获取风险解决方案详情
+ * Summary: 获取风险解决方案
+ */
+async function getRiskSolution(request: GetRiskSolutionRequest): GetRiskSolutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRiskSolutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取风险解决方案详情
+ * Summary: 获取风险解决方案
+ */
+async function getRiskSolutionEx(request: GetRiskSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRiskSolutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.solution.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRiskSolutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险解决方案ID
+  riskSolutionId: string(name='risk_solution_id'),
+  // 解决方案类型
+  fixType?: string(name='fix_type'),
+  // 风险描述
+  riskDescription?: string(name='risk_description'),
+  // 风险解决方案
+  solutionPlan?: string(name='solution_plan'),
+  // 应急解决方案
+  emergencyPlan?: string(name='emergency_plan'),
+}
+
+model UpdateRiskSolutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  更新是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新风险解决方案
+ * Summary: 更新风险解决方案
+ */
+async function updateRiskSolution(request: UpdateRiskSolutionRequest): UpdateRiskSolutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRiskSolutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新风险解决方案
+ * Summary: 更新风险解决方案
+ */
+async function updateRiskSolutionEx(request: UpdateRiskSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRiskSolutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.solution.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteRiskSolutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险解决方案ID
+  riskSolutionId: string(name='risk_solution_id'),
+}
+
+model DeleteRiskSolutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 删除风险解决方案
+ * Summary: 删除风险解决方案
+ */
+async function deleteRiskSolution(request: DeleteRiskSolutionRequest): DeleteRiskSolutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteRiskSolutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除风险解决方案
+ * Summary: 删除风险解决方案
+ */
+async function deleteRiskSolutionEx(request: DeleteRiskSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteRiskSolutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.solution.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportClusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 集群名称
+  clusterName: string(name='cluster_name'),
+  // 环境
+  env: string(name='env'),
+  // 导入方式（手工manual/自动auto）
+  source: string(name='source'),
+  // 命名空间白名单
+  namespaceWhitelist?: [ string ](name='namespace_whitelist'),
+}
+
+model ImportClusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 被纳管的集群id
+  clusterId?: string(name='cluster_id'),
+}
+
+/**
+ * Description: 纳管目标k8s集群
+ * Summary: 导入（纳管）集群
+ */
+async function importCluster(request: ImportClusterRequest): ImportClusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importClusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 纳管目标k8s集群
+ * Summary: 导入（纳管）集群
+ */
+async function importClusterEx(request: ImportClusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportClusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddClusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群名
+  clusterName: string(name='cluster_name'),
+  // 环境
+  env: string(name='env'),
+  // 必为manual
+  source: string(name='source'),
+  // 命名空间白名单
+  namespaceWhitelist: [ string ](name='namespace_whitelist'),
+  // 新增集群kubeconfig
+  kubeconfig: string(name='kubeconfig'),
+}
+
+model AddClusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 被纳管的集群id
+  clusterId?: string(name='cluster_id'),
+}
+
+/**
+ * Description: 手动新增集群
+ * Summary: 手动新增集群
+ */
+async function addCluster(request: AddClusterRequest): AddClusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addClusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 手动新增集群
+ * Summary: 手动新增集群
+ */
+async function addClusterEx(request: AddClusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddClusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 集群名
+  clusterName?: string(name='cluster_name'),
+  // 来源
+  source?: string(name='source'),
+  // 状态
+  status?: string(name='status'),
+  // 环境
+  env?: string(name='env'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryClusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数
+  totalCnt?: long(name='total_cnt'),
+  // 集群信息
+  clusters?: [ Cluster ](name='clusters'),
+}
+
+/**
+ * Description: 查询集群
+ * Summary: 查询集群
+ */
+async function queryCluster(request: QueryClusterRequest): QueryClusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询集群
+ * Summary: 查询集群
+ */
+async function queryClusterEx(request: QueryClusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterNamespaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+  // 集群名
+  clusterName?: string(name='cluster_name'),
+}
+
+model QueryClusterNamespaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 命名空间列表
+  namespaces?: [ string ](name='namespaces'),
+}
+
+/**
+ * Description: 查询集群namespace
+ * Summary: 查询集群namespace
+ */
+async function queryClusterNamespace(request: QueryClusterNamespaceRequest): QueryClusterNamespaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterNamespaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询集群namespace
+ * Summary: 查询集群namespace
+ */
+async function queryClusterNamespaceEx(request: QueryClusterNamespaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterNamespaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.namespace.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReclaimClusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+}
+
+model ReclaimClusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 被解绑的集群id
+  clusterId?: string(name='cluster_id'),
+  // 被解绑的集群名
+  clusterName?: string(name='cluster_name'),
+}
+
+/**
+ * Description: 解绑集群
+ * Summary: 解绑集群
+ */
+async function reclaimCluster(request: ReclaimClusterRequest): ReclaimClusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return reclaimClusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解绑集群
+ * Summary: 解绑集群
+ */
+async function reclaimClusterEx(request: ReclaimClusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReclaimClusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.reclaim', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterBriefRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 集群名
+  clusterName?: string(name='cluster_name'),
+  // 分野
+  page: long(name='page'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryClusterBriefResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 安全简报
+  brief?: [ ClusterSecurityBrief ](name='brief'),
+}
+
+/**
+ * Description: 获取集群安全简报列表
+ * Summary: 获取集群安全简报列表
+ */
+async function queryClusterBrief(request: QueryClusterBriefRequest): QueryClusterBriefResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterBriefEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取集群安全简报列表
+ * Summary: 获取集群安全简报列表
+ */
+async function queryClusterBriefEx(request: QueryClusterBriefRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterBriefResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.brief.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetStrategyDefaultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model GetStrategyDefaultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略内容
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 获取默认策略
+ * Summary: 获取默认策略
+ */
+async function getStrategyDefault(request: GetStrategyDefaultRequest): GetStrategyDefaultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getStrategyDefaultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取默认策略
+ * Summary: 获取默认策略
+ */
+async function getStrategyDefaultEx(request: GetStrategyDefaultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetStrategyDefaultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.strategy.default.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddStrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略id
+  strategyId?: string(name='strategy_id'),
+  // 策略内容
+  content: Strategy(name='content'),
+  // 绑定的集群id
+  clusterId?: [ string ](name='cluster_id'),
+}
+
+model AddStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略id
+  strategyId?: string(name='strategy_id'),
+}
+
+/**
+ * Description: 设置安全策略
+ * Summary: 设置安全策略
+ */
+async function addStrategy(request: AddStrategyRequest): AddStrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addStrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设置安全策略
+ * Summary: 设置安全策略
+ */
+async function addStrategyEx(request: AddStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddStrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.strategy.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindStrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略id
+  strategyId: string(name='strategy_id'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+}
+
+model BindStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 绑定集群
+ * Summary: 绑定集群
+ */
+async function bindStrategy(request: BindStrategyRequest): BindStrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindStrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定集群
+ * Summary: 绑定集群
+ */
+async function bindStrategyEx(request: BindStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindStrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.strategy.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRisksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 风险名称
+  name?: string(name='name'),
+}
+
+model QueryRisksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险列表
+  risks?: [ Risk ](name='risks'),
+  // 总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 风险列表
+ * Summary: 风险列表
+ */
+async function queryRisks(request: QueryRisksRequest): QueryRisksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRisksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险列表
+ * Summary: 风险列表
+ */
+async function queryRisksEx(request: QueryRisksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRisksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risks.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateStrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略id
+  strategyId: string(name='strategy_id'),
+  // 策略内容
+  content: Strategy(name='content'),
+}
+
+model UpdateStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略id
+  strategyId?: string(name='strategy_id'),
+}
+
+/**
+ * Description: 更新策略
+ * Summary: 更新策略
+ */
+async function updateStrategy(request: UpdateStrategyRequest): UpdateStrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateStrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新策略
+ * Summary: 更新策略
+ */
+async function updateStrategyEx(request: UpdateStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateStrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.strategy.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略id
+  strategyId?: string(name='strategy_id'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 分页
+  page: long(name='page'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略数组
+  strategy?: [ Strategy ](name='strategy'),
+}
+
+/**
+ * Description: 拉策略列表
+ * Summary: 拉策略列表
+ */
+async function queryStrategy(request: QueryStrategyRequest): QueryStrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 拉策略列表
+ * Summary: 拉策略列表
+ */
+async function queryStrategyEx(request: QueryStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.strategy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ScaleRiskTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 风险任务ID
+  riskTaskId: string(name='risk_task_id'),
+  // 延期时间
+  deadlineTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='deadline_time'),
+  // comment描述
+  comment?: string(name='comment'),
+}
+
+model ScaleRiskTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 风险任务延期
+ * Summary: 风险任务延期
+ */
+async function scaleRiskTask(request: ScaleRiskTaskRequest): ScaleRiskTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return scaleRiskTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险任务延期
+ * Summary: 风险任务延期
+ */
+async function scaleRiskTaskEx(request: ScaleRiskTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ScaleRiskTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.risk.task.scale', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListClusterImagesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 目标命名空间
+  namespace?: string(name='namespace'),
+  // 工作负载类型
+  workloadTypes?: [ string ](name='workload_types'),
+  // 标签列表
+  labels?: [ Label ](name='labels'),
+}
+
+model ListClusterImagesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 镜像列表
+  images?: string(name='images'),
+}
+
+/**
+ * Description: 查询集群镜像列表
+ * Summary: 查询集群镜像列表
+ */
+async function listClusterImages(request: ListClusterImagesRequest): ListClusterImagesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listClusterImagesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询集群镜像列表
+ * Summary: 查询集群镜像列表
+ */
+async function listClusterImagesEx(request: ListClusterImagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListClusterImagesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.images.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartClusterQuickscanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+}
+
+model StartClusterQuickscanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 扫描id
+  scanId?: string(name='scan_id'),
+}
+
+/**
+ * Description: 主动触发快速扫描
+ * Summary: 主动触发快速扫描
+ */
+async function startClusterQuickscan(request: StartClusterQuickscanRequest): StartClusterQuickscanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startClusterQuickscanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主动触发快速扫描
+ * Summary: 主动触发快速扫描
+ */
+async function startClusterQuickscanEx(request: StartClusterQuickscanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartClusterQuickscanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.quickscan.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterScanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+  // 扫描id
+  scanId?: string(name='scan_id'),
+}
+
+model QueryClusterScanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  result?: [ ScanResult ](name='result'),
+  // 扫描id
+  scanId?: string(name='scan_id'),
+  // 集群id
+  clusterId?: string(name='cluster_id'),
+}
+
+/**
+ * Description: 查询扫描结果
+ * Summary: 查询扫描结果
+ */
+async function queryClusterScan(request: QueryClusterScanRequest): QueryClusterScanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterScanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询扫描结果
+ * Summary: 查询扫描结果
+ */
+async function queryClusterScanEx(request: QueryClusterScanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterScanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.scan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRuntimePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 名称
+  name: string(name='name'),
+  // 运行时策略yaml文件内容
+  content: string(name='content'),
+}
+
+model CreateRuntimePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 创建运行时策略
+ * Summary: 创建运行时策略
+ */
+async function createRuntimePolicy(request: CreateRuntimePolicyRequest): CreateRuntimePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRuntimePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建运行时策略
+ * Summary: 创建运行时策略
+ */
+async function createRuntimePolicyEx(request: CreateRuntimePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRuntimePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtime.policy.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRuntimePoliciesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 标签选择
+  labelSelectors?: [ Label ](name='label_selectors'),
+}
+
+model ListRuntimePoliciesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略列表
+  policyList?: [ string ](name='policy_list'),
+}
+
+/**
+ * Description: 查询运行时策略列表
+ * Summary: 查询运行时策略列表
+ */
+async function listRuntimePolicies(request: ListRuntimePoliciesRequest): ListRuntimePoliciesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRuntimePoliciesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询运行时策略列表
+ * Summary: 查询运行时策略列表
+ */
+async function listRuntimePoliciesEx(request: ListRuntimePoliciesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRuntimePoliciesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtime.policies.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRuntimePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 名称
+  name: string(name='name'),
+  // 内容
+  content: string(name='content'),
+}
+
+model UpdateRuntimePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新运行时策略
+ * Summary: 更新运行时策略
+ */
+async function updateRuntimePolicy(request: UpdateRuntimePolicyRequest): UpdateRuntimePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRuntimePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新运行时策略
+ * Summary: 更新运行时策略
+ */
+async function updateRuntimePolicyEx(request: UpdateRuntimePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRuntimePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtime.policy.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteRuntimePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 运行时策略命名空间
+  namespace: string(name='namespace'),
+  // 运行时策略名称
+  name: string(name='name'),
+}
+
+model DeleteRuntimePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 删除运行时策略
+ * Summary: 删除运行时策略
+ */
+async function deleteRuntimePolicy(request: DeleteRuntimePolicyRequest): DeleteRuntimePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteRuntimePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除运行时策略
+ * Summary: 删除运行时策略
+ */
+async function deleteRuntimePolicyEx(request: DeleteRuntimePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteRuntimePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtime.policy.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRuntimepolicyPodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 策略名称
+  policyName: string(name='policy_name'),
+}
+
+model ListRuntimepolicyPodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // pod列表
+  pods?: [ string ](name='pods'),
+}
+
+/**
+ * Description: 获取运行时策略目标Pods
+ * Summary: 获取运行时策略Pods
+ */
+async function listRuntimepolicyPods(request: ListRuntimepolicyPodsRequest): ListRuntimepolicyPodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRuntimepolicyPodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取运行时策略目标Pods
+ * Summary: 获取运行时策略Pods
+ */
+async function listRuntimepolicyPodsEx(request: ListRuntimepolicyPodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRuntimepolicyPodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtimepolicy.pods.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRuntimepolicyNodesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 名称
+  name: string(name='name'),
+}
+
+model ListRuntimepolicyNodesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 节点列表
+  nodes?: [ string ](name='nodes'),
+}
+
+/**
+ * Description: 获取运行时策略Nodes
+ * Summary: 获取运行时策略Nodes
+ */
+async function listRuntimepolicyNodes(request: ListRuntimepolicyNodesRequest): ListRuntimepolicyNodesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRuntimepolicyNodesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取运行时策略Nodes
+ * Summary: 获取运行时策略Nodes
+ */
+async function listRuntimepolicyNodesEx(request: ListRuntimepolicyNodesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRuntimepolicyNodesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtimepolicy.nodes.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRuntimePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  clusterId: string(name='cluster_id'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 名称
+  name: string(name='name'),
+}
+
+model GetRuntimePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 策略详情
+  policy?: string(name='policy'),
+}
+
+/**
+ * Description: 获取运行时策略详情
+ * Summary: 获取运行时策略详情
+ */
+async function getRuntimePolicy(request: GetRuntimePolicyRequest): GetRuntimePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRuntimePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取运行时策略详情
+ * Summary: 获取运行时策略详情
+ */
+async function getRuntimePolicyEx(request: GetRuntimePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRuntimePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.runtime.policy.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterBaselineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+  // 扫描id，不填默认最近一次
+  scanId?: string(name='scan_id'),
+  // 页码
+  page?: long(name='page'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+}
+
+model QueryClusterBaselineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扫描结果
+  result?: [ BaselineScanResult ](name='result'),
+  // 结果条目总数
+  totalCnt?: long(name='total_cnt'),
+}
+
+/**
+ * Description: 基线扫描结果查询
+ * Summary: 基线扫描结果查询
+ */
+async function queryClusterBaseline(request: QueryClusterBaselineRequest): QueryClusterBaselineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterBaselineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基线扫描结果查询
+ * Summary: 基线扫描结果查询
+ */
+async function queryClusterBaselineEx(request: QueryClusterBaselineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterBaselineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.baseline.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitImagesReposcanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 镜像仓库ID
+  repoId: string(name='repo_id'),
+  // 项目列表
+  projects?: [ string ](name='projects'),
+  // 仓库列表
+  repositories?: [ string ](name='repositories'),
+  // 镜像起始时间
+  imageBeginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='image_begin_time'),
+  // 并发扫描数
+  concurrentCount?: long(name='concurrent_count'),
+  // 扫描轮询间隔，单位s
+  pollInterval?: long(name='poll_interval'),
+}
+
+model SubmitImagesReposcanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 提交镜像扫描触发任务
+ * Summary: 提交镜像扫描触发任务
+ */
+async function submitImagesReposcan(request: SubmitImagesReposcanRequest): SubmitImagesReposcanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitImagesReposcanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交镜像扫描触发任务
+ * Summary: 提交镜像扫描触发任务
+ */
+async function submitImagesReposcanEx(request: SubmitImagesReposcanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitImagesReposcanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.images.reposcan.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateImageRepoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 镜像仓库名称
+  name: string(name='name'),
+  // 镜像仓库类型
+  repoType: string(name='repo_type'),
+  // hub域名
+  domain: string(name='domain'),
+  // API endpoint
+  endpoint: string(name='endpoint'),
+  // 用户名
+  userName: string(name='user_name'),
+  // 仓库密码
+  password: string(name='password'),
+}
+
+model CreateImageRepoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 仓库ID
+  repoId?: string(name='repo_id'),
+}
+
+/**
+ * Description: 创建镜像仓库
+ * Summary: 创建镜像仓库
+ */
+async function createImageRepo(request: CreateImageRepoRequest): CreateImageRepoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createImageRepoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建镜像仓库
+ * Summary: 创建镜像仓库
+ */
+async function createImageRepoEx(request: CreateImageRepoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateImageRepoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repo.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImageReposRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库名称
+  name?: string(name='name'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryImageReposResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 镜像仓库列表
+  repos?: [ ImageRepo ](name='repos'),
+}
+
+/**
+ * Description: 查询镜像仓库列表
+ * Summary: 查询镜像仓库列表
+ */
+async function queryImageRepos(request: QueryImageReposRequest): QueryImageReposResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImageReposEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询镜像仓库列表
+ * Summary: 查询镜像仓库列表
+ */
+async function queryImageReposEx(request: QueryImageReposRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImageReposResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repos.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteImageRepoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 镜像仓库ID
+  repoId: string(name='repo_id'),
+}
+
+model DeleteImageRepoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功与否
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 删除镜像仓库
+ * Summary: 删除镜像仓库
+ */
+async function deleteImageRepo(request: DeleteImageRepoRequest): DeleteImageRepoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteImageRepoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除镜像仓库
+ * Summary: 删除镜像仓库
+ */
+async function deleteImageRepoEx(request: DeleteImageRepoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteImageRepoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repo.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetImageRiskdetailurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 镜像地址
+  image: string(name='image'),
+  // 应用名称
+  appName: string(name='app_name'),
+}
+
+model GetImageRiskdetailurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 镜像漏洞详情展示地址
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 获取镜像漏洞详情地址
+ * Summary: 获取镜像漏洞详情地址
+ */
+async function getImageRiskdetailurl(request: GetImageRiskdetailurlRequest): GetImageRiskdetailurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getImageRiskdetailurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取镜像漏洞详情地址
+ * Summary: 获取镜像漏洞详情地址
+ */
+async function getImageRiskdetailurlEx(request: GetImageRiskdetailurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetImageRiskdetailurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.riskdetailurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateImageReposcanstrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库ID
+  repoId: string(name='repo_id'),
+  //  项目列表
+  projects?: [ string ](name='projects'),
+  // 仓库列表
+  repositories?: [ string ](name='repositories'),
+  // 镜像开始时间
+  imageBeginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='image_begin_time'),
+  // 定时crontab
+  crontab: string(name='crontab'),
+}
+
+model CreateImageReposcanstrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 定时任务ID
+  cronjobId?: string(name='cronjob_id'),
+}
+
+/**
+ * Description: 创建镜像仓库扫描策略
+ * Summary: 创建镜像仓库扫描策略
+ */
+async function createImageReposcanstrategy(request: CreateImageReposcanstrategyRequest): CreateImageReposcanstrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createImageReposcanstrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建镜像仓库扫描策略
+ * Summary: 创建镜像仓库扫描策略
+ */
+async function createImageReposcanstrategyEx(request: CreateImageReposcanstrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateImageReposcanstrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.reposcanstrategy.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImagerepoProjectsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库ID
+  repoId: string(name='repo_id'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 仓库名称
+  projectName?: string(name='project_name'),
+}
+
+model QueryImagerepoProjectsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目列表
+  projects?: [ RepoProject ](name='projects'),
+}
+
+/**
+ * Description: 查询仓库项目列表
+ * Summary: 查询仓库项目列表
+ */
+async function queryImagerepoProjects(request: QueryImagerepoProjectsRequest): QueryImagerepoProjectsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImagerepoProjectsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询仓库项目列表
+ * Summary: 查询仓库项目列表
+ */
+async function queryImagerepoProjectsEx(request: QueryImagerepoProjectsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImagerepoProjectsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.imagerepo.projects.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImagerepoRepositoriesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库ID
+  repoId: string(name='repo_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 仓库名称
+  repositoryName?: string(name='repository_name'),
+}
+
+model QueryImagerepoRepositoriesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 仓库列表
+  repositories?: [ Repository ](name='repositories'),
+}
+
+/**
+ * Description: 查询仓库列表
+ * Summary: 查询仓库列表
+ */
+async function queryImagerepoRepositories(request: QueryImagerepoRepositoriesRequest): QueryImagerepoRepositoriesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImagerepoRepositoriesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询仓库列表
+ * Summary: 查询仓库列表
+ */
+async function queryImagerepoRepositoriesEx(request: QueryImagerepoRepositoriesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImagerepoRepositoriesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.imagerepo.repositories.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateImageRepoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库ID
+  repoId: string(name='repo_id'),
+  // 用户名
+  userName?: string(name='user_name'),
+  // 密码
+  password?: string(name='password'),
+  // 仓库名称
+  name?: string(name='name'),
+}
+
+model UpdateImageRepoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新镜像仓库
+ * Summary: 更新镜像仓库
+ */
+async function updateImageRepo(request: UpdateImageRepoRequest): UpdateImageRepoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateImageRepoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新镜像仓库
+ * Summary: 更新镜像仓库
+ */
+async function updateImageRepoEx(request: UpdateImageRepoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateImageRepoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repo.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetImageRepoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // repo ID
+  repoId: string(name='repo_id'),
+}
+
+model GetImageRepoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 镜像仓库详情
+  imageRepo?: ImageRepo(name='image_repo'),
+}
+
+/**
+ * Description: 获取镜像仓库详情
+ * Summary: 获取镜像仓库详情
+ */
+async function getImageRepo(request: GetImageRepoRequest): GetImageRepoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getImageRepoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取镜像仓库详情
+ * Summary: 获取镜像仓库详情
+ */
+async function getImageRepoEx(request: GetImageRepoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetImageRepoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyImageRepoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // repo_id
+  repoId: string(name='repo_id'),
+}
+
+model VerifyImageRepoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 仓库ID
+  repoId?: string(name='repo_id'),
+  // 状态
+  state?: boolean(name='state'),
+}
+
+/**
+ * Description: 校验仓库配置
+ * Summary: 校验仓库配置
+ */
+async function verifyImageRepo(request: VerifyImageRepoRequest): VerifyImageRepoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyImageRepoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验仓库配置
+ * Summary: 校验仓库配置
+ */
+async function verifyImageRepoEx(request: VerifyImageRepoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyImageRepoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.repo.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImageReposcanstrategiesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 仓库ID
+  repoId: string(name='repo_id'),
+  // 当前页
+  page: long(name='page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+}
+
+model QueryImageReposcanstrategiesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 镜像扫描策略
+  repoStrategies?: [ RepoScanStrategy ](name='repo_strategies'),
+}
+
+/**
+ * Description: 查询镜像扫描策略
+ * Summary: 查询镜像扫描策略
+ */
+async function queryImageReposcanstrategies(request: QueryImageReposcanstrategiesRequest): QueryImageReposcanstrategiesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImageReposcanstrategiesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询镜像扫描策略
+ * Summary: 查询镜像扫描策略
+ */
+async function queryImageReposcanstrategiesEx(request: QueryImageReposcanstrategiesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImageReposcanstrategiesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.reposcanstrategies.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteImageReposcanstrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略ID
+  strategyId: string(name='strategy_id'),
+}
+
+model DeleteImageReposcanstrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 删除镜像扫描策略
+ * Summary: 删除镜像扫描策略
+ */
+async function deleteImageReposcanstrategy(request: DeleteImageReposcanstrategyRequest): DeleteImageReposcanstrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteImageReposcanstrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除镜像扫描策略
+ * Summary: 删除镜像扫描策略
+ */
+async function deleteImageReposcanstrategyEx(request: DeleteImageReposcanstrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteImageReposcanstrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.reposcanstrategy.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateImageReposcanstrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 策略ID 
+  strategyId: string(name='strategy_id'),
+  // 项目列表
+  projects?: [ string ](name='projects'),
+  // 仓库列表
+  repositories?: [ string ](name='repositories'),
+  // 镜像开始时间
+  imageBeginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='image_begin_time'),
+  // 定时描述
+  crontab?: string(name='crontab'),
+}
+
+model UpdateImageReposcanstrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新镜像仓库扫描策略
+ * Summary: 更新镜像仓库扫描策略
+ */
+async function updateImageReposcanstrategy(request: UpdateImageReposcanstrategyRequest): UpdateImageReposcanstrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateImageReposcanstrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新镜像仓库扫描策略
+ * Summary: 更新镜像仓库扫描策略
+ */
+async function updateImageReposcanstrategyEx(request: UpdateImageReposcanstrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateImageReposcanstrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.image.reposcanstrategy.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SkipClusterBaselineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群id
+  clusterId: string(name='cluster_id'),
+  // 资源名称
+  name?: string(name='name'),
+  // 资源命名空间
+  namespace?: string(name='namespace'),
+  // 资源id
+  resourceId: string(name='resource_id'),
+  // 资源类型
+  kind?: string(name='kind'),
+}
+
+model SkipClusterBaselineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资源id
+  resourceId?: string(name='resource_id'),
+}
+
+/**
+ * Description: 忽略某个baseline风险
+ * Summary: 忽略某个baseline风险
+ */
+async function skipClusterBaseline(request: SkipClusterBaselineRequest): SkipClusterBaselineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return skipClusterBaselineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 忽略某个baseline风险
+ * Summary: 忽略某个baseline风险
+ */
+async function skipClusterBaselineEx(request: SkipClusterBaselineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SkipClusterBaselineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.catronus.cluster.baseline.skip', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
