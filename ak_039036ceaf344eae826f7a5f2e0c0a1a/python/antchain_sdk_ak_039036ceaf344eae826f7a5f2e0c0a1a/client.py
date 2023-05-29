@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_039036ceaf344eae826f7a5f2e0c0a1a',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_039036ceaf344eae826f7a5f2e0c0a1a',
                     '_prod_channel': 'saas'
                 }
@@ -383,4 +383,60 @@ class Client:
         return TeaCore.from_map(
             ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoAaaBbbCccResponse(),
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_approval_test(
+        self,
+        request: ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestRequest,
+    ) -> ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse:
+        """
+        Description: 用于测试api评审接入SDL的测试使用
+        Summary: api评审测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_approval_test_ex(request, headers, runtime)
+
+    async def query_demo_approval_test_async(
+        self,
+        request: ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestRequest,
+    ) -> ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse:
+        """
+        Description: 用于测试api评审接入SDL的测试使用
+        Summary: api评审测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_approval_test_ex_async(request, headers, runtime)
+
+    def query_demo_approval_test_ex(
+        self,
+        request: ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse:
+        """
+        Description: 用于测试api评审接入SDL的测试使用
+        Summary: api评审测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse(),
+            self.do_request('1.0', 'demo.approval.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_approval_test_ex_async(
+        self,
+        request: ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse:
+        """
+        Description: 用于测试api评审接入SDL的测试使用
+        Summary: api评审测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__039036ceaf_344eae_826f_7a_5f_2e_0c_0a_1a_models.QueryDemoApprovalTestResponse(),
+            await self.do_request_async('1.0', 'demo.approval.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
