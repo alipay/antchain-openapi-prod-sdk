@@ -15,7 +15,7 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [Validation(Required=true)]
         public string ApiName { get; set; }
 
-        // 产品码
+        // API所属网关技术产品码
         [NameInMap("prod_code")]
         [Validation(Required=true)]
         public string ProdCode { get; set; }
