@@ -23,8 +23,6 @@ use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbility
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityWithproductResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDatanetworkTestRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDatanetworkTestResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -172,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -416,38 +414,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainSaasFoundationProtobufResponse::fromMap($this->doRequest('1.0', 'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryDemoDatanetworkTestRequest $request
-     *
-     * @return QueryDemoDatanetworkTestResponse
-     */
-    public function queryDemoDatanetworkTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoDatanetworkTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryDemoDatanetworkTestRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return QueryDemoDatanetworkTestResponse
-     */
-    public function queryDemoDatanetworkTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoDatanetworkTestResponse::fromMap($this->doRequest('1.0', 'demo.datanetwork.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

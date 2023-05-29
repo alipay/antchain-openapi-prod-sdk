@@ -10,15 +10,15 @@ class ApiInfoModel extends Model
 {
     // api名称
     /**
-     * @example test
+     * @example demo.sss.ss.ss.bind
      *
      * @var string
      */
     public $apiName;
 
-    // 产品码
+    // API所属网关技术产品码
     /**
-     * @example test
+     * @example demo
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class ApiInfoModel extends Model
 
     // 是否是内部接口 0对外 1对内
     /**
-     * @example test
+     * @example 0
      *
      * @var int
      */
@@ -34,7 +34,7 @@ class ApiInfoModel extends Model
 
     // api版本号
     /**
-     * @example test
+     * @example 1.0
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class ApiInfoModel extends Model
 
     // api描述
     /**
-     * @example test
+     * @example 测试用api
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class ApiInfoModel extends Model
 
     // api所属网关产品id
     /**
-     * @example test
+     * @example 0000567567
      *
      * @var string
      */
