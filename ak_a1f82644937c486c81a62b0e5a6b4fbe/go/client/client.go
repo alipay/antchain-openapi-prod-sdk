@@ -152,7 +152,7 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 type ApiInfoModel struct {
 	// api名称
 	ApiName *string `json:"api_name,omitempty" xml:"api_name,omitempty" require:"true"`
-	// 产品码
+	// API所属网关技术产品码
 	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
 	// 是否是内部接口 0对外 1对内
 	Internal *int64 `json:"internal,omitempty" xml:"internal,omitempty" require:"true"`
@@ -805,62 +805,6 @@ func (s *QueryAntchainSaasFoundationProtobufResponse) SetApiInfoList(v []*ApiInf
 	return s
 }
 
-type QueryDemoDatanetworkTestRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDemoDatanetworkTestRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoDatanetworkTestRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoDatanetworkTestRequest) SetAuthToken(v string) *QueryDemoDatanetworkTestRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoDatanetworkTestRequest) SetProductInstanceId(v string) *QueryDemoDatanetworkTestRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDemoDatanetworkTestResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDemoDatanetworkTestResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoDatanetworkTestResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoDatanetworkTestResponse) SetReqMsgId(v string) *QueryDemoDatanetworkTestResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoDatanetworkTestResponse) SetResultCode(v string) *QueryDemoDatanetworkTestResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoDatanetworkTestResponse) SetResultMsg(v string) *QueryDemoDatanetworkTestResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -983,7 +927,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_a1f82644937c486c81a62b0e5a6b4fbe"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1238,40 +1182,6 @@ func (client *Client) QueryAntchainSaasFoundationProtobufEx(request *QueryAntcha
 	}
 	_result = &QueryAntchainSaasFoundationProtobufResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.foundation.protobuf.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: test
- * Summary: test
- */
-func (client *Client) QueryDemoDatanetworkTest(request *QueryDemoDatanetworkTestRequest) (_result *QueryDemoDatanetworkTestResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoDatanetworkTestResponse{}
-	_body, _err := client.QueryDemoDatanetworkTestEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: test
- * Summary: test
- */
-func (client *Client) QueryDemoDatanetworkTestEx(request *QueryDemoDatanetworkTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoDatanetworkTestResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoDatanetworkTestResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.datanetwork.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
