@@ -15,6 +15,8 @@ use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\BindDemoAaaBbbCccRequest
 use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\QueryDemoApprovalTestRequest;
+use AntChain\Ak_039036ceaf344eae826f7a5f2e0c0a1a\Models\QueryDemoApprovalTestResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -161,7 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_039036ceaf344eae826f7a5f2e0c0a1a',
                     '_prod_channel'    => 'saas',
                 ];
@@ -273,5 +275,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于测试api评审接入SDL的测试使用
+     * Summary: api评审测试.
+     *
+     * @param QueryDemoApprovalTestRequest $request
+     *
+     * @return QueryDemoApprovalTestResponse
+     */
+    public function queryDemoApprovalTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoApprovalTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于测试api评审接入SDL的测试使用
+     * Summary: api评审测试.
+     *
+     * @param QueryDemoApprovalTestRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDemoApprovalTestResponse
+     */
+    public function queryDemoApprovalTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoApprovalTestResponse::fromMap($this->doRequest('1.0', 'demo.approval.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
