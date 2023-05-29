@@ -9,7 +9,7 @@ public class ApiInfoModel extends TeaModel {
     @Validation(required = true)
     public String apiName;
 
-    // 产品码
+    // API所属网关技术产品码
     @NameInMap("prod_code")
     @Validation(required = true)
     public String prodCode;
