@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_039036ceaf344eae826f7a5f2e0c0a1a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_039036ceaf344eae826f7a5f2e0c0a1a"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_039036ceaf344eae826f7a5f2e0c0a1a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_039036ceaf344eae826f7a5f2e0c0a1a"},
                         {"_prod_channel", "saas"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.Ak_039036ceaf344eae826f7a5f2e0c0a1a
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoAaaBbbCccResponse>(await DoRequestAsync("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于测试api评审接入SDL的测试使用
+         * Summary: api评审测试
+         */
+        public QueryDemoApprovalTestResponse QueryDemoApprovalTest(QueryDemoApprovalTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoApprovalTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于测试api评审接入SDL的测试使用
+         * Summary: api评审测试
+         */
+        public async Task<QueryDemoApprovalTestResponse> QueryDemoApprovalTestAsync(QueryDemoApprovalTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoApprovalTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于测试api评审接入SDL的测试使用
+         * Summary: api评审测试
+         */
+        public QueryDemoApprovalTestResponse QueryDemoApprovalTestEx(QueryDemoApprovalTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoApprovalTestResponse>(DoRequest("1.0", "demo.approval.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于测试api评审接入SDL的测试使用
+         * Summary: api评审测试
+         */
+        public async Task<QueryDemoApprovalTestResponse> QueryDemoApprovalTestExAsync(QueryDemoApprovalTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoApprovalTestResponse>(await DoRequestAsync("1.0", "demo.approval.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
