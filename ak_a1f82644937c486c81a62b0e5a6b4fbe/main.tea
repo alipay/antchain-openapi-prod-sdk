@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
     _prod_channel = 'saas'
   };
@@ -164,17 +164,17 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 // api信息结构体
 model ApiInfoModel {
   // api名称
-  apiName: string(name='api_name', example='test'),
-  // 产品码
-  prodCode: string(name='prod_code', example='test'),
+  apiName: string(name='api_name', example='demo.sss.ss.ss.bind'),
+  // API所属网关技术产品码
+  prodCode: string(name='prod_code', example='demo'),
   // 是否是内部接口 0对外 1对内
-  internal: long(name='internal', example='test'),
+  internal: long(name='internal', example='0'),
   // api版本号
-  apiVersion: string(name='api_version', example='test'),
+  apiVersion: string(name='api_version', example='1.0'),
   // api描述
-  apiDesc: string(name='api_desc', example='test'),
+  apiDesc: string(name='api_desc', example='测试用api'),
   // api所属网关产品id
-  providerId: string(name='provider_id', example='test'),
+  providerId: string(name='provider_id', example='0000567567'),
 }
 
 // 能力信息
@@ -457,39 +457,5 @@ async function queryAntchainSaasFoundationProtobuf(request: QueryAntchainSaasFou
 async function queryAntchainSaasFoundationProtobufEx(request: QueryAntchainSaasFoundationProtobufRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasFoundationProtobufResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoDatanetworkTestRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryDemoDatanetworkTestResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: test
- * Summary: test
- */
-async function queryDemoDatanetworkTest(request: QueryDemoDatanetworkTestRequest): QueryDemoDatanetworkTestResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoDatanetworkTestEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: test
- */
-async function queryDemoDatanetworkTestEx(request: QueryDemoDatanetworkTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoDatanetworkTestResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.datanetwork.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
