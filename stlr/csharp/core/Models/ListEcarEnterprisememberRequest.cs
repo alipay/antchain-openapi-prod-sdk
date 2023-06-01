@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.STLR.Models
 {
-    public class RegisterEcarEnterprisememberRequest : TeaModel {
+    public class ListEcarEnterprisememberRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 注册会员在蚂蚁DIS服务的DID账号
-        [NameInMap("account_did")]
+        // 会员注册开始时间
+        [NameInMap("register_start_time")]
         [Validation(Required=false)]
-        public string AccountDid { get; set; }
+        public string RegisterStartTime { get; set; }
 
-        // 注册会员姓名
-        [NameInMap("name")]
+        // 会员注册结束时间
+        [NameInMap("register_end_time")]
         [Validation(Required=false)]
-        public string Name { get; set; }
+        public string RegisterEndTime { get; set; }
 
-        // 注册会员身份证号码
-        [NameInMap("identity_card_code")]
+        // 当前查询页码，默认值为1
+        [NameInMap("current")]
         [Validation(Required=false)]
-        public string IdentityCardCode { get; set; }
+        public long? Current { get; set; }
 
-        // 手机号码
-        [NameInMap("mobile")]
+        // 每页记录条数，默认为20，取值范围为[10,200]
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public string Mobile { get; set; }
+        public long? PageSize { get; set; }
 
     }
 

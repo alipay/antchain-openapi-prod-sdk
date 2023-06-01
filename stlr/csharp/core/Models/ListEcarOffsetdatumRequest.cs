@@ -53,7 +53,7 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public long? Current { get; set; }
 
-        // 每页数据量，默认值为20，取值范围为[10,100]
+        // 每页数据量，默认值为20，取值范围为[10,200]
         [NameInMap("page_size")]
         [Validation(Required=false)]
         public long? PageSize { get; set; }
