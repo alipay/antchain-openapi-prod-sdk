@@ -43,12 +43,16 @@ use AntChain\STLR\Models\DetailEcarAvitivedataRequest;
 use AntChain\STLR\Models\DetailEcarAvitivedataResponse;
 use AntChain\STLR\Models\GetPdcpBlockchainRequest;
 use AntChain\STLR\Models\GetPdcpBlockchainResponse;
+use AntChain\STLR\Models\ListEcarEnterprisememberRequest;
+use AntChain\STLR\Models\ListEcarEnterprisememberResponse;
 use AntChain\STLR\Models\ListEcarGreenoperationRequest;
 use AntChain\STLR\Models\ListEcarGreenoperationResponse;
 use AntChain\STLR\Models\ListEcarOffsetdatumRequest;
 use AntChain\STLR\Models\ListEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PreviewEcarAvitivedataRequest;
 use AntChain\STLR\Models\PreviewEcarAvitivedataResponse;
+use AntChain\STLR\Models\PreviewEcarOffsetdatumRequest;
+use AntChain\STLR\Models\PreviewEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
 use AntChain\STLR\Models\QueryEmissionCounteractionRequest;
@@ -230,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.2.1',
+                    'sdk_version'      => '2.3.0',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1416,6 +1420,72 @@ class Client
         Utils::validateModel($request);
 
         return ListEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询.
+     *
+     * @param ListEcarEnterprisememberRequest $request
+     *
+     * @return ListEcarEnterprisememberResponse
+     */
+    public function listEcarEnterprisemember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listEcarEnterprisememberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询.
+     *
+     * @param ListEcarEnterprisememberRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ListEcarEnterprisememberResponse
+     */
+    public function listEcarEnterprisememberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListEcarEnterprisememberResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.enterprisemember.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览.
+     *
+     * @param PreviewEcarOffsetdatumRequest $request
+     *
+     * @return PreviewEcarOffsetdatumResponse
+     */
+    public function previewEcarOffsetdatum($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->previewEcarOffsetdatumEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览.
+     *
+     * @param PreviewEcarOffsetdatumRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PreviewEcarOffsetdatumResponse
+     */
+    public function previewEcarOffsetdatumEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PreviewEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

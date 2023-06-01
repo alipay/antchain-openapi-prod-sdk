@@ -36,12 +36,19 @@ class RegisterEcarEnterprisememberRequest extends Model
      * @var string
      */
     public $identityCardCode;
+
+    // 手机号码
+    /**
+     * @var string
+     */
+    public $mobile;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'accountDid'        => 'account_did',
         'name'              => 'name',
         'identityCardCode'  => 'identity_card_code',
+        'mobile'            => 'mobile',
     ];
 
     public function validate()
@@ -65,6 +72,9 @@ class RegisterEcarEnterprisememberRequest extends Model
         }
         if (null !== $this->identityCardCode) {
             $res['identity_card_code'] = $this->identityCardCode;
+        }
+        if (null !== $this->mobile) {
+            $res['mobile'] = $this->mobile;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class RegisterEcarEnterprisememberRequest extends Model
         }
         if (isset($map['identity_card_code'])) {
             $model->identityCardCode = $map['identity_card_code'];
+        }
+        if (isset($map['mobile'])) {
+            $model->mobile = $map['mobile'];
         }
 
         return $model;

@@ -61,7 +61,7 @@ class ListEcarOffsetdatumRequest extends Model
      */
     public $current;
 
-    // 每页数据量，默认值为20，取值范围为[10,100]
+    // 每页数据量，默认值为20，取值范围为[10,200]
     /**
      * @var int
      */
