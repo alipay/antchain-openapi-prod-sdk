@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.2.2',
     _prod_code = 'BAASDIGITAL',
     _prod_channel = 'undefined'
   };
@@ -247,6 +247,8 @@ model DigitalProject {
   issuerList?: [ string ](name='issuer_list', example='["a","b","c"]'),
   // 项目核销员账户地址列表
   writeoffList?: [ string ](name='writeoff_list', example='["a","b","c"]'),
+  // 项目部署的合约地址
+  address?: string(name='address', example='47f657ab9f4bba2843b5eed65520b0807d373e75ea5a19cbba91020c6782851e'),
   // 合约创建时间
   createTime: long(name='create_time', example='21-12-29'),
 }
@@ -809,6 +811,8 @@ model CreateProjectResponse = {
   projectId?: string(name='project_id'),
   // 部署该项目到区块链的hash值
   hash?: string(name='hash'),
+  // 该项目在链上部署的合约地址
+  address?: string(name='address'),
 }
 
 /**
