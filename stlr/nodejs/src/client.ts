@@ -395,6 +395,39 @@ export class EmissionCounteractionStatistics extends $tea.Model {
   }
 }
 
+// 机构会员资料
+export class EnterpriseMemberSummary extends $tea.Model {
+  // 机构会员DID
+  accountDid: string;
+  // 会员姓名，数据脱敏处理返回
+  name?: string;
+  // 会员手机号码，数据脱敏处理返回
+  mobile?: string;
+  // 会员注册时间
+  registerTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountDid: 'account_did',
+      name: 'name',
+      mobile: 'mobile',
+      registerTime: 'register_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountDid: 'string',
+      name: 'string',
+      mobile: 'string',
+      registerTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 排放统计项目
 export class AnyStatisticalItem extends $tea.Model {
   // 统计项目编码
@@ -3082,6 +3115,8 @@ export class RegisterEcarEnterprisememberRequest extends $tea.Model {
   name?: string;
   // 注册会员身份证号码
   identityCardCode?: string;
+  // 手机号码
+  mobile?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3089,6 +3124,7 @@ export class RegisterEcarEnterprisememberRequest extends $tea.Model {
       accountDid: 'account_did',
       name: 'name',
       identityCardCode: 'identity_card_code',
+      mobile: 'mobile',
     };
   }
 
@@ -3099,6 +3135,7 @@ export class RegisterEcarEnterprisememberRequest extends $tea.Model {
       accountDid: 'string',
       name: 'string',
       identityCardCode: 'string',
+      mobile: 'string',
     };
   }
 
@@ -3386,7 +3423,7 @@ export class ListEcarOffsetdatumRequest extends $tea.Model {
   scenarioCode?: string[];
   // 分页查询数据时的页码，从1开始，不传入时默认值为1
   current?: number;
-  // 每页数据量，默认值为20，取值范围为[10,100]
+  // 每页数据量，默认值为20，取值范围为[10,200]
   pageSize?: number;
   static names(): { [key: string]: string } {
     return {
@@ -3459,6 +3496,152 @@ export class ListEcarOffsetdatumResponse extends $tea.Model {
       pageSize: 'number',
       total: 'number',
       list: { 'type': 'array', 'itemType': CarbonOffsetAcquisitionItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarEnterprisememberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 会员注册开始时间
+  registerStartTime?: string;
+  // 会员注册结束时间
+  registerEndTime?: string;
+  // 当前查询页码，默认值为1
+  current?: number;
+  // 每页记录条数，默认为20，取值范围为[10,200]
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      registerStartTime: 'register_start_time',
+      registerEndTime: 'register_end_time',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      registerStartTime: 'string',
+      registerEndTime: 'string',
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListEcarEnterprisememberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前查询的页码
+  current?: number;
+  // 每页记录条数
+  pageSize?: number;
+  // 记录总条数
+  total?: number;
+  // 会员资料列表
+  list?: EnterpriseMemberSummary[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      current: 'current',
+      pageSize: 'page_size',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      current: 'number',
+      pageSize: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': EnterpriseMemberSummary },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewEcarOffsetdatumRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 碳普惠项目编码
+  projectNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectNo: 'project_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewEcarOffsetdatumResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 注册会员总数
+  registerMemberTotal?: number;
+  // 碳总能量值
+  carbonEnergyTotal?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      registerMemberTotal: 'register_member_total',
+      carbonEnergyTotal: 'carbon_energy_total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      registerMemberTotal: 'number',
+      carbonEnergyTotal: 'string',
     };
   }
 
@@ -3749,7 +3932,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.2.1",
+          sdk_version: "2.3.0",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -4462,6 +4645,44 @@ export default class Client {
   async listEcarOffsetdatumEx(request: ListEcarOffsetdatumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListEcarOffsetdatumResponse> {
     Util.validateModel(request);
     return $tea.cast<ListEcarOffsetdatumResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListEcarOffsetdatumResponse({}));
+  }
+
+  /**
+   * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+   * Summary: 机构会员列表查询
+   */
+  async listEcarEnterprisemember(request: ListEcarEnterprisememberRequest): Promise<ListEcarEnterprisememberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listEcarEnterprisememberEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+   * Summary: 机构会员列表查询
+   */
+  async listEcarEnterprisememberEx(request: ListEcarEnterprisememberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListEcarEnterprisememberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListEcarEnterprisememberResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListEcarEnterprisememberResponse({}));
+  }
+
+  /**
+   * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+   * Summary: 碳普惠项目数据预览
+   */
+  async previewEcarOffsetdatum(request: PreviewEcarOffsetdatumRequest): Promise<PreviewEcarOffsetdatumResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.previewEcarOffsetdatumEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+   * Summary: 碳普惠项目数据预览
+   */
+  async previewEcarOffsetdatumEx(request: PreviewEcarOffsetdatumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PreviewEcarOffsetdatumResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PreviewEcarOffsetdatumResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.preview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PreviewEcarOffsetdatumResponse({}));
   }
 
   /**
