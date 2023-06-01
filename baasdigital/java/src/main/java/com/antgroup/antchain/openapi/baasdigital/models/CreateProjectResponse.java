@@ -24,6 +24,10 @@ public class CreateProjectResponse extends TeaModel {
     @NameInMap("hash")
     public String hash;
 
+    // 该项目在链上部署的合约地址
+    @NameInMap("address")
+    public String address;
+
     public static CreateProjectResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateProjectResponse self = new CreateProjectResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CreateProjectResponse extends TeaModel {
     }
     public String getHash() {
         return this.hash;
+    }
+
+    public CreateProjectResponse setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+    public String getAddress() {
+        return this.address;
     }
 
 }

@@ -75,6 +75,10 @@ public class DigitalProject extends TeaModel {
     @NameInMap("writeoff_list")
     public java.util.List<String> writeoffList;
 
+    // 项目部署的合约地址
+    @NameInMap("address")
+    public String address;
+
     // 合约创建时间
     @NameInMap("create_time")
     @Validation(required = true)
@@ -195,6 +199,14 @@ public class DigitalProject extends TeaModel {
     }
     public java.util.List<String> getWriteoffList() {
         return this.writeoffList;
+    }
+
+    public DigitalProject setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+    public String getAddress() {
+        return this.address;
     }
 
     public DigitalProject setCreateTime(Long createTime) {
