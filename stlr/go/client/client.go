@@ -544,6 +544,46 @@ func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounter
 	return s
 }
 
+// 机构会员资料
+type EnterpriseMemberSummary struct {
+	// 机构会员DID
+	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
+	// 会员姓名，数据脱敏处理返回
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 会员手机号码，数据脱敏处理返回
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 会员注册时间
+	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
+}
+
+func (s EnterpriseMemberSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseMemberSummary) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseMemberSummary) SetAccountDid(v string) *EnterpriseMemberSummary {
+	s.AccountDid = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetName(v string) *EnterpriseMemberSummary {
+	s.Name = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetMobile(v string) *EnterpriseMemberSummary {
+	s.Mobile = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetRegisterTime(v string) *EnterpriseMemberSummary {
+	s.RegisterTime = &v
+	return s
+}
+
 // 排放统计项目
 type AnyStatisticalItem struct {
 	// 统计项目编码
@@ -4010,6 +4050,8 @@ type RegisterEcarEnterprisememberRequest struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 注册会员身份证号码
 	IdentityCardCode *string `json:"identity_card_code,omitempty" xml:"identity_card_code,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
 }
 
 func (s RegisterEcarEnterprisememberRequest) String() string {
@@ -4042,6 +4084,11 @@ func (s *RegisterEcarEnterprisememberRequest) SetName(v string) *RegisterEcarEnt
 
 func (s *RegisterEcarEnterprisememberRequest) SetIdentityCardCode(v string) *RegisterEcarEnterprisememberRequest {
 	s.IdentityCardCode = &v
+	return s
+}
+
+func (s *RegisterEcarEnterprisememberRequest) SetMobile(v string) *RegisterEcarEnterprisememberRequest {
+	s.Mobile = &v
 	return s
 }
 
@@ -4403,7 +4450,7 @@ type ListEcarOffsetdatumRequest struct {
 	ScenarioCode []*string `json:"scenario_code,omitempty" xml:"scenario_code,omitempty" type:"Repeated"`
 	// 分页查询数据时的页码，从1开始，不传入时默认值为1
 	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
-	// 每页数据量，默认值为20，取值范围为[10,100]
+	// 每页数据量，默认值为20，取值范围为[10,200]
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 }
 
@@ -4522,6 +4569,195 @@ func (s *ListEcarOffsetdatumResponse) SetTotal(v int64) *ListEcarOffsetdatumResp
 
 func (s *ListEcarOffsetdatumResponse) SetList(v []*CarbonOffsetAcquisitionItem) *ListEcarOffsetdatumResponse {
 	s.List = v
+	return s
+}
+
+type ListEcarEnterprisememberRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会员注册开始时间
+	RegisterStartTime *string `json:"register_start_time,omitempty" xml:"register_start_time,omitempty"`
+	// 会员注册结束时间
+	RegisterEndTime *string `json:"register_end_time,omitempty" xml:"register_end_time,omitempty"`
+	// 当前查询页码，默认值为1
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页记录条数，默认为20，取值范围为[10,200]
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s ListEcarEnterprisememberRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListEcarEnterprisememberRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListEcarEnterprisememberRequest) SetAuthToken(v string) *ListEcarEnterprisememberRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberRequest) SetProductInstanceId(v string) *ListEcarEnterprisememberRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberRequest) SetRegisterStartTime(v string) *ListEcarEnterprisememberRequest {
+	s.RegisterStartTime = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberRequest) SetRegisterEndTime(v string) *ListEcarEnterprisememberRequest {
+	s.RegisterEndTime = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberRequest) SetCurrent(v int64) *ListEcarEnterprisememberRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberRequest) SetPageSize(v int64) *ListEcarEnterprisememberRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListEcarEnterprisememberResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前查询的页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页记录条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 会员资料列表
+	List []*EnterpriseMemberSummary `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s ListEcarEnterprisememberResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListEcarEnterprisememberResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListEcarEnterprisememberResponse) SetReqMsgId(v string) *ListEcarEnterprisememberResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetResultCode(v string) *ListEcarEnterprisememberResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetResultMsg(v string) *ListEcarEnterprisememberResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetCurrent(v int64) *ListEcarEnterprisememberResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetPageSize(v int64) *ListEcarEnterprisememberResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetTotal(v int64) *ListEcarEnterprisememberResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ListEcarEnterprisememberResponse) SetList(v []*EnterpriseMemberSummary) *ListEcarEnterprisememberResponse {
+	s.List = v
+	return s
+}
+
+type PreviewEcarOffsetdatumRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 碳普惠项目编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+}
+
+func (s PreviewEcarOffsetdatumRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreviewEcarOffsetdatumRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PreviewEcarOffsetdatumRequest) SetAuthToken(v string) *PreviewEcarOffsetdatumRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumRequest) SetProductInstanceId(v string) *PreviewEcarOffsetdatumRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumRequest) SetProjectNo(v string) *PreviewEcarOffsetdatumRequest {
+	s.ProjectNo = &v
+	return s
+}
+
+type PreviewEcarOffsetdatumResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 注册会员总数
+	RegisterMemberTotal *int64 `json:"register_member_total,omitempty" xml:"register_member_total,omitempty"`
+	// 碳总能量值
+	CarbonEnergyTotal *string `json:"carbon_energy_total,omitempty" xml:"carbon_energy_total,omitempty"`
+}
+
+func (s PreviewEcarOffsetdatumResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreviewEcarOffsetdatumResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PreviewEcarOffsetdatumResponse) SetReqMsgId(v string) *PreviewEcarOffsetdatumResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumResponse) SetResultCode(v string) *PreviewEcarOffsetdatumResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumResponse) SetResultMsg(v string) *PreviewEcarOffsetdatumResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumResponse) SetRegisterMemberTotal(v int64) *PreviewEcarOffsetdatumResponse {
+	s.RegisterMemberTotal = &v
+	return s
+}
+
+func (s *PreviewEcarOffsetdatumResponse) SetCarbonEnergyTotal(v string) *PreviewEcarOffsetdatumResponse {
+	s.CarbonEnergyTotal = &v
 	return s
 }
 
@@ -4874,7 +5110,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.2.1"),
+				"sdk_version":      tea.String("2.3.0"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6110,6 +6346,74 @@ func (client *Client) ListEcarOffsetdatumEx(request *ListEcarOffsetdatumRequest,
 	}
 	_result = &ListEcarOffsetdatumResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsetdatum.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+ * Summary: 机构会员列表查询
+ */
+func (client *Client) ListEcarEnterprisemember(request *ListEcarEnterprisememberRequest) (_result *ListEcarEnterprisememberResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListEcarEnterprisememberResponse{}
+	_body, _err := client.ListEcarEnterprisememberEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+ * Summary: 机构会员列表查询
+ */
+func (client *Client) ListEcarEnterprisememberEx(request *ListEcarEnterprisememberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListEcarEnterprisememberResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListEcarEnterprisememberResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.enterprisemember.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+ * Summary: 碳普惠项目数据预览
+ */
+func (client *Client) PreviewEcarOffsetdatum(request *PreviewEcarOffsetdatumRequest) (_result *PreviewEcarOffsetdatumResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PreviewEcarOffsetdatumResponse{}
+	_body, _err := client.PreviewEcarOffsetdatumEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+ * Summary: 碳普惠项目数据预览
+ */
+func (client *Client) PreviewEcarOffsetdatumEx(request *PreviewEcarOffsetdatumRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PreviewEcarOffsetdatumResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PreviewEcarOffsetdatumResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsetdatum.preview"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
