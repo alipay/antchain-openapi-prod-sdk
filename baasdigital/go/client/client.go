@@ -356,6 +356,8 @@ type DigitalProject struct {
 	IssuerList []*string `json:"issuer_list,omitempty" xml:"issuer_list,omitempty" type:"Repeated"`
 	// 项目核销员账户地址列表
 	WriteoffList []*string `json:"writeoff_list,omitempty" xml:"writeoff_list,omitempty" type:"Repeated"`
+	// 项目部署的合约地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
 	// 合约创建时间
 	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
 }
@@ -435,6 +437,11 @@ func (s *DigitalProject) SetIssuerList(v []*string) *DigitalProject {
 
 func (s *DigitalProject) SetWriteoffList(v []*string) *DigitalProject {
 	s.WriteoffList = v
+	return s
+}
+
+func (s *DigitalProject) SetAddress(v string) *DigitalProject {
+	s.Address = &v
 	return s
 }
 
@@ -1652,6 +1659,8 @@ type CreateProjectResponse struct {
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
 	// 部署该项目到区块链的hash值
 	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 该项目在链上部署的合约地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
 }
 
 func (s CreateProjectResponse) String() string {
@@ -1684,6 +1693,11 @@ func (s *CreateProjectResponse) SetProjectId(v string) *CreateProjectResponse {
 
 func (s *CreateProjectResponse) SetHash(v string) *CreateProjectResponse {
 	s.Hash = &v
+	return s
+}
+
+func (s *CreateProjectResponse) SetAddress(v string) *CreateProjectResponse {
+	s.Address = &v
 	return s
 }
 
@@ -4406,7 +4420,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.2.2"),
 				"_prod_code":       tea.String("BAASDIGITAL"),
 				"_prod_channel":    tea.String("undefined"),
 			}
