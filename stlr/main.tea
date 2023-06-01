@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.2.1',
+    sdk_version = '2.3.0',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -277,6 +277,18 @@ model EmissionCounteractionStatistics {
   counteractionAmount: string(name='counteraction_amount', example='22.22'),
   // 排放量单位，默认为：tCO2e
   dataUnit: string(name='data_unit', example='tCO2e'),
+}
+
+// 机构会员资料
+model EnterpriseMemberSummary {
+  // 机构会员DID
+  accountDid: string(name='account_did', example='did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c'),
+  // 会员姓名，数据脱敏处理返回
+  name?: string(name='name', example='张**'),
+  // 会员手机号码，数据脱敏处理返回
+  mobile?: string(name='mobile', example='136****1122'),
+  // 会员注册时间
+  registerTime: string(name='register_time', example='2022-02-22 12:33:11'),
 }
 
 // 排放统计项目
@@ -1842,6 +1854,8 @@ model RegisterEcarEnterprisememberRequest = {
   name?: string(name='name'),
   // 注册会员身份证号码
   identityCardCode?: string(name='identity_card_code'),
+  // 手机号码
+  mobile?: string(name='mobile'),
 }
 
 model RegisterEcarEnterprisememberResponse = {
@@ -2032,7 +2046,7 @@ model ListEcarOffsetdatumRequest = {
   scenarioCode?: [ string ](name='scenario_code'),
   // 分页查询数据时的页码，从1开始，不传入时默认值为1
   current?: long(name='current'),
-  // 每页数据量，默认值为20，取值范围为[10,100]
+  // 每页数据量，默认值为20，取值范围为[10,200]
   pageSize?: long(name='page_size'),
 }
 
@@ -2070,6 +2084,96 @@ async function listEcarOffsetdatum(request: ListEcarOffsetdatumRequest): ListEca
 async function listEcarOffsetdatumEx(request: ListEcarOffsetdatumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListEcarOffsetdatumResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListEcarEnterprisememberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 会员注册开始时间
+  registerStartTime?: string(name='register_start_time'),
+  // 会员注册结束时间
+  registerEndTime?: string(name='register_end_time'),
+  // 当前查询页码，默认值为1
+  current?: long(name='current'),
+  // 每页记录条数，默认为20，取值范围为[10,200]
+  pageSize?: long(name='page_size'),
+}
+
+model ListEcarEnterprisememberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前查询的页码
+  current?: long(name='current'),
+  // 每页记录条数
+  pageSize?: long(name='page_size'),
+  // 记录总条数
+  total?: long(name='total'),
+  // 会员资料列表
+  list?: [ EnterpriseMemberSummary ](name='list'),
+}
+
+/**
+ * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+ * Summary: 机构会员列表查询
+ */
+async function listEcarEnterprisemember(request: ListEcarEnterprisememberRequest): ListEcarEnterprisememberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listEcarEnterprisememberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+ * Summary: 机构会员列表查询
+ */
+async function listEcarEnterprisememberEx(request: ListEcarEnterprisememberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListEcarEnterprisememberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.enterprisemember.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewEcarOffsetdatumRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 碳普惠项目编码
+  projectNo: string(name='project_no'),
+}
+
+model PreviewEcarOffsetdatumResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 注册会员总数
+  registerMemberTotal?: long(name='register_member_total'),
+  // 碳总能量值
+  carbonEnergyTotal?: string(name='carbon_energy_total'),
+}
+
+/**
+ * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+ * Summary: 碳普惠项目数据预览
+ */
+async function previewEcarOffsetdatum(request: PreviewEcarOffsetdatumRequest): PreviewEcarOffsetdatumResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewEcarOffsetdatumEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+ * Summary: 碳普惠项目数据预览
+ */
+async function previewEcarOffsetdatumEx(request: PreviewEcarOffsetdatumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewEcarOffsetdatumResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
