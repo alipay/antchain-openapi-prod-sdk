@@ -37,12 +37,19 @@ class CreateProjectResponse extends Model
      * @var string
      */
     public $hash;
+
+    // 该项目在链上部署的合约地址
+    /**
+     * @var string
+     */
+    public $address;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'projectId'  => 'project_id',
         'hash'       => 'hash',
+        'address'    => 'address',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class CreateProjectResponse extends Model
         }
         if (null !== $this->hash) {
             $res['hash'] = $this->hash;
+        }
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class CreateProjectResponse extends Model
         }
         if (isset($map['hash'])) {
             $model->hash = $map['hash'];
+        }
+        if (isset($map['address'])) {
+            $model->address = $map['address'];
         }
 
         return $model;

@@ -124,6 +124,14 @@ class DigitalProject extends Model
      */
     public $writeoffList;
 
+    // 项目部署的合约地址
+    /**
+     * @example 47f657ab9f4bba2843b5eed65520b0807d373e75ea5a19cbba91020c6782851e
+     *
+     * @var string
+     */
+    public $address;
+
     // 合约创建时间
     /**
      * @example 21-12-29
@@ -146,6 +154,7 @@ class DigitalProject extends Model
         'ownerAccount'  => 'owner_account',
         'issuerList'    => 'issuer_list',
         'writeoffList'  => 'writeoff_list',
+        'address'       => 'address',
         'createTime'    => 'create_time',
     ];
 
@@ -210,6 +219,9 @@ class DigitalProject extends Model
         if (null !== $this->writeoffList) {
             $res['writeoff_list'] = $this->writeoffList;
         }
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
+        }
         if (null !== $this->createTime) {
             $res['create_time'] = $this->createTime;
         }
@@ -270,6 +282,9 @@ class DigitalProject extends Model
             if (!empty($map['writeoff_list'])) {
                 $model->writeoffList = $map['writeoff_list'];
             }
+        }
+        if (isset($map['address'])) {
+            $model->address = $map['address'];
         }
         if (isset($map['create_time'])) {
             $model->createTime = $map['create_time'];
