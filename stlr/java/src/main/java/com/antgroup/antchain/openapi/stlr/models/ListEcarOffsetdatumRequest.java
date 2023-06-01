@@ -39,7 +39,7 @@ public class ListEcarOffsetdatumRequest extends TeaModel {
     @NameInMap("current")
     public Long current;
 
-    // 每页数据量，默认值为20，取值范围为[10,100]
+    // 每页数据量，默认值为20，取值范围为[10,200]
     @NameInMap("page_size")
     public Long pageSize;
 

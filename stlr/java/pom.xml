@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-stlr</artifactId>
-  <version>2.2.1</version>
+  <version>2.3.0</version>
   <packaging>jar</packaging>
   <name>openapi-stlr</name>
   <description>Ant Chain STLR SDK for Java

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.2.1"),
+                    new TeaPair("sdk_version", "2.3.0"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -826,6 +826,44 @@ public class Client {
     public ListEcarOffsetdatumResponse listEcarOffsetdatumEx(ListEcarOffsetdatumRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListEcarOffsetdatumResponse());
+    }
+
+    /**
+     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询
+     */
+    public ListEcarEnterprisememberResponse listEcarEnterprisemember(ListEcarEnterprisememberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listEcarEnterprisememberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+     * Summary: 机构会员列表查询
+     */
+    public ListEcarEnterprisememberResponse listEcarEnterprisememberEx(ListEcarEnterprisememberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListEcarEnterprisememberResponse());
+    }
+
+    /**
+     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览
+     */
+    public PreviewEcarOffsetdatumResponse previewEcarOffsetdatum(PreviewEcarOffsetdatumRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.previewEcarOffsetdatumEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+     * Summary: 碳普惠项目数据预览
+     */
+    public PreviewEcarOffsetdatumResponse previewEcarOffsetdatumEx(PreviewEcarOffsetdatumRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.preview", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PreviewEcarOffsetdatumResponse());
     }
 
     /**

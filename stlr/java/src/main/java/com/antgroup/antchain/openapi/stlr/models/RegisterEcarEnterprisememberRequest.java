@@ -23,6 +23,10 @@ public class RegisterEcarEnterprisememberRequest extends TeaModel {
     @NameInMap("identity_card_code")
     public String identityCardCode;
 
+    // 手机号码
+    @NameInMap("mobile")
+    public String mobile;
+
     public static RegisterEcarEnterprisememberRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterEcarEnterprisememberRequest self = new RegisterEcarEnterprisememberRequest();
         return TeaModel.build(map, self);
@@ -66,6 +70,14 @@ public class RegisterEcarEnterprisememberRequest extends TeaModel {
     }
     public String getIdentityCardCode() {
         return this.identityCardCode;
+    }
+
+    public RegisterEcarEnterprisememberRequest setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public String getMobile() {
+        return this.mobile;
     }
 
 }
