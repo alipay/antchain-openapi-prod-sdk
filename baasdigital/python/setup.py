@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_baasdigital.
 
-Created on 03/03/2023
+Created on 01/06/2023
 
 @author: Ant Chain SDK
 """

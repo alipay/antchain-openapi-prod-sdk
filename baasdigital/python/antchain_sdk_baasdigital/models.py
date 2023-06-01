@@ -390,6 +390,7 @@ class DigitalProject(TeaModel):
         owner_account: str = None,
         issuer_list: List[str] = None,
         writeoff_list: List[str] = None,
+        address: str = None,
         create_time: int = None,
     ):
         # 数字权证项目id
@@ -424,6 +425,8 @@ class DigitalProject(TeaModel):
         self.issuer_list = issuer_list
         # 项目核销员账户地址列表
         self.writeoff_list = writeoff_list
+        # 项目部署的合约地址
+        self.address = address
         # 合约创建时间
         self.create_time = create_time
 
@@ -475,6 +478,8 @@ class DigitalProject(TeaModel):
             result['issuer_list'] = self.issuer_list
         if self.writeoff_list is not None:
             result['writeoff_list'] = self.writeoff_list
+        if self.address is not None:
+            result['address'] = self.address
         if self.create_time is not None:
             result['create_time'] = self.create_time
         return result
@@ -509,6 +514,8 @@ class DigitalProject(TeaModel):
             self.issuer_list = m.get('issuer_list')
         if m.get('writeoff_list') is not None:
             self.writeoff_list = m.get('writeoff_list')
+        if m.get('address') is not None:
+            self.address = m.get('address')
         if m.get('create_time') is not None:
             self.create_time = m.get('create_time')
         return self
@@ -2006,6 +2013,7 @@ class CreateProjectResponse(TeaModel):
         result_msg: str = None,
         project_id: str = None,
         hash: str = None,
+        address: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2017,6 +2025,8 @@ class CreateProjectResponse(TeaModel):
         self.project_id = project_id
         # 部署该项目到区块链的hash值
         self.hash = hash
+        # 该项目在链上部署的合约地址
+        self.address = address
 
     def validate(self):
         pass
@@ -2037,6 +2047,8 @@ class CreateProjectResponse(TeaModel):
             result['project_id'] = self.project_id
         if self.hash is not None:
             result['hash'] = self.hash
+        if self.address is not None:
+            result['address'] = self.address
         return result
 
     def from_map(self, m: dict = None):
@@ -2051,6 +2063,8 @@ class CreateProjectResponse(TeaModel):
             self.project_id = m.get('project_id')
         if m.get('hash') is not None:
             self.hash = m.get('hash')
+        if m.get('address') is not None:
+            self.address = m.get('address')
         return self
 
 
