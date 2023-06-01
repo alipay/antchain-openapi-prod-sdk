@@ -34,6 +34,11 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public string Hash { get; set; }
 
+        // 该项目在链上部署的合约地址
+        [NameInMap("address")]
+        [Validation(Required=false)]
+        public string Address { get; set; }
+
     }
 
 }

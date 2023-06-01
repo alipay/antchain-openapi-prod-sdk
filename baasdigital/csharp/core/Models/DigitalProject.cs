@@ -84,6 +84,11 @@ namespace AntChain.SDK.BAASDIGITAL.Models
         [Validation(Required=false)]
         public List<string> WriteoffList { get; set; }
 
+        // 项目部署的合约地址
+        [NameInMap("address")]
+        [Validation(Required=false)]
+        public string Address { get; set; }
+
         // 合约创建时间
         [NameInMap("create_time")]
         [Validation(Required=true)]
