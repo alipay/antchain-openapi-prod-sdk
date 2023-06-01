@@ -251,6 +251,8 @@ export class DigitalProject extends $tea.Model {
   issuerList?: string[];
   // 项目核销员账户地址列表
   writeoffList?: string[];
+  // 项目部署的合约地址
+  address?: string;
   // 合约创建时间
   createTime: number;
   static names(): { [key: string]: string } {
@@ -269,6 +271,7 @@ export class DigitalProject extends $tea.Model {
       ownerAccount: 'owner_account',
       issuerList: 'issuer_list',
       writeoffList: 'writeoff_list',
+      address: 'address',
       createTime: 'create_time',
     };
   }
@@ -289,6 +292,7 @@ export class DigitalProject extends $tea.Model {
       ownerAccount: 'string',
       issuerList: { 'type': 'array', 'itemType': 'string' },
       writeoffList: { 'type': 'array', 'itemType': 'string' },
+      address: 'string',
       createTime: 'number',
     };
   }
@@ -1236,6 +1240,8 @@ export class CreateProjectResponse extends $tea.Model {
   projectId?: string;
   // 部署该项目到区块链的hash值
   hash?: string;
+  // 该项目在链上部署的合约地址
+  address?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1243,6 +1249,7 @@ export class CreateProjectResponse extends $tea.Model {
       resultMsg: 'result_msg',
       projectId: 'project_id',
       hash: 'hash',
+      address: 'address',
     };
   }
 
@@ -1253,6 +1260,7 @@ export class CreateProjectResponse extends $tea.Model {
       resultMsg: 'string',
       projectId: 'string',
       hash: 'string',
+      address: 'string',
     };
   }
 
@@ -3301,7 +3309,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.2.2",
           _prod_code: "BAASDIGITAL",
           _prod_channel: "undefined",
         };
