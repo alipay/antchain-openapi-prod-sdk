@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.2.1',
+                    'sdk_version': '2.3.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.2.1',
+                    'sdk_version': '2.3.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2211,6 +2211,118 @@ class Client:
         return TeaCore.from_map(
             stlr_models.ListEcarOffsetdatumResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_ecar_enterprisemember(
+        self,
+        request: stlr_models.ListEcarEnterprisememberRequest,
+    ) -> stlr_models.ListEcarEnterprisememberResponse:
+        """
+        Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+        Summary: 机构会员列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ecar_enterprisemember_ex(request, headers, runtime)
+
+    async def list_ecar_enterprisemember_async(
+        self,
+        request: stlr_models.ListEcarEnterprisememberRequest,
+    ) -> stlr_models.ListEcarEnterprisememberResponse:
+        """
+        Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+        Summary: 机构会员列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_ecar_enterprisemember_ex_async(request, headers, runtime)
+
+    def list_ecar_enterprisemember_ex(
+        self,
+        request: stlr_models.ListEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarEnterprisememberResponse:
+        """
+        Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+        Summary: 机构会员列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarEnterprisememberResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.enterprisemember.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_ecar_enterprisemember_ex_async(
+        self,
+        request: stlr_models.ListEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ListEcarEnterprisememberResponse:
+        """
+        Description: 机构会员列表查询，支持分页查询指定时间范围内的会员列表，返回结果按照会员注册时间降序排列
+        Summary: 机构会员列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ListEcarEnterprisememberResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.enterprisemember.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def preview_ecar_offsetdatum(
+        self,
+        request: stlr_models.PreviewEcarOffsetdatumRequest,
+    ) -> stlr_models.PreviewEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+        Summary: 碳普惠项目数据预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.preview_ecar_offsetdatum_ex(request, headers, runtime)
+
+    async def preview_ecar_offsetdatum_async(
+        self,
+        request: stlr_models.PreviewEcarOffsetdatumRequest,
+    ) -> stlr_models.PreviewEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+        Summary: 碳普惠项目数据预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.preview_ecar_offsetdatum_ex_async(request, headers, runtime)
+
+    def preview_ecar_offsetdatum_ex(
+        self,
+        request: stlr_models.PreviewEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PreviewEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+        Summary: 碳普惠项目数据预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PreviewEcarOffsetdatumResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def preview_ecar_offsetdatum_ex_async(
+        self,
+        request: stlr_models.PreviewEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PreviewEcarOffsetdatumResponse:
+        """
+        Description: 碳普惠项目数据预览，包括注册会员数和累积碳能量值
+        Summary: 碳普惠项目数据预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PreviewEcarOffsetdatumResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(

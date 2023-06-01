@@ -665,6 +665,56 @@ class EmissionCounteractionStatistics(TeaModel):
         return self
 
 
+class EnterpriseMemberSummary(TeaModel):
+    def __init__(
+        self,
+        account_did: str = None,
+        name: str = None,
+        mobile: str = None,
+        register_time: str = None,
+    ):
+        # 机构会员DID
+        self.account_did = account_did
+        # 会员姓名，数据脱敏处理返回
+        self.name = name
+        # 会员手机号码，数据脱敏处理返回
+        self.mobile = mobile
+        # 会员注册时间
+        self.register_time = register_time
+
+    def validate(self):
+        self.validate_required(self.account_did, 'account_did')
+        self.validate_required(self.register_time, 'register_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_did is not None:
+            result['account_did'] = self.account_did
+        if self.name is not None:
+            result['name'] = self.name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.register_time is not None:
+            result['register_time'] = self.register_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_did') is not None:
+            self.account_did = m.get('account_did')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('register_time') is not None:
+            self.register_time = m.get('register_time')
+        return self
+
+
 class AnyStatisticalItem(TeaModel):
     def __init__(
         self,
@@ -5136,6 +5186,7 @@ class RegisterEcarEnterprisememberRequest(TeaModel):
         account_did: str = None,
         name: str = None,
         identity_card_code: str = None,
+        mobile: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5146,6 +5197,8 @@ class RegisterEcarEnterprisememberRequest(TeaModel):
         self.name = name
         # 注册会员身份证号码
         self.identity_card_code = identity_card_code
+        # 手机号码
+        self.mobile = mobile
 
     def validate(self):
         pass
@@ -5166,6 +5219,8 @@ class RegisterEcarEnterprisememberRequest(TeaModel):
             result['name'] = self.name
         if self.identity_card_code is not None:
             result['identity_card_code'] = self.identity_card_code
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
         return result
 
     def from_map(self, m: dict = None):
@@ -5180,6 +5235,8 @@ class RegisterEcarEnterprisememberRequest(TeaModel):
             self.name = m.get('name')
         if m.get('identity_card_code') is not None:
             self.identity_card_code = m.get('identity_card_code')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
         return self
 
 
@@ -5655,7 +5712,7 @@ class ListEcarOffsetdatumRequest(TeaModel):
         self.scenario_code = scenario_code
         # 分页查询数据时的页码，从1开始，不传入时默认值为1
         self.current = current
-        # 每页数据量，默认值为20，取值范围为[10,100]
+        # 每页数据量，默认值为20，取值范围为[10,200]
         self.page_size = page_size
 
     def validate(self):
@@ -5789,6 +5846,243 @@ class ListEcarOffsetdatumResponse(TeaModel):
             for k in m.get('list'):
                 temp_model = CarbonOffsetAcquisitionItem()
                 self.list.append(temp_model.from_map(k))
+        return self
+
+
+class ListEcarEnterprisememberRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        register_start_time: str = None,
+        register_end_time: str = None,
+        current: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 会员注册开始时间
+        self.register_start_time = register_start_time
+        # 会员注册结束时间
+        self.register_end_time = register_end_time
+        # 当前查询页码，默认值为1
+        self.current = current
+        # 每页记录条数，默认为20，取值范围为[10,200]
+        self.page_size = page_size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.register_start_time is not None:
+            result['register_start_time'] = self.register_start_time
+        if self.register_end_time is not None:
+            result['register_end_time'] = self.register_end_time
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('register_start_time') is not None:
+            self.register_start_time = m.get('register_start_time')
+        if m.get('register_end_time') is not None:
+            self.register_end_time = m.get('register_end_time')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class ListEcarEnterprisememberResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        list: List[EnterpriseMemberSummary] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前查询的页码
+        self.current = current
+        # 每页记录条数
+        self.page_size = page_size
+        # 记录总条数
+        self.total = total
+        # 会员资料列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = EnterpriseMemberSummary()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class PreviewEcarOffsetdatumRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 碳普惠项目编码
+        self.project_no = project_no
+
+    def validate(self):
+        self.validate_required(self.project_no, 'project_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_no is not None:
+            result['project_no'] = self.project_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_no') is not None:
+            self.project_no = m.get('project_no')
+        return self
+
+
+class PreviewEcarOffsetdatumResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        register_member_total: int = None,
+        carbon_energy_total: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 注册会员总数
+        self.register_member_total = register_member_total
+        # 碳总能量值
+        self.carbon_energy_total = carbon_energy_total
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.register_member_total is not None:
+            result['register_member_total'] = self.register_member_total
+        if self.carbon_energy_total is not None:
+            result['carbon_energy_total'] = self.carbon_energy_total
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('register_member_total') is not None:
+            self.register_member_total = m.get('register_member_total')
+        if m.get('carbon_energy_total') is not None:
+            self.carbon_energy_total = m.get('carbon_energy_total')
         return self
 
 
