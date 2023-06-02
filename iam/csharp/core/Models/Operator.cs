@@ -85,6 +85,11 @@ namespace AntChain.SDK.IAM.Models
         [Validation(Required=false)]
         public string WorkNo { get; set; }
 
+        // 部门唯一码
+        [NameInMap("department_code")]
+        [Validation(Required=false)]
+        public string DepartmentCode { get; set; }
+
     }
 
 }
