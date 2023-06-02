@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -148,6 +148,29 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type Condition struct {
+	Key   *string `json:"key,omitempty" xml:"key,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s Condition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Condition) GoString() string {
+	return s.String()
+}
+
+func (s *Condition) SetKey(v string) *Condition {
+	s.Key = &v
+	return s
+}
+
+func (s *Condition) SetValue(v string) *Condition {
+	s.Value = &v
+	return s
+}
+
 // 阿里云资源结构体
 type AliyunResource struct {
 	// resource_type/resource_id
@@ -174,92 +197,146 @@ func (s *AliyunResource) SetResourceTenant(v string) *AliyunResource {
 	return s
 }
 
-type Condition struct {
-	Key   *string `json:"key,omitempty" xml:"key,omitempty"`
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+// 鉴权事件（蚂蚁侧）
+type AuthenticateEvent struct {
+	// 鉴权操作列表
+	Actions []*string `json:"actions,omitempty" xml:"actions,omitempty" require:"true" type:"Repeated"`
+	// 鉴权对象ID
+	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
+	// 鉴权条件
+	Conditions []*Condition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+	// 唯一ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 }
 
-func (s Condition) String() string {
+func (s AuthenticateEvent) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Condition) GoString() string {
+func (s AuthenticateEvent) GoString() string {
 	return s.String()
 }
 
-func (s *Condition) SetKey(v string) *Condition {
-	s.Key = &v
+func (s *AuthenticateEvent) SetActions(v []*string) *AuthenticateEvent {
+	s.Actions = v
 	return s
 }
 
-func (s *Condition) SetValue(v string) *Condition {
-	s.Value = &v
-	return s
-}
-
-// 虚拟身份受信关系
-type StsActorBinding struct {
-	// 虚拟身份ID
-	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
-	// 受信对象ID
-	BindId *string `json:"bind_id,omitempty" xml:"bind_id,omitempty"`
-	// 虚拟身份受信类型，可以为TENANT或者ALIYUN_SERVICE
-	BindType *string `json:"bind_type,omitempty" xml:"bind_type,omitempty"`
-}
-
-func (s StsActorBinding) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StsActorBinding) GoString() string {
-	return s.String()
-}
-
-func (s *StsActorBinding) SetActorId(v string) *StsActorBinding {
+func (s *AuthenticateEvent) SetActorId(v string) *AuthenticateEvent {
 	s.ActorId = &v
 	return s
 }
 
-func (s *StsActorBinding) SetBindId(v string) *StsActorBinding {
-	s.BindId = &v
+func (s *AuthenticateEvent) SetConditions(v []*Condition) *AuthenticateEvent {
+	s.Conditions = v
 	return s
 }
 
-func (s *StsActorBinding) SetBindType(v string) *StsActorBinding {
-	s.BindType = &v
-	return s
-}
-
-// 操作点
-type Action struct {
-	// 操作点描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 操作点ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 操作点名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s Action) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Action) GoString() string {
-	return s.String()
-}
-
-func (s *Action) SetDescription(v string) *Action {
-	s.Description = &v
-	return s
-}
-
-func (s *Action) SetId(v string) *Action {
+func (s *AuthenticateEvent) SetId(v string) *AuthenticateEvent {
 	s.Id = &v
 	return s
 }
 
-func (s *Action) SetName(v string) *Action {
-	s.Name = &v
+// 来源为Onex的操作类型的额外信息
+type OnexExtraInfo struct {
+	// Onex接口路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// Onex接口的HTTP Method
+	Method *string `json:"method,omitempty" xml:"method,omitempty" require:"true"`
+}
+
+func (s OnexExtraInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnexExtraInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OnexExtraInfo) SetPath(v string) *OnexExtraInfo {
+	s.Path = &v
+	return s
+}
+
+func (s *OnexExtraInfo) SetMethod(v string) *OnexExtraInfo {
+	s.Method = &v
+	return s
+}
+
+// 阿里云鉴权上下文
+type AliyunRamAuthContext struct {
+	// 操作名称
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 条件
+	Conditions []*Condition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+	// 唯一ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// 资源
+	Resources []*AliyunResource `json:"resources,omitempty" xml:"resources,omitempty" require:"true" type:"Repeated"`
+	// 服务名称
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+}
+
+func (s AliyunRamAuthContext) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AliyunRamAuthContext) GoString() string {
+	return s.String()
+}
+
+func (s *AliyunRamAuthContext) SetAction(v string) *AliyunRamAuthContext {
+	s.Action = &v
+	return s
+}
+
+func (s *AliyunRamAuthContext) SetConditions(v []*Condition) *AliyunRamAuthContext {
+	s.Conditions = v
+	return s
+}
+
+func (s *AliyunRamAuthContext) SetId(v string) *AliyunRamAuthContext {
+	s.Id = &v
+	return s
+}
+
+func (s *AliyunRamAuthContext) SetRegionId(v string) *AliyunRamAuthContext {
+	s.RegionId = &v
+	return s
+}
+
+func (s *AliyunRamAuthContext) SetResources(v []*AliyunResource) *AliyunRamAuthContext {
+	s.Resources = v
+	return s
+}
+
+func (s *AliyunRamAuthContext) SetServiceName(v string) *AliyunRamAuthContext {
+	s.ServiceName = &v
+	return s
+}
+
+type ScopeEntity struct {
+	Key   *string `json:"key,omitempty" xml:"key,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s ScopeEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScopeEntity) GoString() string {
+	return s.String()
+}
+
+func (s *ScopeEntity) SetKey(v string) *ScopeEntity {
+	s.Key = &v
+	return s
+}
+
+func (s *ScopeEntity) SetValue(v string) *ScopeEntity {
+	s.Value = &v
 	return s
 }
 
@@ -432,209 +509,250 @@ func (s *AliyunPopRequestInfo) SetVersion(v string) *AliyunPopRequestInfo {
 	return s
 }
 
-type ScopeEntity struct {
-	Key   *string `json:"key,omitempty" xml:"key,omitempty"`
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+// 虚拟身份受信关系
+type StsActorBinding struct {
+	// 虚拟身份ID
+	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
+	// 受信对象ID
+	BindId *string `json:"bind_id,omitempty" xml:"bind_id,omitempty"`
+	// 虚拟身份受信类型，可以为TENANT或者ALIYUN_SERVICE
+	BindType *string `json:"bind_type,omitempty" xml:"bind_type,omitempty"`
 }
 
-func (s ScopeEntity) String() string {
+func (s StsActorBinding) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ScopeEntity) GoString() string {
+func (s StsActorBinding) GoString() string {
 	return s.String()
 }
 
-func (s *ScopeEntity) SetKey(v string) *ScopeEntity {
-	s.Key = &v
-	return s
-}
-
-func (s *ScopeEntity) SetValue(v string) *ScopeEntity {
-	s.Value = &v
-	return s
-}
-
-// 阿里云鉴权上下文
-type AliyunRamAuthContext struct {
-	// 操作名称
-	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
-	// 条件
-	Conditions []*Condition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
-	// 唯一ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// regionId
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// 资源
-	Resources []*AliyunResource `json:"resources,omitempty" xml:"resources,omitempty" require:"true" type:"Repeated"`
-	// 服务名称
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
-}
-
-func (s AliyunRamAuthContext) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AliyunRamAuthContext) GoString() string {
-	return s.String()
-}
-
-func (s *AliyunRamAuthContext) SetAction(v string) *AliyunRamAuthContext {
-	s.Action = &v
-	return s
-}
-
-func (s *AliyunRamAuthContext) SetConditions(v []*Condition) *AliyunRamAuthContext {
-	s.Conditions = v
-	return s
-}
-
-func (s *AliyunRamAuthContext) SetId(v string) *AliyunRamAuthContext {
-	s.Id = &v
-	return s
-}
-
-func (s *AliyunRamAuthContext) SetRegionId(v string) *AliyunRamAuthContext {
-	s.RegionId = &v
-	return s
-}
-
-func (s *AliyunRamAuthContext) SetResources(v []*AliyunResource) *AliyunRamAuthContext {
-	s.Resources = v
-	return s
-}
-
-func (s *AliyunRamAuthContext) SetServiceName(v string) *AliyunRamAuthContext {
-	s.ServiceName = &v
-	return s
-}
-
-// 鉴权事件（蚂蚁侧）
-type AuthenticateEvent struct {
-	// 鉴权操作列表
-	Actions []*string `json:"actions,omitempty" xml:"actions,omitempty" require:"true" type:"Repeated"`
-	// 鉴权对象ID
-	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
-	// 鉴权条件
-	Conditions []*Condition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
-	// 唯一ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-}
-
-func (s AuthenticateEvent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthenticateEvent) GoString() string {
-	return s.String()
-}
-
-func (s *AuthenticateEvent) SetActions(v []*string) *AuthenticateEvent {
-	s.Actions = v
-	return s
-}
-
-func (s *AuthenticateEvent) SetActorId(v string) *AuthenticateEvent {
+func (s *StsActorBinding) SetActorId(v string) *StsActorBinding {
 	s.ActorId = &v
 	return s
 }
 
-func (s *AuthenticateEvent) SetConditions(v []*Condition) *AuthenticateEvent {
-	s.Conditions = v
+func (s *StsActorBinding) SetBindId(v string) *StsActorBinding {
+	s.BindId = &v
 	return s
 }
 
-func (s *AuthenticateEvent) SetId(v string) *AuthenticateEvent {
-	s.Id = &v
+func (s *StsActorBinding) SetBindType(v string) *StsActorBinding {
+	s.BindType = &v
 	return s
 }
 
-// 租户
-type Tenant struct {
-	// 蚂蚁通行证签约账户
-	AntAccount *string `json:"ant_account,omitempty" xml:"ant_account,omitempty"`
-	// 蚂蚁通行证uid
-	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty"`
-	// 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
-	BusinessOwnerId *string `json:"business_owner_id,omitempty" xml:"business_owner_id,omitempty"`
-	// 租户创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 租户所在的企业的唯一标识
-	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
-	// 租户描述信息
+// 操作点
+type Action struct {
+	// 操作点描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 租户唯一标识
+	// 操作点ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 租户内部id
-	InternalId *string `json:"internal_id,omitempty" xml:"internal_id,omitempty"`
-	// 租户显示名称
+	// 操作点名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 租户最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-	// 标签
-	Tags []*string `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
 }
 
-func (s Tenant) String() string {
+func (s Action) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Tenant) GoString() string {
+func (s Action) GoString() string {
 	return s.String()
 }
 
-func (s *Tenant) SetAntAccount(v string) *Tenant {
-	s.AntAccount = &v
-	return s
-}
-
-func (s *Tenant) SetAntUid(v string) *Tenant {
-	s.AntUid = &v
-	return s
-}
-
-func (s *Tenant) SetBusinessOwnerId(v string) *Tenant {
-	s.BusinessOwnerId = &v
-	return s
-}
-
-func (s *Tenant) SetCreateTime(v string) *Tenant {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *Tenant) SetCustomer(v string) *Tenant {
-	s.Customer = &v
-	return s
-}
-
-func (s *Tenant) SetDescription(v string) *Tenant {
+func (s *Action) SetDescription(v string) *Action {
 	s.Description = &v
 	return s
 }
 
-func (s *Tenant) SetId(v string) *Tenant {
+func (s *Action) SetId(v string) *Action {
 	s.Id = &v
 	return s
 }
 
-func (s *Tenant) SetInternalId(v string) *Tenant {
-	s.InternalId = &v
-	return s
-}
-
-func (s *Tenant) SetName(v string) *Tenant {
+func (s *Action) SetName(v string) *Action {
 	s.Name = &v
 	return s
 }
 
-func (s *Tenant) SetUpdateTime(v string) *Tenant {
-	s.UpdateTime = &v
+// 操作类型
+type OperationType struct {
+	// 操作描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 展示名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 是否启用
+	Enabled *string `json:"enabled,omitempty" xml:"enabled,omitempty" require:"true"`
+	// 操作名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty" require:"true"`
+	// 操作来源
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// Onex接口额外信息
+	OnexExtraInfo *OnexExtraInfo `json:"onex_extra_info,omitempty" xml:"onex_extra_info,omitempty"`
+	// 资源类型
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// 资源表达式
+	ResourceExp *string `json:"resource_exp,omitempty" xml:"resource_exp,omitempty"`
+}
+
+func (s OperationType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperationType) GoString() string {
+	return s.String()
+}
+
+func (s *OperationType) SetDescription(v string) *OperationType {
+	s.Description = &v
 	return s
 }
 
-func (s *Tenant) SetTags(v []*string) *Tenant {
-	s.Tags = v
+func (s *OperationType) SetDisplayName(v string) *OperationType {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *OperationType) SetEnabled(v string) *OperationType {
+	s.Enabled = &v
+	return s
+}
+
+func (s *OperationType) SetName(v string) *OperationType {
+	s.Name = &v
+	return s
+}
+
+func (s *OperationType) SetProduct(v string) *OperationType {
+	s.Product = &v
+	return s
+}
+
+func (s *OperationType) SetSource(v string) *OperationType {
+	s.Source = &v
+	return s
+}
+
+func (s *OperationType) SetOnexExtraInfo(v *OnexExtraInfo) *OperationType {
+	s.OnexExtraInfo = v
+	return s
+}
+
+func (s *OperationType) SetResourceType(v string) *OperationType {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *OperationType) SetResourceExp(v string) *OperationType {
+	s.ResourceExp = &v
+	return s
+}
+
+// 部门用户关系
+type DepartmentUser struct {
+	// 部门唯一码
+	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 部门成员类型，
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s DepartmentUser) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DepartmentUser) GoString() string {
+	return s.String()
+}
+
+func (s *DepartmentUser) SetDepartmentCode(v string) *DepartmentUser {
+	s.DepartmentCode = &v
+	return s
+}
+
+func (s *DepartmentUser) SetUserId(v string) *DepartmentUser {
+	s.UserId = &v
+	return s
+}
+
+func (s *DepartmentUser) SetType(v string) *DepartmentUser {
+	s.Type = &v
+	return s
+}
+
+// 阿里云批量鉴权
+type AliyunAuthenticateBatchEvent struct {
+	// 金融云用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 阿里云鉴权列表
+	RamAuthContexts []*AliyunRamAuthContext `json:"ram_auth_contexts,omitempty" xml:"ram_auth_contexts,omitempty" require:"true" type:"Repeated"`
+	// BSB透传下来的阿里云信息
+	RequestInfo *AliyunPopRequestInfo `json:"request_info,omitempty" xml:"request_info,omitempty" require:"true"`
+}
+
+func (s AliyunAuthenticateBatchEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AliyunAuthenticateBatchEvent) GoString() string {
+	return s.String()
+}
+
+func (s *AliyunAuthenticateBatchEvent) SetUserId(v string) *AliyunAuthenticateBatchEvent {
+	s.UserId = &v
+	return s
+}
+
+func (s *AliyunAuthenticateBatchEvent) SetRamAuthContexts(v []*AliyunRamAuthContext) *AliyunAuthenticateBatchEvent {
+	s.RamAuthContexts = v
+	return s
+}
+
+func (s *AliyunAuthenticateBatchEvent) SetRequestInfo(v *AliyunPopRequestInfo) *AliyunAuthenticateBatchEvent {
+	s.RequestInfo = v
+	return s
+}
+
+// 鉴权结果
+type Judgement struct {
+	// 唯一ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 是否通过
+	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty" require:"true"`
+	// 失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 解决方案
+	Solution *string `json:"solution,omitempty" xml:"solution,omitempty"`
+}
+
+func (s Judgement) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Judgement) GoString() string {
+	return s.String()
+}
+
+func (s *Judgement) SetId(v string) *Judgement {
+	s.Id = &v
+	return s
+}
+
+func (s *Judgement) SetPass(v bool) *Judgement {
+	s.Pass = &v
+	return s
+}
+
+func (s *Judgement) SetReason(v string) *Judgement {
+	s.Reason = &v
+	return s
+}
+
+func (s *Judgement) SetSolution(v string) *Judgement {
+	s.Solution = &v
 	return s
 }
 
@@ -742,6 +860,53 @@ func (s *AuthGroup) SetName(v string) *AuthGroup {
 }
 
 func (s *AuthGroup) SetUpdateTime(v string) *AuthGroup {
+	s.UpdateTime = &v
+	return s
+}
+
+// AccessKey
+type AccessKey struct {
+	// AccessKey创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// AccessKey唯一标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// AccessKey最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s AccessKey) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccessKey) GoString() string {
+	return s.String()
+}
+
+func (s *AccessKey) SetCreateTime(v string) *AccessKey {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AccessKey) SetId(v string) *AccessKey {
+	s.Id = &v
+	return s
+}
+
+func (s *AccessKey) SetSecret(v string) *AccessKey {
+	s.Secret = &v
+	return s
+}
+
+func (s *AccessKey) SetStatus(v string) *AccessKey {
+	s.Status = &v
+	return s
+}
+
+func (s *AccessKey) SetUpdateTime(v string) *AccessKey {
 	s.UpdateTime = &v
 	return s
 }
@@ -875,76 +1040,167 @@ func (s *AuthPolicy) SetUpdateTime(v string) *AuthPolicy {
 	return s
 }
 
-// 鉴权结果
-type Judgement struct {
-	// 唯一ID
+// 租户
+type Tenant struct {
+	// 蚂蚁通行证签约账户
+	AntAccount *string `json:"ant_account,omitempty" xml:"ant_account,omitempty"`
+	// 蚂蚁通行证uid
+	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty"`
+	// 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+	BusinessOwnerId *string `json:"business_owner_id,omitempty" xml:"business_owner_id,omitempty"`
+	// 租户创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 租户所在的企业的唯一标识
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
+	// 租户描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 租户唯一标识
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 是否通过
-	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty" require:"true"`
-	// 失败原因
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
-	// 解决方案
-	Solution *string `json:"solution,omitempty" xml:"solution,omitempty"`
+	// 租户内部id
+	InternalId *string `json:"internal_id,omitempty" xml:"internal_id,omitempty"`
+	// 租户显示名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 租户最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// 标签
+	Tags []*string `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
 }
 
-func (s Judgement) String() string {
+func (s Tenant) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Judgement) GoString() string {
+func (s Tenant) GoString() string {
 	return s.String()
 }
 
-func (s *Judgement) SetId(v string) *Judgement {
+func (s *Tenant) SetAntAccount(v string) *Tenant {
+	s.AntAccount = &v
+	return s
+}
+
+func (s *Tenant) SetAntUid(v string) *Tenant {
+	s.AntUid = &v
+	return s
+}
+
+func (s *Tenant) SetBusinessOwnerId(v string) *Tenant {
+	s.BusinessOwnerId = &v
+	return s
+}
+
+func (s *Tenant) SetCreateTime(v string) *Tenant {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *Tenant) SetCustomer(v string) *Tenant {
+	s.Customer = &v
+	return s
+}
+
+func (s *Tenant) SetDescription(v string) *Tenant {
+	s.Description = &v
+	return s
+}
+
+func (s *Tenant) SetId(v string) *Tenant {
 	s.Id = &v
 	return s
 }
 
-func (s *Judgement) SetPass(v bool) *Judgement {
-	s.Pass = &v
+func (s *Tenant) SetInternalId(v string) *Tenant {
+	s.InternalId = &v
 	return s
 }
 
-func (s *Judgement) SetReason(v string) *Judgement {
-	s.Reason = &v
-	return s
-}
-
-func (s *Judgement) SetSolution(v string) *Judgement {
-	s.Solution = &v
-	return s
-}
-
-// 成员组
-type Group struct {
-	// 成员组ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 成员组名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 成员组描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-}
-
-func (s Group) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Group) GoString() string {
-	return s.String()
-}
-
-func (s *Group) SetId(v string) *Group {
-	s.Id = &v
-	return s
-}
-
-func (s *Group) SetName(v string) *Group {
+func (s *Tenant) SetName(v string) *Tenant {
 	s.Name = &v
 	return s
 }
 
-func (s *Group) SetDescription(v string) *Group {
+func (s *Tenant) SetUpdateTime(v string) *Tenant {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *Tenant) SetTags(v []*string) *Tenant {
+	s.Tags = v
+	return s
+}
+
+// 部门
+type Department struct {
+	// 部门唯一代码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 部门名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 部门描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 父部门 code
+	ParentCode *string `json:"parent_code,omitempty" xml:"parent_code,omitempty"`
+	// 父部门一直到根节点的路径，例如：DP0000000001/DP0000000002
+	ParentPath *string `json:"parent_path,omitempty" xml:"parent_path,omitempty"`
+	// 企业 id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 是否为叶子结点
+	IsLeaf *bool `json:"is_leaf,omitempty" xml:"is_leaf,omitempty"`
+	// 创建时间，ISO8601格式
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty"`
+	// 更新时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s Department) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Department) GoString() string {
+	return s.String()
+}
+
+func (s *Department) SetCode(v string) *Department {
+	s.Code = &v
+	return s
+}
+
+func (s *Department) SetName(v string) *Department {
+	s.Name = &v
+	return s
+}
+
+func (s *Department) SetDescription(v string) *Department {
 	s.Description = &v
+	return s
+}
+
+func (s *Department) SetParentCode(v string) *Department {
+	s.ParentCode = &v
+	return s
+}
+
+func (s *Department) SetParentPath(v string) *Department {
+	s.ParentPath = &v
+	return s
+}
+
+func (s *Department) SetCustomerId(v string) *Department {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *Department) SetIsLeaf(v bool) *Department {
+	s.IsLeaf = &v
+	return s
+}
+
+func (s *Department) SetCreationTime(v string) *Department {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *Department) SetUpdateTime(v string) *Department {
+	s.UpdateTime = &v
 	return s
 }
 
@@ -964,203 +1220,6 @@ func (s AuthenticateBatchEvent) GoString() string {
 
 func (s *AuthenticateBatchEvent) SetEvents(v []*AuthenticateEvent) *AuthenticateBatchEvent {
 	s.Events = v
-	return s
-}
-
-// 阿里云批量鉴权
-type AliyunAuthenticateBatchEvent struct {
-	// 金融云用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 阿里云鉴权列表
-	RamAuthContexts []*AliyunRamAuthContext `json:"ram_auth_contexts,omitempty" xml:"ram_auth_contexts,omitempty" require:"true" type:"Repeated"`
-	// BSB透传下来的阿里云信息
-	RequestInfo *AliyunPopRequestInfo `json:"request_info,omitempty" xml:"request_info,omitempty" require:"true"`
-}
-
-func (s AliyunAuthenticateBatchEvent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AliyunAuthenticateBatchEvent) GoString() string {
-	return s.String()
-}
-
-func (s *AliyunAuthenticateBatchEvent) SetUserId(v string) *AliyunAuthenticateBatchEvent {
-	s.UserId = &v
-	return s
-}
-
-func (s *AliyunAuthenticateBatchEvent) SetRamAuthContexts(v []*AliyunRamAuthContext) *AliyunAuthenticateBatchEvent {
-	s.RamAuthContexts = v
-	return s
-}
-
-func (s *AliyunAuthenticateBatchEvent) SetRequestInfo(v *AliyunPopRequestInfo) *AliyunAuthenticateBatchEvent {
-	s.RequestInfo = v
-	return s
-}
-
-// 操作员
-type Operator struct {
-	// 操作员创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 操作员所在的企业
-	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
-	// 邮箱
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// 外部对接系统操作员id
-	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
-	// 外部对接系统类型
-	ExternalSystem *string `json:"external_system,omitempty" xml:"external_system,omitempty"`
-	// 操作员ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 是否是主账号
-	IsMaster *bool `json:"is_master,omitempty" xml:"is_master,omitempty"`
-	// 登录名
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 昵称
-	Nickname *string `json:"nickname,omitempty" xml:"nickname,omitempty"`
-	// 真实姓名
-	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 操作员加入的租户列表
-	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
-	// 操作员最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-	// 操作员工号
-	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
-}
-
-func (s Operator) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Operator) GoString() string {
-	return s.String()
-}
-
-func (s *Operator) SetCreateTime(v string) *Operator {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *Operator) SetCustomer(v string) *Operator {
-	s.Customer = &v
-	return s
-}
-
-func (s *Operator) SetEmail(v string) *Operator {
-	s.Email = &v
-	return s
-}
-
-func (s *Operator) SetExternalId(v string) *Operator {
-	s.ExternalId = &v
-	return s
-}
-
-func (s *Operator) SetExternalSystem(v string) *Operator {
-	s.ExternalSystem = &v
-	return s
-}
-
-func (s *Operator) SetId(v string) *Operator {
-	s.Id = &v
-	return s
-}
-
-func (s *Operator) SetIsMaster(v bool) *Operator {
-	s.IsMaster = &v
-	return s
-}
-
-func (s *Operator) SetLoginName(v string) *Operator {
-	s.LoginName = &v
-	return s
-}
-
-func (s *Operator) SetMobile(v string) *Operator {
-	s.Mobile = &v
-	return s
-}
-
-func (s *Operator) SetNickname(v string) *Operator {
-	s.Nickname = &v
-	return s
-}
-
-func (s *Operator) SetRealName(v string) *Operator {
-	s.RealName = &v
-	return s
-}
-
-func (s *Operator) SetStatus(v string) *Operator {
-	s.Status = &v
-	return s
-}
-
-func (s *Operator) SetTenants(v []*string) *Operator {
-	s.Tenants = v
-	return s
-}
-
-func (s *Operator) SetUpdateTime(v string) *Operator {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *Operator) SetWorkNo(v string) *Operator {
-	s.WorkNo = &v
-	return s
-}
-
-// AccessKey
-type AccessKey struct {
-	// AccessKey创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// AccessKey唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
-	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// AccessKey最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-}
-
-func (s AccessKey) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccessKey) GoString() string {
-	return s.String()
-}
-
-func (s *AccessKey) SetCreateTime(v string) *AccessKey {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *AccessKey) SetId(v string) *AccessKey {
-	s.Id = &v
-	return s
-}
-
-func (s *AccessKey) SetSecret(v string) *AccessKey {
-	s.Secret = &v
-	return s
-}
-
-func (s *AccessKey) SetStatus(v string) *AccessKey {
-	s.Status = &v
-	return s
-}
-
-func (s *AccessKey) SetUpdateTime(v string) *AccessKey {
-	s.UpdateTime = &v
 	return s
 }
 
@@ -1258,7 +1317,226 @@ func (s *Customer) SetUpdateTime(v string) *Customer {
 	return s
 }
 
+// Mfa 配置
+type MfaConfig struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// MFA状态, 取值范围：ENABLED, DISABLED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// MFA类型，取值范围：SELF(自有MFA), SYMANTEC(赛门铁克MFA)
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 密钥
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty"`
+	// 最后一次密钥生成时间
+	LastGeneratedTime *string `json:"last_generated_time,omitempty" xml:"last_generated_time,omitempty"`
+	// (校验失败时)重试校验的次数, 0 代表不限次数
+	VerifyAttempts *int64 `json:"verify_attempts,omitempty" xml:"verify_attempts,omitempty"`
+	// 第一次校验失败时间, ISO8601格式
+	FirstFailureTime *string `json:"first_failure_time,omitempty" xml:"first_failure_time,omitempty"`
+}
+
+func (s MfaConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MfaConfig) GoString() string {
+	return s.String()
+}
+
+func (s *MfaConfig) SetUserId(v string) *MfaConfig {
+	s.UserId = &v
+	return s
+}
+
+func (s *MfaConfig) SetStatus(v string) *MfaConfig {
+	s.Status = &v
+	return s
+}
+
+func (s *MfaConfig) SetType(v string) *MfaConfig {
+	s.Type = &v
+	return s
+}
+
+func (s *MfaConfig) SetSecretKey(v string) *MfaConfig {
+	s.SecretKey = &v
+	return s
+}
+
+func (s *MfaConfig) SetLastGeneratedTime(v string) *MfaConfig {
+	s.LastGeneratedTime = &v
+	return s
+}
+
+func (s *MfaConfig) SetVerifyAttempts(v int64) *MfaConfig {
+	s.VerifyAttempts = &v
+	return s
+}
+
+func (s *MfaConfig) SetFirstFailureTime(v string) *MfaConfig {
+	s.FirstFailureTime = &v
+	return s
+}
+
+// 成员组
+type Group struct {
+	// 成员组ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 成员组名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 成员组描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+}
+
+func (s Group) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Group) GoString() string {
+	return s.String()
+}
+
+func (s *Group) SetId(v string) *Group {
+	s.Id = &v
+	return s
+}
+
+func (s *Group) SetName(v string) *Group {
+	s.Name = &v
+	return s
+}
+
+func (s *Group) SetDescription(v string) *Group {
+	s.Description = &v
+	return s
+}
+
+// 操作员
+type Operator struct {
+	// 操作员创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 操作员所在的企业
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 外部对接系统操作员id
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
+	// 外部对接系统类型
+	ExternalSystem *string `json:"external_system,omitempty" xml:"external_system,omitempty"`
+	// 操作员ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 是否是主账号
+	IsMaster *bool `json:"is_master,omitempty" xml:"is_master,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 昵称
+	Nickname *string `json:"nickname,omitempty" xml:"nickname,omitempty"`
+	// 真实姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 操作员加入的租户列表
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
+	// 操作员最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// 操作员工号
+	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
+	// 部门唯一码
+	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
+}
+
+func (s Operator) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Operator) GoString() string {
+	return s.String()
+}
+
+func (s *Operator) SetCreateTime(v string) *Operator {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *Operator) SetCustomer(v string) *Operator {
+	s.Customer = &v
+	return s
+}
+
+func (s *Operator) SetEmail(v string) *Operator {
+	s.Email = &v
+	return s
+}
+
+func (s *Operator) SetExternalId(v string) *Operator {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *Operator) SetExternalSystem(v string) *Operator {
+	s.ExternalSystem = &v
+	return s
+}
+
+func (s *Operator) SetId(v string) *Operator {
+	s.Id = &v
+	return s
+}
+
+func (s *Operator) SetIsMaster(v bool) *Operator {
+	s.IsMaster = &v
+	return s
+}
+
+func (s *Operator) SetLoginName(v string) *Operator {
+	s.LoginName = &v
+	return s
+}
+
+func (s *Operator) SetMobile(v string) *Operator {
+	s.Mobile = &v
+	return s
+}
+
+func (s *Operator) SetNickname(v string) *Operator {
+	s.Nickname = &v
+	return s
+}
+
+func (s *Operator) SetRealName(v string) *Operator {
+	s.RealName = &v
+	return s
+}
+
+func (s *Operator) SetStatus(v string) *Operator {
+	s.Status = &v
+	return s
+}
+
+func (s *Operator) SetTenants(v []*string) *Operator {
+	s.Tenants = v
+	return s
+}
+
+func (s *Operator) SetUpdateTime(v string) *Operator {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *Operator) SetWorkNo(v string) *Operator {
+	s.WorkNo = &v
+	return s
+}
+
+func (s *Operator) SetDepartmentCode(v string) *Operator {
+	s.DepartmentCode = &v
+	return s
+}
+
 type GetRoleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -1283,9 +1561,12 @@ func (s *GetRoleRequest) SetRoleId(v string) *GetRoleRequest {
 }
 
 type GetRoleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 角色所包含的操作点
 	Actions []*Action `json:"actions,omitempty" xml:"actions,omitempty" type:"Repeated"`
 	// 创建时间,ISO8601格式
@@ -1368,6 +1649,7 @@ func (s *GetRoleResponse) SetUpdateTime(v string) *GetRoleResponse {
 }
 
 type QueryPolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权对象id
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
@@ -1420,9 +1702,12 @@ func (s *QueryPolicyRequest) SetTenant(v string) *QueryPolicyRequest {
 }
 
 type QueryPolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 传入的页码, 如果没有传入, 则取默认值1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 传入的页大小, 如果没有传入, 则取默认值10
@@ -1477,6 +1762,7 @@ func (s *QueryPolicyResponse) SetTotalCount(v int) *QueryPolicyResponse {
 }
 
 type QueryGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权组成员ID。授权组成员是操作员
 	MemberId *string `json:"member_id,omitempty" xml:"member_id,omitempty"`
@@ -1522,9 +1808,12 @@ func (s *QueryGroupRequest) SetPageSize(v int) *QueryGroupRequest {
 }
 
 type QueryGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 授权组列表
 	Groups []*AuthGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
@@ -1579,6 +1868,7 @@ func (s *QueryGroupResponse) SetTotalCount(v int) *QueryGroupResponse {
 }
 
 type CreatePolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色Id
 	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
@@ -1638,9 +1928,12 @@ func (s *CreatePolicyRequest) SetTenant(v string) *CreatePolicyRequest {
 }
 
 type CreatePolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 授权策略id
 	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
 }
@@ -1674,6 +1967,7 @@ func (s *CreatePolicyResponse) SetPolicyId(v string) *CreatePolicyResponse {
 }
 
 type DeletePolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权策略Id
 	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
@@ -1698,9 +1992,12 @@ func (s *DeletePolicyRequest) SetPolicyId(v string) *DeletePolicyRequest {
 }
 
 type DeletePolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeletePolicyResponse) String() string {
@@ -1727,13 +2024,18 @@ func (s *DeletePolicyResponse) SetResultMsg(v string) *DeletePolicyResponse {
 }
 
 type AttachPolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权对象Id
-	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
+	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
 	// 授权对象类型
-	ActorType *string `json:"actor_type,omitempty" xml:"actor_type,omitempty" require:"true"`
+	ActorType *string `json:"actor_type,omitempty" xml:"actor_type,omitempty"`
 	// 授权策略Id
-	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+	// 授权操作员的登录名，当配置actor_id与actor_type时可不填
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 授权策略的唯一名称，当配置policy_id时可不填
+	PolicyName *string `json:"policy_name,omitempty" xml:"policy_name,omitempty"`
 }
 
 func (s AttachPolicyRequest) String() string {
@@ -1764,10 +2066,23 @@ func (s *AttachPolicyRequest) SetPolicyId(v string) *AttachPolicyRequest {
 	return s
 }
 
+func (s *AttachPolicyRequest) SetLoginName(v string) *AttachPolicyRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *AttachPolicyRequest) SetPolicyName(v string) *AttachPolicyRequest {
+	s.PolicyName = &v
+	return s
+}
+
 type AttachPolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AttachPolicyResponse) String() string {
@@ -1794,13 +2109,18 @@ func (s *AttachPolicyResponse) SetResultMsg(v string) *AttachPolicyResponse {
 }
 
 type DetachPolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权对象Id
-	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
+	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
 	// 授权对象类型
-	ActorType *string `json:"actor_type,omitempty" xml:"actor_type,omitempty" require:"true"`
+	ActorType *string `json:"actor_type,omitempty" xml:"actor_type,omitempty"`
 	// 授权策略Id
-	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+	// 授权操作员的登录名，当配置actor_id与actor_type时可不填
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 授权策略的唯一名称，当配置policy_id时可不填
+	PolicyName *string `json:"policy_name,omitempty" xml:"policy_name,omitempty"`
 }
 
 func (s DetachPolicyRequest) String() string {
@@ -1831,10 +2151,23 @@ func (s *DetachPolicyRequest) SetPolicyId(v string) *DetachPolicyRequest {
 	return s
 }
 
+func (s *DetachPolicyRequest) SetLoginName(v string) *DetachPolicyRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *DetachPolicyRequest) SetPolicyName(v string) *DetachPolicyRequest {
+	s.PolicyName = &v
+	return s
+}
+
 type DetachPolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DetachPolicyResponse) String() string {
@@ -1861,6 +2194,7 @@ func (s *DetachPolicyResponse) SetResultMsg(v string) *DetachPolicyResponse {
 }
 
 type ListPolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 授权对象id
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
@@ -1899,9 +2233,12 @@ func (s *ListPolicyRequest) SetTenant(v string) *ListPolicyRequest {
 }
 
 type ListPolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 授权策略列表
 	Policies []*AuthPolicy `json:"policies,omitempty" xml:"policies,omitempty" require:"true" type:"Repeated"`
 }
@@ -1935,6 +2272,7 @@ func (s *ListPolicyResponse) SetPolicies(v []*AuthPolicy) *ListPolicyResponse {
 }
 
 type JudgeAuthorityRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作点id
 	ActionId *string `json:"action_id,omitempty" xml:"action_id,omitempty" require:"true"`
@@ -1973,9 +2311,12 @@ func (s *JudgeAuthorityRequest) SetOperatorId(v string) *JudgeAuthorityRequest {
 }
 
 type JudgeAuthorityResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 判断结果。true：鉴权通过；false：鉴权未通过
 	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
 }
@@ -2009,6 +2350,7 @@ func (s *JudgeAuthorityResponse) SetResult(v string) *JudgeAuthorityResponse {
 }
 
 type CreateProductActionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作点ID
 	ActionId *string `json:"action_id,omitempty" xml:"action_id,omitempty" require:"true"`
@@ -2061,9 +2403,12 @@ func (s *CreateProductActionRequest) SetProduct(v string) *CreateProductActionRe
 }
 
 type CreateProductActionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s CreateProductActionResponse) String() string {
@@ -2090,6 +2435,7 @@ func (s *CreateProductActionResponse) SetResultMsg(v string) *CreateProductActio
 }
 
 type VerifyOauthTokenRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// token值
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
@@ -2128,9 +2474,12 @@ func (s *VerifyOauthTokenRequest) SetScene(v string) *VerifyOauthTokenRequest {
 }
 
 type VerifyOauthTokenResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// token关联的用户id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// token关联的用户类型
@@ -2171,6 +2520,7 @@ func (s *VerifyOauthTokenResponse) SetType(v string) *VerifyOauthTokenResponse {
 }
 
 type VerifySessionTokenRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// token值
 	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
@@ -2195,9 +2545,12 @@ func (s *VerifySessionTokenRequest) SetToken(v string) *VerifySessionTokenReques
 }
 
 type VerifySessionTokenResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用户所在企业的唯一标识
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
 	// 登录名
@@ -2259,6 +2612,7 @@ func (s *VerifySessionTokenResponse) SetTenantDetails(v []*Tenant) *VerifySessio
 }
 
 type ListRoleOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -2290,9 +2644,12 @@ func (s *ListRoleOperatorRequest) SetTenant(v string) *ListRoleOperatorRequest {
 }
 
 type ListRoleOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员列表
 	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" require:"true" type:"Repeated"`
 }
@@ -2326,6 +2683,7 @@ func (s *ListRoleOperatorResponse) SetOperators(v []*Operator) *ListRoleOperator
 }
 
 type ApplyTrustloginUrlRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 	跳转地址
 	GotoUrl *string `json:"goto_url,omitempty" xml:"goto_url,omitempty" require:"true"`
@@ -2357,9 +2715,12 @@ func (s *ApplyTrustloginUrlRequest) SetOperatorId(v string) *ApplyTrustloginUrlR
 }
 
 type ApplyTrustloginUrlResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 信登URL
 	TrustLoginUrl *string `json:"trust_login_url,omitempty" xml:"trust_login_url,omitempty"`
 }
@@ -2393,6 +2754,7 @@ func (s *ApplyTrustloginUrlResponse) SetTrustLoginUrl(v string) *ApplyTrustlogin
 }
 
 type AssumeStsRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 虚拟身份唯一名称
 	ActorName *string `json:"actor_name,omitempty" xml:"actor_name,omitempty" require:"true"`
@@ -2438,9 +2800,12 @@ func (s *AssumeStsRequest) SetSessionName(v string) *AssumeStsRequest {
 }
 
 type AssumeStsResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全令牌accessKey
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// 安全令牌accessSecret
@@ -2495,6 +2860,7 @@ func (s *AssumeStsResponse) SetSecurityToken(v string) *AssumeStsResponse {
 }
 
 type CreateStsActorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 虚拟身份受信关系集合，通常只包含一个
 	Bindings []*StsActorBinding `json:"bindings,omitempty" xml:"bindings,omitempty" require:"true" type:"Repeated"`
@@ -2533,9 +2899,12 @@ func (s *CreateStsActorRequest) SetName(v string) *CreateStsActorRequest {
 }
 
 type CreateStsActorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 虚拟身份ID
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
 }
@@ -2569,6 +2938,7 @@ func (s *CreateStsActorResponse) SetActorId(v string) *CreateStsActorResponse {
 }
 
 type DeleteStsActorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 虚拟身份ID，与虚拟身份名称两个参数二选一传入
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
@@ -2600,9 +2970,12 @@ func (s *DeleteStsActorRequest) SetActorName(v string) *DeleteStsActorRequest {
 }
 
 type DeleteStsActorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteStsActorResponse) String() string {
@@ -2629,6 +3002,7 @@ func (s *DeleteStsActorResponse) SetResultMsg(v string) *DeleteStsActorResponse 
 }
 
 type GetStsActorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 虚拟身份ID，与虚拟身份名称两个参数二选一传入
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty"`
@@ -2660,9 +3034,12 @@ func (s *GetStsActorRequest) SetActorName(v string) *GetStsActorRequest {
 }
 
 type GetStsActorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 虚拟身份受信关系集合，通常只包含一个
 	Bindings []*StsActorBinding `json:"bindings,omitempty" xml:"bindings,omitempty" type:"Repeated"`
 	// 针对虚拟身份的描述
@@ -2724,6 +3101,7 @@ func (s *GetStsActorResponse) SetTenant(v string) *GetStsActorResponse {
 }
 
 type ListStsActorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -2741,9 +3119,12 @@ func (s *ListStsActorRequest) SetAuthToken(v string) *ListStsActorRequest {
 }
 
 type ListStsActorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 虚拟身份列表
 	Actors []*StsActor `json:"actors,omitempty" xml:"actors,omitempty" type:"Repeated"`
 }
@@ -2777,6 +3158,7 @@ func (s *ListStsActorResponse) SetActors(v []*StsActor) *ListStsActorResponse {
 }
 
 type UpdateStsActorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 虚拟身份ID
 	ActorId *string `json:"actor_id,omitempty" xml:"actor_id,omitempty" require:"true"`
@@ -2808,9 +3190,12 @@ func (s *UpdateStsActorRequest) SetDescription(v string) *UpdateStsActorRequest 
 }
 
 type UpdateStsActorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 虚拟身份受信关系集合，通常只包含一个
 	Bindings []*StsActorBinding `json:"bindings,omitempty" xml:"bindings,omitempty" type:"Repeated"`
 	// 针对虚拟身份的描述
@@ -2872,6 +3257,7 @@ func (s *UpdateStsActorResponse) SetTenant(v string) *UpdateStsActorResponse {
 }
 
 type QueryRoleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
@@ -2924,9 +3310,12 @@ func (s *QueryRoleRequest) SetType(v string) *QueryRoleRequest {
 }
 
 type QueryRoleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 当前页
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小
@@ -2981,6 +3370,7 @@ func (s *QueryRoleResponse) SetTotalCount(v int64) *QueryRoleResponse {
 }
 
 type GetIaasaccountBaseinfoRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -2998,9 +3388,12 @@ func (s *GetIaasaccountBaseinfoRequest) SetAuthToken(v string) *GetIaasaccountBa
 }
 
 type GetIaasaccountBaseinfoResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 账号名称
 	Account *string `json:"account,omitempty" xml:"account,omitempty"`
 	// 账号ID
@@ -3052,6 +3445,7 @@ func (s *GetIaasaccountBaseinfoResponse) SetSourceType(v string) *GetIaasaccount
 }
 
 type VerifyPasswordRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 加密过的密码值，使用AccessSecret进行3DES加密
 	EncryptedPassword *string `json:"encrypted_password,omitempty" xml:"encrypted_password,omitempty" require:"true"`
@@ -3083,9 +3477,12 @@ func (s *VerifyPasswordRequest) SetLoginName(v string) *VerifyPasswordRequest {
 }
 
 type VerifyPasswordResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s VerifyPasswordResponse) String() string {
@@ -3112,6 +3509,7 @@ func (s *VerifyPasswordResponse) SetResultMsg(v string) *VerifyPasswordResponse 
 }
 
 type UpdateOperatorStatusRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -3143,9 +3541,12 @@ func (s *UpdateOperatorStatusRequest) SetStatus(v string) *UpdateOperatorStatusR
 }
 
 type UpdateOperatorStatusResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateOperatorStatusResponse) String() string {
@@ -3172,6 +3573,7 @@ func (s *UpdateOperatorStatusResponse) SetResultMsg(v string) *UpdateOperatorSta
 }
 
 type FreezeOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -3196,9 +3598,12 @@ func (s *FreezeOperatorRequest) SetOperatorId(v string) *FreezeOperatorRequest {
 }
 
 type FreezeOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s FreezeOperatorResponse) String() string {
@@ -3225,6 +3630,7 @@ func (s *FreezeOperatorResponse) SetResultMsg(v string) *FreezeOperatorResponse 
 }
 
 type UnfreezeOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -3249,9 +3655,12 @@ func (s *UnfreezeOperatorRequest) SetOperatorId(v string) *UnfreezeOperatorReque
 }
 
 type UnfreezeOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UnfreezeOperatorResponse) String() string {
@@ -3278,6 +3687,7 @@ func (s *UnfreezeOperatorResponse) SetResultMsg(v string) *UnfreezeOperatorRespo
 }
 
 type GetInternalMasterRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 阿里云PK
 	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
@@ -3316,9 +3726,12 @@ func (s *GetInternalMasterRequest) SetSourceSystem(v string) *GetInternalMasterR
 }
 
 type GetInternalMasterResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 证件ID
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// 证件类型
@@ -3429,6 +3842,7 @@ func (s *GetInternalMasterResponse) SetIndustryLabel(v string) *GetInternalMaste
 }
 
 type GetAliyunUserRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 阿里云用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
@@ -3453,9 +3867,12 @@ func (s *GetAliyunUserRequest) SetUserId(v string) *GetAliyunUserRequest {
 }
 
 type GetAliyunUserResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 阿里云用户ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 主账号类型下有值，即type为ENTERPRISE和PERSONAL时有值
@@ -3531,6 +3948,7 @@ func (s *GetAliyunUserResponse) SetDisplayName(v string) *GetAliyunUserResponse 
 }
 
 type JudgeAliyunAuthorityRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 阿里云POP API名称
 	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
@@ -3597,9 +4015,12 @@ func (s *JudgeAliyunAuthorityRequest) SetUserId(v string) *JudgeAliyunAuthorityR
 }
 
 type JudgeAliyunAuthorityResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 权限校验是否通过
 	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
 	// 失败原因
@@ -3647,6 +4068,7 @@ func (s *JudgeAliyunAuthorityResponse) SetSolution(v string) *JudgeAliyunAuthori
 }
 
 type GetSessionAccessorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 登录态
 	Authorization *string `json:"authorization,omitempty" xml:"authorization,omitempty" require:"true"`
@@ -3678,9 +4100,12 @@ func (s *GetSessionAccessorRequest) SetUserTenant(v string) *GetSessionAccessorR
 }
 
 type GetSessionAccessorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// access_key
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// access_secret
@@ -3735,6 +4160,7 @@ func (s *GetSessionAccessorResponse) SetUserId(v string) *GetSessionAccessorResp
 }
 
 type UpdatePasswordRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 登录名
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
@@ -3775,9 +4201,12 @@ func (s *UpdatePasswordRequest) SetOldEncryptedPassword(v string) *UpdatePasswor
 }
 
 type UpdatePasswordResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdatePasswordResponse) String() string {
@@ -3804,6 +4233,7 @@ func (s *UpdatePasswordResponse) SetResultMsg(v string) *UpdatePasswordResponse 
 }
 
 type JudgeMultiauthorityRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 批量鉴权对象
 	BatchEvent *AuthenticateBatchEvent `json:"batch_event,omitempty" xml:"batch_event,omitempty" require:"true"`
@@ -3835,9 +4265,12 @@ func (s *JudgeMultiauthorityRequest) SetContext(v string) *JudgeMultiauthorityRe
 }
 
 type JudgeMultiauthorityResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 鉴权结果列表
 	Judgements []*Judgement `json:"judgements,omitempty" xml:"judgements,omitempty" type:"Repeated"`
 }
@@ -3871,6 +4304,7 @@ func (s *JudgeMultiauthorityResponse) SetJudgements(v []*Judgement) *JudgeMultia
 }
 
 type JudgeAliyunMultiauthorityRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 阿里云批量鉴权
 	BatchEvent *AliyunAuthenticateBatchEvent `json:"batch_event,omitempty" xml:"batch_event,omitempty" require:"true"`
@@ -3902,9 +4336,12 @@ func (s *JudgeAliyunMultiauthorityRequest) SetContext(v string) *JudgeAliyunMult
 }
 
 type JudgeAliyunMultiauthorityResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 鉴权结果列表
 	Judgements []*Judgement `json:"judgements,omitempty" xml:"judgements,omitempty" type:"Repeated"`
 }
@@ -3938,6 +4375,7 @@ func (s *JudgeAliyunMultiauthorityResponse) SetJudgements(v []*Judgement) *Judge
 }
 
 type GetAccessorCurrentRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -3955,9 +4393,12 @@ func (s *GetAccessorCurrentRequest) SetAuthToken(v string) *GetAccessorCurrentRe
 }
 
 type GetAccessorCurrentResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 一方化链路为阿里云用户ID，蚂蚁链路为金融云用户ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 登录名
@@ -4026,6 +4467,7 @@ func (s *GetAccessorCurrentResponse) SetType(v string) *GetAccessorCurrentRespon
 }
 
 type GetServiceaccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 服务账号名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
@@ -4057,9 +4499,12 @@ func (s *GetServiceaccountRequest) SetServiceAccountId(v string) *GetServiceacco
 }
 
 type GetServiceaccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 服务账号别名
 	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
 	// 服务账号描述
@@ -4121,6 +4566,7 @@ func (s *GetServiceaccountResponse) SetTenant(v string) *GetServiceaccountRespon
 }
 
 type CreateServiceaccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 服务账号描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
@@ -4152,9 +4598,12 @@ func (s *CreateServiceaccountRequest) SetAlias(v string) *CreateServiceaccountRe
 }
 
 type CreateServiceaccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 服务账号AK
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// 服务账号SK
@@ -4230,6 +4679,7 @@ func (s *CreateServiceaccountResponse) SetTenant(v string) *CreateServiceaccount
 }
 
 type DeleteServiceaccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 服务账号名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
@@ -4261,9 +4711,12 @@ func (s *DeleteServiceaccountRequest) SetServiceAccountId(v string) *DeleteServi
 }
 
 type DeleteServiceaccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteServiceaccountResponse) String() string {
@@ -4290,6 +4743,7 @@ func (s *DeleteServiceaccountResponse) SetResultMsg(v string) *DeleteServiceacco
 }
 
 type UpdateServiceaccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 服务账号别名
 	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
@@ -4335,9 +4789,12 @@ func (s *UpdateServiceaccountRequest) SetServiceAccountId(v string) *UpdateServi
 }
 
 type UpdateServiceaccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateServiceaccountResponse) String() string {
@@ -4364,6 +4821,7 @@ func (s *UpdateServiceaccountResponse) SetResultMsg(v string) *UpdateServiceacco
 }
 
 type RemoveTenantMemberRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -4388,9 +4846,12 @@ func (s *RemoveTenantMemberRequest) SetOperatorId(v string) *RemoveTenantMemberR
 }
 
 type RemoveTenantMemberResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveTenantMemberResponse) String() string {
@@ -4417,6 +4878,7 @@ func (s *RemoveTenantMemberResponse) SetResultMsg(v string) *RemoveTenantMemberR
 }
 
 type CreateGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -4448,9 +4910,12 @@ func (s *CreateGroupRequest) SetDescription(v string) *CreateGroupRequest {
 }
 
 type CreateGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 成员组ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 }
@@ -4484,6 +4949,7 @@ func (s *CreateGroupResponse) SetId(v string) *CreateGroupResponse {
 }
 
 type DeleteGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4508,9 +4974,12 @@ func (s *DeleteGroupRequest) SetGroupId(v string) *DeleteGroupRequest {
 }
 
 type DeleteGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteGroupResponse) String() string {
@@ -4537,6 +5006,7 @@ func (s *DeleteGroupResponse) SetResultMsg(v string) *DeleteGroupResponse {
 }
 
 type UpdateGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4575,9 +5045,12 @@ func (s *UpdateGroupRequest) SetDescription(v string) *UpdateGroupRequest {
 }
 
 type UpdateGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateGroupResponse) String() string {
@@ -4604,6 +5077,7 @@ func (s *UpdateGroupResponse) SetResultMsg(v string) *UpdateGroupResponse {
 }
 
 type AddGroupMemberRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4635,9 +5109,12 @@ func (s *AddGroupMemberRequest) SetOperatorIds(v []*string) *AddGroupMemberReque
 }
 
 type AddGroupMemberResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AddGroupMemberResponse) String() string {
@@ -4664,6 +5141,7 @@ func (s *AddGroupMemberResponse) SetResultMsg(v string) *AddGroupMemberResponse 
 }
 
 type RemoveGroupMemberRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4695,9 +5173,12 @@ func (s *RemoveGroupMemberRequest) SetOperatorIds(v []*string) *RemoveGroupMembe
 }
 
 type RemoveGroupMemberResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveGroupMemberResponse) String() string {
@@ -4724,6 +5205,7 @@ func (s *RemoveGroupMemberResponse) SetResultMsg(v string) *RemoveGroupMemberRes
 }
 
 type GetGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4748,9 +5230,12 @@ func (s *GetGroupRequest) SetGroupId(v string) *GetGroupRequest {
 }
 
 type GetGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 成员组ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 名称
@@ -4798,6 +5283,7 @@ func (s *GetGroupResponse) SetDescription(v string) *GetGroupResponse {
 }
 
 type QueryGroupMemberRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 成员组ID
 	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
@@ -4836,9 +5322,12 @@ func (s *QueryGroupMemberRequest) SetCurrentPage(v int64) *QueryGroupMemberReque
 }
 
 type QueryGroupMemberResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 成员列表
 	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" type:"Repeated"`
 	// 当前页
@@ -4893,6 +5382,7 @@ func (s *QueryGroupMemberResponse) SetTotalCount(v int64) *QueryGroupMemberRespo
 }
 
 type ListOperatorGroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -4917,9 +5407,12 @@ func (s *ListOperatorGroupRequest) SetOperatorId(v string) *ListOperatorGroupReq
 }
 
 type ListOperatorGroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 成员组列表
 	Groups []*Group `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
 }
@@ -4953,6 +5446,7 @@ func (s *ListOperatorGroupResponse) SetGroups(v []*Group) *ListOperatorGroupResp
 }
 
 type AddRoleActionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -4984,9 +5478,12 @@ func (s *AddRoleActionRequest) SetActions(v []*string) *AddRoleActionRequest {
 }
 
 type AddRoleActionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AddRoleActionResponse) String() string {
@@ -5013,6 +5510,7 @@ func (s *AddRoleActionResponse) SetResultMsg(v string) *AddRoleActionResponse {
 }
 
 type RemoveRoleActionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -5044,9 +5542,12 @@ func (s *RemoveRoleActionRequest) SetActions(v []*string) *RemoveRoleActionReque
 }
 
 type RemoveRoleActionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveRoleActionResponse) String() string {
@@ -5073,6 +5574,7 @@ func (s *RemoveRoleActionResponse) SetResultMsg(v string) *RemoveRoleActionRespo
 }
 
 type CreateRoleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -5111,9 +5613,12 @@ func (s *CreateRoleRequest) SetActions(v []*string) *CreateRoleRequest {
 }
 
 type CreateRoleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 角色ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 }
@@ -5147,6 +5652,7 @@ func (s *CreateRoleResponse) SetId(v string) *CreateRoleResponse {
 }
 
 type DeleteRoleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -5171,9 +5677,12 @@ func (s *DeleteRoleRequest) SetRoleId(v string) *DeleteRoleRequest {
 }
 
 type DeleteRoleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteRoleResponse) String() string {
@@ -5200,6 +5709,7 @@ func (s *DeleteRoleResponse) SetResultMsg(v string) *DeleteRoleResponse {
 }
 
 type UpdateRoleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 角色ID
 	RoleId *string `json:"role_id,omitempty" xml:"role_id,omitempty" require:"true"`
@@ -5238,9 +5748,12 @@ func (s *UpdateRoleRequest) SetDescription(v string) *UpdateRoleRequest {
 }
 
 type UpdateRoleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateRoleResponse) String() string {
@@ -5263,6 +5776,2189 @@ func (s *UpdateRoleResponse) SetResultCode(v string) *UpdateRoleResponse {
 
 func (s *UpdateRoleResponse) SetResultMsg(v string) *UpdateRoleResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type GetDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一代码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s GetDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDepartmentRequest) SetAuthToken(v string) *GetDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDepartmentRequest) SetCode(v string) *GetDepartmentRequest {
+	s.Code = &v
+	return s
+}
+
+type GetDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 部门唯一代码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 部门名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 部门描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 父部门 code
+	ParentCode *string `json:"parent_code,omitempty" xml:"parent_code,omitempty"`
+	// 企业 id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 是否为叶子结点
+	IsLeaf *bool `json:"is_leaf,omitempty" xml:"is_leaf,omitempty"`
+	// 创建时间，ISO8601格式
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty"`
+	// 更新时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s GetDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDepartmentResponse) SetReqMsgId(v string) *GetDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetResultCode(v string) *GetDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetResultMsg(v string) *GetDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetCode(v string) *GetDepartmentResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetName(v string) *GetDepartmentResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetDescription(v string) *GetDepartmentResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetParentCode(v string) *GetDepartmentResponse {
+	s.ParentCode = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetCustomerId(v string) *GetDepartmentResponse {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetIsLeaf(v bool) *GetDepartmentResponse {
+	s.IsLeaf = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetCreationTime(v string) *GetDepartmentResponse {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *GetDepartmentResponse) SetUpdateTime(v string) *GetDepartmentResponse {
+	s.UpdateTime = &v
+	return s
+}
+
+type CreateDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 部门名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 部门描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 父部门 code，如果需要创建根部门，需填：ROOT
+	ParentCode *string `json:"parent_code,omitempty" xml:"parent_code,omitempty" require:"true"`
+}
+
+func (s CreateDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDepartmentRequest) SetAuthToken(v string) *CreateDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDepartmentRequest) SetCode(v string) *CreateDepartmentRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateDepartmentRequest) SetName(v string) *CreateDepartmentRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateDepartmentRequest) SetDescription(v string) *CreateDepartmentRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateDepartmentRequest) SetParentCode(v string) *CreateDepartmentRequest {
+	s.ParentCode = &v
+	return s
+}
+
+type CreateDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDepartmentResponse) SetReqMsgId(v string) *CreateDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDepartmentResponse) SetResultCode(v string) *CreateDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDepartmentResponse) SetResultMsg(v string) *CreateDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 部门名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 部门描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 父部们唯一码
+	ParentCode *string `json:"parent_code,omitempty" xml:"parent_code,omitempty"`
+}
+
+func (s UpdateDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDepartmentRequest) SetAuthToken(v string) *UpdateDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDepartmentRequest) SetCode(v string) *UpdateDepartmentRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *UpdateDepartmentRequest) SetName(v string) *UpdateDepartmentRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateDepartmentRequest) SetDescription(v string) *UpdateDepartmentRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *UpdateDepartmentRequest) SetParentCode(v string) *UpdateDepartmentRequest {
+	s.ParentCode = &v
+	return s
+}
+
+type UpdateDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDepartmentResponse) SetReqMsgId(v string) *UpdateDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDepartmentResponse) SetResultCode(v string) *UpdateDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDepartmentResponse) SetResultMsg(v string) *UpdateDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s DeleteDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDepartmentRequest) SetAuthToken(v string) *DeleteDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDepartmentRequest) SetCode(v string) *DeleteDepartmentRequest {
+	s.Code = &v
+	return s
+}
+
+type DeleteDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDepartmentResponse) SetReqMsgId(v string) *DeleteDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteDepartmentResponse) SetResultCode(v string) *DeleteDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteDepartmentResponse) SetResultMsg(v string) *DeleteDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 部门名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 部门描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 父部门唯一码
+	ParentCode *string `json:"parent_code,omitempty" xml:"parent_code,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s PagequeryDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDepartmentRequest) SetAuthToken(v string) *PagequeryDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetCode(v string) *PagequeryDepartmentRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetName(v string) *PagequeryDepartmentRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetDescription(v string) *PagequeryDepartmentRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetParentCode(v string) *PagequeryDepartmentRequest {
+	s.ParentCode = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetPageSize(v int64) *PagequeryDepartmentRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryDepartmentRequest) SetPageNum(v int64) *PagequeryDepartmentRequest {
+	s.PageNum = &v
+	return s
+}
+
+type PagequeryDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 部门列表
+	Departments []*Department `json:"departments,omitempty" xml:"departments,omitempty" type:"Repeated"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s PagequeryDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDepartmentResponse) SetReqMsgId(v string) *PagequeryDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetResultCode(v string) *PagequeryDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetResultMsg(v string) *PagequeryDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetDepartments(v []*Department) *PagequeryDepartmentResponse {
+	s.Departments = v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetPageNum(v int64) *PagequeryDepartmentResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetPageSize(v int64) *PagequeryDepartmentResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryDepartmentResponse) SetTotalCount(v int64) *PagequeryDepartmentResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type BatchqueryDepartmentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	Codes []*string `json:"codes,omitempty" xml:"codes,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryDepartmentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryDepartmentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryDepartmentRequest) SetAuthToken(v string) *BatchqueryDepartmentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryDepartmentRequest) SetCodes(v []*string) *BatchqueryDepartmentRequest {
+	s.Codes = v
+	return s
+}
+
+type BatchqueryDepartmentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 部门列表
+	Departments []*Department `json:"departments,omitempty" xml:"departments,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryDepartmentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryDepartmentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryDepartmentResponse) SetReqMsgId(v string) *BatchqueryDepartmentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryDepartmentResponse) SetResultCode(v string) *BatchqueryDepartmentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryDepartmentResponse) SetResultMsg(v string) *BatchqueryDepartmentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryDepartmentResponse) SetDepartments(v []*Department) *BatchqueryDepartmentResponse {
+	s.Departments = v
+	return s
+}
+
+type SaveDepartmentUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 待添加或更新的部门成员关系列表
+	DepartmentUsers []*DepartmentUser `json:"department_users,omitempty" xml:"department_users,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SaveDepartmentUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDepartmentUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDepartmentUserRequest) SetAuthToken(v string) *SaveDepartmentUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveDepartmentUserRequest) SetDepartmentUsers(v []*DepartmentUser) *SaveDepartmentUserRequest {
+	s.DepartmentUsers = v
+	return s
+}
+
+type SaveDepartmentUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SaveDepartmentUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDepartmentUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDepartmentUserResponse) SetReqMsgId(v string) *SaveDepartmentUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveDepartmentUserResponse) SetResultCode(v string) *SaveDepartmentUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveDepartmentUserResponse) SetResultMsg(v string) *SaveDepartmentUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RemoveDepartmentUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 待删除的部门成员关系列表
+	DepartmentUsers []*DepartmentUser `json:"department_users,omitempty" xml:"department_users,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RemoveDepartmentUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveDepartmentUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveDepartmentUserRequest) SetAuthToken(v string) *RemoveDepartmentUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveDepartmentUserRequest) SetDepartmentUsers(v []*DepartmentUser) *RemoveDepartmentUserRequest {
+	s.DepartmentUsers = v
+	return s
+}
+
+type RemoveDepartmentUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RemoveDepartmentUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveDepartmentUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveDepartmentUserResponse) SetReqMsgId(v string) *RemoveDepartmentUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveDepartmentUserResponse) SetResultCode(v string) *RemoveDepartmentUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveDepartmentUserResponse) SetResultMsg(v string) *RemoveDepartmentUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDepartmentUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 部门唯一码
+	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 部门成员类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s QueryDepartmentUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDepartmentUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDepartmentUserRequest) SetAuthToken(v string) *QueryDepartmentUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDepartmentUserRequest) SetDepartmentCode(v string) *QueryDepartmentUserRequest {
+	s.DepartmentCode = &v
+	return s
+}
+
+func (s *QueryDepartmentUserRequest) SetUserId(v string) *QueryDepartmentUserRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryDepartmentUserRequest) SetType(v string) *QueryDepartmentUserRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryDepartmentUserRequest) SetPageSize(v int64) *QueryDepartmentUserRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDepartmentUserRequest) SetPageNum(v int64) *QueryDepartmentUserRequest {
+	s.PageNum = &v
+	return s
+}
+
+type QueryDepartmentUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 部门成员列表
+	DepartmentUsers []*DepartmentUser `json:"department_users,omitempty" xml:"department_users,omitempty" type:"Repeated"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s QueryDepartmentUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDepartmentUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDepartmentUserResponse) SetReqMsgId(v string) *QueryDepartmentUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetResultCode(v string) *QueryDepartmentUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetResultMsg(v string) *QueryDepartmentUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetDepartmentUsers(v []*DepartmentUser) *QueryDepartmentUserResponse {
+	s.DepartmentUsers = v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetPageNum(v int64) *QueryDepartmentUserResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetPageSize(v int64) *QueryDepartmentUserResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDepartmentUserResponse) SetTotalCount(v int64) *QueryDepartmentUserResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type GetLoginconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s GetLoginconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetLoginconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetLoginconfigRequest) SetAuthToken(v string) *GetLoginconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type GetLoginconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 密码最小长度
+	PasswordMinLength *int64 `json:"password_min_length,omitempty" xml:"password_min_length,omitempty"`
+	// 密码最大长度
+	PasswordMaxLength *int64 `json:"password_max_length,omitempty" xml:"password_max_length,omitempty"`
+	// 密码是否必须包含小写字母
+	PasswordLowercaseLetter *bool `json:"password_lowercase_letter,omitempty" xml:"password_lowercase_letter,omitempty"`
+	// 密码是否必须包含大写字母
+	PasswordUppercaseLetter *bool `json:"password_uppercase_letter,omitempty" xml:"password_uppercase_letter,omitempty"`
+	// 密码是否必须包含字母
+	PasswordLetter *bool `json:"password_letter,omitempty" xml:"password_letter,omitempty"`
+	// 密码是否必须包含数字
+	PasswordDigit *bool `json:"password_digit,omitempty" xml:"password_digit,omitempty"`
+	// 密码是否必须包含特殊字符
+	PasswordSpecialChar *bool `json:"password_special_char,omitempty" xml:"password_special_char,omitempty"`
+	// 是否检查密码有效
+	PasswordValidCheck *bool `json:"password_valid_check,omitempty" xml:"password_valid_check,omitempty"`
+	// 密码有效期
+	PasswordValidPeriod *int64 `json:"password_valid_period,omitempty" xml:"password_valid_period,omitempty"`
+	// 密码过期后是否允许登录
+	PasswordExpiredLogin *bool `json:"password_expired_login,omitempty" xml:"password_expired_login,omitempty"`
+	// 是否检查密码历史
+	PasswordHistoryCheck *bool `json:"password_history_check,omitempty" xml:"password_history_check,omitempty"`
+	// 密码历史个数
+	PasswordHistoryNum *int64 `json:"password_history_num,omitempty" xml:"password_history_num,omitempty"`
+	// 重试校验是否触发锁定
+	VerifyAttemptsCheck *bool `json:"verify_attempts_check,omitempty" xml:"verify_attempts_check,omitempty"`
+	// 重试校验窗口
+	VerifyAttemptsWindow *int64 `json:"verify_attempts_window,omitempty" xml:"verify_attempts_window,omitempty"`
+	// 重试校验触发锁定阈值
+	VerifyAttemptsThreshold *int64 `json:"verify_attempts_threshold,omitempty" xml:"verify_attempts_threshold,omitempty"`
+	// 锁定时间
+	LockoutDuration *int64 `json:"lockout_duration,omitempty" xml:"lockout_duration,omitempty"`
+	// 是否检查账户活跃
+	ActiveCheck *bool `json:"active_check,omitempty" xml:"active_check,omitempty"`
+	// 活跃周期，非活跃时锁定登录
+	ActivePeriod *int64 `json:"active_period,omitempty" xml:"active_period,omitempty"`
+	// 是否允许自主管理密码
+	PasswordSelfManage *bool `json:"password_self_manage,omitempty" xml:"password_self_manage,omitempty"`
+	// 是否允许自主管理MFA
+	MfaSelfManage *bool `json:"mfa_self_manage,omitempty" xml:"mfa_self_manage,omitempty"`
+	// 状态, 取值范围：NORMAL(正常状态), LOCK(锁定), ONE_PARTY_MIGRATING(一方化迁移中), ONE_PARTY_MIGRATION_LOCK(一方化迁移完成，禁用蚂蚁登录)
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 并发登录的ip数量，小于1表示不限制
+	ConcurrentIpCount *int64 `json:"concurrent_ip_count,omitempty" xml:"concurrent_ip_count,omitempty"`
+}
+
+func (s GetLoginconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetLoginconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetLoginconfigResponse) SetReqMsgId(v string) *GetLoginconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetResultCode(v string) *GetLoginconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetResultMsg(v string) *GetLoginconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordMinLength(v int64) *GetLoginconfigResponse {
+	s.PasswordMinLength = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordMaxLength(v int64) *GetLoginconfigResponse {
+	s.PasswordMaxLength = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordLowercaseLetter(v bool) *GetLoginconfigResponse {
+	s.PasswordLowercaseLetter = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordUppercaseLetter(v bool) *GetLoginconfigResponse {
+	s.PasswordUppercaseLetter = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordLetter(v bool) *GetLoginconfigResponse {
+	s.PasswordLetter = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordDigit(v bool) *GetLoginconfigResponse {
+	s.PasswordDigit = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordSpecialChar(v bool) *GetLoginconfigResponse {
+	s.PasswordSpecialChar = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordValidCheck(v bool) *GetLoginconfigResponse {
+	s.PasswordValidCheck = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordValidPeriod(v int64) *GetLoginconfigResponse {
+	s.PasswordValidPeriod = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordExpiredLogin(v bool) *GetLoginconfigResponse {
+	s.PasswordExpiredLogin = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordHistoryCheck(v bool) *GetLoginconfigResponse {
+	s.PasswordHistoryCheck = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordHistoryNum(v int64) *GetLoginconfigResponse {
+	s.PasswordHistoryNum = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetVerifyAttemptsCheck(v bool) *GetLoginconfigResponse {
+	s.VerifyAttemptsCheck = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetVerifyAttemptsWindow(v int64) *GetLoginconfigResponse {
+	s.VerifyAttemptsWindow = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetVerifyAttemptsThreshold(v int64) *GetLoginconfigResponse {
+	s.VerifyAttemptsThreshold = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetLockoutDuration(v int64) *GetLoginconfigResponse {
+	s.LockoutDuration = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetActiveCheck(v bool) *GetLoginconfigResponse {
+	s.ActiveCheck = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetActivePeriod(v int64) *GetLoginconfigResponse {
+	s.ActivePeriod = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetPasswordSelfManage(v bool) *GetLoginconfigResponse {
+	s.PasswordSelfManage = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetMfaSelfManage(v bool) *GetLoginconfigResponse {
+	s.MfaSelfManage = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetStatus(v string) *GetLoginconfigResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *GetLoginconfigResponse) SetConcurrentIpCount(v int64) *GetLoginconfigResponse {
+	s.ConcurrentIpCount = &v
+	return s
+}
+
+type UpdateLoginconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 密码最小长度
+	PasswordMinLength *int64 `json:"password_min_length,omitempty" xml:"password_min_length,omitempty"`
+	// 密码最大长度
+	PasswordMaxLength *int64 `json:"password_max_length,omitempty" xml:"password_max_length,omitempty"`
+	// 密码是否必须包含小写字母
+	PasswordLowercaseLetter *bool `json:"password_lowercase_letter,omitempty" xml:"password_lowercase_letter,omitempty"`
+	// 密码是否必须包含大写字母
+	PasswordUppercaseLetter *bool `json:"password_uppercase_letter,omitempty" xml:"password_uppercase_letter,omitempty"`
+	// 密码是否必须包含字母
+	PasswordLetter *bool `json:"password_letter,omitempty" xml:"password_letter,omitempty"`
+	// 密码是否必须包含数字
+	PasswordDigit *bool `json:"password_digit,omitempty" xml:"password_digit,omitempty"`
+	// 密码是否必须包含特殊字符
+	PasswordSpecialChar *bool `json:"password_special_char,omitempty" xml:"password_special_char,omitempty"`
+	// 是否检查密码有效
+	PasswordValidCheck *bool `json:"password_valid_check,omitempty" xml:"password_valid_check,omitempty"`
+	// 密码有效期
+	PasswordValidPeriod *int64 `json:"password_valid_period,omitempty" xml:"password_valid_period,omitempty"`
+	// 密码过期后是否允许登录
+	PasswordExpiredLogin *bool `json:"password_expired_login,omitempty" xml:"password_expired_login,omitempty"`
+	// 是否检查密码历史
+	PasswordHistoryCheck *bool `json:"password_history_check,omitempty" xml:"password_history_check,omitempty"`
+	// 密码历史个数
+	PasswordHistoryNum *int64 `json:"password_history_num,omitempty" xml:"password_history_num,omitempty"`
+	// 重试校验是否触发锁定
+	VerifyAttemptsCheck *bool `json:"verify_attempts_check,omitempty" xml:"verify_attempts_check,omitempty"`
+	// 重试校验窗口
+	VerifyAttemptsWindow *int64 `json:"verify_attempts_window,omitempty" xml:"verify_attempts_window,omitempty"`
+	// 重试校验触发锁定阈值
+	VerifyAttemptsThreshold *int64 `json:"verify_attempts_threshold,omitempty" xml:"verify_attempts_threshold,omitempty"`
+	// 锁定时间
+	LockoutDuration *int64 `json:"lockout_duration,omitempty" xml:"lockout_duration,omitempty"`
+	// 是否检查账户活跃
+	ActiveCheck *bool `json:"active_check,omitempty" xml:"active_check,omitempty"`
+	// 活跃周期，非活跃时锁定登录
+	ActivePeriod *int64 `json:"active_period,omitempty" xml:"active_period,omitempty"`
+	// 是否允许自主管理密码
+	PasswordSelfManage *bool `json:"password_self_manage,omitempty" xml:"password_self_manage,omitempty"`
+	// 是否允许自主管理MFA
+	MfaSelfManage *bool `json:"mfa_self_manage,omitempty" xml:"mfa_self_manage,omitempty"`
+	// 并发登录的ip数量，小于1表示不限制
+	ConcurrentIpCount *int64 `json:"concurrent_ip_count,omitempty" xml:"concurrent_ip_count,omitempty"`
+}
+
+func (s UpdateLoginconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateLoginconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateLoginconfigRequest) SetAuthToken(v string) *UpdateLoginconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordMinLength(v int64) *UpdateLoginconfigRequest {
+	s.PasswordMinLength = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordMaxLength(v int64) *UpdateLoginconfigRequest {
+	s.PasswordMaxLength = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordLowercaseLetter(v bool) *UpdateLoginconfigRequest {
+	s.PasswordLowercaseLetter = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordUppercaseLetter(v bool) *UpdateLoginconfigRequest {
+	s.PasswordUppercaseLetter = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordLetter(v bool) *UpdateLoginconfigRequest {
+	s.PasswordLetter = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordDigit(v bool) *UpdateLoginconfigRequest {
+	s.PasswordDigit = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordSpecialChar(v bool) *UpdateLoginconfigRequest {
+	s.PasswordSpecialChar = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordValidCheck(v bool) *UpdateLoginconfigRequest {
+	s.PasswordValidCheck = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordValidPeriod(v int64) *UpdateLoginconfigRequest {
+	s.PasswordValidPeriod = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordExpiredLogin(v bool) *UpdateLoginconfigRequest {
+	s.PasswordExpiredLogin = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordHistoryCheck(v bool) *UpdateLoginconfigRequest {
+	s.PasswordHistoryCheck = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordHistoryNum(v int64) *UpdateLoginconfigRequest {
+	s.PasswordHistoryNum = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetVerifyAttemptsCheck(v bool) *UpdateLoginconfigRequest {
+	s.VerifyAttemptsCheck = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetVerifyAttemptsWindow(v int64) *UpdateLoginconfigRequest {
+	s.VerifyAttemptsWindow = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetVerifyAttemptsThreshold(v int64) *UpdateLoginconfigRequest {
+	s.VerifyAttemptsThreshold = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetLockoutDuration(v int64) *UpdateLoginconfigRequest {
+	s.LockoutDuration = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetActiveCheck(v bool) *UpdateLoginconfigRequest {
+	s.ActiveCheck = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetActivePeriod(v int64) *UpdateLoginconfigRequest {
+	s.ActivePeriod = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetPasswordSelfManage(v bool) *UpdateLoginconfigRequest {
+	s.PasswordSelfManage = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetMfaSelfManage(v bool) *UpdateLoginconfigRequest {
+	s.MfaSelfManage = &v
+	return s
+}
+
+func (s *UpdateLoginconfigRequest) SetConcurrentIpCount(v int64) *UpdateLoginconfigRequest {
+	s.ConcurrentIpCount = &v
+	return s
+}
+
+type UpdateLoginconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateLoginconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateLoginconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateLoginconfigResponse) SetReqMsgId(v string) *UpdateLoginconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateLoginconfigResponse) SetResultCode(v string) *UpdateLoginconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateLoginconfigResponse) SetResultMsg(v string) *UpdateLoginconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type GetMfaStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s GetMfaStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMfaStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetMfaStatusRequest) SetAuthToken(v string) *GetMfaStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMfaStatusRequest) SetUserId(v string) *GetMfaStatusRequest {
+	s.UserId = &v
+	return s
+}
+
+type GetMfaStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// MFA状态, 取值范围：ENABLED, DISABLED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s GetMfaStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMfaStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetMfaStatusResponse) SetReqMsgId(v string) *GetMfaStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetMfaStatusResponse) SetResultCode(v string) *GetMfaStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetMfaStatusResponse) SetResultMsg(v string) *GetMfaStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetMfaStatusResponse) SetStatus(v string) *GetMfaStatusResponse {
+	s.Status = &v
+	return s
+}
+
+type EnableMfaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 验证码
+	VerificationCode *int64 `json:"verification_code,omitempty" xml:"verification_code,omitempty" require:"true"`
+}
+
+func (s EnableMfaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnableMfaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *EnableMfaRequest) SetAuthToken(v string) *EnableMfaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *EnableMfaRequest) SetUserId(v string) *EnableMfaRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *EnableMfaRequest) SetVerificationCode(v int64) *EnableMfaRequest {
+	s.VerificationCode = &v
+	return s
+}
+
+type EnableMfaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s EnableMfaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnableMfaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *EnableMfaResponse) SetReqMsgId(v string) *EnableMfaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *EnableMfaResponse) SetResultCode(v string) *EnableMfaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *EnableMfaResponse) SetResultMsg(v string) *EnableMfaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DisableMfaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 验证码
+	VerificationCode *int64 `json:"verification_code,omitempty" xml:"verification_code,omitempty"`
+}
+
+func (s DisableMfaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableMfaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DisableMfaRequest) SetAuthToken(v string) *DisableMfaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DisableMfaRequest) SetUserId(v string) *DisableMfaRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *DisableMfaRequest) SetVerificationCode(v int64) *DisableMfaRequest {
+	s.VerificationCode = &v
+	return s
+}
+
+type DisableMfaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DisableMfaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableMfaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DisableMfaResponse) SetReqMsgId(v string) *DisableMfaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DisableMfaResponse) SetResultCode(v string) *DisableMfaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DisableMfaResponse) SetResultMsg(v string) *DisableMfaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitMfaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s InitMfaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitMfaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitMfaRequest) SetAuthToken(v string) *InitMfaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitMfaRequest) SetUserId(v string) *InitMfaRequest {
+	s.UserId = &v
+	return s
+}
+
+type InitMfaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 密钥
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty"`
+}
+
+func (s InitMfaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitMfaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitMfaResponse) SetReqMsgId(v string) *InitMfaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitMfaResponse) SetResultCode(v string) *InitMfaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitMfaResponse) SetResultMsg(v string) *InitMfaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitMfaResponse) SetSecretKey(v string) *InitMfaResponse {
+	s.SecretKey = &v
+	return s
+}
+
+type VerifyMfaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 验证码
+	VerificationCode *int64 `json:"verification_code,omitempty" xml:"verification_code,omitempty" require:"true"`
+}
+
+func (s VerifyMfaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyMfaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyMfaRequest) SetAuthToken(v string) *VerifyMfaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyMfaRequest) SetUserId(v string) *VerifyMfaRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyMfaRequest) SetVerificationCode(v int64) *VerifyMfaRequest {
+	s.VerificationCode = &v
+	return s
+}
+
+type VerifyMfaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 校验结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s VerifyMfaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyMfaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyMfaResponse) SetReqMsgId(v string) *VerifyMfaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyMfaResponse) SetResultCode(v string) *VerifyMfaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyMfaResponse) SetResultMsg(v string) *VerifyMfaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyMfaResponse) SetResult(v bool) *VerifyMfaResponse {
+	s.Result = &v
+	return s
+}
+
+type GetMfaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s GetMfaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMfaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetMfaRequest) SetAuthToken(v string) *GetMfaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMfaRequest) SetUserId(v string) *GetMfaRequest {
+	s.UserId = &v
+	return s
+}
+
+type GetMfaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户 id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// MFA状态, 取值范围：ENABLED, DISABLED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 密钥
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty"`
+	// 最后一次密钥生成时间
+	LastGeneratedTime *string `json:"last_generated_time,omitempty" xml:"last_generated_time,omitempty"`
+	// (校验失败时)重试校验的次数
+	VerifyAttempts *int64 `json:"verify_attempts,omitempty" xml:"verify_attempts,omitempty"`
+	// 第一次校验失败时间
+	FirstFailureTime *string `json:"first_failure_time,omitempty" xml:"first_failure_time,omitempty"`
+}
+
+func (s GetMfaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMfaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetMfaResponse) SetReqMsgId(v string) *GetMfaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetResultCode(v string) *GetMfaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetResultMsg(v string) *GetMfaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetUserId(v string) *GetMfaResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetStatus(v string) *GetMfaResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetSecretKey(v string) *GetMfaResponse {
+	s.SecretKey = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetLastGeneratedTime(v string) *GetMfaResponse {
+	s.LastGeneratedTime = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetVerifyAttempts(v int64) *GetMfaResponse {
+	s.VerifyAttempts = &v
+	return s
+}
+
+func (s *GetMfaResponse) SetFirstFailureTime(v string) *GetMfaResponse {
+	s.FirstFailureTime = &v
+	return s
+}
+
+type UpdateOperatorPasswordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 加密过的新密码值，使用AccessSecret进行3DES加密
+	NewEncryptedPassword *string `json:"new_encrypted_password,omitempty" xml:"new_encrypted_password,omitempty" require:"true"`
+	// 加密过的旧密码值，使用AccessSecret进行DES加密
+	OldEncryptedPassword *string `json:"old_encrypted_password,omitempty" xml:"old_encrypted_password,omitempty" require:"true"`
+}
+
+func (s UpdateOperatorPasswordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOperatorPasswordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOperatorPasswordRequest) SetAuthToken(v string) *UpdateOperatorPasswordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateOperatorPasswordRequest) SetLoginName(v string) *UpdateOperatorPasswordRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *UpdateOperatorPasswordRequest) SetNewEncryptedPassword(v string) *UpdateOperatorPasswordRequest {
+	s.NewEncryptedPassword = &v
+	return s
+}
+
+func (s *UpdateOperatorPasswordRequest) SetOldEncryptedPassword(v string) *UpdateOperatorPasswordRequest {
+	s.OldEncryptedPassword = &v
+	return s
+}
+
+type UpdateOperatorPasswordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateOperatorPasswordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOperatorPasswordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOperatorPasswordResponse) SetReqMsgId(v string) *UpdateOperatorPasswordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateOperatorPasswordResponse) SetResultCode(v string) *UpdateOperatorPasswordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateOperatorPasswordResponse) SetResultMsg(v string) *UpdateOperatorPasswordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ResetOperatorPasswordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 加密过的新密码值，使用AccessSecret进行3DES加密
+	NewEncryptedPassword *string `json:"new_encrypted_password,omitempty" xml:"new_encrypted_password,omitempty" require:"true"`
+	// 登录凭证状态，取值范围：NORMAL, EXPIRED
+	//
+	// 默认为 NORMAL，设为 EXPIRED 用户登录时会要求重置密码
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ResetOperatorPasswordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetOperatorPasswordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetOperatorPasswordRequest) SetAuthToken(v string) *ResetOperatorPasswordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetOperatorPasswordRequest) SetLoginName(v string) *ResetOperatorPasswordRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *ResetOperatorPasswordRequest) SetNewEncryptedPassword(v string) *ResetOperatorPasswordRequest {
+	s.NewEncryptedPassword = &v
+	return s
+}
+
+func (s *ResetOperatorPasswordRequest) SetStatus(v string) *ResetOperatorPasswordRequest {
+	s.Status = &v
+	return s
+}
+
+type ResetOperatorPasswordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ResetOperatorPasswordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetOperatorPasswordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetOperatorPasswordResponse) SetReqMsgId(v string) *ResetOperatorPasswordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetOperatorPasswordResponse) SetResultCode(v string) *ResetOperatorPasswordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetOperatorPasswordResponse) SetResultMsg(v string) *ResetOperatorPasswordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BatchqueryOperatorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户id列表
+	OperatorIds []*string `json:"operator_ids,omitempty" xml:"operator_ids,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryOperatorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryOperatorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryOperatorRequest) SetAuthToken(v string) *BatchqueryOperatorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryOperatorRequest) SetOperatorIds(v []*string) *BatchqueryOperatorRequest {
+	s.OperatorIds = v
+	return s
+}
+
+type BatchqueryOperatorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作员列表
+	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryOperatorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryOperatorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryOperatorResponse) SetReqMsgId(v string) *BatchqueryOperatorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryOperatorResponse) SetResultCode(v string) *BatchqueryOperatorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryOperatorResponse) SetResultMsg(v string) *BatchqueryOperatorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryOperatorResponse) SetOperators(v []*Operator) *BatchqueryOperatorResponse {
+	s.Operators = v
+	return s
+}
+
+type PushOperationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// {产品}.{资源}.{子资源}.{操作}
+	OperationCode *string `json:"operation_code,omitempty" xml:"operation_code,omitempty" require:"true"`
+	// 操作参数
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 可用区域信息，非必填
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// 资源类型
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// 相应结果
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+	// 操作来源，由接入方上报自身系统host
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 操作来源IP，由接入方上报
+	SourceIpAddress *string `json:"source_ip_address,omitempty" xml:"source_ip_address,omitempty"`
+	// 触发时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// TraceId用于事件追踪
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// agent信息
+	UserAgent *string `json:"user_agent,omitempty" xml:"user_agent,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 租户8位ID
+	UserTenant *string `json:"user_tenant,omitempty" xml:"user_tenant,omitempty" require:"true"`
+}
+
+func (s PushOperationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushOperationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushOperationRequest) SetAuthToken(v string) *PushOperationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetOperationCode(v string) *PushOperationRequest {
+	s.OperationCode = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetParams(v string) *PushOperationRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetRegion(v string) *PushOperationRequest {
+	s.Region = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetResourceId(v string) *PushOperationRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetResourceType(v string) *PushOperationRequest {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetResponse(v string) *PushOperationRequest {
+	s.Response = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetSource(v string) *PushOperationRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetSourceIpAddress(v string) *PushOperationRequest {
+	s.SourceIpAddress = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetTime(v string) *PushOperationRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetTraceId(v string) *PushOperationRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetUserAgent(v string) *PushOperationRequest {
+	s.UserAgent = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetUserId(v string) *PushOperationRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PushOperationRequest) SetUserTenant(v string) *PushOperationRequest {
+	s.UserTenant = &v
+	return s
+}
+
+type PushOperationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 事件唯一ID
+	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty"`
+}
+
+func (s PushOperationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushOperationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushOperationResponse) SetReqMsgId(v string) *PushOperationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushOperationResponse) SetResultCode(v string) *PushOperationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushOperationResponse) SetResultMsg(v string) *PushOperationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushOperationResponse) SetUniqueId(v string) *PushOperationResponse {
+	s.UniqueId = &v
+	return s
+}
+
+type QueryOperationtypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty" require:"true"`
+	// 来源信息
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s QueryOperationtypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOperationtypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOperationtypeRequest) SetAuthToken(v string) *QueryOperationtypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOperationtypeRequest) SetProduct(v string) *QueryOperationtypeRequest {
+	s.Product = &v
+	return s
+}
+
+func (s *QueryOperationtypeRequest) SetSource(v string) *QueryOperationtypeRequest {
+	s.Source = &v
+	return s
+}
+
+type QueryOperationtypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作类型列表
+	OperationTypes []*OperationType `json:"operation_types,omitempty" xml:"operation_types,omitempty" type:"Repeated"`
+}
+
+func (s QueryOperationtypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOperationtypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOperationtypeResponse) SetReqMsgId(v string) *QueryOperationtypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOperationtypeResponse) SetResultCode(v string) *QueryOperationtypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOperationtypeResponse) SetResultMsg(v string) *QueryOperationtypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOperationtypeResponse) SetOperationTypes(v []*OperationType) *QueryOperationtypeResponse {
+	s.OperationTypes = v
+	return s
+}
+
+type GetOperationtypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作类型名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s GetOperationtypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOperationtypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetOperationtypeRequest) SetAuthToken(v string) *GetOperationtypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetOperationtypeRequest) SetName(v string) *GetOperationtypeRequest {
+	s.Name = &v
+	return s
+}
+
+type GetOperationtypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作类型
+	Data *OperationType `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetOperationtypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOperationtypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetOperationtypeResponse) SetReqMsgId(v string) *GetOperationtypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetOperationtypeResponse) SetResultCode(v string) *GetOperationtypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetOperationtypeResponse) SetResultMsg(v string) *GetOperationtypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetOperationtypeResponse) SetData(v *OperationType) *GetOperationtypeResponse {
+	s.Data = v
+	return s
+}
+
+type AddTenantMemberRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作员唯一id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+}
+
+func (s AddTenantMemberRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddTenantMemberRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddTenantMemberRequest) SetAuthToken(v string) *AddTenantMemberRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddTenantMemberRequest) SetOperatorId(v string) *AddTenantMemberRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type AddTenantMemberResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Accessor关联的AccessKey
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// Accessor关联的AccessKey的密钥
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+}
+
+func (s AddTenantMemberResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddTenantMemberResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddTenantMemberResponse) SetReqMsgId(v string) *AddTenantMemberResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddTenantMemberResponse) SetResultCode(v string) *AddTenantMemberResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddTenantMemberResponse) SetResultMsg(v string) *AddTenantMemberResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddTenantMemberResponse) SetAccessKey(v string) *AddTenantMemberResponse {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *AddTenantMemberResponse) SetAccessSecret(v string) *AddTenantMemberResponse {
+	s.AccessSecret = &v
+	return s
+}
+
+type GetOperatorLogintokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s GetOperatorLogintokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOperatorLogintokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetOperatorLogintokenRequest) SetAuthToken(v string) *GetOperatorLogintokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type GetOperatorLogintokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 一次性登录认证 token
+	LoginToken *string `json:"login_token,omitempty" xml:"login_token,omitempty"`
+}
+
+func (s GetOperatorLogintokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetOperatorLogintokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetOperatorLogintokenResponse) SetReqMsgId(v string) *GetOperatorLogintokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetOperatorLogintokenResponse) SetResultCode(v string) *GetOperatorLogintokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetOperatorLogintokenResponse) SetResultMsg(v string) *GetOperatorLogintokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetOperatorLogintokenResponse) SetLoginToken(v string) *GetOperatorLogintokenResponse {
+	s.LoginToken = &v
 	return s
 }
 
@@ -5344,17 +8040,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -5388,7 +8084,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.12.4"),
+				"sdk_version":      tea.String("3.12.8"),
+				"_prod_code":       tea.String("IAM"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -5414,8 +8112,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -7197,6 +9903,856 @@ func (client *Client) UpdateRoleEx(request *UpdateRoleRequest, headers map[strin
 	}
 	_result = &UpdateRoleResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.role.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取单个部门信息
+ * Summary: 获取单个部门信息
+ */
+func (client *Client) GetDepartment(request *GetDepartmentRequest) (_result *GetDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDepartmentResponse{}
+	_body, _err := client.GetDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取单个部门信息
+ * Summary: 获取单个部门信息
+ */
+func (client *Client) GetDepartmentEx(request *GetDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建部门
+ * Summary: 创建部门
+ */
+func (client *Client) CreateDepartment(request *CreateDepartmentRequest) (_result *CreateDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDepartmentResponse{}
+	_body, _err := client.CreateDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建部门
+ * Summary: 创建部门
+ */
+func (client *Client) CreateDepartmentEx(request *CreateDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新部门信息
+ * Summary: 更新部门信息
+ */
+func (client *Client) UpdateDepartment(request *UpdateDepartmentRequest) (_result *UpdateDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDepartmentResponse{}
+	_body, _err := client.UpdateDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新部门信息
+ * Summary: 更新部门信息
+ */
+func (client *Client) UpdateDepartmentEx(request *UpdateDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除部门
+ * Summary: 删除部门
+ */
+func (client *Client) DeleteDepartment(request *DeleteDepartmentRequest) (_result *DeleteDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteDepartmentResponse{}
+	_body, _err := client.DeleteDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除部门
+ * Summary: 删除部门
+ */
+func (client *Client) DeleteDepartmentEx(request *DeleteDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询部门信息
+ * Summary: 分页查询部门信息
+ */
+func (client *Client) PagequeryDepartment(request *PagequeryDepartmentRequest) (_result *PagequeryDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryDepartmentResponse{}
+	_body, _err := client.PagequeryDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询部门信息
+ * Summary: 分页查询部门信息
+ */
+func (client *Client) PagequeryDepartmentEx(request *PagequeryDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询部门
+ * Summary: 批量查询部门
+ */
+func (client *Client) BatchqueryDepartment(request *BatchqueryDepartmentRequest) (_result *BatchqueryDepartmentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryDepartmentResponse{}
+	_body, _err := client.BatchqueryDepartmentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询部门
+ * Summary: 批量查询部门
+ */
+func (client *Client) BatchqueryDepartmentEx(request *BatchqueryDepartmentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryDepartmentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryDepartmentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加或更新部门成员
+ * Summary: 添加或更新部门成员
+ */
+func (client *Client) SaveDepartmentUser(request *SaveDepartmentUserRequest) (_result *SaveDepartmentUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveDepartmentUserResponse{}
+	_body, _err := client.SaveDepartmentUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加或更新部门成员
+ * Summary: 添加或更新部门成员
+ */
+func (client *Client) SaveDepartmentUserEx(request *SaveDepartmentUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveDepartmentUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveDepartmentUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.user.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 移除部门成员
+ * Summary: 移除部门成员
+ */
+func (client *Client) RemoveDepartmentUser(request *RemoveDepartmentUserRequest) (_result *RemoveDepartmentUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveDepartmentUserResponse{}
+	_body, _err := client.RemoveDepartmentUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 移除部门成员
+ * Summary: 移除部门成员
+ */
+func (client *Client) RemoveDepartmentUserEx(request *RemoveDepartmentUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveDepartmentUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveDepartmentUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.user.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询部门成员信息
+ * Summary: 分页查询部门成员信息
+ */
+func (client *Client) QueryDepartmentUser(request *QueryDepartmentUserRequest) (_result *QueryDepartmentUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDepartmentUserResponse{}
+	_body, _err := client.QueryDepartmentUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询部门成员信息
+ * Summary: 分页查询部门成员信息
+ */
+func (client *Client) QueryDepartmentUserEx(request *QueryDepartmentUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDepartmentUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDepartmentUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.department.user.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取租户级安全设置
+ * Summary: 获取租户级安全设置
+ */
+func (client *Client) GetLoginconfig(request *GetLoginconfigRequest) (_result *GetLoginconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetLoginconfigResponse{}
+	_body, _err := client.GetLoginconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取租户级安全设置
+ * Summary: 获取租户级安全设置
+ */
+func (client *Client) GetLoginconfigEx(request *GetLoginconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetLoginconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetLoginconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.loginconfig.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新租户级安全设置
+ * Summary: 更新租户级安全设置
+ */
+func (client *Client) UpdateLoginconfig(request *UpdateLoginconfigRequest) (_result *UpdateLoginconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateLoginconfigResponse{}
+	_body, _err := client.UpdateLoginconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新租户级安全设置
+ * Summary: 更新租户级安全设置
+ */
+func (client *Client) UpdateLoginconfigEx(request *UpdateLoginconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateLoginconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateLoginconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.loginconfig.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 唯一条件查询MFA状态
+ * Summary: 唯一条件查询MFA状态
+ */
+func (client *Client) GetMfaStatus(request *GetMfaStatusRequest) (_result *GetMfaStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetMfaStatusResponse{}
+	_body, _err := client.GetMfaStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 唯一条件查询MFA状态
+ * Summary: 唯一条件查询MFA状态
+ */
+func (client *Client) GetMfaStatusEx(request *GetMfaStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMfaStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetMfaStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.status.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开启MFA
+ * Summary: 开启MFA
+ */
+func (client *Client) EnableMfa(request *EnableMfaRequest) (_result *EnableMfaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &EnableMfaResponse{}
+	_body, _err := client.EnableMfaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开启MFA
+ * Summary: 开启MFA
+ */
+func (client *Client) EnableMfaEx(request *EnableMfaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *EnableMfaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &EnableMfaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.enable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 关闭MFA
+ * Summary: 关闭MFA
+ */
+func (client *Client) DisableMfa(request *DisableMfaRequest) (_result *DisableMfaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DisableMfaResponse{}
+	_body, _err := client.DisableMfaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 关闭MFA
+ * Summary: 关闭MFA
+ */
+func (client *Client) DisableMfaEx(request *DisableMfaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DisableMfaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DisableMfaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.disable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 初始化MFA
+ * Summary: 初始化MFA
+ */
+func (client *Client) InitMfa(request *InitMfaRequest) (_result *InitMfaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitMfaResponse{}
+	_body, _err := client.InitMfaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 初始化MFA
+ * Summary: 初始化MFA
+ */
+func (client *Client) InitMfaEx(request *InitMfaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitMfaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitMfaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 校验 MFA
+ * Summary: 校验 MFA
+ */
+func (client *Client) VerifyMfa(request *VerifyMfaRequest) (_result *VerifyMfaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyMfaResponse{}
+	_body, _err := client.VerifyMfaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 校验 MFA
+ * Summary: 校验 MFA
+ */
+func (client *Client) VerifyMfaEx(request *VerifyMfaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyMfaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyMfaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 唯一条件查询MFA配置
+ * Summary: 唯一条件查询MFA配置
+ */
+func (client *Client) GetMfa(request *GetMfaRequest) (_result *GetMfaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetMfaResponse{}
+	_body, _err := client.GetMfaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 唯一条件查询MFA配置
+ * Summary: 唯一条件查询MFA配置
+ */
+func (client *Client) GetMfaEx(request *GetMfaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMfaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetMfaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.mfa.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新密码
+ * Summary: 更新密码
+ */
+func (client *Client) UpdateOperatorPassword(request *UpdateOperatorPasswordRequest) (_result *UpdateOperatorPasswordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateOperatorPasswordResponse{}
+	_body, _err := client.UpdateOperatorPasswordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新密码
+ * Summary: 更新密码
+ */
+func (client *Client) UpdateOperatorPasswordEx(request *UpdateOperatorPasswordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateOperatorPasswordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateOperatorPasswordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operator.password.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 重置账号密码
+ * Summary: 重置账号密码
+ */
+func (client *Client) ResetOperatorPassword(request *ResetOperatorPasswordRequest) (_result *ResetOperatorPasswordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetOperatorPasswordResponse{}
+	_body, _err := client.ResetOperatorPasswordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 重置账号密码
+ * Summary: 重置账号密码
+ */
+func (client *Client) ResetOperatorPasswordEx(request *ResetOperatorPasswordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetOperatorPasswordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetOperatorPasswordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operator.password.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询操作员
+ * Summary: 批量查询操作员
+ */
+func (client *Client) BatchqueryOperator(request *BatchqueryOperatorRequest) (_result *BatchqueryOperatorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryOperatorResponse{}
+	_body, _err := client.BatchqueryOperatorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量查询操作员
+ * Summary: 批量查询操作员
+ */
+func (client *Client) BatchqueryOperatorEx(request *BatchqueryOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryOperatorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryOperatorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operator.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 推送操作事件，事件需要事先定义
+ * Summary: 推送操作事件
+ */
+func (client *Client) PushOperation(request *PushOperationRequest) (_result *PushOperationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushOperationResponse{}
+	_body, _err := client.PushOperationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 推送操作事件，事件需要事先定义
+ * Summary: 推送操作事件
+ */
+func (client *Client) PushOperationEx(request *PushOperationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushOperationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushOperationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operation.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询操作类型
+ * Summary: 查询操作类型
+ */
+func (client *Client) QueryOperationtype(request *QueryOperationtypeRequest) (_result *QueryOperationtypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOperationtypeResponse{}
+	_body, _err := client.QueryOperationtypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询操作类型
+ * Summary: 查询操作类型
+ */
+func (client *Client) QueryOperationtypeEx(request *QueryOperationtypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOperationtypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOperationtypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operationtype.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 唯一查询操作类型
+ * Summary: 唯一查询操作类型
+ */
+func (client *Client) GetOperationtype(request *GetOperationtypeRequest) (_result *GetOperationtypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetOperationtypeResponse{}
+	_body, _err := client.GetOperationtypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 唯一查询操作类型
+ * Summary: 唯一查询操作类型
+ */
+func (client *Client) GetOperationtypeEx(request *GetOperationtypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOperationtypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetOperationtypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operationtype.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加租户成员
+ * Summary: 添加租户成员
+ */
+func (client *Client) AddTenantMember(request *AddTenantMemberRequest) (_result *AddTenantMemberResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddTenantMemberResponse{}
+	_body, _err := client.AddTenantMemberEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加租户成员
+ * Summary: 添加租户成员
+ */
+func (client *Client) AddTenantMemberEx(request *AddTenantMemberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddTenantMemberResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddTenantMemberResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.tenant.member.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+ * Summary: 获取操作员 signtoken
+ */
+func (client *Client) GetOperatorLogintoken(request *GetOperatorLogintokenRequest) (_result *GetOperatorLogintokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetOperatorLogintokenResponse{}
+	_body, _err := client.GetOperatorLogintokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+ * Summary: 获取操作员 signtoken
+ */
+func (client *Client) GetOperatorLogintokenEx(request *GetOperatorLogintokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOperatorLogintokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetOperatorLogintokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operator.logintoken.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
