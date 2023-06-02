@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -106,11 +106,13 @@ public class Client {
                     new TeaPair("method", action),
                     new TeaPair("version", version),
                     new TeaPair("sign_type", "HmacSHA1"),
-                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.Client.getTimestamp()),
-                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.Client.getNonce()),
+                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getTimestamp()),
+                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.12.4")
+                    new TeaPair("sdk_version", "3.12.8"),
+                    new TeaPair("_prod_code", "IAM"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -130,7 +132,7 @@ public class Client {
                     request_.query,
                     com.aliyun.common.Common.query(request)
                 );
-                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.Client.getSignature(signedParam, _accessKeySecret));
+                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
                 TeaResponse response_ = Tea.doAction(request_, runtime_);
 
@@ -138,7 +140,7 @@ public class Client {
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
                 java.util.Map<String, Object> res = com.aliyun.teautil.Common.assertAsMap(obj);
                 java.util.Map<String, Object> resp = com.aliyun.teautil.Common.assertAsMap(res.get("response"));
-                if (com.antgroup.antchain.openapi.antchain.util.Client.hasError(raw, _accessKeySecret)) {
+                if (com.antgroup.antchain.openapi.antchain.util.AntchainUtils.hasError(raw, _accessKeySecret)) {
                     throw new TeaException(TeaConverter.buildMap(
                         new TeaPair("message", resp.get("result_msg")),
                         new TeaPair("data", resp),
@@ -1145,5 +1147,480 @@ public class Client {
     public UpdateRoleResponse updateRoleEx(UpdateRoleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.role.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateRoleResponse());
+    }
+
+    /**
+     * Description: 获取单个部门信息
+     * Summary: 获取单个部门信息
+     */
+    public GetDepartmentResponse getDepartment(GetDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取单个部门信息
+     * Summary: 获取单个部门信息
+     */
+    public GetDepartmentResponse getDepartmentEx(GetDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDepartmentResponse());
+    }
+
+    /**
+     * Description: 创建部门
+     * Summary: 创建部门
+     */
+    public CreateDepartmentResponse createDepartment(CreateDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建部门
+     * Summary: 创建部门
+     */
+    public CreateDepartmentResponse createDepartmentEx(CreateDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDepartmentResponse());
+    }
+
+    /**
+     * Description: 更新部门信息
+     * Summary: 更新部门信息
+     */
+    public UpdateDepartmentResponse updateDepartment(UpdateDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新部门信息
+     * Summary: 更新部门信息
+     */
+    public UpdateDepartmentResponse updateDepartmentEx(UpdateDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDepartmentResponse());
+    }
+
+    /**
+     * Description: 删除部门
+     * Summary: 删除部门
+     */
+    public DeleteDepartmentResponse deleteDepartment(DeleteDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除部门
+     * Summary: 删除部门
+     */
+    public DeleteDepartmentResponse deleteDepartmentEx(DeleteDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteDepartmentResponse());
+    }
+
+    /**
+     * Description: 分页查询部门信息
+     * Summary: 分页查询部门信息
+     */
+    public PagequeryDepartmentResponse pagequeryDepartment(PagequeryDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询部门信息
+     * Summary: 分页查询部门信息
+     */
+    public PagequeryDepartmentResponse pagequeryDepartmentEx(PagequeryDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryDepartmentResponse());
+    }
+
+    /**
+     * Description: 批量查询部门
+     * Summary: 批量查询部门
+     */
+    public BatchqueryDepartmentResponse batchqueryDepartment(BatchqueryDepartmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryDepartmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量查询部门
+     * Summary: 批量查询部门
+     */
+    public BatchqueryDepartmentResponse batchqueryDepartmentEx(BatchqueryDepartmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryDepartmentResponse());
+    }
+
+    /**
+     * Description: 添加或更新部门成员
+     * Summary: 添加或更新部门成员
+     */
+    public SaveDepartmentUserResponse saveDepartmentUser(SaveDepartmentUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveDepartmentUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加或更新部门成员
+     * Summary: 添加或更新部门成员
+     */
+    public SaveDepartmentUserResponse saveDepartmentUserEx(SaveDepartmentUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.user.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveDepartmentUserResponse());
+    }
+
+    /**
+     * Description: 移除部门成员
+     * Summary: 移除部门成员
+     */
+    public RemoveDepartmentUserResponse removeDepartmentUser(RemoveDepartmentUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeDepartmentUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 移除部门成员
+     * Summary: 移除部门成员
+     */
+    public RemoveDepartmentUserResponse removeDepartmentUserEx(RemoveDepartmentUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.user.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveDepartmentUserResponse());
+    }
+
+    /**
+     * Description: 分页查询部门成员信息
+     * Summary: 分页查询部门成员信息
+     */
+    public QueryDepartmentUserResponse queryDepartmentUser(QueryDepartmentUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDepartmentUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询部门成员信息
+     * Summary: 分页查询部门成员信息
+     */
+    public QueryDepartmentUserResponse queryDepartmentUserEx(QueryDepartmentUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.department.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDepartmentUserResponse());
+    }
+
+    /**
+     * Description: 获取租户级安全设置
+     * Summary: 获取租户级安全设置
+     */
+    public GetLoginconfigResponse getLoginconfig(GetLoginconfigRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getLoginconfigEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取租户级安全设置
+     * Summary: 获取租户级安全设置
+     */
+    public GetLoginconfigResponse getLoginconfigEx(GetLoginconfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.loginconfig.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetLoginconfigResponse());
+    }
+
+    /**
+     * Description: 更新租户级安全设置
+     * Summary: 更新租户级安全设置
+     */
+    public UpdateLoginconfigResponse updateLoginconfig(UpdateLoginconfigRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateLoginconfigEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新租户级安全设置
+     * Summary: 更新租户级安全设置
+     */
+    public UpdateLoginconfigResponse updateLoginconfigEx(UpdateLoginconfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.loginconfig.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateLoginconfigResponse());
+    }
+
+    /**
+     * Description: 唯一条件查询MFA状态
+     * Summary: 唯一条件查询MFA状态
+     */
+    public GetMfaStatusResponse getMfaStatus(GetMfaStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMfaStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 唯一条件查询MFA状态
+     * Summary: 唯一条件查询MFA状态
+     */
+    public GetMfaStatusResponse getMfaStatusEx(GetMfaStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.status.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMfaStatusResponse());
+    }
+
+    /**
+     * Description: 开启MFA
+     * Summary: 开启MFA
+     */
+    public EnableMfaResponse enableMfa(EnableMfaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.enableMfaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开启MFA
+     * Summary: 开启MFA
+     */
+    public EnableMfaResponse enableMfaEx(EnableMfaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.enable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EnableMfaResponse());
+    }
+
+    /**
+     * Description: 关闭MFA
+     * Summary: 关闭MFA
+     */
+    public DisableMfaResponse disableMfa(DisableMfaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.disableMfaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 关闭MFA
+     * Summary: 关闭MFA
+     */
+    public DisableMfaResponse disableMfaEx(DisableMfaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.disable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DisableMfaResponse());
+    }
+
+    /**
+     * Description: 初始化MFA
+     * Summary: 初始化MFA
+     */
+    public InitMfaResponse initMfa(InitMfaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initMfaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 初始化MFA
+     * Summary: 初始化MFA
+     */
+    public InitMfaResponse initMfaEx(InitMfaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitMfaResponse());
+    }
+
+    /**
+     * Description: 校验 MFA
+     * Summary: 校验 MFA
+     */
+    public VerifyMfaResponse verifyMfa(VerifyMfaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyMfaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 校验 MFA
+     * Summary: 校验 MFA
+     */
+    public VerifyMfaResponse verifyMfaEx(VerifyMfaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyMfaResponse());
+    }
+
+    /**
+     * Description: 唯一条件查询MFA配置
+     * Summary: 唯一条件查询MFA配置
+     */
+    public GetMfaResponse getMfa(GetMfaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMfaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 唯一条件查询MFA配置
+     * Summary: 唯一条件查询MFA配置
+     */
+    public GetMfaResponse getMfaEx(GetMfaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.mfa.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMfaResponse());
+    }
+
+    /**
+     * Description: 更新密码
+     * Summary: 更新密码
+     */
+    public UpdateOperatorPasswordResponse updateOperatorPassword(UpdateOperatorPasswordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateOperatorPasswordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新密码
+     * Summary: 更新密码
+     */
+    public UpdateOperatorPasswordResponse updateOperatorPasswordEx(UpdateOperatorPasswordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operator.password.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateOperatorPasswordResponse());
+    }
+
+    /**
+     * Description: 重置账号密码
+     * Summary: 重置账号密码
+     */
+    public ResetOperatorPasswordResponse resetOperatorPassword(ResetOperatorPasswordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetOperatorPasswordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 重置账号密码
+     * Summary: 重置账号密码
+     */
+    public ResetOperatorPasswordResponse resetOperatorPasswordEx(ResetOperatorPasswordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operator.password.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetOperatorPasswordResponse());
+    }
+
+    /**
+     * Description: 批量查询操作员
+     * Summary: 批量查询操作员
+     */
+    public BatchqueryOperatorResponse batchqueryOperator(BatchqueryOperatorRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryOperatorEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量查询操作员
+     * Summary: 批量查询操作员
+     */
+    public BatchqueryOperatorResponse batchqueryOperatorEx(BatchqueryOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operator.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryOperatorResponse());
+    }
+
+    /**
+     * Description: 推送操作事件，事件需要事先定义
+     * Summary: 推送操作事件
+     */
+    public PushOperationResponse pushOperation(PushOperationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushOperationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 推送操作事件，事件需要事先定义
+     * Summary: 推送操作事件
+     */
+    public PushOperationResponse pushOperationEx(PushOperationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operation.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushOperationResponse());
+    }
+
+    /**
+     * Description: 查询操作类型
+     * Summary: 查询操作类型
+     */
+    public QueryOperationtypeResponse queryOperationtype(QueryOperationtypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOperationtypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询操作类型
+     * Summary: 查询操作类型
+     */
+    public QueryOperationtypeResponse queryOperationtypeEx(QueryOperationtypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operationtype.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOperationtypeResponse());
+    }
+
+    /**
+     * Description: 唯一查询操作类型
+     * Summary: 唯一查询操作类型
+     */
+    public GetOperationtypeResponse getOperationtype(GetOperationtypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getOperationtypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 唯一查询操作类型
+     * Summary: 唯一查询操作类型
+     */
+    public GetOperationtypeResponse getOperationtypeEx(GetOperationtypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operationtype.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOperationtypeResponse());
+    }
+
+    /**
+     * Description: 添加租户成员
+     * Summary: 添加租户成员
+     */
+    public AddTenantMemberResponse addTenantMember(AddTenantMemberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addTenantMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加租户成员
+     * Summary: 添加租户成员
+     */
+    public AddTenantMemberResponse addTenantMemberEx(AddTenantMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.tenant.member.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddTenantMemberResponse());
+    }
+
+    /**
+     * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+     * Summary: 获取操作员 signtoken
+     */
+    public GetOperatorLogintokenResponse getOperatorLogintoken(GetOperatorLogintokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getOperatorLogintokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+     * Summary: 获取操作员 signtoken
+     */
+    public GetOperatorLogintokenResponse getOperatorLogintokenEx(GetOperatorLogintokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.iam.operator.logintoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOperatorLogintokenResponse());
     }
 }

@@ -64,6 +64,10 @@ public class Operator extends TeaModel {
     @NameInMap("work_no")
     public String workNo;
 
+    // 部门唯一码
+    @NameInMap("department_code")
+    public String departmentCode;
+
     public static Operator build(java.util.Map<String, ?> map) throws Exception {
         Operator self = new Operator();
         return TeaModel.build(map, self);
@@ -187,6 +191,14 @@ public class Operator extends TeaModel {
     }
     public String getWorkNo() {
         return this.workNo;
+    }
+
+    public Operator setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+        return this;
+    }
+    public String getDepartmentCode() {
+        return this.departmentCode;
     }
 
 }
