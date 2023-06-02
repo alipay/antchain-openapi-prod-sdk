@@ -127,6 +127,14 @@ class Operator extends Model
      * @var string
      */
     public $workNo;
+
+    // 部门唯一码
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $departmentCode;
     protected $_name = [
         'createTime'     => 'create_time',
         'customer'       => 'customer',
@@ -143,6 +151,7 @@ class Operator extends Model
         'tenants'        => 'tenants',
         'updateTime'     => 'update_time',
         'workNo'         => 'work_no',
+        'departmentCode' => 'department_code',
     ];
 
     public function validate()
@@ -196,6 +205,9 @@ class Operator extends Model
         }
         if (null !== $this->workNo) {
             $res['work_no'] = $this->workNo;
+        }
+        if (null !== $this->departmentCode) {
+            $res['department_code'] = $this->departmentCode;
         }
 
         return $res;
@@ -255,6 +267,9 @@ class Operator extends Model
         }
         if (isset($map['work_no'])) {
             $model->workNo = $map['work_no'];
+        }
+        if (isset($map['department_code'])) {
+            $model->departmentCode = $map['department_code'];
         }
 
         return $model;

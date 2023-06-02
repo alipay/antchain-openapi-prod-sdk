@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class DetachPolicyRequest extends Model
 {
+    // OAuth模式下的授权token
     /**
      * @var string
      */
@@ -30,18 +31,29 @@ class DetachPolicyRequest extends Model
      * @var string
      */
     public $policyId;
+
+    // 授权操作员的登录名，当配置actor_id与actor_type时可不填
+    /**
+     * @var string
+     */
+    public $loginName;
+
+    // 授权策略的唯一名称，当配置policy_id时可不填
+    /**
+     * @var string
+     */
+    public $policyName;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'actorId'   => 'actor_id',
-        'actorType' => 'actor_type',
-        'policyId'  => 'policy_id',
+        'authToken'  => 'auth_token',
+        'actorId'    => 'actor_id',
+        'actorType'  => 'actor_type',
+        'policyId'   => 'policy_id',
+        'loginName'  => 'login_name',
+        'policyName' => 'policy_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('actorId', $this->actorId, true);
-        Model::validateRequired('actorType', $this->actorType, true);
-        Model::validateRequired('policyId', $this->policyId, true);
     }
 
     public function toMap()
@@ -58,6 +70,12 @@ class DetachPolicyRequest extends Model
         }
         if (null !== $this->policyId) {
             $res['policy_id'] = $this->policyId;
+        }
+        if (null !== $this->loginName) {
+            $res['login_name'] = $this->loginName;
+        }
+        if (null !== $this->policyName) {
+            $res['policy_name'] = $this->policyName;
         }
 
         return $res;
@@ -82,6 +100,12 @@ class DetachPolicyRequest extends Model
         }
         if (isset($map['policy_id'])) {
             $model->policyId = $map['policy_id'];
+        }
+        if (isset($map['login_name'])) {
+            $model->loginName = $map['login_name'];
+        }
+        if (isset($map['policy_name'])) {
+            $model->policyName = $map['policy_name'];
         }
 
         return $model;

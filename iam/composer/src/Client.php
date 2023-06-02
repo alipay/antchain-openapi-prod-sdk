@@ -15,12 +15,20 @@ use AntChain\IAM\Models\AddGroupMemberRequest;
 use AntChain\IAM\Models\AddGroupMemberResponse;
 use AntChain\IAM\Models\AddRoleActionRequest;
 use AntChain\IAM\Models\AddRoleActionResponse;
+use AntChain\IAM\Models\AddTenantMemberRequest;
+use AntChain\IAM\Models\AddTenantMemberResponse;
 use AntChain\IAM\Models\ApplyTrustloginUrlRequest;
 use AntChain\IAM\Models\ApplyTrustloginUrlResponse;
 use AntChain\IAM\Models\AssumeStsRequest;
 use AntChain\IAM\Models\AssumeStsResponse;
 use AntChain\IAM\Models\AttachPolicyRequest;
 use AntChain\IAM\Models\AttachPolicyResponse;
+use AntChain\IAM\Models\BatchqueryDepartmentRequest;
+use AntChain\IAM\Models\BatchqueryDepartmentResponse;
+use AntChain\IAM\Models\BatchqueryOperatorRequest;
+use AntChain\IAM\Models\BatchqueryOperatorResponse;
+use AntChain\IAM\Models\CreateDepartmentRequest;
+use AntChain\IAM\Models\CreateDepartmentResponse;
 use AntChain\IAM\Models\CreateGroupRequest;
 use AntChain\IAM\Models\CreateGroupResponse;
 use AntChain\IAM\Models\CreatePolicyRequest;
@@ -33,6 +41,8 @@ use AntChain\IAM\Models\CreateServiceaccountRequest;
 use AntChain\IAM\Models\CreateServiceaccountResponse;
 use AntChain\IAM\Models\CreateStsActorRequest;
 use AntChain\IAM\Models\CreateStsActorResponse;
+use AntChain\IAM\Models\DeleteDepartmentRequest;
+use AntChain\IAM\Models\DeleteDepartmentResponse;
 use AntChain\IAM\Models\DeleteGroupRequest;
 use AntChain\IAM\Models\DeleteGroupResponse;
 use AntChain\IAM\Models\DeletePolicyRequest;
@@ -45,18 +55,34 @@ use AntChain\IAM\Models\DeleteStsActorRequest;
 use AntChain\IAM\Models\DeleteStsActorResponse;
 use AntChain\IAM\Models\DetachPolicyRequest;
 use AntChain\IAM\Models\DetachPolicyResponse;
+use AntChain\IAM\Models\DisableMfaRequest;
+use AntChain\IAM\Models\DisableMfaResponse;
+use AntChain\IAM\Models\EnableMfaRequest;
+use AntChain\IAM\Models\EnableMfaResponse;
 use AntChain\IAM\Models\FreezeOperatorRequest;
 use AntChain\IAM\Models\FreezeOperatorResponse;
 use AntChain\IAM\Models\GetAccessorCurrentRequest;
 use AntChain\IAM\Models\GetAccessorCurrentResponse;
 use AntChain\IAM\Models\GetAliyunUserRequest;
 use AntChain\IAM\Models\GetAliyunUserResponse;
+use AntChain\IAM\Models\GetDepartmentRequest;
+use AntChain\IAM\Models\GetDepartmentResponse;
 use AntChain\IAM\Models\GetGroupRequest;
 use AntChain\IAM\Models\GetGroupResponse;
 use AntChain\IAM\Models\GetIaasaccountBaseinfoRequest;
 use AntChain\IAM\Models\GetIaasaccountBaseinfoResponse;
 use AntChain\IAM\Models\GetInternalMasterRequest;
 use AntChain\IAM\Models\GetInternalMasterResponse;
+use AntChain\IAM\Models\GetLoginconfigRequest;
+use AntChain\IAM\Models\GetLoginconfigResponse;
+use AntChain\IAM\Models\GetMfaRequest;
+use AntChain\IAM\Models\GetMfaResponse;
+use AntChain\IAM\Models\GetMfaStatusRequest;
+use AntChain\IAM\Models\GetMfaStatusResponse;
+use AntChain\IAM\Models\GetOperationtypeRequest;
+use AntChain\IAM\Models\GetOperationtypeResponse;
+use AntChain\IAM\Models\GetOperatorLogintokenRequest;
+use AntChain\IAM\Models\GetOperatorLogintokenResponse;
 use AntChain\IAM\Models\GetRoleRequest;
 use AntChain\IAM\Models\GetRoleResponse;
 use AntChain\IAM\Models\GetServiceaccountRequest;
@@ -65,6 +91,8 @@ use AntChain\IAM\Models\GetSessionAccessorRequest;
 use AntChain\IAM\Models\GetSessionAccessorResponse;
 use AntChain\IAM\Models\GetStsActorRequest;
 use AntChain\IAM\Models\GetStsActorResponse;
+use AntChain\IAM\Models\InitMfaRequest;
+use AntChain\IAM\Models\InitMfaResponse;
 use AntChain\IAM\Models\JudgeAliyunAuthorityRequest;
 use AntChain\IAM\Models\JudgeAliyunAuthorityResponse;
 use AntChain\IAM\Models\JudgeAliyunMultiauthorityRequest;
@@ -81,24 +109,44 @@ use AntChain\IAM\Models\ListRoleOperatorRequest;
 use AntChain\IAM\Models\ListRoleOperatorResponse;
 use AntChain\IAM\Models\ListStsActorRequest;
 use AntChain\IAM\Models\ListStsActorResponse;
+use AntChain\IAM\Models\PagequeryDepartmentRequest;
+use AntChain\IAM\Models\PagequeryDepartmentResponse;
+use AntChain\IAM\Models\PushOperationRequest;
+use AntChain\IAM\Models\PushOperationResponse;
+use AntChain\IAM\Models\QueryDepartmentUserRequest;
+use AntChain\IAM\Models\QueryDepartmentUserResponse;
 use AntChain\IAM\Models\QueryGroupMemberRequest;
 use AntChain\IAM\Models\QueryGroupMemberResponse;
 use AntChain\IAM\Models\QueryGroupRequest;
 use AntChain\IAM\Models\QueryGroupResponse;
+use AntChain\IAM\Models\QueryOperationtypeRequest;
+use AntChain\IAM\Models\QueryOperationtypeResponse;
 use AntChain\IAM\Models\QueryPolicyRequest;
 use AntChain\IAM\Models\QueryPolicyResponse;
 use AntChain\IAM\Models\QueryRoleRequest;
 use AntChain\IAM\Models\QueryRoleResponse;
+use AntChain\IAM\Models\RemoveDepartmentUserRequest;
+use AntChain\IAM\Models\RemoveDepartmentUserResponse;
 use AntChain\IAM\Models\RemoveGroupMemberRequest;
 use AntChain\IAM\Models\RemoveGroupMemberResponse;
 use AntChain\IAM\Models\RemoveRoleActionRequest;
 use AntChain\IAM\Models\RemoveRoleActionResponse;
 use AntChain\IAM\Models\RemoveTenantMemberRequest;
 use AntChain\IAM\Models\RemoveTenantMemberResponse;
+use AntChain\IAM\Models\ResetOperatorPasswordRequest;
+use AntChain\IAM\Models\ResetOperatorPasswordResponse;
+use AntChain\IAM\Models\SaveDepartmentUserRequest;
+use AntChain\IAM\Models\SaveDepartmentUserResponse;
 use AntChain\IAM\Models\UnfreezeOperatorRequest;
 use AntChain\IAM\Models\UnfreezeOperatorResponse;
+use AntChain\IAM\Models\UpdateDepartmentRequest;
+use AntChain\IAM\Models\UpdateDepartmentResponse;
 use AntChain\IAM\Models\UpdateGroupRequest;
 use AntChain\IAM\Models\UpdateGroupResponse;
+use AntChain\IAM\Models\UpdateLoginconfigRequest;
+use AntChain\IAM\Models\UpdateLoginconfigResponse;
+use AntChain\IAM\Models\UpdateOperatorPasswordRequest;
+use AntChain\IAM\Models\UpdateOperatorPasswordResponse;
 use AntChain\IAM\Models\UpdateOperatorStatusRequest;
 use AntChain\IAM\Models\UpdateOperatorStatusResponse;
 use AntChain\IAM\Models\UpdatePasswordRequest;
@@ -109,6 +157,8 @@ use AntChain\IAM\Models\UpdateServiceaccountRequest;
 use AntChain\IAM\Models\UpdateServiceaccountResponse;
 use AntChain\IAM\Models\UpdateStsActorRequest;
 use AntChain\IAM\Models\UpdateStsActorResponse;
+use AntChain\IAM\Models\VerifyMfaRequest;
+use AntChain\IAM\Models\VerifyMfaResponse;
 use AntChain\IAM\Models\VerifyOauthTokenRequest;
 use AntChain\IAM\Models\VerifyOauthTokenResponse;
 use AntChain\IAM\Models\VerifyPasswordRequest;
@@ -214,18 +264,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -234,7 +284,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 阿里云资源结构体
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -262,7 +311,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.12.4',
+                    'sdk_version'      => '3.12.8',
+                    '_prod_code'       => 'IAM',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2022,5 +2073,830 @@ class Client
         Utils::validateModel($request);
 
         return UpdateRoleResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.role.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取单个部门信息
+     * Summary: 获取单个部门信息.
+     *
+     * @param GetDepartmentRequest $request
+     *
+     * @return GetDepartmentResponse
+     */
+    public function getDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取单个部门信息
+     * Summary: 获取单个部门信息.
+     *
+     * @param GetDepartmentRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetDepartmentResponse
+     */
+    public function getDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建部门
+     * Summary: 创建部门.
+     *
+     * @param CreateDepartmentRequest $request
+     *
+     * @return CreateDepartmentResponse
+     */
+    public function createDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建部门
+     * Summary: 创建部门.
+     *
+     * @param CreateDepartmentRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateDepartmentResponse
+     */
+    public function createDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新部门信息
+     * Summary: 更新部门信息.
+     *
+     * @param UpdateDepartmentRequest $request
+     *
+     * @return UpdateDepartmentResponse
+     */
+    public function updateDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新部门信息
+     * Summary: 更新部门信息.
+     *
+     * @param UpdateDepartmentRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateDepartmentResponse
+     */
+    public function updateDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除部门
+     * Summary: 删除部门.
+     *
+     * @param DeleteDepartmentRequest $request
+     *
+     * @return DeleteDepartmentResponse
+     */
+    public function deleteDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除部门
+     * Summary: 删除部门.
+     *
+     * @param DeleteDepartmentRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return DeleteDepartmentResponse
+     */
+    public function deleteDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询部门信息
+     * Summary: 分页查询部门信息.
+     *
+     * @param PagequeryDepartmentRequest $request
+     *
+     * @return PagequeryDepartmentResponse
+     */
+    public function pagequeryDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询部门信息
+     * Summary: 分页查询部门信息.
+     *
+     * @param PagequeryDepartmentRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return PagequeryDepartmentResponse
+     */
+    public function pagequeryDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量查询部门
+     * Summary: 批量查询部门.
+     *
+     * @param BatchqueryDepartmentRequest $request
+     *
+     * @return BatchqueryDepartmentResponse
+     */
+    public function batchqueryDepartment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryDepartmentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量查询部门
+     * Summary: 批量查询部门.
+     *
+     * @param BatchqueryDepartmentRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BatchqueryDepartmentResponse
+     */
+    public function batchqueryDepartmentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryDepartmentResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加或更新部门成员
+     * Summary: 添加或更新部门成员.
+     *
+     * @param SaveDepartmentUserRequest $request
+     *
+     * @return SaveDepartmentUserResponse
+     */
+    public function saveDepartmentUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveDepartmentUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加或更新部门成员
+     * Summary: 添加或更新部门成员.
+     *
+     * @param SaveDepartmentUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SaveDepartmentUserResponse
+     */
+    public function saveDepartmentUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveDepartmentUserResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.user.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 移除部门成员
+     * Summary: 移除部门成员.
+     *
+     * @param RemoveDepartmentUserRequest $request
+     *
+     * @return RemoveDepartmentUserResponse
+     */
+    public function removeDepartmentUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->removeDepartmentUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 移除部门成员
+     * Summary: 移除部门成员.
+     *
+     * @param RemoveDepartmentUserRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RemoveDepartmentUserResponse
+     */
+    public function removeDepartmentUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RemoveDepartmentUserResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.user.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询部门成员信息
+     * Summary: 分页查询部门成员信息.
+     *
+     * @param QueryDepartmentUserRequest $request
+     *
+     * @return QueryDepartmentUserResponse
+     */
+    public function queryDepartmentUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDepartmentUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询部门成员信息
+     * Summary: 分页查询部门成员信息.
+     *
+     * @param QueryDepartmentUserRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryDepartmentUserResponse
+     */
+    public function queryDepartmentUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDepartmentUserResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.department.user.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取租户级安全设置
+     * Summary: 获取租户级安全设置.
+     *
+     * @param GetLoginconfigRequest $request
+     *
+     * @return GetLoginconfigResponse
+     */
+    public function getLoginconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getLoginconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取租户级安全设置
+     * Summary: 获取租户级安全设置.
+     *
+     * @param GetLoginconfigRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetLoginconfigResponse
+     */
+    public function getLoginconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetLoginconfigResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.loginconfig.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新租户级安全设置
+     * Summary: 更新租户级安全设置.
+     *
+     * @param UpdateLoginconfigRequest $request
+     *
+     * @return UpdateLoginconfigResponse
+     */
+    public function updateLoginconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateLoginconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新租户级安全设置
+     * Summary: 更新租户级安全设置.
+     *
+     * @param UpdateLoginconfigRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateLoginconfigResponse
+     */
+    public function updateLoginconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateLoginconfigResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.loginconfig.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 唯一条件查询MFA状态
+     * Summary: 唯一条件查询MFA状态
+     *
+     * @param GetMfaStatusRequest $request
+     *
+     * @return GetMfaStatusResponse
+     */
+    public function getMfaStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMfaStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 唯一条件查询MFA状态
+     * Summary: 唯一条件查询MFA状态
+     *
+     * @param GetMfaStatusRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return GetMfaStatusResponse
+     */
+    public function getMfaStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMfaStatusResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.status.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开启MFA
+     * Summary: 开启MFA.
+     *
+     * @param EnableMfaRequest $request
+     *
+     * @return EnableMfaResponse
+     */
+    public function enableMfa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->enableMfaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开启MFA
+     * Summary: 开启MFA.
+     *
+     * @param EnableMfaRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return EnableMfaResponse
+     */
+    public function enableMfaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return EnableMfaResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.enable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 关闭MFA
+     * Summary: 关闭MFA.
+     *
+     * @param DisableMfaRequest $request
+     *
+     * @return DisableMfaResponse
+     */
+    public function disableMfa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->disableMfaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 关闭MFA
+     * Summary: 关闭MFA.
+     *
+     * @param DisableMfaRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return DisableMfaResponse
+     */
+    public function disableMfaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DisableMfaResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.disable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化MFA
+     * Summary: 初始化MFA.
+     *
+     * @param InitMfaRequest $request
+     *
+     * @return InitMfaResponse
+     */
+    public function initMfa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initMfaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化MFA
+     * Summary: 初始化MFA.
+     *
+     * @param InitMfaRequest $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return InitMfaResponse
+     */
+    public function initMfaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitMfaResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验 MFA
+     * Summary: 校验 MFA.
+     *
+     * @param VerifyMfaRequest $request
+     *
+     * @return VerifyMfaResponse
+     */
+    public function verifyMfa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyMfaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验 MFA
+     * Summary: 校验 MFA.
+     *
+     * @param VerifyMfaRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return VerifyMfaResponse
+     */
+    public function verifyMfaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyMfaResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 唯一条件查询MFA配置
+     * Summary: 唯一条件查询MFA配置.
+     *
+     * @param GetMfaRequest $request
+     *
+     * @return GetMfaResponse
+     */
+    public function getMfa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMfaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 唯一条件查询MFA配置
+     * Summary: 唯一条件查询MFA配置.
+     *
+     * @param GetMfaRequest  $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return GetMfaResponse
+     */
+    public function getMfaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMfaResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.mfa.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新密码
+     * Summary: 更新密码
+     *
+     * @param UpdateOperatorPasswordRequest $request
+     *
+     * @return UpdateOperatorPasswordResponse
+     */
+    public function updateOperatorPassword($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateOperatorPasswordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新密码
+     * Summary: 更新密码
+     *
+     * @param UpdateOperatorPasswordRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UpdateOperatorPasswordResponse
+     */
+    public function updateOperatorPasswordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateOperatorPasswordResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operator.password.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 重置账号密码
+     * Summary: 重置账号密码
+     *
+     * @param ResetOperatorPasswordRequest $request
+     *
+     * @return ResetOperatorPasswordResponse
+     */
+    public function resetOperatorPassword($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetOperatorPasswordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 重置账号密码
+     * Summary: 重置账号密码
+     *
+     * @param ResetOperatorPasswordRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ResetOperatorPasswordResponse
+     */
+    public function resetOperatorPasswordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetOperatorPasswordResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operator.password.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量查询操作员
+     * Summary: 批量查询操作员.
+     *
+     * @param BatchqueryOperatorRequest $request
+     *
+     * @return BatchqueryOperatorResponse
+     */
+    public function batchqueryOperator($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryOperatorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量查询操作员
+     * Summary: 批量查询操作员.
+     *
+     * @param BatchqueryOperatorRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return BatchqueryOperatorResponse
+     */
+    public function batchqueryOperatorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryOperatorResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operator.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送操作事件，事件需要事先定义
+     * Summary: 推送操作事件.
+     *
+     * @param PushOperationRequest $request
+     *
+     * @return PushOperationResponse
+     */
+    public function pushOperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushOperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送操作事件，事件需要事先定义
+     * Summary: 推送操作事件.
+     *
+     * @param PushOperationRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return PushOperationResponse
+     */
+    public function pushOperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushOperationResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operation.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询操作类型
+     * Summary: 查询操作类型.
+     *
+     * @param QueryOperationtypeRequest $request
+     *
+     * @return QueryOperationtypeResponse
+     */
+    public function queryOperationtype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOperationtypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询操作类型
+     * Summary: 查询操作类型.
+     *
+     * @param QueryOperationtypeRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryOperationtypeResponse
+     */
+    public function queryOperationtypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOperationtypeResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operationtype.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 唯一查询操作类型
+     * Summary: 唯一查询操作类型.
+     *
+     * @param GetOperationtypeRequest $request
+     *
+     * @return GetOperationtypeResponse
+     */
+    public function getOperationtype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getOperationtypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 唯一查询操作类型
+     * Summary: 唯一查询操作类型.
+     *
+     * @param GetOperationtypeRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return GetOperationtypeResponse
+     */
+    public function getOperationtypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetOperationtypeResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operationtype.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加租户成员
+     * Summary: 添加租户成员.
+     *
+     * @param AddTenantMemberRequest $request
+     *
+     * @return AddTenantMemberResponse
+     */
+    public function addTenantMember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addTenantMemberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加租户成员
+     * Summary: 添加租户成员.
+     *
+     * @param AddTenantMemberRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AddTenantMemberResponse
+     */
+    public function addTenantMemberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddTenantMemberResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.tenant.member.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+     * Summary: 获取操作员 signtoken.
+     *
+     * @param GetOperatorLogintokenRequest $request
+     *
+     * @return GetOperatorLogintokenResponse
+     */
+    public function getOperatorLogintoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getOperatorLogintokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+     * Summary: 获取操作员 signtoken.
+     *
+     * @param GetOperatorLogintokenRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return GetOperatorLogintokenResponse
+     */
+    public function getOperatorLogintokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetOperatorLogintokenResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operator.logintoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
