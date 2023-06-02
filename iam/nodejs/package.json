@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/iam",
-  "version": "3.12.4",
+  "name": "@antchain/iam",
+  "version": "3.12.8",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@alicloud/tea-typescript": "latest",
-    "@antchain/alipay-util": "^1.0.2",
-    "@alicloud/tea-util": "^1.4.0",
+    "@antchain/alipay-util": "^1.0.4",
+    "@alicloud/tea-util": "^1.4.5",
     "@alicloud/rpc-util": "^0.1.0"
   },
   "files": [

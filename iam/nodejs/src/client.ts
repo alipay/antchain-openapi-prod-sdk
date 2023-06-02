@@ -77,6 +77,28 @@ export class Config extends $tea.Model {
   }
 }
 
+export class Condition extends $tea.Model {
+  key?: string;
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云资源结构体
 export class AliyunResource extends $tea.Model {
   // resource_type/resource_id
@@ -102,7 +124,106 @@ export class AliyunResource extends $tea.Model {
   }
 }
 
-export class Condition extends $tea.Model {
+// 鉴权事件（蚂蚁侧）
+export class AuthenticateEvent extends $tea.Model {
+  // 鉴权操作列表
+  actions: string[];
+  // 鉴权对象ID
+  actorId: string;
+  // 鉴权条件
+  conditions?: Condition[];
+  // 唯一ID
+  id?: string;
+  static names(): { [key: string]: string } {
+    return {
+      actions: 'actions',
+      actorId: 'actor_id',
+      conditions: 'conditions',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      actions: { 'type': 'array', 'itemType': 'string' },
+      actorId: 'string',
+      conditions: { 'type': 'array', 'itemType': Condition },
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 来源为Onex的操作类型的额外信息
+export class OnexExtraInfo extends $tea.Model {
+  // Onex接口路径
+  path: string;
+  // Onex接口的HTTP Method
+  method: string;
+  static names(): { [key: string]: string } {
+    return {
+      path: 'path',
+      method: 'method',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      path: 'string',
+      method: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云鉴权上下文
+export class AliyunRamAuthContext extends $tea.Model {
+  // 操作名称
+  action: string;
+  // 条件
+  conditions?: Condition[];
+  // 唯一ID
+  id?: string;
+  // regionId
+  regionId: string;
+  // 资源
+  resources: AliyunResource[];
+  // 服务名称
+  serviceName: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      conditions: 'conditions',
+      id: 'id',
+      regionId: 'region_id',
+      resources: 'resources',
+      serviceName: 'service_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      conditions: { 'type': 'array', 'itemType': Condition },
+      id: 'string',
+      regionId: 'string',
+      resources: { 'type': 'array', 'itemType': AliyunResource },
+      serviceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ScopeEntity extends $tea.Model {
   key?: string;
   value?: string;
   static names(): { [key: string]: string } {
@@ -116,64 +237,6 @@ export class Condition extends $tea.Model {
     return {
       key: 'string',
       value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 虚拟身份受信关系
-export class StsActorBinding extends $tea.Model {
-  // 虚拟身份ID
-  actorId?: string;
-  // 受信对象ID
-  bindId?: string;
-  // 虚拟身份受信类型，可以为TENANT或者ALIYUN_SERVICE
-  bindType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      actorId: 'actor_id',
-      bindId: 'bind_id',
-      bindType: 'bind_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      actorId: 'string',
-      bindId: 'string',
-      bindType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 操作点
-export class Action extends $tea.Model {
-  // 操作点描述
-  description?: string;
-  // 操作点ID
-  id?: string;
-  // 操作点名称
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      id: 'id',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      id: 'string',
-      name: 'string',
     };
   }
 
@@ -290,94 +353,27 @@ export class AliyunPopRequestInfo extends $tea.Model {
   }
 }
 
-export class ScopeEntity extends $tea.Model {
-  key?: string;
-  value?: string;
+// 虚拟身份受信关系
+export class StsActorBinding extends $tea.Model {
+  // 虚拟身份ID
+  actorId?: string;
+  // 受信对象ID
+  bindId?: string;
+  // 虚拟身份受信类型，可以为TENANT或者ALIYUN_SERVICE
+  bindType?: string;
   static names(): { [key: string]: string } {
     return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云鉴权上下文
-export class AliyunRamAuthContext extends $tea.Model {
-  // 操作名称
-  action: string;
-  // 条件
-  conditions?: Condition[];
-  // 唯一ID
-  id?: string;
-  // regionId
-  regionId: string;
-  // 资源
-  resources: AliyunResource[];
-  // 服务名称
-  serviceName: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      conditions: 'conditions',
-      id: 'id',
-      regionId: 'region_id',
-      resources: 'resources',
-      serviceName: 'service_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      conditions: { 'type': 'array', 'itemType': Condition },
-      id: 'string',
-      regionId: 'string',
-      resources: { 'type': 'array', 'itemType': AliyunResource },
-      serviceName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 鉴权事件（蚂蚁侧）
-export class AuthenticateEvent extends $tea.Model {
-  // 鉴权操作列表
-  actions: string[];
-  // 鉴权对象ID
-  actorId: string;
-  // 鉴权条件
-  conditions?: Condition[];
-  // 唯一ID
-  id?: string;
-  static names(): { [key: string]: string } {
-    return {
-      actions: 'actions',
       actorId: 'actor_id',
-      conditions: 'conditions',
-      id: 'id',
+      bindId: 'bind_id',
+      bindType: 'bind_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      actions: { 'type': 'array', 'itemType': 'string' },
       actorId: 'string',
-      conditions: { 'type': 'array', 'itemType': Condition },
-      id: 'string',
+      bindId: 'string',
+      bindType: 'string',
     };
   }
 
@@ -386,59 +382,171 @@ export class AuthenticateEvent extends $tea.Model {
   }
 }
 
-// 租户
-export class Tenant extends $tea.Model {
-  // 蚂蚁通行证签约账户
-  antAccount?: string;
-  // 蚂蚁通行证uid
-  antUid?: string;
-  // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
-  businessOwnerId?: string;
-  // 租户创建时间，ISO8601格式
-  createTime?: string;
-  // 租户所在的企业的唯一标识
-  customer?: string;
-  // 租户描述信息
+// 操作点
+export class Action extends $tea.Model {
+  // 操作点描述
   description?: string;
-  // 租户唯一标识
+  // 操作点ID
   id?: string;
-  // 租户内部id
-  internalId?: string;
-  // 租户显示名称
+  // 操作点名称
   name?: string;
-  // 租户最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  // 标签
-  tags?: string[];
   static names(): { [key: string]: string } {
     return {
-      antAccount: 'ant_account',
-      antUid: 'ant_uid',
-      businessOwnerId: 'business_owner_id',
-      createTime: 'create_time',
-      customer: 'customer',
       description: 'description',
       id: 'id',
-      internalId: 'internal_id',
       name: 'name',
-      updateTime: 'update_time',
-      tags: 'tags',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      antAccount: 'string',
-      antUid: 'string',
-      businessOwnerId: 'string',
-      createTime: 'string',
-      customer: 'string',
       description: 'string',
       id: 'string',
-      internalId: 'string',
       name: 'string',
-      updateTime: 'string',
-      tags: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 操作类型
+export class OperationType extends $tea.Model {
+  // 操作描述
+  description: string;
+  // 展示名称
+  displayName: string;
+  // 是否启用
+  enabled: string;
+  // 操作名称
+  name: string;
+  // 产品码
+  product: string;
+  // 操作来源
+  source: string;
+  // Onex接口额外信息
+  onexExtraInfo?: OnexExtraInfo;
+  // 资源类型
+  resourceType?: string;
+  // 资源表达式
+  resourceExp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      displayName: 'display_name',
+      enabled: 'enabled',
+      name: 'name',
+      product: 'product',
+      source: 'source',
+      onexExtraInfo: 'onex_extra_info',
+      resourceType: 'resource_type',
+      resourceExp: 'resource_exp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      displayName: 'string',
+      enabled: 'string',
+      name: 'string',
+      product: 'string',
+      source: 'string',
+      onexExtraInfo: OnexExtraInfo,
+      resourceType: 'string',
+      resourceExp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部门用户关系
+export class DepartmentUser extends $tea.Model {
+  // 部门唯一码
+  departmentCode?: string;
+  // 用户 id
+  userId?: string;
+  // 部门成员类型，
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      departmentCode: 'department_code',
+      userId: 'user_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      departmentCode: 'string',
+      userId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云批量鉴权
+export class AliyunAuthenticateBatchEvent extends $tea.Model {
+  // 金融云用户ID
+  userId: string;
+  // 阿里云鉴权列表
+  ramAuthContexts: AliyunRamAuthContext[];
+  // BSB透传下来的阿里云信息
+  requestInfo: AliyunPopRequestInfo;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      ramAuthContexts: 'ram_auth_contexts',
+      requestInfo: 'request_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      ramAuthContexts: { 'type': 'array', 'itemType': AliyunRamAuthContext },
+      requestInfo: AliyunPopRequestInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 鉴权结果
+export class Judgement extends $tea.Model {
+  // 唯一ID
+  id?: string;
+  // 是否通过
+  pass: boolean;
+  // 失败原因
+  reason?: string;
+  // 解决方案
+  solution?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      pass: 'pass',
+      reason: 'reason',
+      solution: 'solution',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      pass: 'boolean',
+      reason: 'string',
+      solution: 'string',
     };
   }
 
@@ -520,6 +628,43 @@ export class AuthGroup extends $tea.Model {
       creationTime: 'string',
       id: 'string',
       name: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AccessKey
+export class AccessKey extends $tea.Model {
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string;
+  // AccessKey唯一标识
+  id?: string;
+  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+  secret?: string;
+  // 状态
+  status?: string;
+  // AccessKey最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      id: 'id',
+      secret: 'secret',
+      status: 'status',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      id: 'string',
+      secret: 'string',
+      status: 'string',
       updateTime: 'string',
     };
   }
@@ -623,31 +768,59 @@ export class AuthPolicy extends $tea.Model {
   }
 }
 
-// 鉴权结果
-export class Judgement extends $tea.Model {
-  // 唯一ID
+// 租户
+export class Tenant extends $tea.Model {
+  // 蚂蚁通行证签约账户
+  antAccount?: string;
+  // 蚂蚁通行证uid
+  antUid?: string;
+  // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+  businessOwnerId?: string;
+  // 租户创建时间，ISO8601格式
+  createTime?: string;
+  // 租户所在的企业的唯一标识
+  customer?: string;
+  // 租户描述信息
+  description?: string;
+  // 租户唯一标识
   id?: string;
-  // 是否通过
-  pass: boolean;
-  // 失败原因
-  reason?: string;
-  // 解决方案
-  solution?: string;
+  // 租户内部id
+  internalId?: string;
+  // 租户显示名称
+  name?: string;
+  // 租户最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  // 标签
+  tags?: string[];
   static names(): { [key: string]: string } {
     return {
+      antAccount: 'ant_account',
+      antUid: 'ant_uid',
+      businessOwnerId: 'business_owner_id',
+      createTime: 'create_time',
+      customer: 'customer',
+      description: 'description',
       id: 'id',
-      pass: 'pass',
-      reason: 'reason',
-      solution: 'solution',
+      internalId: 'internal_id',
+      name: 'name',
+      updateTime: 'update_time',
+      tags: 'tags',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      antAccount: 'string',
+      antUid: 'string',
+      businessOwnerId: 'string',
+      createTime: 'string',
+      customer: 'string',
+      description: 'string',
       id: 'string',
-      pass: 'boolean',
-      reason: 'string',
-      solution: 'string',
+      internalId: 'string',
+      name: 'string',
+      updateTime: 'string',
+      tags: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -656,27 +829,51 @@ export class Judgement extends $tea.Model {
   }
 }
 
-// 成员组
-export class Group extends $tea.Model {
-  // 成员组ID
-  id: string;
-  // 成员组名称
-  name: string;
-  // 成员组描述
-  description: string;
+// 部门
+export class Department extends $tea.Model {
+  // 部门唯一代码
+  code?: string;
+  // 部门名称
+  name?: string;
+  // 部门描述信息
+  description?: string;
+  // 父部门 code
+  parentCode?: string;
+  // 父部门一直到根节点的路径，例如：DP0000000001/DP0000000002
+  parentPath?: string;
+  // 企业 id
+  customerId?: string;
+  // 是否为叶子结点
+  isLeaf?: boolean;
+  // 创建时间，ISO8601格式
+  creationTime?: string;
+  // 更新时间，ISO8601格式
+  updateTime?: string;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
+      code: 'code',
       name: 'name',
       description: 'description',
+      parentCode: 'parent_code',
+      parentPath: 'parent_path',
+      customerId: 'customer_id',
+      isLeaf: 'is_leaf',
+      creationTime: 'creation_time',
+      updateTime: 'update_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'string',
+      code: 'string',
       name: 'string',
       description: 'string',
+      parentCode: 'string',
+      parentPath: 'string',
+      customerId: 'string',
+      isLeaf: 'boolean',
+      creationTime: 'string',
+      updateTime: 'string',
     };
   }
 
@@ -698,149 +895,6 @@ export class AuthenticateBatchEvent extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       events: { 'type': 'array', 'itemType': AuthenticateEvent },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云批量鉴权
-export class AliyunAuthenticateBatchEvent extends $tea.Model {
-  // 金融云用户ID
-  userId: string;
-  // 阿里云鉴权列表
-  ramAuthContexts: AliyunRamAuthContext[];
-  // BSB透传下来的阿里云信息
-  requestInfo: AliyunPopRequestInfo;
-  static names(): { [key: string]: string } {
-    return {
-      userId: 'user_id',
-      ramAuthContexts: 'ram_auth_contexts',
-      requestInfo: 'request_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userId: 'string',
-      ramAuthContexts: { 'type': 'array', 'itemType': AliyunRamAuthContext },
-      requestInfo: AliyunPopRequestInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 操作员
-export class Operator extends $tea.Model {
-  // 操作员创建时间，ISO8601格式
-  createTime?: string;
-  // 操作员所在的企业
-  customer?: string;
-  // 邮箱
-  email?: string;
-  // 外部对接系统操作员id
-  externalId?: string;
-  // 外部对接系统类型
-  externalSystem?: string;
-  // 操作员ID
-  id?: string;
-  // 是否是主账号
-  isMaster?: boolean;
-  // 登录名
-  loginName?: string;
-  // 手机号
-  mobile?: string;
-  // 昵称
-  nickname?: string;
-  // 真实姓名
-  realName?: string;
-  // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
-  status?: string;
-  // 操作员加入的租户列表
-  tenants?: string[];
-  // 操作员最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  // 操作员工号
-  workNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      customer: 'customer',
-      email: 'email',
-      externalId: 'external_id',
-      externalSystem: 'external_system',
-      id: 'id',
-      isMaster: 'is_master',
-      loginName: 'login_name',
-      mobile: 'mobile',
-      nickname: 'nickname',
-      realName: 'real_name',
-      status: 'status',
-      tenants: 'tenants',
-      updateTime: 'update_time',
-      workNo: 'work_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      customer: 'string',
-      email: 'string',
-      externalId: 'string',
-      externalSystem: 'string',
-      id: 'string',
-      isMaster: 'boolean',
-      loginName: 'string',
-      mobile: 'string',
-      nickname: 'string',
-      realName: 'string',
-      status: 'string',
-      tenants: { 'type': 'array', 'itemType': 'string' },
-      updateTime: 'string',
-      workNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AccessKey
-export class AccessKey extends $tea.Model {
-  // AccessKey创建时间，ISO8601格式
-  createTime?: string;
-  // AccessKey唯一标识
-  id?: string;
-  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-  secret?: string;
-  // 状态
-  status?: string;
-  // AccessKey最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      id: 'id',
-      secret: 'secret',
-      status: 'status',
-      updateTime: 'update_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      id: 'string',
-      secret: 'string',
-      status: 'string',
-      updateTime: 'string',
     };
   }
 
@@ -923,7 +977,163 @@ export class Customer extends $tea.Model {
   }
 }
 
+// Mfa 配置
+export class MfaConfig extends $tea.Model {
+  // 用户id
+  userId?: string;
+  // MFA状态, 取值范围：ENABLED, DISABLED
+  status?: string;
+  // MFA类型，取值范围：SELF(自有MFA), SYMANTEC(赛门铁克MFA)
+  type?: string;
+  // 密钥
+  secretKey?: string;
+  // 最后一次密钥生成时间
+  lastGeneratedTime?: string;
+  // (校验失败时)重试校验的次数, 0 代表不限次数
+  verifyAttempts?: number;
+  // 第一次校验失败时间, ISO8601格式
+  firstFailureTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      status: 'status',
+      type: 'type',
+      secretKey: 'secret_key',
+      lastGeneratedTime: 'last_generated_time',
+      verifyAttempts: 'verify_attempts',
+      firstFailureTime: 'first_failure_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      status: 'string',
+      type: 'string',
+      secretKey: 'string',
+      lastGeneratedTime: 'string',
+      verifyAttempts: 'number',
+      firstFailureTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 成员组
+export class Group extends $tea.Model {
+  // 成员组ID
+  id: string;
+  // 成员组名称
+  name: string;
+  // 成员组描述
+  description: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 操作员
+export class Operator extends $tea.Model {
+  // 操作员创建时间，ISO8601格式
+  createTime?: string;
+  // 操作员所在的企业
+  customer?: string;
+  // 邮箱
+  email?: string;
+  // 外部对接系统操作员id
+  externalId?: string;
+  // 外部对接系统类型
+  externalSystem?: string;
+  // 操作员ID
+  id?: string;
+  // 是否是主账号
+  isMaster?: boolean;
+  // 登录名
+  loginName?: string;
+  // 手机号
+  mobile?: string;
+  // 昵称
+  nickname?: string;
+  // 真实姓名
+  realName?: string;
+  // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+  status?: string;
+  // 操作员加入的租户列表
+  tenants?: string[];
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  // 操作员工号
+  workNo?: string;
+  // 部门唯一码
+  departmentCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      customer: 'customer',
+      email: 'email',
+      externalId: 'external_id',
+      externalSystem: 'external_system',
+      id: 'id',
+      isMaster: 'is_master',
+      loginName: 'login_name',
+      mobile: 'mobile',
+      nickname: 'nickname',
+      realName: 'real_name',
+      status: 'status',
+      tenants: 'tenants',
+      updateTime: 'update_time',
+      workNo: 'work_no',
+      departmentCode: 'department_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      customer: 'string',
+      email: 'string',
+      externalId: 'string',
+      externalSystem: 'string',
+      id: 'string',
+      isMaster: 'boolean',
+      loginName: 'string',
+      mobile: 'string',
+      nickname: 'string',
+      realName: 'string',
+      status: 'string',
+      tenants: { 'type': 'array', 'itemType': 'string' },
+      updateTime: 'string',
+      workNo: 'string',
+      departmentCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -947,8 +1157,11 @@ export class GetRoleRequest extends $tea.Model {
 }
 
 export class GetRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 角色所包含的操作点
   actions?: Action[];
@@ -1004,6 +1217,7 @@ export class GetRoleResponse extends $tea.Model {
 }
 
 export class QueryPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权对象id
   actorId: string;
@@ -1043,8 +1257,11 @@ export class QueryPolicyRequest extends $tea.Model {
 }
 
 export class QueryPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 传入的页码, 如果没有传入, 则取默认值1
   pageNum: number;
@@ -1084,6 +1301,7 @@ export class QueryPolicyResponse extends $tea.Model {
 }
 
 export class QueryGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权组成员ID。授权组成员是操作员
   memberId?: string;
@@ -1119,8 +1337,11 @@ export class QueryGroupRequest extends $tea.Model {
 }
 
 export class QueryGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 授权组列表
   groups: AuthGroup[];
@@ -1160,6 +1381,7 @@ export class QueryGroupResponse extends $tea.Model {
 }
 
 export class CreatePolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色Id
   abilityId: string;
@@ -1203,8 +1425,11 @@ export class CreatePolicyRequest extends $tea.Model {
 }
 
 export class CreatePolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 授权策略id
   policyId: string;
@@ -1232,6 +1457,7 @@ export class CreatePolicyResponse extends $tea.Model {
 }
 
 export class DeletePolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权策略Id
   policyId: string;
@@ -1255,8 +1481,11 @@ export class DeletePolicyRequest extends $tea.Model {
 }
 
 export class DeletePolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1280,19 +1509,26 @@ export class DeletePolicyResponse extends $tea.Model {
 }
 
 export class AttachPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权对象Id
-  actorId: string;
+  actorId?: string;
   // 授权对象类型
-  actorType: string;
+  actorType?: string;
   // 授权策略Id
-  policyId: string;
+  policyId?: string;
+  // 授权操作员的登录名，当配置actor_id与actor_type时可不填
+  loginName?: string;
+  // 授权策略的唯一名称，当配置policy_id时可不填
+  policyName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       actorId: 'actor_id',
       actorType: 'actor_type',
       policyId: 'policy_id',
+      loginName: 'login_name',
+      policyName: 'policy_name',
     };
   }
 
@@ -1302,6 +1538,8 @@ export class AttachPolicyRequest extends $tea.Model {
       actorId: 'string',
       actorType: 'string',
       policyId: 'string',
+      loginName: 'string',
+      policyName: 'string',
     };
   }
 
@@ -1311,8 +1549,11 @@ export class AttachPolicyRequest extends $tea.Model {
 }
 
 export class AttachPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1336,19 +1577,26 @@ export class AttachPolicyResponse extends $tea.Model {
 }
 
 export class DetachPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权对象Id
-  actorId: string;
+  actorId?: string;
   // 授权对象类型
-  actorType: string;
+  actorType?: string;
   // 授权策略Id
-  policyId: string;
+  policyId?: string;
+  // 授权操作员的登录名，当配置actor_id与actor_type时可不填
+  loginName?: string;
+  // 授权策略的唯一名称，当配置policy_id时可不填
+  policyName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       actorId: 'actor_id',
       actorType: 'actor_type',
       policyId: 'policy_id',
+      loginName: 'login_name',
+      policyName: 'policy_name',
     };
   }
 
@@ -1358,6 +1606,8 @@ export class DetachPolicyRequest extends $tea.Model {
       actorId: 'string',
       actorType: 'string',
       policyId: 'string',
+      loginName: 'string',
+      policyName: 'string',
     };
   }
 
@@ -1367,8 +1617,11 @@ export class DetachPolicyRequest extends $tea.Model {
 }
 
 export class DetachPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1392,6 +1645,7 @@ export class DetachPolicyResponse extends $tea.Model {
 }
 
 export class ListPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 授权对象id
   actorId: string;
@@ -1423,8 +1677,11 @@ export class ListPolicyRequest extends $tea.Model {
 }
 
 export class ListPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 授权策略列表
   policies: AuthPolicy[];
@@ -1452,6 +1709,7 @@ export class ListPolicyResponse extends $tea.Model {
 }
 
 export class JudgeAuthorityRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作点id
   actionId: string;
@@ -1483,8 +1741,11 @@ export class JudgeAuthorityRequest extends $tea.Model {
 }
 
 export class JudgeAuthorityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 判断结果。true：鉴权通过；false：鉴权未通过
   result: string;
@@ -1512,6 +1773,7 @@ export class JudgeAuthorityResponse extends $tea.Model {
 }
 
 export class CreateProductActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作点ID
   actionId: string;
@@ -1551,8 +1813,11 @@ export class CreateProductActionRequest extends $tea.Model {
 }
 
 export class CreateProductActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1576,6 +1841,7 @@ export class CreateProductActionResponse extends $tea.Model {
 }
 
 export class VerifyOauthTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // token值
   accessToken: string;
@@ -1607,8 +1873,11 @@ export class VerifyOauthTokenRequest extends $tea.Model {
 }
 
 export class VerifyOauthTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // token关联的用户id
   id?: string;
@@ -1640,6 +1909,7 @@ export class VerifyOauthTokenResponse extends $tea.Model {
 }
 
 export class VerifySessionTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // token值
   token: string;
@@ -1663,8 +1933,11 @@ export class VerifySessionTokenRequest extends $tea.Model {
 }
 
 export class VerifySessionTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 用户所在企业的唯一标识
   customer?: string;
@@ -1708,6 +1981,7 @@ export class VerifySessionTokenResponse extends $tea.Model {
 }
 
 export class ListRoleOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -1735,8 +2009,11 @@ export class ListRoleOperatorRequest extends $tea.Model {
 }
 
 export class ListRoleOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 操作员列表
   operators: Operator[];
@@ -1764,6 +2041,7 @@ export class ListRoleOperatorResponse extends $tea.Model {
 }
 
 export class ApplyTrustloginUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 	跳转地址
   gotoUrl: string;
@@ -1791,8 +2069,11 @@ export class ApplyTrustloginUrlRequest extends $tea.Model {
 }
 
 export class ApplyTrustloginUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 信登URL
   trustLoginUrl?: string;
@@ -1820,6 +2101,7 @@ export class ApplyTrustloginUrlResponse extends $tea.Model {
 }
 
 export class AssumeStsRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 虚拟身份唯一名称
   actorName: string;
@@ -1855,8 +2137,11 @@ export class AssumeStsRequest extends $tea.Model {
 }
 
 export class AssumeStsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 安全令牌accessKey
   accessKey?: string;
@@ -1896,6 +2181,7 @@ export class AssumeStsResponse extends $tea.Model {
 }
 
 export class CreateStsActorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 虚拟身份受信关系集合，通常只包含一个
   bindings: StsActorBinding[];
@@ -1927,8 +2213,11 @@ export class CreateStsActorRequest extends $tea.Model {
 }
 
 export class CreateStsActorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 虚拟身份ID
   actorId?: string;
@@ -1956,6 +2245,7 @@ export class CreateStsActorResponse extends $tea.Model {
 }
 
 export class DeleteStsActorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 虚拟身份ID，与虚拟身份名称两个参数二选一传入
   actorId?: string;
@@ -1983,8 +2273,11 @@ export class DeleteStsActorRequest extends $tea.Model {
 }
 
 export class DeleteStsActorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2008,6 +2301,7 @@ export class DeleteStsActorResponse extends $tea.Model {
 }
 
 export class GetStsActorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 虚拟身份ID，与虚拟身份名称两个参数二选一传入
   actorId?: string;
@@ -2035,8 +2329,11 @@ export class GetStsActorRequest extends $tea.Model {
 }
 
 export class GetStsActorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 虚拟身份受信关系集合，通常只包含一个
   bindings?: StsActorBinding[];
@@ -2080,6 +2377,7 @@ export class GetStsActorResponse extends $tea.Model {
 }
 
 export class ListStsActorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2099,8 +2397,11 @@ export class ListStsActorRequest extends $tea.Model {
 }
 
 export class ListStsActorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 虚拟身份列表
   actors?: StsActor[];
@@ -2128,6 +2429,7 @@ export class ListStsActorResponse extends $tea.Model {
 }
 
 export class UpdateStsActorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 虚拟身份ID
   actorId: string;
@@ -2155,8 +2457,11 @@ export class UpdateStsActorRequest extends $tea.Model {
 }
 
 export class UpdateStsActorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 虚拟身份受信关系集合，通常只包含一个
   bindings?: StsActorBinding[];
@@ -2200,6 +2505,7 @@ export class UpdateStsActorResponse extends $tea.Model {
 }
 
 export class QueryRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色名称
   name?: string;
@@ -2239,8 +2545,11 @@ export class QueryRoleRequest extends $tea.Model {
 }
 
 export class QueryRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 当前页
   pageNum?: number;
@@ -2280,6 +2589,7 @@ export class QueryRoleResponse extends $tea.Model {
 }
 
 export class GetIaasaccountBaseinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2299,8 +2609,11 @@ export class GetIaasaccountBaseinfoRequest extends $tea.Model {
 }
 
 export class GetIaasaccountBaseinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 账号名称
   account?: string;
@@ -2340,6 +2653,7 @@ export class GetIaasaccountBaseinfoResponse extends $tea.Model {
 }
 
 export class VerifyPasswordRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 加密过的密码值，使用AccessSecret进行3DES加密
   encryptedPassword: string;
@@ -2367,8 +2681,11 @@ export class VerifyPasswordRequest extends $tea.Model {
 }
 
 export class VerifyPasswordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2392,6 +2709,7 @@ export class VerifyPasswordResponse extends $tea.Model {
 }
 
 export class UpdateOperatorStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作员ID
   operatorId: string;
@@ -2419,8 +2737,11 @@ export class UpdateOperatorStatusRequest extends $tea.Model {
 }
 
 export class UpdateOperatorStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2444,6 +2765,7 @@ export class UpdateOperatorStatusResponse extends $tea.Model {
 }
 
 export class FreezeOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作员ID
   operatorId: string;
@@ -2467,8 +2789,11 @@ export class FreezeOperatorRequest extends $tea.Model {
 }
 
 export class FreezeOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2492,6 +2817,7 @@ export class FreezeOperatorResponse extends $tea.Model {
 }
 
 export class UnfreezeOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作员ID
   operatorId: string;
@@ -2515,8 +2841,11 @@ export class UnfreezeOperatorRequest extends $tea.Model {
 }
 
 export class UnfreezeOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2540,6 +2869,7 @@ export class UnfreezeOperatorResponse extends $tea.Model {
 }
 
 export class GetInternalMasterRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 阿里云PK
   iaasId?: string;
@@ -2571,8 +2901,11 @@ export class GetInternalMasterRequest extends $tea.Model {
 }
 
 export class GetInternalMasterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 证件ID
   certNo?: string;
@@ -2644,6 +2977,7 @@ export class GetInternalMasterResponse extends $tea.Model {
 }
 
 export class GetAliyunUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 阿里云用户ID
   userId: string;
@@ -2667,8 +3001,11 @@ export class GetAliyunUserRequest extends $tea.Model {
 }
 
 export class GetAliyunUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 阿里云用户ID
   id?: string;
@@ -2720,6 +3057,7 @@ export class GetAliyunUserResponse extends $tea.Model {
 }
 
 export class JudgeAliyunAuthorityRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 阿里云POP API名称
   action: string;
@@ -2767,8 +3105,11 @@ export class JudgeAliyunAuthorityRequest extends $tea.Model {
 }
 
 export class JudgeAliyunAuthorityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权限校验是否通过
   result?: boolean;
@@ -2804,6 +3145,7 @@ export class JudgeAliyunAuthorityResponse extends $tea.Model {
 }
 
 export class GetSessionAccessorRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 登录态
   authorization: string;
@@ -2831,8 +3173,11 @@ export class GetSessionAccessorRequest extends $tea.Model {
 }
 
 export class GetSessionAccessorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // access_key
   accessKey?: string;
@@ -2872,6 +3217,7 @@ export class GetSessionAccessorResponse extends $tea.Model {
 }
 
 export class UpdatePasswordRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 登录名
   loginName: string;
@@ -2905,8 +3251,11 @@ export class UpdatePasswordRequest extends $tea.Model {
 }
 
 export class UpdatePasswordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2930,6 +3279,7 @@ export class UpdatePasswordResponse extends $tea.Model {
 }
 
 export class JudgeMultiauthorityRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 批量鉴权对象
   batchEvent: AuthenticateBatchEvent;
@@ -2957,8 +3307,11 @@ export class JudgeMultiauthorityRequest extends $tea.Model {
 }
 
 export class JudgeMultiauthorityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 鉴权结果列表
   judgements?: Judgement[];
@@ -2986,6 +3339,7 @@ export class JudgeMultiauthorityResponse extends $tea.Model {
 }
 
 export class JudgeAliyunMultiauthorityRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 阿里云批量鉴权
   batchEvent: AliyunAuthenticateBatchEvent;
@@ -3013,8 +3367,11 @@ export class JudgeAliyunMultiauthorityRequest extends $tea.Model {
 }
 
 export class JudgeAliyunMultiauthorityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 鉴权结果列表
   judgements?: Judgement[];
@@ -3042,6 +3399,7 @@ export class JudgeAliyunMultiauthorityResponse extends $tea.Model {
 }
 
 export class GetAccessorCurrentRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3061,8 +3419,11 @@ export class GetAccessorCurrentRequest extends $tea.Model {
 }
 
 export class GetAccessorCurrentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 一方化链路为阿里云用户ID，蚂蚁链路为金融云用户ID
   id?: string;
@@ -3113,6 +3474,7 @@ export class GetAccessorCurrentResponse extends $tea.Model {
 }
 
 export class GetServiceaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 服务账号名称
   name?: string;
@@ -3140,8 +3502,11 @@ export class GetServiceaccountRequest extends $tea.Model {
 }
 
 export class GetServiceaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 服务账号别名
   alias?: string;
@@ -3185,6 +3550,7 @@ export class GetServiceaccountResponse extends $tea.Model {
 }
 
 export class CreateServiceaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 服务账号描述
   description?: string;
@@ -3212,8 +3578,11 @@ export class CreateServiceaccountRequest extends $tea.Model {
 }
 
 export class CreateServiceaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 服务账号AK
   accessKey?: string;
@@ -3265,6 +3634,7 @@ export class CreateServiceaccountResponse extends $tea.Model {
 }
 
 export class DeleteServiceaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 服务账号名称
   name?: string;
@@ -3292,8 +3662,11 @@ export class DeleteServiceaccountRequest extends $tea.Model {
 }
 
 export class DeleteServiceaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3317,6 +3690,7 @@ export class DeleteServiceaccountResponse extends $tea.Model {
 }
 
 export class UpdateServiceaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 服务账号别名
   alias?: string;
@@ -3352,8 +3726,11 @@ export class UpdateServiceaccountRequest extends $tea.Model {
 }
 
 export class UpdateServiceaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3377,6 +3754,7 @@ export class UpdateServiceaccountResponse extends $tea.Model {
 }
 
 export class RemoveTenantMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作员ID
   operatorId: string;
@@ -3400,8 +3778,11 @@ export class RemoveTenantMemberRequest extends $tea.Model {
 }
 
 export class RemoveTenantMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3425,6 +3806,7 @@ export class RemoveTenantMemberResponse extends $tea.Model {
 }
 
 export class CreateGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 名称
   name: string;
@@ -3452,8 +3834,11 @@ export class CreateGroupRequest extends $tea.Model {
 }
 
 export class CreateGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 成员组ID
   id?: string;
@@ -3481,6 +3866,7 @@ export class CreateGroupResponse extends $tea.Model {
 }
 
 export class DeleteGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3504,8 +3890,11 @@ export class DeleteGroupRequest extends $tea.Model {
 }
 
 export class DeleteGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3529,6 +3918,7 @@ export class DeleteGroupResponse extends $tea.Model {
 }
 
 export class UpdateGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3560,8 +3950,11 @@ export class UpdateGroupRequest extends $tea.Model {
 }
 
 export class UpdateGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3585,6 +3978,7 @@ export class UpdateGroupResponse extends $tea.Model {
 }
 
 export class AddGroupMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3612,8 +4006,11 @@ export class AddGroupMemberRequest extends $tea.Model {
 }
 
 export class AddGroupMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3637,6 +4034,7 @@ export class AddGroupMemberResponse extends $tea.Model {
 }
 
 export class RemoveGroupMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3664,8 +4062,11 @@ export class RemoveGroupMemberRequest extends $tea.Model {
 }
 
 export class RemoveGroupMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3689,6 +4090,7 @@ export class RemoveGroupMemberResponse extends $tea.Model {
 }
 
 export class GetGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3712,8 +4114,11 @@ export class GetGroupRequest extends $tea.Model {
 }
 
 export class GetGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 成员组ID
   id?: string;
@@ -3749,6 +4154,7 @@ export class GetGroupResponse extends $tea.Model {
 }
 
 export class QueryGroupMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 成员组ID
   groupId: string;
@@ -3780,8 +4186,11 @@ export class QueryGroupMemberRequest extends $tea.Model {
 }
 
 export class QueryGroupMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 成员列表
   operators?: Operator[];
@@ -3821,6 +4230,7 @@ export class QueryGroupMemberResponse extends $tea.Model {
 }
 
 export class ListOperatorGroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 操作员ID
   operatorId: string;
@@ -3844,8 +4254,11 @@ export class ListOperatorGroupRequest extends $tea.Model {
 }
 
 export class ListOperatorGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 成员组列表
   groups?: Group[];
@@ -3873,6 +4286,7 @@ export class ListOperatorGroupResponse extends $tea.Model {
 }
 
 export class AddRoleActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -3900,8 +4314,11 @@ export class AddRoleActionRequest extends $tea.Model {
 }
 
 export class AddRoleActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3925,6 +4342,7 @@ export class AddRoleActionResponse extends $tea.Model {
 }
 
 export class RemoveRoleActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -3952,8 +4370,11 @@ export class RemoveRoleActionRequest extends $tea.Model {
 }
 
 export class RemoveRoleActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3977,6 +4398,7 @@ export class RemoveRoleActionResponse extends $tea.Model {
 }
 
 export class CreateRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 名称
   name: string;
@@ -4008,8 +4430,11 @@ export class CreateRoleRequest extends $tea.Model {
 }
 
 export class CreateRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 角色ID
   id?: string;
@@ -4037,6 +4462,7 @@ export class CreateRoleResponse extends $tea.Model {
 }
 
 export class DeleteRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -4060,8 +4486,11 @@ export class DeleteRoleRequest extends $tea.Model {
 }
 
 export class DeleteRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4085,6 +4514,7 @@ export class DeleteRoleResponse extends $tea.Model {
 }
 
 export class UpdateRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
   authToken?: string;
   // 角色ID
   roleId: string;
@@ -4116,8 +4546,11 @@ export class UpdateRoleRequest extends $tea.Model {
 }
 
 export class UpdateRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4132,6 +4565,1740 @@ export class UpdateRoleResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一代码
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 部门唯一代码
+  code?: string;
+  // 部门名称
+  name?: string;
+  // 部门描述信息
+  description?: string;
+  // 父部门 code
+  parentCode?: string;
+  // 企业 id
+  customerId?: string;
+  // 是否为叶子结点
+  isLeaf?: boolean;
+  // 创建时间，ISO8601格式
+  creationTime?: string;
+  // 更新时间，ISO8601格式
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      name: 'name',
+      description: 'description',
+      parentCode: 'parent_code',
+      customerId: 'customer_id',
+      isLeaf: 'is_leaf',
+      creationTime: 'creation_time',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      name: 'string',
+      description: 'string',
+      parentCode: 'string',
+      customerId: 'string',
+      isLeaf: 'boolean',
+      creationTime: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  code: string;
+  // 部门名称
+  name: string;
+  // 部门描述信息
+  description?: string;
+  // 父部门 code，如果需要创建根部门，需填：ROOT
+  parentCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      code: 'code',
+      name: 'name',
+      description: 'description',
+      parentCode: 'parent_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      code: 'string',
+      name: 'string',
+      description: 'string',
+      parentCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  code: string;
+  // 部门名称
+  name?: string;
+  // 部门描述信息
+  description?: string;
+  // 父部们唯一码
+  parentCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      code: 'code',
+      name: 'name',
+      description: 'description',
+      parentCode: 'parent_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      code: 'string',
+      name: 'string',
+      description: 'string',
+      parentCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  code?: string;
+  // 部门名称
+  name?: string;
+  // 部门描述信息
+  description?: string;
+  // 父部门唯一码
+  parentCode?: string;
+  // 分页大小
+  pageSize?: number;
+  // 当前页
+  pageNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      code: 'code',
+      name: 'name',
+      description: 'description',
+      parentCode: 'parent_code',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      code: 'string',
+      name: 'string',
+      description: 'string',
+      parentCode: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 部门列表
+  departments?: Department[];
+  // 当前页码
+  pageNum?: number;
+  // 分页大小
+  pageSize?: number;
+  // 总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      departments: 'departments',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      departments: { 'type': 'array', 'itemType': Department },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryDepartmentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  codes?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      codes: 'codes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      codes: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryDepartmentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 部门列表
+  departments?: Department[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      departments: 'departments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      departments: { 'type': 'array', 'itemType': Department },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDepartmentUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 待添加或更新的部门成员关系列表
+  departmentUsers: DepartmentUser[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      departmentUsers: 'department_users',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      departmentUsers: { 'type': 'array', 'itemType': DepartmentUser },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDepartmentUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveDepartmentUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 待删除的部门成员关系列表
+  departmentUsers: DepartmentUser[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      departmentUsers: 'department_users',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      departmentUsers: { 'type': 'array', 'itemType': DepartmentUser },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveDepartmentUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDepartmentUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 部门唯一码
+  departmentCode?: string;
+  // 用户 id
+  userId?: string;
+  // 部门成员类型
+  type?: string;
+  // 分页大小
+  pageSize?: number;
+  // 当前页
+  pageNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      departmentCode: 'department_code',
+      userId: 'user_id',
+      type: 'type',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      departmentCode: 'string',
+      userId: 'string',
+      type: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDepartmentUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 部门成员列表
+  departmentUsers?: DepartmentUser[];
+  // 当前页码
+  pageNum?: number;
+  // 分页大小
+  pageSize?: number;
+  // 总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      departmentUsers: 'department_users',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      departmentUsers: { 'type': 'array', 'itemType': DepartmentUser },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetLoginconfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetLoginconfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 密码最小长度
+  passwordMinLength?: number;
+  // 密码最大长度
+  passwordMaxLength?: number;
+  // 密码是否必须包含小写字母
+  passwordLowercaseLetter?: boolean;
+  // 密码是否必须包含大写字母
+  passwordUppercaseLetter?: boolean;
+  // 密码是否必须包含字母
+  passwordLetter?: boolean;
+  // 密码是否必须包含数字
+  passwordDigit?: boolean;
+  // 密码是否必须包含特殊字符
+  passwordSpecialChar?: boolean;
+  // 是否检查密码有效
+  passwordValidCheck?: boolean;
+  // 密码有效期
+  passwordValidPeriod?: number;
+  // 密码过期后是否允许登录
+  passwordExpiredLogin?: boolean;
+  // 是否检查密码历史
+  passwordHistoryCheck?: boolean;
+  // 密码历史个数
+  passwordHistoryNum?: number;
+  // 重试校验是否触发锁定
+  verifyAttemptsCheck?: boolean;
+  // 重试校验窗口
+  verifyAttemptsWindow?: number;
+  // 重试校验触发锁定阈值
+  verifyAttemptsThreshold?: number;
+  // 锁定时间
+  lockoutDuration?: number;
+  // 是否检查账户活跃
+  activeCheck?: boolean;
+  // 活跃周期，非活跃时锁定登录
+  activePeriod?: number;
+  // 是否允许自主管理密码
+  passwordSelfManage?: boolean;
+  // 是否允许自主管理MFA
+  mfaSelfManage?: boolean;
+  // 状态, 取值范围：NORMAL(正常状态), LOCK(锁定), ONE_PARTY_MIGRATING(一方化迁移中), ONE_PARTY_MIGRATION_LOCK(一方化迁移完成，禁用蚂蚁登录)
+  status?: string;
+  // 并发登录的ip数量，小于1表示不限制
+  concurrentIpCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      passwordMinLength: 'password_min_length',
+      passwordMaxLength: 'password_max_length',
+      passwordLowercaseLetter: 'password_lowercase_letter',
+      passwordUppercaseLetter: 'password_uppercase_letter',
+      passwordLetter: 'password_letter',
+      passwordDigit: 'password_digit',
+      passwordSpecialChar: 'password_special_char',
+      passwordValidCheck: 'password_valid_check',
+      passwordValidPeriod: 'password_valid_period',
+      passwordExpiredLogin: 'password_expired_login',
+      passwordHistoryCheck: 'password_history_check',
+      passwordHistoryNum: 'password_history_num',
+      verifyAttemptsCheck: 'verify_attempts_check',
+      verifyAttemptsWindow: 'verify_attempts_window',
+      verifyAttemptsThreshold: 'verify_attempts_threshold',
+      lockoutDuration: 'lockout_duration',
+      activeCheck: 'active_check',
+      activePeriod: 'active_period',
+      passwordSelfManage: 'password_self_manage',
+      mfaSelfManage: 'mfa_self_manage',
+      status: 'status',
+      concurrentIpCount: 'concurrent_ip_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      passwordMinLength: 'number',
+      passwordMaxLength: 'number',
+      passwordLowercaseLetter: 'boolean',
+      passwordUppercaseLetter: 'boolean',
+      passwordLetter: 'boolean',
+      passwordDigit: 'boolean',
+      passwordSpecialChar: 'boolean',
+      passwordValidCheck: 'boolean',
+      passwordValidPeriod: 'number',
+      passwordExpiredLogin: 'boolean',
+      passwordHistoryCheck: 'boolean',
+      passwordHistoryNum: 'number',
+      verifyAttemptsCheck: 'boolean',
+      verifyAttemptsWindow: 'number',
+      verifyAttemptsThreshold: 'number',
+      lockoutDuration: 'number',
+      activeCheck: 'boolean',
+      activePeriod: 'number',
+      passwordSelfManage: 'boolean',
+      mfaSelfManage: 'boolean',
+      status: 'string',
+      concurrentIpCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateLoginconfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 密码最小长度
+  passwordMinLength?: number;
+  // 密码最大长度
+  passwordMaxLength?: number;
+  // 密码是否必须包含小写字母
+  passwordLowercaseLetter?: boolean;
+  // 密码是否必须包含大写字母
+  passwordUppercaseLetter?: boolean;
+  // 密码是否必须包含字母
+  passwordLetter?: boolean;
+  // 密码是否必须包含数字
+  passwordDigit?: boolean;
+  // 密码是否必须包含特殊字符
+  passwordSpecialChar?: boolean;
+  // 是否检查密码有效
+  passwordValidCheck?: boolean;
+  // 密码有效期
+  passwordValidPeriod?: number;
+  // 密码过期后是否允许登录
+  passwordExpiredLogin?: boolean;
+  // 是否检查密码历史
+  passwordHistoryCheck?: boolean;
+  // 密码历史个数
+  passwordHistoryNum?: number;
+  // 重试校验是否触发锁定
+  verifyAttemptsCheck?: boolean;
+  // 重试校验窗口
+  verifyAttemptsWindow?: number;
+  // 重试校验触发锁定阈值
+  verifyAttemptsThreshold?: number;
+  // 锁定时间
+  lockoutDuration?: number;
+  // 是否检查账户活跃
+  activeCheck?: boolean;
+  // 活跃周期，非活跃时锁定登录
+  activePeriod?: number;
+  // 是否允许自主管理密码
+  passwordSelfManage?: boolean;
+  // 是否允许自主管理MFA
+  mfaSelfManage?: boolean;
+  // 并发登录的ip数量，小于1表示不限制
+  concurrentIpCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      passwordMinLength: 'password_min_length',
+      passwordMaxLength: 'password_max_length',
+      passwordLowercaseLetter: 'password_lowercase_letter',
+      passwordUppercaseLetter: 'password_uppercase_letter',
+      passwordLetter: 'password_letter',
+      passwordDigit: 'password_digit',
+      passwordSpecialChar: 'password_special_char',
+      passwordValidCheck: 'password_valid_check',
+      passwordValidPeriod: 'password_valid_period',
+      passwordExpiredLogin: 'password_expired_login',
+      passwordHistoryCheck: 'password_history_check',
+      passwordHistoryNum: 'password_history_num',
+      verifyAttemptsCheck: 'verify_attempts_check',
+      verifyAttemptsWindow: 'verify_attempts_window',
+      verifyAttemptsThreshold: 'verify_attempts_threshold',
+      lockoutDuration: 'lockout_duration',
+      activeCheck: 'active_check',
+      activePeriod: 'active_period',
+      passwordSelfManage: 'password_self_manage',
+      mfaSelfManage: 'mfa_self_manage',
+      concurrentIpCount: 'concurrent_ip_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      passwordMinLength: 'number',
+      passwordMaxLength: 'number',
+      passwordLowercaseLetter: 'boolean',
+      passwordUppercaseLetter: 'boolean',
+      passwordLetter: 'boolean',
+      passwordDigit: 'boolean',
+      passwordSpecialChar: 'boolean',
+      passwordValidCheck: 'boolean',
+      passwordValidPeriod: 'number',
+      passwordExpiredLogin: 'boolean',
+      passwordHistoryCheck: 'boolean',
+      passwordHistoryNum: 'number',
+      verifyAttemptsCheck: 'boolean',
+      verifyAttemptsWindow: 'number',
+      verifyAttemptsThreshold: 'number',
+      lockoutDuration: 'number',
+      activeCheck: 'boolean',
+      activePeriod: 'number',
+      passwordSelfManage: 'boolean',
+      mfaSelfManage: 'boolean',
+      concurrentIpCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateLoginconfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMfaStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMfaStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // MFA状态, 取值范围：ENABLED, DISABLED
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class EnableMfaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户 id
+  userId: string;
+  // 验证码
+  verificationCode: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      verificationCode: 'verification_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      verificationCode: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class EnableMfaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DisableMfaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户 id
+  userId: string;
+  // 验证码
+  verificationCode?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      verificationCode: 'verification_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      verificationCode: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DisableMfaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitMfaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户 id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitMfaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 密钥
+  secretKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      secretKey: 'secret_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      secretKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyMfaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户 id
+  userId: string;
+  // 验证码
+  verificationCode: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      verificationCode: 'verification_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      verificationCode: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyMfaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 校验结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMfaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户 id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMfaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户 id
+  userId?: string;
+  // MFA状态, 取值范围：ENABLED, DISABLED
+  status?: string;
+  // 密钥
+  secretKey?: string;
+  // 最后一次密钥生成时间
+  lastGeneratedTime?: string;
+  // (校验失败时)重试校验的次数
+  verifyAttempts?: number;
+  // 第一次校验失败时间
+  firstFailureTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      status: 'status',
+      secretKey: 'secret_key',
+      lastGeneratedTime: 'last_generated_time',
+      verifyAttempts: 'verify_attempts',
+      firstFailureTime: 'first_failure_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      status: 'string',
+      secretKey: 'string',
+      lastGeneratedTime: 'string',
+      verifyAttempts: 'number',
+      firstFailureTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateOperatorPasswordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 登录名
+  loginName: string;
+  // 加密过的新密码值，使用AccessSecret进行3DES加密
+  newEncryptedPassword: string;
+  // 加密过的旧密码值，使用AccessSecret进行DES加密
+  oldEncryptedPassword: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      loginName: 'login_name',
+      newEncryptedPassword: 'new_encrypted_password',
+      oldEncryptedPassword: 'old_encrypted_password',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      loginName: 'string',
+      newEncryptedPassword: 'string',
+      oldEncryptedPassword: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateOperatorPasswordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetOperatorPasswordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 登录名
+  loginName: string;
+  // 加密过的新密码值，使用AccessSecret进行3DES加密
+  newEncryptedPassword: string;
+  // 登录凭证状态，取值范围：NORMAL, EXPIRED
+  // 
+  // 默认为 NORMAL，设为 EXPIRED 用户登录时会要求重置密码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      loginName: 'login_name',
+      newEncryptedPassword: 'new_encrypted_password',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      loginName: 'string',
+      newEncryptedPassword: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetOperatorPasswordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户id列表
+  operatorIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operatorIds: 'operator_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operatorIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作员列表
+  operators?: Operator[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operators: 'operators',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operators: { 'type': 'array', 'itemType': Operator },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushOperationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // {产品}.{资源}.{子资源}.{操作}
+  operationCode: string;
+  // 操作参数
+  params: string;
+  // 可用区域信息，非必填
+  region?: string;
+  // 资源ID
+  resourceId?: string;
+  // 资源类型
+  resourceType?: string;
+  // 相应结果
+  response?: string;
+  // 操作来源，由接入方上报自身系统host
+  source?: string;
+  // 操作来源IP，由接入方上报
+  sourceIpAddress?: string;
+  // 触发时间
+  time: string;
+  // TraceId用于事件追踪
+  traceId?: string;
+  // agent信息
+  userAgent?: string;
+  // 用户ID
+  userId: string;
+  // 租户8位ID
+  userTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operationCode: 'operation_code',
+      params: 'params',
+      region: 'region',
+      resourceId: 'resource_id',
+      resourceType: 'resource_type',
+      response: 'response',
+      source: 'source',
+      sourceIpAddress: 'source_ip_address',
+      time: 'time',
+      traceId: 'trace_id',
+      userAgent: 'user_agent',
+      userId: 'user_id',
+      userTenant: 'user_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operationCode: 'string',
+      params: 'string',
+      region: 'string',
+      resourceId: 'string',
+      resourceType: 'string',
+      response: 'string',
+      source: 'string',
+      sourceIpAddress: 'string',
+      time: 'string',
+      traceId: 'string',
+      userAgent: 'string',
+      userId: 'string',
+      userTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushOperationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 事件唯一ID
+  uniqueId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uniqueId: 'unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOperationtypeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码
+  product: string;
+  // 来源信息
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      product: 'product',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      product: 'string',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOperationtypeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作类型列表
+  operationTypes?: OperationType[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operationTypes: 'operation_types',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operationTypes: { 'type': 'array', 'itemType': OperationType },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetOperationtypeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作类型名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetOperationtypeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作类型
+  data?: OperationType;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: OperationType,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddTenantMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作员唯一id
+  operatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddTenantMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // Accessor关联的AccessKey
+  accessKey?: string;
+  // Accessor关联的AccessKey的密钥
+  accessSecret?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessKey: 'access_key',
+      accessSecret: 'access_secret',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessKey: 'string',
+      accessSecret: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetOperatorLogintokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetOperatorLogintokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 一次性登录认证 token
+  loginToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loginToken: 'login_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loginToken: 'string',
     };
   }
 
@@ -4214,7 +6381,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -4253,7 +6420,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.12.4",
+          sdk_version: "3.12.8",
+          _prod_code: "IAM",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -5285,6 +7454,481 @@ export default class Client {
   async updateRoleEx(request: UpdateRoleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateRoleResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateRoleResponse>(await this.doRequest("1.0", "antcloud.iam.role.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateRoleResponse({}));
+  }
+
+  /**
+   * Description: 获取单个部门信息
+   * Summary: 获取单个部门信息
+   */
+  async getDepartment(request: GetDepartmentRequest): Promise<GetDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取单个部门信息
+   * Summary: 获取单个部门信息
+   */
+  async getDepartmentEx(request: GetDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 创建部门
+   * Summary: 创建部门
+   */
+  async createDepartment(request: CreateDepartmentRequest): Promise<CreateDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建部门
+   * Summary: 创建部门
+   */
+  async createDepartmentEx(request: CreateDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 更新部门信息
+   * Summary: 更新部门信息
+   */
+  async updateDepartment(request: UpdateDepartmentRequest): Promise<UpdateDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新部门信息
+   * Summary: 更新部门信息
+   */
+  async updateDepartmentEx(request: UpdateDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 删除部门
+   * Summary: 删除部门
+   */
+  async deleteDepartment(request: DeleteDepartmentRequest): Promise<DeleteDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除部门
+   * Summary: 删除部门
+   */
+  async deleteDepartmentEx(request: DeleteDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 分页查询部门信息
+   * Summary: 分页查询部门信息
+   */
+  async pagequeryDepartment(request: PagequeryDepartmentRequest): Promise<PagequeryDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询部门信息
+   * Summary: 分页查询部门信息
+   */
+  async pagequeryDepartmentEx(request: PagequeryDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 批量查询部门
+   * Summary: 批量查询部门
+   */
+  async batchqueryDepartment(request: BatchqueryDepartmentRequest): Promise<BatchqueryDepartmentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryDepartmentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量查询部门
+   * Summary: 批量查询部门
+   */
+  async batchqueryDepartmentEx(request: BatchqueryDepartmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryDepartmentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryDepartmentResponse>(await this.doRequest("1.0", "antcloud.iam.department.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryDepartmentResponse({}));
+  }
+
+  /**
+   * Description: 添加或更新部门成员
+   * Summary: 添加或更新部门成员
+   */
+  async saveDepartmentUser(request: SaveDepartmentUserRequest): Promise<SaveDepartmentUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveDepartmentUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加或更新部门成员
+   * Summary: 添加或更新部门成员
+   */
+  async saveDepartmentUserEx(request: SaveDepartmentUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveDepartmentUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveDepartmentUserResponse>(await this.doRequest("1.0", "antcloud.iam.department.user.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveDepartmentUserResponse({}));
+  }
+
+  /**
+   * Description: 移除部门成员
+   * Summary: 移除部门成员
+   */
+  async removeDepartmentUser(request: RemoveDepartmentUserRequest): Promise<RemoveDepartmentUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeDepartmentUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 移除部门成员
+   * Summary: 移除部门成员
+   */
+  async removeDepartmentUserEx(request: RemoveDepartmentUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveDepartmentUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveDepartmentUserResponse>(await this.doRequest("1.0", "antcloud.iam.department.user.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveDepartmentUserResponse({}));
+  }
+
+  /**
+   * Description: 分页查询部门成员信息
+   * Summary: 分页查询部门成员信息
+   */
+  async queryDepartmentUser(request: QueryDepartmentUserRequest): Promise<QueryDepartmentUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDepartmentUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询部门成员信息
+   * Summary: 分页查询部门成员信息
+   */
+  async queryDepartmentUserEx(request: QueryDepartmentUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDepartmentUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDepartmentUserResponse>(await this.doRequest("1.0", "antcloud.iam.department.user.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDepartmentUserResponse({}));
+  }
+
+  /**
+   * Description: 获取租户级安全设置
+   * Summary: 获取租户级安全设置
+   */
+  async getLoginconfig(request: GetLoginconfigRequest): Promise<GetLoginconfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getLoginconfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取租户级安全设置
+   * Summary: 获取租户级安全设置
+   */
+  async getLoginconfigEx(request: GetLoginconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetLoginconfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetLoginconfigResponse>(await this.doRequest("1.0", "antcloud.iam.loginconfig.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetLoginconfigResponse({}));
+  }
+
+  /**
+   * Description: 更新租户级安全设置
+   * Summary: 更新租户级安全设置
+   */
+  async updateLoginconfig(request: UpdateLoginconfigRequest): Promise<UpdateLoginconfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateLoginconfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新租户级安全设置
+   * Summary: 更新租户级安全设置
+   */
+  async updateLoginconfigEx(request: UpdateLoginconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateLoginconfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateLoginconfigResponse>(await this.doRequest("1.0", "antcloud.iam.loginconfig.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateLoginconfigResponse({}));
+  }
+
+  /**
+   * Description: 唯一条件查询MFA状态
+   * Summary: 唯一条件查询MFA状态
+   */
+  async getMfaStatus(request: GetMfaStatusRequest): Promise<GetMfaStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMfaStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 唯一条件查询MFA状态
+   * Summary: 唯一条件查询MFA状态
+   */
+  async getMfaStatusEx(request: GetMfaStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMfaStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMfaStatusResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.status.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMfaStatusResponse({}));
+  }
+
+  /**
+   * Description: 开启MFA
+   * Summary: 开启MFA
+   */
+  async enableMfa(request: EnableMfaRequest): Promise<EnableMfaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.enableMfaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 开启MFA
+   * Summary: 开启MFA
+   */
+  async enableMfaEx(request: EnableMfaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<EnableMfaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<EnableMfaResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.enable", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new EnableMfaResponse({}));
+  }
+
+  /**
+   * Description: 关闭MFA
+   * Summary: 关闭MFA
+   */
+  async disableMfa(request: DisableMfaRequest): Promise<DisableMfaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.disableMfaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 关闭MFA
+   * Summary: 关闭MFA
+   */
+  async disableMfaEx(request: DisableMfaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DisableMfaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DisableMfaResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.disable", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DisableMfaResponse({}));
+  }
+
+  /**
+   * Description: 初始化MFA
+   * Summary: 初始化MFA
+   */
+  async initMfa(request: InitMfaRequest): Promise<InitMfaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initMfaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 初始化MFA
+   * Summary: 初始化MFA
+   */
+  async initMfaEx(request: InitMfaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitMfaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitMfaResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitMfaResponse({}));
+  }
+
+  /**
+   * Description: 校验 MFA
+   * Summary: 校验 MFA
+   */
+  async verifyMfa(request: VerifyMfaRequest): Promise<VerifyMfaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyMfaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 校验 MFA
+   * Summary: 校验 MFA
+   */
+  async verifyMfaEx(request: VerifyMfaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyMfaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyMfaResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyMfaResponse({}));
+  }
+
+  /**
+   * Description: 唯一条件查询MFA配置
+   * Summary: 唯一条件查询MFA配置
+   */
+  async getMfa(request: GetMfaRequest): Promise<GetMfaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMfaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 唯一条件查询MFA配置
+   * Summary: 唯一条件查询MFA配置
+   */
+  async getMfaEx(request: GetMfaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMfaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMfaResponse>(await this.doRequest("1.0", "antcloud.iam.mfa.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMfaResponse({}));
+  }
+
+  /**
+   * Description: 更新密码
+   * Summary: 更新密码
+   */
+  async updateOperatorPassword(request: UpdateOperatorPasswordRequest): Promise<UpdateOperatorPasswordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateOperatorPasswordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新密码
+   * Summary: 更新密码
+   */
+  async updateOperatorPasswordEx(request: UpdateOperatorPasswordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateOperatorPasswordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateOperatorPasswordResponse>(await this.doRequest("1.0", "antcloud.iam.operator.password.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateOperatorPasswordResponse({}));
+  }
+
+  /**
+   * Description: 重置账号密码
+   * Summary: 重置账号密码
+   */
+  async resetOperatorPassword(request: ResetOperatorPasswordRequest): Promise<ResetOperatorPasswordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetOperatorPasswordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 重置账号密码
+   * Summary: 重置账号密码
+   */
+  async resetOperatorPasswordEx(request: ResetOperatorPasswordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetOperatorPasswordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetOperatorPasswordResponse>(await this.doRequest("1.0", "antcloud.iam.operator.password.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetOperatorPasswordResponse({}));
+  }
+
+  /**
+   * Description: 批量查询操作员
+   * Summary: 批量查询操作员
+   */
+  async batchqueryOperator(request: BatchqueryOperatorRequest): Promise<BatchqueryOperatorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryOperatorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量查询操作员
+   * Summary: 批量查询操作员
+   */
+  async batchqueryOperatorEx(request: BatchqueryOperatorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryOperatorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryOperatorResponse>(await this.doRequest("1.0", "antcloud.iam.operator.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryOperatorResponse({}));
+  }
+
+  /**
+   * Description: 推送操作事件，事件需要事先定义
+   * Summary: 推送操作事件
+   */
+  async pushOperation(request: PushOperationRequest): Promise<PushOperationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushOperationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 推送操作事件，事件需要事先定义
+   * Summary: 推送操作事件
+   */
+  async pushOperationEx(request: PushOperationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushOperationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushOperationResponse>(await this.doRequest("1.0", "antcloud.iam.operation.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushOperationResponse({}));
+  }
+
+  /**
+   * Description: 查询操作类型
+   * Summary: 查询操作类型
+   */
+  async queryOperationtype(request: QueryOperationtypeRequest): Promise<QueryOperationtypeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOperationtypeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询操作类型
+   * Summary: 查询操作类型
+   */
+  async queryOperationtypeEx(request: QueryOperationtypeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOperationtypeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOperationtypeResponse>(await this.doRequest("1.0", "antcloud.iam.operationtype.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOperationtypeResponse({}));
+  }
+
+  /**
+   * Description: 唯一查询操作类型
+   * Summary: 唯一查询操作类型
+   */
+  async getOperationtype(request: GetOperationtypeRequest): Promise<GetOperationtypeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getOperationtypeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 唯一查询操作类型
+   * Summary: 唯一查询操作类型
+   */
+  async getOperationtypeEx(request: GetOperationtypeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetOperationtypeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetOperationtypeResponse>(await this.doRequest("1.0", "antcloud.iam.operationtype.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetOperationtypeResponse({}));
+  }
+
+  /**
+   * Description: 添加租户成员
+   * Summary: 添加租户成员
+   */
+  async addTenantMember(request: AddTenantMemberRequest): Promise<AddTenantMemberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addTenantMemberEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加租户成员
+   * Summary: 添加租户成员
+   */
+  async addTenantMemberEx(request: AddTenantMemberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddTenantMemberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddTenantMemberResponse>(await this.doRequest("1.0", "antcloud.iam.tenant.member.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddTenantMemberResponse({}));
+  }
+
+  /**
+   * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+   * Summary: 获取操作员 signtoken
+   */
+  async getOperatorLogintoken(request: GetOperatorLogintokenRequest): Promise<GetOperatorLogintokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getOperatorLogintokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取 logintoken，该 token 为一次性使用，且过期时间短。
+   * Summary: 获取操作员 signtoken
+   */
+  async getOperatorLogintokenEx(request: GetOperatorLogintokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetOperatorLogintokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetOperatorLogintokenResponse>(await this.doRequest("1.0", "antcloud.iam.operator.logintoken.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetOperatorLogintokenResponse({}));
   }
 
 }
