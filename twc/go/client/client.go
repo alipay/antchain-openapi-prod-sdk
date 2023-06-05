@@ -18964,13 +18964,13 @@ type SubmitDigitalcontentOrderRequest struct {
 	// 订单id
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 支付id
-	PaymentId *string `json:"payment_id,omitempty" xml:"payment_id,omitempty" require:"true"`
+	PaymentId *string `json:"payment_id,omitempty" xml:"payment_id,omitempty"`
 	// 付款方式
 	// ●AliPay，支付宝
 	// ● WeChatPay，微信支付
 	// ● Bank，银行卡支付
 	// ● Other，其他
-	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty" require:"true"`
+	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty"`
 	// 按次使用时需要为整数
 	Usage *string `json:"usage,omitempty" xml:"usage,omitempty" require:"true"`
 	// 用作幂等，防重调用
@@ -42735,7 +42735,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.0"),
+				"sdk_version":      tea.String("1.9.1"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
