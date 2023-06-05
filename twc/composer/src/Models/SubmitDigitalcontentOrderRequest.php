@@ -65,8 +65,6 @@ class SubmitDigitalcontentOrderRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('paymentId', $this->paymentId, true);
-        Model::validateRequired('paymentType', $this->paymentType, true);
         Model::validateRequired('usage', $this->usage, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
