@@ -18,7 +18,6 @@ public class SubmitDigitalcontentOrderRequest extends TeaModel {
 
     // 支付id
     @NameInMap("payment_id")
-    @Validation(required = true)
     public String paymentId;
 
     // 付款方式
@@ -27,7 +26,6 @@ public class SubmitDigitalcontentOrderRequest extends TeaModel {
     // ● Bank，银行卡支付
     // ● Other，其他
     @NameInMap("payment_type")
-    @Validation(required = true)
     public String paymentType;
 
     // 按次使用时需要为整数
