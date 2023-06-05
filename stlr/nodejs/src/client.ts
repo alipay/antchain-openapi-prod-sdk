@@ -3650,6 +3650,81 @@ export class PreviewEcarOffsetdatumResponse extends $tea.Model {
   }
 }
 
+export class DetailEcarEnterprisememberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 注册会员手机号码
+  mobile?: string;
+  // 注册会员身份证号码
+  identityCardCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      mobile: 'mobile',
+      identityCardCode: 'identity_card_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      mobile: 'string',
+      identityCardCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailEcarEnterprisememberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账户DID
+  accountDid?: string;
+  // 会员姓名，脱敏处理
+  name?: string;
+  // 会员手机号码，脱敏处理
+  mobile?: string;
+  // 注册时间
+  registerTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountDid: 'account_did',
+      name: 'name',
+      mobile: 'mobile',
+      registerTime: 'register_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountDid: 'string',
+      name: 'string',
+      mobile: 'string',
+      registerTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3932,7 +4007,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.3.0",
+          sdk_version: "2.3.1",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -4683,6 +4758,25 @@ export default class Client {
   async previewEcarOffsetdatumEx(request: PreviewEcarOffsetdatumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PreviewEcarOffsetdatumResponse> {
     Util.validateModel(request);
     return $tea.cast<PreviewEcarOffsetdatumResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetdatum.preview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PreviewEcarOffsetdatumResponse({}));
+  }
+
+  /**
+   * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+   * Summary: 单个机构会员信息查询
+   */
+  async detailEcarEnterprisemember(request: DetailEcarEnterprisememberRequest): Promise<DetailEcarEnterprisememberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailEcarEnterprisememberEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+   * Summary: 单个机构会员信息查询
+   */
+  async detailEcarEnterprisememberEx(request: DetailEcarEnterprisememberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailEcarEnterprisememberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailEcarEnterprisememberResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailEcarEnterprisememberResponse({}));
   }
 
   /**
