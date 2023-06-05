@@ -41,6 +41,8 @@ use AntChain\STLR\Models\DescribeAcarScopemissionRequest;
 use AntChain\STLR\Models\DescribeAcarScopemissionResponse;
 use AntChain\STLR\Models\DetailEcarAvitivedataRequest;
 use AntChain\STLR\Models\DetailEcarAvitivedataResponse;
+use AntChain\STLR\Models\DetailEcarEnterprisememberRequest;
+use AntChain\STLR\Models\DetailEcarEnterprisememberResponse;
 use AntChain\STLR\Models\GetPdcpBlockchainRequest;
 use AntChain\STLR\Models\GetPdcpBlockchainResponse;
 use AntChain\STLR\Models\ListEcarEnterprisememberRequest;
@@ -234,7 +236,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.3.0',
+                    'sdk_version'      => '2.3.1',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1486,6 +1488,39 @@ class Client
         Utils::validateModel($request);
 
         return PreviewEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+     * Summary: 单个机构会员信息查询.
+     *
+     * @param DetailEcarEnterprisememberRequest $request
+     *
+     * @return DetailEcarEnterprisememberResponse
+     */
+    public function detailEcarEnterprisemember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailEcarEnterprisememberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+     * Summary: 单个机构会员信息查询.
+     *
+     * @param DetailEcarEnterprisememberRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DetailEcarEnterprisememberResponse
+     */
+    public function detailEcarEnterprisememberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailEcarEnterprisememberResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
