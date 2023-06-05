@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.3.1"),
+                    new TeaPair("sdk_version", "2.4.0"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -883,6 +883,25 @@ public class Client {
     public DetailEcarEnterprisememberResponse detailEcarEnterprisememberEx(DetailEcarEnterprisememberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailEcarEnterprisememberResponse());
+    }
+
+    /**
+     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询
+     */
+    public QueryEcarOffsetaccountResponse queryEcarOffsetaccount(QueryEcarOffsetaccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEcarOffsetaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询
+     */
+    public QueryEcarOffsetaccountResponse queryEcarOffsetaccountEx(QueryEcarOffsetaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.offsetaccount.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEcarOffsetaccountResponse());
     }
 
     /**
