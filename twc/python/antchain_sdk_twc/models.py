@@ -23284,8 +23284,6 @@ class SubmitDigitalcontentOrderRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
-        self.validate_required(self.payment_id, 'payment_id')
-        self.validate_required(self.payment_type, 'payment_type')
         self.validate_required(self.usage, 'usage')
         self.validate_required(self.client_token, 'client_token')
 
