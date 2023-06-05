@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.3.1',
+                    'sdk_version': '2.4.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.3.1',
+                    'sdk_version': '2.4.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2379,6 +2379,62 @@ class Client:
         return TeaCore.from_map(
             stlr_models.DetailEcarEnterprisememberResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ecar_offsetaccount(
+        self,
+        request: stlr_models.QueryEcarOffsetaccountRequest,
+    ) -> stlr_models.QueryEcarOffsetaccountResponse:
+        """
+        Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+        Summary: 碳补偿项目账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ecar_offsetaccount_ex(request, headers, runtime)
+
+    async def query_ecar_offsetaccount_async(
+        self,
+        request: stlr_models.QueryEcarOffsetaccountRequest,
+    ) -> stlr_models.QueryEcarOffsetaccountResponse:
+        """
+        Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+        Summary: 碳补偿项目账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ecar_offsetaccount_ex_async(request, headers, runtime)
+
+    def query_ecar_offsetaccount_ex(
+        self,
+        request: stlr_models.QueryEcarOffsetaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarOffsetaccountResponse:
+        """
+        Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+        Summary: 碳补偿项目账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarOffsetaccountResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ecar_offsetaccount_ex_async(
+        self,
+        request: stlr_models.QueryEcarOffsetaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarOffsetaccountResponse:
+        """
+        Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+        Summary: 碳补偿项目账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarOffsetaccountResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
