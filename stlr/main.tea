@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.3.1',
+    sdk_version = '2.4.0',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -2220,6 +2220,50 @@ async function detailEcarEnterprisemember(request: DetailEcarEnterprisememberReq
 async function detailEcarEnterprisememberEx(request: DetailEcarEnterprisememberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailEcarEnterprisememberResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEcarOffsetaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 碳普惠项目编码
+  projectNo: string(name='project_no'),
+  // 账户DID
+  accountDid: string(name='account_did'),
+}
+
+model QueryEcarOffsetaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 碳普惠项目编码
+  projectNo?: string(name='project_no'),
+  // 账户DID
+  accountDid?: string(name='account_did'),
+  // 账户减碳量余额
+  offsetBalance?: string(name='offset_balance'),
+}
+
+/**
+ * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+ * Summary: 碳补偿项目账户查询
+ */
+async function queryEcarOffsetaccount(request: QueryEcarOffsetaccountRequest): QueryEcarOffsetaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEcarOffsetaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+ * Summary: 碳补偿项目账户查询
+ */
+async function queryEcarOffsetaccountEx(request: QueryEcarOffsetaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEcarOffsetaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
