@@ -25,7 +25,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 支付id
         [NameInMap("payment_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PaymentId { get; set; }
 
         // 付款方式
@@ -34,7 +34,7 @@ namespace AntChain.SDK.TWC.Models
         // ● Bank，银行卡支付
         // ● Other，其他
         [NameInMap("payment_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PaymentType { get; set; }
 
         // 按次使用时需要为整数
