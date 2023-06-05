@@ -57,6 +57,8 @@ use AntChain\STLR\Models\PreviewEcarOffsetdatumRequest;
 use AntChain\STLR\Models\PreviewEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
+use AntChain\STLR\Models\QueryEcarOffsetaccountRequest;
+use AntChain\STLR\Models\QueryEcarOffsetaccountResponse;
 use AntChain\STLR\Models\QueryEmissionCounteractionRequest;
 use AntChain\STLR\Models\QueryEmissionCounteractionResponse;
 use AntChain\STLR\Models\QueryEmissionGroupbycategoryRequest;
@@ -236,7 +238,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.3.1',
+                    'sdk_version'      => '2.4.0',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1521,6 +1523,39 @@ class Client
         Utils::validateModel($request);
 
         return DetailEcarEnterprisememberResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询.
+     *
+     * @param QueryEcarOffsetaccountRequest $request
+     *
+     * @return QueryEcarOffsetaccountResponse
+     */
+    public function queryEcarOffsetaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEcarOffsetaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+     * Summary: 碳补偿项目账户查询.
+     *
+     * @param QueryEcarOffsetaccountRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryEcarOffsetaccountResponse
+     */
+    public function queryEcarOffsetaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEcarOffsetaccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
