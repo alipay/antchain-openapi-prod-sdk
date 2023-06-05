@@ -3725,6 +3725,77 @@ export class DetailEcarEnterprisememberResponse extends $tea.Model {
   }
 }
 
+export class QueryEcarOffsetaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 碳普惠项目编码
+  projectNo: string;
+  // 账户DID
+  accountDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEcarOffsetaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 碳普惠项目编码
+  projectNo?: string;
+  // 账户DID
+  accountDid?: string;
+  // 账户减碳量余额
+  offsetBalance?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+      offsetBalance: 'offset_balance',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+      offsetBalance: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4007,7 +4078,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.3.1",
+          sdk_version: "2.4.0",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -4777,6 +4848,25 @@ export default class Client {
   async detailEcarEnterprisememberEx(request: DetailEcarEnterprisememberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailEcarEnterprisememberResponse> {
     Util.validateModel(request);
     return $tea.cast<DetailEcarEnterprisememberResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.enterprisemember.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailEcarEnterprisememberResponse({}));
+  }
+
+  /**
+   * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+   * Summary: 碳补偿项目账户查询
+   */
+  async queryEcarOffsetaccount(request: QueryEcarOffsetaccountRequest): Promise<QueryEcarOffsetaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEcarOffsetaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 碳补偿项目账户查询，根据账户DID和项目编码查询账户信息
+   * Summary: 碳补偿项目账户查询
+   */
+  async queryEcarOffsetaccountEx(request: QueryEcarOffsetaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEcarOffsetaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEcarOffsetaccountResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsetaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEcarOffsetaccountResponse({}));
   }
 
   /**
