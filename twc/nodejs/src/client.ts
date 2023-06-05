@@ -14235,13 +14235,13 @@ export class SubmitDigitalcontentOrderRequest extends $tea.Model {
   // 订单id
   orderId: string;
   // 支付id
-  paymentId: string;
+  paymentId?: string;
   // 付款方式
   // ●AliPay，支付宝
   // ● WeChatPay，微信支付
   // ● Bank，银行卡支付
   // ● Other，其他
-  paymentType: string;
+  paymentType?: string;
   // 按次使用时需要为整数
   usage: string;
   // 用作幂等，防重调用
@@ -31741,7 +31741,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.0",
+          sdk_version: "1.9.1",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
