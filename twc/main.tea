@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.0',
+    sdk_version = '1.9.1',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -7727,13 +7727,13 @@ model SubmitDigitalcontentOrderRequest = {
   // 订单id
   orderId: string(name='order_id'),
   // 支付id
-  paymentId: string(name='payment_id'),
+  paymentId?: string(name='payment_id'),
   // 付款方式
   // ●AliPay，支付宝
   // ● WeChatPay，微信支付
   // ● Bank，银行卡支付
   // ● Other，其他
-  paymentType: string(name='payment_type'),
+  paymentType?: string(name='payment_type'),
   // 按次使用时需要为整数
   usage: string(name='usage'),
   // 用作幂等，防重调用
