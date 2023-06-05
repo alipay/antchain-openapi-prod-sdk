@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.3.0',
+                    'sdk_version': '2.3.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.3.0',
+                    'sdk_version': '2.3.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2323,6 +2323,62 @@ class Client:
         return TeaCore.from_map(
             stlr_models.PreviewEcarOffsetdatumResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_ecar_enterprisemember(
+        self,
+        request: stlr_models.DetailEcarEnterprisememberRequest,
+    ) -> stlr_models.DetailEcarEnterprisememberResponse:
+        """
+        Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+        Summary: 单个机构会员信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_ecar_enterprisemember_ex(request, headers, runtime)
+
+    async def detail_ecar_enterprisemember_async(
+        self,
+        request: stlr_models.DetailEcarEnterprisememberRequest,
+    ) -> stlr_models.DetailEcarEnterprisememberResponse:
+        """
+        Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+        Summary: 单个机构会员信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_ecar_enterprisemember_ex_async(request, headers, runtime)
+
+    def detail_ecar_enterprisemember_ex(
+        self,
+        request: stlr_models.DetailEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarEnterprisememberResponse:
+        """
+        Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+        Summary: 单个机构会员信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarEnterprisememberResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_ecar_enterprisemember_ex_async(
+        self,
+        request: stlr_models.DetailEcarEnterprisememberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarEnterprisememberResponse:
+        """
+        Description: 单个机构会员信息查询，根据会员关键信息，如手机号码、身份证号码查询会员资料
+        Summary: 单个机构会员信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarEnterprisememberResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.enterprisemember.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(

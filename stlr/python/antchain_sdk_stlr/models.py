@@ -6086,6 +6086,124 @@ class PreviewEcarOffsetdatumResponse(TeaModel):
         return self
 
 
+class DetailEcarEnterprisememberRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        mobile: str = None,
+        identity_card_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 注册会员手机号码
+        self.mobile = mobile
+        # 注册会员身份证号码
+        self.identity_card_code = identity_card_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.identity_card_code is not None:
+            result['identity_card_code'] = self.identity_card_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('identity_card_code') is not None:
+            self.identity_card_code = m.get('identity_card_code')
+        return self
+
+
+class DetailEcarEnterprisememberResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        account_did: str = None,
+        name: str = None,
+        mobile: str = None,
+        register_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账户DID
+        self.account_did = account_did
+        # 会员姓名，脱敏处理
+        self.name = name
+        # 会员手机号码，脱敏处理
+        self.mobile = mobile
+        # 注册时间
+        self.register_time = register_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.account_did is not None:
+            result['account_did'] = self.account_did
+        if self.name is not None:
+            result['name'] = self.name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.register_time is not None:
+            result['register_time'] = self.register_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('account_did') is not None:
+            self.account_did = m.get('account_did')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('register_time') is not None:
+            self.register_time = m.get('register_time')
+        return self
+
+
 class QueryThirdCertRequest(TeaModel):
     def __init__(
         self,
