@@ -3155,22 +3155,12 @@ type QueryEverifyFourmetaResponse struct {
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 	// 核验不一致的原因编码
 	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
-	// 法人姓名：1，2，3
-	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
-	// 法人姓名：1.一致 2.不一致 3.无法验证
-	LegalNameMsg *string `json:"legal_name_msg,omitempty" xml:"legal_name_msg,omitempty"`
-	// 1.一致 2.不一致 3.无法验证
-	LegalIdNo *string `json:"legal_id_no,omitempty" xml:"legal_id_no,omitempty"`
-	// 法人身份证号：1.一致 2.不一致 3.无法核验
-	LegalIdNoMsg *string `json:"legal_id_no_msg,omitempty" xml:"legal_id_no_msg,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
-	EntName *string `json:"ent_name,omitempty" xml:"ent_name,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
-	EntNameMsg *string `json:"ent_name_msg,omitempty" xml:"ent_name_msg,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	RegNo *string `json:"reg_no,omitempty" xml:"reg_no,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	RegNoMsg *string `json:"reg_no_msg,omitempty" xml:"reg_no_msg,omitempty"`
+	// 数据不一致的字段，存在多个
+	// ep_cert_name 企业名称
+	// ep_cert_no 企业信用编码
+	// cert_name 法人名称
+	// cert_no 法人证件号
+	ReasonCodes []*string `json:"reason_codes,omitempty" xml:"reason_codes,omitempty" type:"Repeated"`
 }
 
 func (s QueryEverifyFourmetaResponse) String() string {
@@ -3226,43 +3216,8 @@ func (s *QueryEverifyFourmetaResponse) SetReasonCode(v string) *QueryEverifyFour
 	return s
 }
 
-func (s *QueryEverifyFourmetaResponse) SetLegalName(v string) *QueryEverifyFourmetaResponse {
-	s.LegalName = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetLegalNameMsg(v string) *QueryEverifyFourmetaResponse {
-	s.LegalNameMsg = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetLegalIdNo(v string) *QueryEverifyFourmetaResponse {
-	s.LegalIdNo = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetLegalIdNoMsg(v string) *QueryEverifyFourmetaResponse {
-	s.LegalIdNoMsg = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetEntName(v string) *QueryEverifyFourmetaResponse {
-	s.EntName = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetEntNameMsg(v string) *QueryEverifyFourmetaResponse {
-	s.EntNameMsg = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetRegNo(v string) *QueryEverifyFourmetaResponse {
-	s.RegNo = &v
-	return s
-}
-
-func (s *QueryEverifyFourmetaResponse) SetRegNoMsg(v string) *QueryEverifyFourmetaResponse {
-	s.RegNoMsg = &v
+func (s *QueryEverifyFourmetaResponse) SetReasonCodes(v []*string) *QueryEverifyFourmetaResponse {
+	s.ReasonCodes = v
 	return s
 }
 
@@ -3336,20 +3291,9 @@ type QueryEverifyThreemetaResponse struct {
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 	// 核验不通过异常编码
 	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
-	EntName *string `json:"ent_name,omitempty" xml:"ent_name,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
+	// 数据不一致的字段，存在多个 ep_cert_name 企业名称 ep_cert_no 企业信用编码 cert_name 法人名称
 	//
-	EntNameMsg *string `json:"ent_name_msg,omitempty" xml:"ent_name_msg,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	RegNo *string `json:"reg_no,omitempty" xml:"reg_no,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	RegNoMsg *string `json:"reg_no_msg,omitempty" xml:"reg_no_msg,omitempty"`
-	// 法人姓名：1.一致 2.不一致 3.无法验证
-	//
-	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
-	// 法人姓名：1.一致 2.不一致 3.无法验证
-	LegalNameMsg *string `json:"legal_name_msg,omitempty" xml:"legal_name_msg,omitempty"`
+	ReasonCodes []*string `json:"reason_codes,omitempty" xml:"reason_codes,omitempty" type:"Repeated"`
 }
 
 func (s QueryEverifyThreemetaResponse) String() string {
@@ -3405,33 +3349,8 @@ func (s *QueryEverifyThreemetaResponse) SetReasonCode(v string) *QueryEverifyThr
 	return s
 }
 
-func (s *QueryEverifyThreemetaResponse) SetEntName(v string) *QueryEverifyThreemetaResponse {
-	s.EntName = &v
-	return s
-}
-
-func (s *QueryEverifyThreemetaResponse) SetEntNameMsg(v string) *QueryEverifyThreemetaResponse {
-	s.EntNameMsg = &v
-	return s
-}
-
-func (s *QueryEverifyThreemetaResponse) SetRegNo(v string) *QueryEverifyThreemetaResponse {
-	s.RegNo = &v
-	return s
-}
-
-func (s *QueryEverifyThreemetaResponse) SetRegNoMsg(v string) *QueryEverifyThreemetaResponse {
-	s.RegNoMsg = &v
-	return s
-}
-
-func (s *QueryEverifyThreemetaResponse) SetLegalName(v string) *QueryEverifyThreemetaResponse {
-	s.LegalName = &v
-	return s
-}
-
-func (s *QueryEverifyThreemetaResponse) SetLegalNameMsg(v string) *QueryEverifyThreemetaResponse {
-	s.LegalNameMsg = &v
+func (s *QueryEverifyThreemetaResponse) SetReasonCodes(v []*string) *QueryEverifyThreemetaResponse {
+	s.ReasonCodes = v
 	return s
 }
 
@@ -3498,17 +3417,10 @@ type QueryEverifyTwometaResponse struct {
 	ReturnCode *string `json:"return_code,omitempty" xml:"return_code,omitempty"`
 	// 核验不通过异常编码
 	ReasonCode *string `json:"reason_code,omitempty" xml:"reason_code,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	//
-	RegNo *string `json:"reg_no,omitempty" xml:"reg_no,omitempty"`
-	// 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-	//
-	RegNoMsg *string `json:"reg_no_msg,omitempty" xml:"reg_no_msg,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
-	EntName *string `json:"ent_name,omitempty" xml:"ent_name,omitempty"`
-	// 企业名称 1.一致 2.不一致 3.无法验证
-	//
-	EntNameMsg *string `json:"ent_name_msg,omitempty" xml:"ent_name_msg,omitempty"`
+	// 要素核验不一致的字段
+	// ep_cert_name 企业名称
+	// ep_cert_no 企业信用编码
+	ReasonCodes []*string `json:"reason_codes,omitempty" xml:"reason_codes,omitempty" type:"Repeated"`
 }
 
 func (s QueryEverifyTwometaResponse) String() string {
@@ -3564,23 +3476,8 @@ func (s *QueryEverifyTwometaResponse) SetReasonCode(v string) *QueryEverifyTwome
 	return s
 }
 
-func (s *QueryEverifyTwometaResponse) SetRegNo(v string) *QueryEverifyTwometaResponse {
-	s.RegNo = &v
-	return s
-}
-
-func (s *QueryEverifyTwometaResponse) SetRegNoMsg(v string) *QueryEverifyTwometaResponse {
-	s.RegNoMsg = &v
-	return s
-}
-
-func (s *QueryEverifyTwometaResponse) SetEntName(v string) *QueryEverifyTwometaResponse {
-	s.EntName = &v
-	return s
-}
-
-func (s *QueryEverifyTwometaResponse) SetEntNameMsg(v string) *QueryEverifyTwometaResponse {
-	s.EntNameMsg = &v
+func (s *QueryEverifyTwometaResponse) SetReasonCodes(v []*string) *QueryEverifyTwometaResponse {
+	s.ReasonCodes = v
 	return s
 }
 
@@ -8363,7 +8260,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.9"),
+				"sdk_version":      tea.String("1.1.10"),
 				"_prod_code":       tea.String("BAASPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
