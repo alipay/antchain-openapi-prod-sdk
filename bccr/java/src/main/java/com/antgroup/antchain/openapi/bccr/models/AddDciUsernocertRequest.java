@@ -52,6 +52,10 @@ public class AddDciUsernocertRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    @NameInMap("copyright_certification_type")
+    public String copyrightCertificationType;
+
     public static AddDciUsernocertRequest build(java.util.Map<String, ?> map) throws Exception {
         AddDciUsernocertRequest self = new AddDciUsernocertRequest();
         return TeaModel.build(map, self);
@@ -143,6 +147,14 @@ public class AddDciUsernocertRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public AddDciUsernocertRequest setCopyrightCertificationType(String copyrightCertificationType) {
+        this.copyrightCertificationType = copyrightCertificationType;
+        return this;
+    }
+    public String getCopyrightCertificationType() {
+        return this.copyrightCertificationType;
     }
 
 }

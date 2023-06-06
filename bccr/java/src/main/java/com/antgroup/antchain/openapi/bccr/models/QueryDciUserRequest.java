@@ -26,6 +26,10 @@ public class QueryDciUserRequest extends TeaModel {
     @Validation(required = true)
     public String phone;
 
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+    @NameInMap("copyright_certification_type")
+    public String copyrightCertificationType;
+
     public static QueryDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDciUserRequest self = new QueryDciUserRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class QueryDciUserRequest extends TeaModel {
     }
     public String getPhone() {
         return this.phone;
+    }
+
+    public QueryDciUserRequest setCopyrightCertificationType(String copyrightCertificationType) {
+        this.copyrightCertificationType = copyrightCertificationType;
+        return this;
+    }
+    public String getCopyrightCertificationType() {
+        return this.copyrightCertificationType;
     }
 
 }
