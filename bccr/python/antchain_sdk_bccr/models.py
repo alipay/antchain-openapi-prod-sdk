@@ -8328,6 +8328,7 @@ class AddDciUserRequest(TeaModel):
         certificate_front_file_path: str = None,
         certificate_back_file_path: str = None,
         user_type: str = None,
+        copyright_certification_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8372,6 +8373,8 @@ class AddDciUserRequest(TeaModel):
         self.certificate_back_file_path = certificate_back_file_path
         # 用户类型废弃
         self.user_type = user_type
+        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+        self.copyright_certification_type = copyright_certification_type
 
     def validate(self):
         self.validate_required(self.cert_name, 'cert_name')
@@ -8434,6 +8437,8 @@ class AddDciUserRequest(TeaModel):
             result['certificate_back_file_path'] = self.certificate_back_file_path
         if self.user_type is not None:
             result['user_type'] = self.user_type
+        if self.copyright_certification_type is not None:
+            result['copyright_certification_type'] = self.copyright_certification_type
         return result
 
     def from_map(self, m: dict = None):
@@ -8483,6 +8488,8 @@ class AddDciUserRequest(TeaModel):
             self.certificate_back_file_path = m.get('certificate_back_file_path')
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
+        if m.get('copyright_certification_type') is not None:
+            self.copyright_certification_type = m.get('copyright_certification_type')
         return self
 
 
@@ -8660,6 +8667,7 @@ class QueryDciUserRequest(TeaModel):
         certificate_type: str = None,
         certificate_number: str = None,
         phone: str = None,
+        copyright_certification_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8670,6 +8678,8 @@ class QueryDciUserRequest(TeaModel):
         self.certificate_number = certificate_number
         # 手机号
         self.phone = phone
+        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+        self.copyright_certification_type = copyright_certification_type
 
     def validate(self):
         self.validate_required(self.certificate_type, 'certificate_type')
@@ -8692,6 +8702,8 @@ class QueryDciUserRequest(TeaModel):
             result['certificate_number'] = self.certificate_number
         if self.phone is not None:
             result['phone'] = self.phone
+        if self.copyright_certification_type is not None:
+            result['copyright_certification_type'] = self.copyright_certification_type
         return result
 
     def from_map(self, m: dict = None):
@@ -8706,6 +8718,8 @@ class QueryDciUserRequest(TeaModel):
             self.certificate_number = m.get('certificate_number')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        if m.get('copyright_certification_type') is not None:
+            self.copyright_certification_type = m.get('copyright_certification_type')
         return self
 
 
@@ -8914,6 +8928,7 @@ class UpdateDciUserRequest(TeaModel):
         cert_back_file_id: str = None,
         phone: str = None,
         client_token: str = None,
+        copyright_certification_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8928,6 +8943,8 @@ class UpdateDciUserRequest(TeaModel):
         self.phone = phone
         # 客户端令牌
         self.client_token = client_token
+        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+        self.copyright_certification_type = copyright_certification_type
 
     def validate(self):
         self.validate_required(self.dci_user_id, 'dci_user_id')
@@ -8953,6 +8970,8 @@ class UpdateDciUserRequest(TeaModel):
             result['phone'] = self.phone
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.copyright_certification_type is not None:
+            result['copyright_certification_type'] = self.copyright_certification_type
         return result
 
     def from_map(self, m: dict = None):
@@ -8971,6 +8990,8 @@ class UpdateDciUserRequest(TeaModel):
             self.phone = m.get('phone')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('copyright_certification_type') is not None:
+            self.copyright_certification_type = m.get('copyright_certification_type')
         return self
 
 
@@ -11953,6 +11974,7 @@ class AddDciUsernocertRequest(TeaModel):
         phone: str = None,
         proxy_data: ProxyData = None,
         client_token: str = None,
+        copyright_certification_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11975,6 +11997,8 @@ class AddDciUsernocertRequest(TeaModel):
         self.proxy_data = proxy_data
         # 幂等字段
         self.client_token = client_token
+        # 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+        self.copyright_certification_type = copyright_certification_type
 
     def validate(self):
         self.validate_required(self.certificate_name, 'certificate_name')
@@ -12013,6 +12037,8 @@ class AddDciUsernocertRequest(TeaModel):
             result['proxy_data'] = self.proxy_data.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.copyright_certification_type is not None:
+            result['copyright_certification_type'] = self.copyright_certification_type
         return result
 
     def from_map(self, m: dict = None):
@@ -12040,6 +12066,8 @@ class AddDciUsernocertRequest(TeaModel):
             self.proxy_data = temp_model.from_map(m['proxy_data'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('copyright_certification_type') is not None:
+            self.copyright_certification_type = m.get('copyright_certification_type')
         return self
 
 
