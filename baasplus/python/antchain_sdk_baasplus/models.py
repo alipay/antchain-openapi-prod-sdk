@@ -3835,6 +3835,14 @@ class QueryEverifyFourmetaResponse(TeaModel):
         passed: bool = None,
         return_code: str = None,
         reason_code: str = None,
+        legal_name: str = None,
+        legal_name_msg: str = None,
+        legal_id_no: str = None,
+        legal_id_no_msg: str = None,
+        ent_name: str = None,
+        ent_name_msg: str = None,
+        reg_no: str = None,
+        reg_no_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3860,6 +3868,22 @@ class QueryEverifyFourmetaResponse(TeaModel):
         self.return_code = return_code
         # 核验不一致的原因编码
         self.reason_code = reason_code
+        # 法人姓名：1，2，3
+        self.legal_name = legal_name
+        # 法人姓名：1.一致 2.不一致 3.无法验证
+        self.legal_name_msg = legal_name_msg
+        # 1.一致 2.不一致 3.无法验证
+        self.legal_id_no = legal_id_no
+        # 法人身份证号：1.一致 2.不一致 3.无法核验
+        self.legal_id_no_msg = legal_id_no_msg
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        self.ent_name = ent_name
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        self.ent_name_msg = ent_name_msg
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        self.reg_no = reg_no
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        self.reg_no_msg = reg_no_msg
 
     def validate(self):
         pass
@@ -3888,6 +3912,22 @@ class QueryEverifyFourmetaResponse(TeaModel):
             result['return_code'] = self.return_code
         if self.reason_code is not None:
             result['reason_code'] = self.reason_code
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_name_msg is not None:
+            result['legal_name_msg'] = self.legal_name_msg
+        if self.legal_id_no is not None:
+            result['legal_id_no'] = self.legal_id_no
+        if self.legal_id_no_msg is not None:
+            result['legal_id_no_msg'] = self.legal_id_no_msg
+        if self.ent_name is not None:
+            result['ent_name'] = self.ent_name
+        if self.ent_name_msg is not None:
+            result['ent_name_msg'] = self.ent_name_msg
+        if self.reg_no is not None:
+            result['reg_no'] = self.reg_no
+        if self.reg_no_msg is not None:
+            result['reg_no_msg'] = self.reg_no_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -3910,6 +3950,22 @@ class QueryEverifyFourmetaResponse(TeaModel):
             self.return_code = m.get('return_code')
         if m.get('reason_code') is not None:
             self.reason_code = m.get('reason_code')
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_name_msg') is not None:
+            self.legal_name_msg = m.get('legal_name_msg')
+        if m.get('legal_id_no') is not None:
+            self.legal_id_no = m.get('legal_id_no')
+        if m.get('legal_id_no_msg') is not None:
+            self.legal_id_no_msg = m.get('legal_id_no_msg')
+        if m.get('ent_name') is not None:
+            self.ent_name = m.get('ent_name')
+        if m.get('ent_name_msg') is not None:
+            self.ent_name_msg = m.get('ent_name_msg')
+        if m.get('reg_no') is not None:
+            self.reg_no = m.get('reg_no')
+        if m.get('reg_no_msg') is not None:
+            self.reg_no_msg = m.get('reg_no_msg')
         return self
 
 
@@ -3982,6 +4038,12 @@ class QueryEverifyThreemetaResponse(TeaModel):
         passed: bool = None,
         return_code: str = None,
         reason_code: str = None,
+        ent_name: str = None,
+        ent_name_msg: str = None,
+        reg_no: str = None,
+        reg_no_msg: str = None,
+        legal_name: str = None,
+        legal_name_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4007,6 +4069,20 @@ class QueryEverifyThreemetaResponse(TeaModel):
         self.return_code = return_code
         # 核验不通过异常编码
         self.reason_code = reason_code
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        self.ent_name = ent_name
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        # 
+        self.ent_name_msg = ent_name_msg
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        self.reg_no = reg_no
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        self.reg_no_msg = reg_no_msg
+        # 法人姓名：1.一致 2.不一致 3.无法验证
+        # 
+        self.legal_name = legal_name
+        # 法人姓名：1.一致 2.不一致 3.无法验证
+        self.legal_name_msg = legal_name_msg
 
     def validate(self):
         pass
@@ -4035,6 +4111,18 @@ class QueryEverifyThreemetaResponse(TeaModel):
             result['return_code'] = self.return_code
         if self.reason_code is not None:
             result['reason_code'] = self.reason_code
+        if self.ent_name is not None:
+            result['ent_name'] = self.ent_name
+        if self.ent_name_msg is not None:
+            result['ent_name_msg'] = self.ent_name_msg
+        if self.reg_no is not None:
+            result['reg_no'] = self.reg_no
+        if self.reg_no_msg is not None:
+            result['reg_no_msg'] = self.reg_no_msg
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_name_msg is not None:
+            result['legal_name_msg'] = self.legal_name_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -4057,6 +4145,18 @@ class QueryEverifyThreemetaResponse(TeaModel):
             self.return_code = m.get('return_code')
         if m.get('reason_code') is not None:
             self.reason_code = m.get('reason_code')
+        if m.get('ent_name') is not None:
+            self.ent_name = m.get('ent_name')
+        if m.get('ent_name_msg') is not None:
+            self.ent_name_msg = m.get('ent_name_msg')
+        if m.get('reg_no') is not None:
+            self.reg_no = m.get('reg_no')
+        if m.get('reg_no_msg') is not None:
+            self.reg_no_msg = m.get('reg_no_msg')
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_name_msg') is not None:
+            self.legal_name_msg = m.get('legal_name_msg')
         return self
 
 
@@ -4121,6 +4221,10 @@ class QueryEverifyTwometaResponse(TeaModel):
         code: str = None,
         return_code: str = None,
         reason_code: str = None,
+        reg_no: str = None,
+        reg_no_msg: str = None,
+        ent_name: str = None,
+        ent_name_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4146,6 +4250,17 @@ class QueryEverifyTwometaResponse(TeaModel):
         self.return_code = return_code
         # 核验不通过异常编码
         self.reason_code = reason_code
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        # 
+        self.reg_no = reg_no
+        # 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        # 
+        self.reg_no_msg = reg_no_msg
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        self.ent_name = ent_name
+        # 企业名称 1.一致 2.不一致 3.无法验证
+        # 
+        self.ent_name_msg = ent_name_msg
 
     def validate(self):
         pass
@@ -4174,6 +4289,14 @@ class QueryEverifyTwometaResponse(TeaModel):
             result['return_code'] = self.return_code
         if self.reason_code is not None:
             result['reason_code'] = self.reason_code
+        if self.reg_no is not None:
+            result['reg_no'] = self.reg_no
+        if self.reg_no_msg is not None:
+            result['reg_no_msg'] = self.reg_no_msg
+        if self.ent_name is not None:
+            result['ent_name'] = self.ent_name
+        if self.ent_name_msg is not None:
+            result['ent_name_msg'] = self.ent_name_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -4196,6 +4319,14 @@ class QueryEverifyTwometaResponse(TeaModel):
             self.return_code = m.get('return_code')
         if m.get('reason_code') is not None:
             self.reason_code = m.get('reason_code')
+        if m.get('reg_no') is not None:
+            self.reg_no = m.get('reg_no')
+        if m.get('reg_no_msg') is not None:
+            self.reg_no_msg = m.get('reg_no_msg')
+        if m.get('ent_name') is not None:
+            self.ent_name = m.get('ent_name')
+        if m.get('ent_name_msg') is not None:
+            self.ent_name_msg = m.get('ent_name_msg')
         return self
 
 
