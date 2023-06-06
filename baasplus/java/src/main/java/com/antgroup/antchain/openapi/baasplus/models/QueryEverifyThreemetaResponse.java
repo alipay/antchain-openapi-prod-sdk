@@ -46,31 +46,10 @@ public class QueryEverifyThreemetaResponse extends TeaModel {
     @NameInMap("reason_code")
     public String reasonCode;
 
-    // 企业名称 1.一致 2.不一致 3.无法验证
-    @NameInMap("ent_name")
-    public String entName;
-
-    // 企业名称 1.一致 2.不一致 3.无法验证
+    // 数据不一致的字段，存在多个 ep_cert_name 企业名称 ep_cert_no 企业信用编码 cert_name 法人名称
     // 
-    @NameInMap("ent_name_msg")
-    public String entNameMsg;
-
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    @NameInMap("reg_no")
-    public String regNo;
-
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    @NameInMap("reg_no_msg")
-    public String regNoMsg;
-
-    // 法人姓名：1.一致 2.不一致 3.无法验证
-    // 
-    @NameInMap("legal_name")
-    public String legalName;
-
-    // 法人姓名：1.一致 2.不一致 3.无法验证
-    @NameInMap("legal_name_msg")
-    public String legalNameMsg;
+    @NameInMap("reason_codes")
+    public java.util.List<String> reasonCodes;
 
     public static QueryEverifyThreemetaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyThreemetaResponse self = new QueryEverifyThreemetaResponse();
@@ -149,52 +128,12 @@ public class QueryEverifyThreemetaResponse extends TeaModel {
         return this.reasonCode;
     }
 
-    public QueryEverifyThreemetaResponse setEntName(String entName) {
-        this.entName = entName;
+    public QueryEverifyThreemetaResponse setReasonCodes(java.util.List<String> reasonCodes) {
+        this.reasonCodes = reasonCodes;
         return this;
     }
-    public String getEntName() {
-        return this.entName;
-    }
-
-    public QueryEverifyThreemetaResponse setEntNameMsg(String entNameMsg) {
-        this.entNameMsg = entNameMsg;
-        return this;
-    }
-    public String getEntNameMsg() {
-        return this.entNameMsg;
-    }
-
-    public QueryEverifyThreemetaResponse setRegNo(String regNo) {
-        this.regNo = regNo;
-        return this;
-    }
-    public String getRegNo() {
-        return this.regNo;
-    }
-
-    public QueryEverifyThreemetaResponse setRegNoMsg(String regNoMsg) {
-        this.regNoMsg = regNoMsg;
-        return this;
-    }
-    public String getRegNoMsg() {
-        return this.regNoMsg;
-    }
-
-    public QueryEverifyThreemetaResponse setLegalName(String legalName) {
-        this.legalName = legalName;
-        return this;
-    }
-    public String getLegalName() {
-        return this.legalName;
-    }
-
-    public QueryEverifyThreemetaResponse setLegalNameMsg(String legalNameMsg) {
-        this.legalNameMsg = legalNameMsg;
-        return this;
-    }
-    public String getLegalNameMsg() {
-        return this.legalNameMsg;
+    public java.util.List<String> getReasonCodes() {
+        return this.reasonCodes;
     }
 
 }
