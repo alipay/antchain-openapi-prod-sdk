@@ -2374,6 +2374,22 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
   returnCode?: string;
   // 核验不一致的原因编码
   reasonCode?: string;
+  // 法人姓名：1，2，3
+  legalName?: string;
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  legalNameMsg?: string;
+  // 1.一致 2.不一致 3.无法验证
+  legalIdNo?: string;
+  // 法人身份证号：1.一致 2.不一致 3.无法核验
+  legalIdNoMsg?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entNameMsg?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNo?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNoMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2385,6 +2401,14 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       passed: 'passed',
       returnCode: 'return_code',
       reasonCode: 'reason_code',
+      legalName: 'legal_name',
+      legalNameMsg: 'legal_name_msg',
+      legalIdNo: 'legal_id_no',
+      legalIdNoMsg: 'legal_id_no_msg',
+      entName: 'ent_name',
+      entNameMsg: 'ent_name_msg',
+      regNo: 'reg_no',
+      regNoMsg: 'reg_no_msg',
     };
   }
 
@@ -2399,6 +2423,14 @@ export class QueryEverifyFourmetaResponse extends $tea.Model {
       passed: 'boolean',
       returnCode: 'string',
       reasonCode: 'string',
+      legalName: 'string',
+      legalNameMsg: 'string',
+      legalIdNo: 'string',
+      legalIdNoMsg: 'string',
+      entName: 'string',
+      entNameMsg: 'string',
+      regNo: 'string',
+      regNoMsg: 'string',
     };
   }
 
@@ -2467,6 +2499,20 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
   returnCode?: string;
   // 核验不通过异常编码
   reasonCode?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  // 
+  entNameMsg?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNo?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNoMsg?: string;
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  // 
+  legalName?: string;
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  legalNameMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2478,6 +2524,12 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       passed: 'passed',
       returnCode: 'return_code',
       reasonCode: 'reason_code',
+      entName: 'ent_name',
+      entNameMsg: 'ent_name_msg',
+      regNo: 'reg_no',
+      regNoMsg: 'reg_no_msg',
+      legalName: 'legal_name',
+      legalNameMsg: 'legal_name_msg',
     };
   }
 
@@ -2492,6 +2544,12 @@ export class QueryEverifyThreemetaResponse extends $tea.Model {
       passed: 'boolean',
       returnCode: 'string',
       reasonCode: 'string',
+      entName: 'string',
+      entNameMsg: 'string',
+      regNo: 'string',
+      regNoMsg: 'string',
+      legalName: 'string',
+      legalNameMsg: 'string',
     };
   }
 
@@ -2556,6 +2614,17 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
   returnCode?: string;
   // 核验不通过异常编码
   reasonCode?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  // 
+  regNo?: string;
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  // 
+  regNoMsg?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string;
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  // 
+  entNameMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2567,6 +2636,10 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       code: 'code',
       returnCode: 'return_code',
       reasonCode: 'reason_code',
+      regNo: 'reg_no',
+      regNoMsg: 'reg_no_msg',
+      entName: 'ent_name',
+      entNameMsg: 'ent_name_msg',
     };
   }
 
@@ -2581,6 +2654,10 @@ export class QueryEverifyTwometaResponse extends $tea.Model {
       code: 'string',
       returnCode: 'string',
       reasonCode: 'string',
+      regNo: 'string',
+      regNoMsg: 'string',
+      entName: 'string',
+      entNameMsg: 'string',
     };
   }
 
@@ -6335,7 +6412,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.6",
+          sdk_version: "1.1.8",
           _prod_code: "BAASPLUS",
           _prod_channel: "undefined",
         };
