@@ -46,6 +46,38 @@ public class QueryEverifyFourmetaResponse extends TeaModel {
     @NameInMap("reason_code")
     public String reasonCode;
 
+    // 法人姓名：1，2，3
+    @NameInMap("legal_name")
+    public String legalName;
+
+    // 法人姓名：1.一致 2.不一致 3.无法验证
+    @NameInMap("legal_name_msg")
+    public String legalNameMsg;
+
+    // 1.一致 2.不一致 3.无法验证
+    @NameInMap("legal_id_no")
+    public String legalIdNo;
+
+    // 法人身份证号：1.一致 2.不一致 3.无法核验
+    @NameInMap("legal_id_no_msg")
+    public String legalIdNoMsg;
+
+    // 企业名称 1.一致 2.不一致 3.无法验证
+    @NameInMap("ent_name")
+    public String entName;
+
+    // 企业名称 1.一致 2.不一致 3.无法验证
+    @NameInMap("ent_name_msg")
+    public String entNameMsg;
+
+    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+    @NameInMap("reg_no")
+    public String regNo;
+
+    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+    @NameInMap("reg_no_msg")
+    public String regNoMsg;
+
     public static QueryEverifyFourmetaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyFourmetaResponse self = new QueryEverifyFourmetaResponse();
         return TeaModel.build(map, self);
@@ -121,6 +153,70 @@ public class QueryEverifyFourmetaResponse extends TeaModel {
     }
     public String getReasonCode() {
         return this.reasonCode;
+    }
+
+    public QueryEverifyFourmetaResponse setLegalName(String legalName) {
+        this.legalName = legalName;
+        return this;
+    }
+    public String getLegalName() {
+        return this.legalName;
+    }
+
+    public QueryEverifyFourmetaResponse setLegalNameMsg(String legalNameMsg) {
+        this.legalNameMsg = legalNameMsg;
+        return this;
+    }
+    public String getLegalNameMsg() {
+        return this.legalNameMsg;
+    }
+
+    public QueryEverifyFourmetaResponse setLegalIdNo(String legalIdNo) {
+        this.legalIdNo = legalIdNo;
+        return this;
+    }
+    public String getLegalIdNo() {
+        return this.legalIdNo;
+    }
+
+    public QueryEverifyFourmetaResponse setLegalIdNoMsg(String legalIdNoMsg) {
+        this.legalIdNoMsg = legalIdNoMsg;
+        return this;
+    }
+    public String getLegalIdNoMsg() {
+        return this.legalIdNoMsg;
+    }
+
+    public QueryEverifyFourmetaResponse setEntName(String entName) {
+        this.entName = entName;
+        return this;
+    }
+    public String getEntName() {
+        return this.entName;
+    }
+
+    public QueryEverifyFourmetaResponse setEntNameMsg(String entNameMsg) {
+        this.entNameMsg = entNameMsg;
+        return this;
+    }
+    public String getEntNameMsg() {
+        return this.entNameMsg;
+    }
+
+    public QueryEverifyFourmetaResponse setRegNo(String regNo) {
+        this.regNo = regNo;
+        return this;
+    }
+    public String getRegNo() {
+        return this.regNo;
+    }
+
+    public QueryEverifyFourmetaResponse setRegNoMsg(String regNoMsg) {
+        this.regNoMsg = regNoMsg;
+        return this;
+    }
+    public String getRegNoMsg() {
+        return this.regNoMsg;
     }
 
 }

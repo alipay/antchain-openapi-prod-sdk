@@ -46,6 +46,25 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     @NameInMap("reason_code")
     public String reasonCode;
 
+    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+    // 
+    @NameInMap("reg_no")
+    public String regNo;
+
+    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+    // 
+    @NameInMap("reg_no_msg")
+    public String regNoMsg;
+
+    // 企业名称 1.一致 2.不一致 3.无法验证
+    @NameInMap("ent_name")
+    public String entName;
+
+    // 企业名称 1.一致 2.不一致 3.无法验证
+    // 
+    @NameInMap("ent_name_msg")
+    public String entNameMsg;
+
     public static QueryEverifyTwometaResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEverifyTwometaResponse self = new QueryEverifyTwometaResponse();
         return TeaModel.build(map, self);
@@ -121,6 +140,38 @@ public class QueryEverifyTwometaResponse extends TeaModel {
     }
     public String getReasonCode() {
         return this.reasonCode;
+    }
+
+    public QueryEverifyTwometaResponse setRegNo(String regNo) {
+        this.regNo = regNo;
+        return this;
+    }
+    public String getRegNo() {
+        return this.regNo;
+    }
+
+    public QueryEverifyTwometaResponse setRegNoMsg(String regNoMsg) {
+        this.regNoMsg = regNoMsg;
+        return this;
+    }
+    public String getRegNoMsg() {
+        return this.regNoMsg;
+    }
+
+    public QueryEverifyTwometaResponse setEntName(String entName) {
+        this.entName = entName;
+        return this;
+    }
+    public String getEntName() {
+        return this.entName;
+    }
+
+    public QueryEverifyTwometaResponse setEntNameMsg(String entNameMsg) {
+        this.entNameMsg = entNameMsg;
+        return this;
+    }
+    public String getEntNameMsg() {
+        return this.entNameMsg;
     }
 
 }
