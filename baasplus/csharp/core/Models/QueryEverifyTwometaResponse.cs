@@ -60,6 +60,29 @@ namespace AntChain.SDK.BAASPLUS.Models
         [Validation(Required=false)]
         public string ReasonCode { get; set; }
 
+        // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        // 
+        [NameInMap("reg_no")]
+        [Validation(Required=false)]
+        public string RegNo { get; set; }
+
+        // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+        // 
+        [NameInMap("reg_no_msg")]
+        [Validation(Required=false)]
+        public string RegNoMsg { get; set; }
+
+        // 企业名称 1.一致 2.不一致 3.无法验证
+        [NameInMap("ent_name")]
+        [Validation(Required=false)]
+        public string EntName { get; set; }
+
+        // 企业名称 1.一致 2.不一致 3.无法验证
+        // 
+        [NameInMap("ent_name_msg")]
+        [Validation(Required=false)]
+        public string EntNameMsg { get; set; }
+
     }
 
 }
