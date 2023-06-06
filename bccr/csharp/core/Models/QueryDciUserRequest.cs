@@ -33,6 +33,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string Phone { get; set; }
 
+        // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+        [NameInMap("copyright_certification_type")]
+        [Validation(Required=false)]
+        public string CopyrightCertificationType { get; set; }
+
     }
 
 }
