@@ -60,45 +60,14 @@ namespace AntChain.SDK.BAASPLUS.Models
         [Validation(Required=false)]
         public string ReasonCode { get; set; }
 
-        // 法人姓名：1，2，3
-        [NameInMap("legal_name")]
+        // 数据不一致的字段，存在多个
+        // ep_cert_name 企业名称
+        // ep_cert_no 企业信用编码
+        // cert_name 法人名称
+        // cert_no 法人证件号
+        [NameInMap("reason_codes")]
         [Validation(Required=false)]
-        public string LegalName { get; set; }
-
-        // 法人姓名：1.一致 2.不一致 3.无法验证
-        [NameInMap("legal_name_msg")]
-        [Validation(Required=false)]
-        public string LegalNameMsg { get; set; }
-
-        // 1.一致 2.不一致 3.无法验证
-        [NameInMap("legal_id_no")]
-        [Validation(Required=false)]
-        public string LegalIdNo { get; set; }
-
-        // 法人身份证号：1.一致 2.不一致 3.无法核验
-        [NameInMap("legal_id_no_msg")]
-        [Validation(Required=false)]
-        public string LegalIdNoMsg { get; set; }
-
-        // 企业名称 1.一致 2.不一致 3.无法验证
-        [NameInMap("ent_name")]
-        [Validation(Required=false)]
-        public string EntName { get; set; }
-
-        // 企业名称 1.一致 2.不一致 3.无法验证
-        [NameInMap("ent_name_msg")]
-        [Validation(Required=false)]
-        public string EntNameMsg { get; set; }
-
-        // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-        [NameInMap("reg_no")]
-        [Validation(Required=false)]
-        public string RegNo { get; set; }
-
-        // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-        [NameInMap("reg_no_msg")]
-        [Validation(Required=false)]
-        public string RegNoMsg { get; set; }
+        public List<string> ReasonCodes { get; set; }
 
     }
 
