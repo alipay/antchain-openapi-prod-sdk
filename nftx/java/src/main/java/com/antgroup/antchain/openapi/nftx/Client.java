@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.4"),
+                    new TeaPair("sdk_version", "1.8.1"),
                     new TeaPair("_prod_code", "NFTX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -463,5 +463,24 @@ public class Client {
     public ApplyOauthTokenResponse applyOauthTokenEx(ApplyOauthTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyOauthTokenResponse());
+    }
+
+    /**
+     * Description: 获取用户信息
+     * Summary: 获取用户信息
+     */
+    public QueryOauthUserinfoResponse queryOauthUserinfo(QueryOauthUserinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOauthUserinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取用户信息
+     * Summary: 获取用户信息
+     */
+    public QueryOauthUserinfoResponse queryOauthUserinfoEx(QueryOauthUserinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.oauth.userinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOauthUserinfoResponse());
     }
 }
