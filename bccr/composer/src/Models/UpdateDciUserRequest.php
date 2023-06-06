@@ -48,14 +48,21 @@ class UpdateDciUserRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    /**
+     * @var string
+     */
+    public $copyrightCertificationType;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'dciUserId'         => 'dci_user_id',
-        'certFrontFileId'   => 'cert_front_file_id',
-        'certBackFileId'    => 'cert_back_file_id',
-        'phone'             => 'phone',
-        'clientToken'       => 'client_token',
+        'authToken'                  => 'auth_token',
+        'productInstanceId'          => 'product_instance_id',
+        'dciUserId'                  => 'dci_user_id',
+        'certFrontFileId'            => 'cert_front_file_id',
+        'certBackFileId'             => 'cert_back_file_id',
+        'phone'                      => 'phone',
+        'clientToken'                => 'client_token',
+        'copyrightCertificationType' => 'copyright_certification_type',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class UpdateDciUserRequest extends Model
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->copyrightCertificationType) {
+            $res['copyright_certification_type'] = $this->copyrightCertificationType;
         }
 
         return $res;
@@ -120,6 +130,9 @@ class UpdateDciUserRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['copyright_certification_type'])) {
+            $model->copyrightCertificationType = $map['copyright_certification_type'];
         }
 
         return $model;

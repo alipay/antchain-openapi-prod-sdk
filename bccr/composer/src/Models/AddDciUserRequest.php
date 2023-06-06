@@ -138,29 +138,36 @@ class AddDciUserRequest extends Model
      * @var string
      */
     public $userType;
+
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    /**
+     * @var string
+     */
+    public $copyrightCertificationType;
     protected $_name = [
-        'authToken'                => 'auth_token',
-        'productInstanceId'        => 'product_instance_id',
-        'certName'                 => 'cert_name',
-        'certificateType'          => 'certificate_type',
-        'certificateNumber'        => 'certificate_number',
-        'certificateStartTime'     => 'certificate_start_time',
-        'certificateEndTime'       => 'certificate_end_time',
-        'certificateFrontFileId'   => 'certificate_front_file_id',
-        'certificateBackFileId'    => 'certificate_back_file_id',
-        'legalPersonCertName'      => 'legal_person_cert_name',
-        'legalPersonCertType'      => 'legal_person_cert_type',
-        'legalPersonCertNo'        => 'legal_person_cert_no',
-        'phone'                    => 'phone',
-        'address'                  => 'address',
-        'identityStartTime'        => 'identity_start_time',
-        'areaType'                 => 'area_type',
-        'proxyData'                => 'proxy_data',
-        'clientToken'              => 'client_token',
-        'userName'                 => 'user_name',
-        'certificateFrontFilePath' => 'certificate_front_file_path',
-        'certificateBackFilePath'  => 'certificate_back_file_path',
-        'userType'                 => 'user_type',
+        'authToken'                  => 'auth_token',
+        'productInstanceId'          => 'product_instance_id',
+        'certName'                   => 'cert_name',
+        'certificateType'            => 'certificate_type',
+        'certificateNumber'          => 'certificate_number',
+        'certificateStartTime'       => 'certificate_start_time',
+        'certificateEndTime'         => 'certificate_end_time',
+        'certificateFrontFileId'     => 'certificate_front_file_id',
+        'certificateBackFileId'      => 'certificate_back_file_id',
+        'legalPersonCertName'        => 'legal_person_cert_name',
+        'legalPersonCertType'        => 'legal_person_cert_type',
+        'legalPersonCertNo'          => 'legal_person_cert_no',
+        'phone'                      => 'phone',
+        'address'                    => 'address',
+        'identityStartTime'          => 'identity_start_time',
+        'areaType'                   => 'area_type',
+        'proxyData'                  => 'proxy_data',
+        'clientToken'                => 'client_token',
+        'userName'                   => 'user_name',
+        'certificateFrontFilePath'   => 'certificate_front_file_path',
+        'certificateBackFilePath'    => 'certificate_back_file_path',
+        'userType'                   => 'user_type',
+        'copyrightCertificationType' => 'copyright_certification_type',
     ];
 
     public function validate()
@@ -243,6 +250,9 @@ class AddDciUserRequest extends Model
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
         }
+        if (null !== $this->copyrightCertificationType) {
+            $res['copyright_certification_type'] = $this->copyrightCertificationType;
+        }
 
         return $res;
     }
@@ -320,6 +330,9 @@ class AddDciUserRequest extends Model
         }
         if (isset($map['user_type'])) {
             $model->userType = $map['user_type'];
+        }
+        if (isset($map['copyright_certification_type'])) {
+            $model->copyrightCertificationType = $map['copyright_certification_type'];
         }
 
         return $model;

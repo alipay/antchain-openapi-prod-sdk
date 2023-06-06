@@ -72,18 +72,25 @@ class AddDciUsernocertRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+    /**
+     * @var string
+     */
+    public $copyrightCertificationType;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'certificateName'     => 'certificate_name',
-        'certificateType'     => 'certificate_type',
-        'certificateNumber'   => 'certificate_number',
-        'legalPersonCertName' => 'legal_person_cert_name',
-        'legalPersonCertType' => 'legal_person_cert_type',
-        'legalPersonCertNo'   => 'legal_person_cert_no',
-        'phone'               => 'phone',
-        'proxyData'           => 'proxy_data',
-        'clientToken'         => 'client_token',
+        'authToken'                  => 'auth_token',
+        'productInstanceId'          => 'product_instance_id',
+        'certificateName'            => 'certificate_name',
+        'certificateType'            => 'certificate_type',
+        'certificateNumber'          => 'certificate_number',
+        'legalPersonCertName'        => 'legal_person_cert_name',
+        'legalPersonCertType'        => 'legal_person_cert_type',
+        'legalPersonCertNo'          => 'legal_person_cert_no',
+        'phone'                      => 'phone',
+        'proxyData'                  => 'proxy_data',
+        'clientToken'                => 'client_token',
+        'copyrightCertificationType' => 'copyright_certification_type',
     ];
 
     public function validate()
@@ -131,6 +138,9 @@ class AddDciUsernocertRequest extends Model
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
         }
+        if (null !== $this->copyrightCertificationType) {
+            $res['copyright_certification_type'] = $this->copyrightCertificationType;
+        }
 
         return $res;
     }
@@ -175,6 +185,9 @@ class AddDciUsernocertRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['copyright_certification_type'])) {
+            $model->copyrightCertificationType = $map['copyright_certification_type'];
         }
 
         return $model;
