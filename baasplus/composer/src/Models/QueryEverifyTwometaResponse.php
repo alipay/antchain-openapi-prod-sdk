@@ -68,32 +68,13 @@ class QueryEverifyTwometaResponse extends Model
      */
     public $reasonCode;
 
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    //
+    // 要素核验不一致的字段
+    // ep_cert_name 企业名称
+    // ep_cert_no 企业信用编码
     /**
-     * @var string
+     * @var string[]
      */
-    public $regNo;
-
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    //
-    /**
-     * @var string
-     */
-    public $regNoMsg;
-
-    // 企业名称 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $entName;
-
-    // 企业名称 1.一致 2.不一致 3.无法验证
-    //
-    /**
-     * @var string
-     */
-    public $entNameMsg;
+    public $reasonCodes;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -104,10 +85,7 @@ class QueryEverifyTwometaResponse extends Model
         'code'             => 'code',
         'returnCode'       => 'return_code',
         'reasonCode'       => 'reason_code',
-        'regNo'            => 'reg_no',
-        'regNoMsg'         => 'reg_no_msg',
-        'entName'          => 'ent_name',
-        'entNameMsg'       => 'ent_name_msg',
+        'reasonCodes'      => 'reason_codes',
     ];
 
     public function validate()
@@ -144,17 +122,8 @@ class QueryEverifyTwometaResponse extends Model
         if (null !== $this->reasonCode) {
             $res['reason_code'] = $this->reasonCode;
         }
-        if (null !== $this->regNo) {
-            $res['reg_no'] = $this->regNo;
-        }
-        if (null !== $this->regNoMsg) {
-            $res['reg_no_msg'] = $this->regNoMsg;
-        }
-        if (null !== $this->entName) {
-            $res['ent_name'] = $this->entName;
-        }
-        if (null !== $this->entNameMsg) {
-            $res['ent_name_msg'] = $this->entNameMsg;
+        if (null !== $this->reasonCodes) {
+            $res['reason_codes'] = $this->reasonCodes;
         }
 
         return $res;
@@ -195,17 +164,10 @@ class QueryEverifyTwometaResponse extends Model
         if (isset($map['reason_code'])) {
             $model->reasonCode = $map['reason_code'];
         }
-        if (isset($map['reg_no'])) {
-            $model->regNo = $map['reg_no'];
-        }
-        if (isset($map['reg_no_msg'])) {
-            $model->regNoMsg = $map['reg_no_msg'];
-        }
-        if (isset($map['ent_name'])) {
-            $model->entName = $map['ent_name'];
-        }
-        if (isset($map['ent_name_msg'])) {
-            $model->entNameMsg = $map['ent_name_msg'];
+        if (isset($map['reason_codes'])) {
+            if (!empty($map['reason_codes'])) {
+                $model->reasonCodes = $map['reason_codes'];
+            }
         }
 
         return $model;

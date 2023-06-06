@@ -68,53 +68,15 @@ class QueryEverifyFourmetaResponse extends Model
      */
     public $reasonCode;
 
-    // 法人姓名：1，2，3
+    // 数据不一致的字段，存在多个
+    // ep_cert_name 企业名称
+    // ep_cert_no 企业信用编码
+    // cert_name 法人名称
+    // cert_no 法人证件号
     /**
-     * @var string
+     * @var string[]
      */
-    public $legalName;
-
-    // 法人姓名：1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $legalNameMsg;
-
-    // 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $legalIdNo;
-
-    // 法人身份证号：1.一致 2.不一致 3.无法核验
-    /**
-     * @var string
-     */
-    public $legalIdNoMsg;
-
-    // 企业名称 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $entName;
-
-    // 企业名称 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $entNameMsg;
-
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $regNo;
-
-    // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
-    /**
-     * @var string
-     */
-    public $regNoMsg;
+    public $reasonCodes;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -125,14 +87,7 @@ class QueryEverifyFourmetaResponse extends Model
         'passed'           => 'passed',
         'returnCode'       => 'return_code',
         'reasonCode'       => 'reason_code',
-        'legalName'        => 'legal_name',
-        'legalNameMsg'     => 'legal_name_msg',
-        'legalIdNo'        => 'legal_id_no',
-        'legalIdNoMsg'     => 'legal_id_no_msg',
-        'entName'          => 'ent_name',
-        'entNameMsg'       => 'ent_name_msg',
-        'regNo'            => 'reg_no',
-        'regNoMsg'         => 'reg_no_msg',
+        'reasonCodes'      => 'reason_codes',
     ];
 
     public function validate()
@@ -169,29 +124,8 @@ class QueryEverifyFourmetaResponse extends Model
         if (null !== $this->reasonCode) {
             $res['reason_code'] = $this->reasonCode;
         }
-        if (null !== $this->legalName) {
-            $res['legal_name'] = $this->legalName;
-        }
-        if (null !== $this->legalNameMsg) {
-            $res['legal_name_msg'] = $this->legalNameMsg;
-        }
-        if (null !== $this->legalIdNo) {
-            $res['legal_id_no'] = $this->legalIdNo;
-        }
-        if (null !== $this->legalIdNoMsg) {
-            $res['legal_id_no_msg'] = $this->legalIdNoMsg;
-        }
-        if (null !== $this->entName) {
-            $res['ent_name'] = $this->entName;
-        }
-        if (null !== $this->entNameMsg) {
-            $res['ent_name_msg'] = $this->entNameMsg;
-        }
-        if (null !== $this->regNo) {
-            $res['reg_no'] = $this->regNo;
-        }
-        if (null !== $this->regNoMsg) {
-            $res['reg_no_msg'] = $this->regNoMsg;
+        if (null !== $this->reasonCodes) {
+            $res['reason_codes'] = $this->reasonCodes;
         }
 
         return $res;
@@ -232,29 +166,10 @@ class QueryEverifyFourmetaResponse extends Model
         if (isset($map['reason_code'])) {
             $model->reasonCode = $map['reason_code'];
         }
-        if (isset($map['legal_name'])) {
-            $model->legalName = $map['legal_name'];
-        }
-        if (isset($map['legal_name_msg'])) {
-            $model->legalNameMsg = $map['legal_name_msg'];
-        }
-        if (isset($map['legal_id_no'])) {
-            $model->legalIdNo = $map['legal_id_no'];
-        }
-        if (isset($map['legal_id_no_msg'])) {
-            $model->legalIdNoMsg = $map['legal_id_no_msg'];
-        }
-        if (isset($map['ent_name'])) {
-            $model->entName = $map['ent_name'];
-        }
-        if (isset($map['ent_name_msg'])) {
-            $model->entNameMsg = $map['ent_name_msg'];
-        }
-        if (isset($map['reg_no'])) {
-            $model->regNo = $map['reg_no'];
-        }
-        if (isset($map['reg_no_msg'])) {
-            $model->regNoMsg = $map['reg_no_msg'];
+        if (isset($map['reason_codes'])) {
+            if (!empty($map['reason_codes'])) {
+                $model->reasonCodes = $map['reason_codes'];
+            }
         }
 
         return $model;
