@@ -10,12 +10,21 @@
     }
   ],
   "releases": {
+<<<<<<< Updated upstream
     "java": "com.antgroup.antchain.openapi:openapi-baasplus:1.1.8",
     "go": "github.com/antchain-openapi-sdk-go/baasplus/client:v1.1.8",
     "csharp": "AntChain.SDK.BAASPLUS:1.1.8",
     "ts": "@antchain/baasplus:1.1.8",
     "php": "antchain/baasplus:1.1.8",
     "python": "antchain_sdk_baasplus:1.1.8"
+=======
+    "java": "com.antgroup.antchain.openapi:openapi-baasplus:1.1.6",
+    "go": "github.com/antchain-openapi-sdk-go/baasplus/client:v1.1.8",
+    "csharp": "AntChain.SDK.BAASPLUS:1.1.5",
+    "ts": "@antchain/baasplus:1.1.5",
+    "php": "antchain/baasplus:1.1.8",
+    "python": "antchain_sdk_baasplus:1.1.5"
+>>>>>>> Stashed changes
   },
   "libraries": {
     "Util": "darabonba:Util:*",
