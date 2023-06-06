@@ -91,7 +91,7 @@ namespace AntChain.SDK.NFTX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.4"},
+                        {"sdk_version", "1.8.1"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.NFTX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.4"},
+                        {"sdk_version", "1.8.1"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -991,6 +991,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyOauthTokenResponse>(await DoRequestAsync("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取用户信息
+         * Summary: 获取用户信息
+         */
+        public QueryOauthUserinfoResponse QueryOauthUserinfo(QueryOauthUserinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOauthUserinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取用户信息
+         * Summary: 获取用户信息
+         */
+        public async Task<QueryOauthUserinfoResponse> QueryOauthUserinfoAsync(QueryOauthUserinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOauthUserinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取用户信息
+         * Summary: 获取用户信息
+         */
+        public QueryOauthUserinfoResponse QueryOauthUserinfoEx(QueryOauthUserinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOauthUserinfoResponse>(DoRequest("1.0", "antchain.nftx.oauth.userinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取用户信息
+         * Summary: 获取用户信息
+         */
+        public async Task<QueryOauthUserinfoResponse> QueryOauthUserinfoExAsync(QueryOauthUserinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOauthUserinfoResponse>(await DoRequestAsync("1.0", "antchain.nftx.oauth.userinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
