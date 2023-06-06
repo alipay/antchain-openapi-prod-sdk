@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.17.56',
+    sdk_version = '1.17.59',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -2636,6 +2636,8 @@ model AddDciUserRequest = {
   certificateBackFilePath?: string(name='certificate_back_file_path'),
   // 用户类型废弃
   userType?: string(name='user_type'),
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string(name='copyright_certification_type'),
 }
 
 model AddDciUserResponse = {
@@ -2722,6 +2724,8 @@ model QueryDciUserRequest = {
   certificateNumber: string(name='certificate_number'),
   // 手机号
   phone: string(name='phone'),
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string(name='copyright_certification_type'),
 }
 
 model QueryDciUserResponse = {
@@ -2822,6 +2826,8 @@ model UpdateDciUserRequest = {
   phone?: string(name='phone'),
   // 客户端令牌
   clientToken?: string(name='client_token'),
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string(name='copyright_certification_type'),
 }
 
 model UpdateDciUserResponse = {
@@ -3937,6 +3943,8 @@ model AddDciUsernocertRequest = {
   proxyData?: ProxyData(name='proxy_data'),
   // 幂等字段
   clientToken: string(name='client_token'),
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string(name='copyright_certification_type'),
 }
 
 model AddDciUsernocertResponse = {
