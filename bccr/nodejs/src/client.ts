@@ -5013,6 +5013,8 @@ export class AddDciUserRequest extends $tea.Model {
   certificateBackFilePath?: string;
   // 用户类型废弃
   userType?: string;
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5037,6 +5039,7 @@ export class AddDciUserRequest extends $tea.Model {
       certificateFrontFilePath: 'certificate_front_file_path',
       certificateBackFilePath: 'certificate_back_file_path',
       userType: 'user_type',
+      copyrightCertificationType: 'copyright_certification_type',
     };
   }
 
@@ -5064,6 +5067,7 @@ export class AddDciUserRequest extends $tea.Model {
       certificateFrontFilePath: 'string',
       certificateBackFilePath: 'string',
       userType: 'string',
+      copyrightCertificationType: 'string',
     };
   }
 
@@ -5185,6 +5189,8 @@ export class QueryDciUserRequest extends $tea.Model {
   certificateNumber: string;
   // 手机号
   phone: string;
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5192,6 +5198,7 @@ export class QueryDciUserRequest extends $tea.Model {
       certificateType: 'certificate_type',
       certificateNumber: 'certificate_number',
       phone: 'phone',
+      copyrightCertificationType: 'copyright_certification_type',
     };
   }
 
@@ -5202,6 +5209,7 @@ export class QueryDciUserRequest extends $tea.Model {
       certificateType: 'string',
       certificateNumber: 'string',
       phone: 'string',
+      copyrightCertificationType: 'string',
     };
   }
 
@@ -5347,6 +5355,8 @@ export class UpdateDciUserRequest extends $tea.Model {
   phone?: string;
   // 客户端令牌
   clientToken?: string;
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5356,6 +5366,7 @@ export class UpdateDciUserRequest extends $tea.Model {
       certBackFileId: 'cert_back_file_id',
       phone: 'phone',
       clientToken: 'client_token',
+      copyrightCertificationType: 'copyright_certification_type',
     };
   }
 
@@ -5368,6 +5379,7 @@ export class UpdateDciUserRequest extends $tea.Model {
       certBackFileId: 'string',
       phone: 'string',
       clientToken: 'string',
+      copyrightCertificationType: 'string',
     };
   }
 
@@ -7177,6 +7189,8 @@ export class AddDciUsernocertRequest extends $tea.Model {
   proxyData?: ProxyData;
   // 幂等字段
   clientToken: string;
+  // 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+  copyrightCertificationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7190,6 +7204,7 @@ export class AddDciUsernocertRequest extends $tea.Model {
       phone: 'phone',
       proxyData: 'proxy_data',
       clientToken: 'client_token',
+      copyrightCertificationType: 'copyright_certification_type',
     };
   }
 
@@ -7206,6 +7221,7 @@ export class AddDciUsernocertRequest extends $tea.Model {
       phone: 'string',
       proxyData: ProxyData,
       clientToken: 'string',
+      copyrightCertificationType: 'string',
     };
   }
 
@@ -8054,7 +8070,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.56",
+          sdk_version: "1.17.59",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
