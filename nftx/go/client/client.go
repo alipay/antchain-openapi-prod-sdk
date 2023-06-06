@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -1836,6 +1836,14 @@ type PayOrderDataRequest struct {
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 	// 支付完成后的回跳地址
 	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// AC编码
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 鲸探测分配的实物规格编码
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty"`
+	// 用户购买的商品个数
+	ItemNum *int64 `json:"item_num,omitempty" xml:"item_num,omitempty"`
+	// 商品单价，单位分
+	ItemPriceCent *int64 `json:"item_price_cent,omitempty" xml:"item_price_cent,omitempty"`
 }
 
 func (s PayOrderDataRequest) String() string {
@@ -1888,6 +1896,26 @@ func (s *PayOrderDataRequest) SetAccessToken(v string) *PayOrderDataRequest {
 
 func (s *PayOrderDataRequest) SetReturnUrl(v string) *PayOrderDataRequest {
 	s.ReturnUrl = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetNftId(v string) *PayOrderDataRequest {
+	s.NftId = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetItemCode(v string) *PayOrderDataRequest {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetItemNum(v int64) *PayOrderDataRequest {
+	s.ItemNum = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetItemPriceCent(v int64) *PayOrderDataRequest {
+	s.ItemPriceCent = &v
 	return s
 }
 
@@ -2143,6 +2171,90 @@ func (s *ApplyOauthTokenResponse) SetRefreshExpireTime(v string) *ApplyOauthToke
 	return s
 }
 
+type QueryOauthUserinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s QueryOauthUserinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOauthUserinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOauthUserinfoRequest) SetAuthToken(v string) *QueryOauthUserinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoRequest) SetProductInstanceId(v string) *QueryOauthUserinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoRequest) SetAccessToken(v string) *QueryOauthUserinfoRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type QueryOauthUserinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 头像链接
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+	// open_user_id
+	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty"`
+}
+
+func (s QueryOauthUserinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOauthUserinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOauthUserinfoResponse) SetReqMsgId(v string) *QueryOauthUserinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetResultCode(v string) *QueryOauthUserinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetResultMsg(v string) *QueryOauthUserinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetNickName(v string) *QueryOauthUserinfoResponse {
+	s.NickName = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetAvatar(v string) *QueryOauthUserinfoResponse {
+	s.Avatar = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetOpenUserId(v string) *QueryOauthUserinfoResponse {
+	s.OpenUserId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2221,17 +2333,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -2265,7 +2377,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.1"),
+				"sdk_version":      tea.String("1.8.1"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2293,8 +2405,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -2852,6 +2972,40 @@ func (client *Client) ApplyOauthTokenEx(request *ApplyOauthTokenRequest, headers
 	}
 	_result = &ApplyOauthTokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.oauth.token.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取用户信息
+ * Summary: 获取用户信息
+ */
+func (client *Client) QueryOauthUserinfo(request *QueryOauthUserinfoRequest) (_result *QueryOauthUserinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOauthUserinfoResponse{}
+	_body, _err := client.QueryOauthUserinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取用户信息
+ * Summary: 获取用户信息
+ */
+func (client *Client) QueryOauthUserinfoEx(request *QueryOauthUserinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOauthUserinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOauthUserinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.oauth.userinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
