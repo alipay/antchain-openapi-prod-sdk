@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.1.8',
     _prod_code = 'BAASPLUS',
     _prod_channel = 'undefined'
   };
@@ -1515,6 +1515,22 @@ model QueryEverifyFourmetaResponse = {
   returnCode?: string(name='return_code'),
   // 核验不一致的原因编码
   reasonCode?: string(name='reason_code'),
+  // 法人姓名：1，2，3
+  legalName?: string(name='legal_name'),
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  legalNameMsg?: string(name='legal_name_msg'),
+  // 1.一致 2.不一致 3.无法验证
+  legalIdNo?: string(name='legal_id_no'),
+  // 法人身份证号：1.一致 2.不一致 3.无法核验
+  legalIdNoMsg?: string(name='legal_id_no_msg'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string(name='ent_name'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entNameMsg?: string(name='ent_name_msg'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNo?: string(name='reg_no'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNoMsg?: string(name='reg_no_msg'),
 }
 
 /**
@@ -1573,6 +1589,20 @@ model QueryEverifyThreemetaResponse = {
   returnCode?: string(name='return_code'),
   // 核验不通过异常编码
   reasonCode?: string(name='reason_code'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string(name='ent_name'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  // 
+  entNameMsg?: string(name='ent_name_msg'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNo?: string(name='reg_no'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  regNoMsg?: string(name='reg_no_msg'),
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  // 
+  legalName?: string(name='legal_name'),
+  // 法人姓名：1.一致 2.不一致 3.无法验证
+  legalNameMsg?: string(name='legal_name_msg'),
 }
 
 /**
@@ -1629,6 +1659,17 @@ model QueryEverifyTwometaResponse = {
   returnCode?: string(name='return_code'),
   // 核验不通过异常编码
   reasonCode?: string(name='reason_code'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  // 
+  regNo?: string(name='reg_no'),
+  // 社会统一信用代码/注册号： 1.一致 2.不一致 3.无法验证
+  // 
+  regNoMsg?: string(name='reg_no_msg'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  entName?: string(name='ent_name'),
+  // 企业名称 1.一致 2.不一致 3.无法验证
+  // 
+  entNameMsg?: string(name='ent_name_msg'),
 }
 
 /**
