@@ -1562,6 +1562,73 @@ export class ApplyOauthTokenResponse extends $tea.Model {
   }
 }
 
+export class QueryOauthUserinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权token
+  accessToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accessToken: 'access_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accessToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOauthUserinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户昵称
+  nickName?: string;
+  // 头像链接
+  avatar?: string;
+  // open_user_id
+  openUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nickName: 'nick_name',
+      avatar: 'avatar',
+      openUserId: 'open_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nickName: 'string',
+      avatar: 'string',
+      openUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1636,7 +1703,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -1675,7 +1742,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.4",
+          sdk_version: "1.8.1",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
@@ -2025,6 +2092,25 @@ export default class Client {
   async applyOauthTokenEx(request: ApplyOauthTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyOauthTokenResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyOauthTokenResponse>(await this.doRequest("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyOauthTokenResponse({}));
+  }
+
+  /**
+   * Description: 获取用户信息
+   * Summary: 获取用户信息
+   */
+  async queryOauthUserinfo(request: QueryOauthUserinfoRequest): Promise<QueryOauthUserinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOauthUserinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取用户信息
+   * Summary: 获取用户信息
+   */
+  async queryOauthUserinfoEx(request: QueryOauthUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOauthUserinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOauthUserinfoResponse>(await this.doRequest("1.0", "antchain.nftx.oauth.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOauthUserinfoResponse({}));
   }
 
 }
