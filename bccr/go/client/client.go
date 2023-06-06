@@ -6793,6 +6793,8 @@ type AddDciUserRequest struct {
 	CertificateBackFilePath *string `json:"certificate_back_file_path,omitempty" xml:"certificate_back_file_path,omitempty"`
 	// 用户类型废弃
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 }
 
 func (s AddDciUserRequest) String() string {
@@ -6910,6 +6912,11 @@ func (s *AddDciUserRequest) SetCertificateBackFilePath(v string) *AddDciUserRequ
 
 func (s *AddDciUserRequest) SetUserType(v string) *AddDciUserRequest {
 	s.UserType = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetCopyrightCertificationType(v string) *AddDciUserRequest {
+	s.CopyrightCertificationType = &v
 	return s
 }
 
@@ -7053,6 +7060,8 @@ type QueryDciUserRequest struct {
 	CertificateNumber *string `json:"certificate_number,omitempty" xml:"certificate_number,omitempty" require:"true"`
 	// 手机号
 	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS：软件作品认证，如果不传默认为UGC
+	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 }
 
 func (s QueryDciUserRequest) String() string {
@@ -7085,6 +7094,11 @@ func (s *QueryDciUserRequest) SetCertificateNumber(v string) *QueryDciUserReques
 
 func (s *QueryDciUserRequest) SetPhone(v string) *QueryDciUserRequest {
 	s.Phone = &v
+	return s
+}
+
+func (s *QueryDciUserRequest) SetCopyrightCertificationType(v string) *QueryDciUserRequest {
+	s.CopyrightCertificationType = &v
 	return s
 }
 
@@ -7267,6 +7281,8 @@ type UpdateDciUserRequest struct {
 	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
 	// 客户端令牌
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 }
 
 func (s UpdateDciUserRequest) String() string {
@@ -7309,6 +7325,11 @@ func (s *UpdateDciUserRequest) SetPhone(v string) *UpdateDciUserRequest {
 
 func (s *UpdateDciUserRequest) SetClientToken(v string) *UpdateDciUserRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *UpdateDciUserRequest) SetCopyrightCertificationType(v string) *UpdateDciUserRequest {
+	s.CopyrightCertificationType = &v
 	return s
 }
 
@@ -9698,6 +9719,8 @@ type AddDciUsernocertRequest struct {
 	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 版权认证方式:UGC-用户生成内容，AIGC-AI生成内容，SOFTWARE_WORKS-软件作品认证，如果不传默认为UGC
+	CopyrightCertificationType *string `json:"copyright_certification_type,omitempty" xml:"copyright_certification_type,omitempty"`
 }
 
 func (s AddDciUsernocertRequest) String() string {
@@ -9760,6 +9783,11 @@ func (s *AddDciUsernocertRequest) SetProxyData(v *ProxyData) *AddDciUsernocertRe
 
 func (s *AddDciUsernocertRequest) SetClientToken(v string) *AddDciUsernocertRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *AddDciUsernocertRequest) SetCopyrightCertificationType(v string) *AddDciUsernocertRequest {
+	s.CopyrightCertificationType = &v
 	return s
 }
 
@@ -10841,7 +10869,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.56"),
+				"sdk_version":      tea.String("1.17.59"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
