@@ -19,12 +19,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
      */
     public $productInstanceId;
 
-    // 需求id
-    /**
-     * @var string
-     */
-    public $demandId;
-
     // 授权协议索引
     /**
      * @var string
@@ -42,19 +36,25 @@ class QueryApplicationUnifiedentranceRequest extends Model
      * @var bool
      */
     public $userAuthed;
+
+    // 待获取数据类型对应的服务id
+    /**
+     * @var string
+     */
+    public $serviceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'demandId'          => 'demand_id',
         'fileIndex'         => 'file_index',
         'params'            => 'params',
         'userAuthed'        => 'user_authed',
+        'serviceId'         => 'service_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('demandId', $this->demandId, true);
         Model::validateRequired('params', $this->params, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
     }
 
     public function toMap()
@@ -66,9 +66,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->demandId) {
-            $res['demand_id'] = $this->demandId;
-        }
         if (null !== $this->fileIndex) {
             $res['file_index'] = $this->fileIndex;
         }
@@ -77,6 +74,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (null !== $this->userAuthed) {
             $res['user_authed'] = $this->userAuthed;
+        }
+        if (null !== $this->serviceId) {
+            $res['service_id'] = $this->serviceId;
         }
 
         return $res;
@@ -96,9 +96,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['demand_id'])) {
-            $model->demandId = $map['demand_id'];
-        }
         if (isset($map['file_index'])) {
             $model->fileIndex = $map['file_index'];
         }
@@ -107,6 +104,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (isset($map['user_authed'])) {
             $model->userAuthed = $map['user_authed'];
+        }
+        if (isset($map['service_id'])) {
+            $model->serviceId = $map['service_id'];
         }
 
         return $model;

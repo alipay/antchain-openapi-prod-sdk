@@ -73,6 +73,8 @@ use AntChain\DAS\Models\UploadApplicationAuthfileRequest;
 use AntChain\DAS\Models\UploadApplicationAuthfileResponse;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileRequest;
 use AntChain\DAS\Models\UploadApplicationBatchqueryfileResponse;
+use AntChain\DAS\Models\UploadServiceAuthfileRequest;
+use AntChain\DAS\Models\UploadServiceAuthfileResponse;
 use AntChain\DAS\Models\VerifyDasAuthresultRequest;
 use AntChain\DAS\Models\VerifyDasAuthresultResponse;
 use AntChain\DAS\Models\VerifyDasEnterpriseRequest;
@@ -198,7 +200,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 数据源接口入参定义
+            // 主要人员
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -226,7 +228,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.50',
+                    'sdk_version'      => '1.1.52',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -968,6 +970,57 @@ class Client
         Utils::validateModel($request);
 
         return QueryApplicationEducationstatusResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.educationstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据服务授权文件上传
+     * Summary: 数据服务授权文件上传.
+     *
+     * @param UploadServiceAuthfileRequest $request
+     *
+     * @return UploadServiceAuthfileResponse
+     */
+    public function uploadServiceAuthfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadServiceAuthfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据服务授权文件上传
+     * Summary: 数据服务授权文件上传.
+     *
+     * @param UploadServiceAuthfileRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UploadServiceAuthfileResponse
+     */
+    public function uploadServiceAuthfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.das.service.authfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadServiceAuthfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadServiceAuthfileResponse::fromMap($this->doRequest('1.0', 'antchain.das.service.authfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

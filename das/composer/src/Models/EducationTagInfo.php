@@ -56,13 +56,22 @@ class EducationTagInfo extends Model
      * @var string
      */
     public $schoolType;
+
+    // 学习形式字典code
+    /**
+     * @example 01
+     *
+     * @var string
+     */
+    public $educationTypeCode;
     protected $_name = [
-        'major'          => 'major',
-        'educationLevel' => 'education_level',
-        'graduationDate' => 'graduation_date',
-        'educationType'  => 'education_type',
-        'admissionDate'  => 'admission_date',
-        'schoolType'     => 'school_type',
+        'major'             => 'major',
+        'educationLevel'    => 'education_level',
+        'graduationDate'    => 'graduation_date',
+        'educationType'     => 'education_type',
+        'admissionDate'     => 'admission_date',
+        'schoolType'        => 'school_type',
+        'educationTypeCode' => 'education_type_code',
     ];
 
     public function validate()
@@ -89,6 +98,9 @@ class EducationTagInfo extends Model
         }
         if (null !== $this->schoolType) {
             $res['school_type'] = $this->schoolType;
+        }
+        if (null !== $this->educationTypeCode) {
+            $res['education_type_code'] = $this->educationTypeCode;
         }
 
         return $res;
@@ -119,6 +131,9 @@ class EducationTagInfo extends Model
         }
         if (isset($map['school_type'])) {
             $model->schoolType = $map['school_type'];
+        }
+        if (isset($map['education_type_code'])) {
+            $model->educationTypeCode = $map['education_type_code'];
         }
 
         return $model;
