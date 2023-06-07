@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'DEFINCASHIER',
     _prod_channel = 'undefined'
   };
@@ -200,7 +200,7 @@ model AccountVO {
   lastPayFail?: boolean(name='last_pay_fail', example='true, false'),
   // 支付方式 BALANCE余额账户；BILL票据账户
   payMethod?: [ string ](name='pay_method', example='[“BALANCE”,"BILL"]'),
-  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝；Q_PAYEE 通用静默户；
   type?: string(name='type', example='MAIN'),
   // 主体：I-个人；E-企业
   principal?: string(name='principal', example='I'),
@@ -349,6 +349,10 @@ model PaymentShareAcceptanceResult {
   outRequestId: string(name='out_request_id', example='20120000000'),
   // 分账单状态
   state: string(name='state', example='PROCESSING'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
 }
 
 // 客户产品签约结果
