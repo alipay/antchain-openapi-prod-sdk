@@ -41,6 +41,11 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string SchoolType { get; set; }
 
+        // 学习形式字典code
+        [NameInMap("education_type_code")]
+        [Validation(Required=false)]
+        public string EducationTypeCode { get; set; }
+
     }
 
 }

@@ -18,11 +18,6 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 需求id
-        [NameInMap("demand_id")]
-        [Validation(Required=true)]
-        public string DemandId { get; set; }
-
         // 授权协议索引
         [NameInMap("file_index")]
         [Validation(Required=false)]
@@ -37,6 +32,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("user_authed")]
         [Validation(Required=false)]
         public bool? UserAuthed { get; set; }
+
+        // 待获取数据类型对应的服务id
+        [NameInMap("service_id")]
+        [Validation(Required=true)]
+        public string ServiceId { get; set; }
 
     }
 
