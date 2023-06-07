@@ -26,6 +26,16 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=true)]
         public string State { get; set; }
 
+        // 业务错误码(为空表示成功，否则为业务错误码)
+        [NameInMap("sub_code")]
+        [Validation(Required=false)]
+        public string SubCode { get; set; }
+
+        // 业务错误描述
+        [NameInMap("sub_msg")]
+        [Validation(Required=false)]
+        public string SubMsg { get; set; }
+
     }
 
 }
