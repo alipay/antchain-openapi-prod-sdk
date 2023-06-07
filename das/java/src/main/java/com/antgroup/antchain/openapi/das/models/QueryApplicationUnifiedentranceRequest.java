@@ -11,11 +11,6 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 需求id
-    @NameInMap("demand_id")
-    @Validation(required = true)
-    public String demandId;
-
     // 授权协议索引
     @NameInMap("file_index")
     public String fileIndex;
@@ -28,6 +23,11 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     // 是否授权
     @NameInMap("user_authed")
     public Boolean userAuthed;
+
+    // 待获取数据类型对应的服务id
+    @NameInMap("service_id")
+    @Validation(required = true)
+    public String serviceId;
 
     public static QueryApplicationUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApplicationUnifiedentranceRequest self = new QueryApplicationUnifiedentranceRequest();
@@ -48,14 +48,6 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryApplicationUnifiedentranceRequest setDemandId(String demandId) {
-        this.demandId = demandId;
-        return this;
-    }
-    public String getDemandId() {
-        return this.demandId;
     }
 
     public QueryApplicationUnifiedentranceRequest setFileIndex(String fileIndex) {
@@ -80,6 +72,14 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     }
     public Boolean getUserAuthed() {
         return this.userAuthed;
+    }
+
+    public QueryApplicationUnifiedentranceRequest setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+        return this;
+    }
+    public String getServiceId() {
+        return this.serviceId;
     }
 
 }
