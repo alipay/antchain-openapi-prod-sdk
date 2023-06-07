@@ -154,6 +154,48 @@ class Config(TeaModel):
         return self
 
 
+class EnterpriseStaff(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        type_join: List[str] = None,
+    ):
+        # 主要人员名称
+        self.name = name
+        # 法人类型，1-人;2-公司
+        self.type = type
+        # 经理
+        self.type_join = type_join
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.type_join is not None:
+            result['type_join'] = self.type_join
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('type_join') is not None:
+            self.type_join = m.get('type_join')
+        return self
+
+
 class InterfaceInput(TeaModel):
     def __init__(
         self,
@@ -255,6 +297,231 @@ class InterfaceOutput(TeaModel):
         return self
 
 
+class TmCoownerInfo(TeaModel):
+    def __init__(
+        self,
+        coowner_name_cn: str = None,
+        coowner_addr_cn: str = None,
+        coowner_name_en: str = None,
+        coowner_addr_en: str = None,
+    ):
+        # 共有人中文名称
+        self.coowner_name_cn = coowner_name_cn
+        # 共有人中文地址
+        self.coowner_addr_cn = coowner_addr_cn
+        # 共有人英文名称
+        self.coowner_name_en = coowner_name_en
+        # 共有人英文地址
+        self.coowner_addr_en = coowner_addr_en
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.coowner_name_cn is not None:
+            result['coowner_name_cn'] = self.coowner_name_cn
+        if self.coowner_addr_cn is not None:
+            result['coowner_addr_cn'] = self.coowner_addr_cn
+        if self.coowner_name_en is not None:
+            result['coowner_name_en'] = self.coowner_name_en
+        if self.coowner_addr_en is not None:
+            result['coowner_addr_en'] = self.coowner_addr_en
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('coowner_name_cn') is not None:
+            self.coowner_name_cn = m.get('coowner_name_cn')
+        if m.get('coowner_addr_cn') is not None:
+            self.coowner_addr_cn = m.get('coowner_addr_cn')
+        if m.get('coowner_name_en') is not None:
+            self.coowner_name_en = m.get('coowner_name_en')
+        if m.get('coowner_addr_en') is not None:
+            self.coowner_addr_en = m.get('coowner_addr_en')
+        return self
+
+
+class StockHolder(TeaModel):
+    def __init__(
+        self,
+        org_holder_type: str = None,
+        invest_date: str = None,
+        invest_rate: str = None,
+        subscript_amt: str = None,
+        or_holder_name: str = None,
+    ):
+        # 股东类型
+        self.org_holder_type = org_holder_type
+        # 出资时间
+        self.invest_date = invest_date
+        # 占比
+        self.invest_rate = invest_rate
+        # 出资金额
+        self.subscript_amt = subscript_amt
+        # 股东名
+        self.or_holder_name = or_holder_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.org_holder_type is not None:
+            result['org_holder_type'] = self.org_holder_type
+        if self.invest_date is not None:
+            result['invest_date'] = self.invest_date
+        if self.invest_rate is not None:
+            result['invest_rate'] = self.invest_rate
+        if self.subscript_amt is not None:
+            result['subscript_amt'] = self.subscript_amt
+        if self.or_holder_name is not None:
+            result['or_holder_name'] = self.or_holder_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('org_holder_type') is not None:
+            self.org_holder_type = m.get('org_holder_type')
+        if m.get('invest_date') is not None:
+            self.invest_date = m.get('invest_date')
+        if m.get('invest_rate') is not None:
+            self.invest_rate = m.get('invest_rate')
+        if m.get('subscript_amt') is not None:
+            self.subscript_amt = m.get('subscript_amt')
+        if m.get('or_holder_name') is not None:
+            self.or_holder_name = m.get('or_holder_name')
+        return self
+
+
+class EnterpriseBasicInfo(TeaModel):
+    def __init__(
+        self,
+        reg_status: str = None,
+        establish_time: str = None,
+        reg_capital: str = None,
+        industry: str = None,
+        staff_list: List[EnterpriseStaff] = None,
+        type: str = None,
+        reg_capital_currency: str = None,
+        legal_person_name: str = None,
+        reg_number: str = None,
+        credit_code: str = None,
+        name: str = None,
+        company_org_type: str = None,
+        base: str = None,
+    ):
+        # 企业状态
+        self.reg_status = reg_status
+        # 成立日期(注册日期)
+        self.establish_time = establish_time
+        # 注册资本
+        self.reg_capital = reg_capital
+        # 行业
+        self.industry = industry
+        # 主要人员
+        self.staff_list = staff_list
+        # 法人类型，1-人;2-公司
+        self.type = type
+        # 注册资本币种:人民币、美元、欧元等
+        self.reg_capital_currency = reg_capital_currency
+        # 法人姓名
+        self.legal_person_name = legal_person_name
+        # 注册号
+        self.reg_number = reg_number
+        # 统一社会信用代码
+        self.credit_code = credit_code
+        # 企业名
+        self.name = name
+        # 企业类型
+        self.company_org_type = company_org_type
+        # 省份简称
+        self.base = base
+
+    def validate(self):
+        if self.staff_list:
+            for k in self.staff_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reg_status is not None:
+            result['reg_status'] = self.reg_status
+        if self.establish_time is not None:
+            result['establish_time'] = self.establish_time
+        if self.reg_capital is not None:
+            result['reg_capital'] = self.reg_capital
+        if self.industry is not None:
+            result['industry'] = self.industry
+        result['staff_list'] = []
+        if self.staff_list is not None:
+            for k in self.staff_list:
+                result['staff_list'].append(k.to_map() if k else None)
+        if self.type is not None:
+            result['type'] = self.type
+        if self.reg_capital_currency is not None:
+            result['reg_capital_currency'] = self.reg_capital_currency
+        if self.legal_person_name is not None:
+            result['legal_person_name'] = self.legal_person_name
+        if self.reg_number is not None:
+            result['reg_number'] = self.reg_number
+        if self.credit_code is not None:
+            result['credit_code'] = self.credit_code
+        if self.name is not None:
+            result['name'] = self.name
+        if self.company_org_type is not None:
+            result['company_org_type'] = self.company_org_type
+        if self.base is not None:
+            result['base'] = self.base
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('reg_status') is not None:
+            self.reg_status = m.get('reg_status')
+        if m.get('establish_time') is not None:
+            self.establish_time = m.get('establish_time')
+        if m.get('reg_capital') is not None:
+            self.reg_capital = m.get('reg_capital')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        self.staff_list = []
+        if m.get('staff_list') is not None:
+            for k in m.get('staff_list'):
+                temp_model = EnterpriseStaff()
+                self.staff_list.append(temp_model.from_map(k))
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('reg_capital_currency') is not None:
+            self.reg_capital_currency = m.get('reg_capital_currency')
+        if m.get('legal_person_name') is not None:
+            self.legal_person_name = m.get('legal_person_name')
+        if m.get('reg_number') is not None:
+            self.reg_number = m.get('reg_number')
+        if m.get('credit_code') is not None:
+            self.credit_code = m.get('credit_code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('company_org_type') is not None:
+            self.company_org_type = m.get('company_org_type')
+        if m.get('base') is not None:
+            self.base = m.get('base')
+        return self
+
+
 class DataSourceInterface(TeaModel):
     def __init__(
         self,
@@ -324,55 +591,6 @@ class DataSourceInterface(TeaModel):
             for k in m.get('interface_output'):
                 temp_model = InterfaceOutput()
                 self.interface_output.append(temp_model.from_map(k))
-        return self
-
-
-class TmCoownerInfo(TeaModel):
-    def __init__(
-        self,
-        coowner_name_cn: str = None,
-        coowner_addr_cn: str = None,
-        coowner_name_en: str = None,
-        coowner_addr_en: str = None,
-    ):
-        # 共有人中文名称
-        self.coowner_name_cn = coowner_name_cn
-        # 共有人中文地址
-        self.coowner_addr_cn = coowner_addr_cn
-        # 共有人英文名称
-        self.coowner_name_en = coowner_name_en
-        # 共有人英文地址
-        self.coowner_addr_en = coowner_addr_en
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.coowner_name_cn is not None:
-            result['coowner_name_cn'] = self.coowner_name_cn
-        if self.coowner_addr_cn is not None:
-            result['coowner_addr_cn'] = self.coowner_addr_cn
-        if self.coowner_name_en is not None:
-            result['coowner_name_en'] = self.coowner_name_en
-        if self.coowner_addr_en is not None:
-            result['coowner_addr_en'] = self.coowner_addr_en
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('coowner_name_cn') is not None:
-            self.coowner_name_cn = m.get('coowner_name_cn')
-        if m.get('coowner_addr_cn') is not None:
-            self.coowner_addr_cn = m.get('coowner_addr_cn')
-        if m.get('coowner_name_en') is not None:
-            self.coowner_name_en = m.get('coowner_name_en')
-        if m.get('coowner_addr_en') is not None:
-            self.coowner_addr_en = m.get('coowner_addr_en')
         return self
 
 
@@ -712,35 +930,6 @@ class VehicleLicenseInfo(TeaModel):
         return self
 
 
-class ResumeSkillInfo(TeaModel):
-    def __init__(
-        self,
-        skill_name: str = None,
-    ):
-        # 技能标签名字
-        self.skill_name = skill_name
-
-    def validate(self):
-        if self.skill_name is not None:
-            self.validate_max_length(self.skill_name, 'skill_name', 128)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.skill_name is not None:
-            result['skill_name'] = self.skill_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('skill_name') is not None:
-            self.skill_name = m.get('skill_name')
-        return self
-
-
 class EducationExperiencesInfo(TeaModel):
     def __init__(
         self,
@@ -945,6 +1134,466 @@ class AuthPersonEnterpriseInfo(TeaModel):
         return self
 
 
+class EnterprisePersonInfo(TeaModel):
+    def __init__(
+        self,
+        org_name: str = None,
+        stockholder: StockHolder = None,
+        basic_info: EnterpriseBasicInfo = None,
+        relationship: List[str] = None,
+    ):
+        # 查询人对应企业名
+        self.org_name = org_name
+        # 查询人持股信息
+        self.stockholder = stockholder
+        # 查询人所在公司基本信息
+        self.basic_info = basic_info
+        # 查询人与这家企业的关联:sh 股东;lp 法人;tm 高管
+        self.relationship = relationship
+
+    def validate(self):
+        if self.stockholder:
+            self.stockholder.validate()
+        if self.basic_info:
+            self.basic_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.org_name is not None:
+            result['org_name'] = self.org_name
+        if self.stockholder is not None:
+            result['stockholder'] = self.stockholder.to_map()
+        if self.basic_info is not None:
+            result['basic_info'] = self.basic_info.to_map()
+        if self.relationship is not None:
+            result['relationship'] = self.relationship
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('org_name') is not None:
+            self.org_name = m.get('org_name')
+        if m.get('stockholder') is not None:
+            temp_model = StockHolder()
+            self.stockholder = temp_model.from_map(m['stockholder'])
+        if m.get('basic_info') is not None:
+            temp_model = EnterpriseBasicInfo()
+            self.basic_info = temp_model.from_map(m['basic_info'])
+        if m.get('relationship') is not None:
+            self.relationship = m.get('relationship')
+        return self
+
+
+class VehicleLicenseCertResult(TeaModel):
+    def __init__(
+        self,
+        plate_number: bool = None,
+        plate_type: bool = None,
+        owner: bool = None,
+    ):
+        # 与车辆的车牌号是否一致
+        self.plate_number = plate_number
+        # 与车辆对应号牌种类是否一致
+        self.plate_type = plate_type
+        # 与车辆所有人是否一致
+        self.owner = owner
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.plate_number is not None:
+            result['plate_number'] = self.plate_number
+        if self.plate_type is not None:
+            result['plate_type'] = self.plate_type
+        if self.owner is not None:
+            result['owner'] = self.owner
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('plate_number') is not None:
+            self.plate_number = m.get('plate_number')
+        if m.get('plate_type') is not None:
+            self.plate_type = m.get('plate_type')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        return self
+
+
+class EnterpriseBaseInfo(TeaModel):
+    def __init__(
+        self,
+        org_name: str = None,
+        credit_code: str = None,
+        reg_number: str = None,
+        invest_rate: str = None,
+        relationship: str = None,
+    ):
+        # 机构名称
+        self.org_name = org_name
+        # 统一社会信用代码
+        self.credit_code = credit_code
+        # 企业公司注册证号
+        self.reg_number = reg_number
+        # 持股比例
+        self.invest_rate = invest_rate
+        # 查询人与这家企业的关联
+        self.relationship = relationship
+
+    def validate(self):
+        self.validate_required(self.org_name, 'org_name')
+        self.validate_required(self.credit_code, 'credit_code')
+        self.validate_required(self.reg_number, 'reg_number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.org_name is not None:
+            result['org_name'] = self.org_name
+        if self.credit_code is not None:
+            result['credit_code'] = self.credit_code
+        if self.reg_number is not None:
+            result['reg_number'] = self.reg_number
+        if self.invest_rate is not None:
+            result['invest_rate'] = self.invest_rate
+        if self.relationship is not None:
+            result['relationship'] = self.relationship
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('org_name') is not None:
+            self.org_name = m.get('org_name')
+        if m.get('credit_code') is not None:
+            self.credit_code = m.get('credit_code')
+        if m.get('reg_number') is not None:
+            self.reg_number = m.get('reg_number')
+        if m.get('invest_rate') is not None:
+            self.invest_rate = m.get('invest_rate')
+        if m.get('relationship') is not None:
+            self.relationship = m.get('relationship')
+        return self
+
+
+class DataSource(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        address: str = None,
+    ):
+        # 数据源ID
+        self.id = id
+        # 数据源接口地址
+        self.address = address
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.address, 'address')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.address is not None:
+            result['address'] = self.address
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        return self
+
+
+class DriverLicenseInfo(TeaModel):
+    def __init__(
+        self,
+        gender: str = None,
+        issue_date: str = None,
+        valid_end_date: str = None,
+        valid_start_date: str = None,
+        driver_license_status: str = None,
+        first_issue_date: str = None,
+        allow_drive_car: str = None,
+        driver_license_type: str = None,
+    ):
+        # 性别，字典
+        self.gender = gender
+        # 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+        self.issue_date = issue_date
+        # 驾驶证有效终止日期
+        self.valid_end_date = valid_end_date
+        # 驾驶证有效起始日期
+        self.valid_start_date = valid_start_date
+        # 驾驶证状态，字典
+        self.driver_license_status = driver_license_status
+        # 初次领证时间
+        self.first_issue_date = first_issue_date
+        # 准驾车型，字典
+        self.allow_drive_car = allow_drive_car
+        # 驾驶证种类，字典
+        self.driver_license_type = driver_license_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.issue_date is not None:
+            result['issue_date'] = self.issue_date
+        if self.valid_end_date is not None:
+            result['valid_end_date'] = self.valid_end_date
+        if self.valid_start_date is not None:
+            result['valid_start_date'] = self.valid_start_date
+        if self.driver_license_status is not None:
+            result['driver_license_status'] = self.driver_license_status
+        if self.first_issue_date is not None:
+            result['first_issue_date'] = self.first_issue_date
+        if self.allow_drive_car is not None:
+            result['allow_drive_car'] = self.allow_drive_car
+        if self.driver_license_type is not None:
+            result['driver_license_type'] = self.driver_license_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('issue_date') is not None:
+            self.issue_date = m.get('issue_date')
+        if m.get('valid_end_date') is not None:
+            self.valid_end_date = m.get('valid_end_date')
+        if m.get('valid_start_date') is not None:
+            self.valid_start_date = m.get('valid_start_date')
+        if m.get('driver_license_status') is not None:
+            self.driver_license_status = m.get('driver_license_status')
+        if m.get('first_issue_date') is not None:
+            self.first_issue_date = m.get('first_issue_date')
+        if m.get('allow_drive_car') is not None:
+            self.allow_drive_car = m.get('allow_drive_car')
+        if m.get('driver_license_type') is not None:
+            self.driver_license_type = m.get('driver_license_type')
+        return self
+
+
+class EducationTagInfo(TeaModel):
+    def __init__(
+        self,
+        major: str = None,
+        education_level: str = None,
+        graduation_date: str = None,
+        education_type: str = None,
+        admission_date: str = None,
+        school_type: str = None,
+        education_type_code: str = None,
+    ):
+        # 专业名称
+        self.major = major
+        # 学历等级代码
+        self.education_level = education_level
+        # 
+        # 毕业日期
+        self.graduation_date = graduation_date
+        # 学习形式
+        self.education_type = education_type
+        # 入学时间
+        self.admission_date = admission_date
+        # 学校类型
+        self.school_type = school_type
+        # 学习形式字典code
+        self.education_type_code = education_type_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.major is not None:
+            result['major'] = self.major
+        if self.education_level is not None:
+            result['education_level'] = self.education_level
+        if self.graduation_date is not None:
+            result['graduation_date'] = self.graduation_date
+        if self.education_type is not None:
+            result['education_type'] = self.education_type
+        if self.admission_date is not None:
+            result['admission_date'] = self.admission_date
+        if self.school_type is not None:
+            result['school_type'] = self.school_type
+        if self.education_type_code is not None:
+            result['education_type_code'] = self.education_type_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('major') is not None:
+            self.major = m.get('major')
+        if m.get('education_level') is not None:
+            self.education_level = m.get('education_level')
+        if m.get('graduation_date') is not None:
+            self.graduation_date = m.get('graduation_date')
+        if m.get('education_type') is not None:
+            self.education_type = m.get('education_type')
+        if m.get('admission_date') is not None:
+            self.admission_date = m.get('admission_date')
+        if m.get('school_type') is not None:
+            self.school_type = m.get('school_type')
+        if m.get('education_type_code') is not None:
+            self.education_type_code = m.get('education_type_code')
+        return self
+
+
+class DetailCarInfo(TeaModel):
+    def __init__(
+        self,
+        license_no: str = None,
+        license_type: str = None,
+        vin: str = None,
+        engine_no: str = None,
+        register_date: str = None,
+        model_code: str = None,
+        use_nature_code: str = None,
+        fuel_type: str = None,
+        displacement: str = None,
+    ):
+        # 号牌号码
+        self.license_no = license_no
+        # 号牌种类，枚举值
+        # 
+        self.license_type = license_type
+        # 车架号
+        self.vin = vin
+        # 发动机号
+        self.engine_no = engine_no
+        # 初登日期
+        self.register_date = register_date
+        # 车辆型号
+        self.model_code = model_code
+        # 是否营运车辆，枚举值
+        self.use_nature_code = use_nature_code
+        # 能源种类，枚举值
+        self.fuel_type = fuel_type
+        # 排量，数字
+        self.displacement = displacement
+
+    def validate(self):
+        self.validate_required(self.license_no, 'license_no')
+        self.validate_required(self.license_type, 'license_type')
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.engine_no, 'engine_no')
+        self.validate_required(self.register_date, 'register_date')
+        self.validate_required(self.model_code, 'model_code')
+        self.validate_required(self.use_nature_code, 'use_nature_code')
+        self.validate_required(self.fuel_type, 'fuel_type')
+        self.validate_required(self.displacement, 'displacement')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.license_no is not None:
+            result['license_no'] = self.license_no
+        if self.license_type is not None:
+            result['license_type'] = self.license_type
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.engine_no is not None:
+            result['engine_no'] = self.engine_no
+        if self.register_date is not None:
+            result['register_date'] = self.register_date
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.use_nature_code is not None:
+            result['use_nature_code'] = self.use_nature_code
+        if self.fuel_type is not None:
+            result['fuel_type'] = self.fuel_type
+        if self.displacement is not None:
+            result['displacement'] = self.displacement
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('license_no') is not None:
+            self.license_no = m.get('license_no')
+        if m.get('license_type') is not None:
+            self.license_type = m.get('license_type')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('engine_no') is not None:
+            self.engine_no = m.get('engine_no')
+        if m.get('register_date') is not None:
+            self.register_date = m.get('register_date')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('use_nature_code') is not None:
+            self.use_nature_code = m.get('use_nature_code')
+        if m.get('fuel_type') is not None:
+            self.fuel_type = m.get('fuel_type')
+        if m.get('displacement') is not None:
+            self.displacement = m.get('displacement')
+        return self
+
+
+class ResumeSkillInfo(TeaModel):
+    def __init__(
+        self,
+        skill_name: str = None,
+    ):
+        # 技能标签名字
+        self.skill_name = skill_name
+
+    def validate(self):
+        if self.skill_name is not None:
+            self.validate_max_length(self.skill_name, 'skill_name', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.skill_name is not None:
+            result['skill_name'] = self.skill_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('skill_name') is not None:
+            self.skill_name = m.get('skill_name')
+        return self
+
+
 class BeAuthedPersonInfo(TeaModel):
     def __init__(
         self,
@@ -994,48 +1643,6 @@ class BeAuthedPersonInfo(TeaModel):
             self.enterprise_legal_person_name = m.get('enterprise_legal_person_name')
         if m.get('enterprise_legal_person_id') is not None:
             self.enterprise_legal_person_id = m.get('enterprise_legal_person_id')
-        return self
-
-
-class VehicleLicenseCertResult(TeaModel):
-    def __init__(
-        self,
-        plate_number: bool = None,
-        plate_type: bool = None,
-        owner: bool = None,
-    ):
-        # 与车辆的车牌号是否一致
-        self.plate_number = plate_number
-        # 与车辆对应号牌种类是否一致
-        self.plate_type = plate_type
-        # 与车辆所有人是否一致
-        self.owner = owner
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.plate_number is not None:
-            result['plate_number'] = self.plate_number
-        if self.plate_type is not None:
-            result['plate_type'] = self.plate_type
-        if self.owner is not None:
-            result['owner'] = self.owner
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('plate_number') is not None:
-            self.plate_number = m.get('plate_number')
-        if m.get('plate_type') is not None:
-            self.plate_type = m.get('plate_type')
-        if m.get('owner') is not None:
-            self.owner = m.get('owner')
         return self
 
 
@@ -1313,64 +1920,6 @@ class DataSourceInfo(TeaModel):
         return self
 
 
-class EnterpriseBaseInfo(TeaModel):
-    def __init__(
-        self,
-        org_name: str = None,
-        credit_code: str = None,
-        reg_number: str = None,
-        invest_rate: str = None,
-        relationship: str = None,
-    ):
-        # 机构名称
-        self.org_name = org_name
-        # 统一社会信用代码
-        self.credit_code = credit_code
-        # 企业公司注册证号
-        self.reg_number = reg_number
-        # 持股比例
-        self.invest_rate = invest_rate
-        # 查询人与这家企业的关联
-        self.relationship = relationship
-
-    def validate(self):
-        self.validate_required(self.org_name, 'org_name')
-        self.validate_required(self.credit_code, 'credit_code')
-        self.validate_required(self.reg_number, 'reg_number')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.org_name is not None:
-            result['org_name'] = self.org_name
-        if self.credit_code is not None:
-            result['credit_code'] = self.credit_code
-        if self.reg_number is not None:
-            result['reg_number'] = self.reg_number
-        if self.invest_rate is not None:
-            result['invest_rate'] = self.invest_rate
-        if self.relationship is not None:
-            result['relationship'] = self.relationship
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('org_name') is not None:
-            self.org_name = m.get('org_name')
-        if m.get('credit_code') is not None:
-            self.credit_code = m.get('credit_code')
-        if m.get('reg_number') is not None:
-            self.reg_number = m.get('reg_number')
-        if m.get('invest_rate') is not None:
-            self.invest_rate = m.get('invest_rate')
-        if m.get('relationship') is not None:
-            self.relationship = m.get('relationship')
-        return self
-
-
 class EnterpriseCaseInfo(TeaModel):
     def __init__(
         self,
@@ -1466,276 +2015,6 @@ class EnterpriseCaseInfo(TeaModel):
             self.case_type = m.get('case_type')
         if m.get('create_time') is not None:
             self.create_time = m.get('create_time')
-        return self
-
-
-class DataSource(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        address: str = None,
-    ):
-        # 数据源ID
-        self.id = id
-        # 数据源接口地址
-        self.address = address
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.address, 'address')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.address is not None:
-            result['address'] = self.address
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('address') is not None:
-            self.address = m.get('address')
-        return self
-
-
-class DriverLicenseInfo(TeaModel):
-    def __init__(
-        self,
-        gender: str = None,
-        issue_date: str = None,
-        valid_end_date: str = None,
-        valid_start_date: str = None,
-        driver_license_status: str = None,
-        first_issue_date: str = None,
-        allow_drive_car: str = None,
-        driver_license_type: str = None,
-    ):
-        # 性别，字典
-        self.gender = gender
-        # 驾驶证发证日期,当前日期减去实际日期的天数所在区间
-        self.issue_date = issue_date
-        # 驾驶证有效终止日期
-        self.valid_end_date = valid_end_date
-        # 驾驶证有效起始日期
-        self.valid_start_date = valid_start_date
-        # 驾驶证状态，字典
-        self.driver_license_status = driver_license_status
-        # 初次领证时间
-        self.first_issue_date = first_issue_date
-        # 准驾车型，字典
-        self.allow_drive_car = allow_drive_car
-        # 驾驶证种类，字典
-        self.driver_license_type = driver_license_type
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.gender is not None:
-            result['gender'] = self.gender
-        if self.issue_date is not None:
-            result['issue_date'] = self.issue_date
-        if self.valid_end_date is not None:
-            result['valid_end_date'] = self.valid_end_date
-        if self.valid_start_date is not None:
-            result['valid_start_date'] = self.valid_start_date
-        if self.driver_license_status is not None:
-            result['driver_license_status'] = self.driver_license_status
-        if self.first_issue_date is not None:
-            result['first_issue_date'] = self.first_issue_date
-        if self.allow_drive_car is not None:
-            result['allow_drive_car'] = self.allow_drive_car
-        if self.driver_license_type is not None:
-            result['driver_license_type'] = self.driver_license_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('gender') is not None:
-            self.gender = m.get('gender')
-        if m.get('issue_date') is not None:
-            self.issue_date = m.get('issue_date')
-        if m.get('valid_end_date') is not None:
-            self.valid_end_date = m.get('valid_end_date')
-        if m.get('valid_start_date') is not None:
-            self.valid_start_date = m.get('valid_start_date')
-        if m.get('driver_license_status') is not None:
-            self.driver_license_status = m.get('driver_license_status')
-        if m.get('first_issue_date') is not None:
-            self.first_issue_date = m.get('first_issue_date')
-        if m.get('allow_drive_car') is not None:
-            self.allow_drive_car = m.get('allow_drive_car')
-        if m.get('driver_license_type') is not None:
-            self.driver_license_type = m.get('driver_license_type')
-        return self
-
-
-class EducationTagInfo(TeaModel):
-    def __init__(
-        self,
-        major: str = None,
-        education_level: str = None,
-        graduation_date: str = None,
-        education_type: str = None,
-        admission_date: str = None,
-        school_type: str = None,
-    ):
-        # 专业名称
-        self.major = major
-        # 学历等级代码
-        self.education_level = education_level
-        # 
-        # 毕业日期
-        self.graduation_date = graduation_date
-        # 学习形式
-        self.education_type = education_type
-        # 入学时间
-        self.admission_date = admission_date
-        # 学校类型
-        self.school_type = school_type
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.major is not None:
-            result['major'] = self.major
-        if self.education_level is not None:
-            result['education_level'] = self.education_level
-        if self.graduation_date is not None:
-            result['graduation_date'] = self.graduation_date
-        if self.education_type is not None:
-            result['education_type'] = self.education_type
-        if self.admission_date is not None:
-            result['admission_date'] = self.admission_date
-        if self.school_type is not None:
-            result['school_type'] = self.school_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('major') is not None:
-            self.major = m.get('major')
-        if m.get('education_level') is not None:
-            self.education_level = m.get('education_level')
-        if m.get('graduation_date') is not None:
-            self.graduation_date = m.get('graduation_date')
-        if m.get('education_type') is not None:
-            self.education_type = m.get('education_type')
-        if m.get('admission_date') is not None:
-            self.admission_date = m.get('admission_date')
-        if m.get('school_type') is not None:
-            self.school_type = m.get('school_type')
-        return self
-
-
-class DetailCarInfo(TeaModel):
-    def __init__(
-        self,
-        license_no: str = None,
-        license_type: str = None,
-        vin: str = None,
-        engine_no: str = None,
-        register_date: str = None,
-        model_code: str = None,
-        use_nature_code: str = None,
-        fuel_type: str = None,
-        displacement: str = None,
-    ):
-        # 号牌号码
-        self.license_no = license_no
-        # 号牌种类，枚举值
-        # 
-        self.license_type = license_type
-        # 车架号
-        self.vin = vin
-        # 发动机号
-        self.engine_no = engine_no
-        # 初登日期
-        self.register_date = register_date
-        # 车辆型号
-        self.model_code = model_code
-        # 是否营运车辆，枚举值
-        self.use_nature_code = use_nature_code
-        # 能源种类，枚举值
-        self.fuel_type = fuel_type
-        # 排量，数字
-        self.displacement = displacement
-
-    def validate(self):
-        self.validate_required(self.license_no, 'license_no')
-        self.validate_required(self.license_type, 'license_type')
-        self.validate_required(self.vin, 'vin')
-        self.validate_required(self.engine_no, 'engine_no')
-        self.validate_required(self.register_date, 'register_date')
-        self.validate_required(self.model_code, 'model_code')
-        self.validate_required(self.use_nature_code, 'use_nature_code')
-        self.validate_required(self.fuel_type, 'fuel_type')
-        self.validate_required(self.displacement, 'displacement')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.license_no is not None:
-            result['license_no'] = self.license_no
-        if self.license_type is not None:
-            result['license_type'] = self.license_type
-        if self.vin is not None:
-            result['vin'] = self.vin
-        if self.engine_no is not None:
-            result['engine_no'] = self.engine_no
-        if self.register_date is not None:
-            result['register_date'] = self.register_date
-        if self.model_code is not None:
-            result['model_code'] = self.model_code
-        if self.use_nature_code is not None:
-            result['use_nature_code'] = self.use_nature_code
-        if self.fuel_type is not None:
-            result['fuel_type'] = self.fuel_type
-        if self.displacement is not None:
-            result['displacement'] = self.displacement
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('license_no') is not None:
-            self.license_no = m.get('license_no')
-        if m.get('license_type') is not None:
-            self.license_type = m.get('license_type')
-        if m.get('vin') is not None:
-            self.vin = m.get('vin')
-        if m.get('engine_no') is not None:
-            self.engine_no = m.get('engine_no')
-        if m.get('register_date') is not None:
-            self.register_date = m.get('register_date')
-        if m.get('model_code') is not None:
-            self.model_code = m.get('model_code')
-        if m.get('use_nature_code') is not None:
-            self.use_nature_code = m.get('use_nature_code')
-        if m.get('fuel_type') is not None:
-            self.fuel_type = m.get('fuel_type')
-        if m.get('displacement') is not None:
-            self.displacement = m.get('displacement')
         return self
 
 
@@ -3879,26 +4158,26 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        demand_id: str = None,
         file_index: str = None,
         params: str = None,
         user_authed: bool = None,
+        service_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 需求id
-        self.demand_id = demand_id
         # 授权协议索引
         self.file_index = file_index
         # 整个需求的入参，map json
         self.params = params
         # 是否授权
         self.user_authed = user_authed
+        # 待获取数据类型对应的服务id
+        self.service_id = service_id
 
     def validate(self):
-        self.validate_required(self.demand_id, 'demand_id')
         self.validate_required(self.params, 'params')
+        self.validate_required(self.service_id, 'service_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -3910,14 +4189,14 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.demand_id is not None:
-            result['demand_id'] = self.demand_id
         if self.file_index is not None:
             result['file_index'] = self.file_index
         if self.params is not None:
             result['params'] = self.params
         if self.user_authed is not None:
             result['user_authed'] = self.user_authed
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3926,14 +4205,14 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('demand_id') is not None:
-            self.demand_id = m.get('demand_id')
         if m.get('file_index') is not None:
             self.file_index = m.get('file_index')
         if m.get('params') is not None:
             self.params = m.get('params')
         if m.get('user_authed') is not None:
             self.user_authed = m.get('user_authed')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
         return self
 
 
@@ -4386,6 +4665,142 @@ class QueryApplicationEducationstatusResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = EducationStatus()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class UploadServiceAuthfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        service_id: str = None,
+        file_md_5: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        file_name: str = None,
+        file_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待获取数据类型的服务id
+        self.service_id = service_id
+        # 文件md5
+        self.file_md_5 = file_md_5
+        # 文件id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 协议名称
+        self.file_name = file_name
+        # 授权协议文件版本号
+        self.file_version = file_version
+
+    def validate(self):
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.file_md_5, 'file_md_5')
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.file_version, 'file_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.file_md_5 is not None:
+            result['file_md5'] = self.file_md_5
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.file_version is not None:
+            result['file_version'] = self.file_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('file_md5') is not None:
+            self.file_md_5 = m.get('file_md5')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('file_version') is not None:
+            self.file_version = m.get('file_version')
+        return self
+
+
+class UploadServiceAuthfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_index: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权协议索引号
+        self.file_index = file_index
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_index is not None:
+            result['file_index'] = self.file_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_index') is not None:
+            self.file_index = m.get('file_index')
         return self
 
 

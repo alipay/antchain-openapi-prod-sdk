@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 数据源接口入参定义
+            # 主要人员
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.50',
+                    'sdk_version': '1.1.52',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 数据源接口入参定义
+            # 主要人员
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.50',
+                    'sdk_version': '1.1.52',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1461,6 +1461,96 @@ class Client:
         return TeaCore.from_map(
             das_models.QueryApplicationEducationstatusResponse(),
             await self.do_request_async('1.0', 'antchain.das.application.educationstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_service_authfile(
+        self,
+        request: das_models.UploadServiceAuthfileRequest,
+    ) -> das_models.UploadServiceAuthfileResponse:
+        """
+        Description: 数据服务授权文件上传
+        Summary: 数据服务授权文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_service_authfile_ex(request, headers, runtime)
+
+    async def upload_service_authfile_async(
+        self,
+        request: das_models.UploadServiceAuthfileRequest,
+    ) -> das_models.UploadServiceAuthfileResponse:
+        """
+        Description: 数据服务授权文件上传
+        Summary: 数据服务授权文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_service_authfile_ex_async(request, headers, runtime)
+
+    def upload_service_authfile_ex(
+        self,
+        request: das_models.UploadServiceAuthfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UploadServiceAuthfileResponse:
+        """
+        Description: 数据服务授权文件上传
+        Summary: 数据服务授权文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.das.service.authfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_service_authfile_response = das_models.UploadServiceAuthfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_service_authfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UploadServiceAuthfileResponse(),
+            self.do_request('1.0', 'antchain.das.service.authfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_service_authfile_ex_async(
+        self,
+        request: das_models.UploadServiceAuthfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.UploadServiceAuthfileResponse:
+        """
+        Description: 数据服务授权文件上传
+        Summary: 数据服务授权文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.das.service.authfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_service_authfile_response = das_models.UploadServiceAuthfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_service_authfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.UploadServiceAuthfileResponse(),
+            await self.do_request_async('1.0', 'antchain.das.service.authfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(
