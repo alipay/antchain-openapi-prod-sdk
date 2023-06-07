@@ -154,7 +154,7 @@ export class AccountVO extends $tea.Model {
   lastPayFail?: boolean;
   // 支付方式 BALANCE余额账户；BILL票据账户
   payMethod?: string[];
-  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+  // 账户类型 MAIN 银行账户；ECOLLECTION e收宝；Q_PAYEE 通用静默户；
   type?: string;
   // 主体：I-个人；E-企业
   principal?: string;
@@ -527,11 +527,17 @@ export class PaymentShareAcceptanceResult extends $tea.Model {
   outRequestId: string;
   // 分账单状态
   state: string;
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string;
+  // 业务错误描述
+  subMsg?: string;
   static names(): { [key: string]: string } {
     return {
       outOrderId: 'out_order_id',
       outRequestId: 'out_request_id',
       state: 'state',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
     };
   }
 
@@ -540,6 +546,8 @@ export class PaymentShareAcceptanceResult extends $tea.Model {
       outOrderId: 'string',
       outRequestId: 'string',
       state: 'string',
+      subCode: 'string',
+      subMsg: 'string',
     };
   }
 
@@ -1409,7 +1417,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
