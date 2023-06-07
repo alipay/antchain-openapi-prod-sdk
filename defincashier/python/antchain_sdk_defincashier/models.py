@@ -272,7 +272,7 @@ class AccountVO(TeaModel):
         self.last_pay_fail = last_pay_fail
         # 支付方式 BALANCE余额账户；BILL票据账户
         self.pay_method = pay_method
-        # 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+        # 账户类型 MAIN 银行账户；ECOLLECTION e收宝；Q_PAYEE 通用静默户；
         self.type = type
         # 主体：I-个人；E-企业
         self.principal = principal
@@ -867,6 +867,8 @@ class PaymentShareAcceptanceResult(TeaModel):
         out_order_id: str = None,
         out_request_id: str = None,
         state: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
     ):
         # 外部业务平台原始交易号
         self.out_order_id = out_order_id
@@ -875,6 +877,10 @@ class PaymentShareAcceptanceResult(TeaModel):
         self.out_request_id = out_request_id
         # 分账单状态
         self.state = state
+        # 业务错误码(为空表示成功，否则为业务错误码)
+        self.sub_code = sub_code
+        # 业务错误描述
+        self.sub_msg = sub_msg
 
     def validate(self):
         self.validate_required(self.out_order_id, 'out_order_id')
@@ -893,6 +899,10 @@ class PaymentShareAcceptanceResult(TeaModel):
             result['out_request_id'] = self.out_request_id
         if self.state is not None:
             result['state'] = self.state
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -903,6 +913,10 @@ class PaymentShareAcceptanceResult(TeaModel):
             self.out_request_id = m.get('out_request_id')
         if m.get('state') is not None:
             self.state = m.get('state')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
         return self
 
 
