@@ -233,7 +233,7 @@ type AccountVO struct {
 	LastPayFail *bool `json:"last_pay_fail,omitempty" xml:"last_pay_fail,omitempty"`
 	// 支付方式 BALANCE余额账户；BILL票据账户
 	PayMethod []*string `json:"pay_method,omitempty" xml:"pay_method,omitempty" type:"Repeated"`
-	// 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+	// 账户类型 MAIN 银行账户；ECOLLECTION e收宝；Q_PAYEE 通用静默户；
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 主体：I-个人；E-企业
 	Principal *string `json:"principal,omitempty" xml:"principal,omitempty"`
@@ -746,6 +746,10 @@ type PaymentShareAcceptanceResult struct {
 	OutRequestId *string `json:"out_request_id,omitempty" xml:"out_request_id,omitempty" require:"true"`
 	// 分账单状态
 	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 业务错误码(为空表示成功，否则为业务错误码)
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 业务错误描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
 }
 
 func (s PaymentShareAcceptanceResult) String() string {
@@ -768,6 +772,16 @@ func (s *PaymentShareAcceptanceResult) SetOutRequestId(v string) *PaymentShareAc
 
 func (s *PaymentShareAcceptanceResult) SetState(v string) *PaymentShareAcceptanceResult {
 	s.State = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetSubCode(v string) *PaymentShareAcceptanceResult {
+	s.SubCode = &v
+	return s
+}
+
+func (s *PaymentShareAcceptanceResult) SetSubMsg(v string) *PaymentShareAcceptanceResult {
+	s.SubMsg = &v
 	return s
 }
 
@@ -1828,7 +1842,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
