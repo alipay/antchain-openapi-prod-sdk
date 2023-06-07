@@ -42,7 +42,7 @@ public class AccountVO extends TeaModel {
     @NameInMap("pay_method")
     public java.util.List<String> payMethod;
 
-    // 账户类型 MAIN 银行账户；ECOLLECTION e收宝
+    // 账户类型 MAIN 银行账户；ECOLLECTION e收宝；Q_PAYEE 通用静默户；
     @NameInMap("type")
     public String type;
 

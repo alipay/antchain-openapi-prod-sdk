@@ -20,6 +20,14 @@ public class PaymentShareAcceptanceResult extends TeaModel {
     @Validation(required = true)
     public String state;
 
+    // 业务错误码(为空表示成功，否则为业务错误码)
+    @NameInMap("sub_code")
+    public String subCode;
+
+    // 业务错误描述
+    @NameInMap("sub_msg")
+    public String subMsg;
+
     public static PaymentShareAcceptanceResult build(java.util.Map<String, ?> map) throws Exception {
         PaymentShareAcceptanceResult self = new PaymentShareAcceptanceResult();
         return TeaModel.build(map, self);
@@ -47,6 +55,22 @@ public class PaymentShareAcceptanceResult extends TeaModel {
     }
     public String getState() {
         return this.state;
+    }
+
+    public PaymentShareAcceptanceResult setSubCode(String subCode) {
+        this.subCode = subCode;
+        return this;
+    }
+    public String getSubCode() {
+        return this.subCode;
+    }
+
+    public PaymentShareAcceptanceResult setSubMsg(String subMsg) {
+        this.subMsg = subMsg;
+        return this;
+    }
+    public String getSubMsg() {
+        return this.subMsg;
     }
 
 }
