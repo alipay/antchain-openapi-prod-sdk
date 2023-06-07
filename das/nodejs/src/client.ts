@@ -78,6 +78,35 @@ export class Config extends $tea.Model {
   }
 }
 
+// 主要人员
+export class EnterpriseStaff extends $tea.Model {
+  // 主要人员名称
+  name?: string;
+  // 法人类型，1-人;2-公司
+  type?: string;
+  // 经理
+  typeJoin?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      type: 'type',
+      typeJoin: 'type_join',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      type: 'string',
+      typeJoin: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据源接口入参定义
 export class InterfaceInput extends $tea.Model {
   // 接口入参名称
@@ -140,39 +169,6 @@ export class InterfaceOutput extends $tea.Model {
   }
 }
 
-// 数据源接口定义
-export class DataSourceInterface extends $tea.Model {
-  // 数据源接口访问地址
-  address: string;
-  // 数据源接口请求方法类型
-  interfaceRequestMethod: string;
-  // 数据源接口入参列表
-  interfaceInput?: InterfaceInput[];
-  // 数据源接口出参列表
-  interfaceOutput?: InterfaceOutput[];
-  static names(): { [key: string]: string } {
-    return {
-      address: 'address',
-      interfaceRequestMethod: 'interface_request_method',
-      interfaceInput: 'interface_input',
-      interfaceOutput: 'interface_output',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      address: 'string',
-      interfaceRequestMethod: 'string',
-      interfaceInput: { 'type': 'array', 'itemType': InterfaceInput },
-      interfaceOutput: { 'type': 'array', 'itemType': InterfaceOutput },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 商标共有人信息
 export class TmCoownerInfo extends $tea.Model {
   // 共有人中文名称
@@ -198,6 +194,145 @@ export class TmCoownerInfo extends $tea.Model {
       coownerAddrCn: 'string',
       coownerNameEn: 'string',
       coownerAddrEn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询人持股信息
+export class StockHolder extends $tea.Model {
+  // 股东类型
+  orgHolderType?: string;
+  // 出资时间
+  investDate?: string;
+  // 占比
+  investRate?: string;
+  // 出资金额
+  subscriptAmt?: string;
+  // 股东名
+  orHolderName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orgHolderType: 'org_holder_type',
+      investDate: 'invest_date',
+      investRate: 'invest_rate',
+      subscriptAmt: 'subscript_amt',
+      orHolderName: 'or_holder_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orgHolderType: 'string',
+      investDate: 'string',
+      investRate: 'string',
+      subscriptAmt: 'string',
+      orHolderName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询人所在公司基本信息
+export class EnterpriseBasicInfo extends $tea.Model {
+  // 企业状态
+  regStatus?: string;
+  // 成立日期(注册日期)
+  establishTime?: string;
+  // 注册资本
+  regCapital?: string;
+  // 行业
+  industry?: string;
+  // 主要人员
+  staffList?: EnterpriseStaff[];
+  // 法人类型，1-人;2-公司
+  type?: string;
+  // 注册资本币种:人民币、美元、欧元等
+  regCapitalCurrency?: string;
+  // 法人姓名
+  legalPersonName?: string;
+  // 注册号
+  regNumber?: string;
+  // 统一社会信用代码
+  creditCode?: string;
+  // 企业名
+  name?: string;
+  // 企业类型
+  companyOrgType?: string;
+  // 省份简称
+  base?: string;
+  static names(): { [key: string]: string } {
+    return {
+      regStatus: 'reg_status',
+      establishTime: 'establish_time',
+      regCapital: 'reg_capital',
+      industry: 'industry',
+      staffList: 'staff_list',
+      type: 'type',
+      regCapitalCurrency: 'reg_capital_currency',
+      legalPersonName: 'legal_person_name',
+      regNumber: 'reg_number',
+      creditCode: 'credit_code',
+      name: 'name',
+      companyOrgType: 'company_org_type',
+      base: 'base',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      regStatus: 'string',
+      establishTime: 'string',
+      regCapital: 'string',
+      industry: 'string',
+      staffList: { 'type': 'array', 'itemType': EnterpriseStaff },
+      type: 'string',
+      regCapitalCurrency: 'string',
+      legalPersonName: 'string',
+      regNumber: 'string',
+      creditCode: 'string',
+      name: 'string',
+      companyOrgType: 'string',
+      base: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据源接口定义
+export class DataSourceInterface extends $tea.Model {
+  // 数据源接口访问地址
+  address: string;
+  // 数据源接口请求方法类型
+  interfaceRequestMethod: string;
+  // 数据源接口入参列表
+  interfaceInput?: InterfaceInput[];
+  // 数据源接口出参列表
+  interfaceOutput?: InterfaceOutput[];
+  static names(): { [key: string]: string } {
+    return {
+      address: 'address',
+      interfaceRequestMethod: 'interface_request_method',
+      interfaceInput: 'interface_input',
+      interfaceOutput: 'interface_output',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      address: 'string',
+      interfaceRequestMethod: 'string',
+      interfaceInput: { 'type': 'array', 'itemType': InterfaceInput },
+      interfaceOutput: { 'type': 'array', 'itemType': InterfaceOutput },
     };
   }
 
@@ -405,27 +540,6 @@ export class VehicleLicenseInfo extends $tea.Model {
   }
 }
 
-// 简历技能信息
-export class ResumeSkillInfo extends $tea.Model {
-  // 技能标签名字
-  skillName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      skillName: 'skill_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      skillName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 教育经历信息
 export class EducationExperiencesInfo extends $tea.Model {
   // 学历
@@ -549,31 +663,31 @@ export class AuthPersonEnterpriseInfo extends $tea.Model {
   }
 }
 
-// 被授权人信息
-export class BeAuthedPersonInfo extends $tea.Model {
-  // 企业名称
-  enterpriseName: string;
-  // 企业统一社会信用码
-  enterpriseCreditNum: string;
-  // 企业法人姓名
-  enterpriseLegalPersonName: string;
-  // 企业法人身份证号
-  enterpriseLegalPersonId: string;
+// 企业工商信息_自然人查询
+export class EnterprisePersonInfo extends $tea.Model {
+  // 查询人对应企业名
+  orgName?: string;
+  // 查询人持股信息
+  stockholder?: StockHolder;
+  // 查询人所在公司基本信息
+  basicInfo?: EnterpriseBasicInfo;
+  // 查询人与这家企业的关联:sh 股东;lp 法人;tm 高管
+  relationship?: string[];
   static names(): { [key: string]: string } {
     return {
-      enterpriseName: 'enterprise_name',
-      enterpriseCreditNum: 'enterprise_credit_num',
-      enterpriseLegalPersonName: 'enterprise_legal_person_name',
-      enterpriseLegalPersonId: 'enterprise_legal_person_id',
+      orgName: 'org_name',
+      stockholder: 'stockholder',
+      basicInfo: 'basic_info',
+      relationship: 'relationship',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      enterpriseName: 'string',
-      enterpriseCreditNum: 'string',
-      enterpriseLegalPersonName: 'string',
-      enterpriseLegalPersonId: 'string',
+      orgName: 'string',
+      stockholder: StockHolder,
+      basicInfo: EnterpriseBasicInfo,
+      relationship: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -603,6 +717,271 @@ export class VehicleLicenseCertResult extends $tea.Model {
       plateNumber: 'boolean',
       plateType: 'boolean',
       owner: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业基本信息
+export class EnterpriseBaseInfo extends $tea.Model {
+  // 机构名称
+  orgName: string;
+  // 统一社会信用代码
+  creditCode: string;
+  // 企业公司注册证号
+  regNumber: string;
+  // 持股比例
+  investRate?: string;
+  // 查询人与这家企业的关联
+  relationship?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orgName: 'org_name',
+      creditCode: 'credit_code',
+      regNumber: 'reg_number',
+      investRate: 'invest_rate',
+      relationship: 'relationship',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orgName: 'string',
+      creditCode: 'string',
+      regNumber: 'string',
+      investRate: 'string',
+      relationship: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据源信息
+export class DataSource extends $tea.Model {
+  // 数据源ID
+  id: string;
+  // 数据源接口地址
+  address: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      address: 'address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 驾驶证信息
+export class DriverLicenseInfo extends $tea.Model {
+  // 性别，字典
+  gender?: string;
+  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+  issueDate?: string;
+  // 驾驶证有效终止日期
+  validEndDate?: string;
+  // 驾驶证有效起始日期
+  validStartDate?: string;
+  // 驾驶证状态，字典
+  driverLicenseStatus?: string;
+  // 初次领证时间
+  firstIssueDate?: string;
+  // 准驾车型，字典
+  allowDriveCar?: string;
+  // 驾驶证种类，字典
+  driverLicenseType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      gender: 'gender',
+      issueDate: 'issue_date',
+      validEndDate: 'valid_end_date',
+      validStartDate: 'valid_start_date',
+      driverLicenseStatus: 'driver_license_status',
+      firstIssueDate: 'first_issue_date',
+      allowDriveCar: 'allow_drive_car',
+      driverLicenseType: 'driver_license_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gender: 'string',
+      issueDate: 'string',
+      validEndDate: 'string',
+      validStartDate: 'string',
+      driverLicenseStatus: 'string',
+      firstIssueDate: 'string',
+      allowDriveCar: 'string',
+      driverLicenseType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 教育标签信息
+export class EducationTagInfo extends $tea.Model {
+  // 专业名称
+  major?: string;
+  // 学历等级代码
+  educationLevel?: string;
+  // 	
+  // 毕业日期
+  graduationDate?: string;
+  // 学习形式
+  educationType?: string;
+  // 入学时间
+  admissionDate?: string;
+  // 学校类型
+  schoolType?: string;
+  // 学习形式字典code
+  educationTypeCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      major: 'major',
+      educationLevel: 'education_level',
+      graduationDate: 'graduation_date',
+      educationType: 'education_type',
+      admissionDate: 'admission_date',
+      schoolType: 'school_type',
+      educationTypeCode: 'education_type_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      major: 'string',
+      educationLevel: 'string',
+      graduationDate: 'string',
+      educationType: 'string',
+      admissionDate: 'string',
+      schoolType: 'string',
+      educationTypeCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆详细信息
+export class DetailCarInfo extends $tea.Model {
+  // 号牌号码
+  licenseNo: string;
+  // 号牌种类，枚举值
+  // 
+  licenseType: string;
+  // 车架号
+  vin: string;
+  // 发动机号
+  engineNo: string;
+  // 初登日期
+  registerDate: string;
+  // 车辆型号
+  modelCode: string;
+  // 是否营运车辆，枚举值
+  useNatureCode: string;
+  // 能源种类，枚举值
+  fuelType: string;
+  // 排量，数字
+  displacement: string;
+  static names(): { [key: string]: string } {
+    return {
+      licenseNo: 'license_no',
+      licenseType: 'license_type',
+      vin: 'vin',
+      engineNo: 'engine_no',
+      registerDate: 'register_date',
+      modelCode: 'model_code',
+      useNatureCode: 'use_nature_code',
+      fuelType: 'fuel_type',
+      displacement: 'displacement',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      licenseNo: 'string',
+      licenseType: 'string',
+      vin: 'string',
+      engineNo: 'string',
+      registerDate: 'string',
+      modelCode: 'string',
+      useNatureCode: 'string',
+      fuelType: 'string',
+      displacement: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 简历技能信息
+export class ResumeSkillInfo extends $tea.Model {
+  // 技能标签名字
+  skillName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      skillName: 'skill_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      skillName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 被授权人信息
+export class BeAuthedPersonInfo extends $tea.Model {
+  // 企业名称
+  enterpriseName: string;
+  // 企业统一社会信用码
+  enterpriseCreditNum: string;
+  // 企业法人姓名
+  enterpriseLegalPersonName: string;
+  // 企业法人身份证号
+  enterpriseLegalPersonId: string;
+  static names(): { [key: string]: string } {
+    return {
+      enterpriseName: 'enterprise_name',
+      enterpriseCreditNum: 'enterprise_credit_num',
+      enterpriseLegalPersonName: 'enterprise_legal_person_name',
+      enterpriseLegalPersonId: 'enterprise_legal_person_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      enterpriseName: 'string',
+      enterpriseCreditNum: 'string',
+      enterpriseLegalPersonName: 'string',
+      enterpriseLegalPersonId: 'string',
     };
   }
 
@@ -771,43 +1150,6 @@ export class DataSourceInfo extends $tea.Model {
   }
 }
 
-// 企业基本信息
-export class EnterpriseBaseInfo extends $tea.Model {
-  // 机构名称
-  orgName: string;
-  // 统一社会信用代码
-  creditCode: string;
-  // 企业公司注册证号
-  regNumber: string;
-  // 持股比例
-  investRate?: string;
-  // 查询人与这家企业的关联
-  relationship?: string;
-  static names(): { [key: string]: string } {
-    return {
-      orgName: 'org_name',
-      creditCode: 'credit_code',
-      regNumber: 'reg_number',
-      investRate: 'invest_rate',
-      relationship: 'relationship',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orgName: 'string',
-      creditCode: 'string',
-      regNumber: 'string',
-      investRate: 'string',
-      relationship: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 企业案件信息
 export class EnterpriseCaseInfo extends $tea.Model {
   // 立案信息
@@ -861,176 +1203,6 @@ export class EnterpriseCaseInfo extends $tea.Model {
       gistId: 'string',
       caseType: 'string',
       createTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据源信息
-export class DataSource extends $tea.Model {
-  // 数据源ID
-  id: string;
-  // 数据源接口地址
-  address: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      address: 'address',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      address: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 驾驶证信息
-export class DriverLicenseInfo extends $tea.Model {
-  // 性别，字典
-  gender?: string;
-  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
-  issueDate?: string;
-  // 驾驶证有效终止日期
-  validEndDate?: string;
-  // 驾驶证有效起始日期
-  validStartDate?: string;
-  // 驾驶证状态，字典
-  driverLicenseStatus?: string;
-  // 初次领证时间
-  firstIssueDate?: string;
-  // 准驾车型，字典
-  allowDriveCar?: string;
-  // 驾驶证种类，字典
-  driverLicenseType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      gender: 'gender',
-      issueDate: 'issue_date',
-      validEndDate: 'valid_end_date',
-      validStartDate: 'valid_start_date',
-      driverLicenseStatus: 'driver_license_status',
-      firstIssueDate: 'first_issue_date',
-      allowDriveCar: 'allow_drive_car',
-      driverLicenseType: 'driver_license_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      gender: 'string',
-      issueDate: 'string',
-      validEndDate: 'string',
-      validStartDate: 'string',
-      driverLicenseStatus: 'string',
-      firstIssueDate: 'string',
-      allowDriveCar: 'string',
-      driverLicenseType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 教育标签信息
-export class EducationTagInfo extends $tea.Model {
-  // 专业名称
-  major?: string;
-  // 学历等级代码
-  educationLevel?: string;
-  // 	
-  // 毕业日期
-  graduationDate?: string;
-  // 学习形式
-  educationType?: string;
-  // 入学时间
-  admissionDate?: string;
-  // 学校类型
-  schoolType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      major: 'major',
-      educationLevel: 'education_level',
-      graduationDate: 'graduation_date',
-      educationType: 'education_type',
-      admissionDate: 'admission_date',
-      schoolType: 'school_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      major: 'string',
-      educationLevel: 'string',
-      graduationDate: 'string',
-      educationType: 'string',
-      admissionDate: 'string',
-      schoolType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 车辆详细信息
-export class DetailCarInfo extends $tea.Model {
-  // 号牌号码
-  licenseNo: string;
-  // 号牌种类，枚举值
-  // 
-  licenseType: string;
-  // 车架号
-  vin: string;
-  // 发动机号
-  engineNo: string;
-  // 初登日期
-  registerDate: string;
-  // 车辆型号
-  modelCode: string;
-  // 是否营运车辆，枚举值
-  useNatureCode: string;
-  // 能源种类，枚举值
-  fuelType: string;
-  // 排量，数字
-  displacement: string;
-  static names(): { [key: string]: string } {
-    return {
-      licenseNo: 'license_no',
-      licenseType: 'license_type',
-      vin: 'vin',
-      engineNo: 'engine_no',
-      registerDate: 'register_date',
-      modelCode: 'model_code',
-      useNatureCode: 'use_nature_code',
-      fuelType: 'fuel_type',
-      displacement: 'displacement',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      licenseNo: 'string',
-      licenseType: 'string',
-      vin: 'string',
-      engineNo: 'string',
-      registerDate: 'string',
-      modelCode: 'string',
-      useNatureCode: 'string',
-      fuelType: 'string',
-      displacement: 'string',
     };
   }
 
@@ -2342,22 +2514,22 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 需求id
-  demandId: string;
   // 授权协议索引
   fileIndex?: string;
   // 整个需求的入参，map json
   params: string;
   // 是否授权
   userAuthed?: boolean;
+  // 待获取数据类型对应的服务id
+  serviceId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      demandId: 'demand_id',
       fileIndex: 'file_index',
       params: 'params',
       userAuthed: 'user_authed',
+      serviceId: 'service_id',
     };
   }
 
@@ -2365,10 +2537,10 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      demandId: 'string',
       fileIndex: 'string',
       params: 'string',
       userAuthed: 'boolean',
+      serviceId: 'string',
     };
   }
 
@@ -2638,6 +2810,87 @@ export class QueryApplicationEducationstatusResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': EducationStatus },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadServiceAuthfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待获取数据类型的服务id
+  serviceId: string;
+  // 文件md5
+  fileMd5: string;
+  // 文件id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 协议名称
+  fileName: string;
+  // 授权协议文件版本号
+  fileVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      fileMd5: 'file_md5',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileName: 'file_name',
+      fileVersion: 'file_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      fileMd5: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileName: 'string',
+      fileVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadServiceAuthfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权协议索引号
+  fileIndex?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileIndex: 'file_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileIndex: 'string',
     };
   }
 
@@ -3742,7 +3995,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.50",
+          sdk_version: "1.1.52",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -4210,6 +4463,46 @@ export default class Client {
   async queryApplicationEducationstatusEx(request: QueryApplicationEducationstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApplicationEducationstatusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryApplicationEducationstatusResponse>(await this.doRequest("1.0", "antchain.das.application.educationstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApplicationEducationstatusResponse({}));
+  }
+
+  /**
+   * Description: 数据服务授权文件上传
+   * Summary: 数据服务授权文件上传
+   */
+  async uploadServiceAuthfile(request: UploadServiceAuthfileRequest): Promise<UploadServiceAuthfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadServiceAuthfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据服务授权文件上传
+   * Summary: 数据服务授权文件上传
+   */
+  async uploadServiceAuthfileEx(request: UploadServiceAuthfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadServiceAuthfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.das.service.authfile.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadServiceAuthfileResponse = new UploadServiceAuthfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadServiceAuthfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadServiceAuthfileResponse>(await this.doRequest("1.0", "antchain.das.service.authfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadServiceAuthfileResponse({}));
   }
 
   /**
