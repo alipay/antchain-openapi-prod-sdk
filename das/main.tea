@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.50',
+    sdk_version = '1.1.52',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,16 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 主要人员
+model EnterpriseStaff {
+  // 主要人员名称
+  name?: string(name='name', example='李*东'),
+  // 法人类型，1-人;2-公司
+  type?: string(name='type', example='2'),
+  // 经理
+  typeJoin?: [ string ](name='type_join', example='职位'),
+}
+
 // 数据源接口入参定义
 model InterfaceInput {
   // 接口入参名称
@@ -183,18 +193,6 @@ model InterfaceOutput {
   description?: string(maxLength=100, name='description', example='描述'),
 }
 
-// 数据源接口定义
-model DataSourceInterface {
-  // 数据源接口访问地址
-  address: string(maxLength=100, name='address', example='https://******'),
-  // 数据源接口请求方法类型
-  interfaceRequestMethod: string(maxLength=50, name='interface_request_method', example='POST'),
-  // 数据源接口入参列表
-  interfaceInput?: [ InterfaceInput ](name='interface_input', example=''),
-  // 数据源接口出参列表
-  interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
-}
-
 // 商标共有人信息
 model TmCoownerInfo {
   // 共有人中文名称
@@ -205,6 +203,62 @@ model TmCoownerInfo {
   coownerNameEn?: string(name='coowner_name_en', example='Bob'),
   // 共有人英文地址
   coownerAddrEn?: string(name='coowner_addr_en', example='英文地址信息'),
+}
+
+// 查询人持股信息
+model StockHolder {
+  // 股东类型
+  orgHolderType?: string(name='org_holder_type', example='自然人'),
+  // 出资时间
+  investDate?: string(name='invest_date', example='2047-04-19'),
+  // 占比
+  investRate?: string(name='invest_rate', example='100.00%'),
+  // 出资金额
+  subscriptAmt?: string(name='subscript_amt', example='1000'),
+  // 股东名
+  orHolderName?: string(name='or_holder_name', example='xxx'),
+}
+
+// 查询人所在公司基本信息
+model EnterpriseBasicInfo {
+  // 企业状态
+  regStatus?: string(name='reg_status', example='吊销，未注销'),
+  // 成立日期(注册日期)
+  establishTime?: string(name='establish_time', example='2017-04-26'),
+  // 注册资本
+  regCapital?: string(name='reg_capital', example='1000万人民币'),
+  // 行业
+  industry?: string(name='industry', example='批发业'),
+  // 主要人员
+  staffList?: [ EnterpriseStaff ](name='staff_list', example=''),
+  // 法人类型，1-人;2-公司
+  type?: string(name='type', example='1'),
+  // 注册资本币种:人民币、美元、欧元等
+  regCapitalCurrency?: string(name='reg_capital_currency', example='人民币'),
+  // 法人姓名
+  legalPersonName?: string(name='legal_person_name', example='李*东'),
+  // 注册号
+  regNumber?: string(name='reg_number', example='210213000249529'),
+  // 统一社会信用代码
+  creditCode?: string(name='credit_code', example='91210213MA0U32TD'),
+  // 企业名
+  name?: string(name='name', example='**公司'),
+  // 企业类型
+  companyOrgType?: string(name='company_org_type', example='有限责任公司(自然人独资)'),
+  // 省份简称
+  base?: string(name='base', example='ln'),
+}
+
+// 数据源接口定义
+model DataSourceInterface {
+  // 数据源接口访问地址
+  address: string(maxLength=100, name='address', example='https://******'),
+  // 数据源接口请求方法类型
+  interfaceRequestMethod: string(maxLength=50, name='interface_request_method', example='POST'),
+  // 数据源接口入参列表
+  interfaceInput?: [ InterfaceInput ](name='interface_input', example=''),
+  // 数据源接口出参列表
+  interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
 }
 
 // 工作经历信息
@@ -293,12 +347,6 @@ model VehicleLicenseInfo {
   inspectionDate?: string(name='inspection_date', example='2099-12-31 00:00:00'),
 }
 
-// 简历技能信息
-model ResumeSkillInfo {
-  // 技能标签名字
-  skillName?: string(maxLength=128, name='skill_name', example='技能标签名字'),
-}
-
 // 教育经历信息
 model EducationExperiencesInfo {
   // 学历
@@ -347,16 +395,16 @@ model AuthPersonEnterpriseInfo {
   enterpriseLegalPersonPhoneNum: long(name='enterprise_legal_person_phone_num', example='138********'),
 }
 
-// 被授权人信息
-model BeAuthedPersonInfo {
-  // 企业名称
-  enterpriseName: string(name='enterprise_name', example='***有限公司'),
-  // 企业统一社会信用码
-  enterpriseCreditNum: string(name='enterprise_credit_num', example='9144*****'),
-  // 企业法人姓名
-  enterpriseLegalPersonName: string(name='enterprise_legal_person_name', example='张**'),
-  // 企业法人身份证号
-  enterpriseLegalPersonId: string(name='enterprise_legal_person_id', example='110*****'),
+// 企业工商信息_自然人查询
+model EnterprisePersonInfo {
+  // 查询人对应企业名
+  orgName?: string(name='org_name', example='**公司'),
+  // 查询人持股信息
+  stockholder?: StockHolder(name='stockholder', example=''),
+  // 查询人所在公司基本信息
+  basicInfo?: EnterpriseBasicInfo(name='basic_info', example=''),
+  // 查询人与这家企业的关联:sh 股东;lp 法人;tm 高管
+  relationship?: [ string ](name='relationship', example=''),
 }
 
 // 行驶证核验结果
@@ -367,6 +415,108 @@ model VehicleLicenseCertResult {
   plateType?: boolean(name='plate_type', example='true'),
   // 与车辆所有人是否一致
   owner?: boolean(name='owner', example='true'),
+}
+
+// 企业基本信息
+model EnterpriseBaseInfo {
+  // 机构名称
+  orgName: string(name='org_name', example='机构名称'),
+  // 统一社会信用代码
+  creditCode: string(name='credit_code', example='统一社会信用代码'),
+  // 企业公司注册证号
+  regNumber: string(name='reg_number', example='企业公司注册证号'),
+  // 持股比例
+  investRate?: string(name='invest_rate', example='持股比例'),
+  // 查询人与这家企业的关联
+  relationship?: string(name='relationship', example='sh;lp;tm'),
+}
+
+// 数据源信息
+model DataSource {
+  // 数据源ID
+  id: string(name='id', example='1'),
+  // 数据源接口地址
+  address: string(name='address', example='https://******'),
+}
+
+// 驾驶证信息
+model DriverLicenseInfo {
+  // 性别，字典
+  gender?: string(name='gender', example='1'),
+  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
+  issueDate?: string(name='issue_date', example='A/-A'),
+  // 驾驶证有效终止日期
+  validEndDate?: string(name='valid_end_date', example='A/-A'),
+  // 驾驶证有效起始日期
+  validStartDate?: string(name='valid_start_date', example='A/-A'),
+  // 驾驶证状态，字典
+  driverLicenseStatus?: string(name='driver_license_status', example='A'),
+  // 初次领证时间
+  firstIssueDate?: string(name='first_issue_date', example='A/-A'),
+  // 准驾车型，字典
+  allowDriveCar?: string(name='allow_drive_car', example='A1'),
+  // 驾驶证种类，字典
+  driverLicenseType?: string(name='driver_license_type', example='A'),
+}
+
+// 教育标签信息
+model EducationTagInfo {
+  // 专业名称
+  major?: string(name='major', example='软件工程'),
+  // 学历等级代码
+  educationLevel?: string(name='education_level', example='01'),
+  // 	
+  // 毕业日期
+  graduationDate?: string(name='graduation_date', example='2020/06'),
+  // 学习形式
+  educationType?: string(name='education_type', example='全日制'),
+  // 入学时间
+  admissionDate?: string(name='admission_date', example='202109'),
+  // 学校类型
+  schoolType?: string(name='school_type', example='985学校'),
+  // 学习形式字典code
+  educationTypeCode?: string(name='education_type_code', example='01'),
+}
+
+// 车辆详细信息
+model DetailCarInfo {
+  // 号牌号码
+  licenseNo: string(name='license_no', example='京Axxxxx '),
+  // 号牌种类，枚举值
+  // 
+  licenseType: string(name='license_type', example='01'),
+  // 车架号
+  vin: string(name='vin', example='xxxxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxxx'),
+  // 初登日期
+  registerDate: string(name='register_date', example='2021-12-13'),
+  // 车辆型号
+  modelCode: string(name='model_code', example='xxxxxx'),
+  // 是否营运车辆，枚举值
+  useNatureCode: string(name='use_nature_code', example='100'),
+  // 能源种类，枚举值
+  fuelType: string(name='fuel_type', example='10'),
+  // 排量，数字
+  displacement: string(name='displacement', example='10'),
+}
+
+// 简历技能信息
+model ResumeSkillInfo {
+  // 技能标签名字
+  skillName?: string(maxLength=128, name='skill_name', example='技能标签名字'),
+}
+
+// 被授权人信息
+model BeAuthedPersonInfo {
+  // 企业名称
+  enterpriseName: string(name='enterprise_name', example='***有限公司'),
+  // 企业统一社会信用码
+  enterpriseCreditNum: string(name='enterprise_credit_num', example='9144*****'),
+  // 企业法人姓名
+  enterpriseLegalPersonName: string(name='enterprise_legal_person_name', example='张**'),
+  // 企业法人身份证号
+  enterpriseLegalPersonId: string(name='enterprise_legal_person_id', example='110*****'),
 }
 
 // 授权人个人信息
@@ -436,20 +586,6 @@ model DataSourceInfo {
   dataSourceInterfaceInfo: DataSourceInterface(name='data_source_interface_info', example=''),
 }
 
-// 企业基本信息
-model EnterpriseBaseInfo {
-  // 机构名称
-  orgName: string(name='org_name', example='机构名称'),
-  // 统一社会信用代码
-  creditCode: string(name='credit_code', example='统一社会信用代码'),
-  // 企业公司注册证号
-  regNumber: string(name='reg_number', example='企业公司注册证号'),
-  // 持股比例
-  investRate?: string(name='invest_rate', example='持股比例'),
-  // 查询人与这家企业的关联
-  relationship?: string(name='relationship', example='sh;lp;tm'),
-}
-
 // 企业案件信息
 model EnterpriseCaseInfo {
   // 立案信息
@@ -474,74 +610,6 @@ model EnterpriseCaseInfo {
   caseType?: string(name='case_type', example='案由'),
   // 创建时间
   createTime?: string(name='create_time', example='2021-12-09'),
-}
-
-// 数据源信息
-model DataSource {
-  // 数据源ID
-  id: string(name='id', example='1'),
-  // 数据源接口地址
-  address: string(name='address', example='https://******'),
-}
-
-// 驾驶证信息
-model DriverLicenseInfo {
-  // 性别，字典
-  gender?: string(name='gender', example='1'),
-  // 驾驶证发证日期,当前日期减去实际日期的天数所在区间
-  issueDate?: string(name='issue_date', example='A/-A'),
-  // 驾驶证有效终止日期
-  validEndDate?: string(name='valid_end_date', example='A/-A'),
-  // 驾驶证有效起始日期
-  validStartDate?: string(name='valid_start_date', example='A/-A'),
-  // 驾驶证状态，字典
-  driverLicenseStatus?: string(name='driver_license_status', example='A'),
-  // 初次领证时间
-  firstIssueDate?: string(name='first_issue_date', example='A/-A'),
-  // 准驾车型，字典
-  allowDriveCar?: string(name='allow_drive_car', example='A1'),
-  // 驾驶证种类，字典
-  driverLicenseType?: string(name='driver_license_type', example='A'),
-}
-
-// 教育标签信息
-model EducationTagInfo {
-  // 专业名称
-  major?: string(name='major', example='软件工程'),
-  // 学历等级代码
-  educationLevel?: string(name='education_level', example='01'),
-  // 	
-  // 毕业日期
-  graduationDate?: string(name='graduation_date', example='2020/06'),
-  // 学习形式
-  educationType?: string(name='education_type', example='全日制'),
-  // 入学时间
-  admissionDate?: string(name='admission_date', example='202109'),
-  // 学校类型
-  schoolType?: string(name='school_type', example='985学校'),
-}
-
-// 车辆详细信息
-model DetailCarInfo {
-  // 号牌号码
-  licenseNo: string(name='license_no', example='京Axxxxx '),
-  // 号牌种类，枚举值
-  // 
-  licenseType: string(name='license_type', example='01'),
-  // 车架号
-  vin: string(name='vin', example='xxxxxx'),
-  // 发动机号
-  engineNo: string(name='engine_no', example='xxxxxx'),
-  // 初登日期
-  registerDate: string(name='register_date', example='2021-12-13'),
-  // 车辆型号
-  modelCode: string(name='model_code', example='xxxxxx'),
-  // 是否营运车辆，枚举值
-  useNatureCode: string(name='use_nature_code', example='100'),
-  // 能源种类，枚举值
-  fuelType: string(name='fuel_type', example='10'),
-  // 排量，数字
-  displacement: string(name='displacement', example='10'),
 }
 
 // 学籍信息
@@ -1366,14 +1434,14 @@ model QueryApplicationUnifiedentranceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 需求id
-  demandId: string(name='demand_id'),
   // 授权协议索引
   fileIndex?: string(name='file_index'),
   // 整个需求的入参，map json
   params: string(name='params'),
   // 是否授权
   userAuthed?: boolean(name='user_authed'),
+  // 待获取数据类型对应的服务id
+  serviceId: string(name='service_id'),
 }
 
 model QueryApplicationUnifiedentranceResponse = {
@@ -1548,6 +1616,73 @@ async function queryApplicationEducationstatus(request: QueryApplicationEducatio
 async function queryApplicationEducationstatusEx(request: QueryApplicationEducationstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApplicationEducationstatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.application.educationstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadServiceAuthfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待获取数据类型的服务id
+  serviceId: string(name='service_id'),
+  // 文件md5
+  fileMd5: string(name='file_md5'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 协议名称
+  fileName: string(name='file_name'),
+  // 授权协议文件版本号
+  fileVersion: string(name='file_version'),
+}
+
+model UploadServiceAuthfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权协议索引号
+  fileIndex?: string(name='file_index'),
+}
+
+/**
+ * Description: 数据服务授权文件上传
+ * Summary: 数据服务授权文件上传
+ */
+async function uploadServiceAuthfile(request: UploadServiceAuthfileRequest): UploadServiceAuthfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadServiceAuthfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据服务授权文件上传
+ * Summary: 数据服务授权文件上传
+ */
+async function uploadServiceAuthfileEx(request: UploadServiceAuthfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadServiceAuthfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.das.service.authfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadServiceAuthfileResponse = new UploadServiceAuthfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadServiceAuthfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.service.authfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
