@@ -2056,6 +2056,142 @@ func (s *SyncOrderDataResponse) SetResultMsg(v string) *SyncOrderDataResponse {
 	return s
 }
 
+type QueryResourceImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// access_token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 素材的类型（AIGC/NFT）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 资源ID
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// type为NFT必填
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+}
+
+func (s QueryResourceImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryResourceImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryResourceImageRequest) SetAuthToken(v string) *QueryResourceImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetProductInstanceId(v string) *QueryResourceImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetAccessToken(v string) *QueryResourceImageRequest {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetType(v string) *QueryResourceImageRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetResourceId(v string) *QueryResourceImageRequest {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetNftId(v string) *QueryResourceImageRequest {
+	s.NftId = &v
+	return s
+}
+
+type QueryResourceImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// nftID 藏品素材nftId，type为NFT时有值
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 具体藏品名称，type为NFT时有值
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty"`
+	// nftId 的 算法计算的hash，该藏品唯一标识，type为NFT时有值
+	UniHash *string `json:"uni_hash,omitempty" xml:"uni_hash,omitempty"`
+	// Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 缩略图url列表
+	ThumbnailUrls []*string `json:"thumbnail_urls,omitempty" xml:"thumbnail_urls,omitempty" type:"Repeated"`
+	// int	高清图状态
+	// 0 需要等待
+	// 1 已完成
+	HighDefinitionStatus *int64 `json:"high_definition_status,omitempty" xml:"high_definition_status,omitempty"`
+	// 在highDefinitionStatus为1时有值
+	//  高清图列表
+	HighDefinitionUrls *string `json:"high_definition_urls,omitempty" xml:"high_definition_urls,omitempty"`
+}
+
+func (s QueryResourceImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryResourceImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryResourceImageResponse) SetReqMsgId(v string) *QueryResourceImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetResultCode(v string) *QueryResourceImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetResultMsg(v string) *QueryResourceImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetNftId(v string) *QueryResourceImageResponse {
+	s.NftId = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetSkuName(v string) *QueryResourceImageResponse {
+	s.SkuName = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetUniHash(v string) *QueryResourceImageResponse {
+	s.UniHash = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetCreationTime(v string) *QueryResourceImageResponse {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetThumbnailUrls(v []*string) *QueryResourceImageResponse {
+	s.ThumbnailUrls = v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetHighDefinitionStatus(v int64) *QueryResourceImageResponse {
+	s.HighDefinitionStatus = &v
+	return s
+}
+
+func (s *QueryResourceImageResponse) SetHighDefinitionUrls(v string) *QueryResourceImageResponse {
+	s.HighDefinitionUrls = &v
+	return s
+}
+
 type ApplyOauthTokenRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2377,7 +2513,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.1"),
+				"sdk_version":      tea.String("1.8.2"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2938,6 +3074,40 @@ func (client *Client) SyncOrderDataEx(request *SyncOrderDataRequest, headers map
 	}
 	_result = &SyncOrderDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.order.data.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询实物定制图片
+ * Summary: 查询实物定制图片
+ */
+func (client *Client) QueryResourceImage(request *QueryResourceImageRequest) (_result *QueryResourceImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryResourceImageResponse{}
+	_body, _err := client.QueryResourceImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询实物定制图片
+ * Summary: 查询实物定制图片
+ */
+func (client *Client) QueryResourceImageEx(request *QueryResourceImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryResourceImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryResourceImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.resource.image.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
