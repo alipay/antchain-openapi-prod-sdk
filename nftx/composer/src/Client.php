@@ -39,6 +39,8 @@ use AntChain\NFTX\Models\QueryNftOrderRequest;
 use AntChain\NFTX\Models\QueryNftOrderResponse;
 use AntChain\NFTX\Models\QueryOauthUserinfoRequest;
 use AntChain\NFTX\Models\QueryOauthUserinfoResponse;
+use AntChain\NFTX\Models\QueryResourceImageRequest;
+use AntChain\NFTX\Models\QueryResourceImageResponse;
 use AntChain\NFTX\Models\RunNftTransferRequest;
 use AntChain\NFTX\Models\RunNftTransferResponse;
 use AntChain\NFTX\Models\SendNftTransferRequest;
@@ -192,7 +194,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.1',
+                    'sdk_version'      => '1.8.2',
                     '_prod_code'       => 'NFTX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -733,6 +735,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncOrderDataResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.order.data.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询实物定制图片
+     * Summary: 查询实物定制图片.
+     *
+     * @param QueryResourceImageRequest $request
+     *
+     * @return QueryResourceImageResponse
+     */
+    public function queryResourceImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryResourceImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询实物定制图片
+     * Summary: 查询实物定制图片.
+     *
+     * @param QueryResourceImageRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryResourceImageResponse
+     */
+    public function queryResourceImageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryResourceImageResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.resource.image.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
