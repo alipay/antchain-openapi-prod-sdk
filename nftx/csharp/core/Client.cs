@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.1"},
+                        {"sdk_version", "1.8.2"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.1"},
+                        {"sdk_version", "1.8.2"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -949,6 +949,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncOrderDataResponse>(await DoRequestAsync("1.0", "antchain.nftx.order.data.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询实物定制图片
+         * Summary: 查询实物定制图片
+         */
+        public QueryResourceImageResponse QueryResourceImage(QueryResourceImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryResourceImageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询实物定制图片
+         * Summary: 查询实物定制图片
+         */
+        public async Task<QueryResourceImageResponse> QueryResourceImageAsync(QueryResourceImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryResourceImageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询实物定制图片
+         * Summary: 查询实物定制图片
+         */
+        public QueryResourceImageResponse QueryResourceImageEx(QueryResourceImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryResourceImageResponse>(DoRequest("1.0", "antchain.nftx.resource.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询实物定制图片
+         * Summary: 查询实物定制图片
+         */
+        public async Task<QueryResourceImageResponse> QueryResourceImageExAsync(QueryResourceImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryResourceImageResponse>(await DoRequestAsync("1.0", "antchain.nftx.resource.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
