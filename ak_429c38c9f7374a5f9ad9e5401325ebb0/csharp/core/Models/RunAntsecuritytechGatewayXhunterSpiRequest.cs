@@ -33,6 +33,11 @@ namespace AntChain.SDK.Ak_429c38c9f7374a5f9ad9e5401325ebb0.Models
         [Validation(Required=false)]
         public string ExtInfo { get; set; }
 
+        // raas_products
+        [NameInMap("raas_products")]
+        [Validation(Required=true)]
+        public string RaasProducts { get; set; }
+
     }
 
 }
