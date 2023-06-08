@@ -159,15 +159,19 @@ class AmountItem(TeaModel):
         self,
         balance_amount: str = None,
         currency: str = None,
+        frozen_balance_amount: str = None,
     ):
         # 余额，单位元
         self.balance_amount = balance_amount
         # 币种，CNY-人民币
         self.currency = currency
+        # 冻结余额，单位元
+        self.frozen_balance_amount = frozen_balance_amount
 
     def validate(self):
         self.validate_required(self.balance_amount, 'balance_amount')
         self.validate_required(self.currency, 'currency')
+        self.validate_required(self.frozen_balance_amount, 'frozen_balance_amount')
 
     def to_map(self):
         _map = super().to_map()
@@ -179,6 +183,8 @@ class AmountItem(TeaModel):
             result['balance_amount'] = self.balance_amount
         if self.currency is not None:
             result['currency'] = self.currency
+        if self.frozen_balance_amount is not None:
+            result['frozen_balance_amount'] = self.frozen_balance_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -187,6 +193,8 @@ class AmountItem(TeaModel):
             self.balance_amount = m.get('balance_amount')
         if m.get('currency') is not None:
             self.currency = m.get('currency')
+        if m.get('frozen_balance_amount') is not None:
+            self.frozen_balance_amount = m.get('frozen_balance_amount')
         return self
 
 
