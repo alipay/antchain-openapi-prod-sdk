@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.1',
+                    'sdk_version': '1.8.2',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.1',
+                    'sdk_version': '1.8.2',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -1113,6 +1113,62 @@ class Client:
         return TeaCore.from_map(
             nftx_models.SyncOrderDataResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.order.data.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_resource_image(
+        self,
+        request: nftx_models.QueryResourceImageRequest,
+    ) -> nftx_models.QueryResourceImageResponse:
+        """
+        Description: 查询实物定制图片
+        Summary: 查询实物定制图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_resource_image_ex(request, headers, runtime)
+
+    async def query_resource_image_async(
+        self,
+        request: nftx_models.QueryResourceImageRequest,
+    ) -> nftx_models.QueryResourceImageResponse:
+        """
+        Description: 查询实物定制图片
+        Summary: 查询实物定制图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_resource_image_ex_async(request, headers, runtime)
+
+    def query_resource_image_ex(
+        self,
+        request: nftx_models.QueryResourceImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryResourceImageResponse:
+        """
+        Description: 查询实物定制图片
+        Summary: 查询实物定制图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryResourceImageResponse(),
+            self.do_request('1.0', 'antchain.nftx.resource.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_resource_image_ex_async(
+        self,
+        request: nftx_models.QueryResourceImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryResourceImageResponse:
+        """
+        Description: 查询实物定制图片
+        Summary: 查询实物定制图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryResourceImageResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.resource.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_oauth_token(

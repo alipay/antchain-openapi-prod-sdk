@@ -2492,6 +2492,165 @@ class SyncOrderDataResponse(TeaModel):
         return self
 
 
+class QueryResourceImageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        access_token: str = None,
+        type: str = None,
+        resource_id: str = None,
+        nft_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # access_token
+        self.access_token = access_token
+        # 素材的类型（AIGC/NFT）
+        self.type = type
+        # 资源ID
+        self.resource_id = resource_id
+        # type为NFT必填
+        self.nft_id = nft_id
+
+    def validate(self):
+        self.validate_required(self.access_token, 'access_token')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.resource_id, 'resource_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.type is not None:
+            result['type'] = self.type
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        return self
+
+
+class QueryResourceImageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        nft_id: str = None,
+        sku_name: str = None,
+        uni_hash: str = None,
+        creation_time: str = None,
+        thumbnail_urls: List[str] = None,
+        high_definition_status: int = None,
+        high_definition_urls: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # nftID 藏品素材nftId，type为NFT时有值
+        self.nft_id = nft_id
+        # 具体藏品名称，type为NFT时有值
+        self.sku_name = sku_name
+        # nftId 的 算法计算的hash，该藏品唯一标识，type为NFT时有值
+        self.uni_hash = uni_hash
+        # Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
+        self.creation_time = creation_time
+        # 缩略图url列表
+        self.thumbnail_urls = thumbnail_urls
+        # int	高清图状态
+        # 0 需要等待
+        # 1 已完成
+        self.high_definition_status = high_definition_status
+        # 在highDefinitionStatus为1时有值
+        # 高清图列表
+        self.high_definition_urls = high_definition_urls
+
+    def validate(self):
+        if self.creation_time is not None:
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.uni_hash is not None:
+            result['uni_hash'] = self.uni_hash
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        if self.thumbnail_urls is not None:
+            result['thumbnail_urls'] = self.thumbnail_urls
+        if self.high_definition_status is not None:
+            result['high_definition_status'] = self.high_definition_status
+        if self.high_definition_urls is not None:
+            result['high_definition_urls'] = self.high_definition_urls
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('uni_hash') is not None:
+            self.uni_hash = m.get('uni_hash')
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        if m.get('thumbnail_urls') is not None:
+            self.thumbnail_urls = m.get('thumbnail_urls')
+        if m.get('high_definition_status') is not None:
+            self.high_definition_status = m.get('high_definition_status')
+        if m.get('high_definition_urls') is not None:
+            self.high_definition_urls = m.get('high_definition_urls')
+        return self
+
+
 class ApplyOauthTokenRequest(TeaModel):
     def __init__(
         self,
