@@ -20,6 +20,11 @@ namespace AntChain.SDK.DEFINCASHIER.Models
         [Validation(Required=true)]
         public string Currency { get; set; }
 
+        // 冻结余额，单位元
+        [NameInMap("frozen_balance_amount")]
+        [Validation(Required=true)]
+        public string FrozenBalanceAmount { get; set; }
+
     }
 
 }
