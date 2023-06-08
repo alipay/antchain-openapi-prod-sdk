@@ -25,6 +25,11 @@ public class RunAntsecuritytechGatewayXhunterSpiRequest extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
+    // raas_products
+    @NameInMap("raas_products")
+    @Validation(required = true)
+    public String raasProducts;
+
     public static RunAntsecuritytechGatewayXhunterSpiRequest build(java.util.Map<String, ?> map) throws Exception {
         RunAntsecuritytechGatewayXhunterSpiRequest self = new RunAntsecuritytechGatewayXhunterSpiRequest();
         return TeaModel.build(map, self);
@@ -68,6 +73,14 @@ public class RunAntsecuritytechGatewayXhunterSpiRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
+    }
+
+    public RunAntsecuritytechGatewayXhunterSpiRequest setRaasProducts(String raasProducts) {
+        this.raasProducts = raasProducts;
+        return this;
+    }
+    public String getRaasProducts() {
+        return this.raasProducts;
     }
 
 }
