@@ -154,6 +154,8 @@ type AmountItem struct {
 	BalanceAmount *string `json:"balance_amount,omitempty" xml:"balance_amount,omitempty" require:"true"`
 	// 币种，CNY-人民币
 	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 冻结余额，单位元
+	FrozenBalanceAmount *string `json:"frozen_balance_amount,omitempty" xml:"frozen_balance_amount,omitempty" require:"true"`
 }
 
 func (s AmountItem) String() string {
@@ -171,6 +173,11 @@ func (s *AmountItem) SetBalanceAmount(v string) *AmountItem {
 
 func (s *AmountItem) SetCurrency(v string) *AmountItem {
 	s.Currency = &v
+	return s
+}
+
+func (s *AmountItem) SetFrozenBalanceAmount(v string) *AmountItem {
+	s.FrozenBalanceAmount = &v
 	return s
 }
 
@@ -1842,7 +1849,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.2"),
 				"_prod_code":       tea.String("DEFINCASHIER"),
 				"_prod_channel":    tea.String("undefined"),
 			}
