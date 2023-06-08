@@ -83,10 +83,13 @@ export class AmountItem extends $tea.Model {
   balanceAmount: string;
   // 币种，CNY-人民币
   currency: string;
+  // 冻结余额，单位元
+  frozenBalanceAmount: string;
   static names(): { [key: string]: string } {
     return {
       balanceAmount: 'balance_amount',
       currency: 'currency',
+      frozenBalanceAmount: 'frozen_balance_amount',
     };
   }
 
@@ -94,6 +97,7 @@ export class AmountItem extends $tea.Model {
     return {
       balanceAmount: 'string',
       currency: 'string',
+      frozenBalanceAmount: 'string',
     };
   }
 
@@ -1417,7 +1421,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.1.2",
           _prod_code: "DEFINCASHIER",
           _prod_channel: "undefined",
         };
