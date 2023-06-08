@@ -158,6 +158,8 @@ type RunAntsecuritytechGatewayXhunterSpiRequest struct {
 	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
 	// json
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// raas_products
+	RaasProducts *string `json:"raas_products,omitempty" xml:"raas_products,omitempty" require:"true"`
 }
 
 func (s RunAntsecuritytechGatewayXhunterSpiRequest) String() string {
@@ -190,6 +192,11 @@ func (s *RunAntsecuritytechGatewayXhunterSpiRequest) SetServiceName(v string) *R
 
 func (s *RunAntsecuritytechGatewayXhunterSpiRequest) SetExtInfo(v string) *RunAntsecuritytechGatewayXhunterSpiRequest {
 	s.ExtInfo = &v
+	return s
+}
+
+func (s *RunAntsecuritytechGatewayXhunterSpiRequest) SetRaasProducts(v string) *RunAntsecuritytechGatewayXhunterSpiRequest {
+	s.RaasProducts = &v
 	return s
 }
 
@@ -354,7 +361,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_429c38c9f7374a5f9ad9e5401325ebb0"),
 				"_prod_channel":    tea.String("saas"),
 			}
