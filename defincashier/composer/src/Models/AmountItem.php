@@ -23,15 +23,25 @@ class AmountItem extends Model
      * @var string
      */
     public $currency;
+
+    // 冻结余额，单位元
+    /**
+     * @example 0.01
+     *
+     * @var string
+     */
+    public $frozenBalanceAmount;
     protected $_name = [
-        'balanceAmount' => 'balance_amount',
-        'currency'      => 'currency',
+        'balanceAmount'       => 'balance_amount',
+        'currency'            => 'currency',
+        'frozenBalanceAmount' => 'frozen_balance_amount',
     ];
 
     public function validate()
     {
         Model::validateRequired('balanceAmount', $this->balanceAmount, true);
         Model::validateRequired('currency', $this->currency, true);
+        Model::validateRequired('frozenBalanceAmount', $this->frozenBalanceAmount, true);
     }
 
     public function toMap()
@@ -42,6 +52,9 @@ class AmountItem extends Model
         }
         if (null !== $this->currency) {
             $res['currency'] = $this->currency;
+        }
+        if (null !== $this->frozenBalanceAmount) {
+            $res['frozen_balance_amount'] = $this->frozenBalanceAmount;
         }
 
         return $res;
@@ -60,6 +73,9 @@ class AmountItem extends Model
         }
         if (isset($map['currency'])) {
             $model->currency = $map['currency'];
+        }
+        if (isset($map['frozen_balance_amount'])) {
+            $model->frozenBalanceAmount = $map['frozen_balance_amount'];
         }
 
         return $model;
