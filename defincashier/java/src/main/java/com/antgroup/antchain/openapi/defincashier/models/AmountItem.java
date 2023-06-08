@@ -14,6 +14,11 @@ public class AmountItem extends TeaModel {
     @Validation(required = true)
     public String currency;
 
+    // 冻结余额，单位元
+    @NameInMap("frozen_balance_amount")
+    @Validation(required = true)
+    public String frozenBalanceAmount;
+
     public static AmountItem build(java.util.Map<String, ?> map) throws Exception {
         AmountItem self = new AmountItem();
         return TeaModel.build(map, self);
@@ -33,6 +38,14 @@ public class AmountItem extends TeaModel {
     }
     public String getCurrency() {
         return this.currency;
+    }
+
+    public AmountItem setFrozenBalanceAmount(String frozenBalanceAmount) {
+        this.frozenBalanceAmount = frozenBalanceAmount;
+        return this;
+    }
+    public String getFrozenBalanceAmount() {
+        return this.frozenBalanceAmount;
     }
 
 }
