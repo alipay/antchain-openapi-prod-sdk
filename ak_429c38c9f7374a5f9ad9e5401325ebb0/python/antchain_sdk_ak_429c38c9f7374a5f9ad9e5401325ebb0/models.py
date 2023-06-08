@@ -161,6 +161,7 @@ class RunAntsecuritytechGatewayXhunterSpiRequest(TeaModel):
         request: str = None,
         service_name: str = None,
         ext_info: str = None,
+        raas_products: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -171,10 +172,13 @@ class RunAntsecuritytechGatewayXhunterSpiRequest(TeaModel):
         self.service_name = service_name
         # json
         self.ext_info = ext_info
+        # raas_products
+        self.raas_products = raas_products
 
     def validate(self):
         self.validate_required(self.request, 'request')
         self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.raas_products, 'raas_products')
 
     def to_map(self):
         _map = super().to_map()
@@ -192,6 +196,8 @@ class RunAntsecuritytechGatewayXhunterSpiRequest(TeaModel):
             result['service_name'] = self.service_name
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
+        if self.raas_products is not None:
+            result['raas_products'] = self.raas_products
         return result
 
     def from_map(self, m: dict = None):
@@ -206,6 +212,8 @@ class RunAntsecuritytechGatewayXhunterSpiRequest(TeaModel):
             self.service_name = m.get('service_name')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
+        if m.get('raas_products') is not None:
+            self.raas_products = m.get('raas_products')
         return self
 
 
