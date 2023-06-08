@@ -1476,6 +1476,104 @@ export class SyncOrderDataResponse extends $tea.Model {
   }
 }
 
+export class QueryResourceImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // access_token
+  accessToken: string;
+  // 素材的类型（AIGC/NFT）
+  type: string;
+  // 资源ID
+  resourceId: string;
+  // type为NFT必填
+  nftId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accessToken: 'access_token',
+      type: 'type',
+      resourceId: 'resource_id',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accessToken: 'string',
+      type: 'string',
+      resourceId: 'string',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryResourceImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // nftID 藏品素材nftId，type为NFT时有值
+  nftId?: string;
+  // 具体藏品名称，type为NFT时有值
+  skuName?: string;
+  // nftId 的 算法计算的hash，该藏品唯一标识，type为NFT时有值
+  uniHash?: string;
+  // Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
+  creationTime?: string;
+  // 缩略图url列表
+  thumbnailUrls?: string[];
+  // int	高清图状态
+  // 0 需要等待
+  // 1 已完成
+  highDefinitionStatus?: number;
+  // 在highDefinitionStatus为1时有值
+  //  高清图列表
+  highDefinitionUrls?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nftId: 'nft_id',
+      skuName: 'sku_name',
+      uniHash: 'uni_hash',
+      creationTime: 'creation_time',
+      thumbnailUrls: 'thumbnail_urls',
+      highDefinitionStatus: 'high_definition_status',
+      highDefinitionUrls: 'high_definition_urls',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nftId: 'string',
+      skuName: 'string',
+      uniHash: 'string',
+      creationTime: 'string',
+      thumbnailUrls: { 'type': 'array', 'itemType': 'string' },
+      highDefinitionStatus: 'number',
+      highDefinitionUrls: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ApplyOauthTokenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1742,7 +1840,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.1",
+          sdk_version: "1.8.2",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
@@ -2073,6 +2171,25 @@ export default class Client {
   async syncOrderDataEx(request: SyncOrderDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncOrderDataResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncOrderDataResponse>(await this.doRequest("1.0", "antchain.nftx.order.data.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncOrderDataResponse({}));
+  }
+
+  /**
+   * Description: 查询实物定制图片
+   * Summary: 查询实物定制图片
+   */
+  async queryResourceImage(request: QueryResourceImageRequest): Promise<QueryResourceImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryResourceImageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询实物定制图片
+   * Summary: 查询实物定制图片
+   */
+  async queryResourceImageEx(request: QueryResourceImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryResourceImageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryResourceImageResponse>(await this.doRequest("1.0", "antchain.nftx.resource.image.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryResourceImageResponse({}));
   }
 
   /**
