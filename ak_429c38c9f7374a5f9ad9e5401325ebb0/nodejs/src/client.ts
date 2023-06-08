@@ -87,6 +87,8 @@ export class RunAntsecuritytechGatewayXhunterSpiRequest extends $tea.Model {
   serviceName: string;
   // json
   extInfo?: string;
+  // raas_products
+  raasProducts: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -94,6 +96,7 @@ export class RunAntsecuritytechGatewayXhunterSpiRequest extends $tea.Model {
       request: 'request',
       serviceName: 'service_name',
       extInfo: 'ext_info',
+      raasProducts: 'raas_products',
     };
   }
 
@@ -104,6 +107,7 @@ export class RunAntsecuritytechGatewayXhunterSpiRequest extends $tea.Model {
       request: 'string',
       serviceName: 'string',
       extInfo: 'string',
+      raasProducts: 'string',
     };
   }
 
@@ -257,7 +261,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_429c38c9f7374a5f9ad9e5401325ebb0",
           _prod_channel: "saas",
         };
