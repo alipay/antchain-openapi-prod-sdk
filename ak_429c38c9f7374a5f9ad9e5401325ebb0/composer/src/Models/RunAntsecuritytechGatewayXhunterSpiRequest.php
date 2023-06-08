@@ -36,18 +36,26 @@ class RunAntsecuritytechGatewayXhunterSpiRequest extends Model
      * @var string
      */
     public $extInfo;
+
+    // raas_products
+    /**
+     * @var string
+     */
+    public $raasProducts;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'request'           => 'request',
         'serviceName'       => 'service_name',
         'extInfo'           => 'ext_info',
+        'raasProducts'      => 'raas_products',
     ];
 
     public function validate()
     {
         Model::validateRequired('request', $this->request, true);
         Model::validateRequired('serviceName', $this->serviceName, true);
+        Model::validateRequired('raasProducts', $this->raasProducts, true);
     }
 
     public function toMap()
@@ -67,6 +75,9 @@ class RunAntsecuritytechGatewayXhunterSpiRequest extends Model
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->raasProducts) {
+            $res['raas_products'] = $this->raasProducts;
         }
 
         return $res;
@@ -94,6 +105,9 @@ class RunAntsecuritytechGatewayXhunterSpiRequest extends Model
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['raas_products'])) {
+            $model->raasProducts = $map['raas_products'];
         }
 
         return $model;
