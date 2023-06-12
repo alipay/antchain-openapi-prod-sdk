@@ -33,6 +33,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string DciContentId { get; set; }
 
+        // 幂等字段
+        [NameInMap("client_token")]
+        [Validation(Required=true)]
+        public string ClientToken { get; set; }
+
     }
 
 }
