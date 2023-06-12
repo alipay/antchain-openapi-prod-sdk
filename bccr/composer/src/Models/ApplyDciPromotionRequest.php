@@ -36,12 +36,19 @@ class ApplyDciPromotionRequest extends Model
      * @var string
      */
     public $dciContentId;
+
+    // 幂等字段
+    /**
+     * @var string
+     */
+    public $clientToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'contactName'       => 'contact_name',
         'contactPhone'      => 'contact_phone',
         'dciContentId'      => 'dci_content_id',
+        'clientToken'       => 'client_token',
     ];
 
     public function validate()
@@ -49,6 +56,7 @@ class ApplyDciPromotionRequest extends Model
         Model::validateRequired('contactName', $this->contactName, true);
         Model::validateRequired('contactPhone', $this->contactPhone, true);
         Model::validateRequired('dciContentId', $this->dciContentId, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -68,6 +76,9 @@ class ApplyDciPromotionRequest extends Model
         }
         if (null !== $this->dciContentId) {
             $res['dci_content_id'] = $this->dciContentId;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
         }
 
         return $res;
@@ -95,6 +106,9 @@ class ApplyDciPromotionRequest extends Model
         }
         if (isset($map['dci_content_id'])) {
             $model->dciContentId = $map['dci_content_id'];
+        }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
         }
 
         return $model;
