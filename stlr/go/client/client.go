@@ -544,6 +544,53 @@ func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounter
 	return s
 }
 
+// 碳补偿活动数据详情
+type CarbonOffsetActiveDataDetail struct {
+	// 活动数据编号
+	ActiveDataNo *string `json:"active_data_no,omitempty" xml:"active_data_no,omitempty" require:"true"`
+	// 活动数据名称
+	ActiveDataName *string `json:"active_data_name,omitempty" xml:"active_data_name,omitempty"`
+	// 活动数据单位
+	ActiveDataUnit *string `json:"active_data_unit,omitempty" xml:"active_data_unit,omitempty"`
+	// 活动数据描述文案
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 活动数据值
+	ActiveDataValue *string `json:"active_data_value,omitempty" xml:"active_data_value,omitempty" require:"true"`
+}
+
+func (s CarbonOffsetActiveDataDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarbonOffsetActiveDataDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataNo(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataNo = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataName(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataName = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataUnit(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataUnit = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetDescription(v string) *CarbonOffsetActiveDataDetail {
+	s.Description = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataValue(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataValue = &v
+	return s
+}
+
 // 机构会员资料
 type EnterpriseMemberSummary struct {
 	// 机构会员DID
@@ -4950,6 +4997,259 @@ func (s *QueryEcarOffsetaccountResponse) SetOffsetBalance(v string) *QueryEcarOf
 	return s
 }
 
+type DetailEcarOffsetdatumRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务发生时的调用方的业务单号
+	AcquisitionItemNo *string `json:"acquisition_item_no,omitempty" xml:"acquisition_item_no,omitempty" require:"true"`
+}
+
+func (s DetailEcarOffsetdatumRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailEcarOffsetdatumRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailEcarOffsetdatumRequest) SetAuthToken(v string) *DetailEcarOffsetdatumRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumRequest) SetProductInstanceId(v string) *DetailEcarOffsetdatumRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumRequest) SetAcquisitionItemNo(v string) *DetailEcarOffsetdatumRequest {
+	s.AcquisitionItemNo = &v
+	return s
+}
+
+type DetailEcarOffsetdatumResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 碳补偿项目编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty"`
+	// 碳普惠项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
+	// 会员账户DID
+	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty"`
+	// 采集数据单号
+	//
+	AcquisitionItemNo *string `json:"acquisition_item_no,omitempty" xml:"acquisition_item_no,omitempty"`
+	// 发生时间
+	OccurrentTime *string `json:"occurrent_time,omitempty" xml:"occurrent_time,omitempty"`
+	// 发生场景编码
+	ScenarioCode *string `json:"scenario_code,omitempty" xml:"scenario_code,omitempty"`
+	// 发生场景名称
+	ScenarioName *string `json:"scenario_name,omitempty" xml:"scenario_name,omitempty"`
+	// 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+	PlatformNo *string `json:"platform_no,omitempty" xml:"platform_no,omitempty"`
+	// 减碳量
+	OffsetVolume *string `json:"offset_volume,omitempty" xml:"offset_volume,omitempty"`
+	// 碳能量值
+	CarbonEnergy *int64 `json:"carbon_energy,omitempty" xml:"carbon_energy,omitempty"`
+	// 活动数据详情列表
+	ActiveDataList []*CarbonOffsetActiveDataDetail `json:"active_data_list,omitempty" xml:"active_data_list,omitempty" type:"Repeated"`
+}
+
+func (s DetailEcarOffsetdatumResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailEcarOffsetdatumResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetReqMsgId(v string) *DetailEcarOffsetdatumResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetResultCode(v string) *DetailEcarOffsetdatumResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetResultMsg(v string) *DetailEcarOffsetdatumResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetProjectNo(v string) *DetailEcarOffsetdatumResponse {
+	s.ProjectNo = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetProjectName(v string) *DetailEcarOffsetdatumResponse {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetAccountDid(v string) *DetailEcarOffsetdatumResponse {
+	s.AccountDid = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetAcquisitionItemNo(v string) *DetailEcarOffsetdatumResponse {
+	s.AcquisitionItemNo = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetOccurrentTime(v string) *DetailEcarOffsetdatumResponse {
+	s.OccurrentTime = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetScenarioCode(v string) *DetailEcarOffsetdatumResponse {
+	s.ScenarioCode = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetScenarioName(v string) *DetailEcarOffsetdatumResponse {
+	s.ScenarioName = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetPlatformNo(v string) *DetailEcarOffsetdatumResponse {
+	s.PlatformNo = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetOffsetVolume(v string) *DetailEcarOffsetdatumResponse {
+	s.OffsetVolume = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetCarbonEnergy(v int64) *DetailEcarOffsetdatumResponse {
+	s.CarbonEnergy = &v
+	return s
+}
+
+func (s *DetailEcarOffsetdatumResponse) SetActiveDataList(v []*CarbonOffsetActiveDataDetail) *DetailEcarOffsetdatumResponse {
+	s.ActiveDataList = v
+	return s
+}
+
+type DetailEcarOffsettranslateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 减碳数据转移记录业务方的业务单号
+	TranslationItemNo *string `json:"translation_item_no,omitempty" xml:"translation_item_no,omitempty" require:"true"`
+}
+
+func (s DetailEcarOffsettranslateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailEcarOffsettranslateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailEcarOffsettranslateRequest) SetAuthToken(v string) *DetailEcarOffsettranslateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateRequest) SetProductInstanceId(v string) *DetailEcarOffsettranslateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateRequest) SetTranslationItemNo(v string) *DetailEcarOffsettranslateRequest {
+	s.TranslationItemNo = &v
+	return s
+}
+
+type DetailEcarOffsettranslateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务方的业务单号
+	TranslationItemNo *string `json:"translation_item_no,omitempty" xml:"translation_item_no,omitempty"`
+	// 发生时间
+	OccurrenceTime *string `json:"occurrence_time,omitempty" xml:"occurrence_time,omitempty"`
+	// 业务发生量：转移量
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 碳补偿项目编码
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty"`
+	// 碳普惠项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
+	// 转出碳账户DID
+	DrawingAccountDid *string `json:"drawing_account_did,omitempty" xml:"drawing_account_did,omitempty"`
+	// 转入碳账户DID
+	ReceiptAccountDid *string `json:"receipt_account_did,omitempty" xml:"receipt_account_did,omitempty"`
+}
+
+func (s DetailEcarOffsettranslateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailEcarOffsettranslateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetReqMsgId(v string) *DetailEcarOffsettranslateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetResultCode(v string) *DetailEcarOffsettranslateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetResultMsg(v string) *DetailEcarOffsettranslateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetTranslationItemNo(v string) *DetailEcarOffsettranslateResponse {
+	s.TranslationItemNo = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetOccurrenceTime(v string) *DetailEcarOffsettranslateResponse {
+	s.OccurrenceTime = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetAmount(v string) *DetailEcarOffsettranslateResponse {
+	s.Amount = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetProjectNo(v string) *DetailEcarOffsettranslateResponse {
+	s.ProjectNo = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetProjectName(v string) *DetailEcarOffsettranslateResponse {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetDrawingAccountDid(v string) *DetailEcarOffsettranslateResponse {
+	s.DrawingAccountDid = &v
+	return s
+}
+
+func (s *DetailEcarOffsettranslateResponse) SetReceiptAccountDid(v string) *DetailEcarOffsettranslateResponse {
+	s.ReceiptAccountDid = &v
+	return s
+}
+
 type QueryThirdCertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5299,7 +5599,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.4.0"),
+				"sdk_version":      tea.String("2.5.0"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6671,6 +6971,74 @@ func (client *Client) QueryEcarOffsetaccountEx(request *QueryEcarOffsetaccountRe
 	}
 	_result = &QueryEcarOffsetaccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsetaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询碳补偿数据详情
+ * Summary: 碳补偿数据详情
+ */
+func (client *Client) DetailEcarOffsetdatum(request *DetailEcarOffsetdatumRequest) (_result *DetailEcarOffsetdatumResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailEcarOffsetdatumResponse{}
+	_body, _err := client.DetailEcarOffsetdatumEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询碳补偿数据详情
+ * Summary: 碳补偿数据详情
+ */
+func (client *Client) DetailEcarOffsetdatumEx(request *DetailEcarOffsetdatumRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailEcarOffsetdatumResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailEcarOffsetdatumResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsetdatum.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询碳普惠减碳量转移记录详情
+ * Summary: 碳普惠减碳量转移记录详情
+ */
+func (client *Client) DetailEcarOffsettranslate(request *DetailEcarOffsettranslateRequest) (_result *DetailEcarOffsettranslateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailEcarOffsettranslateResponse{}
+	_body, _err := client.DetailEcarOffsettranslateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询碳普惠减碳量转移记录详情
+ * Summary: 碳普惠减碳量转移记录详情
+ */
+func (client *Client) DetailEcarOffsettranslateEx(request *DetailEcarOffsettranslateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailEcarOffsettranslateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailEcarOffsettranslateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsettranslate.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
