@@ -16,6 +16,10 @@ public class ApplyDciPromotionResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // basis数据ID
+    @NameInMap("api_task_id")
+    public String apiTaskId;
+
     public static ApplyDciPromotionResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDciPromotionResponse self = new ApplyDciPromotionResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class ApplyDciPromotionResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ApplyDciPromotionResponse setApiTaskId(String apiTaskId) {
+        this.apiTaskId = apiTaskId;
+        return this;
+    }
+    public String getApiTaskId() {
+        return this.apiTaskId;
     }
 
 }
