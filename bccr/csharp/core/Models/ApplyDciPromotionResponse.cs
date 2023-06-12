@@ -24,6 +24,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // basis数据ID
+        [NameInMap("api_task_id")]
+        [Validation(Required=false)]
+        public string ApiTaskId { get; set; }
+
     }
 
 }
