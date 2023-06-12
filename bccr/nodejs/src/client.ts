@@ -7367,11 +7367,14 @@ export class ApplyDciPromotionResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // basis数据ID
+  apiTaskId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      apiTaskId: 'api_task_id',
     };
   }
 
@@ -7380,6 +7383,7 @@ export class ApplyDciPromotionResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      apiTaskId: 'string',
     };
   }
 
@@ -8133,7 +8137,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.60",
+          sdk_version: "1.17.61",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
