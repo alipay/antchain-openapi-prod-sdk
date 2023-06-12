@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.59',
+                    'sdk_version': '1.17.60',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.59',
+                    'sdk_version': '1.17.60',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -3297,6 +3297,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.QueryDciSimilarfileResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_dci_promotion(
+        self,
+        request: bccr_models.ApplyDciPromotionRequest,
+    ) -> bccr_models.ApplyDciPromotionResponse:
+        """
+        Description: 申请渠道推广
+        Summary: 申请渠道推广
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_dci_promotion_ex(request, headers, runtime)
+
+    async def apply_dci_promotion_async(
+        self,
+        request: bccr_models.ApplyDciPromotionRequest,
+    ) -> bccr_models.ApplyDciPromotionResponse:
+        """
+        Description: 申请渠道推广
+        Summary: 申请渠道推广
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_dci_promotion_ex_async(request, headers, runtime)
+
+    def apply_dci_promotion_ex(
+        self,
+        request: bccr_models.ApplyDciPromotionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ApplyDciPromotionResponse:
+        """
+        Description: 申请渠道推广
+        Summary: 申请渠道推广
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ApplyDciPromotionResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_dci_promotion_ex_async(
+        self,
+        request: bccr_models.ApplyDciPromotionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ApplyDciPromotionResponse:
+        """
+        Description: 申请渠道推广
+        Summary: 申请渠道推广
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ApplyDciPromotionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
