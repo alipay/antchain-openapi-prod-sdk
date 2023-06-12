@@ -26,6 +26,11 @@ public class ApplyDciPromotionRequest extends TeaModel {
     @Validation(required = true)
     public String dciContentId;
 
+    // 幂等字段
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
     public static ApplyDciPromotionRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDciPromotionRequest self = new ApplyDciPromotionRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class ApplyDciPromotionRequest extends TeaModel {
     }
     public String getDciContentId() {
         return this.dciContentId;
+    }
+
+    public ApplyDciPromotionRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }
