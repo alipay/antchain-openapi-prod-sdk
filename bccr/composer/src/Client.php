@@ -21,6 +21,8 @@ use AntChain\BCCR\Models\AddHashregisterRequest;
 use AntChain\BCCR\Models\AddHashregisterResponse;
 use AntChain\BCCR\Models\AddRegisterRequest;
 use AntChain\BCCR\Models\AddRegisterResponse;
+use AntChain\BCCR\Models\ApplyDciPromotionRequest;
+use AntChain\BCCR\Models\ApplyDciPromotionResponse;
 use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
 use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
@@ -282,7 +284,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.17.59',
+                    'sdk_version'      => '1.17.60',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2110,6 +2112,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDciSimilarfileResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.similarfile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请渠道推广
+     * Summary: 申请渠道推广
+     *
+     * @param ApplyDciPromotionRequest $request
+     *
+     * @return ApplyDciPromotionResponse
+     */
+    public function applyDciPromotion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDciPromotionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请渠道推广
+     * Summary: 申请渠道推广
+     *
+     * @param ApplyDciPromotionRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyDciPromotionResponse
+     */
+    public function applyDciPromotionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDciPromotionResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.promotion.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
