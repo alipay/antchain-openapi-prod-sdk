@@ -7335,6 +7335,8 @@ export class ApplyDciPromotionRequest extends $tea.Model {
   contactPhone: string;
   // dci ID
   dciContentId: string;
+  // 幂等字段
+  clientToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7342,6 +7344,7 @@ export class ApplyDciPromotionRequest extends $tea.Model {
       contactName: 'contact_name',
       contactPhone: 'contact_phone',
       dciContentId: 'dci_content_id',
+      clientToken: 'client_token',
     };
   }
 
@@ -7352,6 +7355,7 @@ export class ApplyDciPromotionRequest extends $tea.Model {
       contactName: 'string',
       contactPhone: 'string',
       dciContentId: 'string',
+      clientToken: 'string',
     };
   }
 
@@ -8137,7 +8141,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.61",
+          sdk_version: "1.17.62",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
