@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.59"},
+                        {"sdk_version", "1.17.60"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.59"},
+                        {"sdk_version", "1.17.60"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2587,6 +2587,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDciSimilarfileResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请渠道推广
+         * Summary: 申请渠道推广
+         */
+        public ApplyDciPromotionResponse ApplyDciPromotion(ApplyDciPromotionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyDciPromotionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请渠道推广
+         * Summary: 申请渠道推广
+         */
+        public async Task<ApplyDciPromotionResponse> ApplyDciPromotionAsync(ApplyDciPromotionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyDciPromotionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请渠道推广
+         * Summary: 申请渠道推广
+         */
+        public ApplyDciPromotionResponse ApplyDciPromotionEx(ApplyDciPromotionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDciPromotionResponse>(DoRequest("1.0", "blockchain.bccr.dci.promotion.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请渠道推广
+         * Summary: 申请渠道推广
+         */
+        public async Task<ApplyDciPromotionResponse> ApplyDciPromotionExAsync(ApplyDciPromotionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyDciPromotionResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.promotion.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
