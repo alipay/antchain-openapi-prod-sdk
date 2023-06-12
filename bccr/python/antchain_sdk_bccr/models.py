@@ -12280,6 +12280,7 @@ class ApplyDciPromotionResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        api_task_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12287,6 +12288,8 @@ class ApplyDciPromotionResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # basis数据ID
+        self.api_task_id = api_task_id
 
     def validate(self):
         pass
@@ -12303,6 +12306,8 @@ class ApplyDciPromotionResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.api_task_id is not None:
+            result['api_task_id'] = self.api_task_id
         return result
 
     def from_map(self, m: dict = None):
@@ -12313,6 +12318,8 @@ class ApplyDciPromotionResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('api_task_id') is not None:
+            self.api_task_id = m.get('api_task_id')
         return self
 
 
