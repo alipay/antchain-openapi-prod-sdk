@@ -7325,6 +7325,69 @@ export class QueryDciSimilarfileResponse extends $tea.Model {
   }
 }
 
+export class ApplyDciPromotionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联系人姓名
+  contactName: string;
+  // 联系人电话
+  contactPhone: string;
+  // dci ID
+  dciContentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contactName: 'contact_name',
+      contactPhone: 'contact_phone',
+      dciContentId: 'dci_content_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contactName: 'string',
+      contactPhone: 'string',
+      dciContentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDciPromotionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8070,7 +8133,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.59",
+          sdk_version: "1.17.60",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -9142,6 +9205,25 @@ export default class Client {
   async queryDciSimilarfileEx(request: QueryDciSimilarfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciSimilarfileResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDciSimilarfileResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.similarfile.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciSimilarfileResponse({}));
+  }
+
+  /**
+   * Description: 申请渠道推广
+   * Summary: 申请渠道推广
+   */
+  async applyDciPromotion(request: ApplyDciPromotionRequest): Promise<ApplyDciPromotionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDciPromotionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 申请渠道推广
+   * Summary: 申请渠道推广
+   */
+  async applyDciPromotionEx(request: ApplyDciPromotionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDciPromotionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDciPromotionResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.promotion.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDciPromotionResponse({}));
   }
 
   /**
