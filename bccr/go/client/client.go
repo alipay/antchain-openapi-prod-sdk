@@ -9959,6 +9959,8 @@ type ApplyDciPromotionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// basis数据ID
+	ApiTaskId *string `json:"api_task_id,omitempty" xml:"api_task_id,omitempty"`
 }
 
 func (s ApplyDciPromotionResponse) String() string {
@@ -9981,6 +9983,11 @@ func (s *ApplyDciPromotionResponse) SetResultCode(v string) *ApplyDciPromotionRe
 
 func (s *ApplyDciPromotionResponse) SetResultMsg(v string) *ApplyDciPromotionResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDciPromotionResponse) SetApiTaskId(v string) *ApplyDciPromotionResponse {
+	s.ApiTaskId = &v
 	return s
 }
 
@@ -10946,7 +10953,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.60"),
+				"sdk_version":      tea.String("1.17.61"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
