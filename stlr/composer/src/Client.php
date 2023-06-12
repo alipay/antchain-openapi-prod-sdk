@@ -43,6 +43,10 @@ use AntChain\STLR\Models\DetailEcarAvitivedataRequest;
 use AntChain\STLR\Models\DetailEcarAvitivedataResponse;
 use AntChain\STLR\Models\DetailEcarEnterprisememberRequest;
 use AntChain\STLR\Models\DetailEcarEnterprisememberResponse;
+use AntChain\STLR\Models\DetailEcarOffsetdatumRequest;
+use AntChain\STLR\Models\DetailEcarOffsetdatumResponse;
+use AntChain\STLR\Models\DetailEcarOffsettranslateRequest;
+use AntChain\STLR\Models\DetailEcarOffsettranslateResponse;
 use AntChain\STLR\Models\GetPdcpBlockchainRequest;
 use AntChain\STLR\Models\GetPdcpBlockchainResponse;
 use AntChain\STLR\Models\ListEcarEnterprisememberRequest;
@@ -238,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.4.0',
+                    'sdk_version'      => '2.5.0',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1556,6 +1560,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryEcarOffsetaccountResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询碳补偿数据详情
+     * Summary: 碳补偿数据详情.
+     *
+     * @param DetailEcarOffsetdatumRequest $request
+     *
+     * @return DetailEcarOffsetdatumResponse
+     */
+    public function detailEcarOffsetdatum($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailEcarOffsetdatumEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询碳补偿数据详情
+     * Summary: 碳补偿数据详情.
+     *
+     * @param DetailEcarOffsetdatumRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DetailEcarOffsetdatumResponse
+     */
+    public function detailEcarOffsetdatumEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailEcarOffsetdatumResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsetdatum.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询碳普惠减碳量转移记录详情
+     * Summary: 碳普惠减碳量转移记录详情.
+     *
+     * @param DetailEcarOffsettranslateRequest $request
+     *
+     * @return DetailEcarOffsettranslateResponse
+     */
+    public function detailEcarOffsettranslate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailEcarOffsettranslateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询碳普惠减碳量转移记录详情
+     * Summary: 碳普惠减碳量转移记录详情.
+     *
+     * @param DetailEcarOffsettranslateRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DetailEcarOffsettranslateResponse
+     */
+    public function detailEcarOffsettranslateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailEcarOffsettranslateResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsettranslate.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
