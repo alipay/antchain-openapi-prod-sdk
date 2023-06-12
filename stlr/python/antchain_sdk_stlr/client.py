@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.4.0',
+                    'sdk_version': '2.5.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.4.0',
+                    'sdk_version': '2.5.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2435,6 +2435,118 @@ class Client:
         return TeaCore.from_map(
             stlr_models.QueryEcarOffsetaccountResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_ecar_offsetdatum(
+        self,
+        request: stlr_models.DetailEcarOffsetdatumRequest,
+    ) -> stlr_models.DetailEcarOffsetdatumResponse:
+        """
+        Description: 查询碳补偿数据详情
+        Summary: 碳补偿数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_ecar_offsetdatum_ex(request, headers, runtime)
+
+    async def detail_ecar_offsetdatum_async(
+        self,
+        request: stlr_models.DetailEcarOffsetdatumRequest,
+    ) -> stlr_models.DetailEcarOffsetdatumResponse:
+        """
+        Description: 查询碳补偿数据详情
+        Summary: 碳补偿数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_ecar_offsetdatum_ex_async(request, headers, runtime)
+
+    def detail_ecar_offsetdatum_ex(
+        self,
+        request: stlr_models.DetailEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarOffsetdatumResponse:
+        """
+        Description: 查询碳补偿数据详情
+        Summary: 碳补偿数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarOffsetdatumResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsetdatum.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_ecar_offsetdatum_ex_async(
+        self,
+        request: stlr_models.DetailEcarOffsetdatumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarOffsetdatumResponse:
+        """
+        Description: 查询碳补偿数据详情
+        Summary: 碳补偿数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarOffsetdatumResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsetdatum.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_ecar_offsettranslate(
+        self,
+        request: stlr_models.DetailEcarOffsettranslateRequest,
+    ) -> stlr_models.DetailEcarOffsettranslateResponse:
+        """
+        Description: 查询碳普惠减碳量转移记录详情
+        Summary: 碳普惠减碳量转移记录详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_ecar_offsettranslate_ex(request, headers, runtime)
+
+    async def detail_ecar_offsettranslate_async(
+        self,
+        request: stlr_models.DetailEcarOffsettranslateRequest,
+    ) -> stlr_models.DetailEcarOffsettranslateResponse:
+        """
+        Description: 查询碳普惠减碳量转移记录详情
+        Summary: 碳普惠减碳量转移记录详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_ecar_offsettranslate_ex_async(request, headers, runtime)
+
+    def detail_ecar_offsettranslate_ex(
+        self,
+        request: stlr_models.DetailEcarOffsettranslateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarOffsettranslateResponse:
+        """
+        Description: 查询碳普惠减碳量转移记录详情
+        Summary: 碳普惠减碳量转移记录详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarOffsettranslateResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.offsettranslate.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_ecar_offsettranslate_ex_async(
+        self,
+        request: stlr_models.DetailEcarOffsettranslateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailEcarOffsettranslateResponse:
+        """
+        Description: 查询碳普惠减碳量转移记录详情
+        Summary: 碳普惠减碳量转移记录详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailEcarOffsettranslateResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.offsettranslate.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
