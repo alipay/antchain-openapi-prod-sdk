@@ -19,6 +19,8 @@ use AntChain\MYTC\Models\AddCodeRelationRequest;
 use AntChain\MYTC\Models\AddCodeRelationResponse;
 use AntChain\MYTC\Models\CheckCodeFakeRequest;
 use AntChain\MYTC\Models\CheckCodeFakeResponse;
+use AntChain\MYTC\Models\CheckCodeFakescreenRequest;
+use AntChain\MYTC\Models\CheckCodeFakescreenResponse;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\MYTC\Models\CreateAntiQrcodeimageRequest;
@@ -206,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.2',
+                    'sdk_version'      => '1.5.1',
                     '_prod_code'       => 'MYTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -354,6 +356,57 @@ class Client
         Utils::validateModel($request);
 
         return CheckCodeFakeResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.fake.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二维码防伪防屏拍图片验证
+     * Summary: 二维码防伪防屏拍图片验证
+     *
+     * @param CheckCodeFakescreenRequest $request
+     *
+     * @return CheckCodeFakescreenResponse
+     */
+    public function checkCodeFakescreen($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkCodeFakescreenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二维码防伪防屏拍图片验证
+     * Summary: 二维码防伪防屏拍图片验证
+     *
+     * @param CheckCodeFakescreenRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CheckCodeFakescreenResponse
+     */
+    public function checkCodeFakescreenEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.mytc.code.fakescreen.check',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CheckCodeFakescreenResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return CheckCodeFakescreenResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

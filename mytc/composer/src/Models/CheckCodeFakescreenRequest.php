@@ -7,7 +7,7 @@ namespace AntChain\MYTC\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class UploadAntiImagesyncRequest extends Model
+class CheckCodeFakescreenRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,13 +20,13 @@ class UploadAntiImagesyncRequest extends Model
      */
     public $productInstanceId;
 
-    // 防伪码码值
+    // 设备型号
     /**
      * @var string
      */
-    public $code;
+    public $deviceType;
 
-    // 文件id
+    // 闪光前图片
     /**
      * @description 待上传文件
      *
@@ -46,23 +46,33 @@ class UploadAntiImagesyncRequest extends Model
      */
     public $fileId;
 
-    // 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
+    // 配对标识，闪光前后需要用同一个配对标识。
     /**
      * @var string
      */
-    public $batchNo;
+    public $pairId;
+
+    // 文件类型.
+    // unflashed: 未闪光图片
+    // flashed: 闪光后图片
+    /**
+     * @var string
+     */
+    public $fileType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'code'              => 'code',
+        'deviceType'        => 'device_type',
         'fileId'            => 'file_id',
-        'batchNo'           => 'batch_no',
+        'pairId'            => 'pair_id',
+        'fileType'          => 'file_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('code', $this->code, true);
         Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('pairId', $this->pairId, true);
+        Model::validateRequired('fileType', $this->fileType, true);
     }
 
     public function toMap()
@@ -74,8 +84,8 @@ class UploadAntiImagesyncRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
+        if (null !== $this->deviceType) {
+            $res['device_type'] = $this->deviceType;
         }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
@@ -86,8 +96,11 @@ class UploadAntiImagesyncRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->batchNo) {
-            $res['batch_no'] = $this->batchNo;
+        if (null !== $this->pairId) {
+            $res['pair_id'] = $this->pairId;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
         }
 
         return $res;
@@ -96,7 +109,7 @@ class UploadAntiImagesyncRequest extends Model
     /**
      * @param array $map
      *
-     * @return UploadAntiImagesyncRequest
+     * @return CheckCodeFakescreenRequest
      */
     public static function fromMap($map = [])
     {
@@ -107,8 +120,8 @@ class UploadAntiImagesyncRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
+        if (isset($map['device_type'])) {
+            $model->deviceType = $map['device_type'];
         }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
@@ -119,8 +132,11 @@ class UploadAntiImagesyncRequest extends Model
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
         }
-        if (isset($map['batch_no'])) {
-            $model->batchNo = $map['batch_no'];
+        if (isset($map['pair_id'])) {
+            $model->pairId = $map['pair_id'];
+        }
+        if (isset($map['file_type'])) {
+            $model->fileType = $map['file_type'];
         }
 
         return $model;

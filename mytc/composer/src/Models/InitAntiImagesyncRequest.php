@@ -46,7 +46,6 @@ class InitAntiImagesyncRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('codeType', $this->codeType, true);
         Model::validateRequired('batchNo', $this->batchNo, true);
         Model::validateRequired('total', $this->total, true);
     }

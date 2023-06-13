@@ -24,23 +24,15 @@ class FinishAntiImagesyncRequest extends Model
      * @var string
      */
     public $batchNo;
-
-    // 防伪码类型
-    /**
-     * @var string
-     */
-    public $codeType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'batchNo'           => 'batch_no',
-        'codeType'          => 'code_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('batchNo', $this->batchNo, true);
-        Model::validateRequired('codeType', $this->codeType, true);
     }
 
     public function toMap()
@@ -54,9 +46,6 @@ class FinishAntiImagesyncRequest extends Model
         }
         if (null !== $this->batchNo) {
             $res['batch_no'] = $this->batchNo;
-        }
-        if (null !== $this->codeType) {
-            $res['code_type'] = $this->codeType;
         }
 
         return $res;
@@ -78,9 +67,6 @@ class FinishAntiImagesyncRequest extends Model
         }
         if (isset($map['batch_no'])) {
             $model->batchNo = $map['batch_no'];
-        }
-        if (isset($map['code_type'])) {
-            $model->codeType = $map['code_type'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\MYTC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class FinishAntiImagesyncResponse extends Model
+class CheckCodeFakescreenResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,24 +26,30 @@ class FinishAntiImagesyncResponse extends Model
      */
     public $resultMsg;
 
-    // 批次号
+    // 验真是否成功
+    /**
+     * @var bool
+     */
+    public $detectSuccess;
+
+    // 返回编码
     /**
      * @var string
      */
-    public $batchNo;
+    public $detectCode;
 
-    // 该批次号，已上传底图次数
-    //
+    // 调用返回信息
     /**
-     * @var int
+     * @var string
      */
-    public $count;
+    public $detectMessage;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'batchNo'    => 'batch_no',
-        'count'      => 'count',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'detectSuccess' => 'detect_success',
+        'detectCode'    => 'detect_code',
+        'detectMessage' => 'detect_message',
     ];
 
     public function validate()
@@ -62,11 +68,14 @@ class FinishAntiImagesyncResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->batchNo) {
-            $res['batch_no'] = $this->batchNo;
+        if (null !== $this->detectSuccess) {
+            $res['detect_success'] = $this->detectSuccess;
         }
-        if (null !== $this->count) {
-            $res['count'] = $this->count;
+        if (null !== $this->detectCode) {
+            $res['detect_code'] = $this->detectCode;
+        }
+        if (null !== $this->detectMessage) {
+            $res['detect_message'] = $this->detectMessage;
         }
 
         return $res;
@@ -75,7 +84,7 @@ class FinishAntiImagesyncResponse extends Model
     /**
      * @param array $map
      *
-     * @return FinishAntiImagesyncResponse
+     * @return CheckCodeFakescreenResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,11 +98,14 @@ class FinishAntiImagesyncResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['batch_no'])) {
-            $model->batchNo = $map['batch_no'];
+        if (isset($map['detect_success'])) {
+            $model->detectSuccess = $map['detect_success'];
         }
-        if (isset($map['count'])) {
-            $model->count = $map['count'];
+        if (isset($map['detect_code'])) {
+            $model->detectCode = $map['detect_code'];
+        }
+        if (isset($map['detect_message'])) {
+            $model->detectMessage = $map['detect_message'];
         }
 
         return $model;

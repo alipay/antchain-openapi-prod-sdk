@@ -45,23 +45,16 @@ class CheckCodeFakeRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // Base64格式的图片数据
-    //
-    /**
-     * @var string
-     */
-    public $imageStr;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceType'        => 'device_type',
         'fileId'            => 'file_id',
-        'imageStr'          => 'image_str',
     ];
 
     public function validate()
     {
+        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
@@ -84,9 +77,6 @@ class CheckCodeFakeRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->imageStr) {
-            $res['image_str'] = $this->imageStr;
         }
 
         return $res;
@@ -117,9 +107,6 @@ class CheckCodeFakeRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['image_str'])) {
-            $model->imageStr = $map['image_str'];
         }
 
         return $model;

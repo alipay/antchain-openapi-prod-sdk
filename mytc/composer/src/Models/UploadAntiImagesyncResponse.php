@@ -31,11 +31,25 @@ class UploadAntiImagesyncResponse extends Model
      * @var string
      */
     public $code;
+
+    // 批次号
+    /**
+     * @var string
+     */
+    public $batchNo;
+
+    // 该批次号，已上传底图次数
+    /**
+     * @var int
+     */
+    public $count;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'code'       => 'code',
+        'batchNo'    => 'batch_no',
+        'count'      => 'count',
     ];
 
     public function validate()
@@ -56,6 +70,12 @@ class UploadAntiImagesyncResponse extends Model
         }
         if (null !== $this->code) {
             $res['code'] = $this->code;
+        }
+        if (null !== $this->batchNo) {
+            $res['batch_no'] = $this->batchNo;
+        }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
         }
 
         return $res;
@@ -80,6 +100,12 @@ class UploadAntiImagesyncResponse extends Model
         }
         if (isset($map['code'])) {
             $model->code = $map['code'];
+        }
+        if (isset($map['batch_no'])) {
+            $model->batchNo = $map['batch_no'];
+        }
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
         }
 
         return $model;
