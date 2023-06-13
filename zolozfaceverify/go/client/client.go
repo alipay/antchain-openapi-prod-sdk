@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -2615,6 +2615,125 @@ func (s *VerifyFaceauthVideoResponse) SetResultMsgSub(v string) *VerifyFaceauthV
 	return s
 }
 
+type InitFaceauthNfcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 身份，需要公钥加密
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 客户端采集
+	Metainfo *string `json:"metainfo,omitempty" xml:"metainfo,omitempty" require:"true"`
+	// 外部参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+}
+
+func (s InitFaceauthNfcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthNfcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthNfcRequest) SetAuthToken(v string) *InitFaceauthNfcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetProductInstanceId(v string) *InitFaceauthNfcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetBizId(v string) *InitFaceauthNfcRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetIdentityParam(v string) *InitFaceauthNfcRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetMetainfo(v string) *InitFaceauthNfcRequest {
+	s.Metainfo = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetExternParam(v string) *InitFaceauthNfcRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *InitFaceauthNfcRequest) SetOperationType(v string) *InitFaceauthNfcRequest {
+	s.OperationType = &v
+	return s
+}
+
+type InitFaceauthNfcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// z-abcd
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 结果码
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// 结果信息
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s InitFaceauthNfcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthNfcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthNfcResponse) SetReqMsgId(v string) *InitFaceauthNfcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetResultCode(v string) *InitFaceauthNfcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetResultMsg(v string) *InitFaceauthNfcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetZimId(v string) *InitFaceauthNfcResponse {
+	s.ZimId = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetExternInfo(v string) *InitFaceauthNfcResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetResultCodeSub(v string) *InitFaceauthNfcResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *InitFaceauthNfcResponse) SetResultMsgSub(v string) *InitFaceauthNfcResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2693,17 +2812,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -2737,7 +2856,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.0"),
+				"sdk_version":      tea.String("1.6.0"),
+				"_prod_code":       tea.String("ZOLOZFACEVERIFY"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2763,8 +2884,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -3458,6 +3587,40 @@ func (client *Client) VerifyFaceauthVideoEx(request *VerifyFaceauthVideoRequest,
 	}
 	_result = &VerifyFaceauthVideoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.video.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实证NFC服务端初始化
+ * Summary: 实证NFC服务端初始化
+ */
+func (client *Client) InitFaceauthNfc(request *InitFaceauthNfcRequest) (_result *InitFaceauthNfcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitFaceauthNfcResponse{}
+	_body, _err := client.InitFaceauthNfcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实证NFC服务端初始化
+ * Summary: 实证NFC服务端初始化
+ */
+func (client *Client) InitFaceauthNfcEx(request *InitFaceauthNfcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitFaceauthNfcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitFaceauthNfcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.nfc.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
