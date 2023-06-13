@@ -3358,8 +3358,8 @@ type QueryApplicationUnifiedentranceRequest struct {
 	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
 	// 是否授权
 	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
-	// 待获取数据类型对应的服务id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 数据集服务id
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
 }
 
 func (s QueryApplicationUnifiedentranceRequest) String() string {
@@ -3395,8 +3395,8 @@ func (s *QueryApplicationUnifiedentranceRequest) SetUserAuthed(v bool) *QueryApp
 	return s
 }
 
-func (s *QueryApplicationUnifiedentranceRequest) SetServiceId(v string) *QueryApplicationUnifiedentranceRequest {
-	s.ServiceId = &v
+func (s *QueryApplicationUnifiedentranceRequest) SetDataSetId(v string) *QueryApplicationUnifiedentranceRequest {
+	s.DataSetId = &v
 	return s
 }
 
@@ -5242,7 +5242,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.52"),
+				"sdk_version":      tea.String("1.1.53"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
