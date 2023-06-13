@@ -2321,6 +2321,8 @@ type DataModel struct {
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// 用户自定义版本
 	CustomerVersion *string `json:"customer_version,omitempty" xml:"customer_version,omitempty"`
+	// 数据样例
+	DataDemo *string `json:"data_demo,omitempty" xml:"data_demo,omitempty"`
 }
 
 func (s DataModel) String() string {
@@ -2353,6 +2355,11 @@ func (s *DataModel) SetBizType(v string) *DataModel {
 
 func (s *DataModel) SetCustomerVersion(v string) *DataModel {
 	s.CustomerVersion = &v
+	return s
+}
+
+func (s *DataModel) SetDataDemo(v string) *DataModel {
+	s.DataDemo = &v
 	return s
 }
 
@@ -2932,7 +2939,7 @@ type XrUserTicketDetail struct {
 	// 实例名称
 	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
 	// 体验时长，分
-	TestTime *string `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
 	// vr应用集合
 	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
 }
@@ -3020,7 +3027,7 @@ func (s *XrUserTicketDetail) SetInstanceName(v string) *XrUserTicketDetail {
 	return s
 }
 
-func (s *XrUserTicketDetail) SetTestTime(v string) *XrUserTicketDetail {
+func (s *XrUserTicketDetail) SetTestTime(v int64) *XrUserTicketDetail {
 	s.TestTime = &v
 	return s
 }
@@ -3447,6 +3454,8 @@ type XrVerificationModelVo struct {
 	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
 	// 对应线下场名称
 	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+	// 核销类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s XrVerificationModelVo) String() string {
@@ -3489,6 +3498,44 @@ func (s *XrVerificationModelVo) SetResourceId(v string) *XrVerificationModelVo {
 
 func (s *XrVerificationModelVo) SetResourceName(v string) *XrVerificationModelVo {
 	s.ResourceName = &v
+	return s
+}
+
+func (s *XrVerificationModelVo) SetType(v string) *XrVerificationModelVo {
+	s.Type = &v
+	return s
+}
+
+// 业务状态信息
+type BizStatusInfoOp struct {
+	// 业务状态类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 业务状态
+	BizStatus *string `json:"biz_status,omitempty" xml:"biz_status,omitempty" require:"true"`
+	// 时间
+	OpTime *string `json:"op_time,omitempty" xml:"op_time,omitempty" require:"true"`
+}
+
+func (s BizStatusInfoOp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizStatusInfoOp) GoString() string {
+	return s.String()
+}
+
+func (s *BizStatusInfoOp) SetBizType(v string) *BizStatusInfoOp {
+	s.BizType = &v
+	return s
+}
+
+func (s *BizStatusInfoOp) SetBizStatus(v string) *BizStatusInfoOp {
+	s.BizStatus = &v
+	return s
+}
+
+func (s *BizStatusInfoOp) SetOpTime(v string) *BizStatusInfoOp {
+	s.OpTime = &v
 	return s
 }
 
@@ -4026,33 +4073,33 @@ func (s *RegByDeviceParm) SetDeviceName(v string) *RegByDeviceParm {
 // xr通行证券池分页返回
 type XrTicketPoolItem struct {
 	// 业务类型
-	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty"`
 	// 通行证名称
-	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty"`
 	// 资源id
-	ResourceId *int64 `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
 	// 有效期
-	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty"`
 	// 体验时长
-	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty"`
 	// 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
-	UseStatus *string `json:"use_status,omitempty" xml:"use_status,omitempty" require:"true"`
+	UseStatus *string `json:"use_status,omitempty" xml:"use_status,omitempty"`
 	// 资源名称
-	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty" require:"true"`
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty"`
 	// 设备集合
 	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
 	// 券池最大票数
-	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty"`
 	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 核销类型
-	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty"`
 	// 剩余可用券数量
-	SurplusCount *int64 `json:"surplus_count,omitempty" xml:"surplus_count,omitempty" require:"true"`
+	SurplusCount *int64 `json:"surplus_count,omitempty" xml:"surplus_count,omitempty"`
 	// 已发放数量 （总数-剩余数量）
-	IssuedCount *int64 `json:"issued_count,omitempty" xml:"issued_count,omitempty" require:"true"`
+	IssuedCount *int64 `json:"issued_count,omitempty" xml:"issued_count,omitempty"`
 }
 
 func (s XrTicketPoolItem) String() string {
@@ -4073,7 +4120,7 @@ func (s *XrTicketPoolItem) SetXrTicketPoolName(v string) *XrTicketPoolItem {
 	return s
 }
 
-func (s *XrTicketPoolItem) SetResourceId(v int64) *XrTicketPoolItem {
+func (s *XrTicketPoolItem) SetResourceId(v string) *XrTicketPoolItem {
 	s.ResourceId = &v
 	return s
 }
@@ -4489,6 +4536,8 @@ func (s *BaiGoodsComparisonReqData) SetOutState(v string) *BaiGoodsComparisonReq
 type SendCollectorResult struct {
 	// 数据内容content的上链交易哈希
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 原入参的数组索引
+	OriginalIndex *int64 `json:"original_index,omitempty" xml:"original_index,omitempty" require:"true"`
 }
 
 func (s SendCollectorResult) String() string {
@@ -4501,6 +4550,11 @@ func (s SendCollectorResult) GoString() string {
 
 func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
 	s.TxHash = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetOriginalIndex(v int64) *SendCollectorResult {
+	s.OriginalIndex = &v
 	return s
 }
 
@@ -4776,6 +4830,8 @@ type TrustiotDeviceIdMap struct {
 	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty" require:"true"`
 	// 设备ID
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 设备注册的上链哈希
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
 }
 
 func (s TrustiotDeviceIdMap) String() string {
@@ -4793,6 +4849,11 @@ func (s *TrustiotDeviceIdMap) SetTrustiotDeviceId(v int64) *TrustiotDeviceIdMap 
 
 func (s *TrustiotDeviceIdMap) SetDeviceId(v string) *TrustiotDeviceIdMap {
 	s.DeviceId = &v
+	return s
+}
+
+func (s *TrustiotDeviceIdMap) SetChainDeviceId(v string) *TrustiotDeviceIdMap {
+	s.ChainDeviceId = &v
 	return s
 }
 
@@ -5775,8 +5836,6 @@ func (s *DidBaseQueryResp) SetDid(v string) *DidBaseQueryResp {
 
 // 用户通行证创建详情
 type XrUserTicketInfo struct {
-	// xr通行证资源池id
-	XrTicketPoolId *int64 `json:"xr_ticket_pool_id,omitempty" xml:"xr_ticket_pool_id,omitempty" require:"true"`
 	// xr通行证资源池名称
 	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
 	// 购买数量
@@ -5789,11 +5848,6 @@ func (s XrUserTicketInfo) String() string {
 
 func (s XrUserTicketInfo) GoString() string {
 	return s.String()
-}
-
-func (s *XrUserTicketInfo) SetXrTicketPoolId(v int64) *XrUserTicketInfo {
-	s.XrTicketPoolId = &v
-	return s
 }
 
 func (s *XrUserTicketInfo) SetXrTicketPoolName(v string) *XrUserTicketInfo {
@@ -7602,13 +7656,15 @@ type PagequeryXrXrverificationmodelRequest struct {
 	// 设备sn
 	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
 	// 设备did
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
 	// 当前页
 	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
 	// 每页大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 业务类型
 	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 核销类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
 func (s PagequeryXrXrverificationmodelRequest) String() string {
@@ -7661,6 +7717,11 @@ func (s *PagequeryXrXrverificationmodelRequest) SetPageSize(v int64) *PagequeryX
 
 func (s *PagequeryXrXrverificationmodelRequest) SetBizScene(v string) *PagequeryXrXrverificationmodelRequest {
 	s.BizScene = &v
+	return s
+}
+
+func (s *PagequeryXrXrverificationmodelRequest) SetType(v string) *PagequeryXrXrverificationmodelRequest {
+	s.Type = &v
 	return s
 }
 
@@ -7754,6 +7815,8 @@ type PagequeryXrCustomerdeviceRequest struct {
 	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
 	// 每页数据
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 业务类型
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
 }
 
 func (s PagequeryXrCustomerdeviceRequest) String() string {
@@ -7801,6 +7864,11 @@ func (s *PagequeryXrCustomerdeviceRequest) SetCurrent(v int64) *PagequeryXrCusto
 
 func (s *PagequeryXrCustomerdeviceRequest) SetPageSize(v int64) *PagequeryXrCustomerdeviceRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryXrCustomerdeviceRequest) SetBizScene(v string) *PagequeryXrCustomerdeviceRequest {
+	s.BizScene = &v
 	return s
 }
 
@@ -8011,8 +8079,8 @@ type UpdateXrXrticketpoolRequest struct {
 	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty"`
 	// vr设备集合
 	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
-	// 券池数量，能发多少张券
-	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty"`
+	// 券池剩余数量
+	SurplusCount *int64 `json:"surplus_count,omitempty" xml:"surplus_count,omitempty"`
 	// 核销类型，资源id改变时必须有值
 	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty"`
 	// 业务类型
@@ -8062,8 +8130,8 @@ func (s *UpdateXrXrticketpoolRequest) SetXrApps(v string) *UpdateXrXrticketpoolR
 	return s
 }
 
-func (s *UpdateXrXrticketpoolRequest) SetMaxPoolCount(v int64) *UpdateXrXrticketpoolRequest {
-	s.MaxPoolCount = &v
+func (s *UpdateXrXrticketpoolRequest) SetSurplusCount(v int64) *UpdateXrXrticketpoolRequest {
+	s.SurplusCount = &v
 	return s
 }
 
@@ -8621,6 +8689,132 @@ func (s *DetailXrXrticketpoolResponse) SetSuccess(v bool) *DetailXrXrticketpoolR
 
 func (s *DetailXrXrticketpoolResponse) SetXrTicketPoolDetail(v *XrTicketPoolItem) *DetailXrXrticketpoolResponse {
 	s.XrTicketPoolDetail = v
+	return s
+}
+
+type OperateAiotnextbsOpenapiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 操作类型
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
+	// 参数签名
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty" require:"true"`
+	// 业务操作类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 类名（实现类），首字母小写
+	InterfaceName *string `json:"interface_name,omitempty" xml:"interface_name,omitempty" require:"true"`
+	// 方法名
+	MethodName *string `json:"method_name,omitempty" xml:"method_name,omitempty" require:"true"`
+	// 参数类路径
+	ParamClass *string `json:"param_class,omitempty" xml:"param_class,omitempty" require:"true"`
+	// 参数数据
+	ParamList *string `json:"param_list,omitempty" xml:"param_list,omitempty" require:"true"`
+}
+
+func (s OperateAiotnextbsOpenapiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAiotnextbsOpenapiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetAuthToken(v string) *OperateAiotnextbsOpenapiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetProductInstanceId(v string) *OperateAiotnextbsOpenapiRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetOperateType(v string) *OperateAiotnextbsOpenapiRequest {
+	s.OperateType = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetParamSign(v string) *OperateAiotnextbsOpenapiRequest {
+	s.ParamSign = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetBizType(v string) *OperateAiotnextbsOpenapiRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetOperatorId(v string) *OperateAiotnextbsOpenapiRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetInterfaceName(v string) *OperateAiotnextbsOpenapiRequest {
+	s.InterfaceName = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetMethodName(v string) *OperateAiotnextbsOpenapiRequest {
+	s.MethodName = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetParamClass(v string) *OperateAiotnextbsOpenapiRequest {
+	s.ParamClass = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiRequest) SetParamList(v string) *OperateAiotnextbsOpenapiRequest {
+	s.ParamList = &v
+	return s
+}
+
+type OperateAiotnextbsOpenapiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果数据
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s OperateAiotnextbsOpenapiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAiotnextbsOpenapiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAiotnextbsOpenapiResponse) SetReqMsgId(v string) *OperateAiotnextbsOpenapiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiResponse) SetResultCode(v string) *OperateAiotnextbsOpenapiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiResponse) SetResultMsg(v string) *OperateAiotnextbsOpenapiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiResponse) SetSuccess(v bool) *OperateAiotnextbsOpenapiResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *OperateAiotnextbsOpenapiResponse) SetResult(v string) *OperateAiotnextbsOpenapiResponse {
+	s.Result = &v
 	return s
 }
 
@@ -11777,9 +11971,11 @@ type SyncIotbasicDevicestatusRequest struct {
 	// 设备did
 	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
 	// 设备状态
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
 	// 设备签名
 	DeviceSignature *string `json:"device_signature,omitempty" xml:"device_signature,omitempty" require:"true"`
+	// 业务状态
+	BizStatusInfo *BizStatusInfoOp `json:"biz_status_info,omitempty" xml:"biz_status_info,omitempty"`
 }
 
 func (s SyncIotbasicDevicestatusRequest) String() string {
@@ -11812,6 +12008,11 @@ func (s *SyncIotbasicDevicestatusRequest) SetDeviceStatus(v string) *SyncIotbasi
 
 func (s *SyncIotbasicDevicestatusRequest) SetDeviceSignature(v string) *SyncIotbasicDevicestatusRequest {
 	s.DeviceSignature = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusRequest) SetBizStatusInfo(v *BizStatusInfoOp) *SyncIotbasicDevicestatusRequest {
+	s.BizStatusInfo = v
 	return s
 }
 
@@ -14180,6 +14381,97 @@ func (s *SaveIotbasicCustomerResponse) SetSuccess(v bool) *SaveIotbasicCustomerR
 	return s
 }
 
+type NotifyThirddeviceMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备信息同步命令
+	Command *string `json:"command,omitempty" xml:"command,omitempty" require:"true"`
+	// 设备签名，用设备pri_key 进行签名，只对deviceDid加签
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s NotifyThirddeviceMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyThirddeviceMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyThirddeviceMessageRequest) SetAuthToken(v string) *NotifyThirddeviceMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageRequest) SetProductInstanceId(v string) *NotifyThirddeviceMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageRequest) SetDeviceDid(v string) *NotifyThirddeviceMessageRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageRequest) SetCommand(v string) *NotifyThirddeviceMessageRequest {
+	s.Command = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageRequest) SetSignature(v string) *NotifyThirddeviceMessageRequest {
+	s.Signature = &v
+	return s
+}
+
+type NotifyThirddeviceMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 设备信息同步命令
+	Command *string `json:"command,omitempty" xml:"command,omitempty"`
+}
+
+func (s NotifyThirddeviceMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyThirddeviceMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetReqMsgId(v string) *NotifyThirddeviceMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetResultCode(v string) *NotifyThirddeviceMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetResultMsg(v string) *NotifyThirddeviceMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetSuccess(v bool) *NotifyThirddeviceMessageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *NotifyThirddeviceMessageResponse) SetCommand(v string) *NotifyThirddeviceMessageResponse {
+	s.Command = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -14861,6 +15153,8 @@ type CreateDeviceDatamodelRequest struct {
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// 用户自定义版本
 	CustomerVersion *string `json:"customer_version,omitempty" xml:"customer_version,omitempty"`
+	// 数据样例
+	DataDemo *string `json:"data_demo,omitempty" xml:"data_demo,omitempty"`
 }
 
 func (s CreateDeviceDatamodelRequest) String() string {
@@ -14898,6 +15192,11 @@ func (s *CreateDeviceDatamodelRequest) SetBizType(v string) *CreateDeviceDatamod
 
 func (s *CreateDeviceDatamodelRequest) SetCustomerVersion(v string) *CreateDeviceDatamodelRequest {
 	s.CustomerVersion = &v
+	return s
+}
+
+func (s *CreateDeviceDatamodelRequest) SetDataDemo(v string) *CreateDeviceDatamodelRequest {
+	s.DataDemo = &v
 	return s
 }
 
@@ -17986,6 +18285,8 @@ type SendCollectorBychainidmulRequest struct {
 	//
 	//
 	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+	// 开启后接口返回值中包含txHash
+	WaitCheckAndHash *bool `json:"wait_check_and_hash,omitempty" xml:"wait_check_and_hash,omitempty" require:"true"`
 }
 
 func (s SendCollectorBychainidmulRequest) String() string {
@@ -18016,6 +18317,11 @@ func (s *SendCollectorBychainidmulRequest) SetNonce(v string) *SendCollectorBych
 	return s
 }
 
+func (s *SendCollectorBychainidmulRequest) SetWaitCheckAndHash(v bool) *SendCollectorBychainidmulRequest {
+	s.WaitCheckAndHash = &v
+	return s
+}
+
 type SendCollectorBychainidmulResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -18023,6 +18329,8 @@ type SendCollectorBychainidmulResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据上链哈希
+	ResultList []*SendCollectorResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 }
 
 func (s SendCollectorBychainidmulResponse) String() string {
@@ -18048,6 +18356,11 @@ func (s *SendCollectorBychainidmulResponse) SetResultMsg(v string) *SendCollecto
 	return s
 }
 
+func (s *SendCollectorBychainidmulResponse) SetResultList(v []*SendCollectorResult) *SendCollectorBychainidmulResponse {
+	s.ResultList = v
+	return s
+}
+
 type SendCollectorDevicebizdataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18064,6 +18377,8 @@ type SendCollectorDevicebizdataRequest struct {
 	Content []*BizContentGroup `json:"content,omitempty" xml:"content,omitempty" require:"true" type:"Repeated"`
 	// 场景码，与content中的chainDeviceId至少有一个不为空
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 开启后，接口返回值中包含txHash
+	WaitCheckAndHash *bool `json:"wait_check_and_hash,omitempty" xml:"wait_check_and_hash,omitempty" require:"true"`
 }
 
 func (s SendCollectorDevicebizdataRequest) String() string {
@@ -18104,6 +18419,11 @@ func (s *SendCollectorDevicebizdataRequest) SetScene(v string) *SendCollectorDev
 	return s
 }
 
+func (s *SendCollectorDevicebizdataRequest) SetWaitCheckAndHash(v bool) *SendCollectorDevicebizdataRequest {
+	s.WaitCheckAndHash = &v
+	return s
+}
+
 type SendCollectorDevicebizdataResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -18111,6 +18431,8 @@ type SendCollectorDevicebizdataResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据上链哈希
+	ResultList []*SendCollectorResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 }
 
 func (s SendCollectorDevicebizdataResponse) String() string {
@@ -18133,6 +18455,11 @@ func (s *SendCollectorDevicebizdataResponse) SetResultCode(v string) *SendCollec
 
 func (s *SendCollectorDevicebizdataResponse) SetResultMsg(v string) *SendCollectorDevicebizdataResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendCollectorDevicebizdataResponse) SetResultList(v []*SendCollectorResult) *SendCollectorDevicebizdataResponse {
+	s.ResultList = v
 	return s
 }
 
@@ -23080,6 +23407,162 @@ func (s *DetailThingmodelDeviceResponse) SetSdkVersionAvailable(v bool) *DetailT
 	return s
 }
 
+type CreateCollectorUploadfileurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 待上传文件的业务类型，
+	// 设备心跳数据：COLLECT_MUL
+	// 设备业务数据： COLLECT_DEVICE_BIZ_DATA
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+}
+
+func (s CreateCollectorUploadfileurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCollectorUploadfileurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCollectorUploadfileurlRequest) SetAuthToken(v string) *CreateCollectorUploadfileurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlRequest) SetProductInstanceId(v string) *CreateCollectorUploadfileurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlRequest) SetScene(v string) *CreateCollectorUploadfileurlRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlRequest) SetDataType(v string) *CreateCollectorUploadfileurlRequest {
+	s.DataType = &v
+	return s
+}
+
+type CreateCollectorUploadfileurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 可以上传文件的预签名URL
+	UploadFileUrl *string `json:"upload_file_url,omitempty" xml:"upload_file_url,omitempty"`
+	// 上传任务唯一ID，后续流程中会用到
+	UploadId *string `json:"upload_id,omitempty" xml:"upload_id,omitempty"`
+}
+
+func (s CreateCollectorUploadfileurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateCollectorUploadfileurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateCollectorUploadfileurlResponse) SetReqMsgId(v string) *CreateCollectorUploadfileurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlResponse) SetResultCode(v string) *CreateCollectorUploadfileurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlResponse) SetResultMsg(v string) *CreateCollectorUploadfileurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlResponse) SetUploadFileUrl(v string) *CreateCollectorUploadfileurlResponse {
+	s.UploadFileUrl = &v
+	return s
+}
+
+func (s *CreateCollectorUploadfileurlResponse) SetUploadId(v string) *CreateCollectorUploadfileurlResponse {
+	s.UploadId = &v
+	return s
+}
+
+type ConfirmCollectorUploadfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 上报文件任务ID，blockchain.bot.collector.uploadfileurl.create接口中获取
+	UploadId *string `json:"upload_id,omitempty" xml:"upload_id,omitempty" require:"true"`
+	// 上报数据的总数，用于和CSV文件中的数据进行核验
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+}
+
+func (s ConfirmCollectorUploadfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmCollectorUploadfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmCollectorUploadfileRequest) SetAuthToken(v string) *ConfirmCollectorUploadfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmCollectorUploadfileRequest) SetProductInstanceId(v string) *ConfirmCollectorUploadfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmCollectorUploadfileRequest) SetUploadId(v string) *ConfirmCollectorUploadfileRequest {
+	s.UploadId = &v
+	return s
+}
+
+func (s *ConfirmCollectorUploadfileRequest) SetTotal(v int64) *ConfirmCollectorUploadfileRequest {
+	s.Total = &v
+	return s
+}
+
+type ConfirmCollectorUploadfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmCollectorUploadfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmCollectorUploadfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmCollectorUploadfileResponse) SetReqMsgId(v string) *ConfirmCollectorUploadfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmCollectorUploadfileResponse) SetResultCode(v string) *ConfirmCollectorUploadfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmCollectorUploadfileResponse) SetResultMsg(v string) *ConfirmCollectorUploadfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -24850,7 +25333,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.56"),
+				"sdk_version":      tea.String("1.8.76"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25615,6 +26098,40 @@ func (client *Client) DetailXrXrticketpoolEx(request *DetailXrXrticketpoolReques
 	}
 	_result = &DetailXrXrticketpoolResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.xr.xrticketpool.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiotnextbs-openApi操作
+ * Summary: aiotnextbs-openApi操作
+ */
+func (client *Client) OperateAiotnextbsOpenapi(request *OperateAiotnextbsOpenapiRequest) (_result *OperateAiotnextbsOpenapiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateAiotnextbsOpenapiResponse{}
+	_body, _err := client.OperateAiotnextbsOpenapiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiotnextbs-openApi操作
+ * Summary: aiotnextbs-openApi操作
+ */
+func (client *Client) OperateAiotnextbsOpenapiEx(request *OperateAiotnextbsOpenapiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateAiotnextbsOpenapiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateAiotnextbsOpenapiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotnextbs.openapi.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -27412,6 +27929,40 @@ func (client *Client) SaveIotbasicCustomerEx(request *SaveIotbasicCustomerReques
 	}
 	_result = &SaveIotbasicCustomerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.customer.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备消息同步
+ * Summary: IoT设备平台-设备消息同步
+ */
+func (client *Client) NotifyThirddeviceMessage(request *NotifyThirddeviceMessageRequest) (_result *NotifyThirddeviceMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyThirddeviceMessageResponse{}
+	_body, _err := client.NotifyThirddeviceMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备消息同步
+ * Summary: IoT设备平台-设备消息同步
+ */
+func (client *Client) NotifyThirddeviceMessageEx(request *NotifyThirddeviceMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyThirddeviceMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyThirddeviceMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thirddevice.message.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -30506,6 +31057,74 @@ func (client *Client) DetailThingmodelDeviceEx(request *DetailThingmodelDeviceRe
 	}
 	_result = &DetailThingmodelDeviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodel.device.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+ * Summary: 创建上传文件URL
+ */
+func (client *Client) CreateCollectorUploadfileurl(request *CreateCollectorUploadfileurlRequest) (_result *CreateCollectorUploadfileurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateCollectorUploadfileurlResponse{}
+	_body, _err := client.CreateCollectorUploadfileurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+ * Summary: 创建上传文件URL
+ */
+func (client *Client) CreateCollectorUploadfileurlEx(request *CreateCollectorUploadfileurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateCollectorUploadfileurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateCollectorUploadfileurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.collector.uploadfileurl.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+ * Summary: 通过文件上报数据，上传完毕后确认
+ */
+func (client *Client) ConfirmCollectorUploadfile(request *ConfirmCollectorUploadfileRequest) (_result *ConfirmCollectorUploadfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmCollectorUploadfileResponse{}
+	_body, _err := client.ConfirmCollectorUploadfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+ * Summary: 通过文件上报数据，上传完毕后确认
+ */
+func (client *Client) ConfirmCollectorUploadfileEx(request *ConfirmCollectorUploadfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmCollectorUploadfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmCollectorUploadfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.collector.uploadfile.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
