@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.56',
+                    'sdk_version': '1.8.76',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.56',
+                    'sdk_version': '1.8.76',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -1449,6 +1449,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.DetailXrXrticketpoolResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_aiotnextbs_openapi(
+        self,
+        request: bot_models.OperateAiotnextbsOpenapiRequest,
+    ) -> bot_models.OperateAiotnextbsOpenapiResponse:
+        """
+        Description: aiotnextbs-openApi操作
+        Summary: aiotnextbs-openApi操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_aiotnextbs_openapi_ex(request, headers, runtime)
+
+    async def operate_aiotnextbs_openapi_async(
+        self,
+        request: bot_models.OperateAiotnextbsOpenapiRequest,
+    ) -> bot_models.OperateAiotnextbsOpenapiResponse:
+        """
+        Description: aiotnextbs-openApi操作
+        Summary: aiotnextbs-openApi操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_aiotnextbs_openapi_ex_async(request, headers, runtime)
+
+    def operate_aiotnextbs_openapi_ex(
+        self,
+        request: bot_models.OperateAiotnextbsOpenapiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateAiotnextbsOpenapiResponse:
+        """
+        Description: aiotnextbs-openApi操作
+        Summary: aiotnextbs-openApi操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateAiotnextbsOpenapiResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_aiotnextbs_openapi_ex_async(
+        self,
+        request: bot_models.OperateAiotnextbsOpenapiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateAiotnextbsOpenapiResponse:
+        """
+        Description: aiotnextbs-openApi操作
+        Summary: aiotnextbs-openApi操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateAiotnextbsOpenapiResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def finish_trace_config(
@@ -4395,6 +4451,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.SaveIotbasicCustomerResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_thirddevice_message(
+        self,
+        request: bot_models.NotifyThirddeviceMessageRequest,
+    ) -> bot_models.NotifyThirddeviceMessageResponse:
+        """
+        Description: IoT设备平台-设备消息同步
+        Summary: IoT设备平台-设备消息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_thirddevice_message_ex(request, headers, runtime)
+
+    async def notify_thirddevice_message_async(
+        self,
+        request: bot_models.NotifyThirddeviceMessageRequest,
+    ) -> bot_models.NotifyThirddeviceMessageResponse:
+        """
+        Description: IoT设备平台-设备消息同步
+        Summary: IoT设备平台-设备消息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_thirddevice_message_ex_async(request, headers, runtime)
+
+    def notify_thirddevice_message_ex(
+        self,
+        request: bot_models.NotifyThirddeviceMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyThirddeviceMessageResponse:
+        """
+        Description: IoT设备平台-设备消息同步
+        Summary: IoT设备平台-设备消息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.NotifyThirddeviceMessageResponse(),
+            self.do_request('1.0', 'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_thirddevice_message_ex_async(
+        self,
+        request: bot_models.NotifyThirddeviceMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyThirddeviceMessageResponse:
+        """
+        Description: IoT设备平台-设备消息同步
+        Summary: IoT设备平台-设备消息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.NotifyThirddeviceMessageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -9491,6 +9603,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.DetailThingmodelDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_collector_uploadfileurl(
+        self,
+        request: bot_models.CreateCollectorUploadfileurlRequest,
+    ) -> bot_models.CreateCollectorUploadfileurlResponse:
+        """
+        Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+        Summary: 创建上传文件URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_collector_uploadfileurl_ex(request, headers, runtime)
+
+    async def create_collector_uploadfileurl_async(
+        self,
+        request: bot_models.CreateCollectorUploadfileurlRequest,
+    ) -> bot_models.CreateCollectorUploadfileurlResponse:
+        """
+        Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+        Summary: 创建上传文件URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_collector_uploadfileurl_ex_async(request, headers, runtime)
+
+    def create_collector_uploadfileurl_ex(
+        self,
+        request: bot_models.CreateCollectorUploadfileurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateCollectorUploadfileurlResponse:
+        """
+        Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+        Summary: 创建上传文件URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateCollectorUploadfileurlResponse(),
+            self.do_request('1.0', 'blockchain.bot.collector.uploadfileurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_collector_uploadfileurl_ex_async(
+        self,
+        request: bot_models.CreateCollectorUploadfileurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateCollectorUploadfileurlResponse:
+        """
+        Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+        Summary: 创建上传文件URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateCollectorUploadfileurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.collector.uploadfileurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_collector_uploadfile(
+        self,
+        request: bot_models.ConfirmCollectorUploadfileRequest,
+    ) -> bot_models.ConfirmCollectorUploadfileResponse:
+        """
+        Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+        Summary: 通过文件上报数据，上传完毕后确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_collector_uploadfile_ex(request, headers, runtime)
+
+    async def confirm_collector_uploadfile_async(
+        self,
+        request: bot_models.ConfirmCollectorUploadfileRequest,
+    ) -> bot_models.ConfirmCollectorUploadfileResponse:
+        """
+        Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+        Summary: 通过文件上报数据，上传完毕后确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_collector_uploadfile_ex_async(request, headers, runtime)
+
+    def confirm_collector_uploadfile_ex(
+        self,
+        request: bot_models.ConfirmCollectorUploadfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmCollectorUploadfileResponse:
+        """
+        Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+        Summary: 通过文件上报数据，上传完毕后确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmCollectorUploadfileResponse(),
+            self.do_request('1.0', 'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_collector_uploadfile_ex_async(
+        self,
+        request: bot_models.ConfirmCollectorUploadfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmCollectorUploadfileResponse:
+        """
+        Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+        Summary: 通过文件上报数据，上传完毕后确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmCollectorUploadfileResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
