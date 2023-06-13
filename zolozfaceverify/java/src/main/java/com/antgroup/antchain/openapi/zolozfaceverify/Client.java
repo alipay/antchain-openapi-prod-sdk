@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.0")
+                    new TeaPair("sdk_version", "1.6.0"),
+                    new TeaPair("_prod_code", "ZOLOZFACEVERIFY"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -537,5 +539,24 @@ public class Client {
     public VerifyFaceauthVideoResponse verifyFaceauthVideoEx(VerifyFaceauthVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyFaceauthVideoResponse());
+    }
+
+    /**
+     * Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化
+     */
+    public InitFaceauthNfcResponse initFaceauthNfc(InitFaceauthNfcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initFaceauthNfcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化
+     */
+    public InitFaceauthNfcResponse initFaceauthNfcEx(InitFaceauthNfcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthNfcResponse());
     }
 }
