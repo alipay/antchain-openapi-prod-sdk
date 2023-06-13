@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.56"},
+                        {"sdk_version", "1.8.76"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.56"},
+                        {"sdk_version", "1.8.76"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1201,6 +1201,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailXrXrticketpoolResponse>(await DoRequestAsync("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiotnextbs-openApi操作
+         * Summary: aiotnextbs-openApi操作
+         */
+        public OperateAiotnextbsOpenapiResponse OperateAiotnextbsOpenapi(OperateAiotnextbsOpenapiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateAiotnextbsOpenapiEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiotnextbs-openApi操作
+         * Summary: aiotnextbs-openApi操作
+         */
+        public async Task<OperateAiotnextbsOpenapiResponse> OperateAiotnextbsOpenapiAsync(OperateAiotnextbsOpenapiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateAiotnextbsOpenapiExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiotnextbs-openApi操作
+         * Summary: aiotnextbs-openApi操作
+         */
+        public OperateAiotnextbsOpenapiResponse OperateAiotnextbsOpenapiEx(OperateAiotnextbsOpenapiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAiotnextbsOpenapiResponse>(DoRequest("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiotnextbs-openApi操作
+         * Summary: aiotnextbs-openApi操作
+         */
+        public async Task<OperateAiotnextbsOpenapiResponse> OperateAiotnextbsOpenapiExAsync(OperateAiotnextbsOpenapiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAiotnextbsOpenapiResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3431,6 +3473,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SaveIotbasicCustomerResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备消息同步
+         * Summary: IoT设备平台-设备消息同步
+         */
+        public NotifyThirddeviceMessageResponse NotifyThirddeviceMessage(NotifyThirddeviceMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyThirddeviceMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备消息同步
+         * Summary: IoT设备平台-设备消息同步
+         */
+        public async Task<NotifyThirddeviceMessageResponse> NotifyThirddeviceMessageAsync(NotifyThirddeviceMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyThirddeviceMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备消息同步
+         * Summary: IoT设备平台-设备消息同步
+         */
+        public NotifyThirddeviceMessageResponse NotifyThirddeviceMessageEx(NotifyThirddeviceMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyThirddeviceMessageResponse>(DoRequest("1.0", "blockchain.bot.thirddevice.message.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备消息同步
+         * Summary: IoT设备平台-设备消息同步
+         */
+        public async Task<NotifyThirddeviceMessageResponse> NotifyThirddeviceMessageExAsync(NotifyThirddeviceMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyThirddeviceMessageResponse>(await DoRequestAsync("1.0", "blockchain.bot.thirddevice.message.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -7253,6 +7337,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailThingmodelDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+         * Summary: 创建上传文件URL
+         */
+        public CreateCollectorUploadfileurlResponse CreateCollectorUploadfileurl(CreateCollectorUploadfileurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCollectorUploadfileurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+         * Summary: 创建上传文件URL
+         */
+        public async Task<CreateCollectorUploadfileurlResponse> CreateCollectorUploadfileurlAsync(CreateCollectorUploadfileurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCollectorUploadfileurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+         * Summary: 创建上传文件URL
+         */
+        public CreateCollectorUploadfileurlResponse CreateCollectorUploadfileurlEx(CreateCollectorUploadfileurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCollectorUploadfileurlResponse>(DoRequest("1.0", "blockchain.bot.collector.uploadfileurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+         * Summary: 创建上传文件URL
+         */
+        public async Task<CreateCollectorUploadfileurlResponse> CreateCollectorUploadfileurlExAsync(CreateCollectorUploadfileurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCollectorUploadfileurlResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.uploadfileurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+         * Summary: 通过文件上报数据，上传完毕后确认
+         */
+        public ConfirmCollectorUploadfileResponse ConfirmCollectorUploadfile(ConfirmCollectorUploadfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmCollectorUploadfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+         * Summary: 通过文件上报数据，上传完毕后确认
+         */
+        public async Task<ConfirmCollectorUploadfileResponse> ConfirmCollectorUploadfileAsync(ConfirmCollectorUploadfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmCollectorUploadfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+         * Summary: 通过文件上报数据，上传完毕后确认
+         */
+        public ConfirmCollectorUploadfileResponse ConfirmCollectorUploadfileEx(ConfirmCollectorUploadfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmCollectorUploadfileResponse>(DoRequest("1.0", "blockchain.bot.collector.uploadfile.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+         * Summary: 通过文件上报数据，上传完毕后确认
+         */
+        public async Task<ConfirmCollectorUploadfileResponse> ConfirmCollectorUploadfileExAsync(ConfirmCollectorUploadfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmCollectorUploadfileResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.uploadfile.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

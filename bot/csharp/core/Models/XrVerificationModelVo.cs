@@ -45,6 +45,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string ResourceName { get; set; }
 
+        // 核销类型
+        [NameInMap("type")]
+        [Validation(Required=true)]
+        public string Type { get; set; }
+
     }
 
 }

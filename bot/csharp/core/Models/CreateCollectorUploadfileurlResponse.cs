@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorBychainidmulResponse : TeaModel {
+    public class CreateCollectorUploadfileurlResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 数据上链哈希
-        [NameInMap("result_list")]
+        // 可以上传文件的预签名URL
+        [NameInMap("upload_file_url")]
         [Validation(Required=false)]
-        public List<SendCollectorResult> ResultList { get; set; }
+        public string UploadFileUrl { get; set; }
+
+        // 上传任务唯一ID，后续流程中会用到
+        [NameInMap("upload_id")]
+        [Validation(Required=false)]
+        public string UploadId { get; set; }
 
     }
 

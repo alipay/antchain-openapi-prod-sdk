@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorBychainidmulRequest : TeaModel {
+    public class CreateCollectorUploadfileurlRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,24 +18,17 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 上传数据
-        // 
-        // 
-        [NameInMap("content")]
+        // 场景码
+        [NameInMap("scene")]
         [Validation(Required=true)]
-        public List<CollectContent> Content { get; set; }
+        public string Scene { get; set; }
 
-        // 随机业务号，防重放
-        // 
-        // 
-        [NameInMap("nonce")]
+        // 待上传文件的业务类型，
+        // 设备心跳数据：COLLECT_MUL
+        // 设备业务数据： COLLECT_DEVICE_BIZ_DATA
+        [NameInMap("data_type")]
         [Validation(Required=true)]
-        public string Nonce { get; set; }
-
-        // 开启后接口返回值中包含txHash
-        [NameInMap("wait_check_and_hash")]
-        [Validation(Required=true)]
-        public bool? WaitCheckAndHash { get; set; }
+        public string DataType { get; set; }
 
     }
 

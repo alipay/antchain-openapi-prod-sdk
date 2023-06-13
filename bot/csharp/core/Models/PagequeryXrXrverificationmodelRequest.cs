@@ -35,7 +35,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 设备did
         [NameInMap("instance_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string InstanceId { get; set; }
 
         // 当前页
@@ -52,6 +52,11 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("biz_scene")]
         [Validation(Required=true)]
         public string BizScene { get; set; }
+
+        // 核销类型
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
 
     }
 

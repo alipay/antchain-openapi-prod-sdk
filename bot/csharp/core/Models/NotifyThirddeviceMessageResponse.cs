@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorBychainidmulResponse : TeaModel {
+    public class NotifyThirddeviceMessageResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 数据上链哈希
-        [NameInMap("result_list")]
+        // 处理结果
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public List<SendCollectorResult> ResultList { get; set; }
+        public bool? Success { get; set; }
+
+        // 设备信息同步命令
+        [NameInMap("command")]
+        [Validation(Required=false)]
+        public string Command { get; set; }
 
     }
 

@@ -35,6 +35,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string CustomerVersion { get; set; }
 
+        // 数据样例
+        [NameInMap("data_demo")]
+        [Validation(Required=false)]
+        public string DataDemo { get; set; }
+
     }
 
 }

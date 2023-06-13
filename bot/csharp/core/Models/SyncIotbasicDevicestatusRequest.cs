@@ -25,13 +25,18 @@ namespace AntChain.SDK.BOT.Models
 
         // 设备状态
         [NameInMap("device_status")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceStatus { get; set; }
 
         // 设备签名
         [NameInMap("device_signature")]
         [Validation(Required=true)]
         public string DeviceSignature { get; set; }
+
+        // 业务状态
+        [NameInMap("biz_status_info")]
+        [Validation(Required=false)]
+        public BizStatusInfoOp BizStatusInfo { get; set; }
 
     }
 

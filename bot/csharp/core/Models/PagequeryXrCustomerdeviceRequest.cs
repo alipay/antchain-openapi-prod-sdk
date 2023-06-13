@@ -48,6 +48,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public long? PageSize { get; set; }
 
+        // 业务类型
+        [NameInMap("biz_scene")]
+        [Validation(Required=true)]
+        public string BizScene { get; set; }
+
     }
 
 }

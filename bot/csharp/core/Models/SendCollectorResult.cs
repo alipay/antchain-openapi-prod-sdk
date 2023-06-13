@@ -15,6 +15,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string TxHash { get; set; }
 
+        // 原入参的数组索引
+        [NameInMap("original_index")]
+        [Validation(Required=true)]
+        public long? OriginalIndex { get; set; }
+
     }
 
 }

@@ -43,10 +43,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string XrApps { get; set; }
 
-        // 券池数量，能发多少张券
-        [NameInMap("max_pool_count")]
+        // 券池剩余数量
+        [NameInMap("surplus_count")]
         [Validation(Required=false)]
-        public long? MaxPoolCount { get; set; }
+        public long? SurplusCount { get; set; }
 
         // 核销类型，资源id改变时必须有值
         [NameInMap("xr_verification_type")]

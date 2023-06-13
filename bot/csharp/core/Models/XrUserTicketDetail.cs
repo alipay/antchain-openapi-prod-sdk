@@ -88,7 +88,7 @@ namespace AntChain.SDK.BOT.Models
         // 体验时长，分
         [NameInMap("test_time")]
         [Validation(Required=true)]
-        public string TestTime { get; set; }
+        public long? TestTime { get; set; }
 
         // vr应用集合
         [NameInMap("xr_apps")]

@@ -20,6 +20,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
+        // 设备注册的上链哈希
+        [NameInMap("chain_device_id")]
+        [Validation(Required=true)]
+        public string ChainDeviceId { get; set; }
+
     }
 
 }

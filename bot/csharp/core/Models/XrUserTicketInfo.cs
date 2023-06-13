@@ -10,11 +10,6 @@ namespace AntChain.SDK.BOT.Models
 {
     // 用户通行证创建详情
     public class XrUserTicketInfo : TeaModel {
-        // xr通行证资源池id
-        [NameInMap("xr_ticket_pool_id")]
-        [Validation(Required=true)]
-        public long? XrTicketPoolId { get; set; }
-
         // xr通行证资源池名称
         [NameInMap("xr_ticket_pool_name")]
         [Validation(Required=true)]
