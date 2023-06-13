@@ -23,11 +23,6 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=true)]
         public string BatchNo { get; set; }
 
-        // 防伪码类型
-        [NameInMap("code_type")]
-        [Validation(Required=true)]
-        public string CodeType { get; set; }
-
     }
 
 }

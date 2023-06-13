@@ -29,6 +29,12 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public string BatchNo { get; set; }
 
+        // 该批次号，已上传底图次数
+        // 
+        [NameInMap("count")]
+        [Validation(Required=false)]
+        public long? Count { get; set; }
+
     }
 
 }

@@ -39,14 +39,8 @@ namespace AntChain.SDK.MYTC.Models
         public string FileObjectName { get; set; }
 
         [NameInMap("file_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string FileId { get; set; }
-
-        // Base64格式的图片数据	
-        // 
-        [NameInMap("image_str")]
-        [Validation(Required=false)]
-        public string ImageStr { get; set; }
 
     }
 

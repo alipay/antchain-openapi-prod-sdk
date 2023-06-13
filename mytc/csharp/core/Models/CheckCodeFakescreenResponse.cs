@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MYTC.Models
 {
-    public class UploadAntiImagesyncResponse : TeaModel {
+    public class CheckCodeFakescreenResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 防伪码码值
-        [NameInMap("code")]
+        // 验真是否成功	
+        [NameInMap("detect_success")]
         [Validation(Required=false)]
-        public string Code { get; set; }
+        public bool? DetectSuccess { get; set; }
 
-        // 批次号
-        [NameInMap("batch_no")]
+        // 返回编码	
+        [NameInMap("detect_code")]
         [Validation(Required=false)]
-        public string BatchNo { get; set; }
+        public string DetectCode { get; set; }
 
-        // 该批次号，已上传底图次数
-        [NameInMap("count")]
+        // 调用返回信息	
+        [NameInMap("detect_message")]
         [Validation(Required=false)]
-        public long? Count { get; set; }
+        public string DetectMessage { get; set; }
 
     }
 

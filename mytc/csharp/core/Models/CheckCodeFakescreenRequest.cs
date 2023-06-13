@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MYTC.Models
 {
-    public class UploadAntiImagesyncRequest : TeaModel {
+    public class CheckCodeFakescreenRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,12 +18,12 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 防伪码码值
-        [NameInMap("code")]
-        [Validation(Required=true)]
-        public string Code { get; set; }
+        // 设备型号	
+        [NameInMap("device_type")]
+        [Validation(Required=false)]
+        public string DeviceType { get; set; }
 
-        // 文件id
+        // 闪光前图片
         /// <summary>
         /// 待上传文件
         /// </summary>
@@ -42,10 +42,17 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=true)]
         public string FileId { get; set; }
 
-        // 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
-        [NameInMap("batch_no")]
-        [Validation(Required=false)]
-        public string BatchNo { get; set; }
+        // 配对标识，闪光前后需要用同一个配对标识。
+        [NameInMap("pair_id")]
+        [Validation(Required=true)]
+        public string PairId { get; set; }
+
+        // 文件类型.
+        // unflashed: 未闪光图片
+        // flashed: 闪光后图片
+        [NameInMap("file_type")]
+        [Validation(Required=true)]
+        public string FileType { get; set; }
 
     }
 

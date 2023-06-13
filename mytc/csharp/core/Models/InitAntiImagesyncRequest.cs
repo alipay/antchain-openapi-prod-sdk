@@ -20,7 +20,7 @@ namespace AntChain.SDK.MYTC.Models
 
         // 防伪码类型标识,由蚂蚁侧分配
         [NameInMap("code_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CodeType { get; set; }
 
         // 防伪码批次号

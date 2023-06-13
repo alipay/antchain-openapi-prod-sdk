@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "MYTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -495,6 +495,94 @@ namespace AntChain.SDK.MYTC
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckCodeFakeResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.fake.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二维码防伪防屏拍图片验证
+         * Summary: 二维码防伪防屏拍图片验证
+         */
+        public CheckCodeFakescreenResponse CheckCodeFakescreen(CheckCodeFakescreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckCodeFakescreenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二维码防伪防屏拍图片验证
+         * Summary: 二维码防伪防屏拍图片验证
+         */
+        public async Task<CheckCodeFakescreenResponse> CheckCodeFakescreenAsync(CheckCodeFakescreenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckCodeFakescreenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二维码防伪防屏拍图片验证
+         * Summary: 二维码防伪防屏拍图片验证
+         */
+        public CheckCodeFakescreenResponse CheckCodeFakescreenEx(CheckCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.code.fakescreen.check",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CheckCodeFakescreenResponse checkCodeFakescreenResponse = new CheckCodeFakescreenResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return checkCodeFakescreenResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckCodeFakescreenResponse>(DoRequest("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二维码防伪防屏拍图片验证
+         * Summary: 二维码防伪防屏拍图片验证
+         */
+        public async Task<CheckCodeFakescreenResponse> CheckCodeFakescreenExAsync(CheckCodeFakescreenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.code.fakescreen.check",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CheckCodeFakescreenResponse checkCodeFakescreenResponse = new CheckCodeFakescreenResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return checkCodeFakescreenResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckCodeFakescreenResponse>(await DoRequestAsync("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
