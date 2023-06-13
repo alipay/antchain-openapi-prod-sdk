@@ -2520,8 +2520,8 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
   params: string;
   // 是否授权
   userAuthed?: boolean;
-  // 待获取数据类型对应的服务id
-  serviceId: string;
+  // 数据集服务id
+  dataSetId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2529,7 +2529,7 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       fileIndex: 'file_index',
       params: 'params',
       userAuthed: 'user_authed',
-      serviceId: 'service_id',
+      dataSetId: 'data_set_id',
     };
   }
 
@@ -2540,7 +2540,7 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       fileIndex: 'string',
       params: 'string',
       userAuthed: 'boolean',
-      serviceId: 'string',
+      dataSetId: 'string',
     };
   }
 
@@ -3995,7 +3995,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.52",
+          sdk_version: "1.1.53",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
