@@ -33,10 +33,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public bool? UserAuthed { get; set; }
 
-        // 待获取数据类型对应的服务id
-        [NameInMap("service_id")]
+        // 数据集服务id
+        [NameInMap("data_set_id")]
         [Validation(Required=true)]
-        public string ServiceId { get; set; }
+        public string DataSetId { get; set; }
 
     }
 
