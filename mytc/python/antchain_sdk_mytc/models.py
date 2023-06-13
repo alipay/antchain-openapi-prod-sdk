@@ -960,7 +960,6 @@ class CheckCodeFakeRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
-        image_str: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -973,12 +972,9 @@ class CheckCodeFakeRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # Base64格式的图片数据
-        # 
-        self.image_str = image_str
 
     def validate(self):
-        pass
+        self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -998,8 +994,6 @@ class CheckCodeFakeRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.image_str is not None:
-            result['image_str'] = self.image_str
         return result
 
     def from_map(self, m: dict = None):
@@ -1016,12 +1010,153 @@ class CheckCodeFakeRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('image_str') is not None:
-            self.image_str = m.get('image_str')
         return self
 
 
 class CheckCodeFakeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        detect_success: bool = None,
+        detect_code: str = None,
+        detect_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 验真是否成功
+        self.detect_success = detect_success
+        # 返回编码
+        self.detect_code = detect_code
+        # 调用返回信息
+        self.detect_message = detect_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.detect_success is not None:
+            result['detect_success'] = self.detect_success
+        if self.detect_code is not None:
+            result['detect_code'] = self.detect_code
+        if self.detect_message is not None:
+            result['detect_message'] = self.detect_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('detect_success') is not None:
+            self.detect_success = m.get('detect_success')
+        if m.get('detect_code') is not None:
+            self.detect_code = m.get('detect_code')
+        if m.get('detect_message') is not None:
+            self.detect_message = m.get('detect_message')
+        return self
+
+
+class CheckCodeFakescreenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_type: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        pair_id: str = None,
+        file_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备型号
+        self.device_type = device_type
+        # 闪光前图片
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 配对标识，闪光前后需要用同一个配对标识。
+        self.pair_id = pair_id
+        # 文件类型.
+        # unflashed: 未闪光图片
+        # flashed: 闪光后图片
+        self.file_type = file_type
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.pair_id, 'pair_id')
+        self.validate_required(self.file_type, 'file_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.pair_id is not None:
+            result['pair_id'] = self.pair_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('pair_id') is not None:
+            self.pair_id = m.get('pair_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        return self
+
+
+class CheckCodeFakescreenResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -1104,7 +1239,6 @@ class InitAntiImagesyncRequest(TeaModel):
         self.total = total
 
     def validate(self):
-        self.validate_required(self.code_type, 'code_type')
         self.validate_required(self.batch_no, 'batch_no')
         self.validate_required(self.total, 'total')
 
@@ -1202,33 +1336,29 @@ class UploadAntiImagesyncRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        code_type: str = None,
         code: str = None,
-        batch_no: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        batch_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 防伪码类型
-        self.code_type = code_type
         # 防伪码码值
         self.code = code
-        # 批次号码
-        self.batch_no = batch_no
         # 文件id
         # 待上传文件
         self.file_object = file_object
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
+        self.batch_no = batch_no
 
     def validate(self):
-        self.validate_required(self.code_type, 'code_type')
         self.validate_required(self.code, 'code')
-        self.validate_required(self.batch_no, 'batch_no')
+        self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -1240,18 +1370,16 @@ class UploadAntiImagesyncRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.code_type is not None:
-            result['code_type'] = self.code_type
         if self.code is not None:
             result['code'] = self.code
-        if self.batch_no is not None:
-            result['batch_no'] = self.batch_no
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_object_name is not None:
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
         return result
 
     def from_map(self, m: dict = None):
@@ -1260,18 +1388,16 @@ class UploadAntiImagesyncRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('code_type') is not None:
-            self.code_type = m.get('code_type')
         if m.get('code') is not None:
             self.code = m.get('code')
-        if m.get('batch_no') is not None:
-            self.batch_no = m.get('batch_no')
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('fileObjectName') is not None:
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
         return self
 
 
@@ -1282,6 +1408,8 @@ class UploadAntiImagesyncResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         code: str = None,
+        batch_no: str = None,
+        count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1291,6 +1419,10 @@ class UploadAntiImagesyncResponse(TeaModel):
         self.result_msg = result_msg
         # 防伪码码值
         self.code = code
+        # 批次号
+        self.batch_no = batch_no
+        # 该批次号，已上传底图次数
+        self.count = count
 
     def validate(self):
         pass
@@ -1309,6 +1441,10 @@ class UploadAntiImagesyncResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.code is not None:
             result['code'] = self.code
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        if self.count is not None:
+            result['count'] = self.count
         return result
 
     def from_map(self, m: dict = None):
@@ -1321,6 +1457,10 @@ class UploadAntiImagesyncResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('code') is not None:
             self.code = m.get('code')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        if m.get('count') is not None:
+            self.count = m.get('count')
         return self
 
 
@@ -1330,19 +1470,15 @@ class FinishAntiImagesyncRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         batch_no: str = None,
-        code_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 批次号
         self.batch_no = batch_no
-        # 防伪码类型
-        self.code_type = code_type
 
     def validate(self):
         self.validate_required(self.batch_no, 'batch_no')
-        self.validate_required(self.code_type, 'code_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -1356,8 +1492,6 @@ class FinishAntiImagesyncRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.batch_no is not None:
             result['batch_no'] = self.batch_no
-        if self.code_type is not None:
-            result['code_type'] = self.code_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1368,8 +1502,6 @@ class FinishAntiImagesyncRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('batch_no') is not None:
             self.batch_no = m.get('batch_no')
-        if m.get('code_type') is not None:
-            self.code_type = m.get('code_type')
         return self
 
 
@@ -1380,6 +1512,7 @@ class FinishAntiImagesyncResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         batch_no: str = None,
+        count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1389,6 +1522,9 @@ class FinishAntiImagesyncResponse(TeaModel):
         self.result_msg = result_msg
         # 批次号
         self.batch_no = batch_no
+        # 该批次号，已上传底图次数
+        # 
+        self.count = count
 
     def validate(self):
         pass
@@ -1407,6 +1543,8 @@ class FinishAntiImagesyncResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.batch_no is not None:
             result['batch_no'] = self.batch_no
+        if self.count is not None:
+            result['count'] = self.count
         return result
 
     def from_map(self, m: dict = None):
@@ -1419,6 +1557,8 @@ class FinishAntiImagesyncResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('batch_no') is not None:
             self.batch_no = m.get('batch_no')
+        if m.get('count') is not None:
+            self.count = m.get('count')
         return self
 
 

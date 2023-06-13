@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'MYTC',
                     '_prod_channel': 'undefined'
                 }
@@ -453,6 +453,96 @@ class Client:
         return TeaCore.from_map(
             mytc_models.CheckCodeFakeResponse(),
             await self.do_request_async('1.0', 'antchain.mytc.code.fake.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_code_fakescreen(
+        self,
+        request: mytc_models.CheckCodeFakescreenRequest,
+    ) -> mytc_models.CheckCodeFakescreenResponse:
+        """
+        Description: 二维码防伪防屏拍图片验证
+        Summary: 二维码防伪防屏拍图片验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_code_fakescreen_ex(request, headers, runtime)
+
+    async def check_code_fakescreen_async(
+        self,
+        request: mytc_models.CheckCodeFakescreenRequest,
+    ) -> mytc_models.CheckCodeFakescreenResponse:
+        """
+        Description: 二维码防伪防屏拍图片验证
+        Summary: 二维码防伪防屏拍图片验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_code_fakescreen_ex_async(request, headers, runtime)
+
+    def check_code_fakescreen_ex(
+        self,
+        request: mytc_models.CheckCodeFakescreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CheckCodeFakescreenResponse:
+        """
+        Description: 二维码防伪防屏拍图片验证
+        Summary: 二维码防伪防屏拍图片验证
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.code.fakescreen.check',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                check_code_fakescreen_response = mytc_models.CheckCodeFakescreenResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return check_code_fakescreen_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CheckCodeFakescreenResponse(),
+            self.do_request('1.0', 'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_code_fakescreen_ex_async(
+        self,
+        request: mytc_models.CheckCodeFakescreenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.CheckCodeFakescreenResponse:
+        """
+        Description: 二维码防伪防屏拍图片验证
+        Summary: 二维码防伪防屏拍图片验证
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.code.fakescreen.check',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                check_code_fakescreen_response = mytc_models.CheckCodeFakescreenResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return check_code_fakescreen_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mytc_models.CheckCodeFakescreenResponse(),
+            await self.do_request_async('1.0', 'antchain.mytc.code.fakescreen.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_anti_imagesync(
