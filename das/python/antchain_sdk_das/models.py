@@ -4161,7 +4161,7 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
         file_index: str = None,
         params: str = None,
         user_authed: bool = None,
-        service_id: str = None,
+        data_set_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4172,12 +4172,12 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
         self.params = params
         # 是否授权
         self.user_authed = user_authed
-        # 待获取数据类型对应的服务id
-        self.service_id = service_id
+        # 数据集服务id
+        self.data_set_id = data_set_id
 
     def validate(self):
         self.validate_required(self.params, 'params')
-        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.data_set_id, 'data_set_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -4195,8 +4195,8 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             result['params'] = self.params
         if self.user_authed is not None:
             result['user_authed'] = self.user_authed
-        if self.service_id is not None:
-            result['service_id'] = self.service_id
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4211,8 +4211,8 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             self.params = m.get('params')
         if m.get('user_authed') is not None:
             self.user_authed = m.get('user_authed')
-        if m.get('service_id') is not None:
-            self.service_id = m.get('service_id')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
         return self
 
 
