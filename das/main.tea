@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.52',
+    sdk_version = '1.1.53',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -1440,8 +1440,8 @@ model QueryApplicationUnifiedentranceRequest = {
   params: string(name='params'),
   // 是否授权
   userAuthed?: boolean(name='user_authed'),
-  // 待获取数据类型对应的服务id
-  serviceId: string(name='service_id'),
+  // 数据集服务id
+  dataSetId: string(name='data_set_id'),
 }
 
 model QueryApplicationUnifiedentranceResponse = {
