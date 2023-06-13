@@ -32,9 +32,9 @@ public class UpdateXrXrticketpoolRequest extends TeaModel {
     @NameInMap("xr_apps")
     public String xrApps;
 
-    // 券池数量，能发多少张券
-    @NameInMap("max_pool_count")
-    public Long maxPoolCount;
+    // 券池剩余数量
+    @NameInMap("surplus_count")
+    public Long surplusCount;
 
     // 核销类型，资源id改变时必须有值
     @NameInMap("xr_verification_type")
@@ -106,12 +106,12 @@ public class UpdateXrXrticketpoolRequest extends TeaModel {
         return this.xrApps;
     }
 
-    public UpdateXrXrticketpoolRequest setMaxPoolCount(Long maxPoolCount) {
-        this.maxPoolCount = maxPoolCount;
+    public UpdateXrXrticketpoolRequest setSurplusCount(Long surplusCount) {
+        this.surplusCount = surplusCount;
         return this;
     }
-    public Long getMaxPoolCount() {
-        return this.maxPoolCount;
+    public Long getSurplusCount() {
+        return this.surplusCount;
     }
 
     public UpdateXrXrticketpoolRequest setXrVerificationType(String xrVerificationType) {

@@ -6,42 +6,34 @@ import com.aliyun.tea.*;
 public class XrTicketPoolItem extends TeaModel {
     // 业务类型
     @NameInMap("biz_scene")
-    @Validation(required = true)
     public String bizScene;
 
     // 通行证名称
     @NameInMap("xr_ticket_pool_name")
-    @Validation(required = true)
     public String xrTicketPoolName;
 
     // 资源id
     @NameInMap("resource_id")
-    @Validation(required = true)
-    public Long resourceId;
+    public String resourceId;
 
     // 有效期
     @NameInMap("valid_time")
-    @Validation(required = true)
     public String validTime;
 
     // 体验时长
     @NameInMap("test_time")
-    @Validation(required = true)
     public Long testTime;
 
     // 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
     @NameInMap("status")
-    @Validation(required = true)
     public String status;
 
     // 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
     @NameInMap("use_status")
-    @Validation(required = true)
     public String useStatus;
 
     // 资源名称
     @NameInMap("resource_name")
-    @Validation(required = true)
     public String resourceName;
 
     // 设备集合
@@ -50,27 +42,22 @@ public class XrTicketPoolItem extends TeaModel {
 
     // 券池最大票数
     @NameInMap("max_pool_count")
-    @Validation(required = true)
     public Long maxPoolCount;
 
     // 租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 核销类型
     @NameInMap("xr_verification_type")
-    @Validation(required = true)
     public String xrVerificationType;
 
     // 剩余可用券数量
     @NameInMap("surplus_count")
-    @Validation(required = true)
     public Long surplusCount;
 
     // 已发放数量 （总数-剩余数量）
     @NameInMap("issued_count")
-    @Validation(required = true)
     public Long issuedCount;
 
     public static XrTicketPoolItem build(java.util.Map<String, ?> map) throws Exception {
@@ -94,11 +81,11 @@ public class XrTicketPoolItem extends TeaModel {
         return this.xrTicketPoolName;
     }
 
-    public XrTicketPoolItem setResourceId(Long resourceId) {
+    public XrTicketPoolItem setResourceId(String resourceId) {
         this.resourceId = resourceId;
         return this;
     }
-    public Long getResourceId() {
+    public String getResourceId() {
         return this.resourceId;
     }
 

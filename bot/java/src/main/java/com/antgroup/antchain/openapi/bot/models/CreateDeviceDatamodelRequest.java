@@ -28,6 +28,10 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     @NameInMap("customer_version")
     public String customerVersion;
 
+    // 数据样例
+    @NameInMap("data_demo")
+    public String dataDemo;
+
     public static CreateDeviceDatamodelRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDeviceDatamodelRequest self = new CreateDeviceDatamodelRequest();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     }
     public String getCustomerVersion() {
         return this.customerVersion;
+    }
+
+    public CreateDeviceDatamodelRequest setDataDemo(String dataDemo) {
+        this.dataDemo = dataDemo;
+        return this;
+    }
+    public String getDataDemo() {
+        return this.dataDemo;
     }
 
 }

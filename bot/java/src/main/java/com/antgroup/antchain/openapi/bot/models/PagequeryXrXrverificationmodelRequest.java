@@ -25,7 +25,6 @@ public class PagequeryXrXrverificationmodelRequest extends TeaModel {
 
     // 设备did
     @NameInMap("instance_id")
-    @Validation(required = true)
     public String instanceId;
 
     // 当前页
@@ -42,6 +41,10 @@ public class PagequeryXrXrverificationmodelRequest extends TeaModel {
     @NameInMap("biz_scene")
     @Validation(required = true)
     public String bizScene;
+
+    // 核销类型
+    @NameInMap("type")
+    public String type;
 
     public static PagequeryXrXrverificationmodelRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryXrXrverificationmodelRequest self = new PagequeryXrXrverificationmodelRequest();
@@ -118,6 +121,14 @@ public class PagequeryXrXrverificationmodelRequest extends TeaModel {
     }
     public String getBizScene() {
         return this.bizScene;
+    }
+
+    public PagequeryXrXrverificationmodelRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }

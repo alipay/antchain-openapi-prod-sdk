@@ -39,6 +39,11 @@ public class XrVerificationModelVo extends TeaModel {
     @Validation(required = true)
     public String resourceName;
 
+    // 核销类型
+    @NameInMap("type")
+    @Validation(required = true)
+    public String type;
+
     public static XrVerificationModelVo build(java.util.Map<String, ?> map) throws Exception {
         XrVerificationModelVo self = new XrVerificationModelVo();
         return TeaModel.build(map, self);
@@ -98,6 +103,14 @@ public class XrVerificationModelVo extends TeaModel {
     }
     public String getResourceName() {
         return this.resourceName;
+    }
+
+    public XrVerificationModelVo setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }

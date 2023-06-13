@@ -34,6 +34,11 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
     @NameInMap("scene")
     public String scene;
 
+    // 开启后，接口返回值中包含txHash
+    @NameInMap("wait_check_and_hash")
+    @Validation(required = true)
+    public Boolean waitCheckAndHash;
+
     public static SendCollectorDevicebizdataRequest build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorDevicebizdataRequest self = new SendCollectorDevicebizdataRequest();
         return TeaModel.build(map, self);
@@ -85,6 +90,14 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
     }
     public String getScene() {
         return this.scene;
+    }
+
+    public SendCollectorDevicebizdataRequest setWaitCheckAndHash(Boolean waitCheckAndHash) {
+        this.waitCheckAndHash = waitCheckAndHash;
+        return this;
+    }
+    public Boolean getWaitCheckAndHash() {
+        return this.waitCheckAndHash;
     }
 
 }

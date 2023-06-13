@@ -16,6 +16,10 @@ public class SendCollectorDevicebizdataResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 数据上链哈希
+    @NameInMap("result_list")
+    public java.util.List<SendCollectorResult> resultList;
+
     public static SendCollectorDevicebizdataResponse build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorDevicebizdataResponse self = new SendCollectorDevicebizdataResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SendCollectorDevicebizdataResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SendCollectorDevicebizdataResponse setResultList(java.util.List<SendCollectorResult> resultList) {
+        this.resultList = resultList;
+        return this;
+    }
+    public java.util.List<SendCollectorResult> getResultList() {
+        return this.resultList;
     }
 
 }

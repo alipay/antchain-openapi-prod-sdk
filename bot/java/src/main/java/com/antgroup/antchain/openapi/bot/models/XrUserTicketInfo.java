@@ -4,11 +4,6 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class XrUserTicketInfo extends TeaModel {
-    // xr通行证资源池id
-    @NameInMap("xr_ticket_pool_id")
-    @Validation(required = true)
-    public Long xrTicketPoolId;
-
     // xr通行证资源池名称
     @NameInMap("xr_ticket_pool_name")
     @Validation(required = true)
@@ -22,14 +17,6 @@ public class XrUserTicketInfo extends TeaModel {
     public static XrUserTicketInfo build(java.util.Map<String, ?> map) throws Exception {
         XrUserTicketInfo self = new XrUserTicketInfo();
         return TeaModel.build(map, self);
-    }
-
-    public XrUserTicketInfo setXrTicketPoolId(Long xrTicketPoolId) {
-        this.xrTicketPoolId = xrTicketPoolId;
-        return this;
-    }
-    public Long getXrTicketPoolId() {
-        return this.xrTicketPoolId;
     }
 
     public XrUserTicketInfo setXrTicketPoolName(String xrTicketPoolName) {

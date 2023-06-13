@@ -9,6 +9,11 @@ public class SendCollectorResult extends TeaModel {
     @Validation(required = true)
     public String txHash;
 
+    // 原入参的数组索引
+    @NameInMap("original_index")
+    @Validation(required = true)
+    public Long originalIndex;
+
     public static SendCollectorResult build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorResult self = new SendCollectorResult();
         return TeaModel.build(map, self);
@@ -20,6 +25,14 @@ public class SendCollectorResult extends TeaModel {
     }
     public String getTxHash() {
         return this.txHash;
+    }
+
+    public SendCollectorResult setOriginalIndex(Long originalIndex) {
+        this.originalIndex = originalIndex;
+        return this;
+    }
+    public Long getOriginalIndex() {
+        return this.originalIndex;
     }
 
 }

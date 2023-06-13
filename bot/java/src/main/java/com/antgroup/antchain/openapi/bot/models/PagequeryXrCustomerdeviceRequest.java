@@ -37,6 +37,11 @@ public class PagequeryXrCustomerdeviceRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 业务类型
+    @NameInMap("biz_scene")
+    @Validation(required = true)
+    public String bizScene;
+
     public static PagequeryXrCustomerdeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryXrCustomerdeviceRequest self = new PagequeryXrCustomerdeviceRequest();
         return TeaModel.build(map, self);
@@ -104,6 +109,14 @@ public class PagequeryXrCustomerdeviceRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public PagequeryXrCustomerdeviceRequest setBizScene(String bizScene) {
+        this.bizScene = bizScene;
+        return this;
+    }
+    public String getBizScene() {
+        return this.bizScene;
     }
 
 }

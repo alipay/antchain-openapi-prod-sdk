@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.56"),
+                    new TeaPair("sdk_version", "1.8.76"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -558,6 +558,25 @@ public class Client {
     public DetailXrXrticketpoolResponse detailXrXrticketpoolEx(DetailXrXrticketpoolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.xr.xrticketpool.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailXrXrticketpoolResponse());
+    }
+
+    /**
+     * Description: aiotnextbs-openApi操作
+     * Summary: aiotnextbs-openApi操作
+     */
+    public OperateAiotnextbsOpenapiResponse operateAiotnextbsOpenapi(OperateAiotnextbsOpenapiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateAiotnextbsOpenapiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiotnextbs-openApi操作
+     * Summary: aiotnextbs-openApi操作
+     */
+    public OperateAiotnextbsOpenapiResponse operateAiotnextbsOpenapiEx(OperateAiotnextbsOpenapiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAiotnextbsOpenapiResponse());
     }
 
     /**
@@ -1567,6 +1586,25 @@ public class Client {
     public SaveIotbasicCustomerResponse saveIotbasicCustomerEx(SaveIotbasicCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.customer.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveIotbasicCustomerResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-设备消息同步
+     * Summary: IoT设备平台-设备消息同步
+     */
+    public NotifyThirddeviceMessageResponse notifyThirddeviceMessage(NotifyThirddeviceMessageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyThirddeviceMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备消息同步
+     * Summary: IoT设备平台-设备消息同步
+     */
+    public NotifyThirddeviceMessageResponse notifyThirddeviceMessageEx(NotifyThirddeviceMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thirddevice.message.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyThirddeviceMessageResponse());
     }
 
     /**
@@ -3296,6 +3334,44 @@ public class Client {
     public DetailThingmodelDeviceResponse detailThingmodelDeviceEx(DetailThingmodelDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.device.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailThingmodelDeviceResponse());
+    }
+
+    /**
+     * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+     * Summary: 创建上传文件URL
+     */
+    public CreateCollectorUploadfileurlResponse createCollectorUploadfileurl(CreateCollectorUploadfileurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCollectorUploadfileurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+     * Summary: 创建上传文件URL
+     */
+    public CreateCollectorUploadfileurlResponse createCollectorUploadfileurlEx(CreateCollectorUploadfileurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.uploadfileurl.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCollectorUploadfileurlResponse());
+    }
+
+    /**
+     * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+     * Summary: 通过文件上报数据，上传完毕后确认
+     */
+    public ConfirmCollectorUploadfileResponse confirmCollectorUploadfile(ConfirmCollectorUploadfileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmCollectorUploadfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+     * Summary: 通过文件上报数据，上传完毕后确认
+     */
+    public ConfirmCollectorUploadfileResponse confirmCollectorUploadfileEx(ConfirmCollectorUploadfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.uploadfile.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmCollectorUploadfileResponse());
     }
 
     /**

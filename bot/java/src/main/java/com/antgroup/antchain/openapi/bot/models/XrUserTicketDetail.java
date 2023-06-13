@@ -77,7 +77,7 @@ public class XrUserTicketDetail extends TeaModel {
     // 体验时长，分
     @NameInMap("test_time")
     @Validation(required = true)
-    public String testTime;
+    public Long testTime;
 
     // vr应用集合
     @NameInMap("xr_apps")
@@ -208,11 +208,11 @@ public class XrUserTicketDetail extends TeaModel {
         return this.instanceName;
     }
 
-    public XrUserTicketDetail setTestTime(String testTime) {
+    public XrUserTicketDetail setTestTime(Long testTime) {
         this.testTime = testTime;
         return this;
     }
-    public String getTestTime() {
+    public Long getTestTime() {
         return this.testTime;
     }
 

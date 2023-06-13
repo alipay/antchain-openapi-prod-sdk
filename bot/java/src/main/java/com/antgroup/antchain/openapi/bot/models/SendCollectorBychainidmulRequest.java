@@ -25,6 +25,11 @@ public class SendCollectorBychainidmulRequest extends TeaModel {
     @Validation(required = true)
     public String nonce;
 
+    // 开启后接口返回值中包含txHash
+    @NameInMap("wait_check_and_hash")
+    @Validation(required = true)
+    public Boolean waitCheckAndHash;
+
     public static SendCollectorBychainidmulRequest build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorBychainidmulRequest self = new SendCollectorBychainidmulRequest();
         return TeaModel.build(map, self);
@@ -60,6 +65,14 @@ public class SendCollectorBychainidmulRequest extends TeaModel {
     }
     public String getNonce() {
         return this.nonce;
+    }
+
+    public SendCollectorBychainidmulRequest setWaitCheckAndHash(Boolean waitCheckAndHash) {
+        this.waitCheckAndHash = waitCheckAndHash;
+        return this;
+    }
+    public Boolean getWaitCheckAndHash() {
+        return this.waitCheckAndHash;
     }
 
 }
