@@ -91,7 +91,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.6.0"},
+                        {"_prod_code", "ZOLOZFACEVERIFY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.6.0"},
+                        {"_prod_code", "ZOLOZFACEVERIFY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1155,6 +1159,48 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyFaceauthVideoResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实证NFC服务端初始化
+         * Summary: 实证NFC服务端初始化
+         */
+        public InitFaceauthNfcResponse InitFaceauthNfc(InitFaceauthNfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitFaceauthNfcEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实证NFC服务端初始化
+         * Summary: 实证NFC服务端初始化
+         */
+        public async Task<InitFaceauthNfcResponse> InitFaceauthNfcAsync(InitFaceauthNfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitFaceauthNfcExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实证NFC服务端初始化
+         * Summary: 实证NFC服务端初始化
+         */
+        public InitFaceauthNfcResponse InitFaceauthNfcEx(InitFaceauthNfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthNfcResponse>(DoRequest("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实证NFC服务端初始化
+         * Summary: 实证NFC服务端初始化
+         */
+        public async Task<InitFaceauthNfcResponse> InitFaceauthNfcExAsync(InitFaceauthNfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthNfcResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
