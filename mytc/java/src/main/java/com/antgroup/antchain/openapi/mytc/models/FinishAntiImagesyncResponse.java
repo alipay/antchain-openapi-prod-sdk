@@ -20,6 +20,11 @@ public class FinishAntiImagesyncResponse extends TeaModel {
     @NameInMap("batch_no")
     public String batchNo;
 
+    // 该批次号，已上传底图次数
+    // 
+    @NameInMap("count")
+    public Long count;
+
     public static FinishAntiImagesyncResponse build(java.util.Map<String, ?> map) throws Exception {
         FinishAntiImagesyncResponse self = new FinishAntiImagesyncResponse();
         return TeaModel.build(map, self);
@@ -55,6 +60,14 @@ public class FinishAntiImagesyncResponse extends TeaModel {
     }
     public String getBatchNo() {
         return this.batchNo;
+    }
+
+    public FinishAntiImagesyncResponse setCount(Long count) {
+        this.count = count;
+        return this;
+    }
+    public Long getCount() {
+        return this.count;
     }
 
 }

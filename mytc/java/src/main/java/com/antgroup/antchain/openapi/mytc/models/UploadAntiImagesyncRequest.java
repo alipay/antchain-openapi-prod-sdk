@@ -11,20 +11,10 @@ public class UploadAntiImagesyncRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 防伪码类型
-    @NameInMap("code_type")
-    @Validation(required = true)
-    public String codeType;
-
     // 防伪码码值
     @NameInMap("code")
     @Validation(required = true)
     public String code;
-
-    // 批次号码
-    @NameInMap("batch_no")
-    @Validation(required = true)
-    public String batchNo;
 
     // 文件id
     // 待上传文件
@@ -36,7 +26,12 @@ public class UploadAntiImagesyncRequest extends TeaModel {
     public String fileObjectName;
 
     @NameInMap("file_id")
+    @Validation(required = true)
     public String fileId;
+
+    // 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
+    @NameInMap("batch_no")
+    public String batchNo;
 
     public static UploadAntiImagesyncRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAntiImagesyncRequest self = new UploadAntiImagesyncRequest();
@@ -59,28 +54,12 @@ public class UploadAntiImagesyncRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadAntiImagesyncRequest setCodeType(String codeType) {
-        this.codeType = codeType;
-        return this;
-    }
-    public String getCodeType() {
-        return this.codeType;
-    }
-
     public UploadAntiImagesyncRequest setCode(String code) {
         this.code = code;
         return this;
     }
     public String getCode() {
         return this.code;
-    }
-
-    public UploadAntiImagesyncRequest setBatchNo(String batchNo) {
-        this.batchNo = batchNo;
-        return this;
-    }
-    public String getBatchNo() {
-        return this.batchNo;
     }
 
     public UploadAntiImagesyncRequest setFileObject(java.io.InputStream fileObject) {
@@ -105,6 +84,14 @@ public class UploadAntiImagesyncRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadAntiImagesyncRequest setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
+        return this;
+    }
+    public String getBatchNo() {
+        return this.batchNo;
     }
 
 }

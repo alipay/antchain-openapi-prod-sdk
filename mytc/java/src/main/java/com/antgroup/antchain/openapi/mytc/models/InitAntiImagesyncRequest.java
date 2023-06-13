@@ -13,7 +13,6 @@ public class InitAntiImagesyncRequest extends TeaModel {
 
     // 防伪码类型标识,由蚂蚁侧分配
     @NameInMap("code_type")
-    @Validation(required = true)
     public String codeType;
 
     // 防伪码批次号

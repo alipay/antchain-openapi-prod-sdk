@@ -16,11 +16,6 @@ public class FinishAntiImagesyncRequest extends TeaModel {
     @Validation(required = true)
     public String batchNo;
 
-    // 防伪码类型
-    @NameInMap("code_type")
-    @Validation(required = true)
-    public String codeType;
-
     public static FinishAntiImagesyncRequest build(java.util.Map<String, ?> map) throws Exception {
         FinishAntiImagesyncRequest self = new FinishAntiImagesyncRequest();
         return TeaModel.build(map, self);
@@ -48,14 +43,6 @@ public class FinishAntiImagesyncRequest extends TeaModel {
     }
     public String getBatchNo() {
         return this.batchNo;
-    }
-
-    public FinishAntiImagesyncRequest setCodeType(String codeType) {
-        this.codeType = codeType;
-        return this;
-    }
-    public String getCodeType() {
-        return this.codeType;
     }
 
 }

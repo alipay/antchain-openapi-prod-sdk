@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mytc.models;
 
 import com.aliyun.tea.*;
 
-public class CheckCodeFakeRequest extends TeaModel {
+public class CheckCodeFakescreenRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,11 +11,11 @@ public class CheckCodeFakeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 设备型号
+    // 设备型号	
     @NameInMap("device_type")
     public String deviceType;
 
-    // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
+    // 闪光前图片
     // 待上传文件
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
@@ -28,12 +28,24 @@ public class CheckCodeFakeRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    public static CheckCodeFakeRequest build(java.util.Map<String, ?> map) throws Exception {
-        CheckCodeFakeRequest self = new CheckCodeFakeRequest();
+    // 配对标识，闪光前后需要用同一个配对标识。
+    @NameInMap("pair_id")
+    @Validation(required = true)
+    public String pairId;
+
+    // 文件类型.
+    // unflashed: 未闪光图片
+    // flashed: 闪光后图片
+    @NameInMap("file_type")
+    @Validation(required = true)
+    public String fileType;
+
+    public static CheckCodeFakescreenRequest build(java.util.Map<String, ?> map) throws Exception {
+        CheckCodeFakescreenRequest self = new CheckCodeFakescreenRequest();
         return TeaModel.build(map, self);
     }
 
-    public CheckCodeFakeRequest setAuthToken(String authToken) {
+    public CheckCodeFakescreenRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -41,7 +53,7 @@ public class CheckCodeFakeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CheckCodeFakeRequest setProductInstanceId(String productInstanceId) {
+    public CheckCodeFakescreenRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -49,7 +61,7 @@ public class CheckCodeFakeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CheckCodeFakeRequest setDeviceType(String deviceType) {
+    public CheckCodeFakescreenRequest setDeviceType(String deviceType) {
         this.deviceType = deviceType;
         return this;
     }
@@ -57,7 +69,7 @@ public class CheckCodeFakeRequest extends TeaModel {
         return this.deviceType;
     }
 
-    public CheckCodeFakeRequest setFileObject(java.io.InputStream fileObject) {
+    public CheckCodeFakescreenRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -65,7 +77,7 @@ public class CheckCodeFakeRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public CheckCodeFakeRequest setFileObjectName(String fileObjectName) {
+    public CheckCodeFakescreenRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -73,12 +85,28 @@ public class CheckCodeFakeRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public CheckCodeFakeRequest setFileId(String fileId) {
+    public CheckCodeFakescreenRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public CheckCodeFakescreenRequest setPairId(String pairId) {
+        this.pairId = pairId;
+        return this;
+    }
+    public String getPairId() {
+        return this.pairId;
+    }
+
+    public CheckCodeFakescreenRequest setFileType(String fileType) {
+        this.fileType = fileType;
+        return this;
+    }
+    public String getFileType() {
+        return this.fileType;
     }
 
 }

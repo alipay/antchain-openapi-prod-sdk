@@ -20,6 +20,14 @@ public class UploadAntiImagesyncResponse extends TeaModel {
     @NameInMap("code")
     public String code;
 
+    // 批次号
+    @NameInMap("batch_no")
+    public String batchNo;
+
+    // 该批次号，已上传底图次数
+    @NameInMap("count")
+    public Long count;
+
     public static UploadAntiImagesyncResponse build(java.util.Map<String, ?> map) throws Exception {
         UploadAntiImagesyncResponse self = new UploadAntiImagesyncResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class UploadAntiImagesyncResponse extends TeaModel {
     }
     public String getCode() {
         return this.code;
+    }
+
+    public UploadAntiImagesyncResponse setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
+        return this;
+    }
+    public String getBatchNo() {
+        return this.batchNo;
+    }
+
+    public UploadAntiImagesyncResponse setCount(Long count) {
+        this.count = count;
+        return this;
+    }
+    public Long getCount() {
+        return this.count;
     }
 
 }
