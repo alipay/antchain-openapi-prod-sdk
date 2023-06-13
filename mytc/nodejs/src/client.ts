@@ -582,10 +582,7 @@ export class CheckCodeFakeRequest extends $tea.Model {
   // 图片文件id，通过小程序拍照，上传的二维码图片信息。	
   fileObject?: Readable;
   fileObjectName?: string;
-  fileId?: string;
-  // Base64格式的图片数据	
-  // 
-  imageStr?: string;
+  fileId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -594,7 +591,6 @@ export class CheckCodeFakeRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
-      imageStr: 'image_str',
     };
   }
 
@@ -606,7 +602,6 @@ export class CheckCodeFakeRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
-      imageStr: 'string',
     };
   }
 
@@ -655,12 +650,99 @@ export class CheckCodeFakeResponse extends $tea.Model {
   }
 }
 
+export class CheckCodeFakescreenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备型号	
+  deviceType?: string;
+  // 闪光前图片
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 配对标识，闪光前后需要用同一个配对标识。
+  pairId: string;
+  // 文件类型.
+  // unflashed: 未闪光图片
+  // flashed: 闪光后图片
+  fileType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceType: 'device_type',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      pairId: 'pair_id',
+      fileType: 'file_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceType: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      pairId: 'string',
+      fileType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckCodeFakescreenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 验真是否成功	
+  detectSuccess?: boolean;
+  // 返回编码	
+  detectCode?: string;
+  // 调用返回信息	
+  detectMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detectSuccess: 'detect_success',
+      detectCode: 'detect_code',
+      detectMessage: 'detect_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detectSuccess: 'boolean',
+      detectCode: 'string',
+      detectMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitAntiImagesyncRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // 防伪码类型标识,由蚂蚁侧分配
-  codeType: string;
+  codeType?: string;
   // 防伪码批次号
   batchNo: string;
   // 批次下要上传的防伪码总数
@@ -730,26 +812,23 @@ export class UploadAntiImagesyncRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 防伪码类型
-  codeType: string;
   // 防伪码码值
   code: string;
-  // 批次号码
-  batchNo: string;
   // 文件id
   fileObject?: Readable;
   fileObjectName?: string;
-  fileId?: string;
+  fileId: string;
+  // 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
+  batchNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      codeType: 'code_type',
       code: 'code',
-      batchNo: 'batch_no',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      batchNo: 'batch_no',
     };
   }
 
@@ -757,12 +836,11 @@ export class UploadAntiImagesyncRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      codeType: 'string',
       code: 'string',
-      batchNo: 'string',
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      batchNo: 'string',
     };
   }
 
@@ -780,12 +858,18 @@ export class UploadAntiImagesyncResponse extends $tea.Model {
   resultMsg?: string;
   // 防伪码码值
   code?: string;
+  // 批次号
+  batchNo?: string;
+  // 该批次号，已上传底图次数
+  count?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       code: 'code',
+      batchNo: 'batch_no',
+      count: 'count',
     };
   }
 
@@ -795,6 +879,8 @@ export class UploadAntiImagesyncResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       code: 'string',
+      batchNo: 'string',
+      count: 'number',
     };
   }
 
@@ -809,14 +895,11 @@ export class FinishAntiImagesyncRequest extends $tea.Model {
   productInstanceId?: string;
   // 批次号
   batchNo: string;
-  // 防伪码类型
-  codeType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       batchNo: 'batch_no',
-      codeType: 'code_type',
     };
   }
 
@@ -825,7 +908,6 @@ export class FinishAntiImagesyncRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       batchNo: 'string',
-      codeType: 'string',
     };
   }
 
@@ -843,12 +925,16 @@ export class FinishAntiImagesyncResponse extends $tea.Model {
   resultMsg?: string;
   // 批次号
   batchNo?: string;
+  // 该批次号，已上传底图次数
+  // 
+  count?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       batchNo: 'batch_no',
+      count: 'count',
     };
   }
 
@@ -858,6 +944,7 @@ export class FinishAntiImagesyncResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       batchNo: 'string',
+      count: 'number',
     };
   }
 
@@ -2525,7 +2612,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.2",
+          sdk_version: "1.5.1",
           _prod_code: "MYTC",
           _prod_channel: "undefined",
         };
@@ -2651,6 +2738,46 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<CheckCodeFakeResponse>(await this.doRequest("1.0", "antchain.mytc.code.fake.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCodeFakeResponse({}));
+  }
+
+  /**
+   * Description: 二维码防伪防屏拍图片验证
+   * Summary: 二维码防伪防屏拍图片验证
+   */
+  async checkCodeFakescreen(request: CheckCodeFakescreenRequest): Promise<CheckCodeFakescreenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkCodeFakescreenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二维码防伪防屏拍图片验证
+   * Summary: 二维码防伪防屏拍图片验证
+   */
+  async checkCodeFakescreenEx(request: CheckCodeFakescreenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckCodeFakescreenResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.mytc.code.fakescreen.check",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let checkCodeFakescreenResponse = new CheckCodeFakescreenResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return checkCodeFakescreenResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<CheckCodeFakescreenResponse>(await this.doRequest("1.0", "antchain.mytc.code.fakescreen.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCodeFakescreenResponse({}));
   }
 
   /**

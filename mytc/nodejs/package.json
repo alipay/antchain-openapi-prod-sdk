@@ -1,6 +1,6 @@
 {
   "name": "@antchain/mytc",
-  "version": "1.3.2",
+  "version": "1.5.1",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
