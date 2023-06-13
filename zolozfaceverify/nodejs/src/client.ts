@@ -1899,6 +1899,93 @@ export class VerifyFaceauthVideoResponse extends $tea.Model {
   }
 }
 
+export class InitFaceauthNfcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 身份，需要公钥加密
+  identityParam: string;
+  // 客户端采集
+  metainfo: string;
+  // 外部参数
+  externParam?: string;
+  // 操作类型
+  operationType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      identityParam: 'identity_param',
+      metainfo: 'metainfo',
+      externParam: 'extern_param',
+      operationType: 'operation_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      identityParam: 'string',
+      metainfo: 'string',
+      externParam: 'string',
+      operationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitFaceauthNfcResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // z-abcd
+  zimId?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 结果码
+  resultCodeSub?: string;
+  // 结果信息
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      zimId: 'zim_id',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      zimId: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1973,7 +2060,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -2012,7 +2099,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.0",
+          sdk_version: "1.6.0",
+          _prod_code: "ZOLOZFACEVERIFY",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2436,6 +2525,25 @@ export default class Client {
   async verifyFaceauthVideoEx(request: VerifyFaceauthVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyFaceauthVideoResponse> {
     Util.validateModel(request);
     return $tea.cast<VerifyFaceauthVideoResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyFaceauthVideoResponse({}));
+  }
+
+  /**
+   * Description: 实证NFC服务端初始化
+   * Summary: 实证NFC服务端初始化
+   */
+  async initFaceauthNfc(request: InitFaceauthNfcRequest): Promise<InitFaceauthNfcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initFaceauthNfcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实证NFC服务端初始化
+   * Summary: 实证NFC服务端初始化
+   */
+  async initFaceauthNfcEx(request: InitFaceauthNfcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitFaceauthNfcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitFaceauthNfcResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitFaceauthNfcResponse({}));
   }
 
 }
