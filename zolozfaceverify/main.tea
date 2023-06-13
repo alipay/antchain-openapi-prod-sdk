@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.0',
+    sdk_version = '1.6.0',
+    _prod_code = 'ZOLOZFACEVERIFY',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -1243,5 +1245,57 @@ async function verifyFaceauthVideo(request: VerifyFaceauthVideoRequest): VerifyF
 async function verifyFaceauthVideoEx(request: VerifyFaceauthVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyFaceauthVideoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitFaceauthNfcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 身份，需要公钥加密
+  identityParam: string(name='identity_param'),
+  // 客户端采集
+  metainfo: string(name='metainfo'),
+  // 外部参数
+  externParam?: string(name='extern_param'),
+  // 操作类型
+  operationType?: string(name='operation_type'),
+}
+
+model InitFaceauthNfcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // z-abcd
+  zimId?: string(name='zim_id'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 结果码
+  resultCodeSub?: string(name='result_code_sub'),
+  // 结果信息
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 实证NFC服务端初始化
+ * Summary: 实证NFC服务端初始化
+ */
+async function initFaceauthNfc(request: InitFaceauthNfcRequest): InitFaceauthNfcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initFaceauthNfcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实证NFC服务端初始化
+ * Summary: 实证NFC服务端初始化
+ */
+async function initFaceauthNfcEx(request: InitFaceauthNfcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFaceauthNfcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
