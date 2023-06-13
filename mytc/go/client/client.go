@@ -793,10 +793,7 @@ type CheckCodeFakeRequest struct {
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
-	// Base64格式的图片数据
-	//
-	ImageStr *string `json:"image_str,omitempty" xml:"image_str,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 }
 
 func (s CheckCodeFakeRequest) String() string {
@@ -834,11 +831,6 @@ func (s *CheckCodeFakeRequest) SetFileObjectName(v string) *CheckCodeFakeRequest
 
 func (s *CheckCodeFakeRequest) SetFileId(v string) *CheckCodeFakeRequest {
 	s.FileId = &v
-	return s
-}
-
-func (s *CheckCodeFakeRequest) SetImageStr(v string) *CheckCodeFakeRequest {
-	s.ImageStr = &v
 	return s
 }
 
@@ -895,12 +887,133 @@ func (s *CheckCodeFakeResponse) SetDetectMessage(v string) *CheckCodeFakeRespons
 	return s
 }
 
+type CheckCodeFakescreenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备型号
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 闪光前图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 配对标识，闪光前后需要用同一个配对标识。
+	PairId *string `json:"pair_id,omitempty" xml:"pair_id,omitempty" require:"true"`
+	// 文件类型.
+	// unflashed: 未闪光图片
+	// flashed: 闪光后图片
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s CheckCodeFakescreenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCodeFakescreenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCodeFakescreenRequest) SetAuthToken(v string) *CheckCodeFakescreenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetProductInstanceId(v string) *CheckCodeFakescreenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetDeviceType(v string) *CheckCodeFakescreenRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetFileObject(v io.Reader) *CheckCodeFakescreenRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetFileObjectName(v string) *CheckCodeFakescreenRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetFileId(v string) *CheckCodeFakescreenRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetPairId(v string) *CheckCodeFakescreenRequest {
+	s.PairId = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenRequest) SetFileType(v string) *CheckCodeFakescreenRequest {
+	s.FileType = &v
+	return s
+}
+
+type CheckCodeFakescreenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验真是否成功
+	DetectSuccess *bool `json:"detect_success,omitempty" xml:"detect_success,omitempty"`
+	// 返回编码
+	DetectCode *string `json:"detect_code,omitempty" xml:"detect_code,omitempty"`
+	// 调用返回信息
+	DetectMessage *string `json:"detect_message,omitempty" xml:"detect_message,omitempty"`
+}
+
+func (s CheckCodeFakescreenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCodeFakescreenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCodeFakescreenResponse) SetReqMsgId(v string) *CheckCodeFakescreenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenResponse) SetResultCode(v string) *CheckCodeFakescreenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenResponse) SetResultMsg(v string) *CheckCodeFakescreenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenResponse) SetDetectSuccess(v bool) *CheckCodeFakescreenResponse {
+	s.DetectSuccess = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenResponse) SetDetectCode(v string) *CheckCodeFakescreenResponse {
+	s.DetectCode = &v
+	return s
+}
+
+func (s *CheckCodeFakescreenResponse) SetDetectMessage(v string) *CheckCodeFakescreenResponse {
+	s.DetectMessage = &v
+	return s
+}
+
 type InitAntiImagesyncRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 防伪码类型标识,由蚂蚁侧分配
-	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
+	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty"`
 	// 防伪码批次号
 	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
 	// 批次下要上传的防伪码总数
@@ -990,18 +1103,16 @@ type UploadAntiImagesyncRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 防伪码类型
-	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
 	// 防伪码码值
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 批次号码
-	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
 	// 文件id
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 防伪码批次号，若不填写，则会获取当天最新批次号。若批次不存在，则创建一个新的批次。
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
 }
 
 func (s UploadAntiImagesyncRequest) String() string {
@@ -1022,18 +1133,8 @@ func (s *UploadAntiImagesyncRequest) SetProductInstanceId(v string) *UploadAntiI
 	return s
 }
 
-func (s *UploadAntiImagesyncRequest) SetCodeType(v string) *UploadAntiImagesyncRequest {
-	s.CodeType = &v
-	return s
-}
-
 func (s *UploadAntiImagesyncRequest) SetCode(v string) *UploadAntiImagesyncRequest {
 	s.Code = &v
-	return s
-}
-
-func (s *UploadAntiImagesyncRequest) SetBatchNo(v string) *UploadAntiImagesyncRequest {
-	s.BatchNo = &v
 	return s
 }
 
@@ -1052,6 +1153,11 @@ func (s *UploadAntiImagesyncRequest) SetFileId(v string) *UploadAntiImagesyncReq
 	return s
 }
 
+func (s *UploadAntiImagesyncRequest) SetBatchNo(v string) *UploadAntiImagesyncRequest {
+	s.BatchNo = &v
+	return s
+}
+
 type UploadAntiImagesyncResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1061,6 +1167,10 @@ type UploadAntiImagesyncResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 防伪码码值
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+	// 该批次号，已上传底图次数
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
 }
 
 func (s UploadAntiImagesyncResponse) String() string {
@@ -1091,14 +1201,22 @@ func (s *UploadAntiImagesyncResponse) SetCode(v string) *UploadAntiImagesyncResp
 	return s
 }
 
+func (s *UploadAntiImagesyncResponse) SetBatchNo(v string) *UploadAntiImagesyncResponse {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncResponse) SetCount(v int64) *UploadAntiImagesyncResponse {
+	s.Count = &v
+	return s
+}
+
 type FinishAntiImagesyncRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 批次号
 	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
-	// 防伪码类型
-	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
 }
 
 func (s FinishAntiImagesyncRequest) String() string {
@@ -1124,11 +1242,6 @@ func (s *FinishAntiImagesyncRequest) SetBatchNo(v string) *FinishAntiImagesyncRe
 	return s
 }
 
-func (s *FinishAntiImagesyncRequest) SetCodeType(v string) *FinishAntiImagesyncRequest {
-	s.CodeType = &v
-	return s
-}
-
 type FinishAntiImagesyncResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1138,6 +1251,9 @@ type FinishAntiImagesyncResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 批次号
 	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+	// 该批次号，已上传底图次数
+	//
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
 }
 
 func (s FinishAntiImagesyncResponse) String() string {
@@ -1165,6 +1281,11 @@ func (s *FinishAntiImagesyncResponse) SetResultMsg(v string) *FinishAntiImagesyn
 
 func (s *FinishAntiImagesyncResponse) SetBatchNo(v string) *FinishAntiImagesyncResponse {
 	s.BatchNo = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncResponse) SetCount(v int64) *FinishAntiImagesyncResponse {
+	s.Count = &v
 	return s
 }
 
@@ -3336,7 +3457,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("1.5.1"),
 				"_prod_code":       tea.String("MYTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3513,6 +3634,69 @@ func (client *Client) CheckCodeFakeEx(request *CheckCodeFakeRequest, headers map
 	}
 	_result = &CheckCodeFakeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fake.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪防屏拍图片验证
+ * Summary: 二维码防伪防屏拍图片验证
+ */
+func (client *Client) CheckCodeFakescreen(request *CheckCodeFakescreenRequest) (_result *CheckCodeFakescreenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCodeFakescreenResponse{}
+	_body, _err := client.CheckCodeFakescreenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二维码防伪防屏拍图片验证
+ * Summary: 二维码防伪防屏拍图片验证
+ */
+func (client *Client) CheckCodeFakescreenEx(request *CheckCodeFakescreenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCodeFakescreenResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.mytc.code.fakescreen.check"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			checkCodeFakescreenResponse := &CheckCodeFakescreenResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = checkCodeFakescreenResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCodeFakescreenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.code.fakescreen.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
