@@ -47,12 +47,16 @@ use AntChain\BOT\Models\CheckAiidentificationGoodspointRequest;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointResponse;
 use AntChain\BOT\Models\CheckAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\CheckAiidentificationQrcodeResponse;
+use AntChain\BOT\Models\ConfirmCollectorUploadfileRequest;
+use AntChain\BOT\Models\ConfirmCollectorUploadfileResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\CreateAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\CreateAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\BOT\Models\CreateCollectorUploadfileurlRequest;
+use AntChain\BOT\Models\CreateCollectorUploadfileurlResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
 use AntChain\BOT\Models\CreateCustomerEntityRequest;
@@ -161,6 +165,8 @@ use AntChain\BOT\Models\NotifyPullstrategyChangestatusRequest;
 use AntChain\BOT\Models\NotifyPullstrategyChangestatusResponse;
 use AntChain\BOT\Models\NotifyPullstrategyChargeorderinfoRequest;
 use AntChain\BOT\Models\NotifyPullstrategyChargeorderinfoResponse;
+use AntChain\BOT\Models\NotifyThirddeviceMessageRequest;
+use AntChain\BOT\Models\NotifyThirddeviceMessageResponse;
 use AntChain\BOT\Models\OfflineDeviceByunregisterRequest;
 use AntChain\BOT\Models\OfflineDeviceByunregisterResponse;
 use AntChain\BOT\Models\OfflineDeviceRequest;
@@ -169,6 +175,8 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\OperateAiotnextbsOpenapiRequest;
+use AntChain\BOT\Models\OperateAiotnextbsOpenapiResponse;
 use AntChain\BOT\Models\OperateIotbasicBatchcollectRequest;
 use AntChain\BOT\Models\OperateIotbasicBatchcollectResponse;
 use AntChain\BOT\Models\OperateIotbasicCategoryRequest;
@@ -520,7 +528,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.56',
+                    'sdk_version'      => '1.8.76',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1259,6 +1267,39 @@ class Client
         Utils::validateModel($request);
 
         return DetailXrXrticketpoolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiotnextbs-openApi操作
+     * Summary: aiotnextbs-openApi操作.
+     *
+     * @param OperateAiotnextbsOpenapiRequest $request
+     *
+     * @return OperateAiotnextbsOpenapiResponse
+     */
+    public function operateAiotnextbsOpenapi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateAiotnextbsOpenapiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiotnextbs-openApi操作
+     * Summary: aiotnextbs-openApi操作.
+     *
+     * @param OperateAiotnextbsOpenapiRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return OperateAiotnextbsOpenapiResponse
+     */
+    public function operateAiotnextbsOpenapiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateAiotnextbsOpenapiResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2993,6 +3034,39 @@ class Client
         Utils::validateModel($request);
 
         return SaveIotbasicCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备消息同步
+     * Summary: IoT设备平台-设备消息同步.
+     *
+     * @param NotifyThirddeviceMessageRequest $request
+     *
+     * @return NotifyThirddeviceMessageResponse
+     */
+    public function notifyThirddeviceMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyThirddeviceMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备消息同步
+     * Summary: IoT设备平台-设备消息同步.
+     *
+     * @param NotifyThirddeviceMessageRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return NotifyThirddeviceMessageResponse
+     */
+    public function notifyThirddeviceMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyThirddeviceMessageResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5996,6 +6070,72 @@ class Client
         Utils::validateModel($request);
 
         return DetailThingmodelDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+     * Summary: 创建上传文件URL.
+     *
+     * @param CreateCollectorUploadfileurlRequest $request
+     *
+     * @return CreateCollectorUploadfileurlResponse
+     */
+    public function createCollectorUploadfileurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCollectorUploadfileurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+     * Summary: 创建上传文件URL.
+     *
+     * @param CreateCollectorUploadfileurlRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateCollectorUploadfileurlResponse
+     */
+    public function createCollectorUploadfileurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCollectorUploadfileurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.uploadfileurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+     * Summary: 通过文件上报数据，上传完毕后确认.
+     *
+     * @param ConfirmCollectorUploadfileRequest $request
+     *
+     * @return ConfirmCollectorUploadfileResponse
+     */
+    public function confirmCollectorUploadfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmCollectorUploadfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+     * Summary: 通过文件上报数据，上传完毕后确认.
+     *
+     * @param ConfirmCollectorUploadfileRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ConfirmCollectorUploadfileResponse
+     */
+    public function confirmCollectorUploadfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmCollectorUploadfileResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

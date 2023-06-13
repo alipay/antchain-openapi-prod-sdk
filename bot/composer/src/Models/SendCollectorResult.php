@@ -15,13 +15,23 @@ class SendCollectorResult extends Model
      * @var string
      */
     public $txHash;
+
+    // 原入参的数组索引
+    /**
+     * @example 0
+     *
+     * @var int
+     */
+    public $originalIndex;
     protected $_name = [
-        'txHash' => 'tx_hash',
+        'txHash'        => 'tx_hash',
+        'originalIndex' => 'original_index',
     ];
 
     public function validate()
     {
         Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('originalIndex', $this->originalIndex, true);
     }
 
     public function toMap()
@@ -29,6 +39,9 @@ class SendCollectorResult extends Model
         $res = [];
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->originalIndex) {
+            $res['original_index'] = $this->originalIndex;
         }
 
         return $res;
@@ -44,6 +57,9 @@ class SendCollectorResult extends Model
         $model = new self();
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
+        }
+        if (isset($map['original_index'])) {
+            $model->originalIndex = $map['original_index'];
         }
 
         return $model;

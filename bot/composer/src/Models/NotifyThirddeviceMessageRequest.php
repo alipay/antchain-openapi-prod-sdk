@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncIotbasicDevicestatusRequest extends Model
+class NotifyThirddeviceMessageRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,36 +25,30 @@ class SyncIotbasicDevicestatusRequest extends Model
      */
     public $deviceDid;
 
-    // 设备状态
+    // 设备信息同步命令
     /**
      * @var string
      */
-    public $deviceStatus;
+    public $command;
 
-    // 设备签名
+    // 设备签名，用设备pri_key 进行签名，只对deviceDid加签
     /**
      * @var string
      */
-    public $deviceSignature;
-
-    // 业务状态
-    /**
-     * @var BizStatusInfoOp
-     */
-    public $bizStatusInfo;
+    public $signature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceDid'         => 'device_did',
-        'deviceStatus'      => 'device_status',
-        'deviceSignature'   => 'device_signature',
-        'bizStatusInfo'     => 'biz_status_info',
+        'command'           => 'command',
+        'signature'         => 'signature',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceDid', $this->deviceDid, true);
-        Model::validateRequired('deviceSignature', $this->deviceSignature, true);
+        Model::validateRequired('command', $this->command, true);
+        Model::validateRequired('signature', $this->signature, true);
     }
 
     public function toMap()
@@ -69,14 +63,11 @@ class SyncIotbasicDevicestatusRequest extends Model
         if (null !== $this->deviceDid) {
             $res['device_did'] = $this->deviceDid;
         }
-        if (null !== $this->deviceStatus) {
-            $res['device_status'] = $this->deviceStatus;
+        if (null !== $this->command) {
+            $res['command'] = $this->command;
         }
-        if (null !== $this->deviceSignature) {
-            $res['device_signature'] = $this->deviceSignature;
-        }
-        if (null !== $this->bizStatusInfo) {
-            $res['biz_status_info'] = null !== $this->bizStatusInfo ? $this->bizStatusInfo->toMap() : null;
+        if (null !== $this->signature) {
+            $res['signature'] = $this->signature;
         }
 
         return $res;
@@ -85,7 +76,7 @@ class SyncIotbasicDevicestatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return SyncIotbasicDevicestatusRequest
+     * @return NotifyThirddeviceMessageRequest
      */
     public static function fromMap($map = [])
     {
@@ -99,14 +90,11 @@ class SyncIotbasicDevicestatusRequest extends Model
         if (isset($map['device_did'])) {
             $model->deviceDid = $map['device_did'];
         }
-        if (isset($map['device_status'])) {
-            $model->deviceStatus = $map['device_status'];
+        if (isset($map['command'])) {
+            $model->command = $map['command'];
         }
-        if (isset($map['device_signature'])) {
-            $model->deviceSignature = $map['device_signature'];
-        }
-        if (isset($map['biz_status_info'])) {
-            $model->bizStatusInfo = BizStatusInfoOp::fromMap($map['biz_status_info']);
+        if (isset($map['signature'])) {
+            $model->signature = $map['signature'];
         }
 
         return $model;

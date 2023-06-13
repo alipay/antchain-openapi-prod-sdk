@@ -34,17 +34,25 @@ class SendCollectorBychainidmulRequest extends Model
      * @var string
      */
     public $nonce;
+
+    // 开启后接口返回值中包含txHash
+    /**
+     * @var bool
+     */
+    public $waitCheckAndHash;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'content'           => 'content',
         'nonce'             => 'nonce',
+        'waitCheckAndHash'  => 'wait_check_and_hash',
     ];
 
     public function validate()
     {
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('nonce', $this->nonce, true);
+        Model::validateRequired('waitCheckAndHash', $this->waitCheckAndHash, true);
     }
 
     public function toMap()
@@ -67,6 +75,9 @@ class SendCollectorBychainidmulRequest extends Model
         }
         if (null !== $this->nonce) {
             $res['nonce'] = $this->nonce;
+        }
+        if (null !== $this->waitCheckAndHash) {
+            $res['wait_check_and_hash'] = $this->waitCheckAndHash;
         }
 
         return $res;
@@ -97,6 +108,9 @@ class SendCollectorBychainidmulRequest extends Model
         }
         if (isset($map['nonce'])) {
             $model->nonce = $map['nonce'];
+        }
+        if (isset($map['wait_check_and_hash'])) {
+            $model->waitCheckAndHash = $map['wait_check_and_hash'];
         }
 
         return $model;

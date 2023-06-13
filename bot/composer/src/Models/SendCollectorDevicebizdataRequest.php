@@ -46,6 +46,12 @@ class SendCollectorDevicebizdataRequest extends Model
      * @var string
      */
     public $scene;
+
+    // 开启后，接口返回值中包含txHash
+    /**
+     * @var bool
+     */
+    public $waitCheckAndHash;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -53,6 +59,7 @@ class SendCollectorDevicebizdataRequest extends Model
         'nonce'             => 'nonce',
         'content'           => 'content',
         'scene'             => 'scene',
+        'waitCheckAndHash'  => 'wait_check_and_hash',
     ];
 
     public function validate()
@@ -60,6 +67,7 @@ class SendCollectorDevicebizdataRequest extends Model
         Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('nonce', $this->nonce, true);
         Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('waitCheckAndHash', $this->waitCheckAndHash, true);
     }
 
     public function toMap()
@@ -88,6 +96,9 @@ class SendCollectorDevicebizdataRequest extends Model
         }
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
+        }
+        if (null !== $this->waitCheckAndHash) {
+            $res['wait_check_and_hash'] = $this->waitCheckAndHash;
         }
 
         return $res;
@@ -124,6 +135,9 @@ class SendCollectorDevicebizdataRequest extends Model
         }
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];
+        }
+        if (isset($map['wait_check_and_hash'])) {
+            $model->waitCheckAndHash = $map['wait_check_and_hash'];
         }
 
         return $model;

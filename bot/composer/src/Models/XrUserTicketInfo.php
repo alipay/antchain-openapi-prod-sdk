@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class XrUserTicketInfo extends Model
 {
-    // xr通行证资源池id
-    /**
-     * @example 10
-     *
-     * @var int
-     */
-    public $xrTicketPoolId;
-
     // xr通行证资源池名称
     /**
      * @example 资源池001
@@ -32,14 +24,12 @@ class XrUserTicketInfo extends Model
      */
     public $count;
     protected $_name = [
-        'xrTicketPoolId'   => 'xr_ticket_pool_id',
         'xrTicketPoolName' => 'xr_ticket_pool_name',
         'count'            => 'count',
     ];
 
     public function validate()
     {
-        Model::validateRequired('xrTicketPoolId', $this->xrTicketPoolId, true);
         Model::validateRequired('xrTicketPoolName', $this->xrTicketPoolName, true);
         Model::validateRequired('count', $this->count, true);
     }
@@ -47,9 +37,6 @@ class XrUserTicketInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->xrTicketPoolId) {
-            $res['xr_ticket_pool_id'] = $this->xrTicketPoolId;
-        }
         if (null !== $this->xrTicketPoolName) {
             $res['xr_ticket_pool_name'] = $this->xrTicketPoolName;
         }
@@ -68,9 +55,6 @@ class XrUserTicketInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['xr_ticket_pool_id'])) {
-            $model->xrTicketPoolId = $map['xr_ticket_pool_id'];
-        }
         if (isset($map['xr_ticket_pool_name'])) {
             $model->xrTicketPoolName = $map['xr_ticket_pool_name'];
         }

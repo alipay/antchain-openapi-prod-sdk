@@ -47,12 +47,21 @@ class DataModel extends Model
      * @var string
      */
     public $customerVersion;
+
+    // 数据样例
+    /**
+     * @example {"name":"zhangsan"}
+     *
+     * @var string
+     */
+    public $dataDemo;
     protected $_name = [
         'dataModelId'     => 'data_model_id',
         'dataModelName'   => 'data_model_name',
         'dataModel'       => 'data_model',
         'bizType'         => 'biz_type',
         'customerVersion' => 'customer_version',
+        'dataDemo'        => 'data_demo',
     ];
 
     public function validate()
@@ -78,6 +87,9 @@ class DataModel extends Model
         }
         if (null !== $this->customerVersion) {
             $res['customer_version'] = $this->customerVersion;
+        }
+        if (null !== $this->dataDemo) {
+            $res['data_demo'] = $this->dataDemo;
         }
 
         return $res;
@@ -105,6 +117,9 @@ class DataModel extends Model
         }
         if (isset($map['customer_version'])) {
             $model->customerVersion = $map['customer_version'];
+        }
+        if (isset($map['data_demo'])) {
+            $model->dataDemo = $map['data_demo'];
         }
 
         return $model;

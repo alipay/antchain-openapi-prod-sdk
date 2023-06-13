@@ -49,11 +49,11 @@ class UpdateXrXrticketpoolRequest extends Model
      */
     public $xrApps;
 
-    // 券池数量，能发多少张券
+    // 券池剩余数量
     /**
      * @var int
      */
-    public $maxPoolCount;
+    public $surplusCount;
 
     // 核销类型，资源id改变时必须有值
     /**
@@ -74,7 +74,7 @@ class UpdateXrXrticketpoolRequest extends Model
         'validTime'          => 'valid_time',
         'testTime'           => 'test_time',
         'xrApps'             => 'xr_apps',
-        'maxPoolCount'       => 'max_pool_count',
+        'surplusCount'       => 'surplus_count',
         'xrVerificationType' => 'xr_verification_type',
         'bizScene'           => 'biz_scene',
     ];
@@ -109,8 +109,8 @@ class UpdateXrXrticketpoolRequest extends Model
         if (null !== $this->xrApps) {
             $res['xr_apps'] = $this->xrApps;
         }
-        if (null !== $this->maxPoolCount) {
-            $res['max_pool_count'] = $this->maxPoolCount;
+        if (null !== $this->surplusCount) {
+            $res['surplus_count'] = $this->surplusCount;
         }
         if (null !== $this->xrVerificationType) {
             $res['xr_verification_type'] = $this->xrVerificationType;
@@ -151,8 +151,8 @@ class UpdateXrXrticketpoolRequest extends Model
         if (isset($map['xr_apps'])) {
             $model->xrApps = $map['xr_apps'];
         }
-        if (isset($map['max_pool_count'])) {
-            $model->maxPoolCount = $map['max_pool_count'];
+        if (isset($map['surplus_count'])) {
+            $model->surplusCount = $map['surplus_count'];
         }
         if (isset($map['xr_verification_type'])) {
             $model->xrVerificationType = $map['xr_verification_type'];

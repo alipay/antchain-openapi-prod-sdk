@@ -132,7 +132,7 @@ class XrUserTicketDetail extends Model
     /**
      * @example 60
      *
-     * @var string
+     * @var int
      */
     public $testTime;
 

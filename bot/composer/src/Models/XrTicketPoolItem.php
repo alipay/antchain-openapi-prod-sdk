@@ -28,7 +28,7 @@ class XrTicketPoolItem extends Model
     /**
      * @example 1
      *
-     * @var int
+     * @var string
      */
     public $resourceId;
 
@@ -138,19 +138,6 @@ class XrTicketPoolItem extends Model
 
     public function validate()
     {
-        Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('xrTicketPoolName', $this->xrTicketPoolName, true);
-        Model::validateRequired('resourceId', $this->resourceId, true);
-        Model::validateRequired('validTime', $this->validTime, true);
-        Model::validateRequired('testTime', $this->testTime, true);
-        Model::validateRequired('status', $this->status, true);
-        Model::validateRequired('useStatus', $this->useStatus, true);
-        Model::validateRequired('resourceName', $this->resourceName, true);
-        Model::validateRequired('maxPoolCount', $this->maxPoolCount, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('xrVerificationType', $this->xrVerificationType, true);
-        Model::validateRequired('surplusCount', $this->surplusCount, true);
-        Model::validateRequired('issuedCount', $this->issuedCount, true);
     }
 
     public function toMap()

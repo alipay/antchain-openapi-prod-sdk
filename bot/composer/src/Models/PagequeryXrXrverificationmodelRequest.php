@@ -60,6 +60,12 @@ class PagequeryXrXrverificationmodelRequest extends Model
      * @var string
      */
     public $bizScene;
+
+    // 核销类型
+    /**
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,11 +76,11 @@ class PagequeryXrXrverificationmodelRequest extends Model
         'current'           => 'current',
         'pageSize'          => 'page_size',
         'bizScene'          => 'biz_scene',
+        'type'              => 'type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('instanceId', $this->instanceId, true);
         Model::validateRequired('current', $this->current, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
@@ -109,6 +115,9 @@ class PagequeryXrXrverificationmodelRequest extends Model
         }
         if (null !== $this->bizScene) {
             $res['biz_scene'] = $this->bizScene;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
 
         return $res;
@@ -148,6 +157,9 @@ class PagequeryXrXrverificationmodelRequest extends Model
         }
         if (isset($map['biz_scene'])) {
             $model->bizScene = $map['biz_scene'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;

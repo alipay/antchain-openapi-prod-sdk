@@ -63,6 +63,14 @@ class XrVerificationModelVo extends Model
      * @var string
      */
     public $resourceName;
+
+    // 核销类型
+    /**
+     * @example XR_DEVICE
+     *
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'instanceId'   => 'instance_id',
         'instanceName' => 'instance_name',
@@ -71,6 +79,7 @@ class XrVerificationModelVo extends Model
         'deviceStatus' => 'device_status',
         'resourceId'   => 'resource_id',
         'resourceName' => 'resource_name',
+        'type'         => 'type',
     ];
 
     public function validate()
@@ -82,6 +91,7 @@ class XrVerificationModelVo extends Model
         Model::validateRequired('deviceStatus', $this->deviceStatus, true);
         Model::validateRequired('resourceId', $this->resourceId, true);
         Model::validateRequired('resourceName', $this->resourceName, true);
+        Model::validateRequired('type', $this->type, true);
     }
 
     public function toMap()
@@ -107,6 +117,9 @@ class XrVerificationModelVo extends Model
         }
         if (null !== $this->resourceName) {
             $res['resource_name'] = $this->resourceName;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
 
         return $res;
@@ -140,6 +153,9 @@ class XrVerificationModelVo extends Model
         }
         if (isset($map['resource_name'])) {
             $model->resourceName = $map['resource_name'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SendCollectorBychainidmulResponse extends Model
+class NotifyThirddeviceMessageResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class SendCollectorBychainidmulResponse extends Model
      */
     public $resultMsg;
 
-    // 数据上链哈希
+    // 处理结果
     /**
-     * @var SendCollectorResult[]
+     * @var bool
      */
-    public $resultList;
+    public $success;
+
+    // 设备信息同步命令
+    /**
+     * @var string
+     */
+    public $command;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'resultList' => 'result_list',
+        'success'    => 'success',
+        'command'    => 'command',
     ];
 
     public function validate()
@@ -54,14 +61,11 @@ class SendCollectorBychainidmulResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->resultList) {
-            $res['result_list'] = [];
-            if (null !== $this->resultList && \is_array($this->resultList)) {
-                $n = 0;
-                foreach ($this->resultList as $item) {
-                    $res['result_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->command) {
+            $res['command'] = $this->command;
         }
 
         return $res;
@@ -70,7 +74,7 @@ class SendCollectorBychainidmulResponse extends Model
     /**
      * @param array $map
      *
-     * @return SendCollectorBychainidmulResponse
+     * @return NotifyThirddeviceMessageResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +88,11 @@ class SendCollectorBychainidmulResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result_list'])) {
-            if (!empty($map['result_list'])) {
-                $model->resultList = [];
-                $n                 = 0;
-                foreach ($map['result_list'] as $item) {
-                    $model->resultList[$n++] = null !== $item ? SendCollectorResult::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['command'])) {
+            $model->command = $map['command'];
         }
 
         return $model;
