@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.56',
+    sdk_version = '1.8.76',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -831,6 +831,8 @@ model DataModel {
   bizType?: string(name='biz_type', example='ORDER'),
   // 用户自定义版本
   customerVersion?: string(name='customer_version', example='V1.0'),
+  // 数据样例
+  dataDemo?: string(name='data_demo', example='{"name":"zhangsan"}'),
 }
 
 // 溯源防伪码生成请求的响应数据
@@ -1049,7 +1051,7 @@ model XrUserTicketDetail {
   // 实例名称
   instanceName?: string(name='instance_name', example='实例001'),
   // 体验时长，分
-  testTime: string(name='test_time', example='60'),
+  testTime: long(name='test_time', example='60'),
   // vr应用集合
   xrApps?: string(name='xr_apps', example='vr应用集合'),
 }
@@ -1206,6 +1208,18 @@ model XrVerificationModelVo {
   resourceId: string(name='resource_id', example='唯一ID，对应线下场code'),
   // 对应线下场名称
   resourceName: string(name='resource_name', example='对应线下场名称'),
+  // 核销类型
+  type: string(name='type', example='XR_DEVICE'),
+}
+
+// 业务状态信息
+model BizStatusInfoOp {
+  // 业务状态类型
+  bizType: string(name='biz_type', example='SMART_CAR_KEY'),
+  // 业务状态
+  bizStatus: string(name='biz_status', example='unbound'),
+  // 时间
+  opTime: string(name='op_time', example='2018-10-10 10:10:00'),
 }
 
 // 实体身份注册请求结构体
@@ -1392,33 +1406,33 @@ model RegByDeviceParm {
 // xr通行证券池分页返回
 model XrTicketPoolItem {
   // 业务类型
-  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  bizScene?: string(name='biz_scene', example='XR_LEASE'),
   // 通行证名称
-  xrTicketPoolName: string(name='xr_ticket_pool_name', example='通行证名称'),
+  xrTicketPoolName?: string(name='xr_ticket_pool_name', example='通行证名称'),
   // 资源id
-  resourceId: long(name='resource_id', example='1'),
+  resourceId?: string(name='resource_id', example='1'),
   // 有效期
-  validTime: string(name='valid_time', example='2022-10-02'),
+  validTime?: string(name='valid_time', example='2022-10-02'),
   // 体验时长
-  testTime: long(name='test_time', example='15(单位分钟)'),
+  testTime?: long(name='test_time', example='15(单位分钟)'),
   // 通行证状态：EXPIRED：已过期  VALID：有效  SALED：已出售
-  status: string(name='status', example='通行证状态'),
+  status?: string(name='status', example='通行证状态'),
   // 判断已发放数量>0(USED：已使用)  判断已发放数量=0(NOT_USED：未使用)
-  useStatus: string(name='use_status', example='USED'),
+  useStatus?: string(name='use_status', example='USED'),
   // 资源名称
-  resourceName: string(name='resource_name', example='资源名称'),
+  resourceName?: string(name='resource_name', example='资源名称'),
   // 设备集合
   xrApps?: string(name='xr_apps', example='json 或数组'),
   // 券池最大票数
-  maxPoolCount: long(name='max_pool_count', example='133'),
+  maxPoolCount?: long(name='max_pool_count', example='133'),
   // 租户id
-  tenantId: string(name='tenant_id', example='ADSAERDS'),
+  tenantId?: string(name='tenant_id', example='ADSAERDS'),
   // 核销类型
-  xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+  xrVerificationType?: string(name='xr_verification_type', example='XR_DEVICE'),
   // 剩余可用券数量
-  surplusCount: long(name='surplus_count', example='100'),
+  surplusCount?: long(name='surplus_count', example='100'),
   // 已发放数量 （总数-剩余数量）
-  issuedCount: long(name='issued_count', example='12'),
+  issuedCount?: long(name='issued_count', example='12'),
 }
 
 // 信物链证据基本组成结构体
@@ -1535,6 +1549,8 @@ model BaiGoodsComparisonReqData {
 model SendCollectorResult {
   // 数据内容content的上链交易哈希
   txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+  // 原入参的数组索引
+  originalIndex: long(name='original_index', example='0'),
 }
 
 // 指纹图片入库是否成功
@@ -1628,6 +1644,8 @@ model TrustiotDeviceIdMap {
   trustiotDeviceId: long(name='trustiot_device_id', example='7006413673662394390'),
   // 设备ID	
   deviceId: string(name='device_id', example='1122'),
+  // 设备注册的上链哈希
+  chainDeviceId: string(name='chain_device_id', example='ba9de337190b017ea6255bffa226ea5ed91cbb03babb42e5a35d652ca30cdce1'),
 }
 
 // ProductKey分页查询结果
@@ -1962,8 +1980,6 @@ model DidBaseQueryResp {
 
 // 用户通行证创建详情
 model XrUserTicketInfo {
-  // xr通行证资源池id
-  xrTicketPoolId: long(name='xr_ticket_pool_id', example='10'),
   // xr通行证资源池名称
   xrTicketPoolName: string(name='xr_ticket_pool_name', example='资源池001'),
   // 购买数量
@@ -2727,13 +2743,15 @@ model PagequeryXrXrverificationmodelRequest = {
   // 设备sn
   instanceName?: string(name='instance_name'),
   // 设备did
-  instanceId: string(name='instance_id'),
+  instanceId?: string(name='instance_id'),
   // 当前页
   current: long(name='current'),
   // 每页大小
   pageSize: long(name='page_size'),
   // 业务类型
   bizScene: string(name='biz_scene'),
+  // 核销类型
+  type?: string(name='type'),
 }
 
 model PagequeryXrXrverificationmodelResponse = {
@@ -2792,6 +2810,8 @@ model PagequeryXrCustomerdeviceRequest = {
   current: long(name='current'),
   // 每页数据
   pageSize: long(name='page_size'),
+  // 业务类型
+  bizScene: string(name='biz_scene'),
 }
 
 model PagequeryXrCustomerdeviceResponse = {
@@ -2900,8 +2920,8 @@ model UpdateXrXrticketpoolRequest = {
   testTime?: long(name='test_time'),
   // vr设备集合
   xrApps?: string(name='xr_apps'),
-  // 券池数量，能发多少张券
-  maxPoolCount?: long(name='max_pool_count'),
+  // 券池剩余数量
+  surplusCount?: long(name='surplus_count'),
   // 核销类型，资源id改变时必须有值
   xrVerificationType?: string(name='xr_verification_type'),
   // 业务类型
@@ -3174,6 +3194,60 @@ async function detailXrXrticketpool(request: DetailXrXrticketpoolRequest): Detai
 async function detailXrXrticketpoolEx(request: DetailXrXrticketpoolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailXrXrticketpoolResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.xr.xrticketpool.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateAiotnextbsOpenapiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作类型
+  operateType: string(name='operate_type'),
+  // 参数签名
+  paramSign: string(name='param_sign'),
+  // 业务操作类型
+  bizType: string(name='biz_type'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 类名（实现类），首字母小写
+  interfaceName: string(name='interface_name'),
+  // 方法名
+  methodName: string(name='method_name'),
+  // 参数类路径
+  paramClass: string(name='param_class'),
+  // 参数数据
+  paramList: string(name='param_list'),
+}
+
+model OperateAiotnextbsOpenapiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+  // 结果数据
+  result?: string(name='result'),
+}
+
+/**
+ * Description: aiotnextbs-openApi操作
+ * Summary: aiotnextbs-openApi操作
+ */
+async function operateAiotnextbsOpenapi(request: OperateAiotnextbsOpenapiRequest): OperateAiotnextbsOpenapiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateAiotnextbsOpenapiEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiotnextbs-openApi操作
+ * Summary: aiotnextbs-openApi操作
+ */
+async function operateAiotnextbsOpenapiEx(request: OperateAiotnextbsOpenapiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAiotnextbsOpenapiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model FinishTraceConfigRequest = {
@@ -4638,9 +4712,11 @@ model SyncIotbasicDevicestatusRequest = {
   // 设备did
   deviceDid: string(name='device_did'),
   // 设备状态
-  deviceStatus: string(name='device_status'),
+  deviceStatus?: string(name='device_status'),
   // 设备签名
   deviceSignature: string(name='device_signature'),
+  // 业务状态
+  bizStatusInfo?: BizStatusInfoOp(name='biz_status_info'),
 }
 
 model SyncIotbasicDevicestatusResponse = {
@@ -5735,6 +5811,50 @@ async function saveIotbasicCustomerEx(request: SaveIotbasicCustomerRequest, head
   return doRequest('1.0' ,'blockchain.bot.iotbasic.customer.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model NotifyThirddeviceMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备信息同步命令
+  command: string(name='command'),
+  // 设备签名，用设备pri_key 进行签名，只对deviceDid加签
+  signature: string(name='signature'),
+}
+
+model NotifyThirddeviceMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 处理结果
+  success?: boolean(name='success'),
+  // 设备信息同步命令
+  command?: string(name='command'),
+}
+
+/**
+ * Description: IoT设备平台-设备消息同步
+ * Summary: IoT设备平台-设备消息同步
+ */
+async function notifyThirddeviceMessage(request: NotifyThirddeviceMessageRequest): NotifyThirddeviceMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyThirddeviceMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备消息同步
+ * Summary: IoT设备平台-设备消息同步
+ */
+async function notifyThirddeviceMessageEx(request: NotifyThirddeviceMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyThirddeviceMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -6054,6 +6174,8 @@ model CreateDeviceDatamodelRequest = {
   bizType?: string(name='biz_type'),
   // 用户自定义版本
   customerVersion?: string(name='customer_version'),
+  // 数据样例
+  dataDemo?: string(name='data_demo'),
 }
 
 model CreateDeviceDatamodelResponse = {
@@ -7645,6 +7767,8 @@ model SendCollectorBychainidmulRequest = {
   // 
   // 
   nonce: string(name='nonce'),
+  // 开启后接口返回值中包含txHash
+  waitCheckAndHash: boolean(name='wait_check_and_hash'),
 }
 
 model SendCollectorBychainidmulResponse = {
@@ -7654,6 +7778,8 @@ model SendCollectorBychainidmulResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 数据上链哈希
+  resultList?: [ SendCollectorResult ](name='result_list'),
 }
 
 /**
@@ -7691,6 +7817,8 @@ model SendCollectorDevicebizdataRequest = {
   content: [ BizContentGroup ](name='content'),
   // 场景码，与content中的chainDeviceId至少有一个不为空
   scene?: string(name='scene'),
+  // 开启后，接口返回值中包含txHash
+  waitCheckAndHash: boolean(name='wait_check_and_hash'),
 }
 
 model SendCollectorDevicebizdataResponse = {
@@ -7700,6 +7828,8 @@ model SendCollectorDevicebizdataResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 数据上链哈希
+  resultList?: [ SendCollectorResult ](name='result_list'),
 }
 
 /**
@@ -10116,6 +10246,88 @@ async function detailThingmodelDevice(request: DetailThingmodelDeviceRequest): D
 async function detailThingmodelDeviceEx(request: DetailThingmodelDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailThingmodelDeviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.thingmodel.device.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCollectorUploadfileurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 待上传文件的业务类型，
+  // 设备心跳数据：COLLECT_MUL
+  // 设备业务数据： COLLECT_DEVICE_BIZ_DATA
+  dataType: string(name='data_type'),
+}
+
+model CreateCollectorUploadfileurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可以上传文件的预签名URL
+  uploadFileUrl?: string(name='upload_file_url'),
+  // 上传任务唯一ID，后续流程中会用到
+  uploadId?: string(name='upload_id'),
+}
+
+/**
+ * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+ * Summary: 创建上传文件URL
+ */
+async function createCollectorUploadfileurl(request: CreateCollectorUploadfileurlRequest): CreateCollectorUploadfileurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCollectorUploadfileurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过CSV文件上报数据时，需要先通过这个接口获取上报地址URL
+ * Summary: 创建上传文件URL
+ */
+async function createCollectorUploadfileurlEx(request: CreateCollectorUploadfileurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCollectorUploadfileurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collector.uploadfileurl.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmCollectorUploadfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上报文件任务ID，blockchain.bot.collector.uploadfileurl.create接口中获取
+  uploadId: string(name='upload_id'),
+  // 上报数据的总数，用于和CSV文件中的数据进行核验
+  total: long(name='total'),
+}
+
+model ConfirmCollectorUploadfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+ * Summary: 通过文件上报数据，上传完毕后确认
+ */
+async function confirmCollectorUploadfile(request: ConfirmCollectorUploadfileRequest): ConfirmCollectorUploadfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmCollectorUploadfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过文件上报数据流程，先获取上报文件URL，然后向目标URL中上传文件，最后调用此接口进行确认
+ * Summary: 通过文件上报数据，上传完毕后确认
+ */
+async function confirmCollectorUploadfileEx(request: ConfirmCollectorUploadfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmCollectorUploadfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
