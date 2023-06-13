@@ -37,24 +37,24 @@ class QueryApplicationUnifiedentranceRequest extends Model
      */
     public $userAuthed;
 
-    // 待获取数据类型对应的服务id
+    // 数据集服务id
     /**
      * @var string
      */
-    public $serviceId;
+    public $dataSetId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileIndex'         => 'file_index',
         'params'            => 'params',
         'userAuthed'        => 'user_authed',
-        'serviceId'         => 'service_id',
+        'dataSetId'         => 'data_set_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('params', $this->params, true);
-        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('dataSetId', $this->dataSetId, true);
     }
 
     public function toMap()
@@ -75,8 +75,8 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (null !== $this->userAuthed) {
             $res['user_authed'] = $this->userAuthed;
         }
-        if (null !== $this->serviceId) {
-            $res['service_id'] = $this->serviceId;
+        if (null !== $this->dataSetId) {
+            $res['data_set_id'] = $this->dataSetId;
         }
 
         return $res;
@@ -105,8 +105,8 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (isset($map['user_authed'])) {
             $model->userAuthed = $map['user_authed'];
         }
-        if (isset($map['service_id'])) {
-            $model->serviceId = $map['service_id'];
+        if (isset($map['data_set_id'])) {
+            $model->dataSetId = $map['data_set_id'];
         }
 
         return $model;
