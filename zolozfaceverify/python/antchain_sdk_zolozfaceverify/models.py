@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -183,6 +187,10 @@ class MeteringDataDetail(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.identify_passed_pv is not None:
             result['identify_passed_pv'] = self.identify_passed_pv
@@ -248,6 +256,10 @@ class MeteringData(TeaModel):
             self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.end_time is not None:
             result['end_time'] = self.end_time
@@ -305,6 +317,10 @@ class ExecFaceauthAlgorithmRequest(TeaModel):
         self.validate_required(self.img_type, 'img_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -362,6 +378,10 @@ class ExecFaceauthAlgorithmResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -424,6 +444,10 @@ class FaceFaceauthInitializeRequest(TeaModel):
         self.validate_required(self.ref_img_oss_obj, 'ref_img_oss_obj')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -501,6 +525,10 @@ class FaceFaceauthInitializeResponse(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -561,6 +589,10 @@ class FaceFaceauthQueryRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -618,6 +650,10 @@ class FaceFaceauthQueryResponse(TeaModel):
         self.validate_required(self.result_msg_sub, 'result_msg_sub')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -692,6 +728,10 @@ class IdentityFaceauthServermodeRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -771,6 +811,10 @@ class IdentityFaceauthServermodeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -835,6 +879,10 @@ class InitializeFaceauthWebRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -905,6 +953,10 @@ class InitializeFaceauthWebResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -965,6 +1017,10 @@ class QueryFaceauthWebRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1020,6 +1076,10 @@ class QueryFaceauthWebResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1092,6 +1152,10 @@ class QueryFaceauthMeteringRequest(TeaModel):
             self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1150,6 +1214,10 @@ class QueryFaceauthMeteringResponse(TeaModel):
             self.metering_data.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1209,6 +1277,10 @@ class InitFaceauthFaceLiteRequest(TeaModel):
         self.validate_required(self.metainfo, 'metainfo')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1282,6 +1354,10 @@ class InitFaceauthFaceLiteResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1343,6 +1419,10 @@ class QueryFaceauthDataRequest(TeaModel):
         self.validate_required(self.data_url, 'data_url')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1388,6 +1468,10 @@ class QueryFaceauthDataResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1445,6 +1529,10 @@ class ExecAuthenticationCustomerFaceabilityRequest(TeaModel):
         self.validate_required(self.scene_code, 'scene_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1499,6 +1587,10 @@ class ExecAuthenticationCustomerFaceabilityResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1558,6 +1650,10 @@ class InitFaceauthZimRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1645,6 +1741,10 @@ class InitFaceauthZimResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1720,6 +1820,10 @@ class VerifyFaceauthZimRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1791,6 +1895,10 @@ class VerifyFaceauthZimResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1872,6 +1980,10 @@ class RecognizeFaceauthOcrRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1968,6 +2080,10 @@ class RecognizeFaceauthOcrResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2051,6 +2167,10 @@ class InitFaceauthWebsdkRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2125,6 +2245,10 @@ class InitFaceauthWebsdkResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2185,6 +2309,10 @@ class QueryFaceauthWebsdkRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2240,6 +2368,10 @@ class QueryFaceauthWebsdkResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2292,6 +2424,10 @@ class QueryFaceauthFileRequest(TeaModel):
         self.validate_required(self.zim_id, 'zim_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2343,6 +2479,10 @@ class QueryFaceauthFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2409,6 +2549,10 @@ class InitFaceauthFaceplusRequest(TeaModel):
         self.validate_required(self.metainfo, 'metainfo')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2479,6 +2623,10 @@ class InitFaceauthFaceplusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2539,6 +2687,10 @@ class QueryFaceauthFaceplusRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2594,6 +2746,10 @@ class QueryFaceauthFaceplusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2660,6 +2816,10 @@ class InitFaceauthFaceWishRequest(TeaModel):
         self.validate_required(self.metainfo, 'metainfo')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2730,6 +2890,10 @@ class InitFaceauthFaceWishResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2807,6 +2971,10 @@ class VerifyFaceauthVideoRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2886,6 +3054,10 @@ class VerifyFaceauthVideoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2909,6 +3081,147 @@ class VerifyFaceauthVideoResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        if m.get('result_code_sub') is not None:
+            self.result_code_sub = m.get('result_code_sub')
+        if m.get('result_msg_sub') is not None:
+            self.result_msg_sub = m.get('result_msg_sub')
+        return self
+
+
+class InitFaceauthNfcRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        identity_param: str = None,
+        metainfo: str = None,
+        extern_param: str = None,
+        operation_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+        self.biz_id = biz_id
+        # 身份，需要公钥加密
+        self.identity_param = identity_param
+        # 客户端采集
+        self.metainfo = metainfo
+        # 外部参数
+        self.extern_param = extern_param
+        # 操作类型
+        self.operation_type = operation_type
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.identity_param, 'identity_param')
+        self.validate_required(self.metainfo, 'metainfo')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.identity_param is not None:
+            result['identity_param'] = self.identity_param
+        if self.metainfo is not None:
+            result['metainfo'] = self.metainfo
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('identity_param') is not None:
+            self.identity_param = m.get('identity_param')
+        if m.get('metainfo') is not None:
+            self.metainfo = m.get('metainfo')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        return self
+
+
+class InitFaceauthNfcResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        zim_id: str = None,
+        extern_info: str = None,
+        result_code_sub: str = None,
+        result_msg_sub: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # z-abcd
+        self.zim_id = zim_id
+        # 预留扩展结果
+        self.extern_info = extern_info
+        # 结果码
+        self.result_code_sub = result_code_sub
+        # 结果信息
+        self.result_msg_sub = result_msg_sub
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.zim_id is not None:
+            result['zim_id'] = self.zim_id
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        if self.result_code_sub is not None:
+            result['result_code_sub'] = self.result_code_sub
+        if self.result_msg_sub is not None:
+            result['result_msg_sub'] = self.result_msg_sub
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('zim_id') is not None:
+            self.zim_id = m.get('zim_id')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         if m.get('result_code_sub') is not None:

@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0'
+                    'sdk_version': '1.6.0',
+                    '_prod_code': 'ZOLOZFACEVERIFY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0'
+                    'sdk_version': '1.6.0',
+                    '_prod_code': 'ZOLOZFACEVERIFY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 金融云计算能力输出给主站使用
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.ExecFaceauthAlgorithmResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.ExecFaceauthAlgorithmResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.algorithm.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 金融云计算能力输出给主站使用
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.ExecFaceauthAlgorithmResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.ExecFaceauthAlgorithmResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.algorithm.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.FaceFaceauthInitializeResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.FaceFaceauthInitializeResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.initialize.face', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.FaceFaceauthInitializeResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.FaceFaceauthInitializeResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.initialize.face', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.FaceFaceauthQueryResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.FaceFaceauthQueryResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.query.face', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.FaceFaceauthQueryResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.FaceFaceauthQueryResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.query.face', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 人脸纯服务端模式比对
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.IdentityFaceauthServermodeResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.IdentityFaceauthServermodeResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.servermode.identity', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 人脸纯服务端模式比对
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.IdentityFaceauthServermodeResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.IdentityFaceauthServermodeResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.servermode.identity', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: H5实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitializeFaceauthWebResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitializeFaceauthWebResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.web.initialize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: H5实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitializeFaceauthWebResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitializeFaceauthWebResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.web.initialize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: H5实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthWebResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthWebResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: H5实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthWebResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthWebResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.web.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 提供给业务方刷脸认证计量查询接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthMeteringResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthMeteringResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.metering.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 提供给业务方刷脸认证计量查询接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthMeteringResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthMeteringResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.metering.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 极简模式初始化接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceLiteResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceLiteResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.face.lite.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 极简模式初始化接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceLiteResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceLiteResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.face.lite.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 数据查询，排查case
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthDataResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthDataResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 数据查询，排查case
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthDataResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthDataResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 提供人脸特征提取、人脸区域识别等能力接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.ExecAuthenticationCustomerFaceabilityResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.ExecAuthenticationCustomerFaceabilityResponse(),
             self.do_request('1.0', 'faceverifyzoloz.authentication.customer.faceability.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 提供人脸特征提取、人脸区域识别等能力接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.ExecAuthenticationCustomerFaceabilityResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.ExecAuthenticationCustomerFaceabilityResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.authentication.customer.faceability.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 客户端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthZimResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthZimResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.zim.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 客户端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthZimResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthZimResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.zim.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 客户端人脸验证
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.VerifyFaceauthZimResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.VerifyFaceauthZimResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.zim.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 客户端人脸验证
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.VerifyFaceauthZimResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.VerifyFaceauthZimResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.zim.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: OCR识别接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.RecognizeFaceauthOcrResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.RecognizeFaceauthOcrResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.ocr.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: OCR识别接口
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.RecognizeFaceauthOcrResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.RecognizeFaceauthOcrResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.ocr.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: Web实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthWebsdkResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthWebsdkResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.websdk.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1054,8 @@ class Client:
         Summary: Web实人认证初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthWebsdkResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthWebsdkResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.websdk.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1094,8 @@ class Client:
         Summary: Web实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthWebsdkResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthWebsdkResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.websdk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1110,8 @@ class Client:
         Summary: Web实人认证查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthWebsdkResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthWebsdkResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.websdk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1150,8 @@ class Client:
         Summary: 获取认证资料
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthFileResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthFileResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1166,8 @@ class Client:
         Summary: 获取认证资料
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthFileResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthFileResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1206,8 @@ class Client:
         Summary: 人脸双因子认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceplusResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1222,8 @@ class Client:
         Summary: 人脸双因子认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceplusResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1262,8 @@ class Client:
         Summary: 人脸双因子认证服务端查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthFaceplusResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1278,8 @@ class Client:
         Summary: 人脸双因子认证服务端查询
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.QueryFaceauthFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.QueryFaceauthFaceplusResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1318,8 @@ class Client:
         Summary: 意愿核身认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceWishResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceWishResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.face.wish.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1334,8 @@ class Client:
         Summary: 意愿核身认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.InitFaceauthFaceWishResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthFaceWishResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.face.wish.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1374,8 @@ class Client:
         Summary: 人脸视频认证
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.VerifyFaceauthVideoResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.VerifyFaceauthVideoResponse(),
             self.do_request('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,6 +1390,63 @@ class Client:
         Summary: 人脸视频认证
         """
         UtilClient.validate_model(request)
-        return zolozfaceverify_models.VerifyFaceauthVideoResponse().from_map(
+        return TeaCore.from_map(
+            zolozfaceverify_models.VerifyFaceauthVideoResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_faceauth_nfc(
+        self,
+        request: zolozfaceverify_models.InitFaceauthNfcRequest,
+    ) -> zolozfaceverify_models.InitFaceauthNfcResponse:
+        """
+        Description: 实证NFC服务端初始化
+        Summary: 实证NFC服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_faceauth_nfc_ex(request, headers, runtime)
+
+    async def init_faceauth_nfc_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthNfcRequest,
+    ) -> zolozfaceverify_models.InitFaceauthNfcResponse:
+        """
+        Description: 实证NFC服务端初始化
+        Summary: 实证NFC服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_faceauth_nfc_ex_async(request, headers, runtime)
+
+    def init_faceauth_nfc_ex(
+        self,
+        request: zolozfaceverify_models.InitFaceauthNfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthNfcResponse:
+        """
+        Description: 实证NFC服务端初始化
+        Summary: 实证NFC服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthNfcResponse(),
+            self.do_request('1.0', 'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_faceauth_nfc_ex_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthNfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthNfcResponse:
+        """
+        Description: 实证NFC服务端初始化
+        Summary: 实证NFC服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            zolozfaceverify_models.InitFaceauthNfcResponse(),
+            await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
