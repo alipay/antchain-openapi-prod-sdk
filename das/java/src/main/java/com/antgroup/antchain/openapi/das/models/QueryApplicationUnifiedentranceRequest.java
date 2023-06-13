@@ -24,10 +24,10 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     @NameInMap("user_authed")
     public Boolean userAuthed;
 
-    // 待获取数据类型对应的服务id
-    @NameInMap("service_id")
+    // 数据集服务id
+    @NameInMap("data_set_id")
     @Validation(required = true)
-    public String serviceId;
+    public String dataSetId;
 
     public static QueryApplicationUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApplicationUnifiedentranceRequest self = new QueryApplicationUnifiedentranceRequest();
@@ -74,12 +74,12 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.userAuthed;
     }
 
-    public QueryApplicationUnifiedentranceRequest setServiceId(String serviceId) {
-        this.serviceId = serviceId;
+    public QueryApplicationUnifiedentranceRequest setDataSetId(String dataSetId) {
+        this.dataSetId = dataSetId;
         return this;
     }
-    public String getServiceId() {
-        return this.serviceId;
+    public String getDataSetId() {
+        return this.dataSetId;
     }
 
 }
