@@ -28,6 +28,8 @@ use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceplusRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceplusResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceWishRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceWishResponse;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthNfcRequest;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthNfcResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthWebsdkRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthWebsdkResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthZimRequest;
@@ -150,18 +152,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -198,7 +200,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.0',
+                    'sdk_version'      => '1.6.0',
+                    '_prod_code'       => 'ZOLOZFACEVERIFY',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -902,5 +906,38 @@ class Client
         Utils::validateModel($request);
 
         return VerifyFaceauthVideoResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化.
+     *
+     * @param InitFaceauthNfcRequest $request
+     *
+     * @return InitFaceauthNfcResponse
+     */
+    public function initFaceauthNfc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFaceauthNfcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化.
+     *
+     * @param InitFaceauthNfcRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return InitFaceauthNfcResponse
+     */
+    public function initFaceauthNfcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFaceauthNfcResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
