@@ -50,11 +50,11 @@ class QueryResourceImageResponse extends Model
      */
     public $creationTime;
 
-    // 缩略图url列表
+    // url列表
     /**
-     * @var string[]
+     * @var CToMResourceImg[]
      */
-    public $thumbnailUrls;
+    public $imgUrls;
 
     // int	高清图状态
     // 0 需要等待
@@ -63,13 +63,6 @@ class QueryResourceImageResponse extends Model
      * @var int
      */
     public $highDefinitionStatus;
-
-    // 在highDefinitionStatus为1时有值
-    // 高清图列表
-    /**
-     * @var string
-     */
-    public $highDefinitionUrls;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
@@ -78,9 +71,8 @@ class QueryResourceImageResponse extends Model
         'skuName'              => 'sku_name',
         'uniHash'              => 'uni_hash',
         'creationTime'         => 'creation_time',
-        'thumbnailUrls'        => 'thumbnail_urls',
+        'imgUrls'              => 'img_urls',
         'highDefinitionStatus' => 'high_definition_status',
-        'highDefinitionUrls'   => 'high_definition_urls',
     ];
 
     public function validate()
@@ -112,14 +104,17 @@ class QueryResourceImageResponse extends Model
         if (null !== $this->creationTime) {
             $res['creation_time'] = $this->creationTime;
         }
-        if (null !== $this->thumbnailUrls) {
-            $res['thumbnail_urls'] = $this->thumbnailUrls;
+        if (null !== $this->imgUrls) {
+            $res['img_urls'] = [];
+            if (null !== $this->imgUrls && \is_array($this->imgUrls)) {
+                $n = 0;
+                foreach ($this->imgUrls as $item) {
+                    $res['img_urls'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->highDefinitionStatus) {
             $res['high_definition_status'] = $this->highDefinitionStatus;
-        }
-        if (null !== $this->highDefinitionUrls) {
-            $res['high_definition_urls'] = $this->highDefinitionUrls;
         }
 
         return $res;
@@ -154,16 +149,17 @@ class QueryResourceImageResponse extends Model
         if (isset($map['creation_time'])) {
             $model->creationTime = $map['creation_time'];
         }
-        if (isset($map['thumbnail_urls'])) {
-            if (!empty($map['thumbnail_urls'])) {
-                $model->thumbnailUrls = $map['thumbnail_urls'];
+        if (isset($map['img_urls'])) {
+            if (!empty($map['img_urls'])) {
+                $model->imgUrls = [];
+                $n              = 0;
+                foreach ($map['img_urls'] as $item) {
+                    $model->imgUrls[$n++] = null !== $item ? CToMResourceImg::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['high_definition_status'])) {
             $model->highDefinitionStatus = $map['high_definition_status'];
-        }
-        if (isset($map['high_definition_urls'])) {
-            $model->highDefinitionUrls = $map['high_definition_urls'];
         }
 
         return $model;
