@@ -44,10 +44,10 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CreationTime { get; set; }
 
-        // 缩略图url列表
-        [NameInMap("thumbnail_urls")]
+        // url列表
+        [NameInMap("img_urls")]
         [Validation(Required=false)]
-        public List<string> ThumbnailUrls { get; set; }
+        public List<CToMResourceImg> ImgUrls { get; set; }
 
         // int	高清图状态
         // 0 需要等待
@@ -55,12 +55,6 @@ namespace AntChain.SDK.NFTX.Models
         [NameInMap("high_definition_status")]
         [Validation(Required=false)]
         public long? HighDefinitionStatus { get; set; }
-
-        // 在highDefinitionStatus为1时有值
-        //  高清图列表
-        [NameInMap("high_definition_urls")]
-        [Validation(Required=false)]
-        public string HighDefinitionUrls { get; set; }
 
     }
 
