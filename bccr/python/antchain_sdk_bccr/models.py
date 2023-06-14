@@ -12226,6 +12226,7 @@ class ApplyDciPromotionRequest(TeaModel):
         contact_phone: str = None,
         dci_content_id: str = None,
         client_token: str = None,
+        promotion_way: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12238,12 +12239,15 @@ class ApplyDciPromotionRequest(TeaModel):
         self.dci_content_id = dci_content_id
         # 幂等字段
         self.client_token = client_token
+        # 推广渠道
+        self.promotion_way = promotion_way
 
     def validate(self):
         self.validate_required(self.contact_name, 'contact_name')
         self.validate_required(self.contact_phone, 'contact_phone')
         self.validate_required(self.dci_content_id, 'dci_content_id')
         self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.promotion_way, 'promotion_way')
 
     def to_map(self):
         _map = super().to_map()
@@ -12263,6 +12267,8 @@ class ApplyDciPromotionRequest(TeaModel):
             result['dci_content_id'] = self.dci_content_id
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.promotion_way is not None:
+            result['promotion_way'] = self.promotion_way
         return result
 
     def from_map(self, m: dict = None):
@@ -12279,6 +12285,8 @@ class ApplyDciPromotionRequest(TeaModel):
             self.dci_content_id = m.get('dci_content_id')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('promotion_way') is not None:
+            self.promotion_way = m.get('promotion_way')
         return self
 
 
