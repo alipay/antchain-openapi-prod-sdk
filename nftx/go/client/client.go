@@ -191,6 +191,39 @@ func (s *File) SetType(v string) *File {
 	return s
 }
 
+// 资源图片
+type CToMResourceImg struct {
+	// 预览图
+	ThumbnailUrl *string `json:"thumbnail_url,omitempty" xml:"thumbnail_url,omitempty" require:"true"`
+	// 高清图
+	HighDefinitionUrl *string `json:"high_definition_url,omitempty" xml:"high_definition_url,omitempty" require:"true"`
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+}
+
+func (s CToMResourceImg) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CToMResourceImg) GoString() string {
+	return s.String()
+}
+
+func (s *CToMResourceImg) SetThumbnailUrl(v string) *CToMResourceImg {
+	s.ThumbnailUrl = &v
+	return s
+}
+
+func (s *CToMResourceImg) SetHighDefinitionUrl(v string) *CToMResourceImg {
+	s.HighDefinitionUrl = &v
+	return s
+}
+
+func (s *CToMResourceImg) SetKey(v string) *CToMResourceImg {
+	s.Key = &v
+	return s
+}
+
 // 用户资产
 type UserAsset struct {
 	// NFT商品的商品编码
@@ -2123,15 +2156,12 @@ type QueryResourceImageResponse struct {
 	UniHash *string `json:"uni_hash,omitempty" xml:"uni_hash,omitempty"`
 	// Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
 	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 缩略图url列表
-	ThumbnailUrls []*string `json:"thumbnail_urls,omitempty" xml:"thumbnail_urls,omitempty" type:"Repeated"`
+	// url列表
+	ImgUrls []*CToMResourceImg `json:"img_urls,omitempty" xml:"img_urls,omitempty" type:"Repeated"`
 	// int	高清图状态
 	// 0 需要等待
 	// 1 已完成
 	HighDefinitionStatus *int64 `json:"high_definition_status,omitempty" xml:"high_definition_status,omitempty"`
-	// 在highDefinitionStatus为1时有值
-	//  高清图列表
-	HighDefinitionUrls *string `json:"high_definition_urls,omitempty" xml:"high_definition_urls,omitempty"`
 }
 
 func (s QueryResourceImageResponse) String() string {
@@ -2177,18 +2207,13 @@ func (s *QueryResourceImageResponse) SetCreationTime(v string) *QueryResourceIma
 	return s
 }
 
-func (s *QueryResourceImageResponse) SetThumbnailUrls(v []*string) *QueryResourceImageResponse {
-	s.ThumbnailUrls = v
+func (s *QueryResourceImageResponse) SetImgUrls(v []*CToMResourceImg) *QueryResourceImageResponse {
+	s.ImgUrls = v
 	return s
 }
 
 func (s *QueryResourceImageResponse) SetHighDefinitionStatus(v int64) *QueryResourceImageResponse {
 	s.HighDefinitionStatus = &v
-	return s
-}
-
-func (s *QueryResourceImageResponse) SetHighDefinitionUrls(v string) *QueryResourceImageResponse {
-	s.HighDefinitionUrls = &v
 	return s
 }
 
@@ -2513,7 +2538,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.2"),
+				"sdk_version":      tea.String("1.8.3"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
