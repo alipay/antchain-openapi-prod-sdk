@@ -113,6 +113,35 @@ export class File extends $tea.Model {
   }
 }
 
+// 资源图片
+export class CToMResourceImg extends $tea.Model {
+  // 预览图
+  thumbnailUrl: string;
+  // 高清图
+  highDefinitionUrl: string;
+  // key
+  key: string;
+  static names(): { [key: string]: string } {
+    return {
+      thumbnailUrl: 'thumbnail_url',
+      highDefinitionUrl: 'high_definition_url',
+      key: 'key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      thumbnailUrl: 'string',
+      highDefinitionUrl: 'string',
+      key: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户资产
 export class UserAsset extends $tea.Model {
   // NFT商品的商品编码
@@ -1530,15 +1559,12 @@ export class QueryResourceImageResponse extends $tea.Model {
   uniHash?: string;
   // Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
   creationTime?: string;
-  // 缩略图url列表
-  thumbnailUrls?: string[];
+  // url列表
+  imgUrls?: CToMResourceImg[];
   // int	高清图状态
   // 0 需要等待
   // 1 已完成
   highDefinitionStatus?: number;
-  // 在highDefinitionStatus为1时有值
-  //  高清图列表
-  highDefinitionUrls?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1548,9 +1574,8 @@ export class QueryResourceImageResponse extends $tea.Model {
       skuName: 'sku_name',
       uniHash: 'uni_hash',
       creationTime: 'creation_time',
-      thumbnailUrls: 'thumbnail_urls',
+      imgUrls: 'img_urls',
       highDefinitionStatus: 'high_definition_status',
-      highDefinitionUrls: 'high_definition_urls',
     };
   }
 
@@ -1563,9 +1588,8 @@ export class QueryResourceImageResponse extends $tea.Model {
       skuName: 'string',
       uniHash: 'string',
       creationTime: 'string',
-      thumbnailUrls: { 'type': 'array', 'itemType': 'string' },
+      imgUrls: { 'type': 'array', 'itemType': CToMResourceImg },
       highDefinitionStatus: 'number',
-      highDefinitionUrls: 'string',
     };
   }
 
@@ -1840,7 +1864,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.2",
+          sdk_version: "1.8.3",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
