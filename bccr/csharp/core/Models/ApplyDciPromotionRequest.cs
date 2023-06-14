@@ -38,6 +38,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 推广渠道
+        [NameInMap("promotion_way")]
+        [Validation(Required=true)]
+        public string PromotionWay { get; set; }
+
     }
 
 }
