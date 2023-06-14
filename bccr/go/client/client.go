@@ -9919,6 +9919,8 @@ type ApplyDciPromotionRequest struct {
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty" require:"true"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 推广渠道
+	PromotionWay *string `json:"promotion_way,omitempty" xml:"promotion_way,omitempty" require:"true"`
 }
 
 func (s ApplyDciPromotionRequest) String() string {
@@ -9956,6 +9958,11 @@ func (s *ApplyDciPromotionRequest) SetDciContentId(v string) *ApplyDciPromotionR
 
 func (s *ApplyDciPromotionRequest) SetClientToken(v string) *ApplyDciPromotionRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *ApplyDciPromotionRequest) SetPromotionWay(v string) *ApplyDciPromotionRequest {
+	s.PromotionWay = &v
 	return s
 }
 
@@ -10960,7 +10967,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.62"),
+				"sdk_version":      tea.String("1.17.64"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
