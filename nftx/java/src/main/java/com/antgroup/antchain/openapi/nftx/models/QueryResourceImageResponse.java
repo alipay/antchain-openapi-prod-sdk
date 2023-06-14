@@ -33,20 +33,15 @@ public class QueryResourceImageResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String creationTime;
 
-    // 缩略图url列表
-    @NameInMap("thumbnail_urls")
-    public java.util.List<String> thumbnailUrls;
+    // url列表
+    @NameInMap("img_urls")
+    public java.util.List<CToMResourceImg> imgUrls;
 
     // int	高清图状态
     // 0 需要等待
     // 1 已完成
     @NameInMap("high_definition_status")
     public Long highDefinitionStatus;
-
-    // 在highDefinitionStatus为1时有值
-    //  高清图列表
-    @NameInMap("high_definition_urls")
-    public String highDefinitionUrls;
 
     public static QueryResourceImageResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryResourceImageResponse self = new QueryResourceImageResponse();
@@ -109,12 +104,12 @@ public class QueryResourceImageResponse extends TeaModel {
         return this.creationTime;
     }
 
-    public QueryResourceImageResponse setThumbnailUrls(java.util.List<String> thumbnailUrls) {
-        this.thumbnailUrls = thumbnailUrls;
+    public QueryResourceImageResponse setImgUrls(java.util.List<CToMResourceImg> imgUrls) {
+        this.imgUrls = imgUrls;
         return this;
     }
-    public java.util.List<String> getThumbnailUrls() {
-        return this.thumbnailUrls;
+    public java.util.List<CToMResourceImg> getImgUrls() {
+        return this.imgUrls;
     }
 
     public QueryResourceImageResponse setHighDefinitionStatus(Long highDefinitionStatus) {
@@ -123,14 +118,6 @@ public class QueryResourceImageResponse extends TeaModel {
     }
     public Long getHighDefinitionStatus() {
         return this.highDefinitionStatus;
-    }
-
-    public QueryResourceImageResponse setHighDefinitionUrls(String highDefinitionUrls) {
-        this.highDefinitionUrls = highDefinitionUrls;
-        return this;
-    }
-    public String getHighDefinitionUrls() {
-        return this.highDefinitionUrls;
     }
 
 }
