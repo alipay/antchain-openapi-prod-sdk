@@ -31,6 +31,11 @@ public class ApplyDciPromotionRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 推广渠道
+    @NameInMap("promotion_way")
+    @Validation(required = true)
+    public String promotionWay;
+
     public static ApplyDciPromotionRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDciPromotionRequest self = new ApplyDciPromotionRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class ApplyDciPromotionRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public ApplyDciPromotionRequest setPromotionWay(String promotionWay) {
+        this.promotionWay = promotionWay;
+        return this;
+    }
+    public String getPromotionWay() {
+        return this.promotionWay;
     }
 
 }
