@@ -209,6 +209,50 @@ class File(TeaModel):
         return self
 
 
+class CToMResourceImg(TeaModel):
+    def __init__(
+        self,
+        thumbnail_url: str = None,
+        high_definition_url: str = None,
+        key: str = None,
+    ):
+        # 预览图
+        self.thumbnail_url = thumbnail_url
+        # 高清图
+        self.high_definition_url = high_definition_url
+        # key
+        self.key = key
+
+    def validate(self):
+        self.validate_required(self.thumbnail_url, 'thumbnail_url')
+        self.validate_required(self.high_definition_url, 'high_definition_url')
+        self.validate_required(self.key, 'key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.thumbnail_url is not None:
+            result['thumbnail_url'] = self.thumbnail_url
+        if self.high_definition_url is not None:
+            result['high_definition_url'] = self.high_definition_url
+        if self.key is not None:
+            result['key'] = self.key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('thumbnail_url') is not None:
+            self.thumbnail_url = m.get('thumbnail_url')
+        if m.get('high_definition_url') is not None:
+            self.high_definition_url = m.get('high_definition_url')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        return self
+
+
 class UserAsset(TeaModel):
     def __init__(
         self,
@@ -2566,9 +2610,8 @@ class QueryResourceImageResponse(TeaModel):
         sku_name: str = None,
         uni_hash: str = None,
         creation_time: str = None,
-        thumbnail_urls: List[str] = None,
+        img_urls: List[CToMResourceImg] = None,
         high_definition_status: int = None,
-        high_definition_urls: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2584,19 +2627,20 @@ class QueryResourceImageResponse(TeaModel):
         self.uni_hash = uni_hash
         # Date	藏品铸造上链生成时间，例如2021.09.22 20:22:19，type为NFT时有值
         self.creation_time = creation_time
-        # 缩略图url列表
-        self.thumbnail_urls = thumbnail_urls
+        # url列表
+        self.img_urls = img_urls
         # int	高清图状态
         # 0 需要等待
         # 1 已完成
         self.high_definition_status = high_definition_status
-        # 在highDefinitionStatus为1时有值
-        # 高清图列表
-        self.high_definition_urls = high_definition_urls
 
     def validate(self):
         if self.creation_time is not None:
             self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.img_urls:
+            for k in self.img_urls:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2618,12 +2662,12 @@ class QueryResourceImageResponse(TeaModel):
             result['uni_hash'] = self.uni_hash
         if self.creation_time is not None:
             result['creation_time'] = self.creation_time
-        if self.thumbnail_urls is not None:
-            result['thumbnail_urls'] = self.thumbnail_urls
+        result['img_urls'] = []
+        if self.img_urls is not None:
+            for k in self.img_urls:
+                result['img_urls'].append(k.to_map() if k else None)
         if self.high_definition_status is not None:
             result['high_definition_status'] = self.high_definition_status
-        if self.high_definition_urls is not None:
-            result['high_definition_urls'] = self.high_definition_urls
         return result
 
     def from_map(self, m: dict = None):
@@ -2642,12 +2686,13 @@ class QueryResourceImageResponse(TeaModel):
             self.uni_hash = m.get('uni_hash')
         if m.get('creation_time') is not None:
             self.creation_time = m.get('creation_time')
-        if m.get('thumbnail_urls') is not None:
-            self.thumbnail_urls = m.get('thumbnail_urls')
+        self.img_urls = []
+        if m.get('img_urls') is not None:
+            for k in m.get('img_urls'):
+                temp_model = CToMResourceImg()
+                self.img_urls.append(temp_model.from_map(k))
         if m.get('high_definition_status') is not None:
             self.high_definition_status = m.get('high_definition_status')
-        if m.get('high_definition_urls') is not None:
-            self.high_definition_urls = m.get('high_definition_urls')
         return self
 
 
