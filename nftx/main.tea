@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.3',
+    sdk_version = '1.8.4',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -915,6 +915,10 @@ model PayOrderDataRequest = {
   itemNum?: long(name='item_num'),
   // 商品单价，单位分
   itemPriceCent?: long(name='item_price_cent'),
+  // 资源ID
+  resourceId?: string(name='resource_id'),
+  // 根据实际情况传递
+  resourceType?: string(name='resource_type'),
 }
 
 model PayOrderDataResponse = {
