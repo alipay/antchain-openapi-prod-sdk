@@ -2115,6 +2115,8 @@ type QueryResourceImageRequest struct {
 	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
 	// type为NFT必填
 	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 是否需要高清图
+	NeedHdImg *bool `json:"need_hd_img,omitempty" xml:"need_hd_img,omitempty" require:"true"`
 }
 
 func (s QueryResourceImageRequest) String() string {
@@ -2152,6 +2154,11 @@ func (s *QueryResourceImageRequest) SetResourceId(v string) *QueryResourceImageR
 
 func (s *QueryResourceImageRequest) SetNftId(v string) *QueryResourceImageRequest {
 	s.NftId = &v
+	return s
+}
+
+func (s *QueryResourceImageRequest) SetNeedHdImg(v bool) *QueryResourceImageRequest {
+	s.NeedHdImg = &v
 	return s
 }
 
@@ -2552,7 +2559,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.4"),
+				"sdk_version":      tea.String("1.8.5"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
