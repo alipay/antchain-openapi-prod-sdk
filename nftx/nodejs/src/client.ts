@@ -1357,6 +1357,10 @@ export class PayOrderDataRequest extends $tea.Model {
   itemNum?: number;
   // 商品单价，单位分
   itemPriceCent?: number;
+  // 资源ID
+  resourceId?: string;
+  // 根据实际情况传递
+  resourceType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1372,6 +1376,8 @@ export class PayOrderDataRequest extends $tea.Model {
       itemCode: 'item_code',
       itemNum: 'item_num',
       itemPriceCent: 'item_price_cent',
+      resourceId: 'resource_id',
+      resourceType: 'resource_type',
     };
   }
 
@@ -1390,6 +1396,8 @@ export class PayOrderDataRequest extends $tea.Model {
       itemCode: 'string',
       itemNum: 'number',
       itemPriceCent: 'number',
+      resourceId: 'string',
+      resourceType: 'string',
     };
   }
 
@@ -1864,7 +1872,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.3",
+          sdk_version: "1.8.4",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
