@@ -2559,6 +2559,7 @@ class QueryResourceImageRequest(TeaModel):
         type: str = None,
         resource_id: str = None,
         nft_id: str = None,
+        need_hd_img: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2571,11 +2572,14 @@ class QueryResourceImageRequest(TeaModel):
         self.resource_id = resource_id
         # type为NFT必填
         self.nft_id = nft_id
+        # 是否需要高清图
+        self.need_hd_img = need_hd_img
 
     def validate(self):
         self.validate_required(self.access_token, 'access_token')
         self.validate_required(self.type, 'type')
         self.validate_required(self.resource_id, 'resource_id')
+        self.validate_required(self.need_hd_img, 'need_hd_img')
 
     def to_map(self):
         _map = super().to_map()
@@ -2595,6 +2599,8 @@ class QueryResourceImageRequest(TeaModel):
             result['resource_id'] = self.resource_id
         if self.nft_id is not None:
             result['nft_id'] = self.nft_id
+        if self.need_hd_img is not None:
+            result['need_hd_img'] = self.need_hd_img
         return result
 
     def from_map(self, m: dict = None):
@@ -2611,6 +2617,8 @@ class QueryResourceImageRequest(TeaModel):
             self.resource_id = m.get('resource_id')
         if m.get('nft_id') is not None:
             self.nft_id = m.get('nft_id')
+        if m.get('need_hd_img') is not None:
+            self.need_hd_img = m.get('need_hd_img')
         return self
 
 
