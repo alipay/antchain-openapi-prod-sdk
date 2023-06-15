@@ -73,6 +73,16 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public long? ItemPriceCent { get; set; }
 
+        // 资源ID
+        [NameInMap("resource_id")]
+        [Validation(Required=false)]
+        public string ResourceId { get; set; }
+
+        // 根据实际情况传递
+        [NameInMap("resource_type")]
+        [Validation(Required=false)]
+        public string ResourceType { get; set; }
+
     }
 
 }
