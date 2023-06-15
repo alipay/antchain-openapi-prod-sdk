@@ -30,6 +30,11 @@ public class QueryResourceImageRequest extends TeaModel {
     @NameInMap("nft_id")
     public String nftId;
 
+    // 是否需要高清图
+    @NameInMap("need_hd_img")
+    @Validation(required = true)
+    public Boolean needHdImg;
+
     public static QueryResourceImageRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryResourceImageRequest self = new QueryResourceImageRequest();
         return TeaModel.build(map, self);
@@ -81,6 +86,14 @@ public class QueryResourceImageRequest extends TeaModel {
     }
     public String getNftId() {
         return this.nftId;
+    }
+
+    public QueryResourceImageRequest setNeedHdImg(Boolean needHdImg) {
+        this.needHdImg = needHdImg;
+        return this;
+    }
+    public Boolean getNeedHdImg() {
+        return this.needHdImg;
     }
 
 }
