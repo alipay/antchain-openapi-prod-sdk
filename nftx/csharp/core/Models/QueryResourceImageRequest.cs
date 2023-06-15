@@ -38,6 +38,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string NftId { get; set; }
 
+        // 是否需要高清图
+        [NameInMap("need_hd_img")]
+        [Validation(Required=true)]
+        public bool? NeedHdImg { get; set; }
+
     }
 
 }
