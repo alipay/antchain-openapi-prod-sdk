@@ -84,6 +84,18 @@ class PayOrderDataRequest extends Model
      * @var int
      */
     public $itemPriceCent;
+
+    // 资源ID
+    /**
+     * @var string
+     */
+    public $resourceId;
+
+    // 根据实际情况传递
+    /**
+     * @var string
+     */
+    public $resourceType;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -98,6 +110,8 @@ class PayOrderDataRequest extends Model
         'itemCode'            => 'item_code',
         'itemNum'             => 'item_num',
         'itemPriceCent'       => 'item_price_cent',
+        'resourceId'          => 'resource_id',
+        'resourceType'        => 'resource_type',
     ];
 
     public function validate()
@@ -152,6 +166,12 @@ class PayOrderDataRequest extends Model
         if (null !== $this->itemPriceCent) {
             $res['item_price_cent'] = $this->itemPriceCent;
         }
+        if (null !== $this->resourceId) {
+            $res['resource_id'] = $this->resourceId;
+        }
+        if (null !== $this->resourceType) {
+            $res['resource_type'] = $this->resourceType;
+        }
 
         return $res;
     }
@@ -202,6 +222,12 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['item_price_cent'])) {
             $model->itemPriceCent = $map['item_price_cent'];
+        }
+        if (isset($map['resource_id'])) {
+            $model->resourceId = $map['resource_id'];
+        }
+        if (isset($map['resource_type'])) {
+            $model->resourceType = $map['resource_type'];
         }
 
         return $model;
