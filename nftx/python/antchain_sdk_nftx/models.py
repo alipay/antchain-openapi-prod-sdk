@@ -2266,6 +2266,8 @@ class PayOrderDataRequest(TeaModel):
         item_code: str = None,
         item_num: int = None,
         item_price_cent: int = None,
+        resource_id: str = None,
+        resource_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2292,6 +2294,10 @@ class PayOrderDataRequest(TeaModel):
         self.item_num = item_num
         # 商品单价，单位分
         self.item_price_cent = item_price_cent
+        # 资源ID
+        self.resource_id = resource_id
+        # 根据实际情况传递
+        self.resource_type = resource_type
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2333,6 +2339,10 @@ class PayOrderDataRequest(TeaModel):
             result['item_num'] = self.item_num
         if self.item_price_cent is not None:
             result['item_price_cent'] = self.item_price_cent
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
         return result
 
     def from_map(self, m: dict = None):
@@ -2363,6 +2373,10 @@ class PayOrderDataRequest(TeaModel):
             self.item_num = m.get('item_num')
         if m.get('item_price_cent') is not None:
             self.item_price_cent = m.get('item_price_cent')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
         return self
 
 
