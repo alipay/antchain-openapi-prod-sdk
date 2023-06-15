@@ -42,6 +42,12 @@ class QueryResourceImageRequest extends Model
      * @var string
      */
     public $nftId;
+
+    // 是否需要高清图
+    /**
+     * @var bool
+     */
+    public $needHdImg;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryResourceImageRequest extends Model
         'type'              => 'type',
         'resourceId'        => 'resource_id',
         'nftId'             => 'nft_id',
+        'needHdImg'         => 'need_hd_img',
     ];
 
     public function validate()
@@ -56,6 +63,7 @@ class QueryResourceImageRequest extends Model
         Model::validateRequired('accessToken', $this->accessToken, true);
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('resourceId', $this->resourceId, true);
+        Model::validateRequired('needHdImg', $this->needHdImg, true);
     }
 
     public function toMap()
@@ -78,6 +86,9 @@ class QueryResourceImageRequest extends Model
         }
         if (null !== $this->nftId) {
             $res['nft_id'] = $this->nftId;
+        }
+        if (null !== $this->needHdImg) {
+            $res['need_hd_img'] = $this->needHdImg;
         }
 
         return $res;
@@ -108,6 +119,9 @@ class QueryResourceImageRequest extends Model
         }
         if (isset($map['nft_id'])) {
             $model->nftId = $map['nft_id'];
+        }
+        if (isset($map['need_hd_img'])) {
+            $model->needHdImg = $map['need_hd_img'];
         }
 
         return $model;
