@@ -61,6 +61,14 @@ public class PayOrderDataRequest extends TeaModel {
     @NameInMap("item_price_cent")
     public Long itemPriceCent;
 
+    // 资源ID
+    @NameInMap("resource_id")
+    public String resourceId;
+
+    // 根据实际情况传递
+    @NameInMap("resource_type")
+    public String resourceType;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -168,6 +176,22 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public Long getItemPriceCent() {
         return this.itemPriceCent;
+    }
+
+    public PayOrderDataRequest setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+        return this;
+    }
+    public String getResourceId() {
+        return this.resourceId;
+    }
+
+    public PayOrderDataRequest setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+        return this;
+    }
+    public String getResourceType() {
+        return this.resourceType;
     }
 
 }
