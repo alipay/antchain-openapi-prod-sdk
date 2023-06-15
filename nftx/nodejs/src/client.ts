@@ -1525,6 +1525,8 @@ export class QueryResourceImageRequest extends $tea.Model {
   resourceId: string;
   // type为NFT必填
   nftId?: string;
+  // 是否需要高清图
+  needHdImg: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1533,6 +1535,7 @@ export class QueryResourceImageRequest extends $tea.Model {
       type: 'type',
       resourceId: 'resource_id',
       nftId: 'nft_id',
+      needHdImg: 'need_hd_img',
     };
   }
 
@@ -1544,6 +1547,7 @@ export class QueryResourceImageRequest extends $tea.Model {
       type: 'string',
       resourceId: 'string',
       nftId: 'string',
+      needHdImg: 'boolean',
     };
   }
 
@@ -1872,7 +1876,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.4",
+          sdk_version: "1.8.5",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
