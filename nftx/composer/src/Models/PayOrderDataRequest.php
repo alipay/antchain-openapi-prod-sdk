@@ -96,6 +96,12 @@ class PayOrderDataRequest extends Model
      * @var string
      */
     public $resourceType;
+
+    // 是否使用GET方法支持wap支付
+    /**
+     * @var bool
+     */
+    public $wapPayUseGet;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -112,6 +118,7 @@ class PayOrderDataRequest extends Model
         'itemPriceCent'       => 'item_price_cent',
         'resourceId'          => 'resource_id',
         'resourceType'        => 'resource_type',
+        'wapPayUseGet'        => 'wap_pay_use_get',
     ];
 
     public function validate()
@@ -172,6 +179,9 @@ class PayOrderDataRequest extends Model
         if (null !== $this->resourceType) {
             $res['resource_type'] = $this->resourceType;
         }
+        if (null !== $this->wapPayUseGet) {
+            $res['wap_pay_use_get'] = $this->wapPayUseGet;
+        }
 
         return $res;
     }
@@ -228,6 +238,9 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['resource_type'])) {
             $model->resourceType = $map['resource_type'];
+        }
+        if (isset($map['wap_pay_use_get'])) {
+            $model->wapPayUseGet = $map['wap_pay_use_get'];
         }
 
         return $model;
