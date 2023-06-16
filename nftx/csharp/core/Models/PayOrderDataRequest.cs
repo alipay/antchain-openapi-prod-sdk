@@ -83,6 +83,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string ResourceType { get; set; }
 
+        // 是否使用GET方法支持wap支付
+        [NameInMap("wap_pay_use_get")]
+        [Validation(Required=false)]
+        public bool? WapPayUseGet { get; set; }
+
     }
 
 }
