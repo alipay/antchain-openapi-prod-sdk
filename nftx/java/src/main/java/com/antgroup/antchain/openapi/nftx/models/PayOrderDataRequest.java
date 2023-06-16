@@ -69,6 +69,10 @@ public class PayOrderDataRequest extends TeaModel {
     @NameInMap("resource_type")
     public String resourceType;
 
+    // 是否使用GET方法支持wap支付
+    @NameInMap("wap_pay_use_get")
+    public Boolean wapPayUseGet;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -192,6 +196,14 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public String getResourceType() {
         return this.resourceType;
+    }
+
+    public PayOrderDataRequest setWapPayUseGet(Boolean wapPayUseGet) {
+        this.wapPayUseGet = wapPayUseGet;
+        return this;
+    }
+    public Boolean getWapPayUseGet() {
+        return this.wapPayUseGet;
     }
 
 }
