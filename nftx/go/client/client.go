@@ -1881,6 +1881,8 @@ type PayOrderDataRequest struct {
 	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
 	// 根据实际情况传递
 	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// 是否使用GET方法支持wap支付
+	WapPayUseGet *bool `json:"wap_pay_use_get,omitempty" xml:"wap_pay_use_get,omitempty"`
 }
 
 func (s PayOrderDataRequest) String() string {
@@ -1963,6 +1965,11 @@ func (s *PayOrderDataRequest) SetResourceId(v string) *PayOrderDataRequest {
 
 func (s *PayOrderDataRequest) SetResourceType(v string) *PayOrderDataRequest {
 	s.ResourceType = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetWapPayUseGet(v bool) *PayOrderDataRequest {
+	s.WapPayUseGet = &v
 	return s
 }
 
@@ -2559,7 +2566,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.5"),
+				"sdk_version":      tea.String("1.8.6"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
