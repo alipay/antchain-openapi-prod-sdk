@@ -2268,6 +2268,7 @@ class PayOrderDataRequest(TeaModel):
         item_price_cent: int = None,
         resource_id: str = None,
         resource_type: str = None,
+        wap_pay_use_get: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2298,6 +2299,8 @@ class PayOrderDataRequest(TeaModel):
         self.resource_id = resource_id
         # 根据实际情况传递
         self.resource_type = resource_type
+        # 是否使用GET方法支持wap支付
+        self.wap_pay_use_get = wap_pay_use_get
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2343,6 +2346,8 @@ class PayOrderDataRequest(TeaModel):
             result['resource_id'] = self.resource_id
         if self.resource_type is not None:
             result['resource_type'] = self.resource_type
+        if self.wap_pay_use_get is not None:
+            result['wap_pay_use_get'] = self.wap_pay_use_get
         return result
 
     def from_map(self, m: dict = None):
@@ -2377,6 +2382,8 @@ class PayOrderDataRequest(TeaModel):
             self.resource_id = m.get('resource_id')
         if m.get('resource_type') is not None:
             self.resource_type = m.get('resource_type')
+        if m.get('wap_pay_use_get') is not None:
+            self.wap_pay_use_get = m.get('wap_pay_use_get')
         return self
 
 
