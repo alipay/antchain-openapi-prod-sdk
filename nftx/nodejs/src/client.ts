@@ -1361,6 +1361,8 @@ export class PayOrderDataRequest extends $tea.Model {
   resourceId?: string;
   // 根据实际情况传递
   resourceType?: string;
+  // 是否使用GET方法支持wap支付
+  wapPayUseGet?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1378,6 +1380,7 @@ export class PayOrderDataRequest extends $tea.Model {
       itemPriceCent: 'item_price_cent',
       resourceId: 'resource_id',
       resourceType: 'resource_type',
+      wapPayUseGet: 'wap_pay_use_get',
     };
   }
 
@@ -1398,6 +1401,7 @@ export class PayOrderDataRequest extends $tea.Model {
       itemPriceCent: 'number',
       resourceId: 'string',
       resourceType: 'string',
+      wapPayUseGet: 'boolean',
     };
   }
 
@@ -1876,7 +1880,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.5",
+          sdk_version: "1.8.6",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
