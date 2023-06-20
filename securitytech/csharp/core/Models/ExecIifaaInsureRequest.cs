@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class ExecEkytInsureRequest : TeaModel {
+    public class ExecIifaaInsureRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,7 +23,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string InsureInfoListStr { get; set; }
 
-        // 对insure_info_list_str的签名
+        // 对insure_info_list_str的签名，使用十六进制字符串编码
         [NameInMap("signature")]
         [Validation(Required=true)]
         public string Signature { get; set; }

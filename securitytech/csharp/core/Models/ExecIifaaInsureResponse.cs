@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class ExecEkytInsureResponse : TeaModel {
+    public class ExecIifaaInsureResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 是否成功
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
 
         // 投保结果list的jsonStr
         [NameInMap("data")]
