@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureRequest extends Model
+class QueryCctPictureRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,28 @@ class ExecEkytInsureRequest extends Model
      */
     public $productInstanceId;
 
-    // 保险信息list的jsonStr
+    // InfoSecAnalyzeSyncContent json
     /**
      * @var string
      */
-    public $insureInfoListStr;
+    public $request;
 
-    // 对insure_info_list_str的签名
+    // RaaS产品码
     /**
      * @var string
      */
-    public $signature;
+    public $raasProducts;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'insureInfoListStr' => 'insure_info_list_str',
-        'signature'         => 'signature',
+        'request'           => 'request',
+        'raasProducts'      => 'raas_products',
     ];
 
     public function validate()
     {
-        Model::validateRequired('insureInfoListStr', $this->insureInfoListStr, true);
-        Model::validateRequired('signature', $this->signature, true);
+        Model::validateRequired('request', $this->request, true);
+        Model::validateRequired('raasProducts', $this->raasProducts, true);
     }
 
     public function toMap()
@@ -52,11 +52,11 @@ class ExecEkytInsureRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->insureInfoListStr) {
-            $res['insure_info_list_str'] = $this->insureInfoListStr;
+        if (null !== $this->request) {
+            $res['request'] = $this->request;
         }
-        if (null !== $this->signature) {
-            $res['signature'] = $this->signature;
+        if (null !== $this->raasProducts) {
+            $res['raas_products'] = $this->raasProducts;
         }
 
         return $res;
@@ -65,7 +65,7 @@ class ExecEkytInsureRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureRequest
+     * @return QueryCctPictureRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +76,11 @@ class ExecEkytInsureRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['insure_info_list_str'])) {
-            $model->insureInfoListStr = $map['insure_info_list_str'];
+        if (isset($map['request'])) {
+            $model->request = $map['request'];
         }
-        if (isset($map['signature'])) {
-            $model->signature = $map['signature'];
+        if (isset($map['raas_products'])) {
+            $model->raasProducts = $map['raas_products'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureResponse extends Model
+class RecognizeIifaaDeviceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,7 @@ class ExecEkytInsureResponse extends Model
      */
     public $resultMsg;
 
-    // 是否成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 投保结果list的jsonStr
+    // 返回数据内容
     /**
      * @var string
      */
@@ -41,7 +35,6 @@ class ExecEkytInsureResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
         'data'       => 'data',
     ];
 
@@ -61,9 +54,6 @@ class ExecEkytInsureResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
         if (null !== $this->data) {
             $res['data'] = $this->data;
         }
@@ -74,7 +64,7 @@ class ExecEkytInsureResponse extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureResponse
+     * @return RecognizeIifaaDeviceResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,9 +77,6 @@ class ExecEkytInsureResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
         }
         if (isset($map['data'])) {
             $model->data = $map['data'];

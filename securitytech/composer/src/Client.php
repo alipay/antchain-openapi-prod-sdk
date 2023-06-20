@@ -15,14 +15,30 @@ use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
+use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
 use AntChain\SECURITYTECH\Models\ExecEkytInsureResponse;
+use AntChain\SECURITYTECH\Models\ExecIifaaInsureRequest;
+use AntChain\SECURITYTECH\Models\ExecIifaaInsureResponse;
+use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
+use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\RegisterIifaaCorpRequest;
+use AntChain\SECURITYTECH\Models\RegisterIifaaCorpResponse;
 use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
+use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
+use AntChain\SECURITYTECH\Models\RunXhunterSpiResponse;
+use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -170,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.4',
+                    'sdk_version'      => '1.1.11',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -284,6 +300,204 @@ class Client
         Utils::validateModel($request);
 
         return ExecEkytInsureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活.
+     *
+     * @param InitIifaaDeviceRequest $request
+     *
+     * @return InitIifaaDeviceResponse
+     */
+    public function initIifaaDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活.
+     *
+     * @param InitIifaaDeviceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return InitIifaaDeviceResponse
+     */
+    public function initIifaaDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitIifaaDeviceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.device.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据.
+     *
+     * @param RecognizeIifaaDeviceRequest $request
+     *
+     * @return RecognizeIifaaDeviceResponse
+     */
+    public function recognizeIifaaDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据.
+     *
+     * @param RecognizeIifaaDeviceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RecognizeIifaaDeviceResponse
+     */
+    public function recognizeIifaaDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeIifaaDeviceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.device.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     *
+     * @param VerifyIifaaDeviceRequest $request
+     *
+     * @return VerifyIifaaDeviceResponse
+     */
+    public function verifyIifaaDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     *
+     * @param VerifyIifaaDeviceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return VerifyIifaaDeviceResponse
+     */
+    public function verifyIifaaDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyIifaaDeviceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.device.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册.
+     *
+     * @param RegisterIifaaCorpRequest $request
+     *
+     * @return RegisterIifaaCorpResponse
+     */
+    public function registerIifaaCorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerIifaaCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册.
+     *
+     * @param RegisterIifaaCorpRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return RegisterIifaaCorpResponse
+     */
+    public function registerIifaaCorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterIifaaCorpResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.corp.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息.
+     *
+     * @param DeprecateIifaaDeviceRequest $request
+     *
+     * @return DeprecateIifaaDeviceResponse
+     */
+    public function deprecateIifaaDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deprecateIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息.
+     *
+     * @param DeprecateIifaaDeviceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DeprecateIifaaDeviceResponse
+     */
+    public function deprecateIifaaDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeprecateIifaaDeviceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.device.deprecate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台.
+     *
+     * @param ExecIifaaInsureRequest $request
+     *
+     * @return ExecIifaaInsureResponse
+     */
+    public function execIifaaInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execIifaaInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台.
+     *
+     * @param ExecIifaaInsureRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ExecIifaaInsureResponse
+     */
+    public function execIifaaInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecIifaaInsureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.insure.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -416,5 +630,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryFaceshieldWebResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.faceshield.web.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化.
+     *
+     * @param RunXhunterSpiRequest $request
+     *
+     * @return RunXhunterSpiResponse
+     */
+    public function runXhunterSpi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->runXhunterSpiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化.
+     *
+     * @param RunXhunterSpiRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return RunXhunterSpiResponse
+     */
+    public function runXhunterSpiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RunXhunterSpiResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.xhunter.spi.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测.
+     *
+     * @param QueryCctPictureRequest $request
+     *
+     * @return QueryCctPictureResponse
+     */
+    public function queryCctPicture($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCctPictureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测.
+     *
+     * @param QueryCctPictureRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryCctPictureResponse
+     */
+    public function queryCctPictureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCctPictureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.cct.picture.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

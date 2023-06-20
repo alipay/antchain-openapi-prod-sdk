@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureRequest extends Model
+class InitIifaaDeviceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,36 @@ class ExecEkytInsureRequest extends Model
      */
     public $productInstanceId;
 
-    // 保险信息list的jsonStr
+    // 产商code
     /**
      * @var string
      */
-    public $insureInfoListStr;
+    public $corpCode;
 
-    // 对insure_info_list_str的签名
+    // 设备类型
     /**
      * @var string
      */
-    public $signature;
+    public $deviceType;
+
+    // 设备信息
+    /**
+     * @var string
+     */
+    public $deviceInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'insureInfoListStr' => 'insure_info_list_str',
-        'signature'         => 'signature',
+        'corpCode'          => 'corp_code',
+        'deviceType'        => 'device_type',
+        'deviceInfo'        => 'device_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('insureInfoListStr', $this->insureInfoListStr, true);
-        Model::validateRequired('signature', $this->signature, true);
+        Model::validateRequired('corpCode', $this->corpCode, true);
+        Model::validateRequired('deviceType', $this->deviceType, true);
+        Model::validateRequired('deviceInfo', $this->deviceInfo, true);
     }
 
     public function toMap()
@@ -52,11 +60,14 @@ class ExecEkytInsureRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->insureInfoListStr) {
-            $res['insure_info_list_str'] = $this->insureInfoListStr;
+        if (null !== $this->corpCode) {
+            $res['corp_code'] = $this->corpCode;
         }
-        if (null !== $this->signature) {
-            $res['signature'] = $this->signature;
+        if (null !== $this->deviceType) {
+            $res['device_type'] = $this->deviceType;
+        }
+        if (null !== $this->deviceInfo) {
+            $res['device_info'] = $this->deviceInfo;
         }
 
         return $res;
@@ -65,7 +76,7 @@ class ExecEkytInsureRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureRequest
+     * @return InitIifaaDeviceRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +87,14 @@ class ExecEkytInsureRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['insure_info_list_str'])) {
-            $model->insureInfoListStr = $map['insure_info_list_str'];
+        if (isset($map['corp_code'])) {
+            $model->corpCode = $map['corp_code'];
         }
-        if (isset($map['signature'])) {
-            $model->signature = $map['signature'];
+        if (isset($map['device_type'])) {
+            $model->deviceType = $map['device_type'];
+        }
+        if (isset($map['device_info'])) {
+            $model->deviceInfo = $map['device_info'];
         }
 
         return $model;

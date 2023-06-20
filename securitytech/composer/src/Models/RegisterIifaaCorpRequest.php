@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureRequest extends Model
+class RegisterIifaaCorpRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,36 @@ class ExecEkytInsureRequest extends Model
      */
     public $productInstanceId;
 
-    // 保险信息list的jsonStr
+    // 产商code
     /**
      * @var string
      */
-    public $insureInfoListStr;
+    public $corpCode;
 
-    // 对insure_info_list_str的签名
+    // 产商名称
     /**
      * @var string
      */
-    public $signature;
+    public $corpName;
+
+    // 产商签约code
+    /**
+     * @var string
+     */
+    public $productCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'insureInfoListStr' => 'insure_info_list_str',
-        'signature'         => 'signature',
+        'corpCode'          => 'corp_code',
+        'corpName'          => 'corp_name',
+        'productCode'       => 'product_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('insureInfoListStr', $this->insureInfoListStr, true);
-        Model::validateRequired('signature', $this->signature, true);
+        Model::validateRequired('corpCode', $this->corpCode, true);
+        Model::validateRequired('corpName', $this->corpName, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
 
     public function toMap()
@@ -52,11 +60,14 @@ class ExecEkytInsureRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->insureInfoListStr) {
-            $res['insure_info_list_str'] = $this->insureInfoListStr;
+        if (null !== $this->corpCode) {
+            $res['corp_code'] = $this->corpCode;
         }
-        if (null !== $this->signature) {
-            $res['signature'] = $this->signature;
+        if (null !== $this->corpName) {
+            $res['corp_name'] = $this->corpName;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
 
         return $res;
@@ -65,7 +76,7 @@ class ExecEkytInsureRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureRequest
+     * @return RegisterIifaaCorpRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +87,14 @@ class ExecEkytInsureRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['insure_info_list_str'])) {
-            $model->insureInfoListStr = $map['insure_info_list_str'];
+        if (isset($map['corp_code'])) {
+            $model->corpCode = $map['corp_code'];
         }
-        if (isset($map['signature'])) {
-            $model->signature = $map['signature'];
+        if (isset($map['corp_name'])) {
+            $model->corpName = $map['corp_name'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
 
         return $model;

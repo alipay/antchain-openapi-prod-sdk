@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureRequest extends Model
+class ExecIifaaInsureRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,7 +25,7 @@ class ExecEkytInsureRequest extends Model
      */
     public $insureInfoListStr;
 
-    // 对insure_info_list_str的签名
+    // 对insure_info_list_str的签名，使用十六进制字符串编码
     /**
      * @var string
      */
@@ -65,7 +65,7 @@ class ExecEkytInsureRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureRequest
+     * @return ExecIifaaInsureRequest
      */
     public static function fromMap($map = [])
     {

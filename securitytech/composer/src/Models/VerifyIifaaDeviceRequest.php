@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecEkytInsureRequest extends Model
+class VerifyIifaaDeviceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,20 @@ class ExecEkytInsureRequest extends Model
      */
     public $productInstanceId;
 
-    // 保险信息list的jsonStr
+    // 待验证的数据
     /**
      * @var string
      */
-    public $insureInfoListStr;
-
-    // 对insure_info_list_str的签名
-    /**
-     * @var string
-     */
-    public $signature;
+    public $cipherText;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'insureInfoListStr' => 'insure_info_list_str',
-        'signature'         => 'signature',
+        'cipherText'        => 'cipher_text',
     ];
 
     public function validate()
     {
-        Model::validateRequired('insureInfoListStr', $this->insureInfoListStr, true);
-        Model::validateRequired('signature', $this->signature, true);
+        Model::validateRequired('cipherText', $this->cipherText, true);
     }
 
     public function toMap()
@@ -52,11 +44,8 @@ class ExecEkytInsureRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->insureInfoListStr) {
-            $res['insure_info_list_str'] = $this->insureInfoListStr;
-        }
-        if (null !== $this->signature) {
-            $res['signature'] = $this->signature;
+        if (null !== $this->cipherText) {
+            $res['cipher_text'] = $this->cipherText;
         }
 
         return $res;
@@ -65,7 +54,7 @@ class ExecEkytInsureRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecEkytInsureRequest
+     * @return VerifyIifaaDeviceRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +65,8 @@ class ExecEkytInsureRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['insure_info_list_str'])) {
-            $model->insureInfoListStr = $map['insure_info_list_str'];
-        }
-        if (isset($map['signature'])) {
-            $model->signature = $map['signature'];
+        if (isset($map['cipher_text'])) {
+            $model->cipherText = $map['cipher_text'];
         }
 
         return $model;
