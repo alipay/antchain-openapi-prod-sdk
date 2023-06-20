@@ -238,21 +238,15 @@ export class ExecEkytInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 保险信息，包含保单的所有信息
-  insureInfo: string;
-  // 投保人信息
-  applicantInfo: string;
-  // 被保人信息
-  assuredInfo: string;
-  // 数据签名
+  // 保险信息list的jsonStr
+  insureInfoListStr: string;
+  // 对insure_info_list_str的签名
   signature: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      insureInfo: 'insure_info',
-      applicantInfo: 'applicant_info',
-      assuredInfo: 'assured_info',
+      insureInfoListStr: 'insure_info_list_str',
       signature: 'signature',
     };
   }
@@ -261,9 +255,7 @@ export class ExecEkytInsureRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      insureInfo: 'string',
-      applicantInfo: 'string',
-      assuredInfo: 'string',
+      insureInfoListStr: 'string',
       signature: 'string',
     };
   }
@@ -281,16 +273,16 @@ export class ExecEkytInsureResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 是否成功
-  success?: string;
-  // 返回结果描述
-  message?: string;
+  success?: boolean;
+  // 投保结果list的jsonStr
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       success: 'success',
-      message: 'message',
+      data: 'data',
     };
   }
 
@@ -299,8 +291,382 @@ export class ExecEkytInsureResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'string',
-      message: 'string',
+      success: 'boolean',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitIifaaDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产商code
+  corpCode: string;
+  // 设备类型
+  deviceType: string;
+  // 设备信息
+  deviceInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpCode: 'corp_code',
+      deviceType: 'device_type',
+      deviceInfo: 'device_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpCode: 'string',
+      deviceType: 'string',
+      deviceInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitIifaaDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeIifaaDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备唯一ID
+  tuid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeIifaaDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据内容
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyIifaaDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待验证的数据
+  cipherText: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cipherText: 'cipher_text',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cipherText: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyIifaaDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 验证结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterIifaaCorpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产商code
+  corpCode: string;
+  // 产商名称
+  corpName: string;
+  // 产商签约code
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpCode: 'corp_code',
+      corpName: 'corp_name',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpCode: 'string',
+      corpName: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterIifaaCorpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 产商注册结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeprecateIifaaDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备唯一ID
+  tuid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeprecateIifaaDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备擦除结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIifaaInsureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保险信息list的jsonStr
+  insureInfoListStr: string;
+  // 对insure_info_list_str的签名，使用十六进制字符串编码
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      insureInfoListStr: 'insure_info_list_str',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      insureInfoListStr: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIifaaInsureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投保结果list的jsonStr
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -721,6 +1087,140 @@ export class QueryFaceshieldWebResponse extends $tea.Model {
   }
 }
 
+export class RunXhunterSpiRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json
+  request: string;
+  // XHUNTER_ISV_STANDARD
+  serviceName: string;
+  // json
+  extInfo?: string;
+  // raas_products
+  raasProducts: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      request: 'request',
+      serviceName: 'service_name',
+      extInfo: 'ext_info',
+      raasProducts: 'raas_products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      request: 'string',
+      serviceName: 'string',
+      extInfo: 'string',
+      raasProducts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RunXhunterSpiResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // response
+  response?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      response: 'response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      response: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCctPictureRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // InfoSecAnalyzeSyncContent json
+  request: string;
+  // RaaS产品码
+  raasProducts: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      request: 'request',
+      raasProducts: 'raas_products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      request: 'string',
+      raasProducts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCctPictureResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // InfoSecAnalyzeSyncContent json
+  response?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      response: 'response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      response: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -834,7 +1334,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.11",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -923,6 +1423,120 @@ export default class Client {
   }
 
   /**
+   * Description: 设备激活
+   * Summary: 可信设备认证设备初始化，设备激活
+   */
+  async initIifaaDevice(request: InitIifaaDeviceRequest): Promise<InitIifaaDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initIifaaDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备激活
+   * Summary: 可信设备认证设备初始化，设备激活
+   */
+  async initIifaaDeviceEx(request: InitIifaaDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitIifaaDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitIifaaDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitIifaaDeviceResponse({}));
+  }
+
+  /**
+   * Description: 可信设备认证风险咨询，获取预认证数据
+   * Summary: 可信设备认证风险咨询，获取预认证数据
+   */
+  async recognizeIifaaDevice(request: RecognizeIifaaDeviceRequest): Promise<RecognizeIifaaDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.recognizeIifaaDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可信设备认证风险咨询，获取预认证数据
+   * Summary: 可信设备认证风险咨询，获取预认证数据
+   */
+  async recognizeIifaaDeviceEx(request: RecognizeIifaaDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeIifaaDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RecognizeIifaaDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeIifaaDeviceResponse({}));
+  }
+
+  /**
+   * Description: 可信设备认证，设备验证
+   * Summary: 可信设备认证，设备验证
+   */
+  async verifyIifaaDevice(request: VerifyIifaaDeviceRequest): Promise<VerifyIifaaDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyIifaaDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可信设备认证，设备验证
+   * Summary: 可信设备认证，设备验证
+   */
+  async verifyIifaaDeviceEx(request: VerifyIifaaDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyIifaaDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyIifaaDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyIifaaDeviceResponse({}));
+  }
+
+  /**
+   * Description: 可信设备认证，产商注册
+   * Summary: 可信设备认证，产商注册
+   */
+  async registerIifaaCorp(request: RegisterIifaaCorpRequest): Promise<RegisterIifaaCorpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerIifaaCorpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可信设备认证，产商注册
+   * Summary: 可信设备认证，产商注册
+   */
+  async registerIifaaCorpEx(request: RegisterIifaaCorpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterIifaaCorpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterIifaaCorpResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.corp.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterIifaaCorpResponse({}));
+  }
+
+  /**
+   * Description: 可信设备认证，擦除设备信息
+   * Summary: 可信设备认证，擦除设备信息
+   */
+  async deprecateIifaaDevice(request: DeprecateIifaaDeviceRequest): Promise<DeprecateIifaaDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deprecateIifaaDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可信设备认证，擦除设备信息
+   * Summary: 可信设备认证，擦除设备信息
+   */
+  async deprecateIifaaDeviceEx(request: DeprecateIifaaDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeprecateIifaaDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeprecateIifaaDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.deprecate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeprecateIifaaDeviceResponse({}));
+  }
+
+  /**
+   * Description: 租凭住房保险产品，接口开放给租房平台
+   * Summary: 租凭住房保险产品，接口开放给租房平台
+   */
+  async execIifaaInsure(request: ExecIifaaInsureRequest): Promise<ExecIifaaInsureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execIifaaInsureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租凭住房保险产品，接口开放给租房平台
+   * Summary: 租凭住房保险产品，接口开放给租房平台
+   */
+  async execIifaaInsureEx(request: ExecIifaaInsureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecIifaaInsureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecIifaaInsureResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecIifaaInsureResponse({}));
+  }
+
+  /**
    * Description: 蓝盾安全图片生成
    * Summary: 蓝盾安全图片生成
    */
@@ -996,6 +1610,44 @@ export default class Client {
   async queryFaceshieldWebEx(request: QueryFaceshieldWebRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceshieldWebResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFaceshieldWebResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceshieldWebResponse({}));
+  }
+
+  /**
+   * Description: 巡检商业化
+   * Summary: 巡检商业化
+   */
+  async runXhunterSpi(request: RunXhunterSpiRequest): Promise<RunXhunterSpiResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.runXhunterSpiEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 巡检商业化
+   * Summary: 巡检商业化
+   */
+  async runXhunterSpiEx(request: RunXhunterSpiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunXhunterSpiResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RunXhunterSpiResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.xhunter.spi.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunXhunterSpiResponse({}));
+  }
+
+  /**
+   * Description: 内容安全图片同步检测
+   * Summary: 内容安全图片同步检测
+   */
+  async queryCctPicture(request: QueryCctPictureRequest): Promise<QueryCctPictureResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCctPictureEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 内容安全图片同步检测
+   * Summary: 内容安全图片同步检测
+   */
+  async queryCctPictureEx(request: QueryCctPictureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCctPictureResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCctPictureResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCctPictureResponse({}));
   }
 
 }
