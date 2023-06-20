@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.4"),
+                    new TeaPair("sdk_version", "1.1.11"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -202,6 +202,120 @@ public class Client {
     }
 
     /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活
+     */
+    public InitIifaaDeviceResponse initIifaaDevice(InitIifaaDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initIifaaDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活
+     */
+    public InitIifaaDeviceResponse initIifaaDeviceEx(InitIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitIifaaDeviceResponse());
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据
+     */
+    public RecognizeIifaaDeviceResponse recognizeIifaaDevice(RecognizeIifaaDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.recognizeIifaaDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据
+     */
+    public RecognizeIifaaDeviceResponse recognizeIifaaDeviceEx(RecognizeIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeIifaaDeviceResponse());
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     */
+    public VerifyIifaaDeviceResponse verifyIifaaDevice(VerifyIifaaDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyIifaaDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     */
+    public VerifyIifaaDeviceResponse verifyIifaaDeviceEx(VerifyIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyIifaaDeviceResponse());
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册
+     */
+    public RegisterIifaaCorpResponse registerIifaaCorp(RegisterIifaaCorpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerIifaaCorpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册
+     */
+    public RegisterIifaaCorpResponse registerIifaaCorpEx(RegisterIifaaCorpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.corp.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterIifaaCorpResponse());
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息
+     */
+    public DeprecateIifaaDeviceResponse deprecateIifaaDevice(DeprecateIifaaDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deprecateIifaaDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息
+     */
+    public DeprecateIifaaDeviceResponse deprecateIifaaDeviceEx(DeprecateIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.deprecate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeprecateIifaaDeviceResponse());
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     */
+    public ExecIifaaInsureResponse execIifaaInsure(ExecIifaaInsureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execIifaaInsureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     */
+    public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIifaaInsureResponse());
+    }
+
+    /**
      * Description: 蓝盾安全图片生成
      * Summary: 蓝盾安全图片生成
      */
@@ -275,5 +389,43 @@ public class Client {
     public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldWebResponse());
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化
+     */
+    public RunXhunterSpiResponse runXhunterSpi(RunXhunterSpiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.runXhunterSpiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化
+     */
+    public RunXhunterSpiResponse runXhunterSpiEx(RunXhunterSpiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.xhunter.spi.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunXhunterSpiResponse());
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测
+     */
+    public QueryCctPictureResponse queryCctPicture(QueryCctPictureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCctPictureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测
+     */
+    public QueryCctPictureResponse queryCctPictureEx(QueryCctPictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCctPictureResponse());
     }
 }

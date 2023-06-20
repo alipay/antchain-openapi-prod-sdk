@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class ExecEkytInsureResponse extends TeaModel {
+public class RegisterIifaaCorpResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class ExecEkytInsureResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 投保结果list的jsonStr
+    // 产商注册结果
     @NameInMap("data")
     public String data;
 
-    public static ExecEkytInsureResponse build(java.util.Map<String, ?> map) throws Exception {
-        ExecEkytInsureResponse self = new ExecEkytInsureResponse();
+    public static RegisterIifaaCorpResponse build(java.util.Map<String, ?> map) throws Exception {
+        RegisterIifaaCorpResponse self = new RegisterIifaaCorpResponse();
         return TeaModel.build(map, self);
     }
 
-    public ExecEkytInsureResponse setReqMsgId(String reqMsgId) {
+    public RegisterIifaaCorpResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ExecEkytInsureResponse setResultCode(String resultCode) {
+    public RegisterIifaaCorpResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ExecEkytInsureResponse setResultMsg(String resultMsg) {
+    public RegisterIifaaCorpResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,15 +49,7 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ExecEkytInsureResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public ExecEkytInsureResponse setData(String data) {
+    public RegisterIifaaCorpResponse setData(String data) {
         this.data = data;
         return this;
     }

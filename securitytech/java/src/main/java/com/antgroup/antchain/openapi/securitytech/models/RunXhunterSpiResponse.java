@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class ExecEkytInsureResponse extends TeaModel {
+public class RunXhunterSpiResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class ExecEkytInsureResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
+    // response
+    @NameInMap("response")
+    public String response;
 
-    // 投保结果list的jsonStr
-    @NameInMap("data")
-    public String data;
-
-    public static ExecEkytInsureResponse build(java.util.Map<String, ?> map) throws Exception {
-        ExecEkytInsureResponse self = new ExecEkytInsureResponse();
+    public static RunXhunterSpiResponse build(java.util.Map<String, ?> map) throws Exception {
+        RunXhunterSpiResponse self = new RunXhunterSpiResponse();
         return TeaModel.build(map, self);
     }
 
-    public ExecEkytInsureResponse setReqMsgId(String reqMsgId) {
+    public RunXhunterSpiResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ExecEkytInsureResponse setResultCode(String resultCode) {
+    public RunXhunterSpiResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ExecEkytInsureResponse setResultMsg(String resultMsg) {
+    public RunXhunterSpiResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class ExecEkytInsureResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ExecEkytInsureResponse setSuccess(Boolean success) {
-        this.success = success;
+    public RunXhunterSpiResponse setResponse(String response) {
+        this.response = response;
         return this;
     }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public ExecEkytInsureResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
+    public String getResponse() {
+        return this.response;
     }
 
 }
