@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 单据计费信息，包括单据号和是否计费
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.15'
+                    'sdk_version': '1.1.19',
+                    '_prod_code': 'MPAASFACEVERIFY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -199,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -210,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 单据计费信息，包括单据号和是否计费
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.15'
+                    'sdk_version': '1.1.19',
+                    '_prod_code': 'MPAASFACEVERIFY',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -268,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_certify_analysis(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisResponse:
+        """
+        Description: 人脸认证问题自动化排查接口
+        Summary: 人脸认证问题自动化排查接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certify_analysis_ex(request, headers, runtime)
+
+    async def query_certify_analysis_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisResponse:
+        """
+        Description: 人脸认证问题自动化排查接口
+        Summary: 人脸认证问题自动化排查接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certify_analysis_ex_async(request, headers, runtime)
+
+    def query_certify_analysis_ex(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisResponse:
+        """
+        Description: 人脸认证问题自动化排查接口
+        Summary: 人脸认证问题自动化排查接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyAnalysisResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certify.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certify_analysis_ex_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyAnalysisResponse:
+        """
+        Description: 人脸认证问题自动化排查接口
+        Summary: 人脸认证问题自动化排查接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyAnalysisResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certify.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def init_faceauth(
         self,
@@ -827,4 +889,116 @@ class Client:
         return TeaCore.from_map(
             mpaasfaceverify_models.UploadOcrServermodeResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_certifyrecord_charge(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordChargeRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordChargeResponse:
+        """
+        Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+        Summary: 计费信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certifyrecord_charge_ex(request, headers, runtime)
+
+    async def query_certifyrecord_charge_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordChargeRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordChargeResponse:
+        """
+        Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+        Summary: 计费信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certifyrecord_charge_ex_async(request, headers, runtime)
+
+    def query_certifyrecord_charge_ex(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordChargeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordChargeResponse:
+        """
+        Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+        Summary: 计费信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyrecordChargeResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.charge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certifyrecord_charge_ex_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordChargeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordChargeResponse:
+        """
+        Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+        Summary: 计费信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyrecordChargeResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.charge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_onelogin(
+        self,
+        request: mpaasfaceverify_models.InitOneloginRequest,
+    ) -> mpaasfaceverify_models.InitOneloginResponse:
+        """
+        Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 一键登录初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_onelogin_ex(request, headers, runtime)
+
+    async def init_onelogin_async(
+        self,
+        request: mpaasfaceverify_models.InitOneloginRequest,
+    ) -> mpaasfaceverify_models.InitOneloginResponse:
+        """
+        Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 一键登录初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_onelogin_ex_async(request, headers, runtime)
+
+    def init_onelogin_ex(
+        self,
+        request: mpaasfaceverify_models.InitOneloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitOneloginResponse:
+        """
+        Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 一键登录初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitOneloginResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.onelogin.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_onelogin_ex_async(
+        self,
+        request: mpaasfaceverify_models.InitOneloginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitOneloginResponse:
+        """
+        Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 一键登录初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitOneloginResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.onelogin.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
