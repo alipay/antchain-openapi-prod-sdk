@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class ExecIcmSyncgatheringRequest : TeaModel {
+    public class QueryRiskEvaluationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,47 +18,25 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 机构号码
-        [NameInMap("inst_code")]
-        [Validation(Required=true)]
-        public string InstCode { get; set; }
-
         // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
         [NameInMap("biz_request_id")]
         [Validation(Required=true)]
         public string BizRequestId { get; set; }
 
-        // 纳税人识别号(必填)
+        // 信贷用户的纳税人识别号或者身份证号
         [NameInMap("identity_id")]
         [Validation(Required=true)]
         public string IdentityId { get; set; }
 
-        // 授权类型(必填)
+        // 授权类型
         [NameInMap("auth_type")]
         [Validation(Required=true)]
         public string AuthType { get; set; }
 
-        // 订单号
+        // 授权订单号
         [NameInMap("order_no")]
         [Validation(Required=true)]
         public string OrderNo { get; set; }
-
-        // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
-        [NameInMap("content")]
-        [Validation(Required=true)]
-        public string Content { get; set; }
-
-        // 查询类型
-        // NORMAL 正常调用
-        // BATCH_HAND  批刷
-        [NameInMap("query_type")]
-        [Validation(Required=false)]
-        public string QueryType { get; set; }
-
-        // 子机构编码，字典由系统预设白名单
-        [NameInMap("sub_tenant")]
-        [Validation(Required=false)]
-        public string SubTenant { get; set; }
 
     }
 

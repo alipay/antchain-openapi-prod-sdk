@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class CreateApiAuthurlResponse : TeaModel {
+    public class MatchIcmSimpleauthResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 蚂蚁生成的订单号，此次授权的唯一标识
-        [NameInMap("order_no")]
+        // 支持的数据类型
+        [NameInMap("cover_result")]
         [Validation(Required=false)]
-        public string OrderNo { get; set; }
-
-        // 短链接地址
-        [NameInMap("login_url")]
-        [Validation(Required=false)]
-        public string LoginUrl { get; set; }
-
-        // 授权原始链接
-        [NameInMap("origin_login_url")]
-        [Validation(Required=false)]
-        public string OriginLoginUrl { get; set; }
+        public List<string> CoverResult { get; set; }
 
     }
 

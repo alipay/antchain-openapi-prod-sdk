@@ -91,7 +91,7 @@ namespace AntChain.SDK.TAX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.11"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -217,7 +217,7 @@ namespace AntChain.SDK.TAX
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.11"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -910,8 +910,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 企业的授权接口
-         * Summary: 企业授权
+         * Description: 授权接口
+         * Summary: 授权
          */
         public AuthIcmEnterpriseResponse AuthIcmEnterprise(AuthIcmEnterpriseRequest request)
         {
@@ -921,8 +921,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 企业的授权接口
-         * Summary: 企业授权
+         * Description: 授权接口
+         * Summary: 授权
          */
         public async Task<AuthIcmEnterpriseResponse> AuthIcmEnterpriseAsync(AuthIcmEnterpriseRequest request)
         {
@@ -932,8 +932,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 企业的授权接口
-         * Summary: 企业授权
+         * Description: 授权接口
+         * Summary: 授权
          */
         public AuthIcmEnterpriseResponse AuthIcmEnterpriseEx(AuthIcmEnterpriseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -942,8 +942,8 @@ namespace AntChain.SDK.TAX
         }
 
         /**
-         * Description: 企业的授权接口
-         * Summary: 企业授权
+         * Description: 授权接口
+         * Summary: 授权
          */
         public async Task<AuthIcmEnterpriseResponse> AuthIcmEnterpriseExAsync(AuthIcmEnterpriseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -991,6 +991,216 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateApiAuthurlResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+         * Summary: 极简授权-检查数据是否支持接口
+         */
+        public MatchIcmSimpleauthResponse MatchIcmSimpleauth(MatchIcmSimpleauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchIcmSimpleauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+         * Summary: 极简授权-检查数据是否支持接口
+         */
+        public async Task<MatchIcmSimpleauthResponse> MatchIcmSimpleauthAsync(MatchIcmSimpleauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchIcmSimpleauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+         * Summary: 极简授权-检查数据是否支持接口
+         */
+        public MatchIcmSimpleauthResponse MatchIcmSimpleauthEx(MatchIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchIcmSimpleauthResponse>(DoRequest("1.0", "blockchain.tax.icm.simpleauth.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+         * Summary: 极简授权-检查数据是否支持接口
+         */
+        public async Task<MatchIcmSimpleauthResponse> MatchIcmSimpleauthExAsync(MatchIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchIcmSimpleauthResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.simpleauth.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-获取数据，用于获取指标类的数据
+         * Summary: 极简授权-获取数据
+         */
+        public QueryIcmSimpleauthResponse QueryIcmSimpleauth(QueryIcmSimpleauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIcmSimpleauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-获取数据，用于获取指标类的数据
+         * Summary: 极简授权-获取数据
+         */
+        public async Task<QueryIcmSimpleauthResponse> QueryIcmSimpleauthAsync(QueryIcmSimpleauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIcmSimpleauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权-获取数据，用于获取指标类的数据
+         * Summary: 极简授权-获取数据
+         */
+        public QueryIcmSimpleauthResponse QueryIcmSimpleauthEx(QueryIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIcmSimpleauthResponse>(DoRequest("1.0", "blockchain.tax.icm.simpleauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权-获取数据，用于获取指标类的数据
+         * Summary: 极简授权-获取数据
+         */
+        public async Task<QueryIcmSimpleauthResponse> QueryIcmSimpleauthExAsync(QueryIcmSimpleauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIcmSimpleauthResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.simpleauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public QueryApiSimpleauthasyncResponse QueryApiSimpleauthasync(QueryApiSimpleauthasyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiSimpleauthasyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public async Task<QueryApiSimpleauthasyncResponse> QueryApiSimpleauthasyncAsync(QueryApiSimpleauthasyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiSimpleauthasyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public QueryApiSimpleauthasyncResponse QueryApiSimpleauthasyncEx(QueryApiSimpleauthasyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiSimpleauthasyncResponse>(DoRequest("1.0", "blockchain.tax.api.simpleauthasync.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极简授权异步查询接口
+         * Summary: 极简授权-异步获取数据
+         */
+        public async Task<QueryApiSimpleauthasyncResponse> QueryApiSimpleauthasyncExAsync(QueryApiSimpleauthasyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiSimpleauthasyncResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.simpleauthasync.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权接口
+         * Summary: 授权接口
+         */
+        public AuthRiskEvaluationResponse AuthRiskEvaluation(AuthRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthRiskEvaluationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权接口
+         * Summary: 授权接口
+         */
+        public async Task<AuthRiskEvaluationResponse> AuthRiskEvaluationAsync(AuthRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthRiskEvaluationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权接口
+         * Summary: 授权接口
+         */
+        public AuthRiskEvaluationResponse AuthRiskEvaluationEx(AuthRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthRiskEvaluationResponse>(DoRequest("1.0", "blockchain.tax.risk.evaluation.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权接口
+         * Summary: 授权接口
+         */
+        public async Task<AuthRiskEvaluationResponse> AuthRiskEvaluationExAsync(AuthRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询
+         * Summary: 查询
+         */
+        public QueryRiskEvaluationResponse QueryRiskEvaluation(QueryRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRiskEvaluationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询
+         * Summary: 查询
+         */
+        public async Task<QueryRiskEvaluationResponse> QueryRiskEvaluationAsync(QueryRiskEvaluationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRiskEvaluationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询
+         * Summary: 查询
+         */
+        public QueryRiskEvaluationResponse QueryRiskEvaluationEx(QueryRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskEvaluationResponse>(DoRequest("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询
+         * Summary: 查询
+         */
+        public async Task<QueryRiskEvaluationResponse> QueryRiskEvaluationExAsync(QueryRiskEvaluationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskEvaluationResponse>(await DoRequestAsync("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

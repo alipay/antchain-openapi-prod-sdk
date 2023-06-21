@@ -58,6 +58,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string CognizantId { get; set; }
 
+        // 字典由系统设置，子机构编码
+        [NameInMap("sub_tenant")]
+        [Validation(Required=false)]
+        public string SubTenant { get; set; }
+
     }
 
 }

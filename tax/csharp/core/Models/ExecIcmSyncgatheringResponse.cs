@@ -49,6 +49,16 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public bool? NullDataFlag { get; set; }
 
+        // 参考区块链给出的标准字段定义
+        [NameInMap("query_type")]
+        [Validation(Required=false)]
+        public string QueryType { get; set; }
+
+        // 是否需要重新授权
+        [NameInMap("reauth")]
+        [Validation(Required=false)]
+        public bool? Reauth { get; set; }
+
     }
 
 }
