@@ -95,6 +95,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public bool? ShortUrl { get; set; }
 
+        // 租赁订单Id
+        [NameInMap("bcl_order_id")]
+        [Validation(Required=false, MaxLength=32)]
+        public string BclOrderId { get; set; }
+
     }
 
 }
