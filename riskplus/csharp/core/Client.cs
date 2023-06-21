@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.29"},
+                        {"sdk_version", "1.16.33"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.29"},
+                        {"sdk_version", "1.16.33"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6433,6 +6433,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktRobotcallDetailResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.detail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起触达营销任务 ---目前仅支持文本短信
+         * Summary: 发起触达营销任务
+         */
+        public ApplyUmktRealtimemarketingResponse ApplyUmktRealtimemarketing(ApplyUmktRealtimemarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyUmktRealtimemarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起触达营销任务 ---目前仅支持文本短信
+         * Summary: 发起触达营销任务
+         */
+        public async Task<ApplyUmktRealtimemarketingResponse> ApplyUmktRealtimemarketingAsync(ApplyUmktRealtimemarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyUmktRealtimemarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起触达营销任务 ---目前仅支持文本短信
+         * Summary: 发起触达营销任务
+         */
+        public ApplyUmktRealtimemarketingResponse ApplyUmktRealtimemarketingEx(ApplyUmktRealtimemarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRealtimemarketingResponse>(DoRequest("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起触达营销任务 ---目前仅支持文本短信
+         * Summary: 发起触达营销任务
+         */
+        public async Task<ApplyUmktRealtimemarketingResponse> ApplyUmktRealtimemarketingExAsync(ApplyUmktRealtimemarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRealtimemarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
