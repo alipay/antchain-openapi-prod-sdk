@@ -91,7 +91,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.15"},
+                        {"sdk_version", "1.1.19"},
+                        {"_prod_code", "MPAASFACEVERIFY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.15"},
+                        {"sdk_version", "1.1.19"},
+                        {"_prod_code", "MPAASFACEVERIFY"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +319,48 @@ namespace AntChain.SDK.MPAASFACEVERIFY
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 人脸认证问题自动化排查接口
+         * Summary: 人脸认证问题自动化排查接口
+         */
+        public QueryCertifyAnalysisResponse QueryCertifyAnalysis(QueryCertifyAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCertifyAnalysisEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸认证问题自动化排查接口
+         * Summary: 人脸认证问题自动化排查接口
+         */
+        public async Task<QueryCertifyAnalysisResponse> QueryCertifyAnalysisAsync(QueryCertifyAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCertifyAnalysisExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸认证问题自动化排查接口
+         * Summary: 人脸认证问题自动化排查接口
+         */
+        public QueryCertifyAnalysisResponse QueryCertifyAnalysisEx(QueryCertifyAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyAnalysisResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certify.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸认证问题自动化排查接口
+         * Summary: 人脸认证问题自动化排查接口
+         */
+        public async Task<QueryCertifyAnalysisResponse> QueryCertifyAnalysisExAsync(QueryCertifyAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyAnalysisResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certify.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -735,6 +781,90 @@ namespace AntChain.SDK.MPAASFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadOcrServermodeResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+         * Summary: 计费信息查询
+         */
+        public QueryCertifyrecordChargeResponse QueryCertifyrecordCharge(QueryCertifyrecordChargeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCertifyrecordChargeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+         * Summary: 计费信息查询
+         */
+        public async Task<QueryCertifyrecordChargeResponse> QueryCertifyrecordChargeAsync(QueryCertifyrecordChargeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCertifyrecordChargeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+         * Summary: 计费信息查询
+         */
+        public QueryCertifyrecordChargeResponse QueryCertifyrecordChargeEx(QueryCertifyrecordChargeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyrecordChargeResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.charge.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+         * Summary: 计费信息查询
+         */
+        public async Task<QueryCertifyrecordChargeResponse> QueryCertifyrecordChargeExAsync(QueryCertifyrecordChargeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyrecordChargeResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.charge.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 一键登录初始化
+         */
+        public InitOneloginResponse InitOnelogin(InitOneloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitOneloginEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 一键登录初始化
+         */
+        public async Task<InitOneloginResponse> InitOneloginAsync(InitOneloginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitOneloginExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 一键登录初始化
+         */
+        public InitOneloginResponse InitOneloginEx(InitOneloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitOneloginResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.onelogin.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 一键登录初始化
+         */
+        public async Task<InitOneloginResponse> InitOneloginExAsync(InitOneloginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitOneloginResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.onelogin.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
