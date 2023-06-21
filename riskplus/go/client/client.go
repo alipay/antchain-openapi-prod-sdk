@@ -20054,6 +20054,120 @@ func (s *QueryUmktRobotcallDetailResponse) SetCallInfo(v []*AICallbackMessage) *
 	return s
 }
 
+type ApplyUmktRealtimemarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 营销盾内部租户下的子租户
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
+	//
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	//
+	// 用户参数类型
+	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
+	// 触达渠道配置
+	ChannelParams *string `json:"channel_params,omitempty" xml:"channel_params,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 手机号/手机号md5
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+}
+
+func (s ApplyUmktRealtimemarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRealtimemarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetAuthToken(v string) *ApplyUmktRealtimemarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetProductInstanceId(v string) *ApplyUmktRealtimemarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetSubTenantId(v string) *ApplyUmktRealtimemarketingRequest {
+	s.SubTenantId = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetSceneStrategyId(v int64) *ApplyUmktRealtimemarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetOutSerialNo(v string) *ApplyUmktRealtimemarketingRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetParamType(v string) *ApplyUmktRealtimemarketingRequest {
+	s.ParamType = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetChannelParams(v string) *ApplyUmktRealtimemarketingRequest {
+	s.ChannelParams = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetExtInfo(v string) *ApplyUmktRealtimemarketingRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingRequest) SetCustomerKey(v string) *ApplyUmktRealtimemarketingRequest {
+	s.CustomerKey = &v
+	return s
+}
+
+type ApplyUmktRealtimemarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回流水id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s ApplyUmktRealtimemarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRealtimemarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRealtimemarketingResponse) SetReqMsgId(v string) *ApplyUmktRealtimemarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingResponse) SetResultCode(v string) *ApplyUmktRealtimemarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingResponse) SetResultMsg(v string) *ApplyUmktRealtimemarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyUmktRealtimemarketingResponse) SetBizId(v string) *ApplyUmktRealtimemarketingResponse {
+	s.BizId = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20296,7 +20410,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.29"),
+				"sdk_version":      tea.String("1.16.33"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25254,6 +25368,40 @@ func (client *Client) QueryUmktRobotcallDetailEx(request *QueryUmktRobotcallDeta
 	}
 	_result = &QueryUmktRobotcallDetailResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起触达营销任务 ---目前仅支持文本短信
+ * Summary: 发起触达营销任务
+ */
+func (client *Client) ApplyUmktRealtimemarketing(request *ApplyUmktRealtimemarketingRequest) (_result *ApplyUmktRealtimemarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyUmktRealtimemarketingResponse{}
+	_body, _err := client.ApplyUmktRealtimemarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起触达营销任务 ---目前仅支持文本短信
+ * Summary: 发起触达营销任务
+ */
+func (client *Client) ApplyUmktRealtimemarketingEx(request *ApplyUmktRealtimemarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyUmktRealtimemarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyUmktRealtimemarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.realtimemarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
