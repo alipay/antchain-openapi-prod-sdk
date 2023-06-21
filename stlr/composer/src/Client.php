@@ -89,6 +89,8 @@ use AntChain\STLR\Models\RegisterEcarEnterprisememberRequest;
 use AntChain\STLR\Models\RegisterEcarEnterprisememberResponse;
 use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
+use AntChain\STLR\Models\SubmitEcarLcaassementRequest;
+use AntChain\STLR\Models\SubmitEcarLcaassementResponse;
 use AntChain\STLR\Models\UpdatePdcpAuthRequest;
 use AntChain\STLR\Models\UpdatePdcpAuthResponse;
 use AntChain\STLR\Models\UploadEcarFileRequest;
@@ -242,7 +244,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.5.0',
+                    'sdk_version'      => '2.6.0',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1626,6 +1628,39 @@ class Client
         Utils::validateModel($request);
 
         return DetailEcarOffsettranslateResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.offsettranslate.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+     * Summary: 平台方LCA评估结果提交.
+     *
+     * @param SubmitEcarLcaassementRequest $request
+     *
+     * @return SubmitEcarLcaassementResponse
+     */
+    public function submitEcarLcaassement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitEcarLcaassementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+     * Summary: 平台方LCA评估结果提交.
+     *
+     * @param SubmitEcarLcaassementRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitEcarLcaassementResponse
+     */
+    public function submitEcarLcaassementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitEcarLcaassementResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
