@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.29"),
+                    new TeaPair("sdk_version", "1.16.33"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2926,6 +2926,25 @@ public class Client {
     public QueryUmktRobotcallDetailResponse queryUmktRobotcallDetailEx(QueryUmktRobotcallDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktRobotcallDetailResponse());
+    }
+
+    /**
+     * Description: 发起触达营销任务 ---目前仅支持文本短信
+     * Summary: 发起触达营销任务
+     */
+    public ApplyUmktRealtimemarketingResponse applyUmktRealtimemarketing(ApplyUmktRealtimemarketingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyUmktRealtimemarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发起触达营销任务 ---目前仅支持文本短信
+     * Summary: 发起触达营销任务
+     */
+    public ApplyUmktRealtimemarketingResponse applyUmktRealtimemarketingEx(ApplyUmktRealtimemarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.realtimemarketing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktRealtimemarketingResponse());
     }
 
     /**
