@@ -5250,6 +5250,111 @@ func (s *DetailEcarOffsettranslateResponse) SetReceiptAccountDid(v string) *Deta
 	return s
 }
 
+type SubmitEcarLcaassementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单编号，碳矩阵关联的订单编号，业务主键
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// LCA产品评估状态，返回约定的状态编码
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 项目摘要信息，包括有关产品详情和报告时间等，JSON格式，按照约定的格式解析成碳矩阵对应的碳足迹项目和产品信息
+	ProjectSummary *string `json:"project_summary,omitempty" xml:"project_summary,omitempty"`
+	// 产品工序数据，JSON格式，按照约定的格式解析成碳矩阵对应的工序信息
+	ProcessDatum *string `json:"process_datum,omitempty" xml:"process_datum,omitempty"`
+	// 碳足迹评估结果数据，JSON格式，按照约定的格式解析成碳矩阵对应的评估结果
+	AssementResult *string `json:"assement_result,omitempty" xml:"assement_result,omitempty"`
+	// 碳足迹评估报告，包括一些报告文件地址等，JSON格式，碳矩阵下载保存对应的报告文件
+	AssementReport *string `json:"assement_report,omitempty" xml:"assement_report,omitempty"`
+	// 扩展信息，JSON格式，预留需提交的数据
+	ExtraDatum *string `json:"extra_datum,omitempty" xml:"extra_datum,omitempty"`
+}
+
+func (s SubmitEcarLcaassementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcaassementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcaassementRequest) SetAuthToken(v string) *SubmitEcarLcaassementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetProductInstanceId(v string) *SubmitEcarLcaassementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetOrderNo(v string) *SubmitEcarLcaassementRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetStatus(v string) *SubmitEcarLcaassementRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetProjectSummary(v string) *SubmitEcarLcaassementRequest {
+	s.ProjectSummary = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetProcessDatum(v string) *SubmitEcarLcaassementRequest {
+	s.ProcessDatum = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetAssementResult(v string) *SubmitEcarLcaassementRequest {
+	s.AssementResult = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetAssementReport(v string) *SubmitEcarLcaassementRequest {
+	s.AssementReport = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementRequest) SetExtraDatum(v string) *SubmitEcarLcaassementRequest {
+	s.ExtraDatum = &v
+	return s
+}
+
+type SubmitEcarLcaassementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitEcarLcaassementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcaassementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcaassementResponse) SetReqMsgId(v string) *SubmitEcarLcaassementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementResponse) SetResultCode(v string) *SubmitEcarLcaassementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitEcarLcaassementResponse) SetResultMsg(v string) *SubmitEcarLcaassementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryThirdCertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5599,7 +5704,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.5.0"),
+				"sdk_version":      tea.String("2.6.0"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7039,6 +7144,40 @@ func (client *Client) DetailEcarOffsettranslateEx(request *DetailEcarOffsettrans
 	}
 	_result = &DetailEcarOffsettranslateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.offsettranslate.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+ * Summary: 平台方LCA评估结果提交
+ */
+func (client *Client) SubmitEcarLcaassement(request *SubmitEcarLcaassementRequest) (_result *SubmitEcarLcaassementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitEcarLcaassementResponse{}
+	_body, _err := client.SubmitEcarLcaassementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+ * Summary: 平台方LCA评估结果提交
+ */
+func (client *Client) SubmitEcarLcaassementEx(request *SubmitEcarLcaassementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitEcarLcaassementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitEcarLcaassementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcaassement.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
