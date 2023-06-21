@@ -4016,6 +4016,85 @@ export class DetailEcarOffsettranslateResponse extends $tea.Model {
   }
 }
 
+export class SubmitEcarLcaassementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号，碳矩阵关联的订单编号，业务主键
+  orderNo: string;
+  // LCA产品评估状态，返回约定的状态编码
+  status: string;
+  // 项目摘要信息，包括有关产品详情和报告时间等，JSON格式，按照约定的格式解析成碳矩阵对应的碳足迹项目和产品信息
+  projectSummary?: string;
+  // 产品工序数据，JSON格式，按照约定的格式解析成碳矩阵对应的工序信息
+  processDatum?: string;
+  // 碳足迹评估结果数据，JSON格式，按照约定的格式解析成碳矩阵对应的评估结果
+  assementResult?: string;
+  // 碳足迹评估报告，包括一些报告文件地址等，JSON格式，碳矩阵下载保存对应的报告文件
+  assementReport?: string;
+  // 扩展信息，JSON格式，预留需提交的数据
+  extraDatum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      status: 'status',
+      projectSummary: 'project_summary',
+      processDatum: 'process_datum',
+      assementResult: 'assement_result',
+      assementReport: 'assement_report',
+      extraDatum: 'extra_datum',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      status: 'string',
+      projectSummary: 'string',
+      processDatum: 'string',
+      assementResult: 'string',
+      assementReport: 'string',
+      extraDatum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitEcarLcaassementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4298,7 +4377,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.5.0",
+          sdk_version: "2.6.0",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -5125,6 +5204,25 @@ export default class Client {
   async detailEcarOffsettranslateEx(request: DetailEcarOffsettranslateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailEcarOffsettranslateResponse> {
     Util.validateModel(request);
     return $tea.cast<DetailEcarOffsettranslateResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.offsettranslate.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailEcarOffsettranslateResponse({}));
+  }
+
+  /**
+   * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+   * Summary: 平台方LCA评估结果提交
+   */
+  async submitEcarLcaassement(request: SubmitEcarLcaassementRequest): Promise<SubmitEcarLcaassementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitEcarLcaassementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+   * Summary: 平台方LCA评估结果提交
+   */
+  async submitEcarLcaassementEx(request: SubmitEcarLcaassementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitEcarLcaassementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitEcarLcaassementResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.lcaassement.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitEcarLcaassementResponse({}));
   }
 
   /**
