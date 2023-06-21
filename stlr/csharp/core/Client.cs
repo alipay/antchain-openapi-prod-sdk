@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.5.0"},
+                        {"sdk_version", "2.6.0"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.5.0"},
+                        {"sdk_version", "2.6.0"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2045,6 +2045,48 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailEcarOffsettranslateResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.offsettranslate.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+         * Summary: 平台方LCA评估结果提交
+         */
+        public SubmitEcarLcaassementResponse SubmitEcarLcaassement(SubmitEcarLcaassementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitEcarLcaassementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+         * Summary: 平台方LCA评估结果提交
+         */
+        public async Task<SubmitEcarLcaassementResponse> SubmitEcarLcaassementAsync(SubmitEcarLcaassementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitEcarLcaassementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+         * Summary: 平台方LCA评估结果提交
+         */
+        public SubmitEcarLcaassementResponse SubmitEcarLcaassementEx(SubmitEcarLcaassementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitEcarLcaassementResponse>(DoRequest("1.0", "antchain.carbon.ecar.lcaassement.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+         * Summary: 平台方LCA评估结果提交
+         */
+        public async Task<SubmitEcarLcaassementResponse> SubmitEcarLcaassementExAsync(SubmitEcarLcaassementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitEcarLcaassementResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.lcaassement.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
