@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.29',
+                    'sdk_version': '1.16.33',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.29',
+                    'sdk_version': '1.16.33',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -8287,6 +8287,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktRobotcallDetailResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.robotcall.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_umkt_realtimemarketing(
+        self,
+        request: riskplus_models.ApplyUmktRealtimemarketingRequest,
+    ) -> riskplus_models.ApplyUmktRealtimemarketingResponse:
+        """
+        Description: 发起触达营销任务 ---目前仅支持文本短信
+        Summary: 发起触达营销任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_umkt_realtimemarketing_ex(request, headers, runtime)
+
+    async def apply_umkt_realtimemarketing_async(
+        self,
+        request: riskplus_models.ApplyUmktRealtimemarketingRequest,
+    ) -> riskplus_models.ApplyUmktRealtimemarketingResponse:
+        """
+        Description: 发起触达营销任务 ---目前仅支持文本短信
+        Summary: 发起触达营销任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_umkt_realtimemarketing_ex_async(request, headers, runtime)
+
+    def apply_umkt_realtimemarketing_ex(
+        self,
+        request: riskplus_models.ApplyUmktRealtimemarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyUmktRealtimemarketingResponse:
+        """
+        Description: 发起触达营销任务 ---目前仅支持文本短信
+        Summary: 发起触达营销任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyUmktRealtimemarketingResponse(),
+            self.do_request('1.0', 'riskplus.umkt.realtimemarketing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_umkt_realtimemarketing_ex_async(
+        self,
+        request: riskplus_models.ApplyUmktRealtimemarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyUmktRealtimemarketingResponse:
+        """
+        Description: 发起触达营销任务 ---目前仅支持文本短信
+        Summary: 发起触达营销任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyUmktRealtimemarketingResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.realtimemarketing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
