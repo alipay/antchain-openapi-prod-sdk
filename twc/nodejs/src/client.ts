@@ -255,6 +255,31 @@ export class RentalStagingInformation extends $tea.Model {
   }
 }
 
+// 租赁订单关联的商品
+export class BclOrderProductInfo extends $tea.Model {
+  // 创建商品后返回的商品id
+  productId: string;
+  // 商品数量
+  productNumber: number;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productNumber: 'product_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 存证关联实体（个人/企业）的身份识别信息
 export class NotaryUser extends $tea.Model {
   // 用户类型，PERSON或者ENTERPRISE
@@ -507,6 +532,71 @@ export class ContractTextSignVerifyCertInfo extends $tea.Model {
       startDate: 'string',
       endDate: 'string',
       issuerCn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 承诺详情
+export class BclPromiseDetailInfo extends $tea.Model {
+  // 承诺期数
+  period: number;
+  // 承诺金额 单位分
+  amount: number;
+  // 本期还款状态
+  // 已还款，PAID
+  // 部分还款，PART_PAID
+  // 未还款，UN_PAID
+  status: string;
+  // 每期约定还款时间
+  promiseTime: string;
+  // 履约日期
+  payTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      period: 'period',
+      amount: 'amount',
+      status: 'status',
+      promiseTime: 'promise_time',
+      payTime: 'pay_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      period: 'number',
+      amount: 'number',
+      status: 'string',
+      promiseTime: 'string',
+      payTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 文件信息
+export class BclFileInfo extends $tea.Model {
+  // 文件名称 包含后缀
+  fileName: string;
+  // 文件下载链接
+  fileUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileName: 'file_name',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileName: 'string',
+      fileUrl: 'string',
     };
   }
 
@@ -796,6 +886,55 @@ export class PhaseNotary extends $tea.Model {
       phaseNo: 'number',
       notaryContent: 'string',
       originDataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租赁用户信息
+export class BclUserInfo extends $tea.Model {
+  // 用户账号ID,长度不超过64位
+  userAccountId: string;
+  // 用户账号类型（承租人) ALIPAY.支付宝
+  userAccountType: string;
+  // 承租人/企业姓名,长度不超过32位
+  userCertName: string;
+  // 承租人/企业证件号,长度不超过64位
+  userCertNo: string;
+  // 承租人/企业证件类型: IDENTITY_CARD 身份证 NATIONAL_LEGAL_MERGE 统一社会信用代码
+  userCertType: string;
+  // 承租人/企业手机号,长度不超过32位
+  userPhoneNumber: string;
+  // 承租人身份证人像面/企业营业执照 先调用文件上传的接口,这里填上传后返回的fileid
+  userCertFrontFileId: string;
+  // 承租人身份证国徽面 先调用文件上传的接口,这里填上传后返回的fileid
+  userCertBackFileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userAccountId: 'user_account_id',
+      userAccountType: 'user_account_type',
+      userCertName: 'user_cert_name',
+      userCertNo: 'user_cert_no',
+      userCertType: 'user_cert_type',
+      userPhoneNumber: 'user_phone_number',
+      userCertFrontFileId: 'user_cert_front_file_id',
+      userCertBackFileId: 'user_cert_back_file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userAccountId: 'string',
+      userAccountType: 'string',
+      userCertName: 'string',
+      userCertNo: 'string',
+      userCertType: 'string',
+      userPhoneNumber: 'string',
+      userCertFrontFileId: 'string',
+      userCertBackFileId: 'string',
     };
   }
 
@@ -1408,6 +1547,40 @@ export class ContractSignField extends $tea.Model {
       accountId: 'string',
       fileId: 'string',
       signfieldId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单查询承诺信息
+export class BclPromiseInfo extends $tea.Model {
+  // 承诺租期 单位
+  // 月 MONTH
+  rentUnit: string;
+  // 总期数
+  rentTerm: number;
+  // 总金额 单位分
+  totalRentMoney: number;
+  // 承诺履约详情
+  promiseDetails: BclPromiseDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      rentUnit: 'rent_unit',
+      rentTerm: 'rent_term',
+      totalRentMoney: 'total_rent_money',
+      promiseDetails: 'promise_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rentUnit: 'string',
+      rentTerm: 'number',
+      totalRentMoney: 'number',
+      promiseDetails: { 'type': 'array', 'itemType': BclPromiseDetailInfo },
     };
   }
 
@@ -2729,6 +2902,39 @@ export class LeaseClearingInfo extends $tea.Model {
   }
 }
 
+// 实人信息
+export class BclCertifyInfo extends $tea.Model {
+  // 认证url 如果status待认证,该字段非空,
+  // 如果认证失败,这里的新的认证链接,支持重复认证
+  certifyUrl?: string;
+  // 认证描述
+  resultDesc?: string;
+  // 认证状态
+  // 待认证  INIT
+  // 认证成功 PASS
+  // 认证失败 FAIL
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      certifyUrl: 'certify_url',
+      resultDesc: 'result_desc',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certifyUrl: 'string',
+      resultDesc: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阶段详情信息
 export class PhaseDetail extends $tea.Model {
   // 阶段id
@@ -3171,6 +3377,104 @@ export class SupplierOrderProductInfo extends $tea.Model {
   }
 }
 
+// 租赁订单信息
+export class BclOrderInfo extends $tea.Model {
+  // 订单外部id,商户自己定义的订单id
+  orderOuterId: string;
+  // 订单创建时间
+  orderCreateTime: string;
+  // DUE_BUYOUT 到期买断 
+  // DUE_RETURN 到期归还
+  dueMode: string;
+  // 订单总金额 单位分
+  totalMoney: number;
+  // 到期买断价  单位分，
+  // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+  buyOutPrice?: number;
+  // 芝麻信用订单免押金额 单位分
+  depositFree?: number;
+  // 芝麻信用 实际预授权金额 单位分
+  acutalPreAuthFree?: number;
+  // 网商直付通模式的代扣协议号
+  mybankAgreementNo?: string;
+  // 直付通代扣受理订单号
+  mybankAgreementOrderId?: string;
+  // -网商代扣：MY_BANK_PROXY_WITHHOLDING
+  // -合同代扣：CONTRACT_PROXY_WITHHOLDING
+  orderWithholdType: string;
+  // 首付款金额 单位分
+  downPayment?: number;
+  // 商品列表
+  productInfos: BclOrderProductInfo[];
+  // 物流方式： POST 邮寄 OFFLINE 线下自取
+  logisticType: string;
+  // 订单状态
+  // 已创建 CREATED
+  // 待发起 PRE_SUBMIT
+  // 已发起 SUBMIT
+  // 履约中 PROMISING
+  // 履约完成 PROMISED
+  // 订单完结 ORDER_FINISH
+  // 风控失败 RISK_FAIL
+  // 核身失败 IDENTITY_NOT_MATCH
+  // 网商订单核验失败 MY_BANK_VERIFY_FAIL
+  // 实人中 PERSON_FACE_VERIFY
+  // 实人认证失败 PERSON_FACE_VERIFY_FAIL
+  // 订单异常 ORDER_ERROR
+  // 
+  // 
+  status: string;
+  // 订单状态失败的描述
+  statusRemark?: string;
+  // 承租方用户信息
+  userInfo: BclUserInfo;
+  static names(): { [key: string]: string } {
+    return {
+      orderOuterId: 'order_outer_id',
+      orderCreateTime: 'order_create_time',
+      dueMode: 'due_mode',
+      totalMoney: 'total_money',
+      buyOutPrice: 'buy_out_price',
+      depositFree: 'deposit_free',
+      acutalPreAuthFree: 'acutal_pre_auth_free',
+      mybankAgreementNo: 'mybank_agreement_no',
+      mybankAgreementOrderId: 'mybank_agreement_order_id',
+      orderWithholdType: 'order_withhold_type',
+      downPayment: 'down_payment',
+      productInfos: 'product_infos',
+      logisticType: 'logistic_type',
+      status: 'status',
+      statusRemark: 'status_remark',
+      userInfo: 'user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderOuterId: 'string',
+      orderCreateTime: 'string',
+      dueMode: 'string',
+      totalMoney: 'number',
+      buyOutPrice: 'number',
+      depositFree: 'number',
+      acutalPreAuthFree: 'number',
+      mybankAgreementNo: 'string',
+      mybankAgreementOrderId: 'string',
+      orderWithholdType: 'string',
+      downPayment: 'number',
+      productInfos: { 'type': 'array', 'itemType': BclOrderProductInfo },
+      logisticType: 'string',
+      status: 'string',
+      statusRemark: 'string',
+      userInfo: BclUserInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电子合同文档
 export class ContractDoc extends $tea.Model {
   // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
@@ -3576,6 +3880,35 @@ export class SupplierProductInfo extends $tea.Model {
   }
 }
 
+// 承诺详情
+export class BclCreatePromiseDetailInfo extends $tea.Model {
+  // 承诺期数
+  period: number;
+  // 承诺金额 单位分
+  amount: number;
+  // 每期应还的日期
+  promiseTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      period: 'period',
+      amount: 'amount',
+      promiseTime: 'promise_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      period: 'number',
+      amount: 'number',
+      promiseTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 订单商品
 export class LeaseOrderProductInfo extends $tea.Model {
   // 商品编码 长度不可超过50
@@ -3720,6 +4053,34 @@ export class ContractCreatorApplication extends $tea.Model {
   }
 }
 
+// 合同信息
+export class BclContractInfo extends $tea.Model {
+  // 待签署,SIGNING
+  // 拒签,REJECT
+  // 签署失败,SIGN_FAIL
+  // 签署完成,FINISH
+  signStatus: string;
+  // 签署完成的合同文件 只有签署完成才有
+  signedFiles?: BclFileInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      signStatus: 'sign_status',
+      signedFiles: 'signed_files',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signStatus: 'string',
+      signedFiles: { 'type': 'array', 'itemType': BclFileInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 融资租赁里的产品详细信息
 export class ProductInfo extends $tea.Model {
   // 是否需要创建did
@@ -3806,6 +4167,61 @@ export class NotaryFlowDetailQueryReq extends $tea.Model {
       flowId: 'string',
       chainPackTxHash: 'string',
       authcode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 履约详情
+export class BclRentalInfo extends $tea.Model {
+  // 期数
+  period: number;
+  // 金额 单位分
+  amount: number;
+  // 租金归还时间
+  time: string;
+  // 归还方式
+  // 用英文定义
+  // -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+  // -支付宝代扣: ALIPAY_WITHHOLDING
+  // -主动还款：ACTIVE_REPAYMENT
+  // -其他：OTHER
+  // -网商直付通：MY_BANK_DIRECT_PAYMENT
+  // -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+  way: string;
+  // -支付宝：ALIPAY
+  // -平台代收（客户主动还款）：PLATFORM_COLLECTION
+  // -其他：OTHER
+  // -网商银行：MY_BANK,
+  voucherType: string;
+  // 还款凭证编号
+  voucherSerial: string;
+  // 手续费 如通过预授权、代扣的方式规划，必填
+  premium: number;
+  static names(): { [key: string]: string } {
+    return {
+      period: 'period',
+      amount: 'amount',
+      time: 'time',
+      way: 'way',
+      voucherType: 'voucher_type',
+      voucherSerial: 'voucher_serial',
+      premium: 'premium',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      period: 'number',
+      amount: 'number',
+      time: 'string',
+      way: 'string',
+      voucherType: 'string',
+      voucherSerial: 'string',
+      premium: 'number',
     };
   }
 
@@ -4093,6 +4509,76 @@ export class NotaryCheckResult extends $tea.Model {
       txHash: 'string',
       blockHash: 'string',
       phase: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 物流信息
+export class BclLogisticsInfo extends $tea.Model {
+  // 物流订单
+  logisticsOrderId: string;
+  // 物流公司
+  logisticCompany: string;
+  // 物流状态
+  // 已发货 SHIPPED
+  // 运输中 TRANSPORT
+  // 已签收 SIGNED
+  status: string;
+  // 发货时间
+  deliverTime?: string;
+  // 租赁类型
+  // 租赁 LEASE
+  // 退租 RETURN_LEASE
+  leaseType: string;
+  // 签收时间
+  arriveConfirmTime?: string;
+  // 签收文件下载链接
+  arriveConfirmFileUrl: string;
+  // 发货地址
+  deliverAddress: string;
+  // 收货地址
+  arriveAddress: string;
+  // 收货人姓名 脱敏
+  arriveName: string;
+  // 收货人联系电话 脱敏
+  arriveMobile: string;
+  // 物流公司标志,参考菜鸟的物流公司定义
+  logisticCompanyCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      logisticsOrderId: 'logistics_order_id',
+      logisticCompany: 'logistic_company',
+      status: 'status',
+      deliverTime: 'deliver_time',
+      leaseType: 'lease_type',
+      arriveConfirmTime: 'arrive_confirm_time',
+      arriveConfirmFileUrl: 'arrive_confirm_file_url',
+      deliverAddress: 'deliver_address',
+      arriveAddress: 'arrive_address',
+      arriveName: 'arrive_name',
+      arriveMobile: 'arrive_mobile',
+      logisticCompanyCode: 'logistic_company_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      logisticsOrderId: 'string',
+      logisticCompany: 'string',
+      status: 'string',
+      deliverTime: 'string',
+      leaseType: 'string',
+      arriveConfirmTime: 'string',
+      arriveConfirmFileUrl: 'string',
+      deliverAddress: 'string',
+      arriveAddress: 'string',
+      arriveName: 'string',
+      arriveMobile: 'string',
+      logisticCompanyCode: 'string',
     };
   }
 
@@ -4733,6 +5219,45 @@ export class CertificateInfo extends $tea.Model {
   }
 }
 
+// 存证信息
+export class BclNotaryInfo extends $tea.Model {
+  // 存证类型，
+  // 文件 FILE
+  // 文本 TEXT
+  type: string;
+  // 存证内容
+  content?: string;
+  // 文件下载链接 类型为文件有值
+  fileUrl?: string;
+  // 存证内容hash
+  contentHash: string;
+  // 存证哈希
+  txHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      content: 'content',
+      fileUrl: 'file_url',
+      contentHash: 'content_hash',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      content: 'string',
+      fileUrl: 'string',
+      contentHash: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 采购订单信息
 export class ApplySupplierOrderProductOutput extends $tea.Model {
   // 订单id
@@ -5259,6 +5784,950 @@ export class CallbackArbitrationSignstatusResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddBclLogisticinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // - SHIPPED 已发货 
+  // - TRANSPORT 运输中 
+  // - SIGNED 已签收  
+  // 当前暂时只支持已签收
+  logisticStatus: string;
+  // 物流照片网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+  logisticsFileId: string;
+  // 签收记录,网关文件id,调用网关文件上传时文件的名称(包含文件后缀)不要超过32位
+  arriveConfirmFileId: string;
+  // 用户签收时间格式为2019-8-31 12:00:00
+  arriveConfirmTime: string;
+  // 物流公司简称
+  logisticCompanyName: string;
+  // 物流公司code
+  logisticCompanyCode?: string;
+  // 物流订单id
+  logisticsOrderId: string;
+  // 物流发货时间,格式为2019-8-31 12:00:00
+  deliverTime: string;
+  // 租赁状态
+  // LEASE,租赁 
+  // RETURN_LEASE,退租
+  leaseType: string;
+  // 发货地址
+  deliverAddress: string;
+  // 收货地址
+  arriveAddress: string;
+  // 物流额外信息,资方定义物流的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
+  logisticExtraInfo?: string;
+  // 收货人姓名
+  arriveName: string;
+  // 收货人联系电话
+  arriveMobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      logisticStatus: 'logistic_status',
+      logisticsFileId: 'logistics_file_id',
+      arriveConfirmFileId: 'arrive_confirm_file_id',
+      arriveConfirmTime: 'arrive_confirm_time',
+      logisticCompanyName: 'logistic_company_name',
+      logisticCompanyCode: 'logistic_company_code',
+      logisticsOrderId: 'logistics_order_id',
+      deliverTime: 'deliver_time',
+      leaseType: 'lease_type',
+      deliverAddress: 'deliver_address',
+      arriveAddress: 'arrive_address',
+      logisticExtraInfo: 'logistic_extra_info',
+      arriveName: 'arrive_name',
+      arriveMobile: 'arrive_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      logisticStatus: 'string',
+      logisticsFileId: 'string',
+      arriveConfirmFileId: 'string',
+      arriveConfirmTime: 'string',
+      logisticCompanyName: 'string',
+      logisticCompanyCode: 'string',
+      logisticsOrderId: 'string',
+      deliverTime: 'string',
+      leaseType: 'string',
+      deliverAddress: 'string',
+      arriveAddress: 'string',
+      logisticExtraInfo: 'string',
+      arriveName: 'string',
+      arriveMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddBclLogisticinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitBclOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id,长度不超过32位
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitBclOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单外部id 商家关联自己的订单,长度不超过64位
+  orderOuterId: string;
+  // 商家租赁订单创建时间,长度不超过32位
+  orderCreateTime: string;
+  // 承租人用户信息
+  userInfo: BclUserInfo;
+  // 到期形式
+  // DUE_BUYOUT 到期买断 
+  // DUE_RETURN 到期归还
+  dueMode: string;
+  // 商品售价 单位分
+  totalMoney: number;
+  // 租金总额 单位分
+  totalRentMoney: number;
+  // 订单租期, 比如6期,12期,24期,36期,填数字
+  rentTerm: number;
+  // 订单租期对应的单位,如果是租期为6,租期单位为MONTH,代表租6个月
+  // 月: MONTH
+  rentUnit: string;
+  // 到期买断价 单位分，
+  // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+  buyOutPrice?: number;
+  // 芝麻信用 订单免押金额  单位分
+  depositFree?: number;
+  // 芝麻信用 实际预授权金额  单位分
+  acutalPreAuthFree?: number;
+  // 网商代扣协议号或预授权协议号,网商代扣和预授权必填,长度不超过64位
+  mybankAgreementNo?: string;
+  // 网商代扣受理订单号,网商代扣必填,长度不超过64位
+  mybankAgreementOrderId?: string;
+  // 用英文单词替代数字
+  // -网商代扣：MY_BANK_PROXY_WITHHOLDING
+  // -合同代扣：CONTRACT_PROXY_WITHHOLDING
+  orderWithholdType: string;
+  // 首付款金额 单位分
+  downPayment?: number;
+  // 承诺详情,选择代扣是非必填, 按期数从小到大且连续排序
+  promiseDetails?: BclCreatePromiseDetailInfo[];
+  // 物流方式：
+  // POST 邮寄
+  // OFFLINE 线下自取
+  logisticType: string;
+  // 商品列表
+  productInfos: BclOrderProductInfo[];
+  // - 实名：REAL_PERSON,
+  // - 风控：RISK,
+  serviceTypes?: string[];
+  // 用户下单时候的ip地址,如果可选服务选择了风控,必填 ,长度不超过32位
+  userIp?: string;
+  // 承租人实人认证完成后回跳地址(比如商户小程序下单地址),选择实人认证服务时必填
+  realPersonReturnUrl?: string;
+  // 资方定义订单的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
+  orderExtraInfo?: string;
+  // 资方定义用户的其他额外字段，以json形式传递, 如果需要一键融资,则必填,长度不超过4096位
+  userExtraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderOuterId: 'order_outer_id',
+      orderCreateTime: 'order_create_time',
+      userInfo: 'user_info',
+      dueMode: 'due_mode',
+      totalMoney: 'total_money',
+      totalRentMoney: 'total_rent_money',
+      rentTerm: 'rent_term',
+      rentUnit: 'rent_unit',
+      buyOutPrice: 'buy_out_price',
+      depositFree: 'deposit_free',
+      acutalPreAuthFree: 'acutal_pre_auth_free',
+      mybankAgreementNo: 'mybank_agreement_no',
+      mybankAgreementOrderId: 'mybank_agreement_order_id',
+      orderWithholdType: 'order_withhold_type',
+      downPayment: 'down_payment',
+      promiseDetails: 'promise_details',
+      logisticType: 'logistic_type',
+      productInfos: 'product_infos',
+      serviceTypes: 'service_types',
+      userIp: 'user_ip',
+      realPersonReturnUrl: 'real_person_return_url',
+      orderExtraInfo: 'order_extra_info',
+      userExtraInfo: 'user_extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderOuterId: 'string',
+      orderCreateTime: 'string',
+      userInfo: BclUserInfo,
+      dueMode: 'string',
+      totalMoney: 'number',
+      totalRentMoney: 'number',
+      rentTerm: 'number',
+      rentUnit: 'string',
+      buyOutPrice: 'number',
+      depositFree: 'number',
+      acutalPreAuthFree: 'number',
+      mybankAgreementNo: 'string',
+      mybankAgreementOrderId: 'string',
+      orderWithholdType: 'string',
+      downPayment: 'number',
+      promiseDetails: { 'type': 'array', 'itemType': BclCreatePromiseDetailInfo },
+      logisticType: 'string',
+      productInfos: { 'type': 'array', 'itemType': BclOrderProductInfo },
+      serviceTypes: { 'type': 'array', 'itemType': 'string' },
+      userIp: 'string',
+      realPersonReturnUrl: 'string',
+      orderExtraInfo: 'string',
+      userExtraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租赁定义,全局唯一,串联整个租赁订单
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id,长度不超过32位
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单信息
+  orderInfo?: BclOrderInfo;
+  // 实人信息
+  certifyInfo?: BclCertifyInfo;
+  // 风控 决策分数
+  riskScore?: string;
+  // 用户身份信息和支付宝id的核验
+  // 匹配，PASS
+  // 不匹配，UN_PASS
+  identityVerification?: string;
+  // 合同信息
+  contractInfo?: BclContractInfo;
+  // 承诺信息
+  promiseInfo?: BclPromiseInfo;
+  // 履约详情
+  rentalInfos?: BclRentalInfo[];
+  // 物流信息
+  logisticsInfos?: BclLogisticsInfo[];
+  // 存证信息
+  notaryInfos?: BclNotaryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderInfo: 'order_info',
+      certifyInfo: 'certify_info',
+      riskScore: 'risk_score',
+      identityVerification: 'identity_verification',
+      contractInfo: 'contract_info',
+      promiseInfo: 'promise_info',
+      rentalInfos: 'rental_infos',
+      logisticsInfos: 'logistics_infos',
+      notaryInfos: 'notary_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderInfo: BclOrderInfo,
+      certifyInfo: BclCertifyInfo,
+      riskScore: 'string',
+      identityVerification: 'string',
+      contractInfo: BclContractInfo,
+      promiseInfo: BclPromiseInfo,
+      rentalInfos: { 'type': 'array', 'itemType': BclRentalInfo },
+      logisticsInfos: { 'type': 'array', 'itemType': BclLogisticsInfo },
+      notaryInfos: { 'type': 'array', 'itemType': BclNotaryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadBclPerformanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号ID,长度不超过32位
+  orderId: string;
+  // 租期编号，如：1表示第一期
+  period: number;
+  // 租金归还金额，单位精确到分。如：56309表示563.09元
+  amount: number;
+  // 租金归还时间(格式为"2019-07-31 12:00:00")
+  time: string;
+  // 归还方式，取值范围如下：
+  // ACTIVE_REPAYMENT：主动还款，
+  // MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+  way: string;
+  // 还款凭证类型，取值范围如下：
+  // PLATFORM_COLLECTION：平台代收（客户主动还款），
+  // MY_BANK：网商银行
+  voucherType: string;
+  // 还款凭证编号,
+  // 如支付宝还款时，为支付宝流水编号
+  voucherSerial: string;
+  // 手续费，单位分。如：128则表示手续费为12.8元；
+  // 说明：如通过预授权、代扣的方式归还，该值必填
+  premium?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      period: 'period',
+      amount: 'amount',
+      time: 'time',
+      way: 'way',
+      voucherType: 'voucher_type',
+      voucherSerial: 'voucher_serial',
+      premium: 'premium',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      period: 'number',
+      amount: 'number',
+      time: 'string',
+      way: 'string',
+      voucherType: 'string',
+      voucherSerial: 'string',
+      premium: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadBclPerformanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否处理成功,true表示上传成功，false表示上传失败。
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商品编码
+  // 最大长度不能超过32
+  productOuterId: string;
+  // 商品版本;
+  // 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
+  productVersion: string;
+  // 商品名称，
+  // 长度不超过64位
+  productName: string;
+  // 商品价格,单位为分。如：856400，表示8564元，大于0
+  productPrice: number;
+  // 一级行业代码。
+  // 
+  // 具体参考如下定义
+  // 格式如：【一级行业    ->  	一级行业代码】：
+  // 【3C办公	     ->    3C    】；
+  // 【IOT     ->    IOT  】；
+  // 【新能源	     ->    NE    】；
+  // 【泛行业	     ->     GENERAL    】   
+  mainClass: string;
+  // 二级行业代码。
+  // 具体参考如下：
+  // 【二级行业   ->  二级行业代码】；
+  // 
+  // 【手机   ->  3c_mobile】；
+  // 电脑   ->  3c_pc】；
+  // 【摄影   ->  3c_camera】；
+  // 办公设备   ->  3c_office】；
+  // 【3C-其他   ->  3c_other】；	
+  // 	
+  // 【售卖柜   ->  iot_auto_container】；
+  // 【驿站   ->  iot_stage】；
+  // 【IOT-其他   ->  iot_other】；	
+  // 		
+  // 【电池   ->  ne_battery】；
+  // 【电动车   ->  ne_electric_car】；
+  // 【新能源-其他   ->  ne_other】；
+  // 		
+  // 【家具   ->  general_furniture】；
+  // 【家电   ->  general_tv】；
+  // 【泛其他   ->  general_other】；	
+  // 
+  subClass: string;
+  // 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+  supplierName: string;
+  // 金融科技租户id;
+  // 采购模式)提供商品方的金融科技租户id
+  supplierId: string;
+  // 安装服务费，单位为分，150000则表示1500元；
+  // 不能为负数；
+  installPrice?: number;
+  // 商品来源，如 传 SUPPLIER 则表示来源为供应商。长度不超过32位
+  // 取值范围如下：
+  // 【SUPPLIER： 供应商】
+  // 【LEASING_COMPANY  ：租赁机构】
+  productOrigin: string;
+  // 实际库存量，不能为负数
+  realStock: number;
+  // 预估出货量,不能为负数
+  estimatedShipment: number;
+  // 商品详情
+  productDetailInfo: string;
+  // 商品链接
+  productUrl: string;
+  // 商品品牌
+  productBrand: string;
+  // 产品规格是用来识别物品的编号
+  productModel: string;
+  // 免押金额，单位分。如：15600表示免押金额为156元。
+  depositPrice?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productOuterId: 'product_outer_id',
+      productVersion: 'product_version',
+      productName: 'product_name',
+      productPrice: 'product_price',
+      mainClass: 'main_class',
+      subClass: 'sub_class',
+      supplierName: 'supplier_name',
+      supplierId: 'supplier_id',
+      installPrice: 'install_price',
+      productOrigin: 'product_origin',
+      realStock: 'real_stock',
+      estimatedShipment: 'estimated_shipment',
+      productDetailInfo: 'product_detail_info',
+      productUrl: 'product_url',
+      productBrand: 'product_brand',
+      productModel: 'product_model',
+      depositPrice: 'deposit_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productOuterId: 'string',
+      productVersion: 'string',
+      productName: 'string',
+      productPrice: 'number',
+      mainClass: 'string',
+      subClass: 'string',
+      supplierName: 'string',
+      supplierId: 'string',
+      installPrice: 'number',
+      productOrigin: 'string',
+      realStock: 'number',
+      estimatedShipment: 'number',
+      productDetailInfo: 'string',
+      productUrl: 'string',
+      productBrand: 'string',
+      productModel: 'string',
+      depositPrice: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品的ID。
+  // 租赁维护的商品id,全局唯一,用户后面创建订单和商品查询。
+  productId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      productId: 'product_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      productId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商品ID，长度不能超过32为
+  productId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productId: 'product_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品编码
+  productOuterId?: string;
+  // 商品版本; 每个商品的编码+版本 唯一确认一个产品信息，必须为自然数，如"0","1","10"等
+  productVersion?: string;
+  // 商品名称
+  productName?: string;
+  // 商品价格,单位为分。如：856400，表示8564元
+  productPrice?: number;
+  // 一级行业代码。 具体参考如下定义 格式如：【一级行业 -> 一级行业代码】： 【3C办公 -> 3C 】； 【IOT -> IOT 】； 【新能源 -> NE 】； 【泛行业 -> GENERAL 】
+  mainClass?: string;
+  // 二级行业代码。 具体参考如下： 【二级行业 -> 二级行业代码】； 【手机 -> 3c_mobile】； 电脑 -> 3c_pc】； 【摄影 -> 3c_camera】； 办公设备 -> 3c_office】； 【3C-其他 -> 3c_other】； 【售卖柜 -> iot_auto_container】； 【驿站 -> iot_stage】； 【IOT-其他 -> iot_other】； 【电池 -> ne_battery】； 【电动车 -> ne_electric_car】； 【新能源-其他 -> ne_other】； 【家具 -> general_furniture】； 【家电 -> general_tv】； 【泛其他 -> general_other】；
+  subClass?: string;
+  // 供应商名称,(采购模式)供应商模式则为供应商名称，否则平台自己名称
+  supplierName?: string;
+  // 金融科技租户id; 采购模式)提供商品方的金融科技租户id
+  supplierId?: string;
+  // 安装服务费，单位为分，150000则表示1500元；
+  installPrice?: number;
+  // 商品来源，如 传 SUPPLIER 则表示来源为供应商。 取值范围如下： 【SUPPLIER： 供应商】 【LEASING_COMPANY ：租赁机构】
+  productOrigin?: string;
+  // 实际库存量
+  realStock?: number;
+  // 预估出货量
+  estimatedShipment?: number;
+  // 商品详情
+  productDetailInfo?: string;
+  // 商品链接
+  productUrl?: string;
+  // 商品品牌
+  productBrand?: string;
+  // 产品规格是用来识别物品的编号
+  productModel?: string;
+  // 免押金额，单位分。如：15600表示免押金额为156元。
+  depositPrice?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      productOuterId: 'product_outer_id',
+      productVersion: 'product_version',
+      productName: 'product_name',
+      productPrice: 'product_price',
+      mainClass: 'main_class',
+      subClass: 'sub_class',
+      supplierName: 'supplier_name',
+      supplierId: 'supplier_id',
+      installPrice: 'install_price',
+      productOrigin: 'product_origin',
+      realStock: 'real_stock',
+      estimatedShipment: 'estimated_shipment',
+      productDetailInfo: 'product_detail_info',
+      productUrl: 'product_url',
+      productBrand: 'product_brand',
+      productModel: 'product_model',
+      depositPrice: 'deposit_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      productOuterId: 'string',
+      productVersion: 'string',
+      productName: 'string',
+      productPrice: 'number',
+      mainClass: 'string',
+      subClass: 'string',
+      supplierName: 'string',
+      supplierId: 'string',
+      installPrice: 'number',
+      productOrigin: 'string',
+      realStock: 'number',
+      estimatedShipment: 'number',
+      productDetailInfo: 'string',
+      productUrl: 'string',
+      productBrand: 'string',
+      productModel: 'string',
+      depositPrice: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyBclContractmetricRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 接口使用场景
+  // - RESOURCE_CHECK, 权限与资源量校验
+  // - METRIC，签署达到终态，资源量扣减
+  serviceType: string;
+  // 合同流程id，该接口返回的，该流程均为已完成
+  flowId?: string;
+  // 合同流程状态
+  flowStatus?: number;
+  // 租赁宝订单id
+  bclOrderId: string;
+  // 8位租户英文id
+  contractTenantId: string;
+  // RESOURCE_CHECK必填，代扣总金额,单位为分
+  totalAmount?: number;
+  // 总期数，12
+  totalPeriod?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceType: 'service_type',
+      flowId: 'flow_id',
+      flowStatus: 'flow_status',
+      bclOrderId: 'bcl_order_id',
+      contractTenantId: 'contract_tenant_id',
+      totalAmount: 'total_amount',
+      totalPeriod: 'total_period',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceType: 'string',
+      flowId: 'string',
+      flowStatus: 'number',
+      bclOrderId: 'string',
+      contractTenantId: 'string',
+      totalAmount: 'number',
+      totalPeriod: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyBclContractmetricResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetBclUploadurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件名称
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetBclUploadurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权访问oss链接
+  url?: string;
+  // OSS 文件id
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      fileId: 'string',
     };
   }
 
@@ -6505,6 +7974,8 @@ export class StartContractHandsignRequest extends $tea.Model {
   userAccount: string;
   // 是否需要短网址
   shortUrl?: boolean;
+  // 租赁订单Id
+  bclOrderId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6524,6 +7995,7 @@ export class StartContractHandsignRequest extends $tea.Model {
       template: 'template',
       userAccount: 'user_account',
       shortUrl: 'short_url',
+      bclOrderId: 'bcl_order_id',
     };
   }
 
@@ -6546,6 +8018,7 @@ export class StartContractHandsignRequest extends $tea.Model {
       template: 'string',
       userAccount: 'string',
       shortUrl: 'boolean',
+      bclOrderId: 'string',
     };
   }
 
@@ -7672,6 +9145,8 @@ export class CreateContractSignflowRequest extends $tea.Model {
   payerTuid?: string;
   // 收款方ID(机构)
   payeeTuid?: string;
+  // 租赁订单Id
+  bclOrderId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7687,6 +9162,7 @@ export class CreateContractSignflowRequest extends $tea.Model {
       signValidity: 'sign_validity',
       payerTuid: 'payer_tuid',
       payeeTuid: 'payee_tuid',
+      bclOrderId: 'bcl_order_id',
     };
   }
 
@@ -7705,6 +9181,7 @@ export class CreateContractSignflowRequest extends $tea.Model {
       signValidity: 'number',
       payerTuid: 'string',
       payeeTuid: 'string',
+      bclOrderId: 'string',
     };
   }
 
@@ -31741,7 +33218,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.1",
+          sdk_version: "1.10.0",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -31825,6 +33302,177 @@ export default class Client {
   async callbackArbitrationSignstatusEx(request: CallbackArbitrationSignstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackArbitrationSignstatusResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackArbitrationSignstatusResponse>(await this.doRequest("1.0", "twc.notary.arbitration.signstatus.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackArbitrationSignstatusResponse({}));
+  }
+
+  /**
+   * Description: 租赁物流信息添加
+   * Summary: 租赁物流信息添加
+   */
+  async addBclLogisticinfo(request: AddBclLogisticinfoRequest): Promise<AddBclLogisticinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addBclLogisticinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁物流信息添加
+   * Summary: 租赁物流信息添加
+   */
+  async addBclLogisticinfoEx(request: AddBclLogisticinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddBclLogisticinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddBclLogisticinfoResponse>(await this.doRequest("1.0", "twc.notary.bcl.logisticinfo.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddBclLogisticinfoResponse({}));
+  }
+
+  /**
+   * Description: 租赁订单发起
+   * Summary: 租赁订单发起
+   */
+  async submitBclOrder(request: SubmitBclOrderRequest): Promise<SubmitBclOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitBclOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁订单发起
+   * Summary: 租赁订单发起
+   */
+  async submitBclOrderEx(request: SubmitBclOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitBclOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitBclOrderResponse>(await this.doRequest("1.0", "twc.notary.bcl.order.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitBclOrderResponse({}));
+  }
+
+  /**
+   * Description: 创建租赁订单
+   * Summary: 创建租赁订单
+   */
+  async createBclOrder(request: CreateBclOrderRequest): Promise<CreateBclOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBclOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建租赁订单
+   * Summary: 创建租赁订单
+   */
+  async createBclOrderEx(request: CreateBclOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBclOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBclOrderResponse>(await this.doRequest("1.0", "twc.notary.bcl.order.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBclOrderResponse({}));
+  }
+
+  /**
+   * Description: 租赁订单查询
+   * Summary: 租赁订单查询
+   */
+  async queryBclOrder(request: QueryBclOrderRequest): Promise<QueryBclOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁订单查询
+   * Summary: 租赁订单查询
+   */
+  async queryBclOrderEx(request: QueryBclOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclOrderResponse>(await this.doRequest("1.0", "twc.notary.bcl.order.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclOrderResponse({}));
+  }
+
+  /**
+   * Description: 履约信息上传接口
+   * Summary: 履约信息上传接口
+   */
+  async uploadBclPerformance(request: UploadBclPerformanceRequest): Promise<UploadBclPerformanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadBclPerformanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 履约信息上传接口
+   * Summary: 履约信息上传接口
+   */
+  async uploadBclPerformanceEx(request: UploadBclPerformanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadBclPerformanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadBclPerformanceResponse>(await this.doRequest("1.0", "twc.notary.bcl.performance.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadBclPerformanceResponse({}));
+  }
+
+  /**
+   * Description: 商品导入
+   * Summary: 商品导入
+   */
+  async createBclProduct(request: CreateBclProductRequest): Promise<CreateBclProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBclProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商品导入
+   * Summary: 商品导入
+   */
+  async createBclProductEx(request: CreateBclProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBclProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBclProductResponse>(await this.doRequest("1.0", "twc.notary.bcl.product.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBclProductResponse({}));
+  }
+
+  /**
+   * Description: 商品查询
+   * Summary: 商品查询
+   */
+  async queryBclProduct(request: QueryBclProductRequest): Promise<QueryBclProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商品查询
+   * Summary: 商品查询
+   */
+  async queryBclProductEx(request: QueryBclProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclProductResponse>(await this.doRequest("1.0", "twc.notary.bcl.product.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclProductResponse({}));
+  }
+
+  /**
+   * Description: 合同资源量校验与资源扣减
+   * Summary: 合同资源量校验与资源扣减
+   */
+  async verifyBclContractmetric(request: VerifyBclContractmetricRequest): Promise<VerifyBclContractmetricResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyBclContractmetricEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 合同资源量校验与资源扣减
+   * Summary: 合同资源量校验与资源扣减
+   */
+  async verifyBclContractmetricEx(request: VerifyBclContractmetricRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyBclContractmetricResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyBclContractmetricResponse>(await this.doRequest("1.0", "twc.notary.bcl.contractmetric.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyBclContractmetricResponse({}));
+  }
+
+  /**
+   * Description: 获取授权访问oss链接
+   * Summary: 获取授权访问oss链接
+   */
+  async getBclUploadurl(request: GetBclUploadurlRequest): Promise<GetBclUploadurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getBclUploadurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取授权访问oss链接
+   * Summary: 获取授权访问oss链接
+   */
+  async getBclUploadurlEx(request: GetBclUploadurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetBclUploadurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetBclUploadurlResponse>(await this.doRequest("1.0", "twc.notary.bcl.uploadurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetBclUploadurlResponse({}));
   }
 
   /**
