@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.1',
+                    'sdk_version': '1.10.0',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.1',
+                    'sdk_version': '1.10.0',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -385,6 +385,510 @@ class Client:
         return TeaCore.from_map(
             twc_models.CallbackArbitrationSignstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_bcl_logisticinfo(
+        self,
+        request: twc_models.AddBclLogisticinfoRequest,
+    ) -> twc_models.AddBclLogisticinfoResponse:
+        """
+        Description: 租赁物流信息添加
+        Summary: 租赁物流信息添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_bcl_logisticinfo_ex(request, headers, runtime)
+
+    async def add_bcl_logisticinfo_async(
+        self,
+        request: twc_models.AddBclLogisticinfoRequest,
+    ) -> twc_models.AddBclLogisticinfoResponse:
+        """
+        Description: 租赁物流信息添加
+        Summary: 租赁物流信息添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_bcl_logisticinfo_ex_async(request, headers, runtime)
+
+    def add_bcl_logisticinfo_ex(
+        self,
+        request: twc_models.AddBclLogisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.AddBclLogisticinfoResponse:
+        """
+        Description: 租赁物流信息添加
+        Summary: 租赁物流信息添加
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.AddBclLogisticinfoResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.logisticinfo.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_bcl_logisticinfo_ex_async(
+        self,
+        request: twc_models.AddBclLogisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.AddBclLogisticinfoResponse:
+        """
+        Description: 租赁物流信息添加
+        Summary: 租赁物流信息添加
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.AddBclLogisticinfoResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.logisticinfo.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_bcl_order(
+        self,
+        request: twc_models.SubmitBclOrderRequest,
+    ) -> twc_models.SubmitBclOrderResponse:
+        """
+        Description: 租赁订单发起
+        Summary: 租赁订单发起
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_bcl_order_ex(request, headers, runtime)
+
+    async def submit_bcl_order_async(
+        self,
+        request: twc_models.SubmitBclOrderRequest,
+    ) -> twc_models.SubmitBclOrderResponse:
+        """
+        Description: 租赁订单发起
+        Summary: 租赁订单发起
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_bcl_order_ex_async(request, headers, runtime)
+
+    def submit_bcl_order_ex(
+        self,
+        request: twc_models.SubmitBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitBclOrderResponse:
+        """
+        Description: 租赁订单发起
+        Summary: 租赁订单发起
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitBclOrderResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_bcl_order_ex_async(
+        self,
+        request: twc_models.SubmitBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitBclOrderResponse:
+        """
+        Description: 租赁订单发起
+        Summary: 租赁订单发起
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitBclOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bcl_order(
+        self,
+        request: twc_models.CreateBclOrderRequest,
+    ) -> twc_models.CreateBclOrderResponse:
+        """
+        Description: 创建租赁订单
+        Summary: 创建租赁订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bcl_order_ex(request, headers, runtime)
+
+    async def create_bcl_order_async(
+        self,
+        request: twc_models.CreateBclOrderRequest,
+    ) -> twc_models.CreateBclOrderResponse:
+        """
+        Description: 创建租赁订单
+        Summary: 创建租赁订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bcl_order_ex_async(request, headers, runtime)
+
+    def create_bcl_order_ex(
+        self,
+        request: twc_models.CreateBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclOrderResponse:
+        """
+        Description: 创建租赁订单
+        Summary: 创建租赁订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclOrderResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bcl_order_ex_async(
+        self,
+        request: twc_models.CreateBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclOrderResponse:
+        """
+        Description: 创建租赁订单
+        Summary: 创建租赁订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_order(
+        self,
+        request: twc_models.QueryBclOrderRequest,
+    ) -> twc_models.QueryBclOrderResponse:
+        """
+        Description: 租赁订单查询
+        Summary: 租赁订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_order_ex(request, headers, runtime)
+
+    async def query_bcl_order_async(
+        self,
+        request: twc_models.QueryBclOrderRequest,
+    ) -> twc_models.QueryBclOrderResponse:
+        """
+        Description: 租赁订单查询
+        Summary: 租赁订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_order_ex_async(request, headers, runtime)
+
+    def query_bcl_order_ex(
+        self,
+        request: twc_models.QueryBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclOrderResponse:
+        """
+        Description: 租赁订单查询
+        Summary: 租赁订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclOrderResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_order_ex_async(
+        self,
+        request: twc_models.QueryBclOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclOrderResponse:
+        """
+        Description: 租赁订单查询
+        Summary: 租赁订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclOrderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_bcl_performance(
+        self,
+        request: twc_models.UploadBclPerformanceRequest,
+    ) -> twc_models.UploadBclPerformanceResponse:
+        """
+        Description: 履约信息上传接口
+        Summary: 履约信息上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_bcl_performance_ex(request, headers, runtime)
+
+    async def upload_bcl_performance_async(
+        self,
+        request: twc_models.UploadBclPerformanceRequest,
+    ) -> twc_models.UploadBclPerformanceResponse:
+        """
+        Description: 履约信息上传接口
+        Summary: 履约信息上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_bcl_performance_ex_async(request, headers, runtime)
+
+    def upload_bcl_performance_ex(
+        self,
+        request: twc_models.UploadBclPerformanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclPerformanceResponse:
+        """
+        Description: 履约信息上传接口
+        Summary: 履约信息上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclPerformanceResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.performance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_bcl_performance_ex_async(
+        self,
+        request: twc_models.UploadBclPerformanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UploadBclPerformanceResponse:
+        """
+        Description: 履约信息上传接口
+        Summary: 履约信息上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.UploadBclPerformanceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.performance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_bcl_product(
+        self,
+        request: twc_models.CreateBclProductRequest,
+    ) -> twc_models.CreateBclProductResponse:
+        """
+        Description: 商品导入
+        Summary: 商品导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_bcl_product_ex(request, headers, runtime)
+
+    async def create_bcl_product_async(
+        self,
+        request: twc_models.CreateBclProductRequest,
+    ) -> twc_models.CreateBclProductResponse:
+        """
+        Description: 商品导入
+        Summary: 商品导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_bcl_product_ex_async(request, headers, runtime)
+
+    def create_bcl_product_ex(
+        self,
+        request: twc_models.CreateBclProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclProductResponse:
+        """
+        Description: 商品导入
+        Summary: 商品导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclProductResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_bcl_product_ex_async(
+        self,
+        request: twc_models.CreateBclProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateBclProductResponse:
+        """
+        Description: 商品导入
+        Summary: 商品导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateBclProductResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bcl_product(
+        self,
+        request: twc_models.QueryBclProductRequest,
+    ) -> twc_models.QueryBclProductResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bcl_product_ex(request, headers, runtime)
+
+    async def query_bcl_product_async(
+        self,
+        request: twc_models.QueryBclProductRequest,
+    ) -> twc_models.QueryBclProductResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bcl_product_ex_async(request, headers, runtime)
+
+    def query_bcl_product_ex(
+        self,
+        request: twc_models.QueryBclProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclProductResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclProductResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bcl_product_ex_async(
+        self,
+        request: twc_models.QueryBclProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryBclProductResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryBclProductResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_bcl_contractmetric(
+        self,
+        request: twc_models.VerifyBclContractmetricRequest,
+    ) -> twc_models.VerifyBclContractmetricResponse:
+        """
+        Description: 合同资源量校验与资源扣减
+        Summary: 合同资源量校验与资源扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_bcl_contractmetric_ex(request, headers, runtime)
+
+    async def verify_bcl_contractmetric_async(
+        self,
+        request: twc_models.VerifyBclContractmetricRequest,
+    ) -> twc_models.VerifyBclContractmetricResponse:
+        """
+        Description: 合同资源量校验与资源扣减
+        Summary: 合同资源量校验与资源扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_bcl_contractmetric_ex_async(request, headers, runtime)
+
+    def verify_bcl_contractmetric_ex(
+        self,
+        request: twc_models.VerifyBclContractmetricRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyBclContractmetricResponse:
+        """
+        Description: 合同资源量校验与资源扣减
+        Summary: 合同资源量校验与资源扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyBclContractmetricResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.contractmetric.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_bcl_contractmetric_ex_async(
+        self,
+        request: twc_models.VerifyBclContractmetricRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyBclContractmetricResponse:
+        """
+        Description: 合同资源量校验与资源扣减
+        Summary: 合同资源量校验与资源扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyBclContractmetricResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.contractmetric.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_bcl_uploadurl(
+        self,
+        request: twc_models.GetBclUploadurlRequest,
+    ) -> twc_models.GetBclUploadurlResponse:
+        """
+        Description: 获取授权访问oss链接
+        Summary: 获取授权访问oss链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_bcl_uploadurl_ex(request, headers, runtime)
+
+    async def get_bcl_uploadurl_async(
+        self,
+        request: twc_models.GetBclUploadurlRequest,
+    ) -> twc_models.GetBclUploadurlResponse:
+        """
+        Description: 获取授权访问oss链接
+        Summary: 获取授权访问oss链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_bcl_uploadurl_ex_async(request, headers, runtime)
+
+    def get_bcl_uploadurl_ex(
+        self,
+        request: twc_models.GetBclUploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetBclUploadurlResponse:
+        """
+        Description: 获取授权访问oss链接
+        Summary: 获取授权访问oss链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetBclUploadurlResponse(),
+            self.do_request('1.0', 'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_bcl_uploadurl_ex_async(
+        self,
+        request: twc_models.GetBclUploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetBclUploadurlResponse:
+        """
+        Description: 获取授权访问oss链接
+        Summary: 获取授权访问oss链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetBclUploadurlResponse(),
+            await self.do_request_async('1.0', 'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(
