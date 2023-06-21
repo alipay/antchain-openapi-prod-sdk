@@ -110,6 +110,12 @@ class StartContractHandsignRequest extends Model
      * @var bool
      */
     public $shortUrl;
+
+    // 租赁订单Id
+    /**
+     * @var string
+     */
+    public $bclOrderId;
     protected $_name = [
         'authToken'                    => 'auth_token',
         'productInstanceId'            => 'product_instance_id',
@@ -128,6 +134,7 @@ class StartContractHandsignRequest extends Model
         'template'                     => 'template',
         'userAccount'                  => 'user_account',
         'shortUrl'                     => 'short_url',
+        'bclOrderId'                   => 'bcl_order_id',
     ];
 
     public function validate()
@@ -136,6 +143,7 @@ class StartContractHandsignRequest extends Model
         Model::validateRequired('simpleFormFields', $this->simpleFormFields, true);
         Model::validateRequired('template', $this->template, true);
         Model::validateRequired('userAccount', $this->userAccount, true);
+        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
     }
 
     public function toMap()
@@ -197,6 +205,9 @@ class StartContractHandsignRequest extends Model
         }
         if (null !== $this->shortUrl) {
             $res['short_url'] = $this->shortUrl;
+        }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
         }
 
         return $res;
@@ -266,6 +277,9 @@ class StartContractHandsignRequest extends Model
         }
         if (isset($map['short_url'])) {
             $model->shortUrl = $map['short_url'];
+        }
+        if (isset($map['bcl_order_id'])) {
+            $model->bclOrderId = $map['bcl_order_id'];
         }
 
         return $model;

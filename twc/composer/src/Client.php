@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\TWC\Models\AddBclLogisticinfoRequest;
+use AntChain\TWC\Models\AddBclLogisticinfoResponse;
 use AntChain\TWC\Models\AddContractDocumentRequest;
 use AntChain\TWC\Models\AddContractDocumentResponse;
 use AntChain\TWC\Models\AddContractFileRequest;
@@ -89,6 +91,10 @@ use AntChain\TWC\Models\ConfirmContractMerchantRequest;
 use AntChain\TWC\Models\ConfirmContractMerchantResponse;
 use AntChain\TWC\Models\ConfirmWitnessFlowRequest;
 use AntChain\TWC\Models\ConfirmWitnessFlowResponse;
+use AntChain\TWC\Models\CreateBclOrderRequest;
+use AntChain\TWC\Models\CreateBclOrderResponse;
+use AntChain\TWC\Models\CreateBclProductRequest;
+use AntChain\TWC\Models\CreateBclProductResponse;
 use AntChain\TWC\Models\CreateContractAccountRequest;
 use AntChain\TWC\Models\CreateContractAccountResponse;
 use AntChain\TWC\Models\CreateContractAccountsealimageRequest;
@@ -319,6 +325,8 @@ use AntChain\TWC\Models\FinishFlowInstanceRequest;
 use AntChain\TWC\Models\FinishFlowInstanceResponse;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusResponse;
+use AntChain\TWC\Models\GetBclUploadurlRequest;
+use AntChain\TWC\Models\GetBclUploadurlResponse;
 use AntChain\TWC\Models\GetCertificateDetailRequest;
 use AntChain\TWC\Models\GetCertificateDetailResponse;
 use AntChain\TWC\Models\GetContractCertificateRequest;
@@ -401,6 +409,10 @@ use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
 use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
 use AntChain\TWC\Models\PushRefinanceInvalidorderRequest;
 use AntChain\TWC\Models\PushRefinanceInvalidorderResponse;
+use AntChain\TWC\Models\QueryBclOrderRequest;
+use AntChain\TWC\Models\QueryBclOrderResponse;
+use AntChain\TWC\Models\QueryBclProductRequest;
+use AntChain\TWC\Models\QueryBclProductResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
 use AntChain\TWC\Models\QueryCertificationResponse;
 use AntChain\TWC\Models\QueryContractAccountRequest;
@@ -577,6 +589,8 @@ use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
 use AntChain\TWC\Models\StartJusticeCaseRequest;
 use AntChain\TWC\Models\StartJusticeCaseResponse;
+use AntChain\TWC\Models\SubmitBclOrderRequest;
+use AntChain\TWC\Models\SubmitBclOrderResponse;
 use AntChain\TWC\Models\SubmitDigitalcontentOrderRequest;
 use AntChain\TWC\Models\SubmitDigitalcontentOrderResponse;
 use AntChain\TWC\Models\SyncInnerNotaryRequest;
@@ -617,12 +631,16 @@ use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertResponse;
 use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
+use AntChain\TWC\Models\UploadBclPerformanceRequest;
+use AntChain\TWC\Models\UploadBclPerformanceResponse;
 use AntChain\TWC\Models\UploadContractComplainimageRequest;
 use AntChain\TWC\Models\UploadContractComplainimageResponse;
 use AntChain\TWC\Models\UploadDataflowPubkeyRequest;
 use AntChain\TWC\Models\UploadDataflowPubkeyResponse;
 use AntChain\TWC\Models\UploadTrafficOperatelogRequest;
 use AntChain\TWC\Models\UploadTrafficOperatelogResponse;
+use AntChain\TWC\Models\VerifyBclContractmetricRequest;
+use AntChain\TWC\Models\VerifyBclContractmetricResponse;
 use AntChain\TWC\Models\VerifyContractDocsignRequest;
 use AntChain\TWC\Models\VerifyContractDocsignResponse;
 use AntChain\TWC\Models\VerifyContractTextsignRequest;
@@ -782,7 +800,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.1',
+                    'sdk_version'      => '1.10.0',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -894,6 +912,303 @@ class Client
         Utils::validateModel($request);
 
         return CallbackArbitrationSignstatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁物流信息添加
+     * Summary: 租赁物流信息添加.
+     *
+     * @param AddBclLogisticinfoRequest $request
+     *
+     * @return AddBclLogisticinfoResponse
+     */
+    public function addBclLogisticinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addBclLogisticinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁物流信息添加
+     * Summary: 租赁物流信息添加.
+     *
+     * @param AddBclLogisticinfoRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return AddBclLogisticinfoResponse
+     */
+    public function addBclLogisticinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddBclLogisticinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.logisticinfo.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁订单发起
+     * Summary: 租赁订单发起.
+     *
+     * @param SubmitBclOrderRequest $request
+     *
+     * @return SubmitBclOrderResponse
+     */
+    public function submitBclOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitBclOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁订单发起
+     * Summary: 租赁订单发起.
+     *
+     * @param SubmitBclOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SubmitBclOrderResponse
+     */
+    public function submitBclOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitBclOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.order.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建租赁订单
+     * Summary: 创建租赁订单.
+     *
+     * @param CreateBclOrderRequest $request
+     *
+     * @return CreateBclOrderResponse
+     */
+    public function createBclOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBclOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建租赁订单
+     * Summary: 创建租赁订单.
+     *
+     * @param CreateBclOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateBclOrderResponse
+     */
+    public function createBclOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBclOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.order.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁订单查询
+     * Summary: 租赁订单查询.
+     *
+     * @param QueryBclOrderRequest $request
+     *
+     * @return QueryBclOrderResponse
+     */
+    public function queryBclOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁订单查询
+     * Summary: 租赁订单查询.
+     *
+     * @param QueryBclOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryBclOrderResponse
+     */
+    public function queryBclOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 履约信息上传接口
+     * Summary: 履约信息上传接口.
+     *
+     * @param UploadBclPerformanceRequest $request
+     *
+     * @return UploadBclPerformanceResponse
+     */
+    public function uploadBclPerformance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadBclPerformanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 履约信息上传接口
+     * Summary: 履约信息上传接口.
+     *
+     * @param UploadBclPerformanceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UploadBclPerformanceResponse
+     */
+    public function uploadBclPerformanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadBclPerformanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.performance.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品导入
+     * Summary: 商品导入.
+     *
+     * @param CreateBclProductRequest $request
+     *
+     * @return CreateBclProductResponse
+     */
+    public function createBclProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBclProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品导入
+     * Summary: 商品导入.
+     *
+     * @param CreateBclProductRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateBclProductResponse
+     */
+    public function createBclProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBclProductResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.product.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询.
+     *
+     * @param QueryBclProductRequest $request
+     *
+     * @return QueryBclProductResponse
+     */
+    public function queryBclProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBclProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询.
+     *
+     * @param QueryBclProductRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryBclProductResponse
+     */
+    public function queryBclProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBclProductResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同资源量校验与资源扣减
+     * Summary: 合同资源量校验与资源扣减.
+     *
+     * @param VerifyBclContractmetricRequest $request
+     *
+     * @return VerifyBclContractmetricResponse
+     */
+    public function verifyBclContractmetric($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyBclContractmetricEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同资源量校验与资源扣减
+     * Summary: 合同资源量校验与资源扣减.
+     *
+     * @param VerifyBclContractmetricRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return VerifyBclContractmetricResponse
+     */
+    public function verifyBclContractmetricEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyBclContractmetricResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.contractmetric.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取授权访问oss链接
+     * Summary: 获取授权访问oss链接.
+     *
+     * @param GetBclUploadurlRequest $request
+     *
+     * @return GetBclUploadurlResponse
+     */
+    public function getBclUploadurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getBclUploadurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取授权访问oss链接
+     * Summary: 获取授权访问oss链接.
+     *
+     * @param GetBclUploadurlRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetBclUploadurlResponse
+     */
+    public function getBclUploadurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetBclUploadurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.bcl.uploadurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

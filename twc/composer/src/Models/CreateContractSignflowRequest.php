@@ -84,6 +84,12 @@ class CreateContractSignflowRequest extends Model
      * @var string
      */
     public $payeeTuid;
+
+    // 租赁订单Id
+    /**
+     * @var string
+     */
+    public $bclOrderId;
     protected $_name = [
         'authToken'                    => 'auth_token',
         'productInstanceId'            => 'product_instance_id',
@@ -98,11 +104,13 @@ class CreateContractSignflowRequest extends Model
         'signValidity'                 => 'sign_validity',
         'payerTuid'                    => 'payer_tuid',
         'payeeTuid'                    => 'payee_tuid',
+        'bclOrderId'                   => 'bcl_order_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('businessScene', $this->businessScene, true);
+        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
     }
 
     public function toMap()
@@ -152,6 +160,9 @@ class CreateContractSignflowRequest extends Model
         }
         if (null !== $this->payeeTuid) {
             $res['payee_tuid'] = $this->payeeTuid;
+        }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
         }
 
         return $res;
@@ -209,6 +220,9 @@ class CreateContractSignflowRequest extends Model
         }
         if (isset($map['payee_tuid'])) {
             $model->payeeTuid = $map['payee_tuid'];
+        }
+        if (isset($map['bcl_order_id'])) {
+            $model->bclOrderId = $map['bcl_order_id'];
         }
 
         return $model;
