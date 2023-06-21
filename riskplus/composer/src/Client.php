@@ -29,6 +29,8 @@ use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsResponse;
+use AntChain\RISKPLUS\Models\ApplyUmktRealtimemarketingRequest;
+use AntChain\RISKPLUS\Models\ApplyUmktRealtimemarketingResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
@@ -440,7 +442,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.29',
+                    'sdk_version'      => '1.16.33',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5198,6 +5200,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktRobotcallDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起触达营销任务 ---目前仅支持文本短信
+     * Summary: 发起触达营销任务
+     *
+     * @param ApplyUmktRealtimemarketingRequest $request
+     *
+     * @return ApplyUmktRealtimemarketingResponse
+     */
+    public function applyUmktRealtimemarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyUmktRealtimemarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起触达营销任务 ---目前仅支持文本短信
+     * Summary: 发起触达营销任务
+     *
+     * @param ApplyUmktRealtimemarketingRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ApplyUmktRealtimemarketingResponse
+     */
+    public function applyUmktRealtimemarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyUmktRealtimemarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.realtimemarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
