@@ -21,6 +21,12 @@ use AntChain\MPAASFACEVERIFY\Models\InitFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusResponse;
+use AntChain\MPAASFACEVERIFY\Models\InitOneloginRequest;
+use AntChain\MPAASFACEVERIFY\Models\InitOneloginResponse;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisRequest;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyAnalysisResponse;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordChargeRequest;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordChargeResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthFileRequest;
@@ -130,18 +136,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -150,6 +156,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 单据计费信息，包括单据号和是否计费
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -177,7 +184,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.15',
+                    'sdk_version'      => '1.1.19',
+                    '_prod_code'       => 'MPAASFACEVERIFY',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -221,6 +230,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 人脸认证问题自动化排查接口
+     * Summary: 人脸认证问题自动化排查接口.
+     *
+     * @param QueryCertifyAnalysisRequest $request
+     *
+     * @return QueryCertifyAnalysisResponse
+     */
+    public function queryCertifyAnalysis($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertifyAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸认证问题自动化排查接口
+     * Summary: 人脸认证问题自动化排查接口.
+     *
+     * @param QueryCertifyAnalysisRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryCertifyAnalysisResponse
+     */
+    public function queryCertifyAnalysisEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertifyAnalysisResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certify.analysis.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -551,5 +593,71 @@ class Client
         Utils::validateModel($request);
 
         return UploadOcrServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+     * Summary: 计费信息查询.
+     *
+     * @param QueryCertifyrecordChargeRequest $request
+     *
+     * @return QueryCertifyrecordChargeResponse
+     */
+    public function queryCertifyrecordCharge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertifyrecordChargeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+     * Summary: 计费信息查询.
+     *
+     * @param QueryCertifyrecordChargeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryCertifyrecordChargeResponse
+     */
+    public function queryCertifyrecordChargeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertifyrecordChargeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.charge.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 一键登录初始化.
+     *
+     * @param InitOneloginRequest $request
+     *
+     * @return InitOneloginResponse
+     */
+    public function initOnelogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initOneloginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 一键登录初始化.
+     *
+     * @param InitOneloginRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return InitOneloginResponse
+     */
+    public function initOneloginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitOneloginResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.onelogin.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
