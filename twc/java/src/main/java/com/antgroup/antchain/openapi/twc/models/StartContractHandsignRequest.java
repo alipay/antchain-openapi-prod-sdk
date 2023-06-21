@@ -77,6 +77,11 @@ public class StartContractHandsignRequest extends TeaModel {
     @NameInMap("short_url")
     public Boolean shortUrl;
 
+    // 租赁订单Id
+    @NameInMap("bcl_order_id")
+    @Validation(maxLength = 32)
+    public String bclOrderId;
+
     public static StartContractHandsignRequest build(java.util.Map<String, ?> map) throws Exception {
         StartContractHandsignRequest self = new StartContractHandsignRequest();
         return TeaModel.build(map, self);
@@ -216,6 +221,14 @@ public class StartContractHandsignRequest extends TeaModel {
     }
     public Boolean getShortUrl() {
         return this.shortUrl;
+    }
+
+    public StartContractHandsignRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
     }
 
 }

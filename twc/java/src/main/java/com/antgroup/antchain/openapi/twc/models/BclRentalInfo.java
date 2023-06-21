@@ -1,0 +1,113 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.twc.models;
+
+import com.aliyun.tea.*;
+
+public class BclRentalInfo extends TeaModel {
+    // 期数
+    @NameInMap("period")
+    @Validation(required = true)
+    public Long period;
+
+    // 金额 单位分
+    @NameInMap("amount")
+    @Validation(required = true)
+    public Long amount;
+
+    // 租金归还时间
+    @NameInMap("time")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String time;
+
+    // 归还方式
+    // 用英文定义
+    // -预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+    // -支付宝代扣: ALIPAY_WITHHOLDING
+    // -主动还款：ACTIVE_REPAYMENT
+    // -其他：OTHER
+    // -网商直付通：MY_BANK_DIRECT_PAYMENT
+    // -网商委托代扣：MY_BANK_PROXY_WITHHOLDING
+    @NameInMap("way")
+    @Validation(required = true)
+    public String way;
+
+    // -支付宝：ALIPAY
+    // -平台代收（客户主动还款）：PLATFORM_COLLECTION
+    // -其他：OTHER
+    // -网商银行：MY_BANK,
+    @NameInMap("voucher_type")
+    @Validation(required = true)
+    public String voucherType;
+
+    // 还款凭证编号
+    @NameInMap("voucher_serial")
+    @Validation(required = true)
+    public String voucherSerial;
+
+    // 手续费 如通过预授权、代扣的方式规划，必填
+    @NameInMap("premium")
+    @Validation(required = true)
+    public Long premium;
+
+    public static BclRentalInfo build(java.util.Map<String, ?> map) throws Exception {
+        BclRentalInfo self = new BclRentalInfo();
+        return TeaModel.build(map, self);
+    }
+
+    public BclRentalInfo setPeriod(Long period) {
+        this.period = period;
+        return this;
+    }
+    public Long getPeriod() {
+        return this.period;
+    }
+
+    public BclRentalInfo setAmount(Long amount) {
+        this.amount = amount;
+        return this;
+    }
+    public Long getAmount() {
+        return this.amount;
+    }
+
+    public BclRentalInfo setTime(String time) {
+        this.time = time;
+        return this;
+    }
+    public String getTime() {
+        return this.time;
+    }
+
+    public BclRentalInfo setWay(String way) {
+        this.way = way;
+        return this;
+    }
+    public String getWay() {
+        return this.way;
+    }
+
+    public BclRentalInfo setVoucherType(String voucherType) {
+        this.voucherType = voucherType;
+        return this;
+    }
+    public String getVoucherType() {
+        return this.voucherType;
+    }
+
+    public BclRentalInfo setVoucherSerial(String voucherSerial) {
+        this.voucherSerial = voucherSerial;
+        return this;
+    }
+    public String getVoucherSerial() {
+        return this.voucherSerial;
+    }
+
+    public BclRentalInfo setPremium(Long premium) {
+        this.premium = premium;
+        return this;
+    }
+    public Long getPremium() {
+        return this.premium;
+    }
+
+}

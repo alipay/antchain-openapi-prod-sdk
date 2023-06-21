@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.1"),
+                    new TeaPair("sdk_version", "1.10.0"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -197,6 +197,177 @@ public class Client {
     public CallbackArbitrationSignstatusResponse callbackArbitrationSignstatusEx(CallbackArbitrationSignstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.arbitration.signstatus.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackArbitrationSignstatusResponse());
+    }
+
+    /**
+     * Description: 租赁物流信息添加
+     * Summary: 租赁物流信息添加
+     */
+    public AddBclLogisticinfoResponse addBclLogisticinfo(AddBclLogisticinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addBclLogisticinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁物流信息添加
+     * Summary: 租赁物流信息添加
+     */
+    public AddBclLogisticinfoResponse addBclLogisticinfoEx(AddBclLogisticinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.logisticinfo.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddBclLogisticinfoResponse());
+    }
+
+    /**
+     * Description: 租赁订单发起
+     * Summary: 租赁订单发起
+     */
+    public SubmitBclOrderResponse submitBclOrder(SubmitBclOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitBclOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁订单发起
+     * Summary: 租赁订单发起
+     */
+    public SubmitBclOrderResponse submitBclOrderEx(SubmitBclOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.order.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitBclOrderResponse());
+    }
+
+    /**
+     * Description: 创建租赁订单
+     * Summary: 创建租赁订单
+     */
+    public CreateBclOrderResponse createBclOrder(CreateBclOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBclOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建租赁订单
+     * Summary: 创建租赁订单
+     */
+    public CreateBclOrderResponse createBclOrderEx(CreateBclOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.order.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBclOrderResponse());
+    }
+
+    /**
+     * Description: 租赁订单查询
+     * Summary: 租赁订单查询
+     */
+    public QueryBclOrderResponse queryBclOrder(QueryBclOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁订单查询
+     * Summary: 租赁订单查询
+     */
+    public QueryBclOrderResponse queryBclOrderEx(QueryBclOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclOrderResponse());
+    }
+
+    /**
+     * Description: 履约信息上传接口
+     * Summary: 履约信息上传接口
+     */
+    public UploadBclPerformanceResponse uploadBclPerformance(UploadBclPerformanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadBclPerformanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 履约信息上传接口
+     * Summary: 履约信息上传接口
+     */
+    public UploadBclPerformanceResponse uploadBclPerformanceEx(UploadBclPerformanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.performance.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadBclPerformanceResponse());
+    }
+
+    /**
+     * Description: 商品导入
+     * Summary: 商品导入
+     */
+    public CreateBclProductResponse createBclProduct(CreateBclProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBclProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品导入
+     * Summary: 商品导入
+     */
+    public CreateBclProductResponse createBclProductEx(CreateBclProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.product.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBclProductResponse());
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询
+     */
+    public QueryBclProductResponse queryBclProduct(QueryBclProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBclProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询
+     */
+    public QueryBclProductResponse queryBclProductEx(QueryBclProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.product.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBclProductResponse());
+    }
+
+    /**
+     * Description: 合同资源量校验与资源扣减
+     * Summary: 合同资源量校验与资源扣减
+     */
+    public VerifyBclContractmetricResponse verifyBclContractmetric(VerifyBclContractmetricRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyBclContractmetricEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合同资源量校验与资源扣减
+     * Summary: 合同资源量校验与资源扣减
+     */
+    public VerifyBclContractmetricResponse verifyBclContractmetricEx(VerifyBclContractmetricRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.contractmetric.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyBclContractmetricResponse());
+    }
+
+    /**
+     * Description: 获取授权访问oss链接
+     * Summary: 获取授权访问oss链接
+     */
+    public GetBclUploadurlResponse getBclUploadurl(GetBclUploadurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getBclUploadurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取授权访问oss链接
+     * Summary: 获取授权访问oss链接
+     */
+    public GetBclUploadurlResponse getBclUploadurlEx(GetBclUploadurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.bcl.uploadurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetBclUploadurlResponse());
     }
 
     /**

@@ -56,6 +56,11 @@ public class CreateContractSignflowRequest extends TeaModel {
     @NameInMap("payee_tuid")
     public String payeeTuid;
 
+    // 租赁订单Id
+    @NameInMap("bcl_order_id")
+    @Validation(maxLength = 32)
+    public String bclOrderId;
+
     public static CreateContractSignflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractSignflowRequest self = new CreateContractSignflowRequest();
         return TeaModel.build(map, self);
@@ -163,6 +168,14 @@ public class CreateContractSignflowRequest extends TeaModel {
     }
     public String getPayeeTuid() {
         return this.payeeTuid;
+    }
+
+    public CreateContractSignflowRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
     }
 
 }
