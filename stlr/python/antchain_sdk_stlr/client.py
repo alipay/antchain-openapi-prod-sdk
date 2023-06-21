@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.5.0',
+                    'sdk_version': '2.6.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.5.0',
+                    'sdk_version': '2.6.0',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2547,6 +2547,62 @@ class Client:
         return TeaCore.from_map(
             stlr_models.DetailEcarOffsettranslateResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.offsettranslate.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ecar_lcaassement(
+        self,
+        request: stlr_models.SubmitEcarLcaassementRequest,
+    ) -> stlr_models.SubmitEcarLcaassementResponse:
+        """
+        Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+        Summary: 平台方LCA评估结果提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ecar_lcaassement_ex(request, headers, runtime)
+
+    async def submit_ecar_lcaassement_async(
+        self,
+        request: stlr_models.SubmitEcarLcaassementRequest,
+    ) -> stlr_models.SubmitEcarLcaassementResponse:
+        """
+        Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+        Summary: 平台方LCA评估结果提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ecar_lcaassement_ex_async(request, headers, runtime)
+
+    def submit_ecar_lcaassement_ex(
+        self,
+        request: stlr_models.SubmitEcarLcaassementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcaassementResponse:
+        """
+        Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+        Summary: 平台方LCA评估结果提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcaassementResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ecar_lcaassement_ex_async(
+        self,
+        request: stlr_models.SubmitEcarLcaassementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcaassementResponse:
+        """
+        Description: 平台方LCA评估结果提交接口，支持三方平台提交LCA评估结果数据
+        Summary: 平台方LCA评估结果提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcaassementResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.lcaassement.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(

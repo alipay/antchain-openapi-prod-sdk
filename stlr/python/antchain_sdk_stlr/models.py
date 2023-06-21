@@ -6674,6 +6674,132 @@ class DetailEcarOffsettranslateResponse(TeaModel):
         return self
 
 
+class SubmitEcarLcaassementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        status: str = None,
+        project_summary: str = None,
+        process_datum: str = None,
+        assement_result: str = None,
+        assement_report: str = None,
+        extra_datum: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单编号，碳矩阵关联的订单编号，业务主键
+        self.order_no = order_no
+        # LCA产品评估状态，返回约定的状态编码
+        self.status = status
+        # 项目摘要信息，包括有关产品详情和报告时间等，JSON格式，按照约定的格式解析成碳矩阵对应的碳足迹项目和产品信息
+        self.project_summary = project_summary
+        # 产品工序数据，JSON格式，按照约定的格式解析成碳矩阵对应的工序信息
+        self.process_datum = process_datum
+        # 碳足迹评估结果数据，JSON格式，按照约定的格式解析成碳矩阵对应的评估结果
+        self.assement_result = assement_result
+        # 碳足迹评估报告，包括一些报告文件地址等，JSON格式，碳矩阵下载保存对应的报告文件
+        self.assement_report = assement_report
+        # 扩展信息，JSON格式，预留需提交的数据
+        self.extra_datum = extra_datum
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.project_summary is not None:
+            result['project_summary'] = self.project_summary
+        if self.process_datum is not None:
+            result['process_datum'] = self.process_datum
+        if self.assement_result is not None:
+            result['assement_result'] = self.assement_result
+        if self.assement_report is not None:
+            result['assement_report'] = self.assement_report
+        if self.extra_datum is not None:
+            result['extra_datum'] = self.extra_datum
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('project_summary') is not None:
+            self.project_summary = m.get('project_summary')
+        if m.get('process_datum') is not None:
+            self.process_datum = m.get('process_datum')
+        if m.get('assement_result') is not None:
+            self.assement_result = m.get('assement_result')
+        if m.get('assement_report') is not None:
+            self.assement_report = m.get('assement_report')
+        if m.get('extra_datum') is not None:
+            self.extra_datum = m.get('extra_datum')
+        return self
+
+
+class SubmitEcarLcaassementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class QueryThirdCertRequest(TeaModel):
     def __init__(
         self,
