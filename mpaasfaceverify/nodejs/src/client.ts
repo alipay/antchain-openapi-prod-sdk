@@ -77,6 +77,104 @@ export class Config extends $tea.Model {
   }
 }
 
+// 单据计费信息，包括单据号和是否计费
+export class ChargeInfo extends $tea.Model {
+  // 认证单据号
+  certifyId: string;
+  // 计费类型，当前枚举支持：
+  // FAIL_NOT_CHARGE：认证失败，该单据不计费
+  // CHARGE：认证成功，该单据计费
+  chargeType: string;
+  // 错误码
+  errorCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      certifyId: 'certify_id',
+      chargeType: 'charge_type',
+      errorCode: 'error_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certifyId: 'string',
+      chargeType: 'string',
+      errorCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertifyAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 认证单据号
+  certifyId: string;
+  // 接入方场景码
+  sceneCode: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      sceneCode: 'scene_code',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      sceneCode: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertifyAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitFaceauthRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -938,6 +1036,144 @@ export class UploadOcrServermodeResponse extends $tea.Model {
   }
 }
 
+export class QueryCertifyrecordChargeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待查询的certify_id列表
+  certifyIdList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyIdList: 'certify_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertifyrecordChargeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 单据计费信息
+  chargeInfoList?: ChargeInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chargeInfoList: 'charge_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chargeInfoList: { 'type': 'array', 'itemType': ChargeInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitOneloginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 计费规则码
+  chargeCode: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      chargeCode: 'charge_code',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      chargeCode: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitOneloginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证单据号
+  certifyId?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1012,7 +1248,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -1051,7 +1287,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.15",
+          sdk_version: "1.1.19",
+          _prod_code: "MPAASFACEVERIFY",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1095,6 +1333,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 人脸认证问题自动化排查接口
+   * Summary: 人脸认证问题自动化排查接口
+   */
+  async queryCertifyAnalysis(request: QueryCertifyAnalysisRequest): Promise<QueryCertifyAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCertifyAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 人脸认证问题自动化排查接口
+   * Summary: 人脸认证问题自动化排查接口
+   */
+  async queryCertifyAnalysisEx(request: QueryCertifyAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertifyAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCertifyAnalysisResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certify.analysis.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertifyAnalysisResponse({}));
   }
 
   /**
@@ -1285,6 +1542,44 @@ export default class Client {
   async uploadOcrServermodeEx(request: UploadOcrServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadOcrServermodeResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadOcrServermodeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadOcrServermodeResponse({}));
+  }
+
+  /**
+   * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+   * Summary: 计费信息查询
+   */
+  async queryCertifyrecordCharge(request: QueryCertifyrecordChargeRequest): Promise<QueryCertifyrecordChargeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCertifyrecordChargeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+   * Summary: 计费信息查询
+   */
+  async queryCertifyrecordChargeEx(request: QueryCertifyrecordChargeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertifyrecordChargeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCertifyrecordChargeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.charge.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertifyrecordChargeResponse({}));
+  }
+
+  /**
+   * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 一键登录初始化
+   */
+  async initOnelogin(request: InitOneloginRequest): Promise<InitOneloginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initOneloginEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 一键登录初始化
+   */
+  async initOneloginEx(request: InitOneloginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitOneloginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitOneloginResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.onelogin.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitOneloginResponse({}));
   }
 
 }
