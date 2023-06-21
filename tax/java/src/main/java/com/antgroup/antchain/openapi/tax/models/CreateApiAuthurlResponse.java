@@ -16,13 +16,17 @@ public class CreateApiAuthurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 蚂蚁生成的订单号，此次授权的唯一标识
+    @NameInMap("order_no")
+    public String orderNo;
+
     // 短链接地址
     @NameInMap("login_url")
     public String loginUrl;
 
-    // 蚂蚁生成的订单号，此次授权的唯一标识
-    @NameInMap("order_no")
-    public String orderNo;
+    // 授权原始链接
+    @NameInMap("origin_login_url")
+    public String originLoginUrl;
 
     public static CreateApiAuthurlResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateApiAuthurlResponse self = new CreateApiAuthurlResponse();
@@ -53,6 +57,14 @@ public class CreateApiAuthurlResponse extends TeaModel {
         return this.resultMsg;
     }
 
+    public CreateApiAuthurlResponse setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
     public CreateApiAuthurlResponse setLoginUrl(String loginUrl) {
         this.loginUrl = loginUrl;
         return this;
@@ -61,12 +73,12 @@ public class CreateApiAuthurlResponse extends TeaModel {
         return this.loginUrl;
     }
 
-    public CreateApiAuthurlResponse setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public CreateApiAuthurlResponse setOriginLoginUrl(String originLoginUrl) {
+        this.originLoginUrl = originLoginUrl;
         return this;
     }
-    public String getOrderNo() {
-        return this.orderNo;
+    public String getOriginLoginUrl() {
+        return this.originLoginUrl;
     }
 
 }

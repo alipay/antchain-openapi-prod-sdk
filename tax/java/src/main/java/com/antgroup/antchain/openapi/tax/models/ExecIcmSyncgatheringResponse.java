@@ -36,6 +36,14 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     @NameInMap("null_data_flag")
     public Boolean nullDataFlag;
 
+    // 参考区块链给出的标准字段定义
+    @NameInMap("query_type")
+    public String queryType;
+
+    // 是否需要重新授权
+    @NameInMap("reauth")
+    public Boolean reauth;
+
     public static ExecIcmSyncgatheringResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringResponse self = new ExecIcmSyncgatheringResponse();
         return TeaModel.build(map, self);
@@ -103,6 +111,22 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     }
     public Boolean getNullDataFlag() {
         return this.nullDataFlag;
+    }
+
+    public ExecIcmSyncgatheringResponse setQueryType(String queryType) {
+        this.queryType = queryType;
+        return this;
+    }
+    public String getQueryType() {
+        return this.queryType;
+    }
+
+    public ExecIcmSyncgatheringResponse setReauth(Boolean reauth) {
+        this.reauth = reauth;
+        return this;
+    }
+    public Boolean getReauth() {
+        return this.reauth;
     }
 
 }

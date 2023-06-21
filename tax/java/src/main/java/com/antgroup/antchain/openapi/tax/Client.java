@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.2"),
+                    new TeaPair("sdk_version", "1.6.11"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -428,8 +428,8 @@ public class Client {
     }
 
     /**
-     * Description: 企业的授权接口
-     * Summary: 企业授权
+     * Description: 授权接口
+     * Summary: 授权
      */
     public AuthIcmEnterpriseResponse authIcmEnterprise(AuthIcmEnterpriseRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -438,8 +438,8 @@ public class Client {
     }
 
     /**
-     * Description: 企业的授权接口
-     * Summary: 企业授权
+     * Description: 授权接口
+     * Summary: 授权
      */
     public AuthIcmEnterpriseResponse authIcmEnterpriseEx(AuthIcmEnterpriseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -463,5 +463,100 @@ public class Client {
     public CreateApiAuthurlResponse createApiAuthurlEx(CreateApiAuthurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateApiAuthurlResponse());
+    }
+
+    /**
+     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+     * Summary: 极简授权-检查数据是否支持接口
+     */
+    public MatchIcmSimpleauthResponse matchIcmSimpleauth(MatchIcmSimpleauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchIcmSimpleauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+     * Summary: 极简授权-检查数据是否支持接口
+     */
+    public MatchIcmSimpleauthResponse matchIcmSimpleauthEx(MatchIcmSimpleauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.simpleauth.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchIcmSimpleauthResponse());
+    }
+
+    /**
+     * Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据
+     */
+    public QueryIcmSimpleauthResponse queryIcmSimpleauth(QueryIcmSimpleauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIcmSimpleauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据
+     */
+    public QueryIcmSimpleauthResponse queryIcmSimpleauthEx(QueryIcmSimpleauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.simpleauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIcmSimpleauthResponse());
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据
+     */
+    public QueryApiSimpleauthasyncResponse queryApiSimpleauthasync(QueryApiSimpleauthasyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiSimpleauthasyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据
+     */
+    public QueryApiSimpleauthasyncResponse queryApiSimpleauthasyncEx(QueryApiSimpleauthasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.simpleauthasync.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiSimpleauthasyncResponse());
+    }
+
+    /**
+     * Description: 授权接口
+     * Summary: 授权接口
+     */
+    public AuthRiskEvaluationResponse authRiskEvaluation(AuthRiskEvaluationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authRiskEvaluationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权接口
+     * Summary: 授权接口
+     */
+    public AuthRiskEvaluationResponse authRiskEvaluationEx(AuthRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthRiskEvaluationResponse());
+    }
+
+    /**
+     * Description: 查询
+     * Summary: 查询
+     */
+    public QueryRiskEvaluationResponse queryRiskEvaluation(QueryRiskEvaluationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRiskEvaluationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询
+     * Summary: 查询
+     */
+    public QueryRiskEvaluationResponse queryRiskEvaluationEx(QueryRiskEvaluationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.risk.evaluation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskEvaluationResponse());
     }
 }

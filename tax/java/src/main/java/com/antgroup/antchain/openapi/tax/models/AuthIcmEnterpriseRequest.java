@@ -47,6 +47,10 @@ public class AuthIcmEnterpriseRequest extends TeaModel {
     @NameInMap("cognizant_id")
     public String cognizantId;
 
+    // 字典由系统设置，子机构编码
+    @NameInMap("sub_tenant")
+    public String subTenant;
+
     public static AuthIcmEnterpriseRequest build(java.util.Map<String, ?> map) throws Exception {
         AuthIcmEnterpriseRequest self = new AuthIcmEnterpriseRequest();
         return TeaModel.build(map, self);
@@ -130,6 +134,14 @@ public class AuthIcmEnterpriseRequest extends TeaModel {
     }
     public String getCognizantId() {
         return this.cognizantId;
+    }
+
+    public AuthIcmEnterpriseRequest setSubTenant(String subTenant) {
+        this.subTenant = subTenant;
+        return this;
+    }
+    public String getSubTenant() {
+        return this.subTenant;
     }
 
 }

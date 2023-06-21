@@ -41,6 +41,16 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     @Validation(required = true)
     public String content;
 
+    // 查询类型
+    // NORMAL 正常调用
+    // BATCH_HAND  批刷
+    @NameInMap("query_type")
+    public String queryType;
+
+    // 子机构编码，字典由系统预设白名单
+    @NameInMap("sub_tenant")
+    public String subTenant;
+
     public static ExecIcmSyncgatheringRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringRequest self = new ExecIcmSyncgatheringRequest();
         return TeaModel.build(map, self);
@@ -108,6 +118,22 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public ExecIcmSyncgatheringRequest setQueryType(String queryType) {
+        this.queryType = queryType;
+        return this;
+    }
+    public String getQueryType() {
+        return this.queryType;
+    }
+
+    public ExecIcmSyncgatheringRequest setSubTenant(String subTenant) {
+        this.subTenant = subTenant;
+        return this;
+    }
+    public String getSubTenant() {
+        return this.subTenant;
     }
 
 }
