@@ -71,7 +71,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.15")
+                    new TeaPair("sdk_version", "1.1.19"),
+                    new TeaPair("_prod_code", "MPAASFACEVERIFY"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +159,25 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 人脸认证问题自动化排查接口
+     * Summary: 人脸认证问题自动化排查接口
+     */
+    public QueryCertifyAnalysisResponse queryCertifyAnalysis(QueryCertifyAnalysisRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertifyAnalysisEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人脸认证问题自动化排查接口
+     * Summary: 人脸认证问题自动化排查接口
+     */
+    public QueryCertifyAnalysisResponse queryCertifyAnalysisEx(QueryCertifyAnalysisRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certify.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyAnalysisResponse());
     }
 
     /**
@@ -347,5 +368,43 @@ public class Client {
     public UploadOcrServermodeResponse uploadOcrServermodeEx(UploadOcrServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadOcrServermodeResponse());
+    }
+
+    /**
+     * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+     * Summary: 计费信息查询
+     */
+    public QueryCertifyrecordChargeResponse queryCertifyrecordCharge(QueryCertifyrecordChargeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertifyrecordChargeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+     * Summary: 计费信息查询
+     */
+    public QueryCertifyrecordChargeResponse queryCertifyrecordChargeEx(QueryCertifyrecordChargeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.charge.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyrecordChargeResponse());
+    }
+
+    /**
+     * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 一键登录初始化
+     */
+    public InitOneloginResponse initOnelogin(InitOneloginRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initOneloginEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 一键登录初始化
+     */
+    public InitOneloginResponse initOneloginEx(InitOneloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.onelogin.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitOneloginResponse());
     }
 }
