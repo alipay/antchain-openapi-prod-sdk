@@ -55,6 +55,18 @@ class ExecIcmSyncgatheringResponse extends Model
      * @var bool
      */
     public $nullDataFlag;
+
+    // 参考区块链给出的标准字段定义
+    /**
+     * @var string
+     */
+    public $queryType;
+
+    // 是否需要重新授权
+    /**
+     * @var bool
+     */
+    public $reauth;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -64,6 +76,8 @@ class ExecIcmSyncgatheringResponse extends Model
         'returnMode'   => 'return_mode',
         'returnResult' => 'return_result',
         'nullDataFlag' => 'null_data_flag',
+        'queryType'    => 'query_type',
+        'reauth'       => 'reauth',
     ];
 
     public function validate()
@@ -102,6 +116,12 @@ class ExecIcmSyncgatheringResponse extends Model
         }
         if (null !== $this->nullDataFlag) {
             $res['null_data_flag'] = $this->nullDataFlag;
+        }
+        if (null !== $this->queryType) {
+            $res['query_type'] = $this->queryType;
+        }
+        if (null !== $this->reauth) {
+            $res['reauth'] = $this->reauth;
         }
 
         return $res;
@@ -144,6 +164,12 @@ class ExecIcmSyncgatheringResponse extends Model
         }
         if (isset($map['null_data_flag'])) {
             $model->nullDataFlag = $map['null_data_flag'];
+        }
+        if (isset($map['query_type'])) {
+            $model->queryType = $map['query_type'];
+        }
+        if (isset($map['reauth'])) {
+            $model->reauth = $map['reauth'];
         }
 
         return $model;

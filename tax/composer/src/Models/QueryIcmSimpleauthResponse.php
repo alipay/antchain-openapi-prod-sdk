@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateApiAuthurlResponse extends Model
+class QueryIcmSimpleauthResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class CreateApiAuthurlResponse extends Model
      */
     public $resultMsg;
 
-    // 蚂蚁生成的订单号，此次授权的唯一标识
+    // 支持的数据类型，结果数据
     /**
      * @var string
      */
-    public $orderNo;
-
-    // 短链接地址
-    /**
-     * @var string
-     */
-    public $loginUrl;
-
-    // 授权原始链接
-    /**
-     * @var string
-     */
-    public $originLoginUrl;
+    public $returnResult;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'orderNo'        => 'order_no',
-        'loginUrl'       => 'login_url',
-        'originLoginUrl' => 'origin_login_url',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'returnResult' => 'return_result',
     ];
 
     public function validate()
@@ -68,14 +54,8 @@ class CreateApiAuthurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
-        }
-        if (null !== $this->loginUrl) {
-            $res['login_url'] = $this->loginUrl;
-        }
-        if (null !== $this->originLoginUrl) {
-            $res['origin_login_url'] = $this->originLoginUrl;
+        if (null !== $this->returnResult) {
+            $res['return_result'] = $this->returnResult;
         }
 
         return $res;
@@ -84,7 +64,7 @@ class CreateApiAuthurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateApiAuthurlResponse
+     * @return QueryIcmSimpleauthResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +78,8 @@ class CreateApiAuthurlResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['login_url'])) {
-            $model->loginUrl = $map['login_url'];
-        }
-        if (isset($map['origin_login_url'])) {
-            $model->originLoginUrl = $map['origin_login_url'];
+        if (isset($map['return_result'])) {
+            $model->returnResult = $map['return_result'];
         }
 
         return $model;

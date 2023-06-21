@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateApiAuthurlResponse extends Model
+class AuthRiskEvaluationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,37 @@ class CreateApiAuthurlResponse extends Model
      */
     public $resultMsg;
 
-    // 蚂蚁生成的订单号，此次授权的唯一标识
+    // 授权订单订单号
     /**
      * @var string
      */
     public $orderNo;
 
-    // 短链接地址
+    // 是否授权成功true是，false否
     /**
-     * @var string
+     * @var bool
      */
-    public $loginUrl;
+    public $authSuccess;
 
-    // 授权原始链接
+    // 过期时间，unix时间戳 毫秒
+    /**
+     * @var int
+     */
+    public $expireTime;
+
+    // 授权时间，unix时间戳 毫秒
     /**
      * @var string
      */
-    public $originLoginUrl;
+    public $authTime;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'orderNo'        => 'order_no',
-        'loginUrl'       => 'login_url',
-        'originLoginUrl' => 'origin_login_url',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'orderNo'     => 'order_no',
+        'authSuccess' => 'auth_success',
+        'expireTime'  => 'expire_time',
+        'authTime'    => 'auth_time',
     ];
 
     public function validate()
@@ -71,11 +78,14 @@ class CreateApiAuthurlResponse extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->loginUrl) {
-            $res['login_url'] = $this->loginUrl;
+        if (null !== $this->authSuccess) {
+            $res['auth_success'] = $this->authSuccess;
         }
-        if (null !== $this->originLoginUrl) {
-            $res['origin_login_url'] = $this->originLoginUrl;
+        if (null !== $this->expireTime) {
+            $res['expire_time'] = $this->expireTime;
+        }
+        if (null !== $this->authTime) {
+            $res['auth_time'] = $this->authTime;
         }
 
         return $res;
@@ -84,7 +94,7 @@ class CreateApiAuthurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateApiAuthurlResponse
+     * @return AuthRiskEvaluationResponse
      */
     public static function fromMap($map = [])
     {
@@ -101,11 +111,14 @@ class CreateApiAuthurlResponse extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
-        if (isset($map['login_url'])) {
-            $model->loginUrl = $map['login_url'];
+        if (isset($map['auth_success'])) {
+            $model->authSuccess = $map['auth_success'];
         }
-        if (isset($map['origin_login_url'])) {
-            $model->originLoginUrl = $map['origin_login_url'];
+        if (isset($map['expire_time'])) {
+            $model->expireTime = $map['expire_time'];
+        }
+        if (isset($map['auth_time'])) {
+            $model->authTime = $map['auth_time'];
         }
 
         return $model;

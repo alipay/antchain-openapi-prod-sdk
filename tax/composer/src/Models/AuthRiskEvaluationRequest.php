@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecIcmSyncgatheringRequest extends Model
+class AuthRiskEvaluationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,76 +19,85 @@ class ExecIcmSyncgatheringRequest extends Model
      */
     public $productInstanceId;
 
-    // 机构号码
-    /**
-     * @var string
-     */
-    public $instCode;
-
-    // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
-    /**
-     * @var string
-     */
-    public $bizRequestId;
-
-    // 纳税人识别号(必填)
+    // 个人身份证号
     /**
      * @var string
      */
     public $identityId;
 
-    // 授权类型(必填)
+    // 个人姓名
+    /**
+     * @var string
+     */
+    public $identityName;
+
+    // 企业的统一社会信用编码
+    /**
+     * @var string
+     */
+    public $enterpriseId;
+
+    // 企业的名称
+    /**
+     * @var string
+     */
+    public $enterpriseName;
+
+    // 企业或者个人企业：ENTERPRISE  个人：PERSONAL
+    //
+    /**
+     * @var string
+     */
+    public $identityType;
+
+    // 授权的业务类型
     /**
      * @var string
      */
     public $authType;
 
-    // 订单号
+    // 授权订单号
     /**
      * @var string
      */
     public $orderNo;
 
-    // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
-    /**
-     * @var string
-     */
-    public $content;
-
-    // 查询类型
-    // NORMAL 正常调用
-    // BATCH_HAND  批刷
-    /**
-     * @var string
-     */
-    public $queryType;
-
-    // 子机构编码，字典由系统预设白名单
+    // 子渠道渠道编码，需要同步蚂蚁，由蚂蚁设置。如果是银行本身，可不填
+    // 备注：如果同一信贷客户在不同银行的调用需要严格区分，分别授权
+    //
     /**
      * @var string
      */
     public $subTenant;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extendInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'instCode'          => 'inst_code',
-        'bizRequestId'      => 'biz_request_id',
         'identityId'        => 'identity_id',
+        'identityName'      => 'identity_name',
+        'enterpriseId'      => 'enterprise_id',
+        'enterpriseName'    => 'enterprise_name',
+        'identityType'      => 'identity_type',
         'authType'          => 'auth_type',
         'orderNo'           => 'order_no',
-        'content'           => 'content',
-        'queryType'         => 'query_type',
         'subTenant'         => 'sub_tenant',
+        'extendInfo'        => 'extend_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('instCode', $this->instCode, true);
-        Model::validateRequired('bizRequestId', $this->bizRequestId, true);
-        Model::validateRequired('identityId', $this->identityId, true);
+        Model::validateMaxLength('identityId', $this->identityId, 30);
+        Model::validateMaxLength('identityName', $this->identityName, 128);
+        Model::validateMaxLength('enterpriseId', $this->enterpriseId, 64);
+        Model::validateRequired('identityType', $this->identityType, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('extendInfo', $this->extendInfo, true);
     }
 
     public function toMap()
@@ -100,14 +109,20 @@ class ExecIcmSyncgatheringRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->instCode) {
-            $res['inst_code'] = $this->instCode;
-        }
-        if (null !== $this->bizRequestId) {
-            $res['biz_request_id'] = $this->bizRequestId;
-        }
         if (null !== $this->identityId) {
             $res['identity_id'] = $this->identityId;
+        }
+        if (null !== $this->identityName) {
+            $res['identity_name'] = $this->identityName;
+        }
+        if (null !== $this->enterpriseId) {
+            $res['enterprise_id'] = $this->enterpriseId;
+        }
+        if (null !== $this->enterpriseName) {
+            $res['enterprise_name'] = $this->enterpriseName;
+        }
+        if (null !== $this->identityType) {
+            $res['identity_type'] = $this->identityType;
         }
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
@@ -115,14 +130,11 @@ class ExecIcmSyncgatheringRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->content) {
-            $res['content'] = $this->content;
-        }
-        if (null !== $this->queryType) {
-            $res['query_type'] = $this->queryType;
-        }
         if (null !== $this->subTenant) {
             $res['sub_tenant'] = $this->subTenant;
+        }
+        if (null !== $this->extendInfo) {
+            $res['extend_info'] = $this->extendInfo;
         }
 
         return $res;
@@ -131,7 +143,7 @@ class ExecIcmSyncgatheringRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecIcmSyncgatheringRequest
+     * @return AuthRiskEvaluationRequest
      */
     public static function fromMap($map = [])
     {
@@ -142,14 +154,20 @@ class ExecIcmSyncgatheringRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['inst_code'])) {
-            $model->instCode = $map['inst_code'];
-        }
-        if (isset($map['biz_request_id'])) {
-            $model->bizRequestId = $map['biz_request_id'];
-        }
         if (isset($map['identity_id'])) {
             $model->identityId = $map['identity_id'];
+        }
+        if (isset($map['identity_name'])) {
+            $model->identityName = $map['identity_name'];
+        }
+        if (isset($map['enterprise_id'])) {
+            $model->enterpriseId = $map['enterprise_id'];
+        }
+        if (isset($map['enterprise_name'])) {
+            $model->enterpriseName = $map['enterprise_name'];
+        }
+        if (isset($map['identity_type'])) {
+            $model->identityType = $map['identity_type'];
         }
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];
@@ -157,14 +175,11 @@ class ExecIcmSyncgatheringRequest extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
-        if (isset($map['content'])) {
-            $model->content = $map['content'];
-        }
-        if (isset($map['query_type'])) {
-            $model->queryType = $map['query_type'];
-        }
         if (isset($map['sub_tenant'])) {
             $model->subTenant = $map['sub_tenant'];
+        }
+        if (isset($map['extend_info'])) {
+            $model->extendInfo = $map['extend_info'];
         }
 
         return $model;

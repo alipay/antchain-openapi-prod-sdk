@@ -6,7 +6,7 @@ namespace AntChain\TAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecIcmSyncgatheringRequest extends Model
+class QueryRiskEvaluationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,76 +19,44 @@ class ExecIcmSyncgatheringRequest extends Model
      */
     public $productInstanceId;
 
-    // 机构号码
-    /**
-     * @var string
-     */
-    public $instCode;
-
     // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
     /**
      * @var string
      */
     public $bizRequestId;
 
-    // 纳税人识别号(必填)
+    // 信贷用户的纳税人识别号或者身份证号
     /**
      * @var string
      */
     public $identityId;
 
-    // 授权类型(必填)
+    // 授权类型
     /**
      * @var string
      */
     public $authType;
 
-    // 订单号
+    // 授权订单号
     /**
      * @var string
      */
     public $orderNo;
-
-    // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
-    /**
-     * @var string
-     */
-    public $content;
-
-    // 查询类型
-    // NORMAL 正常调用
-    // BATCH_HAND  批刷
-    /**
-     * @var string
-     */
-    public $queryType;
-
-    // 子机构编码，字典由系统预设白名单
-    /**
-     * @var string
-     */
-    public $subTenant;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'instCode'          => 'inst_code',
         'bizRequestId'      => 'biz_request_id',
         'identityId'        => 'identity_id',
         'authType'          => 'auth_type',
         'orderNo'           => 'order_no',
-        'content'           => 'content',
-        'queryType'         => 'query_type',
-        'subTenant'         => 'sub_tenant',
     ];
 
     public function validate()
     {
-        Model::validateRequired('instCode', $this->instCode, true);
         Model::validateRequired('bizRequestId', $this->bizRequestId, true);
         Model::validateRequired('identityId', $this->identityId, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('content', $this->content, true);
     }
 
     public function toMap()
@@ -99,9 +67,6 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->instCode) {
-            $res['inst_code'] = $this->instCode;
         }
         if (null !== $this->bizRequestId) {
             $res['biz_request_id'] = $this->bizRequestId;
@@ -115,15 +80,6 @@ class ExecIcmSyncgatheringRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->content) {
-            $res['content'] = $this->content;
-        }
-        if (null !== $this->queryType) {
-            $res['query_type'] = $this->queryType;
-        }
-        if (null !== $this->subTenant) {
-            $res['sub_tenant'] = $this->subTenant;
-        }
 
         return $res;
     }
@@ -131,7 +87,7 @@ class ExecIcmSyncgatheringRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecIcmSyncgatheringRequest
+     * @return QueryRiskEvaluationRequest
      */
     public static function fromMap($map = [])
     {
@@ -141,9 +97,6 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['inst_code'])) {
-            $model->instCode = $map['inst_code'];
         }
         if (isset($map['biz_request_id'])) {
             $model->bizRequestId = $map['biz_request_id'];
@@ -156,15 +109,6 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['content'])) {
-            $model->content = $map['content'];
-        }
-        if (isset($map['query_type'])) {
-            $model->queryType = $map['query_type'];
-        }
-        if (isset($map['sub_tenant'])) {
-            $model->subTenant = $map['sub_tenant'];
         }
 
         return $model;

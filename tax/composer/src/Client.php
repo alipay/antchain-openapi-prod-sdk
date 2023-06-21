@@ -19,6 +19,8 @@ use AntChain\TAX\Models\AuthIcmInvoiceRequest;
 use AntChain\TAX\Models\AuthIcmInvoiceResponse;
 use AntChain\TAX\Models\AuthIcmRealpersonRequest;
 use AntChain\TAX\Models\AuthIcmRealpersonResponse;
+use AntChain\TAX\Models\AuthRiskEvaluationRequest;
+use AntChain\TAX\Models\AuthRiskEvaluationResponse;
 use AntChain\TAX\Models\CreateApiAuthurlRequest;
 use AntChain\TAX\Models\CreateApiAuthurlResponse;
 use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
@@ -27,6 +29,8 @@ use AntChain\TAX\Models\ExecApiAuthtemplateRequest;
 use AntChain\TAX\Models\ExecApiAuthtemplateResponse;
 use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
+use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
+use AntChain\TAX\Models\MatchIcmSimpleauthResponse;
 use AntChain\TAX\Models\PushChargeRequest;
 use AntChain\TAX\Models\PushChargeResponse;
 use AntChain\TAX\Models\PushIcmInvoiceinfoRequest;
@@ -39,10 +43,16 @@ use AntChain\TAX\Models\QueryApiAuthtemplateresultRequest;
 use AntChain\TAX\Models\QueryApiAuthtemplateresultResponse;
 use AntChain\TAX\Models\QueryApiAuthteplateRequest;
 use AntChain\TAX\Models\QueryApiAuthteplateResponse;
+use AntChain\TAX\Models\QueryApiSimpleauthasyncRequest;
+use AntChain\TAX\Models\QueryApiSimpleauthasyncResponse;
 use AntChain\TAX\Models\QueryChargeAuthRequest;
 use AntChain\TAX\Models\QueryChargeAuthResponse;
 use AntChain\TAX\Models\QueryIcmInvoiceRequest;
 use AntChain\TAX\Models\QueryIcmInvoiceResponse;
+use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
+use AntChain\TAX\Models\QueryIcmSimpleauthResponse;
+use AntChain\TAX\Models\QueryRiskEvaluationRequest;
+use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -142,18 +152,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -190,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.2',
+                    'sdk_version'      => '1.6.11',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -701,8 +711,8 @@ class Client
     }
 
     /**
-     * Description: 企业的授权接口
-     * Summary: 企业授权.
+     * Description: 授权接口
+     * Summary: 授权.
      *
      * @param AuthIcmEnterpriseRequest $request
      *
@@ -717,8 +727,8 @@ class Client
     }
 
     /**
-     * Description: 企业的授权接口
-     * Summary: 企业授权.
+     * Description: 授权接口
+     * Summary: 授权.
      *
      * @param AuthIcmEnterpriseRequest $request
      * @param string[]                 $headers
@@ -764,5 +774,170 @@ class Client
         Utils::validateModel($request);
 
         return CreateApiAuthurlResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+     * Summary: 极简授权-检查数据是否支持接口.
+     *
+     * @param MatchIcmSimpleauthRequest $request
+     *
+     * @return MatchIcmSimpleauthResponse
+     */
+    public function matchIcmSimpleauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchIcmSimpleauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极简授权-检查数据是否支持接口，检查是否在白名单中的接口
+     * Summary: 极简授权-检查数据是否支持接口.
+     *
+     * @param MatchIcmSimpleauthRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return MatchIcmSimpleauthResponse
+     */
+    public function matchIcmSimpleauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchIcmSimpleauthResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.simpleauth.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据.
+     *
+     * @param QueryIcmSimpleauthRequest $request
+     *
+     * @return QueryIcmSimpleauthResponse
+     */
+    public function queryIcmSimpleauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIcmSimpleauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据.
+     *
+     * @param QueryIcmSimpleauthRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryIcmSimpleauthResponse
+     */
+    public function queryIcmSimpleauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIcmSimpleauthResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.simpleauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据.
+     *
+     * @param QueryApiSimpleauthasyncRequest $request
+     *
+     * @return QueryApiSimpleauthasyncResponse
+     */
+    public function queryApiSimpleauthasync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiSimpleauthasyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据.
+     *
+     * @param QueryApiSimpleauthasyncRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryApiSimpleauthasyncResponse
+     */
+    public function queryApiSimpleauthasyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiSimpleauthasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.simpleauthasync.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权接口
+     * Summary: 授权接口.
+     *
+     * @param AuthRiskEvaluationRequest $request
+     *
+     * @return AuthRiskEvaluationResponse
+     */
+    public function authRiskEvaluation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authRiskEvaluationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权接口
+     * Summary: 授权接口.
+     *
+     * @param AuthRiskEvaluationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return AuthRiskEvaluationResponse
+     */
+    public function authRiskEvaluationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询
+     * Summary: 查询.
+     *
+     * @param QueryRiskEvaluationRequest $request
+     *
+     * @return QueryRiskEvaluationResponse
+     */
+    public function queryRiskEvaluation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRiskEvaluationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询
+     * Summary: 查询.
+     *
+     * @param QueryRiskEvaluationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryRiskEvaluationResponse
+     */
+    public function queryRiskEvaluationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRiskEvaluationResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.risk.evaluation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

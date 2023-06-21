@@ -66,6 +66,12 @@ class AuthIcmEnterpriseRequest extends Model
      * @var string
      */
     public $cognizantId;
+
+    // 字典由系统设置，子机构编码
+    /**
+     * @var string
+     */
+    public $subTenant;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class AuthIcmEnterpriseRequest extends Model
         'cognizantName'     => 'cognizant_name',
         'cognizantMobile'   => 'cognizant_mobile',
         'cognizantId'       => 'cognizant_id',
+        'subTenant'         => 'sub_tenant',
     ];
 
     public function validate()
@@ -120,6 +127,9 @@ class AuthIcmEnterpriseRequest extends Model
         if (null !== $this->cognizantId) {
             $res['cognizant_id'] = $this->cognizantId;
         }
+        if (null !== $this->subTenant) {
+            $res['sub_tenant'] = $this->subTenant;
+        }
 
         return $res;
     }
@@ -161,6 +171,9 @@ class AuthIcmEnterpriseRequest extends Model
         }
         if (isset($map['cognizant_id'])) {
             $model->cognizantId = $map['cognizant_id'];
+        }
+        if (isset($map['sub_tenant'])) {
+            $model->subTenant = $map['sub_tenant'];
         }
 
         return $model;
