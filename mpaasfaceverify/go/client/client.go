@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -145,6 +145,125 @@ func (s *Config) SetMaxRequests(v int) *Config {
 
 func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// 单据计费信息，包括单据号和是否计费
+type ChargeInfo struct {
+	// 认证单据号
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 计费类型，当前枚举支持：
+	// FAIL_NOT_CHARGE：认证失败，该单据不计费
+	// CHARGE：认证成功，该单据计费
+	ChargeType *string `json:"charge_type,omitempty" xml:"charge_type,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+}
+
+func (s ChargeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChargeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChargeInfo) SetCertifyId(v string) *ChargeInfo {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *ChargeInfo) SetChargeType(v string) *ChargeInfo {
+	s.ChargeType = &v
+	return s
+}
+
+func (s *ChargeInfo) SetErrorCode(v string) *ChargeInfo {
+	s.ErrorCode = &v
+	return s
+}
+
+type QueryCertifyAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证单据号
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 接入方场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCertifyAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertifyAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertifyAnalysisRequest) SetAuthToken(v string) *QueryCertifyAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisRequest) SetProductInstanceId(v string) *QueryCertifyAnalysisRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisRequest) SetCertifyId(v string) *QueryCertifyAnalysisRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisRequest) SetSceneCode(v string) *QueryCertifyAnalysisRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisRequest) SetExternParam(v string) *QueryCertifyAnalysisRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCertifyAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCertifyAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertifyAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertifyAnalysisResponse) SetReqMsgId(v string) *QueryCertifyAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisResponse) SetResultCode(v string) *QueryCertifyAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisResponse) SetResultMsg(v string) *QueryCertifyAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCertifyAnalysisResponse) SetExternInfo(v string) *QueryCertifyAnalysisResponse {
+	s.ExternInfo = &v
 	return s
 }
 
@@ -1317,6 +1436,181 @@ func (s *UploadOcrServermodeResponse) SetCertifyId(v string) *UploadOcrServermod
 	return s
 }
 
+type QueryCertifyrecordChargeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待查询的certify_id列表
+	CertifyIdList []*string `json:"certify_id_list,omitempty" xml:"certify_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryCertifyrecordChargeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertifyrecordChargeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertifyrecordChargeRequest) SetAuthToken(v string) *QueryCertifyrecordChargeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCertifyrecordChargeRequest) SetProductInstanceId(v string) *QueryCertifyrecordChargeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCertifyrecordChargeRequest) SetCertifyIdList(v []*string) *QueryCertifyrecordChargeRequest {
+	s.CertifyIdList = v
+	return s
+}
+
+type QueryCertifyrecordChargeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 单据计费信息
+	ChargeInfoList []*ChargeInfo `json:"charge_info_list,omitempty" xml:"charge_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryCertifyrecordChargeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCertifyrecordChargeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCertifyrecordChargeResponse) SetReqMsgId(v string) *QueryCertifyrecordChargeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCertifyrecordChargeResponse) SetResultCode(v string) *QueryCertifyrecordChargeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCertifyrecordChargeResponse) SetResultMsg(v string) *QueryCertifyrecordChargeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCertifyrecordChargeResponse) SetChargeInfoList(v []*ChargeInfo) *QueryCertifyrecordChargeResponse {
+	s.ChargeInfoList = v
+	return s
+}
+
+type InitOneloginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 计费规则码
+	ChargeCode *string `json:"charge_code,omitempty" xml:"charge_code,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s InitOneloginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitOneloginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitOneloginRequest) SetAuthToken(v string) *InitOneloginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitOneloginRequest) SetProductInstanceId(v string) *InitOneloginRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitOneloginRequest) SetBizId(v string) *InitOneloginRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *InitOneloginRequest) SetChargeCode(v string) *InitOneloginRequest {
+	s.ChargeCode = &v
+	return s
+}
+
+func (s *InitOneloginRequest) SetExternParam(v string) *InitOneloginRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type InitOneloginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证单据号
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s InitOneloginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitOneloginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitOneloginResponse) SetReqMsgId(v string) *InitOneloginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetResultCode(v string) *InitOneloginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetResultMsg(v string) *InitOneloginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetCertifyId(v string) *InitOneloginResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetExternInfo(v string) *InitOneloginResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetResultCodeSub(v string) *InitOneloginResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *InitOneloginResponse) SetResultMsgSub(v string) *InitOneloginResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1395,17 +1689,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -1439,7 +1733,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.15"),
+				"sdk_version":      tea.String("1.1.19"),
+				"_prod_code":       tea.String("MPAASFACEVERIFY"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1465,8 +1761,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -1485,6 +1789,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 人脸认证问题自动化排查接口
+ * Summary: 人脸认证问题自动化排查接口
+ */
+func (client *Client) QueryCertifyAnalysis(request *QueryCertifyAnalysisRequest) (_result *QueryCertifyAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCertifyAnalysisResponse{}
+	_body, _err := client.QueryCertifyAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人脸认证问题自动化排查接口
+ * Summary: 人脸认证问题自动化排查接口
+ */
+func (client *Client) QueryCertifyAnalysisEx(request *QueryCertifyAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCertifyAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCertifyAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.certify.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -1820,6 +2158,74 @@ func (client *Client) UploadOcrServermodeEx(request *UploadOcrServermodeRequest,
 	}
 	_result = &UploadOcrServermodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.ocr.servermode.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+ * Summary: 计费信息查询
+ */
+func (client *Client) QueryCertifyrecordCharge(request *QueryCertifyrecordChargeRequest) (_result *QueryCertifyrecordChargeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCertifyrecordChargeResponse{}
+	_body, _err := client.QueryCertifyrecordChargeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用“计费信息查询”接口可以通过certifyId查询当次认证的计费信息，并且支持批量certifyId查询
+ * Summary: 计费信息查询
+ */
+func (client *Client) QueryCertifyrecordChargeEx(request *QueryCertifyrecordChargeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCertifyrecordChargeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCertifyrecordChargeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.certifyrecord.charge.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 一键登录初始化
+ */
+func (client *Client) InitOnelogin(request *InitOneloginRequest) (_result *InitOneloginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitOneloginResponse{}
+	_body, _err := client.InitOneloginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用”一键登录初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 一键登录初始化
+ */
+func (client *Client) InitOneloginEx(request *InitOneloginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitOneloginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitOneloginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.onelogin.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
