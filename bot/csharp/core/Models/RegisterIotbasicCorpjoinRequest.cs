@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorBychainidmulRequest : TeaModel {
+    public class RegisterIotbasicCorpjoinRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,24 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 上传数据
-        // 
-        // 
-        [NameInMap("content")]
+        // 厂商value
+        [NameInMap("corp_code")]
         [Validation(Required=true)]
-        public List<CollectContent> Content { get; set; }
+        public string CorpCode { get; set; }
 
-        // 随机业务号，防重放
-        // 
-        // 
-        [NameInMap("nonce")]
+        // 厂商名称
+        [NameInMap("corp_name")]
         [Validation(Required=true)]
-        public string Nonce { get; set; }
+        public string CorpName { get; set; }
 
-        // 开启后接口返回值中包含txHash
-        [NameInMap("wait_check_and_hash")]
-        [Validation(Required=false)]
-        public bool? WaitCheckAndHash { get; set; }
+        // 厂商签约产品码
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
 
     }
 

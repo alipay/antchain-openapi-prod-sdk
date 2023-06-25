@@ -44,7 +44,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 开启后，接口返回值中包含txHash
         [NameInMap("wait_check_and_hash")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public bool? WaitCheckAndHash { get; set; }
 
     }
