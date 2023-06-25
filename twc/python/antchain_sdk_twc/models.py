@@ -8583,6 +8583,7 @@ class BclNotaryInfo(TeaModel):
         file_url: str = None,
         content_hash: str = None,
         tx_hash: str = None,
+        phase: str = None,
     ):
         # 存证类型，
         # 文件 FILE
@@ -8596,11 +8597,18 @@ class BclNotaryInfo(TeaModel):
         self.content_hash = content_hash
         # 存证哈希
         self.tx_hash = tx_hash
+        # 存证阶段描述：
+        # UPLOAD_PROMISE_FLOW：上传履约流水，
+        # UPLOAD_LOGISTIC_INFO：上传物流信息，
+        # SIGNED_CONTRACT_FILE：合同签署后文件存证，
+        # BCL_ORDER_PROMISING：租赁订单履约中存证，
+        self.phase = phase
 
     def validate(self):
         self.validate_required(self.type, 'type')
         self.validate_required(self.content_hash, 'content_hash')
         self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.phase, 'phase')
 
     def to_map(self):
         _map = super().to_map()
@@ -8618,6 +8626,8 @@ class BclNotaryInfo(TeaModel):
             result['content_hash'] = self.content_hash
         if self.tx_hash is not None:
             result['tx_hash'] = self.tx_hash
+        if self.phase is not None:
+            result['phase'] = self.phase
         return result
 
     def from_map(self, m: dict = None):
@@ -8632,6 +8642,8 @@ class BclNotaryInfo(TeaModel):
             self.content_hash = m.get('content_hash')
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
         return self
 
 
@@ -10323,7 +10335,8 @@ class UploadBclPerformanceRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 订单编号ID,长度不超过32位
         self.order_id = order_id
-        # 租期编号，如：1表示第一期
+        # 租期编号，如：1表示第一期;
+        # 目前还款支持最大期数为120期；
         self.period = period
         # 租金归还金额，单位精确到分。如：56309表示563.09元
         self.amount = amount
@@ -10331,7 +10344,8 @@ class UploadBclPerformanceRequest(TeaModel):
         self.time = time
         # 归还方式，取值范围如下：
         # ACTIVE_REPAYMENT：主动还款，
-        # MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+        # MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+        # PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
         self.way = way
         # 还款凭证类型，取值范围如下：
         # PLATFORM_COLLECTION：平台代收（客户主动还款），
@@ -10350,6 +10364,7 @@ class UploadBclPerformanceRequest(TeaModel):
             self.validate_max_length(self.order_id, 'order_id', 32)
         self.validate_required(self.period, 'period')
         if self.period is not None:
+            self.validate_maximum(self.period, 'period', 120)
             self.validate_minimum(self.period, 'period', 1)
         self.validate_required(self.amount, 'amount')
         if self.amount is not None:
