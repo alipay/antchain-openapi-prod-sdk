@@ -29,6 +29,15 @@ public class BclNotaryInfo extends TeaModel {
     @Validation(required = true)
     public String txHash;
 
+    // 存证阶段描述：
+    // UPLOAD_PROMISE_FLOW：上传履约流水，
+    // UPLOAD_LOGISTIC_INFO：上传物流信息，
+    // SIGNED_CONTRACT_FILE：合同签署后文件存证，
+    // BCL_ORDER_PROMISING：租赁订单履约中存证，
+    @NameInMap("phase")
+    @Validation(required = true)
+    public String phase;
+
     public static BclNotaryInfo build(java.util.Map<String, ?> map) throws Exception {
         BclNotaryInfo self = new BclNotaryInfo();
         return TeaModel.build(map, self);
@@ -72,6 +81,14 @@ public class BclNotaryInfo extends TeaModel {
     }
     public String getTxHash() {
         return this.txHash;
+    }
+
+    public BclNotaryInfo setPhase(String phase) {
+        this.phase = phase;
+        return this;
+    }
+    public String getPhase() {
+        return this.phase;
     }
 
 }

@@ -16,9 +16,10 @@ public class UploadBclPerformanceRequest extends TeaModel {
     @Validation(required = true, maxLength = 32)
     public String orderId;
 
-    // 租期编号，如：1表示第一期
+    // 租期编号，如：1表示第一期;
+    // 目前还款支持最大期数为120期；
     @NameInMap("period")
-    @Validation(required = true, minimum = 1)
+    @Validation(required = true, maximum = 120, minimum = 1)
     public Long period;
 
     // 租金归还金额，单位精确到分。如：56309表示563.09元
@@ -33,7 +34,8 @@ public class UploadBclPerformanceRequest extends TeaModel {
 
     // 归还方式，取值范围如下：
     // ACTIVE_REPAYMENT：主动还款，
-    // MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+    // MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+    // PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
     @NameInMap("way")
     @Validation(required = true, maxLength = 32)
     public String way;
