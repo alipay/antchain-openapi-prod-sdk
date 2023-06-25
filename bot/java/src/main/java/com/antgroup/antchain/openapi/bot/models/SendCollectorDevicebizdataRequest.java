@@ -36,7 +36,6 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
 
     // 开启后，接口返回值中包含txHash
     @NameInMap("wait_check_and_hash")
-    @Validation(required = true)
     public Boolean waitCheckAndHash;
 
     public static SendCollectorDevicebizdataRequest build(java.util.Map<String, ?> map) throws Exception {

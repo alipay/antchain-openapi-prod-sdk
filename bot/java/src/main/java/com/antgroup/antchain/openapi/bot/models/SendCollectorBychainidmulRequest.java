@@ -27,7 +27,6 @@ public class SendCollectorBychainidmulRequest extends TeaModel {
 
     // 开启后接口返回值中包含txHash
     @NameInMap("wait_check_and_hash")
-    @Validation(required = true)
     public Boolean waitCheckAndHash;
 
     public static SendCollectorBychainidmulRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.76"),
+                    new TeaPair("sdk_version", "1.8.83"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1605,6 +1605,63 @@ public class Client {
     public NotifyThirddeviceMessageResponse notifyThirddeviceMessageEx(NotifyThirddeviceMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thirddevice.message.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyThirddeviceMessageResponse());
+    }
+
+    /**
+     * Description: Iotbasic-厂商入驻
+     * Summary: Iotbasic-厂商入驻
+     */
+    public RegisterIotbasicCorpjoinResponse registerIotbasicCorpjoin(RegisterIotbasicCorpjoinRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerIotbasicCorpjoinEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: Iotbasic-厂商入驻
+     * Summary: Iotbasic-厂商入驻
+     */
+    public RegisterIotbasicCorpjoinResponse registerIotbasicCorpjoinEx(RegisterIotbasicCorpjoinRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.corpjoin.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterIotbasicCorpjoinResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-查询设备链上资产详情
+     * Summary: IoT设备平台-查询设备链上资产详情
+     */
+    public QueryTxtransactionDeviceResponse queryTxtransactionDevice(QueryTxtransactionDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTxtransactionDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-查询设备链上资产详情
+     * Summary: IoT设备平台-查询设备链上资产详情
+     */
+    public QueryTxtransactionDeviceResponse queryTxtransactionDeviceEx(QueryTxtransactionDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.txtransaction.device.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTxtransactionDeviceResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-查询业务数据链上资产详情
+     * Summary: IoT设备平台-查询业务数据链上资产详情
+     */
+    public QueryTxtransactionChaindataResponse queryTxtransactionChaindata(QueryTxtransactionChaindataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTxtransactionChaindataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-查询业务数据链上资产详情
+     * Summary: IoT设备平台-查询业务数据链上资产详情
+     */
+    public QueryTxtransactionChaindataResponse queryTxtransactionChaindataEx(QueryTxtransactionChaindataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.txtransaction.chaindata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTxtransactionChaindataResponse());
     }
 
     /**
@@ -3372,6 +3429,44 @@ public class Client {
     public ConfirmCollectorUploadfileResponse confirmCollectorUploadfileEx(ConfirmCollectorUploadfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.uploadfile.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmCollectorUploadfileResponse());
+    }
+
+    /**
+     * Description: 创建物模型事件
+     * Summary: 创建物模型事件
+     */
+    public CreateThingmodelEventResponse createThingmodelEvent(CreateThingmodelEventRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createThingmodelEventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建物模型事件
+     * Summary: 创建物模型事件
+     */
+    public CreateThingmodelEventResponse createThingmodelEventEx(CreateThingmodelEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.event.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateThingmodelEventResponse());
+    }
+
+    /**
+     * Description: 查询物模型事件
+     * Summary: 查询物模型事件
+     */
+    public QueryThingmodelEventResponse queryThingmodelEvent(QueryThingmodelEventRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryThingmodelEventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询物模型事件
+     * Summary: 查询物模型事件
+     */
+    public QueryThingmodelEventResponse queryThingmodelEventEx(QueryThingmodelEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thingmodel.event.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThingmodelEventResponse());
     }
 
     /**
