@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.76',
+    sdk_version = '1.8.83',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -311,6 +311,24 @@ model PermissionedTenantModel {
   gatewayPrivateKey?: string(name='gateway_private_key', example='MEUCIDxNw...'),
   // 网关公钥
   gatewayPublicKey?: string(name='gateway_public_key', example='MEUCID...'),
+}
+
+// 查询业务数据交易结果对象数据
+model QueryChainDataTransactionResultData {
+  // 业务ID
+  bizId: string(name='biz_id', example='123'),
+  // 所属业务
+  bizScene: string(name='biz_scene', example='SMART_CAR_KEY'),
+  // 数据资产类型
+  dataScene: string(name='data_scene', example='123'),
+  // 资产ID
+  assetId: string(name='asset_id', example='123'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='ASDFGHJK'),
+  // 资产数据
+  assetData: string(name='asset_data', example='123'),
+  // 时间
+  timestamp?: long(name='timestamp', example=''),
 }
 
 // 商品单点鉴定结果
@@ -671,6 +689,26 @@ model InstanceInfo {
   instanceId: string(name='instance_id', example='设备001'),
   // 实例名称
   instanceName: string(name='instance_name', example='12313'),
+}
+
+// 查询交易结果信息
+model QueryTransactionResultInfo {
+  // 区块hash
+  blockHash?: string(name='block_hash', example='123'),
+  // 父区块hash
+  parentBlockHash?: string(name='parent_block_hash', example='123'),
+  // 交易时间戳
+  timestamp?: string(name='timestamp', example='123'),
+  // 该交易所能消耗的最大gas
+  gas?: long(name='gas', example=''),
+  // 交易发起方账户
+  from?: string(name='from', example='123'),
+  // 交易接收方账户
+  to?: string(name='to', example='123'),
+  // 交易类型
+  txType?: string(name='tx_type', example='123'),
+  // 交易返回的数据
+  data?: QueryChainDataTransactionResultData(name='data', example=''),
 }
 
 // 设备不可操作标识类
@@ -2014,6 +2052,30 @@ model BizContentGroup {
   // 
   // 
   content: string(name='content', example='{"":"",""}'),
+}
+
+// 查询设备交易结果对象数据
+model QueryDeviceTransactionResultData {
+  // 设备所属厂商
+  corpName: string(name='corp_name', example='corp'),
+  // 场景码,所属项目
+  scene: string(name='scene', example='SMART_CAR_KEY'),
+  // IMEI
+  deviceImei?: string(name='device_imei', example='IMEI'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='设备sn123'),
+  // 设备金额
+  price?: string(name='price', example='1.05'),
+  // 设备分布式身份did
+  deviceDid: string(name='device_did', example='did1223'),
+  // 设备终端唯一ID
+  deviceTuid?: string(name='device_tuid', example='tuid123'),
+  // 设备参数:品类+型号+规格
+  deviceSpecs: string(name='device_specs', example='123'),
+  // 所属租户
+  tenantId: string(name='tenant_id', example='QWERTYUU'),
+  // 所属账号
+  accountName: string(name='account_name', example='123'),
 }
 
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
@@ -5855,6 +5917,160 @@ async function notifyThirddeviceMessageEx(request: NotifyThirddeviceMessageReque
   return doRequest('1.0' ,'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model RegisterIotbasicCorpjoinRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 厂商value
+  corpCode: string(name='corp_code'),
+  // 厂商名称
+  corpName: string(name='corp_name'),
+  // 厂商签约产品码
+  productCode: string(name='product_code'),
+}
+
+model RegisterIotbasicCorpjoinResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: Iotbasic-厂商入驻
+ * Summary: Iotbasic-厂商入驻
+ */
+async function registerIotbasicCorpjoin(request: RegisterIotbasicCorpjoinRequest): RegisterIotbasicCorpjoinResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerIotbasicCorpjoinEx(request, headers, runtime);
+}
+
+/**
+ * Description: Iotbasic-厂商入驻
+ * Summary: Iotbasic-厂商入驻
+ */
+async function registerIotbasicCorpjoinEx(request: RegisterIotbasicCorpjoinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterIotbasicCorpjoinResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.corpjoin.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTxtransactionDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备签名
+  deviceSignature: string(name='device_signature'),
+}
+
+model QueryTxtransactionDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求结果
+  success?: boolean(name='success'),
+  // 区块hash
+  blockHash?: string(name='block_hash'),
+  // 父区块hash
+  parentBlockHash?: string(name='parent_block_hash'),
+  // 交易时间戳
+  timestamp?: string(name='timestamp'),
+  // 该交易所能消耗的最大gas
+  gas?: long(name='gas'),
+  // 交易发起方账户
+  from?: string(name='from'),
+  // 交易接收方账户
+  to?: string(name='to'),
+  // 交易类型
+  txType?: string(name='tx_type'),
+  // 交易返回的数据
+  data?: QueryDeviceTransactionResultData(name='data'),
+}
+
+/**
+ * Description: IoT设备平台-查询设备链上资产详情
+ * Summary: IoT设备平台-查询设备链上资产详情
+ */
+async function queryTxtransactionDevice(request: QueryTxtransactionDeviceRequest): QueryTxtransactionDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTxtransactionDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-查询设备链上资产详情
+ * Summary: IoT设备平台-查询设备链上资产详情
+ */
+async function queryTxtransactionDeviceEx(request: QueryTxtransactionDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTxtransactionDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.txtransaction.device.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTxtransactionChaindataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上链hash值，和request_id必须有一个有值
+  txHash?: string(name='tx_hash'),
+  // 上链请求消息id，和tx_hash必须有一个有值
+  requestId?: string(name='request_id'),
+}
+
+model QueryTxtransactionChaindataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求结果
+  success?: boolean(name='success'),
+  // 区块hash
+  blockHash?: string(name='block_hash'),
+  // 父区块hash
+  parentBlockHash?: string(name='parent_block_hash'),
+  // 交易时间戳
+  timestamp?: string(name='timestamp'),
+  // 该交易所能消耗的最大gas
+  gas?: long(name='gas'),
+  // 交易发起方账户
+  from?: string(name='from'),
+  // 交易接收方账户
+  to?: string(name='to'),
+  // 交易类型
+  txType?: string(name='tx_type'),
+  // 交易返回的数据
+  data?: QueryChainDataTransactionResultData(name='data'),
+}
+
+/**
+ * Description: IoT设备平台-查询业务数据链上资产详情
+ * Summary: IoT设备平台-查询业务数据链上资产详情
+ */
+async function queryTxtransactionChaindata(request: QueryTxtransactionChaindataRequest): QueryTxtransactionChaindataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTxtransactionChaindataEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-查询业务数据链上资产详情
+ * Summary: IoT设备平台-查询业务数据链上资产详情
+ */
+async function queryTxtransactionChaindataEx(request: QueryTxtransactionChaindataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTxtransactionChaindataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.txtransaction.chaindata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7768,7 +7984,7 @@ model SendCollectorBychainidmulRequest = {
   // 
   nonce: string(name='nonce'),
   // 开启后接口返回值中包含txHash
-  waitCheckAndHash: boolean(name='wait_check_and_hash'),
+  waitCheckAndHash?: boolean(name='wait_check_and_hash'),
 }
 
 model SendCollectorBychainidmulResponse = {
@@ -7818,7 +8034,7 @@ model SendCollectorDevicebizdataRequest = {
   // 场景码，与content中的chainDeviceId至少有一个不为空
   scene?: string(name='scene'),
   // 开启后，接口返回值中包含txHash
-  waitCheckAndHash: boolean(name='wait_check_and_hash'),
+  waitCheckAndHash?: boolean(name='wait_check_and_hash'),
 }
 
 model SendCollectorDevicebizdataResponse = {
@@ -10328,6 +10544,87 @@ async function confirmCollectorUploadfile(request: ConfirmCollectorUploadfileReq
 async function confirmCollectorUploadfileEx(request: ConfirmCollectorUploadfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmCollectorUploadfileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateThingmodelEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物模型事件json
+  thingModelEventJson: string(name='thing_model_event_json'),
+  // 数据样例
+  dataDemo?: string(name='data_demo'),
+}
+
+model CreateThingmodelEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物模型事件ID
+  eventId?: string(name='event_id'),
+}
+
+/**
+ * Description: 创建物模型事件
+ * Summary: 创建物模型事件
+ */
+async function createThingmodelEvent(request: CreateThingmodelEventRequest): CreateThingmodelEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createThingmodelEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建物模型事件
+ * Summary: 创建物模型事件
+ */
+async function createThingmodelEventEx(request: CreateThingmodelEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateThingmodelEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodel.event.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThingmodelEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物模型事件ID
+  eventId: string(name='event_id'),
+}
+
+model QueryThingmodelEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物模型事件json
+  // 
+  thingModelEventJson?: string(name='thing_model_event_json'),
+  // 数据样例
+  dataDemo?: string(name='data_demo'),
+}
+
+/**
+ * Description: 查询物模型事件
+ * Summary: 查询物模型事件
+ */
+async function queryThingmodelEvent(request: QueryThingmodelEventRequest): QueryThingmodelEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThingmodelEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询物模型事件
+ * Summary: 查询物模型事件
+ */
+async function queryThingmodelEventEx(request: QueryThingmodelEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThingmodelEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodel.event.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
