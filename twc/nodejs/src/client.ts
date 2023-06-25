@@ -5233,6 +5233,12 @@ export class BclNotaryInfo extends $tea.Model {
   contentHash: string;
   // 存证哈希
   txHash: string;
+  // 存证阶段描述：
+  // UPLOAD_PROMISE_FLOW：上传履约流水，
+  // UPLOAD_LOGISTIC_INFO：上传物流信息，
+  // SIGNED_CONTRACT_FILE：合同签署后文件存证，
+  // BCL_ORDER_PROMISING：租赁订单履约中存证，
+  phase: string;
   static names(): { [key: string]: string } {
     return {
       type: 'type',
@@ -5240,6 +5246,7 @@ export class BclNotaryInfo extends $tea.Model {
       fileUrl: 'file_url',
       contentHash: 'content_hash',
       txHash: 'tx_hash',
+      phase: 'phase',
     };
   }
 
@@ -5250,6 +5257,7 @@ export class BclNotaryInfo extends $tea.Model {
       fileUrl: 'string',
       contentHash: 'string',
       txHash: 'string',
+      phase: 'string',
     };
   }
 
@@ -6222,7 +6230,8 @@ export class UploadBclPerformanceRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单编号ID,长度不超过32位
   orderId: string;
-  // 租期编号，如：1表示第一期
+  // 租期编号，如：1表示第一期;
+  // 目前还款支持最大期数为120期；
   period: number;
   // 租金归还金额，单位精确到分。如：56309表示563.09元
   amount: number;
@@ -6230,7 +6239,8 @@ export class UploadBclPerformanceRequest extends $tea.Model {
   time: string;
   // 归还方式，取值范围如下：
   // ACTIVE_REPAYMENT：主动还款，
-  // MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+  // MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+  // PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
   way: string;
   // 还款凭证类型，取值范围如下：
   // PLATFORM_COLLECTION：平台代收（客户主动还款），
@@ -33218,7 +33228,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.0",
+          sdk_version: "1.10.2",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
