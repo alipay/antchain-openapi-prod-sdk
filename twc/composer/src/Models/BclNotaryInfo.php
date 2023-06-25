@@ -49,12 +49,25 @@ class BclNotaryInfo extends Model
      * @var string
      */
     public $txHash;
+
+    // 存证阶段描述：
+    // UPLOAD_PROMISE_FLOW：上传履约流水，
+    // UPLOAD_LOGISTIC_INFO：上传物流信息，
+    // SIGNED_CONTRACT_FILE：合同签署后文件存证，
+    // BCL_ORDER_PROMISING：租赁订单履约中存证，
+    /**
+     * @example UPLOAD_PROMISE_FLOW
+     *
+     * @var string
+     */
+    public $phase;
     protected $_name = [
         'type'        => 'type',
         'content'     => 'content',
         'fileUrl'     => 'file_url',
         'contentHash' => 'content_hash',
         'txHash'      => 'tx_hash',
+        'phase'       => 'phase',
     ];
 
     public function validate()
@@ -62,6 +75,7 @@ class BclNotaryInfo extends Model
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('contentHash', $this->contentHash, true);
         Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('phase', $this->phase, true);
     }
 
     public function toMap()
@@ -81,6 +95,9 @@ class BclNotaryInfo extends Model
         }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->phase) {
+            $res['phase'] = $this->phase;
         }
 
         return $res;
@@ -108,6 +125,9 @@ class BclNotaryInfo extends Model
         }
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
+        }
+        if (isset($map['phase'])) {
+            $model->phase = $map['phase'];
         }
 
         return $model;

@@ -25,7 +25,8 @@ class UploadBclPerformanceRequest extends Model
      */
     public $orderId;
 
-    // 租期编号，如：1表示第一期
+    // 租期编号，如：1表示第一期;
+    // 目前还款支持最大期数为120期；
     /**
      * @var int
      */
@@ -45,7 +46,8 @@ class UploadBclPerformanceRequest extends Model
 
     // 归还方式，取值范围如下：
     // ACTIVE_REPAYMENT：主动还款，
-    // MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+    // MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+    // PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
     /**
      * @var string
      */
@@ -98,6 +100,7 @@ class UploadBclPerformanceRequest extends Model
         Model::validateMaxLength('way', $this->way, 32);
         Model::validateMaxLength('voucherType', $this->voucherType, 32);
         Model::validateMaxLength('voucherSerial', $this->voucherSerial, 64);
+        Model::validateMaximum('period', $this->period, 120);
         Model::validateMinimum('period', $this->period, 1);
         Model::validateMinimum('amount', $this->amount, 1);
         Model::validateMinimum('premium', $this->premium, 1);
