@@ -52,7 +52,6 @@ class SendCollectorBychainidmulRequest extends Model
     {
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('nonce', $this->nonce, true);
-        Model::validateRequired('waitCheckAndHash', $this->waitCheckAndHash, true);
     }
 
     public function toMap()

@@ -87,6 +87,8 @@ use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
+use AntChain\BOT\Models\CreateThingmodelEventRequest;
+use AntChain\BOT\Models\CreateThingmodelEventResponse;
 use AntChain\BOT\Models\CreateThingmodelRequest;
 use AntChain\BOT\Models\CreateThingmodelResponse;
 use AntChain\BOT\Models\CreateXrUserticketRequest;
@@ -285,6 +287,8 @@ use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
+use AntChain\BOT\Models\QueryThingmodelEventRequest;
+use AntChain\BOT\Models\QueryThingmodelEventResponse;
 use AntChain\BOT\Models\QueryThingmodelRequest;
 use AntChain\BOT\Models\QueryThingmodelResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
@@ -293,10 +297,16 @@ use AntChain\BOT\Models\QueryThingsdidDidRequest;
 use AntChain\BOT\Models\QueryThingsdidDidResponse;
 use AntChain\BOT\Models\QueryTlsnotaryTaskRequest;
 use AntChain\BOT\Models\QueryTlsnotaryTaskResponse;
+use AntChain\BOT\Models\QueryTxtransactionChaindataRequest;
+use AntChain\BOT\Models\QueryTxtransactionChaindataResponse;
+use AntChain\BOT\Models\QueryTxtransactionDeviceRequest;
+use AntChain\BOT\Models\QueryTxtransactionDeviceResponse;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerRequest;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerResponse;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintRequest;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintResponse;
+use AntChain\BOT\Models\RegisterIotbasicCorpjoinRequest;
+use AntChain\BOT\Models\RegisterIotbasicCorpjoinResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
@@ -528,7 +538,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.76',
+                    'sdk_version'      => '1.8.83',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3067,6 +3077,105 @@ class Client
         Utils::validateModel($request);
 
         return NotifyThirddeviceMessageResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thirddevice.message.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Iotbasic-厂商入驻
+     * Summary: Iotbasic-厂商入驻.
+     *
+     * @param RegisterIotbasicCorpjoinRequest $request
+     *
+     * @return RegisterIotbasicCorpjoinResponse
+     */
+    public function registerIotbasicCorpjoin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerIotbasicCorpjoinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Iotbasic-厂商入驻
+     * Summary: Iotbasic-厂商入驻.
+     *
+     * @param RegisterIotbasicCorpjoinRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RegisterIotbasicCorpjoinResponse
+     */
+    public function registerIotbasicCorpjoinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterIotbasicCorpjoinResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.corpjoin.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-查询设备链上资产详情
+     * Summary: IoT设备平台-查询设备链上资产详情.
+     *
+     * @param QueryTxtransactionDeviceRequest $request
+     *
+     * @return QueryTxtransactionDeviceResponse
+     */
+    public function queryTxtransactionDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTxtransactionDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-查询设备链上资产详情
+     * Summary: IoT设备平台-查询设备链上资产详情.
+     *
+     * @param QueryTxtransactionDeviceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryTxtransactionDeviceResponse
+     */
+    public function queryTxtransactionDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTxtransactionDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.txtransaction.device.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-查询业务数据链上资产详情
+     * Summary: IoT设备平台-查询业务数据链上资产详情.
+     *
+     * @param QueryTxtransactionChaindataRequest $request
+     *
+     * @return QueryTxtransactionChaindataResponse
+     */
+    public function queryTxtransactionChaindata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTxtransactionChaindataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-查询业务数据链上资产详情
+     * Summary: IoT设备平台-查询业务数据链上资产详情.
+     *
+     * @param QueryTxtransactionChaindataRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryTxtransactionChaindataResponse
+     */
+    public function queryTxtransactionChaindataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTxtransactionChaindataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.txtransaction.chaindata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6136,6 +6245,72 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmCollectorUploadfileResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.uploadfile.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建物模型事件
+     * Summary: 创建物模型事件.
+     *
+     * @param CreateThingmodelEventRequest $request
+     *
+     * @return CreateThingmodelEventResponse
+     */
+    public function createThingmodelEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createThingmodelEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建物模型事件
+     * Summary: 创建物模型事件.
+     *
+     * @param CreateThingmodelEventRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateThingmodelEventResponse
+     */
+    public function createThingmodelEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateThingmodelEventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.event.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询物模型事件
+     * Summary: 查询物模型事件.
+     *
+     * @param QueryThingmodelEventRequest $request
+     *
+     * @return QueryThingmodelEventResponse
+     */
+    public function queryThingmodelEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThingmodelEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询物模型事件
+     * Summary: 查询物模型事件.
+     *
+     * @param QueryThingmodelEventRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryThingmodelEventResponse
+     */
+    public function queryThingmodelEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThingmodelEventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.event.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

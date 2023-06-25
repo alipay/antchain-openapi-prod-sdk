@@ -67,7 +67,6 @@ class SendCollectorDevicebizdataRequest extends Model
         Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('nonce', $this->nonce, true);
         Model::validateRequired('content', $this->content, true);
-        Model::validateRequired('waitCheckAndHash', $this->waitCheckAndHash, true);
     }
 
     public function toMap()
