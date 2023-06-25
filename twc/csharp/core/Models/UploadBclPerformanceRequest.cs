@@ -23,7 +23,8 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true, MaxLength=32)]
         public string OrderId { get; set; }
 
-        // 租期编号，如：1表示第一期
+        // 租期编号，如：1表示第一期;
+        // 目前还款支持最大期数为120期；
         [NameInMap("period")]
         [Validation(Required=true)]
         public long? Period { get; set; }
@@ -40,7 +41,8 @@ namespace AntChain.SDK.TWC.Models
 
         // 归还方式，取值范围如下：
         // ACTIVE_REPAYMENT：主动还款，
-        // MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+        // MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+        // PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
         [NameInMap("way")]
         [Validation(Required=true, MaxLength=32)]
         public string Way { get; set; }

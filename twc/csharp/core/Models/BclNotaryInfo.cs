@@ -37,6 +37,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string TxHash { get; set; }
 
+        // 存证阶段描述：
+        // UPLOAD_PROMISE_FLOW：上传履约流水，
+        // UPLOAD_LOGISTIC_INFO：上传物流信息，
+        // SIGNED_CONTRACT_FILE：合同签署后文件存证，
+        // BCL_ORDER_PROMISING：租赁订单履约中存证，
+        [NameInMap("phase")]
+        [Validation(Required=true)]
+        public string Phase { get; set; }
+
     }
 
 }
