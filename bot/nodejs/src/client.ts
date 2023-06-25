@@ -452,6 +452,51 @@ export class PermissionedTenantModel extends $tea.Model {
   }
 }
 
+// 查询业务数据交易结果对象数据
+export class QueryChainDataTransactionResultData extends $tea.Model {
+  // 业务ID
+  bizId: string;
+  // 所属业务
+  bizScene: string;
+  // 数据资产类型
+  dataScene: string;
+  // 资产ID
+  assetId: string;
+  // 租户id
+  tenantId: string;
+  // 资产数据
+  assetData: string;
+  // 时间
+  timestamp?: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      bizScene: 'biz_scene',
+      dataScene: 'data_scene',
+      assetId: 'asset_id',
+      tenantId: 'tenant_id',
+      assetData: 'asset_data',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      bizScene: 'string',
+      dataScene: 'string',
+      assetId: 'string',
+      tenantId: 'string',
+      assetData: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品单点鉴定结果
 export class BaiGoodsPointIdentificationResult extends $tea.Model {
   // 鉴定点大项名称
@@ -1346,6 +1391,55 @@ export class InstanceInfo extends $tea.Model {
     return {
       instanceId: 'string',
       instanceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询交易结果信息
+export class QueryTransactionResultInfo extends $tea.Model {
+  // 区块hash
+  blockHash?: string;
+  // 父区块hash
+  parentBlockHash?: string;
+  // 交易时间戳
+  timestamp?: string;
+  // 该交易所能消耗的最大gas
+  gas?: number;
+  // 交易发起方账户
+  from?: string;
+  // 交易接收方账户
+  to?: string;
+  // 交易类型
+  txType?: string;
+  // 交易返回的数据
+  data?: QueryChainDataTransactionResultData;
+  static names(): { [key: string]: string } {
+    return {
+      blockHash: 'block_hash',
+      parentBlockHash: 'parent_block_hash',
+      timestamp: 'timestamp',
+      gas: 'gas',
+      from: 'from',
+      to: 'to',
+      txType: 'tx_type',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      blockHash: 'string',
+      parentBlockHash: 'string',
+      timestamp: 'string',
+      gas: 'number',
+      from: 'string',
+      to: 'string',
+      txType: 'string',
+      data: QueryChainDataTransactionResultData,
     };
   }
 
@@ -4570,6 +4664,63 @@ export class BizContentGroup extends $tea.Model {
       bizId: 'string',
       bizType: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询设备交易结果对象数据
+export class QueryDeviceTransactionResultData extends $tea.Model {
+  // 设备所属厂商
+  corpName: string;
+  // 场景码,所属项目
+  scene: string;
+  // IMEI
+  deviceImei?: string;
+  // 设备sn
+  deviceSn: string;
+  // 设备金额
+  price?: string;
+  // 设备分布式身份did
+  deviceDid: string;
+  // 设备终端唯一ID
+  deviceTuid?: string;
+  // 设备参数:品类+型号+规格
+  deviceSpecs: string;
+  // 所属租户
+  tenantId: string;
+  // 所属账号
+  accountName: string;
+  static names(): { [key: string]: string } {
+    return {
+      corpName: 'corp_name',
+      scene: 'scene',
+      deviceImei: 'device_imei',
+      deviceSn: 'device_sn',
+      price: 'price',
+      deviceDid: 'device_did',
+      deviceTuid: 'device_tuid',
+      deviceSpecs: 'device_specs',
+      tenantId: 'tenant_id',
+      accountName: 'account_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      corpName: 'string',
+      scene: 'string',
+      deviceImei: 'string',
+      deviceSn: 'string',
+      price: 'string',
+      deviceDid: 'string',
+      deviceTuid: 'string',
+      deviceSpecs: 'string',
+      tenantId: 'string',
+      accountName: 'string',
     };
   }
 
@@ -11022,6 +11173,263 @@ export class NotifyThirddeviceMessageResponse extends $tea.Model {
   }
 }
 
+export class RegisterIotbasicCorpjoinRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 厂商value
+  corpCode: string;
+  // 厂商名称
+  corpName: string;
+  // 厂商签约产品码
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpCode: 'corp_code',
+      corpName: 'corp_name',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpCode: 'string',
+      corpName: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterIotbasicCorpjoinResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTxtransactionDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备did
+  deviceDid: string;
+  // 设备签名
+  deviceSignature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      deviceSignature: 'device_signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      deviceSignature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTxtransactionDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求结果
+  success?: boolean;
+  // 区块hash
+  blockHash?: string;
+  // 父区块hash
+  parentBlockHash?: string;
+  // 交易时间戳
+  timestamp?: string;
+  // 该交易所能消耗的最大gas
+  gas?: number;
+  // 交易发起方账户
+  from?: string;
+  // 交易接收方账户
+  to?: string;
+  // 交易类型
+  txType?: string;
+  // 交易返回的数据
+  data?: QueryDeviceTransactionResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      blockHash: 'block_hash',
+      parentBlockHash: 'parent_block_hash',
+      timestamp: 'timestamp',
+      gas: 'gas',
+      from: 'from',
+      to: 'to',
+      txType: 'tx_type',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      blockHash: 'string',
+      parentBlockHash: 'string',
+      timestamp: 'string',
+      gas: 'number',
+      from: 'string',
+      to: 'string',
+      txType: 'string',
+      data: QueryDeviceTransactionResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTxtransactionChaindataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上链hash值，和request_id必须有一个有值
+  txHash?: string;
+  // 上链请求消息id，和tx_hash必须有一个有值
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txHash: 'tx_hash',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txHash: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTxtransactionChaindataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求结果
+  success?: boolean;
+  // 区块hash
+  blockHash?: string;
+  // 父区块hash
+  parentBlockHash?: string;
+  // 交易时间戳
+  timestamp?: string;
+  // 该交易所能消耗的最大gas
+  gas?: number;
+  // 交易发起方账户
+  from?: string;
+  // 交易接收方账户
+  to?: string;
+  // 交易类型
+  txType?: string;
+  // 交易返回的数据
+  data?: QueryChainDataTransactionResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      blockHash: 'block_hash',
+      parentBlockHash: 'parent_block_hash',
+      timestamp: 'timestamp',
+      gas: 'gas',
+      from: 'from',
+      to: 'to',
+      txType: 'tx_type',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      blockHash: 'string',
+      parentBlockHash: 'string',
+      timestamp: 'string',
+      gas: 'number',
+      from: 'string',
+      to: 'string',
+      txType: 'string',
+      data: QueryChainDataTransactionResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14007,7 +14415,7 @@ export class SendCollectorBychainidmulRequest extends $tea.Model {
   // 
   nonce: string;
   // 开启后接口返回值中包含txHash
-  waitCheckAndHash: boolean;
+  waitCheckAndHash?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14082,7 +14490,7 @@ export class SendCollectorDevicebizdataRequest extends $tea.Model {
   // 场景码，与content中的chainDeviceId至少有一个不为空
   scene?: string;
   // 开启后，接口返回值中包含txHash
-  waitCheckAndHash: boolean;
+  waitCheckAndHash?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18106,6 +18514,133 @@ export class ConfirmCollectorUploadfileResponse extends $tea.Model {
   }
 }
 
+export class CreateThingmodelEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 物模型事件json
+  thingModelEventJson: string;
+  // 数据样例
+  dataDemo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thingModelEventJson: 'thing_model_event_json',
+      dataDemo: 'data_demo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thingModelEventJson: 'string',
+      dataDemo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateThingmodelEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 物模型事件ID
+  eventId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      eventId: 'event_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      eventId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThingmodelEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 物模型事件ID
+  eventId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThingmodelEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 物模型事件json
+  // 
+  thingModelEventJson?: string;
+  // 数据样例
+  dataDemo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      thingModelEventJson: 'thing_model_event_json',
+      dataDemo: 'data_demo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      thingModelEventJson: 'string',
+      dataDemo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19488,7 +20023,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.76",
+          sdk_version: "1.8.83",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -20980,6 +21515,63 @@ export default class Client {
   async notifyThirddeviceMessageEx(request: NotifyThirddeviceMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyThirddeviceMessageResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyThirddeviceMessageResponse>(await this.doRequest("1.0", "blockchain.bot.thirddevice.message.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyThirddeviceMessageResponse({}));
+  }
+
+  /**
+   * Description: Iotbasic-厂商入驻
+   * Summary: Iotbasic-厂商入驻
+   */
+  async registerIotbasicCorpjoin(request: RegisterIotbasicCorpjoinRequest): Promise<RegisterIotbasicCorpjoinResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerIotbasicCorpjoinEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: Iotbasic-厂商入驻
+   * Summary: Iotbasic-厂商入驻
+   */
+  async registerIotbasicCorpjoinEx(request: RegisterIotbasicCorpjoinRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterIotbasicCorpjoinResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterIotbasicCorpjoinResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.corpjoin.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterIotbasicCorpjoinResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-查询设备链上资产详情
+   * Summary: IoT设备平台-查询设备链上资产详情
+   */
+  async queryTxtransactionDevice(request: QueryTxtransactionDeviceRequest): Promise<QueryTxtransactionDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTxtransactionDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-查询设备链上资产详情
+   * Summary: IoT设备平台-查询设备链上资产详情
+   */
+  async queryTxtransactionDeviceEx(request: QueryTxtransactionDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTxtransactionDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTxtransactionDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.txtransaction.device.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTxtransactionDeviceResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-查询业务数据链上资产详情
+   * Summary: IoT设备平台-查询业务数据链上资产详情
+   */
+  async queryTxtransactionChaindata(request: QueryTxtransactionChaindataRequest): Promise<QueryTxtransactionChaindataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTxtransactionChaindataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-查询业务数据链上资产详情
+   * Summary: IoT设备平台-查询业务数据链上资产详情
+   */
+  async queryTxtransactionChaindataEx(request: QueryTxtransactionChaindataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTxtransactionChaindataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTxtransactionChaindataResponse>(await this.doRequest("1.0", "blockchain.bot.txtransaction.chaindata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTxtransactionChaindataResponse({}));
   }
 
   /**
@@ -22747,6 +23339,44 @@ export default class Client {
   async confirmCollectorUploadfileEx(request: ConfirmCollectorUploadfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmCollectorUploadfileResponse> {
     Util.validateModel(request);
     return $tea.cast<ConfirmCollectorUploadfileResponse>(await this.doRequest("1.0", "blockchain.bot.collector.uploadfile.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmCollectorUploadfileResponse({}));
+  }
+
+  /**
+   * Description: 创建物模型事件
+   * Summary: 创建物模型事件
+   */
+  async createThingmodelEvent(request: CreateThingmodelEventRequest): Promise<CreateThingmodelEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createThingmodelEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建物模型事件
+   * Summary: 创建物模型事件
+   */
+  async createThingmodelEventEx(request: CreateThingmodelEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateThingmodelEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateThingmodelEventResponse>(await this.doRequest("1.0", "blockchain.bot.thingmodel.event.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateThingmodelEventResponse({}));
+  }
+
+  /**
+   * Description: 查询物模型事件
+   * Summary: 查询物模型事件
+   */
+  async queryThingmodelEvent(request: QueryThingmodelEventRequest): Promise<QueryThingmodelEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThingmodelEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询物模型事件
+   * Summary: 查询物模型事件
+   */
+  async queryThingmodelEventEx(request: QueryThingmodelEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThingmodelEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThingmodelEventResponse>(await this.doRequest("1.0", "blockchain.bot.thingmodel.event.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThingmodelEventResponse({}));
   }
 
   /**
