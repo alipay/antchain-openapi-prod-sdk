@@ -6931,6 +6931,12 @@ type BclNotaryInfo struct {
 	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
 	// 存证哈希
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 存证阶段描述：
+	// UPLOAD_PROMISE_FLOW：上传履约流水，
+	// UPLOAD_LOGISTIC_INFO：上传物流信息，
+	// SIGNED_CONTRACT_FILE：合同签署后文件存证，
+	// BCL_ORDER_PROMISING：租赁订单履约中存证，
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
 }
 
 func (s BclNotaryInfo) String() string {
@@ -6963,6 +6969,11 @@ func (s *BclNotaryInfo) SetContentHash(v string) *BclNotaryInfo {
 
 func (s *BclNotaryInfo) SetTxHash(v string) *BclNotaryInfo {
 	s.TxHash = &v
+	return s
+}
+
+func (s *BclNotaryInfo) SetPhase(v string) *BclNotaryInfo {
+	s.Phase = &v
 	return s
 }
 
@@ -8252,15 +8263,17 @@ type UploadBclPerformanceRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单编号ID,长度不超过32位
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"32"`
-	// 租期编号，如：1表示第一期
-	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true" minimum:"1"`
+	// 租期编号，如：1表示第一期;
+	// 目前还款支持最大期数为120期；
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true" maximum:"120" minimum:"1"`
 	// 租金归还金额，单位精确到分。如：56309表示563.09元
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"1"`
 	// 租金归还时间(格式为"2019-07-31 12:00:00")
 	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 归还方式，取值范围如下：
 	// ACTIVE_REPAYMENT：主动还款，
-	// MY_BANK_PROXY_WITHHOLDING：网商委托代扣
+	// MY_BANK_PROXY_WITHHOLDING：网商委托代扣,
+	// PRE_AUTHORIZATION_WITHHOLDING: 预授权代扣
 	Way *string `json:"way,omitempty" xml:"way,omitempty" require:"true" maxLength:"32"`
 	// 还款凭证类型，取值范围如下：
 	// PLATFORM_COLLECTION：平台代收（客户主动还款），
@@ -44728,7 +44741,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.0"),
+				"sdk_version":      tea.String("1.10.2"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
