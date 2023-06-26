@@ -3378,7 +3378,7 @@ type AuthRiskEvaluationRequest struct {
 	//
 	SubTenant *string `json:"sub_tenant,omitempty" xml:"sub_tenant,omitempty"`
 	//  扩展信息
-	ExtendInfo *string `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
+	ExtendInfo *RiskEvaluationExtendInfoRequest `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
 }
 
 func (s AuthRiskEvaluationRequest) String() string {
@@ -3439,8 +3439,8 @@ func (s *AuthRiskEvaluationRequest) SetSubTenant(v string) *AuthRiskEvaluationRe
 	return s
 }
 
-func (s *AuthRiskEvaluationRequest) SetExtendInfo(v string) *AuthRiskEvaluationRequest {
-	s.ExtendInfo = &v
+func (s *AuthRiskEvaluationRequest) SetExtendInfo(v *RiskEvaluationExtendInfoRequest) *AuthRiskEvaluationRequest {
+	s.ExtendInfo = v
 	return s
 }
 
@@ -3516,6 +3516,8 @@ type QueryRiskEvaluationRequest struct {
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
 	// 授权订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 机构编码
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
 }
 
 func (s QueryRiskEvaluationRequest) String() string {
@@ -3553,6 +3555,11 @@ func (s *QueryRiskEvaluationRequest) SetAuthType(v string) *QueryRiskEvaluationR
 
 func (s *QueryRiskEvaluationRequest) SetOrderNo(v string) *QueryRiskEvaluationRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryRiskEvaluationRequest) SetInstCode(v string) *QueryRiskEvaluationRequest {
+	s.InstCode = &v
 	return s
 }
 
@@ -3717,7 +3724,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.11"),
+				"sdk_version":      tea.String("1.6.13"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
