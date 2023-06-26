@@ -2548,7 +2548,7 @@ export class AuthRiskEvaluationRequest extends $tea.Model {
   // 
   subTenant?: string;
   //  扩展信息
-  extendInfo: string;
+  extendInfo: RiskEvaluationExtendInfoRequest;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2577,7 +2577,7 @@ export class AuthRiskEvaluationRequest extends $tea.Model {
       authType: 'string',
       orderNo: 'string',
       subTenant: 'string',
-      extendInfo: 'string',
+      extendInfo: RiskEvaluationExtendInfoRequest,
     };
   }
 
@@ -2642,6 +2642,8 @@ export class QueryRiskEvaluationRequest extends $tea.Model {
   authType: string;
   // 授权订单号
   orderNo: string;
+  // 机构编码
+  instCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2650,6 +2652,7 @@ export class QueryRiskEvaluationRequest extends $tea.Model {
       identityId: 'identity_id',
       authType: 'auth_type',
       orderNo: 'order_no',
+      instCode: 'inst_code',
     };
   }
 
@@ -2661,6 +2664,7 @@ export class QueryRiskEvaluationRequest extends $tea.Model {
       identityId: 'string',
       authType: 'string',
       orderNo: 'string',
+      instCode: 'string',
     };
   }
 
@@ -2814,7 +2818,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.11",
+          sdk_version: "1.6.13",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
