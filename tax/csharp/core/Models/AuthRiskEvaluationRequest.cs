@@ -64,7 +64,7 @@ namespace AntChain.SDK.TAX.Models
         //  扩展信息
         [NameInMap("extend_info")]
         [Validation(Required=true)]
-        public string ExtendInfo { get; set; }
+        public RiskEvaluationExtendInfoRequest ExtendInfo { get; set; }
 
     }
 

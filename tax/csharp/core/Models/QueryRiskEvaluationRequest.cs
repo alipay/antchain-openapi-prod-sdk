@@ -38,6 +38,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 机构编码
+        [NameInMap("inst_code")]
+        [Validation(Required=true)]
+        public string InstCode { get; set; }
+
     }
 
 }
