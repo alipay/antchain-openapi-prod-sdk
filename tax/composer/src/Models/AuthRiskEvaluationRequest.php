@@ -72,7 +72,7 @@ class AuthRiskEvaluationRequest extends Model
 
     // 扩展信息
     /**
-     * @var string
+     * @var RiskEvaluationExtendInfoRequest
      */
     public $extendInfo;
     protected $_name = [
@@ -134,7 +134,7 @@ class AuthRiskEvaluationRequest extends Model
             $res['sub_tenant'] = $this->subTenant;
         }
         if (null !== $this->extendInfo) {
-            $res['extend_info'] = $this->extendInfo;
+            $res['extend_info'] = null !== $this->extendInfo ? $this->extendInfo->toMap() : null;
         }
 
         return $res;
@@ -179,7 +179,7 @@ class AuthRiskEvaluationRequest extends Model
             $model->subTenant = $map['sub_tenant'];
         }
         if (isset($map['extend_info'])) {
-            $model->extendInfo = $map['extend_info'];
+            $model->extendInfo = RiskEvaluationExtendInfoRequest::fromMap($map['extend_info']);
         }
 
         return $model;

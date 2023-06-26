@@ -42,6 +42,12 @@ class QueryRiskEvaluationRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // 机构编码
+    /**
+     * @var string
+     */
+    public $instCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryRiskEvaluationRequest extends Model
         'identityId'        => 'identity_id',
         'authType'          => 'auth_type',
         'orderNo'           => 'order_no',
+        'instCode'          => 'inst_code',
     ];
 
     public function validate()
@@ -57,6 +64,7 @@ class QueryRiskEvaluationRequest extends Model
         Model::validateRequired('identityId', $this->identityId, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('instCode', $this->instCode, true);
     }
 
     public function toMap()
@@ -79,6 +87,9 @@ class QueryRiskEvaluationRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->instCode) {
+            $res['inst_code'] = $this->instCode;
         }
 
         return $res;
@@ -109,6 +120,9 @@ class QueryRiskEvaluationRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['inst_code'])) {
+            $model->instCode = $map['inst_code'];
         }
 
         return $model;
