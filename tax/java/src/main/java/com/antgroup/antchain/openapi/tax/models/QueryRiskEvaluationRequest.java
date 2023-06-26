@@ -31,6 +31,11 @@ public class QueryRiskEvaluationRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 机构编码
+    @NameInMap("inst_code")
+    @Validation(required = true)
+    public String instCode;
+
     public static QueryRiskEvaluationRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskEvaluationRequest self = new QueryRiskEvaluationRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class QueryRiskEvaluationRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public QueryRiskEvaluationRequest setInstCode(String instCode) {
+        this.instCode = instCode;
+        return this;
+    }
+    public String getInstCode() {
+        return this.instCode;
     }
 
 }

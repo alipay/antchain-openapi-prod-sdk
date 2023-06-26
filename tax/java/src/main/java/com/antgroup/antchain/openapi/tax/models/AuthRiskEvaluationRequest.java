@@ -55,7 +55,7 @@ public class AuthRiskEvaluationRequest extends TeaModel {
     //  扩展信息
     @NameInMap("extend_info")
     @Validation(required = true)
-    public String extendInfo;
+    public RiskEvaluationExtendInfoRequest extendInfo;
 
     public static AuthRiskEvaluationRequest build(java.util.Map<String, ?> map) throws Exception {
         AuthRiskEvaluationRequest self = new AuthRiskEvaluationRequest();
@@ -142,11 +142,11 @@ public class AuthRiskEvaluationRequest extends TeaModel {
         return this.subTenant;
     }
 
-    public AuthRiskEvaluationRequest setExtendInfo(String extendInfo) {
+    public AuthRiskEvaluationRequest setExtendInfo(RiskEvaluationExtendInfoRequest extendInfo) {
         this.extendInfo = extendInfo;
         return this;
     }
-    public String getExtendInfo() {
+    public RiskEvaluationExtendInfoRequest getExtendInfo() {
         return this.extendInfo;
     }
 
