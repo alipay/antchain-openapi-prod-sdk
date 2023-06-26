@@ -4210,7 +4210,7 @@ class AuthRiskEvaluationRequest(TeaModel):
         auth_type: str = None,
         order_no: str = None,
         sub_tenant: str = None,
-        extend_info: str = None,
+        extend_info: RiskEvaluationExtendInfoRequest = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4248,6 +4248,8 @@ class AuthRiskEvaluationRequest(TeaModel):
         self.validate_required(self.auth_type, 'auth_type')
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.extend_info, 'extend_info')
+        if self.extend_info:
+            self.extend_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -4276,7 +4278,7 @@ class AuthRiskEvaluationRequest(TeaModel):
         if self.sub_tenant is not None:
             result['sub_tenant'] = self.sub_tenant
         if self.extend_info is not None:
-            result['extend_info'] = self.extend_info
+            result['extend_info'] = self.extend_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -4302,7 +4304,8 @@ class AuthRiskEvaluationRequest(TeaModel):
         if m.get('sub_tenant') is not None:
             self.sub_tenant = m.get('sub_tenant')
         if m.get('extend_info') is not None:
-            self.extend_info = m.get('extend_info')
+            temp_model = RiskEvaluationExtendInfoRequest()
+            self.extend_info = temp_model.from_map(m['extend_info'])
         return self
 
 
@@ -4385,6 +4388,7 @@ class QueryRiskEvaluationRequest(TeaModel):
         identity_id: str = None,
         auth_type: str = None,
         order_no: str = None,
+        inst_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4397,12 +4401,15 @@ class QueryRiskEvaluationRequest(TeaModel):
         self.auth_type = auth_type
         # 授权订单号
         self.order_no = order_no
+        # 机构编码
+        self.inst_code = inst_code
 
     def validate(self):
         self.validate_required(self.biz_request_id, 'biz_request_id')
         self.validate_required(self.identity_id, 'identity_id')
         self.validate_required(self.auth_type, 'auth_type')
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.inst_code, 'inst_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -4422,6 +4429,8 @@ class QueryRiskEvaluationRequest(TeaModel):
             result['auth_type'] = self.auth_type
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
         return result
 
     def from_map(self, m: dict = None):
@@ -4438,6 +4447,8 @@ class QueryRiskEvaluationRequest(TeaModel):
             self.auth_type = m.get('auth_type')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
         return self
 
 
