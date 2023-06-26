@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.11',
+    sdk_version = '1.6.13',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1507,7 +1507,7 @@ model AuthRiskEvaluationRequest = {
   // 
   subTenant?: string(name='sub_tenant'),
   //  扩展信息
-  extendInfo: string(name='extend_info'),
+  extendInfo: RiskEvaluationExtendInfoRequest(name='extend_info'),
 }
 
 model AuthRiskEvaluationResponse = {
@@ -1558,6 +1558,8 @@ model QueryRiskEvaluationRequest = {
   authType: string(name='auth_type'),
   // 授权订单号
   orderNo: string(name='order_no'),
+  // 机构编码
+  instCode: string(name='inst_code'),
 }
 
 model QueryRiskEvaluationResponse = {
