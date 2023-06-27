@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.53"},
+                        {"sdk_version", "1.1.54"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.53"},
+                        {"sdk_version", "1.1.54"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1339,6 +1339,48 @@ namespace AntChain.SDK.DAS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadServiceAuthfileResponse>(await DoRequestAsync("1.0", "antchain.das.service.authfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询国内商标扩展信息
+         * Summary: 查询国内商标扩展信息
+         */
+        public QueryDomestictrademarkExtensioninfoResponse QueryDomestictrademarkExtensioninfo(QueryDomestictrademarkExtensioninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDomestictrademarkExtensioninfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询国内商标扩展信息
+         * Summary: 查询国内商标扩展信息
+         */
+        public async Task<QueryDomestictrademarkExtensioninfoResponse> QueryDomestictrademarkExtensioninfoAsync(QueryDomestictrademarkExtensioninfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDomestictrademarkExtensioninfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询国内商标扩展信息
+         * Summary: 查询国内商标扩展信息
+         */
+        public QueryDomestictrademarkExtensioninfoResponse QueryDomestictrademarkExtensioninfoEx(QueryDomestictrademarkExtensioninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDomestictrademarkExtensioninfoResponse>(DoRequest("1.0", "antchain.das.domestictrademark.extensioninfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询国内商标扩展信息
+         * Summary: 查询国内商标扩展信息
+         */
+        public async Task<QueryDomestictrademarkExtensioninfoResponse> QueryDomestictrademarkExtensioninfoExAsync(QueryDomestictrademarkExtensioninfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDomestictrademarkExtensioninfoResponse>(await DoRequestAsync("1.0", "antchain.das.domestictrademark.extensioninfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
