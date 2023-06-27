@@ -204,6 +204,7 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
         result_msg: str = None,
         status: str = None,
         result_url: str = None,
+        failed_reason: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -215,6 +216,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
         self.status = status
         # 结果文件路径
         self.result_url = result_url
+        # 失败的原因
+        self.failed_reason = failed_reason
 
     def validate(self):
         pass
@@ -235,6 +238,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
             result['status'] = self.status
         if self.result_url is not None:
             result['result_url'] = self.result_url
+        if self.failed_reason is not None:
+            result['failed_reason'] = self.failed_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -249,6 +254,8 @@ class QueryAntcloudAdomAppmarketPrivacyresultResponse(TeaModel):
             self.status = m.get('status')
         if m.get('result_url') is not None:
             self.result_url = m.get('result_url')
+        if m.get('failed_reason') is not None:
+            self.failed_reason = m.get('failed_reason')
         return self
 
 
