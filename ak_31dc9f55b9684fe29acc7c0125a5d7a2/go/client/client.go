@@ -191,6 +191,8 @@ type QueryAntcloudAdomAppmarketPrivacyresultResponse struct {
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 结果文件路径
 	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
+	// 失败的原因
+	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
 }
 
 func (s QueryAntcloudAdomAppmarketPrivacyresultResponse) String() string {
@@ -223,6 +225,11 @@ func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetStatus(v string) *Q
 
 func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetResultUrl(v string) *QueryAntcloudAdomAppmarketPrivacyresultResponse {
 	s.ResultUrl = &v
+	return s
+}
+
+func (s *QueryAntcloudAdomAppmarketPrivacyresultResponse) SetFailedReason(v string) *QueryAntcloudAdomAppmarketPrivacyresultResponse {
+	s.FailedReason = &v
 	return s
 }
 
@@ -490,7 +497,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_31dc9f55b9684fe29acc7c0125a5d7a2"),
 				"_prod_channel":    tea.String("saas"),
 			}
